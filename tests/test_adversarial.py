@@ -759,6 +759,127 @@ def test_evidence_is_optional_because_it_licenses_nothing():
     that is WRONG."""
     g = _claim()
     assert g.claims["CL"].get("ladder") is None
+    # Both axes blank together stays legal.  It is HALF a grade that does not.
+    _claim(established_by=K.RAN)
+
+
+@pytest.mark.parametrize("ladder", K.LADDER_ASSERTS_A_RUN)
+def test_a_grade_that_asserts_a_run_must_name_the_run(ladder):
+    """FIFTH INSTANCE OF THE PATTERN, WITH A MUTATION.
+
+    The first four -- certificates, identity_origin, kind, ladder -- were
+    fields whose VALUE was taken on the author's word.  This is a field whose
+    ABSENCE switched off the check on a neighbouring field's value.  Every key
+    in IMPOSSIBLE_EVIDENCE matches on `established_by`, so omitting it means
+    the pair evaluated is `(None, "exact-checked")`, which is in no table and
+    contradicts nothing.  Optionality is not neutral when another rule keys on
+    it.
+
+    FOUND IN A LIVE CAMPAIGN, where all fourteen of its claims graded
+    themselves exact-checked with no established_by -- so the cross-check,
+    described in the kernel as "the first thing about evidence grading this
+    tool has ever been able to verify", never evaluated once in a full
+    session.  That session's central structural result rested on an unrecorded
+    script, and its own report had to catch that by hand.
+
+    `open` and `claimed` assert no event and stay free; only a grade that says
+    a run happened has to say which.
+    """
+    with pytest.raises(K.EvidenceError) as exc:
+        _claim(ladder=ladder)
+    msg = str(exc.value)
+    assert "established_by" in msg
+    # The refusal must say which values could still stand against THIS grade.
+    # Naming all four every time would be wrong: at `exact-checked` only RAN
+    # survives, at `certified` three do.
+    survives = [b for b in K.ESTABLISHED_BY
+                if (b, ladder) not in K.IMPOSSIBLE_EVIDENCE]
+    assert "{%s}" % ", ".join(survives) in msg
+
+
+def test_the_half_grade_rule_does_not_fire_on_a_grade_that_claims_no_run():
+    """The positive control, and the reason the rule is narrow.
+
+    A rule that demanded provenance for every grade would push people back to
+    leaving the field blank, which is the state it was invented to fix.
+    `claimed` means the author says so, and that IS its own provenance.
+    """
+    for ladder in ("open", "claimed"):
+        g = _claim(ladder=ladder)
+        assert g.claims["CL"]["ladder"] == ladder
+        assert g.claims["CL"].get("established_by") is None
+
+
+def test_migrate_downgrades_a_half_grade_rather_than_inventing_a_provenance(tmp_path):
+    """There is NO ignorance value for `established_by`.
+
+    Every other migration fills an absent field with the value meaning "nobody
+    vouched" -- UNKNOWN for an identity's origin, ASSERTED for a witness.  Here
+    that value does not exist: NOT_REACHED would be a lie about the author, and
+    it is refused against these grades anyway.  So the ignorance goes on the
+    OTHER axis, and `claimed` is exactly it: the author says so, and nothing
+    recorded says a run happened.
+
+    The downgrade can be wrong, and the direction is the point.  A claim that
+    really was checked gets under-graded, costing its conclusions nothing.  The
+    reverse -- an unsupported `exact-checked` left standing -- is the failure
+    this project exists to avoid.
+    """
+    from grandportage import cli
+    p = _stale(tmp_path, [
+        {"ev": "model", "id": "M", "desc": "m"},
+        {"ev": "claim", "id": "CL", "model": "M", "kind": "PREDICATE",
+         "statement": "P", "ladder": "exact-checked", "caveat": "pre-existing"}])
+    with pytest.raises(K.EvidenceError):
+        S.load(p)
+    assert cli.main(["--root", str(tmp_path), "migrate"]) == 0
+    c = S.load(p).claims["CL"]
+    assert c["ladder"] == "claimed"
+    assert c.get("established_by") is None, (
+        "migrate must not invent a provenance -- there is no honest value")
+    # The caveat says where the strength went, and does not eat what was there.
+    assert "pre-existing" in c["caveat"] and "exact-checked" in c["caveat"]
+
+
+def test_migrate_leaves_every_line_it_did_not_change_byte_identical(tmp_path):
+    """WRITTEN AFTER MIGRATE DESTROYED TWO SHIPPED FIXTURES.
+
+    The first version rebuilt the file from parsed events, so every `#` comment
+    and every blank line vanished -- `load_events` discards them, and anything
+    a parser discards a round-trip destroys.  An append-only log is a FILE
+    FORMAT with human content in it, not the serialized form of a data
+    structure.
+
+    Four migrate regressions were written the session before this one and none
+    caught it, because all four asserted what migrate WRITES and none asserted
+    what it PRESERVES.
+    """
+    from grandportage import cli
+    p = S.graph_path(str(tmp_path))
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    raw = [
+        "# a header comment someone wrote by hand\n",
+        json.dumps({"ev": "model", "id": "M", "desc": "m"}) + "\n",
+        "\n",
+        "#   grouping comment, with trailing spaces   \n",
+        json.dumps({"ev": "claim", "id": "CL", "model": "M",
+                    "kind": "PREDICATE", "statement": "P",
+                    "ladder": "exact-checked"}) + "\n",
+        "\n",
+        json.dumps({"ev": "note", "text": "unaffected"}) + "\n",
+    ]
+    with open(p, "w", encoding="utf-8") as fh:
+        fh.writelines(raw)
+
+    assert cli.main(["--root", str(tmp_path), "migrate"]) == 0
+    after = open(p, encoding="utf-8").readlines()
+
+    assert len(after) == len(raw), "migrate changed the line count"
+    for i, (was, now) in enumerate(zip(raw, after)):
+        if i == 4:
+            assert was != now, "the claim line was supposed to change"
+        else:
+            assert was == now, "migrate rewrote line %d, which it never touched" % (i + 1)
 
 
 # ===========================================================================
@@ -1308,3 +1429,308 @@ def test_an_unknown_origin_blocks_the_widening_but_not_the_restriction():
     g = _graph(events)
     assert not C.audit_inference(g, "WIDEN")[0]
     assert C.audit_inference(g, "RESTRICT")[0]
+
+
+# ===========================================================================
+# SUPERSESSION FOR CLAIMS AND INFERENCES.  Edges have had it since v0.2.
+# ===========================================================================
+_SUP_BASE = TWO_MODELS + [
+    {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
+     "type": K.NECESSARY_CONDITION, "why": "equations are dropped"},
+]
+# A PREDICATE moving ALONG a NECESSARY_CONDITION is refused: what holds of
+# every point of the tighter model need not hold of the looser one's extra
+# points.  Used here because it gives a finding to watch.
+_REFUSED = {"ev": "inference", "id": "I1", "claim": "C1",
+            "path": [["E", K.ALONG]], "concludes_kind": K.PREDICATE,
+            "asserted": "P holds on the looser model too"}
+_C1 = {"ev": "claim", "id": "C1", "model": "TIGHT", "kind": K.PREDICATE,
+       "statement": "P holds"}
+
+
+def test_amend_is_computed_not_declared():
+    """THE CENSUS'S OWN AMENDMENT, and it is the dangerous one.
+
+    A live campaign had to remint a claim to add `coefficients_in_base`, and
+    described the change -- accurately -- as "same claim, with
+    coefficients_in_base declared".  But that field is exactly what licenses an
+    IDENTITY to cross a BASE_EXTENSION.  "I only added an attribute" is the
+    sentence through which a transport-determining field arrives unexamined,
+    and five separate defects in this project reduce to a field whose value was
+    taken on the author's word.
+
+    So the tool holds both records and diffs them.  AMEND is a computation.
+    """
+    with pytest.raises(K.SupersessionError) as exc:
+        _graph(_SUP_BASE + [
+            {"ev": "claim", "id": "C1", "model": "TIGHT", "kind": K.IDENTITY,
+             "statement": "x = y", "identity_origin": K.DERIVED},
+            {"ev": "claim", "id": "C1R", "model": "TIGHT", "kind": K.IDENTITY,
+             "statement": "x = y", "identity_origin": K.DERIVED,
+             "coefficients_in_base": True,
+             "supersedes": "C1", "discharge_kind": K.AMEND}])
+    msg = str(exc.value)
+    assert "coefficients_in_base changed" in msg and "RELICENSE" in msg
+
+
+def test_over_declaring_a_supersession_is_allowed():
+    """One direction only.  Calling a citation fix a RESTATE costs a second
+    look; calling a certificate swap an AMEND costs the second look that was
+    needed.  Only the second is refused."""
+    g = _graph(_SUP_BASE + [
+        _C1,
+        {"ev": "claim", "id": "C1R", "model": "TIGHT", "kind": K.PREDICATE,
+         "statement": "P holds", "cite": "a better citation",
+         "supersedes": "C1", "discharge_kind": K.RESTATE}])
+    assert g.claims["C1"]["superseded_by"] == "C1R"
+
+
+def test_a_superseded_premise_is_graded_by_what_actually_changed():
+    """SUPERSESSION DELIBERATELY DOES NOT REPOINT ANYTHING.
+
+    Making an inference follow its premise to the replacement would credit an
+    argument against a record it was never checked against.  So the old
+    argument keeps pointing at the old claim and the checker says so -- at a
+    severity that depends on whether anything it relied on moved.
+
+    An author who could self-report that distinction would always report the
+    cheap one, which is why the kind is computed.
+    """
+    def stale(newer):
+        g = _graph(_SUP_BASE + [_C1, _REFUSED, newer])
+        return [f for f in C.run(g) if f.rule == C.R_STALE_PREMISE]
+
+    # Nothing that licenses a transport moved -> the argument stands.
+    amended = stale({"ev": "claim", "id": "C1R", "model": "TIGHT",
+                     "kind": K.PREDICATE, "statement": "P holds",
+                     "cite": "where it came from",
+                     "supersedes": "C1", "discharge_kind": K.AMEND})
+    assert len(amended) == 1 and amended[0].severity == C.DEBT
+    assert "stale is the pointer" in amended[0].detail
+
+    # A licensing attribute moved -> the argument is UNEXAMINED, not withdrawn.
+    relicensed = stale({"ev": "claim", "id": "C1R", "model": "TIGHT",
+                        "kind": K.PREDICATE, "statement": "P holds",
+                        "scope": "Q(sqrt 17)",
+                        "supersedes": "C1", "discharge_kind": K.RELICENSE})
+    assert len(relicensed) == 1
+    assert relicensed[0].severity == C.UNSOUND_PREMISE
+    assert "UNEXAMINED" in relicensed[0].detail
+
+
+def test_a_superseded_inference_stops_reporting_as_live_debt():
+    """THE BASELINE DILUTION, which is the cost a live campaign actually paid.
+
+    With no supersession, a reminted inference stayed in the graph forever and
+    its findings kept reporting, so the baseline grew an entry meaning
+    "superseded, not carried on its merits".  One entry like that makes every
+    other entry in the file weaker.
+
+    Nothing is hidden: the superseding inference is audited in its own right.
+    """
+    live = _graph(_SUP_BASE + [_C1, _REFUSED])
+    assert [f for f in C.run(live) if f.rule == C.R_TRANSPORT
+            and f.subject == "I1"], "the control has to actually be flagged"
+
+    withdrawn = _graph(_SUP_BASE + [_C1, _REFUSED,
+        {"ev": "inference", "id": "I2", "claim": "C1",
+         "path": [["E", K.ALONG]], "concludes_kind": K.PREDICATE,
+         "asserted": "P holds on the looser model, restated",
+         "supersedes": "I1", "discharge_kind": K.RESTATE}])
+    flagged = {f.subject for f in C.run(withdrawn) if f.rule == C.R_TRANSPORT}
+    assert "I1" not in flagged, "a withdrawn inference is not live debt"
+    assert "I2" in flagged, (
+        "supersession must not be a way to make a finding disappear -- the "
+        "replacement has the same defect and must still be caught")
+
+
+def test_supersession_must_name_a_record_that_exists():
+    """Otherwise `supersedes` is a comment.  The failure mode is a typo that
+    silently withdraws nothing while reading as though it withdrew something.
+    """
+    with pytest.raises(S.GraphError) as exc:
+        _graph(_SUP_BASE + [
+            _C1,
+            {"ev": "claim", "id": "C1R", "model": "TIGHT", "kind": K.PREDICATE,
+             "statement": "P holds", "supersedes": "C-TYPO",
+             "discharge_kind": K.AMEND}])
+    assert "not a claim in this graph" in str(exc.value)
+
+
+def test_supersession_must_say_how():
+    """Same discipline edges have had since v0.2: replacing a record without
+    saying what kind of replacement it is transfers no information."""
+    with pytest.raises(S.GraphError) as exc:
+        _graph(_SUP_BASE + [
+            _C1,
+            {"ev": "claim", "id": "C1R", "model": "TIGHT", "kind": K.PREDICATE,
+             "statement": "P holds", "supersedes": "C1"}])
+    assert "without saying HOW" in str(exc.value)
+
+
+# ===========================================================================
+# RESTRICTION.  The sixth type, and the first one a LIVE RUN forced.
+# ===========================================================================
+def test_restriction_is_not_necessary_condition_wearing_a_new_name():
+    """`signature` exists to assert exactly this, and a new type is where it
+    finally gets used in anger.
+
+    The six point-cells ARE identical to NECESSARY_CONDITION's -- they follow
+    from containment and nothing else, which is why NECESSARY_CONDITION was the
+    attractor for the positivity-cone edge that forced this type, and why
+    mislabelling it would have licensed nothing false.  The IDENTITY row is
+    where they diverge, and the divergence is real: a restriction adds no
+    equations, so there is no larger
+    ideal and no quotient, and the obstruction that stops a DERIVED identity
+    crossing a NECESSARY_CONDITION is simply absent.
+    """
+    import itertools
+    sigs = {t: K.signature(t) for t in K.ALL_TYPES}
+    dupes = [(a, b) for a, b in itertools.combinations(sorted(sigs), 2)
+             if sigs[a] == sigs[b]]
+    assert not dupes, "two types are the same table under different names: %s" % dupes
+
+    point_kinds = (K.EMPTY, K.NONEMPTY, K.PREDICATE)
+    for d, k in itertools.product(K.DIRECTIONS, point_kinds):
+        assert (K.transport(K.RESTRICTION, d, k).licensed
+                is K.transport(K.NECESSARY_CONDITION, d, k).licensed), (
+            "%s/%s should agree with NECESSARY_CONDITION -- both follow from "
+            "containment alone" % (d, k))
+
+
+def test_a_restriction_may_not_change_coordinates():
+    """The licence and the argument for it must not drift apart.
+
+    IDENTITY crosses a RESTRICTION AGAINST unconditionally, where a
+    NECESSARY_CONDITION needs a denominator-free map, for exactly one reason:
+    a restriction substitutes nothing, because the coordinates are the same
+    ones.  A RESTRICTION declared over a coordinate change would keep the
+    licence and lose the reason.
+    """
+    with pytest.raises(S.GraphError) as exc:
+        _graph(TWO_MODELS + [
+            {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
+             "type": K.RESTRICTION, "why": "positivity", "map_kind": "RATIONAL"}])
+    assert "SAME COORDINATES" in str(exc.value)
+
+
+def test_the_generic_versus_global_cell_refuses_and_says_why():
+    """THE CELL THE CENSUS EXISTS TO PROTECT.
+
+    A predicate holding at every point of a positivity cone is silent about
+    the ambient model, and stating it there anyway -- taking a theorem proved
+    off an exceptional locus and using it on data that may sit in the bad
+    locus -- is a recurring error in the applied literature.
+
+    The discharge must NOT offer a certificate, because there isn't one.  A
+    refusal that implies a fix exists sends someone looking for it.
+    """
+    g = _graph(TWO_MODELS + [
+        {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
+         "type": K.RESTRICTION, "why": "the positive-definite cone"},
+        {"ev": "claim", "id": "C", "model": "TIGHT", "kind": K.PREDICATE,
+         "statement": "the parameter is recoverable from the data"},
+        {"ev": "inference", "id": "I", "claim": "C", "path": [["E", K.ALONG]],
+         "concludes_kind": K.PREDICATE,
+         "asserted": "the parameter is recoverable on the whole model"}])
+    found = [f for f in C.run(g) if f.rule == C.R_TRANSPORT and f.subject == "I"]
+    assert found, "a generic result stated globally must not pass"
+    assert "GENERIC-VERSUS-GLOBAL" in found[0].discharge
+    assert "no certificate to produce" in found[0].discharge
+
+
+def test_the_identity_cell_does_not_send_you_after_denominators():
+    """A WRONG DISCHARGE IS WORSE THAN A TERSE ONE, and this cell had one.
+
+    Before RESTRICTION got its own move, the IDENTITY refusal fell through to
+    the generic identity text -- "this needs a DENOMINATOR-FREE map" -- which
+    is NECESSARY_CONDITION's remedy and is irrelevant here.  A restriction
+    changes no coordinates, so there is no map to make polynomial, and anyone
+    following that advice would spend the effort and still be refused.
+    """
+    from grandportage.discharge import discharge_for
+    msg = discharge_for(K.RESTRICTION, K.ALONG, K.IDENTITY,
+                        edge={"src": "PD", "dst": "REAL"})
+    assert "zariski_dense" in msg
+    assert "NOT THE DENOMINATOR QUESTION" in msg
+    # And it names the counterexample rather than asserting the condition is
+    # usually fine, because "usually fine" is how a gate stops being consulted.
+    assert "x^2 + y^2" in msg
+
+
+def test_the_density_condition_is_declared_not_assumed():
+    """Over R the real points of a variety need not be Zariski-dense in it, so
+    the strongest cell of the strongest new type is gated by default."""
+    base = TWO_MODELS + [
+        {"ev": "claim", "id": "C", "model": "TIGHT", "kind": K.IDENTITY,
+         "statement": "x = y", "identity_origin": K.DERIVED},
+        {"ev": "inference", "id": "I", "claim": "C", "path": [["E", K.ALONG]],
+         "concludes_kind": K.IDENTITY, "asserted": "x = y on the whole model"}]
+    edge = {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
+            "type": K.RESTRICTION, "why": "cut by strict inequalities"}
+
+    gated = _graph([edge] + base)
+    assert [f for f in C.run(gated) if f.rule == C.R_TRANSPORT], (
+        "undeclared, the density cell must refuse")
+
+    declared = _graph([dict(edge, zariski_dense=True)] + base)
+    assert not [f for f in C.run(declared) if f.rule == C.R_TRANSPORT], (
+        "declared, the identity crosses -- otherwise the type buys nothing "
+        "over NECESSARY_CONDITION")
+
+
+def test_the_readme_transport_table_matches_the_kernel():
+    """THE README SAID IT COULD NOT DRIFT, AND IT HAD.
+
+    "Printed by the kernel itself with `gp table`, so a document quoting it and
+    the code applying it cannot drift apart" -- except nothing checked, and by
+    the time RESTRICTION landed the table in the README was wrong in FIVE
+    cells.  Every conditional IDENTITY cell still showed the PRE-v0.2 rule:
+    EQUIVALENCE unconditional rather than needing a ring isomorphism,
+    NECESSARY_CONDITION gated on denominators rather than on origin,
+    BASE_EXTENSION descending for free.  Those are the exact licences that were
+    found unsound and fixed, still documented as sound in the file a reader
+    meets first.
+
+    A claim of non-drift with nothing enforcing it is worse than no claim: it
+    tells a reader they need not check.
+    """
+    import os
+    import re
+    readme = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                          "README.md")
+    with open(readme, encoding="utf-8") as fh:
+        text = fh.read()
+
+    words = {"zariski_dense": "if Zariski-dense",
+             "ambient_identity": "if ambient",
+             "ring_isomorphism": "if ring iso",
+             "coefficients_in_base": "if defined over base",
+             "integral_identity": "if p-integral",
+             "map_polynomial": "if denominator-free",
+             "scheme_scope": "only with a certificate",
+             "closed_condition": "if Zariski-closed"}
+
+    documented = {}
+    for line in text.splitlines():
+        m = re.match(r"^\|\s*`([A-Z_]+)`\s*\|\s*\**(ALONG|AGAINST)\**\s*\|(.*)$",
+                     line.strip())
+        if not m:
+            continue
+        cells = [c.strip().replace("**", "")
+                 for c in m.group(3).rstrip("|").split("|")]
+        documented[(m.group(1), m.group(2))] = cells
+
+    missing = [t for t in K.ALL_TYPES
+               if not any(k[0] == t for k in documented)]
+    assert not missing, "types absent from the README table: %s" % missing
+
+    for (etype, direction), cells in sorted(documented.items()):
+        assert len(cells) == len(K.CLAIM_KINDS), (etype, direction, cells)
+        for kind, shown in zip(K.CLAIM_KINDS, cells):
+            rule = K.TRANSPORT[etype][direction][kind]
+            want = ("yes" if rule is True else "NO" if rule is False
+                    else words.get(rule, rule))
+            assert shown == want, (
+                "README documents %s/%s/%s as %r; the kernel says %r"
+                % (etype, direction, kind, shown, want))

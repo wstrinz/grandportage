@@ -29,7 +29,7 @@ Five layers. Enforcement lives in exactly one of them.
     v                          No declaration -> no CAS process spawned.
   .portage/graph.jsonl  <---- (1) store: append-only event log
     |                              fold is deterministic and total
-    | (2) kernel: 5 types x 2 directions x 4 claim kinds
+    | (2) kernel: 6 types x 2 directions x 4 claim kinds
     v
   (3) checker  ->  findings  ->  discharge moves
     |

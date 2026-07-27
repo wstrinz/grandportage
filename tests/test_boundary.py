@@ -266,7 +266,7 @@ def test_the_full_loop_compute_record_conclude_refuse(project):
         {"ev": "claim", "id": "CL-KILL", "model": "RES_L", "kind": K.EMPTY,
          "statement": "no solution with all leading coefficients nonzero",
          "scope": "Q(sqrt 17)", "certificate": "NONSQUARE_CLASS",
-         "ladder": "exact-checked"},
+         "established_by": K.RAN, "ladder": "exact-checked"},
     ], root=project)
 
     block, _ = HK.evaluate(project)
@@ -292,7 +292,8 @@ def test_the_same_step_is_ALLOWED_with_a_base_changing_certificate(project):
          "type": K.BASE_EXTENSION, "why": "the coefficient field changes"},
         {"ev": "claim", "id": "CL-KILL", "model": "RES_L", "kind": K.EMPTY,
          "statement": "1 lies in the ideal, exhibited over Q",
-         "certificate": "UNIT_IDEAL_CERT", "ladder": "exact-checked"},
+         "certificate": "UNIT_IDEAL_CERT", "established_by": K.RAN,
+         "ladder": "exact-checked"},
     ], root=project)
     _conclude(project, "CL-KILL", "E-EXT", K.ALONG,
               "hence empty over every char-0 K")

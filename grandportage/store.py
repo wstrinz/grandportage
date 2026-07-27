@@ -291,6 +291,21 @@ class Graph(object):
         _require(mk in K.MAP_KINDS,
                  "%s: edge %r has map_kind %r; known: %s"
                  % (where, ev["id"], mk, ", ".join(K.MAP_KINDS)))
+        # A RESTRICTION IS A SUBSET INCLUSION, and its strongest cell depends
+        # on that.  IDENTITY travels AGAINST unconditionally -- where a
+        # NECESSARY_CONDITION needs a denominator-free map -- for exactly one
+        # reason: nothing is substituted, because the coordinates are the same
+        # ones.  A RESTRICTION declared over a coordinate change would keep
+        # that licence and lose the argument for it.
+        _require(not (ev.get("type") == K.RESTRICTION
+                      and mk not in (K.IDENTITY_MAP,)),
+                 "%s: edge %r is a RESTRICTION with map_kind %r. A RESTRICTION "
+                 "cuts a subset out of a model IN THE SAME COORDINATES -- it "
+                 "is an inclusion, not a map. If coordinates change, the step "
+                 "is a change of variables composed with a restriction; "
+                 "declare the two edges separately so each is typed for what "
+                 "it does."
+                 % (where, ev["id"], mk))
         if ev.get("supersedes"):
             _require(ev.get("discharge_kind"),
                      "%s: edge %r supersedes %r without saying HOW. A "
@@ -338,7 +353,47 @@ class Graph(object):
         # is WRONG, including a pair that contradicts itself.
         K.check_evidence(ev.get("established_by"), ev.get("ladder"),
                          claim_id=ev["id"])
+        self._supersede(c, self.claims, "claim", where)
         self.claims[ev["id"]] = c
+
+    def _supersede(self, new, registry, entity, where):
+        """Record that this record replaces an earlier one, and check the kind.
+
+        REDECLARATION WITH DIFFERENT CONTENT IS A HARD FOLD ERROR, which is
+        right -- it is how a log stops being a log.  The consequence was that a
+        campaign noticing a missing optional attribute at check time had to
+        mint a new id and leave the old entity in the graph, dead but
+        indistinguishable from a live one, with a prose note to explain it and
+        a baseline entry that meant `superseded` rather than `carried on its
+        merits`.  One diluted entry is enough to make every other entry in a
+        baseline file weaker.
+
+        So the older record is MARKED rather than removed -- the log stays
+        append-only, and `gp check` can tell the difference.  What is not done
+        is repointing anything: an inference that used the old claim still
+        points at the old claim, and the checker says so.  Silently re-aiming
+        an argument at a record it was never checked against is the whole
+        failure mode this exists to prevent.
+        """
+        old_id = new.get("supersedes")
+        if not old_id:
+            return
+        _require(old_id != new["id"],
+                 "%s: %s %r supersedes itself." % (where, entity, new["id"]))
+        _require(old_id in registry,
+                 "%s: %s %r supersedes %r, which is not a %s in this graph. "
+                 "Supersession names the record being replaced; if the older "
+                 "one lives in a log you have not folded in, fold it too."
+                 % (where, entity, new["id"], old_id, entity))
+        old = registry[old_id]
+        _require(new.get("discharge_kind"),
+                 "%s: %s %r supersedes %r without saying HOW. Declare "
+                 "`discharge_kind`: %s."
+                 % (where, entity, new["id"], old_id,
+                    ", ".join(K.SUPERSESSION_KINDS)))
+        K.check_supersession_kind(old, new, new["discharge_kind"],
+                                  claim_id=new["id"], entity=entity)
+        old["superseded_by"] = new["id"]
 
     def _apply_inference(self, ev, where):
         """An inference has one or more PREMISES, each with its own path.
@@ -477,6 +532,7 @@ class Graph(object):
                      "without `severity_why`.  A severity downgrade is a "
                      "judgement and must be visible as one."
                      % (where, ev["id"], sev))
+        self._supersede(i, self.inferences, "inference", where)
         self.inferences[ev["id"]] = i
         self.inference_order.append(ev["id"])
 

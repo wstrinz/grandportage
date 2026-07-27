@@ -9,7 +9,7 @@ The kernel answers exactly one question:
     is moving that claim across that edge LICENSED?
 
 It does not know what a Groebner basis is, what a matroid is, or what problem
-you are working on.  It knows five relaxation types and four claim kinds.
+you are working on.  It knows six relaxation types and four claim kinds.
 
 Provenance: this is `whetstone/whetstone_dag.py`'s transport table, lifted out
 of the JC(2) campaign it was written against, plus the SPECIALIZATION type that
@@ -27,6 +27,38 @@ NECESSARY_CONDITION = "NECESSARY_CONDITION"
 BASE_EXTENSION = "BASE_EXTENSION"
 IMAGE_CLOSURE = "IMAGE_CLOSURE"
 SPECIALIZATION = "SPECIALIZATION"
+# ---------------------------------------------------------------------------
+# RESTRICTION -- the sixth type, and the first added by a live run rather than
+# by review.
+#
+# A LIVE CAMPAIGN could not type one edge: a positivity cone sitting inside the
+# real variety it was cut out of.  The step drops INEQUALITIES, and the other
+# five all drop equations, change a coefficient ring, or project.  The campaign
+# recorded it UNTYPED and carried the debt rather than guess.
+#
+# WHAT MAKES IT WORTH A TYPE IS THAT NECESSARY_CONDITION WOULD HAVE BEEN SOUND.
+# Every cell NECESSARY_CONDITION licenses depends only on V(src) subset V(dst),
+# and that containment genuinely holds here.  Nothing false would have been
+# licensed.  The campaign chose UNTYPED anyway, and its report says why: the
+# entire difference between a result holding GENERICALLY and holding EVERYWHERE
+# lived in whether the cut was equational or semialgebraic, and
+# NECESSARY_CONDITION is documented as "equations are dropped".  A sound label
+# that hides the one distinction a campaign exists to make is still the wrong
+# label -- and it is the ATTRACTOR, because it is sound and it makes the graph
+# go green.
+#
+# The mathematics does diverge, in exactly one cell, and in the STRONGER
+# direction.  NECESSARY_CONDITION refuses a DERIVED identity ALONG because
+# O(dst) -> O(src) is a quotient by a larger ideal, so a relation coming from
+# src's own equations does not push forward.  A semialgebraic restriction adds
+# NO equations -- there is no larger ideal and no quotient.  The question stops
+# being algebraic and becomes analytic: does a polynomial vanishing on a
+# Euclidean-open piece vanish on the whole variety?
+#
+# It does, but only under a condition that can fail over R, which is why the
+# cell is gated rather than open.  See _ZARISKI_DENSE.
+# ---------------------------------------------------------------------------
+RESTRICTION = "RESTRICTION"
 
 # Not a relaxation type: an explicitly recorded modelling DEBT.  An edge may be
 # declared UNTYPED, but only with a reason, and the checker reports every one of
@@ -36,7 +68,7 @@ SPECIALIZATION = "SPECIALIZATION"
 UNTYPED = "UNTYPED"
 
 LOSSY_TYPES = (NECESSARY_CONDITION, BASE_EXTENSION, IMAGE_CLOSURE,
-               SPECIALIZATION)
+               SPECIALIZATION, RESTRICTION)
 ALL_TYPES = (EQUIVALENCE,) + LOSSY_TYPES
 DECLARABLE_TYPES = ALL_TYPES + (UNTYPED,)
 
@@ -67,6 +99,11 @@ TYPE_MEANS = {
                     "that -- it is not a general-purpose 'restricted to a "
                     "sub-case' type.  For a case split use a `partition`; for "
                     "dropping conditions use NECESSARY_CONDITION",
+    RESTRICTION: "INEQUALITIES are dropped, not equations.  src is a "
+                 "semialgebraic subset of dst cut out by strict inequalities "
+                 "-- a positivity cone, an open region, a nondegeneracy "
+                 "condition -- in the SAME coordinates.  Use this rather than "
+                 "NECESSARY_CONDITION whenever nothing was added to the ideal",
     UNTYPED: "not yet known.  Licenses nothing; requires debt_why",
 }
 
@@ -232,6 +269,37 @@ _RING_ISOMORPHISM = "ring_isomorphism"
 # structured values rather than free text.
 _COEFFICIENTS_IN_BASE = "coefficients_in_base"
 
+# ---------------------------------------------------------------------------
+# THE ONE CELL WHERE A RESTRICTION IS STRONGER THAN A NECESSARY_CONDITION, and
+# the condition that keeps it honest.
+#
+# A polynomial vanishing on a nonempty Euclidean-open subset U of an
+# irreducible variety X vanishes on all of X -- so an IDENTITY established only
+# on the restricted region pushes forward to the whole model.  That is a real
+# and useful licence: it is what lets a computation done on a positivity cone
+# be stated about the variety it sits in.
+#
+# IT CAN FAIL OVER R, WHICH IS WHY IT IS DECLARED RATHER THAN ASSUMED.  The
+# argument needs the REAL points to be Zariski-dense in X, and they need not be:
+#
+#   COUNTEREXAMPLE.  X = V(x^2 + y^2) over R.  Over C this is two lines; its
+#   real points are the single point (0,0).  A polynomial vanishing on a
+#   "Euclidean-open piece" of that real locus vanishes on a point and says
+#   nothing whatever about X.  x is such a polynomial and x = 0 is false on X.
+#
+# It also needs X IRREDUCIBLE -- on a reducible variety an open piece can miss a
+# whole component, and a relation holding on one component says nothing about
+# the others.
+#
+# So the edge must declare `zariski_dense`, meaning: dst is irreducible and its
+# real points are Zariski-dense in it, so a relation holding on any nonempty
+# open piece holds throughout.  Undeclared, the cell refuses.  This is the same
+# shape as `ring_iso` on EQUIVALENCE and `coefficients_in_base` on
+# BASE_EXTENSION -- a licence that is usually available, never automatic, and
+# false exactly where somebody would have been surprised.
+# ---------------------------------------------------------------------------
+_ZARISKI_DENSE = "zariski_dense"
+
 # ===========================================================================
 # THE TRANSPORT TABLE.  This is the whole type system.
 # ===========================================================================
@@ -279,6 +347,25 @@ TRANSPORT = {
         # meaningful after substitution.
         AGAINST: {EMPTY: True, NONEMPTY: False, PREDICATE: True,
                   IDENTITY: _MAP_POLYNOMIAL},
+    },
+    RESTRICTION: {
+        # src = the semialgebraic subset (a positivity cone, an open region);
+        # dst = the variety it sits inside, IN THE SAME COORDINATES.
+        #
+        # The six point-cells are identical to NECESSARY_CONDITION's, because
+        # they follow from V(src) subset V(dst) and nothing else -- which is
+        # exactly why NECESSARY_CONDITION was the attractor for this edge and
+        # why mislabelling it would have licensed nothing false.
+        ALONG:   {EMPTY: False, NONEMPTY: True, PREDICATE: False,
+                  IDENTITY: _ZARISKI_DENSE},
+        # AGAINST/IDENTITY IS THE OTHER PLACE THIS DIFFERS, and it is
+        # unconditional where NECESSARY_CONDITION needs a denominator-free map.
+        # A restriction does not change coordinates at all -- it is a subset
+        # inclusion, the identity on functions -- so there is no substitution to
+        # go wrong.  A relation valid at every point of dst is valid at every
+        # point of a subset of dst, and that is the whole argument.
+        AGAINST: {EMPTY: True, NONEMPTY: False, PREDICATE: True,
+                  IDENTITY: True},
     },
     BASE_EXTENSION: {
         # src = the model over the SMALL field k; dst = over the BIG field K.
@@ -494,7 +581,7 @@ def derive_identity_origin(kind, origin, claim_id="<claim>"):
 def transport(etype, direction, kind, scope=None, certificate=None,
               map_kind=IDENTITY_MAP, zariski_closed=None,
               identity_origin=None, integral=None, ring_iso=None,
-              coefficients_in_base=None):
+              coefficients_in_base=None, zariski_dense=None):
     """Return a Ruling for moving a claim of `kind` across an edge of `etype`.
 
     Deliberately takes plain values rather than objects: the kernel must be
@@ -535,6 +622,23 @@ def transport(etype, direction, kind, scope=None, certificate=None,
                       "SCHEME; this claim has scope %r (certificate %s, which "
                       "does not base-change)"
                       % (BASE_EXTENSION, scope, certificate), _SCHEME_SCOPE)
+    if rule == _ZARISKI_DENSE:
+        if zariski_dense:
+            return ruling(
+                True,
+                "licensed: the edge declares dst irreducible with its real "
+                "points Zariski-dense, so a polynomial relation holding on a "
+                "nonempty open piece holds throughout", _ZARISKI_DENSE)
+        return ruling(
+            False,
+            "a rewriting established only on the restricted region pushes "
+            "forward only if a polynomial vanishing there vanishes on all of "
+            "the target.  That needs the target IRREDUCIBLE with its REAL "
+            "points Zariski-dense in it, and over R that can fail: V(x^2+y^2) "
+            "has one real point, and `x = 0` holds on it while being false on "
+            "the variety.  Declare `zariski_dense` on the edge if the "
+            "condition holds -- it usually does, and it is never automatic",
+            _ZARISKI_DENSE)
     if rule == _MAP_POLYNOMIAL:
         if map_kind in DENOMINATOR_FREE:
             return ruling(True, "licensed: the map is denominator-free (%s)"
@@ -850,6 +954,38 @@ IMPOSSIBLE_EVIDENCE = {
         "produced this.  A checker that was not run has checked nothing",
 }
 
+# ---------------------------------------------------------------------------
+# THE HALF-GRADE.  Both evidence fields were optional on the reasoning that
+# grading licenses nothing, so an ungraded claim is merely ungraded.  That is
+# true of a claim with NO grade.  It is false of a claim with HALF a grade.
+#
+# `exact-checked` and above are not opinions about strength.  Each one asserts
+# that something HAPPENED -- a checker ran, a second implementation agreed, a
+# certificate was produced.  Left alone in the record, that assertion is the
+# one part of the evidence layer nothing can check, because every rule that
+# could contradict it lives in IMPOSSIBLE_EVIDENCE and every key there needs
+# an `established_by` to match on.  Omit the field and the cross-check does
+# not fire; it evaluates `(None, "exact-checked")`, which is in no table.
+#
+# Found in a live campaign: all fourteen of its claims graded themselves
+# `exact-checked` with no `established_by`, so IMPOSSIBLE_EVIDENCE -- "the
+# first thing about evidence grading this tool has ever been able to verify" --
+# never evaluated once in a full session.  That session's central structural
+# result rested on an unrecorded script, and its own report had to catch that
+# by hand.  The tool had the mechanism and the mechanism was switched off by an
+# absent field.
+#
+# So this is the fifth instance of one pattern, with a mutation.  The first
+# four -- certificates, identity_origin, kind, ladder -- were fields whose
+# VALUE was taken on the author's word.  This is a field whose ABSENCE
+# disables the check on a neighbouring field's value.  Optionality is not
+# neutral when another rule keys on it.
+#
+# The rule is narrow on purpose: `open` and `claimed` claim no event, so they
+# stay free.  Only a grade that says a run happened has to name the run.
+# ---------------------------------------------------------------------------
+LADDER_ASSERTS_A_RUN = ("exact-checked", "independently-audited", "certified")
+
 
 class EvidenceError(KernelRefusal):
     """A claim whose declared evidence contradicts itself."""
@@ -858,9 +994,11 @@ class EvidenceError(KernelRefusal):
 def check_evidence(established_by, ladder, claim_id="<claim>"):
     """Validate the two evidence axes and refuse impossible combinations.
 
-    Both fields are OPTIONAL -- unlike certificates and witnesses, evidence
-    grading licenses nothing, so a claim with no grade is merely ungraded
-    rather than unsound.  What is refused is a grade that is WRONG.
+    An UNGRADED claim is fine -- unlike certificates and witnesses, evidence
+    grading licenses nothing, so both fields may be absent together.  What is
+    refused is a grade that is WRONG, and a HALF grade: a `ladder` at
+    `exact-checked` or above asserts that a run happened, and must name it,
+    because IMPOSSIBLE_EVIDENCE can only contradict a named one.
     """
     if established_by is not None and established_by not in ESTABLISHED_BY:
         raise EvidenceError(
@@ -879,6 +1017,29 @@ def check_evidence(established_by, ladder, claim_id="<claim>"):
             "  This field was unvalidated until a foreign campaign filled it "
             "with seven values and no overlap with these five."
             % (claim_id, ladder, ", ".join(LADDER)))
+    if established_by is None and ladder in LADDER_ASSERTS_A_RUN:
+        blocked = [b for b in ESTABLISHED_BY
+                   if (b, ladder) in IMPOSSIBLE_EVIDENCE]
+        survives = [b for b in ESTABLISHED_BY if b not in blocked]
+        raise EvidenceError(
+            "claim %s grades itself %s without an `established_by`.\n"
+            "  %s is not an opinion about strength -- it asserts that "
+            "something HAPPENED. Say what:\n"
+            "    RAN          you executed it here and it produced this\n"
+            "    READ         you read a source or a file, without running it\n"
+            "    CITED        you are relying on a paper or an authority\n"
+            "    NOT_REACHED  it was out of reach in this environment\n"
+            "  Against THIS grade, {%s} would be refused and only {%s} can "
+            "stand -- so naming it costs you an honest answer to `how` and may "
+            "cost you the grade. If nothing here backs it, it is `claimed`.\n"
+            "  Both fields may be omitted TOGETHER -- an ungraded claim is "
+            "merely ungraded. What cannot stand is half a grade, because every "
+            "rule that could contradict this one matches on `established_by`, "
+            "so leaving it out does not weaken the claim, it silences the "
+            "check."
+            % (claim_id, ladder, ladder,
+               ", ".join(blocked) or "nothing is",
+               ", ".join(survives)))
     why = IMPOSSIBLE_EVIDENCE.get((established_by, ladder))
     if why:
         raise EvidenceError(
@@ -925,3 +1086,129 @@ def signature(etype):
     """
     return tuple((d, k, TRANSPORT[etype][d][k])
                  for d in DIRECTIONS for k in CLAIM_KINDS)
+
+
+# ---------------------------------------------------------------------------
+# SUPERSESSION FOR CLAIMS AND INFERENCES.
+#
+# Edges have had `supersedes` + `discharge_kind` since v0.2.  Claims and
+# inferences had nothing, and a live campaign paid for it in the ordinary way:
+# a missing OPTIONAL attribute was noticed at check time, redeclaration with
+# different content is a hard fold error, so the campaign had to mint new ids
+# for the claim AND for the inference that referenced it.  The permanent cost
+# was two entities that are dead but indistinguishable from live ones, a note
+# explaining the situation to a human, and a baseline entry reading
+# "superseded, not carried on its merits" -- which dilutes what a baseline
+# entry means for every other entry in the file.
+#
+# THE HAZARD IS THE WORD "ONLY".  That campaign's actual amendment was
+# described, accurately, as "same claim, with coefficients_in_base declared".  But
+# `coefficients_in_base` is exactly what licenses an IDENTITY to cross a
+# BASE_EXTENSION.  "I only added an attribute" is the sentence through which a
+# transport-determining field arrives unexamined, and this project has now
+# found five separate defects that all reduce to a field whose value was taken
+# on the author's word.
+#
+# So AMEND is not a declaration, it is a COMPUTATION.  The tool holds both
+# versions of the claim and can see for itself whether anything that licenses a
+# transport moved.  An author who writes AMEND over a changed certificate is
+# refused and told which field they changed.
+# ---------------------------------------------------------------------------
+AMEND = "AMEND"          # nothing that licenses anything changed
+RELICENSE = "RELICENSE"  # an attribute that determines transport changed
+RESTATE = "RESTATE"      # the statement, kind or model itself changed
+RETRACT = "RETRACT"      # withdrawn, and nothing replaces it
+SUPERSESSION_KINDS = (AMEND, RELICENSE, RESTATE, RETRACT)
+
+# Fields whose value decides what a claim licenses.  Split in two because the
+# refusal is different: change what the claim SAYS and it is a different claim
+# (RESTATE); change what backs it and the claim is the same sentence with
+# different transport behind it (RELICENSE), which is the quieter and more
+# dangerous of the two.
+IDENTIFYING_FIELDS = ("kind", "model", "statement")
+LICENSING_FIELDS = ("certificate", "scope", "identity_origin",
+                    "coefficients_in_base", "witness_kind")
+
+# The same split for an inference.  What it ASSERTS identifies it; what it
+# RESTS ON licenses it.  Swapping a premise or re-routing a path leaves the
+# sentence at the bottom identical and changes everything above it, which is
+# precisely the change that most needs a second look.
+INFERENCE_IDENTIFYING_FIELDS = ("asserted", "concludes_kind")
+INFERENCE_LICENSING_FIELDS = ("premises",)
+
+
+class SupersessionError(KernelRefusal):
+    """A supersession whose declared kind does not match what changed."""
+
+
+def classify_supersession(old, new, entity="claim"):
+    """What ACTUALLY changed between two versions of a claim or inference.
+
+    Returns (kind, fields).  Pure inspection -- it reads the two records and
+    reports the strongest category of change it finds, so nothing here depends
+    on what the author believes they did.
+    """
+    ident, lic = ((INFERENCE_IDENTIFYING_FIELDS, INFERENCE_LICENSING_FIELDS)
+                  if entity == "inference"
+                  else (IDENTIFYING_FIELDS, LICENSING_FIELDS))
+    moved = [f for f in ident if old.get(f) != new.get(f)]
+    if moved:
+        return RESTATE, moved
+    moved = [f for f in lic if old.get(f) != new.get(f)]
+    if moved:
+        return RELICENSE, moved
+    return AMEND, []
+
+
+def check_supersession_kind(old, new, declared, claim_id="<claim>",
+                            entity="claim"):
+    """Refuse a supersession whose declared kind understates what changed.
+
+    ONE DIRECTION ONLY.  Declaring a change smaller than it is gets refused;
+    declaring it larger does not, because over-declaring costs a second look
+    and under-declaring costs the second look that was needed.
+    """
+    lic = (INFERENCE_LICENSING_FIELDS if entity == "inference"
+           else LICENSING_FIELDS)
+    if declared not in SUPERSESSION_KINDS:
+        raise SupersessionError(
+            "%s %s supersedes %r with discharge_kind %r; known kinds are "
+            "%s.\n"
+            "  AMEND      nothing that licenses a transport changed -- a "
+            "citation, a caveat, an evidence grade\n"
+            "  RELICENSE  an attribute that DECIDES transport changed: %s\n"
+            "  RESTATE    what it %s changed\n"
+            "  RETRACT    withdrawn, and nothing replaces it"
+            % (entity, claim_id, old.get("id"), declared,
+               ", ".join(SUPERSESSION_KINDS), ", ".join(lic),
+               "asserts" if entity == "inference" else "states"))
+    if declared == RETRACT:
+        return declared
+    actual, moved = classify_supersession(old, new, entity)
+    rank = {AMEND: 0, RELICENSE: 1, RESTATE: 2}
+    if rank[declared] < rank[actual]:
+        raise SupersessionError(
+            "%s %s supersedes %s and calls it %s, but %s changed, which is "
+            "%s.\n"
+            "  %s\n"
+            "  The tool compares the two records rather than taking the word "
+            "for it, because 'I only added an attribute' is how a field that "
+            "DECIDES transport arrives without being looked at. Declare %s, or "
+            "leave the field alone."
+            % (entity, claim_id, old.get("id"), declared, ", ".join(moved),
+               actual,
+               ("Re-routing an argument is not bookkeeping: the premises and "
+                "their paths are the entire reason the conclusion is licensed, "
+                "and the sentence at the bottom looks identical either way."
+                if entity == "inference" else
+                "A licensing attribute is not bookkeeping: `certificate` "
+                "decides whether emptiness survives a base change, "
+                "`identity_origin` and `coefficients_in_base` decide whether a "
+                "rewriting crosses one at all, and `witness_kind` decides "
+                "whether a point is a point or an assertion.")
+               if actual == RELICENSE else
+               "Something that says a different thing is a different %s, and "
+               "everything that used the old one has to be looked at again."
+               % entity,
+               actual))
+    return declared

@@ -110,8 +110,14 @@ def test_the_gamma_obligation_is_a_direction_error_not_an_evidence_problem():
     """
     g = graph()
     assert g.claims["GC-GAMMA23"]["ladder"] == "claimed"
+    # The promotion has to carry an `established_by` too: a grade that asserts
+    # a run must name one, so `certified` alone will not even fold.  That makes
+    # the mutation a STRONGER control than it was -- this claim now asserts
+    # both the top grade and a run behind it, and the transport is still
+    # refused.
     promoted = H.mutate(DOMAIN,
-                        H.set_field("claim", "GC-GAMMA23", ladder="certified"))
+                        H.set_field("claim", "GC-GAMMA23",
+                                    established_by=K.RAN, ladder="certified"))
     assert "GI-GAMMA-IMPORT" in H.flagged(promoted)
 
 

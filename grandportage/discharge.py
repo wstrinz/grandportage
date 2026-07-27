@@ -133,6 +133,7 @@ _CONDITIONAL_IDENTITY_CELLS = [
     (K.NECESSARY_CONDITION, K.ALONG, K.IDENTITY),
     (K.SPECIALIZATION, K.ALONG, K.IDENTITY),
     (K.SPECIALIZATION, K.AGAINST, K.IDENTITY),
+    (K.RESTRICTION, K.ALONG, K.IDENTITY),
 ]
 
 _SPECIALIZATION_MOVE = (
@@ -204,6 +205,56 @@ _IDENTITY_MOVE = (
     "polynomial transform (in the source campaign the row transform was "
     "polynomial and that single attribute separated the sound leg from the "
     "unsound one), or clear denominators and record what that costs.")
+
+_ZARISKI_DENSE_MOVE = (
+    "An IDENTITY established only on the restricted region pushes forward when "
+    "a polynomial vanishing there vanishes on the whole target -- which needs "
+    "{dst} IRREDUCIBLE with its REAL points Zariski-dense in it.\n"
+    "  If that holds, declare `zariski_dense: true` on this edge and the "
+    "rewriting crosses.  It usually does hold: a nonempty Euclidean-open "
+    "subset of an irreducible real variety with a smooth real point is "
+    "Zariski-dense in it.\n"
+    "  BEFORE DECLARING IT, check the target is not a case where it fails.  "
+    "V(x^2 + y^2) over R has real locus a single point; `x = 0` holds on every "
+    "open piece of that locus and is false on the variety.  A REDUCIBLE target "
+    "fails for a different reason: an open piece can miss a whole component, "
+    "and a relation holding on one component says nothing about the others.\n"
+    "  THIS IS NOT THE DENOMINATOR QUESTION.  A restriction changes no "
+    "coordinates, so no map_kind, no substitution and no clearing of "
+    "denominators is involved anywhere in this cell.  Do not spend anything on "
+    "making the map polynomial; it already is the identity.")
+
+_RESTRICTION_PREDICATE_MOVE = (
+    "THIS IS THE GENERIC-VERSUS-GLOBAL BOUNDARY, and the refusal is the point "
+    "of the type rather than an obstacle to route around.\n"
+    "  A predicate proved at every point of {src} is silent about the points "
+    "of {dst} outside it.  Taking a stability condition, a bound or a "
+    "recovery result established on a positivity cone and stating it of "
+    "the ambient model is the standard applied error: the result holds off an "
+    "exceptional locus, and the locus is a denominator nobody wrote down.\n"
+    "  There is no side condition that repairs this and no certificate to "
+    "produce.  Either state the predicate AT {src}, where it is true and where "
+    "its users can see the hypothesis -- or prove it again at {dst}, which is "
+    "a different and usually harder theorem.\n"
+    "  If what you want is the exceptional locus itself, that is a separate "
+    "model: declare it, and record what is true there.")
+
+MOVES[(K.RESTRICTION, K.ALONG, K.IDENTITY)] = _ZARISKI_DENSE_MOVE
+MOVES[(K.RESTRICTION, K.ALONG, K.PREDICATE)] = _RESTRICTION_PREDICATE_MOVE
+MOVES[(K.RESTRICTION, K.ALONG, K.EMPTY)] = (
+    "Emptiness of a restricted region says nothing about the model it sits in: "
+    "the points ruled out by the inequalities are exactly the ones that were "
+    "never examined.  Either re-run the emptiness argument at {dst} without "
+    "the inequality constraints, or state the emptiness at {src} and stop "
+    "consuming it as emptiness of {dst}.  Check first whether {dst} has points "
+    "outside the region -- if it does, the wider claim is not merely unproved, "
+    "it is false.")
+MOVES[(K.RESTRICTION, K.AGAINST, K.NONEMPTY)] = (
+    "A point of {dst} need not satisfy the inequalities that cut out {src} -- "
+    "that is what makes this a restriction.  Exhibit a point that DOES satisfy "
+    "them (for a positivity cone, check the defining minors are strictly "
+    "positive at your witness, not merely nonzero), or keep the witness as a "
+    "statement about {dst} alone.")
 
 MOVES[(K.EQUIVALENCE, K.ALONG, K.IDENTITY)] = _RING_ISO_MOVE
 MOVES[(K.EQUIVALENCE, K.AGAINST, K.IDENTITY)] = _RING_ISO_MOVE

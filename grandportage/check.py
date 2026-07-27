@@ -40,6 +40,7 @@ R_WITNESS = "ASSERTED-WITNESS"
 R_ALIAS = "ALIAS"
 R_VACUOUS = "VACUOUS-CONCLUSION"
 R_SELF_BUILT = "SELF-BUILT-MODEL"
+R_STALE_PREMISE = "STALE-PREMISE"
 
 EXISTENCE_OPPOSITE = {K.EMPTY: K.NONEMPTY, K.NONEMPTY: K.EMPTY}
 
@@ -171,7 +172,8 @@ def audit_inference(graph, iid):
                 identity_origin=claim.get("identity_origin"),
                 integral=claim.get("integral"),
                 ring_iso=e.get("ring_iso"),
-                coefficients_in_base=claim.get("coefficients_in_base"))
+                coefficients_in_base=claim.get("coefficients_in_base"),
+                zariski_dense=e.get("zariski_dense"))
             trace.append((eid, direction, r.licensed, r.reason))
             if not r.licensed:
                 ok = False
@@ -212,7 +214,8 @@ def probe(graph, claim_id, edge_id, direction, etype=None, map_kind=None,
                         if zariski_closed is None else zariski_closed),
         identity_origin=claim.get("identity_origin"),
         integral=claim.get("integral"), ring_iso=edge.get("ring_iso"),
-        coefficients_in_base=claim.get("coefficients_in_base"))
+        coefficients_in_base=claim.get("coefficients_in_base"),
+        zariski_dense=edge.get("zariski_dense"))
 
 
 def contradicting_claims(graph, model_id, kind, exclude=()):
@@ -244,6 +247,16 @@ def check_transport(graph):
     findings = []
     for iid in graph.inference_order:
         inf = graph.inferences[iid]
+        # A WITHDRAWN INFERENCE IS NOT DEBT.  Before supersession existed, a
+        # campaign that had to remint an id left the old inference in the graph
+        # forever, and its findings kept reporting as live -- so the baseline
+        # grew an entry meaning "superseded, not carried on its merits", which
+        # is a lie about what a baseline entry is for.  Nothing is hidden by
+        # skipping it: the superseding inference is audited in its own right,
+        # so a defect that survived the rewrite is still found, and one that
+        # did not was genuinely repaired.
+        if inf.get("superseded_by"):
+            continue
         ok, trace = audit_inference(graph, iid)
         if ok:
             continue
@@ -995,6 +1008,66 @@ def check_self_refuting_equivalence(graph):
     return findings
 
 
+def check_stale_premises(graph):
+    """An inference resting on a claim its own author has replaced.
+
+    SUPERSESSION DELIBERATELY DOES NOT REPOINT ANYTHING.  It would be easy to
+    make an inference follow its premise to the replacement, and it would be
+    the same mistake as every other silent upgrade in this codebase: the
+    argument was checked against one record and would then be credited against
+    a different one, with nobody looking.
+
+    THE SEVERITY IS THE INTERESTING PART, and it is why the supersession kind
+    is computed instead of declared.  If the replacement changed nothing that
+    licenses a transport -- a citation, a caveat, an evidence grade -- the old
+    argument is still exactly as sound as it was, and pointing it at the newer
+    record is bookkeeping.  If a licensing attribute moved, or the claim now
+    says something different, the argument rests on something that no longer
+    exists in the form it was checked in, and it has to be redone.  An author
+    who could self-report that distinction would just always report the cheap
+    one.
+    """
+    findings = []
+    for iid in graph.inference_order:
+        inf = graph.inferences[iid]
+        if inf.get("superseded_by"):
+            continue
+        for prem in inf["premises"]:
+            cid = prem.get("claim")
+            if not cid or cid not in graph.claims:
+                continue
+            old = graph.claims[cid]
+            newer_id = old.get("superseded_by")
+            if not newer_id:
+                continue
+            newer = graph.claims[newer_id]
+            kind = newer.get("discharge_kind")
+            bookkeeping = kind == K.AMEND
+            findings.append(Finding(
+                R_STALE_PREMISE, "%s:%s:%s" % (R_STALE_PREMISE, iid, cid),
+                DEBT if bookkeeping else UNSOUND_PREMISE,
+                iid,
+                "inference %s rests on claim %s, which %s superseded (%s)."
+                % (iid, cid, newer_id, kind)
+                + ("\n  Nothing that licenses a transport changed, so the "
+                   "argument stands as checked. What is stale is the pointer."
+                   if bookkeeping else
+                   "\n  %s changed, so this argument was checked against a "
+                   "record that no longer says what it said. The conclusion is "
+                   "not withdrawn and is not licensed either -- it is "
+                   "UNEXAMINED."
+                   % (", ".join(K.classify_supersession(old, newer)[1])
+                      or "The premise")),
+                ("Redeclare this inference against %s and mark the old one "
+                 "`supersedes`, so the graph says which argument is current. "
+                 "Supersession does not repoint premises on its own: an "
+                 "argument credited against a record it was never checked "
+                 "against is the failure this refuses to automate."
+                 % newer_id),
+                semantic_key="%s|%s" % (iid, cid)))
+    return findings
+
+
 def run(graph, accepted=None):
     """All rules, in a stable order, most severe first.
 
@@ -1015,6 +1088,7 @@ def run(graph, accepted=None):
                 + check_aliases(graph)
                 + check_partitions(graph)
                 + check_supersession(graph, accepted)
+                + check_stale_premises(graph)
                 + check_parallel_edges(graph)
                 + check_vacuous_conclusions(graph)
                 + check_self_built(graph))

@@ -75,6 +75,17 @@ EDGE_SCHEMA = {
                 "the closure need not lift.\n"
                 "  SPECIALIZATION - the characteristic changes. Carries no "
                 "existence statement in either direction.\n"
+                "  RESTRICTION - INEQUALITIES, not equations. src is a "
+                "semialgebraic subset of dst cut out by strict inequalities -- "
+                "a positivity cone, an open region, a nondegeneracy condition "
+                "-- in the SAME coordinates, with nothing added to the ideal. "
+                "Reach for this whenever you are about to write "
+                "NECESSARY_CONDITION for a step that dropped no equation: the "
+                "point-transports are identical, so the wrong label licenses "
+                "nothing false and hides whether a result is global or only "
+                "generic. An IDENTITY crosses ALONG only if the edge declares "
+                "`zariski_dense`, meaning dst is irreducible with its real "
+                "points Zariski-dense in it.\n"
                 "  UNTYPED - not yet known. Legal, but requires debt_why, and "
                 "no conclusion will cross this edge until it is typed.")},
         "why": {"type": "string",
@@ -124,6 +135,16 @@ EDGE_SCHEMA = {
                 "cannot know your remedy -- it will offer an illustration from "
                 "another domain if you do not say. One sentence naming the "
                 "computation or construction that would settle it.")},
+        "zariski_dense": {
+            "type": "boolean",
+            "description": (
+                "RESTRICTION only. True if the TARGET is irreducible and its "
+                "REAL points are Zariski-dense in it -- then a polynomial "
+                "relation holding on any nonempty open piece holds "
+                "throughout, and an IDENTITY established on the restricted "
+                "region pushes forward. Usually true and never automatic: "
+                "V(x^2+y^2) over R has one real point, and `x = 0` holds "
+                "there while being false on the variety.")},
         "debt_why": {"type": "string",
                      "description": "required when type is UNTYPED"},
         "cite": {"type": "string"},
@@ -210,7 +231,33 @@ TOOLS = [
                         "for something a gated checker verifies, and "
                         "`independently-audited` only when a SECOND "
                         "implementation agrees. One gated checker is "
-                        "exact-checking, not audit.")}},
+                        "exact-checking, not audit. "
+                        "The top three grades ASSERT THAT SOMETHING HAPPENED, "
+                        "so each requires `established_by`: RAN (executed "
+                        "here), READ (read a source or file, not executed), "
+                        "CITED (relying on a paper or authority) or "
+                        "NOT_REACHED. Most of those are then refused against "
+                        "those grades, which is the point -- if no run backs "
+                        "the claim, its grade is `claimed`. Leaving both "
+                        "fields off is fine; an ungraded claim is merely "
+                        "ungraded. What is refused is half a grade. "
+                        "TO REPLACE A CLAIM OR INFERENCE YOU HAVE ALREADY "
+                        "RECORDED, do not mint an unrelated id and leave the "
+                        "old one sitting there: declare the new one with "
+                        "`supersedes` and `discharge_kind`. AMEND means "
+                        "nothing that licenses a transport changed -- a "
+                        "citation, a caveat, an evidence grade. RELICENSE "
+                        "means an attribute that DECIDES transport moved "
+                        "(certificate, scope, identity_origin, "
+                        "coefficients_in_base, witness_kind). RESTATE means "
+                        "the statement, kind or model itself changed. RETRACT "
+                        "withdraws it. The tool DIFFS the two records and "
+                        "refuses a kind that understates what moved, so "
+                        "'I only added an attribute' will not get a licensing "
+                        "field past unexamined. Superseding does NOT repoint "
+                        "the inferences that used the old claim -- they are "
+                        "reported, at a severity that depends on whether "
+                        "anything they relied on actually changed.")}},
         ["events"]),
 
     _tool(

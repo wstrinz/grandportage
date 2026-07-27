@@ -30,64 +30,13 @@ the edge is drawn.
 
 ## Status
 
-**v0.3. Six days old, three live user sessions, 292 checks**, live against
-Singular 4.2.1. Treat every claim in these documents as provisional.
+All five layers are built and gated: 338 checks, live against Singular 4.2.1,
+and it has had one real user session — see [docs/first-run/](docs/first-run/).
 
+* **[HANDOFF.md](HANDOFF.md) — start here if you have no context**
 * [DESIGN.md](DESIGN.md) — architecture and the decisions behind it
-* **[REVIEW.md](REVIEW.md) — where I am least confident.** Read this second.
-  §9 is a ranked list of what a good review would produce, with an honest prior
-  that a third CAS-boundary bypass exists.
-* [docs/first-run/](docs/first-run/) — a real agent doing real open research,
-  its own report, and an audit that **failed its declared pass condition**
-
-### What has already gone wrong
-
-Stated up front, because a project that lists only its successes is not
-reviewable. Detail in `REVIEW.md` §7.
-
-- **Five transport cells were unsound in v0.1**, all in the `IDENTITY` row and
-  all the same mistake: an identity is a claim about *functions*, and the ring
-  map runs opposite the point map, so identities pull back rather than push
-  forward. The table licensed `x = 0` escaping `V(x)` to the whole affine line.
-- **The CAS boundary has been bypassable twice** — once inherited, once
-  introduced *by the fix for the inherited one*, which closed two of five doors
-  and claimed the room was sealed.
-- **The mutation suite passed throughout.** A test called
-  `test_identity_transport_turns_on_the_map_and_nothing_else` asserted an
-  unsound cell as its oracle while 171 checks agreed with it. **The test's name
-  was the false claim.** A green mutation suite tests *reachability*, not
-  *truth*, which is why `tests/test_cell_ledger.py` now carries one row per
-  cell with a proof or an explicit counterexample.
-- **A resumability test failed** because no read path showed which findings a
-  campaign had knowingly accepted, so a fresh agent read a healthy campaign as
-  a failing one.
-- **A blind trial failed its declared pass condition.** An agent given a real
-  bounded task, told nothing about the tool being studied, produced sound
-  mathematics and mis-typed the result — then discharged a standing obligation
-  by *superseding* it rather than satisfying it. The append-only log refused
-  the retyping exactly as designed, so the agent declared a parallel edge
-  instead and every check stayed green. **Append-only prevents mutation and
-  permits supersession**, and supersession has the same licensing effect with
-  none of the visibility.
-
-Everything in v0.2.1 and v0.3 exists because of that last one. Three rules now
-catch the specific defects; `premises` lets an argument combine facts, because
-the graph could record chains but not joins and the missing premise went into a
-prose note; `partition` gives case splits a vocabulary they never had; and a
-discharge can now name the kind of move that closes it, so *"discharge by
-deriving, not by naming a relaxation"* is enforced rather than decorative.
-
-### Contributing
-
-Issues and patches welcome; `REVIEW.md` §9 says where the value is. The single
-highest-value contribution is **a counterexample to a transport cell** — worth
-more than any feature.
-
-Two things this repository deliberately does not contain: the derivations the
-`jc2` and `gamma_window` fixtures cite (those live in a private research repo —
-the fixtures state results and cite where they were proved), and the
-campaign-management documents for open experiments, because publishing them
-would spoil blind trials that have not been run yet.
+* [REVIEW.md](REVIEW.md) — **where I am least confident**, for a reviewer
+* [TESTPLAN.md](TESTPLAN.md) — what to run next and what each run could falsify
 
 | layer | module | what it does |
 |---|---|---|
@@ -129,7 +78,7 @@ $ python -m grandportage.mcp          # registered in .claude/.mcp.json
 The hook then returns exit 2 on the next tool call, so the refusal blocks
 rather than scrolls past. See [examples/](examples/) for the wiring.
 
-## The five relaxation types
+## The six relaxation types
 
 Edges point **tighter → looser**: `V(src) ⊆ V(dst)`. `AGAINST` is reasoning
 looser → tighter, which is the direction emptiness travels and the direction
@@ -140,15 +89,24 @@ code applying it cannot drift apart.
 
 | edge type | dir | EMPTY | NONEMPTY | PREDICATE | IDENTITY |
 |---|---|---|---|---|---|
-| `EQUIVALENCE` | ALONG | yes | yes | yes | yes |
-| `EQUIVALENCE` | AGAINST | yes | yes | yes | yes |
-| `NECESSARY_CONDITION` | **ALONG** | NO | yes | **NO** | if denominator-free |
+| `EQUIVALENCE` | ALONG | yes | yes | yes | if ring iso |
+| `EQUIVALENCE` | AGAINST | yes | yes | yes | if ring iso |
+| `NECESSARY_CONDITION` | **ALONG** | NO | yes | **NO** | if ambient |
 | `NECESSARY_CONDITION` | AGAINST | yes | NO | yes | if denominator-free |
 | `BASE_EXTENSION` | **ALONG** | **only with a certificate** | **yes** | NO | yes |
-| `BASE_EXTENSION` | AGAINST | yes | NO | yes | yes |
+| `BASE_EXTENSION` | AGAINST | yes | NO | yes | if defined over base |
 | `IMAGE_CLOSURE` | ALONG | NO | yes | if Zariski-closed | if denominator-free |
 | `IMAGE_CLOSURE` | **AGAINST** | yes | **NO** | yes | if denominator-free |
-| `SPECIALIZATION` | both | **NO** | **NO** | NO | if denominator-free |
+| `SPECIALIZATION` | ALONG | **NO** | **NO** | NO | if p-integral |
+| `SPECIALIZATION` | AGAINST | **NO** | **NO** | NO | NO |
+| `RESTRICTION` | **ALONG** | NO | yes | **NO** | if Zariski-dense |
+| `RESTRICTION` | AGAINST | yes | NO | yes | **yes** |
+
+Five of those cells were **wrong in this file** until a test started comparing
+it against the kernel. Every conditional `IDENTITY` cell still showed the
+pre-v0.2 rule — the licences that were found unsound and fixed, still
+documented as sound in the file a reader meets first. The sentence above about
+drift was true of `gp table` and false of this table, and nothing checked.
 
 Three rows carry most of the value:
 
@@ -164,6 +122,18 @@ Three rows carry most of the value:
 * **`SPECIALIZATION` carries nothing.** char 0 → char p transports no existence
   statement in either direction, and that is a theorem, not caution: Fano is
   empty over `Q` and nonempty over `F₂`, non-Fano is the reverse.
+* **`RESTRICTION` is `NECESSARY_CONDITION` on points and something else on
+  functions.** The six point-cells are *identical*, because both follow from
+  `V(src) ⊆ V(dst)` and nothing more — so typing a semialgebraic cut
+  `NECESSARY_CONDITION` licenses nothing false, which is exactly what makes it
+  the attractor. What it costs is the distinction between a result that holds
+  **generically** and one that holds **everywhere** — which, wherever the
+  exceptional locus is reachable by real data, is the only distinction that
+  matters. The `IDENTITY` row is where
+  the mathematics genuinely differs: a restriction adds no equations, so the
+  obstruction that stops a derived identity crossing a `NECESSARY_CONDITION`
+  is simply absent, and the question becomes whether a polynomial vanishing on
+  an open piece vanishes throughout.
 
 ## Scope is derived, never declared
 
@@ -199,7 +169,7 @@ Pure stdlib. No solver, no network, no model in the loop. Under a second.
 ## The retrodiction gate
 
 ```bash
-python -m pytest        # 171 checks
+python -m pytest        # 338 checks
 ```
 
 Grand Portage's credibility rests on reproducing, from **data**, what two

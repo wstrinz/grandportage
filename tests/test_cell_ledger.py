@@ -14,7 +14,7 @@ its docstring either
     CONDITION -- the exact side condition, plus what it excludes
 
 `test_every_cell_has_a_ledger_row` fails if a cell exists with no row here, so a
-new type or claim kind cannot be added without arguing for its forty cells.
+new type or claim kind cannot be added without arguing for its eight cells.
 
 CONVENTION THROUGHOUT.  An edge points src -> dst with V(src) subset V(dst):
 src is the TIGHTER, more informative model.  ALONG is src -> dst.  AGAINST is
@@ -438,6 +438,110 @@ def test_sp_against_identity():
     reduction of anything.  The old table licensed this whenever the map was
     denominator-free, i.e. always in practice.
     """
+
+
+# ===========================================================================
+# RESTRICTION -- src = a semialgebraic subset, dst = the variety it sits in,
+# IN THE SAME COORDINATES.  The cut is by strict inequalities: a positivity
+# cone, an open region, a nondegeneracy condition.  Nothing is added to the
+# ideal, which is the entire difference from NECESSARY_CONDITION.
+#
+# The six point-cells below are identical to NECESSARY_CONDITION's, and that
+# is not an oversight -- they follow from V(src) subset V(dst) and nothing
+# else.  It is why the live campaign that forced this type reported that
+# labelling its positivity-cone edge NECESSARY_CONDITION would have been SOUND,
+# and why it chose UNTYPED anyway.
+# ===========================================================================
+@cell(K.RESTRICTION, K.ALONG, K.EMPTY, False)
+def test_restriction_along_empty():
+    """REFUTED. The positive-definite cone of 1x1 matrices is nonempty, and so
+    is the line it sits in -- but take instead the empty region cut by x > 0
+    and x < 0 inside the line. src is empty and dst is not. Emptiness of a
+    subset says nothing about the set."""
+
+
+@cell(K.RESTRICTION, K.AGAINST, K.EMPTY, True)
+def test_restriction_against_empty():
+    """PROOF. V(src) subset V(dst). If dst has no points then neither does any
+    subset of it. Same argument as NECESSARY_CONDITION AGAINST/EMPTY, and for
+    the same reason: it uses containment and nothing else."""
+
+
+@cell(K.RESTRICTION, K.ALONG, K.NONEMPTY, True)
+def test_restriction_along_nonempty():
+    """PROOF. An exhibited point of the restricted region is a point of the
+    ambient model, unchanged -- the coordinates are the same ones, so there is
+    nothing to transport it THROUGH. A positive-definite matrix is a
+    symmetric matrix."""
+
+
+@cell(K.RESTRICTION, K.AGAINST, K.NONEMPTY, False)
+def test_restriction_against_nonempty():
+    """REFUTED. Sigma = diag(1, -1) is a real symmetric matrix and is not
+    positive definite. A point of the ambient model need not satisfy the
+    inequalities, which is what makes the restriction a restriction."""
+
+
+@cell(K.RESTRICTION, K.ALONG, K.PREDICATE, False)
+def test_restriction_along_predicate():
+    """REFUTED. `det Sigma > 0` holds at every point of the PD cone and fails
+    at diag(1,-1) in the ambient model. A universal statement about a subset
+    is silent about the points outside it -- and THIS IS THE CELL THE TYPE
+    EXISTS TO PROTECT, since a result proved off an exceptional locus and then
+    read as a global one is a recurring error in the applied literature."""
+
+
+@cell(K.RESTRICTION, K.AGAINST, K.PREDICATE, True)
+def test_restriction_against_predicate():
+    """PROOF. If every point of dst satisfies P, then in particular every
+    point of the subset does. Instantiation, nothing more."""
+
+
+@cell(K.RESTRICTION, K.ALONG, K.IDENTITY, False)
+def test_restriction_along_identity_undeclared():
+    """CONDITION, and it is the one cell where RESTRICTION is STRONGER than
+    NECESSARY_CONDITION -- so it is gated rather than open.
+
+    A polynomial vanishing on a nonempty Euclidean-open subset U of an
+    irreducible variety X vanishes on all of X. So an identity established
+    only on the restricted region DOES push forward, unlike a DERIVED identity
+    across a NECESSARY_CONDITION, because a restriction adds no equations:
+    there is no larger ideal and no quotient, so the algebraic obstruction
+    simply is not there.
+
+    REFUTED WITHOUT THE CONDITION. Over R the argument needs the REAL points
+    Zariski-dense in an irreducible dst, and that fails: X = V(x^2 + y^2) over
+    R has real locus {(0,0)}. The identity `x = 0` holds on every open piece
+    of that real locus and is false on X.
+
+    Undeclared, the cell refuses. Same shape as `ring_iso` and
+    `coefficients_in_base`: usually available, never automatic, false exactly
+    where somebody would have been surprised."""
+
+
+@cell(K.RESTRICTION, K.ALONG, K.IDENTITY, True, zariski_dense=True)
+def test_restriction_along_identity_declared_dense():
+    """CONDITION discharged. With dst irreducible and its real points
+    Zariski-dense, a relation holding on a nonempty open piece holds
+    throughout, and the identity pushes forward.
+
+    This is what lets a computation done on a positivity cone be stated about
+    the variety containing it -- the move a live campaign had no type for."""
+
+
+@cell(K.RESTRICTION, K.AGAINST, K.IDENTITY, True)
+def test_restriction_against_identity():
+    """PROOF, and unconditional where NECESSARY_CONDITION needs a
+    denominator-free map.
+
+    A restriction does not change coordinates: it is a subset inclusion, the
+    identity on functions. So there is no substitution that could introduce a
+    denominator or fail to be defined. A rewriting valid at every point of dst
+    is valid at every point of a subset of dst.
+
+    `store` enforces the premise by refusing a RESTRICTION whose map_kind is
+    not IDENTITY_MAP -- the licence and the argument for it must not drift
+    apart."""
 
 
 # ===========================================================================
