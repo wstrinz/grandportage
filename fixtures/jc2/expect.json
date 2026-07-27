@@ -122,6 +122,18 @@
       "derived_severity": "TRIAGE",
       "pinned_as": null,
       "note": "NOT A RETRODICTION. IDENTITY concluding at SYZCOLL, where CL-ATLE9-SYZ (EXACT_VALUATION_COLLISION) proves emptiness."
+    },
+    "ASSERTED-WITNESS:CL-C08-REAL": {
+      "severity": "DEBT",
+      "derived_severity": "DEBT",
+      "pinned_as": null,
+      "note": "NOT A RETRODICTION. New rule in v0.3.1. And a sharp one here: CL-C08-REAL is the counter-claim that makes the C08 refusal a TRUE positive rather than a conservative one, and it is quoted from a lemma with no point exhibited. The thing grading the headline detection is itself unverified."
+    },
+    "ASSERTED-WITNESS:CL-C20-REAL": {
+      "severity": "DEBT",
+      "derived_severity": "DEBT",
+      "pinned_as": null,
+      "note": "NOT A RETRODICTION. Same lemma, same absence, same role for C20."
     }
   },
   "clean_inferences": [

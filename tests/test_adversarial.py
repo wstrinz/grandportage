@@ -323,7 +323,7 @@ def test_taint_reaches_the_second_generation():
         # A refused step: NONEMPTY does not travel AGAINST a NECESSARY_CONDITION.
         {"ev": "edge", "id": "E1", "src": "SRC", "dst": "M1",
          "type": "NECESSARY_CONDITION", "why": "drops equations"},
-        {"ev": "claim", "id": "C1", "model": "M1", "kind": "NONEMPTY",
+        {"ev": "claim", "id": "C1", "model": "M1", "kind": "NONEMPTY", "witness_kind": "EXHIBITED",
          "statement": "a witness in the relaxation", "scope": "Q"},
         {"ev": "inference", "id": "BAD", "claim": "C1",
          "path": [["E1", "AGAINST"]], "asserted": "so SRC has a point"},
@@ -356,7 +356,7 @@ def _campaign(tmp_path, edge_type):
         {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
          "type": edge_type, "why": "some step", "map_kind": "POLYNOMIAL",
          "debt_why": "not yet worked out"},
-        {"ev": "claim", "id": "CL", "model": "LOOSE", "kind": "NONEMPTY",
+        {"ev": "claim", "id": "CL", "model": "LOOSE", "kind": "NONEMPTY", "witness_kind": "EXHIBITED",
          "statement": "a witness", "scope": "Q"},
         {"ev": "inference", "id": "INF", "claim": "CL",
          "path": [["E", "AGAINST"]], "asserted": "so TIGHT has a point"},
@@ -525,7 +525,7 @@ def test_an_unknown_severity_override_is_a_graph_error_not_a_crash(bad):
     events = TWO_MODELS + [
         {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
          "type": "NECESSARY_CONDITION", "why": "drops eqs"},
-        {"ev": "claim", "id": "CL", "model": "LOOSE", "kind": "NONEMPTY",
+        {"ev": "claim", "id": "CL", "model": "LOOSE", "kind": "NONEMPTY", "witness_kind": "EXHIBITED",
          "statement": "a point", "scope": "Q"},
         {"ev": "inference", "id": "INF", "claim": "CL",
          "path": [["E", "AGAINST"]], "asserted": "so TIGHT has a point",
@@ -805,7 +805,7 @@ def test_premises_that_never_meet_are_a_fold_error():
             {"ev": "edge", "id": "E1", "src": "TIGHT", "dst": "LOOSE",
              "type": "NECESSARY_CONDITION", "why": "drops equations"},
             {"ev": "claim", "id": "C-MAIN", "model": "TIGHT",
-             "kind": "NONEMPTY", "statement": "a point", "scope": "Q"},
+             "kind": "NONEMPTY", "witness_kind": "EXHIBITED", "statement": "a point", "scope": "Q"},
             {"ev": "claim", "id": "C-FAR", "model": "SIDE", "kind": "PREDICATE",
              "statement": "an unrelated fact"},
             {"ev": "inference", "id": "BRIDGE", "premises": [
@@ -829,7 +829,7 @@ def test_a_refused_leg_refuses_the_whole_argument():
         {"ev": "claim", "id": "C-OK", "model": "LOOSE", "kind": "PREDICATE",
          "statement": "fine"},
         # NONEMPTY does NOT travel AGAINST a NECESSARY_CONDITION.
-        {"ev": "claim", "id": "C-BAD", "model": "SIDE", "kind": "NONEMPTY",
+        {"ev": "claim", "id": "C-BAD", "model": "SIDE", "kind": "NONEMPTY", "witness_kind": "EXHIBITED",
          "statement": "a witness in the relaxation", "scope": "Q"},
         {"ev": "inference", "id": "JOIN", "premises": [
             {"claim": "C-OK", "path": [["E1", "AGAINST"]]},
@@ -946,7 +946,7 @@ def test_a_model_built_by_reasoning_inside_itself_is_flagged():
     g = _graph(TWO_MODELS + [
         {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
          "type": "NECESSARY_CONDITION", "why": "drops equations"},
-        {"ev": "claim", "id": "CL", "model": "TIGHT", "kind": "NONEMPTY",
+        {"ev": "claim", "id": "CL", "model": "TIGHT", "kind": "NONEMPTY", "witness_kind": "EXHIBITED",
          "statement": "a point", "scope": "Q"},
         {"ev": "inference", "id": "INF", "claim": "CL",
          "path": [["E", "ALONG"]], "asserted": "the point is in LOOSE"},

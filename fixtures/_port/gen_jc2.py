@@ -61,11 +61,13 @@ def edge(eid, src, dst, etype, why, map_kind="IDENTITY_MAP", support=None,
 
 def claim(cid, model_id, kind, statement, scope=None, certificate=None,
           zariski_closed=None, ladder="claimed", cite="",
-          identity_origin=None):
+          identity_origin=None, witness_kind=None):
     e = {"ev": "claim", "id": cid, "model": model_id, "kind": kind,
          "statement": statement, "ladder": ladder, "cite": cite}
     if identity_origin is not None:
         e["identity_origin"] = identity_origin
+    if witness_kind is not None:
+        e["witness_kind"] = witness_kind
     if scope is not None:
         e["scope"] = scope
     if certificate is not None:
@@ -440,10 +442,16 @@ claim("CL-C20", "RES20_L", "EMPTY",
 
 claim("CL-C08-REAL", "RES08_K", "NONEMPTY",
       "the C08 support has real (hence complex) torus points",
+      # ASSERTED: quoted from a lemma, no point exhibited here.  The claim is
+      # load-bearing -- it is what makes the C08 refusal a TRUE positive rather
+      # than a conservative one -- and nothing in this graph could tell a real
+      # torus point from a confident sentence about one.
+      witness_kind="ASSERTED",
       scope="R", ladder="exact-checked",
       cite="RESIDUE_LEMMAS.md:162-166, quoted at FIELD_SCOPE_AUDIT.md sec.0")
 claim("CL-C20-REAL", "RES20_K", "NONEMPTY",
       "the C20 support has real (hence complex) torus points too",
+      witness_kind="ASSERTED",   # same lemma, same absence of an exhibited point
       scope="R", ladder="exact-checked",
       cite="RESIDUE_LEMMAS.md:162-166, quoted verbatim in edge E9's witness "
            "in whetstone_dag.py; recorded here as a CLAIM so that the "
@@ -541,9 +549,13 @@ claim("CL-A10-SURV", "ELIM_CLOSURE", "NONEMPTY",
       "the a10_b0000_T1 family satisfies the four canonical G rows "
       "identically, so the ideal is genuinely non-empty and no Groebner engine "
       "can close it",
+      # EXHIBITED: the family is written down and satisfies the rows
+      # identically, which is a substitution check.
+      witness_kind="EXHIBITED",
       scope="Q", ladder="exact-checked", cite="POSITIVE_SLICE.md HEADLINE")
 claim("CL-R9-NONEMPTY", "R9_RELAXED", "NONEMPTY",
       "R9 z = 4,5,6 are exactly NON-EMPTY (exact witnesses)",
+      witness_kind="EXHIBITED",  # the statement says so: exact witnesses
       scope="Q", ladder="exact-checked",
       cite="EMPTINESS_TRIAGE.md; emptiness_triage.py 6/6 gate")
 

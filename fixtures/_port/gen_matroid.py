@@ -60,9 +60,11 @@ def edge(eid, src, dst, etype, why, map_kind="IDENTITY_MAP", drops=None,
 
 
 def claim(cid, model_id, kind, statement, scope=None, cert=None,
-          zariski_closed=None, ladder="claimed", cite=""):
+          zariski_closed=None, ladder="claimed", cite="", witness_kind=None):
     e = {"ev": "claim", "id": cid, "model": model_id, "kind": kind,
          "statement": statement, "ladder": ladder, "cite": cite}
+    if witness_kind is not None:
+        e["witness_kind"] = witness_kind
     if scope is not None:
         e["scope"] = scope
     if cert is not None:
@@ -249,17 +251,22 @@ claim("CM-ML8-Q-EMPTY", "ML8_Q", "EMPTY",
       cite="G-ML8-ELIMINANT: x^2-x+1 is irreducible over Q, disc -3.")
 claim("CM-ML8-QS-NONEMPTY", "ML8_QS", "NONEMPTY",
       "ML8 HAS a realization over Q(sqrt(-3))",
+      witness_kind="EXHIBITED",  # G-ML8-C-WITNESS gives the coordinates
       scope="Q(sqrt(-3))", ladder="exact-checked",
       cite="G-ML8-C-WITNESS: the realization's coordinates lie in "
            "Q(sqrt(-3)), not merely in C")
 claim("CM-ML8-C-NONEMPTY", "ML8_C", "NONEMPTY",
       "ML8 HAS a realization over C",
+      witness_kind="EXHIBITED",  # Coxeter coordinates, exact, both roots
       scope="C", ladder="exact-checked",
       cite="G-ML8-C-WITNESS (exact, both roots).  PUBLISHED: Coxeter's "
            "coordinates with w a complex cube root of 1; 'the configuration is "
            "possible in the complex projective plane'.")
 claim("CM-ML8-NORM-C", "ML8_NORM_C", "NONEMPTY",
       "the frame-normalised ML8 system has a solution over Q(sqrt(-3))",
+      # DERIVED: it follows from CM-ML8-QS-NONEMPTY across M-E2, the frame
+      # normalisation, rather than from a separately exhibited point.
+      witness_kind="DERIVED",
       scope="C", ladder="exact-checked",
       cite="G-ML8-UNIQUE-CHART/G-ML8-ELIMINANT")
 claim("CM-ML8-NONORIENT", "ML8_ORIENT", "EMPTY",
@@ -269,6 +276,9 @@ claim("CM-ML8-NONORIENT", "ML8_ORIENT", "EMPTY",
            "is THE published proof that ML8 is not realizable over R.")
 claim("CM-NP-ORIENTABLE", "NP_ORIENT", "NONEMPTY",
       "the non-Pappus matroid IS orientable (it has a pseudoline arrangement)",
+      # ASSERTED: a published existence result. No arrangement is exhibited
+      # here, and `certified` grades the SOURCE, not this graph.
+      witness_kind="ASSERTED",
       scope="combinatorial", ladder="certified",
       cite="Folkman-Lawrence; Richter-Gebert & Ziegler, Handbook ch.6")
 claim("CM-NP-NONREAL", "NP_REAL", "EMPTY",
@@ -290,6 +300,7 @@ claim("CM-FANO-UNSAT-EMPTY", "FANO_Q_UNSAT", "EMPTY",
 claim("CM-NF-UNSAT-NONEMPTY", "NF_F2_UNSAT", "NONEMPTY",
       "the UNSATURATED determinantal ideal of the non-Fano matroid has an "
       "F_2-point",
+      witness_kind="EXHIBITED",  # the rigid point mod 2
       scope="F_2", ladder="exact-checked",
       cite="G-SAT-WITNESS-IN-IDEAL/G-SLACK-RANK-F2: the rigid point mod 2")
 claim("CM-NF-F2-EMPTY", "NF_F2_SAT", "EMPTY",
@@ -301,6 +312,9 @@ claim("CM-NF-F2-EMPTY", "NF_F2_SAT", "EMPTY",
            "IM-NF-SKIP-SAT is DERIVED from the graph rather than asserted.")
 claim("CM-U35-CLOSURE-NONEMPTY", "U35_CLOSURE", "NONEMPTY",
       "the Zariski closure of U_3,5's realization space has rational points",
+      # DERIVED: the closure IS the affine plane, so rational points follow
+      # from that identification rather than from an exhibited point.
+      witness_kind="DERIVED",
       scope="Q", ladder="exact-checked",
       cite="G-U35-IN-CLOSURE: the closure is the whole affine plane")
 claim("CM-U35-RANK", "U35_REAL", "PREDICATE",

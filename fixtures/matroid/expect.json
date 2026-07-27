@@ -48,6 +48,12 @@
       "derived_severity": "UNSOUND_PREMISE",
       "pinned_as": "FLAG-U35-CLOSURE-NONEMPTY",
       "note": "Graded below the others, and the distinction is real: U_3,5 IS realizable, so the conclusion happens to hold -- but the ROUTE does not, and the boundary point exhibited is not a realization.  Derived, because the graph holds no claim contradicting it."
+    },
+    "ASSERTED-WITNESS:CM-NP-ORIENTABLE": {
+      "severity": "DEBT",
+      "derived_severity": "DEBT",
+      "pinned_as": null,
+      "note": "NOT A RETRODICTION. A published existence result (Folkman-Lawrence) with no arrangement exhibited here. Graded `certified`, which grades the SOURCE and not this graph -- exactly the distinction the witness kind now makes visible."
     }
   },
   "clean_inferences": [
@@ -78,5 +84,10 @@
     "grading be derived.  Note the kernel refuses to let its certificate",
     "base-change, which is correct: non-Fano IS realizable over Q."
   ],
-  "counts": {"models": 19, "edges": 10, "claims": 14, "inferences": 12}
+  "counts": {
+    "models": 19,
+    "edges": 10,
+    "claims": 14,
+    "inferences": 12
+  }
 }

@@ -207,7 +207,7 @@ def test_show_renders_the_graph_as_a_handoff(project):
         {"ev": "edge", "id": "E1", "src": "SRC", "dst": "DST",
          "type": K.NECESSARY_CONDITION, "why": "drops equations"},
         {"ev": "claim", "id": "CL", "model": "DST", "kind": K.NONEMPTY,
-         "statement": "a witness"},
+         "statement": "a witness", "witness_kind": K.EXHIBITED},
         {"ev": "inference", "id": "INF", "claim": "CL",
          "path": [["E1", K.AGAINST]], "asserted": "a germ exists"},
     ]}, project)

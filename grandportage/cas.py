@@ -692,6 +692,63 @@ def classify_identity(ring_vars, lhs, rhs, generators=(), characteristic=0,
                     "generators": list(generators)}
 
 
+def check_witness(ring_vars, generators, point, characteristic=0, timeout=300,
+                  _runner=None):
+    """Substitute a point into the generators and report what each evaluates to.
+
+    Returns (is_solution, evidence).  `point` maps ring variables to values.
+
+    THE CHEAPEST CHECK IN THE SYSTEM, and it did not exist.  An EMPTY claim had
+    to name a certificate kind or the graph would not fold; a NONEMPTY claim --
+    where the author is holding the object -- carried nothing, so a fabricated
+    witness typed identically to a real one.
+
+    Evaluating a point is arithmetic.  There is no interpretation to argue
+    about, no ordering assumption, no field subtlety: either every generator
+    vanishes or one of them does not, and the one that does not is named.
+
+    Touches the graph not at all.  Like `cas_classify_identity`, it answers a
+    question so the answer can be declared with a computation behind it -- a
+    tool that both decides a field and writes it leaves nobody holding the
+    claim.
+    """
+    missing = [v for v in ring_vars if v not in point]
+    if missing:
+        raise CASError(
+            "the witness does not give a value for every ring variable; "
+            "missing %s.  A partial point is not a point." % ", ".join(missing))
+    # Nested `subst`, one variable at a time, so each generator becomes exactly
+    # ONE declaration -- which is what the boundary check requires and why this
+    # is built as an expression rather than a statement sequence.
+    decls, outs = [], []
+    for n, gen in enumerate(generators):
+        expr = gen
+        for v in ring_vars:
+            expr = "subst(%s,%s,%s)" % (expr, v, point[v])
+        decls.append(("GP_V%d" % n, "poly", expr))
+        outs.append("GP_V%d" % n)
+    prog = CASProgram(SINGULAR, ring="GP_R", ring_vars=ring_vars,
+                      decls=decls, body=[], outputs=outs,
+                      characteristic=characteristic)
+    runner = _runner or _run_subprocess
+    result = runner(prog, timeout)
+    if result["aborted"] or "? error" in result["stdout"] + result["stderr"] \
+            or result["returncode"] != 0:
+        raise CASError("the CAS did not evaluate the witness:\n%s"
+                       % result["stdout"][-1500:])
+    values = _parse_outputs(result["stdout"], outs)
+    per_gen = []
+    for n, gen in enumerate(generators):
+        v = values["GP_V%d" % n]
+        v = v if not isinstance(v, list) else " ".join(v)
+        v = str(v).split("=", 1)[-1].strip()
+        per_gen.append({"generator": gen, "value": v, "vanishes": v == "0"})
+    ok = all(g["vanishes"] for g in per_gen)
+    return ok, {"point": dict(point), "generators": per_gen,
+                "failed": [g["generator"] for g in per_gen
+                           if not g["vanishes"]]}
+
+
 def ideal_is_unit(ring_vars, generators, characteristic=0, name="GP_I",
                   **kw):
     """Convenience: does the ideal reduce to (1)?

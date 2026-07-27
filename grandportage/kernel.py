@@ -626,6 +626,135 @@ def transport_over_partition(kind, branches_covered, exhaustive):
                   "partition", "PARTITION", ALONG, kind)
 
 
+# ---------------------------------------------------------------------------
+# HOW KINDS COMPOSE WITHIN AN INFERENCE.
+#
+# The transport table says how a claim survives crossing a map.  It says
+# nothing about how a conclusion relates to the PREMISES it was drawn from, and
+# that omission was exploitable:
+#
+#     A NONEMPTY claim at a Zariski closure, pushed back to the image, is
+#     correctly REFUSED -- that cell is Chevalley.  Record the same conclusion
+#     as a PREDICATE and push it across the same edge and it is LICENSED,
+#     because IMAGE_CLOSURE/AGAINST/PREDICATE is sound.  The `asserted` text
+#     read "therefore the system HAS a solution" in both cases.  The checker
+#     never reads `asserted`, so relabelling `kind` laundered an existence
+#     claim through a cell that was never meant to carry one.
+#
+# Found by an agent probing the gate rather than by review, which is now the
+# third time a field that DETERMINES transport and is taken on the author's
+# word has been exploited (certificates, identity_origin, and now kind).
+#
+# The rule is nearly trivial, and reading the kinds as quantifiers is why:
+#
+#     NONEMPTY   exists x. phi(x)
+#     EMPTY      not exists x. phi(x)
+#     PREDICATE  forall x. phi(x)
+#     IDENTITY   an equation in the coordinate ring
+#
+# YOU CANNOT GET AN EXISTENCE STATEMENT OUT OF A UNIVERSAL ONE.  So a
+# conclusion's kind must appear among its premises' kinds; nothing else is
+# derivable by transport alone.
+#
+# Deliberately NO escape hatch.  A general "this step is mathematics the tool
+# does not type" flag would immediately become the next laundering route, and
+# the project's own discipline is not to add a mechanism before a real case
+# demands it.  If a campaign genuinely needs, say, EMPTY from two contradictory
+# PREDICATEs, that case should surface as a refusal and be designed for
+# deliberately -- the partition rule is exactly such a case, and it earned its
+# construct by appearing twice in live runs.
+# ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# HOW A NONEMPTY CLAIM IS BACKED.
+#
+# The asymmetry is embarrassing once stated.  An EMPTY claim MUST carry a
+# certificate and `derive_scope` refuses to guess -- emptiness is treated as
+# the thing that needs proof.  A NONEMPTY claim, where the author LITERALLY
+# HOLDS THE OBJECT, carried nothing at all:
+#
+#     "there's no registered kind for 'explicit rational witness' -- the
+#      strongest evidence in this whole problem has to go in as free text...
+#      a fabricated witness would type-check identically to a real one.  The
+#      graph cannot currently distinguish 'I have the point' from 'I claim to
+#      have the point'."
+#
+# -- an agent doing real work, finding this unprompted.
+#
+# And a witness is the CHEAPEST thing in this system to check.  Substituting a
+# point into the generators and evaluating is arithmetic; it is less work than
+# anything in the certificate registry, which is why leaving it on the honour
+# system was the wrong trade rather than a pragmatic one.
+#
+#   EXHIBITED  the point is given, and can be checked by substitution
+#   DERIVED    existence follows from something else recorded here
+#   ASSERTED   claimed, not exhibited -- legal, reported as a debt
+#
+# ASSERTED is the UNTYPED bargain again: the honest answer is always available,
+# which is what makes the field requirable rather than onerous.
+# ---------------------------------------------------------------------------
+EXHIBITED = "EXHIBITED"
+ASSERTED = "ASSERTED"
+WITNESS_KINDS = (EXHIBITED, DERIVED, ASSERTED)
+
+
+class WitnessError(ValueError):
+    """A NONEMPTY claim that does not say how its point is known."""
+
+
+def derive_witness_kind(kind, witness_kind, claim_id="<claim>"):
+    """How is this existence claim backed?  Non-NONEMPTY claims return None."""
+    if kind != NONEMPTY:
+        return None
+    if witness_kind in WITNESS_KINDS:
+        return witness_kind
+    if witness_kind is not None:
+        raise WitnessError(
+            "NONEMPTY claim %s declares witness_kind %r; known kinds are %s."
+            % (claim_id, witness_kind, ", ".join(WITNESS_KINDS)))
+    raise WitnessError(
+        "NONEMPTY claim %s does not say how its point is known.  An EMPTY "
+        "claim must carry a certificate and this kernel refuses to guess its "
+        "scope; an existence claim -- where you hold the object -- was on the "
+        "honour system, so a fabricated witness typed identically to a real "
+        "one.\n"
+        "  EXHIBITED  the point is given. Put it in `witness`, and "
+        "`cas_check_witness` will substitute it into the generators and tell "
+        "you whether it is actually a solution. This is the cheapest check in "
+        "the system; prefer it.\n"
+        "  DERIVED    existence follows from something else recorded here.\n"
+        "  ASSERTED   claimed, not exhibited. Legal, and reported as a debt "
+        "until it is not." % claim_id)
+
+
+class KindCompositionError(ValueError):
+    """A conclusion whose kind its premises cannot yield."""
+
+
+def check_conclusion_kind(declared, premise_kinds, iid="<inference>"):
+    """The conclusion's kind must be among the premises' kinds."""
+    if declared is None:
+        return None
+    if declared not in CLAIM_KINDS:
+        raise KindCompositionError(
+            "inference %s concludes kind %r; known kinds are %s"
+            % (iid, declared, ", ".join(CLAIM_KINDS)))
+    if declared in premise_kinds:
+        return declared
+    raise KindCompositionError(
+        "inference %s declares it concludes %s, but its premises are %s and "
+        "transport does not change a claim's kind.\n"
+        "  Reading the kinds as quantifiers: NONEMPTY is 'there exists a "
+        "point', PREDICATE is 'every point satisfies', EMPTY is 'there is no "
+        "point'.  You cannot derive an existence statement from a universal "
+        "one, and crossing an edge does not turn one into the other.\n"
+        "  If the conclusion really is %s, it needs a premise that IS %s.  If "
+        "the premise is what you have, then %s is what you may conclude -- and "
+        "saying so keeps the weaker statement from being consumed downstream "
+        "as the stronger one."
+        % (iid, declared, ", ".join(sorted(set(premise_kinds))) or "(none)",
+           declared, declared, " or ".join(sorted(set(premise_kinds)))))
+
+
 def signature(etype):
     """The type's transport signature, as a comparable tuple.
 

@@ -33,10 +33,11 @@ EV_CLAIM = "claim"
 EV_INFERENCE = "inference"
 EV_BUILT_BY = "built_by"
 EV_PARTITION = "partition"
+EV_SAME_AS = "same_as"
 EV_NOTE = "note"          # free-form, carried but never interpreted
 
 EVENT_KINDS = (EV_CERTIFICATE, EV_MODEL, EV_EDGE, EV_CLAIM, EV_INFERENCE,
-               EV_BUILT_BY, EV_PARTITION, EV_NOTE)
+               EV_BUILT_BY, EV_PARTITION, EV_SAME_AS, EV_NOTE)
 
 # Severities an inference may override to.  Named here rather than imported so
 # the store stays the bottom layer with no dependency on the checker;
@@ -78,6 +79,7 @@ class Graph(object):
         self.inference_order = []  # declaration order, for stable reporting
         self.built_by = {}         # model id -> [inference id, ...]
         self.partitions = {}       # id -> {parent, branches, exhaustive}
+        self.aliases = {}          # id -> {models: [...], why}
         self.notes = []
         self._seen = {}            # (kind, id) -> canonical event
 
@@ -160,6 +162,44 @@ class Graph(object):
                  "refuse." % (where, ev["id"]))
         self.certificates[ev["id"]] = ev["base_changes"]
         self.cert_source[ev["id"]] = where
+
+    def _apply_same_as(self, ev, where):
+        """Two model ids that denote ONE object.
+
+        THE FAN-OUT RISK, and the first real merge produced it.  Two agents,
+        working the same campaign in isolation, both had to construct the
+        saturated system.  They agreed on a name for it -- so the fold raised a
+        loud conflict on their differing descriptions, which is the case that
+        was already unit-tested and works.
+
+        The dangerous case is the other one: two ids for one object.  Nothing
+        collides, the merge composes silently, and the graph now contains two
+        models for one thing.  It folds cleanly and it is wrong, and no rule
+        catches it, because from the inside a duplicate is indistinguishable
+        from two genuinely different objects.
+
+        `supersedes` is the wrong shape here and it is worth saying why:
+        NEITHER BRANCH IS WRONG.  They described one object from two
+        directions, and asking one to retract is asking it to lose the
+        description that made sense of its own work.  An alias records the
+        identity without either side giving anything up.
+
+        What the tool can check is CONSISTENCY, not identity: two models
+        declared to be one object must not disagree about their field or their
+        chart.  Whether they really are the same object is mathematics.
+        """
+        models = ev.get("models") or []
+        _require(isinstance(models, list) and len(models) >= 2,
+                 "%s: same_as %r needs at least two `models`" % (where, ev["id"]))
+        _require(ev.get("why"),
+                 "%s: same_as %r must declare `why` -- what establishes that "
+                 "these are one object?  Two agents naming the same thing "
+                 "differently is the expected case; two agents naming DIFFERENT "
+                 "things the same is the one this must not paper over."
+                 % (where, ev["id"]))
+        a = dict(ev)
+        a["models"] = list(models)
+        self.aliases[ev["id"]] = a
 
     def _apply_partition(self, ev, where):
         """A parent model split into branches, with its exhaustiveness stated.
@@ -289,6 +329,10 @@ class Graph(object):
         # honest answer rather than a required field people must invent.
         c["identity_origin"] = K.derive_identity_origin(
             ev["kind"], ev.get("identity_origin"), claim_id=ev["id"])
+        # Same discipline for the other direction: emptiness needs a
+        # certificate, existence needs to say how the point is known.
+        c["witness_kind"] = K.derive_witness_kind(
+            ev["kind"], ev.get("witness_kind"), claim_id=ev["id"])
         self.claims[ev["id"]] = c
 
     def _apply_inference(self, ev, where):
@@ -444,6 +488,17 @@ class Graph(object):
                 _require(e[end] in self.models,
                          "edge %r has undeclared %s model %r"
                          % (eid, end, e[end]))
+        for aid, a in sorted(self.aliases.items()):
+            for m in a["models"]:
+                _require(m in self.models,
+                         "same_as %r names undeclared model %r" % (aid, m))
+            fields = {self.models[m].get("field") for m in a["models"]
+                      if self.models[m].get("field")}
+            _require(len(fields) <= 1,
+                     "same_as %r declares %s to be one object, but they "
+                     "disagree about their field: %s.  Two models over "
+                     "different fields are not the same object."
+                     % (aid, ", ".join(a["models"]), ", ".join(sorted(fields))))
         for pid, p in sorted(self.partitions.items()):
             _require(p["parent"] in self.models,
                      "partition %r names undeclared parent model %r"
@@ -499,8 +554,10 @@ class Graph(object):
                          "inference %r cites undeclared partition %r"
                          % (iid, pid))
                 i["concludes_at"] = self.partitions[pid]["parent"]
+                kinds = [self.claims[pr["claim"]]["kind"]
+                         for pr in i["premises"]]
                 i["concludes_kind"] = (
-                    i.get("concludes_kind")
+                    K.check_conclusion_kind(i.get("concludes_kind"), kinds, iid)
                     or self.claims[i["premises"][0]["claim"]]["kind"])
                 continue
             # EVERY OTHER PREMISE MUST ARRIVE AT THE SAME PLACE.  Premises that land
@@ -517,8 +574,13 @@ class Graph(object):
                      % (iid, ", ".join("%s -> %s" % (p["claim"], m)
                                        for p, m in zip(i["premises"], lands))))
             i["concludes_at"] = lands[0]
-            i["concludes_kind"] = (ev_kind := i.get("concludes_kind")) or \
-                self.claims[i["premises"][0]["claim"]]["kind"]
+            # A DECLARED conclusion kind is CHECKED against the premises, not
+            # trusted.  Undeclared, it is derived from the first premise, which
+            # is the single-premise behaviour and cannot lie.
+            kinds = [self.claims[pr["claim"]]["kind"] for pr in i["premises"]]
+            i["concludes_kind"] = (
+                K.check_conclusion_kind(i.get("concludes_kind"), kinds, iid)
+                or self.claims[i["premises"][0]["claim"]]["kind"])
         return self
 
 

@@ -68,7 +68,7 @@ def test_merge_order_does_not_change_the_result():
 def test_claim_in_an_undeclared_model_is_refused():
     with pytest.raises(S.GraphError):
         H.fold([MODEL_A, {"ev": "claim", "id": "C", "model": "NOPE",
-                          "kind": "NONEMPTY", "statement": "x"}])
+                          "kind": "NONEMPTY", "witness_kind": "EXHIBITED", "statement": "x"}])
 
 
 def test_disconnected_inference_path_is_refused():
@@ -78,7 +78,7 @@ def test_disconnected_inference_path_is_refused():
     events = [
         MODEL_A, MODEL_B, {"ev": "model", "id": "C", "desc": "c"},
         EDGE_AB,
-        {"ev": "claim", "id": "CL", "model": "C", "kind": "NONEMPTY",
+        {"ev": "claim", "id": "CL", "model": "C", "kind": "NONEMPTY", "witness_kind": "EXHIBITED",
          "statement": "a point of C"},
         {"ev": "inference", "id": "I", "claim": "CL", "path": [["E", "ALONG"]],
          "asserted": "therefore a point of B"},
@@ -129,7 +129,7 @@ def test_untyped_edge_requires_a_stated_debt():
 
 def test_severity_override_requires_a_reason():
     events = [MODEL_A, MODEL_B, EDGE_AB,
-              {"ev": "claim", "id": "CL", "model": "B", "kind": "NONEMPTY",
+              {"ev": "claim", "id": "CL", "model": "B", "kind": "NONEMPTY", "witness_kind": "EXHIBITED",
                "statement": "a point of B"},
               {"ev": "inference", "id": "I", "claim": "CL",
                "path": [["E", "AGAINST"]], "asserted": "a point of A",

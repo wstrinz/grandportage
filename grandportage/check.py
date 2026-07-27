@@ -36,6 +36,8 @@ R_IDENTITY_ORIGIN = "UNKNOWN-IDENTITY-ORIGIN"
 R_PARALLEL = "PARALLEL-EDGE"
 R_PARTITION = "PARTITION"
 R_SUPERSEDE = "SUPERSESSION"
+R_WITNESS = "ASSERTED-WITNESS"
+R_ALIAS = "ALIAS"
 R_VACUOUS = "VACUOUS-CONCLUSION"
 R_SELF_BUILT = "SELF-BUILT-MODEL"
 
@@ -801,6 +803,98 @@ def check_self_built(graph):
     return findings
 
 
+def check_aliases(graph):
+    """Models declared to be one object, and the merge report that goes with it.
+
+    The fan-out risk the first real merge exposed. Two agents in isolation both
+    had to build the saturated system; they agreed on a NAME, so the fold raised
+    a loud conflict on their differing descriptions -- the case that already
+    worked. The dangerous case is two ids for one object: nothing collides, the
+    merge composes silently, and the graph carries a duplicate that folds
+    cleanly and is wrong.
+
+    An alias records the identity without asking either branch to retract --
+    neither was wrong, they described one object from two directions. What the
+    checker can verify is CONSISTENCY, not identity: aliased models must not
+    disagree about their chart, and their claims all now bear on one object, so
+    a contradiction between them is a contradiction rather than two facts about
+    two things.
+    """
+    findings = []
+    for aid in sorted(graph.aliases):
+        a = graph.aliases[aid]
+        models = a["models"]
+        charts = {graph.models[m].get("chart") for m in models
+                  if graph.models[m].get("chart")}
+        if len(charts) > 1:
+            findings.append(Finding(
+                R_ALIAS, "%s:%s:chart" % (R_ALIAS, aid), UNSOUND_PREMISE, aid,
+                "same_as %s declares %s to be one object, but they are in "
+                "different charts: %s.\n  A change of chart is a change of "
+                "coordinates, and two descriptions in different coordinates "
+                "are not automatically the same object -- that is a claim "
+                "needing a map, not an alias."
+                % (aid, ", ".join(models), ", ".join(sorted(charts))),
+                "Either exhibit the coordinate change as an EQUIVALENCE edge "
+                "with `ring_iso`, or these are two objects and the alias is "
+                "wrong."))
+        # Contradictory existence claims across an alias are now contradictory
+        # AT ONE OBJECT, which is worth saying out loud.
+        kinds = {}
+        for m in models:
+            for cid, c in sorted(graph.claims.items()):
+                if c["model"] == m and c["kind"] in EXISTENCE_OPPOSITE:
+                    kinds.setdefault(c["kind"], []).append((cid, m))
+        if len(kinds) > 1:
+            findings.append(Finding(
+                R_ALIAS, "%s:%s:contradiction" % (R_ALIAS, aid),
+                UNSOUND_CONCLUSION, aid,
+                "same_as %s declares %s to be one object, and they carry "
+                "OPPOSITE existence claims:\n%s\n  Before the alias these were "
+                "two facts about two things. After it they are a contradiction."
+                % (aid, ", ".join(models),
+                   "\n".join("    %-9s %s at %s" % (k, c, m)
+                             for k, v in sorted(kinds.items())
+                             for c, m in v)),
+                "One of the claims is wrong, or the alias is. Note which is "
+                "cheaper to check: an EXHIBITED witness settles a NONEMPTY by "
+                "substitution."))
+    return findings
+
+
+def check_unexhibited_witness(graph):
+    """NONEMPTY claims that are asserted rather than exhibited.
+
+    The mirror of `UNKNOWN-IDENTITY-ORIGIN`, and DEBT for the same reason: a
+    hole recorded as a hole.  What makes it worth reporting rather than
+    shrugging at is that the discharge is unusually cheap -- substituting a
+    point into the generators is arithmetic, and `cas_check_witness` does it.
+
+    An existence claim is the one place where the evidence is an OBJECT rather
+    than an argument, and objects can be checked.
+    """
+    findings = []
+    for cid in sorted(graph.claims):
+        c = graph.claims[cid]
+        if c["kind"] != K.NONEMPTY or c.get("witness_kind") != K.ASSERTED:
+            continue
+        findings.append(Finding(
+            R_WITNESS, "%s:%s" % (R_WITNESS, cid), DEBT, cid,
+            "NONEMPTY claim %s at model %s is ASSERTED, not exhibited.\n"
+            "  %s\n"
+            "  Nothing here distinguishes holding the point from claiming to."
+            % (cid, c["model"], c["statement"]),
+            "If you have the point, put it in `witness` and declare "
+            "witness_kind EXHIBITED -- `cas_check_witness` will substitute it "
+            "into the model's generators and confirm it is a solution, which "
+            "is arithmetic and the cheapest check this system performs. If "
+            "existence follows from something else already recorded, say "
+            "DERIVED and record the inference. If it is genuinely an "
+            "assertion -- a published claim you have not verified -- ASSERTED "
+            "is the honest answer and this finding is the record of that."))
+    return findings
+
+
 def check_unknown_identity_origin(graph):
     """IDENTITY claims whose origin is recorded as not yet established.
 
@@ -907,6 +1001,8 @@ def run(graph, accepted=None):
                 + check_unjustified_equivalence(graph)
                 + check_self_refuting_equivalence(graph)
                 + check_unknown_identity_origin(graph)
+                + check_unexhibited_witness(graph)
+                + check_aliases(graph)
                 + check_partitions(graph)
                 + check_supersession(graph, accepted)
                 + check_parallel_edges(graph)
