@@ -1,0 +1,82 @@
+{
+  "domain": "matroid realizability -- Whetstone's second domain",
+  "source": "math-stuff/whetstone/matroid_transfer.py + MATROID_TRANSFER.md",
+  "why_this_is_a_gate": [
+    "Every verdict here is checkable against EXTERNALLY PUBLISHED ground truth",
+    "-- Oxley, the Sage matroid database, Brandt-Wiebe, MacLane 1936, Coxeter's",
+    "coordinates -- rather than against this project's own record.  That makes",
+    "it the stronger of the two fixtures for the question 'does the type",
+    "discipline generalize', and the weaker for 'does it catch real mistakes':",
+    "MATROID_TRANSFER.md is honest that it retrodicts a published SUBTLETY",
+    "and not a published ERROR, and pins that as MISS-NO-PUBLISHED-ERROR.",
+    "",
+    "All six severities here are DERIVED, with no overrides.  The graph holds",
+    "the contradicting claim in five cases and does not in the sixth, and that",
+    "reproduces matroid_transfer.py's hand grading 6/6."
+  ],
+  "findings": {
+    "TRANSPORT:IM-ML8-BASE-EXT": {
+      "severity": "UNSOUND_CONCLUSION",
+      "derived_severity": "UNSOUND_CONCLUSION",
+      "pinned_as": "FLAG-ML8-BASE-EXT",
+      "note": "The retrodiction: exactly the shape of C08/C20, in a domain whose answer is externally known.  The certificate kind (NONSQUARE_CLASS) is INHERITED UNCHANGED from the first domain -- in JC(2) it was 'disc square class 105', here it is 'disc -3 is not a square in R'."
+    },
+    "TRANSPORT:IM-ML8-Q-BASE-EXT": {
+      "severity": "UNSOUND_CONCLUSION",
+      "derived_severity": "UNSOUND_CONCLUSION",
+      "pinned_as": "FLAG-ML8-Q-BASE-EXT",
+      "note": "The minimal instance: a degree-2 extension Q -> Q(sqrt(-3)) already flips the answer."
+    },
+    "TRANSPORT:IM-ML8-DESCENT": {
+      "severity": "UNSOUND_CONCLUSION",
+      "derived_severity": "UNSOUND_CONCLUSION",
+      "pinned_as": "FLAG-ML8-DESCENT"
+    },
+    "TRANSPORT:IM-NF-SKIP-SAT": {
+      "severity": "UNSOUND_CONCLUSION",
+      "derived_severity": "UNSOUND_CONCLUSION",
+      "pinned_as": "FLAG-NF-SKIP-SAT",
+      "note": "The saturation trap: NONEMPTY read AGAINST a NECESSARY_CONDITION edge."
+    },
+    "TRANSPORT:IM-ORIENT-TO-REAL": {
+      "severity": "UNSOUND_CONCLUSION",
+      "derived_severity": "UNSOUND_CONCLUSION",
+      "pinned_as": "FLAG-ORIENT-TO-REAL"
+    },
+    "TRANSPORT:IM-U35-CLOSURE": {
+      "severity": "UNSOUND_PREMISE",
+      "derived_severity": "UNSOUND_PREMISE",
+      "pinned_as": "FLAG-U35-CLOSURE-NONEMPTY",
+      "note": "Graded below the others, and the distinction is real: U_3,5 IS realizable, so the conclusion happens to hold -- but the ROUTE does not, and the boundary point exhibited is not a realization.  Derived, because the graph holds no claim contradicting it."
+    }
+  },
+  "clean_inferences": [
+    "IM-MACLANE",
+    "IM-FANO-CONTRAST",
+    "IM-ML8-ASCEND",
+    "IM-ML8-UP",
+    "IM-U35-RANK",
+    "IM-FANO-NO-SAT"
+  ],
+  "clean_inference_notes": {
+    "IM-FANO-CONTRAST": "THE CONTRAST PAIR.  Identical to IM-ML8-BASE-EXT in edge type, direction and claim kind; the ONLY difference is the certificate; the verdicts are opposite.  A rule tuned to fire on 'an emptiness computed over a small field' would flag both.",
+    "IM-ML8-ASCEND": "the other half of the reversed asymmetry, on the same matroid: the same edge type that refuses EMPTY along the arrow passes NONEMPTY freely.",
+    "IM-ML8-UP": "NONEMPTY read AGAINST the arrow, licensed only because frame normalisation is a genuine EQUIVALENCE.",
+    "IM-U35-RANK": "IMAGE_CLOSURE's one conditional cell: a Zariski-CLOSED predicate extends to the closure.  This is why elimination is sound for DERIVING equations and unsound as a source of witnesses.",
+    "IM-FANO-NO-SAT": "emptiness DOES travel against the saturation edge, so a non-realizability certificate may skip saturation.  A witness may not.  Re-routed over M-E4f during the port -- see the port note below."
+  },
+  "port_notes": [
+    "IM-FANO-NO-SAT was routed in matroid_transfer.py over M-E4, the NON-Fano",
+    "saturation edge over F_2, while its claim is about the Fano ideal over Q.",
+    "That path is not connected.  The prototype has no continuity check, so it",
+    "passed silently.  Ported over a new FANO_Q_UNSAT -> FANO_Q_SAT edge M-E4f,",
+    "which is what the control was always about.  Verdict unchanged.",
+    "",
+    "CM-NF-F2-EMPTY is new: the published fact 'non-Fano is representable iff",
+    "char != 2' lived in matroid_transfer.py's prose but not in its graph.",
+    "Recording it as a claim is what lets IM-NF-SKIP-SAT's true-positive",
+    "grading be derived.  Note the kernel refuses to let its certificate",
+    "base-change, which is correct: non-Fano IS realizable over Q."
+  ],
+  "counts": {"models": 19, "edges": 10, "claims": 14, "inferences": 12}
+}

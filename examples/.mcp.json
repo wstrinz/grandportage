@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "grand-portage": {
+      "command": "python",
+      "args": ["-m", "grandportage.mcp"],
+      "env": {"GP_ROOT": "."}
+    }
+  }
+}
