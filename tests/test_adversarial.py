@@ -612,6 +612,87 @@ def test_an_edge_can_supply_the_remedy_the_table_cannot_know():
 
 
 # ===========================================================================
+# MIGRATION.  The bill for "blank raises", and it came due all at once.
+# ===========================================================================
+def _stale(tmp_path, events):
+    p = S.graph_path(str(tmp_path))
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    with open(p, "w", encoding="utf-8") as fh:
+        for e in events:
+            fh.write(json.dumps(e) + "\n")
+    return p
+
+
+def test_migrate_fills_a_missing_required_field_with_its_ignorance_value(tmp_path):
+    """`witness_kind` and the `ladder` vocabulary stopped THREE live campaign
+    logs from folding, including the T1 blind run's own output. Hand-editing an
+    append-only log is what this project refuses to make people do, and at
+    every version bump it would be the first thing anyone had to do.
+
+    The no-silent-defaults principle survives because ASSERTED is not a guess.
+    It is true: the claim was recorded before anyone was asked.
+    """
+    from grandportage import cli
+    _stale(tmp_path, [
+        {"ev": "model", "id": "M", "desc": "m"},
+        {"ev": "claim", "id": "CL", "model": "M", "kind": "NONEMPTY",
+         "statement": "a point", "scope": "Q"}])
+    with pytest.raises(K.WitnessError):
+        S.load(S.graph_path(str(tmp_path)))
+    assert cli.main(["--root", str(tmp_path), "migrate"]) == 0
+    g = S.load(S.graph_path(str(tmp_path)))
+    assert g.claims["CL"]["witness_kind"] == K.ASSERTED
+    # ...and the graph is now LOUDER, not quieter.
+    assert [f for f in C.run(g) if f.rule == C.R_WITNESS]
+
+
+def test_migrate_refuses_to_repair_a_value_that_is_wrong_not_missing(tmp_path):
+    """An invalid `ladder` might belong in `established_by`, or in `caveat`, or
+    be a genuine strength claim. Only the author knows, so migrate reports and
+    leaves it alone -- and exits nonzero so it cannot be skipped.
+
+    Confirmed against the real T5 graph, which still does not fold for exactly
+    this reason.
+    """
+    from grandportage import cli
+    _stale(tmp_path, [
+        {"ev": "model", "id": "M", "desc": "m"},
+        {"ev": "claim", "id": "CL", "model": "M", "kind": "PREDICATE",
+         "statement": "P", "ladder": "ARTIFACT"}])
+    assert cli.main(["--root", str(tmp_path), "migrate"]) == 1
+    # untouched
+    raw = open(S.graph_path(str(tmp_path)), encoding="utf-8").read()
+    assert '"ladder": "ARTIFACT"' in raw or '"ladder":"ARTIFACT"' in raw
+
+
+def test_migrate_dry_run_writes_nothing(tmp_path):
+    """A migration that rewrites a version-controlled log had better be
+    inspectable first."""
+    from grandportage import cli
+    p = _stale(tmp_path, [
+        {"ev": "model", "id": "M", "desc": "m"},
+        {"ev": "claim", "id": "CL", "model": "M", "kind": "IDENTITY",
+         "statement": "x = 0"}])
+    before = open(p, encoding="utf-8").read()
+    cli.main(["--root", str(tmp_path), "migrate", "--dry-run"])
+    assert open(p, encoding="utf-8").read() == before
+
+
+def test_migrate_is_idempotent(tmp_path):
+    """Running it twice must not churn a version-controlled file."""
+    from grandportage import cli
+    p = _stale(tmp_path, [
+        {"ev": "model", "id": "M", "desc": "m"},
+        {"ev": "claim", "id": "CL", "model": "M", "kind": "IDENTITY",
+         "statement": "x = 0"}])
+    cli.main(["--root", str(tmp_path), "migrate"])
+    once = open(p, encoding="utf-8").read()
+    cli.main(["--root", str(tmp_path), "migrate"])
+    assert open(p, encoding="utf-8").read() == once
+    assert S.load(p).claims["CL"]["identity_origin"] == K.UNKNOWN
+
+
+# ===========================================================================
 # EVIDENCE GRADING.  Two axes, and fusing them is why the field rotted.
 # ===========================================================================
 def _claim(**kw):

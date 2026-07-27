@@ -112,6 +112,66 @@ def cmd_check(args):
     return C.exit_code(findings, args.floor)
 
 
+def cmd_migrate(args):
+    """Fill required fields a graph predates, with their IGNORANCE value.
+
+    Required fields break existing graphs, and that cost came due all at once:
+    three live campaign logs stopped folding when `witness_kind` and the
+    `ladder` vocabulary landed. Hand-editing an append-only log is the thing
+    this project refuses to make people do.
+
+    THE PRINCIPLE SURVIVES, and that is why this is safe. "No silent defaults"
+    exists because a default writes a fact nobody vouched for. A migration
+    writes the value that says NOBODY VOUCHED -- `UNKNOWN` for an identity's
+    origin, `ASSERTED` for a witness -- which is not a guess, it is the truth:
+    the claim was recorded before anyone was asked. Both are reported as debt,
+    so the graph gets louder rather than quieter.
+
+    WHAT IT WILL NOT DO is repair a field whose value is WRONG rather than
+    missing. An invalid `ladder` might belong in `established_by`, or in
+    `caveat`, or be a genuine strength claim -- only the author knows, so those
+    are reported and left alone.
+    """
+    paths = _graphs(args)
+    fills = {("claim", "identity_origin"): (K.UNKNOWN,
+             lambda e: e.get("kind") == K.IDENTITY),
+             ("claim", "witness_kind"): (K.ASSERTED,
+             lambda e: e.get("kind") == K.NONEMPTY)}
+    changed, manual = [], []
+    for path in paths:
+        out = []
+        for ev, n in S.load_events(path):
+            for (kind, field), (value, applies) in sorted(fills.items()):
+                if ev.get("ev") == kind and applies(ev) and not ev.get(field):
+                    ev[field] = value
+                    changed.append((path, n, ev.get("id"), field, value))
+            if ev.get("ev") == "claim" and ev.get("ladder") \
+                    and ev["ladder"] not in K.LADDER:
+                manual.append((path, n, ev.get("id"), ev["ladder"]))
+            out.append(ev)
+        if not args.dry_run and changed:
+            with open(path, "w", encoding="utf-8") as fh:
+                for ev in out:
+                    fh.write(json.dumps(ev, sort_keys=True) + "\n")
+
+    for p, n, cid, field, value in changed:
+        print("%s:%d  %s  %s <- %s" % (p, n, cid, field, value))
+    print("\n%d field(s) filled with their ignorance value%s."
+          % (len(changed), " (DRY RUN, nothing written)" if args.dry_run else ""))
+    if changed:
+        print("Each is reported as a debt by `gp check`: the graph is now "
+              "louder, not quieter.")
+    if manual:
+        print("\n%d field(s) NEED A HUMAN -- the value is wrong, not missing, "
+              "and only you know where it belongs:" % len(manual))
+        for p, n, cid, val in manual:
+            print("  %s:%d  %s  ladder=%r" % (p, n, cid, val[:60]))
+        print("  `ladder` is a strength ordering (%s). How you came to believe "
+              "it is `established_by`; a limitation is `caveat`."
+              % ", ".join(K.LADDER))
+    return 1 if manual else 0
+
+
 def cmd_merge(args):
     """Fold several branch logs together and report every conflict at once."""
     graphs = list(args.graph or [])
@@ -375,6 +435,13 @@ def build_parser():
     m = sub.add_parser("merge",
                        help="fold several branch logs and report every conflict")
     m.set_defaults(func=cmd_merge)
+
+    g = sub.add_parser("migrate",
+                       help="fill required fields a graph predates, with the "
+                            "value that says nobody vouched")
+    g.add_argument("--dry-run", action="store_true",
+                   help="report what would change and write nothing")
+    g.set_defaults(func=cmd_migrate)
 
     i = sub.add_parser("init", help="create an empty graph")
     i.set_defaults(func=cmd_init)
