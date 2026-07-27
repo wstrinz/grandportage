@@ -547,6 +547,71 @@ def test_store_severities_match_the_checker():
 
 
 # ===========================================================================
+# DISCHARGE QUALITY.  T5's remaining findings -- fixed so the NEXT run's data
+# is interpretable, not because they were cosmetic.
+# ===========================================================================
+def test_a_cited_proof_has_a_certificate_and_must_name_its_field():
+    """T5's worst stretch. A refereed theorem had to be recorded as EMPTY,
+    EMPTY demands a certificate, and nothing in the registry meant "somebody
+    proved this in a journal" -- so one was manufactured.
+
+    CITED_PROOF's base_changes=False is not a claim that the theorem is
+    field-relative. It is a refusal to guess: the argument is not here, so
+    nothing in the graph can tell whether it survives enlarging the field. The
+    consequence is the useful part -- the author is forced to name the field
+    the cited result is stated over, which is the question people skip when
+    quoting a theorem.
+    """
+    g = _graph([
+        {"ev": "model", "id": "M", "desc": "the tensor", "field": "C"},
+        {"ev": "claim", "id": "CT", "model": "M", "kind": "EMPTY",
+         "statement": "border rank > 15", "certificate": "CITED_PROOF",
+         "scope": "C", "established_by": "CITED", "ladder": "claimed"}])
+    assert g.claims["CT"]["scope"] == "C"
+    with pytest.raises(K.ScopeError):
+        _graph([{"ev": "model", "id": "M", "desc": "x"},
+                {"ev": "claim", "id": "CT", "model": "M", "kind": "EMPTY",
+                 "statement": "x", "certificate": "CITED_PROOF"}])
+
+
+def test_the_table_says_what_specialization_means():
+    """A foreign campaign used SPECIALIZATION for an INDEX RESTRICTION --
+    running 3 of 527 cases -- because the name reads generically and `gp table`
+    printed transport rows without saying what any name denotes. The row is
+    uniformly NO, so the verdict was right by luck while the advice talked
+    about Fano over F_2."""
+    assert "CHARACTERISTIC" in K.TYPE_MEANS[K.SPECIALIZATION]
+    assert "partition" in K.TYPE_MEANS[K.SPECIALIZATION], (
+        "it must say where a case split SHOULD go, or the reader picks the "
+        "next-closest wrong type")
+    assert set(K.TYPE_MEANS) == set(K.DECLARABLE_TYPES)
+    from grandportage.discharge import discharge_for
+    move = discharge_for(K.SPECIALIZATION, K.AGAINST, K.PREDICATE)
+    assert "CHECK THE TYPE IS RIGHT" in move
+
+
+def test_an_edge_can_supply_the_remedy_the_table_cannot_know():
+    """Two of four T5 findings gave advice for a different problem -- Galois
+    cocycles for a floating-point rounding failure, mod-p flatness for an index
+    restriction. The refusals were right; the remediation was not.
+
+    The REQUIREMENT belongs to the cell and stays there. The REMEDY belongs to
+    the campaign, which is the only thing that knows it.
+    """
+    from grandportage.discharge import discharge_for
+    hint = "round the SDP Gram matrix to rationals and re-verify in Macaulay2"
+    move = discharge_for(K.BASE_EXTENSION, K.AGAINST, K.NONEMPTY,
+                         edge={"src": "QQ", "dst": "RR",
+                               "discharge_hint": hint})
+    assert move.startswith("REQUIRED:"), (
+        "the cell's requirement must lead; a campaign hint supplements it")
+    assert hint in move
+    # And the generic illustration must be marked as one.
+    plain = discharge_for(K.BASE_EXTENSION, K.AGAINST, K.NONEMPTY)
+    assert "ILLUSTRATION" in plain and "may not be your case" in plain
+
+
+# ===========================================================================
 # EVIDENCE GRADING.  Two axes, and fusing them is why the field rotted.
 # ===========================================================================
 def _claim(**kw):

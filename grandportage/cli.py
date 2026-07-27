@@ -169,6 +169,13 @@ def cmd_table(args):
                                        "NO" if v is False else v))
             print("| %-*s | %-7s | %s |" % (width, t, d, " | ".join(cells)))
     print()
+    print("WHAT THE TYPES MEAN. A transport row does not say what a name")
+    print("denotes, and a name read generically gets used generically:")
+    for t in K.DECLARABLE_TYPES:
+        print("  %s" % t)
+        for line in _wrap(K.TYPE_MEANS[t], 64):
+            print("      " + line)
+    print()
     print("Conditional cells resolve against edge/claim attributes:")
     print("  scheme_scope        EMPTY base-changes only if its certificate does")
     print("  map_polynomial      IDENTITY rewriting needs a denominator-free map")

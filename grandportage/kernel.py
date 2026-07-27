@@ -44,6 +44,32 @@ ALONG = "ALONG"
 AGAINST = "AGAINST"
 DIRECTIONS = (ALONG, AGAINST)
 
+# What each type MEANS, printed wherever the table is.
+#
+# `gp table` used to print five names and their transport rows and nothing
+# about what the names denote.  A foreign campaign then used SPECIALIZATION for
+# an INDEX RESTRICTION -- running 3 of 527 cases -- because the name reads
+# generically and the table never said otherwise.  The row happened to be
+# uniformly NO, so the verdict was right by luck while the remediation text
+# talked about Fano over F_2.
+#
+# The MCP schema always said "the characteristic changes".  The CLI did not,
+# and the CLI is what someone reaches for first.
+TYPE_MEANS = {
+    EQUIVALENCE: "nothing is lost, and you can exhibit the converse",
+    NECESSARY_CONDITION: "equations are dropped; the target is a strict "
+                         "relaxation",
+    BASE_EXTENSION: "the COEFFICIENT FIELD grows (k into K).  Not a change of "
+                    "characteristic",
+    IMAGE_CLOSURE: "an elimination or projection; you get the Zariski CLOSURE "
+                   "of the image",
+    SPECIALIZATION: "the CHARACTERISTIC changes (char 0 -> char p).  ONLY "
+                    "that -- it is not a general-purpose 'restricted to a "
+                    "sub-case' type.  For a case split use a `partition`; for "
+                    "dropping conditions use NECESSARY_CONDITION",
+    UNTYPED: "not yet known.  Licenses nothing; requires debt_why",
+}
+
 # ---------------------------------------------------------------------------
 # Claim kinds.
 # ---------------------------------------------------------------------------
@@ -150,6 +176,24 @@ BUILTIN_CERTIFICATES = {
     "DEGREE_COUNT": True,               # an inequality between integers
     "NONSQUARE_CLASS": False,           # field-relative by construction
     "NO_RATIONAL_POINT_SEARCH": False,  # field-relative by construction
+    # A PROOF THAT EXISTS AND IS NOT CARRIED HERE.
+    #
+    # T5 pointed the tool at a foreign campaign and it had to record a refereed
+    # theorem it deliberately kept out of scope.  EMPTY demands a certificate,
+    # nothing in the registry meant "somebody proved this in a journal", so a
+    # certificate was manufactured -- which the transcribing agent called the
+    # worst stretch in its graph, correctly.
+    #
+    # base_changes=False is not a claim that the theorem is field-relative.  It
+    # is a refusal to guess: the argument is not here, so nothing in this graph
+    # can tell whether it survives enlarging the field.  The consequence is the
+    # useful part -- `derive_scope` then FORCES the author to name the field the
+    # cited result is stated over, which is exactly the question people skip
+    # when quoting a theorem.
+    #
+    # Pair it with `established_by: CITED`.  The certificate says what kind of
+    # argument closes the claim; `established_by` says you did not run it.
+    "CITED_PROOF": False,
 }
 
 # Map kinds.  Needed only for IDENTITY transport: rewriting a dictionary across

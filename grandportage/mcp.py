@@ -116,6 +116,14 @@ EDGE_SCHEMA = {
                 "holds in one coordinate ring and is false in the other. "
                 "Saturation and radicalization are exactly that step, so "
                 "'the solutions are unchanged' is NOT sufficient here.")},
+        "discharge_hint": {
+            "type": "string",
+            "description": (
+                "optional: what would actually close a refusal across THIS "
+                "edge. The checker knows the requirement a cell imposes and "
+                "cannot know your remedy -- it will offer an illustration from "
+                "another domain if you do not say. One sentence naming the "
+                "computation or construction that would settle it.")},
         "debt_why": {"type": "string",
                      "description": "required when type is UNTYPED"},
         "cite": {"type": "string"},

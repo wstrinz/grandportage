@@ -66,10 +66,16 @@ MOVES = {
         "model has points over the larger field before spending anything: if "
         "it does, the conclusion is not merely unproved, it is false."),
     (K.BASE_EXTENSION, K.AGAINST, K.NONEMPTY): (
-        "A point over the larger field need not descend.  Exhibit a point with "
-        "coordinates in the smaller field, or accept the witness as a statement "
-        "about the larger field alone.  If descent is what you need, the "
-        "obstruction is usually a square class or a Galois cocycle -- name it."),
+        "REQUIRED: a point whose coordinates lie in the smaller field.  A "
+        "point over the larger field need not descend, so either exhibit one "
+        "downstairs or accept the witness as a statement about the larger "
+        "field alone.\n"
+        "  ILLUSTRATION, which may not be your case: in the source campaign "
+        "the obstruction to descent was a square class, and for arithmetic "
+        "problems it is often a square class or a Galois cocycle.  If your "
+        "obstruction is something else -- rounding, a projection, a numerical "
+        "solver's output -- the requirement above is still exactly what has to "
+        "be met."),
     (K.BASE_EXTENSION, K.ALONG, K.PREDICATE): (
         "A predicate proved over the small field need not hold over the "
         "extension.  Re-derive it over the extension, or show it is defined by "
@@ -130,13 +136,22 @@ _CONDITIONAL_IDENTITY_CELLS = [
 ]
 
 _SPECIALIZATION_MOVE = (
-    "NO relaxation type carries an existence statement across a change of "
-    "characteristic, and that is a theorem, not a gap in this table: Fano is "
-    "empty over Q and nonempty over F_2, non-Fano is the reverse, so all four "
-    "existence cells have explicit counterexamples.  Redo the computation in "
-    "the target characteristic, or produce a good-reduction / flatness "
-    "argument at this prime that makes the step an EQUIVALENCE.  A mod-p run "
-    "is RECONNAISSANCE: it may direct effort, it may never close a case.")
+    "REQUIRED: redo the computation in the target characteristic, or produce a "
+    "good-reduction / flatness argument at this prime that makes the step an "
+    "EQUIVALENCE.  No relaxation type carries an existence statement across a "
+    "change of characteristic, and that is a theorem rather than a gap in this "
+    "table.\n"
+    "  FIRST, THOUGH -- CHECK THE TYPE IS RIGHT.  SPECIALIZATION means the "
+    "CHARACTERISTIC changes, and nothing else.  It is not a general 'restricted "
+    "to a sub-case' type, and it has been reached for that way: running 3 of "
+    "527 indices is not a specialization.  For a case split declare a "
+    "`partition`; for dropping conditions use NECESSARY_CONDITION.  This row "
+    "is uniformly NO, so a mistyped edge here gets the right verdict for the "
+    "wrong reason and the advice below will not fit.\n"
+    "  ILLUSTRATION: Fano is empty over Q and nonempty over F_2, non-Fano the "
+    "reverse, so all four existence cells have explicit counterexamples.  A "
+    "mod-p run is RECONNAISSANCE: it may direct effort, it may never close a "
+    "case.")
 
 for _key in list(MOVES):
     if MOVES[_key] is None:
@@ -405,6 +420,22 @@ def discharge_for(rule_or_type, direction=None, kind=None, graph=None,
             srcm = graph.models.get(edge.get("src")) or {}
             fields["src_field"] = srcm.get("field") or "its own field"
     try:
-        return move.format(**fields)
+        move = move.format(**fields)
     except (KeyError, IndexError):
-        return move
+        pass
+    # AN EDGE MAY SUPPLY WHAT THE TABLE CANNOT KNOW.
+    #
+    # Every move above is keyed to a CELL, so it can state the requirement
+    # exactly and can only illustrate the remedy generically.  T5 watched that
+    # go wrong twice in four findings: Galois cocycles offered for a
+    # floating-point rounding failure, mod-p flatness for an index restriction.
+    # The refusals were right and the advice was for a different problem.
+    #
+    # The requirement belongs to the cell and stays there.  The remedy belongs
+    # to the campaign, and the campaign is the only thing that knows it -- so
+    # an edge can say what would actually close a refusal across it, and that
+    # is appended rather than replacing the requirement.
+    if edge and edge.get("discharge_hint"):
+        move += ("\n  FOR THIS EDGE, the campaign says: %s"
+                 % edge["discharge_hint"])
+    return move
