@@ -42,7 +42,8 @@ def _load(args):
 
 def cmd_check(args):
     g = _load(args)
-    findings = C.run(g)
+    accepted = H.read_baseline(args.root)["accepted"]
+    findings = C.run(g, accepted)
     if args.json:
         print(json.dumps({
             "findings": [f.as_dict() for f in findings],

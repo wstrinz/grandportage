@@ -33,6 +33,11 @@ R_COVERAGE = "COVERAGE"
 R_UNTYPED = "UNTYPED-EDGE"
 R_REFINEMENT = "REFINEMENT-TYPE"
 R_IDENTITY_ORIGIN = "UNKNOWN-IDENTITY-ORIGIN"
+R_PARALLEL = "PARALLEL-EDGE"
+R_PARTITION = "PARTITION"
+R_SUPERSEDE = "SUPERSESSION"
+R_VACUOUS = "VACUOUS-CONCLUSION"
+R_SELF_BUILT = "SELF-BUILT-MODEL"
 
 EXISTENCE_OPPOSITE = {K.EMPTY: K.NONEMPTY, K.NONEMPTY: K.EMPTY}
 
@@ -117,22 +122,47 @@ def audit_inference(graph, iid):
     route rather than only the step that failed.
     """
     inf = graph.inferences[iid]
-    claim = graph.claims[inf["claim"]]
     trace, ok = [], True
-    for eid, direction in inf["path"]:
-        e = graph.edges[eid]
-        r = K.transport(e["type"], direction, claim["kind"],
-                        scope=claim.get("scope"),
-                        certificate=claim.get("certificate"),
-                        map_kind=e["map_kind"],
-                        zariski_closed=claim.get("zariski_closed"),
-                        identity_origin=claim.get("identity_origin"),
-                        integral=claim.get("integral"),
-                        ring_iso=e.get("ring_iso"),
-                        coefficients_in_base=claim.get("coefficients_in_base"))
-        trace.append((eid, direction, r.licensed, r.reason))
-        if not r.licensed:
-            ok = False
+    # A CASE SPLIT IS NOT TRANSPORT.  No single edge licenses it -- each leg
+    # taken alone is correctly refused, since one branch dying says nothing
+    # about the parent.  It is the declared partition that carries the claim.
+    if inf.get("via_partition"):
+        p = graph.partitions[inf["via_partition"]]
+        kind = inf["concludes_kind"]
+        carried = {graph.claims[pr["claim"]]["model"] for pr in inf["premises"]
+                   if graph.claims[pr["claim"]]["kind"] == kind}
+        covered = all(b in carried for b in p["branches"])
+        cites_exhaustive = any(pr["claim"] == p["exhaustive"]
+                               for pr in inf["premises"])
+        r = K.transport_over_partition(kind, covered, cites_exhaustive)
+        missing = [b for b in p["branches"] if b not in carried]
+        detail = r.reason
+        if missing:
+            detail += " (no %s premise from: %s)" % (kind, ", ".join(missing))
+        if not cites_exhaustive:
+            detail += (" (the exhaustiveness claim %s is not among the "
+                       "premises)" % p["exhaustive"])
+        return r.licensed, [(inf["via_partition"], "COVERS", r.licensed, detail)]
+    # EVERY premise, not just the first.  An argument is only as licensed as
+    # its weakest leg, and before the multi-premise form existed the extra legs
+    # were not in the graph to be audited at all.
+    for pr in inf["premises"]:
+        claim = graph.claims[pr["claim"]]
+        for eid, direction in pr["path"]:
+            e = graph.edges[eid]
+            r = K.transport(
+                e["type"], direction, claim["kind"],
+                scope=claim.get("scope"),
+                certificate=claim.get("certificate"),
+                map_kind=e["map_kind"],
+                zariski_closed=claim.get("zariski_closed"),
+                identity_origin=claim.get("identity_origin"),
+                integral=claim.get("integral"),
+                ring_iso=e.get("ring_iso"),
+                coefficients_in_base=claim.get("coefficients_in_base"))
+            trace.append((eid, direction, r.licensed, r.reason))
+            if not r.licensed:
+                ok = False
     return ok, trace
 
 
@@ -483,6 +513,294 @@ def check_unjustified_equivalence(graph):
     return findings
 
 
+def check_supersession(graph, accepted=None):
+    """A supersession must satisfy the obligation it inherits, not route round it.
+
+    THE CEGAR STEP.  A refusal names the refinement that would legitimately
+    resolve it; this makes only that refinement count.
+
+    The pieces already existed and could not talk to each other.  The discharge
+    recorded against the live obligation read, verbatim:
+
+        "DISCHARGE BY DERIVING Delta'_4, not by naming a relaxation."
+
+    That is exactly right and enforced nothing, because it is prose in a
+    baseline file.  A blind run then discharged it by naming a relaxation --
+    declaring a parallel edge with a permissive type -- and every check stayed
+    green.
+
+    A baseline entry may now pin `admits: ["DERIVE"]`.  A superseding edge
+    declares `discharge_kind`.  If the kind is not admitted, the supersession
+    is refused and the original obligation stays live, which is the whole
+    point: the only exit is the one the obligation asked for.
+    """
+    accepted = accepted or {}
+    findings = []
+    for eid in sorted(graph.edges):
+        e = graph.edges[eid]
+        old = e.get("supersedes")
+        if not old:
+            continue
+        if old not in graph.edges:
+            findings.append(Finding(
+                R_SUPERSEDE, "%s:%s" % (R_SUPERSEDE, eid), UNSOUND_PREMISE,
+                eid,
+                "edge %s supersedes %r, which is not an edge in this graph."
+                % (eid, old),
+                "Name the edge actually being replaced, or drop the field."))
+            continue
+        kind = e.get("discharge_kind")
+        # Which obligations did the superseded edge carry?
+        inherited = sorted(
+            fid for fid in accepted
+            if fid.endswith(":" + old)
+            or any(s[0] == old
+                   for iid in graph.inference_order
+                   for s in graph.inferences[iid]["path"]
+                   if fid == "%s:%s" % (R_TRANSPORT, iid)))
+        blocked = [fid for fid in inherited
+                   if (accepted[fid] or {}).get("admits")
+                   and kind not in (accepted[fid] or {}).get("admits", [])]
+        if blocked:
+            findings.append(Finding(
+                R_SUPERSEDE, "%s:%s" % (R_SUPERSEDE, eid), UNSOUND_PREMISE,
+                eid,
+                "edge %s supersedes %s with discharge_kind=%s, but %s was "
+                "carrying an obligation that admits only %s.\n  %s\n"
+                "  The obligation is INHERITED, not cleared: replacing the "
+                "edge does not supply what the refusal was waiting for."
+                % (eid, old, kind, old,
+                   " / ".join(sorted({k for fid in blocked
+                                      for k in accepted[fid]["admits"]})),
+                   "; ".join("%s -- %s" % (fid, (accepted[fid] or {}).get("why")
+                                           or "(no reason recorded)")
+                             for fid in blocked)),
+                "Supply the discharge the obligation actually asks for. If you "
+                "believe the obligation was mis-stated -- that retyping really "
+                "is the right move -- change what it admits explicitly and say "
+                "why; that is a judgement, and it should be visible as one "
+                "rather than routed around.",
+                semantic_key="%s->%s:%s" % (eid, old, kind)))
+    return findings
+
+
+def check_partitions(graph):
+    """Branch edges must run BRANCH -> PARENT, and a covered parent is derivable.
+
+    A branch is `parent AND condition`, so V(branch) subset V(parent) and the
+    branch is the TIGHTER model.  Drawn the other way, the graph asserts the
+    parent is contained in each branch -- and since branches are mutually
+    exclusive, that is consistent only if the parent is EMPTY, which is
+    invariably the thing under investigation.
+
+    The live consequence, twice: an EMPTY claim established on ONE branch rode
+    `NECESSARY_CONDITION/AGAINST/EMPTY` and landed on the WHOLE parent, while
+    the inference's own prose said "branch".  A result about one of three cases
+    was recorded as a result about all of them, and nothing flagged it.
+
+    This rule also reports the GOOD case: when every branch of a partition
+    carries an EMPTY claim, emptiness of the parent is genuinely derivable --
+    that is what a partition is FOR -- and saying so turns a piece of
+    mathematics that previously lived in a note into a prompt to record it as
+    an inference the checker can see.
+    """
+    findings = []
+    for pid in sorted(graph.partitions):
+        p = graph.partitions[pid]
+        parent, branches = p["parent"], p["branches"]
+        for eid in sorted(graph.edges):
+            e = graph.edges[eid]
+            if e["src"] != parent or e["dst"] not in branches:
+                continue
+            findings.append(Finding(
+                R_PARTITION, "%s:%s:%s" % (R_PARTITION, pid, eid),
+                UNSOUND_PREMISE, eid,
+                "edge %s runs %s -> %s, from a partition PARENT to one of its "
+                "BRANCHES, and is typed %s.\n"
+                "  A branch is `parent AND condition`, so V(%s) is a SUBSET of "
+                "V(%s) and the edge belongs the other way round. As drawn, the "
+                "graph asserts the parent is contained in the branch -- and "
+                "since the branches of %s are alternatives, that holds only if "
+                "%s is empty, which is what a case split is normally trying to "
+                "decide.\n"
+                "  Consequence: a claim established on this one branch travels "
+                "to the whole parent as though it covered every case."
+                % (eid, parent, e["dst"], e["type"], e["dst"], parent, pid,
+                   parent),
+                "Reverse it: %s -> %s. Then a result on the branch reaches the "
+                "parent only ALONG the arrow, where the cells that would "
+                "wrongly generalise it are refused, and covering every case "
+                "becomes a joint argument over all %d branches rather than a "
+                "single hop." % (e["dst"], parent, len(branches))))
+        # The payoff case, reported so it gets recorded rather than assumed.
+        empty_at = {b: sorted(cid for cid, c in graph.claims.items()
+                              if c["model"] == b and c["kind"] == K.EMPTY)
+                    for b in branches}
+        if all(empty_at[b] for b in branches):
+            already = any(graph.inferences[i]["concludes_at"] == parent
+                          and graph.inferences[i]["concludes_kind"] == K.EMPTY
+                          for i in graph.inference_order)
+            if not already:
+                findings.append(Finding(
+                    R_PARTITION, "%s:%s:covered" % (R_PARTITION, pid), DEBT,
+                    pid,
+                    "every branch of partition %s carries an EMPTY claim (%s), "
+                    "and %s is asserted to cover %s -- so emptiness of %s "
+                    "follows, and the graph does not record it.\n"
+                    "  This is what the partition is for. Left unrecorded, the "
+                    "step lives in whoever's head assembled it."
+                    % (pid, "; ".join("%s: %s" % (b, ", ".join(empty_at[b]))
+                                      for b in branches),
+                       p["exhaustive"], parent, parent),
+                    "Record it as one inference with %d premises -- the EMPTY "
+                    "claim from each branch, plus %s -- all transported to %s. "
+                    "That puts the completeness premise where a rule can see "
+                    "it instead of in the prose around it."
+                    % (len(branches), p["exhaustive"], parent)))
+    return findings
+
+
+def check_parallel_edges(graph):
+    """Two edges joining the same pair of models in the same direction.
+
+    THE HOLE T1 WENT THROUGH.  The store refuses a CONFLICTING REDECLARATION of
+    an edge id -- that guarantee held perfectly -- so an agent that wanted to
+    retype an edge simply declared a NEW one with the same endpoints and the
+    type it wanted, and documented the move honestly as a "TYPED SUCCESSOR".
+
+    Append-only prevents MUTATION and permits SUPERSESSION, and supersession
+    has the same licensing effect with none of the visibility: the refusal and
+    its own override sit side by side with no relation between them the checker
+    can see.  In the live case, an UNTYPED edge was refusing a claim whose own
+    cite read "NOT DERIVED.  Recorded so that using it is a type error rather
+    than a habit"; the parallel edge handed that claim a licence, and `gp check`
+    went on printing the refusal as though it still bound.
+
+    Parallel edges are not always wrong -- two genuinely different maps can join
+    the same objects.  So this reports rather than refuses, and the discharge
+    asks for the one thing that distinguishes the cases: say which edge is
+    authoritative and why the other is not.
+    """
+    findings = []
+    by_ends = {}
+    for eid in sorted(graph.edges):
+        e = graph.edges[eid]
+        by_ends.setdefault((e["src"], e["dst"]), []).append(eid)
+    for (src, dst), eids in sorted(by_ends.items()):
+        if len(eids) < 2:
+            continue
+        types = {eid: graph.edges[eid]["type"] for eid in eids}
+        # Traffic over any of them makes this live rather than latent.
+        crossing = sorted(iid for iid in graph.inference_order
+                          if any(s[0] in eids
+                                 for s in graph.inferences[iid]["path"]))
+        declared = [eid for eid in eids if graph.edges[eid].get("supersedes")]
+        sev = DEBT if declared else (UNSOUND_PREMISE if crossing else DEBT)
+        findings.append(Finding(
+            R_PARALLEL, "%s:%s->%s" % (R_PARALLEL, src, dst), sev,
+            "%s->%s" % (src, dst),
+            "%d edges join %s -> %s: %s\n"
+            "  Whatever the strictest of these refuses, the most permissive "
+            "licenses, and nothing in the graph says which one binds.  An edge "
+            "cannot be retyped (the fold refuses a conflicting redeclaration), "
+            "so declaring a second one is how a refusal gets overridden without "
+            "the override being visible as one.\n"
+            "  inferences crossing them: %s"
+            % (len(eids), src, dst,
+               ", ".join("%s [%s]" % (e, types[e]) for e in eids),
+               ", ".join(crossing) or "(none yet)"),
+            "Name which edge is authoritative. If the newer one supersedes the "
+            "older, say so with `supersedes` -- that transfers the older "
+            "edge's obligations rather than silently clearing them, and the "
+            "checker will ask how each was discharged. If the two are "
+            "genuinely different relations between the same models, the models "
+            "are probably conflating two objects: split them.",
+            semantic_key="|".join("%s:%s" % (e, types[e]) for e in eids)))
+    return findings
+
+
+def check_vacuous_conclusions(graph):
+    """A conclusion drawn ABOUT a model the graph proves has no points.
+
+    Every predicate is true of the empty set, so a PREDICATE or IDENTITY
+    concluding at a model carrying an EMPTY claim says nothing -- while looking
+    exactly like a result, carrying an evidence grade, and counting as a clean
+    inference.
+
+    This is the failure mode the source campaign has logged three times (most
+    recently: 10 of a headline "30/30 published data points" could not fail),
+    and T1 produced a fourth: a cap slope recorded `exact-checked` at a model
+    the same batch proved empty, with the claim's own statement hedging "would
+    read".
+
+    Note it is NOT unsound -- vacuous truths are true.  It is graded TRIAGE
+    because the damage is to the reader, who counts it as evidence.
+    """
+    findings = []
+    for iid in graph.inference_order:
+        inf = graph.inferences[iid]
+        if inf["concludes_kind"] not in (K.PREDICATE, K.IDENTITY):
+            continue
+        empties = [cid for cid, c in sorted(graph.claims.items())
+                   if c["model"] == inf["concludes_at"] and c["kind"] == K.EMPTY]
+        if not empties:
+            continue
+        findings.append(Finding(
+            R_VACUOUS, "%s:%s" % (R_VACUOUS, iid), TRIAGE, iid,
+            "inference %s concludes a %s at model %s, and the graph carries an "
+            "EMPTY claim at that same model (%s).\n  asserted: %s\n"
+            "  Every predicate holds of the empty set, so this conclusion is "
+            "true and says nothing -- but it reads as a result and counts as a "
+            "clean inference."
+            % (iid, inf["concludes_kind"], inf["concludes_at"],
+               ", ".join(empties), inf["asserted"]),
+            "Either the emptiness is wrong, or this conclusion is vacuous and "
+            "should say so where a reader will see it. If the predicate was "
+            "derived BEFORE the emptiness was known, that is worth recording "
+            "explicitly -- it is the difference between a result and an "
+            "artifact of the order you found things in."))
+    return findings
+
+
+def check_self_built(graph):
+    """A model built by an inference that reasons from a claim inside it.
+
+    `built_by` records that a model owes its existence to an inference.  If
+    that inference's premise LIVES IN the model it builds, the record is
+    circular: the model is justified by reasoning conducted inside it, and
+    `propagate_taint` cannot terminate meaningfully at that node because the
+    model is its own antecedent.
+
+    Usually a mis-recording rather than a fraud -- the model was declared
+    earlier by other means and `built_by` was reached for to express "this
+    inference is about that model".  But that is what an inference already
+    says, and the two mean different things to the taint rule.
+    """
+    findings = []
+    for mid in sorted(graph.built_by):
+        for b in graph.built_by[mid]:
+            inf = graph.inferences.get(b)
+            if inf is None:
+                continue
+            premise = graph.claims[inf["claim"]]["model"]
+            if premise != mid:
+                continue
+            findings.append(Finding(
+                R_SELF_BUILT, "%s:%s:%s" % (R_SELF_BUILT, mid, b), DEBT, mid,
+                "model %s is declared BUILT BY inference %s, whose premise "
+                "(%s) lives in %s itself.\n  The model is recorded as owing "
+                "its existence to reasoning conducted inside it, which makes "
+                "the provenance circular and leaves the taint rule with no "
+                "antecedent to follow."
+                % (mid, b, inf["claim"], mid),
+                "If %s was declared by a computation or an earlier step, drop "
+                "the built_by -- the inference already records that it reasons "
+                "about this model. If it really was constructed by this "
+                "inference, the premise belongs at the model the construction "
+                "started FROM." % mid))
+    return findings
+
+
 def check_unknown_identity_origin(graph):
     """IDENTITY claims whose origin is recorded as not yet established.
 
@@ -573,8 +891,13 @@ def check_self_refuting_equivalence(graph):
     return findings
 
 
-def run(graph):
-    """All rules, in a stable order, most severe first."""
+def run(graph, accepted=None):
+    """All rules, in a stable order, most severe first.
+
+    `accepted` is the baseline, passed in only because supersession has to know
+    which obligations an edge inherited and what they will admit as a
+    discharge.  Everything else is a pure function of the graph.
+    """
     transport_findings = check_transport(graph)
     findings = (transport_findings
                 + check_taint(graph, transport_findings)
@@ -583,7 +906,12 @@ def run(graph):
                 + check_untyped(graph)
                 + check_unjustified_equivalence(graph)
                 + check_self_refuting_equivalence(graph)
-                + check_unknown_identity_origin(graph))
+                + check_unknown_identity_origin(graph)
+                + check_partitions(graph)
+                + check_supersession(graph, accepted)
+                + check_parallel_edges(graph)
+                + check_vacuous_conclusions(graph)
+                + check_self_built(graph))
     findings.sort(key=lambda f: (-SEVERITY_RANK[f.severity], f.rule, f.fid))
     return findings
 

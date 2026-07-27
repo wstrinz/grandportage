@@ -179,8 +179,8 @@ def evaluate(root=".", floor=C.UNSOUND_PREMISE):
                       "cannot be folded is worse than a rejected write -- "
                       "nothing downstream of it can be trusted."
                       % (path, exc))
-    findings = C.run(graph)
     accepted = read_baseline(root)["accepted"]
+    findings = C.run(graph, accepted)
     rank = C.SEVERITY_RANK[floor]
     new, stale = [], []
     for f in findings:

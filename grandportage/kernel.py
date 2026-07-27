@@ -559,6 +559,73 @@ def transport(etype, direction, kind, scope=None, certificate=None,
     raise AssertionError("unknown rule %r in the transport table" % (rule,))
 
 
+# ---------------------------------------------------------------------------
+# CASE SPLITS.  Not transport, and that is the point.
+#
+# Transport asks what survives crossing ONE edge.  A case split asks what
+# follows from covering the parent with several branches at once, and no single
+# edge licenses it -- individually each leg is REFUSED, correctly:
+#
+#     branch -> parent is NECESSARY_CONDITION with the branch tighter, and
+#     EMPTY does not travel ALONG (one branch dying says nothing about the
+#     parent).  Only ALL branches together, plus exhaustiveness, say anything.
+#
+# So this is a second inference rule sitting beside the table, and keeping it
+# separate is deliberate: it is licensed by a declared PARTITION rather than by
+# a relation between two models, and a reader should be able to see which of
+# the two justified a step.
+# ---------------------------------------------------------------------------
+PARTITION_RULES = {
+    # claim kind -> whether covering every branch carries it to the parent
+    EMPTY: True,        # V(parent) = union of branches; all empty => empty
+    PREDICATE: True,    # holds at every point of every branch => every point
+    NONEMPTY: False,    # ONE branch suffices, and ordinary transport already
+                        # licenses that ALONG a NECESSARY_CONDITION -- so
+                        # requiring all branches here would be a false refusal
+    IDENTITY: False,    # a rewriting is about a coordinate ring, and the
+                        # parent's ring is not assembled from its branches'
+}
+
+
+def transport_over_partition(kind, branches_covered, exhaustive):
+    """Rule a case split: does covering every branch carry `kind` to the parent?
+
+    `branches_covered` is True when EVERY branch of the partition carries the
+    claim kind; `exhaustive` is True when the partition's covering claim is
+    present in the graph.
+
+    Both are required, and the second is the one that gets skipped in practice:
+    a split into cases nobody proved were all the cases proves nothing, and
+    that premise is exactly what a live run left in a prose note.
+    """
+    if kind not in CLAIM_KINDS:
+        raise KeyError("unknown claim kind %r" % (kind,))
+    if not PARTITION_RULES[kind]:
+        return Ruling(False,
+                      "a case split does not carry %s to the parent; %s"
+                      % (kind,
+                         "one branch already suffices and ordinary transport "
+                         "licenses it" if kind == NONEMPTY else
+                         "the parent's coordinate ring is not assembled from "
+                         "its branches'"),
+                      "partition", "PARTITION", ALONG, kind)
+    if not exhaustive:
+        return Ruling(False,
+                      "the partition does not carry a claim that its branches "
+                      "COVER the parent, so a result on every branch is a "
+                      "result about a union that may not be the whole",
+                      "partition", "PARTITION", ALONG, kind)
+    if not branches_covered:
+        return Ruling(False,
+                      "not every branch carries this claim, and a case split "
+                      "reaches the parent only when no case is left open",
+                      "partition", "PARTITION", ALONG, kind)
+    return Ruling(True,
+                  "licensed: every branch carries %s and the partition is "
+                  "declared exhaustive, so the parent is covered" % kind,
+                  "partition", "PARTITION", ALONG, kind)
+
+
 def signature(etype):
     """The type's transport signature, as a comparable tuple.
 

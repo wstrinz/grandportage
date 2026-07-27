@@ -13,7 +13,8 @@
     "repo's', WHETSTONE_DAG.md sec.6 INFERRED item 2).  Grand Portage DERIVES",
     "them from contradictions present in the graph.  Agreement on 3 of 4 is a",
     "real result; the 4th is declared as an override with a reason, which is",
-    "the honest way to carry a judgement that is not a fact about the graph."
+    "the honest way to carry a judgement that is not a fact about the graph.",
+    "THREE ENTRIES ARE NOT RETRODICTIONS. The VACUOUS-CONCLUSION rows come from a rule added in v0.2.1, after a live run recorded an exact-checked cap slope at a model the same batch proved empty. They are marked pinned_as: null so the retrodiction claim stays exactly what it was -- the prototypes' flags, reproduced -- and does not quietly absorb detections the prototypes never made."
   ],
   "findings": {
     "TRANSPORT:INF-C08-HIST": {
@@ -50,7 +51,9 @@
       "severity": "UNSOUND_PREMISE",
       "derived_severity": "UNSOUND_PREMISE",
       "pinned_as": "the place-coverage detection, WHETSTONE_DAG.md sec.3",
-      "missing": ["t"],
+      "missing": [
+        "t"
+      ],
       "note": "Error 2, the gauge leaks.  Must fire at exactly t, and at NEITHER y NOR inf, both of which have declared components."
     },
     "COVERAGE:GSYS:order": {
@@ -58,8 +61,22 @@
       "derived_severity": "UNSOUND_PREMISE",
       "pinned_as": "NOT a reproduction -- P3 and P4 of MODELLING_GAPS.md sec.3.2, held back and never run",
       "new_detection": true,
-      "missing": ["M=-4", "M=0", "M=1", "M=2", "M=3", "M=4", "M=5", "M=6",
-                  "M=7", "M=8", "M=9", "M=10", "M=11", "M=12"],
+      "missing": [
+        "M=-4",
+        "M=0",
+        "M=1",
+        "M=2",
+        "M=3",
+        "M=4",
+        "M=5",
+        "M=6",
+        "M=7",
+        "M=8",
+        "M=9",
+        "M=10",
+        "M=11",
+        "M=12"
+      ],
       "note": [
         "The second axis, and the only thing here that tells us whether the",
         "coverage rule generalizes or whether we have one rule with a coat of",
@@ -87,6 +104,24 @@
         "needs more than one incident per axis, and sec.3.4 is explicit that",
         "this repo does not contain one."
       ]
+    },
+    "VACUOUS-CONCLUSION:INF-KSYZ-REV": {
+      "severity": "TRIAGE",
+      "derived_severity": "TRIAGE",
+      "pinned_as": null,
+      "note": "NOT A RETRODICTION. New rule in v0.2.1. Genuine here: CL-KSYZ-ID is an IDENTITY concluding at GSYS_K, where CL-KSYZ (UNIT_IDEAL_CERT) proves emptiness -- the coordinate ring is the zero ring, so the rewriting holds trivially. The identity was established BEFORE the emptiness it helped prove, which is exactly the ordering the discharge asks to be recorded."
+    },
+    "VACUOUS-CONCLUSION:INF-SLICEPHI": {
+      "severity": "TRIAGE",
+      "derived_severity": "TRIAGE",
+      "pinned_as": null,
+      "note": "NOT A RETRODICTION. PREDICATE concluding at SLICEPHI, where CL-ATLE9-PHI (UNIT_IDEAL_CERT) proves emptiness."
+    },
+    "VACUOUS-CONCLUSION:INF-SYZCOLL-DICT": {
+      "severity": "TRIAGE",
+      "derived_severity": "TRIAGE",
+      "pinned_as": null,
+      "note": "NOT A RETRODICTION. IDENTITY concluding at SYZCOLL, where CL-ATLE9-SYZ (EXACT_VALUATION_COLLISION) proves emptiness."
     }
   },
   "clean_inferences": [
@@ -107,5 +142,10 @@
     "INF-SYZCOLL-DICT": "clean only because E13's map is POLYNOMIAL.  One declared attribute separates the sound leg of a_t <= 9 from the unsound one.",
     "INF-SLICEPHI-KILL": "licensed BUT tainted -- appears here as unflagged by the transport rule and separately reported by TAINT."
   },
-  "counts": {"models": 18, "edges": 15, "claims": 14, "inferences": 13}
+  "counts": {
+    "models": 18,
+    "edges": 15,
+    "claims": 14,
+    "inferences": 13
+  }
 }

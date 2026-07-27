@@ -32,10 +32,11 @@ EV_EDGE = "edge"
 EV_CLAIM = "claim"
 EV_INFERENCE = "inference"
 EV_BUILT_BY = "built_by"
+EV_PARTITION = "partition"
 EV_NOTE = "note"          # free-form, carried but never interpreted
 
 EVENT_KINDS = (EV_CERTIFICATE, EV_MODEL, EV_EDGE, EV_CLAIM, EV_INFERENCE,
-               EV_BUILT_BY, EV_NOTE)
+               EV_BUILT_BY, EV_PARTITION, EV_NOTE)
 
 # Severities an inference may override to.  Named here rather than imported so
 # the store stays the bottom layer with no dependency on the checker;
@@ -76,6 +77,7 @@ class Graph(object):
         self.inferences = {}       # id -> inference dict
         self.inference_order = []  # declaration order, for stable reporting
         self.built_by = {}         # model id -> [inference id, ...]
+        self.partitions = {}       # id -> {parent, branches, exhaustive}
         self.notes = []
         self._seen = {}            # (kind, id) -> canonical event
 
@@ -159,6 +161,61 @@ class Graph(object):
         self.certificates[ev["id"]] = ev["base_changes"]
         self.cert_source[ev["id"]] = where
 
+    def _apply_partition(self, ev, where):
+        """A parent model split into branches, with its exhaustiveness stated.
+
+        THE GAP TWO INDEPENDENT AGENTS WALKED INTO.  A model in this kernel IS
+        its solution set, and an edge asserts V(src) subset V(dst).  A CASE
+        BRANCH is neither: "the gamma=4 case of this object" is not a
+        relaxation of the object, it is a PIECE of it, and the type system had
+        no word for that.
+
+        So branches got typed as total containments, and the graph asserted
+        V(REDUCED) subset V(G2) AND subset V(G3) AND subset V(G4) for three
+        mutually exclusive targets -- consistent only if V(REDUCED) is empty,
+        which was the thing under proof.  A degree count covering ONE branch
+        then licensed emptiness of the WHOLE parent, and the agent's own prose
+        said "branch" while the graph said "everything".
+
+        A partition declares:
+
+            parent      the model being split
+            branches    the pieces; each must be a declared model
+            exhaustive  the id of a CLAIM asserting the branches cover the
+                        parent
+
+        `exhaustive` must name a claim IN THE GRAPH.  The checker cannot verify
+        that gamma in {2,3,4} really matches three branches -- that is
+        mathematics.  What it can do is refuse to let the completeness premise
+        live in a note, which is exactly where it went last time: carried,
+        never typed, and invisible to every rule while the conclusion resting
+        on it was reported clean.
+
+        Orientation follows from what a branch IS: branch = parent AND
+        condition, so V(branch) subset V(parent) and the edge runs
+        BRANCH -> PARENT.  `check_partition` flags the reverse, which is the
+        direction the mistake actually took.
+        """
+        _require(ev.get("parent"),
+                 "%s: partition %r needs `parent`" % (where, ev["id"]))
+        branches = ev.get("branches") or []
+        _require(isinstance(branches, list) and len(branches) >= 2,
+                 "%s: partition %r needs at least two `branches`; a split into "
+                 "one piece is just the parent" % (where, ev["id"]))
+        _require(ev.get("exhaustive"),
+                 "%s: partition %r needs `exhaustive`: the id of a claim "
+                 "asserting these branches COVER the parent.  Without it the "
+                 "split proves nothing jointly -- emptiness on every branch "
+                 "would say nothing about the parent -- and a completeness "
+                 "premise recorded as prose is one no rule can see."
+                 % (where, ev["id"]))
+        _require(ev.get("why"),
+                 "%s: partition %r must declare `why` -- what distinguishes "
+                 "the branches?" % (where, ev["id"]))
+        p = dict(ev)
+        p["branches"] = list(branches)
+        self.partitions[ev["id"]] = p
+
     def _apply_model(self, ev, where):
         declares = ev.get("declares") or {}
         _require(isinstance(declares, dict),
@@ -194,6 +251,16 @@ class Graph(object):
         _require(mk in K.MAP_KINDS,
                  "%s: edge %r has map_kind %r; known: %s"
                  % (where, ev["id"], mk, ", ".join(K.MAP_KINDS)))
+        if ev.get("supersedes"):
+            _require(ev.get("discharge_kind"),
+                     "%s: edge %r supersedes %r without saying HOW. A "
+                     "supersession must declare `discharge_kind`: DERIVE (the "
+                     "missing mathematics now exists), RETYPE (the relation "
+                     "was mis-stated) or ACCEPT. Supersession transfers the "
+                     "older edge's obligations; it does not clear them, and an "
+                     "obligation may have been recorded as dischargeable only "
+                     "one way."
+                     % (where, ev["id"], ev["supersedes"]))
         e = dict(ev)
         e["map_kind"] = mk
         e["support"] = list(ev.get("support") or [])
@@ -225,26 +292,89 @@ class Graph(object):
         self.claims[ev["id"]] = c
 
     def _apply_inference(self, ev, where):
-        _require(ev.get("claim"),
-                 "%s: inference %r needs `claim`" % (where, ev["id"]))
+        """An inference has one or more PREMISES, each with its own path.
+
+        THE GRAPH USED TO RECORD CHAINS BUT NOT JOINS.  `claim` was a single id
+        and `path` a single route, so an argument combining two facts could not
+        be written down at all.
+
+        That is not a missing convenience.  `GI-BRIDGE` -- the defect this whole
+        project was built around -- is a BAD JOIN: two computations sharing no
+        variable, welded by a sentence.  So the tool detected bad joins by
+        making good joins inexpressible, and the overflow went where overflow
+        goes: a live run put the completeness premise of its central case
+        analysis into a `note`, where nothing types it, because there was
+        nowhere else to put it.
+
+        Multi-premise form:
+
+            {"ev": "inference", "id": ...,
+             "premises": [{"claim": "C1", "path": [["E1","AGAINST"]]},
+                          {"claim": "C2", "path": []}],
+             "concludes_kind": "PREDICATE",
+             "asserted": "..."}
+
+        Every premise must transport to the SAME model, and that model is the
+        conclusion point.  A premise with an empty path is one already at the
+        conclusion, which is how a side condition enters.
+
+        WHAT THIS DOES NOT CLAIM.  The checker verifies that each premise
+        legitimately REACHES the conclusion point.  It does not verify that the
+        premises ENTAIL the conclusion -- that is mathematics, and the kernel
+        has never pretended to do mathematics.  What changes is that the
+        premises are now IN THE GRAPH, so a reader can see what the argument
+        rests on and a missing premise is a visible absence rather than an
+        unwritten assumption.
+        """
+        _require(ev.get("claim") or ev.get("premises"),
+                 "%s: inference %r needs `claim` or `premises`"
+                 % (where, ev["id"]))
+        _require(not (ev.get("claim") and ev.get("premises")),
+                 "%s: inference %r declares both `claim` and `premises`; use "
+                 "one form or the other" % (where, ev["id"]))
         _require(ev.get("asserted"),
                  "%s: inference %r needs `asserted` -- the conclusion in words, "
                  "as it was actually used" % (where, ev["id"]))
-        path = ev.get("path") or []
-        _require(isinstance(path, list),
-                 "%s: inference %r `path` must be a list of [edge, direction]"
-                 % (where, ev["id"]))
-        norm = []
-        for step in path:
-            _require(isinstance(step, (list, tuple)) and len(step) == 2,
-                     "%s: inference %r has malformed path step %r"
-                     % (where, ev["id"], step))
-            _require(step[1] in K.DIRECTIONS,
-                     "%s: inference %r step %r: direction must be one of %s"
-                     % (where, ev["id"], step, ", ".join(K.DIRECTIONS)))
-            norm.append((step[0], step[1]))
+        def _norm_path(path, label):
+            _require(isinstance(path, list),
+                     "%s: inference %r %s must be a list of [edge, direction]"
+                     % (where, ev["id"], label))
+            out = []
+            for step in path:
+                _require(isinstance(step, (list, tuple)) and len(step) == 2,
+                         "%s: inference %r has malformed path step %r"
+                         % (where, ev["id"], step))
+                _require(step[1] in K.DIRECTIONS,
+                         "%s: inference %r step %r: direction must be one of %s"
+                         % (where, ev["id"], step, ", ".join(K.DIRECTIONS)))
+                out.append((step[0], step[1]))
+            return out
+
+        # The single-premise form is the multi-premise form with one entry.
+        # Normalising here rather than at every read site means the checker,
+        # the CLI and the MCP printer never learn there were two shapes.
+        if ev.get("premises"):
+            _require(isinstance(ev["premises"], list) and ev["premises"],
+                     "%s: inference %r `premises` must be a non-empty list of "
+                     "{claim, path}" % (where, ev["id"]))
+            premises = []
+            for n, pr in enumerate(ev["premises"]):
+                _require(isinstance(pr, dict) and pr.get("claim"),
+                         "%s: inference %r premise %d needs a `claim`"
+                         % (where, ev["id"], n))
+                premises.append({"claim": pr["claim"],
+                                 "path": _norm_path(pr.get("path") or [],
+                                                    "premise %d `path`" % n)})
+        else:
+            premises = [{"claim": ev["claim"],
+                         "path": _norm_path(ev.get("path") or [], "`path`")}]
         i = dict(ev)
-        i["path"] = norm
+        i["premises"] = premises
+        # `claim` and `path` stay populated from the FIRST premise so that
+        # everything reading an inference the old way keeps working.  The first
+        # premise is the one carrying the conclusion's claim kind.
+        i["claim"] = premises[0]["claim"]
+        i["path"] = premises[0]["path"]
         sev = ev.get("severity_override")
         if sev:
             # An unknown severity used to reach `check.run`'s sort key and raise
@@ -314,6 +444,23 @@ class Graph(object):
                 _require(e[end] in self.models,
                          "edge %r has undeclared %s model %r"
                          % (eid, end, e[end]))
+        for pid, p in sorted(self.partitions.items()):
+            _require(p["parent"] in self.models,
+                     "partition %r names undeclared parent model %r"
+                     % (pid, p["parent"]))
+            for b in p["branches"]:
+                _require(b in self.models,
+                         "partition %r names undeclared branch model %r"
+                         % (pid, b))
+                _require(b != p["parent"],
+                         "partition %r lists its own parent %r as a branch"
+                         % (pid, b))
+            _require(p["exhaustive"] in self.claims,
+                     "partition %r cites %r as its exhaustiveness claim, but "
+                     "no such CLAIM is declared.  It must be a claim in the "
+                     "graph, not a note and not prose: the whole point is that "
+                     "the premise making the split valid can be seen by a rule."
+                     % (pid, p["exhaustive"]))
         for mid, builders in sorted(self.built_by.items()):
             _require(mid in self.models,
                      "built_by names undeclared model %r" % mid)
@@ -322,22 +469,56 @@ class Graph(object):
                          "built_by(%s) names undeclared inference %r" % (mid, b))
         for iid in self.inference_order:
             i = self.inferences[iid]
-            _require(i["claim"] in self.claims,
-                     "inference %r cites undeclared claim %r" % (iid, i["claim"]))
-            at = self.claims[i["claim"]]["model"]
-            for eid, direction in i["path"]:
-                _require(eid in self.edges,
-                         "inference %r cites undeclared edge %r" % (iid, eid))
-                e = self.edges[eid]
-                frm, to = ((e["src"], e["dst"]) if direction == K.ALONG
-                           else (e["dst"], e["src"]))
-                _require(at == frm,
-                         "inference %r: path is not connected.  The claim has "
-                         "reached model %r, but edge %r read %s starts at %r."
-                         % (iid, at, eid, direction, frm))
-                at = to
-            i["concludes_at"] = at
-            i["concludes_kind"] = self.claims[i["claim"]]["kind"]
+            lands = []
+            for n, pr in enumerate(i["premises"]):
+                _require(pr["claim"] in self.claims,
+                         "inference %r premise %d cites undeclared claim %r"
+                         % (iid, n, pr["claim"]))
+                at = self.claims[pr["claim"]]["model"]
+                for eid, direction in pr["path"]:
+                    _require(eid in self.edges,
+                             "inference %r cites undeclared edge %r"
+                             % (iid, eid))
+                    e = self.edges[eid]
+                    frm, to = ((e["src"], e["dst"]) if direction == K.ALONG
+                               else (e["dst"], e["src"]))
+                    _require(at == frm,
+                             "inference %r premise %d: path is not connected.  "
+                             "The claim has reached model %r, but edge %r read "
+                             "%s starts at %r."
+                             % (iid, n, at, eid, direction, frm))
+                    at = to
+                lands.append(at)
+            # A PARTITION-LICENSED INFERENCE is the one case where premises
+            # legitimately live apart: the branch claims sit in their own
+            # branches by construction, and it is the partition -- not any
+            # edge -- that carries them jointly to the parent.
+            if i.get("via_partition"):
+                pid = i["via_partition"]
+                _require(pid in self.partitions,
+                         "inference %r cites undeclared partition %r"
+                         % (iid, pid))
+                i["concludes_at"] = self.partitions[pid]["parent"]
+                i["concludes_kind"] = (
+                    i.get("concludes_kind")
+                    or self.claims[i["premises"][0]["claim"]]["kind"])
+                continue
+            # EVERY OTHER PREMISE MUST ARRIVE AT THE SAME PLACE.  Premises that land
+            # in different models are not a joint argument -- they are two
+            # separate statements with a conjunction written between them,
+            # which is exactly the shape of the join `GI-BRIDGE` exists to
+            # refuse.  Enforcing co-location is what makes the multi-premise
+            # form safe to offer at all.
+            _require(len(set(lands)) == 1,
+                     "inference %r: its premises do not meet.  They arrive at "
+                     "%s respectively, so there is no single model at which "
+                     "they can be combined.  Transport them to a common model "
+                     "first, or they are separate statements joined by prose."
+                     % (iid, ", ".join("%s -> %s" % (p["claim"], m)
+                                       for p, m in zip(i["premises"], lands))))
+            i["concludes_at"] = lands[0]
+            i["concludes_kind"] = (ev_kind := i.get("concludes_kind")) or \
+                self.claims[i["premises"][0]["claim"]]["kind"]
         return self
 
 

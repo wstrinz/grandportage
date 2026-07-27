@@ -493,13 +493,13 @@ def test_accept_only_ADDS_and_never_destroys_the_existing_baseline(project):
     shutil.copy(H.graph_file("gamma_window"), S.graph_path(project))
     cli.main(["--root", project, "accept", "-m", "the standing four"])
     first = HK.load_baseline(project)
-    assert len(first) == 7
+    assert len(first) == 8
 
     cli.main(["--root", project, "accept", "-m", "one more, deliberately",
               "--only", "TRANSPORT:GI-U35" if False else "UNTYPED-EDGE:GE4"])
     after = HK.load_baseline(project)
     assert first <= after, "accepting one finding dropped previously accepted ones"
-    assert len(after) == 7
+    assert len(after) == 8
 
 
 def test_accepting_one_finding_keeps_the_other_reasons_intact(project):
@@ -522,7 +522,7 @@ def test_removing_an_acceptance_must_be_an_EXPLICIT_act(project):
     shutil.copy(H.graph_file("gamma_window"), S.graph_path(project))
     cli.main(["--root", project, "accept", "-m", "all of them"])
     HK.save_baseline(project, [], note="")            # a no-op accept
-    assert len(HK.load_baseline(project)) == 7
+    assert len(HK.load_baseline(project)) == 8
 
     stale = HK.read_baseline(project)
     stale["accepted"]["TRANSPORT:GONE"] = {"why": "fixed last week"}
@@ -532,7 +532,7 @@ def test_removing_an_acceptance_must_be_an_EXPLICIT_act(project):
 
     cli.main(["--root", project, "accept", "--prune", "-m", "tidy"])
     assert "TRANSPORT:GONE" not in HK.load_baseline(project)
-    assert len(HK.load_baseline(project)) == 7
+    assert len(HK.load_baseline(project)) == 8
 
 
 def test_a_legacy_list_baseline_still_loads(project):
@@ -552,7 +552,7 @@ def test_accept_rejects_an_unknown_finding_id(project):
     shutil.copy(H.graph_file("gamma_window"), S.graph_path(project))
     cli.main(["--root", project, "accept", "-m", "all"])
     assert cli.main(["--root", project, "accept", "--only", "NOPE:1"]) == 2
-    assert len(HK.load_baseline(project)) == 7
+    assert len(HK.load_baseline(project)) == 8
 
 
 def test_the_hook_does_not_block_read_only_tools(project):

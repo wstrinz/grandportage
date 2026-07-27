@@ -30,7 +30,7 @@ the edge is drawn.
 
 ## Status
 
-**v0.2. Five days old, two live user sessions, 273 checks**, live against
+**v0.3. Six days old, three live user sessions, 292 checks**, live against
 Singular 4.2.1. Treat every claim in these documents as provisional.
 
 * [DESIGN.md](DESIGN.md) — architecture and the decisions behind it
@@ -61,6 +61,21 @@ reviewable. Detail in `REVIEW.md` §7.
 - **A resumability test failed** because no read path showed which findings a
   campaign had knowingly accepted, so a fresh agent read a healthy campaign as
   a failing one.
+- **A blind trial failed its declared pass condition.** An agent given a real
+  bounded task, told nothing about the tool being studied, produced sound
+  mathematics and mis-typed the result — then discharged a standing obligation
+  by *superseding* it rather than satisfying it. The append-only log refused
+  the retyping exactly as designed, so the agent declared a parallel edge
+  instead and every check stayed green. **Append-only prevents mutation and
+  permits supersession**, and supersession has the same licensing effect with
+  none of the visibility.
+
+Everything in v0.2.1 and v0.3 exists because of that last one. Three rules now
+catch the specific defects; `premises` lets an argument combine facts, because
+the graph could record chains but not joins and the missing premise went into a
+prose note; `partition` gives case splits a vocabulary they never had; and a
+discharge can now name the kind of move that closes it, so *"discharge by
+deriving, not by naming a relaxation"* is enforced rather than decorative.
 
 ### Contributing
 

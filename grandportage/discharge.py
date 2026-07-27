@@ -27,6 +27,34 @@ _GENERIC = ("Re-examine this step: the transport it needs is not licensed by "
             "the type it was given.  Either the type is wrong (prove the "
             "stronger relation) or the step is wrong (do not take it).")
 
+# ---------------------------------------------------------------------------
+# WHAT KIND OF MOVE CLOSES AN OBLIGATION.
+#
+# CEGAR-shaped: a refusal should name the refinement that legitimately resolves
+# it, and only that refinement should count.  The pieces existed and could not
+# talk to each other -- the discharge for GI-G4-CAP-EXTRAPOLATION read
+#
+#     "DISCHARGE BY DERIVING Delta'_4, not by naming a relaxation"
+#
+# which says exactly the right thing and enforces nothing, because it is prose.
+# A live run then discharged it by naming a relaxation.
+#
+# So discharges gain a KIND, and a baseline entry may pin which kinds it will
+# accept.  An obligation recorded as `admits: ["DERIVE"]` cannot be cleared by
+# retyping: the only exit is the one the obligation asked for.
+#
+#   DERIVE   supply the missing mathematics.  The refusal goes away because the
+#            thing it was waiting for now exists.
+#   RETYPE   the relation was mis-stated and the true one licenses the step.
+#            Legitimate, and the move most likely to be reached for when the
+#            mathematics is hard.
+#   ACCEPT   carry it deliberately, in the open, with a reason.
+# ---------------------------------------------------------------------------
+DERIVE = "DERIVE"
+RETYPE = "RETYPE"
+ACCEPT = "ACCEPT"
+DISCHARGE_KINDS = (DERIVE, RETYPE, ACCEPT)
+
 # (edge type, direction, claim kind) -> the canonical next move.
 MOVES = {
     (K.BASE_EXTENSION, K.ALONG, K.EMPTY): (

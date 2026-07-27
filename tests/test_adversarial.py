@@ -546,6 +546,416 @@ def test_store_severities_match_the_checker():
     assert list(S.C_SEVERITIES) == list(C.SEVERITY_ORDER)
 
 
+# ===========================================================================
+# TYPED DISCHARGE AND SUPERSESSION.  The CEGAR step.
+# ===========================================================================
+def _obligation(tmp_path, admits=None):
+    """A campaign carrying a refusal, optionally pinned to one discharge."""
+    path = S.graph_path(str(tmp_path))
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    evs = [
+        {"ev": "model", "id": "CHART", "desc": "the chart"},
+        {"ev": "model", "id": "LEDGER", "desc": "the chart plus a cap"},
+        {"ev": "edge", "id": "E-OLD", "src": "CHART", "dst": "LEDGER",
+         "type": "UNTYPED", "why": "relation unknown",
+         "debt_why": "the cap slope is not derived"},
+        {"ev": "claim", "id": "CL", "model": "LEDGER", "kind": "PREDICATE",
+         "statement": "the cap",
+         "cite": "NOT DERIVED. Recorded so using it is a type error."},
+        {"ev": "inference", "id": "INF", "claim": "CL",
+         "path": [["E-OLD", "AGAINST"]], "asserted": "the chart obeys the cap"},
+    ]
+    with open(path, "w", encoding="utf-8") as fh:
+        fh.write("\n".join(json.dumps(e) for e in evs) + "\n")
+    f = [x for x in C.run(S.load(path)) if x.rule == C.R_TRANSPORT][0]
+    H.save_baseline(str(tmp_path), [f],
+                    note="DISCHARGE BY DERIVING the cap, not by naming a "
+                         "relaxation")
+    if admits:
+        doc = H.read_baseline(str(tmp_path))
+        doc["accepted"][f.fid]["admits"] = list(admits)
+        with open(H.baseline_path(str(tmp_path)), "w", encoding="utf-8") as fh:
+            json.dump({"accepted": doc["accepted"], "note": doc.get("note", "")},
+                      fh, indent=2)
+    return path
+
+
+def _supersede(path, kind):
+    with open(path, "a", encoding="utf-8") as fh:
+        fh.write(json.dumps({
+            "ev": "edge", "id": "E-NEW", "src": "CHART", "dst": "LEDGER",
+            "type": "NECESSARY_CONDITION", "why": "typed successor",
+            "supersedes": "E-OLD", "discharge_kind": kind}) + "\n")
+
+
+def test_a_supersession_cannot_route_around_the_discharge_it_inherits(tmp_path):
+    """THE CEGAR STEP, and the exact move a blind run made.
+
+    The discharge recorded against the live obligation read, verbatim:
+    "DISCHARGE BY DERIVING Delta'_4, not by naming a relaxation." That is
+    exactly right and enforced nothing, because it was prose in a baseline
+    file -- so the run discharged it by naming a relaxation, declaring a
+    parallel edge with a permissive type, and every check stayed green.
+
+    A refusal should name the refinement that legitimately resolves it, and
+    only that refinement should count.
+    """
+    path = _obligation(tmp_path, admits=["DERIVE"])
+    _supersede(path, "RETYPE")
+    accepted = H.read_baseline(str(tmp_path))["accepted"]
+    sup = [f for f in C.run(S.load(path), accepted)
+           if f.rule == C.R_SUPERSEDE]
+    assert len(sup) == 1
+    assert sup[0].severity == C.UNSOUND_PREMISE
+    assert "admits only DERIVE" in sup[0].detail
+    assert "not by naming a relaxation" in sup[0].detail, (
+        "the original reason must be shown, so the reader can judge whether "
+        "the supersession answers it")
+
+
+def test_the_admitted_discharge_passes(tmp_path):
+    """The positive control: supplying what the obligation asked for clears
+    it. A gate that refuses every exit is not a gate."""
+    path = _obligation(tmp_path, admits=["DERIVE"])
+    _supersede(path, "DERIVE")
+    accepted = H.read_baseline(str(tmp_path))["accepted"]
+    assert not [f for f in C.run(S.load(path), accepted)
+                if f.rule == C.R_SUPERSEDE]
+
+
+def test_an_unpinned_obligation_accepts_any_discharge(tmp_path):
+    """Pinning is opt-in. An obligation that never said how it must be closed
+    does not get to complain about how it was."""
+    path = _obligation(tmp_path)
+    _supersede(path, "RETYPE")
+    accepted = H.read_baseline(str(tmp_path))["accepted"]
+    assert not [f for f in C.run(S.load(path), accepted)
+                if f.rule == C.R_SUPERSEDE]
+
+
+def test_superseding_without_saying_how_is_a_fold_error(tmp_path):
+    """Supersession TRANSFERS obligations rather than clearing them, so it has
+    to state what it supplies."""
+    path = _obligation(tmp_path)
+    with open(path, "a", encoding="utf-8") as fh:
+        fh.write(json.dumps({
+            "ev": "edge", "id": "E-NEW", "src": "CHART", "dst": "LEDGER",
+            "type": "NECESSARY_CONDITION", "why": "successor",
+            "supersedes": "E-OLD"}) + "\n")
+    with pytest.raises(S.GraphError) as exc:
+        S.load(path)
+    assert "discharge_kind" in str(exc.value)
+
+
+# ===========================================================================
+# CASE PARTITIONS.  The gap two independent agents walked into.
+# ===========================================================================
+PARTITION = [
+    {"ev": "model", "id": "PARENT", "desc": "the object under investigation"},
+    {"ev": "model", "id": "B2", "desc": "the gamma=2 case"},
+    {"ev": "model", "id": "B3", "desc": "the gamma=3 case"},
+    {"ev": "claim", "id": "C-COVER", "model": "PARENT", "kind": "PREDICATE",
+     "statement": "gamma is in {2,3}"},
+    {"ev": "partition", "id": "P", "parent": "PARENT", "branches": ["B2", "B3"],
+     "exhaustive": "C-COVER", "why": "gamma takes exactly one of two values"},
+    {"ev": "claim", "id": "CE2", "model": "B2", "kind": "EMPTY",
+     "statement": "case 2 is dead", "certificate": "UNIT_IDEAL_CERT"},
+    {"ev": "claim", "id": "CE3", "model": "B3", "kind": "EMPTY",
+     "statement": "case 3 is dead", "certificate": "UNIT_IDEAL_CERT"},
+]
+
+
+def _split(premises, kind="EMPTY"):
+    return _graph(PARTITION + [
+        {"ev": "inference", "id": "J", "via_partition": "P",
+         "premises": [{"claim": c} for c in premises],
+         "concludes_kind": kind, "asserted": "so the parent is empty"}])
+
+
+def test_a_case_split_is_licensed_by_the_partition_not_by_an_edge():
+    """No single edge licenses a case split, and the kernel is RIGHT to refuse
+    each leg: branch -> parent is a NECESSARY_CONDITION with the branch
+    tighter, and EMPTY does not travel ALONG, because one branch dying says
+    nothing about the parent.
+
+    Only all branches together, plus exhaustiveness, say anything -- so this is
+    a second inference rule beside the transport table, and it is kept separate
+    so a reader can see which of the two justified a step.
+    """
+    g = _split(["CE2", "CE3", "C-COVER"])
+    ok, trace = C.audit_inference(g, "J")
+    assert ok
+    assert g.inferences["J"]["concludes_at"] == "PARENT"
+    assert trace[0][1] == "COVERS", "the step is over the partition, not an edge"
+
+
+def test_a_case_split_with_a_branch_left_open_is_refused_by_name():
+    """The refusal has to say WHICH case is open, or it is just a no."""
+    ok, trace = C.audit_inference(_split(["CE2", "C-COVER"]), "J")
+    assert not ok
+    assert "B3" in trace[0][3]
+
+
+def test_a_case_split_without_exhaustiveness_is_refused():
+    """A split into cases nobody proved were ALL the cases proves nothing --
+    and that premise is exactly what a live run left in a prose note."""
+    ok, trace = C.audit_inference(_split(["CE2", "CE3"]), "J")
+    assert not ok
+    assert "COVER" in trace[0][3]
+
+
+def test_a_partition_must_name_a_real_claim_as_its_exhaustiveness():
+    """The whole point is that the completeness premise can be seen by a rule.
+    A note would not be."""
+    with pytest.raises(S.GraphError) as exc:
+        _graph([e for e in PARTITION if e.get("id") != "C-COVER"])
+    assert "not a note" in str(exc.value)
+
+
+def test_a_branch_edge_drawn_from_parent_to_branch_is_flagged():
+    """A branch is `parent AND condition`, so V(branch) is a SUBSET of
+    V(parent) and the edge runs BRANCH -> PARENT.
+
+    Drawn the other way the graph asserts the parent sits inside each branch --
+    and since branches are alternatives, that holds only if the parent is
+    empty, which is what the split is trying to decide. Both live agents drew
+    it backwards, and a result about one of three cases was recorded as a
+    result about all of them.
+    """
+    g = _graph(PARTITION + [
+        {"ev": "edge", "id": "E-BAD", "src": "PARENT", "dst": "B3",
+         "type": "NECESSARY_CONDITION", "why": "the gamma=3 chart"}])
+    bad = [f for f in C.run(g) if f.rule == C.R_PARTITION
+           and f.subject == "E-BAD"]
+    assert len(bad) == 1 and bad[0].severity == C.UNSOUND_PREMISE
+
+    good = _graph(PARTITION + [
+        {"ev": "edge", "id": "E-OK", "src": "B3", "dst": "PARENT",
+         "type": "NECESSARY_CONDITION", "why": "the gamma=3 case of the parent"}])
+    assert not [f for f in C.run(good) if f.rule == C.R_PARTITION
+                and f.subject == "E-OK"]
+
+
+def test_a_fully_covered_partition_prompts_for_the_conclusion():
+    """When every branch is dead the parent's emptiness FOLLOWS, and leaving it
+    unrecorded means the step lives in whoever's head assembled it."""
+    prompts = [f for f in C.run(_graph(PARTITION)) if f.rule == C.R_PARTITION]
+    assert len(prompts) == 1 and prompts[0].severity == C.DEBT
+    assert "premises" in prompts[0].discharge
+    # ...and stops once the inference exists.
+    assert not [f for f in C.run(_split(["CE2", "CE3", "C-COVER"]))
+                if f.rule == C.R_PARTITION]
+
+
+# ===========================================================================
+# MULTI-PREMISE INFERENCES.  The graph used to record chains but not joins.
+# ===========================================================================
+THREE_MODELS = TWO_MODELS + [{"ev": "model", "id": "SIDE", "desc": "elsewhere"}]
+
+
+def test_an_argument_can_now_combine_two_premises():
+    """THE ACCEPTANCE TEST, taken from a live run that could not do this.
+
+    A blind agent's central case analysis was
+    `(gamma=4 branch EMPTY) AND (gamma in {2,3,4}) => gamma in {2,3}`.
+    `inference.claim` was a single string, so the completeness premise had
+    nowhere to go and ended up in a `note`, where nothing types it -- the
+    checker reported the conclusion as clean while the fact that made it valid
+    was invisible.
+
+    Both premises must be typed, both transports audited, and both must arrive
+    at the same model.
+    """
+    g = _graph(THREE_MODELS + [
+        {"ev": "edge", "id": "E1", "src": "TIGHT", "dst": "LOOSE",
+         "type": "NECESSARY_CONDITION", "why": "drops equations"},
+        {"ev": "edge", "id": "E2", "src": "TIGHT", "dst": "SIDE",
+         "type": "NECESSARY_CONDITION", "why": "drops other equations"},
+        {"ev": "claim", "id": "C-MAIN", "model": "LOOSE", "kind": "PREDICATE",
+         "statement": "every point satisfies P"},
+        {"ev": "claim", "id": "C-SIDE", "model": "SIDE", "kind": "PREDICATE",
+         "statement": "the completeness premise"},
+        {"ev": "inference", "id": "JOIN", "premises": [
+            {"claim": "C-MAIN", "path": [["E1", "AGAINST"]]},
+            {"claim": "C-SIDE", "path": [["E2", "AGAINST"]]}],
+         "concludes_kind": "PREDICATE",
+         "asserted": "P and the completeness premise together give Q"},
+    ])
+    i = g.inferences["JOIN"]
+    assert len(i["premises"]) == 2
+    assert i["concludes_at"] == "TIGHT", "both premises must land together"
+    ok, trace = C.audit_inference(g, "JOIN")
+    assert ok and len(trace) == 2, (
+        "every leg is audited, not just the first: %s" % trace)
+
+
+def test_premises_that_never_meet_are_a_fold_error():
+    """The reason conjunction is safe to offer.
+
+    `GI-BRIDGE` -- the defect this project exists to catch -- is a BAD JOIN:
+    two computations sharing no variable, welded by a sentence. Adding
+    conjunction would reintroduce it, except that a join is only expressible
+    when its premises PROVABLY MEET at a common model.
+
+    So a good join becomes expressible and a bad one becomes a FOLD ERROR,
+    which is strictly stronger than a finding: the log will not load at all.
+    """
+    with pytest.raises(S.GraphError) as exc:
+        _graph(THREE_MODELS + [
+            {"ev": "edge", "id": "E1", "src": "TIGHT", "dst": "LOOSE",
+             "type": "NECESSARY_CONDITION", "why": "drops equations"},
+            {"ev": "claim", "id": "C-MAIN", "model": "TIGHT",
+             "kind": "NONEMPTY", "statement": "a point", "scope": "Q"},
+            {"ev": "claim", "id": "C-FAR", "model": "SIDE", "kind": "PREDICATE",
+             "statement": "an unrelated fact"},
+            {"ev": "inference", "id": "BRIDGE", "premises": [
+                {"claim": "C-MAIN", "path": [["E1", "ALONG"]]},
+                {"claim": "C-FAR", "path": []}],
+             "asserted": "therefore the two are connected"}])
+    msg = str(exc.value)
+    assert "do not meet" in msg
+    assert "LOOSE" in msg and "SIDE" in msg, (
+        "the error must name where each premise actually arrived")
+
+
+def test_a_refused_leg_refuses_the_whole_argument():
+    """An argument is only as licensed as its weakest leg -- and before the
+    multi-premise form the extra legs were not in the graph to be audited."""
+    g = _graph(THREE_MODELS + [
+        {"ev": "edge", "id": "E1", "src": "TIGHT", "dst": "LOOSE",
+         "type": "NECESSARY_CONDITION", "why": "drops equations"},
+        {"ev": "edge", "id": "E2", "src": "TIGHT", "dst": "SIDE",
+         "type": "NECESSARY_CONDITION", "why": "drops other equations"},
+        {"ev": "claim", "id": "C-OK", "model": "LOOSE", "kind": "PREDICATE",
+         "statement": "fine"},
+        # NONEMPTY does NOT travel AGAINST a NECESSARY_CONDITION.
+        {"ev": "claim", "id": "C-BAD", "model": "SIDE", "kind": "NONEMPTY",
+         "statement": "a witness in the relaxation", "scope": "Q"},
+        {"ev": "inference", "id": "JOIN", "premises": [
+            {"claim": "C-OK", "path": [["E1", "AGAINST"]]},
+            {"claim": "C-BAD", "path": [["E2", "AGAINST"]]}],
+         "concludes_kind": "PREDICATE", "asserted": "both, therefore Q"},
+    ])
+    ok, trace = C.audit_inference(g, "JOIN")
+    assert not ok
+    assert [t[2] for t in trace] == [True, False], (
+        "the first leg is licensed and the second is not: %s" % trace)
+
+
+def test_the_single_premise_form_still_works_unchanged():
+    """Backward compatibility is not a courtesy here -- every fixture, every
+    retrodiction and two live campaign graphs use the old shape."""
+    g = _graph(TWO_MODELS + [
+        {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
+         "type": "NECESSARY_CONDITION", "why": "drops equations"},
+        {"ev": "claim", "id": "CL", "model": "LOOSE", "kind": "PREDICATE",
+         "statement": "P"},
+        {"ev": "inference", "id": "INF", "claim": "CL",
+         "path": [["E", "AGAINST"]], "asserted": "so P holds tighter"}])
+    i = g.inferences["INF"]
+    assert i["premises"] == [{"claim": "CL", "path": [("E", "AGAINST")]}]
+    assert i["claim"] == "CL" and i["concludes_at"] == "TIGHT"
+
+
+def test_declaring_both_forms_at_once_is_refused():
+    """Two sources of truth for the same field is how they drift apart."""
+    with pytest.raises(S.GraphError):
+        _graph(TWO_MODELS + [
+            {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
+             "type": "NECESSARY_CONDITION", "why": "w"},
+            {"ev": "claim", "id": "CL", "model": "LOOSE", "kind": "PREDICATE",
+             "statement": "P"},
+            {"ev": "inference", "id": "INF", "claim": "CL", "path": [],
+             "premises": [{"claim": "CL", "path": []}], "asserted": "x"}])
+
+
+# ===========================================================================
+# THE T1 DEFECTS.  A live blind run produced all three of these, and every one
+# needed a human auditor to find.  They now fail at declaration.
+# ===========================================================================
+def test_a_parallel_edge_cannot_silently_override_a_refusal():
+    """THE HOLE T1 WENT THROUGH.
+
+    The fold refuses a CONFLICTING REDECLARATION of an edge id, and that
+    guarantee held perfectly -- so an agent wanting to retype an edge declared a
+    NEW one with the same endpoints and the type it wanted, honestly labelled a
+    "TYPED SUCCESSOR".
+
+    Append-only prevents MUTATION and permits SUPERSESSION, and supersession has
+    the same licensing effect with none of the visibility.  In the live case an
+    UNTYPED edge was refusing a claim whose own cite read "NOT DERIVED. Recorded
+    so that using it is a type error rather than a habit", and the parallel edge
+    handed that claim a licence while `gp check` went on printing the refusal.
+    """
+    g = _graph(TWO_MODELS + [
+        {"ev": "edge", "id": "E-OLD", "src": "TIGHT", "dst": "LOOSE",
+         "type": "UNTYPED", "why": "not yet known",
+         "debt_why": "the relation has not been derived"},
+        {"ev": "edge", "id": "E-NEW", "src": "TIGHT", "dst": "LOOSE",
+         "type": "NECESSARY_CONDITION", "why": "typed successor"},
+    ])
+    par = [f for f in C.run(g) if f.rule == C.R_PARALLEL]
+    assert len(par) == 1
+    assert "E-OLD" in par[0].detail and "E-NEW" in par[0].detail
+    assert "supersedes" in par[0].discharge
+
+
+def test_one_edge_between_two_models_is_not_a_finding():
+    """The positive control: the ordinary case must stay silent."""
+    g = _graph(TWO_MODELS + [
+        {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
+         "type": "NECESSARY_CONDITION", "why": "drops equations"}])
+    assert not [f for f in C.run(g) if f.rule == C.R_PARALLEL]
+
+
+def test_a_conclusion_at_a_model_proven_empty_is_flagged_vacuous():
+    """Every predicate holds of the empty set, so a PREDICATE concluding at a
+    model the graph proves EMPTY says nothing -- while reading as a result,
+    carrying an evidence grade, and counting as a CLEAN inference.
+
+    The source campaign has logged this failure mode three times; a live run
+    produced a fourth, recording a cap slope `exact-checked` at a model the
+    same batch proved empty, with the claim's own statement hedging "would
+    read".  Graded TRIAGE: vacuous truths are true, and the damage is to the
+    reader who counts them as evidence.
+    """
+    g = _graph(TWO_MODELS + [
+        {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
+         "type": "NECESSARY_CONDITION", "why": "drops equations"},
+        {"ev": "claim", "id": "C-EMPTY", "model": "TIGHT", "kind": "EMPTY",
+         "statement": "no points here", "certificate": "UNIT_IDEAL_CERT"},
+        {"ev": "claim", "id": "C-PRED", "model": "LOOSE", "kind": "PREDICATE",
+         "statement": "every point satisfies P"},
+        {"ev": "inference", "id": "INF", "claim": "C-PRED",
+         "path": [["E", "AGAINST"]],
+         "asserted": "so every point of the tighter model satisfies P"},
+    ])
+    findings = C.run(g)
+    vac = [f for f in findings if f.rule == C.R_VACUOUS]
+    assert len(vac) == 1 and vac[0].subject == "INF"
+    assert vac[0].severity == C.TRIAGE
+    # And it must still count as a clean transport -- the point is that being
+    # licensed and being informative are different questions.
+    assert "INF" in C.clean_inferences(g, findings)
+
+
+def test_a_model_built_by_reasoning_inside_itself_is_flagged():
+    """`built_by` records that a model owes its existence to an inference. If
+    that inference's premise lives IN the model it builds, the provenance is
+    circular and the taint rule has no antecedent to follow."""
+    g = _graph(TWO_MODELS + [
+        {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
+         "type": "NECESSARY_CONDITION", "why": "drops equations"},
+        {"ev": "claim", "id": "CL", "model": "TIGHT", "kind": "NONEMPTY",
+         "statement": "a point", "scope": "Q"},
+        {"ev": "inference", "id": "INF", "claim": "CL",
+         "path": [["E", "ALONG"]], "asserted": "the point is in LOOSE"},
+        {"ev": "built_by", "model": "TIGHT", "inference": "INF"},
+    ])
+    sb = [f for f in C.run(g) if f.rule == C.R_SELF_BUILT]
+    assert len(sb) == 1 and sb[0].subject == "TIGHT"
+
+
 def test_an_identity_with_no_origin_does_not_fold():
     """There is no safe default, and the argument is not that a default would
     be unsound -- DERIVED would be safe.  It is that a default writes an

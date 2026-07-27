@@ -170,6 +170,17 @@ TOOLS = [
                         "EMPTY claim must carry a `certificate` kind, and its "
                         "scope is DERIVED from that certificate rather than "
                         "from what you declare. "
+                        "An inference may rest on SEVERAL premises: use "
+                        "`premises: [{claim, path}, ...]` instead of "
+                        "`claim`+`path` when the argument combines facts. "
+                        "Every premise must transport to the SAME model -- if "
+                        "yours do not meet, they are separate statements with "
+                        "a conjunction written between them, which is the "
+                        "commonest way a wrong join gets recorded. Put the "
+                        "side conditions in as premises rather than in a note: "
+                        "a note is carried and never typed, so an argument "
+                        "whose load-bearing premise lives there is reported "
+                        "clean while the thing making it valid is invisible. "
                         "An IDENTITY claim must carry `identity_origin`, "
                         "because it decides which way the rewriting travels. "
                         "Ask: is this rewriting true BEFORE this model's "
@@ -363,8 +374,8 @@ def h_portage_declare(args, root):
     for e in events:
         kinds[e.get("ev")] = kinds.get(e.get("ev"), 0) + 1
     summary = ", ".join("%d %s" % (v, k) for k, v in sorted(kinds.items()))
-    findings = C.run(S.load(S.graph_path(root)))
     accepted = HK.read_baseline(root)["accepted"]
+    findings = C.run(S.load(S.graph_path(root)), accepted)
     return _text("recorded %s\n\n%s"
                  % (summary, C.render(findings, accepted)))
 
@@ -374,7 +385,8 @@ def h_portage_check(args, root):
     if not os.path.exists(path):
         return _text("no graph yet at %s" % path)
     graph = S.load(path)
-    findings = C.run(graph)
+    accepted = HK.read_baseline(root)["accepted"]
+    findings = C.run(graph, accepted)
     clean = C.clean_inferences(graph, findings)
     # `full` was declared in this tool's schema and never read here, so an
     # agent could ask to see carried obligations and be handed the same output.
