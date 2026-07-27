@@ -337,7 +337,22 @@ class Ruling(object):
             self.etype, self.direction, self.kind)
 
 
-class ScopeError(ValueError):
+class KernelRefusal(ValueError):
+    """Base class for every refusal the kernel raises at fold time.
+
+    Exists so no call site has to ENUMERATE them.  Four of the five subclasses
+    below were added in one week and none was added to the CLI's or the MCP
+    server's except-clause, so a graph that tripped them produced a Python
+    traceback instead of the refusal message -- and a crashing checker is
+    indistinguishable from a checker nobody ran.
+
+    That is the same defect as the unvalidated `severity_override` fixed days
+    earlier, recreated four times over by the fixes that followed it.  A base
+    class makes the next one handled by default, which an enumeration cannot.
+    """
+
+
+class ScopeError(KernelRefusal):
     """An emptiness claim whose declared scope contradicts its certificate."""
 
 
@@ -378,7 +393,7 @@ def derive_scope(kind, certificate, declared_scope, certificates=None,
     return declared_scope
 
 
-class IdentityOriginError(ValueError):
+class IdentityOriginError(KernelRefusal):
     """An IDENTITY claim that does not say where its rewriting is valid."""
 
 
@@ -697,7 +712,7 @@ ASSERTED = "ASSERTED"
 WITNESS_KINDS = (EXHIBITED, DERIVED, ASSERTED)
 
 
-class WitnessError(ValueError):
+class WitnessError(KernelRefusal):
     """A NONEMPTY claim that does not say how its point is known."""
 
 
@@ -726,7 +741,110 @@ def derive_witness_kind(kind, witness_kind, claim_id="<claim>"):
         "until it is not." % claim_id)
 
 
-class KindCompositionError(ValueError):
+# ---------------------------------------------------------------------------
+# EVIDENCE GRADING.  Two axes, and fusing them is why the field rotted.
+#
+# `ladder` licenses nothing and never has -- the checker never grades evidence
+# and the ladder never licenses a transport, deliberately, because conflating
+# them is how a project ends up with an `independently-audited` predicate
+# imported across an edge that forbids it.  That stays true.  What follows is
+# about whether the RECORD is honest, not about soundness.
+#
+# T5 pointed the tool at a campaign that had never heard of it.  That campaign
+# had independently invented its own evidence discipline -- every claim tagged
+# [ARTIFACT], [SOURCE] or [NOT CHECKED] -- and when its reasoning was
+# transcribed, `ladder` came back with SEVEN distinct values and ZERO overlap
+# with the five it declares.  Some were paragraphs:
+#
+#     "CLASSICAL -- not one of RECON's three tags.  These are textbook facts
+#      used as negative controls in recon/sos_gate.m2; RECON does not establish
+#      them and does not tag them."
+#
+# The field was unvalidated free text, so a careful user filled it with prose
+# rather than noticing it was a closed set.  That is the fourth instance of one
+# pattern -- certificates, identity_origin, kind, ladder -- a field whose value
+# is taken on the author's word.  The first three were found by exploitation;
+# this one by a stranger simply trying to use it.
+#
+# THE DIAGNOSIS IS THAT THERE ARE TWO QUESTIONS AND ONE SLOT:
+#
+#     established_by   how did you come to believe this?  Did you RUN it, READ
+#                      it, take it from a CITATION, or fail to reach it?
+#     ladder           how strong is the evidence, weakest first?
+#
+# RECON needed both and had one field, so it wrote both into that field plus
+# caveats.  Separating them costs one enum and buys a CROSS-CHECK -- the first
+# thing about evidence grading this tool has ever been able to verify.
+# ---------------------------------------------------------------------------
+RAN = "RAN"                    # executed here, and it produced this
+READ = "READ"                  # read from source or a file, not executed
+CITED = "CITED"                # taken from a paper or an external authority
+NOT_REACHED = "NOT_REACHED"    # out of reach in this environment
+ESTABLISHED_BY = (RAN, READ, CITED, NOT_REACHED)
+
+LADDER = ("open", "claimed", "exact-checked", "independently-audited",
+          "certified")
+
+# Combinations that cannot both be true.  Not a soundness rule -- nothing here
+# licenses a transport -- but a record that says two incompatible things about
+# its own evidence is worse than one that says nothing.
+IMPOSSIBLE_EVIDENCE = {
+    (NOT_REACHED, "exact-checked"):
+        "a gated checker cannot have verified something you could not run",
+    (NOT_REACHED, "independently-audited"):
+        "a second implementation cannot have agreed with a run that did not "
+        "happen",
+    (NOT_REACHED, "certified"):
+        "nothing was certified by a computation that was out of reach",
+    (CITED, "exact-checked"):
+        "a citation is not a checker run.  If you re-ran it, that is RAN; if "
+        "you are relying on the authors, the grade is `claimed`",
+    (CITED, "independently-audited"):
+        "reading one paper is not a second implementation agreeing",
+    (READ, "exact-checked"):
+        "reading source establishes what the code SAYS, not that running it "
+        "produced this.  A checker that was not run has checked nothing",
+}
+
+
+class EvidenceError(KernelRefusal):
+    """A claim whose declared evidence contradicts itself."""
+
+
+def check_evidence(established_by, ladder, claim_id="<claim>"):
+    """Validate the two evidence axes and refuse impossible combinations.
+
+    Both fields are OPTIONAL -- unlike certificates and witnesses, evidence
+    grading licenses nothing, so a claim with no grade is merely ungraded
+    rather than unsound.  What is refused is a grade that is WRONG.
+    """
+    if established_by is not None and established_by not in ESTABLISHED_BY:
+        raise EvidenceError(
+            "claim %s declares established_by %r; known values are %s.  This "
+            "records HOW you came to believe the claim, not how strong it is "
+            "-- strength is `ladder`."
+            % (claim_id, established_by, ", ".join(ESTABLISHED_BY)))
+    if ladder is not None and ladder not in LADDER:
+        raise EvidenceError(
+            "claim %s declares ladder %r, which is not one of %s.\n"
+            "  `ladder` is a STRENGTH ordering and a closed set. If you are "
+            "recording how the claim was established -- ran it, read it, could "
+            "not reach it -- that is `established_by`. If you are recording a "
+            "limitation, that is `caveat`, which is free text and carried "
+            "verbatim.\n"
+            "  This field was unvalidated until a foreign campaign filled it "
+            "with seven values and no overlap with these five."
+            % (claim_id, ladder, ", ".join(LADDER)))
+    why = IMPOSSIBLE_EVIDENCE.get((established_by, ladder))
+    if why:
+        raise EvidenceError(
+            "claim %s says it was established by %s and grades itself %s, and "
+            "those cannot both be true: %s."
+            % (claim_id, established_by, ladder, why))
+    return established_by, ladder
+
+
+class KindCompositionError(KernelRefusal):
     """A conclusion whose kind its premises cannot yield."""
 
 

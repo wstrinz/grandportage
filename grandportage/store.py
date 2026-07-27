@@ -333,6 +333,11 @@ class Graph(object):
         # certificate, existence needs to say how the point is known.
         c["witness_kind"] = K.derive_witness_kind(
             ev["kind"], ev.get("witness_kind"), claim_id=ev["id"])
+        # Evidence grading licenses nothing, so both fields are optional -- an
+        # ungraded claim is merely ungraded.  What is refused is a grade that
+        # is WRONG, including a pair that contradicts itself.
+        K.check_evidence(ev.get("established_by"), ev.get("ladder"),
+                         claim_id=ev["id"])
         self.claims[ev["id"]] = c
 
     def _apply_inference(self, ev, where):
@@ -403,9 +408,47 @@ class Graph(object):
                      "{claim, path}" % (where, ev["id"]))
             premises = []
             for n, pr in enumerate(ev["premises"]):
-                _require(isinstance(pr, dict) and pr.get("claim"),
-                         "%s: inference %r premise %d needs a `claim`"
-                         % (where, ev["id"], n))
+                _require(isinstance(pr, dict), "%s: inference %r premise %d "
+                         "must be an object" % (where, ev["id"], n))
+                # AN OPEN SLOT: a premise the argument NEEDS and does not have.
+                #
+                # T5 pointed the tool at a campaign it had never seen, whose
+                # headline finding was that a claim the published artifact
+                # REQUIRES is absent -- nowhere in 529 files is there an "every
+                # candidate is killed" statement, because five are not killed.
+                # The graph could record claims, edges and inferences, and had
+                # no way to record a claim that should exist and does not.
+                #
+                # Both escapes were bad.  Writing the missing claim enters a
+                # falsehood into the graph; writing nothing loses the finding.
+                # So the slot is declared and left open: the inference names
+                # what it needs, the fold accepts it, and the checker refuses
+                # to license the inference and says exactly which premise is
+                # missing.
+                if pr.get("required_kind"):
+                    _require(pr["required_kind"] in K.CLAIM_KINDS,
+                             "%s: inference %r premise %d requires kind %r; "
+                             "known kinds are %s"
+                             % (where, ev["id"], n, pr["required_kind"],
+                                ", ".join(K.CLAIM_KINDS)))
+                    _require(pr.get("at"),
+                             "%s: inference %r premise %d is an open slot and "
+                             "must say `at` which model the missing claim "
+                             "belongs" % (where, ev["id"], n))
+                    _require(pr.get("missing_why"),
+                             "%s: inference %r premise %d is an open slot and "
+                             "needs `missing_why` -- why is this claim absent? "
+                             "An unexplained hole is indistinguishable from an "
+                             "oversight." % (where, ev["id"], n))
+                    premises.append({"claim": None, "path": [],
+                                     "required_kind": pr["required_kind"],
+                                     "at": pr["at"],
+                                     "missing_why": pr["missing_why"]})
+                    continue
+                _require(pr.get("claim"),
+                         "%s: inference %r premise %d needs a `claim`, or "
+                         "`required_kind`+`at`+`missing_why` if the claim it "
+                         "needs does not exist" % (where, ev["id"], n))
                 premises.append({"claim": pr["claim"],
                                  "path": _norm_path(pr.get("path") or [],
                                                     "premise %d `path`" % n)})
@@ -526,6 +569,12 @@ class Graph(object):
             i = self.inferences[iid]
             lands = []
             for n, pr in enumerate(i["premises"]):
+                if pr.get("required_kind"):
+                    _require(pr["at"] in self.models,
+                             "inference %r premise %d needs a %s claim at %r, "
+                             "which is not a declared model"
+                             % (iid, n, pr["required_kind"], pr["at"]))
+                    continue
                 _require(pr["claim"] in self.claims,
                          "inference %r premise %d cites undeclared claim %r"
                          % (iid, n, pr["claim"]))
@@ -555,10 +604,11 @@ class Graph(object):
                          % (iid, pid))
                 i["concludes_at"] = self.partitions[pid]["parent"]
                 kinds = [self.claims[pr["claim"]]["kind"]
+                         if pr.get("claim") else pr["required_kind"]
                          for pr in i["premises"]]
                 i["concludes_kind"] = (
                     K.check_conclusion_kind(i.get("concludes_kind"), kinds, iid)
-                    or self.claims[i["premises"][0]["claim"]]["kind"])
+                    or kinds[0])
                 continue
             # EVERY OTHER PREMISE MUST ARRIVE AT THE SAME PLACE.  Premises that land
             # in different models are not a joint argument -- they are two
@@ -577,10 +627,12 @@ class Graph(object):
             # A DECLARED conclusion kind is CHECKED against the premises, not
             # trusted.  Undeclared, it is derived from the first premise, which
             # is the single-premise behaviour and cannot lie.
-            kinds = [self.claims[pr["claim"]]["kind"] for pr in i["premises"]]
+            kinds = [self.claims[pr["claim"]]["kind"]
+                     if pr.get("claim") else pr["required_kind"]
+                     for pr in i["premises"]]
             i["concludes_kind"] = (
                 K.check_conclusion_kind(i.get("concludes_kind"), kinds, iid)
-                or self.claims[i["premises"][0]["claim"]]["kind"])
+                or kinds[0])
         return self
 
 
@@ -607,6 +659,59 @@ def load(*paths):
     g = Graph()
     batch = [(ev, p, n) for p in paths for ev, n in load_events(p)]
     return g.apply_all(batch).validate()
+
+
+def merge_report(paths):
+    """Fold several logs and collect EVERY conflict instead of raising on the first.
+
+    T4 -- the first merge of two logs written by agents working in isolation --
+    failed its declared pass condition on this. The fold refused correctly and
+    named both versions, which is the half that worked; but `TESTPLAN.md` also
+    said **fail** if "resolving it means hand-editing an append-only log", and
+    there was no guided path at all. You got one conflict, edited, re-ran, got
+    the next.
+
+    So this reports all of them at once, and distinguishes the two cases,
+    because they have opposite resolutions:
+
+      SAME OBJECT, described differently -- what T4 produced. Both branches are
+      right; the descriptions need reconciling into one, and whoever merges
+      picks the wording.
+
+      DIFFERENT OBJECTS that collided on a name -- rename one, and if they are
+      related, say how with an edge.
+
+    The tool cannot tell these apart; that is mathematics. What it can do is
+    put both versions side by side, name exactly which fields differ, and stop
+    the reader diffing two JSON blobs by eye.
+
+    Returns (graph_or_None, conflicts). `graph` is None when conflicts exist,
+    because a partially-folded graph is not a thing anyone should reason from.
+    """
+    seen, conflicts, events = {}, [], []
+    for p in paths:
+        for ev, n in load_events(p):
+            kind, eid = ev.get("ev"), ev.get("id")
+            if kind in (EV_NOTE, EV_BUILT_BY) or not eid:
+                events.append((ev, p, n))
+                continue
+            key, canon = (kind, eid), _canon(ev)
+            if key in seen and seen[key][0] != canon:
+                prior_ev, prior_p, prior_n = seen[key][1]
+                differing = sorted(
+                    k for k in set(prior_ev) | set(ev)
+                    if prior_ev.get(k) != ev.get(k))
+                conflicts.append({
+                    "kind": kind, "id": eid, "fields": differing,
+                    "a": {"path": prior_p, "line": prior_n, "event": prior_ev},
+                    "b": {"path": p, "line": n, "event": ev}})
+                continue
+            if key not in seen:
+                seen[key] = (canon, (ev, p, n))
+                events.append((ev, p, n))
+    if conflicts:
+        return None, conflicts
+    return Graph().apply_all(events).validate(), []
 
 
 def graph_path(root="."):

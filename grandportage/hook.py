@@ -102,7 +102,8 @@ def load_baseline(root="."):
     return set(read_baseline(root)["accepted"])
 
 
-def save_baseline(root=".", findings=None, note="", merge=True, prune=False):
+def save_baseline(root=".", findings=None, note="", merge=True, prune=False,
+                  admits=None):
     """Record the findings a campaign is knowingly carrying.
 
     MERGES BY DEFAULT, and that default is the whole point of this function.
@@ -149,6 +150,12 @@ def save_baseline(root=".", findings=None, note="", merge=True, prune=False):
         # fingerprint is grandfathered by `evaluate` and acquires one the next
         # time it is accepted.
         entry["fingerprint"] = f.fingerprint
+        # WHICH DISCHARGES THIS OBLIGATION WILL ACCEPT.  Opt-in: an obligation
+        # that never said how it must be closed does not get to complain about
+        # how it was.  Once set it is not silently widened -- clearing a pin is
+        # a deliberate act, same as dropping an acceptance.
+        if admits:
+            entry["admits"] = sorted(set(admits))
         accepted[f.fid] = entry
 
     dropped = []

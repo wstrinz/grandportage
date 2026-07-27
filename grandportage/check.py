@@ -149,6 +149,16 @@ def audit_inference(graph, iid):
     # its weakest leg, and before the multi-premise form existed the extra legs
     # were not in the graph to be audited at all.
     for pr in inf["premises"]:
+        # AN OPEN SLOT licenses nothing and says exactly what is missing.
+        # This is how "the artifact needs a claim that does not exist" becomes
+        # recordable without entering the missing claim as though it held.
+        if pr.get("required_kind"):
+            ok = False
+            trace.append((
+                "(missing)", "PREMISE", False,
+                "this argument needs a %s claim at %s and the graph has none: "
+                "%s" % (pr["required_kind"], pr["at"], pr["missing_why"])))
+            continue
         claim = graph.claims[pr["claim"]]
         for eid, direction in pr["path"]:
             e = graph.edges[eid]

@@ -547,6 +547,166 @@ def test_store_severities_match_the_checker():
 
 
 # ===========================================================================
+# EVIDENCE GRADING.  Two axes, and fusing them is why the field rotted.
+# ===========================================================================
+def _claim(**kw):
+    base = {"ev": "claim", "id": "CL", "model": "TIGHT", "kind": "PREDICATE",
+            "statement": "P holds"}
+    base.update(kw)
+    return _graph(TWO_MODELS + [base])
+
+
+def test_ladder_is_a_closed_set_and_is_now_enforced():
+    """FOUND BY T5, and not by exploitation -- by a stranger trying to use it.
+
+    Pointed at a campaign that had never heard of the tool, `ladder` came back
+    with SEVEN distinct values and ZERO overlap with the five it declares, some
+    of them paragraphs. It was unvalidated free text, so a careful user filled
+    it with prose rather than noticing it was a closed set.
+
+    Fourth instance of one pattern -- certificates, identity_origin, kind,
+    ladder -- a field whose value is taken on the author's word.
+    """
+    with pytest.raises(K.EvidenceError) as exc:
+        _claim(ladder="ARTIFACT")
+    msg = str(exc.value)
+    assert "established_by" in msg and "caveat" in msg, (
+        "the refusal must route the value to the field it belongs in, or the "
+        "user simply picks another wrong word")
+
+
+@pytest.mark.parametrize("by,ladder", [
+    ("NOT_REACHED", "exact-checked"),
+    ("NOT_REACHED", "independently-audited"),
+    ("CITED", "exact-checked"),
+    ("CITED", "independently-audited"),
+    ("READ", "exact-checked"),
+])
+def test_impossible_evidence_combinations_are_refused(by, ladder):
+    """THE PAYOFF OF SPLITTING THE AXES: evidence grading became checkable for
+    the first time, without licensing anything.
+
+    A gated checker cannot have verified something you could not run. A
+    citation is not a checker run. Reading source establishes what the code
+    SAYS, not that running it produced this. None of these is a soundness rule
+    -- `ladder` still licenses nothing -- but a record that says two
+    incompatible things about its own evidence is worse than one saying
+    nothing.
+    """
+    with pytest.raises(K.EvidenceError) as exc:
+        _claim(established_by=by, ladder=ladder)
+    assert "cannot both be true" in str(exc.value)
+
+
+def test_honest_evidence_combinations_pass():
+    """The positive control. A grading scheme that refuses every combination
+    would just push people back to leaving it blank."""
+    for by, ladder in [("RAN", "exact-checked"), ("READ", "claimed"),
+                       ("CITED", "claimed"), ("NOT_REACHED", "open"),
+                       ("RAN", "independently-audited")]:
+        _claim(established_by=by, ladder=ladder)
+
+
+def test_evidence_is_optional_because_it_licenses_nothing():
+    """Unlike certificates and witnesses, an ungraded claim is merely ungraded
+    rather than unsound -- so blank must stay legal. What is refused is a grade
+    that is WRONG."""
+    g = _claim()
+    assert g.claims["CL"].get("ladder") is None
+
+
+# ===========================================================================
+# OPEN PREMISE SLOTS.  A claim that should exist and does not.
+# ===========================================================================
+def test_an_argument_can_declare_a_premise_it_does_not_have():
+    """T5's headline gap. The campaign's central finding was that a claim the
+    published artifact REQUIRES is absent -- nowhere in 529 files is there an
+    'every candidate is killed' statement, because five are not killed.
+
+    Both escapes were bad: writing the missing claim enters a falsehood into
+    the graph, and writing nothing loses the finding. So the slot is declared
+    and left open -- the fold accepts it, and the checker refuses to license
+    the inference while naming exactly what is missing.
+    """
+    g = _graph(TWO_MODELS + [
+        {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
+         "type": "NECESSARY_CONDITION", "why": "drops equations"},
+        {"ev": "claim", "id": "HAVE", "model": "LOOSE", "kind": "PREDICATE",
+         "statement": "what the artifact does supply"},
+        {"ev": "inference", "id": "INF", "premises": [
+            {"claim": "HAVE", "path": [["E", "AGAINST"]]},
+            {"required_kind": "EMPTY", "at": "LOOSE",
+             "missing_why": "the conclusion needs every case killed and the "
+                            "graph has no such claim"}],
+         "concludes_kind": "PREDICATE", "asserted": "the artifact establishes X"},
+    ])
+    ok, trace = C.audit_inference(g, "INF")
+    assert not ok
+    missing = [t for t in trace if t[0] == "(missing)"]
+    assert len(missing) == 1
+    assert "EMPTY claim at LOOSE" in missing[0][3]
+    assert "every case killed" in missing[0][3], (
+        "the reason the premise is absent must travel with the refusal")
+
+
+def test_an_open_slot_must_say_where_and_why():
+    """An unexplained hole is indistinguishable from an oversight."""
+    for bad in ({"required_kind": "EMPTY"},
+                {"required_kind": "EMPTY", "at": "LOOSE"}):
+        with pytest.raises(S.GraphError):
+            _graph(TWO_MODELS + [
+                {"ev": "inference", "id": "INF", "premises": [bad],
+                 "asserted": "x"}])
+
+
+# ===========================================================================
+# MERGE REPORTING.  T4's other half.
+# ===========================================================================
+def _branch(tmp_path, name, desc, extra=()):
+    p = tmp_path / ("%s.jsonl" % name)
+    evs = [{"ev": "model", "id": "SEED", "desc": "the shared starting point"},
+           {"ev": "model", "id": "SAT", "desc": desc}] + list(extra)
+    p.write_text("\n".join(json.dumps(e) for e in evs) + "\n", encoding="utf-8")
+    return str(p)
+
+
+def test_a_merge_reports_every_conflict_not_just_the_first(tmp_path):
+    """T4 failed its pass condition partly on this. The fold raises on the
+    FIRST conflicting redeclaration, so a real two-branch merge showed one
+    collision, and the second only appeared after the first was resolved and
+    the fold re-run.
+
+    On the live T4 logs there were two -- both agents independently chose `SAT`
+    for the saturated system AND `INF_ANSWER` for their answer -- and only one
+    was visible.
+    """
+    a = _branch(tmp_path, "a", "the closure of the x != 0 locus",
+                [{"ev": "model", "id": "OTHER", "desc": "A's version"}])
+    b = _branch(tmp_path, "b", "the closure of the x*y != 0 locus",
+                [{"ev": "model", "id": "OTHER", "desc": "B's version"}])
+    graph, conflicts = S.merge_report([a, b])
+    assert graph is None, "a conflicted merge must not yield a graph"
+    assert {c["id"] for c in conflicts} == {"SAT", "OTHER"}, (
+        "both conflicts must be reported at once, not one per run")
+    sat = [c for c in conflicts if c["id"] == "SAT"][0]
+    assert sat["fields"] == ["desc"], (
+        "the report must name WHICH fields differ, not print two JSON blobs")
+    assert sat["a"]["line"] and sat["b"]["line"]
+
+
+def test_a_clean_merge_composes_and_yields_the_folded_graph(tmp_path):
+    """The positive control: branches that agree must merge silently, which is
+    the property the append-only shape exists to give."""
+    a = _branch(tmp_path, "a", "same wording",
+                [{"ev": "model", "id": "A_ONLY", "desc": "A's own work"}])
+    b = _branch(tmp_path, "b", "same wording",
+                [{"ev": "model", "id": "B_ONLY", "desc": "B's own work"}])
+    graph, conflicts = S.merge_report([a, b])
+    assert conflicts == []
+    assert set(graph.models) == {"SEED", "SAT", "A_ONLY", "B_ONLY"}
+
+
+# ===========================================================================
 # TYPED DISCHARGE AND SUPERSESSION.  The CEGAR step.
 # ===========================================================================
 def _obligation(tmp_path, admits=None):

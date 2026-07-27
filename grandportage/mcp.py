@@ -539,7 +539,7 @@ def dispatch(request, root=ROOT):
         try:
             return _ok(rid, handler(params.get("arguments") or {}, root))
         except (cas.TransportNotDeclared, cas.IdentifierCollision,
-                cas.CASError, S.GraphError, K.ScopeError) as exc:
+                cas.CASError, S.GraphError, K.KernelRefusal) as exc:
             # Expected refusals.  These are the product, not a crash: the
             # message tells the caller what to do differently.
             return _ok(rid, _err("%s: %s" % (type(exc).__name__, exc)))
