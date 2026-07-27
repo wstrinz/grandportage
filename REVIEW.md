@@ -4,7 +4,7 @@ A brief for an independent reviewer. Deliberately not a tour: the parts that
 work are visible from the tests. What follows is where the risk actually is,
 ordered by how much damage a mistake would do.
 
-**v0.2, five days old, two live user sessions, 273 checks.** One external
+**v0.4, seven days old, four live user sessions, <!--checks-->391<!--/checks--> checks.** One external
 adversarial review has happened and found eight defects; §7 is what it taught.
 Treat everything here as provisional.
 

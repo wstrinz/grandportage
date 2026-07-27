@@ -8,10 +8,12 @@ ignores its own schema must still not reach the solver.
 
 import io
 import json
+import re
 
 import pytest
 
 from grandportage import cas
+from grandportage import discharge as D
 from grandportage import kernel as K
 from grandportage import mcp
 from grandportage import store as S
@@ -214,6 +216,157 @@ def test_show_renders_the_graph_as_a_handoff(project):
     body = text(call("portage_show", {}, project))
     for tag in ("MODEL SRC", "MODEL DST", "EDGE  E1", "CLAIM CL", "INFER INF"):
         assert tag in body
+
+
+def test_show_prints_every_premise_of_a_multi_premise_inference(project):
+    """The handoff view has to show the JOIN, not the first leg of it.
+
+    The fold keeps the singular `claim` and `path` populated from the FIRST
+    premise so that older readers keep working, so a printer reading those
+    fields renders a two-premise argument as a one-premise chain -- and renders
+    it plausibly, which is what makes it expensive.  A campaign built its model
+    of the graph from this output, concluded a claim was consumed by nothing,
+    superseded it, and learned otherwise from a stale-premise finding.
+    """
+    r = call("portage_declare", {"events": [
+        {"ev": "model", "id": "DST", "desc": "the target"},
+        {"ev": "edge", "id": "E1", "src": "SRC", "dst": "DST",
+         "type": K.NECESSARY_CONDITION, "why": "drops equations"},
+        {"ev": "claim", "id": "CL-FAR", "model": "DST", "kind": K.NONEMPTY,
+         "statement": "a witness in the relaxation",
+         "witness_kind": K.EXHIBITED},
+        {"ev": "claim", "id": "CL-NEAR", "model": "SRC", "kind": K.NONEMPTY,
+         "statement": "the side condition, which used to end up in a note",
+         "witness_kind": K.EXHIBITED},
+        {"ev": "inference", "id": "INF", "asserted": "hence a germ at SRC",
+         "premises": [{"claim": "CL-FAR", "path": [["E1", K.AGAINST]]},
+                      {"claim": "CL-NEAR", "path": []}]},
+    ]}, project)
+    assert not r.get("isError"), text(r)
+    body = text(call("portage_show", {}, project))
+    assert "CL-FAR" in body
+    # The premise the singular-field printer dropped on the floor.
+    assert "CL-NEAR" in body
+    # And each premise's own route, since a premise that arrives by a different
+    # path is a different argument.
+    assert "E1/%s" % K.AGAINST in body
+    assert "2 premises" in body
+
+
+def test_show_prints_an_open_slot_premise_as_a_visible_absence(project):
+    """A premise the argument NEEDS and does not have licenses nothing, so it
+    must print as a hole.  Omitting it makes an argument with a declared gap
+    indistinguishable from one that never needed the premise -- which is the
+    single thing the open slot was added to make impossible.
+
+    Written through `S.append` rather than `portage_declare` deliberately.
+    Declaring this graph currently raises out of `check._first_refusal`, which
+    looks the trace's `(missing)` marker up in `graph.edges`; that is a defect
+    in a file this change does not own, and routing around it keeps this test
+    about the printer.
+    """
+    S.append([
+        {"ev": "claim", "id": "CL", "model": "SRC", "kind": K.NONEMPTY,
+         "statement": "a witness", "witness_kind": K.EXHIBITED},
+        {"ev": "inference", "id": "INF", "asserted": "hence a germ",
+         "premises": [
+             {"claim": "CL", "path": []},
+             {"required_kind": K.EMPTY, "at": "SRC",
+              "missing_why": "no such claim exists: five candidates survive"}]},
+    ], root=project)
+    body = text(call("portage_show", {}, project))
+    assert "MISSING" in body
+    # The full phrase, because EMPTY is a substring of NONEMPTY and the claim
+    # line above already prints one of those.
+    assert "needs a claim of kind %s at SRC" % K.EMPTY in body
+    assert "five candidates survive" in body
+
+
+def test_show_marks_a_superseded_record_and_names_its_replacement(project):
+    """A dead record that prints like a live one is the reason supersession
+    exists, and the handoff view is where it does the most damage."""
+    r = call("portage_declare", {"events": [
+        {"ev": "claim", "id": "CL", "model": "SRC", "kind": K.NONEMPTY,
+         "statement": "a witness", "witness_kind": K.EXHIBITED},
+        {"ev": "inference", "id": "INF", "asserted": "hence a germ",
+         "premises": [{"claim": "CL", "path": []}]},
+        {"ev": "claim", "id": "CL2", "model": "SRC", "kind": K.NONEMPTY,
+         "statement": "a witness", "witness_kind": K.EXHIBITED,
+         "cite": "arXiv:0000.0000", "supersedes": "CL",
+         "discharge_kind": K.AMEND},
+        {"ev": "inference", "id": "INF2", "asserted": "hence a germ, cited",
+         "premises": [{"claim": "CL2", "path": []}],
+         "supersedes": "INF", "discharge_kind": K.RESTATE},
+    ]}, project)
+    assert not r.get("isError"), text(r)
+    body = text(call("portage_show", {}, project))
+    assert "[SUPERSEDED by CL2]" in body
+    assert "supersedes CL (%s)" % K.AMEND in body
+    assert "[SUPERSEDED by INF2]" in body
+    assert "supersedes INF (%s)" % K.RESTATE in body
+
+
+# ===========================================================================
+# The two discharge vocabularies
+# ===========================================================================
+
+def _declare_events_description():
+    tools = {t["name"]: t
+             for t in mcp.dispatch(rpc("tools/list"))["result"]["tools"]}
+    return tools["portage_declare"]["inputSchema"]["properties"]["events"][
+        "description"]
+
+
+def test_both_discharge_vocabularies_are_documented_on_the_tool_surface():
+    """A refusal that is correct but whose correct answer cannot be looked up
+    from the tool is a design cost charged to the caller.  A campaign hit a
+    refusal demanding a DERIVE or RETYPE discharge and had to read
+    discharge.py's source to find the words, because only the claim vocabulary
+    was documented here.
+
+    Word BOUNDARIES, not `in`: DERIVE is a substring of DERIVED, an unrelated
+    identity_origin value this same description documents, so a substring test
+    passes against a file where the edge vocabulary is entirely absent.
+    """
+    desc = _declare_events_description()
+    for kind in tuple(D.DISCHARGE_KINDS) + tuple(K.SUPERSESSION_KINDS):
+        assert re.search(r"\b%s\b" % kind, desc), kind
+
+
+def test_the_two_discharge_vocabularies_are_never_offered_as_one_list():
+    """Documenting both invites the failure documenting neither did not: a
+    reader merging seven words into one menu and picking AMEND for an edge.
+
+    So each vocabulary must sit under the kind of record it applies to, and
+    neither list's words may appear in the other's section.
+    """
+    desc = _declare_events_description()
+    before, sep, claim_part = desc.partition("REPLACING A CLAIM OR AN INFERENCE")
+    assert sep, "the claim/inference vocabulary has no heading of its own"
+    edge_part = before.partition("REPLACING AN EDGE")[2]
+    assert edge_part, "the edge vocabulary has no heading of its own"
+    for kind in D.DISCHARGE_KINDS:
+        assert re.search(r"\b%s\b" % kind, edge_part), kind
+        assert not re.search(r"\b%s\b" % kind, claim_part), kind
+    for kind in K.SUPERSESSION_KINDS:
+        assert re.search(r"\b%s\b" % kind, claim_part), kind
+        assert not re.search(r"\b%s\b" % kind, edge_part), kind
+
+
+def test_the_edge_vocabulary_says_what_it_discharges_and_the_other_does_not():
+    """The lists differ because the QUESTIONS differ, and a reader who cannot
+    see that will pick by feel.  An edge supersession discharges an OBLIGATION
+    the old edge was carrying; a claim supersession describes WHAT CHANGED
+    about the record."""
+    desc = _declare_events_description()
+    edge_part = desc.partition("REPLACING AN EDGE")[2].partition(
+        "REPLACING A CLAIM OR AN INFERENCE")[0]
+    assert "OBLIGATION" in edge_part
+    claim_part = desc.partition("REPLACING A CLAIM OR AN INFERENCE")[2]
+    assert "WHAT CHANGED" in claim_part
+    # And the collision is called out where a reader would otherwise trip on
+    # it: the discharge kind DERIVE is not the identity_origin value DERIVED.
+    assert K.DERIVED in edge_part
 
 
 def test_a_successful_cas_call_records_the_typed_edge(project, monkeypatch):

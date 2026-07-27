@@ -21,6 +21,7 @@ import json
 import os
 
 from . import kernel as K
+from .discharge import DISCHARGE_KINDS as D_KINDS
 
 GRAPH_DIR = ".portage"
 GRAPH_FILE = "graph.jsonl"
@@ -34,10 +35,12 @@ EV_INFERENCE = "inference"
 EV_BUILT_BY = "built_by"
 EV_PARTITION = "partition"
 EV_SAME_AS = "same_as"
+EV_FAMILY = "family"      # a finite INDEX of objects, not a variety
 EV_NOTE = "note"          # free-form, carried but never interpreted
 
 EVENT_KINDS = (EV_CERTIFICATE, EV_MODEL, EV_EDGE, EV_CLAIM, EV_INFERENCE,
-               EV_BUILT_BY, EV_PARTITION, EV_SAME_AS, EV_NOTE)
+               EV_BUILT_BY, EV_PARTITION, EV_SAME_AS, EV_FAMILY,
+               EV_NOTE)
 
 # Severities an inference may override to.  Named here rather than imported so
 # the store stays the bottom layer with no dependency on the checker;
@@ -79,6 +82,8 @@ class Graph(object):
         self.inference_order = []  # declaration order, for stable reporting
         self.built_by = {}         # model id -> [inference id, ...]
         self.partitions = {}       # id -> {parent, branches, exhaustive}
+        self.families = {}         # id -> {count, enumeration, members?}
+        self.groups = {}           # group id -> {of, settles, exhibited, ...}
         self.aliases = {}          # id -> {models: [...], why}
         self.notes = []
         self._seen = {}            # (kind, id) -> canonical event
@@ -201,6 +206,151 @@ class Graph(object):
         a["models"] = list(models)
         self.aliases[ev["id"]] = a
 
+    def _apply_disposition(self, ev, where):
+        """A COUNT claim: how a GROUP of a family's members was settled.
+
+        NOT A NEW RECORD KIND, and that was the second design to survive
+        contact with real data.  A disposition needs an evidence grade, a
+        citation, supersession, everything a claim already has -- one campaign
+        split its groups by METHOD SOUNDNESS (a proof at one point versus
+        sampling), another split by EVIDENCE PROVENANCE (a paper nobody in the
+        campaign had read versus its own exact check).  Both axes matter and
+        only one of them was new, so a disposition IS a claim and inherits the
+        other for free.
+
+        `splits` names what is being subdivided: the family, or a GROUP from an
+        earlier disposition.  That is the tree, and it is a tree rather than a
+        partition because a real triage is nested -- 1567 into 347 and 1220,
+        then the 347 into 343 and 4.  A flat "the groups total the family" rule
+        was the first thing written here and it is simply wrong.
+        """
+        # A COUNT CLAIM DOES ONE OF TWO JOBS, and conflating them was the first
+        # thing the retrodiction fixture broke.  It either SPLITS a group into
+        # dispositions, or it asserts a cardinality over the INTERSECTION of
+        # two groups.  Both are counts; only the first is a triage step, and
+        # requiring `groups` of both made a cross-cut claim inexpressible.
+        splitting = bool(ev.get("splits") or ev.get("groups"))
+        crossing = bool(ev.get("rests_on") and ev.get("counts_against"))
+        _require(splitting != crossing,
+                 "%s: COUNT claim %r must be exactly one of two things.\n"
+                 "  A DISPOSITION splits a family or a group -- declare "
+                 "`splits`, `groups`, `method`, `proves` and `why`.\n"
+                 "  A CROSS-COUNT asserts how many members of one group lie in "
+                 "another -- declare `rests_on`, `counts_against` and "
+                 "`asserts_count`.\n"
+                 "  Both are counts and only the first is a triage step."
+                 % (where, ev["id"]))
+        if crossing:
+            return
+        groups = ev.get("groups") or []
+        _require(groups,
+                 "%s: claim %r is a COUNT and must declare `groups`: how the "
+                 "members it covers were disposed of." % (where, ev["id"]))
+        _require(ev.get("splits"),
+                 "%s: COUNT claim %r must declare `splits` -- the family or "
+                 "the group it subdivides. A triage is a TREE: a split of 347 "
+                 "does not have to total the 1567 above it."
+                 % (where, ev["id"]))
+        _require(ev.get("method"),
+                 "%s: COUNT claim %r must declare the `method` that settled "
+                 "these members." % (where, ev["id"]))
+        gids = [g.get("id") for g in groups]
+        _require(isinstance(ev.get("proves"), list),
+                 "%s: COUNT claim %r must declare `proves`: the list of its "
+                 "own group ids whose verdict this method ESTABLISHES. The "
+                 "others are evidence.\n"
+                 "  Full Jacobian rank at one rational point proves generic "
+                 "full rank -- the witnessing minor is a nonzero polynomial. "
+                 "Rank DEFICIENCY at that point is only evidence. One "
+                 "computation, two verdicts, one of them not established.\n"
+                 "  Declare it EMPTY if the method only screens. An empty list "
+                 "is an answer; a missing one is a question nobody was asked."
+                 % (where, ev["id"]))
+        unknown = [g for g in ev["proves"] if g not in gids]
+        _require(not unknown,
+                 "%s: COUNT claim %r says it proves %s, which %s not among its "
+                 "own groups (%s)."
+                 % (where, ev["id"], ", ".join(unknown),
+                    "are" if len(unknown) > 1 else "is", ", ".join(gids)))
+        _require(ev.get("why"),
+                 "%s: COUNT claim %r must say WHY the method proves what it "
+                 "proves and not the rest. That sentence is the whole content "
+                 "of `proves`." % (where, ev["id"]))
+        for g in groups:
+            _require(g.get("id") and g.get("verdict"),
+                     "%s: every group of %r needs `id` and `verdict`"
+                     % (where, ev["id"]))
+            _require(isinstance(g.get("settles"), int) and g["settles"] >= 0,
+                     "%s: group %r of %r needs an integer `settles`"
+                     % (where, g.get("id"), ev["id"]))
+            ex = list(g.get("exhibited") or [])
+            _require(not ex or len(ex) <= g["settles"],
+                     "%s: group %r exhibits %d members but settles %d"
+                     % (where, g["id"], len(ex), g["settles"]))
+            rec = dict(g)
+            rec["of"] = ev["family"]
+            rec["by"] = ev["id"]
+            rec["exhibited"] = ex
+            rec["proved"] = g["id"] in ev["proves"]
+            rec["method"] = ev["method"]
+            rec["why"] = ev["why"]
+            _require(g["id"] not in self.groups,
+                     "%s: group id %r is declared twice; group ids name a set "
+                     "of members and two sets must not share a name."
+                     % (where, g["id"]))
+            self.groups[g["id"]] = rec
+
+    def _apply_family(self, ev, where):
+        """A finite INDEX of objects.  Emphatically NOT a variety.
+
+        FOUR CONSECUTIVE SESSIONS ASKED FOR THIS and it is the only item that
+        appeared in every report.  "4 of 1567 isomorphism classes are
+        generically 2-to-1" is the deliverable of a census, and a model in this
+        kernel IS its solution set, so there was no object for "the 1567
+        classes".  The result lived in prose and the graph held one example of
+        it.
+
+        THE OBVIOUS ENCODING WAS TRIED AND CORRECTLY REJECTED.  A campaign
+        considered a disjoint-union parent with a `partition` over verdict
+        classes and declined: "the parent would have been an object nobody
+        studies, invented to satisfy the tool."  That is right.  The disjoint
+        union of 1567 varieties has geometry, and none of it is the geometry
+        anybody is reasoning about.
+
+        So a family is an INDEX and says so.  It has no points, nothing
+        transports across it, and no edge may touch it.  What it has is a
+        COUNT, which is an assertion somebody made and can get wrong, so it
+        must name a claim establishing it.  That is where "orbit sizes sum to
+        34,752" finally lives instead of in a note.
+
+        Members may be NAMED or merely counted, and which one decides what is
+        computable downstream: two decompositions of the same family can only
+        be intersected if both name their members.  At 34 rows you name them;
+        at 1567 you do not, and the cross-cut claims that error was made in are
+        then correctly unavailable.
+        """
+        _require(isinstance(ev.get("count"), int) and ev["count"] >= 0,
+                 "%s: family %r must declare an integer `count`. A family is "
+                 "an index, and how many things it indexes is the one thing it "
+                 "must say." % (where, ev["id"]))
+        _require(ev.get("desc"),
+                 "%s: family %r needs `desc` -- what is a member?"
+                 % (where, ev["id"]))
+        members = list(ev.get("members") or [])
+        if members:
+            _require(len(members) == ev["count"],
+                     "%s: family %r lists %d members and declares count %d. "
+                     "If the list is partial say so by omitting it; a list "
+                     "that silently disagrees with the count is worse than no "
+                     "list, because everything downstream trusts the names."
+                     % (where, ev["id"], len(members), ev["count"]))
+            _require(len(set(members)) == len(members),
+                     "%s: family %r lists a member twice."
+                     % (where, ev["id"]))
+        f = dict(ev)
+        f["members"] = members
+        self.families[ev["id"]] = f
+
     def _apply_partition(self, ev, where):
         """A parent model split into branches, with its exhaustiveness stated.
 
@@ -273,6 +423,7 @@ class Graph(object):
         self.models[ev["id"]] = m
 
     def _apply_edge(self, ev, where):
+        self._reject_rule_names(ev, where)
         _require(ev.get("type") in K.DECLARABLE_TYPES,
                  "%s: edge %r has type %r; declarable types are %s"
                  % (where, ev["id"], ev.get("type"),
@@ -323,13 +474,78 @@ class Graph(object):
         e["refinement"] = bool(ev.get("refinement"))
         self.edges[ev["id"]] = e
 
+    # ---------------------------------------------------------------------
+    # RULE NAMES THAT ARE NOT FIELD NAMES, and a silent ignore that a live
+    # campaign hit.
+    #
+    # A refusal reports the RULE that blocked it -- `ring_isomorphism` -- and
+    # the field you must actually set is `ring_iso`.  A campaign read the
+    # refusal, read `gp table`'s conditions column (which prints rule names in
+    # a list that reads like fields), declared `ring_isomorphism: true` on two
+    # edges, and it was accepted and ignored.  Nothing false was licensed there
+    # by luck; a graph relying on an EQUIVALENCE to carry an IDENTITY would
+    # have been refused with no hint why.
+    #
+    # WHAT MAKES THE MISTAKE REASONABLE IS THAT IT IS SOMETIMES RIGHT.  Two of
+    # the seven rule names -- `coefficients_in_base`, `zariski_dense` -- ARE
+    # the field.  So a user who correctly learned one infers the other, and the
+    # inference is sound about the vocabulary and wrong about this word.
+    #
+    # Renaming the rules to match would be the deeper fix and would rewrite
+    # every recorded refusal reason in every campaign log.  Refusing the near
+    # miss by name costs nothing and cannot silently do nothing.
+    # ---------------------------------------------------------------------
+    _NOT_A_FIELD = {
+        "ring_isomorphism": ("ring_iso", "an EQUIVALENCE that is an "
+                             "isomorphism of coordinate rings, not merely a "
+                             "bijection on points"),
+        "map_polynomial": ("map_kind", "one of %s" % (", ".join(K.MAP_KINDS),)),
+        "ambient_identity": ("identity_origin", "%s, on the CLAIM rather than "
+                             "the edge" % K.AMBIENT),
+        "integral_identity": ("integral", "on the CLAIM rather than the edge"),
+        "scheme_scope": ("certificate", "scope is DERIVED from the certificate "
+                         "kind and is never declared"),
+    }
+
+    def _reject_rule_names(self, ev, where):
+        for bad, (real, hint) in sorted(self._NOT_A_FIELD.items()):
+            if bad in ev:
+                raise GraphError(
+                    "%s: %s %r carries %r, which is the name of a transport "
+                    "RULE, not a field. It would have been stored and ignored.\n"
+                    "  You want `%s`: %s.\n"
+                    "  Refusals report the rule that blocked them, and for two "
+                    "rules -- coefficients_in_base, zariski_dense -- that name "
+                    "IS the field, which is what makes this worth refusing "
+                    "rather than silently accepting."
+                    % (where, ev.get("ev", "record"), ev.get("id"), bad,
+                       real, hint))
+
     def _apply_claim(self, ev, where):
-        _require(ev.get("kind") in K.CLAIM_KINDS,
-                 "%s: claim %r has kind %r; known: %s"
-                 % (where, ev["id"], ev.get("kind"), ", ".join(K.CLAIM_KINDS)))
-        _require(ev.get("model"), "%s: claim %r needs `model`" % (where, ev["id"]))
+        self._reject_rule_names(ev, where)
+        # A CLAIM SITS AT A MODEL OR AT A FAMILY, never both.
+        #
+        # A family is to its members as a model is to its points, so the claim
+        # kinds carry over unchanged as quantifiers -- PREDICATE is "every
+        # member", EMPTY is "no member", NONEMPTY is "at least one, exhibited".
+        # That correspondence is why no new vocabulary was needed for the
+        # ordinary cases and why COUNT is the only addition.
+        at_family = bool(ev.get("family"))
+        _require(bool(ev.get("model")) != at_family,
+                 "%s: claim %r must sit at exactly one of `model` or `family`. "
+                 "A family is an INDEX, not a variety: its members are objects, "
+                 "a model's members are points, and a claim quantifies over one "
+                 "or the other." % (where, ev["id"]))
+        kinds = K.CLAIM_KINDS + ((K.COUNT,) if at_family else ())
+        _require(ev.get("kind") in kinds,
+                 "%s: claim %r has kind %r; %s: %s"
+                 % (where, ev["id"], ev.get("kind"),
+                    "at a family the kinds are" if at_family
+                    else "at a model the kinds are", ", ".join(kinds)))
         _require(ev.get("statement"),
                  "%s: claim %r needs `statement`" % (where, ev["id"]))
+        if ev.get("kind") == K.COUNT:
+            self._apply_disposition(ev, where)
         c = dict(ev)
         # Scope derivation happens at fold time, not at check time: a claim
         # whose declared scope contradicts its certificate is a malformed
@@ -353,47 +569,94 @@ class Graph(object):
         # is WRONG, including a pair that contradicts itself.
         K.check_evidence(ev.get("established_by"), ev.get("ladder"),
                          claim_id=ev["id"])
-        self._supersede(c, self.claims, "claim", where)
         self.claims[ev["id"]] = c
 
-    def _supersede(self, new, registry, entity, where):
-        """Record that this record replaces an earlier one, and check the kind.
+    # -----------------------------------------------------------------------
+    # SUPERSESSION IS RESOLVED AFTER THE FOLD, NOT DURING IT.
+    #
+    # The first version checked it inside `_apply_claim`, which made the fold
+    # ORDER-DEPENDENT and quietly falsified the property that earns the
+    # append-only shape:
+    #
+    #     merge [old_branch, new_branch]  -> folds
+    #     merge [new_branch, old_branch]  -> "supersedes X, which is not a
+    #                                         claim in this graph"
+    #
+    # `load`'s docstring says order does not matter, DESIGN.md sells merging as
+    # concatenate-and-fold-again, and `apply_all`'s own comment says
+    # certificates are THE ONLY event kind whose prior presence changes how a
+    # later event folds.  Supersession made that sentence false the day it
+    # landed, in the same file that explains why it must not be.
+    #
+    # And the failure is not cosmetic: an unfoldable graph makes
+    # `hook.evaluate` fail CLOSED, so the wrong concatenation order blocks
+    # every tool call in a session.
+    #
+    # So it belongs here, with every other cross-reference.  Resolution is a
+    # pass over all three registries once the fold is complete, which also
+    # gives EDGES the treatment claims and inferences already had -- they were
+    # carrying `supersedes` with no existence check, no self-check and no
+    # back-pointer at all.
+    # -----------------------------------------------------------------------
+    _SUPERSEDABLE = ("claim", "inference", "edge")
 
-        REDECLARATION WITH DIFFERENT CONTENT IS A HARD FOLD ERROR, which is
-        right -- it is how a log stops being a log.  The consequence was that a
-        campaign noticing a missing optional attribute at check time had to
-        mint a new id and leave the old entity in the graph, dead but
-        indistinguishable from a live one, with a prose note to explain it and
-        a baseline entry that meant `superseded` rather than `carried on its
-        merits`.  One diluted entry is enough to make every other entry in a
-        baseline file weaker.
-
-        So the older record is MARKED rather than removed -- the log stays
-        append-only, and `gp check` can tell the difference.  What is not done
-        is repointing anything: an inference that used the old claim still
-        points at the old claim, and the checker says so.  Silently re-aiming
-        an argument at a record it was never checked against is the whole
-        failure mode this exists to prevent.
-        """
-        old_id = new.get("supersedes")
-        if not old_id:
-            return
-        _require(old_id != new["id"],
-                 "%s: %s %r supersedes itself." % (where, entity, new["id"]))
-        _require(old_id in registry,
-                 "%s: %s %r supersedes %r, which is not a %s in this graph. "
-                 "Supersession names the record being replaced; if the older "
-                 "one lives in a log you have not folded in, fold it too."
-                 % (where, entity, new["id"], old_id, entity))
-        old = registry[old_id]
-        _require(new.get("discharge_kind"),
-                 "%s: %s %r supersedes %r without saying HOW. Declare "
-                 "`discharge_kind`: %s."
-                 % (where, entity, new["id"], old_id,
-                    ", ".join(K.SUPERSESSION_KINDS)))
-        K.check_supersession_kind(old, new, new["discharge_kind"],
-                                  claim_id=new["id"], entity=entity)
-        old["superseded_by"] = new["id"]
+    def _resolve_supersessions(self):
+        for entity in self._SUPERSEDABLE:
+            registry = {"claim": self.claims, "inference": self.inferences,
+                        "edge": self.edges}[entity]
+            kinds = (D_KINDS if entity == "edge" else K.SUPERSESSION_KINDS)
+            for new_id in sorted(registry):
+                new = registry[new_id]
+                old_id = new.get("supersedes")
+                if not old_id:
+                    continue
+                _require(old_id != new_id,
+                         "%s %r supersedes itself." % (entity, new_id))
+                _require(old_id in registry,
+                         "%s %r supersedes %r, which is not a %s in this "
+                         "graph. Supersession names the record being replaced; "
+                         "if the older one lives in a log you have not folded "
+                         "in, fold it too."
+                         % (entity, new_id, old_id, entity))
+                kind = new.get("discharge_kind")
+                _require(kind, "%s %r supersedes %r without saying HOW. "
+                               "Declare `discharge_kind`: %s."
+                         % (entity, new_id, old_id, ", ".join(kinds)))
+                _require(kind in kinds,
+                         "%s %r supersedes %r with discharge_kind %r; for a %s "
+                         "the kinds are %s.\n"
+                         "  The two vocabularies are different on purpose. An "
+                         "EDGE supersession says what happened to the "
+                         "OBLIGATION the old edge carried; a CLAIM or "
+                         "INFERENCE supersession says what CHANGED about the "
+                         "record."
+                         % (entity, new_id, old_id, kind, entity,
+                            ", ".join(kinds)))
+                old = registry[old_id]
+                if entity == "edge":
+                    # NO COMPUTED CHECK HERE, and the reason is a distinction
+                    # worth keeping straight.
+                    #
+                    # A CLAIM's discharge_kind describes what CHANGED about the
+                    # record, so AMEND is checkable by diffing the two records
+                    # and is checked.  An EDGE's describes what happened to the
+                    # OBLIGATION the old edge carried -- DERIVE the missing
+                    # mathematics now exists, RETYPE the relation was
+                    # mis-stated, ACCEPT carry it deliberately with a reason.
+                    # Those live one level up from the record.
+                    #
+                    # A first version of this refused RETYPE when nothing in
+                    # EDGE_LICENSING_FIELDS moved, by analogy with AMEND. It
+                    # was wrong twice: it conflated the two levels, and it made
+                    # a legitimate edit inexpressible -- restating an UNTYPED
+                    # edge's `debt_why` more precisely changes no licensing and
+                    # is not a repair that did not happen. It broke five
+                    # well-reasoned tests and the tests were right.
+                    pass
+                else:
+                    K.check_supersession_kind(old, new, kind,
+                                              claim_id=new_id, entity=entity)
+                old["superseded_by"] = new_id
 
     def _apply_inference(self, ev, where):
         """An inference has one or more PREMISES, each with its own path.
@@ -532,7 +795,6 @@ class Graph(object):
                      "without `severity_why`.  A severity downgrade is a "
                      "judgement and must be visible as one."
                      % (where, ev["id"], sev))
-        self._supersede(i, self.inferences, "inference", where)
         self.inferences[ev["id"]] = i
         self.inference_order.append(ev["id"])
 
@@ -579,9 +841,31 @@ class Graph(object):
         and typing it would produce a confident verdict about a route nobody
         can walk.
         """
+        self._resolve_supersessions()
         for cid, c in sorted(self.claims.items()):
+            if c.get("family"):
+                _require(c["family"] in self.families,
+                         "claim %r lives at undeclared family %r"
+                         % (cid, c["family"]))
+                continue
             _require(c["model"] in self.models,
                      "claim %r lives in undeclared model %r" % (cid, c["model"]))
+        for fid, f in sorted(self.families.items()):
+            for m in f["members"]:
+                # Members are NAMES, and need not be declared models.  At 1567
+                # classes nobody declares a model per member, and at 34 rows
+                # the names are row labels from an atlas.  What they must be is
+                # consistent: a group may only exhibit members the family has.
+                pass
+        for gid, g in sorted(self.groups.items()):
+            fam = self.families.get(g["of"])
+            if fam and fam["members"]:
+                unknown = [m for m in g["exhibited"] if m not in fam["members"]]
+                _require(not unknown,
+                         "group %r exhibits %s, which %s does not list as a "
+                         "member. A cross-cut is computed from these names, so "
+                         "a name that is not in the family silently changes an "
+                         "intersection." % (gid, ", ".join(unknown), g["of"]))
         for eid, e in sorted(self.edges.items()):
             for end in ("src", "dst"):
                 _require(e[end] in self.models,

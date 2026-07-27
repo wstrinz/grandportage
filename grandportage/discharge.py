@@ -49,6 +49,25 @@ _GENERIC = ("Re-examine this step: the transport it needs is not licensed by "
 #            Legitimate, and the move most likely to be reached for when the
 #            mathematics is hard.
 #   ACCEPT   carry it deliberately, in the open, with a reason.
+#
+# `RETYPE` READS AS "I CHANGED THE TYPE FIELD" AND DOES NOT MEAN THAT, which is
+# a naming problem worth recording rather than a bug.  A campaign retyped an
+# UNTYPED edge to RESTRICTION -- literally editing the `type` field -- and its
+# own prose says "and this is the retype".  The correct kind was DERIVE: the
+# edge had never been MIS-STATED, its `why` described the step correctly, and
+# what it lacked was a vocabulary word that meant "drops inequalities".  Its own
+# discharge_hint had asked for exactly that, so the refusal went away because
+# the thing it was waiting for now existed.
+#
+# The author, reading `RETYPE` the natural way and finding it not quite right,
+# reached past both and wrote `RELICENSE` -- a CLAIM kind, which edges do not
+# take, and which was silently accepted until edges got their supersession
+# validated.  Three plausible words, one correct, and the incorrect ones are
+# incorrect for reasons the names actively obscure.
+#
+# Renaming is the obvious repair and is not free: `admits` pins in live
+# baselines name these strings, so a rename rewrites recorded obligations in
+# campaign logs.  Left as a decision, flagged here so it is not rediscovered.
 # ---------------------------------------------------------------------------
 DERIVE = "DERIVE"
 RETYPE = "RETYPE"
@@ -269,6 +288,42 @@ MOVES[(K.SPECIALIZATION, K.AGAINST, K.IDENTITY)] = (
 
 # Rule-level moves, for findings that are not a transport refusal.
 RULE_MOVES = {
+    # An OPEN PREMISE SLOT.  Nothing was traversed, so no transport cell has an
+    # opinion and no side condition would help -- the argument names a claim
+    # the graph does not contain, deliberately, because entering a claim
+    # nobody has established would have been the worse of the two escapes.
+    "(missing)": (
+        "SUPPLY THE MISSING CLAIM, or stop asserting the conclusion.  This is "
+        "not a transport refusal and there is no edge to retype: the argument "
+        "declares a premise it does not have, and says so on purpose.\n"
+        "  The slot names the KIND and the MODEL it needs. Establish exactly "
+        "that and record it, and this argument becomes checkable in the "
+        "ordinary way.\n"
+        "  If it cannot be established, that is the finding -- and the slot is "
+        "how it stays visible. Do not close it by writing the claim as though "
+        "it held; a graph that states a falsehood is worse than one that "
+        "states a gap. Withdraw the conclusion instead, or weaken it to "
+        "something the premises you DO have will carry."),
+    # A CASE SPLIT THAT DOES NOT COVER ITS PARENT.  Also not a transport
+    # refusal, and pointedly not the same remedy as a missing premise: nothing
+    # is absent from the graph, the argument is simply not yet an argument
+    # about the parent.
+    "(partition)": (
+        "COVER EVERY BRANCH, or conclude about a branch instead of the parent. "
+        "A case split reaches the parent only when NO case is left open -- one "
+        "branch dying says nothing whatever about the others, which is why no "
+        "single edge licenses this step and the partition carries it.\n"
+        "  Settle the branches the finding names, or narrow the conclusion to "
+        "the branches you have. Both are honest; asserting the parent from a "
+        "proper subset of its cases is not.\n"
+        "  If a branch cannot be settled, declare it as an OPEN SLOT rather "
+        "than omitting it. The coverage verdict is identical -- a slot settles "
+        "nothing, deliberately -- but the graph then says WHICH case is open "
+        "and why, instead of leaving a reader to diff the branch list against "
+        "the premises.\n"
+        "  And check the exhaustiveness claim is among the premises. That the "
+        "branches cover the parent is itself a claim, and it is the one a case "
+        "analysis most often assumes."),
     "TAINT": (
         "This model was BUILT by a step the type system refuses, so every "
         "conclusion drawn inside it is suspect even where its own transport is "
@@ -434,7 +489,7 @@ KNOWN_UNSOUND = []
 
 def discharge_for(rule_or_type, direction=None, kind=None, graph=None,
                   edge=None, axis=None, missing=None, fid=None,
-                  traffic=False):
+                  traffic=False, hints=()):
     """The canonical next move for a finding.  Never returns empty.
 
     `traffic=True` means "a conclusion was drawn ACROSS this edge", as opposed
@@ -486,6 +541,28 @@ def discharge_for(rule_or_type, direction=None, kind=None, graph=None,
     # to the campaign, and the campaign is the only thing that knows it -- so
     # an edge can say what would actually close a refusal across it, and that
     # is appended rather than replacing the requirement.
+    # EVERY OBJECT INVOLVED, not only the edge.
+    #
+    # THE ONE ARTIFACT WITH EVIDENCE OF WORKING.  A campaign returning cold
+    # after a context boundary reported that the `discharge_hint` written on an
+    # edge by the previous session "came back verbatim in every refusal, and it
+    # named the remedy precisely enough to execute", and called it "the only
+    # artifact in the campaign that did real cross-session handoff work.
+    # Nothing in the prose files did that."
+    #
+    # The same session found that every prose claim about the tool's vocabulary
+    # had ROTTED within one session, while this string had not -- because it is
+    # attached to the object it is about and surfaced at the moment the object
+    # blocks you, instead of sitting in a file somebody has to think to open.
+    #
+    # In Cognitive Dimensions terms this is SECONDARY NOTATION: author-supplied
+    # annotation the system does not interpret.  The finding is that the
+    # secondary notation outperformed every piece of primary notation for
+    # handoff, which is a known phenomenon with a known implication -- support
+    # it deliberately rather than treating it as decoration.  Only edges could
+    # carry one.  Now anything can.
+    for label, text in (hints or ()):
+        move += "\n  FOR THIS %s, the campaign says: %s" % (label.upper(), text)
     if edge and edge.get("discharge_hint"):
         move += ("\n  FOR THIS EDGE, the campaign says: %s"
                  % edge["discharge_hint"])

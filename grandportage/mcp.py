@@ -241,17 +241,61 @@ TOOLS = [
                         "the claim, its grade is `claimed`. Leaving both "
                         "fields off is fine; an ungraded claim is merely "
                         "ungraded. What is refused is half a grade. "
-                        "TO REPLACE A CLAIM OR INFERENCE YOU HAVE ALREADY "
-                        "RECORDED, do not mint an unrelated id and leave the "
-                        "old one sitting there: declare the new one with "
-                        "`supersedes` and `discharge_kind`. AMEND means "
-                        "nothing that licenses a transport changed -- a "
-                        "citation, a caveat, an evidence grade. RELICENSE "
-                        "means an attribute that DECIDES transport moved "
-                        "(certificate, scope, identity_origin, "
-                        "coefficients_in_base, witness_kind). RESTATE means "
-                        "the statement, kind or model itself changed. RETRACT "
-                        "withdraws it. The tool DIFFS the two records and "
+                        "TO REPLACE A RECORD YOU HAVE ALREADY MADE, do not "
+                        "mint an unrelated id and leave the old one sitting "
+                        "there: declare the new one with `supersedes` and "
+                        "`discharge_kind`. "
+                        "THERE ARE TWO DISCHARGE VOCABULARIES AND THEY DO NOT "
+                        "MIX. Which one you are choosing from is settled "
+                        "before you think about the change at all, by WHAT "
+                        "you are replacing: an EDGE takes one list, a CLAIM "
+                        "or an INFERENCE takes the other. There is no "
+                        "combined list of seven, because the two lists answer "
+                        "different questions -- and borrowing across them "
+                        "fails in two different ways, neither of which helps: "
+                        "a supersession kind from the edge list is REFUSED on "
+                        "a claim, and one from the claim list is a word no "
+                        "obligation has ever admitted, so on an edge it "
+                        "discharges nothing.\n"
+                        "REPLACING AN EDGE -- DERIVE, RETYPE, ACCEPT. An edge "
+                        "is what a transport refusal is recorded AGAINST, so "
+                        "replacing one asks: WHAT HAPPENED TO THE OBLIGATION "
+                        "the old edge was carrying? Supersession INHERITS "
+                        "those obligations rather than clearing them, and a "
+                        "baseline entry may pin `admits`, in which case the "
+                        "only exit is the one the obligation asked for.\n"
+                        "  DERIVE - the mathematics the refusal was waiting "
+                        "for now exists. The refusal goes away because the "
+                        "thing it wanted is there.\n"
+                        "  RETYPE - the relation was mis-stated and the true "
+                        "one licenses the step. Legitimate, and the move most "
+                        "reached for when the mathematics is hard, which is "
+                        "why an obligation recorded as admitting only DERIVE "
+                        "refuses it.\n"
+                        "  ACCEPT - carry it deliberately, in the open, with "
+                        "a reason.\n"
+                        "  DERIVE is a discharge kind and is NOT the "
+                        "identity_origin value DERIVED described above. One "
+                        "is a move that closes an obligation; the other says "
+                        "where a rewriting is valid. They share six letters "
+                        "and nothing else.\n"
+                        "REPLACING A CLAIM OR AN INFERENCE -- AMEND, "
+                        "RELICENSE, RESTATE, RETRACT. These records carry no "
+                        "obligation; they carry CONTENT. So the question is "
+                        "not what was discharged but WHAT CHANGED ABOUT THE "
+                        "RECORD, and the answer is checked against the two "
+                        "versions rather than taken on your word.\n"
+                        "  AMEND - nothing that licenses a transport changed: "
+                        "a citation, a caveat, an evidence grade.\n"
+                        "  RELICENSE - an attribute that DECIDES transport "
+                        "moved (certificate, scope, identity_origin, "
+                        "coefficients_in_base, witness_kind). The quiet one: "
+                        "the sentence is unchanged and what stands behind it "
+                        "is not.\n"
+                        "  RESTATE - the statement, kind or model itself "
+                        "changed.\n"
+                        "  RETRACT - withdrawn, and nothing replaces it.\n"
+                        "The tool DIFFS the two records and "
                         "refuses a kind that understates what moved, so "
                         "'I only added an attribute' will not get a licensing "
                         "field past unexamined. Superseding does NOT repoint "
@@ -482,15 +526,55 @@ def h_portage_show(args, root):
                    % (eid, e["src"], e["dst"], e["type"]))
     for cid in sorted(g.claims):
         c = g.claims[cid]
-        out.append("CLAIM %-16s %-9s @%-14s scope=%s cert=%s"
+        mark = ("  [SUPERSEDED by %s]" % c["superseded_by"]
+                if c.get("superseded_by") else "")
+        out.append("CLAIM %-16s %-9s @%-14s scope=%s cert=%s%s"
                    % (cid, c["kind"], c["model"], c.get("scope"),
-                      c.get("certificate")))
+                      c.get("certificate"), mark))
+        if c.get("supersedes"):
+            out.append("    supersedes %s (%s)"
+                       % (c["supersedes"], c.get("discharge_kind")))
+    # EVERY PREMISE, NOT JUST THE FIRST.
+    #
+    # This printer read `i["claim"]` and `i["path"]` -- the singular legacy
+    # fields, which the fold keeps populated from the FIRST premise so that old
+    # readers keep working.  So the one view designated as the handoff showed a
+    # two-premise join as a one-premise chain, and silently omitted exactly the
+    # construct the multi-premise form was added to make visible.  A campaign
+    # read this output, concluded a claim was consumed by nothing, superseded
+    # it, and found out otherwise only when the checker raised a stale premise.
+    #
+    # `premises` is the normalised form and always exists -- the single-premise
+    # case is a list of one -- so there is no shape to special-case, and the
+    # uniform rendering is what keeps a second premise from hiding behind a
+    # branch that was only ever exercised with one.
     for iid in g.inference_order:
         i = g.inferences[iid]
-        out.append("INFER %-16s %s via %s -> %s"
-                   % (iid, i["claim"],
-                      " ".join("%s/%s" % s for s in i["path"]) or "(no path)",
-                      i["concludes_at"]))
+        premises = i["premises"]
+        # A record that is dead and prints like a live one is the whole reason
+        # supersession exists; it has to be visible in the handoff view too.
+        mark = ("  [SUPERSEDED by %s]" % i["superseded_by"]
+                if i.get("superseded_by") else "")
+        out.append("INFER %-16s %d premise%s -> %s%s"
+                   % (iid, len(premises), "" if len(premises) == 1 else "s",
+                      i["concludes_at"], mark))
+        for pr in premises:
+            # AN OPEN SLOT is a premise the argument needs and does not have.
+            # It licenses nothing, so it must print as an absence rather than
+            # be skipped -- a hole nobody can see is indistinguishable from an
+            # argument that never needed the premise.
+            if pr.get("required_kind"):
+                out.append("    premise MISSING: needs a claim of kind %s at "
+                           "%s -- %s" % (pr["required_kind"], pr["at"],
+                                         pr["missing_why"]))
+                continue
+            out.append("    premise %-14s via %s"
+                       % (pr["claim"],
+                          " ".join("%s/%s" % s for s in pr["path"])
+                          or "(no path)"))
+        if i.get("supersedes"):
+            out.append("    supersedes %s (%s)"
+                       % (i["supersedes"], i.get("discharge_kind")))
     return _text("\n".join(out) or "(empty graph)")
 
 

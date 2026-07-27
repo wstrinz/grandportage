@@ -14,6 +14,7 @@ mathematics and therefore to every existing test.
 
 import json
 import os
+import sys
 
 import pytest
 
@@ -1734,3 +1735,673 @@ def test_the_readme_transport_table_matches_the_kernel():
             assert shown == want, (
                 "README documents %s/%s/%s as %r; the kernel says %r"
                 % (etype, direction, kind, shown, want))
+
+
+# ===========================================================================
+# THE ACCEPT PATH.  Both defects here were found by a live campaign, and both
+# are the same failure the baseline machinery exists to prevent, inside it.
+# ===========================================================================
+def _accept_fixture(tmp_path, events):
+    p = S.graph_path(str(tmp_path))
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    with open(p, "w", encoding="utf-8") as fh:
+        for e in events:
+            fh.write(json.dumps(e) + "\n")
+    return p
+
+
+_TWO_FINDINGS = [
+    {"ev": "model", "id": "T", "desc": "tight"},
+    {"ev": "model", "id": "L", "desc": "loose"},
+    {"ev": "edge", "id": "E1", "src": "T", "dst": "L",
+     "type": K.NECESSARY_CONDITION, "why": "drops equations"},
+    {"ev": "edge", "id": "E2", "src": "T", "dst": "L",
+     "type": K.NECESSARY_CONDITION, "why": "drops equations again"},
+    {"ev": "claim", "id": "C", "model": "T", "kind": K.PREDICATE,
+     "statement": "P"},
+    {"ev": "inference", "id": "I1", "claim": "C", "path": [["E1", K.ALONG]],
+     "concludes_kind": K.PREDICATE, "asserted": "P on the looser model"},
+]
+
+
+def test_only_with_prune_does_not_delete_live_acceptances(tmp_path):
+    """THE `--only` BASELINE WIPE, REINTRODUCED BY THE FLAG ADDED TO FIX IT.
+
+    `prune` computed the surviving set from the list being ACCEPTED. `gp accept
+    --only X` filters that list before calling, so `--only X --prune` deleted
+    every other acceptance and reported each as "pruned: no longer in the
+    graph" -- entries that were still live. The output did not merely get it
+    wrong, it asserted the one fact that would have justified the deletion.
+
+    One variable was carrying two questions: what am I accepting, and what
+    still exists. They are equal only when nothing was filtered.
+    """
+    from grandportage import cli
+    from grandportage import hook as H
+    _accept_fixture(tmp_path, _TWO_FINDINGS)
+    root = str(tmp_path)
+    assert cli.main(["--root", root, "accept", "-m", "carrying both"]) == 0
+    both = set(H.read_baseline(root)["accepted"])
+    assert len(both) >= 2, "the fixture must produce at least two findings"
+
+    keep = sorted(both)[0]
+    assert cli.main(["--root", root, "accept", "--only", keep, "--prune",
+                     "-m", "just this one"]) == 0
+    after = set(H.read_baseline(root)["accepted"])
+    assert after == both, (
+        "--only narrows what is ACCEPTED and must never narrow what counts as "
+        "still existing; lost %s" % sorted(both - after))
+    # And the untouched entry keeps ITS OWN reason, not the new one.
+    other = sorted(both - {keep})[0]
+    assert H.read_baseline(root)["accepted"][other]["why"] == "carrying both"
+
+
+def test_prune_still_drops_a_finding_that_really_left_the_graph(tmp_path):
+    """The counter-test, and the one that stops the fix being 'disable prune'.
+
+    A repair that makes a destructive operation safe by making it do nothing is
+    not a repair. `prune` exists so a baseline does not accumulate acceptances
+    for findings nobody can hit any more.
+    """
+    from grandportage import cli
+    from grandportage import hook as H
+    root = str(tmp_path)
+    _accept_fixture(tmp_path, _TWO_FINDINGS)
+    cli.main(["--root", root, "accept", "-m", "carrying both"])
+    before = set(H.read_baseline(root)["accepted"])
+
+    # Drop E2, so PARALLEL-EDGE genuinely no longer exists.
+    _accept_fixture(tmp_path, [e for e in _TWO_FINDINGS if e.get("id") != "E2"])
+    cli.main(["--root", root, "accept", "--prune", "-m", "sweep"])
+    after = set(H.read_baseline(root)["accepted"])
+    assert after < before, "prune must still drop what genuinely left"
+    assert not any(f.startswith("PARALLEL-EDGE") for f in after)
+
+
+def test_save_baseline_refuses_to_prune_without_being_told_what_is_live(tmp_path):
+    """There is deliberately no default that reproduces the bug.
+
+    A caller that cannot say what still exists has no business deleting
+    anything, so `live` is mandatory under `prune` rather than defaulting back
+    to the filtered list.
+    """
+    from grandportage import hook as H
+    with pytest.raises(ValueError) as exc:
+        H.save_baseline(str(tmp_path), [], prune=True)
+    assert "not the same list" in str(exc.value)
+
+
+def test_gp_accept_can_reach_a_supersession_finding(tmp_path):
+    """THE ONE FINDING CLASS THE ACCEPT PATH COULD NOT SEE.
+
+    `check_supersession` is the only rule that reads the baseline -- a
+    SUPERSESSION finding exists BECAUSE a baseline entry pinned `admits` and a
+    supersession offered a discharge outside it. `cmd_check` passed the
+    baseline in; `cmd_accept` did not. So the one class that is definitionally
+    baseline-derived was the one class `gp accept` reported as "no such
+    finding" while `gp check` printed it two functions away.
+
+    It fires at the hook's blocking floor and an append-only log cannot
+    un-declare the record that caused it, so a live campaign reached a state
+    where a finding could be neither discharged nor accepted and the hook
+    refused EVERY tool call until the CLI was bypassed by hand.
+    """
+    from grandportage import cli
+    from grandportage import hook as H
+    root = str(tmp_path)
+    _accept_fixture(tmp_path, [
+        {"ev": "model", "id": "T", "desc": "tight"},
+        {"ev": "model", "id": "L", "desc": "loose"},
+        {"ev": "edge", "id": "E1", "src": "T", "dst": "L", "type": K.UNTYPED,
+         "why": "unknown", "debt_why": "not yet worked out"},
+        {"ev": "claim", "id": "C", "model": "L", "kind": K.PREDICATE,
+         "statement": "P"},
+        {"ev": "inference", "id": "I1", "claim": "C",
+         "path": [["E1", K.AGAINST]], "concludes_kind": K.PREDICATE,
+         "asserted": "P at the tighter model"},
+    ])
+    cli.main(["--root", root, "accept", "--admits", "DERIVE",
+              "-m", "only a derivation closes this"])
+    with open(S.graph_path(root), "a", encoding="utf-8") as fh:
+        fh.write(json.dumps({
+            "ev": "edge", "id": "E2", "src": "T", "dst": "L",
+            "type": K.NECESSARY_CONDITION, "why": "drops equations",
+            "supersedes": "E1", "discharge_kind": "RETYPE"}) + "\n")
+
+    g = S.load(S.graph_path(root))
+    accepted = H.read_baseline(root)["accepted"]
+    fids = [f.fid for f in C.run(g, accepted) if f.rule == C.R_SUPERSEDE]
+    assert fids, "the fixture must actually produce a SUPERSESSION finding"
+
+    assert cli.main(["--root", root, "accept", "--only", fids[0],
+                     "-m", "reviewed: retyping really is right here"]) == 0, (
+        "gp accept must be able to reach the finding gp check prints")
+    assert fids[0] in H.read_baseline(root)["accepted"]
+
+
+@pytest.mark.parametrize("slot_first", [False, True])
+def test_an_open_premise_slot_survives_the_whole_checker_not_just_the_audit(slot_first):
+    """`gp check` CRASHED on the construct built for T5's headline finding.
+
+    `audit_inference` emits the sentinel `(missing)` in the edge position for
+    an open slot -- nothing was traversed. `_first_refusal` looked that up in
+    `graph.edges` and raised KeyError, so any graph declaring a slot took down
+    the checker, the hook and the MCP server. A crashing checker is
+    indistinguishable from a checker nobody ran.
+
+    IT SURVIVED THE TEST WRITTEN FOR IT. The existing open-slot regression
+    calls `audit_inference` directly and never `run`, so the construct was
+    correct in every respect except being reachable. That is the same shape as
+    the defects a live campaign found in `gp accept` and `portage_show`: the
+    unit was right and the path through it was not.
+
+    Both premise orders, because when the slot comes FIRST the fold leaves the
+    legacy `claim` field None and two further lines used it as a dict key.
+    """
+    premises = [{"claim": "HAVE", "path": [["E", K.AGAINST]]},
+                {"required_kind": K.EMPTY, "at": "LOOSE",
+                 "missing_why": "the conclusion needs every case killed and "
+                                "the graph has no such claim"}]
+    if slot_first:
+        premises = premises[::-1]
+    g = _graph(TWO_MODELS + [
+        {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
+         "type": K.NECESSARY_CONDITION, "why": "drops equations"},
+        {"ev": "claim", "id": "HAVE", "model": "LOOSE", "kind": K.PREDICATE,
+         "statement": "what the artifact does supply"},
+        {"ev": "inference", "id": "INF", "premises": premises,
+         "concludes_kind": K.PREDICATE,
+         "asserted": "the artifact establishes X"}])
+
+    findings = C.run(g)                       # <-- the path, not the function
+    transport = [f for f in findings if f.rule == C.R_TRANSPORT]
+    assert len(transport) == 1
+    f = transport[0]
+    assert f.severity == C.UNSOUND_PREMISE
+    # It must name what is missing, not a transport cell that was never reached.
+    assert "needs a EMPTY claim at LOOSE" in f.detail
+    assert "SUPPLY THE MISSING CLAIM" in f.discharge
+    assert "no edge to retype" in f.discharge
+    # And it must not invite the one repair that would be a lie.
+    assert "as though it held" in f.discharge
+
+    # The whole surface, not just check.run: these all crashed too.
+    C.render(findings, {}, False)
+    assert C.exit_code(findings, C.UNSOUND_PREMISE) != 0
+
+
+# ===========================================================================
+# PARTITIONS AND RULE NAMES.  Both found by the chart-map campaign.
+# ===========================================================================
+_PART_BASE = [
+    {"ev": "model", "id": "P", "desc": "parent"},
+    {"ev": "model", "id": "B1", "desc": "branch one"},
+    {"ev": "model", "id": "B2", "desc": "branch two"},
+    {"ev": "edge", "id": "EB1", "src": "B1", "dst": "P",
+     "type": K.NECESSARY_CONDITION, "why": "a branch"},
+    {"ev": "edge", "id": "EB2", "src": "B2", "dst": "P",
+     "type": K.NECESSARY_CONDITION, "why": "a branch"},
+    {"ev": "claim", "id": "X", "model": "B1", "kind": K.EMPTY,
+     "statement": "branch one is empty", "certificate": "UNIT_IDEAL_CERT"},
+    {"ev": "claim", "id": "EXH", "model": "P", "kind": K.PREDICATE,
+     "statement": "the branches are exhaustive"},
+    {"ev": "partition", "id": "PG", "parent": "P", "branches": ["B1", "B2"],
+     "exhaustive": "EXH", "why": "gamma is 2 or 3"},
+]
+
+
+def test_a_partition_reports_when_it_FAILS_not_only_when_it_succeeds():
+    """THE MECHANISM WAS UNREACHABLE IN THE CASE IT WAS BUILT FOR.
+
+    `audit_inference` returns the partition id in the trace's edge position,
+    and `_first_refusal` looked that up in `graph.edges` -- KeyError. So a case
+    split that COVERS its parent reported fine and one that did not took down
+    the checker. The uncovered-branch case is the entire reason the construct
+    exists; `transport_over_partition`'s own docstring names it.
+
+    A campaign hit this trying to record that a published case analysis leaves
+    one case open, and could not record the parent-level conclusion at all.
+    """
+    g = _graph(_PART_BASE + [
+        {"ev": "inference", "id": "IP", "via_partition": "PG",
+         "premises": [{"claim": "X", "path": []}, {"claim": "EXH", "path": []}],
+         "concludes_kind": K.EMPTY, "asserted": "the parent is empty"}])
+    found = [f for f in C.run(g) if f.rule == C.R_TRANSPORT]
+    assert len(found) == 1
+    assert "B2" in found[0].detail, "it must name the branch left open"
+    # And the discharge must be about COVERAGE, not about a transport cell or
+    # a missing premise -- neither of which is what went wrong.
+    assert "COVER EVERY BRANCH" in found[0].discharge
+    assert "no edge to retype" not in found[0].discharge
+
+
+def test_an_open_slot_inside_a_partition_names_the_unsettled_branch():
+    """`graph.claims[pr["claim"]]` with claim=None -- KeyError: None.
+
+    So the most honest thing a case analysis can say -- "this branch is not
+    settled, here is which and why" -- was the one thing that crashed. `store`
+    handles the same field correctly two files away.
+
+    A slot must contribute NOTHING to coverage: it is a declaration that the
+    branch is open, so the partition stays refused.
+    """
+    g = _graph(_PART_BASE + [
+        {"ev": "inference", "id": "IP", "via_partition": "PG",
+         "premises": [{"claim": "X", "path": []}, {"claim": "EXH", "path": []},
+                      {"required_kind": K.EMPTY, "at": "B2",
+                       "missing_why": "the gamma=4 case is not settled"}],
+         "concludes_kind": K.EMPTY, "asserted": "the parent is empty"}])
+    found = [f for f in C.run(g) if f.rule == C.R_TRANSPORT]
+    assert len(found) == 1, "a slot settles nothing, so this stays refused"
+    assert "the gamma=4 case is not settled" in found[0].detail
+
+
+@pytest.mark.parametrize("bad,real", [
+    ("ring_isomorphism", "ring_iso"),
+    ("map_polynomial", "map_kind"),
+])
+def test_a_rule_name_used_as_a_field_name_is_refused(bad, real):
+    """SILENTLY STORED AND IGNORED, which is the worst available outcome.
+
+    Refusals report the RULE that blocked them. For `ring_isomorphism` the
+    field you must actually set is `ring_iso`, and `gp table` prints rule names
+    in a column that reads like fields. A campaign declared
+    `ring_isomorphism: true` on two EQUIVALENCE edges; it was accepted and did
+    nothing. Nothing false was licensed there by luck -- but an EQUIVALENCE
+    relied on to carry an IDENTITY would have been refused with no hint why.
+
+    WHAT MAKES THE MISTAKE REASONABLE IS THAT IT IS SOMETIMES RIGHT: two of the
+    seven rule names ARE the field. So the user's inference about the
+    vocabulary is sound and wrong about this word, which is exactly the case
+    that must not fail silently.
+    """
+    with pytest.raises(S.GraphError) as exc:
+        _graph(TWO_MODELS + [
+            {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
+             "type": K.EQUIVALENCE, "why": "reversible",
+             "converse_witness": "the inverse construction", bad: True}])
+    msg = str(exc.value)
+    assert real in msg, "the refusal must name the field they meant"
+    assert "stored and ignored" in msg
+
+
+def test_a_withdrawn_inference_is_not_counted_as_a_positive_control():
+    """`clean_inferences` counted everything `check_transport` did not flag,
+    and `check_transport` correctly skips superseded inferences -- so every
+    withdrawn argument was promoted into the clean list.
+
+    A campaign's `gp check` reported "clean inferences (5)" of which four were
+    withdrawn. That number IS the credibility claim: it is what a reader uses
+    to decide the checker is not simply refusing everything.
+    """
+    # A PREDICATE travelling AGAINST a NECESSARY_CONDITION is licensed, so both
+    # of these would be clean -- which is the point: the bug promoted a
+    # WITHDRAWN clean inference, not a refused one.
+    g = _graph(_SUP_BASE + [
+        {"ev": "claim", "id": "CL", "model": "LOOSE", "kind": K.PREDICATE,
+         "statement": "P holds on the looser model"},
+        {"ev": "inference", "id": "I1", "claim": "CL",
+         "path": [["E", K.AGAINST]], "concludes_kind": K.PREDICATE,
+         "asserted": "P holds at the tighter model"},
+        {"ev": "inference", "id": "I2", "claim": "CL",
+         "path": [["E", K.AGAINST]], "concludes_kind": K.PREDICATE,
+         "asserted": "P holds at the tighter model, restated",
+         "supersedes": "I1", "discharge_kind": K.RESTATE}])
+    findings = C.run(g)
+    assert not [f for f in findings if f.rule == C.R_TRANSPORT], (
+        "the fixture must be clean, or this tests the wrong thing")
+    clean = C.clean_inferences(g, findings)
+    assert "I1" not in clean, "a withdrawn inference is not a positive control"
+    assert "I2" in clean, "and the live replacement still is"
+
+
+def test_migrate_renames_a_rule_name_used_as_a_field(tmp_path):
+    """The store now REFUSES `ring_isomorphism`, which breaks every graph that
+    already carries it -- and a live campaign's did, four times.
+
+    Renaming is safe here and nowhere else in that table: `ring_isomorphism`
+    and `ring_iso` are both booleans meaning the same thing, so the key is
+    wrong and the value is not. `map_polynomial: true` would have to become
+    `map_kind: POLYNOMIAL` -- a value change, and a choice among three -- so it
+    is reported for a human instead, and migrate exits nonzero.
+    """
+    from grandportage import cli
+    p = _stale(tmp_path, [
+        {"ev": "model", "id": "T", "desc": "t"},
+        {"ev": "model", "id": "L", "desc": "l"},
+        {"ev": "edge", "id": "E", "src": "T", "dst": "L",
+         "type": K.EQUIVALENCE, "why": "reversible",
+         "converse_witness": "the inverse", "ring_isomorphism": True}])
+    with pytest.raises(S.GraphError):
+        S.load(p)
+    assert cli.main(["--root", str(tmp_path), "migrate"]) == 0
+    e = S.load(p).edges["E"]
+    assert e.get("ring_iso") is True and "ring_isomorphism" not in e
+    # And the renamed field now actually does something.
+    assert K.transport(K.EQUIVALENCE, K.ALONG, K.IDENTITY,
+                       ring_iso=e["ring_iso"]).licensed
+
+
+def test_migrate_refuses_to_guess_a_rule_name_whose_VALUE_must_change(tmp_path):
+    """`map_polynomial: true` -> `map_kind: ???`. Only the author knows which
+    of the three, so it is reported and left alone."""
+    from grandportage import cli
+    p = _stale(tmp_path, [
+        {"ev": "model", "id": "T", "desc": "t"},
+        {"ev": "model", "id": "L", "desc": "l"},
+        {"ev": "edge", "id": "E", "src": "T", "dst": "L",
+         "type": K.NECESSARY_CONDITION, "why": "drops equations",
+         "map_polynomial": True}])
+    assert cli.main(["--root", str(tmp_path), "migrate"]) == 1
+    raw = open(p, encoding="utf-8").read()
+    assert "map_polynomial" in raw, "left untouched for a human"
+
+
+@pytest.mark.parametrize("entity", ["claim", "edge", "inference"])
+def test_supersession_does_not_make_the_fold_order_dependent(entity):
+    """MERGING IS CONCATENATE-AND-FOLD, and supersession briefly broke that.
+
+    Checking `supersedes` inside `_apply_claim` meant the superseded record had
+    to have been folded already:
+
+        merge [old_branch, new_branch]  -> folds
+        merge [new_branch, old_branch]  -> "supersedes X, which is not a claim
+                                            in this graph"
+
+    `load`'s docstring says order does not matter, DESIGN.md sells merging as
+    concatenating logs, and `apply_all`'s own comment says CERTIFICATES ARE THE
+    ONLY event kind whose prior presence changes how a later event folds. That
+    sentence was falsified in the same file that explains why it must not be.
+
+    The failure is not cosmetic: an unfoldable graph makes `hook.evaluate` fail
+    CLOSED, so the wrong concatenation order blocks every tool call in a
+    session -- a merge order deciding whether you can work.
+
+    Fixed by resolving supersession in `validate()`, with every other
+    cross-reference. Parametrised over all three because edges got the check at
+    the same time and could regress independently.
+    """
+    models = [{"ev": "model", "id": "M", "desc": "m"},
+              {"ev": "model", "id": "N", "desc": "n"}]
+    old, new = {
+        "claim": ([{"ev": "claim", "id": "C", "model": "M",
+                    "kind": K.PREDICATE, "statement": "P"}],
+                  [{"ev": "claim", "id": "CR", "model": "M",
+                    "kind": K.PREDICATE, "statement": "P",
+                    "cite": "a better citation", "supersedes": "C",
+                    "discharge_kind": K.AMEND}]),
+        "edge": ([{"ev": "edge", "id": "E1", "src": "M", "dst": "N",
+                   "type": K.UNTYPED, "why": "?", "debt_why": "unknown"}],
+                 [{"ev": "edge", "id": "E2", "src": "M", "dst": "N",
+                   "type": K.NECESSARY_CONDITION, "why": "drops equations",
+                   "supersedes": "E1", "discharge_kind": "RETYPE"}]),
+        "inference": ([{"ev": "edge", "id": "E", "src": "M", "dst": "N",
+                        "type": K.NECESSARY_CONDITION, "why": "drops eqs"},
+                       {"ev": "claim", "id": "C", "model": "N",
+                        "kind": K.PREDICATE, "statement": "P"},
+                       {"ev": "inference", "id": "I1", "claim": "C",
+                        "path": [["E", K.AGAINST]],
+                        "concludes_kind": K.PREDICATE, "asserted": "P at M"}],
+                      [{"ev": "inference", "id": "I2", "claim": "C",
+                        "path": [["E", K.AGAINST]],
+                        "concludes_kind": K.PREDICATE,
+                        "asserted": "P at M, restated", "supersedes": "I1",
+                        "discharge_kind": K.RESTATE}]),
+    }[entity]
+
+    def fold(events):
+        g = S.Graph()
+        return g.apply_all(
+            [(e, "<log>", i) for i, e in enumerate(events)]).validate()
+
+    forward = fold(models + old + new)
+    backward = fold(models + new + old)     # the merge that used to fail
+    reg = {"claim": "claims", "edge": "edges", "inference": "inferences"}[entity]
+    assert (sorted(getattr(forward, reg)) == sorted(getattr(backward, reg)))
+    # And the back-pointer lands either way -- including on EDGES, which
+    # carried `supersedes` with no existence check and no stamp at all.
+    old_id = list(old)[-1]["id"]
+    assert getattr(backward, reg)[old_id].get("superseded_by")
+
+
+def test_an_edge_cannot_supersede_itself_or_a_record_that_is_not_there():
+    """Edges had NEITHER check. `_apply_edge` required `discharge_kind` and
+    stopped there, so `supersedes: <typo>` withdrew nothing while reading like
+    a repair, and `supersedes: <own id>` was expressible."""
+    for bad, msg in [("E1", "supersedes itself"),
+                     ("E-TYPO", "not a edge in this graph")]:
+        with pytest.raises(S.GraphError) as exc:
+            _graph(TWO_MODELS + [
+                {"ev": "edge", "id": "E1", "src": "TIGHT", "dst": "LOOSE",
+                 "type": K.NECESSARY_CONDITION, "why": "drops equations",
+                 "supersedes": bad, "discharge_kind": "RETYPE"}])
+        assert msg in str(exc.value)
+
+
+def test_the_two_discharge_vocabularies_are_not_interchangeable():
+    """An EDGE supersession says what happened to the OBLIGATION the old edge
+    carried; a CLAIM's says what CHANGED about the record. Borrowing across
+    them was silently accepted on edges, whose `discharge_kind` was validated
+    against nothing at all."""
+    with pytest.raises(S.GraphError) as exc:
+        _graph(TWO_MODELS + [
+            {"ev": "edge", "id": "E1", "src": "TIGHT", "dst": "LOOSE",
+             "type": K.UNTYPED, "why": "?", "debt_why": "unknown"},
+            {"ev": "edge", "id": "E2", "src": "TIGHT", "dst": "LOOSE",
+             "type": K.NECESSARY_CONDITION, "why": "drops equations",
+             "supersedes": "E1", "discharge_kind": K.AMEND}])
+    assert "for a edge the kinds are" in str(exc.value)
+    assert "OBLIGATION" in str(exc.value)
+
+
+# ===========================================================================
+# THE DOCUMENTS.  A read surface that lies is the defect this project is about.
+# ===========================================================================
+def _repo_root():
+    return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def test_every_marked_check_count_in_the_docs_is_the_real_one():
+    """SIX DIFFERENT COUNTS WERE LIVE AT ONCE -- 160, 171, 251, 273, 307, 338 --
+    against an actual 384. `HANDOFF.md`, the file labelled READ THIS FIRST IF
+    YOU HAVE NO CONTEXT, disagreed with the README, which disagreed with
+    REVIEW.md, which disagreed with TESTPLAN.md.
+
+    That is not housekeeping. This project's thesis is that prose read surfaces
+    rot first, and these are exactly the surfaces a cold session reads. A
+    campaign whose headline measurement is COLD RESUMPTION cannot have its
+    resumption documents lying about how much evidence exists. It is REVIEW.md
+    section 7 occurring inside the documents that argue for section 7.
+
+    A NAIVE `\d+ checks` SWEEP WOULD BE A FALSE-POSITIVE GENERATOR, which is
+    the one thing this tool must not ship. Several of those numbers are TRUE
+    HISTORY -- "the suite went 171 -> 251 checks", "171 checks agreed with an
+    unsound cell" -- and a rule that could not tell a current-state claim from
+    a narrative one would demand the history be falsified to go green. So only
+    MARKED spans are checked, and marking one is the author saying "this is a
+    claim about now".
+    """
+    import re
+    import subprocess
+    root = _repo_root()
+    out = subprocess.run(
+        [sys.executable, "-m", "pytest", "-q", "--collect-only",
+         os.path.join(root, "tests")],
+        capture_output=True, text=True, cwd=root).stdout
+    m = re.search(r"(\d+) tests? collected", out)
+    assert m, "could not collect the suite to compare against"
+    real = int(m.group(1))
+
+    span = re.compile(r"<!--checks-->(\d+)<!--/checks-->")
+    wrong, seen = [], 0
+    for name in sorted(os.listdir(root)):
+        if not name.endswith(".md"):
+            continue
+        with open(os.path.join(root, name), encoding="utf-8") as fh:
+            for n, line in enumerate(fh, 1):
+                for hit in span.finditer(line):
+                    seen += 1
+                    if int(hit.group(1)) != real:
+                        wrong.append("%s:%d says %s" % (name, n, hit.group(1)))
+    assert seen, (
+        "no document states the check count as a marked span, so this test "
+        "guards nothing -- the counts have gone back to being retyped")
+    assert not wrong, (
+        "the suite has %d checks and these documents say otherwise:\n  %s\n"
+        "Run `gp docs` to resync them." % (real, "\n  ".join(wrong)))
+
+
+def test_the_docs_do_not_disagree_about_how_much_evidence_exists():
+    """A version number drifting between mirrors is normal. A CLAIM ABOUT HOW
+    MUCH EVIDENCE EXISTS drifting is the one kind that must not.
+
+    The public README said "three live user sessions" while the private one
+    said one, and `TESTPLAN.md` listed T1 as STAGED AND READY while
+    `HANDOFF.md` recorded T1 as run and failed. A reader deciding how far to
+    trust this tool is reading exactly those sentences.
+    """
+    import re
+    root = _repo_root()
+    counts = {}
+    for name in ("README.md", "REVIEW.md", "HANDOFF.md"):
+        path = os.path.join(root, name)
+        if not os.path.exists(path):
+            continue
+        with open(path, encoding="utf-8") as fh:
+            text = fh.read()
+        for m in re.finditer(r"(\w+) live user sessions?", text):
+            counts.setdefault(m.group(1).lower(), []).append(name)
+    assert len(counts) <= 1, (
+        "these documents disagree about how many live sessions have happened, "
+        "which is a claim about how much evidence exists: %s"
+        % {k: v for k, v in counts.items()})
+
+
+# ===========================================================================
+# THE REFUSAL SURFACE.  The one place with evidence of working.
+# ===========================================================================
+def test_a_hint_on_a_claim_or_a_model_reaches_the_refusal():
+    """ONLY EDGES COULD CARRY ONE, and it was the single artifact that survived
+    a context boundary.
+
+    A campaign returning cold reported the edge hint "came back verbatim in
+    every refusal, and it named the remedy precisely enough to execute" -- "the
+    only artifact in the campaign that did real cross-session handoff work.
+    Nothing in the prose files did that." The same report found every prose
+    claim about the tool's vocabulary had rotted within one session.
+
+    In Cognitive Dimensions terms it is SECONDARY NOTATION outperforming every
+    piece of primary notation, which has a known implication: support it
+    deliberately instead of treating it as decoration.
+    """
+    g = _graph(TWO_MODELS + [
+        {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
+         "type": K.NECESSARY_CONDITION, "why": "drops equations"},
+        {"ev": "claim", "id": "C", "model": "TIGHT", "kind": K.PREDICATE,
+         "statement": "P holds",
+         "discharge_hint": "P was only ever checked on the smooth locus"},
+        {"ev": "inference", "id": "I", "claim": "C", "path": [["E", K.ALONG]],
+         "concludes_kind": K.PREDICATE, "asserted": "P on the looser model"}])
+    f = [x for x in C.run(g) if x.rule == C.R_TRANSPORT][0]
+    assert "FOR THIS CLAIM" in f.discharge
+    assert "smooth locus" in f.discharge
+    # And the cell's own requirement is still there -- a hint is APPENDED to
+    # what the mathematics demands, never a replacement for it.
+    assert "re-derive it in the target model" in f.discharge
+
+
+def test_gp_why_prints_the_conservatism_register_with_the_cell(capsys):
+    """A REFUSAL THAT IS A DELIBERATE CONSERVATISM READS EXACTLY LIKE A THEOREM,
+    and a user who cannot tell them apart learns to route around both. Routing
+    around a refusal is the T1 failure mode.
+
+    IMAGE_CLOSURE/AGAINST/NONEMPTY is the case: sound under the existential
+    reading of NONEMPTY, unsound under the witness reading, and the table can
+    encode only one. A user hitting it should be told the mathematics may well
+    be on their side and the tool is being careful.
+    """
+    from grandportage import cli
+    assert cli.main(["why", "IMAGE_CLOSURE", "AGAINST", "NONEMPTY"]) == 0
+    out = capsys.readouterr().out
+    assert "DELIBERATE CONSERVATISM" in out
+    assert "not a theorem against you" in out
+    assert "Chevalley" in out, "the cell's own discharge must still print"
+
+
+def test_gp_why_reads_the_kernel_rather_than_restating_it(capsys):
+    """A second copy of an explanation is a second thing to rot, and this repo
+    has already watched five README cells document licences withdrawn two
+    versions earlier. `gp why` must render TYPE_MEANS and the transport table,
+    not a paraphrase kept beside them."""
+    from grandportage import cli
+    for etype in K.ALL_TYPES:
+        assert cli.main(["why", etype]) == 0
+        out = capsys.readouterr().out
+        assert K.TYPE_MEANS[etype].split(".")[0][:40] in out, (
+            "%s's printed meaning must come from TYPE_MEANS" % etype)
+        for d in K.DIRECTIONS:
+            for kd in K.CLAIM_KINDS:
+                rule = K.TRANSPORT[etype][d][kd]
+                if rule is True:
+                    assert "%-8s %-9s  licensed" % (d, kd) in out
+
+
+def test_history_shows_the_struggle_the_fold_hides(tmp_path, capsys):
+    """`gp show` prints the FOLD, and repair makes a fold tidier over time --
+    so it under-represents difficulty exactly where the most work happened.
+
+    This session made that worse deliberately: withdrawn edges, inferences and
+    their findings all stopped reporting, which removed real baseline dilution
+    and took the scar tissue with it. The append-only log kept everything and
+    nothing surfaced it.
+
+    A finished proof erases its own search. On a live campaign this shows an
+    inference restated THREE times -- the hardest object there -- of which the
+    fold displays only the survivor.
+    """
+    from grandportage import cli
+    _accept_fixture(tmp_path, TWO_MODELS + [
+        {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
+         "type": K.NECESSARY_CONDITION, "why": "drops equations"},
+        {"ev": "claim", "id": "C", "model": "LOOSE", "kind": K.PREDICATE,
+         "statement": "P"},
+        {"ev": "inference", "id": "I1", "claim": "C",
+         "path": [["E", K.AGAINST]], "concludes_kind": K.PREDICATE,
+         "asserted": "P at the tighter model"},
+        {"ev": "inference", "id": "I2", "claim": "C",
+         "path": [["E", K.AGAINST]], "concludes_kind": K.PREDICATE,
+         "asserted": "P at the tighter model, restated once",
+         "supersedes": "I1", "discharge_kind": K.RESTATE},
+        {"ev": "inference", "id": "I3", "claim": "C",
+         "path": [["E", K.AGAINST]], "concludes_kind": K.PREDICATE,
+         "asserted": "P at the tighter model, restated twice",
+         "supersedes": "I2", "discharge_kind": K.RESTATE},
+    ])
+    assert cli.main(["--root", str(tmp_path), "history"]) == 0
+    out = capsys.readouterr().out
+    assert "I1 --RESTATE--> I2 --RESTATE--> I3" in out, (
+        "the whole chain, not only the survivor")
+
+    # And the fold shows only the survivor -- which is correct for `show` and
+    # is exactly why `history` has to exist.
+    g = S.load(S.graph_path(str(tmp_path)))
+    assert C.clean_inferences(g, C.run(g)) == ["I3"]
+
+
+def test_history_is_honest_that_it_records_repairs_and_not_attempts(tmp_path,
+                                                                    capsys):
+    """The limit stated first, because overstating it would be the same error
+    the tool exists to catch.
+
+    The log records what was DECLARED, never what was REFUSED. A refusal that
+    made an author think again and write something different leaves no direct
+    trace -- only the something-different. So this is a floor on difficulty,
+    not a measure of it, and a campaign with no supersessions is not thereby a
+    campaign that found everything easy.
+    """
+    from grandportage import cli
+    _accept_fixture(tmp_path, TWO_MODELS)
+    assert cli.main(["--root", str(tmp_path), "history"]) == 0
+    out = capsys.readouterr().out
+    assert "No supersessions recorded" in out
+    assert "which the log cannot distinguish and should not pretend to" in out

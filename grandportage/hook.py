@@ -103,7 +103,7 @@ def load_baseline(root="."):
 
 
 def save_baseline(root=".", findings=None, note="", merge=True, prune=False,
-                  admits=None):
+                  admits=None, live=None):
     """Record the findings a campaign is knowingly carrying.
 
     MERGES BY DEFAULT, and that default is the whole point of this function.
@@ -120,7 +120,32 @@ def save_baseline(root=".", findings=None, note="", merge=True, prune=False,
     the tool, so the repair is not just "merge" -- it is that DESTROYING AN
     ACCEPTANCE MUST BE AN EXPLICIT ACT.  `prune=True` is the only way to drop
     entries, and it only drops findings that no longer appear in the graph.
+
+    AND THAT LAST SENTENCE WAS FALSE FOR `--only --prune`, which is the same
+    wipe again, reintroduced through the flag added to fix it.
+
+    `prune` computed the surviving set from `findings` -- the list being
+    accepted.  `gp accept --only X` filters that list to X before calling here,
+    so `--only X --prune` deleted every acceptance except X and reported each
+    one as "pruned: no longer in the graph".  The entries were still live in
+    the graph.  The output was not merely wrong, it asserted the specific fact
+    that would have justified the deletion.
+
+    The defect is that ONE variable was carrying TWO questions -- "what am I
+    accepting now" and "what still exists" -- which are equal only when no
+    filter was applied.  They are now separate arguments, and `live` is
+    MANDATORY under `prune`: a caller that cannot say what still exists has no
+    business deleting anything.  Passing the filtered list as both is the bug,
+    so there is deliberately no default that reproduces it.
     """
+    if prune and live is None:
+        raise ValueError(
+            "save_baseline(prune=True) requires `live`: the findings CURRENTLY "
+            "IN THE GRAPH, which is not the same list as the findings being "
+            "accepted.\n"
+            "  Passing the accepted list for both is how `--only X --prune` "
+            "deleted every other acceptance and reported them as no longer "
+            "present. If you mean 'drop nothing', do not pass prune.")
     p = baseline_path(root)
     d = os.path.dirname(p)
     if d and not os.path.isdir(d):
@@ -160,8 +185,10 @@ def save_baseline(root=".", findings=None, note="", merge=True, prune=False,
 
     dropped = []
     if prune:
-        live = {f.fid for f in (findings or [])}
-        dropped = sorted(k for k in accepted if k not in live)
+        # From `live`, never from `findings`.  See the docstring: those are two
+        # different questions and they coincide only when nothing was filtered.
+        live_fids = {getattr(f, "fid", f) for f in live}
+        dropped = sorted(k for k in accepted if k not in live_fids)
         for k in dropped:
             del accepted[k]
 

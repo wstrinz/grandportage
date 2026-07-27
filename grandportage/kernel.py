@@ -134,6 +134,58 @@ IDENTITY = "IDENTITY"    # a rewriting valid in this model's coordinate ring
 CLAIM_KINDS = (EMPTY, NONEMPTY, PREDICATE, IDENTITY)
 
 # ---------------------------------------------------------------------------
+# COUNT -- the fifth kind, and it exists only AT A FAMILY.
+#
+# A family is to its members as a model is to its points, so the four kinds
+# above carry over unchanged as quantifiers over members.  What they cannot say
+# is "exactly k of N", which is the deliverable of every census: "4 of 1567
+# classes are generically 2-to-1", "3 of 40 have a reachable exceptional
+# locus", "27 of 34 rows are open".
+#
+# It is kept off models deliberately.  "Exactly k points" is a statement about
+# a variety that this kernel has no machinery for and no campaign has asked
+# for, and admitting it would put a cardinality where the transport table
+# expects a quantifier.
+# ---------------------------------------------------------------------------
+COUNT = "COUNT"
+
+# WHICH VERDICTS DOES A TRIAGE METHOD PROVE?  `proves`, and it is a LIST.
+#
+# The question that made the family object worth building rather than merely
+# convenient.  A census settles most of its cases with cheap tests, and a cheap
+# test is usually asymmetric:
+#
+#   full Jacobian rank at ONE rational point  ->  PROVES generic full rank,
+#                                                 because the witnessing minor
+#                                                 is a nonzero polynomial
+#   rank DEFICIENCY at that point             ->  evidence only
+#
+# One computation, two verdicts, one of them not established.  A live census
+# knew this -- it took the max over several points and said in its own report
+# that deficiency "is only evidence" -- and then reported 1220 cases as a
+# single number, of which 852 were forced by parameter counting (a proof in
+# both directions) and 368 rested on sampling.  The prose blurred a line the
+# author had already seen.
+#
+# THIS STARTED AS AN ENUM -- POSITIVE / NEGATIVE / BOTH / NEITHER -- AND THE
+# RETRODICTION FIXTURE KILLED IT.  A split has several groups, and POSITIVE
+# cannot say WHICH of them the method establishes; the fixture asked and there
+# was no answer that did not depend on group order.  Naming the proved groups
+# says the same thing, says it unambiguously, and collapses four cases into
+# one field:
+#
+#   proves: [every group]   the method decides -- what an enum called BOTH
+#   proves: [one group]     asymmetric -- what an enum called POSITIVE
+#   proves: []              screening only -- what an enum called NEITHER
+#
+# It must be DECLARED even when empty.  A missing `proves` is an author who was
+# not asked the question; an empty one is an author who answered it.
+#
+# Evidence PROVENANCE -- ran it, read it, cited it -- is `established_by`, and
+# a disposition gets that free by being a claim.  This axis is the new one.
+# ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
 # IDENTITY has two sub-kinds and conflating them was an unsound cell.
 #
 # An identity is a statement about a RING, and the ring map runs OPPOSITE to the
@@ -1135,6 +1187,13 @@ LICENSING_FIELDS = ("certificate", "scope", "identity_origin",
 # precisely the change that most needs a second look.
 INFERENCE_IDENTIFYING_FIELDS = ("asserted", "concludes_kind")
 INFERENCE_LICENSING_FIELDS = ("premises",)
+
+# And for an EDGE.  Exactly the fields `transport` reads off one -- not `type`
+# alone, which was the first version of this list and repeated the very mistake
+# the claim version was written to avoid.  An EQUIVALENCE gaining `ring_iso`,
+# or a RESTRICTION gaining `zariski_dense`, keeps its type and changes which
+# cells it opens; a `map_kind` moving off IDENTITY_MAP closes one.
+EDGE_LICENSING_FIELDS = ("type", "map_kind", "ring_iso", "zariski_dense")
 
 
 class SupersessionError(KernelRefusal):

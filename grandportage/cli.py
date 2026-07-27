@@ -8,13 +8,15 @@ a table lookup.
 import argparse
 import json
 import os
+import re
 import sys
 
 from . import check as C
 from . import hook as H
 from . import kernel as K
 from . import store as S
-from .discharge import DISCHARGE_KINDS, KNOWN_CONSERVATISM, KNOWN_UNSOUND
+from .discharge import (DISCHARGE_KINDS, KNOWN_CONSERVATISM,
+                        KNOWN_UNSOUND, discharge_for)
 
 
 def _graphs(args):
@@ -152,7 +154,20 @@ def cmd_migrate(args):
              lambda e: e.get("kind") == K.IDENTITY),
              ("claim", "witness_kind"): (K.ASSERTED,
              lambda e: e.get("kind") == K.NONEMPTY)}
-    changed, manual, downgraded = [], [], []
+    # A RULE NAME USED AS A FIELD NAME.  Renaming is safe for exactly one of
+    # them: `ring_isomorphism` and `ring_iso` are both booleans meaning the
+    # same thing, so the key is wrong and the value is not, and the tool knows
+    # the single right answer.
+    #
+    # The others in `store._NOT_A_FIELD` are NOT renameable and are left to a
+    # human on purpose: `map_polynomial: true` has to become
+    # `map_kind: POLYNOMIAL` (a value change, and which of the three?), and
+    # `ambient_identity` / `integral_identity` / `scheme_scope` belong on the
+    # CLAIM, not the edge the author put them on. Guessing any of those is the
+    # thing this command refuses to do.
+    renames = {"ring_isomorphism": "ring_iso"}
+    _LADDER_MANUAL = set()   # which `manual` rows are bad-`ladder` rows
+    changed, manual, downgraded, renamed = [], [], [], []
     for path in paths:
         # A LINE-KEYED REWRITE, not a re-serialization.  The first version of
         # this rebuilt the file from parsed events, which silently deleted
@@ -164,6 +179,32 @@ def cmd_migrate(args):
         edits = {}
         for ev, n in S.load_events(path):
             before = json.dumps(ev, sort_keys=True)
+            for bad, real in sorted(renames.items()):
+                if bad in ev:
+                    ev[real] = ev.pop(bad)
+                    renamed.append((path, n, ev.get("id"), bad, real))
+            # AN EDGE CARRYING A CLAIM'S DISCHARGE VOCABULARY. Silently
+            # accepted until edges got their supersession validated, and a live
+            # campaign had done it -- unsurprisingly, since the edge vocabulary
+            # appeared nowhere in the tool's own surface.
+            #
+            # NOT auto-mapped, and the reason is the usual one: RELICENSE says
+            # a transport-deciding attribute moved, which on an edge is true of
+            # both DERIVE (the missing mathematics now exists) and RETYPE (the
+            # relation was mis-stated). Those differ in whether the OLD edge
+            # was wrong or merely unproven, and only the author knows which.
+            if ev.get("ev") == "edge" and ev.get("supersedes") \
+                    and ev.get("discharge_kind") in K.SUPERSESSION_KINDS:
+                manual.append((path, n, ev.get("id"),
+                               "discharge_kind=%s is a CLAIM kind; an edge "
+                               "takes DERIVE (the missing mathematics now "
+                               "exists) or RETYPE (it was mis-stated) or "
+                               "ACCEPT" % ev["discharge_kind"]))
+            for bad in sorted(set(S.Graph._NOT_A_FIELD) - set(renames)):
+                if bad in ev:
+                    manual.append((path, n, ev.get("id"),
+                                   "%s -> %s (value must change too)"
+                                   % (bad, S.Graph._NOT_A_FIELD[bad][0])))
             for (kind, field), (value, applies) in sorted(fills.items()):
                 if ev.get("ev") == kind and applies(ev) and not ev.get(field):
                     ev[field] = value
@@ -171,6 +212,7 @@ def cmd_migrate(args):
             if ev.get("ev") == "claim" and ev.get("ladder") \
                     and ev["ladder"] not in K.LADDER:
                 manual.append((path, n, ev.get("id"), ev["ladder"]))
+                _LADDER_MANUAL.add(ev["ladder"])
             elif ev.get("ev") == "claim" \
                     and ev.get("ladder") in K.LADDER_ASSERTS_A_RUN \
                     and not ev.get("established_by"):
@@ -201,6 +243,12 @@ def cmd_migrate(args):
     if changed:
         print("Each is reported as a debt by `gp check`: the graph is now "
               "louder, not quieter.")
+    if renamed:
+        print("\n%d field(s) RENAMED -- a transport RULE name was used where "
+              "the field has a different name, so the value was being stored "
+              "and silently ignored:" % len(renamed))
+        for p_, n, cid, bad, real in renamed:
+            print("  %s:%d  %s  %s -> %s" % (p_, n, cid, bad, real))
     if downgraded:
         print("\n%d claim(s) DOWNGRADED to `claimed` -- each graded itself on "
               "a run it never named:" % len(downgraded))
@@ -211,14 +259,242 @@ def cmd_migrate(args):
               "saying where its strength went. If a run does back one of "
               "these, name the run and take the grade back.")
     if manual:
+        # ONE LIST, TWO KINDS OF PROBLEM, and the first version printed the
+        # `ladder` advice over both -- so an edge carrying a claim's discharge
+        # vocabulary was reported as `ladder=...` and told to consider
+        # `established_by`. A repair that misdescribes what it found is worse
+        # than one that says less.
+        ladder_bad = [m for m in manual if m[3] in _LADDER_MANUAL]
+        other = [m for m in manual if m[3] not in _LADDER_MANUAL]
         print("\n%d field(s) NEED A HUMAN -- the value is wrong, not missing, "
               "and only you know where it belongs:" % len(manual))
-        for p, n, cid, val in manual:
+        for p, n, cid, val in ladder_bad:
             print("  %s:%d  %s  ladder=%r" % (p, n, cid, val[:60]))
-        print("  `ladder` is a strength ordering (%s). How you came to believe "
-              "it is `established_by`; a limitation is `caveat`."
-              % ", ".join(K.LADDER))
+        if ladder_bad:
+            print("  `ladder` is a strength ordering (%s). How you came to "
+                  "believe it is `established_by`; a limitation is `caveat`."
+                  % ", ".join(K.LADDER))
+        for p, n, cid, val in other:
+            print("  %s:%d  %s\n      %s" % (p, n, cid, val))
     return 1 if manual else 0
+
+
+def cmd_history(args):
+    """Where did this campaign STRUGGLE?  `gp show` cannot answer that.
+
+    `gp show` prints the FOLD -- what is being carried now -- which is right for
+    resumption and wrong for this.  Supersession and repair make a graph tidier
+    over time, so the fold systematically under-represents difficulty exactly
+    where the most work happened.  This session made that worse on purpose:
+    withdrawn edges, withdrawn inferences and their findings all stopped
+    reporting, which removed real baseline dilution and removed the scar tissue
+    with it.
+
+    The append-only log kept everything.  Nothing surfaced it.
+
+    WHAT IT CAN SEE, and the limit is worth stating first: the log records what
+    was DECLARED, never what was REFUSED.  A refusal that made an author think
+    again and write something different leaves no direct trace -- only the
+    something-different.  So this is a record of REPAIRS, not of attempts, and
+    the count of repairs is a floor on the difficulty rather than a measure of
+    it.
+
+    What survives is still the best struggle record available anywhere in the
+    system, because it is produced as a side effect of the soundness discipline
+    rather than by anybody remembering to write a log:
+
+      * supersession chains -- an object replaced once was reconsidered, an
+        object replaced three times was hard;
+      * the discharge kind that finally worked, against the ones tried before;
+      * obligations still carried, with the reasons their authors gave.
+
+    A finished proof erases its own search.  This is the search, retained
+    because an append-only log cannot help retaining it.
+    """
+    paths = _graphs(args)
+    events = []
+    for p in paths:
+        for ev, n in S.load_events(p):
+            events.append((p, n, ev))
+
+    # Supersession chains, in declaration order.
+    replaced_by = {}
+    order = {}
+    for i, (_p, _n, ev) in enumerate(events):
+        if ev.get("id") and ev.get("ev") in ("edge", "claim", "inference"):
+            order.setdefault((ev["ev"], ev["id"]), i)
+        if ev.get("supersedes"):
+            replaced_by[(ev["ev"], ev["supersedes"])] = (
+                ev["id"], ev.get("discharge_kind"), ev.get("ev"))
+    chains = []
+    for key in sorted(order, key=lambda k: order[k]):
+        if key in replaced_by and not any(
+                replaced_by.get(k, (None,))[0] == key[1] for k in replaced_by):
+            chain, cur = [key[1]], key
+            while cur in replaced_by:
+                nxt, kind, ent = replaced_by[cur]
+                chain.append("--%s-->" % (kind or "?"))
+                chain.append(nxt)
+                cur = (ent, nxt)
+            chains.append((key[0], chain))
+
+    print("HISTORY -- what this campaign reconsidered\n")
+    if chains:
+        print("SUPERSESSION CHAINS  (an object replaced N times was hard N times)")
+        for ent, chain in sorted(chains, key=lambda c: -len(c[1])):
+            print("  %-9s %s" % (ent, " ".join(chain)))
+        print()
+    else:
+        print("No supersessions recorded. Either nothing was reconsidered, or\n"
+              "reconsideration happened before anything was written down --\n"
+              "which the log cannot distinguish and should not pretend to.\n")
+
+    from . import hook as H
+    accepted = H.read_baseline(args.root)["accepted"]
+    if accepted:
+        print("OBLIGATIONS STILL CARRIED  (%d), with the reason given"
+              % len(accepted))
+        for fid in sorted(accepted):
+            why = (accepted[fid] or {}).get("why") or "(no reason recorded)"
+            admits = (accepted[fid] or {}).get("admits")
+            print("  %s%s" % (fid, "   admits only %s" % ", ".join(admits)
+                              if admits else ""))
+            print("      %s" % why[:200])
+        print()
+
+    notes = [ev for _p, _n, ev in events if ev.get("ev") == "note"]
+    print("%d model(s)/edge(s)/claim(s)/inference(s) declared across %d log "
+          "line(s); %d note(s) carried and never typed."
+          % (len(order), len(events), len(notes)))
+    if notes:
+        print("A note is prose that happens to live in a JSONL file. If a "
+              "load-bearing\npremise is in one, it is invisible to every rule "
+              "in the checker.")
+    return 0
+
+
+def cmd_why(args):
+    """Explain one transport cell: what it means, what it licenses, what closes it.
+
+    THE REFUSAL IS WHERE THIS TOOL DELIVERS ITS VALUE, and every piece of
+    evidence points the same way.  A campaign returning cold reported that the
+    only artifact doing real cross-session work was a hint attached to an edge
+    and surfaced at the moment of refusal, while every prose claim about the
+    vocabulary had rotted within one session.  Another campaign spent its most
+    expensive hour on a refusal that was correct and whose correct answer could
+    not be looked up from the tool.
+
+    So this reads the material the refusal path already uses -- `TYPE_MEANS`,
+    the transport table, `MOVES`, `KNOWN_CONSERVATISM` -- rather than restating
+    it anywhere.  A second copy of an explanation is a second thing to rot, and
+    this file has already watched five README cells document licences that were
+    withdrawn two versions earlier.
+
+    THE REGISTER IS PRINTED WITH THE CELL ON PURPOSE.  A refusal that is a
+    deliberate conservatism -- where the mathematics is on the user's side and
+    the tool is being careful -- reads exactly like a refusal that is a theorem,
+    and a user who cannot tell them apart learns to route around both.  Routing
+    around a refusal is the T1 failure mode.
+    """
+    etype, direction, kind = args.type, args.direction, args.kind
+    if etype not in K.DECLARABLE_TYPES:
+        sys.stderr.write("unknown type %r; declarable: %s\n"
+                         % (etype, ", ".join(K.DECLARABLE_TYPES)))
+        return 2
+    print("%s -- %s\n" % (etype, K.TYPE_MEANS[etype]))
+    dirs = [direction] if direction else list(K.DIRECTIONS)
+    kinds = [kind] if kind else list(K.CLAIM_KINDS)
+    for d in dirs:
+        for kd in kinds:
+            r = K.transport(etype, d, kd)
+            rule = K.TRANSPORT[etype][d][kd]
+            verdict = ("licensed" if rule is True else
+                       "REFUSED" if rule is False else
+                       "conditional on `%s`" % rule)
+            print("  %-8s %-9s  %s" % (d, kd, verdict))
+            if rule is not True and (direction or kind):
+                print("    %s" % r.reason)
+                print("    -> %s" % discharge_for(etype, d, kd).replace(
+                    "\n", "\n       "))
+            # THE MATHEMATICS IS ON YOUR SIDE AND THE TOOL IS NOT.
+            for c in KNOWN_CONSERVATISM:
+                if c["cell"] == (etype, d, kd):
+                    print("    NOTE -- THIS REFUSAL IS A DELIBERATE "
+                          "CONSERVATISM, not a theorem against you.")
+                    print("      the kernel says : %s" % c["kernel_says"])
+                    print("      the truth is    : %s" % c["truth"])
+                    print("      kept because    : %s" % c["why_kept"])
+            for c in KNOWN_UNSOUND:
+                if c.get("cell") == (etype, d, kd):
+                    print("    WARNING -- THIS CELL IS KNOWN UNSOUND: %s"
+                          % c.get("why", ""))
+        if not kind:
+            print()
+    return 0
+
+
+CHECKS_SPAN = re.compile(r"(<!--checks-->)(\d+)(<!--/checks-->)")
+
+
+def cmd_docs(args):
+    """Rewrite the machine-computable numbers in the documentation.
+
+    SIX DIFFERENT CHECK COUNTS were live across the docs at once -- 160, 171,
+    251, 273, 307, 338 -- against an actual 384.  The file labelled READ THIS
+    FIRST IF YOU HAVE NO CONTEXT disagreed with the README, which disagreed
+    with REVIEW.md, which disagreed with TESTPLAN.md.
+
+    That is not housekeeping.  The project's thesis is that prose read surfaces
+    rot first, and these are the surfaces a cold session reads; a campaign
+    whose headline measurement is cold resumption cannot have its resumption
+    documents lying about how much evidence exists.  It is REVIEW.md section 7
+    happening inside the documents that argue for section 7.
+
+    A NAIVE `\\d+ checks` SWEEP WOULD BE A FALSE-POSITIVE GENERATOR, which is
+    the one thing this project must not ship.  Several of those numbers are
+    TRUE HISTORY -- "the suite went 171 -> 251 checks", "171 checks agreed with
+    it" -- and a rule that cannot tell a current-state claim from a narrative
+    one would demand the history be falsified to go green.  So current-state
+    numbers are MARKED and only marked ones are checked:
+
+        gated: <!--checks-->384<!--/checks--> checks
+
+    The comment renders as nothing, so the prose reads normally.
+
+    Precedent: `gp table` prints from the kernel so a document quoting it
+    cannot drift from the code applying it.  This is that principle applied to
+    every number a machine can compute.
+    """
+    import subprocess
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    n = args.count
+    if n is None:
+        out = subprocess.run([sys.executable, "-m", "pytest", "-q",
+                              "--collect-only", os.path.join(root, "tests")],
+                             capture_output=True, text=True, cwd=root).stdout
+        m = re.search(r"(\d+) tests? collected", out)
+        if not m:
+            sys.stderr.write("could not collect the test count\n")
+            return 2
+        n = int(m.group(1))
+    changed = []
+    for name in sorted(os.listdir(root)):
+        if not name.endswith(".md"):
+            continue
+        path = os.path.join(root, name)
+        with open(path, encoding="utf-8") as fh:
+            text = fh.read()
+        new = CHECKS_SPAN.sub(lambda mm: mm.group(1) + str(n) + mm.group(3), text)
+        if new != text:
+            with open(path, "w", encoding="utf-8") as fh:
+                fh.write(new)
+            changed.append(name)
+    print("suite has %d checks" % n)
+    for c in changed:
+        print("  updated %s" % c)
+    if not changed:
+        print("  every marked span already agrees")
+    return 0
 
 
 def cmd_merge(args):
@@ -406,7 +682,27 @@ def cmd_accept(args):
     """
     from . import hook as H
     g = _load(args)
-    findings = C.run(g)
+    # THE BASELINE HAS TO GO IN, and leaving it out made one whole finding
+    # class unacceptable.
+    #
+    # `check_supersession` is the only rule that reads the baseline, because a
+    # SUPERSESSION finding exists precisely WHEN a baseline entry pinned
+    # `admits` and a supersession offered a discharge outside it.  Running the
+    # checker without the baseline here meant that rule produced nothing, so
+    # the one finding class that is definitionally baseline-derived was the one
+    # class `gp accept` could not see: `--only SUPERSESSION:...` answered "no
+    # such finding" while `gp check`, two functions up this file, printed it.
+    #
+    # It fires at UNSOUND_PREMISE, which is the hook's blocking floor, and an
+    # append-only log cannot un-declare the record that caused it.  So a live
+    # campaign reached a state where a finding could be neither discharged nor
+    # accepted and the hook refused EVERY tool call -- Read, Write, Bash, the
+    # MCP writes -- until the author bypassed the CLI and wrote the baseline by
+    # hand.  `hook.py`'s own comment calls a hook that blocks every tool call
+    # "the day-one trap this module already warns about".
+    accepted_now = H.read_baseline(args.root)["accepted"]
+    findings = C.run(g, accepted_now)
+    live = list(findings)          # before any --only filtering; see below
     before = H.load_baseline(args.root)
     if args.only:
         unknown = sorted(set(args.only) - {f.fid for f in findings})
@@ -415,8 +711,11 @@ def cmd_accept(args):
                              "current ids\n" % ", ".join(unknown))
             return 2
         findings = [f for f in findings if f.fid in set(args.only)]
+    # `live` is the UNFILTERED set and `findings` may be a subset of it.  This
+    # is the whole repair: `--only` narrows what is being accepted, and must
+    # never narrow what counts as still existing.
     payload = H.save_baseline(args.root, findings, note=args.message,
-                              prune=args.prune,
+                              prune=args.prune, live=live,
                               admits=getattr(args, "admits", None))
     accepted = payload["accepted"]
     added = sorted(set(accepted) - before)
@@ -505,6 +804,28 @@ def build_parser():
     g.add_argument("--dry-run", action="store_true",
                    help="report what would change and write nothing")
     g.set_defaults(func=cmd_migrate)
+
+    g = sub.add_parser("docs",
+                       help="rewrite the machine-computable numbers in the "
+                            "documentation, so a document quoting the suite "
+                            "cannot drift from the suite")
+    g.add_argument("--count", type=int, default=None,
+                   help="use this count instead of collecting the suite")
+    g.set_defaults(func=cmd_docs)
+
+    g = sub.add_parser("why",
+                       help="explain a transport cell: what the type means, "
+                            "what it licenses, and what would close a refusal")
+    g.add_argument("type", help="an edge type, e.g. RESTRICTION")
+    g.add_argument("direction", nargs="?", choices=list(K.DIRECTIONS),
+                   default=None)
+    g.add_argument("kind", nargs="?", choices=list(K.CLAIM_KINDS), default=None)
+    g.set_defaults(func=cmd_why)
+
+    g = sub.add_parser("history",
+                       help="where the campaign struggled: supersession "
+                            "chains, and the obligations still carried")
+    g.set_defaults(func=cmd_history)
 
     i = sub.add_parser("init", help="create an empty graph")
     i.set_defaults(func=cmd_init)

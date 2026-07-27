@@ -41,6 +41,10 @@ R_ALIAS = "ALIAS"
 R_VACUOUS = "VACUOUS-CONCLUSION"
 R_SELF_BUILT = "SELF-BUILT-MODEL"
 R_STALE_PREMISE = "STALE-PREMISE"
+R_STALE_PATH = "STALE-PATH"
+R_FAMILY = "FAMILY"
+R_DIRECTION = "EVIDENCE-DIRECTION"
+R_CROSSCUT = "CROSS-CUT"
 
 EXISTENCE_OPPOSITE = {K.EMPTY: K.NONEMPTY, K.NONEMPTY: K.EMPTY}
 
@@ -132,20 +136,36 @@ def audit_inference(graph, iid):
     if inf.get("via_partition"):
         p = graph.partitions[inf["via_partition"]]
         kind = inf["concludes_kind"]
+        # AN OPEN SLOT HAS NO `claim`, and this comprehension used it as a dict
+        # key -- so a case split that admits it has not settled a branch, which
+        # is the single most honest thing a partition can say, raised
+        # KeyError: None.  `store` handles the same field correctly two files
+        # away; only the checker did not.
+        #
+        # A slot contributes NOTHING to coverage, deliberately: it is a
+        # declaration that the branch is unsettled, so the branch stays
+        # uncovered and the partition is correctly refused.
         carried = {graph.claims[pr["claim"]]["model"] for pr in inf["premises"]
-                   if graph.claims[pr["claim"]]["kind"] == kind}
+                   if pr.get("claim")
+                   and graph.claims[pr["claim"]]["kind"] == kind}
         covered = all(b in carried for b in p["branches"])
-        cites_exhaustive = any(pr["claim"] == p["exhaustive"]
+        cites_exhaustive = any(pr.get("claim") == p["exhaustive"]
                                for pr in inf["premises"])
         r = K.transport_over_partition(kind, covered, cites_exhaustive)
         missing = [b for b in p["branches"] if b not in carried]
         detail = r.reason
         if missing:
             detail += " (no %s premise from: %s)" % (kind, ", ".join(missing))
+        slots = [pr for pr in inf["premises"] if pr.get("required_kind")]
+        for pr in slots:
+            detail += ("\n  and the argument itself declares %s at %s is not "
+                       "settled: %s"
+                       % (pr["required_kind"], pr.get("at"),
+                          pr.get("missing_why")))
         if not cites_exhaustive:
             detail += (" (the exhaustiveness claim %s is not among the "
                        "premises)" % p["exhaustive"])
-        return r.licensed, [(inf["via_partition"], "COVERS", r.licensed, detail)]
+        return r.licensed, [(UNCOVERED_PARTITION, "COVERS", r.licensed, detail)]
     # EVERY premise, not just the first.  An argument is only as licensed as
     # its weakest leg, and before the multi-premise form existed the extra legs
     # were not in the graph to be audited at all.
@@ -236,10 +256,52 @@ def contradicting_claims(graph, model_id, kind, exclude=()):
                   and cid not in exclude)
 
 
+MISSING_PREMISE = "(missing)"     # the sentinel audit_inference emits for an
+                                  # open slot; it is not an edge id
+UNCOVERED_PARTITION = "(partition)"   # ditto, for a case split that does not
+                                      # cover its parent
+
+
+# The two trace positions that are NOT edge ids.  Kept as a lookup rather than
+# an `if` chain so that adding a third sentinel cannot silently fall through to
+# a transport discharge -- naming a requirement about an edge nobody crossed is
+# how a refusal sends someone to fix the wrong thing.
+_SENTINEL_MOVES = {MISSING_PREMISE: MISSING_PREMISE,
+                   UNCOVERED_PARTITION: UNCOVERED_PARTITION}
+
+
+def _refused_on(trace):
+    """The id in the edge position of the first refused step, or None."""
+    for eid, _direction, ok, _reason in trace:
+        if not ok:
+            return eid
+    return None
+
+
 def _first_refusal(graph, trace):
+    """The first refused step, and the edge it happened on IF there is one.
+
+    THERE IS NOT ALWAYS ONE.  An OPEN PREMISE SLOT refuses with the sentinel
+    `(missing)` in the edge position, because nothing was traversed -- the
+    argument names a claim the graph does not contain.  This used `graph.edges[
+    eid]` and raised KeyError on that sentinel, so `gp check` CRASHED on any
+    graph declaring the construct.
+
+    That is worse than it sounds twice over.  Open slots were built for a live
+    campaign's central finding -- that a published artifact requires a claim
+    which does not exist anywhere -- so the construct with the strongest claim
+    to being the point of the tool was the one that could not be checked.  And
+    a crashing checker is indistinguishable from a checker nobody ran, which is
+    the failure mode `store` already has a comment about.
+
+    IT SURVIVED A TEST WRITTEN SPECIFICALLY FOR IT.  The open-slot regression
+    calls `audit_inference` directly and never `run`, so it exercised the
+    function and not the path a user takes.  The construct was correct
+    everywhere except in being reachable.
+    """
     for eid, direction, ok, reason in trace:
         if not ok:
-            return graph.edges[eid], direction, reason
+            return graph.edges.get(eid), direction, reason
     return None, None, None
 
 
@@ -261,9 +323,14 @@ def check_transport(graph):
         if ok:
             continue
         edge, direction, reason = _first_refusal(graph, trace)
+        # AN ARGUMENT WHOSE FIRST PREMISE IS AN OPEN SLOT CARRIES NO CLAIM.
+        # `claim` is the legacy singular field and the fold fills it from the
+        # first premise, so it is None exactly when that premise is a slot --
+        # and two lines below used it as a dict key.
+        carried = graph.claims.get(inf.get("claim")) if inf.get("claim") else None
         counter = contradicting_claims(graph, inf["concludes_at"],
                                        inf["concludes_kind"],
-                                       exclude=(inf["claim"],))
+                                       exclude=(inf.get("claim"),))
         # An UNTYPED EDGE is a hole, and a hole you have recorded is DEBT.
         # DRAWING A CONCLUSION ACROSS ONE is not: it asserts something no
         # declared relation supports, which is the definition of an unsound
@@ -277,7 +344,10 @@ def check_transport(graph):
             derived = UNSOUND_PREMISE
         severity = inf.get("severity_override") or derived
         detail = "%s\n  asserted: %s\n  refused : %s" % (
-            graph.claims[inf["claim"]]["statement"], inf["asserted"], reason)
+            carried["statement"] if carried else
+            "(this argument names no claim it actually has -- its leading "
+            "premise is an open slot)",
+            inf["asserted"], reason)
         if counter:
             detail += ("\n  contradicted by: %s\n    (%s)"
                        % (", ".join(counter),
@@ -293,10 +363,22 @@ def check_transport(graph):
                for eid, d in inf["path"]])
         findings.append(Finding(
             R_TRANSPORT, "%s:%s" % (R_TRANSPORT, iid), severity, iid, detail,
-            discharge_for(edge["type"], direction, inf["concludes_kind"],
+            # NO EDGE MEANS NO TRANSPORT CELL, so there is no cell-specific
+            # remedy to offer.  Nothing was traversed: the argument names a
+            # claim the graph does not have, and the only moves are to supply
+            # it or to stop asserting the conclusion.  Handing back a transport
+            # discharge here would name a requirement about an edge that was
+            # never crossed.
+            discharge_for(_SENTINEL_MOVES.get(_refused_on(trace))
+                          or (MISSING_PREMISE if edge is None
+                              else edge["type"]),
+                          direction, inf["concludes_kind"],
                           graph=graph, edge=edge,
                           fid="%s:%s" % (R_TRANSPORT, iid),
-                          traffic=True),
+                          traffic=True,
+                          hints=collect_hints(
+                              graph, claim=inf.get("claim"),
+                              model=inf.get("concludes_at"))),
             trace=trace, derived_severity=derived,
             severity_why=inf.get("severity_why"), semantic_key=key))
     return findings
@@ -439,11 +521,83 @@ def check_coverage(graph):
     return findings
 
 
+def withdrawn_edges(graph):
+    """Edge ids a LIVE edge declares it has replaced.
+
+    Edges DO carry `superseded_by` now -- `store._resolve_supersessions` stamps
+    all three entity kinds -- AND THE STAMP IS STILL NOT ENOUGH HERE.  It marks
+    every record some other record claims to replace, which in a CYCLE is both
+    of them: E-A names E-B, E-B names E-A, both get stamped, and reading the
+    stamp alone would call both dead in a graph where nothing is current.  So
+    deadness is computed from the successors rather than read off the record,
+    and the stamp is used only as a cross-check.
+
+    THE WORD `LIVE` IS DOING WORK, and it is the whole reason this is a walk
+    rather than a set comprehension.  Nothing in the fold refuses a supersession
+    CYCLE for edges: two edges may each name the other, and under
+    `{e["supersedes"] for e in edges}` both would come out dead and both of
+    their findings would vanish, from a graph in which nothing was replaced by
+    anything and no current edge exists at all.  That is precisely the move
+    this rule must not permit -- supersession is a way to record that a defect
+    was repaired, never a way to make a finding go away.
+
+    So the walk starts from the HEADS -- the edges nothing claims to replace,
+    which are live by construction -- and marks what they reach backwards along
+    `supersedes`.  An edge in a closed cycle is reachable from no head, so it
+    stays live and keeps its findings.  A dangling `supersedes` withdraws
+    nothing either; `check_supersession` reports that one on its own.
+    """
+    replaced = {}
+    for eid in sorted(graph.edges):
+        old = graph.edges[eid].get("supersedes")
+        if old and old in graph.edges:
+            replaced[eid] = old
+    dead, frontier = set(), [eid for eid in sorted(graph.edges)
+                             if eid not in set(replaced.values())]
+    while frontier:
+        old = replaced.get(frontier.pop())
+        if old and old not in dead:
+            dead.add(old)
+            frontier.append(old)
+    return dead
+
+
+def live_crossings(graph, eids):
+    """Inferences that still ride any of `eids` and have not been withdrawn.
+
+    A superseded inference is not traffic.  Counting it as such would let a
+    campaign that reminted an argument keep the old route looking load-bearing
+    forever, which is the same dilution in a different place.
+    """
+    eids = set(eids)
+    return sorted(iid for iid in graph.inference_order
+                  if not graph.inferences[iid].get("superseded_by")
+                  and any(s[0] in eids for s in graph.inferences[iid]["path"]))
+
+
 def check_untyped(graph):
+    dead = withdrawn_edges(graph)
     findings = []
     for eid in sorted(graph.edges):
         e = graph.edges[eid]
         if e["type"] != K.UNTYPED:
+            continue
+        # A RETYPED EDGE IS NOT DEBT, for the reason `check_transport` already
+        # gives about withdrawn inferences.  The live case, and it cost a
+        # campaign a permanent entry: `E-IV-PD` was UNTYPED and carried this
+        # debt, `E-IV-PD-RESTRICT` superseded it with a RESTRICTION, the debt
+        # was genuinely discharged BY the retyping -- and this rule went on
+        # reporting it every run, forever, so the baseline grew a line whose
+        # stated reason was "this cannot be discharged, only carried".  That
+        # sentence is false about this debt, and one false line makes every
+        # true line in a file whose entire value is deliberateness weaker.
+        #
+        # Nothing goes quiet.  The replacement is audited in its own right, so
+        # a successor that is ALSO untyped gets its own finding below -- and
+        # traffic still riding the withdrawn edge is refused by
+        # `check_transport` against the type that edge actually declares, at
+        # UNSOUND_PREMISE, which is louder than this line rather than quieter.
+        if eid in dead:
             continue
         downstream = sorted(iid for iid in graph.inference_order
                             if any(s[0] == eid
@@ -458,6 +612,35 @@ def check_untyped(graph):
     return findings
 
 
+def _withdrawn_and_unridden(graph, eid, dead=None):
+    """Is this edge dead AND carrying no live traffic?
+
+    THE GUARD ON EVERY RULE THAT REPORTS AN EDGE'S OWN ATTRIBUTES.  Four rules
+    besides UNTYPED-EDGE report a defect in what an edge DECLARES -- a
+    refinement typed wrong, an EQUIVALENCE resting on nothing, a self-refuting
+    one, a partition branch pointing the wrong way -- and none of them asked
+    whether the edge was still current.  So a defect repaired by superseding
+    the edge reported forever, exactly as UNTYPED-EDGE did.
+
+    Confirmed on a live graph: both of its above-floor findings sat on
+    withdrawn edges, and the campaign had EARNED them by doing the right thing
+    -- adding a `converse_witness` requires superseding, so discharging
+    UNJUSTIFIED-EQUIVALENCE minted a permanent UNJUSTIFIED-EQUIVALENCE plus a
+    permanent PARALLEL-EDGE.
+
+    THE TRAFFIC HALF IS NOT OPTIONAL, and matters more here than it did for
+    UNTYPED-EDGE.  A dead UNTYPED edge licenses nothing, so traffic over it is
+    refused loudly elsewhere.  These edges carry PERMISSIVE types: a withdrawn
+    EQUIVALENCE that a live inference still rides goes on licensing silently,
+    and this finding is the only thing that would say so.  Three of the four
+    report above the blocking floor, so going quiet on one that is still
+    load-bearing would be a strictly worse trade than the noise it removes.
+    """
+    if dead is None:
+        dead = withdrawn_edges(graph)
+    return eid in dead and not live_crossings(graph, [eid])
+
+
 def check_refinement(graph):
     """Monotonicity is not a fourth type.
 
@@ -467,8 +650,11 @@ def check_refinement(graph):
     refinement edge typed as anything else is a modelling error.
     """
     findings = []
+    dead = withdrawn_edges(graph)
     for eid in sorted(graph.edges):
         e = graph.edges[eid]
+        if _withdrawn_and_unridden(graph, eid, dead):
+            continue
         if not e["refinement"] or e["type"] == K.NECESSARY_CONDITION:
             continue
         findings.append(Finding(
@@ -516,8 +702,11 @@ def check_unjustified_equivalence(graph):
     own finding below.
     """
     findings = []
+    dead = withdrawn_edges(graph)
     for eid in sorted(graph.edges):
         e = graph.edges[eid]
+        if _withdrawn_and_unridden(graph, eid, dead):
+            continue
         if e["type"] != K.EQUIVALENCE:
             continue
         if e.get("converse_witness") or e.get("cite"):
@@ -635,6 +824,8 @@ def check_partitions(graph):
         parent, branches = p["parent"], p["branches"]
         for eid in sorted(graph.edges):
             e = graph.edges[eid]
+            if _withdrawn_and_unridden(graph, eid):
+                continue
             if e["src"] != parent or e["dst"] not in branches:
                 continue
             findings.append(Finding(
@@ -705,22 +896,50 @@ def check_parallel_edges(graph):
     the same objects.  So this reports rather than refuses, and the discharge
     asks for the one thing that distinguishes the cases: say which edge is
     authoritative and why the other is not.
+
+    A WITHDRAWN EDGE IS NOT A SECOND EDGE.  This rule used to answer its own
+    discharge with a shrug: an author who did exactly what it asked -- named
+    the successor with `supersedes`, said how -- got the severity dropped to
+    DEBT and the finding kept, so a fully declared chain of three still read
+    "3 edges join A -> B" for the life of the campaign.  But the question this
+    rule asks is WHICH ONE BINDS, and a declared supersession answers it: the
+    replaced edge binds nothing.  Counting dead edges made the count say
+    something untrue about a graph that had already been repaired, and put
+    another undischargeable line in the baseline.
+
+    Two guards, because the whole hazard of this repair is that supersession
+    must never be a way to make a finding disappear:
+
+      TRAFFIC.  An edge some live inference still rides is NOT withdrawn in
+      effect, whatever its successor says, and it stays in the count.  This is
+      where the untyped rule and this one legitimately differ: an UNTYPED edge
+      that still carries traffic is refused loudly by `check_transport`, but a
+      dead PERMISSIVE edge licenses that traffic silently, and this finding is
+      the only thing in the system that would mention it.
+
+      NO DOWNGRADE FOR A SUPERSESSION OF SOMETHING ELSE.  What remains after
+      the dead are removed is by construction a set of edges none of which
+      replaces another, so the parallelism between them was declared by nobody
+      and the old `declared` downgrade would only fire for a `supersedes`
+      pointing outside the pair -- an override bought with an unrelated
+      sentence.  The severity now turns on traffic alone.
     """
+    dead = withdrawn_edges(graph)
     findings = []
     by_ends = {}
     for eid in sorted(graph.edges):
         e = graph.edges[eid]
         by_ends.setdefault((e["src"], e["dst"]), []).append(eid)
-    for (src, dst), eids in sorted(by_ends.items()):
+    for (src, dst), at_ends in sorted(by_ends.items()):
+        eids = [eid for eid in at_ends
+                if eid not in dead or live_crossings(graph, [eid])]
         if len(eids) < 2:
             continue
         types = {eid: graph.edges[eid]["type"] for eid in eids}
         # Traffic over any of them makes this live rather than latent.
-        crossing = sorted(iid for iid in graph.inference_order
-                          if any(s[0] in eids
-                                 for s in graph.inferences[iid]["path"]))
-        declared = [eid for eid in eids if graph.edges[eid].get("supersedes")]
-        sev = DEBT if declared else (UNSOUND_PREMISE if crossing else DEBT)
+        crossing = live_crossings(graph, eids)
+        sev = UNSOUND_PREMISE if crossing else DEBT
+        withdrawn = [eid for eid in at_ends if eid not in eids]
         findings.append(Finding(
             R_PARALLEL, "%s:%s->%s" % (R_PARALLEL, src, dst), sev,
             "%s->%s" % (src, dst),
@@ -730,10 +949,12 @@ def check_parallel_edges(graph):
             "cannot be retyped (the fold refuses a conflicting redeclaration), "
             "so declaring a second one is how a refusal gets overridden without "
             "the override being visible as one.\n"
-            "  inferences crossing them: %s"
+            "  inferences crossing them: %s%s"
             % (len(eids), src, dst,
                ", ".join("%s [%s]" % (e, types[e]) for e in eids),
-               ", ".join(crossing) or "(none yet)"),
+               ", ".join(crossing) or "(none yet)",
+               ("\n  not counted, superseded and unridden: %s"
+                % ", ".join(withdrawn)) if withdrawn else ""),
             "Name which edge is authoritative. If the newer one supersedes the "
             "older, say so with `supersedes` -- that transfers the older "
             "edge's obligations rather than silently clearing them, and the "
@@ -977,8 +1198,11 @@ def check_self_refuting_equivalence(graph):
     evidence denies.
     """
     findings = []
+    dead = withdrawn_edges(graph)
     for eid in sorted(graph.edges):
         e = graph.edges[eid]
+        if _withdrawn_and_unridden(graph, eid, dead):
+            continue
         # Legacy `witness` meant strictness in every existing use, so it is read
         # here too -- an old graph that documented an equivalence with its own
         # counterexample should surface, not stay quiet because it used the old
@@ -1068,6 +1292,279 @@ def check_stale_premises(graph):
     return findings
 
 
+def check_stale_paths(graph):
+    """A live inference ROUTED OVER an edge its author has replaced.
+
+    THE EXACT COMPLEMENT of `check_stale_premises`, and the precondition that
+    makes silencing findings on withdrawn edges safe.  Supersession never
+    repoints anything -- deliberately, since crediting an argument against a
+    record it was never checked against is the failure this refuses to
+    automate -- so an inference goes on riding the old edge after the author
+    has declared a better one.
+
+    Without this rule, the four edge-attribute rules would go quiet on a
+    withdrawn edge and nothing anywhere would mention that live traffic still
+    crosses it.  `_withdrawn_and_unridden` keeps them loud in that case; this
+    says WHY, and says it against the inference rather than the edge, which is
+    where the repair has to happen.
+
+    The severity turns on the same question as STALE-PREMISE: did anything that
+    LICENSES a transport actually move?  A successor that only gained a
+    `converse_witness` or a `discharge_hint` licenses exactly what its
+    predecessor did, so the argument stands as checked and the pointer is
+    merely stale.  A successor that was retyped, or gained `ring_iso` or
+    `zariski_dense`, licenses different cells -- and the argument was audited
+    against the other ones.
+    """
+    findings = []
+    dead = withdrawn_edges(graph)
+    if not dead:
+        return findings
+    successor = {}
+    for eid in sorted(graph.edges):
+        old = graph.edges[eid].get("supersedes")
+        if old in dead:
+            successor[old] = eid
+    for iid in graph.inference_order:
+        inf = graph.inferences[iid]
+        if inf.get("superseded_by"):
+            continue
+        for eid, direction in inf["path"]:
+            if eid not in dead:
+                continue
+            new_id = successor.get(eid)
+            newer = graph.edges.get(new_id) if new_id else None
+            moved = ([f for f in K.EDGE_LICENSING_FIELDS
+                      if graph.edges[eid].get(f) != newer.get(f)]
+                     if newer else [])
+            bookkeeping = newer is not None and not moved
+            findings.append(Finding(
+                R_STALE_PATH, "%s:%s:%s" % (R_STALE_PATH, iid, eid),
+                DEBT if bookkeeping else UNSOUND_PREMISE, iid,
+                "inference %s is routed over edge %s, which %s replaced."
+                % (iid, eid, new_id or "another edge")
+                + ("\n  It licenses exactly what %s licensed, so the argument "
+                   "stands as checked and only the pointer is stale."
+                   % eid if bookkeeping else
+                   "\n  %s changed, so this argument was audited against cells "
+                   "the current edge does not open. The conclusion is not "
+                   "withdrawn and is not licensed either -- it is UNEXAMINED."
+                   % (", ".join(moved) or "The relation")),
+                "Redeclare this inference over %s and mark the old one "
+                "`supersedes`. Supersession does not repoint a path on its "
+                "own: an argument credited against an edge it was never "
+                "checked against is the failure this refuses to automate."
+                % (new_id or "the current edge"),
+                semantic_key="%s|%s" % (iid, eid)))
+    return findings
+
+
+def _group_size(graph, gid):
+    """How many members the thing named `gid` covers: a family, or a group."""
+    if gid in graph.families:
+        return graph.families[gid]["count"]
+    if gid in graph.groups:
+        return graph.groups[gid]["settles"]
+    return None
+
+
+def check_families(graph):
+    """ENUMERATION and COVERAGE.  The arithmetic half of a classification.
+
+    ENUMERATION.  A family's `count` is an assertion somebody made, and a
+    result of the form "k of N" is worthless if N is wrong.  One census DID
+    check its own -- orbit sizes summing to 34,752 -- and that check had
+    nowhere to live, so it went into prose and a `note`.  The obligation is the
+    same shape as `partition.exhaustive`: name the claim, and the claim carries
+    its own evidence grade.
+
+    COVERAGE, and it is RECURSIVE.  The first version of this rule required
+    every disposition's groups to total the family, which is wrong the moment a
+    triage nests -- and a real one does: 1567 splits into 347 and 1220, then
+    the 347 splits again into 343 and 4.  A disposition totals THE THING IT
+    SPLITS, which may be a family or a group from an earlier split.
+
+    Coverage cannot catch a paper nobody mentioned.  A live frontier read "32
+    open" for months because five rows settled in the literature were sitting
+    inside the residue, and 32 + 2 = 34 totals perfectly.  No tool catches
+    that.  What it catches is the arithmetic, which is the half that is
+    checkable, and what the ENUMERATION obligation adds is that the sweep
+    itself becomes a graded claim rather than an assumption baked into a
+    subtraction.
+    """
+    findings = []
+    for fid in sorted(graph.families):
+        fam = graph.families[fid]
+        enum = fam.get("enumeration")
+        if not enum or enum not in graph.claims:
+            findings.append(Finding(
+                R_FAMILY, "%s:%s" % (R_FAMILY, fid), UNSOUND_PREMISE, fid,
+                "family %s declares count %d and names %s as the claim "
+                "establishing it."
+                % (fid, fam["count"],
+                   "no claim" if not enum else "%r, which is not a claim" % enum)
+                + "\n  Every 'k of N' result in this campaign divides by that "
+                  "N. An uncounted family makes each of them a statement about "
+                  "a number nobody vouched for.",
+                "Record the enumeration as a claim at this family and name it "
+                "in `enumeration` -- how the members were counted, and how you "
+                "know the count is complete. One census verified its own by "
+                "checking orbit sizes summed to the labelled total; that is "
+                "exactly the claim this field wants.",
+                semantic_key=fid))
+    for cid in sorted(graph.claims):
+        c = graph.claims[cid]
+        # A COUNT claim is either a DISPOSITION (it splits something) or a
+        # CROSS-COUNT (it intersects two groups). Only the first has coverage
+        # arithmetic to check; the second is check_crosscuts' business.
+        if c.get("kind") != K.COUNT or not c.get("splits"):
+            continue
+        parent = c["splits"]
+        size = _group_size(graph, parent)
+        if size is None:
+            findings.append(Finding(
+                R_FAMILY, "%s:%s" % (R_FAMILY, cid), UNSOUND_PREMISE, cid,
+                "COUNT claim %s splits %r, which is neither a family nor a "
+                "group declared by another disposition." % (cid, parent),
+                "Name the family, or the group id from the split that produced "
+                "this subset.", semantic_key=cid))
+            continue
+        total = sum(g["settles"] for g in c["groups"])
+        if total != size:
+            findings.append(Finding(
+                R_FAMILY, "%s:%s" % (R_FAMILY, cid), UNSOUND_PREMISE, cid,
+                "COUNT claim %s splits %s, which covers %d members, into "
+                "groups totalling %d: %s."
+                % (cid, parent, size, total,
+                   " + ".join("%s %d" % (g["id"], g["settles"])
+                              for g in c["groups"]))
+                + "\n  A member unaccounted for is a member no verdict was "
+                  "reached about, and a member counted twice is a verdict "
+                  "reached twice about one object.",
+                "Make the groups total %d, or declare the remainder as its own "
+                "group with an honest verdict -- `unsettled` is a verdict and "
+                "an empty residue is not the same as a covered one." % size,
+                semantic_key=cid))
+    return findings
+
+
+def check_evidence_direction(graph):
+    """A CLAIM RESTING ON THE VERDICT ITS METHOD DOES NOT PROVE.
+
+    THE RULE I WAS LEAST SURE EARNED ITS REQUIRED FIELD, kept because a live
+    census produced its evidence without being asked.  Its triage settled 1220
+    classes as "not generically finite-to-one" using full Jacobian rank at a
+    sampled point -- a method that proves the POSITIVE verdict, since a nonzero
+    minor at one point is a nonzero polynomial, and gives only evidence for the
+    negative.  The author knew: the report says deficiency "is only evidence,
+    so the max over several points is taken", and the 1220 was split into 852
+    forced by parameter counting and 368 resting on sampling.
+
+    That split is the finding.  It exists because the author felt the
+    difference and had nowhere to put it, so it survived as two numbers in a
+    table and one number in the headline.
+
+    A claim naming `rests_on: <group>` uses that group's verdict.  Whether the
+    verdict is established is a property of the METHOD, not of the author's
+    confidence, which is why the direction is declared per disposition and
+    checked here rather than graded per claim.
+    """
+    findings = []
+    for cid in sorted(graph.claims):
+        c = graph.claims[cid]
+        gid = c.get("rests_on")
+        if not gid or gid not in graph.groups:
+            continue
+        g = graph.groups[gid]
+        # The disposition NAMED which of its own groups its method establishes.
+        # Everything it did not name is evidence -- including, routinely, the
+        # other side of the same computation.
+        if g["proved"]:
+            continue
+        findings.append(Finding(
+            R_DIRECTION, "%s:%s" % (R_DIRECTION, cid), UNSOUND_PREMISE, cid,
+            "claim %s rests on group %s, whose verdict %r is EVIDENCE and not "
+            "proof.\n  The method was %r, and %s does not list %s among the "
+            "groups it proves.\n  %s"
+            % (cid, gid, g["verdict"], g["method"], g["by"], gid, g["why"]),
+            "Either establish this group by a method that proves its verdict, "
+            "or restate the claim as what the evidence supports. A method that "
+            "screens is not a method that decides, and the difference is "
+            "invisible once both are counts in the same table.",
+            semantic_key="%s|%s" % (cid, gid)))
+    return findings
+
+
+def check_crosscuts(graph):
+    """A RESULT PROVED OVER ONE DECOMPOSITION, COUNTED IN ANOTHER.
+
+    THE BEST-EVIDENCED RULE HERE, because the error is real, was caught by
+    hand, and is recorded with its correction.  A live project's class of nine
+    carries two decompositions of the same nine rows -- by status (2 settled, 7
+    open) and by invariant (8 sharing (a,b,t), 1 not).  A transfer result
+    proved for the 8 was read as buying 8 open rows.  Both settled rows are
+    (2,3,4) rows, so it buys SIX:
+
+        "So the 'transfers to eight of the nine' result buys 6 genuinely open
+        rows, not 8 -- the other two are already-settled and serve as controls."
+
+    Nothing about that is exotic.  Two true statements about one family, and
+    the product of two counts is not the count of the intersection.
+
+    AND IT IS COMPUTABLE ONLY FROM NAMES.  This is what decides `exhibited`
+    against a bare count, and it decides it honestly in both directions: at 34
+    rows you list members and the intersection is arithmetic; at 1567 you do
+    not, and then the claim is refused rather than guessed.  Silently allowing
+    it because the check is unavailable is precisely how "8 of 9" became "8
+    open rows".
+    """
+    findings = []
+    for cid in sorted(graph.claims):
+        c = graph.claims[cid]
+        a_id, b_id = c.get("rests_on"), c.get("counts_against")
+        if not a_id or not b_id:
+            continue
+        if a_id not in graph.groups or b_id not in graph.groups:
+            continue
+        a, b = graph.groups[a_id], graph.groups[b_id]
+        asserted = c.get("asserts_count")
+        if not a["exhibited"] or not b["exhibited"]:
+            findings.append(Finding(
+                R_CROSSCUT, "%s:%s" % (R_CROSSCUT, cid), UNSOUND_PREMISE, cid,
+                "claim %s counts group %s against group %s, and the members of "
+                "%s are not named."
+                % (cid, a_id, b_id,
+                   a_id if not a["exhibited"] else b_id)
+                + "\n  Two decompositions of one family cannot be intersected "
+                  "from their sizes. |A| = %d and |B| = %d bound |A and B| "
+                  "only between %d and %d."
+                  % (a["settles"], b["settles"],
+                     max(0, a["settles"] + b["settles"]
+                         - (_group_size(graph, a["of"]) or 0)),
+                     min(a["settles"], b["settles"])),
+                "Name the members of both groups with `exhibited`, or drop the "
+                "cross-count and state the result over the decomposition it "
+                "was actually proved in.",
+                semantic_key="%s|%s|%s" % (cid, a_id, b_id)))
+            continue
+        overlap = sorted(set(a["exhibited"]) & set(b["exhibited"]))
+        if asserted is not None and asserted != len(overlap):
+            findings.append(Finding(
+                R_CROSSCUT, "%s:%s" % (R_CROSSCUT, cid), UNSOUND_CONCLUSION,
+                cid,
+                "claim %s asserts %d, and %s intersected with %s is %d: %s."
+                % (cid, asserted, a_id, b_id, len(overlap),
+                   ", ".join(overlap) or "no members")
+                + "\n  %d member(s) of %s are already in %s, so they are "
+                  "counted by this result and bought by it too."
+                  % (a["settles"] - len(overlap), a_id, b_id),
+                "State the intersection, %d, or say plainly which of the two "
+                "numbers the result is about. A count over one decomposition "
+                "is not a count in another." % len(overlap),
+                semantic_key="%s|%s|%s" % (cid, a_id, b_id)))
+    return findings
+
+
 def run(graph, accepted=None):
     """All rules, in a stable order, most severe first.
 
@@ -1089,6 +1586,10 @@ def run(graph, accepted=None):
                 + check_partitions(graph)
                 + check_supersession(graph, accepted)
                 + check_stale_premises(graph)
+                + check_stale_paths(graph)
+                + check_families(graph)
+                + check_evidence_direction(graph)
+                + check_crosscuts(graph)
                 + check_parallel_edges(graph)
                 + check_vacuous_conclusions(graph)
                 + check_self_built(graph))
@@ -1102,9 +1603,24 @@ def clean_inferences(graph, findings):
     Reported because a framework that flags a sound step is a false-positive
     generator and unusable.  The positive controls are the load-bearing half of
     any credibility claim, so they get printed, not assumed.
+
+    A WITHDRAWN INFERENCE IS NOT A POSITIVE CONTROL.  `check_transport` skips
+    superseded inferences -- correctly, they license nothing -- and this
+    counted everything it did not flag, so every withdrawn argument was
+    promoted into the clean list.  A live campaign's `gp check` reported
+    "clean inferences (5)" of which FOUR were withdrawn and one was genuinely
+    clean.
+
+    That is the loudest possible version of the mistake, because this number is
+    the credibility claim: it is the count a reader uses to decide the checker
+    is not simply refusing everything.  Inflating it with dead records is the
+    same failure as `gp check` exiting 0 on a graph nobody audited, which the
+    reporting project's own trap list phrases as "a checker that exits 0 has
+    not necessarily proved its claim".
     """
     flagged = {f.subject for f in findings if f.rule == R_TRANSPORT}
-    return [i for i in graph.inference_order if i not in flagged]
+    return [i for i in graph.inference_order
+            if i not in flagged and not graph.inferences[i].get("superseded_by")]
 
 
 def render(findings, accepted=None, full=False):
@@ -1167,3 +1683,31 @@ def exit_code(findings, floor=UNSOUND_PREMISE):
     """
     rank = SEVERITY_RANK[floor]
     return 1 if any(SEVERITY_RANK[f.severity] >= rank for f in findings) else 0
+
+
+def collect_hints(graph, **objects):
+    """Author-supplied remedies from every object a finding touches.
+
+    `discharge_for` knows what a CELL requires and cannot know what a CAMPAIGN
+    would do about it.  That gap used to be filled by edges alone, and the one
+    piece of evidence anybody has about cross-session handoff says it was the
+    right mechanism pointed at too few objects: a returning session found the
+    edge hint "came back verbatim in every refusal" and was "the only artifact
+    in the campaign that did real cross-session handoff work", in the same
+    report that found every prose claim about the tool had rotted within a
+    session.
+
+    So: models, claims, families and partitions carry one too.  Pass the
+    objects a finding is about; the ones that have something to say are
+    rendered, labelled by what they are, and the rest cost nothing.
+    """
+    out = []
+    for label in sorted(objects):
+        obj = objects[label]
+        if isinstance(obj, str):
+            obj = (graph.models.get(obj) or graph.claims.get(obj)
+                   or graph.families.get(obj) or graph.edges.get(obj)
+                   or graph.partitions.get(obj))
+        if obj and obj.get("discharge_hint"):
+            out.append((label, obj["discharge_hint"]))
+    return out
