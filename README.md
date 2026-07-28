@@ -30,14 +30,34 @@ the edge is drawn.
 
 ## Status
 
-All five layers are built and gated: <!--checks-->391<!--/checks--> checks, live against Singular 4.2.1,
+All five layers are built and gated: <!--checks-->700<!--/checks--> checks, live against Singular 4.2.1,
 and it has had four live user sessions — see [docs/first-run/](docs/first-run/)
 for the first, written up in full.
 
-* **[HANDOFF.md](HANDOFF.md) — start here if you have no context**
 * [DESIGN.md](DESIGN.md) — architecture and the decisions behind it
 * [REVIEW.md](REVIEW.md) — **where I am least confident**, for a reviewer
-* [TESTPLAN.md](TESTPLAN.md) — what to run next and what each run could falsify
+
+Five further documents live in the private workspace only — `HANDOFF.md` and
+`TESTPLAN.md` because they describe traps in blind trials not yet run, and
+`SCOPE.md`, `KILL-CRITERIA.md` and `EXPERIMENT-B.md` because they name live
+campaigns. This file used to *link* the first three, which is a broken link
+for every reader here and exactly the kind of drift the check-count spans
+exist to prevent.
+
+What they contain, since the summaries name no domain:
+
+* **`SCOPE.md`** — the boundary is a *semantic regime*, not a syntax class.
+  This kernel is for exact affine algebra; ordered-field inequalities,
+  optimisation, certified numerics and finite censuses are different regimes
+  that have each been met in live work and recorded in affine vocabulary
+  because that was the vocabulary available.
+* **`KILL-CRITERIA.md`** — what would show this is not worth continuing,
+  written before the answer is known, because friction is always
+  reinterpretable as rigour.
+* **`EXPERIMENT-B.md`** — hand-declared relation types measured against 57
+  live edges: **88% accurate**, and the errors are mostly not about
+  operations. That result is why the operation-constructor layer is three
+  functions rather than sixteen.
 
 | layer | module | what it does |
 |---|---|---|
@@ -97,10 +117,10 @@ code applying it cannot drift apart.
 | `BASE_EXTENSION` | **ALONG** | **only with a certificate** | **yes** | NO | yes |
 | `BASE_EXTENSION` | AGAINST | yes | NO | yes | if defined over base |
 | `IMAGE_CLOSURE` | ALONG | NO | yes | if Zariski-closed | if denominator-free |
-| `IMAGE_CLOSURE` | **AGAINST** | yes | **NO** | yes | if denominator-free |
+| `IMAGE_CLOSURE` | **AGAINST** | yes | **if existential** | yes | if denominator-free |
 | `SPECIALIZATION` | ALONG | **NO** | **NO** | NO | if p-integral |
 | `SPECIALIZATION` | AGAINST | **NO** | **NO** | NO | NO |
-| `RESTRICTION` | **ALONG** | NO | yes | **NO** | if Zariski-dense |
+| `RESTRICTION` | **ALONG** | NO | yes | **NO** | yes |
 | `RESTRICTION` | AGAINST | yes | NO | yes | **yes** |
 
 Five of those cells were **wrong in this file** until a test started comparing
@@ -120,6 +140,12 @@ Three rows carry most of the value:
   closure need not lift. This is why elimination is a sound way to *derive*
   equations and an unsound source of *witnesses* — and why a cell that survives
   everything is an artifact candidate rather than a reason to buy solver time.
+  The cell is conditional because `NONEMPTY` has two readings and they diverge
+  here alone: a claim that **holds a point** is refused, and one that only
+  proves a point **exists** may cross, since the closure of the empty set is
+  empty. The register carried that gap for four versions with the repair
+  written out, and a campaign finally recorded an existence proof with no
+  witness.
 * **`SPECIALIZATION` carries nothing.** char 0 → char p transports no existence
   statement in either direction, and that is a theorem, not caution: Fano is
   empty over `Q` and nonempty over `F₂`, non-Fano is the reverse.
@@ -133,8 +159,14 @@ Three rows carry most of the value:
   matters. The `IDENTITY` row is where
   the mathematics genuinely differs: a restriction adds no equations, so the
   obstruction that stops a derived identity crossing a `NECESSARY_CONDITION`
-  is simply absent, and the question becomes whether a polynomial vanishing on
-  an open piece vanishes throughout.
+  is simply absent — both ends share a ring and an ideal, and an `IDENTITY`
+  is the same statement at each. That cell was gated on a declared
+  `zariski_dense` until an external review broke the condition with the nodal
+  cubic `y² = x²(x−1)`, whose real points *are* Zariski-dense and whose
+  restricted region is an isolated point. The gate was also answering the
+  wrong question: "vanishes at every point of the region" is a `PREDICATE`,
+  and that cell refuses. What replaced it is `gp verify`, which decides
+  `lhs − rhs ∈ I` by reduction instead of asking anyone to declare it.
 
 ## Scope is derived, never declared
 
@@ -170,7 +202,7 @@ Pure stdlib. No solver, no network, no model in the loop. Under a second.
 ## The retrodiction gate
 
 ```bash
-python -m pytest        # <!--checks-->391<!--/checks--> checks
+python -m pytest        # <!--checks-->700<!--/checks--> checks
 ```
 
 Grand Portage's credibility rests on reproducing, from **data**, what two

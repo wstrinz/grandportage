@@ -12,6 +12,7 @@ BOUNDARY and BOOKKEEPING defects -- the ones that were invisible to the
 mathematics and therefore to every existing test.
 """
 
+import inspect
 import json
 import os
 import sys
@@ -1471,7 +1472,7 @@ def test_amend_is_computed_not_declared():
              "coefficients_in_base": True,
              "supersedes": "C1", "discharge_kind": K.AMEND}])
     msg = str(exc.value)
-    assert "coefficients_in_base changed" in msg and "RELICENSE" in msg
+    assert "`coefficients_in_base` changed" in msg and "RELICENSE" in msg
 
 
 def test_over_declaring_a_supersession_is_allowed():
@@ -1483,7 +1484,7 @@ def test_over_declaring_a_supersession_is_allowed():
         {"ev": "claim", "id": "C1R", "model": "TIGHT", "kind": K.PREDICATE,
          "statement": "P holds", "cite": "a better citation",
          "supersedes": "C1", "discharge_kind": K.RESTATE}])
-    assert g.claims["C1"]["superseded_by"] == "C1R"
+    assert g.claims["C1"]["superseded_by"] == ["C1R"]
 
 
 def test_a_superseded_premise_is_graded_by_what_actually_changed():
@@ -1648,20 +1649,605 @@ def test_the_identity_cell_does_not_send_you_after_denominators():
     is NECESSARY_CONDITION's remedy and is irrelevant here.  A restriction
     changes no coordinates, so there is no map to make polynomial, and anyone
     following that advice would spend the effort and still be refused.
+
+    AND THE CELL NO LONGER REFUSES AT ALL, which retires the move rather than
+    correcting it.  The gate it advised was found insufficient (the nodal cubic
+    satisfies it and breaks the conclusion) and beside the point (a restriction
+    shares its ideal, so the identity is the same statement at both ends).  So
+    the strongest form of this test is now the one below: nobody can be sent
+    after denominators here because nobody is refused here.
+
+    The wrong-advice hazard moved rather than vanishing.  `store` requires a
+    RESTRICTION's map_kind to be IDENTITY_MAP, so the denominator move is
+    unreachable from this row by construction, and what a caller needs instead
+    is `gp verify` -- which the UNTESTED-IDENTITY rule now tells them.
     """
-    from grandportage.discharge import discharge_for
-    msg = discharge_for(K.RESTRICTION, K.ALONG, K.IDENTITY,
-                        edge={"src": "PD", "dst": "REAL"})
-    assert "zariski_dense" in msg
-    assert "NOT THE DENOMINATOR QUESTION" in msg
-    # And it names the counterexample rather than asserting the condition is
-    # usually fine, because "usually fine" is how a gate stops being consulted.
-    assert "x^2 + y^2" in msg
+    assert K.transport(K.RESTRICTION, K.ALONG, K.IDENTITY).licensed, (
+        "the cell is unconditional; if this ever refuses again it needs a "
+        "move, and that move must not be the denominator one")
 
 
-def test_the_density_condition_is_declared_not_assumed():
-    """Over R the real points of a variety need not be Zariski-dense in it, so
-    the strongest cell of the strongest new type is gated by default."""
+def test_a_witness_cannot_cross_between_partition_branches():
+    """THE OTHER HALF OF THE BUG PARTITIONS WERE BUILT TO FIX.
+
+    `check_partitions` reasons that branch = parent AND condition, so an edge
+    drawn parent -> branch asserts the reverse and is consistent only if the
+    parent is empty.  The identical argument applies SIDEWAYS -- an edge
+    between two branches asserts a containment between models whose case
+    conditions are mutually exclusive -- and nothing made it.
+
+    Measured before the rule existed: this exact fixture produced ZERO findings
+    and reported the inference CLEAN.  A witness exhibited in the gamma=3
+    branch transported into the gamma=4 branch, licensed.
+
+    It hid because the cells that refuse GENERICALLY -- EMPTY along a
+    NECESSARY_CONDITION -- made the shape look handled.  NONEMPTY along the
+    same edge is licensed, and there the hole is visible.
+    """
+    evs = [
+        {"ev": "model", "id": "P", "what": "the parent"},
+        {"ev": "model", "id": "A", "what": "the gamma=3 branch"},
+        {"ev": "model", "id": "B", "what": "the gamma=4 branch"},
+        {"ev": "claim", "id": "EX", "model": "P", "kind": K.PREDICATE,
+         "statement": "gamma is 3 or 4", "established_by": "CITED",
+         "ladder": "claimed"},
+        {"ev": "partition", "id": "PART", "parent": "P",
+         "branches": ["A", "B"], "exhaustive": "EX", "why": "a dichotomy"},
+        {"ev": "edge", "id": "E_AB", "src": "A", "dst": "B",
+         "type": K.NECESSARY_CONDITION, "why": "drops the case condition",
+         "map_kind": K.POLYNOMIAL},
+        {"ev": "claim", "id": "C1", "model": "A", "kind": K.NONEMPTY,
+         "statement": "a point with gamma=3", "witness_kind": "EXHIBITED",
+         "established_by": "RAN", "ladder": "exact-checked"},
+        {"ev": "inference", "id": "I1", "claim": "C1",
+         "path": [["E_AB", K.ALONG]], "concludes_kind": K.NONEMPTY,
+         "asserted": "so the gamma=4 branch has a point too"},
+    ]
+    g = _graph(evs)
+    findings = C.run(g)
+    assert [f for f in findings if f.rule == C.R_SIBLING], (
+        "an edge between two branches of one partition must be flagged")
+    assert "I1" not in C.clean_inferences(g, findings), (
+        "and the inference riding it must not be reported as a positive "
+        "control -- printing a refusal and a clean bill for the same argument "
+        "gives a reader no way to reconcile them")
+
+
+def test_clean_inferences_ignore_triage_and_respect_derived_severity():
+    """WHAT `clean` MUST AND MUST NOT COUNT, both learned by getting it wrong.
+
+    `clean_inferences` is the credibility number: the count a reader uses to
+    decide the checker is not simply refusing everything.  It counted only
+    TRANSPORT findings, so an argument riding an edge flagged by any other rule
+    was promoted into it.  Fixing that naively broke it twice:
+
+      TOO TIGHT.  Excluding on ANY finding dropped two pinned positive
+      controls carrying VACUOUS-CONCLUSION at TRIAGE -- transport entirely
+      correct, conclusion merely uninteresting.  That is what a positive
+      control IS.
+
+      TOO LOOSE.  Excluding on the OVERRIDDEN severity let the one inference in
+      the corpus that talks its own severity down reappear as clean.  An
+      argument the checker refused is not evidence the checker declines to
+      refuse sound arguments, however deliberately its author carries it.
+    """
+    assert C.SEVERITY_RANK[C.TRIAGE] < C.SEVERITY_RANK[C.UNSOUND_PREMISE], (
+        "the filter is a severity comparison; if this ordering changes the "
+        "reasoning above needs rechecking")
+    src = inspect.getsource(C.clean_inferences)
+    assert "derived_severity" in src, (
+        "clean must be computed from what the CHECKER concluded, not from a "
+        "severity the author overrode")
+
+
+_BAD = {"ev": "claim", "id": "C2", "model": "M", "kind": K.PREDICATE,
+        "statement": "corrected", "established_by": "CITED",
+        "ladder": "claimed", "supersedes": "C",
+        "supersession_kind": "AMEND"}       # the field is `discharge_kind`
+_GOOD = [{"ev": "model", "id": "M", "what": "a model"},
+         {"ev": "claim", "id": "C", "model": "M", "kind": K.PREDICATE,
+          "statement": "first", "established_by": "CITED",
+          "ladder": "claimed"}]
+
+
+def _write(tmp_path, events):
+    d = tmp_path / ".portage"
+    d.mkdir(exist_ok=True)
+    with open(str(d / "graph.jsonl"), "w", encoding="utf-8") as fh:
+        for e in events:
+            fh.write(json.dumps(e) + "\n")
+
+
+def test_a_doubt_is_a_finding_a_person_writes():
+    """Every other finding here is computed. This is the one authored.
+
+    A live session read a cited proposition, found it did not supply the
+    premise it was meant to -- wrong model, wrong claim kind, wrong subject --
+    and had nowhere to put that. It correctly refused to draw an UNTYPED edge,
+    because that asserts a map exists and is merely unclassified, which is the
+    opposite of what it found. The result went into a note, which `gp history`
+    itself describes as invisible to every rule in the checker.
+
+    NOT A SECOND LIFECYCLE: it becomes a Finding, and `gp accept` already
+    carries findings with a per-finding reason, which is ACCEPTED_RISK.
+    """
+    g = _graph([
+        {"ev": "model", "id": "M", "what": "the model under study"},
+        {"ev": "claim", "id": "C", "model": "M", "kind": K.PREDICATE,
+         "statement": "the corner is fixed", "established_by": "CITED",
+         "ladder": "claimed"},
+        {"ev": "doubt", "id": "D1", "about": "C", "kind": "DOES_NOT_FIT",
+         "severity": "UNSOUND_PREMISE",
+         "why": "the cited result lives in a disjoint branch of the same "
+                "dichotomy, so it is true, relevant, and not this premise"}])
+    found = [f for f in C.run(g) if f.rule == C.R_DOUBT]
+    assert len(found) == 1 and found[0].severity == "UNSOUND_PREMISE"
+    assert "DOES_NOT_FIT" in found[0].detail
+
+    # ANSWERED retires it, through the same door it came in.
+    g2 = _graph([
+        {"ev": "model", "id": "M", "what": "the model under study"},
+        {"ev": "claim", "id": "C", "model": "M", "kind": K.PREDICATE,
+         "statement": "the corner is fixed", "established_by": "CITED",
+         "ladder": "claimed"},
+        {"ev": "doubt", "id": "D1", "about": "C", "kind": "DOES_NOT_FIT",
+         "why": "as above", "answered": "settled by a second route"}])
+    assert not [f for f in C.run(g2) if f.rule == C.R_DOUBT]
+
+
+def test_a_note_can_be_corrected():
+    """Notes were immutable prose, which is the worse half of being untyped.
+
+    A live session's shell ate a backquoted phrase mid-note. Notes had no id
+    and admitted no `supersedes`, so the only repair was a SECOND note saying
+    the first was wrong -- and `gp history` already warns that a note is prose
+    invisible to every rule. An invisible correction to an invisible error is
+    no better than the error.
+
+    Optional, so every existing note keeps folding untouched.
+    """
+    g = _graph([
+        {"ev": "note", "id": "N1", "text": "the shell ate a phrase here"},
+        {"ev": "note", "id": "N2", "text": "the corrected sentence",
+         "supersedes": "N1", "discharge_kind": K.RESTATE},
+        {"ev": "note", "text": "an old-style note with no id"}])
+    assert g.named_notes["N1"]["superseded_by"] == ["N2"]
+    assert len(g.notes) == 3, "unnamed notes are still carried as before"
+
+    # AND THE KIND IS COMPUTED HERE TOO. A note's content is all it has, so
+    # any change to it is a RESTATE however it is labelled.
+    with pytest.raises(K.SupersessionError) as exc:
+        _graph([
+            {"ev": "note", "id": "A", "text": "one thing"},
+            {"ev": "note", "id": "B", "text": "a different thing",
+             "supersedes": "A", "discharge_kind": K.AMEND}])
+    assert "`text` changed" in str(exc.value)
+
+
+def test_a_claim_can_be_split_and_the_split_is_not_lost():
+    """A RECORD MAY BE SUPERSEDED BY SEVERAL, and the old single assignment
+    lost all but the last SILENTLY.
+
+    A live session had one claim asserting three rewritings. Structuring them
+    meant three claims; one could supersede the original and the other two were
+    related to it by nothing the graph could record, so the relationship went
+    into a caveat where nothing types it.
+
+    Measured before fixing: two claims superseding one were both ACCEPTED and
+    `superseded_by` held only the second. The graph then asserted a single
+    successor that was not the whole story -- worse than refusing, because a
+    reader following it gets a confident and incomplete answer.
+    """
+    g = _graph([
+        {"ev": "model", "id": "M", "what": "a model"},
+        {"ev": "claim", "id": "C", "model": "M", "kind": K.PREDICATE,
+         "statement": "three things at once", "established_by": "CITED",
+         "ladder": "claimed"},
+        {"ev": "claim", "id": "C1", "model": "M", "kind": K.PREDICATE,
+         "statement": "thing one", "established_by": "CITED",
+         "ladder": "claimed", "supersedes": "C", "discharge_kind": K.RESTATE},
+        {"ev": "claim", "id": "C2", "model": "M", "kind": K.PREDICATE,
+         "statement": "thing two", "established_by": "CITED",
+         "ladder": "claimed", "supersedes": "C", "discharge_kind": K.RESTATE}])
+
+    assert g.claims["C"]["superseded_by"] == ["C1", "C2"], (
+        "both successors must survive; keeping only the last is a confident "
+        "and incomplete answer")
+    assert S.successors(g.claims["C"]) == "C1 and C2", (
+        "and every message naming the successor must read naturally whether "
+        "there is one or three")
+
+
+def test_an_enumeration_must_say_which_verdict_it_decides():
+    """THE SINGLE MOST IMPORTANT EPISTEMIC FACT ABOUT A FILTER, and it had no
+    field.
+
+    A live session swept a descent tree that keeps MORE branches alive at every
+    choice point, so a kill was definitive and a survival meant only that this
+    filter had not killed it. Its own words: "conservative: kills are safe,
+    survivals are not." That went into prose, and a reader taking the survivor
+    count at face value would have read an upper bound as an answer.
+
+    The same sufficient-not-necessary shape `verify.py` already has one layer
+    up, where a reduction that succeeds establishes the containment and one
+    that fails proves nothing.
+    """
+    base = [
+        {"ev": "model", "id": "M", "what": "a bounded lattice"},
+        {"ev": "claim", "id": "C", "model": "M", "kind": K.PREDICATE,
+         "statement": "40 pairs survive", "established_by": "RAN",
+         "ladder": "exact-checked"}]
+    silent = _graph(base + [
+        {"ev": "evidence", "id": "EV", "for": "C", "method": "ENUMERATION",
+         "ran": "sweep.py", "what": "swept every pair with u+v <= 50"}])
+    assert [f for f in C.run(silent) if f.rule == C.R_EVIDENCE], (
+        "an enumeration that does not say which verdict it decides must be "
+        "reported -- the count is what gets reused")
+
+    said = _graph(base + [
+        {"ev": "evidence", "id": "EV", "for": "C", "method": "ENUMERATION",
+         "ran": "sweep.py", "what": "swept every pair with u+v <= 50",
+         "decides": "EXCLUSIONS"}])
+    assert not [f for f in C.run(said) if f.rule == C.R_EVIDENCE]
+
+    with pytest.raises(S.GraphError):
+        _graph(base + [
+            {"ev": "evidence", "id": "EV", "for": "C",
+             "method": "ENUMERATION", "ran": "s.py", "what": "x",
+             "decides": "MOSTLY"}])
+
+
+def test_a_doubt_can_name_the_sentence_it_defeats():
+    """A doubt about a whole claim is a blunter instrument than people need.
+
+    A live session wanted to defeat ONE SENTENCE of a predecessor whose other
+    results it had independently reproduced and agreed with. It had to hang the
+    doubt on the entire claim, and named the consequence itself: this is what
+    will make people reach for supersession where supersession is wrong,
+    because superseding is the only way to change part of a record.
+
+    The quote must OCCUR in the target. One that does not is a typo or a
+    reference gone stale under a supersession, and an unanchored quote is the
+    honour system with punctuation.
+    """
+    base = [
+        {"ev": "model", "id": "M", "what": "a model"},
+        {"ev": "claim", "id": "C", "model": "M", "kind": K.PREDICATE,
+         "statement": "40 pairs survive, and 17 extras die by one argument",
+         "established_by": "RAN", "ladder": "exact-checked"}]
+    g = _graph(base + [
+        {"ev": "doubt", "id": "D", "about": "C", "kind": "INAPPLICABLE_RULE",
+         "quote": "17 extras die by one argument",
+         "why": "the argument reaches only 2 of the 17"}])
+    assert g.doubts["D"]["quote"] == "17 extras die by one argument"
+
+    with pytest.raises(S.GraphError) as exc:
+        _graph(base + [
+            {"ev": "doubt", "id": "D", "about": "C",
+             "kind": "INAPPLICABLE_RULE",
+             "quote": "a sentence that is not in the claim",
+             "why": "..."}])
+    assert "does not occur in" in str(exc.value)
+
+
+def test_a_hazard_nothing_can_trip_says_so():
+    """A citation hazard is matched against claim text, and a live session's
+    ambiguous identifiers lived in Python docstrings the graph points at but
+    does not contain. The record was correct, useful to a human, and
+    mechanically inert -- and the session learned that only by reading
+    `check.py`.
+
+    The checker reads the graph and no files, deliberately. What it can do is
+    stop the record looking more active than it is.
+    """
+    g = _graph([
+        {"ev": "model", "id": "M", "what": "a model"},
+        {"ev": "citation", "id": "CIT", "cites": "Foo Lemma 2.1",
+         "resolves_to": "Foo Lemma 2.4", "why": "a draft was cited",
+         "hazard": "Foo's actual 2.1 is a different statement"}])
+    dormant = [f for f in C.run(g) if f.rule == C.R_CITATION]
+    assert dormant and dormant[0].severity == C.DEBT
+    assert "never fire" in dormant[0].detail
+
+
+def test_a_computation_recorded_for_a_claim_that_was_only_cited():
+    """WHERE A CITATION DRIFTS INTO A VERIFICATION, in the reporting
+    session's own words.
+
+    `established_by: RAN` records THAT something was run; the evidence record
+    names WHAT. So the two must agree -- a computation attached to a claim
+    graded CITED is one of the two being wrong.
+
+    And REPLICATION must name the other procedure, because a replication that
+    does not is a single run wearing a confident label.
+    """
+    g = _graph([
+        {"ev": "model", "id": "M", "what": "a bounded lattice"},
+        {"ev": "claim", "id": "C", "model": "M", "kind": K.PREDICATE,
+         "statement": "all survivors are listed", "established_by": "CITED",
+         "ladder": "claimed"},
+        {"ev": "evidence", "id": "EV1", "for": "C", "method": "ENUMERATION",
+         "ran": "sweep.py", "what": "swept every pair with u+v <= 50"}])
+    assert [f for f in C.run(g) if f.rule == C.R_EVIDENCE]
+
+    with pytest.raises(S.GraphError) as exc:
+        _graph([
+            {"ev": "model", "id": "M", "what": "a bounded lattice"},
+            {"ev": "claim", "id": "C", "model": "M", "kind": K.PREDICATE,
+             "statement": "x", "established_by": "RAN",
+             "ladder": "exact-checked"},
+            {"ev": "evidence", "id": "EV1", "for": "C",
+             "method": "REPLICATION", "ran": "b.py",
+             "what": "a second implementation"}])
+    assert "agrees_with" in str(exc.value)
+
+
+def test_a_model_can_be_superseded_and_it_shows(tmp_path):
+    """THE ANCHOR WAS THE ONE OBJECT YOU COULD CHANGE INVISIBLY.
+
+    Models were absent from `_SUPERSEDABLE`, so `supersedes` on one was
+    accepted with no existence check, no self-check, no back-pointer and no
+    discharge kind -- exactly the state edges were in before they were fixed,
+    and nobody noticed because models were fixed first in every other respect.
+
+    A live session corrected a model, was not refused, and then could not see
+    the change: `gp show` marked superseded claims and inferences but not
+    models, `gp history` had no model chain, and the claims still hanging off
+    the old model were not flagged. Every claim sits at a model and every edge
+    runs between two, so this is the worst object to be able to move quietly.
+    """
+    g = _graph([
+        {"ev": "model", "id": "M", "what": "the first reading"},
+        {"ev": "claim", "id": "C", "model": "M", "kind": K.PREDICATE,
+         "statement": "holds", "established_by": "CITED", "ladder": "claimed"},
+        {"ev": "model", "id": "M2", "what": "the corrected reading",
+         "supersedes": "M", "discharge_kind": K.RESTATE}])
+
+    assert g.models["M"].get("superseded_by") == ["M2"], (
+        "the back-pointer is what every read surface renders from")
+    stale = [f for f in C.run(g) if f.rule == C.R_STALE_MODEL]
+    assert [f.subject for f in stale] == ["C"], (
+        "a live claim anchored to a dead model must be reported")
+
+    # AND THE KIND IS COMPUTED FOR MODELS TOO.  `what` identifies a model, so
+    # changing it is a RESTATE however the author labels it.
+    with pytest.raises(K.SupersessionError) as exc:
+        _graph([
+            {"ev": "model", "id": "A", "what": "one thing"},
+            {"ev": "model", "id": "B", "what": "a different thing",
+             "supersedes": "A", "discharge_kind": K.AMEND}])
+    assert "`what` changed" in str(exc.value)
+    assert "RESTATE" in str(exc.value)
+
+
+def test_an_erratum_repairs_a_graph_that_cannot_be_repaired_otherwise(tmp_path):
+    """THE WALL, and it cost a live session two repair cycles.
+
+    One wrong field name -- `supersession_kind` for `discharge_kind` -- made
+    `gp check` exit 2 permanently. Superseding the bad record does not help:
+    the error is ABOUT the bad record. `gp migrate` filled nothing, `gp accept`
+    carries findings rather than graph errors, and the only exit was rewriting
+    the append-only log, which its own header forbids. The session did that
+    twice.
+    """
+    _write(tmp_path, _GOOD + [_BAD])
+    with pytest.raises((S.GraphError, K.KernelRefusal)):
+        S.load(S.graph_path(str(tmp_path)))
+
+    # Superseding the bad record does NOT help -- the point of the whole thing.
+    _write(tmp_path, _GOOD + [_BAD, {
+        "ev": "claim", "id": "C3", "model": "M", "kind": K.PREDICATE,
+        "statement": "properly corrected", "established_by": "CITED",
+        "ladder": "claimed", "supersedes": "C2", "discharge_kind": "RESTATE"}])
+    with pytest.raises((S.GraphError, K.KernelRefusal)):
+        S.load(S.graph_path(str(tmp_path)))
+
+    _write(tmp_path, _GOOD + [_BAD, {
+        "ev": "erratum", "voids": "C2",
+        "why": "wrote `supersession_kind`; the field is `discharge_kind`"}])
+    g = S.load(S.graph_path(str(tmp_path)))
+    assert "C2" not in g.claims, "the voided record must not reach the fold"
+    assert "C" in g.claims, "and nothing else may be disturbed"
+
+
+def test_an_erratum_is_not_a_delete(tmp_path):
+    """The guard that keeps this from being a way to hide a finding.
+
+    Without it, a claim producing an inconvenient finding could be voided out
+    of a log whose entire premise is that nothing is quietly removed. So an
+    erratum is refused unless the record it voids genuinely fails to fold.
+    """
+    _write(tmp_path, _GOOD + [{
+        "ev": "erratum", "voids": "C",
+        "why": "I would rather this claim were not here"}])
+    with pytest.raises((S.GraphError, K.KernelRefusal)) as exc:
+        S.load(S.graph_path(str(tmp_path)))
+    msg = str(exc.value)
+    assert "FOLDS" in msg
+    assert "superseded, not voided" in msg
+
+
+def test_declare_refuses_without_writing(tmp_path):
+    """Every write went through ONE surface, and when it was down people
+    hand-edited past the only guard that would have caught them.
+
+    `store.append` is transactional -- it folds the batch first and writes
+    nothing if the result would not fold -- so the supported path cannot poison
+    a graph. But the supported path was the MCP server alone, reported
+    unreachable in two consecutive live sessions. `gp declare` is the second
+    door, and this asserts the property that makes it worth having.
+    """
+    _write(tmp_path, _GOOD)
+    with pytest.raises((S.GraphError, K.KernelRefusal)):
+        S.append([_BAD], str(tmp_path))
+    g = S.load(S.graph_path(str(tmp_path)))
+    assert "C2" not in g.claims, "a refused write must leave nothing behind"
+    assert set(g.claims) == {"C"}
+
+
+def test_the_public_readme_links_only_to_files_that_sync():
+    """A BROKEN LINK FOR EVERY READER OF THE PUBLIC REPOSITORY.
+
+    The sync is a plain copy of an enumerated list -- `grandportage/ tests/
+    fixtures/ docs/ DESIGN.md README.md REVIEW.md` -- and root-level files
+    deliberately do NOT travel, because two of them describe traps in blind
+    trials that have not been run.  README.md DOES travel, and it linked three
+    files that do not.
+
+    The same class as the check-count drift this file already gates: a document
+    asserting something about the repository that nothing checked.  It went
+    unnoticed through several releases, and the most recent addition to the
+    broken list was made while fixing an unrelated defect.
+    """
+    import re
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    syncs = {"DESIGN.md", "README.md", "REVIEW.md", "LICENSE"}
+    with open(os.path.join(root, "README.md"), encoding="utf-8") as fh:
+        readme = fh.read()
+    bad = []
+    for target in re.findall(r"\]\(([A-Za-z0-9_.-]+\.md)\)", readme):
+        if target not in syncs:
+            bad.append(target)
+    assert not bad, (
+        "README.md is copied to the public mirror and links these files, "
+        "which are not: %s.\n  Mention them in prose if a private reader "
+        "needs them; do not link them." % ", ".join(sorted(set(bad))))
+
+
+def test_no_message_points_at_a_command_that_does_not_exist():
+    """GATE 3, and it is here because the failure happened twice in one night.
+
+    `verify.py` shipped for two releases with `check` printing "run `gp
+    verify`" in two rules and its own docstring saying "`gp verify` will run
+    it" -- while no such subcommand existed and the module was unreachable from
+    every user surface.  A live session had to import it from Python.
+
+    Hours after fixing that, a redeclaration error was written pointing at `gp
+    why supersession`, which also did not exist.  The same defect, in the same
+    session, by the same author, while fixing the first one.
+
+    GATE 2 could not catch either.  It enumerates the surfaces that EXIST and
+    asserts each survives every fixture, which is completeness in one direction
+    only.  Whether a capability HAS a surface, and whether a surface we NAME is
+    real, are different questions.
+
+    So: every `gp <word>` in the shipped source names a real subcommand.  Cheap,
+    total, and it fails the moment somebody promises a command they have not
+    written.
+    """
+    import glob
+    import re
+    from grandportage import cli
+
+    real = set(cli.build_parser()._subparsers._group_actions[0].choices)
+    bad = []
+    for path in sorted(glob.glob(os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            "grandportage", "*.py"))):
+        with open(path, encoding="utf-8") as fh:
+            for n, line in enumerate(fh, 1):
+                for word in re.findall(r"`gp ([a-z][a-z-]*)", line):
+                    if word not in real:
+                        bad.append("%s:%d says `gp %s`"
+                                   % (os.path.basename(path), n, word))
+    assert not bad, (
+        "these messages name a subcommand that does not exist, which is how "
+        "an unreachable module went two releases without anybody noticing: "
+        "%s.\n  Real subcommands: %s"
+        % ("; ".join(bad), ", ".join(sorted(real))))
+
+
+def test_verify_all_actually_writes_and_the_finding_goes_away(tmp_path):
+    """THE RECORDING PATH HAD NEVER BEEN RUN, and it crashed on first contact.
+
+    `verify_all` passed the RESOLVED graph path to `S.append`, which takes a
+    root and resolves `.portage/graph.jsonl` itself -- so it built
+    `.portage/graph.jsonl/.portage` and raised FileNotFoundError. Every test
+    reached that line with `record=False` or with a fixture producing no
+    events, so 625 checks passed over a function whose stated purpose is to
+    write.
+
+    This asserts the whole loop, which is the only shape that would have
+    caught it: a structured identity is REPORTED by `check`, verifying it
+    RECORDS a verdict, and the finding then goes QUIET.
+    """
+    from grandportage import verify as V
+
+    root = str(tmp_path)
+    S.append([
+        {"ev": "model", "id": "X", "what": "a curve",
+         "ring_vars": ["x", "y"], "generators": ["y^2-x^3"]},
+        {"ev": "claim", "id": "C", "model": "X", "kind": K.IDENTITY,
+         "statement": "y^2 = x^3", "lhs": "y^2", "rhs": "x^3",
+         "ring_vars": ["x", "y"], "identity_origin": K.DERIVED,
+         "established_by": "RAN", "ladder": "exact-checked"}], root)
+
+    before = C.run(S.load(S.graph_path(root)))
+    assert [f for f in before if f.rule == C.R_IDENTITY], (
+        "a structured but unreduced identity must be reported")
+
+    # Nonzero in the polynomial ring, zero modulo the ideal -> DERIVED.
+    runner = _fake_run(stdout="@@GP_D:\ny2-x3\n@@GP_RED:\n0\n")
+    results = V.verify_all(root=root, _runner=runner, record=True)
+    assert results, "the claim is verifiable and must be verified"
+
+    after = C.run(S.load(S.graph_path(root)))
+    assert not [f for f in after if f.rule == C.R_IDENTITY], (
+        "once verified, the finding must go quiet -- otherwise `gp verify` "
+        "has no terminus and the loop never closes")
+
+
+def test_acceptance_reaches_the_exit_code():
+    """THE PROSE AND THE EXIT CODE SAID OPPOSITE THINGS, and the exit code is
+    the one a hook reads.
+
+    `gp check` printed "Nothing live. Every finding at this floor was examined
+    and accepted deliberately -- this campaign is carrying debt in the open,
+    NOT FAILING" and then exited 1, because `exit_code` never saw the baseline.
+
+    So `gp accept` bought nothing at the only layer that automates, and a
+    campaign legitimately carrying debt could never go green -- exactly the
+    pressure that stops people recording holes, which is what the DEBT-tolerant
+    default exists to prevent.
+    """
+    g = _graph(TWO_MODELS + [
+        {"ev": "claim", "id": "C", "model": "TIGHT", "kind": K.EMPTY,
+         "statement": "no points", "certificate": "UNIT_IDEAL_CERT",
+         "established_by": "RAN", "ladder": "exact-checked"},
+        {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
+         "type": K.NECESSARY_CONDITION, "why": "drops an equation"},
+        {"ev": "inference", "id": "I", "claim": "C", "path": [["E", K.ALONG]],
+         "concludes_kind": K.EMPTY, "asserted": "empty upstairs too"}])
+    findings = C.run(g)
+    assert findings, "fixture must produce a finding to be worth anything"
+
+    assert C.exit_code(findings, C.UNSOUND_PREMISE) == 1, (
+        "unaccepted, it fails")
+    assert C.exit_code(findings, C.UNSOUND_PREMISE,
+                       accepted=[f.fid for f in findings]) == 0, (
+        "accepted, it must not fail -- otherwise acceptance is decorative")
+
+    # AND ACCEPTING ONE OF TWO IS NOT ACCEPTING BOTH.
+    partial = C.exit_code(findings, C.UNSOUND_PREMISE,
+                          accepted=[findings[0].fid])
+    assert partial == (0 if len(findings) == 1 else 1)
+
+
+def test_the_density_condition_was_retracted_and_gates_nothing():
+    """THE GATE WAS INSUFFICIENT AND ALSO BESIDE THE POINT, and both halves of
+    that matter, so this test replaces the one that asserted the gate.
+
+    Insufficient: the nodal cubic y^2 = x^2(x-1) over R is irreducible with
+    Zariski-dense real points, yet the region cut by x^2 + y^2 < 1/2 is the
+    isolated point {(0,0)}, where `x = 0` holds and on X it does not.
+
+    Beside the point: a RESTRICTION adds no equations, so src and dst share a
+    ring and an ideal, and an IDENTITY -- lhs - rhs in I -- is literally the
+    same statement at both ends. The gate was serving a POINTWISE claim, which
+    is a PREDICATE, and that cell is False already.
+
+    So the identity crosses whether or not the edge declares density, and the
+    field is retained only so old graphs keep folding."""
     base = TWO_MODELS + [
         {"ev": "claim", "id": "C", "model": "TIGHT", "kind": K.IDENTITY,
          "statement": "x = y", "identity_origin": K.DERIVED},
@@ -1670,14 +2256,42 @@ def test_the_density_condition_is_declared_not_assumed():
     edge = {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
             "type": K.RESTRICTION, "why": "cut by strict inequalities"}
 
-    gated = _graph([edge] + base)
-    assert [f for f in C.run(gated) if f.rule == C.R_TRANSPORT], (
-        "undeclared, the density cell must refuse")
+    for e in (edge, dict(edge, zariski_dense=True)):
+        assert not [f for f in C.run(_graph([e] + base))
+                    if f.rule == C.R_TRANSPORT], (
+            "the identity crosses a RESTRICTION unconditionally; declaring "
+            "density must neither be required nor change anything")
 
-    declared = _graph([dict(edge, zariski_dense=True)] + base)
-    assert not [f for f in C.run(declared) if f.rule == C.R_TRANSPORT], (
-        "declared, the identity crosses -- otherwise the type buys nothing "
-        "over NECESSARY_CONDITION")
+
+def test_the_nodal_cubic_is_refused_by_computation_not_declaration():
+    """WHAT REPLACED THE GATE, exercised on the counterexample that killed it.
+
+    The mis-typed claim -- `x = 0`, true at every point of the isolated region
+    and false on the curve -- is now caught where it is actually decidable: it
+    does not reduce modulo the curve's ideal, so it is false at its OWN model
+    and never reaches a transport question at all.
+    """
+    from grandportage import verify as V
+
+    g = S.Graph().apply_all([
+        ({"ev": "model", "id": "X", "what": "the nodal cubic over R",
+          "ring_vars": ["x", "y"], "generators": ["y^2+x^2-x^3"]}, "t", 1),
+        ({"ev": "claim", "id": "C", "model": "X", "kind": K.IDENTITY,
+          "statement": "x = 0 on the region", "lhs": "x", "rhs": "0",
+          # Still DECLARED at fold time even though the claim now carries
+          # enough to decide it: the fold spawns no process and must not, so
+          # verification MINTS the origin afterwards rather than at apply().
+          "identity_origin": K.DERIVED,
+          "ring_vars": ["x", "y"]}, "t", 2)])
+
+    def runner(prog, timeout):
+        # x - 0 is nonzero in R[x,y] and stays x after reduction modulo the
+        # curve: it is not in the ideal, and reduction DECIDES that.
+        return _fake_run(stdout="@@GP_D:\nx\n@@GP_RED:\nx\n")(prog, timeout)
+
+    verdict, why = V.identity(g, "C", _runner=runner)
+    assert verdict == V.REFUTED, why
+    assert "REFUTATION" in why
 
 
 def test_the_readme_transport_table_matches_the_kernel():
@@ -1703,7 +2317,8 @@ def test_the_readme_transport_table_matches_the_kernel():
     with open(readme, encoding="utf-8") as fh:
         text = fh.read()
 
-    words = {"zariski_dense": "if Zariski-dense",
+    words = {"existential": "if existential",
+             "zariski_dense": "if Zariski-dense",
              "ambient_identity": "if ambient",
              "ring_isomorphism": "if ring iso",
              "coefficients_in_base": "if defined over base",
@@ -2202,7 +2817,7 @@ def _repo_root():
 
 
 def test_every_marked_check_count_in_the_docs_is_the_real_one():
-    """SIX DIFFERENT COUNTS WERE LIVE AT ONCE -- 160, 171, 251, 273, 307, 338 --
+    r"""SIX DIFFERENT COUNTS WERE LIVE AT ONCE -- 160, 171, 251, 273, 307, 338 --
     against an actual 384. `HANDOFF.md`, the file labelled READ THIS FIRST IF
     YOU HAVE NO CONTEXT, disagreed with the README, which disagreed with
     REVIEW.md, which disagreed with TESTPLAN.md.
@@ -2405,3 +3020,144 @@ def test_history_is_honest_that_it_records_repairs_and_not_attempts(tmp_path,
     out = capsys.readouterr().out
     assert "No supersessions recorded" in out
     assert "which the log cannot distinguish and should not pretend to" in out
+
+
+def test_a_graph_broken_before_your_write_does_not_blame_your_write(tmp_path):
+    """THE WORST HALF-HOUR A LIVE SESSION HAD, and it was a message problem.
+
+    `append` is transactional -- the new events fold against the existing graph
+    first and nothing is written unless the result is well-formed. That is
+    right and stays. What was wrong is that a graph already unfoldable for
+    reasons predating the call reported exactly as though the caller had caused
+    it.
+
+    A lane's `.mcp.json` pointed at a root whose graph an unrelated session had
+    left refused. So the author's FIRST declaration, in a campaign created
+    minutes earlier, came back citing a claim id they had never seen. They
+    diagnosed it by diffing four copies of a fixture across two repositories
+    and wrote the log by hand for the rest of the session.
+
+    Refusing is still correct. Blaming the caller is not.
+    """
+    root = str(tmp_path)
+    p = S.graph_path(root)
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    with open(p, "w", encoding="utf-8") as fh:
+        fh.write(json.dumps({"ev": "model", "id": "M", "desc": "m"}) + "\n")
+        # A half-grade: the exact record that broke the live root graph.
+        fh.write(json.dumps({"ev": "claim", "id": "PRE-EXISTING", "model": "M",
+                             "kind": "PREDICATE", "statement": "P",
+                             "ladder": "exact-checked"}) + "\n")
+    before = open(p, encoding="utf-8").read()
+
+    with pytest.raises(S.GraphError) as exc:
+        S.append([{"ev": "model", "id": "INNOCENT", "desc": "nothing wrong"}],
+                 root=root)
+    msg = str(exc.value)
+    assert "ALREADY UNFOLDABLE BEFORE THIS WRITE" in msg
+    assert "not about the events you just sent" in msg
+    assert "PRE-EXISTING" in msg, "it must name the record that is actually bad"
+    assert "gp migrate" in msg, "and say what repairs it"
+    assert os.path.abspath(p) in msg, "and which graph, since the root may be wrong"
+    assert open(p, encoding="utf-8").read() == before, "nothing written"
+
+
+def test_a_write_that_IS_your_fault_still_says_so(tmp_path):
+    """The discrimination, without which the fix is just a blanket excuse.
+
+    A graph that folds fine until your events arrive must report YOUR events.
+    """
+    root = str(tmp_path)
+    p = S.graph_path(root)
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    with open(p, "w", encoding="utf-8") as fh:
+        fh.write(json.dumps({"ev": "model", "id": "M", "desc": "m"}) + "\n")
+
+    with pytest.raises((S.GraphError, K.KernelRefusal)) as exc:
+        S.append([{"ev": "claim", "id": "MINE", "model": "M",
+                   "kind": "PREDICATE", "statement": "P",
+                   "ladder": "exact-checked"}], root=root)
+    msg = str(exc.value)
+    assert "ALREADY UNFOLDABLE" not in msg, (
+        "this one IS the caller's fault and must not be excused")
+    assert "MINE" in msg
+
+
+# ===========================================================================
+# W5 PHASE 1.  A model records what it IS, not only what it was called.
+# ===========================================================================
+def test_a_cas_run_records_the_ideal_it_was_given(tmp_path):
+    """EVERY CAS ENTRY POINT IS HANDED THE IDEAL AND THREW IT AWAY.
+
+    `ideal_is_unit(ring_vars, generators, ...)` receives the algebra, runs a
+    computation with it, mints a model, and kept only `desc` -- a sentence
+    somebody wrote. So the graph recorded what a model was CALLED and never
+    what it IS, and `KNOWN_CONSERVATISM` has carried the consequence since
+    v0.2: "models are currently descriptions, not objects".
+
+    That one gap is upstream of four documented others -- containment being
+    uncheckable, the exact identity condition being unrunnable, `integral` and
+    `coefficients_in_base` being unmergeable, `BASE_EXTENSION` being declarable
+    where it is detectable. Retaining it costs nothing; the caller already
+    passed it.
+
+    Tested at the seam rather than through a solver: no Singular is required to
+    assert that what came in comes out.
+    """
+    prog = cas.CASProgram(cas.SINGULAR, ring="GP_R", ring_vars=["x", "y"],
+                          decls=[("GP_I", "ideal", "x,y")], body=[],
+                          outputs=[], generators=["x", "y"])
+    assert prog.generators == ["x", "y"], "the program must retain them"
+
+    t = cas.Transport(src="M0", type=K.NECESSARY_CONDITION,
+                      why="drops equations")
+    model, _edge = t.events("E", "M1", "the quotient",
+                            ring_vars=prog.ring_vars,
+                            generators=prog.generators)
+    assert model["ring_vars"] == ["x", "y"]
+    assert model["generators"] == ["x", "y"]
+
+
+def test_generators_without_a_ring_are_refused(tmp_path):
+    """A polynomial is meaningless without the ring it lives in, and anything
+    reading these -- an ideal-containment check, an exact identity test -- would
+    have to guess it. A check that guesses its own ring is not a check."""
+    with pytest.raises(S.GraphError) as exc:
+        _graph([{"ev": "model", "id": "M", "desc": "a model",
+                 "generators": ["x", "y"]}])
+    assert "without the ring it lives in" in str(exc.value)
+
+
+def test_the_algebra_stays_optional_because_every_existing_graph_lacks_it():
+    """Requiring it would break every graph in the corpus to buy a field
+    nothing yet consumes, and `gp migrate` would have no ignorance value to
+    fill with -- "this model has no ideal" and "nobody recorded one" are
+    different facts and only the author knows which.
+
+    The three shipped fixtures are the check: none of them carries an ideal and
+    all of them must still fold.
+    """
+    for name in ("jc2", "matroid", "gamma_window"):
+        path = os.path.join(_repo_root(), "fixtures", name, "graph.jsonl")
+        if not os.path.exists(path):
+            continue
+        g = S.load(path)
+        assert g.models, "%s has models" % name
+        assert not any(m.get("generators") for m in g.models.values()), (
+            "%s predates the field, which is the point" % name)
+
+
+def test_gp_show_prints_what_a_model_is(tmp_path, capsys):
+    """A reader resuming a campaign cannot otherwise tell a model built from a
+    real ideal from one asserted into existence with a label."""
+    from grandportage import cli
+    _accept_fixture(tmp_path, [
+        {"ev": "model", "id": "M", "desc": "the quotient",
+         "ring_vars": ["x", "y"], "generators": ["x^2 - y", "y^3"]},
+        {"ev": "model", "id": "N", "desc": "asserted into existence"}])
+    cli.main(["--root", str(tmp_path), "show"])
+    out = capsys.readouterr().out
+    assert "ring   k[x, y]" in out
+    assert "ideal  (x^2 - y, y^3)" in out
+    # And a model with no algebra prints none, rather than an empty ring.
+    assert out.count("ring   k[") == 1

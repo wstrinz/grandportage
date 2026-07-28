@@ -210,13 +210,28 @@ _AMBIENT_IDENTITY_MOVE = (
     "the rewriting only in {src}, where it holds.")
 
 _INTEGRAL_IDENTITY_MOVE = (
-    "Reducing a rewriting into characteristic p needs its COEFFICIENTS to be "
-    "integral at p. That is a property of the claim, not of the map, and a "
-    "denominator-free map does not supply it: `d2 = h_2 - (3/8)h_1^2` travels a "
-    "polynomial map and does not reduce mod 2.\n"
-    "  Clear the denominators and record what that costs, or declare "
+    "Reducing a rewriting into characteristic p needs TWO things, and which "
+    "one you are missing decides what to do.\n"
+    "\n"
+    "  (1) COEFFICIENTS INTEGRAL AT p. A property of the claim, not of the "
+    "map: `d2 = h_2 - (3/8)h_1^2` travels a polynomial map and does not reduce "
+    "mod 2. Clear the denominators and record what that costs, or declare "
     "`integral: true` once you have checked no coefficient has p in its "
-    "denominator, or keep the rewriting in characteristic 0.")
+    "denominator, or keep the rewriting in characteristic 0.\n"
+    "\n"
+    "  (2) AN AMBIENT ORIGIN. Integral coefficients are not enough on their "
+    "own, because a DERIVED rewriting also rides on the derivation that "
+    "produced it, and THAT can carry the p. In Z_(p)[x]/(px) the relation "
+    "`x = 0` holds on the generic fibre with coefficient 1, and is false mod p "
+    "-- because you get it from x = (1/p)*(px). Equivalently x is p-torsion.\n"
+    "  The move is to re-derive the rewriting AMBIENTLY: show LHS - RHS "
+    "reduces to 0 in the polynomial ring itself, before any of {src}'s "
+    "equations are imposed. `cas_classify_identity` decides that outright and "
+    "returns AMBIENT when it holds, so this is a computation rather than a "
+    "declaration. If it comes back DERIVED, the rewriting genuinely depends on "
+    "equations whose integrality this kernel cannot see, and the honest moves "
+    "are to exhibit a p-integral certificate by hand and record it as a note, "
+    "or to keep the rewriting in characteristic 0.")
 
 _IDENTITY_MOVE = (
     "Rewriting a dictionary across this edge needs a DENOMINATOR-FREE map, and "
@@ -258,7 +273,13 @@ _RESTRICTION_PREDICATE_MOVE = (
     "  If what you want is the exceptional locus itself, that is a separate "
     "model: declare it, and record what is true there.")
 
-MOVES[(K.RESTRICTION, K.ALONG, K.IDENTITY)] = _ZARISKI_DENSE_MOVE
+# RESTRICTION/ALONG/IDENTITY NO LONGER REFUSES, so it has no move.  The cell
+# was gated on a declared `zariski_dense` until the condition was found both
+# insufficient (the nodal cubic satisfies it and breaks the conclusion) and
+# beside the point (a restriction shares its ideal, so the identity is the same
+# statement at both ends).  `_ZARISKI_DENSE_MOVE` is kept below as the record
+# of advice this project once gave and has withdrawn -- it told callers to
+# declare a field that now gates nothing, which is worse than no advice.
 MOVES[(K.RESTRICTION, K.ALONG, K.PREDICATE)] = _RESTRICTION_PREDICATE_MOVE
 MOVES[(K.RESTRICTION, K.ALONG, K.EMPTY)] = (
     "Emptiness of a restricted region says nothing about the model it sits in: "
@@ -435,8 +456,24 @@ KNOWN_CONSERVATISM = [
             "conservatism is that it is visible when it starts to bite."),
     },
     {
+        # THE UPGRADE THIS ENTRY SPECIFIED HAS LANDED, so the cell is no
+        # longer a blanket refusal and this row records a DISCHARGED
+        # conservatism rather than a live one.
+        #
+        # The entry stood since v0.2 saying the refusal "is a false refusal
+        # only for an existential nonemptiness, WHICH NOTHING HAS YET
+        # RECORDED", and prescribed the repair in advance: a claim-level flag
+        # making this ONE cell conditional. A fourth domain then recorded the
+        # first existential nonemptiness -- a toric phase asserted nonempty
+        # because its class is nonzero in the Chow ring, which forces a point
+        # without producing one. Trigger named before the fact, condition met,
+        # repair implemented as written.
+        #
+        # It stays in the register because the CONSERVATISM is still real for
+        # a witness claim, which is every other claim in the corpus: that
+        # refusal is Chevalley and is not going anywhere.
         "cell": (K.IMAGE_CLOSURE, K.AGAINST, K.NONEMPTY),
-        "kernel_says": False,
+        "kernel_says": "existential",
         "truth": (
             "Sound under the EXISTENTIAL reading of NONEMPTY, unsound under the "
             "WITNESS reading, and the table can encode only one.  If NONEMPTY "

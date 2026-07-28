@@ -410,10 +410,50 @@ def test_specialization_carries_no_existence_statement(direction, kind):
 
 
 @cell(K.SPECIALIZATION, K.ALONG, K.IDENTITY, True, map_kind=K.POLYNOMIAL,
-      integral=True)
+      integral=True, identity_origin=K.AMBIENT)
 def test_sp_along_identity_integral():
-    """CONDITION: coefficients integral at p.  PROOF given it: a relation with
-    p-integral coefficients reduces mod p term by term."""
+    """CONDITION: coefficients integral at p AND the rewriting is AMBIENT.
+    PROOF given both: an ambient relation has no derivation beyond itself, so
+    its coefficients are the whole question and it reduces term by term."""
+
+
+@cell(K.SPECIALIZATION, K.ALONG, K.IDENTITY, False, map_kind=K.POLYNOMIAL,
+      integral=True, identity_origin=K.DERIVED)
+def test_sp_along_identity_derived():
+    """REFUTED with integral coefficients but a DERIVED origin.
+
+    THE LEDGER CAUGHT THIS ONE LATE.  The cell above carried a PROOF -- 'a
+    p-integral relation reduces term by term' -- which is true of the identity
+    and says nothing about how the identity was obtained.  An external review
+    supplied the counterexample:
+
+        A = Z_(p)[x]/(px).   Generic fibre A[1/p] = Q[x]/(x), so `x = 0`.
+                             Special fibre A/pA = F_p[x], so `x != 0`.
+
+    The coefficient of x is 1, which is integral at every prime.  What is not
+    integral is the DERIVATION: x = (1/p)*(px).  Equivalently, x is p-torsion
+    in A, and torsion is exactly what dies in the generic localization while
+    surviving mod p.
+
+    So `integral` and `identity_origin` are both load-bearing here, and only
+    the first was consulted.  `identity_origin` already existed -- it gates
+    NECESSARY_CONDITION/ALONG/IDENTITY two rules away in the same function --
+    which makes this a COVERAGE defect rather than a missing-field one: a
+    licensing field checked in one cell and ignored in another that needed it.
+    """
+
+
+@cell(K.SPECIALIZATION, K.ALONG, K.IDENTITY, False, map_kind=K.POLYNOMIAL,
+      integral=True, identity_origin=K.UNKNOWN)
+def test_sp_along_identity_unknown_origin():
+    """REFUTED with an undeclared origin, which keeps a standing invariant.
+
+    The kernel's note on `identity_origin` records that UNKNOWN and a silent
+    DERIVED default license exactly the same transports, DERIVED being the
+    weaker reading wherever origin is consulted.  Adding a consultation here
+    would break that invariant if UNKNOWN were treated as AMBIENT, so it is
+    not: an undeclared origin refuses, same as DERIVED.
+    """
 
 
 @cell(K.SPECIALIZATION, K.ALONG, K.IDENTITY, False, map_kind=K.POLYNOMIAL,
@@ -497,36 +537,37 @@ def test_restriction_against_predicate():
     point of the subset does. Instantiation, nothing more."""
 
 
-@cell(K.RESTRICTION, K.ALONG, K.IDENTITY, False)
-def test_restriction_along_identity_undeclared():
-    """CONDITION, and it is the one cell where RESTRICTION is STRONGER than
-    NECESSARY_CONDITION -- so it is gated rather than open.
+@cell(K.RESTRICTION, K.ALONG, K.IDENTITY, True)
+def test_restriction_along_identity():
+    """PROOF, unconditional, and this cell used to be gated on a condition that
+    was both insufficient and beside the point.
 
-    A polynomial vanishing on a nonempty Euclidean-open subset U of an
-    irreducible variety X vanishes on all of X. So an identity established
-    only on the restricted region DOES push forward, unlike a DERIVED identity
-    across a NECESSARY_CONDITION, because a restriction adds no equations:
-    there is no larger ideal and no quotient, so the algebraic obstruction
-    simply is not there.
+    A RESTRICTION drops inequalities and adds no equations: src and dst have
+    the SAME ring and the SAME ideal. This kernel defines IDENTITY as a
+    rewriting valid in the coordinate ring -- lhs - rhs in I. Same I at both
+    ends, so an IDENTITY at src IS the IDENTITY at dst. There is nothing to
+    gate.
 
-    REFUTED WITHOUT THE CONDITION. Over R the argument needs the REAL points
-    Zariski-dense in an irreducible dst, and that fails: X = V(x^2 + y^2) over
-    R has real locus {(0,0)}. The identity `x = 0` holds on every open piece
-    of that real locus and is false on X.
+    WHAT THE OLD GATE WAS, AND WHY IT WENT. It required dst irreducible with
+    its real points Zariski-dense, on the argument that a polynomial vanishing
+    on a nonempty Euclidean-open piece vanishes throughout. An external review
+    broke it with the nodal cubic:
 
-    Undeclared, the cell refuses. Same shape as `ring_iso` and
-    `coefficients_in_base`: usually available, never automatic, false exactly
-    where somebody would have been surprised."""
+        X : y^2 = x^2(x - 1) over R.  Irreducible. X(R) is an infinite branch
+        (x >= 1) plus the ISOLATED point (0,0), so X(R) is Zariski-dense in X.
+        Cut by x^2 + y^2 < 1/2 the region U is exactly {(0,0)}, nonempty and
+        relatively open. `x = 0` holds on U and fails on X at (1,0).
 
+    X(R) dense in X does not make an open PIECE of X(R) dense in X. But the
+    repair is not a sharper condition, because the gate was serving the wrong
+    claim: "vanishes at every point of the region" is POINTWISE, i.e. a
+    PREDICATE, and RESTRICTION/ALONG/PREDICATE is already False. The gate let a
+    mis-typed claim through a door that was never meant for it.
 
-@cell(K.RESTRICTION, K.ALONG, K.IDENTITY, True, zariski_dense=True)
-def test_restriction_along_identity_declared_dense():
-    """CONDITION discharged. With dst irreducible and its real points
-    Zariski-dense, a relation holding on a nonempty open piece holds
-    throughout, and the identity pushes forward.
-
-    This is what lets a computation done on a positivity cone be stated about
-    the variety containing it -- the move a live campaign had no type for."""
+    THE HESITATION MOVED RATHER THAN VANISHING. `verify.identity` decides
+    lhs - rhs in I by reduction and `check` reports untested identities, so the
+    nodal cubic is now refused by computation -- x does not reduce modulo
+    (y^2 + x^2 - x^3) -- instead of by a declaration nobody could check."""
 
 
 @cell(K.RESTRICTION, K.AGAINST, K.IDENTITY, True)
@@ -600,3 +641,30 @@ def test_every_ledger_row_carries_an_argument():
     assert not weak, (
         "these ledger rows assert a verdict without arguing for it:\n  %s"
         % "\n  ".join("%s / %s / %s" % k for k in weak))
+
+
+@cell(K.IMAGE_CLOSURE, K.AGAINST, K.NONEMPTY, True, existential=True)
+def test_ic_against_nonempty_existential():
+    """CONDITION discharged, and the condition was PRESCRIBED FOUR VERSIONS
+    BEFORE IT WAS NEEDED.
+
+    PROOF given it. `cl(empty) = empty`, so a nonempty closure forces a
+    nonempty image. This is the exact contrapositive of IMAGE_CLOSURE / ALONG /
+    EMPTY.
+
+    The cell above it -- the same cell without the flag -- stays REFUTED, and
+    the two rows together are the whole content of the distinction: 0 lies in
+    the closure of G_m and not in G_m, which kills the WITNESS reading and says
+    nothing about the existential one.
+
+    `KNOWN_CONSERVATISM` carried this since v0.2 with the trigger named in
+    advance -- a false refusal "only for an existential nonemptiness, which
+    nothing has yet recorded" -- and the repair specified: a claim-level flag
+    making this ONE cell conditional, not a second claim kind. A fourth domain
+    recorded the first one: a toric phase asserted nonempty because its class
+    is nonzero in the Chow ring, which forces a point without producing one.
+
+    `store` refuses `existential` together with an EXHIBITED witness. A claim
+    that HAS the point is refused here for the opposite and equally good
+    reason, so being both is not a stronger claim, it is two claims.
+    """

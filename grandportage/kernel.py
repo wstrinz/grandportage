@@ -349,8 +349,86 @@ _COEFFICIENTS_IN_BASE = "coefficients_in_base"
 # shape as `ring_iso` on EQUIVALENCE and `coefficients_in_base` on
 # BASE_EXTENSION -- a licence that is usually available, never automatic, and
 # false exactly where somebody would have been surprised.
-# ---------------------------------------------------------------------------
+#
+# ===========================================================================
+# ALL OF WHICH IS RETRACTED.  Everything above this line is the reasoning that
+# put `zariski_dense` on the cell, and it is kept because the way it was wrong
+# is more useful than the fact that it was.
+#
+# THE CONDITION IS NOT SUFFICIENT.  An external review supplied a target that
+# satisfies every word of it and breaks the conclusion anyway:
+#
+#   COUNTEREXAMPLE.  X : y^2 = x^2(x - 1) over R, the nodal cubic.
+#     - IRREDUCIBLE over R: y^2 - x^2(x-1) factors only if x-1 is a square in
+#       R(x), and it is not.
+#     - REAL POINTS ZARISKI-DENSE in X: x^2(x-1) >= 0 forces x >= 1 or x = 0,
+#       so X(R) is an infinite branch plus the isolated point (0,0), and an
+#       infinite subset of an irreducible curve is dense in it.
+#     - Now cut with x^2 + y^2 < 1/2.  The branch starts at x = 1, so the
+#       restricted region U is exactly {(0,0)} -- nonempty, and relatively
+#       Euclidean-OPEN in X(R) because the point is isolated.
+#     - `x = 0` holds on all of U and is false on X at (1,0).
+#
+#   The gap: X(R) dense in X does NOT give an open PIECE of X(R) dense in X,
+#   because X(R) can be disconnected with a zero-dimensional component.  The
+#   density that matters is of U, not of X(R).
+#
+# AND THE DEEPER FAULT IS A TYPE ERROR, WHICH IS WHY THE FIX IS NOT A BETTER
+# CONDITION.  A RESTRICTION drops inequalities and adds no equations: src and
+# dst have the SAME RING and the SAME IDEAL.  This kernel defines IDENTITY as a
+# rewriting valid in the coordinate ring -- lhs - rhs in I.  Same I at both
+# ends, so an IDENTITY at src IS the IDENTITY at dst.  Unconditionally, for the
+# same reason 3 = 3.
+#
+# The gate was never serving identities.  It was quietly serving a DIFFERENT
+# claim -- "this relation was seen to vanish at every point of the region" --
+# which is a pointwise statement, i.e. a PREDICATE.  And RESTRICTION/ALONG/
+# PREDICATE is already False, correctly.  So the honest repair is to stop
+# gating the identity and let the mis-typed claim be refused where it always
+# should have been.
+#
+# WHAT REPLACES THE HESITATION.  A free gate that was checking nothing still
+# made people stop, and removing it would be a practical regression even as a
+# theoretical improvement.  So the stopping moves rather than vanishing:
+# `verify.identity` decides lhs - rhs in I by reduction, `check` reports every
+# IDENTITY that has not been put to that test, and a claim that is really a
+# pointwise observation FAILS it -- x does not reduce modulo (y^2+x^2-x^3).
+# The nodal cubic is refused by computation instead of by a declaration nobody
+# could check.
+#
+# `_ZARISKI_DENSE` is retained as a field so old graphs keep folding, and is
+# consulted by no cell.
+# ===========================================================================
 _ZARISKI_DENSE = "zariski_dense"
+
+# ---------------------------------------------------------------------------
+# THE EXISTENTIAL READING, and this is the register's own prescription cashed.
+#
+# NONEMPTY is pinned to the WITNESS reading -- "here is a point p" -- because
+# that is the claim every entry in the corpus actually made.  The two readings
+# diverge in exactly ONE cell, IMAGE_CLOSURE/AGAINST/NONEMPTY:
+#
+#   existential  cl(S) nonempty => S nonempty, since cl(empty) = empty.  TRUE.
+#   witness      0 lies in cl(G_m) and not in G_m.  FALSE -- this is Chevalley.
+#
+# `discharge.KNOWN_CONSERVATISM` has carried that cell since v0.2 with a
+# standing note: the refusal "is a false refusal only for an existential
+# nonemptiness, WHICH NOTHING HAS YET RECORDED", and a pre-written upgrade --
+# "when an existential claim first appears: a claim-level `existential` flag
+# making this ONE cell conditional.  Not a second claim kind, which would add
+# ten rows to distinguish one."
+#
+# A fourth domain recorded one.  A toric phase was asserted nonempty because
+# its class is nonzero in the Chow ring, which FORCES a point without producing
+# one -- an existence proof, not a witness.  The trigger the register named has
+# occurred, so the upgrade it specified is earned rather than speculative, and
+# it is implemented exactly as written: one flag, one cell.
+#
+# It is deliberately NOT a second claim kind and NOT a widening of any other
+# cell.  Everywhere else the two readings agree, which is why the ambiguity was
+# harmless for as long as it lasted.
+# ---------------------------------------------------------------------------
+_EXISTENTIAL = "existential"
 
 # ===========================================================================
 # THE TRANSPORT TABLE.  This is the whole type system.
@@ -408,8 +486,11 @@ TRANSPORT = {
         # they follow from V(src) subset V(dst) and nothing else -- which is
         # exactly why NECESSARY_CONDITION was the attractor for this edge and
         # why mislabelling it would have licensed nothing false.
+        # IDENTITY ALONG IS UNCONDITIONAL, and it took an external review and a
+        # nodal cubic to see that the gate here was answering a question nobody
+        # had asked.  See the retraction above _ZARISKI_DENSE.
         ALONG:   {EMPTY: False, NONEMPTY: True, PREDICATE: False,
-                  IDENTITY: _ZARISKI_DENSE},
+                  IDENTITY: True},
         # AGAINST/IDENTITY IS THE OTHER PLACE THIS DIFFERS, and it is
         # unconditional where NECESSARY_CONDITION needs a denominator-free map.
         # A restriction does not change coordinates at all -- it is a subset
@@ -461,7 +542,7 @@ TRANSPORT = {
                   IDENTITY: _MAP_POLYNOMIAL},
         # A point of the closure need NOT lift: NONEMPTY does not travel here.
         # That single cell is Chevalley.
-        AGAINST: {EMPTY: True, NONEMPTY: False, PREDICATE: True,
+        AGAINST: {EMPTY: True, NONEMPTY: _EXISTENTIAL, PREDICATE: True,
                   IDENTITY: _MAP_POLYNOMIAL},
     },
     SPECIALIZATION: {
@@ -486,6 +567,26 @@ TRANSPORT = {
         #   are INTEGRAL AT p.  Denominator-freeness of the MAP does not give
         #   that: `d2 = h_2 - (3/8)h_1^2` travels a polynomial map and does not
         #   reduce mod 2.
+        #
+        #   AND INTEGRAL COEFFICIENTS ARE NOT ENOUGH EITHER.  An external review
+        #   found this cell licensing a false transport, and the field that
+        #   fixes it was already built and simply never consulted here.
+        #
+        #     COUNTEREXAMPLE.  A = Z_(p)[x]/(px).  On the generic fibre p is a
+        #     unit, so A[1/p] = Q[x]/(x) and `x = 0` holds.  Its coefficients
+        #     are as integral as coefficients get -- the coefficient is 1.  But
+        #     A/pA = F_p[x], where `x = 0` is false.
+        #
+        #   The integrality that matters is not the identity's but its
+        #   DERIVATION's.  You get `x = 0` by writing x = (1/p)*(px), and the
+        #   1/p is the whole problem: the ideal-membership certificate is not
+        #   p-integral, which is the same thing as x being p-torsion in A.
+        #
+        #   So this cell must consult `identity_origin`, exactly as
+        #   _AMBIENT_IDENTITY does two rules above it.  An AMBIENT rewriting has
+        #   no derivation beyond itself, so its coefficients ARE the whole
+        #   question and reduction is term-by-term.  A DERIVED one rides on a
+        #   certificate this kernel cannot see.
         #   AGAINST (lift to char 0) is unsound outright.  `p*x = 0` holds
         #   identically in characteristic p and lifts to nothing.
         ALONG:   {EMPTY: False, NONEMPTY: False, PREDICATE: False,
@@ -633,7 +734,8 @@ def derive_identity_origin(kind, origin, claim_id="<claim>"):
 def transport(etype, direction, kind, scope=None, certificate=None,
               map_kind=IDENTITY_MAP, zariski_closed=None,
               identity_origin=None, integral=None, ring_iso=None,
-              coefficients_in_base=None, zariski_dense=None):
+              coefficients_in_base=None, zariski_dense=None,
+              existential=None):
     """Return a Ruling for moving a claim of `kind` across an edge of `etype`.
 
     Deliberately takes plain values rather than objects: the kernel must be
@@ -674,6 +776,26 @@ def transport(etype, direction, kind, scope=None, certificate=None,
                       "SCHEME; this claim has scope %r (certificate %s, which "
                       "does not base-change)"
                       % (BASE_EXTENSION, scope, certificate), _SCHEME_SCOPE)
+    if rule == _EXISTENTIAL:
+        if existential:
+            return ruling(
+                True,
+                "licensed: this NONEMPTY is EXISTENTIAL -- it asserts a point "
+                "exists without holding one -- and the closure of the empty "
+                "set is empty, so a nonempty closure forces a nonempty image",
+                _EXISTENTIAL)
+        return ruling(
+            False,
+            "a point of the Zariski closure need not lift to the image "
+            "(Chevalley): 0 lies in the closure of G_m and not in G_m.  That "
+            "is decisive for a WITNESS -- a claim holding a specific point -- "
+            "and it is NOT decisive for an existence proof, because "
+            "cl(empty) = empty, so a nonempty closure does force a nonempty "
+            "image.  If this claim exhibits a point, the refusal stands and "
+            "the discharge is to lift it.  If it only proves one EXISTS, "
+            "declare `existential: true` and say how existence was "
+            "established without a witness",
+            _EXISTENTIAL)
     if rule == _ZARISKI_DENSE:
         if zariski_dense:
             return ruling(
@@ -751,16 +873,30 @@ def transport(etype, direction, kind, scope=None, certificate=None,
             return ruling(False,
                           "IDENTITY rewriting needs a denominator-free map; "
                           "this edge's map is %s" % map_kind, _MAP_POLYNOMIAL)
-        if integral:
+        if not integral:
+            return ruling(False,
+                          "reducing an identity mod p needs its coefficients to "
+                          "be INTEGRAL AT p, which is a property of the CLAIM "
+                          "and not of the map.  This claim does not declare "
+                          "integrality", _INTEGRAL_IDENTITY)
+        if identity_origin == AMBIENT:
             return ruling(True,
-                          "licensed: the identity's coefficients are integral "
-                          "at the prime, so the relation reduces",
-                          _INTEGRAL_IDENTITY)
+                          "licensed: the rewriting is AMBIENT, so it has no "
+                          "derivation beyond itself and its coefficients are "
+                          "the whole question -- being integral at the prime, "
+                          "it reduces term by term", _INTEGRAL_IDENTITY)
         return ruling(False,
-                      "reducing an identity mod p needs its coefficients to be "
-                      "INTEGRAL AT p, which is a property of the CLAIM and not "
-                      "of the map.  This claim does not declare integrality",
-                      _INTEGRAL_IDENTITY)
+                      "this identity's COEFFICIENTS are integral at p, but it "
+                      "is %s rather than AMBIENT, and for a rewriting that "
+                      "follows from the model's own equations the coefficients "
+                      "are not the whole question -- its DERIVATION must be "
+                      "p-integral too.  In Z_(p)[x]/(px), `x = 0` holds on the "
+                      "generic fibre with coefficient 1, and is false mod p: "
+                      "you get it from x = (1/p)*(px), and that 1/p never "
+                      "appears in the identity itself.  Equivalently x is "
+                      "p-torsion.  This kernel cannot see the certificate, so "
+                      "it refuses"
+                      % (identity_origin or UNKNOWN), _INTEGRAL_IDENTITY)
     if rule == _CLOSED_CONDITION:
         if zariski_closed:
             return ruling(True,
@@ -1172,13 +1308,50 @@ RESTATE = "RESTATE"      # the statement, kind or model itself changed
 RETRACT = "RETRACT"      # withdrawn, and nothing replaces it
 SUPERSESSION_KINDS = (AMEND, RELICENSE, RESTATE, RETRACT)
 
+
+def supersession_help(entity="claim"):
+    """The four kinds, explained once so `gp why` and the refusal agree.
+
+    EXTRACTED RATHER THAN RESTATED.  This text lived only inside
+    `check_supersession_kind`'s error, so it reached you exactly when you had
+    already got it wrong and never when you were deciding.  A second copy would
+    be a second thing to rot -- this file has watched five README cells
+    document licences withdrawn two versions earlier -- so the refusal now
+    calls this too.
+    """
+    lic = (INFERENCE_LICENSING_FIELDS if entity == "inference"
+           else LICENSING_FIELDS)
+    return (
+        "  AMEND      nothing that licenses a transport changed -- a "
+        "citation, a caveat, an evidence grade\n"
+        "  RELICENSE  an attribute that DECIDES transport changed: %s\n"
+        "  RESTATE    what it %s changed\n"
+        "  RETRACT    withdrawn, and nothing replaces it\n"
+        "\n"
+        "  AMEND IS COMPUTED, NOT DECLARED. The tool holds both versions and "
+        "checks for itself whether a licensing field moved, so writing AMEND "
+        "over a changed certificate is refused and tells you which field you "
+        "changed. That guard exists because \"I only added an attribute\" is "
+        "the sentence through which a transport-determining field arrives "
+        "unexamined."
+        % (", ".join(lic), "asserts" if entity == "inference" else "states"))
+
 # Fields whose value decides what a claim licenses.  Split in two because the
 # refusal is different: change what the claim SAYS and it is a different claim
 # (RESTATE); change what backs it and the claim is the same sentence with
 # different transport behind it (RELICENSE), which is the quieter and more
 # dangerous of the two.
 IDENTIFYING_FIELDS = ("kind", "model", "statement")
+# `lhs`/`rhs`/`ring_vars` ARE LICENSING, and phase 3 shipped without saying so.
+# A live session superseded a claim with a FALSE `lhs`, everything else
+# byte-identical, under `AMEND` -- and the checker reported "Nothing that
+# licenses a transport changed, so the argument stands as checked."  That
+# sentence was false: the rewriting is what `identity_origin` is DERIVED from,
+# and the origin decides transport.  The guard that exists to stop "I only
+# added an attribute" from smuggling a licensing field past review was defeated
+# by the field the same release added.
 LICENSING_FIELDS = ("certificate", "scope", "identity_origin",
+                    "lhs", "rhs", "ring_vars",
                     "coefficients_in_base", "witness_kind")
 
 # The same split for an inference.  What it ASSERTS identifies it; what it
@@ -1187,6 +1360,30 @@ LICENSING_FIELDS = ("certificate", "scope", "identity_origin",
 # precisely the change that most needs a second look.
 INFERENCE_IDENTIFYING_FIELDS = ("asserted", "concludes_kind")
 INFERENCE_LICENSING_FIELDS = ("premises",)
+
+# And for a MODEL, which had no supersession machinery at all -- `supersedes`
+# on one was accepted with no existence check, no self-check, no back-pointer
+# and no discharge kind, exactly the state edges were in before they were
+# fixed.  A live session changed a model, was not refused, and then could not
+# see the change in `gp show` or `gp history`.
+#
+# THE ANCHOR IS THE WORST OBJECT TO BE ABLE TO CHANGE INVISIBLY.  Every claim
+# sits at a model and every edge runs between two, so a model that moves under
+# them takes the meaning of everything attached to it with no signal anywhere.
+#
+# `what` identifies it: change what the model IS and it is a different model.
+# `ring_vars` and `generators` LICENSE, and not by analogy -- `verify.
+# containment` reduces one model's generators modulo another's, and
+# `verify.identity` reduces a rewriting modulo the model's ideal.  Changing
+# either changes what a verification means, which is precisely the "I only
+# added an attribute" hazard the claim version exists to catch.
+# A NOTE'S CONTENT IS ALL IT HAS, so any change to it is a RESTATE and there
+# is nothing a note can LICENSE -- it is prose the checker never reads.
+NOTE_IDENTIFYING_FIELDS = ("text",)
+NOTE_LICENSING_FIELDS = ()
+
+MODEL_IDENTIFYING_FIELDS = ("what",)
+MODEL_LICENSING_FIELDS = ("ring_vars", "generators")
 
 # And for an EDGE.  Exactly the fields `transport` reads off one -- not `type`
 # alone, which was the first version of this list and repeated the very mistake
@@ -1207,9 +1404,12 @@ def classify_supersession(old, new, entity="claim"):
     reports the strongest category of change it finds, so nothing here depends
     on what the author believes they did.
     """
-    ident, lic = ((INFERENCE_IDENTIFYING_FIELDS, INFERENCE_LICENSING_FIELDS)
-                  if entity == "inference"
-                  else (IDENTIFYING_FIELDS, LICENSING_FIELDS))
+    ident, lic = {
+        "inference": (INFERENCE_IDENTIFYING_FIELDS,
+                      INFERENCE_LICENSING_FIELDS),
+        "model": (MODEL_IDENTIFYING_FIELDS, MODEL_LICENSING_FIELDS),
+        "note": (NOTE_IDENTIFYING_FIELDS, NOTE_LICENSING_FIELDS),
+    }.get(entity, (IDENTIFYING_FIELDS, LICENSING_FIELDS))
     moved = [f for f in ident if old.get(f) != new.get(f)]
     if moved:
         return RESTATE, moved
@@ -1232,15 +1432,9 @@ def check_supersession_kind(old, new, declared, claim_id="<claim>",
     if declared not in SUPERSESSION_KINDS:
         raise SupersessionError(
             "%s %s supersedes %r with discharge_kind %r; known kinds are "
-            "%s.\n"
-            "  AMEND      nothing that licenses a transport changed -- a "
-            "citation, a caveat, an evidence grade\n"
-            "  RELICENSE  an attribute that DECIDES transport changed: %s\n"
-            "  RESTATE    what it %s changed\n"
-            "  RETRACT    withdrawn, and nothing replaces it"
+            "%s.\n%s"
             % (entity, claim_id, old.get("id"), declared,
-               ", ".join(SUPERSESSION_KINDS), ", ".join(lic),
-               "asserts" if entity == "inference" else "states"))
+               ", ".join(SUPERSESSION_KINDS), supersession_help(entity)))
     if declared == RETRACT:
         return declared
     actual, moved = classify_supersession(old, new, entity)
@@ -1254,7 +1448,8 @@ def check_supersession_kind(old, new, declared, claim_id="<claim>",
             "for it, because 'I only added an attribute' is how a field that "
             "DECIDES transport arrives without being looked at. Declare %s, or "
             "leave the field alone."
-            % (entity, claim_id, old.get("id"), declared, ", ".join(moved),
+            % (entity, claim_id, old.get("id"), declared,
+               ", ".join("`%s`" % f for f in moved),
                actual,
                ("Re-routing an argument is not bookkeeping: the premises and "
                 "their paths are the entire reason the conclusion is licensed, "

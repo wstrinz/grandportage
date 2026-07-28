@@ -357,17 +357,47 @@ class _Stdin(object):
 # Live CAS -- skipped where Singular is unreachable
 # ===========================================================================
 
+_UNREACHABLE = [None]   # the reason, once we know it
+
+
 def _singular_available():
+    """Is the solver there?  And SAY WHICH WAY IT IS ABSENT when it is not.
+
+    THIS PROBE PRODUCED A FALSE GREEN.  The timeout was 30s and a cold WSL
+    takes about 47s to answer, so on any run where the VM had gone to sleep the
+    three live-CAS tests skipped with "Singular not reachable" -- while
+    Singular sat installed and working one directory away.  The suite went
+    green having quietly not run the only tests that touch a real solver.
+
+    That is this project's own recurring shape wearing test-harness clothes: a
+    load-bearing fact ("the CAS is absent") asserted by something that had not
+    established it, and no way to tell from the output that it was guessing.
+    So the probe now allows for a cold start, and DISTINGUISHES the two
+    absences -- a missing binary and a slow one need different reactions, and
+    reporting them identically is how the slow one hid for weeks.
+    """
     try:
         p = subprocess.run(cas._argv() + ["--version"], capture_output=True,
-                           timeout=30)
-        return p.returncode == 0 or b"Singular" in (p.stdout + p.stderr)
-    except Exception:
+                           timeout=180)
+    except subprocess.TimeoutExpired:
+        _UNREACHABLE[0] = ("Singular did not answer within 180s. That is a "
+                           "SLOW solver, not an absent one -- do not read this "
+                           "skip as 'no CAS installed'.")
         return False
+    except Exception as exc:
+        _UNREACHABLE[0] = "Singular could not be started: %r" % (exc,)
+        return False
+    if p.returncode == 0 or b"Singular" in (p.stdout + p.stderr):
+        return True
+    _UNREACHABLE[0] = ("Singular answered but did not identify itself "
+                       "(rc=%s)" % p.returncode)
+    return False
 
 
-live = pytest.mark.skipif(not _singular_available(),
-                          reason="Singular not reachable")
+_AVAILABLE = _singular_available()
+live = pytest.mark.skipif(
+    not _AVAILABLE,
+    reason=_UNREACHABLE[0] or "Singular not reachable")
 
 
 @live

@@ -8,6 +8,7 @@ ignores its own schema must still not reach the solver.
 
 import io
 import json
+import os
 import re
 
 import pytest
@@ -421,3 +422,47 @@ def test_the_server_holds_no_state_between_calls(project, monkeypatch):
     # a completely fresh dispatch, as if the process had been restarted
     body = text(call("portage_show", {}, project))
     assert "MODEL DST" in body
+
+
+def test_declare_names_the_graph_it_writes(tmp_path):
+    """`GP_ROOT` defaults to "." and "." is the SERVER's cwd, not the directory
+    its `.mcp.json` sits in. So a campaign whose config says `GP_ROOT: "."`
+    writes to a different graph than `gp check` inside that campaign reads.
+
+    A live lane hit this in the worst available way. The root graph was in a
+    refused state from an unrelated session, `declare` is transactional against
+    the fold, and the author's FIRST declaration came back citing a claim id
+    they had never seen in a campaign they had just created. They diagnosed it
+    by diffing four copies of a fixture.
+
+    The server cannot know where its config lives, so it cannot resolve the
+    root differently. It can say which graph it wrote, which turns a mystery
+    into a fact on the first call.
+    """
+    from grandportage import mcp as M
+    root = str(tmp_path)
+    out = M.h_portage_declare(
+        {"events": [{"ev": "model", "id": "M", "desc": "a model"}]}, root)
+    text = out["content"][0]["text"]
+    assert os.path.abspath(S.graph_path(root)) in text, (
+        "a write must name the file it wrote")
+
+
+def test_a_refused_graph_says_which_graph_refused(tmp_path):
+    """The failure path matters more than the success path here, because that
+    is the one that cost a session an hour."""
+    from grandportage import mcp as M
+    root = str(tmp_path)
+    p = S.graph_path(root)
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    with open(p, "w", encoding="utf-8") as fh:
+        fh.write(json.dumps({"ev": "model", "id": "M", "desc": "m"}) + "\n")
+        fh.write(json.dumps({"ev": "claim", "id": "C", "model": "M",
+                             "kind": "PREDICATE", "statement": "P",
+                             "ladder": "exact-checked"}) + "\n")
+    out = M.h_portage_declare(
+        {"events": [{"ev": "model", "id": "N", "desc": "another"}]}, root)
+    text = out["content"][0]["text"]
+    assert "THE GRAPH BEING WRITTEN IS" in text
+    assert os.path.abspath(p) in text
+    assert "may be about your campaign at all" in text

@@ -288,12 +288,18 @@ class CASProgram(object):
     """
 
     def __init__(self, dialect, ring, ring_vars, decls, body, outputs,
-                 characteristic=0):
+                 characteristic=0, generators=None):
         if dialect not in DIALECTS:
             raise ValueError("unknown CAS dialect %r" % (dialect,))
         self.dialect = dialect
         self.ring = ring
         self.ring_vars = list(ring_vars)
+        # THE GENERATORS, kept because the model minted from this run should
+        # record what it IS and not only what it was called.  They are already
+        # inside `decls` as one comma-joined string; a caller that has them as a
+        # list should not have to parse them back out, and `store` should not
+        # have to guess which decl was the ideal.
+        self.generators = list(generators) if generators is not None else None
         self.decls = [(str(n), str(t), str(e)) for n, t, e in decls]
         self.body = list(body)
         self.outputs = list(outputs)
@@ -432,10 +438,43 @@ class Transport(object):
                                        % ", ".join(sorted(unknown)))
         return cls(**d)
 
-    def events(self, eid, dst, dst_desc, dst_field=None, dst_chart=None):
-        """The graph events this computation contributes."""
+    def events(self, eid, dst, dst_desc, dst_field=None, dst_chart=None,
+               ring_vars=None, generators=None):
+        """The graph events this computation contributes.
+
+        THE MODEL KEEPS THE ALGEBRA IT WAS BUILT FROM.
+
+        Every CAS entry point is HANDED `ring_vars` and `generators` -- the
+        ideal -- runs a computation with them, mints a model, and threw all of
+        it away.  What survived was `desc`: a sentence somebody wrote.  So the
+        graph recorded what a model was CALLED and never what it IS, and
+        `KNOWN_CONSERVATISM` has carried the consequence since v0.2 -- "models
+        are currently descriptions, not objects".
+
+        That single gap is upstream of four separate documented ones:
+
+          * `V(src) subset V(dst)` -- the assertion the ENTIRE ontology rests
+            on -- is checkable by ideal containment and is instead taken on the
+            author's word.  A live lane put it plainly: a mis-typed flop
+            produces no signal, and nothing in the tool would have stopped it;
+          * the exact condition for an IDENTITY to cross a NECESSARY_CONDITION
+            is `LHS - RHS` lying in the target's ideal.  The kernel uses
+            AMBIENT origin instead, which the register records as SUFFICIENT
+            BUT NOT NECESSARY;
+          * `integral` and `coefficients_in_base` are one question asked twice
+            and cannot be unified while the kernel cannot compare fields;
+          * `BASE_EXTENSION` must be declared where it could be detected.
+
+        Retaining it costs nothing -- the caller already passed it -- and it is
+        the prerequisite for all four.  Nothing in this commit CONSUMES the
+        ideal; storing it is deliberately its own step.
+        """
         model = {"ev": S.EV_MODEL, "id": dst, "desc": dst_desc,
                  "cite": self.cite}
+        if ring_vars:
+            model["ring_vars"] = list(ring_vars)
+        if generators is not None:
+            model["generators"] = list(generators)
         if dst_field:
             model["field"] = dst_field
         if dst_chart:
@@ -593,8 +632,11 @@ def run_cas(program, *, edge, produces, describes, root=".", timeout=300,
                          "is not evidence of anything."
                          % (produces, transport.src, result["verdict"]))}]
         else:
-            events = transport.events(eid, produces, describes,
-                                      dst_field=dst_field, dst_chart=dst_chart)
+            events = transport.events(
+                eid, produces, describes,
+                dst_field=dst_field, dst_chart=dst_chart,
+                ring_vars=getattr(program, "ring_vars", None),
+                generators=getattr(program, "generators", None))
             events[0]["cite"] = events[1]["cite"] = cite or transport.cite
             result["events"] = events
         S.append(result["events"], root=root)
@@ -761,7 +803,7 @@ def ideal_is_unit(ring_vars, generators, characteristic=0, name="GP_I",
     field is the shape of the error that shipped.
     """
     prog = CASProgram(
-        SINGULAR, ring="GP_R", ring_vars=ring_vars,
+        SINGULAR, ring="GP_R", ring_vars=ring_vars, generators=generators,
         decls=[(name, "ideal", ",".join(generators)),
                ("GP_G", "ideal", "std(%s)" % name)],
         body=[], outputs=["GP_G"], characteristic=characteristic)

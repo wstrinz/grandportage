@@ -58,7 +58,7 @@ def cmd_check(args):
                        "claims": len(g.claims),
                        "inferences": len(g.inference_order)},
         }, indent=2))
-        return C.exit_code(findings, args.floor)
+        return C.exit_code(findings, args.floor, accepted)
 
     if not args.quiet:
         print("graph: %d models, %d edges, %d claims, %d inferences"
@@ -111,7 +111,7 @@ def cmd_check(args):
             print("Nothing live. Every finding at this floor was examined and "
                   "accepted deliberately -- this campaign is carrying debt in "
                   "the open, not failing.")
-    return C.exit_code(findings, args.floor)
+    return C.exit_code(findings, args.floor, accepted)
 
 
 def cmd_migrate(args):
@@ -279,6 +279,157 @@ def cmd_migrate(args):
     return 1 if manual else 0
 
 
+def _declare_epilog():
+    """The event kinds and their required fields, derived where possible.
+
+    Written out because a live session had to read `store.py`'s `_apply_*`
+    methods to learn what an `evidence` record needs. Vocabularies come from
+    the modules that own them, so this cannot drift from the validation the
+    way a hand-kept list would.
+    """
+    return (
+        "event kinds and their REQUIRED fields (all take `id` except note,\n"
+        "built_by and erratum):\n"
+        "\n"
+        "  model       what\n"
+        "  edge        src, dst, type, why\n"
+        "  claim       model|family, kind, statement\n"
+        "  inference   claim|premises, concludes_kind, asserted\n"
+        "  partition   parent, branches, exhaustive\n"
+        "  family      count, enumeration\n"
+        "  same_as     models, why\n"
+        "  built_by    model, inference\n"
+        "  evidence    for, method, ran, what   (+ agrees_with if REPLICATION)\n"
+        "  doubt       about, kind, why         (+ severity, default TRIAGE)\n"
+        "  citation    cites, resolves_to, why  (+ hazard)\n"
+        "  erratum     voids, why               (only for a record that will\n"
+        "                                        not fold; supersede one that\n"
+        "                                        does)\n"
+        "  verdict     WRITTEN BY `gp verify`, never declared\n"
+        "  note        text -- untyped prose, invisible to every rule\n"
+        "\n"
+        "vocabularies:\n"
+        "  edge type        %s\n"
+        "  claim kind       %s\n"
+        "  evidence method  %s\n"
+        "  doubt kind       %s\n"
+        "  doubt severity   %s\n"
+        "  established_by   %s\n"
+        "\n"
+        "to CHANGE something already declared, do not redeclare it -- send the\n"
+        "new version with `supersedes` and a `discharge_kind`. `gp why\n"
+        "supersession` explains the four kinds.\n"
+        % (", ".join(K.DECLARABLE_TYPES),
+           ", ".join(K.CLAIM_KINDS),
+           ", ".join(S.Graph.EVIDENCE_METHODS),
+           ", ".join(S.Graph.DOUBT_KINDS),
+           ", ".join(S.C_SEVERITIES),
+           ", ".join(K.ESTABLISHED_BY)))
+
+
+def cmd_declare(args):
+    """Write events to the graph, transactionally.
+
+    THE ROOT CAUSE OF THE WORST DEFECT THIS PROJECT HAS RECORDED, and it was a
+    missing command rather than a broken one.
+
+    `store.append` is transactional: it folds the batch against the existing
+    graph first and writes nothing if the result would not fold.  So the
+    supported write path CANNOT poison a graph.  But the only supported write
+    path was the MCP server, and two consecutive live sessions reported it
+    unreachable -- at which point a careful agent's only remaining option was
+    to append JSONL by hand, bypassing the one guard that would have caught its
+    typo.
+
+    One of them did exactly that, wrote `supersession_kind` for
+    `discharge_kind`, and spent the rest of the session unable to run `gp
+    check`.  The unrecoverable graph error was the second-order consequence;
+    every write in the system going through a single point of failure was the
+    cause.
+
+    Reads JSON from a file or stdin, accepting either one event object or a
+    list of them.
+    """
+    if args.file:
+        with open(args.file, encoding="utf-8") as fh:
+            raw = fh.read()
+    else:
+        raw = sys.stdin.read()
+    if not raw.strip():
+        sys.stderr.write(
+            "nothing to declare: no events on stdin and no --file given.\n"
+            "  Send one event object or a list of them, e.g.\n"
+            "    gp declare --file events.json\n"
+            "    echo '{\"ev\":\"note\",\"text\":\"...\"}' | gp declare\n")
+        return 2
+    try:
+        events = json.loads(raw)
+    except ValueError as exc:
+        sys.stderr.write(
+            "that is not JSON: %s\n"
+            "  Nothing was written. The graph is unchanged.\n" % exc)
+        return 2
+    if isinstance(events, dict):
+        events = [events]
+    if not isinstance(events, list):
+        sys.stderr.write(
+            "expected one event object or a list of them, got %s.\n"
+            % type(events).__name__)
+        return 2
+    try:
+        S.append(events, args.root)
+    except (S.GraphError, K.KernelRefusal) as exc:
+        # THE WHOLE POINT: refused and NOTHING WRITTEN, so the next attempt
+        # starts from a graph that still folds.
+        sys.stderr.write("REFUSED\n  %s\n\n"
+                         "  Nothing was written. The graph is unchanged.\n"
+                         % exc)
+        return 2
+    print("declared %d event(s)." % len(events))
+    return 0
+
+
+def cmd_verify(args):
+    """Run the verifiers and record what they found.
+
+    THIS COMMAND DID NOT EXIST FOR TWO RELEASES.  `verify.py` shipped with both
+    halves working, `check` printed "run `gp verify`" in two rules, and the
+    module's own docstring said "`gp verify` will run it" -- while the whole
+    module was unreachable from every user surface.  A live session had to
+    import it from Python to use it.
+
+    The suite did not notice because GATE 2 enumerates the surfaces that EXIST
+    and asserts each survives every fixture.  Nothing asked whether a
+    capability had a surface at all, which is a different question and the one
+    that was wrong here.
+    """
+    from . import verify as V
+    results = V.verify_all(root=args.root, timeout=args.timeout,
+                           record=not args.dry_run)
+    if not results:
+        print("nothing to verify: no edge or claim carries the data a "
+              "reduction needs.\n"
+              "  Edges need `generators` and `ring_vars` on BOTH endpoints; "
+              "IDENTITY claims need `lhs`, `rhs` and `ring_vars`.\n"
+              "  `gp check` reports which ones are missing them.")
+        return 0
+    bad = 0
+    for subject, oid, verdict, why in results:
+        print("%-16s %-8s %s" % (verdict, subject, oid))
+        for line in why.splitlines():
+            print("    " + line)
+        print()
+        if verdict in (V.REFUTED, V.NOT_BY_IDEAL):
+            bad += 1
+    if args.dry_run:
+        print("--dry-run: nothing was recorded.")
+    else:
+        print("recorded %d verdict(s); `gp history` shows them." % len(results))
+    # A refutation is a finding, not a crash: exit non-zero so a hook or a CI
+    # step can act on it, but say so plainly rather than raising.
+    return 1 if bad else 0
+
+
 def cmd_history(args):
     """Where did this campaign STRUGGLE?  `gp show` cannot answer that.
 
@@ -363,9 +514,20 @@ def cmd_history(args):
         print()
 
     notes = [ev for _p, _n, ev in events if ev.get("ev") == "note"]
-    print("%d model(s)/edge(s)/claim(s)/inference(s) declared across %d log "
+    # THE TALLY COUNTED FOUR KINDS OUT OF TWELVE.  A live session wrote six
+    # events -- a claim, two evidence records, two doubts and a citation --
+    # and watched this number move by one.  A count that silently omits most
+    # of what you just wrote is worse than no count: it reads as confirmation
+    # that little happened.
+    kinds = [ev.get("ev") for _p, _n, ev in events]
+    said = ", ".join("%d %s" % (kinds.count(w), w)
+                     for w in ("evidence", "doubt", "citation", "verdict",
+                               "erratum")
+                     if kinds.count(w))
+    print("%d model(s)/edge(s)/claim(s)/inference(s)%s declared across %d log "
           "line(s); %d note(s) carried and never typed."
-          % (len(order), len(events), len(notes)))
+          % (len(order), (", " + said) if said else "",
+             len(events), len(notes)))
     if notes:
         print("A note is prose that happens to live in a JSONL file. If a "
               "load-bearing\npremise is in one, it is invisible to every rule "
@@ -397,9 +559,34 @@ def cmd_why(args):
     around a refusal is the T1 failure mode.
     """
     etype, direction, kind = args.type, args.direction, args.kind
+    # SUPERSESSION IS A VOCABULARY TOO, and `why` did not know it existed.
+    #
+    # This command takes EDGE TYPES, and its refusal listed only those -- so
+    # someone asking `gp why supersession`, or `gp why IDENTITY`, was told the
+    # word was unknown with no hint that the thing they asked about is real and
+    # documented somewhere else.  That is the same defect as a message pointing
+    # at a command that does not exist: it teaches that the answer is absent
+    # when it is merely elsewhere.
+    if etype and etype.upper() in K.SUPERSESSION_KINDS:
+        print("%s -- a SUPERSESSION kind, which is not a transport question.\n"
+              % etype.upper())
+        print(K.supersession_help())
+        return 0
+    if etype and etype.lower() in ("supersession", "supersede", "supersedes"):
+        print("SUPERSESSION -- how a record is replaced without erasing what "
+              "used it.\n")
+        print(K.supersession_help())
+        return 0
     if etype not in K.DECLARABLE_TYPES:
-        sys.stderr.write("unknown type %r; declarable: %s\n"
-                         % (etype, ", ".join(K.DECLARABLE_TYPES)))
+        sys.stderr.write(
+            "unknown type %r.\n"
+            "  edge types    : %s\n"
+            "  or ask about  : supersession, or any of %s\n"
+            "  claim KINDS (%s) are not asked about here -- they are the "
+            "third argument, as in `gp why NECESSARY_CONDITION ALONG "
+            "IDENTITY`.\n"
+            % (etype, ", ".join(K.DECLARABLE_TYPES),
+               ", ".join(K.SUPERSESSION_KINDS), ", ".join(K.CLAIM_KINDS)))
         return 2
     print("%s -- %s\n" % (etype, K.TYPE_MEANS[etype]))
     dirs = [direction] if direction else list(K.DIRECTIONS)
@@ -613,8 +800,25 @@ def cmd_show(args):
     for mid in sorted(g.models):
         m = g.models[mid]
         bits = [b for b in (m.get("chart"), m.get("field")) if b]
+        # A SUPERSEDED MODEL PRINTED LIKE A LIVE ONE, and the model is the
+        # anchor: every claim sits at one and every edge runs between two.
+        # `show` marked superseded claims and inferences and left models
+        # unmarked, so a live session's corrected model kept printing its
+        # wrong sentence with no signal, and the claims still hanging off the
+        # old one were not flagged either.
+        if m.get("superseded_by"):
+            bits.append("[SUPERSEDED by %s]" % S.successors(m))
         print("MODEL %-14s %s" % (mid, " ".join(bits)))
         print("    %s" % m.get("desc", ""))
+        # WHAT THE MODEL IS, not only what it was called.  `desc` is a sentence
+        # somebody wrote; this is the object.  Printed because a reader
+        # resuming a campaign cannot otherwise tell a model built from a real
+        # ideal from one asserted into existence with a label.
+        if m.get("ring_vars"):
+            print("    ring   k[%s]" % ", ".join(m["ring_vars"]))
+        if m.get("generators") is not None:
+            gens = m["generators"]
+            print("    ideal  (%s)" % (", ".join(gens) if gens else "0"))
     print()
     for eid in sorted(g.edges):
         e = g.edges[eid]
@@ -630,6 +834,56 @@ def cmd_show(args):
     # whose field-independence I cannot check."  The certificate is the field
     # `derive_scope` calls the most load-bearing in the system, and the one
     # view a human is most likely to use was the one that hid it.
+    # WRITE-ONLY RECORDS ARE NOTES WITH A SCHEMA, which is the sharpest thing
+    # a live session said about this layer.  Six typed events went in; `gp
+    # show` rendered none of them and `gp history`'s tally moved by one.  The
+    # session recorded WHAT it ran and no read command would ever have shown
+    # that to the next reader -- the exact failure `gp history` warns about
+    # for untyped notes, now reproduced for records the checker validates.
+    for vid in sorted(g.evidence):
+        v = g.evidence[vid]
+        print("EVIDENCE %-13s %-12s for %s" % (vid, v["method"], v["for"]))
+        print("    ran: %s" % v["ran"])
+        for line in _wrap(v["what"]):
+            print("    " + line)
+        if v.get("agrees_with"):
+            print("    agrees with: %s" % v["agrees_with"])
+        if v.get("decides"):
+            print("    decides: %s -- %s"
+                  % (v["decides"], S.Graph.DECIDES[v["decides"]]))
+    for did in sorted(g.doubts):
+        d = g.doubts[did]
+        mark = "  [ANSWERED]" if d.get("answered") else ""
+        print("DOUBT %-16s %-12s about %s%s"
+              % (did, d["kind"], d["about"], mark))
+        if d.get("quote"):
+            for line in _wrap('of: "%s"' % d["quote"]):
+                print("    " + line)
+        for line in _wrap(d["why"]):
+            print("    " + line)
+    # NAMED NOTES, and superseded ones marked.  Correcting a note was
+    # impossible until it could carry an id; rendering it is what makes the
+    # correction visible, which was the point -- an invisible correction to an
+    # invisible error is no better than the error.
+    for nid in sorted(g.named_notes):
+        n = g.named_notes[nid]
+        mark = ("  [SUPERSEDED by %s]" % S.successors(n)
+                if n.get("superseded_by") else "")
+        print("NOTE %-17s%s" % (nid, mark))
+        for line in _wrap(n["text"]):
+            print("    " + line)
+    for kid in sorted(g.citations):
+        c = g.citations[kid]
+        print("CITATION %-13s %s" % (kid, c["cites"]))
+        print("    resolves to: %s" % c["resolves_to"])
+        for line in _wrap(c["why"]):
+            print("    " + line)
+        if c.get("hazard"):
+            for line in _wrap("HAZARD: " + c["hazard"]):
+                print("    " + line)
+        if c.get("corrects"):
+            for line in _wrap("CORRECTS THE SOURCE: " + c["corrects"]):
+                print("    " + line)
     for cid in sorted(g.claims):
         c = g.claims[cid]
         extra = []
@@ -637,6 +891,18 @@ def cmd_show(args):
             extra.append("cert=%s" % c["certificate"])
         if c.get("identity_origin"):
             extra.append("origin=%s" % c["identity_origin"])
+        # THE REWRITING ITSELF, and whether anybody has checked it.
+        #
+        # `show` printed `ring_vars` for models and `identity_origin` for
+        # claims, and neither side of the actual equation -- so a reader could
+        # not tell a structured IDENTITY from a prose one without opening
+        # graph.jsonl by hand, which is the thing having a `show` is for.
+        # `origin` was visible while the two things it is DERIVED FROM were
+        # not.
+        if c.get("lhs") is not None:
+            extra.append("%s = %s" % (c["lhs"], c["rhs"]))
+        if c.get("identity_verdict"):
+            extra.append("verdict=%s" % c["identity_verdict"])
         if c.get("established_by"):
             extra.append("by=%s" % c["established_by"])
         if c.get("ladder"):
@@ -645,10 +911,15 @@ def cmd_show(args):
         # exists.  Before it, a reminted claim left its predecessor sitting in
         # the graph, printed identically to everything around it, and the only
         # thing distinguishing the two was a prose note somebody had to read.
-        mark = ("  [SUPERSEDED by %s]" % c["superseded_by"]
+        mark = ("  [SUPERSEDED by %s]" % S.successors(c)
                 if c.get("superseded_by") else "")
+        # A CLAIM SITS AT A MODEL OR AT A FAMILY.  Printing `c["model"]`
+        # unguarded crashed the designated handoff view on the first graph to
+        # carry a family -- the same subscript that took down five checker
+        # rules, in the one surface a human reads to resume.
+        home = c.get("model") or ("family:%s" % c["family"])
         print("CLAIM %-20s %-9s @%-14s scope=%-10s %s%s"
-              % (cid, c["kind"], c["model"], c.get("scope"),
+              % (cid, c["kind"], home, c.get("scope"),
                  " ".join(extra), mark))
         if c.get("supersedes"):
             print("    supersedes %s (%s)"
@@ -660,7 +931,7 @@ def cmd_show(args):
         print()
     for iid in g.inference_order:
         i = g.inferences[iid]
-        mark = ("  [SUPERSEDED by %s]" % i["superseded_by"]
+        mark = ("  [SUPERSEDED by %s]" % S.successors(i)
                 if i.get("superseded_by") else "")
         print("INFER %-20s %s via %s -> %s%s"
               % (iid, i["claim"],
@@ -826,6 +1097,28 @@ def build_parser():
                        help="where the campaign struggled: supersession "
                             "chains, and the obligations still carried")
     g.set_defaults(func=cmd_history)
+
+    v = sub.add_parser("verify",
+                       help="spend CAS time to settle what the graph takes "
+                            "on the author's word, and record the answers")
+    v.add_argument("--timeout", type=int, default=300)
+    v.add_argument("--dry-run", action="store_true",
+                   help="report the verdicts without recording them")
+    v.set_defaults(func=cmd_verify)
+
+    # THE HELP NAMED NOT ONE EVENT KIND AND NOT ONE FIELD.  A live session
+    # reported reading `store.py`'s `_apply_*` methods to find out what an
+    # `evidence` or `doubt` record needs -- "that is the exact place a person
+    # looks, and it is empty".  A write command whose help omits what may be
+    # written is a door with no sign on it.
+    d = sub.add_parser(
+        "declare",
+        help="write events to the graph, transactionally: they fold first "
+             "or nothing is written",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=_declare_epilog())
+    d.add_argument("--file", help="JSON file; omit to read stdin")
+    d.set_defaults(func=cmd_declare)
 
     i = sub.add_parser("init", help="create an empty graph")
     i.set_defaults(func=cmd_init)

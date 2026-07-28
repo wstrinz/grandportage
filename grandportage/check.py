@@ -12,6 +12,7 @@ Those are orthogonal axes and conflating them is how a project ends up with an
 import hashlib
 
 from . import kernel as K
+from . import store as S
 from .discharge import discharge_for
 
 # Severities.  Not every finding is an accusation.
@@ -45,6 +46,13 @@ R_STALE_PATH = "STALE-PATH"
 R_FAMILY = "FAMILY"
 R_DIRECTION = "EVIDENCE-DIRECTION"
 R_CROSSCUT = "CROSS-CUT"
+R_CONTAINMENT = "CONTAINMENT"
+R_IDENTITY = "UNTESTED-IDENTITY"
+R_SIBLING = "SIBLING-EDGE"
+R_STALE_MODEL = "STALE-MODEL"
+R_CITATION = "AMBIGUOUS-CITATION"
+R_DOUBT = "DOUBT"
+R_EVIDENCE = "EVIDENCE-GRADE"
 
 EXISTENCE_OPPOSITE = {K.EMPTY: K.NONEMPTY, K.NONEMPTY: K.EMPTY}
 
@@ -193,7 +201,8 @@ def audit_inference(graph, iid):
                 integral=claim.get("integral"),
                 ring_iso=e.get("ring_iso"),
                 coefficients_in_base=claim.get("coefficients_in_base"),
-                zariski_dense=e.get("zariski_dense"))
+                zariski_dense=e.get("zariski_dense"),
+                existential=claim.get("existential"))
             trace.append((eid, direction, r.licensed, r.reason))
             if not r.licensed:
                 ok = False
@@ -235,7 +244,8 @@ def probe(graph, claim_id, edge_id, direction, etype=None, map_kind=None,
         identity_origin=claim.get("identity_origin"),
         integral=claim.get("integral"), ring_iso=edge.get("ring_iso"),
         coefficients_in_base=claim.get("coefficients_in_base"),
-        zariski_dense=edge.get("zariski_dense"))
+        zariski_dense=edge.get("zariski_dense"),
+        existential=claim.get("existential"))
 
 
 def contradicting_claims(graph, model_id, kind, exclude=()):
@@ -252,7 +262,7 @@ def contradicting_claims(graph, model_id, kind, exclude=()):
     if opposite is None:
         return []
     return sorted(cid for cid, c in graph.claims.items()
-                  if c["model"] == model_id and c["kind"] == opposite
+                  if c.get("model") == model_id and c["kind"] == opposite
                   and cid not in exclude)
 
 
@@ -436,7 +446,7 @@ def check_taint(graph, transport_findings):
     for mid in sorted(tainted):
         direct, inherited = tainted[mid]
         downstream = sorted(cid for cid, c in graph.claims.items()
-                            if c["model"] == mid)
+                            if c.get("model") == mid)
         if direct:
             how = ("was BUILT BY a refused inference (%s)"
                    % ", ".join(direct))
@@ -850,7 +860,7 @@ def check_partitions(graph):
                 "single hop." % (e["dst"], parent, len(branches))))
         # The payoff case, reported so it gets recorded rather than assumed.
         empty_at = {b: sorted(cid for cid, c in graph.claims.items()
-                              if c["model"] == b and c["kind"] == K.EMPTY)
+                              if c.get("model") == b and c["kind"] == K.EMPTY)
                     for b in branches}
         if all(empty_at[b] for b in branches):
             already = any(graph.inferences[i]["concludes_at"] == parent
@@ -988,7 +998,7 @@ def check_vacuous_conclusions(graph):
         if inf["concludes_kind"] not in (K.PREDICATE, K.IDENTITY):
             continue
         empties = [cid for cid, c in sorted(graph.claims.items())
-                   if c["model"] == inf["concludes_at"] and c["kind"] == K.EMPTY]
+                   if c.get("model") == inf["concludes_at"] and c["kind"] == K.EMPTY]
         if not empties:
             continue
         findings.append(Finding(
@@ -1087,7 +1097,7 @@ def check_aliases(graph):
         kinds = {}
         for m in models:
             for cid, c in sorted(graph.claims.items()):
-                if c["model"] == m and c["kind"] in EXISTENCE_OPPOSITE:
+                if c.get("model") == m and c["kind"] in EXISTENCE_OPPOSITE:
                     kinds.setdefault(c["kind"], []).append((cid, m))
         if len(kinds) > 1:
             findings.append(Finding(
@@ -1127,7 +1137,7 @@ def check_unexhibited_witness(graph):
             "NONEMPTY claim %s at model %s is ASSERTED, not exhibited.\n"
             "  %s\n"
             "  Nothing here distinguishes holding the point from claiming to."
-            % (cid, c["model"], c["statement"]),
+            % (cid, c.get("model") or c.get("family"), c["statement"]),
             "If you have the point, put it in `witness` and declare "
             "witness_kind EXHIBITED -- `cas_check_witness` will substitute it "
             "into the model's generators and confirm it is a solution, which "
@@ -1264,15 +1274,20 @@ def check_stale_premises(graph):
             newer_id = old.get("superseded_by")
             if not newer_id:
                 continue
-            newer = graph.claims[newer_id]
-            kind = newer.get("discharge_kind")
-            bookkeeping = kind == K.AMEND
+            # A CLAIM MAY BE SPLIT INTO SEVERAL, so read every successor.
+            # Bookkeeping only if ALL of them are AMEND: if any one changed
+            # something that licenses a transport, the premise moved.
+            ids = newer_id if isinstance(newer_id, list) else [newer_id]
+            kinds = [graph.claims[i].get("discharge_kind")
+                     for i in ids if i in graph.claims]
+            kind = ", ".join(k for k in kinds if k) or None
+            bookkeeping = bool(kinds) and all(k == K.AMEND for k in kinds)
             findings.append(Finding(
                 R_STALE_PREMISE, "%s:%s:%s" % (R_STALE_PREMISE, iid, cid),
                 DEBT if bookkeeping else UNSOUND_PREMISE,
                 iid,
                 "inference %s rests on claim %s, which %s superseded (%s)."
-                % (iid, cid, newer_id, kind)
+                % (iid, cid, S.successors(old), kind)
                 + ("\n  Nothing that licenses a transport changed, so the "
                    "argument stands as checked. What is stale is the pointer."
                    if bookkeeping else
@@ -1280,14 +1295,17 @@ def check_stale_premises(graph):
                    "record that no longer says what it said. The conclusion is "
                    "not withdrawn and is not licensed either -- it is "
                    "UNEXAMINED."
-                   % (", ".join(K.classify_supersession(old, newer)[1])
+                   % (", ".join(sorted(set(
+                       f for i in ids if i in graph.claims
+                       for f in K.classify_supersession(
+                           old, graph.claims[i])[1])))
                       or "The premise")),
                 ("Redeclare this inference against %s and mark the old one "
                  "`supersedes`, so the graph says which argument is current. "
                  "Supersession does not repoint premises on its own: an "
                  "argument credited against a record it was never checked "
                  "against is the failure this refuses to automate."
-                 % newer_id),
+                 % S.successors(old)),
                 semantic_key="%s|%s" % (iid, cid)))
     return findings
 
@@ -1555,13 +1573,547 @@ def check_crosscuts(graph):
                 "claim %s asserts %d, and %s intersected with %s is %d: %s."
                 % (cid, asserted, a_id, b_id, len(overlap),
                    ", ".join(overlap) or "no members")
-                + "\n  %d member(s) of %s are already in %s, so they are "
-                  "counted by this result and bought by it too."
-                  % (a["settles"] - len(overlap), a_id, b_id),
+                # SAY BOTH NUMBERS, and say which is which.
+                #
+                # This printed `a.settles - len(overlap)` and called it "already
+                # in B" -- the count of members OUTSIDE B, described as being
+                # inside it. On the docstring's own worked example it announced
+                # 6 members "already in" when 6 is exactly the count that is
+                # NOT, and a live campaign caught it printing 2 where the
+                # answer was 1.
+                #
+                # The number was right and the sentence inverted its meaning,
+                # in the one message whose entire purpose is to correct a
+                # double-count. A finding that miscounts while explaining a
+                # miscount teaches the reader to distrust the rule, which is
+                # worse than silence.
+                + "\n  %d of %s's %d member(s) lie in %s (%s); the other %d do "
+                  "not. A count over one decomposition is not a count in "
+                  "another."
+                  % (len(overlap), a_id, a["settles"], b_id,
+                     ", ".join(overlap) or "none",
+                     a["settles"] - len(overlap)),
                 "State the intersection, %d, or say plainly which of the two "
                 "numbers the result is about. A count over one decomposition "
                 "is not a count in another." % len(overlap),
                 semantic_key="%s|%s|%s" % (cid, a_id, b_id)))
+    return findings
+
+
+def check_containment(graph):
+    """The assertion the ENTIRE ontology rests on, and nothing ever checked it.
+
+    Every edge asserts `V(src) subset V(dst)`.  The kernel's opening comment
+    says so and all six types are relaxations in that sense.  It has never been
+    verified, only declared -- which makes it the SIXTH instance of the pattern
+    this project keeps finding, at the deepest level available: a field that
+    DETERMINES transport and is taken on the author's word.
+
+    A live lane stated the cost precisely.  A flop is an isomorphism in
+    codimension one, so neither variety contains the other; typed EQUIVALENCE
+    it "yields a false conclusion reported clean behind one prose-dischargeable
+    DEBT", and "nothing in the tool would have stopped me if I had not done the
+    mathematics first".  RESTRICTION, the newest and most inviting type,
+    "matches a flop on every clause except the one that matters".
+
+    IT IS CHECKABLE NOW, for the first time, because models can carry their
+    ideals: `I(dst) subset I(src)` implies `V(src) subset V(dst)`, and testing
+    it is one reduction per generator -- exactly what `cas.classify_identity`
+    already does.
+
+    THIS RULE DOES NOT RUN IT.  The checker is deterministic with no solver and
+    no network, and that is worth more than the convenience.  So the split is:
+    this reports the HOLE, and `gp verify` fills it by spending CAS time and
+    recording the answer on the edge.  An unverified containment is a debt you
+    can see; a refuted one is an unsound premise.
+
+    Silent where the data is absent, deliberately.  Every model in the corpus
+    predates `generators`, and a rule that fired on all of them would be a
+    false-positive generator on day one.
+    """
+    findings = []
+    dead = withdrawn_edges(graph)
+    for eid in sorted(graph.edges):
+        if eid in dead:
+            continue
+        e = graph.edges[eid]
+        src, dst = graph.models.get(e["src"]), graph.models.get(e["dst"])
+        if not src or not dst:
+            continue
+        if src.get("generators") is None or dst.get("generators") is None:
+            continue
+        verdict = e.get("containment")
+        if verdict == "VERIFIED":
+            continue
+        if verdict == "NOT_BY_IDEAL":
+            findings.append(Finding(
+                R_CONTAINMENT, "%s:%s" % (R_CONTAINMENT, eid),
+                UNSOUND_PREMISE, eid,
+                "edge %s asserts V(%s) subset V(%s) and the SUFFICIENT test for "
+                "it FAILED: %s"
+                % (eid, e["src"], e["dst"],
+                   e.get("containment_why") or "(no reduction recorded)")
+                + "\n  Every cell this edge licenses rests on that "
+                  "containment, and it is now UNESTABLISHED rather than merely "
+                  "unexamined. It is NOT refuted: reduction tests plain ideal "
+                  "membership and the containment can still hold through the "
+                  "radical.",
+                "Three honest moves. Establish it another way and record how -- "
+                "a radical-membership computation is the direct one. Or refute "
+                "it properly, which needs a POINT of the source outside the "
+                "target, a witness rather than a reduction. Or, if the two "
+                "models are related and neither contains the other -- a "
+                "birational correspondence, a flop -- this is not an edge at "
+                "all: draw it as a SPAN through the object they both map to "
+                "and type each leg separately.",
+                semantic_key=eid))
+            continue
+        findings.append(Finding(
+            R_CONTAINMENT, "%s:%s" % (R_CONTAINMENT, eid), DEBT, eid,
+            "edge %s asserts V(%s) subset V(%s) and both models carry ideals, "
+            "so the containment is CHECKABLE and unchecked."
+            % (eid, e["src"], e["dst"])
+            + "\n  This is the assertion every cell on this edge rests on, "
+              "and it is currently the author's word.",
+            "Run `gp verify` to reduce each generator of %s's ideal modulo "
+            "%s's. It is one reduction per generator and it either confirms the "
+            "containment or refutes the edge." % (e["dst"], e["src"]),
+            semantic_key=eid))
+    return findings
+
+
+def check_doubts(graph):
+    """Authored defeaters, rendered as findings.
+
+    Every other finding here is computed. This is the one a person writes, and
+    it exists because a live session read a cited proposition, found it did not
+    supply the premise it was meant to, and had nowhere to put that. It
+    correctly refused to draw an UNTYPED edge -- which would assert a map
+    exists and is merely unclassified, the opposite of what it found -- so the
+    result went into a note, invisible to every rule.
+
+    A doubt enters the SAME lifecycle as a computed finding: `gp accept`
+    carries it with a reason, which is exactly ACCEPTED_RISK, and `answered`
+    retires it.
+    """
+    findings = []
+    for did in sorted(graph.doubts):
+        d = graph.doubts[did]
+        if d.get("answered"):
+            continue
+        findings.append(Finding(
+            R_DOUBT, "%s:%s" % (R_DOUBT, did), d["severity"], d["about"],
+            "%s, raised against %s by hand.\n  %s"
+            % (d["kind"], d["about"], d.get("why")),
+            d.get("discharge_hint")
+            or ("Answer it and record `answered` with what settled it, accept "
+                "it deliberately with `gp accept`, or act on it. A doubt "
+                "nobody has answered is the honest state and stays visible "
+                "until one of those happens."),
+            semantic_key=did))
+    return findings
+
+
+def check_evidence(graph):
+    """A computation recorded for a claim that says it was never run.
+
+    The `evidence` record names WHAT was run, which `established_by: RAN` does
+    not -- it records only that something was. So the two must agree: a claim
+    graded CITED or READ with a computation attached to it is one of the two
+    being wrong, and which one matters. This is the seam where, in the
+    reporting session's own words, "a citation would drift into a
+    verification".
+    """
+    findings = []
+    for vid in sorted(graph.evidence):
+        v = graph.evidence[vid]
+        # AN ENUMERATION THAT DOES NOT SAY WHICH VERDICT IT DECIDES.
+        #
+        # A live session called this the single most important epistemic fact
+        # about its run: its filter kept more branches alive at every choice
+        # point, so a kill was definitive and a survival meant only that this
+        # filter had not killed it. Without the field, a reader takes the
+        # survivor count at face value and reads an upper bound as an answer.
+        #
+        # Reported rather than required, because the census is sealed and two
+        # evidence records already exist without it. Same policy as `lhs`.
+        if v["method"] == "ENUMERATION" and not v.get("decides"):
+            findings.append(Finding(
+                R_EVIDENCE, "%s:decides:%s" % (R_EVIDENCE, vid), TRIAGE, vid,
+                "evidence %s is an ENUMERATION and does not say which verdict "
+                "it decides.\n"
+                "  A filter that keeps too much decides its EXCLUSIONS: a "
+                "removal is definitive and a survival means only that this "
+                "sweep did not remove it. A filter that discards too much "
+                "decides the opposite. Which one it is cannot be read off the "
+                "count, and the count is what gets reused."
+                % vid,
+                "Declare `decides`: EXCLUSIONS, INCLUSIONS, or BOTH. If the "
+                "sweep is exact -- it removes everything it should and nothing "
+                "it should not -- that is BOTH, and worth saying because it is "
+                "the rarer case.",
+                semantic_key=vid))
+        c = graph.claims.get(v["for"]) or {}
+        by = c.get("established_by")
+        if by in (None, "RAN"):
+            continue
+        findings.append(Finding(
+            R_EVIDENCE, "%s:%s" % (R_EVIDENCE, vid), TRIAGE, v["for"],
+            "evidence %s records a %s computation (%s) for claim %s, but that "
+            "claim is graded `established_by: %s`.\n"
+            "  A computation was run and the claim says it was not. One of "
+            "the two is wrong, and the direction matters: upgrading the grade "
+            "on the strength of an attached script is exactly how a citation "
+            "drifts into a verification."
+            % (vid, v["method"], v["ran"], v["for"], by),
+            "If the computation established the claim, regrade it RAN -- and "
+            "note that changing `established_by` is a RELICENSE, so it will "
+            "be looked at. If the computation only CORROBORATES something "
+            "read or cited, say so in the evidence's `what`, and leave the "
+            "grade where it is.",
+            semantic_key=v["for"]))
+    return findings
+
+
+def check_citations(graph):
+    """Something cites an identifier already recorded as denoting elsewhere.
+
+    THE POINT OF TYPING A CITATION AT ALL.  Storing the resolution is worth
+    little if the next person has to know to look it up; what earns it is
+    firing when somebody cites the ambiguous name again.
+
+    A live session established that a paper's "GGV1 Remark 7.10" denotes what
+    the arXiv source numbers 7.14 -- the citing work used a pre-publication
+    draft -- and that arXiv 7.10 is a DIFFERENT statement about the same
+    subject. So the naive resolution does not fail loudly; it succeeds on the
+    wrong object. That is this project's trap number one and it had no type.
+
+    Substring matching, deliberately.  It fires only where a `hazard` was
+    recorded by hand, so the false-positive surface is exactly as large as
+    somebody chose to make it, and a citation with no hazard is silent.
+    """
+    findings = []
+    hazards = [(c["cites"], c) for c in graph.citations.values()
+               if c.get("hazard")]
+    # A HAZARD NOTHING CAN TRIP.
+    #
+    # This rule substring-matches a citation's `cites` against claim and
+    # inference text. A live session recorded a real hazard whose ambiguous
+    # identifiers live in PYTHON DOCSTRINGS the graph points at but does not
+    # contain -- so the record was correct, useful to a human, and mechanically
+    # inert, and the session learned that only by reading this function.
+    #
+    # The checker cannot read files: it is deterministic and spawns nothing.
+    # What it can do is stop the record looking more active than it is.
+    for cites, c in hazards:
+        text = " ".join(str(o.get(f) or "")
+                        for o in list(graph.claims.values())
+                        + list(graph.inferences.values())
+                        for f in ("cite", "statement", "asserted"))
+        if cites in text:
+            continue
+        findings.append(Finding(
+            R_CITATION, "%s:dormant:%s" % (R_CITATION, c["id"]), DEBT,
+            c["id"],
+            "citation %s records a hazard about %r, and nothing in this graph "
+            "cites that string, so the hazard will never fire.\n"
+            "  It is not wrong -- a reader still gets it from `gp show` -- but "
+            "it is doing less than a recorded hazard looks like it is doing. "
+            "This checker reads the graph and no files, so an identifier that "
+            "appears only in a script or a document it points at is out of "
+            "reach by construction."
+            % (c["id"], cites),
+            "If something here really does depend on that reference, put the "
+            "identifier in the claim's `cite` or `statement` where the match "
+            "can see it. If the ambiguity lives entirely outside the graph, "
+            "leave this as documentation and accept the finding.",
+            semantic_key=c["id"]))
+    if not hazards:
+        return findings
+    subjects = [("claim", cid, graph.claims[cid]) for cid in sorted(graph.claims)]
+    subjects += [("inference", iid, graph.inferences[iid])
+                 for iid in sorted(graph.inferences)]
+    for kind, oid, obj in subjects:
+        if obj.get("superseded_by"):
+            continue
+        text = " ".join(str(obj.get(f) or "")
+                        for f in ("cite", "statement", "asserted"))
+        for cites, c in hazards:
+            if cites not in text or obj.get("citation") == c["id"]:
+                continue
+            findings.append(Finding(
+                R_CITATION, "%s:%s:%s" % (R_CITATION, oid, c["id"]),
+                TRIAGE, oid,
+                "%s %s cites %r, and %s records that identifier as denoting "
+                "%s.\n"
+                "  %s\n"
+                "  HAZARD: %s"
+                % (kind, oid, cites, c["id"], c["resolves_to"],
+                   c.get("why"), c["hazard"]),
+                "If this %s means the object the citation resolves to, link it "
+                "with `citation: %s` and the finding goes quiet. If it means "
+                "the identifier's OTHER reading, say which -- because the "
+                "whole reason this is recorded is that resolving it naively "
+                "succeeds on the wrong object rather than failing."
+                % (kind, c["id"]),
+                semantic_key=oid))
+    return findings
+
+
+def check_stale_models(graph):
+    """Claims and edges still anchored to a model that has been superseded.
+
+    THE ANCHOR IS THE WORST THING TO BE ABLE TO MOVE INVISIBLY.  Models had no
+    supersession machinery at all -- `supersedes` on one was accepted with no
+    existence check, no back-pointer and no discharge kind -- so a live session
+    corrected a model, was not refused, and then could not see the change in
+    `gp show` or `gp history`. Its claims sat on the old model until it noticed
+    by hand.
+
+    That is the same shape as STALE-PREMISE, one level down. A superseded claim
+    leaves inferences pointing at a dead record; a superseded model leaves
+    every claim AND every edge pointing at one, and the claim is where the
+    mathematics lives.
+    """
+    findings = []
+    for cid in sorted(graph.claims):
+        c = graph.claims[cid]
+        if c.get("superseded_by"):
+            continue
+        m = graph.models.get(c.get("model"))
+        if not m or not m.get("superseded_by"):
+            continue
+        findings.append(Finding(
+            R_STALE_MODEL, "%s:%s" % (R_STALE_MODEL, cid), TRIAGE, cid,
+            "claim %s sits at model %s, which was superseded by %s.\n"
+            "  The claim is live and its anchor is not. Whatever the new model "
+            "changed -- what it IS, its ring, its generators -- this claim was "
+            "written against the old reading and nothing has re-examined it."
+            % (cid, c.get("model"), S.successors(m)),
+            "If the claim still holds at %s, supersede it with the model "
+            "field repointed -- that is a RESTATE, because the model is part "
+            "of what identifies a claim. If it does not, retract it. If the "
+            "model supersession was itself a mistake, supersede the model "
+            "back rather than leaving two live readings of one object."
+            % S.successors(m),
+            semantic_key=cid))
+    dead = withdrawn_edges(graph)
+    for eid in sorted(graph.edges):
+        e = graph.edges[eid]
+        if eid in dead:
+            continue
+        for end in ("src", "dst"):
+            m = graph.models.get(e.get(end))
+            if not m or not m.get("superseded_by"):
+                continue
+            findings.append(Finding(
+                R_STALE_MODEL, "%s:%s:%s" % (R_STALE_MODEL, eid, end),
+                TRIAGE, eid,
+                "edge %s has its %s at model %s, which was superseded by %s.\n"
+                "  Every cell this edge licenses rests on V(src) subset "
+                "V(dst), and one of those two models has been replaced."
+                % (eid, end, e.get(end), S.successors(m)),
+                "Repoint the edge at %s and declare the supersession, or say "
+                "why the old model is still the right endpoint."
+                % S.successors(m),
+                semantic_key=eid))
+            break
+    return findings
+
+
+def check_sibling_edges(graph):
+    """An edge between two branches of the same partition.
+
+    THE OTHER HALF OF THE BUG PARTITIONS WERE BUILT TO FIX, and it sat
+    unnoticed while the first half had a rule, a docstring and two live
+    instances behind it.
+
+    `check_partitions` reasons: branch = parent AND condition, so V(branch)
+    subset V(parent), and an edge drawn parent -> branch asserts the reverse --
+    consistent only if the parent is empty, which is invariably the thing under
+    proof.  Exactly the same argument applies SIDEWAYS and nothing made it:
+
+        A = parent AND c1,  B = parent AND c2,  c1 and c2 exclusive.
+        An edge A -> B asserts V(A) subset V(B), i.e. V(A) subset V(A and B)
+        = V(empty condition).  Consistent only if V(A) is empty.
+
+    Measured before writing this: a partition with branches A and B, a
+    NECESSARY_CONDITION edge from A to B, and an EXHIBITED witness at A
+    transporting ALONG it produced ZERO findings and the inference was reported
+    CLEAN.  The witness crossed into a branch its own case condition excludes.
+
+    Why nothing caught it: the cells that refuse generically (EMPTY along a
+    NECESSARY_CONDITION) hid the shape, because the refusal looked correct and
+    came from the transport table rather than from anything knowing about
+    partitions.  NONEMPTY along the same edge is licensed, and there the hole
+    is visible.
+
+    THE SOURCE BEING EMPTY IS THE ONE HONEST CASE, so the finding says so
+    rather than refusing outright -- if V(A) really is empty the edge is
+    vacuously fine, and the right move is to record that emptiness as a claim
+    where the checker can see it.
+    """
+    findings = []
+    branch_of = {}
+    for pid in sorted(graph.partitions):
+        for b in graph.partitions[pid].get("branches") or []:
+            branch_of.setdefault(b, []).append(pid)
+    dead = withdrawn_edges(graph)
+    for eid in sorted(graph.edges):
+        if eid in dead:
+            continue
+        e = graph.edges[eid]
+        shared = sorted(set(branch_of.get(e.get("src"), []))
+                        & set(branch_of.get(e.get("dst"), [])))
+        if not shared:
+            continue
+        pid = shared[0]
+        findings.append(Finding(
+            R_SIBLING, "%s:%s" % (R_SIBLING, eid), UNSOUND_PREMISE, eid,
+            "edge %s runs from %s to %s, and both are branches of partition "
+            "%s.\n"
+            "  Branches are pieces of the parent under MUTUALLY EXCLUSIVE "
+            "conditions, so this edge asserts V(%s) subset V(%s) for two "
+            "models whose case conditions cannot both hold. That is "
+            "consistent only if V(%s) is EMPTY -- which, in every campaign "
+            "that has drawn this, was the thing under proof.\n"
+            "  It is the same error a partition exists to prevent, turned "
+            "sideways: there the branch was typed as a total containment of "
+            "the parent, here as a containment of its sibling."
+            % (eid, e.get("src"), e.get("dst"), pid,
+               e.get("src"), e.get("dst"), e.get("src")),
+            "If %s really is empty, record that as an EMPTY claim -- then the "
+            "edge is vacuous and nothing needs to cross it. If it is not "
+            "empty, this is not an edge: the two branches are related through "
+            "their PARENT, so route the argument branch -> parent -> branch "
+            "and let each leg be typed on its own. If the conclusion needs "
+            "every branch, that is what the partition's exhaustiveness claim "
+            "is for." % e.get("src"),
+            semantic_key=eid))
+    return findings
+
+
+def check_identity(graph):
+    """Report identities that nothing has put to the one test that decides them.
+
+    THIS IS WHERE A GATE USED TO BE.  RESTRICTION/ALONG/IDENTITY was licensed
+    only on a declared `zariski_dense`, and that declaration turned out to be
+    both insufficient (the nodal cubic satisfies it and breaks the conclusion)
+    and beside the point (a restriction shares its ideal, so the identity was
+    never in question).  Removing it was right, but a free gate that checked
+    nothing still made people stop, and losing the stop is a real regression
+    even when losing the gate is not.
+
+    So the hesitation moves here, and it moves to somewhere it can be settled:
+    an IDENTITY is `lhs - rhs` in I, reduction modulo a Groebner basis DECIDES
+    that, and `gp verify` will run it.  This rule reports; it spawns nothing.
+
+    TWO TIERS, because the two failures are not the same failure.
+
+      REFUTED       a verdict is recorded and it is negative.  The rewriting is
+                    false at its OWN model, so everything downstream of it is
+                    unsound -- not merely unsupported.
+      UNTESTED      the claim crosses the cell the gate used to guard and has
+                    never been reduced.  Triage: nothing is known to be wrong.
+
+    The UNTESTED tier is deliberately NARROW -- RESTRICTION, ALONG, IDENTITY,
+    and nothing else -- because it is replacing one specific stop and not
+    inventing a general campaign to structure every identity in the corpus.
+    """
+    findings = []
+    dead = withdrawn_edges(graph)
+    for cid in sorted(graph.claims):
+        c = graph.claims[cid]
+        if c.get("kind") != K.IDENTITY:
+            continue
+        if c.get("identity_verdict") == "REFUTED":
+            findings.append(Finding(
+                R_IDENTITY, "%s:%s" % (R_IDENTITY, cid),
+                UNSOUND_CONCLUSION, cid,
+                "claim %s was reduced and DOES NOT HOLD at %s: %s"
+                % (cid, c.get("model"), c.get("identity_why") or "(no detail)")
+                + "\n  This is a refutation and not a failed cheap test. An "
+                  "IDENTITY asserts that lhs - rhs lies in the ideal, and "
+                  "reduction modulo a Groebner basis decides ideal membership. "
+                  "So the rewriting is false where it was claimed, and every "
+                  "transport that carried it carried something untrue.",
+                "Fix the rewriting or withdraw the claim. Transport typing "
+                "cannot help here: no route is sound from a false premise, and "
+                "the error is at the origin rather than on any edge.",
+                semantic_key=cid))
+            continue
+        if c.get("identity_verdict"):
+            continue
+        if c.get("lhs") is not None:
+            # STRUCTURED AND NEVER REDUCED, which the first version of this
+            # rule fell silent on.  It skipped any claim carrying `lhs`, so
+            # recording the rewriting made the checker QUIETER -- and with no
+            # way to record a verdict either, the phase-3 loop had no terminus:
+            # you could structure a claim, not verify it, and never hear about
+            # it again.  Structuring must not be how a claim goes dark.
+            findings.append(Finding(
+                R_IDENTITY, "%s:untested:%s" % (R_IDENTITY, cid),
+                TRIAGE, cid,
+                "claim %s records its rewriting -- %s = %s -- and nothing has "
+                "reduced it.\n"
+                "  This is the cheap case. The claim asserts that lhs - rhs "
+                "lies in %s's ideal, reduction modulo a Groebner basis DECIDES "
+                "that, and the answer is one solver call away. Until it is "
+                "made, `identity_origin` is still the author's word for the "
+                "one field on this claim that decides where it may travel."
+                % (cid, c.get("lhs"), c.get("rhs"), c.get("model")),
+                "Run `gp verify`. It reduces every structured IDENTITY and "
+                "records the verdict, and a REFUTED answer here would mean the "
+                "rewriting is false at its own model -- which no transport "
+                "typing anywhere downstream would ever have surfaced.",
+                semantic_key=cid))
+            continue
+        # PREMISES, NOT `claim`/`path`.  Those two are backfilled from
+        # premises[0] only, so reading them made every IDENTITY in slot 2 or
+        # later invisible to this rule -- and a live campaign put all three of
+        # its structured identities in slots 2 to 4.
+        legs = []
+        for iid in sorted(graph.inferences):
+            inf = graph.inferences[iid]
+            for pr in inf.get("premises") or []:
+                if pr.get("claim") == cid:
+                    legs.append(pr.get("path") or [])
+        for path in legs:
+            hit = False
+            for step in path:
+                eid = step[0] if isinstance(step, (list, tuple)) else step
+                direction = (step[1] if isinstance(step, (list, tuple))
+                             and len(step) > 1 else None)
+                e = graph.edges.get(eid)
+                if not e or eid in dead:
+                    continue
+                if e.get("type") != K.RESTRICTION or direction != K.ALONG:
+                    continue
+                hit = True
+                findings.append(Finding(
+                    R_IDENTITY, "%s:%s:%s" % (R_IDENTITY, cid, eid),
+                    TRIAGE, cid,
+                    "claim %s crosses RESTRICTION %s as an IDENTITY, and "
+                    "states its rewriting only in prose.\n"
+                    "  That cell was gated on a declared `zariski_dense` until "
+                    "the declaration was found to be both insufficient and "
+                    "beside the point, and it is now unconditional. The cell "
+                    "is right -- a restriction shares its ideal, so an identity "
+                    "at one end IS the identity at the other -- but it is only "
+                    "right about things that are actually identities. A "
+                    "relation observed to vanish at every point of the region "
+                    "is a POINTWISE claim, and it crosses this edge by being "
+                    "mislabelled rather than by being transported."
+                    % (cid, eid),
+                    "Record `lhs`, `rhs` and `ring_vars` on the claim and run "
+                    "`gp verify`. Reduction decides it: if lhs - rhs lies in "
+                    "the model's ideal the claim is what it says it is, and if "
+                    "it does not, the claim was pointwise all along and belongs "
+                    "at the region as a PREDICATE -- which does not cross.",
+                    semantic_key=cid))
+                break
+            if hit:
+                break
     return findings
 
 
@@ -1590,6 +2142,13 @@ def run(graph, accepted=None):
                 + check_families(graph)
                 + check_evidence_direction(graph)
                 + check_crosscuts(graph)
+                + check_containment(graph)
+                + check_identity(graph)
+                + check_sibling_edges(graph)
+                + check_stale_models(graph)
+                + check_citations(graph)
+                + check_doubts(graph)
+                + check_evidence(graph)
                 + check_parallel_edges(graph)
                 + check_vacuous_conclusions(graph)
                 + check_self_built(graph))
@@ -1617,10 +2176,57 @@ def clean_inferences(graph, findings):
     same failure as `gp check` exiting 0 on a graph nobody audited, which the
     reporting project's own trap list phrases as "a checker that exits 0 has
     not necessarily proved its claim".
+
+    AND IT COUNTED ONLY `TRANSPORT` FINDINGS, which is the same mistake in a
+    quieter register.  An inference whose every step was licensed by the table,
+    riding an edge that some OTHER rule had flagged, was promoted into the
+    clean list -- so an argument crossing an edge whose central containment
+    failed verification, or an edge between two mutually exclusive branches of
+    a partition, was reported as a positive control.
+
+    Found while closing the sibling-edge hole: the fixture that produced the
+    new UNSOUND_PREMISE finding also produced `clean inferences: ['I1']`, for
+    the inference riding the very edge that had just been flagged.  A reader
+    gets both statements and no way to reconcile them.
+
+    So clean now means: nothing UNSOUND on it, on its route, or on its
+    premises.  The number gets smaller and starts meaning what its own
+    docstring says it means.
+
+    SEVERITY, NOT MERE PRESENCE, and the first version of this fix got that
+    wrong.  Filtering on "any finding at all" dropped two pinned positive
+    controls carrying VACUOUS-CONCLUSION at TRIAGE -- inferences whose
+    transport is entirely correct and whose conclusion happens to be
+    uninteresting because its model was proved empty elsewhere.  Those are
+    exactly what a positive control IS: the checker declining to refuse a
+    sound step.  A TRIAGE finding is not a refusal, so it must not cost an
+    inference its clean status.
+
+    AND ON THE DERIVED SEVERITY, NOT THE OVERRIDDEN ONE.  Using `f.severity`
+    let the single inference in the corpus that talks its own severity DOWN
+    reappear as a positive control.  An argument the checker refused is not
+    evidence that the checker declines to refuse sound arguments, however
+    deliberately its author chose to carry it -- so the number a reader uses to
+    judge false-positive rate must be computed from what the checker concluded.
     """
-    flagged = {f.subject for f in findings if f.rule == R_TRANSPORT}
-    return [i for i in graph.inference_order
-            if i not in flagged and not graph.inferences[i].get("superseded_by")]
+    flagged = {f.subject for f in findings
+               if SEVERITY_RANK[f.derived_severity]
+               >= SEVERITY_RANK[UNSOUND_PREMISE]}
+    out = []
+    for i in graph.inference_order:
+        inf = graph.inferences[i]
+        if i in flagged or inf.get("superseded_by"):
+            continue
+        touched = set()
+        for pr in inf.get("premises") or []:
+            if pr.get("claim"):
+                touched.add(pr["claim"])
+            for step in pr.get("path") or []:
+                touched.add(step[0] if isinstance(step, (list, tuple)) else step)
+        if touched & flagged:
+            continue
+        out.append(i)
+    return out
 
 
 def render(findings, accepted=None, full=False):
@@ -1675,14 +2281,35 @@ def render(findings, accepted=None, full=False):
     return "\n".join(out)
 
 
-def exit_code(findings, floor=UNSOUND_PREMISE):
-    """1 iff any finding is at or above `floor`.
+def exit_code(findings, floor=UNSOUND_PREMISE, accepted=()):
+    """1 iff any LIVE finding is at or above `floor`.
 
     The floor is DEBT-tolerant by default: a recorded hole is a hole you are
     tracking, and blocking on it would push people to stop recording them.
+
+    ACCEPTANCE HAS TO REACH THE EXIT CODE, and for two releases it did not.
+    This function never saw the baseline, so a campaign whose every finding had
+    been examined and deliberately carried still exited 1 -- while the same
+    command printed, three lines earlier:
+
+        "Nothing live. Every finding at this floor was examined and accepted
+         deliberately -- this campaign is carrying debt in the open, NOT
+         FAILING."
+
+    The prose and the exit code said opposite things, and the exit code is what
+    a hook or a CI step reads.  So `gp accept` bought nothing at the only layer
+    that automates, and a campaign legitimately carrying debt could never go
+    green -- which is precisely the pressure that stops people recording holes,
+    the thing the DEBT-tolerant default exists to avoid.
+
+    A finding that is carried is not absent: it still prints, `gp history`
+    still lists it, and re-accepting is still a deliberate act.  It just does
+    not fail the build, because somebody already looked at it.
     """
     rank = SEVERITY_RANK[floor]
-    return 1 if any(SEVERITY_RANK[f.severity] >= rank for f in findings) else 0
+    accepted = set(accepted or ())
+    return 1 if any(SEVERITY_RANK[f.severity] >= rank
+                    and f.fid not in accepted for f in findings) else 0
 
 
 def collect_hints(graph, **objects):

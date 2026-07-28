@@ -36,11 +36,17 @@ EV_BUILT_BY = "built_by"
 EV_PARTITION = "partition"
 EV_SAME_AS = "same_as"
 EV_FAMILY = "family"      # a finite INDEX of objects, not a variety
+EV_EVIDENCE = "evidence"  # a COMPUTATION standing behind a claim
+EV_DOUBT = "doubt"        # an AUTHORED defeater; becomes a finding
+EV_CITATION = "citation"  # which external object an identifier denotes
+EV_ERRATUM = "erratum"    # voids a record that does not fold
+EV_VERDICT = "verdict"    # what a VERIFIER found; never declared
 EV_NOTE = "note"          # free-form, carried but never interpreted
 
 EVENT_KINDS = (EV_CERTIFICATE, EV_MODEL, EV_EDGE, EV_CLAIM, EV_INFERENCE,
                EV_BUILT_BY, EV_PARTITION, EV_SAME_AS, EV_FAMILY,
-               EV_NOTE)
+               EV_EVIDENCE, EV_DOUBT, EV_CITATION, EV_ERRATUM,
+               EV_VERDICT, EV_NOTE)
 
 # Severities an inference may override to.  Named here rather than imported so
 # the store stays the bottom layer with no dependency on the checker;
@@ -57,6 +63,20 @@ class GraphError(ValueError):
 def _require(cond, msg):
     if not cond:
         raise GraphError(msg)
+
+
+def successors(record):
+    """The ids that superseded `record`, as a readable string.
+
+    `superseded_by` is a LIST because a record may be split into several, and
+    every message that names the successor should read naturally whether there
+    is one or three.
+    """
+    v = record.get("superseded_by")
+    if not v:
+        return ""
+    v = v if isinstance(v, list) else [v]
+    return v[0] if len(v) == 1 else ", ".join(v[:-1]) + " and " + v[-1]
 
 
 def _canon(ev):
@@ -85,7 +105,11 @@ class Graph(object):
         self.families = {}         # id -> {count, enumeration, members?}
         self.groups = {}           # group id -> {of, settles, exhibited, ...}
         self.aliases = {}          # id -> {models: [...], why}
+        self.citations = {}        # id -> which external object a name denotes
+        self.evidence = {}         # id -> a computation standing behind a claim
+        self.doubts = {}           # id -> an authored defeater
         self.notes = []
+        self.named_notes = {}      # id -> note, for notes that can be corrected
         self._seen = {}            # (kind, id) -> canonical event
 
     # -- fold ---------------------------------------------------------------
@@ -98,8 +122,19 @@ class Graph(object):
                  % (where, kind, ", ".join(EVENT_KINDS)))
 
         if kind == EV_NOTE:
+            # A NOTE WITH AN ID CAN BE CORRECTED; one without stays as it was.
+            #
+            # Notes had no id and admitted no `supersedes`, so a live session
+            # whose shell ate a backquoted phrase mid-note could only write a
+            # SECOND note saying the first was wrong. `gp history` already
+            # warns that a note is prose invisible to every rule; it was also
+            # immutable prose, which is the worse half, because the correction
+            # is as invisible as the error.
+            #
+            # Optional, so every existing note keeps folding untouched.
             self.notes.append(ev)
-            return
+            if not ev.get("id"):
+                return
 
         if kind == EV_BUILT_BY:
             _require("model" in ev and "inference" in ev,
@@ -124,11 +159,278 @@ class Graph(object):
                 "  already: %s\n"
                 "  now    : %s\n"
                 "Two branches declared the same entity differently.  Resolve "
-                "it in the source graphs; the fold will not blend them."
-                % (where, kind, eid, self._seen[key], canon))
+                "it in the source graphs; the fold will not blend them.\n"
+                "\n"
+                "  IF YOU ARE NOT MERGING -- and in a single session you are "
+                "almost certainly not -- this is the wrong advice for what you "
+                "are doing.  The common case is wanting to ADD or CORRECT a "
+                "field on something already declared, and the move for that is "
+                "SUPERSESSION, not redeclaration: send the new version with "
+                "`supersedes: %r` and a `discharge_kind`.\n"
+                "  The old record stays in the log with every argument that "
+                "used it still attached, which is the point -- a redeclaration "
+                "would silently retarget them.  `gp why supersession` lists "
+                "which kind to use; briefly, AMEND adds without changing what "
+                "the record licenses, RESTATE changes what it says, RELICENSE "
+                "changes what it permits, RETRACT withdraws it."
+                % (where, kind, eid, self._seen[key], canon, eid))
         self._seen[key] = canon
 
         getattr(self, "_apply_" + kind)(ev, where)
+
+    # The verdicts a verifier may record, per subject.  Validated rather than
+    # accepted as free text: the checker matches these strings exactly, so an
+    # unrecognised one would land in the graph and quietly mean nothing.  A
+    # live session wrote `"refuted"` in lowercase and it suppressed the rule it
+    # was trying to trip.
+    _VERDICTS = {
+        "claim": {"identity_verdict": ("VERIFIED_AMBIENT", "VERIFIED_DERIVED",
+                                       "REFUTED", "UNVERIFIED"),
+                  "why_field": "identity_why"},
+        "edge": {"containment": ("VERIFIED", "NOT_BY_IDEAL", "UNVERIFIED"),
+                 "why_field": "containment_why"},
+    }
+
+    # HOW A COMPUTATION CAN STAND BEHIND A NON-ALGEBRAIC CLAIM.
+    #
+    # Certificates are algebraic and attach only to EMPTY.  So a live session
+    # that established a PREDICATE by sweeping a bounded lattice had
+    # `established_by: RAN, ladder: exact-checked` -- which records THAT
+    # something was run and not WHAT.  The script name went into a note, and
+    # `gp history`'s own closing line had already predicted the consequence: a
+    # load-bearing premise in a note is invisible to every rule in the checker.
+    #
+    # ENUMERATION  an exhaustive sweep of a bounded space.  The claim is true
+    #              because every case was tried, so `ran` names the sweep.
+    # REPLICATION  two independent procedures produced the same answer.
+    #
+    # THE SECOND ONE IS WHY THIS IS EVIDENCE AND NOT A CLAIM KIND.  Three of
+    # four IDENTITY claims in one campaign were really replications -- a
+    # recount, a retrodiction, a replayed verdict vector -- typed IDENTITY
+    # because it was the only kind meaning "these two are equal".  But "two
+    # procedures agreed" is not a proposition about a variety and does not
+    # transport anywhere; it is why you believe the proposition that does.
+    # Making it a claim kind would have owed the ledger twelve transport cells
+    # for something with no transport behaviour at all.
+    EVIDENCE_METHODS = ("ENUMERATION", "REPLICATION")
+
+    # WHICH VERDICT AN ENUMERATION DECIDES, and this is the field a live
+    # session called the single most important epistemic fact about its run.
+    #
+    # It swept a descent tree that keeps MORE branches alive at every choice
+    # point -- both sub-cases explored, every admissible drop kept.  So a KILL
+    # is definitive and a SURVIVAL is a survival of that filter and nothing
+    # more.  Its own words: "conservative: kills are safe, survivals are not."
+    # There was no field for it, so it went into prose, and a reader taking the
+    # survivor count at face value would have read an upper bound as an answer.
+    #
+    # THE SAME DISTINCTION `verify.py` ALREADY MAKES, one layer up.  There, a
+    # reduction that succeeds establishes the containment and a reduction that
+    # fails proves nothing, because the test is sufficient and not necessary.
+    # An incomplete filter has exactly that shape, and every enumeration used
+    # as a filter has it.
+    DECIDES = {
+        "EXCLUSIONS": "a removal is definitive; a survival means only that "
+                      "this filter did not remove it",
+        "INCLUSIONS": "a survival is definitive; a removal may be an artifact "
+                      "of the filter being too aggressive",
+        "BOTH": "the enumeration is exact: it removes everything it should "
+                "and nothing it should not",
+    }
+
+    def _apply_evidence(self, ev, where):
+        _require(ev.get("for"),
+                 "%s: evidence %r must say what it is `for`"
+                 % (where, ev["id"]))
+        _require(ev.get("method") in self.EVIDENCE_METHODS,
+                 "%s: evidence %r has method %r; the methods are %s"
+                 % (where, ev["id"], ev.get("method"),
+                    ", ".join(self.EVIDENCE_METHODS)))
+        _require(ev.get("ran"),
+                 "%s: evidence %r needs `ran` -- the script, command or "
+                 "artifact that produced it. Naming the computation IS the "
+                 "content of this record; without it this says only that "
+                 "something happened." % (where, ev["id"]))
+        _require(ev.get("what"),
+                 "%s: evidence %r needs `what` -- what the computation "
+                 "actually did, in a sentence." % (where, ev["id"]))
+        if ev.get("decides") is not None:
+            _require(ev["decides"] in self.DECIDES,
+                     "%s: evidence %r decides %r; the values are %s"
+                     % (where, ev["id"], ev["decides"],
+                        ", ".join(sorted(self.DECIDES))))
+        if ev["method"] == "REPLICATION":
+            _require(ev.get("agrees_with"),
+                     "%s: evidence %r is a REPLICATION and must say what it "
+                     "`agrees_with`. A replication that does not name the "
+                     "other procedure is a single run with a confident label."
+                     % (where, ev["id"]))
+        self.evidence[ev["id"]] = dict(ev)
+
+    # THE DEFEATER KINDS.  Named rather than free text so the checker can group
+    # them and so a reader meets a vocabulary rather than a paragraph.
+    DOUBT_KINDS = ("COUNTEREXAMPLE", "MISSING_PREMISE", "INAPPLICABLE_RULE",
+                   "UNVERIFIED_EVIDENCE", "SCOPE_MISMATCH",
+                   "NONEXHAUSTIVE_PARTITION", "CONFLICTING_RESULT",
+                   "MODEL_MISMATCH", "DOES_NOT_FIT")
+
+    def _apply_doubt(self, ev, where):
+        """An AUTHORED defeater.  Every other finding in this system is
+        computed; this is the one a person writes.
+
+        WHY IT NEEDS TO EXIST.  A live session read a cited proposition, found
+        it did not supply the premise it was supposed to -- wrong model, wrong
+        claim kind, wrong subject -- and had nowhere to put that.  It refused
+        to draw an UNTYPED edge, correctly, because that would assert a map
+        exists and is merely unclassified, which is the opposite of what it
+        found.  The result went into a note, invisible to every rule.
+
+        NOT A SECOND LIFECYCLE.  A doubt becomes a FINDING, and findings
+        already have one: `gp accept` carries them with a per-finding reason,
+        which is exactly ACCEPTED_RISK.  So answering, accepting and
+        superseding all work unchanged.
+
+        THE SEVERITY IS THE AUTHOR'S, and that is safe in the one direction it
+        needs to be.  Every other honour-system field in this project granted a
+        LICENCE; this one only withholds it.  Over-declaring a doubt costs a
+        second look, under-declaring costs nothing that was not already the
+        case, so the conservative direction is the cheap one.
+        """
+        _require(ev.get("about"),
+                 "%s: doubt %r must name what it is `about`"
+                 % (where, ev["id"]))
+        _require(ev.get("kind") in self.DOUBT_KINDS,
+                 "%s: doubt %r has kind %r; the kinds are %s"
+                 % (where, ev["id"], ev.get("kind"),
+                    ", ".join(self.DOUBT_KINDS)))
+        _require(ev.get("why"),
+                 "%s: doubt %r needs `why`. A doubt without its reason is a "
+                 "mood, and the next reader cannot act on it."
+                 % (where, ev["id"]))
+        # WHICH PART OF IT, because a doubt about a whole claim is a blunter
+        # instrument than people need.
+        #
+        # A live session wanted to defeat ONE SENTENCE of a predecessor whose
+        # other results it had independently reproduced and agreed with. It had
+        # to hang the doubt on the entire claim, so the next reader meets a
+        # defeater attached to something otherwise intact. Its own diagnosis:
+        # this is what will make people reach for supersession where
+        # supersession is wrong, because superseding is the only way to change
+        # part of a record.
+        #
+        # The quote must actually OCCUR in the target. A quotation that does
+        # not is either a typo or a reference that has gone stale under a
+        # supersession, and both are worth catching at fold time -- an
+        # unanchored quote is the honour system with punctuation.
+        if ev.get("quote"):
+            target = (self.claims.get(ev["about"])
+                      or self.inferences.get(ev["about"])
+                      or self.models.get(ev["about"])
+                      or self.edges.get(ev["about"]) or {})
+            hay = " ".join(str(target.get(f) or "")
+                           for f in ("statement", "asserted", "what", "why",
+                                     "note", "caveat"))
+            _require(ev["quote"] in hay,
+                     "%s: doubt %r quotes %r, which does not occur in %s.\n"
+                     "  A quote that is not in the record it doubts is a typo "
+                     "or a reference gone stale under a supersession. Either "
+                     "way the next reader cannot find what you meant."
+                     % (where, ev["id"], ev["quote"], ev["about"]))
+        sev = ev.get("severity", "TRIAGE")
+        _require(sev in C_SEVERITIES,
+                 "%s: doubt %r has severity %r; the severities are %s"
+                 % (where, ev["id"], sev, ", ".join(C_SEVERITIES)))
+        d = dict(ev)
+        d["severity"] = sev
+        self.doubts[ev["id"]] = d
+
+    def _apply_note(self, ev, where):
+        """A note that carries an id, so a later one can correct it."""
+        _require(ev.get("text"),
+                 "%s: note %r needs `text`" % (where, ev["id"]))
+        self.named_notes[ev["id"]] = dict(ev)
+
+    def _apply_citation(self, ev, where):
+        """Which external object an identifier actually denotes.
+
+        THE PROJECT'S OWN TRAP NUMBER ONE, and it had no type.  A live session
+        established that a paper's citation of "GGV1 Remark 7.10" denotes what
+        the arXiv source numbers Remark 7.14 -- because the citing work used a
+        pre-publication draft -- and, worse, that the arXiv text's ACTUAL 7.10
+        is a different statement about the same subject.  A reader resolving
+        the citation naively lands on a plausible wrong object with no signal.
+
+        That was the most useful thing found all session and the only container
+        that would take it was a PREDICATE at some model, used as a bag.  It is
+        not a statement about points of any variety; it is a fact about
+        identifiers.
+
+        NOT A MATHEMATICAL CLAIM, so it licenses nothing and transports
+        nowhere.  What it does is let the next reader inherit the resolution
+        instead of rediscovering it, and let `check` warn when something cites
+        an identifier already recorded as ambiguous.
+        """
+        _require(ev.get("cites"),
+                 "%s: citation %r needs `cites` -- the identifier AS WRITTEN "
+                 "in the citing source, e.g. 'GGV1 Remark 7.10'"
+                 % (where, ev["id"]))
+        _require(ev.get("resolves_to"),
+                 "%s: citation %r needs `resolves_to` -- the object it "
+                 "actually denotes. A citation record whose whole point is the "
+                 "resolution must carry one."
+                 % (where, ev["id"]))
+        _require(ev.get("why"),
+                 "%s: citation %r needs `why`. A resolution asserted without "
+                 "its reason is the honour system with a bibliography."
+                 % (where, ev["id"]))
+        # AND WHAT THE SOURCE GETS WRONG, which is a different fact from what
+        # its identifiers denote.  Two sessions independently found the same
+        # misprint in one theorem's proof -- a displayed formula whose own
+        # printed conclusions contradict it -- and neither had anywhere to put
+        # it.  `erratum` voids records in OUR graph and is refused if they
+        # fold; this is about somebody else's paper.
+        #
+        # A FIELD RATHER THAN A KIND.  One distinct instance does not earn an
+        # event kind, and a citation record is already the place a reader looks
+        # to find out what an external reference really says.
+        self.citations[ev["id"]] = dict(ev)
+
+    def _apply_verdict(self, ev, where):
+        """Record what a VERIFIER found.  Its own event kind, deliberately.
+
+        A verdict is not a declaration and must not be reachable from the
+        declare surface, because its entire value is that a computation stands
+        behind it -- `check` raises its most severe finding off one of these.
+        Keeping it a separate kind is the structural version of that rule: the
+        claim event has no field to smuggle it through, and this event carries
+        nothing else.
+
+        It is also the distinction the prior art keeps drawing between a RUN
+        and the specification it instantiates. The claim says what is asserted;
+        the verdict says what happened when somebody checked.
+        """
+        subject = ev.get("subject")
+        _require(subject in self._VERDICTS,
+                 "%s: verdict %r must name a `subject` of %s"
+                 % (where, ev.get("id"), " or ".join(sorted(self._VERDICTS))))
+        spec = self._VERDICTS[subject]
+        field = [k for k in spec if k != "why_field"][0]
+        target = self.claims if subject == "claim" else self.edges
+        of = ev.get("of")
+        _require(of in target,
+                 "%s: verdict %r is about %s %r, which is not in this graph"
+                 % (where, ev.get("id"), subject, of))
+        _require(ev.get("verdict") in spec[field],
+                 "%s: verdict %r records %r; for a %s the verdicts are %s.\n"
+                 "  These are matched exactly by the checker, so an "
+                 "unrecognised one would be stored and mean nothing."
+                 % (where, ev.get("id"), ev.get("verdict"), subject,
+                    ", ".join(spec[field])))
+        _require(ev.get("why"),
+                 "%s: verdict %r needs `why` -- the reduction that produced it"
+                 % (where, ev.get("id")))
+        target[of][field] = ev["verdict"]
+        target[of][spec["why_field"]] = ev["why"]
 
     def _apply_certificate(self, ev, where):
         # A BUILT-IN CANNOT BE REDEFINED FROM A GRAPH.
@@ -411,6 +713,33 @@ class Graph(object):
         _require(isinstance(declares, dict),
                  "%s: model %r `declares` must be {axis: [values]}"
                  % (where, ev["id"]))
+        # THE ALGEBRA, IF THE MODEL WAS GIVEN ANY.
+        #
+        # Optional on purpose and for as long as it takes.  Most models in
+        # every existing campaign have none, because until now the CAS was
+        # handed the ideal and the model it minted kept only `desc`.  Requiring
+        # it would break every graph in the corpus to buy a field nothing yet
+        # consumes; the migration would have no ignorance value to fill with,
+        # since "this model has no ideal" and "nobody recorded one" are
+        # different facts and only the author knows which.
+        #
+        # What is checked is that a model claiming to have one is COHERENT:
+        # generators without ring variables cannot be parsed by anything, and a
+        # `V(src) subset V(dst)` check that has to guess the ring is not a
+        # check.
+        rv = ev.get("ring_vars")
+        gens = ev.get("generators")
+        _require(rv is None or isinstance(rv, list),
+                 "%s: model %r `ring_vars` must be a list" % (where, ev["id"]))
+        _require(gens is None or isinstance(gens, list),
+                 "%s: model %r `generators` must be a list" % (where, ev["id"]))
+        _require(not (gens is not None and not rv),
+                 "%s: model %r declares generators and no `ring_vars`. A "
+                 "polynomial is meaningless without the ring it lives in, and "
+                 "anything reading these -- an ideal-containment check, an "
+                 "exact identity test -- would have to guess it. A check that "
+                 "guesses its own ring is not a check."
+                 % (where, ev["id"]))
         m = dict(ev)
         m["declares"] = {a: list(v) for a, v in declares.items()}
         m["touches"] = list(ev.get("touches") or [])
@@ -507,6 +836,43 @@ class Graph(object):
                          "kind and is never declared"),
     }
 
+    # FIELDS A VERIFIER WRITES AND A CALLER MAY NOT.
+    #
+    # `check` branches on these to raise findings, and until this guard existed
+    # nothing wrote them, so the only way to populate them was to type them
+    # into a declare event.  A live session proved out the consequence: it
+    # declared `identity_verdict: REFUTED` with no lhs, no rhs and no
+    # computation, and the checker duly reported UNSOUND_CONCLUSION saying the
+    # claim "was reduced and DOES NOT HOLD".  It had not been reduced.
+    #
+    # That is the honour system wearing a computation -- the precise thing
+    # `verify.py`'s docstring says it exists to refuse -- and it had been built
+    # into the surface underneath it.  Worse, the value was unvalidated free
+    # text, so `"refuted"` in lowercase silently SUPPRESSED the untested tier
+    # (the checker tests truthiness before matching) while never tripping the
+    # refuted tier.  A typo turned the rule off.
+    _COMPUTED_FIELDS = {
+        "identity_verdict": "verify.identity",
+        "identity_why": "verify.identity",
+        "containment": "verify.containment",
+        "containment_why": "verify.containment",
+    }
+
+    def _reject_computed_fields(self, ev, where):
+        for bad, writer in sorted(self._COMPUTED_FIELDS.items()):
+            if bad in ev:
+                raise GraphError(
+                    "%s: %s %r carries %r, which is a VERDICT and not a "
+                    "declaration. Only `%s` may write it, because the whole "
+                    "value of the field is that a computation stands behind "
+                    "it.\n"
+                    "  Declaring it by hand would let you assert the "
+                    "checker's most severe finding with nothing behind it, "
+                    "which is the honour system this verifier exists to "
+                    "replace. Run `gp verify` and it will be recorded for you."
+                    % (where, ev.get("ev", "record"), ev.get("id"), bad,
+                       writer))
+
     def _reject_rule_names(self, ev, where):
         for bad, (real, hint) in sorted(self._NOT_A_FIELD.items()):
             if bad in ev:
@@ -523,6 +889,7 @@ class Graph(object):
 
     def _apply_claim(self, ev, where):
         self._reject_rule_names(ev, where)
+        self._reject_computed_fields(ev, where)
         # A CLAIM SITS AT A MODEL OR AT A FAMILY, never both.
         #
         # A family is to its members as a model is to its points, so the claim
@@ -536,7 +903,17 @@ class Graph(object):
                  "A family is an INDEX, not a variety: its members are objects, "
                  "a model's members are points, and a claim quantifies over one "
                  "or the other." % (where, ev["id"]))
-        kinds = K.CLAIM_KINDS + ((K.COUNT,) if at_family else ())
+        # AN IDENTITY IS ABOUT A COORDINATE RING AND AN INDEX HAS NONE.
+        #
+        # The other three kinds carry over to a family unchanged, because they
+        # are quantifiers and a family quantifies over members exactly as a
+        # model quantifies over points.  IDENTITY does not: it is a rewriting
+        # valid in a specific ring, and "the 1567 isomorphism classes" is not a
+        # ring.  Admitting it would mean either a silent reinterpretation as
+        # "in every member's ring" -- which is a PREDICATE and should be
+        # written as one -- or a claim about an object that does not exist.
+        kinds = ((K.EMPTY, K.NONEMPTY, K.PREDICATE, K.COUNT) if at_family
+                 else K.CLAIM_KINDS)
         _require(ev.get("kind") in kinds,
                  "%s: claim %r has kind %r; %s: %s"
                  % (where, ev["id"], ev.get("kind"),
@@ -544,6 +921,32 @@ class Graph(object):
                     else "at a model the kinds are", ", ".join(kinds)))
         _require(ev.get("statement"),
                  "%s: claim %r needs `statement`" % (where, ev["id"]))
+        # AN IDENTITY MAY CARRY THE REWRITING ITSELF, and when it does the
+        # claim stops being free text and becomes checkable.
+        #
+        # OPTIONAL, AND THAT IS FORCED RATHER THAN CHOSEN.  Fourteen IDENTITY
+        # claims exist across the live graphs and not one carries `lhs`; six of
+        # them are in a sealed census that must keep folding untouched until
+        # its cold-return experiment ends.  Requiring the fields would make
+        # that graph unfoldable, which is the one outcome the seal exists to
+        # prevent.  So an unstructured IDENTITY stays legal and `check` reports
+        # the hole -- the same split this project already makes everywhere
+        # else: refuse nothing, surface everything.
+        if ev.get("lhs") is not None or ev.get("rhs") is not None:
+            _require(ev.get("kind") == K.IDENTITY,
+                     "%s: claim %r carries `lhs`/`rhs` but its kind is %r. A "
+                     "rewriting is what IDENTITY means; the other kinds are "
+                     "quantifiers and have no two sides."
+                     % (where, ev["id"], ev.get("kind")))
+            _require(ev.get("lhs") is not None and ev.get("rhs") is not None,
+                     "%s: claim %r gives only one side of the rewriting. Half "
+                     "an identity is not a weaker identity, it is not one."
+                     % (where, ev["id"]))
+            _require(ev.get("ring_vars"),
+                     "%s: claim %r carries a rewriting but no `ring_vars`. "
+                     "`lhs`/`rhs` are text until a ring says what the symbols "
+                     "are, and the whole point of recording them is that a "
+                     "reduction can be run." % (where, ev["id"]))
         if ev.get("kind") == K.COUNT:
             self._apply_disposition(ev, where)
         c = dict(ev)
@@ -564,6 +967,27 @@ class Graph(object):
         # certificate, existence needs to say how the point is known.
         c["witness_kind"] = K.derive_witness_kind(
             ev["kind"], ev.get("witness_kind"), claim_id=ev["id"])
+        # AN EXISTENTIAL CLAIM CANNOT ALSO EXHIBIT A POINT.
+        #
+        # `existential` says "a point exists and I do not hold it" -- it is the
+        # WEAKER reading, and it exists to open one cell that the witness
+        # reading correctly closes.  Declaring it alongside an EXHIBITED
+        # witness is not merely redundant: it would take a claim that HAS a
+        # point and use it to cross the one edge where having the point is the
+        # reason the crossing fails.  That is Chevalley pointing the wrong way.
+        _require(not (ev.get("existential")
+                      and c["witness_kind"] == K.EXHIBITED),
+                 "%s: claim %r declares `existential` AND exhibits a witness. "
+                 "Those are the two readings of NONEMPTY and this claim cannot "
+                 "be both.\n"
+                 "  `existential` is the WEAKER one -- a point exists, you do "
+                 "not hold it -- and it opens IMAGE_CLOSURE/AGAINST precisely "
+                 "because cl(empty) = empty.  A claim that HAS the point is "
+                 "refused at that cell for the opposite and equally good "
+                 "reason: a point of the closure need not lift.\n"
+                 "  If you hold the point, drop `existential` and lift it. If "
+                 "you only proved one exists, drop the witness."
+                 % (where, ev["id"]))
         # Evidence grading licenses nothing, so both fields are optional -- an
         # ungraded claim is merely ungraded.  What is refused is a grade that
         # is WRONG, including a pair that contradicts itself.
@@ -598,12 +1022,13 @@ class Graph(object):
     # carrying `supersedes` with no existence check, no self-check and no
     # back-pointer at all.
     # -----------------------------------------------------------------------
-    _SUPERSEDABLE = ("claim", "inference", "edge")
+    _SUPERSEDABLE = ("claim", "inference", "edge", "model", "note")
 
     def _resolve_supersessions(self):
         for entity in self._SUPERSEDABLE:
             registry = {"claim": self.claims, "inference": self.inferences,
-                        "edge": self.edges}[entity]
+                        "edge": self.edges, "model": self.models,
+                        "note": self.named_notes}[entity]
             kinds = (D_KINDS if entity == "edge" else K.SUPERSESSION_KINDS)
             for new_id in sorted(registry):
                 new = registry[new_id]
@@ -656,7 +1081,28 @@ class Graph(object):
                 else:
                     K.check_supersession_kind(old, new, kind,
                                               claim_id=new_id, entity=entity)
-                old["superseded_by"] = new_id
+                # A RECORD MAY BE SUPERSEDED BY SEVERAL, and the single
+                # assignment this replaces LOST ALL BUT THE LAST SILENTLY.
+                #
+                # A live session had one claim asserting three rewritings.
+                # Structuring them meant three claims; one could supersede the
+                # original and the other two were related to it by nothing the
+                # graph could record, so the relationship went into a caveat
+                # where nothing types it.
+                #
+                # Measured before fixing: two claims superseding one were both
+                # ACCEPTED, and `superseded_by` held only the second. The graph
+                # then asserted a single successor that was not the whole
+                # story, which is worse than refusing -- a reader following it
+                # gets a confident and incomplete answer.
+                #
+                # A list, because splitting a record is a legitimate act. Every
+                # reader that tests truthiness is unaffected; the few that name
+                # the successor render it through `_successors`.
+                prior = old.get("superseded_by")
+                old["superseded_by"] = (
+                    (prior if isinstance(prior, list) else [prior])
+                    + [new_id]) if prior else [new_id]
 
     def _apply_inference(self, ev, where):
         """An inference has one or more PREMISES, each with its own path.
@@ -798,7 +1244,7 @@ class Graph(object):
         self.inferences[ev["id"]] = i
         self.inference_order.append(ev["id"])
 
-    def apply_all(self, batch):
+    def apply_all(self, batch, _check_errata=True):
         """Fold a whole batch, CERTIFICATES FIRST.
 
         `batch` is [(event, source, lineno)].
@@ -822,15 +1268,84 @@ class Graph(object):
         prior presence changes how a later event FOLDS -- every other
         cross-reference is checked in `validate()` after the fold, which is why
         models and edges have never needed ordering.
+
+        AND ERRATA ARE PASS ZERO, for a failure a live session hit twice in one
+        afternoon.  It wrote `supersession_kind` where the field is
+        `discharge_kind`, and `gp check` then exited 2 FOREVER: superseding the
+        bad record does not help, because the error is ABOUT the bad record.
+        `gp migrate` filled nothing and `gp accept` carries findings, not graph
+        errors.  The only exit was rewriting the append-only log -- the one
+        operation its own header forbids -- and the session did that twice.
+
+        An `erratum` voids a record so the fold skips it.  The log stays
+        append-only and the repair is itself a record, which is the same shape
+        as every other correction here.
+
+        IT IS DELIBERATELY NOT A GENERAL DELETE.  An erratum is refused unless
+        the record it voids genuinely fails to fold; a record that folds and is
+        merely WRONG must be superseded, with a discharge kind saying how.
+        Without that check this would be a mechanism for making a finding
+        disappear by voiding the claim that produced it, in a log whose whole
+        premise is that nothing is quietly removed.
         """
         batch = list(batch)
+        voided = {}
+        for ev, source, lineno in batch:
+            if not isinstance(ev, dict) or ev.get("ev") != EV_ERRATUM:
+                continue
+            where = "%s:%d" % (source, lineno)
+            _require(ev.get("voids"),
+                     "%s: erratum must name the record it `voids`" % where)
+            _require(ev.get("why"),
+                     "%s: erratum voiding %r needs `why`. A record removed "
+                     "from an append-only log without a reason is the thing "
+                     "this format exists to prevent."
+                     % (where, ev["voids"]))
+            voided[ev["voids"]] = (ev, where)
+
         for want_cert in (True, False):
             for ev, source, lineno in batch:
+                if isinstance(ev, dict):
+                    if ev.get("ev") == EV_ERRATUM:
+                        continue
+                    if ev.get("id") in voided:
+                        continue
                 is_cert = (isinstance(ev, dict)
                            and ev.get("ev") == EV_CERTIFICATE)
                 if is_cert is want_cert:
                     self.apply(ev, source=source, lineno=lineno)
+
+        if voided and _check_errata:
+            self._refuse_unneeded_errata(batch, voided)
         return self
+
+    def _refuse_unneeded_errata(self, batch, voided):
+        """An erratum must be REPAIRING something, not removing it.
+
+        Checked by re-folding the batch with this one erratum dropped.  If that
+        succeeds, the record it claims to void was fine and the erratum is
+        refused with the move that IS correct.
+        """
+        for vid, (ev, where) in sorted(voided.items()):
+            trimmed = [(e, s, n) for (e, s, n) in batch if e is not ev]
+            try:
+                Graph().apply_all(trimmed, _check_errata=False).validate()
+            except (GraphError, K.KernelRefusal):
+                continue
+            raise GraphError(
+                "%s: erratum voids %r, but that record FOLDS. An erratum is "
+                "for a record the graph cannot read at all -- a malformed "
+                "field, a name that is not a field, a shape no rule can "
+                "apply.\n"
+                "  A record that folds and is merely WRONG is superseded, not "
+                "voided: send the corrected version with `supersedes: %r` and "
+                "a `discharge_kind` saying how it changed. That keeps every "
+                "argument which used the old one attached to it, where a void "
+                "would silently drop them.\n"
+                "  This distinction is the whole reason an erratum is not a "
+                "delete. Without it, a finding could be made to disappear by "
+                "voiding the claim that produced it."
+                % (where, vid, vid))
 
     # -- referential integrity ---------------------------------------------
     def validate(self):
@@ -842,6 +1357,19 @@ class Graph(object):
         can walk.
         """
         self._resolve_supersessions()
+        for vid, v in sorted(self.evidence.items()):
+            _require(v["for"] in self.claims,
+                     "evidence %s is for %r, which is not a claim in this "
+                     "graph." % (vid, v["for"]))
+        for did, d in sorted(self.doubts.items()):
+            known = (did in self.claims or d["about"] in self.claims
+                     or d["about"] in self.edges or d["about"] in self.inferences
+                     or d["about"] in self.models)
+            _require(known,
+                     "doubt %s is about %r, which is not a claim, edge, "
+                     "inference or model in this graph. A doubt attaches to "
+                     "something; if the thing it doubts is not recorded, "
+                     "record that first." % (did, d["about"]))
         for cid, c in sorted(self.claims.items()):
             if c.get("family"):
                 _require(c["family"] in self.families,
@@ -1070,10 +1598,38 @@ def append(events, root="."):
     d = os.path.dirname(path)
     if d and not os.path.isdir(d):
         os.makedirs(d)
-    g = Graph()
-    batch = []
+    # WAS IT ALREADY BROKEN?  Fold the EXISTING log on its own first.
+    #
+    # Transactionality is right and stays: a log you cannot fold is worse than a
+    # rejected write.  What was wrong is that a graph already refused for
+    # reasons predating this call reported as though the caller had caused it.
+    #
+    # A live lane hit the worst version. Its `.mcp.json` pointed at a root whose
+    # graph had been left unfoldable by an unrelated session, so the author's
+    # FIRST declaration in a campaign created minutes earlier came back citing a
+    # claim id they had never seen. They spent the diagnosis diffing four copies
+    # of a fixture across two repositories, and wrote the log by hand for the
+    # rest of the session.
+    #
+    # Refusing is still correct. Blaming the caller is not.
+    existing = []
     if os.path.exists(path):
-        batch.extend((ev, path, n) for ev, n in load_events(path))
+        existing = [(ev, path, n) for ev, n in load_events(path)]
+        try:
+            Graph().apply_all(list(existing)).validate()
+        except (GraphError, K.KernelRefusal) as exc:
+            raise GraphError(
+                "THE GRAPH WAS ALREADY UNFOLDABLE BEFORE THIS WRITE, and the "
+                "reason below is not about the events you just sent:\n\n  %s\n\n"
+                "  graph: %s\n"
+                "  Nothing was written and nothing you sent is implicated. "
+                "Repair that record -- `gp migrate` handles the mechanical "
+                "cases and refuses the ones needing a decision -- and send this "
+                "batch again. If that path is not the campaign you are working "
+                "in, the root resolved somewhere you did not expect."
+                % (exc, os.path.abspath(path)))
+    g = Graph()
+    batch = list(existing)
     batch.extend((ev, "<new>", k + 1) for k, ev in enumerate(events))
     g.apply_all(batch).validate()
     with open(path, "a", encoding="utf-8") as fh:
