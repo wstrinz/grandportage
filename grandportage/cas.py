@@ -791,6 +791,243 @@ def check_witness(ring_vars, generators, point, characteristic=0, timeout=300,
                            if not g["vanishes"]]}
 
 
+def substitute_and_reduce(ring_vars, expr, images, generators=(),
+                          characteristic=0, timeout=300, _runner=None):
+    """Apply a SIMULTANEOUS substitution, then reduce modulo an ideal.
+
+    NESTED `subst` IS NOT SIMULTANEOUS, and getting that wrong is silent.
+    Swapping two variables by substituting one at a time sends `x*y - 1` to
+    `x*x - 1`: the first substitution puts `y` everywhere, and the second
+    rewrites the lot.  The bug reports the map as failing to carry an ideal it
+    carries perfectly well.
+
+    Singular's `map` does the whole substitution at once, which is what a
+    change of coordinates means.  Returns (reduced_form, reduces_to_zero).
+    """
+    if set(images) != set(ring_vars):
+        raise CASError(
+            "a substitution must give an image for every ring variable; got "
+            "%s for %s.  A partial map is not a change of coordinates."
+            % (", ".join(sorted(images)), ", ".join(ring_vars)))
+    # THE POLYNOMIAL MUST BE NAMED FIRST.  Singular's map application takes a
+    # named object, not an inline expression -- `GP_F(x*y-1)` is a syntax
+    # error, and the error it gives ("GP_F(<name>) expected") arrives three
+    # declarations later as "GP_R2 is undefined".
+    decls = [("GP_P", "poly", expr),
+             ("GP_F", "map",
+              "GP_R," + ",".join(images[v] for v in ring_vars)),
+             ("GP_E", "poly", "GP_F(GP_P)")]
+    outs = ["GP_E"]
+    if generators:
+        decls.append(("GP_I", "ideal", ",".join(generators)))
+        decls.append(("GP_S", "ideal", "std(GP_I)"))
+        decls.append(("GP_R2", "poly", "reduce(GP_E,GP_S)"))
+        outs.append("GP_R2")
+    prog = CASProgram(SINGULAR, ring="GP_R", ring_vars=list(ring_vars),
+                      decls=decls, body=[], outputs=outs,
+                      characteristic=characteristic)
+    result = (_runner or _run_subprocess)(prog, timeout)
+    if (result["aborted"] or result["returncode"] != 0
+            or "? error" in result["stdout"] + result["stderr"]):
+        raise CASError("the CAS did not apply the substitution:\n%s"
+                       % result["stdout"][-1500:])
+    vals = _parse_outputs(result["stdout"], outs)
+    key = "GP_R2" if generators else "GP_E"
+    got = vals[key]
+    got = " ".join(got) if isinstance(got, list) else str(got)
+    got = got.split("=", 1)[-1].strip()
+    return got, got == "0"
+
+
+_FRACTION = re.compile(r"(?<![A-Za-z0-9_])(\d+)\s*/\s*(\d+)")
+
+
+def non_integral_denominators(prime, *exprs):
+    """Denominators in `exprs` that `prime` divides.
+
+    WHAT `integral` IS ACTUALLY ASKING.  That flag gates reducing an IDENTITY
+    into characteristic p, and it was declared and never computed.  The
+    kernel's own instance is `d2 = h_2 - (3/8)h_1^2`, which travels a perfectly
+    polynomial map and does not reduce mod 2 because 8 = 2^3.
+
+    A shadow formalisation put it in a different class from the others.
+    `ring_iso` is a property of a map and `identity_origin` is a property of the
+    claim, but this is neither: reduction mod p is a PARTIAL map, undefined on
+    anything with p in its denominator, and `integral` asks whether it is
+    defined here at all.  Modelled that way the transport theorem gains a
+    definedness hypothesis and nothing else changes.
+
+    Undefined is not false.  With no image there is nothing to state, which is
+    the same shape as `coefficients_in_base`: not a false claim, not a claim.
+
+    Syntactic and conservative, like `foreign_symbols`.  It reads literal
+    fractions and cannot evaluate `1/(x-x+2)`; it REPORTS so a declaration has
+    something to answer to.
+    """
+    if not prime or prime < 2:
+        return []
+    bad = []
+    for e in exprs:
+        for _num, den in _FRACTION.findall(str(e or "")):
+            d = int(den)
+            if d and d % prime == 0 and den not in bad:
+                bad.append(den)
+    return bad
+
+
+_SYMBOL = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
+
+
+def foreign_symbols(ring_vars, *exprs):
+    """Symbols in `exprs` that are neither ring variables nor numbers.
+
+    WHAT `coefficients_in_base` IS ACTUALLY ASKING, and it was never asked.
+
+    That flag gates descent across a BASE_EXTENSION, and the kernel's own
+    counterexample says why: `x^2 + 1 = (x + i)(x - i)` is valid in Q(i)[x],
+    and transported to the Q-model `i` is "not merely unproved -- it is NOT
+    EXPRESSIBLE there.  The descended statement is not a false claim, it is
+    not a claim."
+
+    A shadow formalisation made the shape precise.  Descent does not fail
+    because reflection fails -- for a field extension `I^e cap k[x] = I` holds
+    automatically.  It fails because the claim cannot be WRITTEN in the smaller
+    ring.  And in a typed setting that condition vanishes into the type: state
+    the theorem with `f g : R` and expressibility is free, which is exactly why
+    the Lean version could not see the gate.
+
+    SO THE GATE IS A TYPING ARTIFACT.  It exists because a claim here is a
+    STRING, and a string carries no evidence about which ring it lives in.
+    That makes it decidable rather than declarable: collect the symbols and see
+    whether any is foreign to the declared ring.
+
+    Deliberately syntactic and deliberately conservative.  It cannot know that
+    `sqrt2` denotes an element of the base if somebody defined it that way, so
+    it REPORTS rather than refuses -- the caller still declares, and now has
+    something to declare against.
+    """
+    known = set(ring_vars)
+    found = []
+    for e in exprs:
+        for sym in _SYMBOL.findall(str(e or "")):
+            if sym not in known and sym not in found:
+                found.append(sym)
+    return found
+
+
+def unit_ideal_representation(ring_vars, generators, characteristic=0,
+                              timeout=300, _runner=None):
+    """The COFACTORS witnessing `1 = sum a_i f_i`, not just "the basis was 1".
+
+    THE DIFFERENCE BETWEEN EVIDENCE AND A CERTIFICATE ANYBODY CAN RECHECK.
+    `ideal_is_unit` returns a Groebner basis, and a caller who sees `1` then
+    DECLARES `certificate: UNIT_IDEAL_CERT` -- so the scope of every emptiness
+    resting on it derives from a string somebody typed after reading some
+    output. Nothing relates the label to the computation.
+
+    A representation fixes that, because it can be checked by ARITHMETIC. Given
+    the cofactors, confirming `sum a_i f_i = 1` is one expansion: no Buchberger,
+    no monomial order, no trust in the search that found it. That is the
+    certifying-algorithms shape -- an answer plus a witness a simpler checker
+    can validate -- and it is also the clean bridge to a proof assistant, which
+    can check a polynomial identity and should never have to run a Groebner
+    engine.
+
+    Returns the raw run. The cofactors come back in `GP_M`, in generator order.
+    """
+    # TWO CALLS, BECAUSE `lift` FAILS WHEN THERE IS NOTHING TO LIFT.
+    #
+    # Found by testing the negative case: on `(x, y)` -- a perfectly ordinary
+    # non-unit ideal -- `lift(I, ideal(1))` errors, because 1 is not a member
+    # and there is no representation to return. Asking for both in one program
+    # turned "this ideal is not the unit ideal", which is a fine and common
+    # answer, into a CAS error.
+    #
+    # So: ask whether it is a unit first, and pay for the representation only
+    # when there is one.
+    basis_prog = CASProgram(
+        SINGULAR, ring="GP_R", ring_vars=ring_vars, generators=generators,
+        decls=[("GP_I", "ideal", ",".join(generators)),
+               ("GP_G", "ideal", "std(GP_I)")],
+        body=[], outputs=["GP_G"], characteristic=characteristic)
+    basis_res = (_runner or _run_subprocess)(basis_prog, timeout)
+    if (basis_res["aborted"] or basis_res["returncode"] != 0
+            or "? error" in basis_res["stdout"] + basis_res["stderr"]):
+        raise CASError("the CAS did not compute a basis:\n%s"
+                       % basis_res["stdout"][-1500:])
+    basis = _parse_outputs(basis_res["stdout"], ["GP_G"])["GP_G"]
+    basis = basis if isinstance(basis, list) else [basis]
+    basis = [b.split("=", 1)[-1].strip() for b in basis]
+    if basis != ["1"]:
+        return {"is_unit": False, "cofactors": None, "basis": basis}
+
+    prog = CASProgram(
+        SINGULAR, ring="GP_R", ring_vars=ring_vars, generators=generators,
+        decls=[("GP_I", "ideal", ",".join(generators)),
+               ("GP_G", "ideal", "std(GP_I)"),
+               ("GP_M", "matrix", "lift(GP_I,ideal(1))")],
+        body=[], outputs=["GP_G", "GP_M"], characteristic=characteristic)
+    # A MEASURING INSTRUMENT, so it bypasses the transport forcing function --
+    # the same reason `classify_identity` does. `run_cas` demands an edge
+    # because it MINTS A MODEL; this mints nothing and touches no graph. It
+    # answers a question so the answer can be recorded with a computation
+    # behind it, and recording is a separate, deliberate act.
+    result = (_runner or _run_subprocess)(prog, timeout)
+    if (result["aborted"] or result["returncode"] != 0
+            or "? error" in result["stdout"] + result["stderr"]):
+        raise CASError("the CAS did not produce a representation:\n%s"
+                       % result["stdout"][-1500:])
+    out = _parse_outputs(result["stdout"], ["GP_G", "GP_M"])
+    # `GP_M[i,1]=...`, one row per generator and IN GENERATOR ORDER, which is
+    # the only thing that makes the check below meaningful -- a permuted list
+    # would verify a different identity and report it as this one.
+    rows = out["GP_M"]
+    rows = rows if isinstance(rows, list) else [rows]
+    cofactors = []
+    for i in range(len(generators)):
+        want = "GP_M[%d,1]=" % (i + 1)
+        hit = [r for r in rows if r.replace(" ", "").startswith(want)]
+        cofactors.append(hit[0].split("=", 1)[-1].strip() if hit else "0")
+    return {"is_unit": True, "cofactors": cofactors, "basis": basis}
+
+
+def check_unit_ideal_representation(ring_vars, generators, cofactors,
+                                    characteristic=0, timeout=300,
+                                    _runner=None):
+    """Expand `sum a_i f_i` and see whether it is 1.  NO GROEBNER BASIS.
+
+    This is the whole point.  The expensive, subtle computation found the
+    cofactors; this one multiplies and adds.  A checker that shares no code
+    path with the search is worth more than a second run of the search, and it
+    is the only part of the chain a reader has to trust.
+
+    Refuses a length mismatch rather than padding, because a cofactor list
+    shorter than the generator list would silently verify a DIFFERENT identity
+    -- one about a sub-ideal -- and report it as this one.
+    """
+    if len(cofactors) != len(generators):
+        raise CASError(
+            "%d cofactors for %d generators. A representation must give one "
+            "coefficient per generator, in the same order; a shorter list "
+            "would verify an identity about a different ideal and report it "
+            "as this one." % (len(cofactors), len(generators)))
+    terms = " + ".join("(%s)*(%s)" % (a, f)
+                       for a, f in zip(cofactors, generators))
+    prog = CASProgram(
+        SINGULAR, ring="GP_R", ring_vars=ring_vars, generators=generators,
+        decls=[("GP_SUM", "poly", terms)],
+        body=[], outputs=["GP_SUM"], characteristic=characteristic)
+    result = (_runner or _run_subprocess)(prog, timeout)
+    if (result["aborted"] or result["returncode"] != 0
+            or "? error" in result["stdout"] + result["stderr"]):
+        raise CASError("the CAS did not expand the representation:\n%s"
+                       % result["stdout"][-1500:])
+    got = _parse_outputs(result["stdout"], ["GP_SUM"])["GP_SUM"]
+    got = " ".join(got) if isinstance(got, list) else str(got)
+    got = got.split("=", 1)[-1].strip()
+    return got == "1", got
+
+
 def ideal_is_unit(ring_vars, generators, characteristic=0, name="GP_I",
                   **kw):
     """Convenience: does the ideal reduce to (1)?

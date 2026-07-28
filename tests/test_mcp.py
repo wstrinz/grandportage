@@ -424,6 +424,42 @@ def test_the_server_holds_no_state_between_calls(project, monkeypatch):
     assert "MODEL DST" in body
 
 
+def test_a_call_may_name_its_own_root(tmp_path):
+    """THE FIX FOR THE HAZARD THE TEST BELOW ONLY NARRATES.
+
+    That one says "the server cannot know where its config lives, so it cannot
+    resolve the root differently. It can say which graph it wrote." True, and
+    incomplete: the SERVER cannot resolve it, and the CALLER can. Naming the
+    campaign per call turns an environment guess into an argument.
+
+    This matters because sessions run from a directory that is not the
+    campaign. Three consecutive live sessions reported the MCP server
+    unreachable and fell back to hand-appending JSONL -- which is how one of
+    them poisoned a graph past the transactional guard. The server was fine;
+    it was declared in a repo the sessions were not rooted in, and even when
+    reached would have written to the session root.
+    """
+    from grandportage import mcp as M
+    campaign = tmp_path / "campaign"
+    (campaign / ".portage").mkdir(parents=True)
+    session_root = str(tmp_path / "elsewhere")
+    os.makedirs(session_root)
+
+    req = {"jsonrpc": "2.0", "id": 1, "method": "tools/call",
+           "params": {"name": "portage_declare",
+                      "arguments": {
+                          "events": [{"ev": "model", "id": "M",
+                                      "desc": "a model"}],
+                          "root": str(campaign)}}}
+    M.dispatch(req, root=session_root)
+
+    assert os.path.exists(S.graph_path(str(campaign))), (
+        "the call named its campaign and the write must land there")
+    assert not os.path.exists(S.graph_path(session_root)), (
+        "and must NOT land in the server's own working directory, which is "
+        "the whole failure this argument exists to prevent")
+
+
 def test_declare_names_the_graph_it_writes(tmp_path):
     """`GP_ROOT` defaults to "." and "." is the SERVER's cwd, not the directory
     its `.mcp.json` sits in. So a campaign whose config says `GP_ROOT: "."`

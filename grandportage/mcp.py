@@ -37,6 +37,11 @@ SUPPORTED_PROTOCOLS = ("2024-11-05", "2025-03-26", "2025-06-18")
 
 ROOT = os.environ.get("GP_ROOT", ".")
 
+# Reported in `serverInfo`, which is where a client looks to know what it is
+# talking to.  It said 0.1.0 for four minor releases -- the same drift the
+# check-count spans exist to prevent, in the one field a machine reads.
+VERSION = "0.4.1"
+
 
 # ---------------------------------------------------------------------------
 # The transport declaration, as a schema fragment.
@@ -320,7 +325,14 @@ TOOLS = [
                         "field past unexamined. Superseding does NOT repoint "
                         "the inferences that used the old claim -- they are "
                         "reported, at a severity that depends on whether "
-                        "anything they relied on actually changed.")}},
+                        "anything they relied on actually changed.")},
+         "root": {"type": "string",
+                  "description": (
+                      "the campaign directory to read or write -- the one "
+                      "holding `.portage/`. Omit and the server uses its own "
+                      "working directory, which is the SESSION root and not "
+                      "necessarily the campaign you are in. Name it whenever "
+                      "you are working in a subdirectory.")}},
         ["events"]),
 
     _tool(
@@ -357,7 +369,14 @@ TOOLS = [
                       "also print the detail of findings already accepted "
                       "into the baseline. Off by default: once a campaign has "
                       "a real graph, re-printing every carried obligation is "
-                      "noise on every call.")}},
+                      "noise on every call.")},
+         "root": {"type": "string",
+                  "description": (
+                      "the campaign directory to read or write -- the one "
+                      "holding `.portage/`. Omit and the server uses its own "
+                      "working directory, which is the SESSION root and not "
+                      "necessarily the campaign you are in. Name it whenever "
+                      "you are working in a subdirectory.")}},
         []),
 
     _tool(
@@ -376,7 +395,14 @@ TOOLS = [
                      "description": (
                          "report the verdicts without recording them. Off by "
                          "default: a verification that lives in a scrollback "
-                         "is one nobody can act on next week.")}},
+                         "is one nobody can act on next week.")},
+         "root": {"type": "string",
+                  "description": (
+                      "the campaign directory to read or write -- the one "
+                      "holding `.portage/`. Omit and the server uses its own "
+                      "working directory, which is the SESSION root and not "
+                      "necessarily the campaign you are in. Name it whenever "
+                      "you are working in a subdirectory.")}},
         []),
 
     _tool(
@@ -393,7 +419,11 @@ TOOLS = [
         "Print the current graph: models, edges, claims, inferences. Read this "
         "before adding to a campaign you did not start -- the graph is the "
         "state, so it is the handoff.",
-        {}, []),
+        {"root": {"type": "string",
+                  "description": (
+                      "the campaign directory to read -- the one holding "
+                      "`.portage/`. Omit and the server uses its own working "
+                      "directory, which is the SESSION root.")}}, []),
 
     _tool(
         "portage_transport_table",
@@ -749,7 +779,7 @@ def dispatch(request, root=ROOT):
         return _ok(rid, {
             "protocolVersion": version,
             "capabilities": {"tools": {}},
-            "serverInfo": {"name": "grand-portage", "version": "0.1.0"},
+            "serverInfo": {"name": "grand-portage", "version": VERSION},
             "instructions": (
                 "Every computation that produces a model must declare how that "
                 "model relates to its source. Call portage_transport_table if "
@@ -768,8 +798,26 @@ def dispatch(request, root=ROOT):
         handler = HANDLERS.get(name)
         if handler is None:
             return _fail(rid, -32602, "unknown tool %r" % (name,))
+        # A PER-CALL ROOT, because the server cannot resolve one correctly.
+        #
+        # `GP_ROOT` defaults to "." and "." is the SERVER PROCESS's cwd, which
+        # is the session root -- not the directory the `.mcp.json` declaring it
+        # sits in, and not the campaign being worked on. So a campaign whose
+        # config says `GP_ROOT: "."` writes to a DIFFERENT graph than `gp
+        # check` inside that campaign reads. A live lane hit that in the worst
+        # available way: the session-root graph was in a refused state from an
+        # unrelated session, `declare` is transactional against the fold, and a
+        # first declaration in a minutes-old campaign came back citing a claim
+        # id nobody had ever seen.
+        #
+        # The comment on `h_portage_declare` says "resolving the root
+        # differently is not available here -- the server does not know where
+        # its config lives". True, and the caller does. Naming it per call
+        # turns an environment guess into an argument.
+        args = params.get("arguments") or {}
+        call_root = args.get("root") or root
         try:
-            return _ok(rid, handler(params.get("arguments") or {}, root))
+            return _ok(rid, handler(args, call_root))
         except (cas.TransportNotDeclared, cas.IdentifierCollision,
                 cas.CASError, S.GraphError, K.KernelRefusal) as exc:
             # Expected refusals.  These are the product, not a crash: the

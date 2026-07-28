@@ -12,6 +12,18 @@ dependencies = []
 
 [project.scripts]
 gp = "grandportage.cli:main"
+# A SECOND NAME, because `gp` is a built-in PowerShell alias for
+# Get-ItemProperty and the alias WINS.  Measured: aliases beat functions in
+# PowerShell's resolution order, so a wrapper function cannot shadow it -- only
+# Set-Alias or Remove-Item Alias:gp will, and both override a built-in in
+# somebody else's shell.
+#
+# The collision is PowerShell-only; cmd.exe, bash and zsh all resolve `gp` to
+# the executable. So `gp` stays, because renaming it would tax every other
+# platform for one shell's quirk, and `gport` is here for the shell that needs
+# it. A live session lost time to this and its error message -- "Cannot find
+# path '...\check' because it does not exist" -- names neither cause nor cure.
+gport = "grandportage.cli:main"
 
 [project.optional-dependencies]
 test = ["pytest>=7"]
@@ -21,3 +33,20 @@ packages = ["grandportage"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# ON BY DEFAULT, AND DESELECTABLE -- in that order, deliberately.
+#
+# The live-CAS tests each spawn Singular through WSL, and adding three of them
+# took the suite from about 20 seconds to four and three quarter minutes. A
+# four-minute suite is one people stop running between edits, which erodes a
+# gate more surely than a missing test does.
+#
+# But defaulting them OFF would recreate this morning's false green, where a
+# probe with too short a timeout silently skipped the only tests touching a
+# real solver and the suite went green having not run them. So they run unless
+# you say otherwise:
+#
+#     pytest -m "not live"     fast loop while editing
+#     pytest                   everything, and what CI must run
+markers = [
+    "live: spawns a real CAS process; slow, and the only tests that touch one",
+]

@@ -107,11 +107,20 @@ MOVES = {
         "model's own equations, or exhibit the converse and retype the edge "
         "EQUIVALENCE.  Until one of those, the predicate is a fact about "
         "{src} and every conclusion drawn from it in {dst} is unsound."),
+    # BOTH ENDS WERE THE WRONG WAY ROUND, and it took writing a quickstart to
+    # notice. The witness lives at {dst}, the relaxation. Telling somebody to
+    # lift it TO {dst} is telling them to move it where it already is, and the
+    # sound reading it offers instead was attached to the wrong model too: a
+    # witness at {dst} stops emptiness spend at {dst}, and says nothing
+    # whatever about {src}.
+    #
+    # This is the message a user meets at the exact moment the tool claims its
+    # value, and it named the wrong model twice in one sentence.
     (K.NECESSARY_CONDITION, K.AGAINST, K.NONEMPTY): (
-        "The witness lives in the relaxation, not in the source.  Lift it to "
-        "{dst} explicitly -- that means satisfying the conditions the edge "
-        "DROPS ({drops}) -- or read it as what it soundly is: a hard stop on "
-        "emptiness spend for {src} and nothing more."),
+        "The witness lives in the relaxation {dst}, not in the source.  Lift "
+        "it to {src} explicitly -- that means satisfying the conditions the "
+        "edge DROPS ({drops}) -- or read it as what it soundly is: a hard "
+        "stop on emptiness spend for {dst} and nothing more."),
     (K.NECESSARY_CONDITION, K.ALONG, K.EMPTY): (
         "Emptiness of the tighter model says nothing about the looser one; the "
         "looser model is where the counterexamples would live.  If you need "

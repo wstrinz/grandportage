@@ -360,6 +360,9 @@ class _Stdin(object):
 _UNREACHABLE = [None]   # the reason, once we know it
 
 
+_PROBED = []
+
+
 def _singular_available():
     """Is the solver there?  And SAY WHICH WAY IT IS ABSENT when it is not.
 
@@ -376,6 +379,8 @@ def _singular_available():
     absences -- a missing binary and a slow one need different reactions, and
     reporting them identically is how the slow one hid for weeks.
     """
+    if _PROBED:
+        return _PROBED[0]
     try:
         p = subprocess.run(cas._argv() + ["--version"], capture_output=True,
                            timeout=180)
@@ -388,16 +393,25 @@ def _singular_available():
         _UNREACHABLE[0] = "Singular could not be started: %r" % (exc,)
         return False
     if p.returncode == 0 or b"Singular" in (p.stdout + p.stderr):
+        _PROBED.append(True)
         return True
     _UNREACHABLE[0] = ("Singular answered but did not identify itself "
                        "(rc=%s)" % p.returncode)
     return False
 
 
-_AVAILABLE = _singular_available()
-live = pytest.mark.skipif(
-    not _AVAILABLE,
-    reason=_UNREACHABLE[0] or "Singular not reachable")
+# THE PROBE IS LAZY, and that is what makes a fast loop possible at all.
+#
+# It used to run at MODULE IMPORT, so every invocation paid for it -- including
+# `-m "not live"`, which deselects the only tests that need it.  With the
+# timeout raised to 180s to stop a cold WSL being misread as an absent solver,
+# that fixed cost dominated the suite: 706 deselected-live tests still took 83
+# seconds, essentially all of it waiting for a probe nobody was going to use.
+#
+# So the marker is plain, and the skip happens inside the test via a fixture in
+# `conftest.py`, which runs the probe at most once and only if a live test is
+# actually about to execute.
+live = pytest.mark.live
 
 
 @live
@@ -651,3 +665,148 @@ def test_the_untyped_discharge_offers_BOTH_moves(project):
     assert "gp accept --only TRANSPORT:GI-REPLAY-TRANSFER" in d
     assert "carrying a debt in the open" in d
     assert "no transcription to copy" in d       # the edge's own debt_why
+
+
+@live
+def test_a_unit_ideal_certificate_is_checkable_by_expansion():
+    """THE LAST HONOUR-SYSTEM FIELD THAT CARRIES SCOPE.
+
+    `derive_scope` reads the certificate KIND to decide whether an emptiness
+    survives a base change. That was the fix for a declared `scope`, and it
+    moved the free choice one field along rather than removing it: nothing
+    relates the label `UNIT_IDEAL_CERT` to any computation, so a caller who
+    ran something and saw `1` gets the same scope as one who typed the name.
+
+    A representation `1 = sum a_i f_i` closes it, because confirming it is one
+    EXPANSION -- no Buchberger, no monomial order, no trust in the search that
+    found the cofactors. The checker shares no code path with the thing it
+    checks, which is the certifying-algorithms shape, and it is the clean
+    bridge to a proof assistant: Lean checks a polynomial identity and never
+    has to run a Groebner engine.
+    """
+    from grandportage import verify as V
+
+    g = S.Graph().apply_all([(e, "t", i) for i, e in enumerate([
+        {"ev": "model", "id": "M", "what": "an empty model",
+         "ring_vars": ["x", "y"], "generators": ["x", "1-x"]},
+        {"ev": "claim", "id": "C", "model": "M", "kind": K.EMPTY,
+         "statement": "no points", "certificate": "UNIT_IDEAL_CERT",
+         "established_by": "RAN", "ladder": "exact-checked"},
+    ])])
+    g.validate()
+    verdict, why, capability = V.unit_ideal(g, "C")
+    assert verdict == V.CERT_VERIFIED, why
+    assert capability["cofactors"] == ["1", "1"]
+    assert "WITHOUT recomputing a basis" in why
+
+
+@live
+def test_a_declared_certificate_that_is_false_is_caught():
+    """A claim may NAME `UNIT_IDEAL_CERT` over an ideal that is not the unit
+    ideal, and until the certificate was checkable nothing said so.
+
+    The verdict is deliberately about the CERTIFICATE and not about the
+    emptiness -- a model can be empty for other reasons, established by other
+    means, and this rules out one route rather than the conclusion.
+    """
+    from grandportage import verify as V
+
+    g = S.Graph().apply_all([(e, "t", i) for i, e in enumerate([
+        {"ev": "model", "id": "N", "what": "a model with points",
+         "ring_vars": ["x", "y"], "generators": ["x", "y"]},
+        {"ev": "claim", "id": "D", "model": "N", "kind": K.EMPTY,
+         "statement": "no points", "certificate": "UNIT_IDEAL_CERT",
+         "established_by": "RAN", "ladder": "exact-checked"},
+    ])])
+    g.validate()
+    verdict, why, capability = V.unit_ideal(g, "D")
+    assert verdict == V.CERT_NOT_UNIT
+    assert capability is None
+    assert "not the unit ideal" in why
+    assert "statement about the CERTIFICATE" in why
+
+
+@live
+def test_the_expansion_catches_cofactors_that_do_not_expand():
+    """The half a reader can check, exercised on a representation that is
+    wrong. A shorter cofactor list is refused rather than padded, because it
+    would verify an identity about a DIFFERENT ideal and report it as this
+    one."""
+    from grandportage import cas as C2
+
+    ok, got = C2.check_unit_ideal_representation(
+        ["x", "y"], ["x", "1-x"], ["1", "0"])
+    assert not ok and got == "x", (
+        "expanding 1*x + 0*(1-x) gives x, and the checker must say so rather "
+        "than agreeing with the search")
+
+    with pytest.raises(C2.CASError) as exc:
+        C2.check_unit_ideal_representation(["x", "y"], ["x", "1-x"], ["1"])
+    assert "different ideal" in str(exc.value)
+
+
+@live
+def test_ring_iso_is_checkable_and_radicalisation_is_caught():
+    """THE MOST POWERFUL UNAUDITED BOOLEAN LEFT, and the formalisation is what
+    said how to check it.
+
+    `Reflects` -- the awkward half of an isomorphism -- quantifies over
+    preimages, which no CAS can search for. But it is not primitive: given an
+    inverse map, `PullsBack psi I J` plus `psi . phi = id` gives it. So a
+    verified iso is three reductions, not a search.
+
+    The case it must catch is the kernel's own warning: V(x^2) and V(x) have
+    the same single point and any converse you like, and `x = 0` holds in one
+    coordinate ring and is false in the other. Points do not give `ring_iso`.
+    """
+    from grandportage import verify as V
+
+    def mk(fwd, inv, sg, dg):
+        g = S.Graph().apply_all([(e, "t", i) for i, e in enumerate([
+            {"ev": "model", "id": "A", "what": "a", "ring_vars": ["x", "y"],
+             "generators": sg},
+            {"ev": "model", "id": "B", "what": "b", "ring_vars": ["x", "y"],
+             "generators": dg},
+            {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+             "type": K.EQUIVALENCE, "why": "a change of variables",
+             "map_kind": K.POLYNOMIAL, "ring_iso": True,
+             "converse_witness": "the inverse substitution",
+             "forward": fwd, "inverse": inv}])])
+        g.validate()
+        return g
+
+    swap = {"x": "y", "y": "x"}
+    verdict, why = V.ring_iso(mk(swap, swap, ["x*y-1"], ["x*y-1"]), "E")
+    assert verdict == V.ISO_VERIFIED, why
+    assert "COORDINATE RINGS" in why
+
+    ident = {"x": "x", "y": "y"}
+    verdict, why = V.ring_iso(mk(ident, ident, ["x^2"], ["x"]), "E")
+    assert verdict == V.ISO_NOT_ISO
+    assert "does not pull back" in why, (
+        "radicalisation carries the ideal forward and does not reflect -- it "
+        "is the half that fails, and the message must say which")
+
+
+@live
+def test_a_substitution_is_simultaneous():
+    """NESTED `subst` IS NOT SIMULTANEOUS, and getting it wrong is silent.
+
+    Swapping two variables one at a time sends `x*y - 1` to `x*x - 1`: the
+    first substitution puts `y` everywhere and the second rewrites the lot. The
+    bug reported a map as failing to carry an ideal it carries perfectly well,
+    and it was caught only by testing a case that was supposed to PASS.
+    """
+    from grandportage import cas as C2
+    got, ok = C2.substitute_and_reduce(
+        ["x", "y"], "x*y-1", {"x": "y", "y": "x"}, ["x*y-1"])
+    assert ok, "the swap is an automorphism of this ideal; got %r" % got
+
+    got, _ = C2.substitute_and_reduce(["x", "y"], "x^2+y",
+                                      {"x": "y", "y": "x"}, [])
+    assert got.replace(" ", "") == "y2+x", (
+        "a genuinely asymmetric case, so the test is not passing by symmetry")
+
+    with pytest.raises(C2.CASError) as exc:
+        C2.substitute_and_reduce(["x", "y"], "x", {"x": "y"}, [])
+    assert "every ring variable" in str(exc.value)

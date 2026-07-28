@@ -167,6 +167,7 @@ def cmd_migrate(args):
     # thing this command refuses to do.
     renames = {"ring_isomorphism": "ring_iso"}
     _LADDER_MANUAL = set()   # which `manual` rows are bad-`ladder` rows
+    prev_records = {}        # (kind, id) -> the record, for computing a kind
     changed, manual, downgraded, renamed = [], [], [], []
     for path in paths:
         # A LINE-KEYED REWRITE, not a re-serialization.  The first version of
@@ -200,6 +201,36 @@ def cmd_migrate(args):
                                "takes DERIVE (the missing mathematics now "
                                "exists) or RETYPE (it was mis-stated) or "
                                "ACCEPT" % ev["discharge_kind"]))
+            # A DISCHARGE KIND THAT WAS NEVER VALIDATED, on the three record
+            # kinds supersession did not reach until now.
+            #
+            # `evidence`, `doubt` and `citation` accepted `supersedes` with no
+            # existence check and no kind check, so a live session wrote AMEND
+            # on both of its corrections -- and the tool printed "declared 1
+            # event(s)" and did nothing. Enforcing supersession for them makes
+            # those records refuse, which would leave a campaign unfoldable
+            # over a value nobody was ever asked about.
+            #
+            # SO IT IS CORRECTED RATHER THAN REPORTED, and that is the same
+            # principle as every other fill here. A declared kind that nothing
+            # validated is not the author's judgement; it is a field they had
+            # no way to get right. The tool computes the true kind from the two
+            # records anyway, so writing it is not a guess -- and the result is
+            # reported, so the graph gets louder rather than quieter.
+            if (ev.get("ev") in ("evidence", "doubt", "citation")
+                    and ev.get("supersedes")):
+                old = prev_records.get((ev["ev"], ev["supersedes"]))
+                if old is not None:
+                    actual, moved = K.classify_supersession(
+                        old, ev, entity=ev["ev"])
+                    if ev.get("discharge_kind") != actual:
+                        was = ev.get("discharge_kind")
+                        ev["discharge_kind"] = actual
+                        changed.append(
+                            (path, n, ev.get("id"), "discharge_kind",
+                             "%s (was %s; %s changed)"
+                             % (actual, was, ", ".join(moved) or "nothing")))
+            prev_records[(ev.get("ev"), ev.get("id"))] = dict(ev)
             for bad in sorted(set(S.Graph._NOT_A_FIELD) - set(renames)):
                 if bad in ev:
                     manual.append((path, n, ev.get("id"),
@@ -318,7 +349,18 @@ def _declare_epilog():
         "\n"
         "to CHANGE something already declared, do not redeclare it -- send the\n"
         "new version with `supersedes` and a `discharge_kind`. `gp why\n"
-        "supersession` explains the four kinds.\n"
+        "supersession` explains the four kinds. This works for EVERY record\n"
+        "kind above, evidence and doubts and citations included, so `answered`\n"
+        "and `decides` are reachable for a record already in the log.\n"
+        "\n"
+        "two things that have cost people real time:\n"
+        "  * in PowerShell `gp` is a built-in alias for Get-ItemProperty, and\n"
+        "    the alias WINS -- a wrapper function cannot shadow it. Use\n"
+        "    `gport`, which is the same command under a name that shell has\n"
+        "    not taken. (`gp.exe` and `python -m grandportage.cli` also work.)\n"
+        "    Everywhere else -- cmd, bash, zsh -- plain `gp` is fine.\n"
+        "  * .portage/graph.jsonl opens with a `#` comment line. `load_events`\n"
+        "    skips blank and `#` lines; a naive json.loads per line will not.\n"
         % (", ".join(K.DECLARABLE_TYPES),
            ", ".join(K.CLAIM_KINDS),
            ", ".join(S.Graph.EVIDENCE_METHODS),
@@ -362,6 +404,12 @@ def cmd_declare(args):
             "    gp declare --file events.json\n"
             "    echo '{\"ev\":\"note\",\"text\":\"...\"}' | gp declare\n")
         return 2
+    # A BOM IS NOT A SYNTAX ERROR, it is a Windows editor being helpful.
+    # `Set-Content -Encoding utf8` in Windows PowerShell 5.1 writes one, and
+    # this refused the file with "Unexpected UTF-8 BOM" -- a message that
+    # diagnoses the problem perfectly and still costs a minute nobody needed
+    # to spend, since the fix is one strip.
+    raw = raw.lstrip("﻿")
     try:
         events = json.loads(raw)
     except ValueError as exc:

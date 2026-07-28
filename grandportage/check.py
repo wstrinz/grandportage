@@ -13,6 +13,8 @@ import hashlib
 
 from . import kernel as K
 from . import store as S
+from .cas import foreign_symbols as cas_foreign_symbols
+from .cas import non_integral_denominators as cas_non_integral_denominators
 from .discharge import discharge_for
 
 # Severities.  Not every finding is an accusation.
@@ -50,6 +52,9 @@ R_CONTAINMENT = "CONTAINMENT"
 R_IDENTITY = "UNTESTED-IDENTITY"
 R_SIBLING = "SIBLING-EDGE"
 R_STALE_MODEL = "STALE-MODEL"
+R_STALE_REF = "STALE-REFERENCE"
+R_BASE_COEFFS = "FOREIGN-COEFFICIENT"
+R_INTEGRAL = "NON-INTEGRAL-COEFFICIENT"
 R_CITATION = "AMBIGUOUS-CITATION"
 R_DOUBT = "DOUBT"
 R_EVIDENCE = "EVIDENCE-GRADE"
@@ -859,9 +864,36 @@ def check_partitions(graph):
                 "becomes a joint argument over all %d branches rather than a "
                 "single hop." % (e["dst"], parent, len(branches))))
         # The payoff case, reported so it gets recorded rather than assumed.
-        empty_at = {b: sorted(cid for cid, c in graph.claims.items()
-                              if c.get("model") == b and c["kind"] == K.EMPTY)
-                    for b in branches}
+        # A BRANCH IS COVERED BY A DERIVED CONCLUSION TOO, and reading only
+        # claims made a real result unrecordable.
+        #
+        # A live session closed the last open branch of a three-way split with
+        # a clean, licensed inference concluding EMPTY at that branch -- and it
+        # contributed ZERO here, because this looked at where a premise LIVES
+        # and never at where a path LANDS. Its two ways out were both worse
+        # than the gap: duplicate the derived conclusion as a second claim,
+        # double-counting one argument as two records, or inline the transport,
+        # which the partition path does not accept. It accepted an obligation
+        # instead, and the campaign's completed argument went unsigned.
+        #
+        # The graph reasoned about claims and edges and treated its own
+        # conclusions as second-class. A conclusion the checker has LICENSED is
+        # better evidence than a claim somebody declared, not worse.
+        derived_at = {}
+        for iid in graph.inference_order:
+            inf = graph.inferences[iid]
+            if inf.get("superseded_by"):
+                continue
+            if inf.get("concludes_kind") != K.EMPTY:
+                continue
+            at = inf.get("concludes_at")
+            if at in branches:
+                derived_at.setdefault(at, []).append(iid)
+        empty_at = {b: sorted(
+            [cid for cid, c in graph.claims.items()
+             if c.get("model") == b and c["kind"] == K.EMPTY]
+            + ["%s (derived)" % i for i in derived_at.get(b, [])])
+            for b in branches}
         if all(empty_at[b] for b in branches):
             already = any(graph.inferences[i]["concludes_at"] == parent
                           and graph.inferences[i]["concludes_kind"] == K.EMPTY
@@ -1682,6 +1714,109 @@ def check_containment(graph):
     return findings
 
 
+def check_coefficients_in_base(graph):
+    """A claim declaring `coefficients_in_base` whose own rewriting names a
+    symbol the ring does not have.
+
+    `coefficients_in_base` gates DESCENT across a BASE_EXTENSION, and it was
+    declared and never checked. A shadow formalisation showed why it had
+    resisted: descent does not fail because reflection fails -- for a field
+    extension that holds automatically -- it fails because the claim cannot be
+    WRITTEN in the smaller ring. In a typed setting that condition disappears
+    into the type, which is why the formal version could not see the gate at
+    all.
+
+    So the gate is a TYPING ARTIFACT: it exists because a claim is a string,
+    and a string carries no evidence about which ring it lives in. Which makes
+    it decidable. The kernel's own counterexample is caught by looking:
+    `x^2 + 1 = (x + i)(x - i)` names `i`, and `i` is not a ring variable.
+
+    Syntactic and conservative, so it REPORTS rather than refuses -- `sqrt2`
+    might have been defined as an element of the base, and this cannot know.
+    But a declaration that contradicts the text of its own claim is worth
+    saying out loud.
+    """
+    findings = []
+    for cid in sorted(graph.claims):
+        c = graph.claims[cid]
+        if not c.get("coefficients_in_base") or c.get("superseded_by"):
+            continue
+        if c.get("lhs") is None:
+            continue
+        foreign = cas_foreign_symbols(c.get("ring_vars") or [],
+                                      c["lhs"], c["rhs"])
+        if not foreign:
+            continue
+        findings.append(Finding(
+            R_BASE_COEFFS, "%s:%s" % (R_BASE_COEFFS, cid), TRIAGE, cid,
+            "claim %s declares `coefficients_in_base`, and its rewriting names "
+            "%s -- which the model's ring does not have.\n"
+            "  That flag is what licenses DESCENT across a BASE_EXTENSION, and "
+            "the reason it exists is this exact shape: `x^2 + 1 = (x + i)"
+            "(x - i)` is valid over Q(i) and, descended to Q, `i` is not "
+            "unproved -- it is not expressible. The descended statement is not "
+            "a false claim, it is not a claim."
+            % (cid, ", ".join("`%s`" % s for s in foreign)),
+            "If those symbols really do denote elements of the base, say so in "
+            "a caveat and carry this -- the check is syntactic and cannot know. "
+            "If they do not, the claim belongs at the extension only, and "
+            "`coefficients_in_base` should come off.",
+            semantic_key=cid))
+    return findings
+
+
+def check_integral(graph):
+    """A claim declaring `integral` whose rewriting has the prime downstairs.
+
+    `integral` gates reducing an IDENTITY into characteristic p, and it was
+    declared and never computed. The kernel's own instance is
+    `d2 = h_2 - (3/8)h_1^2`, which travels a perfectly polynomial map and does
+    not reduce mod 2 because 8 = 2^3.
+
+    A shadow formalisation put this in a different class from the other gates.
+    `ring_iso` is a property of a map; `identity_origin` is a property of the
+    claim; this is neither. Reduction mod p is a PARTIAL map, and `integral`
+    asks whether it is defined here at all. Undefined is not false -- with no
+    image there is nothing to state, the same shape as `coefficients_in_base`.
+
+    The prime comes from the SPECIALIZATION edge the claim would cross, since
+    integrality is only meaningful against one.
+    """
+    findings = []
+    primes = {}
+    for eid in sorted(graph.edges):
+        e = graph.edges[eid]
+        if e.get("type") == K.SPECIALIZATION and e.get("prime"):
+            primes[e["src"]] = (eid, e["prime"])
+    for cid in sorted(graph.claims):
+        c = graph.claims[cid]
+        if not c.get("integral") or c.get("superseded_by"):
+            continue
+        if c.get("lhs") is None or c.get("model") not in primes:
+            continue
+        eid, p = primes[c["model"]]
+        bad = cas_non_integral_denominators(p, c["lhs"], c["rhs"])
+        if not bad:
+            continue
+        findings.append(Finding(
+            R_INTEGRAL, "%s:%s" % (R_INTEGRAL, cid), TRIAGE, cid,
+            "claim %s declares `integral` and would reduce mod %s across %s, "
+            "and its rewriting has %s downstairs.\n"
+            "  Reduction mod p is a PARTIAL map -- undefined on a coefficient "
+            "with p in its denominator -- so this is not a false claim in "
+            "characteristic %s, it is not a claim there at all. The kernel's "
+            "own instance is `d2 = h_2 - (3/8)h_1^2`, which does not reduce "
+            "mod 2 because 8 = 2^3."
+            % (cid, p, eid,
+               ", ".join("`%s`" % d for d in bad), p),
+            "Clear the denominators and record what that costs, or keep the "
+            "rewriting in characteristic 0. If those fractions are not really "
+            "coefficients -- the check reads literal fractions and cannot "
+            "evaluate -- say so in a caveat and carry it.",
+            semantic_key=cid))
+    return findings
+
+
 def check_doubts(graph):
     """Authored defeaters, rendered as findings.
 
@@ -1699,7 +1834,13 @@ def check_doubts(graph):
     findings = []
     for did in sorted(graph.doubts):
         d = graph.doubts[did]
-        if d.get("answered"):
+        # SUPERSEDED, TOO -- and leaving this out made the supersession fix
+        # half a fix. A doubt is retired by ANSWERING it, and answering an
+        # existing one means sending a new version that carries `answered`,
+        # which supersedes the old. If the old keeps firing, the loop still
+        # does not close and the graph still reports as live debt something
+        # that has been settled.
+        if d.get("answered") or d.get("superseded_by"):
             continue
         findings.append(Finding(
             R_DOUBT, "%s:%s" % (R_DOUBT, did), d["severity"], d["about"],
@@ -1727,6 +1868,8 @@ def check_evidence(graph):
     findings = []
     for vid in sorted(graph.evidence):
         v = graph.evidence[vid]
+        if v.get("superseded_by"):
+            continue
         # AN ENUMERATION THAT DOES NOT SAY WHICH VERDICT IT DECIDES.
         #
         # A live session called this the single most important epistemic fact
@@ -1757,6 +1900,23 @@ def check_evidence(graph):
         by = c.get("established_by")
         if by in (None, "RAN"):
             continue
+        # ONLY AN ENUMERATION IMPLIES A GRADE, and firing on both methods made
+        # this rule undischargeable.
+        #
+        # A live session attached a REPLICATION to a READ claim -- its code
+        # reproduced a table the source PRINTS -- which is coherent and is what
+        # replication is for. The rule fired anyway, and its advice ("say so in
+        # the evidence's `what`") named a move the rule does not read, so the
+        # only clearing move was regrading to RAN, which would have been false.
+        # A finding whose stated discharge cannot discharge it teaches people
+        # to accept findings rather than answer them.
+        #
+        # The distinction: an ENUMERATION ESTABLISHES the claim, so the grade
+        # must say a run happened. A REPLICATION CORROBORATES a claim
+        # established some other way, and corroborating something you read is
+        # exactly the normal case.
+        if v["method"] != "ENUMERATION":
+            continue
         findings.append(Finding(
             R_EVIDENCE, "%s:%s" % (R_EVIDENCE, vid), TRIAGE, v["for"],
             "evidence %s records a %s computation (%s) for claim %s, but that "
@@ -1766,9 +1926,13 @@ def check_evidence(graph):
             "on the strength of an attached script is exactly how a citation "
             "drifts into a verification."
             % (vid, v["method"], v["ran"], v["for"], by),
-            "If the computation established the claim, regrade it RAN -- and "
-            "note that changing `established_by` is a RELICENSE, so it will "
-            "be looked at. If the computation only CORROBORATES something "
+            "If the computation established the claim, regrade it RAN. That "
+            "is an AMEND, not a RELICENSE -- evidence grading licenses "
+            "nothing, which is the whole point of keeping it on a separate "
+            "axis from transport. (This advice used to say RELICENSE, which "
+            "contradicted the field list and was caught by a session that "
+            "regraded under AMEND and was silently accepted.) If the "
+            "computation only CORROBORATES something "
             "read or cited, say so in the evidence's `what`, and leave the "
             "grade where it is.",
             semantic_key=v["for"]))
@@ -1794,7 +1958,7 @@ def check_citations(graph):
     """
     findings = []
     hazards = [(c["cites"], c) for c in graph.citations.values()
-               if c.get("hazard")]
+               if c.get("hazard") and not c.get("superseded_by")]
     # A HAZARD NOTHING CAN TRIP.
     #
     # This rule substring-matches a citation's `cites` against claim and
@@ -1857,6 +2021,77 @@ def check_citations(graph):
                 "succeeds on the wrong object rather than failing."
                 % (kind, c["id"]),
                 semantic_key=oid))
+    return findings
+
+
+def check_stale_references(graph):
+    """A live record still naming one that has been superseded.
+
+    SUPERSESSION REPOINTS NOTHING, and until now only two of the places that
+    matters had a rule. STALE-PREMISE catches an inference whose premise moved;
+    STALE-MODEL catches a claim or edge whose model moved. Everything else
+    pointed at corpses in silence.
+
+    A live session hit the worst version. It superseded a claim to fix a wrong
+    coordinate, and the PARTITION whose `exhaustive` named that claim became
+    quietly unsatisfiable -- the coverage rule went on demanding an id that no
+    longer answered, while the session passed the live successor and was
+    refused with "the exhaustiveness claim is not among the premises". Nothing
+    warned at declare time and nothing warned in `check`; it found the cause by
+    going looking. In the same graph an `evidence` record still named a
+    superseded claim and nothing noticed at all.
+
+    A partition whose covering claim is superseded is not merely stale: it is
+    UNSATISFIABLE, because the only id that would satisfy it is retired.
+    """
+    findings = []
+    def dead(oid):
+        for reg in (graph.claims, graph.inferences, graph.edges,
+                    graph.models, graph.evidence, graph.doubts,
+                    graph.citations):
+            r = reg.get(oid)
+            if r is not None:
+                return r.get("superseded_by")
+        return None
+
+    refs = []
+    for pid, p in sorted(graph.partitions.items()):
+        refs.append(("partition", pid, "exhaustive", p.get("exhaustive"),
+                     "the coverage rule demands this exact id, so the "
+                     "partition cannot be satisfied at all while it names a "
+                     "retired one"))
+    for vid, v in sorted(graph.evidence.items()):
+        if not v.get("superseded_by"):
+            refs.append(("evidence", vid, "for", v.get("for"),
+                         "this records a computation standing behind a claim "
+                         "that has been replaced"))
+    for did, d in sorted(graph.doubts.items()):
+        if not d.get("superseded_by") and not d.get("answered"):
+            refs.append(("doubt", did, "about", d.get("about"),
+                         "this doubt is aimed at a record that has moved, so "
+                         "it may already be answered or may no longer apply"))
+
+    for kind, oid, field, target, why in refs:
+        if not target:
+            continue
+        successor = dead(target)
+        if not successor:
+            continue
+        findings.append(Finding(
+            R_STALE_REF, "%s:%s" % (R_STALE_REF, oid), TRIAGE, oid,
+            "%s %s names %s in `%s`, and %s was superseded by %s.\n  %s"
+            % (kind, oid, target, field, target, S.successors(
+                graph.claims.get(target) or graph.inferences.get(target)
+                or graph.edges.get(target) or graph.models.get(target)
+                or graph.evidence.get(target) or graph.doubts.get(target)
+                or graph.citations.get(target) or {}), why),
+            "Supersede %s with the reference repointed at %s. Supersession "
+            "does not repoint anything on its own, deliberately -- a record "
+            "silently re-aimed at a successor it was never checked against is "
+            "the failure this refuses to automate."
+            % (oid, successor if isinstance(successor, str)
+               else ", ".join(successor)),
+            semantic_key=oid))
     return findings
 
 
@@ -2146,8 +2381,11 @@ def run(graph, accepted=None):
                 + check_identity(graph)
                 + check_sibling_edges(graph)
                 + check_stale_models(graph)
+                + check_stale_references(graph)
                 + check_citations(graph)
                 + check_doubts(graph)
+                + check_coefficients_in_base(graph)
+                + check_integral(graph)
                 + check_evidence(graph)
                 + check_parallel_edges(graph)
                 + check_vacuous_conclusions(graph)

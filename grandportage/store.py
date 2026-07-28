@@ -95,6 +95,7 @@ class Graph(object):
     def __init__(self):
         self.certificates = dict(K.BUILTIN_CERTIFICATES)
         self.cert_source = {k: "builtin" for k in K.BUILTIN_CERTIFICATES}
+        self.cert_records = {}     # id -> the declaring event, for supersession
         self.models = {}
         self.edges = {}
         self.claims = {}
@@ -468,6 +469,7 @@ class Graph(object):
                  "base-change verdict is the assertion this system exists to "
                  "refuse." % (where, ev["id"]))
         self.certificates[ev["id"]] = ev["base_changes"]
+        self.cert_records[ev["id"]] = dict(ev)
         self.cert_source[ev["id"]] = where
 
     def _apply_same_as(self, ev, where):
@@ -1022,13 +1024,21 @@ class Graph(object):
     # carrying `supersedes` with no existence check, no self-check and no
     # back-pointer at all.
     # -----------------------------------------------------------------------
-    _SUPERSEDABLE = ("claim", "inference", "edge", "model", "note")
+    _SUPERSEDABLE = ("claim", "inference", "edge", "model", "note",
+                     "evidence", "doubt", "citation", "certificate",
+                     "partition", "family", "same_as")
 
     def _resolve_supersessions(self):
         for entity in self._SUPERSEDABLE:
             registry = {"claim": self.claims, "inference": self.inferences,
                         "edge": self.edges, "model": self.models,
-                        "note": self.named_notes}[entity]
+                        "note": self.named_notes,
+                        "evidence": self.evidence, "doubt": self.doubts,
+                        "citation": self.citations,
+                        "certificate": self.cert_records,
+                        "partition": self.partitions,
+                        "family": self.families,
+                        "same_as": self.aliases}[entity]
             kinds = (D_KINDS if entity == "edge" else K.SUPERSESSION_KINDS)
             for new_id in sorted(registry):
                 new = registry[new_id]

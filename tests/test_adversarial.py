@@ -1795,6 +1795,256 @@ def test_a_doubt_is_a_finding_a_person_writes():
     assert not [f for f in C.run(g2) if f.rule == C.R_DOUBT]
 
 
+def test_every_id_bearing_kind_can_be_superseded():
+    """GATE 4, and it exists because the same omission happened three times.
+
+    `supersedes` on a kind absent from `_SUPERSEDABLE` is accepted with no
+    existence check, no back-pointer and no kind validation. The write reports
+    success and does nothing, and the original record keeps firing forever --
+    the worst error class there is, because nothing signals it.
+
+    It happened to `edge` (fixed), then to `evidence`/`doubt`/`citation`
+    (fixed), then to `partition` -- where a live session superseded one to
+    repoint its exhaustiveness claim, reported that it worked, and it had not.
+    Three instances of one omission, each found by a user rather than by a
+    test.
+
+    So: every event kind that carries an id is superedable, or is named here
+    with a reason. `built_by` has no id; `erratum` and `verdict` are not
+    declarations, and correcting either means voiding or re-running rather
+    than superseding.
+    """
+    exempt = {
+        "built_by": "carries no id -- it is a link, not a record",
+        "erratum": "voids a record that will not fold; nothing to supersede",
+        "verdict": "written by a verifier, not declared; re-run instead",
+    }
+    missing = [k for k in S.EVENT_KINDS
+               if k not in exempt and k not in S.Graph._SUPERSEDABLE]
+    assert not missing, (
+        "these kinds carry an id and cannot be superseded, so `supersedes` on "
+        "one is silently accepted and does nothing: %s" % ", ".join(missing))
+
+    # AND EACH ONE NEEDS A FIELD SPLIT. Without an entry, a kind falls back to
+    # a CLAIM's fields -- so its changes are graded against `kind`/`model`/
+    # `statement`, which it does not have, and every supersession reads as an
+    # AMEND. Quieter than the no-op above and just as wrong.
+    #
+    # `claim` is the fallback itself. `edge` takes DERIVE/RETYPE/ACCEPT through
+    # a separate path and never reaches this table.
+    no_split = [k for k in S.Graph._SUPERSEDABLE
+                if k not in K.FIELD_SPLITS and k not in ("claim", "edge")]
+    assert not no_split, (
+        "these are superedable with no identifying/licensing split, so every "
+        "change to one grades as AMEND: %s" % ", ".join(no_split))
+
+
+def test_a_branch_is_covered_by_a_derived_conclusion_too():
+    """THE ONE PLACE A REAL MATHEMATICAL RESULT COULD NOT BE RECORDED.
+
+    A live session closed the last open branch of a three-way split with a
+    clean, licensed inference concluding EMPTY at that branch. It contributed
+    ZERO to coverage, because this rule looked at where a premise LIVES and
+    never at where a path LANDS.
+
+    Its two ways out were both worse than the gap: duplicate the derived
+    conclusion as a second claim -- double-counting one argument as two records
+    -- or inline the transport, which the partition path does not accept. It
+    accepted an obligation instead, and a completed argument went unsigned.
+
+    The graph reasoned about claims and edges and treated its own conclusions
+    as second-class. A conclusion the checker has LICENSED is better evidence
+    than a claim somebody declared, not worse.
+    """
+    evs = [
+        {"ev": "model", "id": "P", "what": "the parent"},
+        {"ev": "model", "id": "A", "what": "branch a"},
+        {"ev": "model", "id": "B", "what": "branch b"},
+        {"ev": "claim", "id": "EX", "model": "P", "kind": K.PREDICATE,
+         "statement": "a or b", "established_by": "CITED",
+         "ladder": "claimed"},
+        {"ev": "partition", "id": "PART", "parent": "P",
+         "branches": ["A", "B"], "exhaustive": "EX", "why": "a dichotomy"},
+        # Branch A: an ordinary declared EMPTY claim.
+        {"ev": "claim", "id": "CA", "model": "A", "kind": K.EMPTY,
+         "statement": "branch a is empty", "certificate": "UNIT_IDEAL_CERT",
+         "established_by": "RAN", "ladder": "exact-checked"},
+        # Branch B: emptiness DERIVED, and nothing is declared EMPTY at B.
+        # B is the TIGHTER model here, so EMPTY travels AGAINST from L to B.
+        {"ev": "model", "id": "L", "what": "a relaxation containing b"},
+        {"ev": "edge", "id": "E", "src": "B", "dst": "L",
+         "type": K.NECESSARY_CONDITION, "why": "drops an equation",
+         "map_kind": K.POLYNOMIAL},
+        {"ev": "claim", "id": "CL", "model": "L", "kind": K.EMPTY,
+         "statement": "the relaxation is empty",
+         "certificate": "UNIT_IDEAL_CERT", "established_by": "RAN",
+         "ladder": "exact-checked"},
+        {"ev": "inference", "id": "IB", "claim": "CL",
+         "path": [["E", K.AGAINST]], "concludes_kind": K.EMPTY,
+         "concludes_at": "B", "asserted": "so branch b is empty too"},
+    ]
+    # The premise of the derived leg must not itself sit at B.
+    assert not [e for e in evs if e.get("ev") == "claim"
+                and e.get("model") == "B"], (
+        "if a claim is declared EMPTY at B the fixture tests nothing new")
+    findings = C.run(_graph(evs))
+    covered = [f for f in findings
+               if f.rule == C.R_PARTITION and "covered" in f.fid]
+    assert covered, (
+        "both branches are now EMPTY -- one declared, one derived -- so the "
+        "parent's emptiness follows and the payoff case must fire")
+    assert "derived" in covered[0].detail, (
+        "and it must say which branch was closed by an argument rather than "
+        "by a declaration")
+
+
+def test_a_partition_whose_covering_claim_moved_says_so():
+    """A PARTITION WHOSE COVERING CLAIM IS SUPERSEDED IS UNSATISFIABLE, and it
+    was silent about it.
+
+    A live session superseded a claim to fix a wrong coordinate. The partition
+    whose `exhaustive` named that claim went on demanding the retired id, so
+    passing the live successor was refused with "the exhaustiveness claim is
+    not among the premises". Nothing warned at declare time and nothing warned
+    in `check`; the session found the cause by going looking.
+
+    Not merely stale. The only id that would satisfy the rule is retired, so
+    the partition cannot be satisfied at all.
+    """
+    g = _graph([
+        {"ev": "model", "id": "P", "what": "the parent"},
+        {"ev": "model", "id": "A", "what": "branch a"},
+        {"ev": "model", "id": "B", "what": "branch b"},
+        {"ev": "claim", "id": "EX", "model": "P", "kind": K.PREDICATE,
+         "statement": "a or b, with a typo", "established_by": "CITED",
+         "ladder": "claimed"},
+        {"ev": "partition", "id": "PART", "parent": "P",
+         "branches": ["A", "B"], "exhaustive": "EX", "why": "a dichotomy"},
+        {"ev": "claim", "id": "EX2", "model": "P", "kind": K.PREDICATE,
+         "statement": "a or b, corrected", "established_by": "CITED",
+         "ladder": "claimed", "supersedes": "EX",
+         "discharge_kind": K.RESTATE}])
+    stale = [f for f in C.run(g) if f.rule == C.R_STALE_REF]
+    assert [f.subject for f in stale] == ["PART"]
+    assert "EX2" in stale[0].discharge, (
+        "and the move must name the successor to repoint at")
+
+
+def test_answering_a_doubt_actually_retires_it():
+    """THE WORST ERROR CLASS THERE IS: told the move, accepted the move,
+    reported success, no-op.
+
+    `check` told a live session to add `answered` to a doubt and `decides` to
+    an evidence record. Redeclaring is refused, and the refusal names
+    SUPERSESSION as the move -- so the session did exactly that. The tool
+    printed "declared 1 event(s)" and did nothing, because `evidence`, `doubt`
+    and `citation` were absent from `_SUPERSEDABLE`. `supersedes` was accepted
+    with no existence check, no back-pointer and no kind validation, and the
+    original records kept firing forever.
+
+    So the tool asked for a discharge it could not accept, and the session's
+    graph ended up reporting three settled items as live debt -- a graph lying
+    about its own state, which is worse than a missing feature in a tool whose
+    whole value proposition is that its state is trustworthy.
+    """
+    base = [
+        {"ev": "model", "id": "M", "what": "a model"},
+        {"ev": "claim", "id": "C", "model": "M", "kind": K.PREDICATE,
+         "statement": "x", "established_by": "RAN",
+         "ladder": "exact-checked"},
+        {"ev": "doubt", "id": "D", "about": "C", "kind": "MISSING_PREMISE",
+         "why": "a further computation is needed"},
+        {"ev": "evidence", "id": "EV", "for": "C", "method": "ENUMERATION",
+         "ran": "sweep.py", "what": "swept the bounded region"}]
+    assert len([f for f in C.run(_graph(base))
+                if f.rule in (C.R_DOUBT, C.R_EVIDENCE)]) == 2
+
+    g = _graph(base + [
+        {"ev": "doubt", "id": "D2", "about": "C", "kind": "MISSING_PREMISE",
+         "why": "a further computation is needed",
+         "answered": "it was run and the claim holds",
+         "supersedes": "D", "discharge_kind": K.RELICENSE},
+        {"ev": "evidence", "id": "EV2", "for": "C", "method": "ENUMERATION",
+         "ran": "sweep.py", "what": "swept the bounded region",
+         "decides": "EXCLUSIONS",
+         "supersedes": "EV", "discharge_kind": K.RELICENSE}])
+    assert g.doubts["D"].get("superseded_by") == ["D2"]
+    assert not [f for f in C.run(g) if f.rule in (C.R_DOUBT, C.R_EVIDENCE)], (
+        "answering and adding `decides` must clear their findings -- if the "
+        "old records keep firing, the loop the tool advertises does not close")
+
+    # AND THE KIND IS COMPUTED HERE TOO. `answered` retires a doubt, so adding
+    # it is not bookkeeping however it is labelled.
+    with pytest.raises(K.SupersessionError) as exc:
+        _graph(base + [
+            {"ev": "doubt", "id": "D2", "about": "C",
+             "kind": "MISSING_PREMISE",
+             "why": "a further computation is needed",
+             "answered": "settled", "supersedes": "D",
+             "discharge_kind": K.AMEND}])
+    assert "`answered` changed" in str(exc.value)
+
+
+def test_a_replication_may_corroborate_something_read():
+    """A FINDING WHOSE STATED DISCHARGE CANNOT DISCHARGE IT teaches people to
+    accept findings rather than answer them.
+
+    EVIDENCE-GRADE fired on a REPLICATION attached to a READ claim -- a live
+    session's code reproducing a table its source PRINTS, which is coherent and
+    is what replication is for. Its advice was "say so in the evidence's
+    `what`", and the rule reads no such field, so the only clearing move was
+    regrading to RAN, which would have been false.
+
+    An ENUMERATION establishes a claim, so the grade must say a run happened.
+    A REPLICATION corroborates one established some other way.
+    """
+    base = [{"ev": "model", "id": "M", "what": "a model"},
+            {"ev": "claim", "id": "C", "model": "M", "kind": K.PREDICATE,
+             "statement": "the source's table is right",
+             "established_by": "READ", "ladder": "claimed"}]
+    ok = _graph(base + [
+        {"ev": "evidence", "id": "EV", "for": "C", "method": "REPLICATION",
+         "ran": "mine.py", "what": "an independent implementation",
+         "agrees_with": "the table printed in the source"}])
+    assert not [f for f in C.run(ok) if f.rule == C.R_EVIDENCE]
+
+    bad = _graph(base + [
+        {"ev": "evidence", "id": "EV", "for": "C", "method": "ENUMERATION",
+         "ran": "sweep.py", "what": "swept it", "decides": "EXCLUSIONS"}])
+    assert [f for f in C.run(bad) if f.rule == C.R_EVIDENCE], (
+        "an ENUMERATION establishes the claim, so a non-RAN grade is one of "
+        "the two being wrong")
+
+
+def test_derived_is_a_way_a_claim_can_be_established():
+    """The one place a live session had something true to say and no way.
+
+    It proved that a corner's direction is determined by m + n, from a
+    valuation identity plus two definitions -- new mathematics, none of it in
+    the source, none of it run. RAN is false, CITED is false, NOT_REACHED is
+    false. It graded the claim READ and said in the note that this overstates
+    the source's involvement.
+
+    The mirror image of the failure this axis exists to prevent: not evidence
+    claiming more than it has, but a real derivation borrowing somebody else's
+    authority for want of a word for "mine".
+    """
+    g = _graph([
+        {"ev": "model", "id": "M", "what": "a model"},
+        {"ev": "claim", "id": "C", "model": "M", "kind": K.PREDICATE,
+         "statement": "the direction is determined by m + n",
+         "established_by": K.DERIVED, "ladder": "claimed"}])
+    assert g.claims["C"]["established_by"] == K.DERIVED
+
+    # A derivation is an argument, not a checker run.
+    with pytest.raises((S.GraphError, K.KernelRefusal)):
+        _graph([
+            {"ev": "model", "id": "M", "what": "a model"},
+            {"ev": "claim", "id": "C", "model": "M", "kind": K.PREDICATE,
+             "statement": "x", "established_by": K.DERIVED,
+             "ladder": "exact-checked"}])
+
+
 def test_a_note_can_be_corrected():
     """Notes were immutable prose, which is the worse half of being untyped.
 
@@ -2101,7 +2351,8 @@ def test_the_public_readme_links_only_to_files_that_sync():
     """
     import re
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    syncs = {"DESIGN.md", "README.md", "REVIEW.md", "LICENSE"}
+    syncs = {"DESIGN.md", "README.md", "REVIEW.md", "LICENSE",
+             "QUICKSTART.md"}
     with open(os.path.join(root, "README.md"), encoding="utf-8") as fh:
         readme = fh.read()
     bad = []
@@ -3161,3 +3412,173 @@ def test_gp_show_prints_what_a_model_is(tmp_path, capsys):
     assert "ideal  (x^2 - y, y^3)" in out
     # And a model with no algebra prints none, rather than an empty ring.
     assert out.count("ring   k[") == 1
+
+
+def test_specialization_has_no_containment_to_verify():
+    """FIVE OF THE SIX TYPES ARE RELAXATIONS. `verify.py` said all six were.
+
+    SPECIALIZATION relates the GENERIC fibre of a scheme over Spec Z to a
+    SPECIAL fibre, and those are different fibres rather than nested sets:
+    neither contains the other. This kernel's own counterexamples prove it --
+    the Fano plane is empty over Q and nonempty over F_2, the non-Fano matroid
+    the reverse, which is why all four existence cells on that row are False.
+
+    So `containment` had nothing to establish there, and worse: it passes no
+    characteristic to the reduction, so it would have reduced characteristic-p
+    generators in characteristic 0 and reported a confident verdict about a
+    relation that does not exist.
+
+    Found by measuring how much of the transport table follows from inclusion
+    alone. 27 of 36 point cells do; 3 more follow from inclusion in BOTH
+    directions (an EQUIVALENCE's converse); 3 need a capability inclusion does
+    not supply; and the last 3 are this row, which is WEAKER than inclusion. A
+    generalisation covering five rows and quietly mis-describing the sixth is
+    the shape this project exists to catch.
+    """
+    from grandportage import verify as V
+
+    g = _graph([
+        {"ev": "model", "id": "A", "what": "the generic fibre",
+         "ring_vars": ["x"], "generators": ["x^2+1"]},
+        {"ev": "model", "id": "B", "what": "the special fibre",
+         "ring_vars": ["x"], "generators": ["x^2+1"]},
+        {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+         "type": K.SPECIALIZATION, "why": "reduce mod 2",
+         "map_kind": K.POLYNOMIAL}])
+    verdict, why = V.containment(g, "E")
+    assert verdict == V.UNVERIFIED
+    assert "not nested" in why and "Fano" in why
+
+
+def test_most_point_cells_follow_from_inclusion_alone():
+    """The measurement that found the bug above, kept as a gate.
+
+    If a future edit makes one of the 27 inclusion-derived cells disagree with
+    plain subset reasoning, that is either a discovery or a mistake -- and
+    either way it should be noticed rather than absorbed into the table.
+    """
+    inclusion = {
+        (K.ALONG, K.EMPTY): False, (K.ALONG, K.NONEMPTY): True,
+        (K.ALONG, K.PREDICATE): False,
+        (K.AGAINST, K.EMPTY): True, (K.AGAINST, K.NONEMPTY): False,
+        (K.AGAINST, K.PREDICATE): True,
+    }
+    # The three groups that legitimately differ, each for a stated reason.
+    stronger = {K.EQUIVALENCE}          # inclusion BOTH ways
+    conditional = {K.BASE_EXTENSION, K.IMAGE_CLOSURE}   # needs a capability
+    not_nested = {K.SPECIALIZATION}     # different fibres, not a subset
+
+    for etype in K.ALL_TYPES:
+        for d in K.DIRECTIONS:
+            for kind in (K.EMPTY, K.NONEMPTY, K.PREDICATE):
+                actual = K.TRANSPORT[etype][d][kind]
+                want = inclusion[(d, kind)]
+                if actual == want or isinstance(actual, str):
+                    continue
+                assert etype in stronger | conditional | not_nested, (
+                    "%s/%s/%s departs from plain inclusion (%s vs %s) and its "
+                    "type is not in a group with a recorded reason. Either the "
+                    "cell is wrong or a fourth reason exists and should be "
+                    "named." % (etype, d, kind, actual, want))
+
+
+def test_the_witness_discharge_names_the_right_model_at_each_end():
+    """IT NAMED THE WRONG MODEL TWICE IN ONE SENTENCE, at the exact moment the
+    tool claims its value.
+
+    A witness at the relaxation transported AGAINST is refused, correctly. The
+    discharge then said "lift it to {dst}" -- telling somebody to move a point
+    to where it already is -- and offered the sound reading as "a hard stop on
+    emptiness spend for {src}", which is the one model the witness says nothing
+    about.
+
+    Found by writing a quickstart and running its own example, which is a
+    reminder that the refusal text is read far more often than it is reviewed.
+    """
+    from grandportage.discharge import discharge_for
+    msg = discharge_for(K.NECESSARY_CONDITION, K.AGAINST, K.NONEMPTY,
+                        edge={"src": "TIGHT", "dst": "LOOSE"})
+    assert "Lift it to TIGHT" in msg, (
+        "the witness is at the relaxation; lifting means getting it into the "
+        "SOURCE, which is what the dropped conditions cost")
+    assert "emptiness spend for LOOSE" in msg, (
+        "and what it soundly buys is at the relaxation, not the source")
+
+
+def test_a_declared_base_coefficient_is_checked_against_the_rewriting():
+    """`coefficients_in_base` was DECLARED AND NEVER COMPUTED, and a shadow
+    formalisation is what showed it could be.
+
+    It gates DESCENT across a BASE_EXTENSION. The formal version could not see
+    the gate at all: stating descent with `f g : R` makes expressibility part
+    of the TYPE, so the theorem is true and the condition vanishes.
+
+    That is the finding. The gate is a TYPING ARTIFACT -- it exists because a
+    claim here is a string, and a string carries no evidence about which ring
+    it lives in. Which makes it decidable rather than declarable.
+
+    The kernel's own counterexample is caught by looking: `x^2 + 1 =
+    (x + i)(x - i)` names `i`, and `i` is not a ring variable.
+    """
+    base = [{"ev": "model", "id": "M", "what": "over Q",
+             "ring_vars": ["x"], "generators": ["x^2+1"]}]
+
+    caught = _graph(base + [
+        {"ev": "claim", "id": "C", "model": "M", "kind": K.IDENTITY,
+         "statement": "x^2+1 factors", "lhs": "x^2 + 1",
+         "rhs": "(x + i)*(x - i)", "ring_vars": ["x"],
+         "identity_origin": K.AMBIENT, "coefficients_in_base": True,
+         "established_by": "RAN", "ladder": "exact-checked"}])
+    found = [f for f in C.run(caught) if f.rule == C.R_BASE_COEFFS]
+    assert found and "`i`" in found[0].detail
+
+    # A claim genuinely over the base is silent -- a rule that fires on
+    # everything is a false-positive generator.
+    clean = _graph(base + [
+        {"ev": "claim", "id": "C", "model": "M", "kind": K.IDENTITY,
+         "statement": "a real factorisation", "lhs": "x^2 - 1",
+         "rhs": "(x + 1)*(x - 1)", "ring_vars": ["x"],
+         "identity_origin": K.AMBIENT, "coefficients_in_base": True,
+         "established_by": "RAN", "ladder": "exact-checked"}])
+    assert not [f for f in C.run(clean) if f.rule == C.R_BASE_COEFFS]
+
+
+def test_a_declared_integral_is_checked_against_the_prime():
+    """`integral` was the fourth gate declared and never computed, and the
+    formalisation put it in a class of its own.
+
+    `ring_iso` is a property of a map. `identity_origin` is a property of the
+    claim. This is neither: reduction mod p is a PARTIAL map, undefined on a
+    coefficient with p in its denominator, and `integral` asks whether it is
+    defined here at all. Undefined is not false -- with no image there is
+    nothing to state, the same shape as `coefficients_in_base`.
+
+    The kernel's own instance: `d2 = h_2 - (3/8)h_1^2` travels a perfectly
+    polynomial map and does not reduce mod 2, because 8 = 2^3.
+    """
+    def mk(rhs, prime):
+        return _graph([
+            {"ev": "model", "id": "Q", "what": "char 0",
+             "ring_vars": ["h1", "h2", "d2"], "generators": ["d2-h2"]},
+            {"ev": "model", "id": "F", "what": "char p",
+             "ring_vars": ["h1", "h2", "d2"], "generators": ["d2-h2"]},
+            {"ev": "edge", "id": "E", "src": "Q", "dst": "F",
+             "type": K.SPECIALIZATION, "why": "reduce mod p",
+             "map_kind": K.POLYNOMIAL, "prime": prime},
+            {"ev": "claim", "id": "C", "model": "Q", "kind": K.IDENTITY,
+             "statement": "the dictionary", "lhs": "d2", "rhs": rhs,
+             "ring_vars": ["h1", "h2", "d2"], "identity_origin": K.AMBIENT,
+             "integral": True, "established_by": "RAN",
+             "ladder": "exact-checked"}])
+
+    caught = [f for f in C.run(mk("h2 - (3/8)*h1^2", 2))
+              if f.rule == C.R_INTEGRAL]
+    assert caught and "`8`" in caught[0].detail
+
+    # The SAME rewriting is fine at a prime that does not divide 8 -- so the
+    # rule is about the pair, not about fractions.
+    assert not [f for f in C.run(mk("h2 - (3/8)*h1^2", 3))
+                if f.rule == C.R_INTEGRAL]
+    # And an integral rewriting is silent at 2.
+    assert not [f for f in C.run(mk("h2 - 3*h1^2", 2))
+                if f.rule == C.R_INTEGRAL]
