@@ -1,0 +1,218 @@
+{
+  "schema": "frontier-input/v1",
+  "consumer": "jc-h3-h8-c79-frontier",
+  "sources": [
+    {
+      "commit": "a8205fc3039d1ab59a4cc65a50802a57f7ab0abe",
+      "path": "d2_plane_72_108/f2_h3_h8_support_pivot_schedule.json",
+      "sha256": "2c0d4dade3d947a1c9eec2b391db091c664585584b33b5e102556acdb53cf93d",
+      "verdict": "H8_REQUIRES_P3_P4_TRANSFER"
+    },
+    {
+      "commit": "4d842a8d51811d9ad3f7e6d7b8a195d500261295",
+      "path": "d2_plane_72_108/f2_h3_p3_p4_depth8_transfer_receipt.json",
+      "sha256": "5317c094c56a23299d876898ef29b90e08673bb4ff966e400fa2eb69d2242796",
+      "verdict": "P3_P4_DEPTH8_TRANSFER_PROVED"
+    },
+    {
+      "commit": "bb46fda3417bfc637615005802abe4cbb6045c76",
+      "path": "d2_plane_72_108/f2_h3_p3_p4_depth9_transfer_receipt.json",
+      "sha256": "242295a8dcc5c83a33ad06dff0ee78c44593335e740d9fc0ad37e937dc9460be",
+      "verdict": "P3_P4_DEPTH9_TRANSFER_PROVED"
+    },
+    {
+      "commit": "bb46fda3417bfc637615005802abe4cbb6045c76",
+      "path": "d2_plane_72_108/f2_h3_p3_p4_depths10_15_transfer_receipt.json",
+      "sha256": "55d0e45bc1835f21a9edd3136eb9929fac1bc992f304bf60e14d076a425463ce",
+      "verdict": "P3_P4_DEPTHS10_15_TRANSFER_PROVED"
+    },
+    {
+      "commit": "dddee158381fdc8554b24b527534de423ec84037",
+      "path": "d2_plane_72_108/f2_h3_c79_source_incidence_family_certificate.json",
+      "sha256": "388f0fead1d32b0a42bfaefe4e68f70095702cb68948cb37b7c42d6687185f18",
+      "verdict": "C79_FAMILY_SOURCE_FACE_IDEAL_UNIT"
+    }
+  ],
+  "discharges": [
+    {
+      "id": "JC.H3.H8.P3P4.D8-15.DISCHARGE",
+      "premise_id": "JC.H3.P3_P4_DEPTH_D_TRANSFER",
+      "status": "DISCHARGED",
+      "applies_to_scopes": [
+        "JC.H3.P1-P5.PIN.D8-15"
+      ],
+      "evidence": [
+        "f2_h3_p3_p4_depth8_transfer_receipt.json",
+        "f2_h3_p3_p4_depth9_transfer_receipt.json",
+        "f2_h3_p3_p4_depths10_15_transfer_receipt.json"
+      ],
+      "does_not_discharge": [
+        "additive residual bodies",
+        "actual-source membership",
+        "source sufficiency",
+        "H3",
+        "(75,125) verdict"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "JC.H3.H8",
+      "proposition": "The frozen presentation realizes the exact support, exhaustion, triangular unit-pivot, and no-replacement transfer schedule at every depth 8 through 15.",
+      "status": "OPEN_PREMISE",
+      "status_when_premises_discharged": "DISCHARGED",
+      "scope": {
+        "id": "JC.H3.P1-P5.PIN.D8-15",
+        "description": "depths 8..15 under P1..P5 and the pin; an S2-scoped consumer retains S2"
+      },
+      "exports_to_scopes": [
+        "JC.H3.P1-P5.PIN.D8-15",
+        "JC.H3.P1-P5.PIN.S2.D9.DEG34"
+      ],
+      "premises": [
+        {
+          "id": "JC.H3.P3_P4_DEPTH_D_TRANSFER",
+          "status": "OPEN"
+        }
+      ],
+      "blocked_downstream": [
+        "depth-9 pairing grade",
+        "five-regime operator schedule"
+      ],
+      "superseding_evidence": [
+        "P3/P4 depth-8 receipt 30/30",
+        "P3/P4 depth-9 receipt with 40 live derivatives",
+        "k-independent depths-10..15 receipt with 120 live instances and depth-16 vacuity"
+      ],
+      "smallest_next_artifact": null,
+      "estimated_cost": null,
+      "potential_impact": [
+        "remove H8 conditionality at the exact exported scopes"
+      ]
+    },
+    {
+      "id": "JC.H3.OPERATOR_SCHEDULE.D8-15",
+      "proposition": "The five-regime coefficient-only operator schedule is valid on its declared depth-8..15 range.",
+      "status": "VERIFIED_CONDITIONAL",
+      "status_when_premises_discharged": "VERIFIED",
+      "scope": {
+        "id": "JC.H3.P1-P5.PIN.D8-15",
+        "description": "depths 8..15 under P1..P5 and the pin"
+      },
+      "premises": [
+        {
+          "id": "JC.H3.H8",
+          "status": "OPEN"
+        }
+      ],
+      "blocked_downstream": [],
+      "superseding_evidence": [],
+      "smallest_next_artifact": null,
+      "estimated_cost": null,
+      "potential_impact": [
+        "operator-schedule statements no longer carry an H8 qualifier"
+      ]
+    },
+    {
+      "id": "JC.H3.D9.PAIRING.DEG34",
+      "proposition": "Psi9 is a unit on the complete degree-34 legal algebra and excludes that recorded codimension-six slice at depth 9.",
+      "status": "VERIFIED_CONDITIONAL_ON_H8",
+      "status_when_premises_discharged": "VERIFIED",
+      "scope": {
+        "id": "JC.H3.P1-P5.PIN.S2.D9.DEG34",
+        "description": "the exact degree-34 legal algebra on the recorded codimension-six S2 slice under P1..P5 and the pin"
+      },
+      "premises": [
+        {
+          "id": "JC.H3.H8",
+          "status": "OPEN"
+        }
+      ],
+      "blocked_downstream": [],
+      "superseding_evidence": [],
+      "smallest_next_artifact": null,
+      "estimated_cost": null,
+      "potential_impact": [
+        "depth-9 exclusion is unconditional on H8 at this exact slice"
+      ]
+    },
+    {
+      "id": "JC.H3.C79.SOURCE.FACE81.UNIT",
+      "proposition": "face(8,1)=(5/4)t^2-Abar/(p*U*det5), so modulo Abar the source-face ideal is the unit ideal on the recorded codimension-five c7_9 family.",
+      "status": "CLOSED",
+      "scope": {
+        "id": "JC.H3.C79.CODIM5.RECORDED",
+        "description": "the exact recorded codimension-five c7_9 family with c2_1=c2_2=c7_10=b=R=0 and inherited legal-chart guards"
+      },
+      "premises": [],
+      "blocked_downstream": [],
+      "superseding_evidence": [
+        "f2_h3_c79_source_incidence_family_certificate.json"
+      ],
+      "smallest_next_artifact": null,
+      "estimated_cost": null,
+      "potential_impact": [
+        "the recorded family is source-empty without a Fitting or conormal calculation"
+      ]
+    },
+    {
+      "id": "JC.H3.C79.SOURCE.FACE81.PIN_ABLATION",
+      "proposition": "Determine the maximal relaxation of the recorded pins on which face(8,1) remains a localized unit, or return the first exact defect term and its confinement divisor.",
+      "status": "OPEN",
+      "scope": {
+        "id": "JC.H3.C79.PIN_ABLATION",
+        "description": "ranked relaxations of c2_1, c2_2, c7_10, then b and R, preserving only explicitly rechecked guards"
+      },
+      "premises": [],
+      "blocked_downstream": [
+        "source exclusion beyond the recorded codimension-five family",
+        "decision whether the whole b=0 branch is source-empty by one unit face"
+      ],
+      "superseding_evidence": [],
+      "smallest_next_artifact": {
+        "description": "for each ranked relaxation, replay U*det5*(core8_0[4]-(10/3)p)=Abar and serialize the first nonzero defect term when it fails",
+        "must_record": [
+          "relaxed pin set",
+          "surviving guards and denominators",
+          "exact identity or first defect term",
+          "maximal licensed scope"
+        ]
+      },
+      "estimated_cost": {
+        "load_bearing_replay_seconds": 140,
+        "source": "latest reviewed JC packet estimate",
+        "uncertainty": "machine-load sensitive"
+      },
+      "potential_impact": [
+        "positive: enlarge exact source exclusion, potentially to the b=0 branch",
+        "negative: isolate the restriction that creates the unit collapse and the next term a theorem must control"
+      ]
+    },
+    {
+      "id": "JC.H3.B0.SOURCE.EXCLUSION",
+      "proposition": "Exclude actual-source incidence on the full b=0 branch.",
+      "status": "OPEN",
+      "scope": {
+        "id": "JC.H3.B0.FULL",
+        "description": "the full b=0 branch, not merely the recorded S2 c7_9 family"
+      },
+      "premises": [
+        {
+          "id": "JC.H3.C79.SOURCE.FACE81.PIN_ABLATION",
+          "status": "OPEN"
+        }
+      ],
+      "blocked_downstream": [
+        "source-side H3 promotion on the b=0 branch"
+      ],
+      "superseding_evidence": [],
+      "smallest_next_artifact": {
+        "description": "a pin-ablation result whose exact licensed scope contains the full b=0 branch"
+      },
+      "estimated_cost": null,
+      "potential_impact": [
+        "remove a whole branch from source consideration if the unit identity survives"
+      ]
+    }
+  ]
+}

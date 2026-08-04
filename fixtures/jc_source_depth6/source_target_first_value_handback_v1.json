@@ -1,0 +1,38 @@
+{
+  "schema": "gp-jc-h3-source-target-first-value-handback/v1",
+  "binding_digest_algo": "sha256-lf-normalized",
+  "jc_commit": "678675e",
+  "source_bindings": {
+    "f2_h3_source_target_pair_first_value.py": "2fc90f96ce38ed4835bc94116c7eb11558c7e456ec7ea5103a3c99a2084c7288",
+    "f2_h3_source_target_pair_first_value_manifest.json": "7f9951f2a5849cfe15e74abec762f543cd6dc71b933ceb30e074fe5124728ae6",
+    "f2_covered_bracket_monomial_manifest.json": "514239efee7f853abe50adbbb4f1f50a90357866512a5c1622099377ae295ed8",
+    "f2_h3_source_target_pair_to_normalized_root_manifest.json": "0a9362452de131ea247634700d5fb4bcedd7e1b55b881f1d143dab93439532bc"
+  },
+  "seam": {
+    "prior_parent_status": "UNMATERIALIZED_OPEN",
+    "partial_status": "SIGMA_TOP_FACE_PARTIALLY_MATERIALIZED",
+    "remaining_status": "OPEN_REMAINING_COEFFICIENT_MAP",
+    "frame": "psi2 covered frame over a characteristic-zero field",
+    "direction": "forward necessary consequence only",
+    "checks": 41,
+    "mutation_refusals": 8,
+    "ratios": {
+      "Q_(8,1)/p": "5/3",
+      "Q_(1,2)/p^2": "5/9",
+      "c_B/p^3": "5/3"
+    },
+    "p_nonzero": true,
+    "gauge_free_value": {
+      "coordinate": "covered P_(3,0)",
+      "value": 0
+    },
+    "row6_cross_check": "c_B/27 = 5*p^3/81",
+    "reverse_lift_licensed": false,
+    "source_sufficiency_licensed": false,
+    "pair_existence_licensed": false,
+    "r5_licensed": false,
+    "r7_licensed": false,
+    "h3_licensed": false
+  },
+  "authority_boundary": "This handback records only forward, gauge-aware necessary consequences of the covered psi2 hulls and bracket. It splits the old source-target coefficient seam into a closed sigma-top partial value receipt and an explicitly open remaining coefficient-map obligation. It does not construct a pair, prove pair existence, reverse lifting, source sufficiency, R5, R7, H3, or a (75,125) verdict."
+}

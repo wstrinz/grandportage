@@ -2,6 +2,9 @@
 
 Copy `.mcp.json` and `settings.json` into the project's `.claude/` (or merge
 them into what is already there).
+For Codex, put the same hook object in `.codex/hooks.json`, review it in
+`/hooks`, and confirm it is enabled; an untrusted project definition is present
+on disk but does not enforce.
 
 Two halves, and they do different jobs:
 
@@ -15,6 +18,10 @@ default, so no future refactor can introduce a path that skips both.
 returns exit 2 when the graph licenses a conclusion it should not. Claude Code
 feeds the hook's stderr back to the model as blocking feedback, so the refusal
 and its discharge move arrive where the work is happening.
+That exit-2 description is Claude-specific. Codex receives an exit-0 structured
+`PostToolUse` decision with the refusal in `reason`. In both runtimes, provoke
+one known-invalid transport before relying on enforcement; a definition file
+alone cannot prove the hook is active.
 
 ## Seed the baseline FIRST — this is not optional
 

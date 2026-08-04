@@ -1,0 +1,22 @@
+{
+  "schema": "product_split_v1",
+  "characteristic": 0,
+  "ring_vars": ["p", "c6_0", "c7_0", "c8_0", "c9_0"],
+  "unit_generators": ["p"],
+  "receipts": [
+    {
+      "id": "E_2_0_bottom_split",
+      "equation": "10*c6_0*c7_0*p^2 + 10*c6_0*c9_0*p + 10*c7_0*c8_0*p + 10*c8_0*c9_0",
+      "scalar": "10",
+      "left": "c6_0*p + c8_0",
+      "right": "c7_0*p + c9_0"
+    },
+    {
+      "id": "E_4_0_bottom_split",
+      "equation": "-10*c6_0*c7_0*p^3 - 10*c6_0*c9_0*p^2 - 10*c7_0*c8_0*p^2 - 10*c8_0*c9_0*p",
+      "scalar": "-10*p",
+      "left": "c6_0*p + c8_0",
+      "right": "c7_0*p + c9_0"
+    }
+  ]
+}

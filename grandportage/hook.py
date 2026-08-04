@@ -3,13 +3,24 @@
 Everything else informs.  The MCP layer records, the checker decides, the
 discharge table advises -- and an agent can ignore all three by not looking.
 This runs after each tool call whether anyone wants it to or not, and returns a
-blocking exit status when the graph licenses a conclusion it should not.
+runtime-specific blocking response when the graph licenses a conclusion it
+should not.
 
-Wire it into `.claude/settings.json`:
+Wire the same command into `.claude/settings.json` or `.codex/hooks.json`:
 
     {"hooks": {"PostToolUse": [{"matcher": "*", "hooks": [
         {"type": "command",
          "command": "python -m grandportage.hook"}]}]}}
+
+Claude Code treats exit 2 and stderr as a block. Codex expects an exit-0 JSON
+decision on stdout::
+
+    {"decision": "block", "reason": "..."}
+
+The input payload distinguishes them: Codex's common hook input includes
+``hook_event_name`` and ``model``. Keeping both protocols here matters because
+an exit-2 Codex hook can execute and leave the marker proving it fired while
+hiding its refusal from the author -- exactly what W8 observed.
 
 Design notes that are not obvious and cost something to get wrong:
 
@@ -225,11 +236,9 @@ def evaluate(root=".", floor=C.UNSOUND_PREMISE):
             new.append(f)
             continue
         recorded = entry.get("fingerprint")
-        # A legacy entry predates fingerprinting.  Grandfather it rather than
-        # reopening every carried obligation at once -- a hook that blocks every
-        # tool call is the day-one trap this module already warns about -- and
-        # it acquires a fingerprint at the next `gp accept`.
-        if recorded and recorded != f.fingerprint:
+        # A fingerprintless entry names a finding id, but not WHAT was agreed
+        # to. Keep it readable and make it stale until explicit re-acceptance.
+        if not recorded or recorded != f.fingerprint:
             stale.append((f, entry))
     if not new and not stale:
         return False, ""
@@ -275,12 +284,27 @@ READ_ONLY_TOOLS = frozenset([
 LAST_BLOCK = "last-block"
 
 
+def _find_root(start):
+    """Delegates to `store.find_root`. Kept as a name because the hook's own
+    docstrings refer to it, and moved because the CLI needed the same answer --
+    two copies of this walk disagreed and the disagreement surfaced as advice
+    that failed. See `store.find_root`."""
+    return S.find_root(start)
+
+
 def _repeat_state(root, fids):
     """Return (is_repeat, writer).  Suppresses re-printing an identical wall.
 
     The same 40-line block arriving five times in a row is not five pieces of
     information; it is one, and the repetition buries the discharge move under
     its own restatement.
+
+    MEASURED IN A LIVE RUN: 16 blocks on 6 distinct findings. The full form
+    costs 330-520 tokens and the short form 34, so suppression took the run's
+    hook bill from roughly 6,600 tokens to 3,000 -- across about forty tool
+    calls, which the author reported as "not a meaningful tax". Without it the
+    author reported they would have been tempted to disable the hook, and a
+    hook that is turned off enforces nothing.
     """
     p = os.path.join(root, S.GRAPH_DIR, LAST_BLOCK)
     key = "\n".join(sorted(fids))
@@ -308,16 +332,22 @@ def _repeat_state(root, fids):
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     root, tool = ".", ""
+    codex_post_tool = False
     try:
         raw = sys.stdin.read()
         if raw.strip():
             payload = json.loads(raw)
             root = payload.get("cwd") or "."
             tool = payload.get("tool_name") or ""
+            codex_post_tool = (
+                payload.get("hook_event_name") == "PostToolUse"
+                and "model" in payload)
     except (ValueError, OSError):
         pass
     if "--root" in argv:
         root = argv[argv.index("--root") + 1]
+    else:
+        root = _find_root(root)
 
     if tool in READ_ONLY_TOOLS:
         return 0
@@ -338,12 +368,23 @@ def main(argv=None):
     repeat, remember = _repeat_state(root, fids)
     remember()
     if repeat:
-        sys.stderr.write(
+        rendered = (
             "GRAND PORTAGE: still refused, unchanged -- %s.\n"
             "Full detail and the discharge move were printed above, or run "
             "`gp check`.\n" % (", ".join(fids) or "see gp check"))
-        return 2
-    sys.stderr.write(message)
+    else:
+        rendered = message
+
+    if codex_post_tool:
+        # Codex command hooks use a structured PostToolUse decision. An exit-2
+        # stderr block remains the Claude Code protocol, but Codex 0.144 ran
+        # that command and hid the feedback from its author even though the
+        # marker proved the hook fired. Returning the documented JSON decision
+        # makes the refusal replace the tool result in the agentic loop.
+        sys.stdout.write(json.dumps({"decision": "block",
+                                     "reason": rendered}) + "\n")
+        return 0
+    sys.stderr.write(rendered)
     return 2        # Claude Code feeds stderr back to the model as blocking
 
 

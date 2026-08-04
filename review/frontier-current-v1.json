@@ -1,0 +1,232 @@
+{
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "counts": {
+    "items": 28,
+    "open": 10,
+    "overlap_resolutions": 7,
+    "receipts": 7,
+    "resolved": 18
+  },
+  "graph_effect": "NONE",
+  "history": {
+    "immutable": true,
+    "input_fingerprint": "sha256:a02166ff0a7dd7f98c64571190c0ddc34005f5759e18e2d6936fda403efbb73b"
+  },
+  "open_items": [
+    "JC.H3.B.RELAXATION",
+    "JC.H3.B0.SOURCE.EXCLUSION",
+    "JC.H3.C21.RELAXATION",
+    "JC.H3.C22_C710.NORMALIZED_LINE.RESULTANT_ROOTS",
+    "JC.H3.D6.R5.CUBIC_FACE",
+    "JC.H3.D6.R6.Q_SIDE_RELOCATION",
+    "JC.H3.D6.R7.75_125_IDENTIFICATION",
+    "JC.H3.DELTA.RELAXATION",
+    "JC.H3.R.RELAXATION",
+    "JC.H3.SOURCE.REMAINING_COEFFICIENT_MAP"
+  ],
+  "projection_schema": "frontier-bundle/v1",
+  "receipts": [
+    {
+      "digest_algo": "sha256-lf-normalized",
+      "id": "c710-all-j-closeout",
+      "input_fingerprint": "sha256:1fbca348ab2bb5657ca9d3a72c2ffb241671a12f8c8fe57656bca7a74b547e42",
+      "item_count": 2,
+      "open_count": 0,
+      "path": "review/jc-h3-c710-all-j-closeout-frontier-v1.json",
+      "receipt_schema": "gp-jc-h3-c710-all-j-closeout-frontier-review/v1",
+      "sha256": "sha256:9a8699101aadf5c0675f6c3e579ab70c6266502b89cf04e7bbb5c76fa8cc2101"
+    },
+    {
+      "digest_algo": "sha256-lf-normalized",
+      "id": "depth6",
+      "input_fingerprint": "sha256:f8df9afed4249e972872fa7cd5fbe2cca251276990f45c8d2ffdfa4954ea0fac",
+      "item_count": 5,
+      "open_count": 5,
+      "path": "review/jc-h3-depth6-frontier-v1.json",
+      "receipt_schema": "gp-jc-h3-depth6-frontier-review/v1",
+      "sha256": "sha256:0027cac3f4a280863a759822710ad8cfa9385b7a0876acedd37caf2970f7b489"
+    },
+    {
+      "digest_algo": "sha256-lf-normalized",
+      "id": "h8-c79",
+      "input_fingerprint": "sha256:97d2ead57c2b81c40c676eb44a4f65187c028ed8d1531100c3cdd2b2014ff22f",
+      "item_count": 6,
+      "open_count": 2,
+      "path": "review/jc-h3-h8-c79-frontier-v1.json",
+      "receipt_schema": "gp-jc-h3-frontier-review/v1",
+      "sha256": "sha256:087512193e19c6ef263f7fb7ba55bf27497c85ba7ca1eced8493dcc4b677b02a"
+    },
+    {
+      "digest_algo": "sha256-lf-normalized",
+      "id": "pin-ablation",
+      "input_fingerprint": "sha256:85f37986bf17a23ad0cb1406eb40ba449d0e3ba6814c08928f395b9e95e6bc82",
+      "item_count": 11,
+      "open_count": 7,
+      "path": "review/jc-h3-pin-ablation-frontier-v1.json",
+      "receipt_schema": "frontier/v1",
+      "sha256": "sha256:90f755423aaa3f83e3fad0dbb3fcd06fc56ffc45a2d391488bd62664fc18e412"
+    },
+    {
+      "digest_algo": "sha256-lf-normalized",
+      "id": "s2-lowjet-guard-peel",
+      "input_fingerprint": "sha256:b1dfdac68b16513a6129f4392128240b93e69c23ecead7a04f9cba68d81d30d6",
+      "item_count": 2,
+      "open_count": 0,
+      "path": "review/jc-h3-s2-lowjet-guard-peel-frontier-v1.json",
+      "receipt_schema": "gp-jc-h3-s2-lowjet-guard-peel-frontier-review/v1",
+      "sha256": "sha256:c29b4747b01cd46f2669dace5481cb7188b58aa5a5e1f84df20176e319062264"
+    },
+    {
+      "digest_algo": "sha256-lf-normalized",
+      "id": "source-target-first-value",
+      "input_fingerprint": "sha256:aa0ac91cfcd3e78a5c14c021d68a76e3f03ac44cb01cb3525ae7fb35d0b22b8c",
+      "item_count": 3,
+      "open_count": 1,
+      "path": "review/jc-h3-source-target-first-value-frontier-v1.json",
+      "receipt_schema": "gp-jc-h3-source-target-first-value-frontier-review/v1",
+      "sha256": "sha256:a56fcb17d9eff56e6ad7ce335889ad0f2d4e4e820d9e4e9c95e5194f0c22eae1"
+    },
+    {
+      "digest_algo": "sha256-lf-normalized",
+      "id": "support-seam",
+      "input_fingerprint": "sha256:b14bf81f377a34b960ad8dc47be4f3e18b598d13be5ca12ab4eef2029d639c85",
+      "item_count": 7,
+      "open_count": 3,
+      "path": "review/jc-h3-support-seam-frontier-v1.json",
+      "receipt_schema": "gp-jc-h3-support-seam-frontier-review/v1",
+      "sha256": "sha256:a114dad6c146f1a9022cc2d3424c20485f73428e1b9ccbc163116211e8027093"
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "JC.H3.FRONTIER.B0.AGREE_OPEN",
+      "item_id": "JC.H3.B0.SOURCE.EXCLUSION",
+      "mode": "AGREE_OPEN",
+      "reason": "Both consumers independently retain the same exact full-b=0 obligation as open.",
+      "receipts": [
+        "h8-c79",
+        "pin-ablation"
+      ],
+      "scope_id": "JC.H3.B0.FULL"
+    },
+    {
+      "current_receipt": "c710-all-j-closeout",
+      "current_status": "RESOLVED_BY_ALL_J_CLOSEOUT",
+      "id": "JC.H3.FRONTIER.C710_EXCEPTIONAL_J.SUPERSEDE",
+      "item_id": "JC.H3.C22_C710.EXCEPTIONAL_J_FIBERS",
+      "mode": "SUPERSEDE",
+      "prior_receipts": [
+        "support-seam"
+      ],
+      "reason": "The exact unit-pivot closeout discharges the formerly finite exceptional-J remainder on the same guarded c7_10 divisor, without widening its scope.",
+      "replacements": [
+        "JC.H3.C22_C710.ALL_J_SOURCE_FACE_EXCLUSION"
+      ],
+      "scope_id": "JC.H3.C22_C710.FULL_CHART"
+    },
+    {
+      "current_receipt": "support-seam",
+      "current_status": "DISCHARGED_PREMISE_FREE_AS_CONSUMED",
+      "id": "JC.H3.FRONTIER.D6.R6.SUPERSEDE",
+      "item_id": "JC.H3.D6.R6.NONMONOMIAL_FRAME",
+      "mode": "SUPERSEDE",
+      "prior_receipts": [
+        "depth6"
+      ],
+      "reason": "The native sigma-budget induction proves R7 prime unconditionally and makes the residual-window discharge premise-free at this exact scope.",
+      "replacements": [
+        "JC.H3.D6.R7_PRIME.SIGMA_BUDGET"
+      ],
+      "scope_id": "JC.H3.D6.CONDITIONAL_NORMALIZED_ROOT"
+    },
+    {
+      "id": "JC.H3.FRONTIER.D6.R7.AGREE_OPEN",
+      "item_id": "JC.H3.D6.R7.75_125_IDENTIFICATION",
+      "mode": "AGREE_OPEN",
+      "reason": "Both receipts keep scalarity and the source-owned (75,125) identification independently open.",
+      "receipts": [
+        "depth6",
+        "support-seam"
+      ],
+      "scope_id": "JC.H3.D6.CONDITIONAL_NORMALIZED_ROOT"
+    },
+    {
+      "current_receipt": "support-seam",
+      "current_status": "RESOLVED_TO_GENERIC_AND_FINITE_REMAINDER",
+      "id": "JC.H3.FRONTIER.NONNORMALIZED_TRANSPORT.SUPERSEDE",
+      "item_id": "JC.H3.C22_C710.NONNORMALIZED_TRANSPORT",
+      "mode": "SUPERSEDE",
+      "prior_receipts": [
+        "pin-ablation"
+      ],
+      "reason": "The function-field identities close the generic J stratum and replace the broad transport request by one explicit finite exceptional-fibre remainder.",
+      "replacements": [
+        "JC.H3.C22_C710.EXCEPTIONAL_J_FIBERS",
+        "JC.H3.C22_C710.NONNORMALIZED_TRANSPORT.GENERIC_J"
+      ],
+      "scope_id": "JC.H3.C22_C710.FULL_CHART"
+    },
+    {
+      "current_receipt": "pin-ablation",
+      "current_status": "RESOLVED_TO_SCOPED_RESULTS",
+      "id": "JC.H3.FRONTIER.PIN_ABLATION.SUPERSEDE",
+      "item_id": "JC.H3.C79.SOURCE.FACE81.PIN_ABLATION",
+      "mode": "SUPERSEDE",
+      "prior_receipts": [
+        "h8-c79"
+      ],
+      "reason": "The landed handback completes the ranked artifact request by splitting it into exact positive, confinement, finite-remainder, transport, and off-wall results.",
+      "replacements": [
+        "JC.H3.B.RELAXATION",
+        "JC.H3.B0.SOURCE.EXCLUSION",
+        "JC.H3.C21.RELAXATION",
+        "JC.H3.C22.UNIFORM_SOURCE_EXCLUSION",
+        "JC.H3.C22_C710.JOINT_CONFINEMENT",
+        "JC.H3.C22_C710.NONNORMALIZED_TRANSPORT",
+        "JC.H3.C22_C710.NORMALIZED_LINE.GENERIC_EXCLUSION",
+        "JC.H3.C22_C710.NORMALIZED_LINE.RESULTANT_ROOTS",
+        "JC.H3.DELTA.RELAXATION",
+        "JC.H3.R.RELAXATION"
+      ],
+      "scope_id": "JC.H3.C79.PIN_ABLATION"
+    },
+    {
+      "current_receipt": "source-target-first-value",
+      "current_status": "RESOLVED_TO_PARTIAL_VALUE_AND_REMAINDER",
+      "id": "JC.H3.FRONTIER.SOURCE.VALUE_SEAM.SUPERSEDE",
+      "item_id": "JC.H3.SOURCE.TARGET_PAIR_TO_NORMALIZED_LAURENT_ROOT",
+      "mode": "SUPERSEDE",
+      "prior_receipts": [
+        "depth6",
+        "support-seam"
+      ],
+      "reason": "The native gauge-aware coefficient packet supplies the exact sigma-top partial map and gauge-free P_(3,0)=0, but explicitly retains the remaining source-to-root coefficient map open.",
+      "replacements": [
+        "JC.H3.SOURCE.REMAINING_COEFFICIENT_MAP",
+        "JC.H3.SOURCE.SIGMA_TOP_FACE_VALUES"
+      ],
+      "scope_id": "JC.H3.SOURCE.TARGET_PAIR.SEAM"
+    }
+  ],
+  "resolved_items": [
+    "JC.H3.B0.S2.LOWJET_COVER_COMPLETE",
+    "JC.H3.B0.S2.SIGMA_GUARD_EXCLUSION",
+    "JC.H3.C22.UNIFORM_SOURCE_EXCLUSION",
+    "JC.H3.C22_C710.ALL_J_SOURCE_FACE_EXCLUSION",
+    "JC.H3.C22_C710.EXCEPTIONAL_J_FIBERS",
+    "JC.H3.C22_C710.JOINT_CONFINEMENT",
+    "JC.H3.C22_C710.NONNORMALIZED_TRANSPORT",
+    "JC.H3.C22_C710.NONNORMALIZED_TRANSPORT.GENERIC_J",
+    "JC.H3.C22_C710.NORMALIZED_LINE.GENERIC_EXCLUSION",
+    "JC.H3.C79.SOURCE.FACE81.PIN_ABLATION",
+    "JC.H3.C79.SOURCE.FACE81.UNIT",
+    "JC.H3.D6.R6.NONMONOMIAL_FRAME",
+    "JC.H3.D6.R7_PRIME.SIGMA_BUDGET",
+    "JC.H3.D9.PAIRING.DEG34",
+    "JC.H3.H8",
+    "JC.H3.OPERATOR_SCHEDULE.D8-15",
+    "JC.H3.SOURCE.SIGMA_TOP_FACE_VALUES",
+    "JC.H3.SOURCE.TARGET_PAIR_TO_NORMALIZED_LAURENT_ROOT"
+  ],
+  "schema": "gp-frontier-current-review/v1"
+}

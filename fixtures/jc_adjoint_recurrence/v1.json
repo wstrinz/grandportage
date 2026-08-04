@@ -1,0 +1,2939 @@
+{
+  "authority_boundary": "The checked finite-tail premises plus the Lean theorem establish the unilateral constant-coefficient annihilator ideal (S^8). They do not discharge H8 or license source, geometric, H3, graph, or verdict promotion.",
+  "binding_digest_algo": "sha256-lf-normalized",
+  "native_certificate": {
+    "annihilator": {
+      "constant_coefficient": "on the unilateral domain d >= 6 the annihilator ideal is exactly (S^8): S^8 annihilates because padded B_d = 0 for d >= 14, S^7 fails at d = 6 because B_13 != 0, and backward induction shows every annihilator has lowest shift exponent >= 8; in particular no annihilator with nonzero constant term, and no reversible backward recurrence, exists",
+      "global_polynomial_coefficient": "(d-7)*(d-9)*(d-11)*(d-13)*(S-1) on the padded sequence, d >= 6; each linear factor is necessary",
+      "within_regimes": "S - 1"
+    },
+    "bindings": {
+      "block_replication_certificate_file_sha256": "f7d1f6e64eb2882628041bca72bdd8c125c688ec0e22be7d4c4f1f31b26682e4",
+      "coordinate_contract_file_sha256": "63da51c56475d39266f3fc74e6f5b0a2f70d05e0d7781d98791aa6bf12535965",
+      "depth8_scaffold_certificate_sha256": "4bc4a9c65e7b97a462156f591b3aef28d59ac5fd1afcf7afd96fee15d3f5656a",
+      "extractor_contract_file_sha256": "eda262a3a18474b11eb0382317ed56945a7f0d365f6488f787671cce6a9538ff",
+      "extractor_contract_sha256_uncompressed": "908d07e0eb3a020a58e9631715375c63aa3c5ff606d6fbe7df38b314b2be9847",
+      "root_supports_file_sha256": "16eb77a98c9c02939cc48a9b7f0e9f1141234784013daf4a34ca375666a2f2d2",
+      "seam_file_sha256": "e21ecff0f9f389b620fa599820e95c93eb44343c44ff20e9d25879f330b39aca"
+    },
+    "cokernel_recurrence": {
+      "first_defect": {
+        "depth": 10,
+        "value_on_column_c8": {
+          "sha256": "17424723eb312212312ceb27d203ee1a552d7ea72ce54ec8a45e1e509bcfef3b",
+          "sparse": {
+            "symbols": [
+              "c5_7",
+              "t"
+            ],
+            "terms": [
+              [
+                [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "-5"
+              ]
+            ]
+          },
+          "terms": 1
+        },
+        "vector": {
+          "2": {
+            "sha256": "6ba3b2a3e9f0fae667c19e7e7801924da47d426ab1deaf467790dc130bc44412",
+            "sparse": {
+              "symbols": [
+                "c2_3",
+                "c3_5",
+                "c5_7",
+                "c8_12"
+              ],
+              "terms": [
+                [
+                  [
+                    [
+                      0,
+                      1
+                    ],
+                    [
+                      1,
+                      2
+                    ]
+                  ],
+                  "-1"
+                ],
+                [
+                  [
+                    [
+                      1,
+                      1
+                    ],
+                    [
+                      2,
+                      1
+                    ]
+                  ],
+                  "2"
+                ],
+                [
+                  [
+                    [
+                      3,
+                      1
+                    ]
+                  ],
+                  "1"
+                ]
+              ]
+            },
+            "terms": 3
+          },
+          "3": {
+            "sha256": "294517ad082eace897ee025847b1e685606f006d3fd395d811c1dd3f66e22b68",
+            "sparse": {
+              "symbols": [
+                "t"
+              ],
+              "terms": [
+                [
+                  [
+                    [
+                      0,
+                      1
+                    ]
+                  ],
+                  "1"
+                ]
+              ]
+            },
+            "terms": 1
+          },
+          "4": {
+            "sha256": "3e7ea78dd61707d6f24b80f33658f10c5b2649c4462c19b58e1c79fb67bc4590",
+            "sparse": {
+              "symbols": [],
+              "terms": []
+            },
+            "terms": 0
+          },
+          "5": {
+            "sha256": "3e7ea78dd61707d6f24b80f33658f10c5b2649c4462c19b58e1c79fb67bc4590",
+            "sparse": {
+              "symbols": [],
+              "terms": []
+            },
+            "terms": 0
+          }
+        }
+      },
+      "template_R_t_valid_depths": [
+        6,
+        9
+      ]
+    },
+    "conventions": {
+      "fresh_columns": "root-7 slot C[7][d] (shift 0) and root-8 slot C[8][d-1] (shift 1); solving rows eliminated through the frozen unit pivots",
+      "padding": "rows (1..5) x columns (C[7][d], C[8][d-1]), absent entries zero",
+      "pin": "15*t^3 + 1 = 0",
+      "stratum": "S2: c4_5 = c2_3^2/4"
+    },
+    "id": "f2_h3_adjoint_recurrence",
+    "kind": "piecewise-constant fresh-slot operator, cokernel recurrence and depth-8 straggler pairing; no additive anchor, no body",
+    "layer": "actual-source derivative recurrence, conditional on P1..P5, S2, the pin and H8 (depths >= 8)",
+    "operator_jumps": {
+      "depth9_is_not_a_jump": "RB_8 == RB_9 exactly; the landed depth-9 root-5 counterterms live in the lag-one (banked-slot/additive) coefficients only",
+      "nonzero_at": [
+        7,
+        9,
+        11,
+        13
+      ],
+      "values": [
+        {
+          "entries": [
+            {
+              "column": "C7_fresh",
+              "row": 4,
+              "value": {
+                "sha256": "44305b4ece921bacabb05fcba5a04260f6bed50d256712d9faadfc9f9d094d50",
+                "sparse": {
+                  "symbols": [
+                    "c5_7",
+                    "t"
+                  ],
+                  "terms": [
+                    [
+                      [
+                        [
+                          0,
+                          1
+                        ],
+                        [
+                          1,
+                          1
+                        ]
+                      ],
+                      "-5"
+                    ]
+                  ]
+                },
+                "terms": 1
+              }
+            },
+            {
+              "column": "C8_lag1",
+              "row": 4,
+              "value": {
+                "sha256": "8de4740af9d0f3f69bbcd1f06171a3d7c2df60e8316b8da237e6c555deb77417",
+                "sparse": {
+                  "symbols": [
+                    "c2_3",
+                    "t"
+                  ],
+                  "terms": [
+                    [
+                      [
+                        [
+                          0,
+                          2
+                        ],
+                        [
+                          1,
+                          1
+                        ]
+                      ],
+                      "5/2"
+                    ]
+                  ]
+                },
+                "terms": 1
+              }
+            }
+          ],
+          "from_depth": 7,
+          "to_depth": 8
+        },
+        {
+          "entries": [
+            {
+              "column": "C8_lag1",
+              "row": 3,
+              "value": {
+                "sha256": "b74a1b7e32aef3a16b2564b1b166f765d001e3db82bc7df628ac2bac359071c9",
+                "sparse": {
+                  "symbols": [
+                    "c5_7"
+                  ],
+                  "terms": [
+                    [
+                      [
+                        [
+                          0,
+                          2
+                        ]
+                      ],
+                      "-5"
+                    ]
+                  ]
+                },
+                "terms": 1
+              }
+            },
+            {
+              "column": "C8_lag1",
+              "row": 5,
+              "value": {
+                "sha256": "44305b4ece921bacabb05fcba5a04260f6bed50d256712d9faadfc9f9d094d50",
+                "sparse": {
+                  "symbols": [
+                    "c5_7",
+                    "t"
+                  ],
+                  "terms": [
+                    [
+                      [
+                        [
+                          0,
+                          1
+                        ],
+                        [
+                          1,
+                          1
+                        ]
+                      ],
+                      "-5"
+                    ]
+                  ]
+                },
+                "terms": 1
+              }
+            }
+          ],
+          "from_depth": 9,
+          "to_depth": 10
+        },
+        {
+          "entries": [
+            {
+              "column": "C7_fresh",
+              "row": 4,
+              "value": {
+                "sha256": "11bfeb7c4fb107995ea0f74f906132ded84c323ac7b5d45cca84bff43e11f6b0",
+                "sparse": {
+                  "symbols": [
+                    "c5_7",
+                    "t"
+                  ],
+                  "terms": [
+                    [
+                      [
+                        [
+                          0,
+                          1
+                        ],
+                        [
+                          1,
+                          1
+                        ]
+                      ],
+                      "5"
+                    ]
+                  ]
+                },
+                "terms": 1
+              }
+            }
+          ],
+          "from_depth": 11,
+          "to_depth": 12
+        },
+        {
+          "entries": [
+            {
+              "column": "C8_lag1",
+              "row": 2,
+              "value": {
+                "sha256": "f05b91c537af4ff87aac61766388ad078b68b01b553363af275b0ff133b45c66",
+                "sparse": {
+                  "symbols": [
+                    "c2_3",
+                    "t"
+                  ],
+                  "terms": [
+                    [
+                      [
+                        [
+                          0,
+                          1
+                        ],
+                        [
+                          1,
+                          1
+                        ]
+                      ],
+                      "5"
+                    ]
+                  ]
+                },
+                "terms": 1
+              }
+            },
+            {
+              "column": "C8_lag1",
+              "row": 3,
+              "value": {
+                "sha256": "0340f0c67801c24d04aa713835a048e032b608ff620b63617e90b842f6b21a9c",
+                "sparse": {
+                  "symbols": [
+                    "c2_3",
+                    "c3_5",
+                    "c5_7",
+                    "c8_12"
+                  ],
+                  "terms": [
+                    [
+                      [
+                        [
+                          0,
+                          1
+                        ],
+                        [
+                          1,
+                          1
+                        ],
+                        [
+                          2,
+                          1
+                        ]
+                      ],
+                      "-10"
+                    ],
+                    [
+                      [
+                        [
+                          0,
+                          1
+                        ],
+                        [
+                          3,
+                          1
+                        ]
+                      ],
+                      "-5"
+                    ],
+                    [
+                      [
+                        [
+                          0,
+                          2
+                        ],
+                        [
+                          1,
+                          2
+                        ]
+                      ],
+                      "5"
+                    ],
+                    [
+                      [
+                        [
+                          2,
+                          2
+                        ]
+                      ],
+                      "5"
+                    ]
+                  ]
+                },
+                "terms": 4
+              }
+            },
+            {
+              "column": "C8_lag1",
+              "row": 4,
+              "value": {
+                "sha256": "b52bd1dc2f80d7a80d3c62f3f1c1644e36be86e27f1d8336ec4c2bf6b2e30e9e",
+                "sparse": {
+                  "symbols": [
+                    "c2_3",
+                    "t"
+                  ],
+                  "terms": [
+                    [
+                      [
+                        [
+                          0,
+                          2
+                        ],
+                        [
+                          1,
+                          1
+                        ]
+                      ],
+                      "-5/2"
+                    ]
+                  ]
+                },
+                "terms": 1
+              }
+            },
+            {
+              "column": "C8_lag1",
+              "row": 5,
+              "value": {
+                "sha256": "11bfeb7c4fb107995ea0f74f906132ded84c323ac7b5d45cca84bff43e11f6b0",
+                "sparse": {
+                  "symbols": [
+                    "c5_7",
+                    "t"
+                  ],
+                  "terms": [
+                    [
+                      [
+                        [
+                          0,
+                          1
+                        ],
+                        [
+                          1,
+                          1
+                        ]
+                      ],
+                      "5"
+                    ]
+                  ]
+                },
+                "terms": 1
+              }
+            }
+          ],
+          "from_depth": 13,
+          "to_depth": 14
+        }
+      ]
+    },
+    "refusals": [
+      "no depth-8 or deeper face, body, value or producer is formed",
+      "no value of b1..b4, Omega_8 or Omega_9 is computed or claimed",
+      "no source-image sufficiency, membership, H3 or (75,125) claim",
+      "no GP, Lean, shared-suite or shared-status promotion",
+      "H8 (row/root assignment at depths >= 8) is assumed, not proved",
+      "geometric extension statements are first-order/generic only"
+    ],
+    "regimes": [
+      {
+        "cokernel_dimension": 1,
+        "columns": [
+          "C7_fresh",
+          "C8_lag1"
+        ],
+        "depths": [
+          6,
+          7
+        ],
+        "left_cokernel_basis": [
+          {
+            "2": {
+              "sha256": "6ba3b2a3e9f0fae667c19e7e7801924da47d426ab1deaf467790dc130bc44412",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "c3_5",
+                  "c5_7",
+                  "c8_12"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        2
+                      ]
+                    ],
+                    "-1"
+                  ],
+                  [
+                    [
+                      [
+                        1,
+                        1
+                      ],
+                      [
+                        2,
+                        1
+                      ]
+                    ],
+                    "2"
+                  ],
+                  [
+                    [
+                      [
+                        3,
+                        1
+                      ]
+                    ],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 3
+            },
+            "3": {
+              "sha256": "294517ad082eace897ee025847b1e685606f006d3fd395d811c1dd3f66e22b68",
+              "sparse": {
+                "symbols": [
+                  "t"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ]
+                    ],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          }
+        ],
+        "matrix": [
+          {
+            "column": "C7_fresh",
+            "row": 2,
+            "value": {
+              "sha256": "3e7ea78dd61707d6f24b80f33658f10c5b2649c4462c19b58e1c79fb67bc4590",
+              "sparse": {
+                "symbols": [],
+                "terms": []
+              },
+              "terms": 0
+            }
+          },
+          {
+            "column": "C8_lag1",
+            "row": 2,
+            "value": {
+              "sha256": "c5eeb9638237ac2c3866aa5cb17df9b860540b3b74db1ef2ca6791376f7bc865",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "t"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ]
+                    ],
+                    "-5"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "column": "C7_fresh",
+            "row": 3,
+            "value": {
+              "sha256": "3e7ea78dd61707d6f24b80f33658f10c5b2649c4462c19b58e1c79fb67bc4590",
+              "sparse": {
+                "symbols": [],
+                "terms": []
+              },
+              "terms": 0
+            }
+          },
+          {
+            "column": "C8_lag1",
+            "row": 3,
+            "value": {
+              "sha256": "2faa7296b8b2b6321e37540cf5bc3ea29fb74fd6457cb482f6dfca391d28ec08",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "c3_5",
+                  "c5_7",
+                  "c8_12"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ],
+                      [
+                        2,
+                        1
+                      ]
+                    ],
+                    "10"
+                  ],
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        3,
+                        1
+                      ]
+                    ],
+                    "5"
+                  ],
+                  [
+                    [
+                      [
+                        0,
+                        2
+                      ],
+                      [
+                        1,
+                        2
+                      ]
+                    ],
+                    "-5"
+                  ]
+                ]
+              },
+              "terms": 3
+            }
+          }
+        ],
+        "open_ended": false,
+        "regime": "R1",
+        "rows": [
+          2,
+          3
+        ]
+      },
+      {
+        "cokernel_dimension": 1,
+        "columns": [
+          "C7_fresh",
+          "C8_lag1"
+        ],
+        "depths": [
+          8,
+          9
+        ],
+        "left_cokernel_basis": [
+          {
+            "2": {
+              "sha256": "6ba3b2a3e9f0fae667c19e7e7801924da47d426ab1deaf467790dc130bc44412",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "c3_5",
+                  "c5_7",
+                  "c8_12"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        2
+                      ]
+                    ],
+                    "-1"
+                  ],
+                  [
+                    [
+                      [
+                        1,
+                        1
+                      ],
+                      [
+                        2,
+                        1
+                      ]
+                    ],
+                    "2"
+                  ],
+                  [
+                    [
+                      [
+                        3,
+                        1
+                      ]
+                    ],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 3
+            },
+            "3": {
+              "sha256": "294517ad082eace897ee025847b1e685606f006d3fd395d811c1dd3f66e22b68",
+              "sparse": {
+                "symbols": [
+                  "t"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ]
+                    ],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          }
+        ],
+        "matrix": [
+          {
+            "column": "C7_fresh",
+            "row": 2,
+            "value": {
+              "sha256": "3e7ea78dd61707d6f24b80f33658f10c5b2649c4462c19b58e1c79fb67bc4590",
+              "sparse": {
+                "symbols": [],
+                "terms": []
+              },
+              "terms": 0
+            }
+          },
+          {
+            "column": "C8_lag1",
+            "row": 2,
+            "value": {
+              "sha256": "c5eeb9638237ac2c3866aa5cb17df9b860540b3b74db1ef2ca6791376f7bc865",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "t"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ]
+                    ],
+                    "-5"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "column": "C7_fresh",
+            "row": 3,
+            "value": {
+              "sha256": "3e7ea78dd61707d6f24b80f33658f10c5b2649c4462c19b58e1c79fb67bc4590",
+              "sparse": {
+                "symbols": [],
+                "terms": []
+              },
+              "terms": 0
+            }
+          },
+          {
+            "column": "C8_lag1",
+            "row": 3,
+            "value": {
+              "sha256": "2faa7296b8b2b6321e37540cf5bc3ea29fb74fd6457cb482f6dfca391d28ec08",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "c3_5",
+                  "c5_7",
+                  "c8_12"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ],
+                      [
+                        2,
+                        1
+                      ]
+                    ],
+                    "10"
+                  ],
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        3,
+                        1
+                      ]
+                    ],
+                    "5"
+                  ],
+                  [
+                    [
+                      [
+                        0,
+                        2
+                      ],
+                      [
+                        1,
+                        2
+                      ]
+                    ],
+                    "-5"
+                  ]
+                ]
+              },
+              "terms": 3
+            }
+          },
+          {
+            "column": "C7_fresh",
+            "row": 4,
+            "value": {
+              "sha256": "44305b4ece921bacabb05fcba5a04260f6bed50d256712d9faadfc9f9d094d50",
+              "sparse": {
+                "symbols": [
+                  "c5_7",
+                  "t"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ]
+                    ],
+                    "-5"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "column": "C8_lag1",
+            "row": 4,
+            "value": {
+              "sha256": "8de4740af9d0f3f69bbcd1f06171a3d7c2df60e8316b8da237e6c555deb77417",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "t"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        2
+                      ],
+                      [
+                        1,
+                        1
+                      ]
+                    ],
+                    "5/2"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          }
+        ],
+        "open_ended": false,
+        "regime": "R2",
+        "rows": [
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "cokernel_dimension": 2,
+        "columns": [
+          "C7_fresh",
+          "C8_lag1"
+        ],
+        "depths": [
+          10,
+          11
+        ],
+        "left_cokernel_basis": [
+          {
+            "2": {
+              "sha256": "bd4d20bb5ff7078076a03c7ed4e342a759a2f170b0c09e4a1bdeebf68f412eb9",
+              "sparse": {
+                "symbols": [
+                  "c5_7"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ]
+                    ],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            },
+            "5": {
+              "sha256": "c57702710f0bb5c0717bc42c5b30b22a02b68993a18626e921df962c2dee88d5",
+              "sparse": {
+                "symbols": [
+                  "c2_3"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ]
+                    ],
+                    "-1"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "2": {
+              "sha256": "2da83c2dce307a40e0143b8bd1df77b18cb7269b7a5531b4f1f10ff7a5c3df18",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "c3_5",
+                  "c5_7",
+                  "c8_12"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ],
+                      [
+                        2,
+                        1
+                      ]
+                    ],
+                    "2"
+                  ],
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        3,
+                        1
+                      ]
+                    ],
+                    "1"
+                  ],
+                  [
+                    [
+                      [
+                        0,
+                        2
+                      ],
+                      [
+                        1,
+                        2
+                      ]
+                    ],
+                    "-1"
+                  ],
+                  [
+                    [
+                      [
+                        2,
+                        2
+                      ]
+                    ],
+                    "-1"
+                  ]
+                ]
+              },
+              "terms": 4
+            },
+            "3": {
+              "sha256": "b1ad8d0c14d90cd7e4654d5e32e94b43ef55ff74efdd2f055bb42a1798b21d2d",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "t"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ]
+                    ],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          }
+        ],
+        "matrix": [
+          {
+            "column": "C7_fresh",
+            "row": 2,
+            "value": {
+              "sha256": "3e7ea78dd61707d6f24b80f33658f10c5b2649c4462c19b58e1c79fb67bc4590",
+              "sparse": {
+                "symbols": [],
+                "terms": []
+              },
+              "terms": 0
+            }
+          },
+          {
+            "column": "C8_lag1",
+            "row": 2,
+            "value": {
+              "sha256": "c5eeb9638237ac2c3866aa5cb17df9b860540b3b74db1ef2ca6791376f7bc865",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "t"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ]
+                    ],
+                    "-5"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "column": "C7_fresh",
+            "row": 3,
+            "value": {
+              "sha256": "3e7ea78dd61707d6f24b80f33658f10c5b2649c4462c19b58e1c79fb67bc4590",
+              "sparse": {
+                "symbols": [],
+                "terms": []
+              },
+              "terms": 0
+            }
+          },
+          {
+            "column": "C8_lag1",
+            "row": 3,
+            "value": {
+              "sha256": "d925a52566bdddabde6811c792491f88008afcdc65d23f8d67dab3a1efef86f6",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "c3_5",
+                  "c5_7",
+                  "c8_12"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ],
+                      [
+                        2,
+                        1
+                      ]
+                    ],
+                    "10"
+                  ],
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        3,
+                        1
+                      ]
+                    ],
+                    "5"
+                  ],
+                  [
+                    [
+                      [
+                        0,
+                        2
+                      ],
+                      [
+                        1,
+                        2
+                      ]
+                    ],
+                    "-5"
+                  ],
+                  [
+                    [
+                      [
+                        2,
+                        2
+                      ]
+                    ],
+                    "-5"
+                  ]
+                ]
+              },
+              "terms": 4
+            }
+          },
+          {
+            "column": "C7_fresh",
+            "row": 4,
+            "value": {
+              "sha256": "44305b4ece921bacabb05fcba5a04260f6bed50d256712d9faadfc9f9d094d50",
+              "sparse": {
+                "symbols": [
+                  "c5_7",
+                  "t"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ]
+                    ],
+                    "-5"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "column": "C8_lag1",
+            "row": 4,
+            "value": {
+              "sha256": "8de4740af9d0f3f69bbcd1f06171a3d7c2df60e8316b8da237e6c555deb77417",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "t"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        2
+                      ],
+                      [
+                        1,
+                        1
+                      ]
+                    ],
+                    "5/2"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "column": "C7_fresh",
+            "row": 5,
+            "value": {
+              "sha256": "3e7ea78dd61707d6f24b80f33658f10c5b2649c4462c19b58e1c79fb67bc4590",
+              "sparse": {
+                "symbols": [],
+                "terms": []
+              },
+              "terms": 0
+            }
+          },
+          {
+            "column": "C8_lag1",
+            "row": 5,
+            "value": {
+              "sha256": "44305b4ece921bacabb05fcba5a04260f6bed50d256712d9faadfc9f9d094d50",
+              "sparse": {
+                "symbols": [
+                  "c5_7",
+                  "t"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ]
+                    ],
+                    "-5"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          }
+        ],
+        "open_ended": false,
+        "regime": "R3",
+        "rows": [
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "cokernel_dimension": 3,
+        "columns": [
+          "C8_lag1"
+        ],
+        "depths": [
+          12,
+          13
+        ],
+        "left_cokernel_basis": [
+          {
+            "2": {
+              "sha256": "bd4d20bb5ff7078076a03c7ed4e342a759a2f170b0c09e4a1bdeebf68f412eb9",
+              "sparse": {
+                "symbols": [
+                  "c5_7"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ]
+                    ],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            },
+            "5": {
+              "sha256": "c57702710f0bb5c0717bc42c5b30b22a02b68993a18626e921df962c2dee88d5",
+              "sparse": {
+                "symbols": [
+                  "c2_3"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ]
+                    ],
+                    "-1"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "2": {
+              "sha256": "2da83c2dce307a40e0143b8bd1df77b18cb7269b7a5531b4f1f10ff7a5c3df18",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "c3_5",
+                  "c5_7",
+                  "c8_12"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ],
+                      [
+                        2,
+                        1
+                      ]
+                    ],
+                    "2"
+                  ],
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        3,
+                        1
+                      ]
+                    ],
+                    "1"
+                  ],
+                  [
+                    [
+                      [
+                        0,
+                        2
+                      ],
+                      [
+                        1,
+                        2
+                      ]
+                    ],
+                    "-1"
+                  ],
+                  [
+                    [
+                      [
+                        2,
+                        2
+                      ]
+                    ],
+                    "-1"
+                  ]
+                ]
+              },
+              "terms": 4
+            },
+            "3": {
+              "sha256": "b1ad8d0c14d90cd7e4654d5e32e94b43ef55ff74efdd2f055bb42a1798b21d2d",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "t"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ]
+                    ],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "2": {
+              "sha256": "40712a582623ee50c3733f9d311d63954228058e00bcc8b4903f3bb06f75bf98",
+              "sparse": {
+                "symbols": [
+                  "c2_3"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ]
+                    ],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            },
+            "4": {
+              "sha256": "195cb6d307ce774c0d80ad48ab508c0779d108f5047f2eca91a2a77c002e71f9",
+              "sparse": {
+                "symbols": [],
+                "terms": [
+                  [
+                    [],
+                    "2"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          }
+        ],
+        "matrix": [
+          {
+            "column": "C8_lag1",
+            "row": 2,
+            "value": {
+              "sha256": "c5eeb9638237ac2c3866aa5cb17df9b860540b3b74db1ef2ca6791376f7bc865",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "t"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ]
+                    ],
+                    "-5"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "column": "C8_lag1",
+            "row": 3,
+            "value": {
+              "sha256": "d925a52566bdddabde6811c792491f88008afcdc65d23f8d67dab3a1efef86f6",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "c3_5",
+                  "c5_7",
+                  "c8_12"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ],
+                      [
+                        2,
+                        1
+                      ]
+                    ],
+                    "10"
+                  ],
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        3,
+                        1
+                      ]
+                    ],
+                    "5"
+                  ],
+                  [
+                    [
+                      [
+                        0,
+                        2
+                      ],
+                      [
+                        1,
+                        2
+                      ]
+                    ],
+                    "-5"
+                  ],
+                  [
+                    [
+                      [
+                        2,
+                        2
+                      ]
+                    ],
+                    "-5"
+                  ]
+                ]
+              },
+              "terms": 4
+            }
+          },
+          {
+            "column": "C8_lag1",
+            "row": 4,
+            "value": {
+              "sha256": "8de4740af9d0f3f69bbcd1f06171a3d7c2df60e8316b8da237e6c555deb77417",
+              "sparse": {
+                "symbols": [
+                  "c2_3",
+                  "t"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        2
+                      ],
+                      [
+                        1,
+                        1
+                      ]
+                    ],
+                    "5/2"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "column": "C8_lag1",
+            "row": 5,
+            "value": {
+              "sha256": "44305b4ece921bacabb05fcba5a04260f6bed50d256712d9faadfc9f9d094d50",
+              "sparse": {
+                "symbols": [
+                  "c5_7",
+                  "t"
+                ],
+                "terms": [
+                  [
+                    [
+                      [
+                        0,
+                        1
+                      ],
+                      [
+                        1,
+                        1
+                      ]
+                    ],
+                    "-5"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          }
+        ],
+        "open_ended": false,
+        "regime": "R4",
+        "rows": [
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "cokernel_dimension": 4,
+        "columns": [],
+        "depths": [
+          14,
+          14
+        ],
+        "left_cokernel_basis": [
+          {
+            "2": {
+              "sha256": "62103bd066f60f6f3680b5073baff609b10b2fa4f708b3a6bf8f96c4b909ceb7",
+              "sparse": {
+                "symbols": [],
+                "terms": [
+                  [
+                    [],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "3": {
+              "sha256": "62103bd066f60f6f3680b5073baff609b10b2fa4f708b3a6bf8f96c4b909ceb7",
+              "sparse": {
+                "symbols": [],
+                "terms": [
+                  [
+                    [],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "4": {
+              "sha256": "62103bd066f60f6f3680b5073baff609b10b2fa4f708b3a6bf8f96c4b909ceb7",
+              "sparse": {
+                "symbols": [],
+                "terms": [
+                  [
+                    [],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "5": {
+              "sha256": "62103bd066f60f6f3680b5073baff609b10b2fa4f708b3a6bf8f96c4b909ceb7",
+              "sparse": {
+                "symbols": [],
+                "terms": [
+                  [
+                    [],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          }
+        ],
+        "matrix": [],
+        "open_ended": false,
+        "regime": "R5",
+        "rows": [
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "cokernel_dimension": 5,
+        "columns": [],
+        "depths": [
+          15,
+          24
+        ],
+        "left_cokernel_basis": [
+          {
+            "1": {
+              "sha256": "62103bd066f60f6f3680b5073baff609b10b2fa4f708b3a6bf8f96c4b909ceb7",
+              "sparse": {
+                "symbols": [],
+                "terms": [
+                  [
+                    [],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "2": {
+              "sha256": "62103bd066f60f6f3680b5073baff609b10b2fa4f708b3a6bf8f96c4b909ceb7",
+              "sparse": {
+                "symbols": [],
+                "terms": [
+                  [
+                    [],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "3": {
+              "sha256": "62103bd066f60f6f3680b5073baff609b10b2fa4f708b3a6bf8f96c4b909ceb7",
+              "sparse": {
+                "symbols": [],
+                "terms": [
+                  [
+                    [],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "4": {
+              "sha256": "62103bd066f60f6f3680b5073baff609b10b2fa4f708b3a6bf8f96c4b909ceb7",
+              "sparse": {
+                "symbols": [],
+                "terms": [
+                  [
+                    [],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          },
+          {
+            "5": {
+              "sha256": "62103bd066f60f6f3680b5073baff609b10b2fa4f708b3a6bf8f96c4b909ceb7",
+              "sparse": {
+                "symbols": [],
+                "terms": [
+                  [
+                    [],
+                    "1"
+                  ]
+                ]
+              },
+              "terms": 1
+            }
+          }
+        ],
+        "matrix": [],
+        "open_ended": true,
+        "regime": "R6",
+        "rows": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    ],
+    "schedule": {
+      "additive_conditions_per_depth": {
+        "10": 2,
+        "11": 2,
+        "12": 3,
+        "13": 3,
+        "14": 4,
+        "9": 1,
+        ">=15": 5
+      },
+      "first_slotless_depth": 14,
+      "last_fresh_root7_slot_depth": 11,
+      "last_fresh_root8_slot_depth": 13,
+      "packet_corrections": [
+        "the fresh-slot operator does NOT change at depth 9; RB_8 == RB_9 exactly (the root-5 collapse is lag-one/additive)",
+        "operator jump depths are 8, 10, 12, 14 (matrix) and 15 (row set only, padded-invisible)"
+      ],
+      "residual_row_joins": {
+        "1": 15,
+        "2": 6,
+        "3": 6,
+        "4": 8,
+        "5": 10
+      }
+    },
+    "schema_version": 1,
+    "straggler_depth8": {
+      "consequence": "the depth-8 extended fresh system (c7_4, c7_3, c8_5) is nonsingular on the guarded open set; the scaffold's one-dimensional class is the c7_4-pinned conditional class; the first frame-independent compatibility scalar is Omega_9 = R*b2 + t*b3 at depth 9",
+      "det3_extended": {
+        "sha256": "bff88b0cb8fd777782a1cea02e0ba1b6fce0387166c8d7de178cf0813ed53978",
+        "sparse": {
+          "symbols": [
+            "c2_3",
+            "c3_5",
+            "c5_7",
+            "t"
+          ],
+          "terms": [
+            [
+              [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  3,
+                  1
+                ]
+              ],
+              "-1250/3"
+            ],
+            [
+              [
+                [
+                  0,
+                  4
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ]
+              ],
+              "-125/4"
+            ],
+            [
+              [
+                [
+                  0,
+                  5
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  3,
+                  2
+                ]
+              ],
+              "-125/8"
+            ]
+          ]
+        },
+        "terms": 3
+      },
+      "identity": "det3 = 25*c2_3*c5_7*t * (mu . w); lambda . w = 2 * (mu . w)",
+      "lambda_dot_w": {
+        "sha256": "bc2c02d623659a799a42f68c7f8800320beff266f0f1c44d3ee0b259dd5a7bcb",
+        "sparse": {
+          "symbols": [
+            "c2_3",
+            "c3_5",
+            "c5_7",
+            "t"
+          ],
+          "terms": [
+            [
+              [
+                [
+                  0,
+                  3
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  3,
+                  1
+                ]
+              ],
+              "-5/2"
+            ],
+            [
+              [
+                [
+                  0,
+                  4
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  1
+                ]
+              ],
+              "-5/4"
+            ],
+            [
+              [
+                [
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  3
+                ]
+              ],
+              "-100/3"
+            ]
+          ]
+        },
+        "terms": 3
+      },
+      "mu_dot_w": {
+        "sha256": "330c9262b60006a03f7c291993418ad8c8d5048e5722e8f66d839ffaa9bf394e",
+        "sparse": {
+          "symbols": [
+            "c2_3",
+            "c3_5",
+            "c5_7",
+            "t"
+          ],
+          "terms": [
+            [
+              [
+                [
+                  0,
+                  3
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  3,
+                  1
+                ]
+              ],
+              "-5/4"
+            ],
+            [
+              [
+                [
+                  0,
+                  4
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  3,
+                  1
+                ]
+              ],
+              "-5/8"
+            ],
+            [
+              [
+                [
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  3
+                ]
+              ],
+              "-50/3"
+            ]
+          ]
+        },
+        "terms": 3
+      },
+      "nonvanishing_guard": "80*c3_5*c5_7^3 + 3*c2_3^3*t*(2*c5_7 + c2_3*c3_5) != 0 (contains the c2_3-free monomial -50/3*c3_5*c5_7^3)",
+      "slot": "c7_4 = C[7][7]; on S2 invisible at its native depth 7 because the fresh row-3 coefficient (5/2)*t*Delta dies",
+      "w_native_rows_1_to_4": {
+        "1": {
+          "sha256": "52d5dd0ea0c32518a23eaf7609ea3a81176a1f3c19dba0e08cf1602641a5b6b0",
+          "sparse": {
+            "symbols": [
+              "c2_2",
+              "c2_3",
+              "c3_5",
+              "c5_7",
+              "c8_12",
+              "t"
+            ],
+            "terms": [
+              [
+                [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    5,
+                    1
+                  ]
+                ],
+                "15"
+              ],
+              [
+                [
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    5,
+                    2
+                  ]
+                ],
+                "-150"
+              ],
+              [
+                [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    4
+                  ],
+                  [
+                    5,
+                    2
+                  ]
+                ],
+                "75"
+              ],
+              [
+                [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    3,
+                    1
+                  ]
+                ],
+                "-35/4"
+              ],
+              [
+                [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    5,
+                    2
+                  ]
+                ],
+                "-900"
+              ],
+              [
+                [
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    5,
+                    2
+                  ]
+                ],
+                "75"
+              ]
+            ]
+          },
+          "terms": 6
+        },
+        "2": {
+          "sha256": "d2009b1173cde3db9455aad9156918d4010c94f117e687c204b21f451a1213b2",
+          "sparse": {
+            "symbols": [
+              "c2_3",
+              "c3_5",
+              "c5_7",
+              "c8_12"
+            ],
+            "terms": [
+              [
+                [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "20"
+              ],
+              [
+                [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    3,
+                    1
+                  ]
+                ],
+                "5"
+              ],
+              [
+                [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    2
+                  ]
+                ],
+                "-5"
+              ]
+            ]
+          },
+          "terms": 3
+        },
+        "3": {
+          "sha256": "91716d49386302e1f1d25eb8d2219718f2ec4fcf0ce86a268c54d759f9cac175",
+          "sparse": {
+            "symbols": [
+              "c2_2",
+              "c2_3",
+              "c3_5",
+              "c5_7",
+              "c8_12",
+              "t"
+            ],
+            "terms": [
+              [
+                [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    5,
+                    1
+                  ]
+                ],
+                "-15/2"
+              ],
+              [
+                [
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    5,
+                    2
+                  ]
+                ],
+                "450"
+              ],
+              [
+                [
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    5,
+                    2
+                  ]
+                ],
+                "1050"
+              ],
+              [
+                [
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    5,
+                    2
+                  ]
+                ],
+                "75/2"
+              ],
+              [
+                [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    5,
+                    2
+                  ]
+                ],
+                "-75"
+              ],
+              [
+                [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    3
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    5,
+                    2
+                  ]
+                ],
+                "-450"
+              ],
+              [
+                [
+                  [
+                    1,
+                    3
+                  ],
+                  [
+                    2,
+                    4
+                  ],
+                  [
+                    5,
+                    2
+                  ]
+                ],
+                "75/2"
+              ],
+              [
+                [
+                  [
+                    1,
+                    3
+                  ],
+                  [
+                    3,
+                    1
+                  ]
+                ],
+                "25/8"
+              ],
+              [
+                [
+                  [
+                    1,
+                    4
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "-5/8"
+              ],
+              [
+                [
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    3,
+                    3
+                  ],
+                  [
+                    5,
+                    2
+                  ]
+                ],
+                "250"
+              ]
+            ]
+          },
+          "terms": 10
+        },
+        "4": {
+          "sha256": "7afc43cf3d9fd9e83d43d245cd29cb4021eb04b0c14a38d243a874a2bfbd60ee",
+          "sparse": {
+            "symbols": [
+              "c2_3",
+              "c3_5",
+              "c5_7",
+              "c7_10",
+              "c8_12"
+            ],
+            "terms": [
+              [
+                [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "15/2"
+              ],
+              [
+                [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "-10"
+              ],
+              [
+                [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    4,
+                    1
+                  ]
+                ],
+                "-5/2"
+              ],
+              [
+                [
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    1,
+                    2
+                  ]
+                ],
+                "5/2"
+              ],
+              [
+                [
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    3,
+                    1
+                  ]
+                ],
+                "10"
+              ]
+            ]
+          },
+          "terms": 5
+        }
+      },
+      "w_schur_rows_2_3_4": {
+        "2": {
+          "sha256": "d2009b1173cde3db9455aad9156918d4010c94f117e687c204b21f451a1213b2",
+          "sparse": {
+            "symbols": [
+              "c2_3",
+              "c3_5",
+              "c5_7",
+              "c8_12"
+            ],
+            "terms": [
+              [
+                [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "20"
+              ],
+              [
+                [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    3,
+                    1
+                  ]
+                ],
+                "5"
+              ],
+              [
+                [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    2
+                  ]
+                ],
+                "-5"
+              ]
+            ]
+          },
+          "terms": 3
+        },
+        "3": {
+          "sha256": "dd162120741e6d12a748d147dd71e4719ee387a213bd05346e5ab58f01ce7336",
+          "sparse": {
+            "symbols": [
+              "c2_3",
+              "c3_5",
+              "c5_7",
+              "c8_12",
+              "t"
+            ],
+            "terms": [
+              [
+                [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    4,
+                    2
+                  ]
+                ],
+                "450"
+              ],
+              [
+                [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    2
+                  ]
+                ],
+                "600"
+              ],
+              [
+                [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    4,
+                    2
+                  ]
+                ],
+                "75"
+              ],
+              [
+                [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    4,
+                    2
+                  ]
+                ],
+                "-150"
+              ],
+              [
+                [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    3
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    4,
+                    2
+                  ]
+                ],
+                "-450"
+              ],
+              [
+                [
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    1,
+                    4
+                  ],
+                  [
+                    4,
+                    2
+                  ]
+                ],
+                "75"
+              ],
+              [
+                [
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "-5/4"
+              ],
+              [
+                [
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "-5/8"
+              ],
+              [
+                [
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    3
+                  ],
+                  [
+                    4,
+                    2
+                  ]
+                ],
+                "250"
+              ]
+            ]
+          },
+          "terms": 9
+        },
+        "4": {
+          "sha256": "7afc43cf3d9fd9e83d43d245cd29cb4021eb04b0c14a38d243a874a2bfbd60ee",
+          "sparse": {
+            "symbols": [
+              "c2_3",
+              "c3_5",
+              "c5_7",
+              "c7_10",
+              "c8_12"
+            ],
+            "terms": [
+              [
+                [
+                  [
+                    0,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "15/2"
+              ],
+              [
+                [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "-10"
+              ],
+              [
+                [
+                  [
+                    0,
+                    2
+                  ],
+                  [
+                    4,
+                    1
+                  ]
+                ],
+                "-5/2"
+              ],
+              [
+                [
+                  [
+                    0,
+                    3
+                  ],
+                  [
+                    1,
+                    2
+                  ]
+                ],
+                "5/2"
+              ],
+              [
+                [
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    3,
+                    1
+                  ]
+                ],
+                "10"
+              ]
+            ]
+          },
+          "terms": 5
+        }
+      }
+    }
+  },
+  "projection": {
+    "claims": {
+      "S7": {
+        "status": "REFUTED_BY_B13_AT_D6"
+      },
+      "constant_coefficient_annihilator_ideal": {
+        "lean_theorem": "annihilatesFrom_iff_coefficients_below_gap_zero",
+        "status": "VERIFIED_LEAN_BACKED_FROM_CHECKED_PREMISES",
+        "value": "(S^8)"
+      },
+      "nonzero_constant_term_annihilator": {
+        "status": "REFUTED"
+      },
+      "polynomial_coefficient_annihilator": {
+        "minimality_scope": "S_DEGREE_ONE_ONLY",
+        "operator": "(d-7)*(d-9)*(d-11)*(d-13)*(S-1)",
+        "status": "VERIFIED_ON_PADDED_SEQUENCE"
+      },
+      "pure_forward_truncation": {
+        "operator": "S^8",
+        "status": "VERIFIED"
+      },
+      "reversible_backward_recurrence": {
+        "status": "REFUTED"
+      }
+    },
+    "domain": {
+      "kind": "UNILATERAL",
+      "start": 6
+    },
+    "graph_effect": "NONE",
+    "instance_id": "jc_h3_adjoint_fresh_operator",
+    "operator_coefficient_domain": "QQ",
+    "operator_representation": "finite coefficient sequences canonically padded to width >= 8",
+    "outside_adapter": [
+      "cokernel-basis correctness",
+      "depth-8 straggler and determinant identities",
+      "additive compatibility values Omega_8 or Omega_9",
+      "minimality among higher-S-degree polynomial-coefficient operators",
+      "blanket minimality of S-1 within every regime (the zero-tail regimes admit the unit annihilator)"
+    ],
+    "premises": {
+      "checked_by_adapter": [
+        "padded B_d is zero for every d >= 14",
+        "padded B_13 is nonzero",
+        "operator jumps occur exactly at d=7,9,11,13",
+        "entries are exact sparse QQ-polynomials, so nonzero QQ scalars act faithfully"
+      ],
+      "native_assumptions_not_discharged": [
+        "P1..P5",
+        "S2",
+        "15*t^3+1=0",
+        "H8 for depths >=8"
+      ]
+    },
+    "refusals": [
+      "H8 discharge",
+      "source-image sufficiency",
+      "actual-source membership",
+      "geometric component exclusion",
+      "H3 promotion",
+      "(75,125) verdict change",
+      "graph claim or transport authority"
+    ],
+    "sequence_value_module": "padded 5x2 sparse polynomial matrices with faithful QQ scaling",
+    "shift_convention": "(S B)_d = B_(d+1)"
+  },
+  "schema": "parametric_recurrence_v1",
+  "source_bindings": {
+    "f2_h3_adjoint_recurrence.py": "9c99a96ee5c273ada10aae5d3beea4de0a0db980c78cf0570c4dd9dfc1244d64",
+    "f2_h3_adjoint_recurrence_certificate.json": "9a3f3854b19d5efe988c660f51babbb7b71eca00cf99b2fd88c8b6168ccb7ba4"
+  }
+}

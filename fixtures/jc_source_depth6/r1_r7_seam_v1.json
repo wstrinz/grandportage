@@ -1,0 +1,1067 @@
+{
+  "authority_boundary": "R1--R4 are closed only inside the conditional normalized-root seam. R5 remains premise-bound, R6 lacks the exact non-monomial frame conversion, and R7 remains inferred. No graph, source, coverage, H3, or verdict authority is created.",
+  "binding_digest_algo": "sha256-lf-normalized",
+  "correction_commits": [
+    "fb18749",
+    "d0257f9"
+  ],
+  "native_manifests": {
+    "frame": {
+      "answers_blocker": {
+        "J": null,
+        "actual_residual_y_degree": "UNDETERMINED",
+        "blocker_id": "residual_y_exponent_bound",
+        "closing_schema_asked": "jc-f2-residual-y-bound/v1",
+        "explicitly_not_claimed": [
+          "that J exists",
+          "that the actual residual F has unbounded y-exponents",
+          "that Supp(F) equals the permitted region Sigma_n",
+          "that F carries the permitted family (1-n-k, 1+k)",
+          "that R6 is closed",
+          "that the closing schema jc-f2-residual-y-bound/v1 is satisfiable as stated"
+        ],
+        "manifest": "f2_original_pair_root_normalization_manifest.json",
+        "prior_status_unchanged": true,
+        "scope": null,
+        "substage_status": {
+          "R6_residual_window": "OPEN"
+        },
+        "verdict": "LINEAR_MONOMIAL_TRANSPORT_REFUTED_AND_NO_FINITE_UNIVERSAL_J_DERIVABLE_FROM_THE_PRINTED_CONSTRAINTS"
+      },
+      "authority": {
+        "not_supported": "that J exists, that the actual residual has unbounded y-exponents, that Supp(F) equals Sigma_n, that F carries the permitted family (1-n-k, 1+k), that R6 or the open stage is closed or promoted, that GGV3 prints the covered frame or (75,125), that F lies in the covered hull, or that the frame conversion has been materialized",
+        "refusals": [
+          "supplying J",
+          "promoting permitted support (Sigma_n) to actual support",
+          "asserting the actual residual has unbounded y-exponents",
+          "asserting the actual residual carries the family (1-n-k, 1+k)",
+          "promoting target_pair_to_normalized_laurent_root or R6",
+          "asserting GGV3 prints the covered frame, psi2, or the target pair",
+          "asserting F lies in the covered hull",
+          "treating R5 as unconditional or R7 as identified at (75,125)",
+          "actual polynomial-pair membership",
+          "source-image sufficiency",
+          "reverse lift",
+          "chart coverage",
+          "I4=I1=Im1=0",
+          "H3 promotion",
+          "(75,125) verdict change",
+          "any edit to the frozen seam artifacts or their verifiers"
+        ],
+        "strict_original_source_supported": false,
+        "supported": "GGV3 prints an inclusion Supp(F) subset of Sigma_n, a region cut by three half-planes of which the seam used one; under a linear frame transport the landed covered support forces delta >= 2/5 > 0, so that region transports to arbitrarily large y-exponents and no finite UNIVERSAL J is derivable; branch A, the unique linear transport that would give J = 0 for the actual F, is excluded by that same landed support; and the linear transport is independently refuted because it is not a ring map"
+      },
+      "bindings_sha256_lf_normalized": {
+        "f2_divisor3_gauge_ladder.py": "0db2ad2bf1819cecb7409a54d237b169b2906fde8ae02833a5cfd7ef3bfe7180",
+        "f2_original_pair_root_normalization.py": "117e0befbf0a195b85e2d11368f4085ffa0bfd650e410bbafb89fdd6e6adb89a",
+        "f2_original_pair_root_normalization_manifest.json": "4d930a9465f1e54d57bf4b5095c1ab0242e78a132e856c6f4e9fbfdffb79db09",
+        "paper_src/1406.0886_GGV3.tex": "90415f594bb1c213e57e46c59147c39e1c9977c3be539be5d4aedefa757f4997"
+      },
+      "dichotomy": {
+        "branch_A": {
+          "J": 0,
+          "applies_to_the_actual_residual": true,
+          "condition": "gamma = 0 (equivalently alpha = 3/25, i.e. Phi(n,0) = the covered top-x vertex (9,0)) AND delta <= 0 (beta <= 3/25)",
+          "note": "gamma <= 0 does NOT suffice: the residual lives at a <= 1-n = -74 < 0, so gamma < 0 makes a*gamma positive and unbounded",
+          "row_guard_route_1": "direct valuation: covered deg_x(F) <= (2-n)*3/25 = -219/25",
+          "row_guard_route_2": "frozen arithmetic: maximum_covered_degree(0) = -9 <= -(8+1)",
+          "scope": "eight_row_window",
+          "status": "UNAVAILABLE (excluded by landed_hull_forcing)",
+          "why": "a bound valid on the permitted region Sigma_n is valid on any subset of it, and Supp(F) subset of Sigma_n is printed"
+        },
+        "branch_B": {
+          "actual_J": "UNDETERMINED (NOT asserted infinite)",
+          "condition": "delta > 0",
+          "derivable_universal_J": "none",
+          "growth_per_step": "2/5",
+          "independent_failure": "with beta > alpha, Phi is not a ring map K[y]((x^-1)) -> K[y]((x^-1)): sum_k y^k x^-k acquires unbounded covered x-degree, so the identification of the covered root with GGV3's C^25 is unavailable. This is a defect of Phi, not a claim about F.",
+          "permitted_family": "(a,b) = (1-n-k, 1+k) lies in Sigma_n for every k >= 0; transported y-exponent >= (1+k)*2/5",
+          "scope_of_the_claim": "DERIVABILITY only: no single integer bounds every residual compatible with the printed constraints. This does NOT assert that the actual F is unbounded, nor that F carries this family.",
+          "status": "THE LANDED BRANCH"
+        },
+        "checks": [
+          "T4",
+          "T4b",
+          "T4c",
+          "T5",
+          "T5b",
+          "T6",
+          "T6b",
+          "T7"
+        ],
+        "conclusion": "the linear (monomial) frame-transport model is REFUTED by the landed covered hull, and no finite UNIVERSAL J is derivable from the printed constraints; neither J <= 3 nor J <= 18 follows, and the actual residual's y-degree is left undetermined"
+      },
+      "frame_model": {
+        "assumption": "the exponent-level transport Phi from GGV3's eqq1 frame to the psi2 covered frame is linear (monomial); this is what transporting support bounds by exponent arithmetic requires",
+        "checks": [
+          "T1",
+          "T2",
+          "T2b",
+          "T3",
+          "T3b",
+          "T3c"
+        ],
+        "landed_hull_forcing": {
+          "beta_lower_bound": "1/5",
+          "conclusion": "beta >= 1/5 > 3/25 >= alpha: the covered x-weight of the source y strictly exceeds that of the source x",
+          "delta_lower_bound": "2/5",
+          "statement": "the landed covered support points force delta > 0",
+          "witness_P": {
+            "covered_point": [
+              2,
+              1
+            ],
+            "delta_lower_bound": "1/15",
+            "omega": 15
+          },
+          "witness_Q": {
+            "covered_point": [
+              1,
+              2
+            ],
+            "delta_lower_bound": "2/5",
+            "omega": 5
+          }
+        },
+        "parameters": {
+          "Phi(0,1)": "(beta, delta)",
+          "Phi(1,0)": "(alpha, gamma)",
+          "omega_constraint": "25*alpha - 5*gamma = 3*c and 25*beta - 5*delta = 3*c"
+        },
+        "scale_c": 1,
+        "scale_forcing": "deg_omega(covered P) = 75 = deg_(1,1)(P) = n = 75",
+        "top_face_forcing": {
+          "alpha_range": [
+            "0",
+            "3/25"
+          ],
+          "conclusion": "gamma <= 0",
+          "gamma": "5*alpha - 3/5",
+          "gamma_range": [
+            "-3/5",
+            "0"
+          ],
+          "statement": "Phi(n,0) carries the monic x^n term, has omega = 75, so lands on the covered omega-top face [(9,0),(0,-45)]"
+        }
+      },
+      "mutations_refused": [
+        "frame sign: delta <= 0 compatible with covered support (2,1)",
+        "frame sign: gamma > 0 on the covered omega-top face",
+        "off-by-one: J <= 4 protects the eight-row window",
+        "off-by-one: J = 0 protects a nine-row window",
+        "off-by-one: gamma <= 0 (rather than gamma = 0) suffices for J = 0",
+        "omitted support: dropping b >= 0 preserves the branch-A J = 0",
+        "omitted support: the omega wall alone reproduces eqq3",
+        "false paper identification: GGV3 prints the covered frame / (75,125)",
+        "false paper identification: eqq3's deg_x bound is an omega bound",
+        "permitted -> actual: Supp(F) = Sigma_n (the residual carries every permitted monomial)",
+        "permitted -> actual: branch B proves the actual F has J = infinity or carries the family (1-n-k, 1+k)"
+      ],
+      "next_question": "is the covered support point (1,2) of the covered Q forced, or is it an artifact of the aligned-cleanup shear y -> y + mu*x^-4 in f2_reduction_certificate.py? If some legal gauge in the frozen chain removes all covered support with j > 0, then delta <= 0 is restored, branch A applies, and J = 0 closes the whole eight-row window from data GGV3 already prints. If (1,2) is forced, R6 must instead be attacked by bounding the ACTUAL residual rather than the permitted region containing it.",
+      "observed_base_commit": "98e067c",
+      "permitted_vs_actual": {
+        "bounded_model": "F = mu_1*y*x^(1-n) satisfies every printed constraint with y-degree 1",
+        "bounded_model_is_landed": "f2_divisor3_gauge_ladder.py:X3,X4 exhibits the exact residual (1/75)*x^(1-75)*y",
+        "checks": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5"
+        ],
+        "consequence": "every statement about Sigma_n below is a statement about DERIVABILITY from the printed constraints, never about the actual residual",
+        "leading_coefficient_shape": "tex:552-554, F_1 = mu_0 + mu_1*y with mu_1 != 0",
+        "relation": "the printed data give an INCLUSION Supp(F) subset of Sigma_n and nothing more",
+        "unbounded_models_also_permitted": true
+      },
+      "printed_source": {
+        "checks": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5",
+          "S6",
+          "S7",
+          "E1",
+          "E2",
+          "E3",
+          "E4"
+        ],
+        "citations": {
+          "deg_x_bound": "tex:552, 'Hence deg_x(F) <= 1-n'",
+          "eqq1_normal_position": "tex:318-322",
+          "eqq2_root_shape": "tex:323-334",
+          "eqq3_shape": "tex:549-552, F = F_1 x^(1-n) + F_2 x^(-n) + ..., F_i in K[y], deg(F_i) <= i",
+          "iteration_inspected": "tex:505-546",
+          "omega_wall": "tex:474, deg(F) = 2-n",
+          "supp_in_Z_x_N0": "tex:336-341, the definition of Supp inside Z x N_0"
+        },
+        "claim": "GGV3 prints three half-planes on Supp(F), not one; the seam used only the third",
+        "consequence": "in GGV3's OWN frame every monomial of F has x-exponent <= 1-n = -74, so R6 is a frame-conversion question and not a gap in GGV3",
+        "omitted_by_the_seam": [
+          "b >= 0",
+          "a <= 1-n"
+        ],
+        "region": "Sigma_n = { (a,b) : b >= 0, a <= 1-n, a+b <= 2-n }"
+      },
+      "reframing_of_the_blocker": {
+        "closing_schema_verdict": "jc-f2-residual-y-bound/v1 is UNDER-SPECIFIED as stated",
+        "frozen_framing": "a single integer premise J, an upper bound on the y-exponents of F in the covered frame",
+        "not_shown": "any value, finite or infinite, for the actual residual's y-degree; that would require bounding the actual F rather than the region containing it",
+        "shown": "a universal J is not derivable by transporting the printed source data; what the printed data support is the conditional 'gamma = 0 and delta <= 0 => J = 0 (eight-row window); otherwise no universal J is derivable', with the landed covered support selecting the second alternative",
+        "true_missing_datum": "an exact account of the (necessarily non-monomial) conversion between GGV3's eqq1 frame and the psi2 covered frame",
+        "why_non_monomial": "the chain producing the covered pair runs through a flip, the selected x^-5 shift, the aligned cleanup shear y -> y + mu*x^-4, and then psi2; the seam identifies the two frames only through omega, which sees degrees and nothing else"
+      },
+      "replay": {
+        "certificate_command": "python f2_residual_y_bound_frame.py --quiet --self-test-mutations --emit-certificate",
+        "checks": 39,
+        "command": "python f2_residual_y_bound_frame.py --self-test-mutations",
+        "expected_exit": 0,
+        "mutation_refusals": 11,
+        "observed_seconds": 0.44
+      },
+      "reused_frozen_facts": {
+        "W1_witness": [
+          -1,
+          40
+        ],
+        "checks": [
+          "D1",
+          "D2",
+          "V1",
+          "V2",
+          "V3"
+        ],
+        "consumed_rows": 5,
+        "covered_hull_P": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            -45
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "covered_hull_Q": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            -75
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            15,
+            0
+          ]
+        ],
+        "omega": "(25*i - 5*j)/3",
+        "row_window": 8,
+        "threshold_consumed_rows": 18,
+        "threshold_row_window": 3,
+        "wall": -73
+      },
+      "schema": "jc-f2-residual-y-bound-frame/v1",
+      "status": "R6_OPEN_LINEAR_TRANSPORT_REFUTED_NO_DERIVABLE_UNIVERSAL_J"
+    },
+    "normalization": {
+      "authority": {
+        "not_supported": "that the open stage as a whole is localized, closed, or reduced to one premise; R5 remains premise-bound and R7 remains inferred",
+        "refusals": [
+          "complete original-pair to reduced-E-system edge",
+          "actual polynomial-pair membership",
+          "source-image sufficiency",
+          "reverse lift",
+          "chart coverage",
+          "I4=I1=Im1=0",
+          "H3 promotion",
+          "(75,125) verdict change",
+          "promotion of target_pair_to_normalized_laurent_root",
+          "supplying J from anything other than an exact source argument",
+          "describing the open stage as localized, closed, or reduced to one premise",
+          "treating R5 as unconditional or R7 as identified at (75,125)"
+        ],
+        "strict_original_source_supported": false,
+        "supported": "the open stage is DECOMPOSED and REMAINS OPEN; within it R1-R4 are exact for arbitrary coefficient arrays and the residual-window blocker R6 alone is localized to a single integer premise with sharp thresholds"
+      },
+      "bindings_sha256_lf_normalized": {
+        "f2_divisor3_gauge_ladder.py": "0db2ad2bf1819cecb7409a54d237b169b2906fde8ae02833a5cfd7ef3bfe7180",
+        "f2_j1_direct_bridge.py": "105720e76b685d1aac3fb300abf362997c14c3994d1870850cc99d04d9fba9ca",
+        "f2_original_pair_root_normalization.py": "117e0befbf0a195b85e2d11368f4085ffa0bfd650e410bbafb89fdd6e6adb89a",
+        "f2_original_pair_to_esystem_manifest.json": "44e96e9423a8e0187910774d6db9057f660445d8d7078af5516d787c181489dd",
+        "f2_original_pair_to_esystem_verify.py": "080e0c398bec1b5d60ade3ed1fedfe02537c8720e94c3e4d7c5432c8adb8e08f",
+        "f2_reduction_certificate.py": "5ff3faf543ba01e3e6e06f7e79d1120c667fac2836ed27de1a5c41dae07d9da0",
+        "f2_target_root_support_data.py": "16eb77a98c9c02939cc48a9b7f0e9f1141234784013daf4a34ca375666a2f2d2",
+        "f2_target_root_support_transport.py": "9ffffee0144b2061a835148de3fd199250ef67b081c5020116cd515c5afdcc07"
+      },
+      "blocker": {
+        "arithmetic": "deg_omega <= -73 and j <= J force 25*i <= 5*J - 219, hence covered x-degree i <= floor((5*J-219)/25)",
+        "closes": [
+          "aligned_ladder_and_gauge guard 'the residual bound deg(F)<=-73'",
+          "normalized_root_to_five_rows guard 'the residual F starts below the eight-row window'"
+        ],
+        "context": "the covered Q hull's own top y-exponent is 2, strictly inside the J <= 3 threshold, so the missing datum is strictly weaker than F-in-hull",
+        "does_not_close": [
+          "target_pair_to_normalized_laurent_root as a whole",
+          "R5 selected-cubic-face premise",
+          "R7 identification of (75,125) in GGV3"
+        ],
+        "id": "residual_y_exponent_bound",
+        "kind": "single integer premise",
+        "native_closing_schema": {
+          "acceptance": "J <= 18 for scope five_consumed_rows; J <= 3 for scope eight_row_window",
+          "record": "jc-f2-residual-y-bound/v1",
+          "required_fields": {
+            "J": "integer, max y-exponent of F in the covered frame",
+            "derivation": "string, the exact argument bounding F's y-exponents",
+            "frame": "must be the covered frame of psi2(x -> x*y^2, y -> y^-3)",
+            "scope": "one of 'five_consumed_rows' | 'eight_row_window'"
+          }
+        },
+        "sharpness_witnesses": {
+          "J=19_fails_at_row_5": {
+            "monomial": "x^-5*y^19",
+            "omega": "-220/3"
+          },
+          "J=4_fails_at_row_8": {
+            "monomial": "x^-8*y^4",
+            "omega": "-220/3"
+          }
+        },
+        "statement": "an upper bound J on the y-exponents occurring in the ladder residual F, in the covered frame",
+        "sufficient_thresholds": {
+          "protects_the_five_consumed_rows": 18,
+          "protects_the_whole_eight_row_window": 3
+        },
+        "why_needed": "F is bounded only in omega; monomials far off the omega-top face can satisfy deg_omega(F) <= -73 and still sit at covered x-degree -1..-8, inside the row window",
+        "witness_breaking_the_naive_conversion": {
+          "covered_x_degree": -1,
+          "lands_on_row": 1,
+          "monomial": "x^-1*y^40",
+          "omega": -75
+        }
+      },
+      "decomposes_stage": {
+        "action": "DECOMPOSED_INTO_SEVEN_SUBSTAGES",
+        "current_status": "UNMATERIALIZED_OPEN",
+        "explicitly_not_claimed": "that the open stage as a whole is localized to one numeric premise",
+        "localized_substage": "R6_residual_window",
+        "manifest": "f2_original_pair_to_esystem_manifest.json",
+        "prior_status": "UNMATERIALIZED_OPEN",
+        "prior_status_unchanged": true,
+        "promotion": "NONE",
+        "stage_id": "target_pair_to_normalized_laurent_root",
+        "substages_still_blocking_after_R6": [
+          "R5_root_support_table",
+          "R7_ladder_coefficients_in_K"
+        ]
+      },
+      "digests": {
+        "alignment": "e39df0f557050a5c8da8222a02039601a3d1d6101a991b861b57858bb207cc51",
+        "direction": "184e870622e51da9aa45ec64e306b0ad00ae7640e60011b02e7a3f2c832a5479",
+        "root": "2eaa28d88c56858527441371aac2a9e6a856cb03782b97df24bf6cd2d1da32b7",
+        "support": "ebbe78966656e2bf34506195adee9c17e17a21478d63326d80ef4a8db56c8963",
+        "window": "7407ddd79fb67d69e90de99988f01efdbd28406ffc0d53c2976a8f6be8b1129d"
+      },
+      "direction": {
+        "forward": "covered polynomiality of P at x-degree 9 forces the fourteen P-side rows",
+        "reverse": "REFUTED",
+        "reverse_witness": {
+          "conclusion": "the fourteen rows do not imply an actual covered pair",
+          "covered_hull_ceiling_at_x_exponent_7": "2/7",
+          "jet": "z2 = y^7, z3..z9 = 0, z10..z23 solved by the fourteen rows",
+          "satisfies_all_fourteen_rows": true
+        }
+      },
+      "gradings": {
+        "alignment_direction": "omega -> covered x-degree is valid ONLY on the omega-top face; the factor 25/3 does not transport off-face bounds",
+        "covered_frame": {
+          "covered_deg_D": 3,
+          "covered_deg_P": 9,
+          "covered_deg_Q": 15,
+          "series_parameter": "u = x^-1",
+          "variables": [
+            "x",
+            "y"
+          ]
+        },
+        "omega": {
+          "form": "(25*i - 5*j)/3",
+          "role": "the grading in which the approximate-root ladder theorem and its residual wall are stated",
+          "values": {
+            "D": 25,
+            "P": 75,
+            "Q": 125
+          },
+          "why": "the unique weight, up to scale, whose top face on the covered P hull is {(9,0),(0,-45)} and on the covered Q hull is {(15,0),(0,-75)}"
+        }
+      },
+      "observed_base_commit": "0eeb26c4b701c36416d5b84d0b8bc47b1467dd20",
+      "replay": {
+        "certificate_command": "python f2_original_pair_root_normalization.py --quiet --self-test-mutations --emit-certificate",
+        "checks": 35,
+        "command": "python f2_original_pair_root_normalization.py --self-test-mutations",
+        "expected_exit": 0,
+        "mutation_refusals": 7,
+        "observed_seconds": 37.3
+      },
+      "schema": "jc-f2-original-pair-root-normalization/v1",
+      "slot_dictionary": [
+        {
+          "covered_x_degree": 15,
+          "omega": 125,
+          "slot": 5,
+          "u_exponent": 0
+        },
+        {
+          "covered_x_degree": 12,
+          "omega": 100,
+          "slot": 4,
+          "u_exponent": 3
+        },
+        {
+          "covered_x_degree": 9,
+          "omega": 75,
+          "slot": 3,
+          "u_exponent": 6
+        },
+        {
+          "covered_x_degree": 6,
+          "omega": 50,
+          "slot": 2,
+          "u_exponent": 9
+        },
+        {
+          "covered_x_degree": 3,
+          "omega": 25,
+          "slot": 1,
+          "u_exponent": 12
+        },
+        {
+          "covered_x_degree": 0,
+          "omega": 0,
+          "slot": 0,
+          "u_exponent": 15
+        },
+        {
+          "covered_x_degree": -3,
+          "omega": -25,
+          "slot": -1,
+          "u_exponent": 18
+        },
+        {
+          "covered_x_degree": -6,
+          "omega": -50,
+          "slot": -2,
+          "u_exponent": 21
+        }
+      ],
+      "status": "OPEN_STAGE_DECOMPOSED_R6_BLOCKER_LOCALIZED",
+      "substages": [
+        {
+          "checks": [
+            "N1",
+            "N2",
+            "N3",
+            "N5"
+          ],
+          "claim": "for arbitrary coefficient arrays over any commutative Q-algebra the normalized cube root exists and is unique; the recurrence is unit-triangular with pivot exactly 3 at every depth 1..23",
+          "direction": "BIJECTIVE over Z[1/3]",
+          "id": "R1_root_existence_normalization",
+          "verdict": "PROVED"
+        },
+        {
+          "checks": [
+            "N4"
+          ],
+          "claim": "z_1 = p_1/3, so the depressed normalization z_1 = 0 is exactly the vanishing of the covered x^8 coefficient of P; the realizing shear is y-dependent with parameter support {-5,-2}",
+          "id": "R2_depression_unit",
+          "upstream": "f2_j1_direct_bridge.py:C2,C3,C4,B3",
+          "verdict": "PROVED"
+        },
+        {
+          "claim": "the covered top-x vertices (9,0) and (15,0) are unique, hence monic-normalizable",
+          "id": "R3_monic_normalization",
+          "upstream": "f2_j1_direct_bridge.py:A5",
+          "verdict": "CHECKED"
+        },
+        {
+          "checks": [
+            "A1",
+            "A2",
+            "A3",
+            "A4",
+            "A5",
+            "A6",
+            "A7",
+            "A8"
+          ],
+          "claim": "the slot dictionary above reproduces every offset hard-coded in f2_original_pair_to_esystem_verify.py:derive_rows, and forces lambda_first_row = 6",
+          "id": "R4_grading_alignment",
+          "verdict": "PROVED"
+        },
+        {
+          "checks": [
+            "S1",
+            "S2",
+            "S3",
+            "S4",
+            "S5"
+          ],
+          "claim": "the omega-leading form of the root is exactly the selected monic depressed cubic face {x^3, x*y^-10, y^-15}; the floor cancellation at depth e>=4 is a consequence of that face premise, not of the hull",
+          "id": "R5_root_support_table",
+          "premise": "monic depressed selected cubic face",
+          "verdict": "CHECKED_PREMISE_BOUND"
+        },
+        {
+          "blocker": "residual_y_exponent_bound",
+          "checks": [
+            "W1",
+            "W2",
+            "W3",
+            "W4",
+            "W5",
+            "W6"
+          ],
+          "claim": "the printed residual guard deg_omega(F) <= -73 does NOT imply the guard the rows need, deg_x(F) <= -9",
+          "id": "R6_residual_window",
+          "verdict": "OPEN"
+        },
+        {
+          "claim": "the eight ladder coefficients are scalars in K, not functions of y",
+          "id": "R7_ladder_coefficients_in_K",
+          "source": "GGV3 tex:443-489 printed lambda_i in K",
+          "unbound": "GGV3 contains zero occurrences of '125'; the (75,125) identification is not printed",
+          "upstream": "f2_divisor3_gauge_ladder.py:S7,S10",
+          "verdict": "INFERRED"
+        }
+      ],
+      "wall": {
+        "aligned_slots_strictly_above": 8,
+        "first_aligned_slot_at_or_below": {
+          "covered_x_degree": -9,
+          "omega": -75,
+          "slot": -3
+        },
+        "lambda_first_row": 6,
+        "origin": "2 - deg(P) from the vdE 10.2.11 membership condition",
+        "row_reading": "reduced row r reads u^(15+r), i.e. covered x-degree -r",
+        "row_window": [
+          1,
+          8
+        ],
+        "rows_consumed_by_five_row_derivation": 5,
+        "value": -73
+      }
+    },
+    "shear": {
+      "answers_question": {
+        "J": null,
+        "answer_in_three_scopes": {
+          "aligned_cleanup_specifically": "NOT removable by re-gauging the aligned cleanup: mu is the unique double root of the aligned leading form, so that shear carries no free parameter",
+          "gauge_independent_premise_bound": "branch A is REFUTED in every gauge, and the PAIR must retain positive-j covered support with J_P + J_Q >= 3, at least one member carrying j >= 2",
+          "landed_normalization_only": "in the landed normalization the covered coefficient at (1,2) is tau_1(Q) and is ACTUAL nonzero, via the frozen leading-bracket identity -eta_3(P)*tau_1(Q) = mu != 0",
+          "open": "whether some OTHER legal gauge relocates the pair's positive-j support entirely onto P, emptying Q's"
+        },
+        "asked_by": "F2_RESIDUAL_Y_BOUND_FRAME.md, section 8",
+        "explicitly_not_claimed": [
+          "that J exists or has any particular value",
+          "that the actual residual F is bounded or unbounded in y",
+          "that the bracket forcing says anything about F at all",
+          "that Q retains positive-j covered support under every gauge",
+          "that the covered point (1,2) survives re-gauging",
+          "that the order-5 relocation route is closed",
+          "that Supp(Q) does or does not meet (4,1)",
+          "that hull membership implies actual support",
+          "that Supp(F) equals the permitted region Sigma_n",
+          "that the aligned-cleanup double root mu is the bracket constant mu",
+          "that the actual-pair premise or source-polynomiality is established here",
+          "that GAP-5 source equivalence is closed",
+          "that R6 is closed",
+          "that target_pair_to_normalized_laurent_root is materialized"
+        ],
+        "premises_inherited_not_established": [
+          "actual pair: the landed pair has a single-slot nonzero Jacobian bracket (f2_reduction_certificate.py: axis_trace_certificate, status source_derived_conditional_actual_pair)",
+          "source-polynomiality: Supp of the source P and Q lies in N_0^2 (the 'preimage in N_0^2' premise of the frozen frame checker's T3)",
+          "GAP-5 source equivalence, which the reduction certificate lists as its sole blocker"
+        ],
+        "prior_status_unchanged": true,
+        "question": "is the covered-Q support point (1,2) forced by the legal reduction/normalization chain, or an artifact removable by the aligned cleanup shear y -> y + mu*x^-4?",
+        "scope": null,
+        "substage_status": {
+          "R6_residual_window": "OPEN"
+        },
+        "what_is_closed": "the REPAIR route only, and premise-bound: branch A of the frozen dichotomy is refuted in every gauge, so no finite J is obtainable by transporting GGV3's printed support constraints along any linear (monomial) frame map",
+        "what_is_not_closed": "R6 itself; the actual residual's covered y-degree remains UNDETERMINED; Q-side relocation remains OPEN"
+      },
+      "authority": {
+        "CHECKED": [
+          "D:*, D1-D3: bound digests, landed covered hulls, psi2",
+          "M0-M3: manifest agreement, absence of the corrected overclaim, presence of every open record",
+          "V1-V3: the frozen thresholds 18/3, the omega top faces, and omega on the two landed points"
+        ],
+        "OPEN": [
+          "R6_residual_window",
+          "Q_side_relocation -- whether another legal gauge empties Q's positive-j covered support",
+          "the availability and parameter of a further order-5 shear",
+          "whether Supp(Q) meets the hull-boundary point (4,1)",
+          "the identification of the aligned-cleanup mu with the bracket constant mu",
+          "the actual residual's covered y-degree",
+          "the exact non-monomial conversion between GGV3's eqq1 frame and the psi2 covered frame",
+          "GAP-5 source equivalence",
+          "H3 and every downstream global claim remain untouched and open"
+        ],
+        "PREMISE_CITED": [
+          "A2: source-polynomiality of P and Q",
+          "B0: the actual-pair condition -- the landed pair has a single-slot nonzero Jacobian bracket",
+          "G1: GGV1's common-power theorem and the central theorem's forbidding of the endpoint (1,1)",
+          "the entire reduction chain, whose sole recorded blocker is GAP-5 source equivalence"
+        ],
+        "PROVED_PREMISE_BOUND": [
+          "C1-C10: the exact origin, exhaustiveness, and coefficient formulas for the covered positive-j support in the landed normalization",
+          "G1-G3: mu is the unique double root of the aligned leading form; the ALIGNED cleanup carries no free parameter",
+          "G4-G9: y-shears fix the axis; m < 4 breaks the wall; m = 4 has no residual freedom; m >= 6 cannot reach (-1,0)",
+          "B1-B9: the covered Jacobian bracket is the single monomial 3c U^2 V^2 and forces J_P + J_Q >= 3, given the actual-pair premise",
+          "B7c: the forcing is PAIR-level and admits the split (3,0)",
+          "A1, A3: branch A requires J_P <= 0 and J_Q <= 0, and is refuted in every gauge given the two premises",
+          "L1: in the landed normalization the covered (1,2) coefficient is actual nonzero"
+        ],
+        "UNTOUCHED": [
+          "R5 stays premise-bound",
+          "R7 stays inferred",
+          "target_pair_to_normalized_laurent_root stays UNMATERIALIZED_OPEN",
+          "the (75,125) verdict, H3, I4=I1=Im1=0"
+        ]
+      },
+      "bindings_sha256_lf_normalized": {
+        "f2_depth4_cleanup.py": "5eaf5f7c3279964b622bd09a320fedfe713f1f1dade72de59bc7118cac9d02a7",
+        "f2_endpoint_successor_probe.py": "7d21eeecb29dfbe9110e3bad2598e1244381b6e2f9d5992ead8f9cd13d418445",
+        "f2_original_pair_root_normalization.py": "117e0befbf0a195b85e2d11368f4085ffa0bfd650e410bbafb89fdd6e6adb89a",
+        "f2_reduction_certificate.py": "5ff3faf543ba01e3e6e06f7e79d1120c667fac2836ed27de1a5c41dae07d9da0",
+        "f2_residual_y_bound_frame.py": "0953c6f42fd4d54e861b6a213fbdac168be4d49b0bfb1337633ad1ec31b34428",
+        "f2_residual_y_bound_frame_manifest.json": "c62748d41f9cfe120990d2739eb963dba4306ebe4a4f03e21e157b380ec9e793",
+        "f2_successor_hull.py": "9b97464752333a96a10c44b505d480e8fbc49938590fe1226b4414cdae82f32f"
+      },
+      "bracket_forcing": {
+        "admissible_extreme_splits": [
+          [
+            3,
+            0
+          ],
+          [
+            0,
+            3
+          ]
+        ],
+        "bracket_slot": [
+          2,
+          2
+        ],
+        "chain_rule_verified": "[f o s, g o s] = ([f,g] o s) * det(Js) is checked on exact Laurent monomials, not quoted",
+        "checks": [
+          "B0",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "B7b",
+          "B7c",
+          "B8",
+          "B9"
+        ],
+        "claim": "gauge-independent, but premise-bound, and PAIR-level only",
+        "cover_jacobian": "-3 V^-2",
+        "covered_bracket": "given the premise, [P_cov, Q_cov]_(U,V) = 3c * U^2 V^2, a SINGLE monomial",
+        "extremality": "the landed pair attains the bound exactly -- among gauges realizing THIS split; not a statement about every gauge",
+        "forcing": "J_P + J_Q >= 3 in every gauge with c != 0",
+        "forcing_does_not_give": "that Q retains positive-j support, nor that the covered point (1,2) survives re-gauging",
+        "landed_configuration": "J_P = 1 at (2,1), J_Q = 2 at (1,2); sum = 3",
+        "landed_jacobian": "-X^(t-2) = -X^2, matching the frozen certificate's 'jacobian' field",
+        "premise": "actual-pair: single-slot nonzero Jacobian bracket (inherited, not established here)",
+        "premise_binding": "f2_reduction_certificate.py axis_trace_certificate: jet_bracket_slots B_(0,4)=mu with all other B_(r,u)=0, leading_bracket -eta_3(P)*tau_1(Q)=mu!=0, status source_derived_conditional_actual_pair, sole blocker source_equivalence_gap5",
+        "sharper": "every integer split of 3 has max(j,j') >= 2, so at least ONE of covered P, covered Q carries a point with covered y-exponent >= 2; hence delta > 0 in every gauge",
+        "sign_convention": "[X^2 Y, X] = -X^2 in the landed frame, so -eta_3(P)*tau_1(Q) is the bracket coefficient, exactly the frozen 'leading_bracket' field",
+        "slot_arithmetic": "bracketing covered monomials at (i,j) and (i',j') lands at (i+i'-1, j+j'-1), so any contributing pair has j + j' = 3"
+      },
+      "branch_A_refutation": {
+        "branch_A": "gamma = 0 and delta <= 0",
+        "checks": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5"
+        ],
+        "consequence_for_R6": "no finite J is obtainable by transporting GGV3's printed constraints along any linear frame map; any J must be read off the ACTUAL residual through the necessarily non-monomial conversion",
+        "contradiction": "J_P + J_Q >= 3",
+        "equivalent_statement": "Phi(N_0^2) subset of {j <= 0}",
+        "not_proved": "that Q retains positive-j support, or that the covered point (1,2) survives re-gauging",
+        "premise_cited_not_rederived": "A2 -- source-polynomiality of P and Q, exactly the 'preimage in N_0^2' premise of the frozen frame checker's T3",
+        "requires": "J_P <= 0 and J_Q <= 0",
+        "strengthening_over_frozen": "F2_RESIDUAL_Y_BOUND_FRAME.md refuted branch A using the landed hull points (2,1) and (1,2); those were sufficient but never necessary -- the bracket alone refutes it, whatever the gauge, given the inherited premises",
+        "verdict": "BRANCH A REFUTED IN EVERY GAUGE, PREMISE-BOUND; PAIR-level positive-j support FORCED"
+      },
+      "chain_localization": {
+        "checks": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C8",
+          "C9",
+          "C10"
+        ],
+        "claim": "the covered point (1,2) has a single exact source in the landed normalization: Q's reduced low vertex (-1,0)",
+        "coefficient_transport": "L_4 and psi2 are monomial substitutions, so they permute exponents without rescaling coefficients: the covered coefficient at (1,2) IS the reduced coefficient at (-1,0)",
+        "composite_exponent_map": {
+          "L_4": "L_4(a,b) = (4b - a, b), from the substitution x = X^-1, y = X^4 Y",
+          "covered_y_exponent": "nu(a,b) = 5b - 2a",
+          "psi2": "psi2(i,j) = (i, 2i - 3j), from the cover X = U V^2, Y = V^-3",
+          "psi2_o_L_4": "psi2 o L_4 = [[-1,4],[-2,5]], det 3"
+        },
+        "exact_coefficient_formulas": {
+          "covered_(1,2)": "sum_{b>=0} mu^b * q_{4b-1,b}",
+          "covered_(2,1)": "sum_{t>=0} (t+1)*mu^t * p_{4t+2,t+1}",
+          "reading": "tau_1(Q) is the mu-evaluation of Q's wall-weight-(-1) slice; eta_3(P) the derivative-weighted mu-evaluation of P's wall-weight-(-2) slice",
+          "wall_homogeneity": "the cleanup mixes only monomials of equal wall weight, because y and x^-4 both have wall weight -4"
+        },
+        "exhaustiveness": "exactly 2 of the 8 landed reduced hull vertices have nu > 0",
+        "origins": {
+          "covered_P_(2,1)": "reduced (2,1) -> landed (2,1) -> covered (2,1)",
+          "covered_Q_(1,2)": "reduced (-1,0) -> landed (1,0) -> covered (1,2)"
+        },
+        "positive_nu_reduced_vertices": {
+          "P": [
+            [
+              2,
+              1
+            ]
+          ],
+          "Q": [
+            [
+              -1,
+              0
+            ]
+          ]
+        },
+        "reduction_chain": "flip -> theta_s (s in {2,3}) -> selected x^-5 shift -> aligned cleanup y -> y + mu*x^-4 -> L_4 -> psi2",
+        "structural_remark": "the positive covered y-exponent of covered Q comes ENTIRELY from the cover acting on an x-axis point; nothing upstream of psi2 has positive y-degree there"
+      },
+      "correction_record": {
+        "defect": "the earlier revision slid from the pair-level bound J_P + J_Q >= 3 to the claim that covered Q retains the point (1,2) under every gauge; the bracket admits the split (J_P, J_Q) = (3, 0), so it does not license that step",
+        "fourth_defect": "this manifest was decorative -- nothing verified it against the checker; block M now gates it, and mutations 15 and 16 exercise the gate",
+        "preserved_unchanged": "every exponent, Jacobian and bracket calculation (C1-C10, B1-B9), the actual-versus-permitted discipline, and all inherited open gaps",
+        "second_defect": "the earlier G10 closed the exceptional order-5 relocation route by asserting that the x^-5 shift is 'the SELECTED shift, whose parameter is fixed'; that is a claim about normalization semantics, not a consequence of any landed exact datum, and it is withdrawn",
+        "supersedes": "commit 1fafa59, which ran three statements of different strength together",
+        "third_defect": "conclusions were stated as unconditional; they are conditional on the inherited actual-pair and source-polynomiality premises, and on GAP-5 source equivalence, none of which is established here"
+      },
+      "gauge_enumeration": {
+        "Q_side_relocation": "OPEN -- not closed by any landed receipt",
+        "aligned_cleanup_freedom": "NONE (mu unique)",
+        "checks": [
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7",
+          "G8",
+          "G9",
+          "G10",
+          "G11"
+        ],
+        "claim": "the ALIGNED cleanup carries no free parameter; one other shear route survives and is left OPEN",
+        "guards_fixing_mu": [
+          "G1 GGV1's common-power theorem writes the aligned leading form as x^-3 r(z) with deg r = 2 and per-unit endpoints (-3,0), (5,2)",
+          "G1 a SIMPLE root of r survives the shift as z-support {1,2}, i.e. the endpoint (1,1), which the central theorem forbids",
+          "G2 hence r is a square, mu is its double root, the face collapses to the monomial x^5 y^2, and mu is UNIQUE",
+          "G3 the wall weight -3 of the aligned face is preserved, and the shear is wall-homogeneous"
+        ],
+        "m5_reaches_(-1,0)_only_through": [
+          4,
+          1
+        ],
+        "m5_status": "OPEN -- landed receipts neither forbid a further order-5 shear nor fix its parameter",
+        "mu_is": "the DOUBLE root of the degree-2 aligned leading form r(z)",
+        "mu_uniqueness_guard": "a simple root creates the forbidden endpoint (1,1)",
+        "mu_wall_guard": "aligned face and collapsed monomial both at wall weight -3",
+        "relocation_does_not_disturb": "the bracket bound B7 is a PAIR-level statement, so branch-A refutation is unaffected by relocation",
+        "residual_shear_freedom": {
+          "m_eq_4": "NO FREEDOM -- a second nonzero aligned shear restores z-support {0,1,2}, i.e. the forbidden endpoint (1,1)",
+          "m_eq_5": "OPEN -- wall-compatible, and reaches (-1,0) through the single point (4,1)",
+          "m_ge_6": "CANNOT REACH (-1,0) -- the only contributing monomials (m*b-1, b) have wall weight (m-4)*b - 1 > 0",
+          "m_lt_4": "ILLEGAL -- lifts the wall-attaining vertex (100,25) to wall weight (4-m)*t > 0",
+          "structural": "G4 every y-shear y -> y + c*x^-m is the identity on j = 0 support, so it can never DELETE an axis vertex"
+        },
+        "split_hull_from_actual": {
+          "hull_status": "lies ON the lower hull edge (0,0)-(100,25), i.e. the wall line i = 4j, of the reduced Q hull",
+          "named_in_any_bound_artifact": false,
+          "point": [
+            4,
+            1
+          ],
+          "support_status": "OPEN -- no landed receipt certifies a nonzero Q-coefficient there; never promoted"
+        },
+        "what_the_receipts_actually_fix_about_order_5": "the selected-edge certificate pins the per-unit endpoint (5,2), and the x^-5 shear is recorded as wall-preserving; neither datum forbids a FURTHER order-5 shear, and none fixes such a shear's parameter",
+        "withdrawn_claim": "an earlier G10 asserted that m = 5 is 'not free' because it is the SELECTED shift; that was normalization semantics, not landed exact data, and it is withdrawn"
+      },
+      "landed_normalization": {
+        "checks": [
+          "L1",
+          "L2",
+          "L3"
+        ],
+        "claim": "the covered coefficient at (1,2) is tau_1(Q), and it is ACTUAL nonzero",
+        "mechanism": "the frozen leading-bracket identity -eta_3(P)*tau_1(Q) = mu != 0",
+        "not_transported": "no claim that (1,2) survives any other gauge",
+        "premise_bound": "actual-pair condition; source-derived axis traces; GAP-5 source equivalence open",
+        "scope": "the landed normalization ONLY",
+        "why_it_matters": "it is ACTUAL support, not hull membership -- the nonvanishing is the bracket's, not the polygon's"
+      },
+      "manifest_gate": {
+        "consequence": "a manifest that drifts from the checker, or that restores the overclaim, fails closed",
+        "drift_mutations": [
+          15,
+          16
+        ],
+        "enforced_by": "block M of f2_r6_shear_forcing.py, on ORDINARY replay",
+        "mechanism": "M1 compares every load-bearing manifest field against what the run computed; M2 forbids re-introduction of the corrected overclaim wording; M3 requires every inherited open gap to still be named"
+      },
+      "mutations_refused": [
+        "illegal gauge: a shear y -> y + c*x^-3 preserves the landing wall",
+        "illegal gauge: a second aligned shear z -> z + c (c != 0) keeps the collapsed face a monomial",
+        "illegal gauge: a y-shear can DELETE the reduced axis vertex (-1,0) of Q outright",
+        "dropped guard: the forcing survives with a vanishing Jacobian bracket c = 0",
+        "dropped guard: dropping the landing wall still blocks m >= 6 from reaching (-1,0)",
+        "dropped guard: mu is a free parameter, so the cleanup is a gauge",
+        "support -> actual: (4,1) lies on the reduced Q hull boundary, therefore Q has a nonzero coefficient there",
+        "support -> actual: the covered hull vertex set is the covered support",
+        "permitted -> actual: the bracket forcing bounds the ACTUAL residual F's covered y-degree",
+        "false R6 closure: branch A still yields J = 0 for the eight-row window",
+        "false R6 closure: (1,2) is an artifact removable by re-gauging the ALIGNED cleanup",
+        "overclaim: the bracket forces Q specifically to retain a positive-j covered point in every gauge",
+        "overclaim: the covered point (1,2) is actual nonzero in every gauge, not just the landed normalization",
+        "dropped premise: the branch-A refutation is unconditional (needs no actual-pair or source-polynomiality premise)",
+        "dropped guard: the order-5 relocation route is closed by the selected normalization",
+        "false R6 closure: J <= 3 or J <= 18 follows from the forcing",
+        "off-by-one: the covered bracket slot (2,2) forces only j + j' >= 2, so J_P = J_Q = 0 survives",
+        "false identification: the aligned-cleanup double root mu IS the bracket constant mu",
+        "manifest drift: a committed manifest that disagrees with the checker still replays clean",
+        "manifest overclaim: a manifest asserting 'REFUTED UNCONDITIONALLY; (1,2) FORCED' still replays clean",
+        "laundering: an overclaim moved into correction_record escapes the M2 gate"
+      ],
+      "next_questions": [
+        "CLOSE THE RELOCATION GAP. Does Supp(Q) meet (4,1) in the landed normalization, and is a further order-5 shear available at all within the frozen chain? Either answer decides whether covered Q must retain positive-j support, which is what an earlier revision assumed without proof. Landed exact data that would settle it: the wall-weight-0 slice of the reduced Q, which the successor hull records only as a hull edge.",
+        "TRANSFER THE METHOD TO THE RESIDUAL. The forcing is a LOWER bound on the covered y-exponents of the PAIR, read off the Jacobian bracket; R6 needs an UPPER bound on the covered y-exponents of the RESIDUAL. The method worked because L_4 and psi2 have computable Jacobians, so a constant downstairs became a single monomial upstairs -- no frame transport, no permitted region. Is [P_cov, C_cov] -- where C is the approximate root with omega-degree 25 and P = C^3 + ... -- also a single covered monomial, and does its slot arithmetic bound the covered y-exponents of the ACTUAL residual from above the way the (2,2) slot bounds the pair from below?"
+      ],
+      "observed_base_commit": "1fafa59",
+      "open_premise_frozen": {
+        "impact": "none -- every result here needs only that the Jacobian bracket is a nonzero constant, and is independent of which mu is meant",
+        "premise": "the frozen reduction certificate writes 'mu' both for the aligned-cleanup double root (aligned_cleanup.base = x^-3*(x^4*y-mu)^2) and for the bracket constant (axis_trace_certificate.leading_bracket = -eta_3(P)*tau_1(Q)=mu!=0)",
+        "refused_as_mutation": 14,
+        "status": "UNPROVEN IDENTIFICATION"
+      },
+      "perturbation_audit": {
+        "method": "each load-bearing constant and exponent map was flipped and the checker re-run",
+        "perturbations_that_bite": [
+          "BRACKET_SUM 3 -> 2",
+          "LANDING_T 4 -> 3",
+          "COVER_A,COVER_B (2,3) -> (2,4)",
+          "BRACKET_SLOT (2,2) -> (2,1)",
+          "WALL_Y 4 -> 5",
+          "ALIGNED_M 4 -> 5",
+          "COVERED_Q_POINT (1,2) -> (1,0)",
+          "L_4 sign flip",
+          "psi2 sign flip"
+        ],
+        "silent_perturbations": []
+      },
+      "replay": [
+        "python f2_r6_shear_forcing.py --self-test-mutations",
+        "python f2_r6_shear_forcing.py --quiet --self-test-mutations --emit-certificate"
+      ],
+      "reused_frozen_facts": {
+        "consumed_rows": 5,
+        "covered_hulls": {
+          "P": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              -45
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              9,
+              0
+            ]
+          ],
+          "Q": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              -75
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              15,
+              0
+            ]
+          ]
+        },
+        "landing_exponent": 4,
+        "omega": "(25*i - 5*j)/3; 75 on the covered P top face, 125 on the covered Q top face",
+        "reduced_hulls_j1": {
+          "P": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              15,
+              6
+            ],
+            [
+              60,
+              15
+            ]
+          ],
+          "Q": [
+            [
+              0,
+              0
+            ],
+            [
+              -1,
+              0
+            ],
+            [
+              25,
+              10
+            ],
+            [
+              100,
+              25
+            ]
+          ]
+        },
+        "row_window": 8,
+        "specialization_used": "j1 = (m,n) = (3,5)",
+        "thresholds_reproduced": {
+          "consumed_rows": 18,
+          "row_window": 3
+        },
+        "top_faces_untouched": true,
+        "wall": -73
+      },
+      "schema": "jc-f2-r6-shear-forcing/v1",
+      "status": "BRANCH_A_REFUTED_PREMISE_BOUND__PAIR_POSITIVE_J_FORCED__Q_(1,2)_LANDED_NORMALIZATION_ONLY__RELOCATION_OPEN"
+    }
+  },
+  "projection": {
+    "R6": {
+      "J": null,
+      "Q_positive_j": "OPEN",
+      "branch_A": "REFUTED_EVERY_GAUGE_PREMISE_BOUND",
+      "covered_point_1_2": "ACTUAL_NONZERO_LANDED_NORMALIZATION_ONLY",
+      "missing_datum": "exact non-monomial eqq1 -> psi2 conversion",
+      "pair_positive_j": "FORCED",
+      "premises": [
+        "actual_pair",
+        "source_polynomiality",
+        "gap5"
+      ]
+    },
+    "authority_ceiling": "conditional normalized-root data only",
+    "closed_substages": [
+      "R1",
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "graph_effect": "NONE",
+    "open_frontier": [
+      {
+        "id": "R5",
+        "status": "CHECKED_PREMISE_BOUND",
+        "why_open": "selected monic depressed cubic face is an inherited premise"
+      },
+      {
+        "id": "R6",
+        "status": "OPEN_NONMONOMIAL_FRAME_CONVERSION",
+        "why_open": "exact non-monomial eqq1 -> psi2 conversion"
+      },
+      {
+        "id": "R7",
+        "status": "INFERRED_UNBOUND_75_125_IDENTIFICATION",
+        "why_open": "the cited source does not print the (75,125) identification"
+      }
+    ],
+    "outstanding_premises": [
+      "R5 selected monic depressed cubic face",
+      "R6 exact non-monomial eqq1 -> psi2 conversion",
+      "R6 Q-side relocation remains open",
+      "R7 (75,125) identification is not printed",
+      "GAP-5 source equivalence",
+      "target_pair_to_normalized_laurent_root"
+    ],
+    "parent_obligation": "target_pair_to_normalized_laurent_root",
+    "parent_status": "UNMATERIALIZED_OPEN",
+    "refusals": [
+      "original polynomial-pair membership",
+      "source-image sufficiency",
+      "reverse lift",
+      "chart or branch coverage",
+      "I4=I1=Im1=0",
+      "H3 promotion",
+      "(75,125) verdict change"
+    ]
+  },
+  "schema": "gp-jc-r1-r7-source-seam/v1",
+  "source_bindings": {
+    "f2_original_pair_root_normalization.py": "117e0befbf0a195b85e2d11368f4085ffa0bfd650e410bbafb89fdd6e6adb89a",
+    "f2_original_pair_root_normalization_manifest.json": "4d930a9465f1e54d57bf4b5095c1ab0242e78a132e856c6f4e9fbfdffb79db09",
+    "f2_r6_shear_forcing.py": "9002b3759c1341aa76e3b5ef5f7edfbc9e490d30ba6539fdad91f71a2a425e76",
+    "f2_r6_shear_forcing_manifest.json": "d9c3926f74054c5febb47256626a772fe965d69d0391e55336abe854ddce35eb",
+    "f2_reduction_certificate.py": "5ff3faf543ba01e3e6e06f7e79d1120c667fac2836ed27de1a5c41dae07d9da0",
+    "f2_residual_y_bound_frame.py": "0953c6f42fd4d54e861b6a213fbdac168be4d49b0bfb1337633ad1ec31b34428",
+    "f2_residual_y_bound_frame_manifest.json": "c62748d41f9cfe120990d2739eb963dba4306ebe4a4f03e21e157b380ec9e793"
+  }
+}

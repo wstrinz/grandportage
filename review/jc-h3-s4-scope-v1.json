@@ -1,0 +1,184 @@
+{
+  "closed_piece": {
+    "claim": "NONEMPTY",
+    "equations": [
+      "C",
+      "C2"
+    ],
+    "id": "S4_C_ZERO__C2_ZERO",
+    "relation": "CLOSED_RESTRICTION",
+    "status": "VERIFIED_EXACT_K_POINT"
+  },
+  "coefficient_domain": "K = QQ[t]/(15*t^3 + 1)",
+  "cover": {
+    "branches": [
+      "S4_C_ZERO__C2_ZERO",
+      "S4_C_ZERO__C2_NONZERO"
+    ],
+    "graph_effect": "NONE",
+    "kind": "ZERO_NONZERO_CONSTRUCTIBLE_COVER",
+    "status": "VERIFIED_STRUCTURAL_DICHOTOMY",
+    "union_claim": null
+  },
+  "evidence_envelope": {
+    "authority_boundary": "The exact point verifies NONEMPTY only on C=C2=0 (and hence C=0). The principal-open C2!=0 piece remains OPEN. The 24 seeds are bounded search provenance, never emptiness or confinement.",
+    "certificate_payload": {
+      "closed_piece": {
+        "claim": "NONEMPTY",
+        "equations": [
+          "C",
+          "C2"
+        ],
+        "id": "S4_C_ZERO__C2_ZERO",
+        "relation": "CLOSED_RESTRICTION",
+        "status": "VERIFIED_EXACT_K_POINT"
+      },
+      "cover": {
+        "branches": [
+          "S4_C_ZERO__C2_ZERO",
+          "S4_C_ZERO__C2_NONZERO"
+        ],
+        "graph_effect": "NONE",
+        "kind": "ZERO_NONZERO_CONSTRUCTIBLE_COVER",
+        "status": "VERIFIED_STRUCTURAL_DICHOTOMY",
+        "union_claim": null
+      },
+      "open_piece": {
+        "claim": null,
+        "equations": [
+          "C"
+        ],
+        "id": "S4_C_ZERO__C2_NONZERO",
+        "open_conditions": [
+          "C2"
+        ],
+        "relation": "PRINCIPAL_OPEN_RESTRICTION",
+        "search_evidence": {
+          "authority": "BOUNDED_PROVENANCE_ONLY",
+          "graph_effect": "NONE",
+          "inconclusive": 0,
+          "provably_non_square_discriminant": 24,
+          "seeds": 24,
+          "squares_found": 0
+        },
+        "status": "OPEN"
+      }
+    },
+    "checked_proposition": "one exact K-point lies on C=C2=0 with nonzero rank witness; the complementary C2!=0 piece remains open",
+    "context": {
+      "characteristic": 0,
+      "coefficient_domain": "K = QQ[t]/(15*t^3 + 1)",
+      "generators": [
+        "C",
+        "C2"
+      ],
+      "point_universe": "BASE",
+      "ring_vars": [
+        "c2_1",
+        "c2_2",
+        "c3_5",
+        "c7_10",
+        "c7_9",
+        "c8_10",
+        "c8_11",
+        "c8_12",
+        "p"
+      ],
+      "unit_generators": []
+    },
+    "graph_effect": "NONE",
+    "licenses": [
+      "S4_C2_zero_piece_nonempty_over_K",
+      "S4_C_zero_parent_nonempty_over_K_from_same_point",
+      "C2_zero_or_nonzero_is_a_structural_constructible_cover"
+    ],
+    "outstanding_premises": [
+      "K-point existence or emptiness on C=0 and C2!=0",
+      "source-image sufficiency and actual-source membership",
+      "H3 and (75,125) verdict promotion"
+    ],
+    "schema": "gp-jc-s4-constructible-scope/v1",
+    "source_bindings": [
+      {
+        "id": "f2_h3_s4_downstairs_consistency.json",
+        "sha256": "sha256:bfc9a751dad32aca72efe14b2870a3125d478a47e6ae4a77b0d783eee3de5a08"
+      },
+      {
+        "id": "f2_h3_s4_fitting_kpoint.json",
+        "sha256": "sha256:0c8cfac5d31bc00c7a3edb49cc1706837883c75f74ce38f202f539b7d0e45342"
+      },
+      {
+        "id": "f2_h3_s4_fitting_kpoint.py",
+        "sha256": "sha256:2983b60c18ac3cf6328b926a51b8e0dfd99090956d603f59566da0e024b3fa0b"
+      },
+      {
+        "id": "f2_h3_s4_rank3_minors.json",
+        "sha256": "sha256:2358ff6f5e9f9e001e627757a2875825f533a8eb7d57eacdbf9ee1e37280348f"
+      },
+      {
+        "id": "f2_h3_s4_rank3_minors.py",
+        "sha256": "sha256:167309d3ea3596a023dc8903e7f4675fa69dec65686498f08e9b40371dbb9383"
+      }
+    ]
+  },
+  "graph_effect": "NONE",
+  "guards": {
+    "c3_5": "-3/2",
+    "c3_5_nonzero": true,
+    "no_coordinate_inverted": true
+  },
+  "open_piece": {
+    "claim": null,
+    "equations": [
+      "C"
+    ],
+    "id": "S4_C_ZERO__C2_NONZERO",
+    "open_conditions": [
+      "C2"
+    ],
+    "relation": "PRINCIPAL_OPEN_RESTRICTION",
+    "search_evidence": {
+      "authority": "BOUNDED_PROVENANCE_ONLY",
+      "graph_effect": "NONE",
+      "inconclusive": 0,
+      "provably_non_square_discriminant": 24,
+      "seeds": 24,
+      "squares_found": 0
+    },
+    "status": "OPEN"
+  },
+  "parent": {
+    "equations": [
+      "C"
+    ],
+    "id": "S4_C_ZERO",
+    "sort": "NECESSARY_BOUNDARY_MODEL",
+    "status": "NONEMPTY_WITNESSED_ON_C2_ZERO_PIECE"
+  },
+  "point_universe": "BASE",
+  "refusals": [
+    "source-image sufficiency",
+    "actual-source membership",
+    "q-chart membership",
+    "p-chart membership",
+    "H3 promotion",
+    "(75,125) verdict change",
+    "new source depth",
+    "S2 and the other S4 branches",
+    "Groebner basis / primary decomposition / singular-locus computation",
+    "any claim that this point is a source point, or that C = 0 is irreducible, or anything about the dimension of C = 0",
+    "off-locus emptiness",
+    "all K-points lie on C2 = 0",
+    "24-seed search promoted to a theorem",
+    "claim about the union beyond its structural cover"
+  ],
+  "schema": "gp-jc-s4-constructible-scope/v1",
+  "source_bindings": {
+    "f2_h3_s4_downstairs_consistency.json": "bfc9a751dad32aca72efe14b2870a3125d478a47e6ae4a77b0d783eee3de5a08",
+    "f2_h3_s4_fitting_kpoint.json": "0c8cfac5d31bc00c7a3edb49cc1706837883c75f74ce38f202f539b7d0e45342",
+    "f2_h3_s4_fitting_kpoint.py": "2983b60c18ac3cf6328b926a51b8e0dfd99090956d603f59566da0e024b3fa0b",
+    "f2_h3_s4_rank3_minors.json": "2358ff6f5e9f9e001e627757a2875825f533a8eb7d57eacdbf9ee1e37280348f",
+    "f2_h3_s4_rank3_minors.py": "167309d3ea3596a023dc8903e7f4675fa69dec65686498f08e9b40371dbb9383"
+  },
+  "verdict": "VERIFIED_ONE_PIECE_OPEN_OTHER_PIECE"
+}

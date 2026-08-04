@@ -1,0 +1,169 @@
+{
+  "characteristic": 0,
+  "coefficient_variables": [
+    "g5",
+    "g2",
+    "c0",
+    "c210",
+    "c27",
+    "c24",
+    "c21"
+  ],
+  "equalities": [
+    {
+      "id": "depressed-x1",
+      "left": "lhs7",
+      "right": "rhs7"
+    },
+    {
+      "id": "depressed-x0",
+      "left": "lhs8",
+      "right": "rhs8"
+    }
+  ],
+  "exports": [
+    {
+      "id": "F7_polynomial",
+      "node": "F7",
+      "shift": 2
+    },
+    {
+      "id": "F8_polynomial",
+      "node": "F8",
+      "shift": 10
+    }
+  ],
+  "inputs": {
+    "C1": {
+      "-1": "c21",
+      "-10": "c210",
+      "-4": "c24",
+      "-7": "c27"
+    },
+    "F6": {
+      "0": "c0",
+      "3": "-1/9"
+    },
+    "F7": {
+      "-2": "-g5/3",
+      "1": "2*g2/3"
+    },
+    "F8": {
+      "-1": "g2^2/3+c24/9-2*c0*c21",
+      "-10": "-2*c0*c210",
+      "-4": "g5*g2/6+7*c27/36-2*c0*c24",
+      "-7": "g5^2/21+13*c210/63-2*c0*c27",
+      "2": "5*c21/18"
+    },
+    "G": {
+      "-2": "g2",
+      "-5": "g5"
+    },
+    "Y2": {
+      "2": "1"
+    },
+    "ZERO": {}
+  },
+  "program": [
+    {
+      "arg": "F7",
+      "id": "dF7",
+      "op": "derivative"
+    },
+    {
+      "arg": "dF7",
+      "id": "lhs7",
+      "op": "scale",
+      "scalar": "9"
+    },
+    {
+      "id": "y2G",
+      "left": "Y2",
+      "op": "multiply",
+      "right": "G"
+    },
+    {
+      "arg": "y2G",
+      "id": "rhs7",
+      "op": "scale",
+      "scalar": "6"
+    },
+    {
+      "arg": "F8",
+      "id": "dF8",
+      "op": "derivative"
+    },
+    {
+      "arg": "dF8",
+      "id": "nine_dF8",
+      "op": "scale",
+      "scalar": "9"
+    },
+    {
+      "arg": "F6",
+      "id": "dF6",
+      "op": "derivative"
+    },
+    {
+      "id": "C1_dF6",
+      "left": "C1",
+      "op": "multiply",
+      "right": "dF6"
+    },
+    {
+      "arg": "C1_dF6",
+      "id": "twentyone_C1_dF6",
+      "op": "scale",
+      "scalar": "21"
+    },
+    {
+      "arg": "C1",
+      "id": "dC1",
+      "op": "derivative"
+    },
+    {
+      "id": "dC1_F6",
+      "left": "dC1",
+      "op": "multiply",
+      "right": "F6"
+    },
+    {
+      "arg": "dC1_F6",
+      "id": "eighteen_dC1_F6",
+      "op": "scale",
+      "scalar": "18"
+    },
+    {
+      "id": "lhs8a",
+      "left": "nine_dF8",
+      "op": "add",
+      "right": "twentyone_C1_dF6"
+    },
+    {
+      "id": "lhs8",
+      "left": "lhs8a",
+      "op": "add",
+      "right": "eighteen_dC1_F6"
+    },
+    {
+      "id": "G2",
+      "left": "G",
+      "op": "multiply",
+      "right": "G"
+    },
+    {
+      "id": "y2G2",
+      "left": "Y2",
+      "op": "multiply",
+      "right": "G2"
+    },
+    {
+      "arg": "y2G2",
+      "id": "rhs8",
+      "op": "scale",
+      "scalar": "-3"
+    }
+  ],
+  "schema": "laurent_lowering_v1",
+  "series_variable": "y"
+}

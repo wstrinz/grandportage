@@ -1,0 +1,126 @@
+{
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "changes": [
+    {
+      "effective_status": "VERIFIED",
+      "historical_status": "VERIFIED_CONDITIONAL_ON_H8",
+      "id": "JC.H3.D9.PAIRING.DEG34",
+      "premises_discharged": [
+        "JC.H3.H8"
+      ],
+      "scope_id": "JC.H3.P1-P5.PIN.S2.D9.DEG34"
+    },
+    {
+      "effective_status": "DISCHARGED",
+      "historical_status": "OPEN_PREMISE",
+      "id": "JC.H3.H8",
+      "premises_discharged": [
+        "JC.H3.P3_P4_DEPTH_D_TRANSFER"
+      ],
+      "scope_id": "JC.H3.P1-P5.PIN.D8-15"
+    },
+    {
+      "effective_status": "VERIFIED",
+      "historical_status": "VERIFIED_CONDITIONAL",
+      "id": "JC.H3.OPERATOR_SCHEDULE.D8-15",
+      "premises_discharged": [
+        "JC.H3.H8"
+      ],
+      "scope_id": "JC.H3.P1-P5.PIN.D8-15"
+    }
+  ],
+  "consumer": "jc-h3-h8-c79-frontier",
+  "does_not_discharge": [
+    "additive residual bodies",
+    "actual-source membership",
+    "source sufficiency",
+    "H3",
+    "(75,125) verdict"
+  ],
+  "fixture": {
+    "path": "fixtures/jc_frontier/h8_c79_v1.json",
+    "sha256": "sha256:73204a4cc3f8c12895beacf7f2f2e812f876833e7b98cf6faa473d21d204cfe8"
+  },
+  "graph_effect": "NONE",
+  "history": {
+    "immutable": true,
+    "input_fingerprint": "sha256:97d2ead57c2b81c40c676eb44a4f65187c028ed8d1531100c3cdd2b2014ff22f",
+    "item_count": 6
+  },
+  "item_observations": [
+    {
+      "id": "JC.H3.B0.SOURCE.EXCLUSION",
+      "scope_id": "JC.H3.B0.FULL",
+      "state": "OPEN",
+      "status": "OPEN"
+    },
+    {
+      "id": "JC.H3.C79.SOURCE.FACE81.PIN_ABLATION",
+      "scope_id": "JC.H3.C79.PIN_ABLATION",
+      "state": "OPEN",
+      "status": "OPEN"
+    },
+    {
+      "id": "JC.H3.C79.SOURCE.FACE81.UNIT",
+      "scope_id": "JC.H3.C79.CODIM5.RECORDED",
+      "state": "CLOSED",
+      "status": "CLOSED"
+    },
+    {
+      "id": "JC.H3.D9.PAIRING.DEG34",
+      "scope_id": "JC.H3.P1-P5.PIN.S2.D9.DEG34",
+      "state": "CLOSED",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "JC.H3.H8",
+      "scope_id": "JC.H3.P1-P5.PIN.D8-15",
+      "state": "CLOSED",
+      "status": "DISCHARGED"
+    },
+    {
+      "id": "JC.H3.OPERATOR_SCHEDULE.D8-15",
+      "scope_id": "JC.H3.P1-P5.PIN.D8-15",
+      "state": "CLOSED",
+      "status": "VERIFIED"
+    }
+  ],
+  "open_items": [
+    "JC.H3.B0.SOURCE.EXCLUSION",
+    "JC.H3.C79.SOURCE.FACE81.PIN_ABLATION"
+  ],
+  "projection_schema": "frontier/v1",
+  "schema": "gp-jc-h3-frontier-review/v1",
+  "source_bindings": [
+    {
+      "commit": "4d842a8d51811d9ad3f7e6d7b8a195d500261295",
+      "path": "d2_plane_72_108/f2_h3_p3_p4_depth8_transfer_receipt.json",
+      "sha256": "5317c094c56a23299d876898ef29b90e08673bb4ff966e400fa2eb69d2242796",
+      "verdict": "P3_P4_DEPTH8_TRANSFER_PROVED"
+    },
+    {
+      "commit": "a8205fc3039d1ab59a4cc65a50802a57f7ab0abe",
+      "path": "d2_plane_72_108/f2_h3_h8_support_pivot_schedule.json",
+      "sha256": "2c0d4dade3d947a1c9eec2b391db091c664585584b33b5e102556acdb53cf93d",
+      "verdict": "H8_REQUIRES_P3_P4_TRANSFER"
+    },
+    {
+      "commit": "bb46fda3417bfc637615005802abe4cbb6045c76",
+      "path": "d2_plane_72_108/f2_h3_p3_p4_depth9_transfer_receipt.json",
+      "sha256": "242295a8dcc5c83a33ad06dff0ee78c44593335e740d9fc0ad37e937dc9460be",
+      "verdict": "P3_P4_DEPTH9_TRANSFER_PROVED"
+    },
+    {
+      "commit": "bb46fda3417bfc637615005802abe4cbb6045c76",
+      "path": "d2_plane_72_108/f2_h3_p3_p4_depths10_15_transfer_receipt.json",
+      "sha256": "55d0e45bc1835f21a9edd3136eb9929fac1bc992f304bf60e14d076a425463ce",
+      "verdict": "P3_P4_DEPTHS10_15_TRANSFER_PROVED"
+    },
+    {
+      "commit": "dddee158381fdc8554b24b527534de423ec84037",
+      "path": "d2_plane_72_108/f2_h3_c79_source_incidence_family_certificate.json",
+      "sha256": "388f0fead1d32b0a42bfaefe4e68f70095702cb68948cb37b7c42d6687185f18",
+      "verdict": "C79_FAMILY_SOURCE_FACE_IDEAL_UNIT"
+    }
+  ]
+}

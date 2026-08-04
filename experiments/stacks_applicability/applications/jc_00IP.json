@@ -1,0 +1,42 @@
+{
+  "schema": "gp_stacks_application_packet_v1",
+  "application_id": "JC-KRULL-INTERSECTION-AUDIT",
+  "theorem_pin": {
+    "tag": "00IP",
+    "statement_sha256": "a14ec52c326702ac9e2d6340d5d95797be2073670f6c0e0642ae6f007e689caf"
+  },
+  "theorem_acceptance": "CITATION_PINNED",
+  "target_context": "proposed source-cover intersection module for the JC H3 depth tower",
+  "intended_conclusion": "a persistent source-cover discrepancy class vanishes",
+  "hypotheses": [
+    {
+      "id": "ring_noetherian_local",
+      "status": "MISSING",
+      "why": "The campaign does not yet bind the proposed coefficient ring as the relevant Noetherian local ring."
+    },
+    {
+      "id": "ideal_proper",
+      "status": "MISSING",
+      "why": "No exact GP claim identifies and proves proper the ideal defining the proposed adic filtration."
+    },
+    {
+      "id": "module_finite",
+      "status": "MISSING",
+      "why": "The source-cover discrepancy module has not been constructed or proved finite over that ring."
+    }
+  ],
+  "application_premises": [
+    {
+      "id": "class_in_every_power",
+      "statement": "the discrepancy class lies in $I^nM$ for every $n \\geq 0$",
+      "status": "OPEN",
+      "why": "Finite-depth compatibility receipts do not yet form a theorem or checked family for every depth."
+    },
+    {
+      "id": "class_identified",
+      "statement": "the class whose vanishing is sought is an element of the declared module $M$",
+      "status": "UNSUPPORTED",
+      "why": "The current exact-affine GP graph has no first-class module element or source-cover intersection object."
+    }
+  ]
+}

@@ -1,0 +1,773 @@
+{
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "collections": {
+    "aliases": {},
+    "baseline": {
+      "accepted": {},
+      "note": ""
+    },
+    "built_by": {},
+    "certificate_records": {},
+    "certificate_sources": {
+      "CITED_PROOF": "builtin",
+      "DEGREE_COUNT": "builtin",
+      "EXACT_VALUATION_COLLISION": "builtin",
+      "LOCALIZED_UNIT_IDEAL_CERT": "builtin",
+      "NONSQUARE_CLASS": "builtin",
+      "NONZERO_RESULTANT": "builtin",
+      "NO_RATIONAL_POINT_SEARCH": "builtin",
+      "UNIT_IDEAL_CERT": "builtin"
+    },
+    "certificates": {
+      "CITED_PROOF": false,
+      "DEGREE_COUNT": true,
+      "EXACT_VALUATION_COLLISION": true,
+      "LOCALIZED_UNIT_IDEAL_CERT": true,
+      "NONSQUARE_CLASS": false,
+      "NONZERO_RESULTANT": true,
+      "NO_RATIONAL_POINT_SEARCH": false,
+      "UNIT_IDEAL_CERT": true
+    },
+    "citations": {},
+    "claims": {},
+    "doubts": {},
+    "edges": {
+      "JC-SOURCE-SECOND-SOLVE-EQUIVALENCE": {
+        "cite": "sha256:76b769012677a68d5665caf29de743a17c56e30f398f91eb177f5689b9c58f06",
+        "drops": [],
+        "dst": "JC-SOURCE-SECOND-NORMALIZED",
+        "ev": "edge",
+        "forward": {
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_4": "(15)*t^2*c2_3^2*c3_5^2+(-30)*t^2*c2_3*c3_5*c5_7+(-15)*t^2*c2_3*c8_12+c3_4",
+          "c3_5": "c3_5",
+          "c4_4": "(15/2)*t^2*c2_3^3*c5_7+(15)*t^2*c2_3^2*c3_5*c4_5+(15/2)*t^2*c2_3^2*c7_10+(-45/2)*t^2*c2_3*c4_5*c5_7+(-30)*t^2*c3_5*c4_5^2+(-30)*t^2*c4_5*c7_10+(45/2)*t*c2_3^3*c3_5^4+(-90)*t*c2_3^2*c3_5^3*c5_7+(-45)*t*c2_3^2*c3_5^2*c8_12+(90)*t*c2_3*c3_5^2*c5_7^2+(90)*t*c2_3*c3_5*c5_7*c8_12+(45/2)*t*c2_3*c8_12^2+(10)*t*c3_5*c5_7^3+(-1/2)*c2_2*c2_3+c4_4",
+          "c4_5": "c4_5",
+          "c5_6": "(30)*t^2*c2_3*c3_5^2*c4_5+(-15/2)*t^2*c2_3*c5_7^2+(-60)*t^2*c3_5*c4_5*c5_7+(-30)*t^2*c4_5*c8_12+(-15)*t^2*c5_7*c7_10+c5_6",
+          "c5_7": "c5_7",
+          "c6_8": "(15)*t^2*c2_3*c3_5^2*c5_7+(-30)*t^2*c3_5*c5_7^2+(-15)*t^2*c5_7*c8_12+c6_8",
+          "c7_10": "c7_10",
+          "c8_12": "c8_12",
+          "c9_13": "(15/2)*t^2*c2_3^2*c3_5^4+(-30)*t^2*c2_3*c3_5^3*c5_7+(30)*t^2*c3_5^2*c5_7^2+(-15/2)*t^2*c8_12^2+(3/2)*t*c2_2+(1/2)*c2_3^2*c5_7+c2_3*c3_5*c4_5+(3/2)*c2_3*c7_10+(3/2)*c4_5*c5_7+c9_13",
+          "r": "r",
+          "t": "t"
+        },
+        "id": "JC-SOURCE-SECOND-SOLVE-EQUIVALENCE",
+        "inverse": {
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_4": "(-15)*t^2*c2_3^2*c3_5^2+(30)*t^2*c2_3*c3_5*c5_7+(15)*t^2*c2_3*c8_12+c3_4",
+          "c3_5": "c3_5",
+          "c4_4": "(-15/2)*t^2*c2_3^3*c5_7+(-15)*t^2*c2_3^2*c3_5*c4_5+(-15/2)*t^2*c2_3^2*c7_10+(45/2)*t^2*c2_3*c4_5*c5_7+(30)*t^2*c3_5*c4_5^2+(30)*t^2*c4_5*c7_10+(-45/2)*t*c2_3^3*c3_5^4+(90)*t*c2_3^2*c3_5^3*c5_7+(45)*t*c2_3^2*c3_5^2*c8_12+(-90)*t*c2_3*c3_5^2*c5_7^2+(-90)*t*c2_3*c3_5*c5_7*c8_12+(-45/2)*t*c2_3*c8_12^2+(-10)*t*c3_5*c5_7^3+(1/2)*c2_2*c2_3+c4_4",
+          "c4_5": "c4_5",
+          "c5_6": "(-30)*t^2*c2_3*c3_5^2*c4_5+(15/2)*t^2*c2_3*c5_7^2+(60)*t^2*c3_5*c4_5*c5_7+(30)*t^2*c4_5*c8_12+(15)*t^2*c5_7*c7_10+c5_6",
+          "c5_7": "c5_7",
+          "c6_8": "(-15)*t^2*c2_3*c3_5^2*c5_7+(30)*t^2*c3_5*c5_7^2+(15)*t^2*c5_7*c8_12+c6_8",
+          "c7_10": "c7_10",
+          "c8_12": "c8_12",
+          "c9_13": "(-15/2)*t^2*c2_3^2*c3_5^4+(30)*t^2*c2_3*c3_5^3*c5_7+(-30)*t^2*c3_5^2*c5_7^2+(15/2)*t^2*c8_12^2+(-3/2)*t*c2_2+(-1/2)*c2_3^2*c5_7-c2_3*c3_5*c4_5+(-3/2)*c2_3*c7_10+(-3/2)*c4_5*c5_7+c9_13",
+          "r": "r",
+          "t": "t"
+        },
+        "map_kind": "POLYNOMIAL",
+        "refinement": false,
+        "ring_iso": true,
+        "ring_iso_certificate": {
+          "forward_cofactors": [
+            [
+              "1",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(-15)*t^3*c3_4+(15)*t^2*c2_3^2*c3_5^2+(-30)*t^2*c2_3*c3_5*c5_7+(-15)*t^2*c2_3*c8_12+c3_4",
+              "(-45)*t^4",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(-15)*t^3*c6_8+(15)*t^2*c2_3*c3_5^2*c5_7+(-30)*t^2*c3_5*c5_7^2+(-15)*t^2*c5_7*c8_12+c6_8",
+              "0",
+              "(-45)*t^4",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(225)*t^6*c3_4*c3_5^2+(-450)*t^6*c3_5*c6_8+(-225)*t^5*c2_3^2*c3_5^4+(900)*t^5*c2_3*c3_5^3*c5_7+(225)*t^5*c2_3*c3_5^2*c8_12+(-900)*t^5*c3_5^2*c5_7^2+(-450)*t^5*c3_5*c5_7*c8_12+(-15)*t^3*c3_4*c3_5^2+(30)*t^3*c3_5*c6_8+(15)*t^2*c2_3^2*c3_5^4+(-60)*t^2*c2_3*c3_5^3*c5_7+(-15)*t^2*c2_3*c3_5^2*c8_12+(60)*t^2*c3_5^2*c5_7^2+(30)*t^2*c3_5*c5_7*c8_12+(3/2)*t*c2_2+(1/2)*c2_3^2*c5_7+c2_3*c3_5*c4_5+(3/2)*c2_3*c7_10+(3/2)*c4_5*c5_7+c9_13",
+              "(675)*t^7*c3_5^2",
+              "(-1350)*t^7*c3_5",
+              "(-3/2)*t^2",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(-3375)*t^9*c2_3*c3_4+(3375)*t^8*c2_3^3*c3_5^2+(-6750)*t^8*c2_3^2*c3_5*c5_7+(-3375)*t^8*c2_3^2*c8_12+(225)*t^6*c2_3*c3_4+(-225)*t^5*c2_3^3*c3_5^2+(450)*t^5*c2_3^2*c3_5*c5_7+(225)*t^5*c2_3^2*c8_12+(-15)*t^3*c5_6+(30)*t^2*c2_3*c3_5^2*c4_5+(-15/2)*t^2*c2_3*c5_7^2+(-60)*t^2*c3_5*c4_5*c5_7+(-30)*t^2*c4_5*c8_12+(-15)*t^2*c5_7*c7_10+c5_6",
+              "(-10125)*t^10*c2_3",
+              "0",
+              "0",
+              "(-45)*t^4",
+              "0",
+              "0"
+            ],
+            [
+              "(-50625)*t^11*c2_3*c3_4*c3_5^2+(101250)*t^11*c2_3*c3_5*c6_8+(50625)*t^10*c2_3^3*c3_5^4+(-202500)*t^10*c2_3^2*c3_5^3*c5_7+(-50625)*t^10*c2_3^2*c3_5^2*c8_12+(202500)*t^10*c2_3*c3_5^2*c5_7^2+(101250)*t^10*c2_3*c3_5*c5_7*c8_12+(-6750)*t^8*c2_3*c3_4*c3_5^2+(13500)*t^8*c3_4*c3_5*c5_7+(6750)*t^8*c3_4*c8_12+(3375)*t^8*c5_7*c6_8+(6750)*t^7*c2_3^3*c3_5^4+(-27000)*t^7*c2_3^2*c3_5^3*c5_7+(-13500)*t^7*c2_3^2*c3_5^2*c8_12+(23625)*t^7*c2_3*c3_5^2*c5_7^2+(27000)*t^7*c2_3*c3_5*c5_7*c8_12+(6750)*t^7*c2_3*c8_12^2+(6750)*t^7*c3_5*c5_7^3+(3375)*t^7*c5_7^2*c8_12+(-675/2)*t^6*c2_2*c2_3+(-225/2)*t^5*c2_3^3*c5_7+(-225)*t^5*c2_3^2*c3_5*c4_5+(-675/2)*t^5*c2_3^2*c7_10+(675)*t^5*c2_3*c3_4*c3_5^2+(-450)*t^5*c2_3*c3_5*c6_8+(-675/2)*t^5*c2_3*c4_5*c5_7+(-225)*t^5*c2_3*c9_13+(-900)*t^5*c3_4*c3_5*c5_7+(-450)*t^5*c3_4*c8_12+(-225)*t^5*c5_7*c6_8+(-1125/2)*t^4*c2_3^3*c3_5^4+(2250)*t^4*c2_3^2*c3_5^3*c5_7+(1125)*t^4*c2_3^2*c3_5^2*c8_12+(-2025)*t^4*c2_3*c3_5^2*c5_7^2+(-2250)*t^4*c2_3*c3_5*c5_7*c8_12+(-1125/2)*t^4*c2_3*c8_12^2+(-450)*t^4*c3_5*c5_7^3+(-225)*t^4*c5_7^2*c8_12+(15/2)*t^3*c2_2*c2_3+(-15)*t^3*c4_4+(15/2)*t^2*c2_3^3*c5_7+(15)*t^2*c2_3^2*c3_5*c4_5+(15/2)*t^2*c2_3^2*c7_10+(-45/2)*t^2*c2_3*c4_5*c5_7+(-30)*t^2*c3_5*c4_5^2+(-30)*t^2*c4_5*c7_10+(45/2)*t*c2_3^3*c3_5^4+(-90)*t*c2_3^2*c3_5^3*c5_7+(-45)*t*c2_3^2*c3_5^2*c8_12+(90)*t*c2_3*c3_5^2*c5_7^2+(90)*t*c2_3*c3_5*c5_7*c8_12+(45/2)*t*c2_3*c8_12^2+(10)*t*c3_5*c5_7^3+(-1/2)*c2_2*c2_3+c4_4",
+              "(-151875)*t^12*c2_3*c3_5^2+(-30375)*t^9*c2_3*c3_5^2+(40500)*t^9*c3_5*c5_7+(20250)*t^9*c8_12",
+              "(303750)*t^12*c2_3*c3_5+(20250)*t^9*c2_3*c3_5+(10125)*t^9*c5_7",
+              "(675/2)*t^7*c2_3",
+              "0",
+              "(-45)*t^4",
+              "0"
+            ],
+            [
+              "(50625)*t^11*c2_3*c3_4*c3_5^2+(-101250)*t^11*c2_3*c3_5*c6_8+(-50625)*t^10*c2_3^3*c3_5^4+(202500)*t^10*c2_3^2*c3_5^3*c5_7+(50625)*t^10*c2_3^2*c3_5^2*c8_12+(-202500)*t^10*c2_3*c3_5^2*c5_7^2+(-101250)*t^10*c2_3*c3_5*c5_7*c8_12+(3375)*t^9*c2_3*c3_4+(-3375)*t^8*c2_3^3*c3_5^2+(6750)*t^8*c2_3^2*c3_5*c5_7+(3375)*t^8*c2_3^2*c8_12+(6750)*t^8*c2_3*c3_4*c3_5^2+(-13500)*t^8*c3_4*c3_5*c5_7+(-6750)*t^8*c3_4*c8_12+(-3375)*t^8*c5_7*c6_8+(-6750)*t^7*c2_3^3*c3_5^4+(27000)*t^7*c2_3^2*c3_5^3*c5_7+(13500)*t^7*c2_3^2*c3_5^2*c8_12+(-23625)*t^7*c2_3*c3_5^2*c5_7^2+(-27000)*t^7*c2_3*c3_5*c5_7*c8_12+(-6750)*t^7*c2_3*c8_12^2+(-6750)*t^7*c3_5*c5_7^3+(-3375)*t^7*c5_7^2*c8_12+(675/2)*t^6*c2_2*c2_3+(-225)*t^6*c2_3*c3_4+(-225)*t^6*c3_4*c3_5^2+(450)*t^6*c3_5*c6_8+(225)*t^5*c2_3^3*c3_5^2+(225/2)*t^5*c2_3^3*c5_7+(225)*t^5*c2_3^2*c3_5^4+(225)*t^5*c2_3^2*c3_5*c4_5+(-450)*t^5*c2_3^2*c3_5*c5_7+(675/2)*t^5*c2_3^2*c7_10+(-225)*t^5*c2_3^2*c8_12+(-675)*t^5*c2_3*c3_4*c3_5^2+(-900)*t^5*c2_3*c3_5^3*c5_7+(-225)*t^5*c2_3*c3_5^2*c8_12+(450)*t^5*c2_3*c3_5*c6_8+(675/2)*t^5*c2_3*c4_5*c5_7+(225)*t^5*c2_3*c9_13+(900)*t^5*c3_4*c3_5*c5_7+(450)*t^5*c3_4*c8_12+(900)*t^5*c3_5^2*c5_7^2+(450)*t^5*c3_5*c5_7*c8_12+(225)*t^5*c5_7*c6_8+(1125/2)*t^4*c2_3^3*c3_5^4+(-2250)*t^4*c2_3^2*c3_5^3*c5_7+(-1125)*t^4*c2_3^2*c3_5^2*c8_12+(2025)*t^4*c2_3*c3_5^2*c5_7^2+(2250)*t^4*c2_3*c3_5*c5_7*c8_12+(1125/2)*t^4*c2_3*c8_12^2+(450)*t^4*c3_5*c5_7^3+(225)*t^4*c5_7^2*c8_12+(-15/2)*t^3*c2_2*c2_3+(15)*t^3*c3_4*c3_5^2+(15)*t^3*c3_4+(-30)*t^3*c3_5*c6_8+(15)*t^3*c4_4+(15)*t^3*c5_6+(15)*t^3*c6_8+(-15/2)*t^2*c2_3^3*c5_7+(-15)*t^2*c2_3^2*c3_5^4+(-15)*t^2*c2_3^2*c3_5^2+(-15)*t^2*c2_3^2*c3_5*c4_5+(-15/2)*t^2*c2_3^2*c7_10+(60)*t^2*c2_3*c3_5^3*c5_7+(-30)*t^2*c2_3*c3_5^2*c4_5+(-15)*t^2*c2_3*c3_5^2*c5_7+(15)*t^2*c2_3*c3_5^2*c8_12+(30)*t^2*c2_3*c3_5*c5_7+(45/2)*t^2*c2_3*c4_5*c5_7+(15/2)*t^2*c2_3*c5_7^2+(15)*t^2*c2_3*c8_12+(-60)*t^2*c3_5^2*c5_7^2+(30)*t^2*c3_5*c4_5^2+(60)*t^2*c3_5*c4_5*c5_7+(30)*t^2*c3_5*c5_7^2+(-30)*t^2*c3_5*c5_7*c8_12+(30)*t^2*c4_5*c7_10+(30)*t^2*c4_5*c8_12+(15)*t^2*c5_7*c7_10+(15)*t^2*c5_7*c8_12+(-3/2)*t*c2_2+(-45/2)*t*c2_3^3*c3_5^4+(90)*t*c2_3^2*c3_5^3*c5_7+(45)*t*c2_3^2*c3_5^2*c8_12+(-90)*t*c2_3*c3_5^2*c5_7^2+(-90)*t*c2_3*c3_5*c5_7*c8_12+(-45/2)*t*c2_3*c8_12^2+(-10)*t*c3_5*c5_7^3+(1/2)*c2_2*c2_3+(-1/2)*c2_3^2*c5_7-c2_3*c3_5*c4_5+(-3/2)*c2_3*c7_10-c3_4-c4_4+(-3/2)*c4_5*c5_7-c5_6-c6_8-c9_13",
+              "(151875)*t^12*c2_3*c3_5^2+(10125)*t^10*c2_3+(30375)*t^9*c2_3*c3_5^2+(-40500)*t^9*c3_5*c5_7+(-20250)*t^9*c8_12+(-675)*t^7*c3_5^2+(45)*t^4",
+              "(-303750)*t^12*c2_3*c3_5+(-20250)*t^9*c2_3*c3_5+(-10125)*t^9*c5_7+(1350)*t^7*c3_5+(45)*t^4",
+              "(-675/2)*t^7*c2_3+(3/2)*t^2",
+              "(45)*t^4",
+              "(45)*t^4",
+              "1"
+            ]
+          ],
+          "inverse_cofactors": [
+            [
+              "1",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(5)*t*c2_3^2*c3_5^2+(-10)*t*c2_3*c3_5*c5_7+(-5)*t*c2_3*c8_12",
+              "(-5)*t^2",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(5)*t*c2_3*c3_5^2*c5_7+(-10)*t*c3_5*c5_7^2+(-5)*t*c5_7*c8_12",
+              "0",
+              "(-5)*t^2",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(5)*c2_3^2*c3_5^4+(-20)*c2_3*c3_5^3*c5_7+(-10)*c2_3*c3_5^2*c8_12+(20)*c3_5^2*c5_7^2+(20)*c3_5*c5_7*c8_12+(5)*c8_12^2",
+              "(-10)*t*c3_5^2",
+              "(20)*t*c3_5",
+              "(10)*t",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(-5)*t*c2_3^3*c3_5^2+(10)*t*c2_3^2*c3_5*c5_7+(5)*t*c2_3^2*c8_12+(10)*t*c2_3*c3_5^2*c4_5+(-5/2)*t*c2_3*c5_7^2+(-20)*t*c3_5*c4_5*c5_7+(-10)*t*c4_5*c8_12+(-5)*t*c5_7*c7_10",
+              "(5)*t^2*c2_3",
+              "0",
+              "0",
+              "(-5)*t^2",
+              "0",
+              "0"
+            ],
+            [
+              "(5/2)*t*c2_3^3*c5_7+(5)*t*c2_3^2*c3_5*c4_5+(5/2)*t*c2_3^2*c7_10+(-15/2)*t*c2_3*c4_5*c5_7+(-10)*t*c3_5*c4_5^2+(-10)*t*c4_5*c7_10+(-5)*c2_3^3*c3_5^4+(20)*c2_3^2*c3_5^3*c5_7+(10)*c2_3^2*c3_5^2*c8_12+(-15)*c2_3*c3_5^2*c5_7^2+(-20)*c2_3*c3_5*c5_7*c8_12+(-5)*c2_3*c8_12^2+(-20/3)*c3_5*c5_7^3+(-5)*c5_7^2*c8_12",
+              "(15)*t*c2_3*c3_5^2+(-20)*t*c3_5*c5_7+(-10)*t*c8_12",
+              "(-10)*t*c2_3*c3_5+(-5)*t*c5_7",
+              "(-5)*t*c2_3",
+              "0",
+              "(-5)*t^2",
+              "0"
+            ],
+            [
+              "0",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1"
+            ]
+          ],
+          "schema": "mapped_ring_iso_v1"
+        },
+        "ring_iso_verdict": "VERIFIED",
+        "ring_iso_why": "the mapped_ring_iso_v1 certificate exactly expands both ideal pullbacks and both polynomial map compositions are the identity. This backend-free proof establishes an isomorphism of the exact endpoint COORDINATE RINGS; it grants no authority outside them.",
+        "src": "JC-SOURCE-SECOND-LOCALIZED",
+        "support": [],
+        "type": "EQUIVALENCE",
+        "why": "the checked ordered affine translations become an ordinary polynomial equivalence after adjoining explicit inverses for the declared localization generators"
+      }
+    },
+    "evidence": {},
+    "families": {},
+    "findings": [],
+    "groups": {},
+    "inferences": {},
+    "models": {
+      "JC-SOURCE-SECOND-LOCALIZED": {
+        "characteristic": 0,
+        "cite": "sha256:76b769012677a68d5665caf29de743a17c56e30f398f91eb177f5689b9c58f06",
+        "coefficient_domain": "Q",
+        "coverage_axes": [],
+        "declares": {},
+        "ev": "model",
+        "generators": [
+          "(15)*t^3+1",
+          "(-5)*t^2*c3_4+(5)*t*c2_3^2*c3_5^2+(-10)*t*c2_3*c3_5*c5_7+(-5)*t*c2_3*c8_12",
+          "(-5)*t^2*c6_8+(5)*t*c2_3*c3_5^2*c5_7+(-10)*t*c3_5*c5_7^2+(-5)*t*c5_7*c8_12",
+          "(15)*t^2*c2_2+(5)*t*c2_3^2*c5_7+(10)*t*c2_3*c3_5*c4_5+(15)*t*c2_3*c7_10+(-10)*t*c3_4*c3_5^2+(20)*t*c3_5*c6_8+(15)*t*c4_5*c5_7+(10)*t*c9_13+(5)*c2_3^2*c3_5^4+(-20)*c2_3*c3_5^3*c5_7+(-10)*c2_3*c3_5^2*c8_12+(20)*c3_5^2*c5_7^2+(20)*c3_5*c5_7*c8_12+(5)*c8_12^2",
+          "(5)*t^2*c2_3*c3_4+(-5)*t^2*c5_6+(-5)*t*c2_3^3*c3_5^2+(10)*t*c2_3^2*c3_5*c5_7+(5)*t*c2_3^2*c8_12+(10)*t*c2_3*c3_5^2*c4_5+(-5/2)*t*c2_3*c5_7^2+(-20)*t*c3_5*c4_5*c5_7+(-10)*t*c4_5*c8_12+(-5)*t*c5_7*c7_10",
+          "(-5)*t^2*c2_2*c2_3+(-5)*t^2*c4_4+(-5)*t*c2_3^2*c7_10+(15)*t*c2_3*c3_4*c3_5^2+(-10)*t*c2_3*c3_5*c6_8+(-15)*t*c2_3*c4_5*c5_7+(-5)*t*c2_3*c9_13+(-20)*t*c3_4*c3_5*c5_7+(-10)*t*c3_4*c8_12+(-10)*t*c3_5*c4_5^2+(-10)*t*c4_5*c7_10+(-5)*t*c5_7*c6_8+(-5)*c2_3^3*c3_5^4+(20)*c2_3^2*c3_5^3*c5_7+(10)*c2_3^2*c3_5^2*c8_12+(-15)*c2_3*c3_5^2*c5_7^2+(-20)*c2_3*c3_5*c5_7*c8_12+(-5)*c2_3*c8_12^2+(-20/3)*c3_5*c5_7^3+(-5)*c5_7^2*c8_12",
+          "c3_4+c4_4+c5_6+c6_8+c9_13+r"
+        ],
+        "id": "JC-SOURCE-SECOND-LOCALIZED",
+        "point_universe": "ALGEBRAIC_CLOSURE",
+        "reads": [],
+        "ring_vars": [
+          "t",
+          "c2_2",
+          "c2_3",
+          "c3_4",
+          "c3_5",
+          "c4_4",
+          "c4_5",
+          "c5_6",
+          "c5_7",
+          "c6_8",
+          "c7_10",
+          "c8_12",
+          "c9_13",
+          "r"
+        ],
+        "touches": [],
+        "what": "the frozen JC checked chain with every declared localization unit represented by an explicit inverse coordinate; receipt f2_h3_source_second_face"
+      },
+      "JC-SOURCE-SECOND-NORMALIZED": {
+        "characteristic": 0,
+        "cite": "sha256:76b769012677a68d5665caf29de743a17c56e30f398f91eb177f5689b9c58f06",
+        "coefficient_domain": "Q",
+        "coverage_axes": [],
+        "declares": {},
+        "ev": "model",
+        "generators": [
+          "(15)*t^3+1",
+          "c3_4",
+          "c6_8",
+          "c9_13",
+          "c5_6",
+          "c4_4",
+          "(-15/2)*t^2*c2_3^3*c5_7+(-15/2)*t^2*c2_3^2*c3_5^4+(-15)*t^2*c2_3^2*c3_5^2+(-15)*t^2*c2_3^2*c3_5*c4_5+(-15/2)*t^2*c2_3^2*c7_10+(30)*t^2*c2_3*c3_5^3*c5_7+(-30)*t^2*c2_3*c3_5^2*c4_5+(-15)*t^2*c2_3*c3_5^2*c5_7+(30)*t^2*c2_3*c3_5*c5_7+(45/2)*t^2*c2_3*c4_5*c5_7+(15/2)*t^2*c2_3*c5_7^2+(15)*t^2*c2_3*c8_12+(-30)*t^2*c3_5^2*c5_7^2+(30)*t^2*c3_5*c4_5^2+(60)*t^2*c3_5*c4_5*c5_7+(30)*t^2*c3_5*c5_7^2+(30)*t^2*c4_5*c7_10+(30)*t^2*c4_5*c8_12+(15)*t^2*c5_7*c7_10+(15)*t^2*c5_7*c8_12+(15/2)*t^2*c8_12^2+(-3/2)*t*c2_2+(-45/2)*t*c2_3^3*c3_5^4+(90)*t*c2_3^2*c3_5^3*c5_7+(45)*t*c2_3^2*c3_5^2*c8_12+(-90)*t*c2_3*c3_5^2*c5_7^2+(-90)*t*c2_3*c3_5*c5_7*c8_12+(-45/2)*t*c2_3*c8_12^2+(-10)*t*c3_5*c5_7^3+(1/2)*c2_2*c2_3+(-1/2)*c2_3^2*c5_7-c2_3*c3_5*c4_5+(-3/2)*c2_3*c7_10+(-3/2)*c4_5*c5_7+r"
+        ],
+        "id": "JC-SOURCE-SECOND-NORMALIZED",
+        "point_universe": "ALGEBRAIC_CLOSURE",
+        "reads": [],
+        "ring_vars": [
+          "t",
+          "c2_2",
+          "c2_3",
+          "c3_4",
+          "c3_5",
+          "c4_4",
+          "c4_5",
+          "c5_6",
+          "c5_7",
+          "c6_8",
+          "c7_10",
+          "c8_12",
+          "c9_13",
+          "r"
+        ],
+        "touches": [],
+        "what": "the same localized model after the checked ordered pivot translations; every solved pivot is the zero coordinate"
+      }
+    },
+    "named_notes": {},
+    "notes": [],
+    "partitions": {},
+    "tombstones": [],
+    "verdicts": {
+      "v.JC-SOURCE-SECOND-SOLVE-EQUIVALENCE.336e8cfb31126058": {
+        "backend": "gp-backend-v2:{\"binary_version\":\"Singular for x86_64-Linux version 4.2.1 (4212, 64 bit) Dec 17 2021 20:20:53\\nwith\\nGMP(6.2.1),NTL(11.5.1),FLINT(2.8.0),\\nomalloc,static readline(8),Plural,vspace(2),DBM,\\ndynamic modules,OM_NDEBUG,SING_NDEBUG,\\nCC:OPTIMIZE,GenericAdd,TableMult,no invTable,\\neigenvalues,Gauss-Manin system,random=1785527824\\nbuilt-in modules: {}\\nAC_CONFIGURE_ARGS =  '--build=x86_64-linux-gnu' '--prefix=/usr' '--includedir=${prefix}/include' '--mandir=${prefix}/share/man' '--infodir=${prefix}/share/info' '--sysconfdir=/etc' '--localstatedir=/var' '--disable-option-checking' '--disable-silent-rules' '--libdir=${prefix}/lib/x86_64-linux-gnu' '--runstatedir=/run' '--disable-maintainer-mode' '--disable-dependency-tracking' '--libexecdir=/usr/libexec/x86_64-linux-gnu' '--enable-streamio' 'build_alias=x86_64-linux-gnu' 'CFLAGS=-g -O2 -ffile-prefix-map=/build/singular-pPci2W/singular-4.2.1-p3+ds=. -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security' 'LDFLAGS=-Wl,-Bsymbolic-functions -\",\"contract\":\"singular\",\"executions\":[],\"implementation\":\"grandportage.cas.SingularBackend\",\"implementation_version\":3,\"protocol_version\":2,\"schema\":2,\"trace_fingerprint\":\"sha256:c815e43c6b2b33c7f5b2877ea5136dfe4647778efeb39e2c32594aa77aadea15\"}",
+        "current": true,
+        "ev": "verdict",
+        "id": "v.JC-SOURCE-SECOND-SOLVE-EQUIVALENCE.336e8cfb31126058",
+        "input_fingerprint": "sha256:2481d20a12618a21e8ab2179edec5303d3c5c85f4a31f93c9a57c149fedeb58b",
+        "kernel_epoch": 10,
+        "of": "JC-SOURCE-SECOND-SOLVE-EQUIVALENCE",
+        "stale_reason": null,
+        "subject": "ring_iso",
+        "verdict": "VERIFIED",
+        "verifier": "verify.ring_iso",
+        "verifier_version": 3,
+        "why": "the mapped_ring_iso_v1 certificate exactly expands both ideal pullbacks and both polynomial map compositions are the identity. This backend-free proof establishes an isomorphism of the exact endpoint COORDINATE RINGS; it grants no authority outside them."
+      }
+    }
+  },
+  "counts": {
+    "accepted_findings": 0,
+    "aliases": 0,
+    "baseline": 2,
+    "built_by": 0,
+    "certificate_records": 0,
+    "certificate_sources": 8,
+    "certificates": 8,
+    "citations": 0,
+    "claims": 0,
+    "doubts": 0,
+    "edges": 1,
+    "evidence": 0,
+    "families": 0,
+    "findings": 0,
+    "groups": 0,
+    "inferences": 0,
+    "models": 2,
+    "named_notes": 0,
+    "notes": 0,
+    "partitions": 0,
+    "tombstones": 0,
+    "verdicts": 1
+  },
+  "nodes": [
+    {
+      "id": "CITED_PROOF",
+      "key": "certificate:CITED_PROOF",
+      "kind": "certificate",
+      "label": "CITED_PROOF",
+      "record": {
+        "base_changes": false,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "DEGREE_COUNT",
+      "key": "certificate:DEGREE_COUNT",
+      "kind": "certificate",
+      "label": "DEGREE_COUNT",
+      "record": {
+        "base_changes": true,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "EXACT_VALUATION_COLLISION",
+      "key": "certificate:EXACT_VALUATION_COLLISION",
+      "kind": "certificate",
+      "label": "EXACT_VALUATION_COLLISION",
+      "record": {
+        "base_changes": true,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "LOCALIZED_UNIT_IDEAL_CERT",
+      "key": "certificate:LOCALIZED_UNIT_IDEAL_CERT",
+      "kind": "certificate",
+      "label": "LOCALIZED_UNIT_IDEAL_CERT",
+      "record": {
+        "base_changes": true,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "NONSQUARE_CLASS",
+      "key": "certificate:NONSQUARE_CLASS",
+      "kind": "certificate",
+      "label": "NONSQUARE_CLASS",
+      "record": {
+        "base_changes": false,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "NONZERO_RESULTANT",
+      "key": "certificate:NONZERO_RESULTANT",
+      "kind": "certificate",
+      "label": "NONZERO_RESULTANT",
+      "record": {
+        "base_changes": true,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "NO_RATIONAL_POINT_SEARCH",
+      "key": "certificate:NO_RATIONAL_POINT_SEARCH",
+      "kind": "certificate",
+      "label": "NO_RATIONAL_POINT_SEARCH",
+      "record": {
+        "base_changes": false,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "UNIT_IDEAL_CERT",
+      "key": "certificate:UNIT_IDEAL_CERT",
+      "kind": "certificate",
+      "label": "UNIT_IDEAL_CERT",
+      "record": {
+        "base_changes": true,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "JC-SOURCE-SECOND-SOLVE-EQUIVALENCE",
+      "key": "edge:JC-SOURCE-SECOND-SOLVE-EQUIVALENCE",
+      "kind": "edge",
+      "label": "JC-SOURCE-SECOND-SOLVE-EQUIVALENCE",
+      "record": {
+        "cite": "sha256:76b769012677a68d5665caf29de743a17c56e30f398f91eb177f5689b9c58f06",
+        "drops": [],
+        "dst": "JC-SOURCE-SECOND-NORMALIZED",
+        "ev": "edge",
+        "forward": {
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_4": "(15)*t^2*c2_3^2*c3_5^2+(-30)*t^2*c2_3*c3_5*c5_7+(-15)*t^2*c2_3*c8_12+c3_4",
+          "c3_5": "c3_5",
+          "c4_4": "(15/2)*t^2*c2_3^3*c5_7+(15)*t^2*c2_3^2*c3_5*c4_5+(15/2)*t^2*c2_3^2*c7_10+(-45/2)*t^2*c2_3*c4_5*c5_7+(-30)*t^2*c3_5*c4_5^2+(-30)*t^2*c4_5*c7_10+(45/2)*t*c2_3^3*c3_5^4+(-90)*t*c2_3^2*c3_5^3*c5_7+(-45)*t*c2_3^2*c3_5^2*c8_12+(90)*t*c2_3*c3_5^2*c5_7^2+(90)*t*c2_3*c3_5*c5_7*c8_12+(45/2)*t*c2_3*c8_12^2+(10)*t*c3_5*c5_7^3+(-1/2)*c2_2*c2_3+c4_4",
+          "c4_5": "c4_5",
+          "c5_6": "(30)*t^2*c2_3*c3_5^2*c4_5+(-15/2)*t^2*c2_3*c5_7^2+(-60)*t^2*c3_5*c4_5*c5_7+(-30)*t^2*c4_5*c8_12+(-15)*t^2*c5_7*c7_10+c5_6",
+          "c5_7": "c5_7",
+          "c6_8": "(15)*t^2*c2_3*c3_5^2*c5_7+(-30)*t^2*c3_5*c5_7^2+(-15)*t^2*c5_7*c8_12+c6_8",
+          "c7_10": "c7_10",
+          "c8_12": "c8_12",
+          "c9_13": "(15/2)*t^2*c2_3^2*c3_5^4+(-30)*t^2*c2_3*c3_5^3*c5_7+(30)*t^2*c3_5^2*c5_7^2+(-15/2)*t^2*c8_12^2+(3/2)*t*c2_2+(1/2)*c2_3^2*c5_7+c2_3*c3_5*c4_5+(3/2)*c2_3*c7_10+(3/2)*c4_5*c5_7+c9_13",
+          "r": "r",
+          "t": "t"
+        },
+        "id": "JC-SOURCE-SECOND-SOLVE-EQUIVALENCE",
+        "inverse": {
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_4": "(-15)*t^2*c2_3^2*c3_5^2+(30)*t^2*c2_3*c3_5*c5_7+(15)*t^2*c2_3*c8_12+c3_4",
+          "c3_5": "c3_5",
+          "c4_4": "(-15/2)*t^2*c2_3^3*c5_7+(-15)*t^2*c2_3^2*c3_5*c4_5+(-15/2)*t^2*c2_3^2*c7_10+(45/2)*t^2*c2_3*c4_5*c5_7+(30)*t^2*c3_5*c4_5^2+(30)*t^2*c4_5*c7_10+(-45/2)*t*c2_3^3*c3_5^4+(90)*t*c2_3^2*c3_5^3*c5_7+(45)*t*c2_3^2*c3_5^2*c8_12+(-90)*t*c2_3*c3_5^2*c5_7^2+(-90)*t*c2_3*c3_5*c5_7*c8_12+(-45/2)*t*c2_3*c8_12^2+(-10)*t*c3_5*c5_7^3+(1/2)*c2_2*c2_3+c4_4",
+          "c4_5": "c4_5",
+          "c5_6": "(-30)*t^2*c2_3*c3_5^2*c4_5+(15/2)*t^2*c2_3*c5_7^2+(60)*t^2*c3_5*c4_5*c5_7+(30)*t^2*c4_5*c8_12+(15)*t^2*c5_7*c7_10+c5_6",
+          "c5_7": "c5_7",
+          "c6_8": "(-15)*t^2*c2_3*c3_5^2*c5_7+(30)*t^2*c3_5*c5_7^2+(15)*t^2*c5_7*c8_12+c6_8",
+          "c7_10": "c7_10",
+          "c8_12": "c8_12",
+          "c9_13": "(-15/2)*t^2*c2_3^2*c3_5^4+(30)*t^2*c2_3*c3_5^3*c5_7+(-30)*t^2*c3_5^2*c5_7^2+(15/2)*t^2*c8_12^2+(-3/2)*t*c2_2+(-1/2)*c2_3^2*c5_7-c2_3*c3_5*c4_5+(-3/2)*c2_3*c7_10+(-3/2)*c4_5*c5_7+c9_13",
+          "r": "r",
+          "t": "t"
+        },
+        "map_kind": "POLYNOMIAL",
+        "refinement": false,
+        "ring_iso": true,
+        "ring_iso_certificate": {
+          "forward_cofactors": [
+            [
+              "1",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(-15)*t^3*c3_4+(15)*t^2*c2_3^2*c3_5^2+(-30)*t^2*c2_3*c3_5*c5_7+(-15)*t^2*c2_3*c8_12+c3_4",
+              "(-45)*t^4",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(-15)*t^3*c6_8+(15)*t^2*c2_3*c3_5^2*c5_7+(-30)*t^2*c3_5*c5_7^2+(-15)*t^2*c5_7*c8_12+c6_8",
+              "0",
+              "(-45)*t^4",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(225)*t^6*c3_4*c3_5^2+(-450)*t^6*c3_5*c6_8+(-225)*t^5*c2_3^2*c3_5^4+(900)*t^5*c2_3*c3_5^3*c5_7+(225)*t^5*c2_3*c3_5^2*c8_12+(-900)*t^5*c3_5^2*c5_7^2+(-450)*t^5*c3_5*c5_7*c8_12+(-15)*t^3*c3_4*c3_5^2+(30)*t^3*c3_5*c6_8+(15)*t^2*c2_3^2*c3_5^4+(-60)*t^2*c2_3*c3_5^3*c5_7+(-15)*t^2*c2_3*c3_5^2*c8_12+(60)*t^2*c3_5^2*c5_7^2+(30)*t^2*c3_5*c5_7*c8_12+(3/2)*t*c2_2+(1/2)*c2_3^2*c5_7+c2_3*c3_5*c4_5+(3/2)*c2_3*c7_10+(3/2)*c4_5*c5_7+c9_13",
+              "(675)*t^7*c3_5^2",
+              "(-1350)*t^7*c3_5",
+              "(-3/2)*t^2",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(-3375)*t^9*c2_3*c3_4+(3375)*t^8*c2_3^3*c3_5^2+(-6750)*t^8*c2_3^2*c3_5*c5_7+(-3375)*t^8*c2_3^2*c8_12+(225)*t^6*c2_3*c3_4+(-225)*t^5*c2_3^3*c3_5^2+(450)*t^5*c2_3^2*c3_5*c5_7+(225)*t^5*c2_3^2*c8_12+(-15)*t^3*c5_6+(30)*t^2*c2_3*c3_5^2*c4_5+(-15/2)*t^2*c2_3*c5_7^2+(-60)*t^2*c3_5*c4_5*c5_7+(-30)*t^2*c4_5*c8_12+(-15)*t^2*c5_7*c7_10+c5_6",
+              "(-10125)*t^10*c2_3",
+              "0",
+              "0",
+              "(-45)*t^4",
+              "0",
+              "0"
+            ],
+            [
+              "(-50625)*t^11*c2_3*c3_4*c3_5^2+(101250)*t^11*c2_3*c3_5*c6_8+(50625)*t^10*c2_3^3*c3_5^4+(-202500)*t^10*c2_3^2*c3_5^3*c5_7+(-50625)*t^10*c2_3^2*c3_5^2*c8_12+(202500)*t^10*c2_3*c3_5^2*c5_7^2+(101250)*t^10*c2_3*c3_5*c5_7*c8_12+(-6750)*t^8*c2_3*c3_4*c3_5^2+(13500)*t^8*c3_4*c3_5*c5_7+(6750)*t^8*c3_4*c8_12+(3375)*t^8*c5_7*c6_8+(6750)*t^7*c2_3^3*c3_5^4+(-27000)*t^7*c2_3^2*c3_5^3*c5_7+(-13500)*t^7*c2_3^2*c3_5^2*c8_12+(23625)*t^7*c2_3*c3_5^2*c5_7^2+(27000)*t^7*c2_3*c3_5*c5_7*c8_12+(6750)*t^7*c2_3*c8_12^2+(6750)*t^7*c3_5*c5_7^3+(3375)*t^7*c5_7^2*c8_12+(-675/2)*t^6*c2_2*c2_3+(-225/2)*t^5*c2_3^3*c5_7+(-225)*t^5*c2_3^2*c3_5*c4_5+(-675/2)*t^5*c2_3^2*c7_10+(675)*t^5*c2_3*c3_4*c3_5^2+(-450)*t^5*c2_3*c3_5*c6_8+(-675/2)*t^5*c2_3*c4_5*c5_7+(-225)*t^5*c2_3*c9_13+(-900)*t^5*c3_4*c3_5*c5_7+(-450)*t^5*c3_4*c8_12+(-225)*t^5*c5_7*c6_8+(-1125/2)*t^4*c2_3^3*c3_5^4+(2250)*t^4*c2_3^2*c3_5^3*c5_7+(1125)*t^4*c2_3^2*c3_5^2*c8_12+(-2025)*t^4*c2_3*c3_5^2*c5_7^2+(-2250)*t^4*c2_3*c3_5*c5_7*c8_12+(-1125/2)*t^4*c2_3*c8_12^2+(-450)*t^4*c3_5*c5_7^3+(-225)*t^4*c5_7^2*c8_12+(15/2)*t^3*c2_2*c2_3+(-15)*t^3*c4_4+(15/2)*t^2*c2_3^3*c5_7+(15)*t^2*c2_3^2*c3_5*c4_5+(15/2)*t^2*c2_3^2*c7_10+(-45/2)*t^2*c2_3*c4_5*c5_7+(-30)*t^2*c3_5*c4_5^2+(-30)*t^2*c4_5*c7_10+(45/2)*t*c2_3^3*c3_5^4+(-90)*t*c2_3^2*c3_5^3*c5_7+(-45)*t*c2_3^2*c3_5^2*c8_12+(90)*t*c2_3*c3_5^2*c5_7^2+(90)*t*c2_3*c3_5*c5_7*c8_12+(45/2)*t*c2_3*c8_12^2+(10)*t*c3_5*c5_7^3+(-1/2)*c2_2*c2_3+c4_4",
+              "(-151875)*t^12*c2_3*c3_5^2+(-30375)*t^9*c2_3*c3_5^2+(40500)*t^9*c3_5*c5_7+(20250)*t^9*c8_12",
+              "(303750)*t^12*c2_3*c3_5+(20250)*t^9*c2_3*c3_5+(10125)*t^9*c5_7",
+              "(675/2)*t^7*c2_3",
+              "0",
+              "(-45)*t^4",
+              "0"
+            ],
+            [
+              "(50625)*t^11*c2_3*c3_4*c3_5^2+(-101250)*t^11*c2_3*c3_5*c6_8+(-50625)*t^10*c2_3^3*c3_5^4+(202500)*t^10*c2_3^2*c3_5^3*c5_7+(50625)*t^10*c2_3^2*c3_5^2*c8_12+(-202500)*t^10*c2_3*c3_5^2*c5_7^2+(-101250)*t^10*c2_3*c3_5*c5_7*c8_12+(3375)*t^9*c2_3*c3_4+(-3375)*t^8*c2_3^3*c3_5^2+(6750)*t^8*c2_3^2*c3_5*c5_7+(3375)*t^8*c2_3^2*c8_12+(6750)*t^8*c2_3*c3_4*c3_5^2+(-13500)*t^8*c3_4*c3_5*c5_7+(-6750)*t^8*c3_4*c8_12+(-3375)*t^8*c5_7*c6_8+(-6750)*t^7*c2_3^3*c3_5^4+(27000)*t^7*c2_3^2*c3_5^3*c5_7+(13500)*t^7*c2_3^2*c3_5^2*c8_12+(-23625)*t^7*c2_3*c3_5^2*c5_7^2+(-27000)*t^7*c2_3*c3_5*c5_7*c8_12+(-6750)*t^7*c2_3*c8_12^2+(-6750)*t^7*c3_5*c5_7^3+(-3375)*t^7*c5_7^2*c8_12+(675/2)*t^6*c2_2*c2_3+(-225)*t^6*c2_3*c3_4+(-225)*t^6*c3_4*c3_5^2+(450)*t^6*c3_5*c6_8+(225)*t^5*c2_3^3*c3_5^2+(225/2)*t^5*c2_3^3*c5_7+(225)*t^5*c2_3^2*c3_5^4+(225)*t^5*c2_3^2*c3_5*c4_5+(-450)*t^5*c2_3^2*c3_5*c5_7+(675/2)*t^5*c2_3^2*c7_10+(-225)*t^5*c2_3^2*c8_12+(-675)*t^5*c2_3*c3_4*c3_5^2+(-900)*t^5*c2_3*c3_5^3*c5_7+(-225)*t^5*c2_3*c3_5^2*c8_12+(450)*t^5*c2_3*c3_5*c6_8+(675/2)*t^5*c2_3*c4_5*c5_7+(225)*t^5*c2_3*c9_13+(900)*t^5*c3_4*c3_5*c5_7+(450)*t^5*c3_4*c8_12+(900)*t^5*c3_5^2*c5_7^2+(450)*t^5*c3_5*c5_7*c8_12+(225)*t^5*c5_7*c6_8+(1125/2)*t^4*c2_3^3*c3_5^4+(-2250)*t^4*c2_3^2*c3_5^3*c5_7+(-1125)*t^4*c2_3^2*c3_5^2*c8_12+(2025)*t^4*c2_3*c3_5^2*c5_7^2+(2250)*t^4*c2_3*c3_5*c5_7*c8_12+(1125/2)*t^4*c2_3*c8_12^2+(450)*t^4*c3_5*c5_7^3+(225)*t^4*c5_7^2*c8_12+(-15/2)*t^3*c2_2*c2_3+(15)*t^3*c3_4*c3_5^2+(15)*t^3*c3_4+(-30)*t^3*c3_5*c6_8+(15)*t^3*c4_4+(15)*t^3*c5_6+(15)*t^3*c6_8+(-15/2)*t^2*c2_3^3*c5_7+(-15)*t^2*c2_3^2*c3_5^4+(-15)*t^2*c2_3^2*c3_5^2+(-15)*t^2*c2_3^2*c3_5*c4_5+(-15/2)*t^2*c2_3^2*c7_10+(60)*t^2*c2_3*c3_5^3*c5_7+(-30)*t^2*c2_3*c3_5^2*c4_5+(-15)*t^2*c2_3*c3_5^2*c5_7+(15)*t^2*c2_3*c3_5^2*c8_12+(30)*t^2*c2_3*c3_5*c5_7+(45/2)*t^2*c2_3*c4_5*c5_7+(15/2)*t^2*c2_3*c5_7^2+(15)*t^2*c2_3*c8_12+(-60)*t^2*c3_5^2*c5_7^2+(30)*t^2*c3_5*c4_5^2+(60)*t^2*c3_5*c4_5*c5_7+(30)*t^2*c3_5*c5_7^2+(-30)*t^2*c3_5*c5_7*c8_12+(30)*t^2*c4_5*c7_10+(30)*t^2*c4_5*c8_12+(15)*t^2*c5_7*c7_10+(15)*t^2*c5_7*c8_12+(-3/2)*t*c2_2+(-45/2)*t*c2_3^3*c3_5^4+(90)*t*c2_3^2*c3_5^3*c5_7+(45)*t*c2_3^2*c3_5^2*c8_12+(-90)*t*c2_3*c3_5^2*c5_7^2+(-90)*t*c2_3*c3_5*c5_7*c8_12+(-45/2)*t*c2_3*c8_12^2+(-10)*t*c3_5*c5_7^3+(1/2)*c2_2*c2_3+(-1/2)*c2_3^2*c5_7-c2_3*c3_5*c4_5+(-3/2)*c2_3*c7_10-c3_4-c4_4+(-3/2)*c4_5*c5_7-c5_6-c6_8-c9_13",
+              "(151875)*t^12*c2_3*c3_5^2+(10125)*t^10*c2_3+(30375)*t^9*c2_3*c3_5^2+(-40500)*t^9*c3_5*c5_7+(-20250)*t^9*c8_12+(-675)*t^7*c3_5^2+(45)*t^4",
+              "(-303750)*t^12*c2_3*c3_5+(-20250)*t^9*c2_3*c3_5+(-10125)*t^9*c5_7+(1350)*t^7*c3_5+(45)*t^4",
+              "(-675/2)*t^7*c2_3+(3/2)*t^2",
+              "(45)*t^4",
+              "(45)*t^4",
+              "1"
+            ]
+          ],
+          "inverse_cofactors": [
+            [
+              "1",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(5)*t*c2_3^2*c3_5^2+(-10)*t*c2_3*c3_5*c5_7+(-5)*t*c2_3*c8_12",
+              "(-5)*t^2",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(5)*t*c2_3*c3_5^2*c5_7+(-10)*t*c3_5*c5_7^2+(-5)*t*c5_7*c8_12",
+              "0",
+              "(-5)*t^2",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(5)*c2_3^2*c3_5^4+(-20)*c2_3*c3_5^3*c5_7+(-10)*c2_3*c3_5^2*c8_12+(20)*c3_5^2*c5_7^2+(20)*c3_5*c5_7*c8_12+(5)*c8_12^2",
+              "(-10)*t*c3_5^2",
+              "(20)*t*c3_5",
+              "(10)*t",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "(-5)*t*c2_3^3*c3_5^2+(10)*t*c2_3^2*c3_5*c5_7+(5)*t*c2_3^2*c8_12+(10)*t*c2_3*c3_5^2*c4_5+(-5/2)*t*c2_3*c5_7^2+(-20)*t*c3_5*c4_5*c5_7+(-10)*t*c4_5*c8_12+(-5)*t*c5_7*c7_10",
+              "(5)*t^2*c2_3",
+              "0",
+              "0",
+              "(-5)*t^2",
+              "0",
+              "0"
+            ],
+            [
+              "(5/2)*t*c2_3^3*c5_7+(5)*t*c2_3^2*c3_5*c4_5+(5/2)*t*c2_3^2*c7_10+(-15/2)*t*c2_3*c4_5*c5_7+(-10)*t*c3_5*c4_5^2+(-10)*t*c4_5*c7_10+(-5)*c2_3^3*c3_5^4+(20)*c2_3^2*c3_5^3*c5_7+(10)*c2_3^2*c3_5^2*c8_12+(-15)*c2_3*c3_5^2*c5_7^2+(-20)*c2_3*c3_5*c5_7*c8_12+(-5)*c2_3*c8_12^2+(-20/3)*c3_5*c5_7^3+(-5)*c5_7^2*c8_12",
+              "(15)*t*c2_3*c3_5^2+(-20)*t*c3_5*c5_7+(-10)*t*c8_12",
+              "(-10)*t*c2_3*c3_5+(-5)*t*c5_7",
+              "(-5)*t*c2_3",
+              "0",
+              "(-5)*t^2",
+              "0"
+            ],
+            [
+              "0",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1"
+            ]
+          ],
+          "schema": "mapped_ring_iso_v1"
+        },
+        "ring_iso_verdict": "VERIFIED",
+        "ring_iso_why": "the mapped_ring_iso_v1 certificate exactly expands both ideal pullbacks and both polynomial map compositions are the identity. This backend-free proof establishes an isomorphism of the exact endpoint COORDINATE RINGS; it grants no authority outside them.",
+        "src": "JC-SOURCE-SECOND-LOCALIZED",
+        "support": [],
+        "type": "EQUIVALENCE",
+        "why": "the checked ordered affine translations become an ordinary polynomial equivalence after adjoining explicit inverses for the declared localization generators"
+      },
+      "status": "VERIFIED"
+    },
+    {
+      "id": "JC-SOURCE-SECOND-LOCALIZED",
+      "key": "model:JC-SOURCE-SECOND-LOCALIZED",
+      "kind": "model",
+      "label": "JC-SOURCE-SECOND-LOCALIZED",
+      "record": {
+        "characteristic": 0,
+        "cite": "sha256:76b769012677a68d5665caf29de743a17c56e30f398f91eb177f5689b9c58f06",
+        "coefficient_domain": "Q",
+        "coverage_axes": [],
+        "declares": {},
+        "ev": "model",
+        "generators": [
+          "(15)*t^3+1",
+          "(-5)*t^2*c3_4+(5)*t*c2_3^2*c3_5^2+(-10)*t*c2_3*c3_5*c5_7+(-5)*t*c2_3*c8_12",
+          "(-5)*t^2*c6_8+(5)*t*c2_3*c3_5^2*c5_7+(-10)*t*c3_5*c5_7^2+(-5)*t*c5_7*c8_12",
+          "(15)*t^2*c2_2+(5)*t*c2_3^2*c5_7+(10)*t*c2_3*c3_5*c4_5+(15)*t*c2_3*c7_10+(-10)*t*c3_4*c3_5^2+(20)*t*c3_5*c6_8+(15)*t*c4_5*c5_7+(10)*t*c9_13+(5)*c2_3^2*c3_5^4+(-20)*c2_3*c3_5^3*c5_7+(-10)*c2_3*c3_5^2*c8_12+(20)*c3_5^2*c5_7^2+(20)*c3_5*c5_7*c8_12+(5)*c8_12^2",
+          "(5)*t^2*c2_3*c3_4+(-5)*t^2*c5_6+(-5)*t*c2_3^3*c3_5^2+(10)*t*c2_3^2*c3_5*c5_7+(5)*t*c2_3^2*c8_12+(10)*t*c2_3*c3_5^2*c4_5+(-5/2)*t*c2_3*c5_7^2+(-20)*t*c3_5*c4_5*c5_7+(-10)*t*c4_5*c8_12+(-5)*t*c5_7*c7_10",
+          "(-5)*t^2*c2_2*c2_3+(-5)*t^2*c4_4+(-5)*t*c2_3^2*c7_10+(15)*t*c2_3*c3_4*c3_5^2+(-10)*t*c2_3*c3_5*c6_8+(-15)*t*c2_3*c4_5*c5_7+(-5)*t*c2_3*c9_13+(-20)*t*c3_4*c3_5*c5_7+(-10)*t*c3_4*c8_12+(-10)*t*c3_5*c4_5^2+(-10)*t*c4_5*c7_10+(-5)*t*c5_7*c6_8+(-5)*c2_3^3*c3_5^4+(20)*c2_3^2*c3_5^3*c5_7+(10)*c2_3^2*c3_5^2*c8_12+(-15)*c2_3*c3_5^2*c5_7^2+(-20)*c2_3*c3_5*c5_7*c8_12+(-5)*c2_3*c8_12^2+(-20/3)*c3_5*c5_7^3+(-5)*c5_7^2*c8_12",
+          "c3_4+c4_4+c5_6+c6_8+c9_13+r"
+        ],
+        "id": "JC-SOURCE-SECOND-LOCALIZED",
+        "point_universe": "ALGEBRAIC_CLOSURE",
+        "reads": [],
+        "ring_vars": [
+          "t",
+          "c2_2",
+          "c2_3",
+          "c3_4",
+          "c3_5",
+          "c4_4",
+          "c4_5",
+          "c5_6",
+          "c5_7",
+          "c6_8",
+          "c7_10",
+          "c8_12",
+          "c9_13",
+          "r"
+        ],
+        "touches": [],
+        "what": "the frozen JC checked chain with every declared localization unit represented by an explicit inverse coordinate; receipt f2_h3_source_second_face"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "JC-SOURCE-SECOND-NORMALIZED",
+      "key": "model:JC-SOURCE-SECOND-NORMALIZED",
+      "kind": "model",
+      "label": "JC-SOURCE-SECOND-NORMALIZED",
+      "record": {
+        "characteristic": 0,
+        "cite": "sha256:76b769012677a68d5665caf29de743a17c56e30f398f91eb177f5689b9c58f06",
+        "coefficient_domain": "Q",
+        "coverage_axes": [],
+        "declares": {},
+        "ev": "model",
+        "generators": [
+          "(15)*t^3+1",
+          "c3_4",
+          "c6_8",
+          "c9_13",
+          "c5_6",
+          "c4_4",
+          "(-15/2)*t^2*c2_3^3*c5_7+(-15/2)*t^2*c2_3^2*c3_5^4+(-15)*t^2*c2_3^2*c3_5^2+(-15)*t^2*c2_3^2*c3_5*c4_5+(-15/2)*t^2*c2_3^2*c7_10+(30)*t^2*c2_3*c3_5^3*c5_7+(-30)*t^2*c2_3*c3_5^2*c4_5+(-15)*t^2*c2_3*c3_5^2*c5_7+(30)*t^2*c2_3*c3_5*c5_7+(45/2)*t^2*c2_3*c4_5*c5_7+(15/2)*t^2*c2_3*c5_7^2+(15)*t^2*c2_3*c8_12+(-30)*t^2*c3_5^2*c5_7^2+(30)*t^2*c3_5*c4_5^2+(60)*t^2*c3_5*c4_5*c5_7+(30)*t^2*c3_5*c5_7^2+(30)*t^2*c4_5*c7_10+(30)*t^2*c4_5*c8_12+(15)*t^2*c5_7*c7_10+(15)*t^2*c5_7*c8_12+(15/2)*t^2*c8_12^2+(-3/2)*t*c2_2+(-45/2)*t*c2_3^3*c3_5^4+(90)*t*c2_3^2*c3_5^3*c5_7+(45)*t*c2_3^2*c3_5^2*c8_12+(-90)*t*c2_3*c3_5^2*c5_7^2+(-90)*t*c2_3*c3_5*c5_7*c8_12+(-45/2)*t*c2_3*c8_12^2+(-10)*t*c3_5*c5_7^3+(1/2)*c2_2*c2_3+(-1/2)*c2_3^2*c5_7-c2_3*c3_5*c4_5+(-3/2)*c2_3*c7_10+(-3/2)*c4_5*c5_7+r"
+        ],
+        "id": "JC-SOURCE-SECOND-NORMALIZED",
+        "point_universe": "ALGEBRAIC_CLOSURE",
+        "reads": [],
+        "ring_vars": [
+          "t",
+          "c2_2",
+          "c2_3",
+          "c3_4",
+          "c3_5",
+          "c4_4",
+          "c4_5",
+          "c5_6",
+          "c5_7",
+          "c6_8",
+          "c7_10",
+          "c8_12",
+          "c9_13",
+          "r"
+        ],
+        "touches": [],
+        "what": "the same localized model after the checked ordered pivot translations; every solved pivot is the zero coordinate"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "v.JC-SOURCE-SECOND-SOLVE-EQUIVALENCE.336e8cfb31126058",
+      "key": "verdict:v.JC-SOURCE-SECOND-SOLVE-EQUIVALENCE.336e8cfb31126058",
+      "kind": "verdict",
+      "label": "v.JC-SOURCE-SECOND-SOLVE-EQUIVALENCE.336e8cfb31126058",
+      "record": {
+        "backend": "gp-backend-v2:{\"binary_version\":\"Singular for x86_64-Linux version 4.2.1 (4212, 64 bit) Dec 17 2021 20:20:53\\nwith\\nGMP(6.2.1),NTL(11.5.1),FLINT(2.8.0),\\nomalloc,static readline(8),Plural,vspace(2),DBM,\\ndynamic modules,OM_NDEBUG,SING_NDEBUG,\\nCC:OPTIMIZE,GenericAdd,TableMult,no invTable,\\neigenvalues,Gauss-Manin system,random=1785527824\\nbuilt-in modules: {}\\nAC_CONFIGURE_ARGS =  '--build=x86_64-linux-gnu' '--prefix=/usr' '--includedir=${prefix}/include' '--mandir=${prefix}/share/man' '--infodir=${prefix}/share/info' '--sysconfdir=/etc' '--localstatedir=/var' '--disable-option-checking' '--disable-silent-rules' '--libdir=${prefix}/lib/x86_64-linux-gnu' '--runstatedir=/run' '--disable-maintainer-mode' '--disable-dependency-tracking' '--libexecdir=/usr/libexec/x86_64-linux-gnu' '--enable-streamio' 'build_alias=x86_64-linux-gnu' 'CFLAGS=-g -O2 -ffile-prefix-map=/build/singular-pPci2W/singular-4.2.1-p3+ds=. -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security' 'LDFLAGS=-Wl,-Bsymbolic-functions -\",\"contract\":\"singular\",\"executions\":[],\"implementation\":\"grandportage.cas.SingularBackend\",\"implementation_version\":3,\"protocol_version\":2,\"schema\":2,\"trace_fingerprint\":\"sha256:c815e43c6b2b33c7f5b2877ea5136dfe4647778efeb39e2c32594aa77aadea15\"}",
+        "current": true,
+        "ev": "verdict",
+        "id": "v.JC-SOURCE-SECOND-SOLVE-EQUIVALENCE.336e8cfb31126058",
+        "input_fingerprint": "sha256:2481d20a12618a21e8ab2179edec5303d3c5c85f4a31f93c9a57c149fedeb58b",
+        "kernel_epoch": 10,
+        "of": "JC-SOURCE-SECOND-SOLVE-EQUIVALENCE",
+        "stale_reason": null,
+        "subject": "ring_iso",
+        "verdict": "VERIFIED",
+        "verifier": "verify.ring_iso",
+        "verifier_version": 3,
+        "why": "the mapped_ring_iso_v1 certificate exactly expands both ideal pullbacks and both polynomial map compositions are the identity. This backend-free proof establishes an isomorphism of the exact endpoint COORDINATE RINGS; it grants no authority outside them."
+      },
+      "status": "VERIFIED"
+    }
+  ],
+  "orders": {
+    "inferences": []
+  },
+  "relations": [
+    {
+      "kind": "edge-target",
+      "label": "EQUIVALENCE",
+      "source": "edge:JC-SOURCE-SECOND-SOLVE-EQUIVALENCE",
+      "target": "model:JC-SOURCE-SECOND-NORMALIZED"
+    },
+    {
+      "kind": "edge-source",
+      "label": "source",
+      "source": "model:JC-SOURCE-SECOND-LOCALIZED",
+      "target": "edge:JC-SOURCE-SECOND-SOLVE-EQUIVALENCE"
+    },
+    {
+      "kind": "verdict-of",
+      "label": "VERIFIED",
+      "source": "verdict:v.JC-SOURCE-SECOND-SOLVE-EQUIVALENCE.336e8cfb31126058",
+      "target": "edge:JC-SOURCE-SECOND-SOLVE-EQUIVALENCE"
+    }
+  ],
+  "schema": "grand-portage-projection/v1",
+  "source": {
+    "created_with": "grandportage/0.20.0",
+    "graph_format": 4,
+    "graphs": [
+      {
+        "bytes": 14082,
+        "fingerprint": "sha256:5e4693d11d42f2a379d721bdf2b64f32fa7f37100103d0c70b3c4b23530de123",
+        "path": "review/v0.20/second-face/.portage/graph.jsonl"
+      }
+    ],
+    "kernel_epoch": 10,
+    "projected_with": "0.20.0"
+  }
+}

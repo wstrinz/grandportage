@@ -21,7 +21,11 @@ import json
 import os
 
 from . import kernel as K
+from . import format as F
+from . import groebner as G
+from . import provenance as P
 from .discharge import DISCHARGE_KINDS as D_KINDS
+from .discharge import WITHDRAW
 
 GRAPH_DIR = ".portage"
 GRAPH_FILE = "graph.jsonl"
@@ -42,8 +46,9 @@ EV_CITATION = "citation"  # which external object an identifier denotes
 EV_ERRATUM = "erratum"    # voids a record that does not fold
 EV_VERDICT = "verdict"    # what a VERIFIER found; never declared
 EV_NOTE = "note"          # free-form, carried but never interpreted
+EV_META = F.META_EVENT     # mandatory first record of an epoch-1 graph
 
-EVENT_KINDS = (EV_CERTIFICATE, EV_MODEL, EV_EDGE, EV_CLAIM, EV_INFERENCE,
+EVENT_KINDS = (EV_META, EV_CERTIFICATE, EV_MODEL, EV_EDGE, EV_CLAIM, EV_INFERENCE,
                EV_BUILT_BY, EV_PARTITION, EV_SAME_AS, EV_FAMILY,
                EV_EVIDENCE, EV_DOUBT, EV_CITATION, EV_ERRATUM,
                EV_VERDICT, EV_NOTE)
@@ -63,6 +68,60 @@ class GraphError(ValueError):
 def _require(cond, msg):
     if not cond:
         raise GraphError(msg)
+
+
+def valid_characteristic(value):
+    """Whether ``value`` can be the characteristic of a field."""
+    if not isinstance(value, int) or isinstance(value, bool) or value < 0:
+        return False
+    if value == 0:
+        return True
+    if value < 2 or value % 2 == 0:
+        return value == 2
+    divisor = 3
+    while divisor * divisor <= value:
+        if value % divisor == 0:
+            return False
+        divisor += 2
+    return True
+
+
+BASE_POINT_UNIVERSE = "BASE"
+ALGEBRAIC_CLOSURE_POINT_UNIVERSE = "ALGEBRAIC_CLOSURE"
+POINT_UNIVERSES = (
+    BASE_POINT_UNIVERSE,
+    ALGEBRAIC_CLOSURE_POINT_UNIVERSE,
+)
+
+
+def exact_coefficient_domain(characteristic):
+    """Canonical exact coefficient field supported by current checkers."""
+    if not valid_characteristic(characteristic):
+        raise ValueError("invalid characteristic %r" % (characteristic,))
+    return "Q" if characteristic == 0 else "F_%d" % characteristic
+
+
+def declared_coefficient_domain(model):
+    """Structured domain, or the legacy declaration a verifier must inspect."""
+    explicit = model.get("coefficient_domain")
+    if explicit is not None:
+        return explicit
+    # Do not normalize an unsupported legacy declaration into ignorance.  A
+    # checker scoped to Q must still see and reject legacy `field = R`.
+    return model.get("field")
+
+
+def declared_point_universe(model):
+    """Return the structured universe; legacy prose is intentionally untyped."""
+    return model.get("point_universe")
+
+
+def point_scope(model):
+    """The two independent model attributes governing point claims."""
+    return (
+        declared_coefficient_domain(model),
+        declared_point_universe(model),
+    )
 
 
 def successors(record):
@@ -88,6 +147,13 @@ def _canon(ev):
     return json.dumps(ev, sort_keys=True, separators=(",", ":"))
 
 
+# Which keys in a `_VERDICTS` entry are METADATA rather than the verdict field
+# itself.  Module level so the class body's own comprehension can see it: a
+# comprehension inside a `class` cannot read that class's names, and the point
+# of this constant is that exactly one place decides.
+_VERDICT_SPEC_KEYS = ("why_field", "writer")
+
+
 class Graph(object):
     """The folded state.  Plain dicts throughout -- the checker walks this, the
     CLI prints it, and neither needs a class hierarchy to do so."""
@@ -101,6 +167,9 @@ class Graph(object):
         self.claims = {}
         self.inferences = {}       # id -> inference dict
         self.inference_order = []  # declaration order, for stable reporting
+        # Lifecycle events are history, not replacement mathematical objects.
+        # Keyed by (entity kind, id), since ids are unique only within a kind.
+        self.retractions = {}
         self.built_by = {}         # model id -> [inference id, ...]
         self.partitions = {}       # id -> {parent, branches, exhaustive}
         self.families = {}         # id -> {count, enumeration, members?}
@@ -111,7 +180,13 @@ class Graph(object):
         self.doubts = {}           # id -> an authored defeater
         self.notes = []
         self.named_notes = {}      # id -> note, for notes that can be corrected
+        self.verdicts = {}         # id -> verdict event plus freshness status
         self._seen = {}            # (kind, id) -> canonical event
+        self._event_count = 0       # meta must be the first and only header
+        self.graph_format = 0
+        self.kernel_epoch = 0
+        self.created_with = None
+        self.compatibility_mode = True
 
     # -- fold ---------------------------------------------------------------
     def apply(self, ev, source="<log>", lineno=0):
@@ -121,8 +196,27 @@ class Graph(object):
         _require(kind in EVENT_KINDS,
                  "%s: unknown event kind %r (known: %s)"
                  % (where, kind, ", ".join(EVENT_KINDS)))
+        if kind == EV_META:
+            _require(self._event_count == 0 and self.graph_format == 0,
+                     "%s: `meta` is only legal as the first graph event"
+                     % where)
+            F.validate_meta(ev, where, GraphError)
+            self._event_count = 1
+            self.graph_format = ev["graph_format"]
+            self.kernel_epoch = ev["kernel_epoch"]
+            self.created_with = ev["created_with"]
+            self.compatibility_mode = False
+            return
+        if self.graph_format == F.GRAPH_FORMAT:
+            F.validate_native_event(ev, where, GraphError)
+        self._event_count += 1
 
-        if kind == EV_NOTE:
+        tombstone = (
+            (kind == EV_EDGE and ev.get("discharge_kind") == WITHDRAW)
+            or (kind in self._SUPERSEDABLE and kind != EV_EDGE
+                and ev.get("discharge_kind") == K.RETRACT))
+
+        if kind == EV_NOTE and not tombstone:
             # A NOTE WITH AN ID CAN BE CORRECTED; one without stays as it was.
             #
             # Notes had no id and admitted no `supersedes`, so a live session
@@ -177,20 +271,98 @@ class Graph(object):
                 % (where, kind, eid, self._seen[key], canon, eid))
         self._seen[key] = canon
 
+        if tombstone:
+            self._apply_tombstone(ev, where)
+            return
+
         getattr(self, "_apply_" + kind)(ev, where)
+
+    def _apply_tombstone(self, ev, where):
+        """Record a lifecycle event without minting a live successor."""
+        target = ev.get("supersedes")
+        _require(target,
+                 "%s: %s tombstone %r needs `supersedes` -- the record being "
+                 "withdrawn" % (where, ev["ev"], ev["id"]))
+        reason = (ev.get("why") or ev.get("asserted")
+                  or ev.get("statement") or ev.get("text"))
+        _require(reason,
+                 "%s: %s tombstone %r needs `why` -- why does nothing replace "
+                 "%r?" % (where, ev["ev"], ev["id"], target))
+        tomb = dict(ev)
+        tomb["why"] = reason
+        self.retractions[(ev["ev"], ev["id"])] = tomb
+
 
     # The verdicts a verifier may record, per subject.  Validated rather than
     # accepted as free text: the checker matches these strings exactly, so an
     # unrecognised one would land in the graph and quietly mean nothing.  A
     # live session wrote `"refuted"` in lowercase and it suppressed the rule it
     # was trying to trip.
+    # `writer` IS HERE SO `_COMPUTED_FIELDS` CAN BE DERIVED FROM THIS TABLE
+    # RATHER THAN RETYPED BESIDE IT.
+    #
+    # It was retyped, and it drifted.  `_COMPUTED_FIELDS` listed the two
+    # verdicts that existed when it was written; three more were added over the
+    # following days and none reached it, so `certificate_verdict`,
+    # `ring_iso_verdict` and `witness_verdict` were all DECLARABLE BY AN
+    # AUTHOR.  Typing `certificate_verdict: VERIFIED` on a claim made the
+    # checker treat a certificate as verified by a computation that never ran.
+    #
+    # That is the honour system surviving inside the machinery built to replace
+    # it -- the same sentence this file already uses about `effective_origin`,
+    # and the second time the same shape has appeared.  A hand-kept list beside
+    # a table is a list that will disagree with the table.
     _VERDICTS = {
         "claim": {"identity_verdict": ("VERIFIED_AMBIENT", "VERIFIED_DERIVED",
                                        "REFUTED", "UNVERIFIED"),
-                  "why_field": "identity_why"},
+                  "why_field": "identity_why",
+                  "writer": "verify.identity"},
         "edge": {"containment": ("VERIFIED", "NOT_BY_IDEAL", "UNVERIFIED"),
-                 "why_field": "containment_why"},
+                 "why_field": "containment_why",
+                 "writer": "verify.containment"},
+        "certificate": {"certificate_verdict": ("VERIFIED", "NOT_UNIT",
+                                                "UNVERIFIED"),
+                        "why_field": "certificate_why",
+                        "writer": "verify.unit_ideal"},
+        "ring_iso": {"ring_iso_verdict": ("VERIFIED", "NOT_AN_ISOMORPHISM",
+                                          "UNVERIFIED"),
+                     "why_field": "ring_iso_why",
+                     "writer": "verify.ring_iso"},
+        "witness": {"witness_verdict": ("VERIFIED", "NOT_A_POINT",
+                                        "UNVERIFIED"),
+                    "why_field": "witness_why",
+                    "writer": "verify.point_witness"},
+        "operation": {"output_verdict": ("VERIFIED",
+                                        "NOT_THE_STATED_OUTPUT",
+                                        "UNVERIFIED"),
+                      "why_field": "output_why",
+                      "writer": "verify.operation_output"},
+        "elimination": {"contraction_verdict": (
+                            "VERIFIED_SECTION", "VERIFIED_GROEBNER",
+                            "CERTIFICATE_REJECTED",
+                            "GROEBNER_CERTIFICATE_REJECTED", "UNVERIFIED"),
+                        "why_field": "contraction_why",
+                        "writer": "verify.elimination_section"},
+        "point_lift": {"point_lift_verdict": (
+                           "VERIFIED_POINT_LIFT",
+                           "POINT_LIFT_CERTIFICATE_REJECTED", "UNVERIFIED"),
+                       "why_field": "point_lift_why",
+                       "writer": "verify.elimination_point_lift"},
+        "partition": {"exhaustive_verdict": (
+                          "VERIFIED", "NOT_EXHAUSTIVE",
+                          "NOT_GEOMETRICALLY_EXHAUSTIVE", "UNVERIFIED"),
+                      "why_field": "exhaustive_why",
+                      "writer": "verify.partition_exhaustiveness"},
     }
+
+    # Module level, not class level, because a comprehension in a class body
+    # cannot see the class's own names -- and the whole point of this constant
+    # is that ONE place decides which keys are metadata.
+    _SPEC_KEYS = _VERDICT_SPEC_KEYS
+
+    @classmethod
+    def _verdict_field(cls, spec):
+        return [k for k in spec if k not in cls._SPEC_KEYS][0]
 
     # HOW A COMPUTATION CAN STAND BEHIND A NON-ALGEBRAIC CLAIM.
     #
@@ -415,8 +587,12 @@ class Graph(object):
                  "%s: verdict %r must name a `subject` of %s"
                  % (where, ev.get("id"), " or ".join(sorted(self._VERDICTS))))
         spec = self._VERDICTS[subject]
-        field = [k for k in spec if k != "why_field"][0]
-        target = self.claims if subject == "claim" else self.edges
+        field = self._verdict_field(spec)
+        target = (self.partitions if subject == "partition"
+                  else self.edges if subject == "operation"
+                  else self.claims
+                  if subject in ("claim", "certificate", "witness")
+                  else self.edges)
         of = ev.get("of")
         _require(of in target,
                  "%s: verdict %r is about %s %r, which is not in this graph"
@@ -430,8 +606,493 @@ class Graph(object):
         _require(ev.get("why"),
                  "%s: verdict %r needs `why` -- the reduction that produced it"
                  % (where, ev.get("id")))
+
+        _require(
+            subject != "elimination"
+            or ev.get("verdict") != "VERIFIED_SECTION"
+            or ev.get("representation") is not None,
+            "%s: VERIFIED_SECTION verdict %r needs its polynomial-section "
+            "representation; the proof object is the authority"
+            % (where, ev.get("id")))
+        _require(
+            subject != "elimination"
+            or ev.get("verdict") != "VERIFIED_GROEBNER"
+            or ev.get("representation") is not None,
+            "%s: VERIFIED_GROEBNER verdict %r needs its exact checked "
+            "representation; the proof object is the authority"
+            % (where, ev.get("id")))
+        _require(
+            subject != "point_lift"
+            or ev.get("verdict") != "VERIFIED_POINT_LIFT"
+            or ev.get("representation") is not None,
+            "%s: VERIFIED_POINT_LIFT verdict %r needs its finite lift-cover "
+            "representation; the proof object is the authority"
+            % (where, ev.get("id")))
+        # A VERDICT IS EXECUTABLE TRUST, NOT AN IMMORTAL STRING. Epoch-0
+        # records and answers produced by another verifier/kernel/backend (or
+        # against different semantic inputs) remain readable history, but
+        # they never populate the fields the checker treats as evidence.
+        current, stale_reason = P.current_verdict(self, ev)
+        stored = dict(ev)
+        stored["current"] = current
+        stored["stale_reason"] = None if current else stale_reason
+        self.verdicts[ev["id"]] = stored
+        if not current:
+            return
+
+        # A rejected section refutes the proposed proof object, not exact
+        # contraction. Keep it as history without erasing an earlier valid
+        # certificate projected onto the edge.
+        if (subject == "elimination"
+                and ev["verdict"] not in (
+                    "VERIFIED_SECTION", "VERIFIED_GROEBNER")):
+            return
+        if (subject == "point_lift"
+                and ev["verdict"] != "VERIFIED_POINT_LIFT"):
+            return
         target[of][field] = ev["verdict"]
         target[of][spec["why_field"]] = ev["why"]
+        # THE CERTIFICATE, WHEN THE VERIFIER MINTED ONE.
+        #
+        # A verdict says WHAT a run concluded; a representation says why, in a
+        # form somebody else can check without repeating the run.  `g = sum
+        # b_i f_i` is confirmed by one expansion -- no Buchberger, no monomial
+        # order, no trust in the search -- which is the difference between
+        # evidence and a certificate, and the bridge to a proof assistant that
+        # can check a polynomial identity and should never run a Groebner
+        # engine.
+        #
+        # Carried on the verdict rather than declarable on the claim, for the
+        # same reason every other verdict field is: `_reject_computed_fields`
+        # refuses an author who types it. A representation nobody computed is
+        # exactly the honour system this machinery exists to replace.
+        if ev.get("representation") is not None:
+            rep = ev["representation"]
+            if (subject == "elimination"
+                    and ev["verdict"] == "VERIFIED_GROEBNER"):
+                required = {
+                    "method", "edge", "source_model", "target_model",
+                    "proof", "checked",
+                }
+                _require(
+                    isinstance(rep, dict)
+                    and set(rep) == required
+                    and rep.get("method") == "groebner_elimination_v1"
+                    and isinstance(rep.get("proof"), dict)
+                    and isinstance(rep.get("checked"), dict),
+                    "%s: elimination verdict %r carries a malformed "
+                    "Groebner certificate envelope."
+                    % (where, ev.get("id")))
+                edge = target[of]
+                source = self.models.get(edge.get("src")) or {}
+                built = self.models.get(edge.get("dst")) or {}
+                source_ring = source.get("ring_vars") or []
+                eliminated_set = set(built.get("eliminated") or [])
+                ordered_eliminated = [
+                    value for value in source_ring
+                    if value in eliminated_set
+                ]
+                ordered_retained = [
+                    value for value in source_ring
+                    if value not in eliminated_set
+                ]
+                exact_domain = (
+                    "Q" if source.get("characteristic") == 0
+                    else "F_%s" % source.get("characteristic")
+                )
+                declared_domains = [
+                    declared_coefficient_domain(model)
+                    for model in (source, built)
+                ]
+                _require(
+                    all(value is None or value == exact_domain
+                        for value in declared_domains),
+                    "%s: elimination verdict %r's Groebner proof is scoped "
+                    "to %s but an endpoint declares %r."
+                    % (where, ev.get("id"), exact_domain,
+                       declared_domains),
+                )
+                proof = rep["proof"]
+                _require(
+                    rep["edge"] == of
+                    and rep["source_model"] == edge.get("src")
+                    and rep["target_model"] == edge.get("dst")
+                    and edge.get("built_by_operation") == "Eliminate"
+                    and proof.get("method") == "groebner_elimination_v1"
+                    and proof.get("characteristic")
+                        == source.get("characteristic")
+                        == built.get("characteristic")
+                    and proof.get("ring_vars")
+                        == ordered_eliminated + ordered_retained
+                    and proof.get("eliminated") == ordered_eliminated
+                    and built.get("ring_vars") == ordered_retained
+                    and proof.get("source_generators")
+                        == source.get("generators")
+                    and proof.get("target_generators")
+                        == built.get("generators"),
+                    "%s: elimination verdict %r's Groebner proof does not "
+                    "match the exact edge, endpoints, field, variable "
+                    "partition, or ordered generators it claims to certify."
+                    % (where, ev.get("id")))
+                try:
+                    checked = G.check_elimination_certificate(proof)
+                except G.CertificateError as exc:
+                    raise GraphError(
+                        "%s: elimination verdict %r's Groebner proof fails "
+                        "the exact checker: %s"
+                        % (where, ev.get("id"), exc)
+                    )
+                _require(
+                    checked == rep["checked"],
+                    "%s: elimination verdict %r's checked summary does not "
+                    "match a fresh exact-checker result."
+                    % (where, ev.get("id")))
+                target[of]["contraction_representation"] = rep
+            elif subject == "elimination":
+                required = {
+                    "method", "section", "source_ring_vars",
+                    "target_ring_vars", "eliminated", "source_generators",
+                    "target_generators", "images", "rows",
+                }
+                _require(
+                    isinstance(rep, dict)
+                    and set(rep) == required
+                    and rep.get("method") == "polynomial_section_v1"
+                    and isinstance(rep.get("section"), dict)
+                    and isinstance(rep.get("images"), dict)
+                    and all(isinstance(rep.get(field), list)
+                            for field in (
+                                "source_ring_vars", "target_ring_vars",
+                                "eliminated", "source_generators",
+                                "target_generators", "rows"))
+                    and all(isinstance(value, str) and value.strip()
+                            for value in rep["section"].values())
+                    and all(isinstance(value, str) and value.strip()
+                            for value in rep["images"].values())
+                    and all(
+                        isinstance(row, dict)
+                        and set(row) == {
+                            "source_generator", "substituted", "cofactors"}
+                        and isinstance(row["source_generator"], str)
+                        and isinstance(row["substituted"], str)
+                        and isinstance(row["cofactors"], list)
+                        and all(isinstance(value, str)
+                                for value in row["cofactors"])
+                        for row in rep["rows"]),
+                    "%s: elimination verdict %r carries a malformed "
+                    "polynomial-section certificate."
+                    % (where, ev.get("id")))
+                edge = target[of]
+                source = self.models.get(edge.get("src")) or {}
+                built = self.models.get(edge.get("dst")) or {}
+                _require(
+                    rep["source_ring_vars"] == (source.get("ring_vars") or [])
+                    and rep["target_ring_vars"] == (built.get("ring_vars") or [])
+                    and rep["eliminated"] == (built.get("eliminated") or [])
+                    and rep["source_generators"] == source.get("generators")
+                    and rep["target_generators"] == built.get("generators")
+                    and set(rep["section"]) == set(rep["eliminated"])
+                    and set(rep["images"]) == set(rep["source_ring_vars"])
+                    and all(rep["images"].get(v) == v
+                            for v in rep["target_ring_vars"])
+                    and all(rep["images"].get(v) == rep["section"].get(v)
+                            for v in rep["eliminated"])
+                    and [row["source_generator"] for row in rep["rows"]]
+                        == rep["source_generators"],
+                    "%s: elimination verdict %r's certificate does not match "
+                    "the exact source, target, partition, or fixed-coordinate "
+                    "section it claims to certify."
+                    % (where, ev.get("id")))
+                target[of]["contraction_representation"] = rep
+            elif subject == "point_lift":
+                required = {
+                    "method", "edge", "source_model", "target_model",
+                    "characteristic", "source_ring_vars", "target_ring_vars",
+                    "eliminated", "source_generators", "target_generators",
+                    "charts", "fallback",
+                }
+                _require(
+                    isinstance(rep, dict) and set(rep) == required
+                    and rep.get("method") == "piecewise_rational_lift_v1"
+                    and isinstance(rep.get("charts"), list)
+                    and len(rep["charts"]) <= 16
+                    and isinstance(rep.get("fallback"), dict),
+                    "%s: point-lift verdict %r carries a malformed finite "
+                    "lift-cover envelope." % (where, ev.get("id")))
+                edge = target[of]
+                source = self.models.get(edge.get("src")) or {}
+                built = self.models.get(edge.get("dst")) or {}
+                source_ring = source.get("ring_vars") or []
+                target_ring = built.get("ring_vars") or []
+                eliminated = built.get("eliminated") or []
+                exact_domain = (
+                    "Q" if source.get("characteristic") == 0
+                    else "F_%s" % source.get("characteristic")
+                )
+                declared_domains = [
+                    declared_coefficient_domain(model)
+                    for model in (source, built)
+                ]
+                _require(
+                    all(value is None or value == exact_domain
+                        for value in declared_domains),
+                    "%s: point-lift verdict %r is scoped to %s but an "
+                    "endpoint declares %r."
+                    % (where, ev.get("id"), exact_domain, declared_domains))
+                _require(
+                    rep["edge"] == of
+                    and rep["source_model"] == edge.get("src")
+                    and rep["target_model"] == edge.get("dst")
+                    and edge.get("built_by_operation") == "Eliminate"
+                    and rep["characteristic"]
+                        == source.get("characteristic")
+                        == built.get("characteristic")
+                    and rep["source_ring_vars"] == source_ring
+                    and rep["target_ring_vars"] == target_ring
+                    and rep["eliminated"] == eliminated
+                    and rep["source_generators"] == source.get("generators")
+                    and rep["target_generators"] == built.get("generators")
+                    and target_ring == [
+                        value for value in source_ring
+                        if value not in set(eliminated)],
+                    "%s: point-lift verdict %r does not match the exact edge, "
+                    "endpoints, field, partition, or ordered generators."
+                    % (where, ev.get("id")))
+                row_fields = {
+                    "source_generator", "numerator", "denominator_power",
+                    "vanishing_power", "localization_power", "membership_target",
+                    "membership_generators", "cofactors",
+                }
+
+                def replay_rows(rows, images, guard, generators):
+                    _require(
+                        isinstance(rows, list)
+                        and len(rows) == len(rep["source_generators"]),
+                        "%s: point-lift verdict %r has the wrong number of "
+                        "source-generator rows." % (where, ev.get("id")))
+                    for generator, row in zip(rep["source_generators"], rows):
+                        _require(
+                            isinstance(row, dict) and set(row) == row_fields
+                            and row.get("source_generator") == generator
+                            and isinstance(row.get("numerator"), str)
+                            and type(row.get("denominator_power")) is int
+                            and type(row.get("vanishing_power")) is int
+                            and 1 <= row["vanishing_power"] <= 4
+                            and type(row.get("localization_power")) is int
+                            and 0 <= row["localization_power"] <= 8
+                            and row.get("membership_generators") == generators
+                            and isinstance(row.get("cofactors"), list),
+                            "%s: point-lift verdict %r has a malformed chart "
+                            "membership row." % (where, ev.get("id")))
+                        try:
+                            numerator, denominator_power = (
+                                G.guarded_rational_substitute(
+                                    generator, source_ring, target_ring,
+                                    images, guard, rep["characteristic"]
+                                )
+                            )
+                            powered = G.multiply_polynomial_power(
+                                "1", numerator, row["vanishing_power"],
+                                target_ring, rep["characteristic"]
+                            )
+                            membership_target = G.multiply_polynomial_power(
+                                powered, guard, row["localization_power"],
+                                target_ring, rep["characteristic"]
+                            )
+                            _require(
+                                row["numerator"] == numerator
+                                and row["denominator_power"]
+                                    == denominator_power
+                                and row["membership_target"]
+                                    == membership_target,
+                                "%s: point-lift verdict %r's substituted "
+                                "numerator or denominator does not replay."
+                                % (where, ev.get("id")))
+                            G.check_membership_identity(
+                                membership_target, generators,
+                                row["cofactors"], target_ring,
+                                rep["characteristic"]
+                            )
+                        except G.CertificateError as exc:
+                            raise GraphError(
+                                "%s: point-lift verdict %r fails exact replay: "
+                                "%s" % (where, ev.get("id"), exc)
+                            )
+
+                guards = []
+                for chart in rep["charts"]:
+                    _require(
+                        isinstance(chart, dict)
+                        and set(chart) == {"guard", "lift", "rows"}
+                        and isinstance(chart.get("guard"), str)
+                        and isinstance(chart.get("lift"), dict)
+                        and set(chart["lift"]) == set(eliminated),
+                        "%s: point-lift verdict %r has a malformed open chart."
+                        % (where, ev.get("id")))
+                    try:
+                        guard = G.canonical_polynomial(
+                            chart["guard"], target_ring,
+                            rep["characteristic"]
+                        )
+                    except G.CertificateError as exc:
+                        raise GraphError(
+                            "%s: point-lift verdict %r has an invalid guard: %s"
+                            % (where, ev.get("id"), exc)
+                        )
+                    _require(
+                        guard == chart["guard"] and guard != "0"
+                        and guard not in guards,
+                        "%s: point-lift verdict %r has a zero, duplicate, or "
+                        "noncanonical guard." % (where, ev.get("id")))
+                    guards.append(guard)
+                    images = dict((name, {
+                        "numerator": name, "denominator_power": 0,
+                    }) for name in target_ring)
+                    for name in eliminated:
+                        value = chart["lift"].get(name)
+                        _require(
+                            isinstance(value, dict)
+                            and set(value) == {
+                                "numerator", "denominator_power"},
+                            "%s: point-lift verdict %r has a malformed rational "
+                            "coordinate." % (where, ev.get("id")))
+                        try:
+                            canonical = G.canonical_polynomial(
+                                value["numerator"], target_ring,
+                                rep["characteristic"]
+                            )
+                        except G.CertificateError as exc:
+                            raise GraphError(
+                                "%s: point-lift verdict %r has an invalid "
+                                "coordinate: %s" % (where, ev.get("id"), exc)
+                            )
+                        _require(
+                            canonical == value["numerator"]
+                            and type(value["denominator_power"]) is int
+                            and 0 <= value["denominator_power"] <= 64,
+                            "%s: point-lift verdict %r has a noncanonical or "
+                            "unbounded rational coordinate."
+                            % (where, ev.get("id")))
+                        images[name] = value
+                    images = dict((name, images[name]) for name in source_ring)
+                    replay_rows(
+                        chart["rows"], images, guard,
+                        rep["target_generators"]
+                    )
+
+                fallback = rep["fallback"]
+                _require(
+                    set(fallback) == {"lift", "rows"}
+                    and isinstance(fallback["lift"], dict)
+                    and set(fallback["lift"]) == set(eliminated),
+                    "%s: point-lift verdict %r has a malformed fallback."
+                    % (where, ev.get("id")))
+                fallback_images = dict((name, {
+                    "numerator": name, "denominator_power": 0,
+                }) for name in target_ring)
+                for name in eliminated:
+                    value = fallback["lift"].get(name)
+                    try:
+                        canonical = G.canonical_polynomial(
+                            value, target_ring, rep["characteristic"]
+                        )
+                    except (G.CertificateError, TypeError) as exc:
+                        raise GraphError(
+                            "%s: point-lift verdict %r has an invalid fallback "
+                            "coordinate: %s" % (where, ev.get("id"), exc)
+                        )
+                    _require(
+                        canonical == value,
+                        "%s: point-lift verdict %r has a noncanonical fallback "
+                        "coordinate." % (where, ev.get("id")))
+                    fallback_images[name] = {
+                        "numerator": value, "denominator_power": 0,
+                    }
+                fallback_images = dict(
+                    (name, fallback_images[name]) for name in source_ring
+                )
+                replay_rows(
+                    fallback["rows"], fallback_images, "1",
+                    rep["target_generators"] + guards
+                )
+                target[of]["point_lift_representation"] = rep
+            elif subject == "operation":
+                required = {
+                    "cofactors", "targets", "generators", "ring_vars",
+                    "target_ring_vars", "eliminated",
+                }
+                _require(
+                    isinstance(rep, dict)
+                    and set(rep) == required
+                    and all(isinstance(rep[field], list)
+                            for field in required),
+                    "%s: operation verdict %r carries a malformed checked "
+                    "scope. Empty cofactors are legal when the computed ideal "
+                    "has no recorded generators."
+                    % (where, ev.get("id")))
+            elif (subject == "certificate"
+                  and rep.get("method") == "localized_unit_ideal_v1"):
+                required = {
+                    "method", "claim", "model", "proof", "checked",
+                }
+                _require(
+                    isinstance(rep, dict)
+                    and set(rep) == required
+                    and rep.get("claim") == of
+                    and isinstance(rep.get("proof"), dict)
+                    and isinstance(rep.get("checked"), dict),
+                    "%s: localized-unit verdict %r carries a malformed "
+                    "certificate envelope." % (where, ev.get("id")))
+                claim = target[of]
+                model = self.models.get(claim.get("model")) or {}
+                _require(
+                    claim.get("certificate")
+                        == "LOCALIZED_UNIT_IDEAL_CERT"
+                    and rep.get("model") == claim.get("model"),
+                    "%s: localized-unit verdict %r does not belong to the "
+                    "claim and model it names." % (where, ev.get("id")))
+                try:
+                    from . import localization as L
+                    replay = L.verify(rep["proof"])
+                    variables = model.get("ring_vars") or []
+                    characteristic = model.get("characteristic")
+                    expected_generators = [
+                        G.canonical_polynomial_value(
+                            value, variables, characteristic)
+                        for value in (model.get("generators") or [])
+                    ]
+                    expected_guards = [
+                        G.canonical_polynomial_value(
+                            value, variables, characteristic)
+                        for value in (model.get("open_conditions") or [])
+                    ]
+                except (L.LocalizationError, G.CertificateError,
+                        ValueError) as exc:
+                    raise GraphError(
+                        "%s: localized-unit verdict %r fails exact replay: %s"
+                        % (where, ev.get("id"), exc))
+                normalized = replay["normalized"]
+                _require(
+                    normalized["characteristic"]
+                        == model.get("characteristic")
+                    and normalized["ring_vars"]
+                        == (model.get("ring_vars") or [])
+                    and normalized["generators"] == expected_generators
+                    and normalized["guards"] == expected_guards
+                    and normalized["expression"]["numerator"] == "1"
+                    and all(power == 0 for power in
+                            normalized["expression"]["denominator_powers"])
+                    and replay["checked"] == rep["checked"],
+                    "%s: localized-unit verdict %r's proof does not match "
+                    "the exact open model, or does not prove localized 1=0."
+                    % (where, ev.get("id")))
+            else:
+                _require(isinstance(rep, dict) and rep.get("cofactors"),
+                         "%s: verdict %r carries a `representation` with no "
+                         "cofactors. The cofactors ARE the certificate."
+                         % (where, ev.get("id")))
+            if subject not in ("elimination", "point_lift"):
+                target[of]["representation"] = rep
 
     def _apply_certificate(self, ev, where):
         # A BUILT-IN CANNOT BE REDEFINED FROM A GRAPH.
@@ -659,7 +1320,8 @@ class Graph(object):
         """A parent model split into branches, with its exhaustiveness stated.
 
         THE GAP TWO INDEPENDENT AGENTS WALKED INTO.  A model in this kernel IS
-        its solution set, and an edge asserts V(src) subset V(dst).  A CASE
+        its solution set, and an inclusion-style edge asserts V(src) subset
+        V(dst). Mapped equivalence is the explicit coordinate-change case. A CASE
         BRANCH is neither: "the gamma=4 case of this object" is not a
         relaxation of the object, it is a PIECE of it, and the type system had
         no word for that.
@@ -711,6 +1373,88 @@ class Graph(object):
         self.partitions[ev["id"]] = p
 
     def _apply_model(self, ev, where):
+        # THE CHARACTERISTIC IS LOAD-BEARING AND WAS FREE TEXT.
+        #
+        # A live campaign declared `characteristic: 23` on eight models and
+        # nothing read it, so every reduction the verifier ran was in
+        # characteristic 0.  It then returned VERIFIED for a FALSE emptiness
+        # over F_23 and handed back a certificate whose every cofactor had 23
+        # in the denominator -- undefined at the very prime the model declares.
+        #
+        # `gp check` reported zero findings on that graph.
+        if "characteristic" in ev:
+            ch = ev["characteristic"]
+            _require(valid_characteristic(ch),
+                     "%s: model %r has characteristic %r; it must be 0 or a "
+                     "prime. Everything the verifier reduces is read in this "
+                     "characteristic, so a wrong one produces confident "
+                     "answers about a different ring."
+                     % (where, ev["id"], ch))
+        coefficient_domain = ev.get("coefficient_domain")
+        point_universe = ev.get("point_universe")
+        _require(not (coefficient_domain is not None and ev.get("field") is not None),
+                 "%s: model %r declares both structured `coefficient_domain` "
+                 "and legacy `field`. They are competing sources of truth; "
+                 "keep only the structured field."
+                 % (where, ev["id"]))
+        _require(not (point_universe is not None and ev.get("universe") is not None),
+                 "%s: model %r declares both structured `point_universe` and "
+                 "legacy `universe`. Keep only `point_universe`."
+                 % (where, ev["id"]))
+        if coefficient_domain is not None:
+            _require("characteristic" in ev,
+                     "%s: model %r declares `coefficient_domain` without an "
+                     "integer `characteristic`" % (where, ev["id"]))
+            expected_domain = exact_coefficient_domain(ev["characteristic"])
+            _require(coefficient_domain == expected_domain,
+                     "%s: model %r declares coefficient domain %r in "
+                     "characteristic %s; the supported exact domain is %s"
+                     % (where, ev["id"], coefficient_domain,
+                        ev["characteristic"], expected_domain))
+        if point_universe is not None:
+            _require(point_universe in POINT_UNIVERSES,
+                     "%s: model %r has point universe %r; supported values "
+                     "are %s" % (where, ev["id"], point_universe,
+                                  ", ".join(POINT_UNIVERSES)))
+            _require(coefficient_domain is not None,
+                     "%s: model %r declares `point_universe` without the "
+                     "structured `coefficient_domain` it is relative to"
+                     % (where, ev["id"]))
+
+        # "I DO NOT KNOW THIS IDEAL YET" IS A STATE, AND IT WAS NOT SAYABLE.
+        #
+        # `saturate_closure` and `eliminate` produce a model whose ideal only
+        # the CAS knows.  Both used to emit a PLACEHOLDER STRING in
+        # `generators` -- `<saturation of M at f>` -- which is not a
+        # polynomial.  `gp check` then read it as an ideal and reported that
+        # "both models carry ideals, so the containment is CHECKABLE", a false
+        # statement about the graph, and sent the author to `gp verify`, which
+        # handed the placeholder to Singular and got `expected ideal-
+        # expression` back.
+        #
+        # DROPPING `generators` INSTEAD WOULD HAVE BEEN WORSE.  An absent ideal
+        # already MEANS something here: `verify.identity` reads it as "the
+        # model imposes no equations" -- the SOS Gram case -- so a pending
+        # saturation would have been treated as the AMBIENT SPACE and any
+        # ambient-true identity would have verified AMBIENT at a model whose
+        # real ideal nobody had computed.  A parse error is a bad message; that
+        # would have been a false licence.
+        #
+        # So the two states get two spellings, and holding both at once is
+        # refused rather than resolved by precedence.
+        if ev.get("ideal_pending") is not None:
+            _require(isinstance(ev["ideal_pending"], str)
+                     and ev["ideal_pending"].strip(),
+                     "%s: model %r `ideal_pending` must say WHAT WILL FILL IT "
+                     "-- the computation whose output becomes the ideal. An "
+                     "empty marker records that something is missing without "
+                     "recording what." % (where, ev["id"]))
+            _require(ev.get("generators") is None,
+                     "%s: model %r declares both `generators` and "
+                     "`ideal_pending`. Those are contradictory states: either "
+                     "the ideal is known and reduction can proceed, or it is "
+                     "waiting on a computation. Record the generators once the "
+                     "computation has run." % (where, ev["id"]))
         declares = ev.get("declares") or {}
         _require(isinstance(declares, dict),
                  "%s: model %r `declares` must be {axis: [values]}"
@@ -773,6 +1517,44 @@ class Graph(object):
         _require(mk in K.MAP_KINDS,
                  "%s: edge %r has map_kind %r; known: %s"
                  % (where, ev["id"], mk, ", ".join(K.MAP_KINDS)))
+        if "ring_iso" in ev:
+            _require(isinstance(ev["ring_iso"], bool),
+                     "%s: edge %r `ring_iso` must be true or false, not %r."
+                     % (where, ev["id"], ev["ring_iso"]))
+        near_misses = {
+            "maps": "forward",
+            "inverse_maps": "inverse",
+        }
+        for bad, wanted in near_misses.items():
+            _require(bad not in ev,
+                     "%s: edge %r carries `%s`, which no rule reads. Use "
+                     "`%s`; mapped equivalences are load-bearing, so a "
+                     "plausible field name may not be silently persisted."
+                     % (where, ev["id"], bad, wanted))
+        fwd_present, inv_present = "forward" in ev, "inverse" in ev
+        _require(fwd_present == inv_present,
+                 "%s: edge %r needs both `forward` and `inverse`; one map "
+                 "does not declare an invertible coordinate change."
+                 % (where, ev["id"]))
+        if fwd_present:
+            fwd, inv = ev["forward"], ev["inverse"]
+            _require(ev["type"] == K.EQUIVALENCE,
+                     "%s: edge %r has `forward`/`inverse` substitutions but "
+                     "is %s. Mapped relations are EQUIVALENCE edges."
+                     % (where, ev["id"], ev["type"]))
+            _require(isinstance(fwd, dict) and fwd
+                     and isinstance(inv, dict) and inv,
+                     "%s: edge %r `forward` and `inverse` must be non-empty objects "
+                     "mapping every ring variable to a polynomial expression."
+                     % (where, ev["id"]))
+            _require(all(isinstance(k, str) and isinstance(v, str)
+                         for maps in (fwd, inv) for k, v in maps.items()),
+                     "%s: edge %r substitution names and expressions must be strings."
+                     % (where, ev["id"]))
+            _require(all(k.strip() and v.strip()
+                         for maps in (fwd, inv) for k, v in maps.items()),
+                     "%s: edge %r substitution names and expressions must be non-blank."
+                     % (where, ev["id"]))
         # A RESTRICTION IS A SUBSET INCLUSION, and its strongest cell depends
         # on that.  IDENTITY travels AGAINST unconditionally -- where a
         # NECESSARY_CONDITION needs a denominator-free map -- for exactly one
@@ -853,12 +1635,25 @@ class Graph(object):
     # text, so `"refuted"` in lowercase silently SUPPRESSED the untested tier
     # (the checker tests truthiness before matching) while never tripping the
     # refuted tier.  A typo turned the rule off.
-    _COMPUTED_FIELDS = {
-        "identity_verdict": "verify.identity",
-        "identity_why": "verify.identity",
-        "containment": "verify.containment",
-        "containment_why": "verify.containment",
-    }
+    # DERIVED FROM `_VERDICTS`, never retyped.  The hand-kept version listed
+    # the two verdicts that existed when it was written and missed the three
+    # added afterwards, so those were declarable by an author -- a false
+    # licence inside the machinery built to prevent false licences.  Deriving
+    # it means a new verdict subject cannot be added without its fields being
+    # guarded, because there is only one place to add it.
+    _COMPUTED_FIELDS = dict(
+        (f, spec["writer"])
+        for spec in _VERDICTS.values()
+        for f in ([k for k in spec if k not in _VERDICT_SPEC_KEYS][0],
+                  spec["why_field"])
+    )
+    # `representation` is a verdict payload for the same reason: the cofactors
+    # are a CERTIFICATE, and one nobody computed is the honour system again.
+    _COMPUTED_FIELDS["representation"] = "verify.identity"
+    _COMPUTED_FIELDS["contraction_representation"] = (
+        "verify.elimination_section")
+    _COMPUTED_FIELDS["point_lift_representation"] = (
+        "verify.elimination_point_lift")
 
     def _reject_computed_fields(self, ev, where):
         for bad, writer in sorted(self._COMPUTED_FIELDS.items()):
@@ -923,6 +1718,40 @@ class Graph(object):
                     else "at a model the kinds are", ", ".join(kinds)))
         _require(ev.get("statement"),
                  "%s: claim %r needs `statement`" % (where, ev["id"]))
+        # A STRUCTURED EXACT-AFFINE CONDITION. This is deliberately a small
+        # conjunction language, not a general formula parser: equations and
+        # algebraic nonvanishing are the two point predicates this kernel can
+        # type exactly. Free-text PREDICATE claims remain legal and conservative.
+        condition = ev.get("condition")
+        if condition is not None:
+            _require(ev.get("kind") == K.PREDICATE and not at_family,
+                     "%s: claim %r carries `condition`, which belongs only to "
+                     "a PREDICATE at a model. Families have no coordinate ring, "
+                     "and other claim kinds already have their own structure."
+                     % (where, ev["id"]))
+            _require(isinstance(condition, dict)
+                     and set(condition) == {"all"}
+                     and isinstance(condition["all"], list)
+                     and condition["all"],
+                     "%s: claim %r `condition` must be "
+                     "{\"all\": [{\"relation\": \"ZERO|NONZERO\", "
+                     "\"expression\": \"polynomial\"}, ...]}. The list must "
+                     "be non-empty; an unstructured predicate stays in `statement`."
+                     % (where, ev["id"]))
+            for n, atom in enumerate(condition["all"], 1):
+                _require(isinstance(atom, dict)
+                         and set(atom) == {"relation", "expression"},
+                         "%s: claim %r condition atom %d must have exactly "
+                         "`relation` and `expression`" % (where, ev["id"], n))
+                _require(atom.get("relation") in K.CONDITION_RELATIONS,
+                         "%s: claim %r condition atom %d has relation %r; "
+                         "known relations are %s"
+                         % (where, ev["id"], n, atom.get("relation"),
+                            ", ".join(K.CONDITION_RELATIONS)))
+                _require(isinstance(atom.get("expression"), str)
+                         and atom["expression"].strip(),
+                         "%s: claim %r condition atom %d needs a non-blank "
+                         "polynomial `expression`" % (where, ev["id"], n))
         # AN IDENTITY MAY CARRY THE REWRITING ITSELF, and when it does the
         # claim stops being free text and becomes checkable.
         #
@@ -990,6 +1819,42 @@ class Graph(object):
                  "  If you hold the point, drop `existential` and lift it. If "
                  "you only proved one exists, drop the witness."
                  % (where, ev["id"]))
+        # THE POINT, STRUCTURED, SO A SOLVER CAN SUBSTITUTE IT.
+        #
+        # ADDITIVE ON PURPOSE.  `witness` stays free text and stays legal:
+        # twenty-five live records across four campaigns are prose -- "(x, y) =
+        # (1, 2)", "t = sqrt(3)", one that cites a handoff document -- and one
+        # of those campaigns is under a write freeze.  Requiring structure would
+        # invalidate all of them to gain nothing they do not already record.
+        #
+        # This is exactly the position IDENTITY was in before `lhs`/`rhs`, and
+        # the route out is the same: prose is a reading question, a map from
+        # ring variable to value is an arithmetic one.  `gp check` asks for it
+        # and `gp verify` answers it.
+        if ev.get("witness_point") is not None:
+            wp = ev["witness_point"]
+            _require(isinstance(wp, dict) and wp,
+                     "%s: claim %r `witness_point` must be a non-empty map "
+                     "from ring variable to value, e.g. {\"x\": \"1\", "
+                     "\"y\": \"-2\"}. Prose belongs in `witness`."
+                     % (where, ev["id"]))
+            bad = sorted(k for k, v in wp.items()
+                         if not isinstance(k, str)
+                         or isinstance(v, bool)
+                         or not isinstance(v, (str, int)))
+            _require(not bad,
+                     "%s: claim %r `witness_point` has non-scalar coordinate(s) "
+                     "for %s. A coordinate is a number or an expression for "
+                     "one." % (where, ev["id"], ", ".join(map(str, bad))))
+            # Holding the point IS what EXHIBITED means.  A structured point on
+            # an ASSERTED claim is the graph contradicting itself about the one
+            # thing this field exists to settle.
+            _require(c["witness_kind"] == K.EXHIBITED,
+                     "%s: claim %r gives a `witness_point` and declares "
+                     "witness_kind %s. Recording the coordinates IS exhibiting "
+                     "the point -- declare EXHIBITED, or drop the point if you "
+                     "do not have it."
+                     % (where, ev["id"], c["witness_kind"]))
         # Evidence grading licenses nothing, so both fields are optional -- an
         # ungraded claim is merely ungraded.  What is refused is a grade that
         # is WRONG, including a pair that contradicts itself.
@@ -1113,6 +1978,44 @@ class Graph(object):
                 old["superseded_by"] = (
                     (prior if isinstance(prior, list) else [prior])
                     + [new_id]) if prior else [new_id]
+
+        # RETRACT and WITHDRAW are tombstones, not sparse replacement records.
+        # Resolve them only after ordinary successors so "replaced" and
+        # "nothing replaces it" cannot both be asserted about one target.
+        registries = {"claim": self.claims, "inference": self.inferences,
+                      "edge": self.edges, "model": self.models,
+                      "note": self.named_notes,
+                      "evidence": self.evidence, "doubt": self.doubts,
+                      "citation": self.citations,
+                      "certificate": self.cert_records,
+                      "partition": self.partitions,
+                      "family": self.families,
+                      "same_as": self.aliases}
+        for (entity, tomb_id), tomb in sorted(self.retractions.items()):
+            old_id = tomb["supersedes"]
+            registry = registries[entity]
+            _require(old_id != tomb_id,
+                     "%s tombstone %r retracts itself." % (entity, tomb_id))
+            _require(old_id in registry,
+                     "%s tombstone %r withdraws %r, which is not a %s in "
+                     "this graph. A lifecycle event must name an existing "
+                     "record of the same kind."
+                     % (entity, tomb_id, old_id, entity))
+            old = registry[old_id]
+            prior = old.get("superseded_by")
+            prior = prior if isinstance(prior, list) else ([prior] if prior else [])
+            _require(not prior or prior == [tomb_id],
+                     "%s tombstone %r withdraws %r, but that record already "
+                     "has successor%s %s. Nothing-replaces-it cannot be "
+                     "combined with a live replacement."
+                     % (entity, tomb_id, old_id,
+                        "s" if len(prior) != 1 else "",
+                        ", ".join(prior)))
+            old["superseded_by"] = [tomb_id]
+            if entity == "edge":
+                old["withdrawn_by"] = tomb_id
+            else:
+                old["retracted_by"] = tomb_id
 
     def _apply_inference(self, ev, where):
         """An inference has one or more PREMISES, each with its own path.
@@ -1299,6 +2202,31 @@ class Graph(object):
         premise is that nothing is quietly removed.
         """
         batch = list(batch)
+        metas = [(ev, source, lineno) for ev, source, lineno in batch
+                 if isinstance(ev, dict) and ev.get("ev") == EV_META]
+        if metas:
+            _require(self._event_count == 0 and self.graph_format == 0,
+                     "cannot apply epoch metadata to a graph that already "
+                     "contains events; `meta` is a first-record boundary")
+            canonical = None
+            for ev, source, lineno in metas:
+                where = "%s:%d" % (source, lineno)
+                F.validate_meta(ev, where, GraphError)
+                current = (ev["graph_format"], ev["kernel_epoch"])
+                _require(canonical in (None, current),
+                         "%s: cannot merge graphs from different format "
+                         "or kernel epochs" % where)
+                canonical = current
+            meta = metas[0][0]
+            self.graph_format = meta["graph_format"]
+            self.kernel_epoch = meta["kernel_epoch"]
+            self.created_with = meta["created_with"]
+            self.compatibility_mode = False
+            self._event_count = 1
+            for ev, source, lineno in batch:
+                if isinstance(ev, dict) and ev.get("ev") != EV_META:
+                    F.validate_native_event(
+                        ev, "%s:%d" % (source, lineno), GraphError)
         voided = {}
         for ev, source, lineno in batch:
             if not isinstance(ev, dict) or ev.get("ev") != EV_ERRATUM:
@@ -1317,6 +2245,8 @@ class Graph(object):
             for ev, source, lineno in batch:
                 if isinstance(ev, dict):
                     if ev.get("ev") == EV_ERRATUM:
+                        continue
+                    if ev.get("ev") == EV_META:
                         continue
                     if ev.get("id") in voided:
                         continue
@@ -1388,6 +2318,24 @@ class Graph(object):
                 continue
             _require(c["model"] in self.models,
                      "claim %r lives in undeclared model %r" % (cid, c["model"]))
+            if c.get("condition") is not None:
+                model = self.models[c["model"]]
+                ring_vars = model.get("ring_vars") or []
+                characteristic = model.get("characteristic")
+                _require(ring_vars and type(characteristic) is int,
+                         "claim %r has a structured `condition`, so model %r "
+                         "must declare `ring_vars` and integer `characteristic`. "
+                         "Without an exact coefficient domain its polynomial "
+                         "expressions cannot be typed." % (cid, c["model"]))
+                for n, atom in enumerate(c["condition"]["all"], 1):
+                    try:
+                        G.parse_polynomial(atom["expression"], ring_vars,
+                                           characteristic)
+                    except (G.CertificateError, TypeError, ValueError) as exc:
+                        raise GraphError(
+                            "claim %r condition atom %d is not a polynomial in "
+                            "model %r's ring k[%s]: %s"
+                            % (cid, n, c["model"], ", ".join(ring_vars), exc))
         for fid, f in sorted(self.families.items()):
             for m in f["members"]:
                 # Members are NAMES, and need not be declared models.  At 1567
@@ -1409,6 +2357,55 @@ class Graph(object):
                 _require(e[end] in self.models,
                          "edge %r has undeclared %s model %r"
                          % (eid, end, e[end]))
+            if e.get("type") == K.RESTRICTION:
+                source_model = self.models[e["src"]]
+                target_model = self.models[e["dst"]]
+                source_vars = source_model.get("ring_vars") or []
+                target_vars = target_model.get("ring_vars") or []
+                source_characteristic = source_model.get("characteristic")
+                target_characteristic = target_model.get("characteristic")
+                declared_variable_disagreement = (
+                    source_vars and target_vars
+                    and set(source_vars) != set(target_vars))
+                declared_characteristic_disagreement = (
+                    type(source_characteristic) is int
+                    and type(target_characteristic) is int
+                    and source_characteristic != target_characteristic)
+                _require(
+                    not (declared_variable_disagreement
+                         or declared_characteristic_disagreement),
+                    "edge %r is a RESTRICTION, so its endpoints must use "
+                    "the same exact coordinate ring when both sides declare "
+                    "that metadata; got k_%s[%s] and k_%s[%s]. Unknown legacy "
+                    "metadata remains unknown, while an explicit coefficient "
+                    "or coordinate change is a separate typed edge."
+                    % (eid, source_characteristic,
+                       ", ".join(source_vars) or "?",
+                       target_characteristic,
+                       ", ".join(target_vars) or "?"))
+            if K.is_mapped_equivalence(e):
+                src_vars = self.models[e["src"]].get("ring_vars") or []
+                dst_vars = self.models[e["dst"]].get("ring_vars") or []
+                _require(src_vars and dst_vars,
+                         "edge %r declares structured maps, but both endpoint "
+                         "models must declare `ring_vars` before those maps "
+                         "can mean a coordinate change." % eid)
+                _require(set(src_vars) == set(dst_vars),
+                         "edge %r uses the current mapped-equivalence verifier, "
+                         "which requires the endpoints to have the same ring "
+                         "variable names; got %s and %s."
+                         % (eid, ", ".join(src_vars), ", ".join(dst_vars)))
+                for field, wanted in (("forward", src_vars),
+                                      ("inverse", dst_vars)):
+                    got = set(e[field])
+                    missing = sorted(set(wanted) - got)
+                    extra = sorted(got - set(wanted))
+                    _require(not missing and not extra,
+                             "edge %r `%s` must give one expression for every "
+                             "ring variable. Missing: %s. Extra: %s."
+                             % (eid, field,
+                                ", ".join(missing) or "(none)",
+                                ", ".join(extra) or "(none)"))
         for aid, a in sorted(self.aliases.items()):
             for m in a["models"]:
                 _require(m in self.models,
@@ -1514,7 +2511,7 @@ class Graph(object):
         return self
 
 
-def load_events(path):
+def _raw_events(path):
     """Yield (event, lineno) from a .jsonl file.  Blank lines and `#` comment
     lines are skipped so a graph stays human-editable."""
     with open(path, "r", encoding="utf-8") as fh:
@@ -1528,12 +2525,63 @@ def load_events(path):
                 raise GraphError("%s:%d: not valid JSON: %s" % (path, n, exc))
 
 
+def load_native_events(path):
+    """Read an epoch-1 log, requiring its format record to be first."""
+    events = list(_raw_events(path))
+    _require(events, "%s: empty graph has no epoch metadata" % path)
+    first, lineno = events[0]
+    _require(isinstance(first, dict) and first.get("ev") == EV_META,
+             "%s:%d: epoch-1 graph must begin with a `meta` event"
+             % (path, lineno))
+    F.validate_meta(first, "%s:%d" % (path, lineno), GraphError)
+    for ev, n in events:
+        if n != lineno and isinstance(ev, dict) and ev.get("ev") == EV_META:
+            raise GraphError(
+                "%s:%d: `meta` is only legal as the first graph event"
+                % (path, n))
+        yield ev, n
+
+
+def load_compat_events(path):
+    """Read an epoch-0 log through the conservative, read-only importer."""
+    for ev, n in _raw_events(path):
+        if isinstance(ev, dict) and ev.get("ev") == EV_META:
+            raise GraphError(
+                "%s:%d: misplaced `meta` event in an epoch-0 log; refusing "
+                "to change format semantics partway through a file" % (path, n))
+        yield F.import_epoch0_event(ev), n
+
+
+def is_native_graph(path):
+    """Whether ``path`` begins with the epoch-1 metadata record."""
+    for ev, _n in _raw_events(path):
+        return isinstance(ev, dict) and ev.get("ev") == EV_META
+    return False
+
+
+def load_events(path):
+    """Read either format through an explicit native or compatibility path.
+
+    The dispatch is automatic for callers; the two parsers are not.  In
+    particular, unversioned records are always passed through the conservative
+    epoch-0 adapter and are never mistaken for native declarations.
+    """
+    reader = load_native_events if is_native_graph(path) else load_compat_events
+    for item in reader(path):
+        yield item
+
+
 def load(*paths):
     """Fold one or more logs into a single validated Graph.
 
     Passing several paths IS the merge operation.  Order does not matter for
     the result, only for which line number a conflict is reported at.
     """
+    modes = {is_native_graph(p) for p in paths}
+    _require(len(modes) <= 1,
+             "cannot merge epoch-0 and epoch-1 logs directly. Import the "
+             "epoch-0 source into a new epoch-1 artifact first; a mixed fold "
+             "would validate legacy records as native declarations.")
     g = Graph()
     batch = [(ev, p, n) for p in paths for ev, n in load_events(p)]
     return g.apply_all(batch).validate()
@@ -1566,6 +2614,11 @@ def merge_report(paths):
     Returns (graph_or_None, conflicts). `graph` is None when conflicts exist,
     because a partially-folded graph is not a thing anyone should reason from.
     """
+    modes = {is_native_graph(p) for p in paths}
+    _require(len(modes) <= 1,
+             "cannot merge epoch-0 and epoch-1 logs directly. Import the "
+             "epoch-0 source into a new epoch-1 artifact first; a mixed fold "
+             "would validate legacy records as native declarations.")
     seen, conflicts, events = {}, [], []
     for p in paths:
         for ev, n in load_events(p):
@@ -1592,19 +2645,55 @@ def merge_report(paths):
     return Graph().apply_all(events).validate(), []
 
 
+def find_root(start="."):
+    """Walk UP for a `.portage/`, the way git walks up for a `.git/`.
+
+    ONE COPY, BECAUSE TWO COPIES DISAGREED.  This logic was added to the hook
+    and not to the CLI, so from a subdirectory of a campaign the hook resolved
+    the root correctly, refused the step, and printed its standard advice --
+    "run `gp check`" -- which then reported no graph at all.
+
+    A live session found it on the first use of the walk-up: two components
+    disagreeing about where the campaign is, surfacing as REMEDIATION THAT
+    FAILS EXACTLY WHERE THE REFUSAL FIRES. The hook was right and the advice
+    was unusable from the same directory.
+
+    Deliberately does NOT walk down: a directory holding several campaigns has
+    no single graph to check, and picking one would be worse than silence.
+    """
+    try:
+        here = os.path.abspath(start)
+    except (OSError, ValueError):
+        return start
+    while True:
+        if os.path.isdir(os.path.join(here, GRAPH_DIR)):
+            return here
+        parent = os.path.dirname(here)
+        if parent == here:
+            return start
+        here = parent
+
+
 def graph_path(root="."):
     return os.path.join(root, GRAPH_DIR, GRAPH_FILE)
 
 
-def append(events, root="."):
+def append(events, root=".", graph=None):
     """Append events to the working graph, after checking they still fold.
 
     Writing is transactional in the only sense that matters here: the new
     events are folded against the existing graph FIRST, and nothing is written
     if the result is not a well-formed graph.  A log you cannot fold is worse
-    than a rejected write.
+    than a rejected write. ``graph`` is an exact log path for callers that
+    already selected one; when omitted, the campaign-root path is used.
     """
-    path = graph_path(root)
+    events = list(events)
+    _require(
+        not any(isinstance(event, dict) and event.get("ev") == EV_META
+                for event in events),
+        "append owns the epoch metadata header; callers cannot append `meta` "
+        "events because a second header would make the persisted log unreadable")
+    path = os.fspath(graph) if graph is not None else graph_path(root)
     d = os.path.dirname(path)
     if d and not os.path.isdir(d):
         os.makedirs(d)
@@ -1624,7 +2713,17 @@ def append(events, root="."):
     # Refusing is still correct. Blaming the caller is not.
     existing = []
     if os.path.exists(path):
+        if os.path.getsize(path) and not is_native_graph(path):
+            raise GraphError(
+                "REFUSING TO APPEND EPOCH-1 EVENTS TO AN UNVERSIONED EPOCH-0 "
+                "LOG.\n  graph: %s\n  The compatibility importer is read-only. "
+                "Create a new epoch-1 graph or run the explicit migration; "
+                "the append-only original remains the source artifact."
+                % os.path.abspath(path))
         existing = [(ev, path, n) for ev, n in load_events(path)]
+    if not existing:
+        existing = [(F.meta_event(), path, 1)]
+    if os.path.exists(path) and os.path.getsize(path):
         try:
             Graph().apply_all(list(existing)).validate()
         except (GraphError, K.KernelRefusal) as exc:
@@ -1643,6 +2742,8 @@ def append(events, root="."):
     batch.extend((ev, "<new>", k + 1) for k, ev in enumerate(events))
     g.apply_all(batch).validate()
     with open(path, "a", encoding="utf-8") as fh:
+        if os.path.getsize(path) == 0:
+            fh.write(json.dumps(F.meta_event(), sort_keys=True) + "\n")
         for ev in events:
             fh.write(json.dumps(ev, sort_keys=True) + "\n")
     return g

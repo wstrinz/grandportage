@@ -1,0 +1,108 @@
+{
+  "checked": {
+    "chart_determinant": "VERIFIED_DET5",
+    "clearing_exponent": 2,
+    "module_rendezvous": "BOUND_FROZEN_SAME_PHI",
+    "nonzero_observation_dimension": 2,
+    "phi_terms": 3137,
+    "power_one_refuted": true,
+    "resultant_degree": 26,
+    "zero_observation_dimension": 14,
+    "zero_witness_guards": [
+      "c2_3",
+      "p",
+      "det5",
+      "OB-pivot",
+      "S11"
+    ]
+  },
+  "claims": {
+    "nonzero": "VERIFIED_BY_NONZERO_QUADRATIC_QUOTIENT_IMAGE",
+    "nonzerodivisor": "OPEN_NOT_CLAIMED",
+    "unit": "REFUTED_BY_ZERO_IN_NONTRIVIAL_DEGREE_14_QUOTIENT"
+  },
+  "coefficient_domain": "K = QQ[t]/(15*t^3+1)",
+  "definition": {
+    "clearing_exponent": 2,
+    "pushforward": "Phi_b0_compat = det5^2 * Lambda|det5-solve",
+    "source_class": "Lambda = VD - (3/2)*c2_3*t*E321"
+  },
+  "evidence_envelope": {
+    "authority_boundary": "The exact observations license only that Phi_b0_compat is nonzero and not a unit on the stated localized materialized-depth coordinate ring. They do not license nonzerodivisor, component, rational-point, source, H8, H3, verdict, or graph authority.",
+    "checked_proposition": "Phi_b0_compat is nonzero and not a unit in the exact localized materialized-depth coordinate ring",
+    "consumed_frozen_semantics": [
+      "Phi_b0_compat_generates_the_principal_materialized_compatibility_ideal",
+      "Phi_nonzero_implies_materialized_fiber_empty",
+      "Phi_zero_implies_one_reduced_constrained_point_times_free_A2"
+    ],
+    "graph_effect": "NONE",
+    "lean_theorems": [
+      "GrandPortage.nonzero_of_observed_nonzero",
+      "GrandPortage.notUnit_of_observed_zero",
+      "GrandPortage.neitherZeroNorUnit_of_observations"
+    ],
+    "licenses": [
+      "Phi_b0_compat_nonzero",
+      "Phi_b0_compat_not_a_unit",
+      "Z(Phi_b0_compat)_meets_X_b_over_an_algebraic_extension"
+    ],
+    "outstanding_premises": [
+      "P1..P5",
+      "S2",
+      "15*t^3+1=0",
+      "native depth-6/7 bodies and det5 chart binding",
+      "whether Phi_b0_compat is a nonzerodivisor on every component of X_b; this requires component/primary evidence"
+    ],
+    "schema": "localized_ring_element_class_v1"
+  },
+  "first_open_obligation": "whether Phi_b0_compat is a nonzerodivisor on every component of X_b; this requires component/primary evidence",
+  "graph_effect": "NONE",
+  "model": {
+    "equations": [
+      "b=0",
+      "R=0",
+      "A=0",
+      "OB=0"
+    ],
+    "guards": [
+      "c2_3",
+      "p",
+      "det5"
+    ],
+    "name": "X_b_materialized_depth_6_7",
+    "point_universe": "ALGEBRAIC_EXTENSIONS_OF_K",
+    "presentation": "Delta-substituted S2 b=0 wall base"
+  },
+  "module_rendezvous": {
+    "custody": "fiber semantics are consumed from the digest-bound native exact-module checker; GP independently rederives the Cramer pushforward and both ring-class observations",
+    "native_schema": "compatibility_module/1",
+    "semantic_role": "principal materialized-depth compatibility condition for the exact three-block fiber module",
+    "status": "BOUND_FROZEN_SAME_PHI"
+  },
+  "object": "Phi_b0_compat",
+  "object_sort": "LOCALIZED_COORDINATE_RING_ELEMENT",
+  "refusals": [
+    "K-rationality of the degree-14 witness",
+    "nonzerodivisor or componentwise genericity",
+    "all-orders lifting or source sufficiency",
+    "H8, H3, or (75,125) promotion",
+    "wall survival or wall emptiness",
+    "graph claim or transport authority"
+  ],
+  "schema": "localized_ring_element_class_v1",
+  "source_bindings": {
+    "F2_H3_B0_COMMON_ROOT.md": "ca5b6d537d945971cf315791feb5cb7ae44e9154172b6ff42013b61854dbb919",
+    "F2_H3_B0_COMPATIBILITY_MODULE.md": "33726b89112a0562b89111e80cdc8f9248287e82d63c1f3fbad44919fabccb96",
+    "F2_H3_B0_UNIFORM_LAMBDA.md": "b9535626c4ba48f69803e81f58976a82dfe2c629a31f5d9324a05de1e4a85127",
+    "H3_LOCALIZED_CAS_PILOT.md": "2b34738b2fa9175ca37de304e96dc83bef8100b6b2cd66b4b06ad2bfa1f7b618",
+    "f2_h3_b0_common_root.json": "a2dca1966424f7cee775257d8f145ba68a6949c7dea8a7aa698415956dac65cf",
+    "f2_h3_b0_common_root.py": "d3a73afb23c55cbc5a775bec442897bd57830abca355ea93a35b16f0e87d1a43",
+    "f2_h3_b0_compatibility_module.json": "944f95d762e05d3dec4ffa6599b4f0d1d2674e4127e5d168712a62de50291840",
+    "f2_h3_b0_compatibility_module.py": "be70f604a328eba1944bf6593a83437fbd54f61cfdbca76da76011c92adf0572",
+    "f2_h3_b0_uniform_lambda.json": "499a7c0975ac01883ecf4b7b9be14e9b00dd4284f7688810aaa175ca86ada3fd",
+    "f2_h3_b0_uniform_lambda.py": "bbd626c4fab2827a7fd8106e2deea9fa031e3cfefc0967055c9ee2ee8f6f7ea3",
+    "f2_h3_source_incidence_bezout_adapter.py": "92affca372ebf4e29abce5d8371ef68c0c03d094976f5795e9391c6d76f8b949",
+    "lean/JC/SourceIncidenceBezout.lean": "8cc8c1a8aeedfe2140270626bd7fa9b0556dc4231586fbaf8878bb2fcc0713bf"
+  },
+  "verdict": "VERIFIED_NEITHER_ZERO_NOR_UNIT"
+}

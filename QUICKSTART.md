@@ -9,10 +9,13 @@ test suite or by a live session; nothing is aspirational.
 git clone <this repo> grand-portage
 cd grand-portage
 pip install -e .
-python -m pytest -q -m "not live"     # ~20s, no CAS needed
+python -m pytest -q -m "not live and not replay and not exhaustive"
+# measured at about 2m20s on the current development machine; no CAS needed
 ```
 
-Two commands are installed, `gp` and `gport`. They are the same program.
+Four command names are installed: `gp` and `gport` expose the full CLI, while
+`portage_declare` and `portage-declare` expose the same transactional graph
+writer directly. `gp` and `gport` are otherwise the same program.
 **In PowerShell use `gport`** — `gp` is a built-in alias for
 `Get-ItemProperty` and the alias wins, so `gp check` fails with
 *"Cannot find path '…\check'"*, which names neither the cause nor the cure.
@@ -39,6 +42,7 @@ campaign up from it alone, and that is the property worth protecting.
 
 ```bash
 gp declare --file events.json    # write; folds first or writes nothing
+portage_declare --file events.json # same transaction if MCP is not exposed
 gp check                         # what is licensed, and what is not
 gp show                          # what is in the graph
 gp history                       # where the campaign struggled
@@ -119,8 +123,11 @@ optional `root`, and **you should pass it**: without one the server writes to
 its own working directory, which is the session root and usually not the
 campaign you mean.
 
-The CLI is the better-tested path today. Prefer `gp declare` unless you have a
-reason.
+The CLI is the better-tested path today. Prefer `gp declare`. If a Codex task
+does not load the campaign's nested MCP configuration, the literal
+`portage_declare` (or `portage-declare`) command reaches the same transactional
+writer. Global `--graph` selects one exact write target; repeated graph inputs
+remain read/merge syntax and are refused for declarations.
 
 ## When something goes wrong
 

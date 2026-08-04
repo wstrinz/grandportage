@@ -1,0 +1,130 @@
+{
+  "aggregate_graph_effect": "NONE",
+  "authority_ceiling": "CONDITIONAL_NORMALIZED_ROOT_TO_DEPTH6_BOUNDARY_ONLY",
+  "bindings": {
+    "boundary_fixture": "sha256:4a0cf6999dedf3334e4e9f0b5918303757cdd857b88090017319ab0c87eff991",
+    "chain_certificate": "sha256:d5ed44977e1f39312fbd2d30a286f686a0cd26d55dba237420a7a3d2bf513f15",
+    "conditional_seam_fixture": "sha256:970515c9548833ee253a64302b8aa5950849ad8cd54fa0bc375d22770156934a",
+    "graded_face_fixture": "sha256:6c8887034321884b6bb0aa7cd8cf04d90e472a36f4a6ba4035a53e7eda1aa8a1"
+  },
+  "coverage": "WELDS_ONLY_GRAPH_AUTHORITIES_DEFERRED",
+  "first_missing_authority": {
+    "blocks": [
+      "original polynomial-pair membership",
+      "source-image sufficiency or reverse lift",
+      "chart or branch coverage",
+      "H3 promotion",
+      "(75,125) verdict change"
+    ],
+    "id": "target_pair_to_normalized_laurent_root",
+    "status": "UNMATERIALIZED_OPEN"
+  },
+  "mode": "fast",
+  "native_bindings_checked": true,
+  "native_replay_executed": true,
+  "overall_verdict": "VERIFIED_TO_EXPLICIT_OPEN_OBLIGATION",
+  "runtime_seconds": 59.194,
+  "schema": "gp-jc-h3-depth6-milestone-replay/v1",
+  "stages": [
+    {
+      "graph_effect": "NONE",
+      "id": "conditional_source_seam",
+      "licenses": [
+        "five_reduced_rows_replayed_from_conditional_normalized_root_data",
+        "native_row_commitments_welded_to_gp_exact_source_rows",
+        "strict_original_source_promotion_refused"
+      ],
+      "outstanding_premises": [
+        "serialize or universally bind the exact original source pair",
+        "materialize the coefficient-level target-pair to normalized-root map",
+        "prove any source-image sufficiency or reverse lift separately"
+      ],
+      "seconds": 0.01,
+      "status": "VERIFIED",
+      "summary": "Normalized Laurent-root data replay to the five reduced rows.",
+      "verdict": "VERIFIED_CONDITIONAL_ESYSTEM_SEAM"
+    },
+    {
+      "graph_effect": "NONE",
+      "id": "graded_face_extraction",
+      "licenses": [
+        "exact_depth2_6_faces_from_declared_reduced_esystem_rows",
+        "selected_face_equations_are_necessary_under_declared_root_supports",
+        "all_25_outputs_welded_to_landed_chain_faces"
+      ],
+      "outstanding_premises": [
+        "original polynomial-pair -> this reduced E-system presentation",
+        "source-image sufficiency or a reverse lift",
+        "chart coverage, H3, and (75,125) verdict promotion"
+      ],
+      "seconds": 1.032,
+      "status": "VERIFIED",
+      "summary": "Five reduced rows yield the exact selected depth-2..6 faces.",
+      "verdict": "VERIFIED_GRADED_FACE_EXTRACTION"
+    },
+    {
+      "graph_effect": "NONE",
+      "id": "complete_finite_template",
+      "licenses": [],
+      "outstanding_premises": [
+        "run --full for exact generator-inclusion authority"
+      ],
+      "seconds": 0,
+      "status": "DEFERRED_OPTIONAL",
+      "summary": "The 147-row graph inclusion is reserved for --full.",
+      "verdict": "NOT_RUN_IN_FAST_MODE"
+    },
+    {
+      "graph_effect": "NONE",
+      "id": "ordered_depth6_chain",
+      "licenses": [
+        "certificate_integrity_and_order_verified",
+        "solve_and_unit_identities_verified",
+        "chain_inputs_welded_to_gp_ladder_solutions",
+        "boundary_residuals_welded_to_gp_projection"
+      ],
+      "outstanding_premises": [
+        "raw E-system rows -> the 25 bound face tables",
+        "actual-source membership and source-image sufficiency",
+        "chart coverage, H3, and (75,125) verdict promotion"
+      ],
+      "seconds": 2.305,
+      "status": "VERIFIED",
+      "summary": "The 23 ordered solve steps weld the selected faces to two residuals.",
+      "verdict": "VERIFIED_DEPTH6_CHAIN_ENVELOPE"
+    },
+    {
+      "graph_effect": "NONE",
+      "id": "boundary_projection_and_strata",
+      "licenses": [
+        "exact_boundary_polynomials_decoded",
+        "boundary_stratum_rewrites_may_be_checked"
+      ],
+      "outstanding_premises": [
+        "the receipt does not expose the 33 intermediate rung polynomials",
+        "actual-source coefficient extraction remains unbound",
+        "generic and discriminant graph components have no checked cover",
+        "run --full to recompute both exact boundary equivalences"
+      ],
+      "seconds": 0.36,
+      "status": "VERIFIED",
+      "summary": "Both residuals verify; graph equivalences are reserved for --full.",
+      "verdict": "VERIFIED_BOUNDARY_PROJECTION_EQUIVALENCES_DEFERRED"
+    },
+    {
+      "graph_effect": "NONE",
+      "id": "native_original_pair_seam_replay",
+      "licenses": [
+        "native_conditional_source_seam_replayed",
+        "nine_native_mutations_refused"
+      ],
+      "outstanding_premises": [
+        "target_pair_to_normalized_laurent_root"
+      ],
+      "seconds": 55.486,
+      "status": "VERIFIED",
+      "summary": "Sibling JC verifier and all nine mutation refusals passed.",
+      "verdict": "CONDITIONAL_EXACT_WITH_OPEN_UPSTREAM"
+    }
+  ]
+}

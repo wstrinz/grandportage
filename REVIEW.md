@@ -1,246 +1,342 @@
-# REVIEW.md — what to attack, and where I am least confident
+# Current review brief
 
-A brief for an independent reviewer. Deliberately not a tour: the parts that
-work are visible from the tests. What follows is where the risk actually is,
-ordered by how much damage a mistake would do.
+This is the attack surface for the current release. The full historical review
+through v0.18 is preserved in `HISTORY/REVIEW-through-v0.18.md`.
 
-**v0.4, seven days old, four live user sessions, <!--checks-->717<!--/checks--> checks.** One external
-adversarial review has happened and found eight defects; §7 is what it taught.
-Treat everything here as provisional.
+**Version <!--version-->0.23.0<!--/version-->, graph format
+<!--graph-format-->4<!--/graph-format-->, kernel epoch
+<!--kernel-epoch-->10<!--/kernel-epoch-->, and
+<!--checks-->1576<!--/checks--> collected checks.**
 
----
+## Highest-risk claim
 
-## The claim, stated so it can be falsified
+Grand Portage now has a small semantic kernel and a nontrivial certifying-
+checker trust base. Review both separately. A correct transport table does not
+repair a parser, canonicalizer, cofactor replay, fingerprint binding, or
+authority-projection defect.
 
-> A computation produces an artifact. The artifact does not carry its own
-> license to conclude. Grand Portage records what each modelling step *loses*
-> and refuses the conclusions that loss does not support.
+## 1. Authority binding
 
-Four failure modes would each sink it, and they are not equally likely:
+Attack every path that turns a checked report into graph authority:
 
-1. **A wrong cell in the transport table.** The system would then refuse sound
-   steps or license unsound ones *with confidence*, which is worse than not
-   having it. **Five cells were wrong in v0.1 and all five were in the
-   `IDENTITY` row.** See §1.
-2. **A leaky boundary.** The enforcement claim is "no CAS process without a
-   declared edge". **It was false twice** — once inherited, once introduced by
-   the fix for the inherited one. See §2.
-3. **It induces plausible mislabelling.** If the required `edge` argument makes
-   people pick the type easiest to justify rather than the true one, it
-   launders guesses into typed facts. **Still unmeasured.** T1 tests it.
-4. **It misleads a reader about a campaign's state.** Distinct from unsoundness
-   and newly demonstrated: T3's agent read a healthy campaign as a failing one
-   because no read path showed accepted findings. See §5.
+- mutate the model after producing evidence;
+- change coefficient domain or point universe;
+- reorder ring variables, generators, guards, or intermediate states;
+- replay a certificate across charts or semantically similar model ids;
+- preserve a verifier verdict while changing its representation;
+- mix current and stale verdicts across supersession or merge;
+- attempt to promote standalone evidence whose authority boundary says none.
 
----
+The key positive control is exact replay against the same model fingerprint.
+The key negative control is a locally verified result that still cannot travel
+to a parent without a licensed transport or exhaustive cover.
 
-## 1. THE TRANSPORT TABLE — attack this first
+## 2. Exact checker
 
-`grandportage/kernel.py`, the `TRANSPORT` dict. Everything else is data or
-plumbing. Gate 0 (`tests/test_cell_ledger.py`) now carries one row per cell with
-a proof, a counterexample, or the exact side condition — **read the arguments,
-not just the verdicts.** Two rows have already been wrong while the cell was
-right, and no test can catch that.
+Treat the polynomial representation, parser, canonicalizer, sparse arithmetic,
+budgets, and certificate expanders as part of the trusted implementation.
+Differentially attack them with external CAS systems as untrusted oracles:
 
-Semantics: edges point **tighter → looser**, `V(src) ⊆ V(dst)`. `ALONG` is
-src → dst. `AGAINST` is dst → src, the direction emptiness travels.
+- variable permutations and simultaneous substitutions;
+- reordered generators and equivalent cofactor families;
+- characteristic changes and inadmissible denominators;
+- sparse/infix and Laurent/export round trips;
+- large coefficients, exponents, term counts, and boundary budgets.
 
-**The v0.1 errors, all one mistake.** An identity is a claim about *functions*,
-and the ring map `O(dst) → O(src)` runs **opposite** the point map. So
-identities pull back and do not push forward. Five cells assumed otherwise:
+A bounded search miss is typed ignorance, never refutation.
 
-| cell | licensed, falsely |
-|---|---|
-| `NECESSARY_CONDITION/ALONG` | `x = 0` escaping `V(x)` to the whole line |
-| `EQUIVALENCE/*` | a rewriting across a **point**-level equivalence; `V(x²)` and `V(x)` share one point and disagree about `x = 0` |
-| `SPECIALIZATION/AGAINST` | lifting `p·x = 0` out of characteristic `p` |
-| `SPECIALIZATION/ALONG` | gated on the **map** being denominator-free; reduction needs the **claim's** coefficients `p`-integral |
-| `BASE_EXTENSION/AGAINST` | `x²+1 = (x+i)(x−i)` descending to `Q`, where `i` is not unproved but *inexpressible* |
+## 3. Transport semantics
 
-**What I want checked now:**
+The transport table remains the most concentrated mathematical risk. In
+particular review identity variance, point-universe scope, coefficient-domain
+expressibility, partial maps, mapped predicate pullback, partition
+recombination, and image-closure asymmetry.
 
-- **Is `IMAGE_CLOSURE/ALONG/IDENTITY` right to be unconditional?** I argue yes:
-  the image is dense in its closure, so the pullback is injective. That makes it
-  the one lossy type where identities travel *with* the arrow, and it is the
-  cell that shows a uniform "identities only pull back" rule would be too
-  strong. If that is wrong, the whole repair is misconceived.
-- **`identity_origin` is a claim-level approximation.** `AMBIENT` (holds before
-  the model's equations) is *sufficient* for surviving a widening, not
-  *necessary* — the exact condition is `LHS − RHS ∈ I(dst)`, which is
-  edge-relative. Registered in `KNOWN_CONSERVATISM`. **Is the approximation the
-  right one, or does it refuse something common?**
-- **`integral` and `coefficients_in_base` are the same question twice** — do the
-  rewriting's coefficients lie in the target's coefficient ring? Consulted at
-  the two edge types that change that ring. **Should they be one declared
-  coefficient ring instead of two booleans?** They cannot be today: models carry
-  `field` as free text, so the kernel cannot compare fields.
-- **`DEGREE_COUNT` in `BUILTIN_CERTIFICATES`** → `SCHEME`. Is it really
-  field-independent in every use, or only where leading coefficients do not
-  vanish? Unchanged since v0.1 and still the entry I trust least.
+Mapped `ring_iso` authority is no longer an unaudited boolean: current
+verification checks both ideal pullbacks and both inverse-map compositions.
+Attack the verifier and its graph binding rather than the obsolete declaration-
+only design.
 
-## 2. THE CAS BOUNDARY — attack this second, and expect to win
+## 4. Merge and identity
 
-`grandportage/cas.py`. The module docstring claims **"there is no string path to
-a solver."** That claim has now been false twice.
+The v0.19 fan-out assay now exercises two valid branches creating different ids
+or normal forms for the same mathematical object. It confirms:
 
-- **v0.1:** `body` and the expression half of `decls` went to Singular
-  unvalidated. `body=["poly g0 = 1;"]` shadowed a ring variable.
-- **v0.2, introduced by the fix:** the decl **type** half, `ring`, `ring_vars`,
-  anything behind a `//` comment (the token matcher failed **open**, and
-  `execute()` ran), and multi-line entries. Reproduced against real Singular:
-  the same ideal `(g0)` returning `GP_G[1]=1`, exit 0, no error, parsing
-  cleanly, recorded into the graph through the MCP tool.
+- differently normalized redeclarations of one id refuse with a field diff;
+- cross-branch supersession exposes consumers still anchored to the old model;
+- stale and current verdicts compose with only the current one effective.
 
-Both fixes were denylists. The current one validates five fields and strips
-comments. **A denylist over a real grammar extended by one round of adversarial
-thinking gets exactly one round deeper**, and that is now an empirical claim
-rather than an aesthetic one. The real fix is a typed statement AST with no free
-strings, deferred to v0.3.
+It also exposes the remaining seam: exact affine objects under different ids
+merge cleanly and require an explicit alias-audit view. GP correctly does not
+infer full mathematical identity from names or a heuristic signature.
 
-**So: find the third bypass.** It is the single most valuable thing this review
-can produce, and the prior on it is high.
+## 5. Read surfaces
 
-## 3. SCOPE DERIVATION AND THE CERTIFICATE
+Ask a cold reader:
 
-`kernel.derive_scope`. An emptiness claim's scope comes from its *certificate
-kind*, never from the author's label — and this is the field the T2 audit found
-the tool's own author mislabelling in the tool's own fixture.
+- what is established;
+- what is intentionally carried;
+- what is stale or refused;
+- why a conclusion is licensed;
+- what the first unresolved authority seam is.
 
-**Gap A is still open: nothing validates a certificate against a computation.**
-v0.2 built the pattern for a different field — `cas_classify_identity` decides
-`identity_origin` by reducing `LHS − RHS` instead of asking — but certificates
-are the harder instance, because *"does this computation support this
-certificate kind?"* needs interpretation where origin classification does not.
+Compare the answer with the folded graph and accepted baseline. Projection and
+visualization are useful only if they improve that answer without becoming a
+second source of truth.
 
-Built-ins can no longer be redefined from a graph. Restating one identically
-still works, because that is how branches merge.
+## 6. Current composition target
 
-## 4. THE `IDENTITY` VOCABULARY — the newest and least exercised
+The JC `c9_11` p-axis is now the first complete end-to-end authority path. The
+native receipt, standalone factor/affine replay, compiled localized-unit proof,
+graph binding, real backend artifacts, and local `EMPTY` verdict are retained
+in `review/v0.19/`. The parent edge remains a refusal control.
 
-Three new declarable attributes, all shipped in one pass, all with **two live
-claims between them** across the whole corpus:
+Both five-step source ladders now have graph-bound mapped-equivalence authority.
+The next isolated composition target has also landed: JC commit `cb3136c` carries
+25 exact sparse face tables, ten input bodies, 23 ordered solve transitions,
+and two boundary residuals. `experiments/jc_h3_source_depth6/chain_adapter.py`
+independently checks the chain, welds its inputs to GP's ladder fixtures, and
+welds its outputs to GP's boundary fixture. The routine gate is fast; the full
+ambient substitution replay takes about 80 seconds and is release/review-only.
 
-- `identity_origin` on claims — `AMBIENT` / `DERIVED` / `UNKNOWN`, blank raises
-- `ring_iso` on `EQUIVALENCE` edges
-- `integral`, `coefficients_in_base` on claims
+The v0.22 extraction assay closes that specific open edge. A standalone
+`graded_face_extraction_v1` checker reconstructs all 25 selected faces from five
+reduced E-system rows, and its stronger mode reconstructs those rows from the
+normalized root series, fourteen P-side eliminations, and the defining
+E-system formula. Lean proves only the necessary-condition direction and
+exhibits why reverse transport is invalid.
 
-`UNKNOWN` is the `UNTYPED` bargain one level down: a required field whose honest
-answer is always available. **Is that bargain actually honoured, or does
-`UNKNOWN` become the default in practice and quietly disable the whole row?**
-That is a prediction on the record for T1.
+The graph-bound assay materializes the complete finite reduced E-system
+template: 147 nonzero equations, 78 active variables, and 424,934 sparse
+terms. The selected 25 equations occur verbatim. `verify.containment` v3
+therefore checks the declared `NECESSARY_CONDITION` by exact parsed generator
+inclusion, with no backend process. Attack malformed equal generators,
+cross-context replay, direction reversal, old v2 verdict staleness, and any
+attempt to promote selected-face survival, source membership, parent coverage,
+H3, or the (75,125) verdict. Also scrutinize the roughly 39.5 MB persisted
+graph: it is authoritative and usable, but exposes the need for a smaller
+content-addressed review projection.
 
-`ring_iso` deserves particular suspicion: it is an **unaudited boolean** that
-re-opens every cell it gates. There is no `UNJUSTIFIED-RING-ISO` rule
-corresponding to `UNJUSTIFIED-EQUIVALENCE`, and nothing asks for the inverse
-map. In v0.2 it was also unreachable through the supported path while settable
-through the raw one — fixed, but the asymmetry of care is the smell.
+JC commit d4a18b4 adds a conditional original-pair seam manifest and verifier.
+The positive result is only normalized Laurent-root data to the five exact
+reduced rows. The exact source pair is not serialized, and the coefficient-level
+target-pair to normalized-root map is explicitly UNMATERIALIZED_OPEN. The GP
+adapter must keep graph effect NONE, reproduce all five row commitments, and
+refuse any mutation that promotes strict source authority, moves the downstream
+t pin into row derivation, or drops source-membership and H3 refusals.
 
-## 5. THE READ SURFACES — a category the other sections miss
+## 7. Project-level falsification
 
-Nothing here can license a false conclusion. It can only cause a human to draw
-one, which is why the v0.2 pass never looked and why T3 found three defects at
-once: no read path showed accepted findings, `portage_check`'s `full` parameter
-was declared in its schema and never read, and `gp show` printed neither
-inferences nor claim certificates while MCP's `portage_show` printed both.
+`KILL-CRITERIA.md` remains binding. A6 is now live: validators have dedicated
+test suites and the certifying checker is a real trust surface. The relevant
+question is no longer whether validators are tiny, but whether they remain
+bounded replay checkers, share a small exact substrate, resist differential
+attacks, and compose into conclusions worth their cost.
 
-A fresh agent consequently reported a campaign whose nine findings had all been
-examined and accepted as *"gate failing, five live blockers."* Exact inverse.
+## 8. S4 constructible-scope control
 
-**Attack this by asking a human question, not a soundness one:** *"what is the
-state of this campaign, and what is it carrying on purpose?"* Then check the
-answer against `.portage/baseline.json` by hand.
+`experiments/jc_h3_s4_scope/adapter.py` is a deliberately standalone pressure
+test for the distinction between one inhabited closed piece and an unresolved
+complementary open piece. Review the frozen cubic-field evaluator, the exact
+`p^2` coefficient slice, the rank-witness check, and the fixture/body digests.
+The positive control is `NONEMPTY` on `C=C2=0` over the declared base field.
+Mandatory refusal controls include any attempt to turn 24 nonsquare-seed
+results into off-locus emptiness, omit the `C2!=0` branch, claim confinement of
+all points, widen the point universe, or give the structural cover a union-wide
+claim. The checked-in projection must retain graph effect `NONE`.
 
-## 6. THE GRAPHS — the best available evidence about failure mode 3
+## 9. Unilateral recurrence control
 
-`docs/first-run/campaign-graph.jsonl`, ten edges declared by an agent doing real
-work. For each: is the type correct or merely defensible? Is the **direction**
-right? Does `drops` name what is lost or restate `why`? Where `UNTYPED` was
-chosen, was that honest or evasive?
+`experiments/jc_h3_adjoint_recurrence/adapter.py` and
+`lean/GrandPortage/ParametricRecurrence.lean` deliberately split instance
+checking from semantic inference. Attack the declared unilateral start,
+cutoff, shift convention, rational operator coefficients, finite-width padding,
+zero-tail premise, and nonzero endpoint. The native correction must survive:
+`S^8` annihilates, `S^7` does not, and every coefficient below shift eight
+vanishes for any annihilator. Mutations restoring the original false prose,
+widening to a bilateral domain, dropping H8 from outstanding premises, or
+minting graph/H3 authority must refuse. Also scrutinize the excluded blanket
+minimality claim: the final padded regimes are zero and admit the unit
+annihilator even though `S-1` annihilates them.
 
-Hardest to look at: `GE7`/`GE8`/`GE9` (the γ-chart family) and `GE10`.
+## 10. First-order depth-eight fiber control
 
-**Note the observer effect:** that agent had read `BRIEF.md`, which names
-mislabelling as the worst failure mode. It then avoided it. Weak evidence, and
-T1 exists to replace it.
+`experiments/jc_h3_depth8_fiber/adapter.py` freezes the landed composition
+receipt and checks the exact middle scope between pointwise and componentwise
+claims. Review the L-valued nonzero check for `Omega_comb`, the solved status
+of `c7_4`, the free `c8_5` quantifier, and the separation between the selected
+base witness and the rest of the 12-dimensional survivor. The positive result
+is emptiness of the entire named **first-order** compatibility fiber only.
 
-**Gap B is unfixed on purpose.** Two auditors found `GE7`/`GE8`/`GE9` are case
-branches, not relaxations, and the type system has no vocabulary for a
-containment that holds only on a branch. Leaving it open is what makes T1
-informative about it — if a blind agent hits the same wall independently, that
-confirms the gap is systematic rather than one agent's slip.
+`lean/GrandPortage/FirstOrderFiber.lean` proves both the base-obstruction rule
+and a separate conditional nonlinear bridge. The adapter instantiates only the
+first theorem. Mutations promoting the result to nonlinear nonextension,
+another base point, the component, K-valued scope, depth nine, source/H3
+authority, or graph effect must refuse.
 
-The deeper form of the question, which I now think is the right one: **does a
-model node denote a conjunction of conditions or a union of branches?** For a
-conjunction, "more informative" and "smaller solution set" coincide. For a
-union they invert — which is exactly how `GE2` came to be drawn backwards while
-its own prose said the right thing.
+## 11. Graph-bound on-wall localized obstruction
 
-## 7. WHERE THE BODIES ARE BURIED
+`experiments/jc_h3_wall_ob_open/adapter.py` freezes the landed 502-term S2
+dead-row equation and 499-term ambient obstruction. Attack the exact identity
+`OB = value_24 + 45*c2_3*t*c8_9*R`, the `R=0` generator, the `OB!=0` guard,
+the other declared chart guards, coefficient domain, point universe, source
+digests, and graph fingerprint. The positive control is a current
+`LOCALIZED_UNIT_IDEAL_CERT` that mints `LOCAL_EMPTY` only on the named dead-row
+consequence model.
 
-Six defects found and fixed. **Five are the same family — quiet damage between a
-producer and its consumer — and that family is the reason this project exists,
-so a seventh is likely.**
+The complete nine-body parent and its edge to this consequence model do not
+exist in the assay. Any component, source, H3, verdict, or complementary
+`R=OB=0` conclusion is therefore an authority escalation. Also fuzz the
+generic membership backend with sparse targets, generators, and cofactors:
+none may be interpolated into Singular as Python or JSON dictionary syntax.
 
-1. `poly g0 = ...` shadowing a ring variable, producing false `UNIT` verdicts at
-   every prime *(inherited)*.
-2. An illegal `_ASSAY_` identifier: Singular errored, kept going, printed empty
-   markers, **exited 0** *(inherited)*.
-3. `_parse_outputs` capturing one line of a multi-generator basis, so
-   `GP_G[1]=f6` read as "the ideal is `(f6)`" *(mine)*.
-4. `gp accept --only` **replacing** the baseline instead of merging, destroying
-   a version-controlled record of knowingly-carried obligations. The broken path
-   was the one the docs recommended *(mine, caught by luck)*.
-5. A bulk `gp accept -m` overwriting the per-finding reason of every
-   already-accepted finding — **#4 again, narrower**, and it survived the fix
-   for #4 *(mine, found by external review)*.
-6. The v0.2 CAS fix closing two of five doors and claiming the room was sealed
-   *(mine, found by external review)*.
+## 12. Localized ring-element class control
 
-**The pattern in #5 and #6 is worth more than either.** Both are *the same
-mistake as the thing being fixed, committed while fixing it*: #4's lesson was
-"destroying a record must be explicit" and #5 destroys records; the original
-boundary bug was "validated one field, waved through the one beside it" and #6
-validates three fields and waves through the three beside them.
+`experiments/jc_h3_b0_compatibility/adapter.py` checks a proposition sort not
+represented by the model-level graph claims: whether one exact localized
+coordinate-ring element is zero or a unit. Attack the five-row matrix and RHS,
+the equality of its determinant with `det5`, every Lambda fiber part, the
+`3/2` eliminant scalar, clearing exponent two, the full `Phi_b0_compat`, and
+the specialization into the three-variable slice. Exponent one must retain a
+nonzero remainder.
 
-**Fixing a defect appears to make its neighbourhood *less* visible, not more.**
-If that generalises, the highest-value review target is always the code written
-in the last repair — not the code that has sat untouched.
+The adapter recomputes the resultant and first subresultant, strips only roots
+shared with the exact guard product and `S11`, and checks both observations in
+their quotient rings. Mutate the degree-14 modulus, `S10`, `S11`, `det5`, the
+`OB` pivot, or either point direction. The positive conclusion is exactly
+`nonzero AND nonunit`; attempts to infer nonzerodivisor status, component
+geometry, `K`-rationality, wall survival/emptiness, lifting, source, H8, H3,
+verdict, or graph authority must refuse. Review the deliberate choice to keep
+this as standalone evidence with graph effect `NONE` rather than prematurely
+adding a graph claim kind.
 
-## 8. Things I already know are weak
+The fixture also embeds the later `compatibility_module/1` certificate. Check
+that its principal generator digest is byte-identical to the independently
+reconstructed `Phi`, that its `(5,1,1)` localized ranks and zero rank strata
+remain scoped to the declared guards, and that its fiber semantics are labeled
+as consumed frozen premises rather than GP-rederived facts.
 
-Stated so review effort is not spent rediscovering them.
+## 13. `b=0` free-plane exceptional-factor control
 
-- **`ring_iso` and `integral` are unaudited booleans.** No rule asks for
-  evidence, unlike `EQUIVALENCE` which at least has `UNJUSTIFIED-EQUIVALENCE`.
-- **Coverage detects absent structure, never weak structure.** A declared but
-  too-weak component is invisible. Inherited from the whole coverage tradition.
-- **One incident per axis.** `place` and `order` each fire and each is
-  necessary, but neither shows discrimination *within* an axis.
-- **Merge safety is unit-tested only.** No two real agents have ever merged.
-  T4 is now unblocked (the fold was order-dependent until v0.2 and that would
-  have made T4 measure the wrong thing).
-- **`ladder` is unvalidated free text.** Nothing checks that
-  `independently-audited` means what a campaign means by it — and the CL-DICT
-  verification found a case where a source repo's own "two independent
-  mechanisms" claim was one mechanism written twice.
-- **No timestamps.** Deliberate — the files stay diffable and git carries the
-  when — but a baseline entry cannot say *when* a debt was accepted, and a
-  resuming reader cannot tell what the last session was working on.
-- **Gap C, D, E from the T2 audit are all still open:** an inference can attach
-  to a proxy edge; there is no retraction mechanism; `ev: "note"` bypasses the
-  checker entirely.
+`experiments/jc_h3_b0_free_plane/adapter.py` freezes the native 35-object,
+two-column ledger and independently replays every nonzero coefficient over
+`QQ`. Attack the native coefficient commitments, the exact `b` and `Delta`
+factorizations, the S2 and `b=0` restrictions, and the reversible
+`c9_7 <-> c9_7+(3/2)c2_3*c7_4` translation.
 
-## 9. What a good review produces
+The strongest mandatory refusals are semantic: `R=0` alone does not make the
+plane free; ambient `E321` is not blind before `Delta=0`; a unit-pivot rung
+value is a determination step rather than a ninth compatibility equation; and
+the ledger does not establish a component, source lift, H3, or graph claim.
+The checked report must preserve the six depth-eight boundary coefficients as
+its first open obligation and retain graph effect `NONE`.
 
-In descending order of value:
+## 14. Depth-eight determined affine-block control
 
-1. **A third CAS bypass.** §2. High prior.
-2. **A wrong cell, or a ledger row whose argument does not match its cell.**
-   §1. Two such rows have already been found and both had correct verdicts —
-   a test checks a verdict, never a reason.
-3. **A seventh member of the §7 family**, ideally in code written during the
-   v0.2 repair.
-4. **A layer disagreement.** MCP schema, `Transport`, the fold and the kernel
-   must agree what a field means. `witness` meant opposite things in two layers;
-   `ring_iso` existed in one and was rejected by another; `full` was declared in
-   a schema and never read. That is three, so look for a fourth.
+`experiments/jc_h3_b0_free_plane/depth8_adapter.py` composes the prior verified
+affine pivot with the landed nine raw coefficients and transported `3x2`
+matrix. Attack all nine coefficient hashes, the block hash, the forced sign of
+`D7`, the three minors, the unit audit for `c2_3`, `c3_5`, and `t`, the left
+syzygy `(c2_3,0,2)`, and the symbolic augmented determinant.
+
+The key review trap is attempting to derive the invariant block from the six
+direct raw coefficients alone. The native chain-rule assembly also includes
+earlier solved-coordinate sensitivities; GP records that assembly and the
+affine-degree argument as consumed frozen semantics. The positive result is a
+constant-rank-two **necessary** extension block. At GP commit `20bd252`, `r8`
+is absent and `Psi8` is only a symbolic pairing; no complete-fiber equivalence,
+source sufficiency, geometry of `Z(Psi8)`, H3, verdict, or graph authority
+follows.
+
+## 15. Explicit `Psi8` / constrained `Omega8` replay
+
+JC commit `b7abb3c` now supplies exact native bodies for `r8_1`, `r8_3`, and
+the 709-term `Psi8`, followed by the 4,123-term constrained base polynomial
+`Omega8` and a degree-14 witness algebra in which `Omega8` is a unit. These
+objects pass their native fast replays and are now independently GP-verified by
+`experiments/jc_h3_b0_free_plane/depth8_residual_adapter.py`.
+
+Review the exact sparse custody, zero middle entry of the syzygy, composition
+with `affine_fiber_block_v1`, ordered constrained substitution, explicit
+`c2_3^26*c3_5^2` factor ledger, and independent finite-quotient arithmetic.
+Mutation controls prevent body changes, sign changes, missing factors, altered
+ring/pin/digests, changed slices or moduli, and any widening from one frozen
+finite witness to a component. The positive result is the explicit necessary
+scalar and exclusion of the named degree-14 witness only. The report retains
+graph effect `NONE`; no relation, claim kind, graph field, or evidence schema
+was added.
+
+## 16. Scoped H8 discharge and `frontier/v1`
+
+`grandportage/frontier.py` is a general derived read surface over normalized
+evidence envelopes. Review its central refusal: a premise discharge applies
+only to exact scope IDs listed by the overlay, and a closed item reaches a
+consumer only through `exports_to_scopes`. No geometric containment or
+assumption weakening is inferred. Historical status and premise fields remain
+visible beside their effective projection, and the input fingerprint records
+the immutable source view.
+
+`experiments/jc_h3_frontier/adapter.py` is the first bounded consumer. It binds
+the H8 schedule, the exact depth-8, depth-9, and depths-10--15 P3/P4 receipts,
+and the `c7_9` family source certificate. The effective view discharges H8 and
+removes that qualifier from the depth-nine degree-34 pairing and the
+depth-8--15 operator schedule at their exact declared scopes. It must not
+discharge additive residual bodies, actual-source membership, source
+sufficiency, H3, or `(75,125)`.
+
+The same view closes the recorded codimension-five `c7_9` family because
+`face(8,1)` is a base-field unit there, but leaves full `b=0` source exclusion
+open. Its smallest next source-side artifact is a ranked pin-ablation receipt
+that records the surviving identity or first exact defect term and maximal
+licensed scope. The checked-in review receipt has graph effect `NONE`.
+
+## 17. Declaration target and second frontier consumer
+
+Review declaration as one transactional path, not two implementations.
+`store.append(events, root=...)` remains compatible, while its exact `graph=`
+form is used by global `--graph`. Repeated graph arguments are legal for reads
+and merges but must refuse for a write before stdin is touched. A selected
+sidecar must change while the root graph remains byte-identical; selecting an
+epoch-0 log must still refuse without modification. The literal
+`portage_declare` console entry point must forward to this same path.
+
+Then review `experiments/jc_h3_source_depth6/frontier_adapter.py` as the
+generality check for `frontier/v1`. It consumes a stage ledger rather than the
+H8 evidence-envelope fixture, applies no discharges, and preserves five
+domain-specific statuses through explicit `frontier_state: OPEN`. The R6 frame
+conversion and Q relocation must remain separate items with the same three
+stable premises. The parent source seam must retain a distinct exact scope and
+the conditional depth-six authority ceiling. The checked-in receipt must
+regenerate exactly with graph effect `NONE`.
+
+## 18. Pin-ablation handback
+
+Review `experiments/jc_h3_pin_ablation/frontier_adapter.py` as a scoped result
+consumer, not a component-cover proof. It must bind the joint low-jet, uniform
+`c2_2`, torus-normalization, and coordinator-handback bytes. Uniform `c2_2`
+source exclusion may close only at `c2_1=c7_10=0`. Joint `c2_2/c7_10`
+confinement must retain its exact hyperplane, the normalized generic exclusion
+must retain the degree-130 finite remainder, and the torus audit must block
+automatic transport away from `a=c^3`.
+
+The ranked artifact request may become `RESOLVED_TO_SCOPED_RESULTS`, but full
+`b=0`, `c2_1`, off-wall `b`, `R`, `Delta`, non-normalized transport, and the
+resultant roots must remain open. The explicit `c2_1/c2_2` simultaneous zero is
+not a source witness. Graph effect remains `NONE`; no H3 or `(75,125)` claim is
+licensed.
+
+## 19. Cross-consumer frontier bundle
+
+Review `grandportage/frontier_bundle.py` for the absence of last-writer-wins
+semantics. Every receipt is LF-normalized-digest-bound and must expose stable
+item observations with exact scope, effective status, and open/closed state.
+Every repeated semantic ID must have exactly one manifest resolution. Exact
+open agreement requires identical scope and status across every named receipt;
+supersession requires every prior view to be open, one named current closed
+status, and existing distinct replacement items.
+
+The current manifest must retain full `b=0` as shared open agreement and close
+only the old pin-ablation artifact request, replacing it with the ten scoped
+handback results. Mutated receipt bytes, unexplained overlaps, scope/status
+conflicts, false current status, or absent replacement IDs must refuse. The
+bundle remains `DERIVED_READ_MODEL_ONLY` with graph effect `NONE`.

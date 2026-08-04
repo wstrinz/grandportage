@@ -1,0 +1,50 @@
+{
+  "authority": "DERIVED_ASSAY_ONLY",
+  "cases": {
+    "same_id_equivalent_normalization": {
+      "conflict_fields": [
+        "generators"
+      ],
+      "exactly_equivalent": true,
+      "merge": "REFUSES"
+    },
+    "same_object_different_ids": {
+      "duplicate_affine_signatures": [
+        [
+          "FIBER-A",
+          "FIBER-B"
+        ]
+      ],
+      "finding": "UNRESOLVED_ALIAS",
+      "merge": "COMPOSES"
+    },
+    "stale_and_current_verdicts": {
+      "active_identity_verdict": "VERIFIED_DERIVED",
+      "merge": "COMPOSES",
+      "verdicts": {
+        "v.IDENTITY-CLAIM.c397469b68c05950": {
+          "current": true,
+          "stale_reason": null
+        },
+        "v.IDENTITY-CLAIM.c397469b68c05950.old-epoch": {
+          "current": false,
+          "stale_reason": "kernel epoch does not match"
+        }
+      }
+    },
+    "superseded_object_consumed_elsewhere": {
+      "merge": "COMPOSES",
+      "stale_model_findings": [
+        {
+          "detail": "claim USES-OLD sits at model OLD, which was superseded by NEW.\n  The claim is live and its anchor is not. Whatever the new model changed -- what it IS, its ring, its generators -- this claim was written against the old reading and nothing has re-examined it.",
+          "discharge": "If the claim still holds at NEW, supersede it with the model field repointed -- that is a RESTATE, because the model is part of what identifies a claim. If it does not, retract it. If the model supersession was itself a mistake, supersede the model back rather than leaving two live readings of one object.",
+          "id": "STALE-MODEL:USES-OLD",
+          "rule": "STALE-MODEL",
+          "severity": "TRIAGE",
+          "subject": "USES-OLD"
+        }
+      ]
+    }
+  },
+  "schema": "grand-portage-merge-assay/v1"
+}

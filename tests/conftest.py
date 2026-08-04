@@ -1,28 +1,26 @@
-import os
-import sys
+"""Repository-level test environment boundaries.
+
+The public Grand Portage release includes the frozen JC pressure adapters and
+their tests, but not the sibling ``math-stuff`` research checkout.  Keep those
+tests visible in collection while skipping the integration group when its
+native source tree is genuinely absent.  Workspace runs beside math-stuff are
+unchanged and still exercise every JC binding.
+"""
+
+from pathlib import Path
 
 import pytest
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.dirname(HERE)
 
-for p in (ROOT, HERE):
-    if p not in sys.path:
-        sys.path.insert(0, p)
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+JC_NATIVE_ROOT = REPOSITORY_ROOT.parent / "math-stuff"
 
 
-@pytest.fixture(autouse=True)
-def _skip_when_the_cas_is_absent(request):
-    """Skip `live` tests when there is no reachable CAS -- and only then run
-    the probe that decides.
-
-    The probe costs up to 180 seconds against a cold WSL, and it used to run at
-    module import, so `-m "not live"` paid for a solver it had just deselected.
-    Doing it here means the cost is paid at most once, and only by a run that
-    actually reaches a live test.
-    """
-    if request.node.get_closest_marker("live") is None:
+def pytest_collection_modifyitems(items):
+    if JC_NATIVE_ROOT.exists():
         return
-    import test_boundary as TB
-    if not TB._singular_available():
-        pytest.skip(TB._UNREACHABLE[0] or "Singular not reachable")
+    missing = pytest.mark.skip(
+        reason="JC integration tests require the sibling math-stuff checkout")
+    for item in items:
+        if Path(str(item.fspath)).name.startswith("test_jc_"):
+            item.add_marker(missing)

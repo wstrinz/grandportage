@@ -1,0 +1,104 @@
+{
+  "authority_contracts": [
+    {
+      "binds": [
+        "claim",
+        "model",
+        "coefficient domain",
+        "point universe",
+        "ring order",
+        "generators",
+        "guards",
+        "proof",
+        "verifier epoch"
+      ],
+      "containment": "the exact localized model only; no parent or cover authority",
+      "graph_effect": "LOCAL_EMPTY",
+      "representation": "localized_unit_ideal_v1",
+      "verifier": "verify.localized_unit_ideal"
+    },
+    {
+      "binds": [
+        "edge",
+        "endpoint models",
+        "coefficient domains",
+        "point universes",
+        "ring orders",
+        "generator ideals",
+        "forward map",
+        "inverse map",
+        "optional cofactor proof",
+        "verifier epoch"
+      ],
+      "containment": "the exact endpoint quotient rings only; no unencoded localization, source-extraction, parent, or coverage authority",
+      "graph_effect": "IDENTITY_TRANSPORT",
+      "representation": "mapped_ring_iso_v1 or solver-checked polynomial maps",
+      "verifier": "verify.ring_iso"
+    }
+  ],
+  "evidence_contracts": [
+    {
+      "compilation_target": "operation-specific graph binding remains required",
+      "description": "bounded exact coefficient images",
+      "maturity": "stable",
+      "schema": "coefficient_expansion_v1",
+      "standalone_graph_effect": "NONE"
+    },
+    {
+      "compilation_target": "semantic domain and unit premises, or a smaller exact certificate",
+      "description": "unit-times-positive-power polynomial identities",
+      "maturity": "experimental",
+      "schema": "factor_power_v1",
+      "standalone_graph_effect": "NONE"
+    },
+    {
+      "compilation_target": "localization_membership_v1 when an exact cofactor can be emitted",
+      "description": "factor contraction plus an affine declared-unit residual",
+      "maturity": "experimental",
+      "schema": "factor_power_affine_contradiction_v1",
+      "standalone_graph_effect": "NONE"
+    },
+    {
+      "compilation_target": "coefficient_expansion_v1 after an exact export binding",
+      "description": "finite Laurent straight-line equalities and support-cleared exports",
+      "maturity": "experimental",
+      "schema": "laurent_lowering_v1",
+      "standalone_graph_effect": "NONE"
+    },
+    {
+      "compilation_target": "operation-specific graph binding remains required",
+      "description": "bound Laurent lowering and coefficient-image replay",
+      "maturity": "experimental",
+      "schema": "laurent_coefficient_pipeline_v1",
+      "standalone_graph_effect": "NONE"
+    },
+    {
+      "compilation_target": "LOCALIZED_UNIT_IDEAL_CERT on an exact graph-bound model",
+      "description": "exact cofactor membership in a declared principal-open localization",
+      "maturity": "stable",
+      "schema": "localization_membership_v1",
+      "standalone_graph_effect": "NONE"
+    },
+    {
+      "compilation_target": "ProductSplit constructor plus independently verified partition",
+      "description": "exact product factorizations with declared-unit scalars",
+      "maturity": "experimental",
+      "schema": "product_split_v1",
+      "standalone_graph_effect": "NONE"
+    },
+    {
+      "compilation_target": "mapped-equivalence authority after exact state and map binding",
+      "description": "ordered localized affine substitutions",
+      "maturity": "experimental",
+      "schema": "localized_triangular_solve_chain_v1",
+      "standalone_graph_effect": "NONE"
+    },
+    {
+      "compilation_target": "mapped-equivalence authority after exact state and map binding",
+      "description": "ordered substitutions modulo explicit normalization generators",
+      "maturity": "experimental",
+      "schema": "localized_triangular_solve_chain_v2",
+      "standalone_graph_effect": "NONE"
+    }
+  ]
+}

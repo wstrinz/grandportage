@@ -1,0 +1,29 @@
+{
+  "schema": "gp-jc-h3-s2-lowjet-guard-peel-handback/v1",
+  "binding_digest_algo": "sha256-lf-normalized",
+  "jc_commit": "a6ef029",
+  "source_bindings": {
+    "f2_h3_b0_lowjet_cover_audit_certificate.json": "a6ae555b33da84e8d94442c5d1e4d89f207557e0358094a72225f12f330be39f",
+    "f2_h3_sigma_depth3_unit_pivot_certificate.json": "b1565b4a4e09fc125221d356d9f23a4ce6d7d2662c64529951ca5520312d7351",
+    "f2_h3_sigma_guard_peel.py": "2f088cade132f76a226a3f187ce4caeb7634684eb8fdf64e6f4291782de37539",
+    "f2_h3_sigma_guard_peel_certificate.json": "039ed0312ad0e02efcd41dc1d13bcea24d062c04566587400b15839dad6a2f38"
+  },
+  "closeout": {
+    "wall": "b = 0, R = 0, Delta = 0 (S2 substituted)",
+    "scope": "declared S2 low-jet cover universe only",
+    "verdict": "SIGMA_FULLY_SOURCE_EXCLUDED_INVARIANT_J",
+    "corollary": "LOWJET_COVER_COMPLETE",
+    "residual_degree": 15,
+    "residual_squarefree": true,
+    "candidate_count": 15,
+    "terminal_guard": "det5 = 0",
+    "checks": 31,
+    "new_localization": false,
+    "source_sufficiency_licensed": false,
+    "global_b0_licensed": false,
+    "s1_s3_s4_licensed": false,
+    "h3_licensed": false,
+    "verdict_75125_licensed": false
+  },
+  "authority_boundary": "This receipt closes only the declared b=R=Delta=0 S2 low-jet cover: every invariant-J Sigma candidate is an illegal det5 guard root. It does not assert source sufficiency, global b=0 emptiness, any S1/S3/S4 result, H3, or a (75,125) verdict."
+}

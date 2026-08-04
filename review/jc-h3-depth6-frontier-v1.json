@@ -1,0 +1,142 @@
+{
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "consumer": "jc-h3-depth6-status-ledger",
+  "graph_effect": "NONE",
+  "history": {
+    "immutable": true,
+    "input_fingerprint": "sha256:f8df9afed4249e972872fa7cd5fbe2cca251276990f45c8d2ffdfa4954ea0fac",
+    "item_count": 5
+  },
+  "item_observations": [
+    {
+      "id": "JC.H3.D6.R5.CUBIC_FACE",
+      "scope_id": "JC.H3.D6.CONDITIONAL_NORMALIZED_ROOT",
+      "state": "OPEN",
+      "status": "CHECKED_PREMISE_BOUND"
+    },
+    {
+      "id": "JC.H3.D6.R6.NONMONOMIAL_FRAME",
+      "scope_id": "JC.H3.D6.CONDITIONAL_NORMALIZED_ROOT",
+      "state": "OPEN",
+      "status": "OPEN_NONMONOMIAL_FRAME_CONVERSION"
+    },
+    {
+      "id": "JC.H3.D6.R6.Q_SIDE_RELOCATION",
+      "scope_id": "JC.H3.D6.CONDITIONAL_NORMALIZED_ROOT",
+      "state": "OPEN",
+      "status": "OPEN"
+    },
+    {
+      "id": "JC.H3.D6.R7.75_125_IDENTIFICATION",
+      "scope_id": "JC.H3.D6.CONDITIONAL_NORMALIZED_ROOT",
+      "state": "OPEN",
+      "status": "INFERRED_UNBOUND_75_125_IDENTIFICATION"
+    },
+    {
+      "id": "JC.H3.SOURCE.TARGET_PAIR_TO_NORMALIZED_LAURENT_ROOT",
+      "scope_id": "JC.H3.SOURCE.TARGET_PAIR.SEAM",
+      "state": "OPEN",
+      "status": "UNMATERIALIZED_OPEN"
+    }
+  ],
+  "items": [
+    {
+      "blocked_downstream": [
+        "original polynomial-pair membership",
+        "source-image sufficiency",
+        "reverse lift",
+        "chart or branch coverage",
+        "I4=I1=Im1=0",
+        "H3 promotion",
+        "(75,125) verdict change"
+      ],
+      "id": "JC.H3.D6.R5.CUBIC_FACE",
+      "scope_id": "JC.H3.D6.CONDITIONAL_NORMALIZED_ROOT",
+      "smallest_next_artifact": {
+        "description": "derive or bind the selected monic depressed-cubic face"
+      },
+      "status": "CHECKED_PREMISE_BOUND"
+    },
+    {
+      "blocked_downstream": [
+        "original polynomial-pair membership",
+        "source-image sufficiency",
+        "reverse lift",
+        "chart or branch coverage",
+        "I4=I1=Im1=0",
+        "H3 promotion",
+        "(75,125) verdict change"
+      ],
+      "id": "JC.H3.D6.R6.NONMONOMIAL_FRAME",
+      "scope_id": "JC.H3.D6.CONDITIONAL_NORMALIZED_ROOT",
+      "smallest_next_artifact": {
+        "description": "materialize the exact non-monomial eqq1-to-psi2 frame conversion"
+      },
+      "status": "OPEN_NONMONOMIAL_FRAME_CONVERSION"
+    },
+    {
+      "blocked_downstream": [
+        "Q-side positive-j relocation"
+      ],
+      "id": "JC.H3.D6.R6.Q_SIDE_RELOCATION",
+      "scope_id": "JC.H3.D6.CONDITIONAL_NORMALIZED_ROOT",
+      "smallest_next_artifact": {
+        "description": "prove Q-side positive-j relocation from the three named premises"
+      },
+      "status": "OPEN"
+    },
+    {
+      "blocked_downstream": [
+        "original polynomial-pair membership",
+        "source-image sufficiency",
+        "reverse lift",
+        "chart or branch coverage",
+        "I4=I1=Im1=0",
+        "H3 promotion",
+        "(75,125) verdict change"
+      ],
+      "id": "JC.H3.D6.R7.75_125_IDENTIFICATION",
+      "scope_id": "JC.H3.D6.CONDITIONAL_NORMALIZED_ROOT",
+      "smallest_next_artifact": {
+        "description": "supply a printed or independently derived (75,125) identification"
+      },
+      "status": "INFERRED_UNBOUND_75_125_IDENTIFICATION"
+    },
+    {
+      "blocked_downstream": [
+        "original polynomial-pair membership",
+        "source-image sufficiency",
+        "reverse lift",
+        "chart or branch coverage",
+        "I4=I1=Im1=0",
+        "H3 promotion",
+        "(75,125) verdict change"
+      ],
+      "id": "JC.H3.SOURCE.TARGET_PAIR_TO_NORMALIZED_LAURENT_ROOT",
+      "scope_id": "JC.H3.SOURCE.TARGET_PAIR.SEAM",
+      "smallest_next_artifact": {
+        "description": "materialize the coefficient-level map from the target polynomial pair to normalized Laurent-root data"
+      },
+      "status": "UNMATERIALIZED_OPEN"
+    }
+  ],
+  "open_items": [
+    "JC.H3.D6.R5.CUBIC_FACE",
+    "JC.H3.D6.R6.NONMONOMIAL_FRAME",
+    "JC.H3.D6.R6.Q_SIDE_RELOCATION",
+    "JC.H3.D6.R7.75_125_IDENTIFICATION",
+    "JC.H3.SOURCE.TARGET_PAIR_TO_NORMALIZED_LAURENT_ROOT"
+  ],
+  "projection_schema": "frontier/v1",
+  "schema": "gp-jc-h3-depth6-frontier-review/v1",
+  "source": {
+    "binding_count": 12,
+    "binding_digest_algo": "sha256-lf-normalized",
+    "ledger_schema": "gp-jc-h3-depth6-milestone-replay/v2",
+    "overall_verdict": "VERIFIED_TO_EXPLICIT_OPEN_OBLIGATION",
+    "path": "review/jc-h3-depth6-seam-replay-v2.json",
+    "sha256": "sha256:327434f1a5fe4aa34b707e38139f8d15a8523c37d372142d71193b153a83ecac"
+  },
+  "source_authority_ceiling": "CONDITIONAL_NORMALIZED_ROOT_TO_DEPTH6_BOUNDARY_ONLY",
+  "source_overall_verdict": "VERIFIED_TO_EXPLICIT_OPEN_OBLIGATION"
+}

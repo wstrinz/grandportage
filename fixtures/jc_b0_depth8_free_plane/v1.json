@@ -1,0 +1,1199 @@
+{
+  "authority_boundary": "The exact coefficient block determines two coordinates only in the named necessary extension model. The residual r8 and thus the explicit Psi8 polynomial are absent; no sufficiency, source, geometric, verdict, or graph authority is minted.",
+  "binding_digest_algo": "sha256-lf-normalized",
+  "gp_prerequisite": {
+    "fixture": "fixtures/jc_b0_free_plane/v1.json",
+    "required_result": "affine_round_trip and pivot-independent downstream",
+    "sha256": "b0bdca0a0b410d3510dd6b9285f9484c9c4462b42ebf3ff3439925a2326fac58"
+  },
+  "native_certificate": {
+    "M8": {
+      "closed_form": "[[0, -5*a*t], [-(5/8)*a**4*c, 0], [0, (5/2)*a**2*t]]",
+      "columns": [
+        "D7",
+        "D8"
+      ],
+      "entries": [
+        [
+          "0",
+          "-5*c2_3*t"
+        ],
+        [
+          "-5/8*c2_3**4*c3_5",
+          "0"
+        ],
+        [
+          "0",
+          "5/2*c2_3**2*t"
+        ]
+      ],
+      "rows": [
+        "E[2,19]",
+        "E[3,20]",
+        "E[4,22]"
+      ],
+      "shape": "anti-diagonal: E[2,19] and E[4,22] see only D8, E[3,20] sees only D7"
+    },
+    "bindings": {
+      "f2_h3_b0_compatibility_module.json": "944f95d762e05d3dec4ffa6599b4f0d1d2674e4127e5d168712a62de50291840",
+      "f2_h3_b0_free_plane_receipt.json": "e6c731f984d9c06d84aac014db8bff234bb15962d1ee6fac2ee80df7795e00da",
+      "f2_h3_p_c6_1_receipt.json": "d971325110dcab38b25089c542c4cc5fd79ddb04342124ebf11c5d673ce4ee25",
+      "f2_h3_source_depth6_chain_certificate.json.gz": "2280c88410667ce9c8ac5900c61b044f5cd7174540d859485c04bcca3a27eba0",
+      "f2_h3_source_depth6_receipt.json": "3dde87dd53b07c851ce78c27227b63660a9177860791cc2dca5bff5152db9c0d",
+      "f2_h3_source_depth7_receipt.json": "2b50fc44669222a335697119c6221588e056cc32dfc1e1590e96162a4d301b86"
+    },
+    "block_sha256": "843342a76f7b7d846c43b7825303f1a0d04d58cee51797b181725e68f3cffcbb",
+    "branch_cover": "none: no case split, no square root, no discriminant, no rank stratum.  The block has constant rank 2 on the whole declared localization",
+    "chain_input_state_fingerprint": "a26464be2ec90fa1eaeae872ca53c792d01c4cf8e9a406128771f3cd7fe135d1",
+    "checks": {
+      "passed": 39,
+      "total": 39
+    },
+    "coefficients_sha256": {
+      "E[2,19]/c7_4": "eeb06aeb17859a701ebe7a834e9ae89c66121d6499a84e204a54a97593e47ded",
+      "E[2,19]/c8_5": "552e13cf5b8bbe2d5d9dcd9ae5b964d36cba9078ae41650c758e7166b31758c3",
+      "E[2,19]/c9_7": "37e0422931a82a89f6642fc72aa6c037ade2db74acfe173e635610496868ce6e",
+      "E[3,20]/c7_4": "29c2090cf60fdc4d9684f7f9f677c8afc79f54a5249655281f3abf0aa9a318b7",
+      "E[3,20]/c8_5": "48aa642dbcff7838fb8ffc56ff7bee2fde9f210543b22472a744ed66c034ff1c",
+      "E[3,20]/c9_7": "a90ea6eff2f85be8cb576e4225cf84a76e77cd6f3efde2f0f2ffb04348ae2ed6",
+      "E[4,22]/c7_4": "ea533ccc1d7dbb049df74052e54e8e8c35a86b3af0e52dfb577fdb9057c7df6c",
+      "E[4,22]/c8_5": "46e8e8b3f4df65d3984452e10c1fac49f4544ce477557cd9989a7684a3517e1c",
+      "E[4,22]/c9_7": "f262f97d1ef96c40513d13d12a35cbe8412639eb39ee5cf48bd5f002d756c8b4"
+    },
+    "compatibility": {
+      "analogue": "exact depth-8 analogue of the module's det5**2 * det[[alpha, r3_VD], [beta, r3_E321]] = (5/8)*a**4*c * Phi",
+      "audited_legal_unit": "-(25/16)*c2_3**5*c3_5*t",
+      "augmented_identity": "det[M8 | r8] = -(25/16)*a**5*c*t * Psi8",
+      "generator": "Psi8 = a*r8_1 + 2*r8_3",
+      "ideal": "principal",
+      "semantics": "the depth-8 fiber over a point of X_b is nonempty iff Psi8 = 0; r8_2 does not appear",
+      "unit_audit": {
+        "25/16": "nonzero rational",
+        "c2_3": "DECLARED guard a != 0",
+        "c3_5": "FORCED by det5 != 0",
+        "t": "K-unit, 15*t**3 = -1"
+      }
+    },
+    "degree_certificate": {
+      "claim": "D7**2 = D7*D8 = D8**2 = 0 EXACTLY on all three rows",
+      "no_body_formed": true,
+      "nonlinear_block": "NONE; no Kuranishi-type block arises at depth 8",
+      "proof": "c7_4/c8_5/c9_7 enter a depth-8 body only through a coordinate of depth >= 7 (check E1); by the derivative identity d FACES[j][k]/d C[e][d] = [x**(k-d)] H_(j,e), a second derivative in two such coordinates is read at x**(8-d-d') with d, d' >= 7, i.e. at power <= -6, and a generating function has no negative powers; every solved value carrying c7_4 or c8_5 is degree <= 1 (checks E2, T4)",
+      "second_derivative_indices": {
+        "(7,7)": -6,
+        "(7,8)": -7,
+        "(8,7)": -7,
+        "(8,8)": -8
+      }
+    },
+    "denominators_introduced": [
+      {
+        "clearing_multiplier": "10*t",
+        "cofactor": "-(3/2)*t**2",
+        "denominator": "10*t",
+        "receipt": "10*t * (-(3/2)*t**2) = -15*t**3 = 1 under the pin 15*t**3 + 1 = 0 (verified in check E5)",
+        "status": "DECLARED persistent unit pivot of row 1, frozen in the depth-7 receipt",
+        "where": "solving the refused row-1 depth-8 rung for the two free-plane coefficients of sigma(c9_6)"
+      }
+    ],
+    "exceptional_divisor": "none new.  The three raw coefficients that die on X_b die on the ALREADY-LANDED loci Z(b), Z(Delta), Z(R)",
+    "exceptional_factors_depth8": [
+      "c5_7 (= b)",
+      "Delta = c2_3**2 - 4*c4_5",
+      "R (the wall)"
+    ],
+    "fiber_semantics": {
+      "classification": "rank 2 -- plane determined, at most one excess-row compatibility",
+      "consequence": "the free affine 2-plane of the compatibility module is free only at the MATERIALIZED depth 6/7; at depth 8 both transported directions are determined and one new compatibility class Psi8 appears",
+      "determined": {
+        "c7_4 (transported)": "by E[3,20], unit pivot beta = -(5/8)*a**4*c",
+        "c8_5": "by E[2,19], unit pivot -5*a*t"
+      },
+      "excess_rows": 1
+    },
+    "field": "K = QQ[t]/(15*t**3 + 1)",
+    "id": "f2_h3_b0_depth8_free_plane_coefficients",
+    "kind": "transported depth-8 compatibility block for the free affine 2-plane (c7_4, c8_5); coefficient-only, no depth-8 body materialized",
+    "layer": "b = 0 compatibility module, depth-8 boundary triple E[2,19], E[3,20], E[4,22] over X_b",
+    "left_syzygy": {
+      "freeness_reason": "the D7 column has the single unit entry beta in row E[3,20]",
+      "generator": [
+        "a",
+        "0",
+        "2"
+      ],
+      "meaning": "a*E[2,19] + 2*E[4,22] is D7-free and D8-free",
+      "module": "free of rank 1",
+      "primitive": true
+    },
+    "localization_ledger": {
+      "derived_units": [
+        "c3_5 (forced: every term of det5 on the wall carries c2_3 and c3_5)",
+        "t (15*t**3 = -1)"
+      ],
+      "inverted": [
+        "c2_3",
+        "p",
+        "det5"
+      ],
+      "never_inverted": [
+        "c5_7",
+        "mu*w",
+        "R",
+        "det6",
+        "det5p"
+      ],
+      "new_inversions_at_depth8": [
+        "10*t (declared unit pivot; see denominators_introduced)"
+      ],
+      "used_as_divisors_only": [
+        "c5_7 (b)",
+        "Delta",
+        "R",
+        "R + c*b"
+      ]
+    },
+    "new_factors_at_depth8": [],
+    "nonlinear_occurrences": {
+      "c7_4": "NONE encountered anywhere in this extraction",
+      "c8_5": "NONE encountered anywhere in this extraction",
+      "c9_7": "NONE encountered anywhere in this extraction",
+      "certified_by": "checks E1, E2, T3, T4"
+    },
+    "open": [
+      "r8, hence the explicit Psi8 -- the named smallest missing producer intermediate",
+      "whether Psi8 is a nonzerodivisor on X_b, i.e. whether Z(Psi8) contains a component",
+      "whether Z(Psi8) cap Z(Phi) cap X_b is nonempty",
+      "the depth-9 boundary faces, and whether new free directions appear as roots 6 and 9 exhaust",
+      "whether any object outside the rows 1..5 seam constrains the plane"
+    ],
+    "presentation": "Delta-substituted S2 (c4_5 = a**2/4); a = c2_3, c = c3_5, b = c5_7, d = c4_5; Delta = a**2 - 4*d; wall R = c8_12 + 2*c*b - a*c**2; X_b : b = R = A = OB = 0; guards a != 0, p != 0, det5 != 0",
+    "rank": {
+      "I1_is_unit_ideal_on_localization": true,
+      "I2_generator": "a**5*c*t",
+      "I2_is_unit_ideal_on_localization": true,
+      "minors_2x2": {
+        "rows(E219,E320)": "-25/8*c2_3**5*c3_5*t",
+        "rows(E219,E422)": "0",
+        "rows(E320,E422)": "-25/16*c2_3**6*c3_5*t"
+      },
+      "stratification": "NONE: no rank drop anywhere on X_b, and none on X_b cap Z(Phi) either",
+      "value": 2
+    },
+    "raw_six_coefficients_provenance": {
+      "E[2,19]": {
+        "c8_5": "-5*c2_3*t",
+        "c9_7": "10*R",
+        "on_X_b_c8_5": "-5*a*t",
+        "on_X_b_c9_7": "0"
+      },
+      "E[3,20]": {
+        "c8_5": "5*a*R",
+        "c9_7": "-5*c2_2*t + -10*c2_3*c3_5*c4_5 + -150*c2_3*c3_5**2*c8_12*t**2 + -300*c2_3*c3_5**3*c5_7*t**2 + -5*c2_3*c7_10 + 75*c2_3**2*c3_5**4*t**2 + -5*c2_3**2*c5_7 + 300*c3_5*c5_7*c8_12*t**2 + 300*c3_5**2*c5_7**2*t**2 + -5*c4_5*c5_7 + 75*c8_12**2*t**2",
+        "on_X_b_c8_5": "0",
+        "on_X_b_c9_7": "-5*c2_2*t + -5*c2_3*c7_10 + -5/2*c2_3**3*c3_5"
+      },
+      "E[4,22]": {
+        "c8_5": "5*t*(a**2 - 2*d)",
+        "c9_7": "-5*b**2",
+        "on_X_b_c8_5": "(5/2)*a**2*t",
+        "on_X_b_c9_7": "0"
+      },
+      "warning": "these are RAW COORDINATE coefficients and are NOT the invariant block: they mix the pivot-absorbed direction with the c9_7 slot the depth-7 rung already spent.  Use M8"
+    },
+    "refusals": [
+      "no depth-8 body, triple or face is materialized; the transported block and its invariants only",
+      "no generic depth-8 march, no producer rerun, no lift 21",
+      "no Groebner, resultant, primary or component decomposition",
+      "no recursive wall stratification",
+      "the refused c9_6 rung is NOT produced: only its two free-plane coefficients are derived, through the declared unit pivot",
+      "no inversion of b, Delta, R or any undeclared coefficient",
+      "no nonzerodivisor claim; b is ZERO on X_b, and Psi8 is not claimed to be a nonzerodivisor either",
+      "no source sufficiency, H3, H8, membership or (75,125) claim",
+      "no claim that the depth-8 block is equivalent to the source fiber",
+      "no GP JSON, no adapter, no status promotion",
+      "no edit to any shared programme, suite, status or handoff file"
+    ],
+    "residual_vector_r8": {
+      "carried_as": [
+        "r8_1",
+        "r8_2",
+        "r8_3"
+      ],
+      "definition": "(E[2,19], E[3,20], E[4,22]) evaluated at c7_4 = c8_5 = 0 after every earlier legal solve, restricted to X_b",
+      "note": "M8, its minors, its rank, its syzygy module and the audited unit below are all r8-INDEPENDENT",
+      "status": "NOT EXPORTED -- the smallest missing producer intermediate.  Materializing it means three depth-8 boundary bodies, which this packet refuses"
+    },
+    "restriction_applied": "onwall (b = 0, then c8_12 -> a*c**2) then subs_delta (c4_5 -> a**2/4), byte-identical to the landed compatibility module and free-plane receipt.  A = 0 and OB = 0 are further BASE equations of X_b and were not needed; Phi = 0 cannot change the block because every entry is a unit",
+    "ring_variable_order": [
+      "p",
+      "c2_1",
+      "c2_2",
+      "c2_3",
+      "q",
+      "c3_1",
+      "c3_2",
+      "c3_3",
+      "c3_4",
+      "c3_5",
+      "c4_0",
+      "c4_1",
+      "c4_2",
+      "c4_3",
+      "c4_4",
+      "c4_5",
+      "c5_0",
+      "c5_1",
+      "c5_2",
+      "c5_3",
+      "c5_4",
+      "c5_5",
+      "c5_6",
+      "c5_7",
+      "c6_0",
+      "c6_1",
+      "c6_2",
+      "c6_3",
+      "c6_4",
+      "c6_5",
+      "c6_6",
+      "c6_7",
+      "c6_8",
+      "c6_9",
+      "c7_0",
+      "c7_1",
+      "c7_2",
+      "c7_3",
+      "c7_4",
+      "c7_5",
+      "c7_6",
+      "c7_7",
+      "c7_8",
+      "c7_9",
+      "c7_10",
+      "t",
+      "c8_0",
+      "c8_1",
+      "c8_2",
+      "c8_3",
+      "c8_4",
+      "c8_5",
+      "c8_6",
+      "c8_7",
+      "c8_8",
+      "c8_9",
+      "c8_10",
+      "c8_11",
+      "c8_12",
+      "c9_0",
+      "c9_1",
+      "c9_2",
+      "c9_3",
+      "c9_4",
+      "c9_5",
+      "c9_6",
+      "c9_7",
+      "c9_8",
+      "c9_9",
+      "c9_10",
+      "c9_11",
+      "c9_12",
+      "c9_13",
+      "c9_14"
+    ],
+    "schema_version": 1,
+    "semantic_grade": {
+      "authority": "ACTUAL-SOURCE layer, conditional on the frozen premises P1..P5, the pin, S2 and the declared guards.  Native JC format only: no GP JSON, no adapter, no status promotion",
+      "is_not": "an equivalent depth-8 fiber model, and not an equivalent source fiber.  Three necessary boundary equations are not a source fiber; this lane does not even materialize the three equations",
+      "missing_implication": "that solvability of the depth-8 block (Psi8 = 0 plus the two determinations) IMPLIES extension of the actual source past depth 8.  Proving that needs r8, the depth-9 faces, and an argument that no object outside the rows 1..5 seam constrains the plane.  Equivalence to the actual source fiber is NOT proved here and must be established separately",
+      "supplies": "NECESSARY CONDITIONS ONLY.  A necessary depth-8 EXTENSION MODEL: the exact transported first-order block of three boundary equations, plus the exact compatibility pairing they force"
+    },
+    "sensitivities_consumed": {
+      "d(c5_0)/d(c7_4)": "15*b*t**2",
+      "d(c5_0)/d(c8_5)": "0",
+      "d(c6_1)/d(c7_4)": "-30*b*t*(R + c*b) + (15/2)*a*t**2*Delta",
+      "d(c6_1)/d(c8_5)": "15*b*t**2",
+      "d(c6_2)/d(c7_4)": "0",
+      "d(c6_2)/d(c8_5)": "0",
+      "d(c9_6)/d(c7_4)": "-(3/2)*c2_2 on X_b  -- DERIVED here as a coefficient, rung NOT materialized",
+      "d(c9_6)/d(c8_5)": "15*t**2*(R - 2*b*c)  [0 on X_b]  -- DERIVED here as a coefficient, rung NOT materialized",
+      "d(c9_7)/d(c7_4)": "-(3/2)*a",
+      "d(c9_7)/d(c8_5)": "0"
+    },
+    "source_digests": {
+      "f2_h3_esystem_seam.py": "e21ecff0f9f389b620fa599820e95c93eb44343c44ff20e9d25879f330b39aca",
+      "f2_h3_graded_eliminator_contract.py": "63da51c56475d39266f3fc74e6f5b0a2f70d05e0d7781d98791aa6bf12535965",
+      "f2_h3_source_depth7_producer.py": "19bbf03fbc69b1d34054a2a6b1d590c062189e0a65917857c151dcc98244753f",
+      "f2_target_root_support_data.py": "16eb77a98c9c02939cc48a9b7f0e9f1141234784013daf4a34ca375666a2f2d2"
+    },
+    "transport": {
+      "D7": "d/d c7_4 - (3/2)*a * d/d c9_7   (q7, base coords, guards and a held fixed)",
+      "D8": "d/d c8_5",
+      "invariant": "q7 := c9_7 + (3/2)*a*c7_4",
+      "licence": "the depth-7 row-1 rung has pivot 10*t, a K-unit, so it is a DETERMINATION contributing no equation, and its exact c7_4 coefficient is -(3/2)*a (f2_h3_b0_free_plane_receipt.json, E5)",
+      "post_solve_collapse": "on the post-solve bodies c9_7 is already back-substituted, so D7 = total d/d c7_4; check T2 exhibits both assemblies agreeing",
+      "sign_convention": "FORCED by D7(q7) = 0; equivalently by the landed identity coef(c9_7-value, c7_4) + (3/2)*a = 0 (check T1)",
+      "terminology": "c7_4 is a PIVOT-ABSORBED FREE DIRECTION, not a gauge direction: no group acts and no orbit is quotiented"
+    },
+    "unresolved_locus": "Z(Psi8) cap X_b -- the depth-8 compatible stratum.  Its equation waits on r8; its geometry (dimension, degree, K-points, irreducibility, whether Psi8 is a nonzerodivisor) is untouched",
+    "verdict": "RANK2_PLANE_DETERMINED_ONE_EXCESS_COMPATIBILITY"
+  },
+  "projection": {
+    "base_model": "X_b with P1..P5, S2, pin, and declared guards",
+    "checked_block": {
+      "columns": [
+        "D7",
+        "D8"
+      ],
+      "determines": [
+        "transported c7_4",
+        "c8_5"
+      ],
+      "excess_rows": 1,
+      "left_syzygy": [
+        "c2_3",
+        "0",
+        "2"
+      ],
+      "rank": 2,
+      "residual_status": "NOT_EXPORTED",
+      "rows": [
+        "E[2,19]",
+        "E[3,20]",
+        "E[4,22]"
+      ],
+      "symbolic_compatibility": "Psi8=c2_3*r8_1+2*r8_3"
+    },
+    "coefficient_domain": "K = QQ[t]/(15*t^3+1)",
+    "consumed_frozen_semantics": [
+      "the native derivative-table chain-rule assembly transports the raw columns through every earlier solved-coordinate sensitivity",
+      "the derivative/support argument makes the depth-eight dependence affine in the transported directions",
+      "the boundary triple is a necessary condition for actual-source extension under the named premises"
+    ],
+    "does_not_license": [
+      "an explicit polynomial Psi8 before r8 is exported",
+      "materialization of any depth-eight boundary body or the c9_6 rung",
+      "equivalence with the complete depth-eight fiber or actual-source fiber",
+      "sufficiency for extension past depth eight",
+      "nonzerodivisor, component, irreducibility, point, or emptiness claims on Z(Psi8)",
+      "depth nine, H8, H3, source membership, or a (75,125) verdict change",
+      "any graph claim or transport authority"
+    ],
+    "first_open_obligation": "export r8=(r8_1,r8_2,r8_3), the three boundary residuals after earlier legal solves on X_b, without promoting necessary to sufficient",
+    "graph_effect": "NONE",
+    "instance_id": "jc_h3_b0_depth8_transported_free_plane_block",
+    "licenses": [
+      "the nine raw boundary coefficients are the frozen exact coefficients",
+      "the pivot-absorbed transported block is the declared exact 3x2 matrix",
+      "the block has constant rank two under the audited localization units",
+      "the two transported directions are determined in this necessary extension block",
+      "for every symbolic residual, solvability is equivalent to one compatibility pairing Psi8=0"
+    ],
+    "semantic_layer": "NECESSARY_DEPTH8_EXTENSION_BLOCK",
+    "transport": {
+      "D7": "d/dc7_4-(3/2)*c2_3*d/dc9_7",
+      "D8": "d/dc8_5",
+      "invariant_coordinate": "q7=c9_7+(3/2)*c2_3*c7_4",
+      "prerequisite": "verified depth-7 c9_7 affine pivot absorption"
+    }
+  },
+  "raw_columns": {
+    "E[2,19]": {
+      "c7_4": [
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "c3_5",
+              1
+            ],
+            [
+              "c5_7",
+              1
+            ]
+          ],
+          "40"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "c8_12",
+              1
+            ]
+          ],
+          "20"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              2
+            ],
+            [
+              "c3_5",
+              2
+            ]
+          ],
+          "-20"
+        ],
+        [
+          [
+            [
+              "c5_7",
+              2
+            ]
+          ],
+          "-5"
+        ]
+      ],
+      "c8_5": [
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "t",
+              1
+            ]
+          ],
+          "-5"
+        ]
+      ],
+      "c9_7": [
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "c3_5",
+              2
+            ]
+          ],
+          "-10"
+        ],
+        [
+          [
+            [
+              "c3_5",
+              1
+            ],
+            [
+              "c5_7",
+              1
+            ]
+          ],
+          "20"
+        ],
+        [
+          [
+            [
+              "c8_12",
+              1
+            ]
+          ],
+          "10"
+        ]
+      ]
+    },
+    "E[3,20]": {
+      "c7_4": [
+        [
+          [
+            [
+              "c2_2",
+              1
+            ],
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "t",
+              1
+            ]
+          ],
+          "-15"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "c3_5",
+              1
+            ],
+            [
+              "c5_7",
+              1
+            ],
+            [
+              "c8_12",
+              1
+            ],
+            [
+              "t",
+              2
+            ]
+          ],
+          "600"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "c3_5",
+              2
+            ],
+            [
+              "c5_7",
+              2
+            ],
+            [
+              "t",
+              2
+            ]
+          ],
+          "750"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "c8_12",
+              2
+            ],
+            [
+              "t",
+              2
+            ]
+          ],
+          "150"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              2
+            ],
+            [
+              "c3_5",
+              1
+            ],
+            [
+              "c4_5",
+              1
+            ]
+          ],
+          "-20"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              2
+            ],
+            [
+              "c3_5",
+              2
+            ],
+            [
+              "c8_12",
+              1
+            ],
+            [
+              "t",
+              2
+            ]
+          ],
+          "-300"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              2
+            ],
+            [
+              "c3_5",
+              3
+            ],
+            [
+              "c5_7",
+              1
+            ],
+            [
+              "t",
+              2
+            ]
+          ],
+          "-600"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              2
+            ],
+            [
+              "c7_10",
+              1
+            ]
+          ],
+          "-10"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              3
+            ],
+            [
+              "c3_5",
+              4
+            ],
+            [
+              "t",
+              2
+            ]
+          ],
+          "150"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              3
+            ],
+            [
+              "c5_7",
+              1
+            ]
+          ],
+          "-10"
+        ],
+        [
+          [
+            [
+              "c3_5",
+              1
+            ],
+            [
+              "c4_5",
+              2
+            ]
+          ],
+          "10"
+        ],
+        [
+          [
+            [
+              "c3_5",
+              1
+            ],
+            [
+              "c5_7",
+              3
+            ],
+            [
+              "t",
+              2
+            ]
+          ],
+          "-200"
+        ],
+        [
+          [
+            [
+              "c4_5",
+              1
+            ],
+            [
+              "c7_10",
+              1
+            ]
+          ],
+          "10"
+        ],
+        [
+          [
+            [
+              "c5_7",
+              2
+            ],
+            [
+              "c8_12",
+              1
+            ],
+            [
+              "t",
+              2
+            ]
+          ],
+          "-150"
+        ]
+      ],
+      "c8_5": [
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "c3_5",
+              1
+            ],
+            [
+              "c5_7",
+              1
+            ]
+          ],
+          "10"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "c8_12",
+              1
+            ]
+          ],
+          "5"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              2
+            ],
+            [
+              "c3_5",
+              2
+            ]
+          ],
+          "-5"
+        ]
+      ],
+      "c9_7": [
+        [
+          [
+            [
+              "c2_2",
+              1
+            ],
+            [
+              "t",
+              1
+            ]
+          ],
+          "-5"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "c3_5",
+              1
+            ],
+            [
+              "c4_5",
+              1
+            ]
+          ],
+          "-10"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "c3_5",
+              2
+            ],
+            [
+              "c8_12",
+              1
+            ],
+            [
+              "t",
+              2
+            ]
+          ],
+          "-150"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "c3_5",
+              3
+            ],
+            [
+              "c5_7",
+              1
+            ],
+            [
+              "t",
+              2
+            ]
+          ],
+          "-300"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "c7_10",
+              1
+            ]
+          ],
+          "-5"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              2
+            ],
+            [
+              "c3_5",
+              4
+            ],
+            [
+              "t",
+              2
+            ]
+          ],
+          "75"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              2
+            ],
+            [
+              "c5_7",
+              1
+            ]
+          ],
+          "-5"
+        ],
+        [
+          [
+            [
+              "c3_5",
+              1
+            ],
+            [
+              "c5_7",
+              1
+            ],
+            [
+              "c8_12",
+              1
+            ],
+            [
+              "t",
+              2
+            ]
+          ],
+          "300"
+        ],
+        [
+          [
+            [
+              "c3_5",
+              2
+            ],
+            [
+              "c5_7",
+              2
+            ],
+            [
+              "t",
+              2
+            ]
+          ],
+          "300"
+        ],
+        [
+          [
+            [
+              "c4_5",
+              1
+            ],
+            [
+              "c5_7",
+              1
+            ]
+          ],
+          "-5"
+        ],
+        [
+          [
+            [
+              "c8_12",
+              2
+            ],
+            [
+              "t",
+              2
+            ]
+          ],
+          "75"
+        ]
+      ]
+    },
+    "E[4,22]": {
+      "c7_4": [
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "c3_5",
+              2
+            ],
+            [
+              "c4_5",
+              1
+            ]
+          ],
+          "-10"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "c5_7",
+              2
+            ]
+          ],
+          "-5"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              2
+            ],
+            [
+              "c3_5",
+              1
+            ],
+            [
+              "c5_7",
+              1
+            ]
+          ],
+          "-10"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              2
+            ],
+            [
+              "c8_12",
+              1
+            ]
+          ],
+          "-5"
+        ],
+        [
+          [
+            [
+              "c2_3",
+              3
+            ],
+            [
+              "c3_5",
+              2
+            ]
+          ],
+          "5"
+        ],
+        [
+          [
+            [
+              "c3_5",
+              1
+            ],
+            [
+              "c4_5",
+              1
+            ],
+            [
+              "c5_7",
+              1
+            ]
+          ],
+          "20"
+        ],
+        [
+          [
+            [
+              "c4_5",
+              1
+            ],
+            [
+              "c8_12",
+              1
+            ]
+          ],
+          "10"
+        ]
+      ],
+      "c8_5": [
+        [
+          [
+            [
+              "c2_3",
+              2
+            ],
+            [
+              "t",
+              1
+            ]
+          ],
+          "5"
+        ],
+        [
+          [
+            [
+              "c4_5",
+              1
+            ],
+            [
+              "t",
+              1
+            ]
+          ],
+          "-10"
+        ]
+      ],
+      "c9_7": [
+        [
+          [
+            [
+              "c5_7",
+              2
+            ]
+          ],
+          "-5"
+        ]
+      ]
+    }
+  },
+  "schema": "affine_fiber_block_v1",
+  "source_bindings": {
+    "f2_h3_b0_compatibility_module.json": "944f95d762e05d3dec4ffa6599b4f0d1d2674e4127e5d168712a62de50291840",
+    "f2_h3_b0_depth8_free_plane_coefficients.json": "5cf9015b0065eb6fd5cd181be28f4c9e8004ca61786fafba1af463fddfc3024a",
+    "f2_h3_b0_depth8_free_plane_coefficients.py": "75261cd6a03796bab720d1b95c0a012290e2722353801d7429ad19e059ee760c",
+    "f2_h3_b0_free_plane_receipt.json": "e6c731f984d9c06d84aac014db8bff234bb15962d1ee6fac2ee80df7795e00da",
+    "f2_h3_esystem_seam.py": "e21ecff0f9f389b620fa599820e95c93eb44343c44ff20e9d25879f330b39aca",
+    "f2_h3_graded_eliminator_contract.py": "63da51c56475d39266f3fc74e6f5b0a2f70d05e0d7781d98791aa6bf12535965",
+    "f2_h3_p_c6_1_receipt.json": "d971325110dcab38b25089c542c4cc5fd79ddb04342124ebf11c5d673ce4ee25",
+    "f2_h3_source_depth6_chain_certificate.json.gz": "2280c88410667ce9c8ac5900c61b044f5cd7174540d859485c04bcca3a27eba0",
+    "f2_h3_source_depth6_receipt.json": "3dde87dd53b07c851ce78c27227b63660a9177860791cc2dca5bff5152db9c0d",
+    "f2_h3_source_depth7_producer.py": "19bbf03fbc69b1d34054a2a6b1d590c062189e0a65917857c151dcc98244753f",
+    "f2_h3_source_depth7_receipt.json": "2b50fc44669222a335697119c6221588e056cc32dfc1e1590e96162a4d301b86",
+    "f2_target_root_support_data.py": "16eb77a98c9c02939cc48a9b7f0e9f1141234784013daf4a34ca375666a2f2d2"
+  },
+  "transported_block": [
+    [
+      [],
+      [
+        [
+          [
+            [
+              "c2_3",
+              1
+            ],
+            [
+              "t",
+              1
+            ]
+          ],
+          "-5"
+        ]
+      ]
+    ],
+    [
+      [
+        [
+          [
+            [
+              "c2_3",
+              4
+            ],
+            [
+              "c3_5",
+              1
+            ]
+          ],
+          "-5/8"
+        ]
+      ],
+      []
+    ],
+    [
+      [],
+      [
+        [
+          [
+            [
+              "c2_3",
+              2
+            ],
+            [
+              "t",
+              1
+            ]
+          ],
+          "5/2"
+        ]
+      ]
+    ]
+  ]
+}

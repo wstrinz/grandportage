@@ -1,0 +1,290 @@
+{
+  "authority_boundary": "Conditional normalized-root to reduced-row replay only. The original-pair to normalized-root coefficient map remains open; no graph, membership, reverse-lift, coverage, H3, or verdict authority.",
+  "gp_face_fixture_sha256": "6c8887034321884b6bb0aa7cd8cf04d90e472a36f4a6ba4035a53e7eda1aa8a1",
+  "manifest": {
+    "authority": {
+      "refusals": [
+        "complete original-pair to reduced-E-system edge",
+        "actual polynomial-pair membership",
+        "source-image sufficiency",
+        "reverse lift",
+        "chart coverage",
+        "I4=I1=Im1=0",
+        "H3 promotion",
+        "(75,125) verdict change"
+      ],
+      "strict_original_source_supported": false,
+      "supported": "conditional normalized-Laurent-root data maps one-way to five exact reduced polynomiality rows"
+    },
+    "bindings_sha256_lf_normalized": {
+      "f2_divisor3_gauge_ladder.py": "0db2ad2bf1819cecb7409a54d237b169b2906fde8ae02833a5cfd7ef3bfe7180",
+      "f2_h3_esystem_seam.py": "e21ecff0f9f389b620fa599820e95c93eb44343c44ff20e9d25879f330b39aca",
+      "f2_h3_graded_eliminator_contract.py": "63da51c56475d39266f3fc74e6f5b0a2f70d05e0d7781d98791aa6bf12535965",
+      "f2_h3_source_depth6_chain_producer.py": "aa6b286b753aadcec4d8df512d553b3d0ab024266dbeb4ac02e7dbb5ed611408",
+      "f2_j1_direct_bridge.py": "105720e76b685d1aac3fb300abf362997c14c3994d1870850cc99d04d9fba9ca",
+      "f2_reduction_certificate.py": "5ff3faf543ba01e3e6e06f7e79d1120c667fac2836ed27de1a5c41dae07d9da0",
+      "f2_reduction_certificate_verify.py": "c2c0bcd0b9eabce341d86e7c46b9850f0214b9d52949eb2651a6c39ab640903a",
+      "f2_target_root_support_data.py": "16eb77a98c9c02939cc48a9b7f0e9f1141234784013daf4a34ca375666a2f2d2",
+      "f2_target_root_support_transport.py": "9ffffee0144b2061a835148de3fd199250ef67b081c5020116cd515c5afdcc07",
+      "paper_src/1401.1784_GGV1.tex": "631eefe1474ef28fd1f8d820bb08b18ab191667f7e43a23d6083b61eb4d688b5",
+      "paper_src/1406.0886_GGV3.tex": "90415f594bb1c213e57e46c59147c39e1c9977c3be539be5d4aedefa757f4997"
+    },
+    "existing_downstream_bindings": {
+      "depth6_chain_canonical_sha256": "d5ed44977e1f39312fbd2d30a286f686a0cd26d55dba237420a7a3d2bf513f15",
+      "gp_graded_face_fixture_sha256": "6c8887034321884b6bb0aa7cd8cf04d90e472a36f4a6ba4035a53e7eda1aa8a1",
+      "window_equation_order_sha256": "8e476f86bfb12bee77d9f1b3bcebc136e7a4bba16fea4d31893538f9472a64e7",
+      "window_variable_order_sha256": "4e1f5c1e91ca773bc4a5ea55272cca3fb279173e5ed1691d7dd8487eb4c26dda"
+    },
+    "normalized_root_contract": {
+      "delta": 3,
+      "invariant_substitution_downstream": {
+        "a1": "I1+4/5*a2*I4",
+        "a4": "I4",
+        "am1": "Im1+1/5*a2^2"
+      },
+      "m": 3,
+      "n": 5,
+      "output_rows": 5,
+      "output_variable_order": [
+        "z2",
+        "z3",
+        "z4",
+        "z5",
+        "z6",
+        "z7",
+        "z8",
+        "z9",
+        "a2",
+        "a4",
+        "a1",
+        "am1",
+        "lam"
+      ],
+      "p_side_equations": "coeff_u^(9+k)(Zu^3)=0 for k=1..14",
+      "p_side_rows": 14,
+      "pin_semantics": {
+        "part_of_reduced_row_derivation": false,
+        "relation": "15*t^3+1=0",
+        "stage": "downstream weighted-face/source specialization"
+      },
+      "row_formula": "coefficients of Zu^5+a4*Zu^4+a2*Zu^2+a1*Zu+am1*Zu^-1+lam*Zu^-2",
+      "series": "Zu=1+sum(z_e*u^e)",
+      "solved_variables": [
+        "z10",
+        "z11",
+        "z12",
+        "z13",
+        "z14",
+        "z15",
+        "z16",
+        "z17",
+        "z18",
+        "z19",
+        "z20",
+        "z21",
+        "z22",
+        "z23"
+      ],
+      "source_window_rows": 8
+    },
+    "observed_base_commit": "87fdc14e01dd5d4aab01e6009c7c09183fdf928c",
+    "reduced_rows": [
+      {
+        "row": 1,
+        "sha256": "2c10ee773d3f951460edebb2233ef6f1a95d8686f416e45395b112d64cb13d95",
+        "terms": 39
+      },
+      {
+        "row": 2,
+        "sha256": "705fc43f2dabfbd5bbde70ed7a6614ac8e740893f86beebc792fd5e3633a9e5c",
+        "terms": 38
+      },
+      {
+        "row": 3,
+        "sha256": "a2edcf00b3f3e6d93a8616dbd5fcb451a310ec86f00e9d239de6b831dc042c9b",
+        "terms": 49
+      },
+      {
+        "row": 4,
+        "sha256": "c6a4358296522f05950be2b0ccd3deca2f3fd029222a558888694de8d991d216",
+        "terms": 66
+      },
+      {
+        "row": 5,
+        "sha256": "bdd15bb06fdf12e06dd3365541f593d240712e94526be47b28d297f03e818ce8",
+        "terms": 81
+      }
+    ],
+    "replay": {
+      "command": "python f2_original_pair_to_esystem_verify.py --self-test-mutations",
+      "expected_default_exit": 0,
+      "expected_strict_exit": 2,
+      "strict_command": "python f2_original_pair_to_esystem_verify.py --strict-original-source"
+    },
+    "root_supports": {
+      "2": [
+        -10,
+        -7,
+        -4,
+        -1
+      ],
+      "3": [
+        -15,
+        -12,
+        -9,
+        -6,
+        -3,
+        0
+      ],
+      "4": [
+        -17,
+        -14,
+        -11,
+        -8,
+        -5,
+        -2
+      ],
+      "5": [
+        -22,
+        -19,
+        -16,
+        -13,
+        -10,
+        -7,
+        -4,
+        -1
+      ],
+      "6": [
+        -27,
+        -24,
+        -21,
+        -18,
+        -15,
+        -12,
+        -9,
+        -6,
+        -3,
+        0
+      ],
+      "7": [
+        -32,
+        -29,
+        -26,
+        -23,
+        -20,
+        -17,
+        -14,
+        -11,
+        -8,
+        -5,
+        -2,
+        1
+      ],
+      "8": [
+        -37,
+        -34,
+        -31,
+        -28,
+        -25,
+        -22,
+        -19,
+        -16,
+        -13,
+        -10,
+        -7,
+        -4,
+        -1
+      ],
+      "9": [
+        -42,
+        -39,
+        -36,
+        -33,
+        -30,
+        -27,
+        -24,
+        -21,
+        -18,
+        -15,
+        -12,
+        -9,
+        -6,
+        -3,
+        0
+      ]
+    },
+    "schema": "jc-f2-original-pair-to-esystem-manifest/v1",
+    "source_problem": {
+      "ambient_ring": "K[x,y]",
+      "coefficient_domain": "characteristic-zero field K",
+      "coefficient_variable_order": null,
+      "exact_pair_serialized": false,
+      "input": "a hypothetical actual standard F2, j=1 Jacobian pair of degrees (75,125) with the stated starting data",
+      "status": "QUANTIFIED_CONDITIONAL_INPUT_NOT_A_MATERIALIZED_PAIR"
+    },
+    "stages": [
+      {
+        "does_not_output": "the exact coefficient pair",
+        "id": "source_to_target_hulls",
+        "implementation": "f2_reduction_certificate.py:default_input,validate_input,compile_certificate; f2_j1_direct_bridge.py:psi2",
+        "output": "target j1 hulls, legal cover, bracket cocycle, ell=2",
+        "relation": "one_way_conditional_necessary_data",
+        "status": "SOURCE_DERIVED_CONDITIONAL_ACTUAL_PAIR"
+      },
+      {
+        "id": "target_pair_to_normalized_laurent_root",
+        "implementation": null,
+        "missing": "an exact coefficient-level map on the same source-derived target pair proving the normalized approximate-root presentation and binding the inferred leading-form/alignment premise",
+        "relation": "required_source_map",
+        "status": "UNMATERIALIZED_OPEN",
+        "strict_replay_effect": "FAIL"
+      },
+      {
+        "guards": [
+          "characteristic zero",
+          "monic normalized leading term",
+          "the leading-form/alignment receipt",
+          "the residual bound deg(F)<=-73"
+        ],
+        "id": "aligned_ladder_and_gauge",
+        "implementation": "f2_divisor3_gauge_ladder.py:ladder_after_translation,run",
+        "input": "P=D^3 and the aligned eight-slot D-adic ladder",
+        "output": "Q=D^5+I4*D^4+a2*D^2+(I1+4/5*a2*I4)*D+(Im1+1/5*a2^2)*D^-1+lam*D^-2+F",
+        "refusal": "I4=I1=Im1=0 is H3 and is not inferred",
+        "relation": "conditional_formal_laurent_equality_then_exact_gauge_equivalence",
+        "status": "CONDITIONAL_ON_PRINTED_APPROXIMATE_ROOT_AND_INFERRED_LEADING_FORM_RECEIPT"
+      },
+      {
+        "guards": [
+          "characteristic zero, so 3 is a unit",
+          "direct covered P hull",
+          "monic depressed selected cubic face"
+        ],
+        "id": "finite_root_support",
+        "implementation": "f2_target_root_support_transport.py",
+        "output": "finite allowed support table for z2 through z9; no assertion that every allowed coefficient is nonzero",
+        "relation": "one_way_necessary_support_consequence",
+        "status": "PROVED_CONDITIONAL_ON_COVERED_P_HULL_SELECTED_CUBIC_FACE_AND_P_EQUALS_D_CUBED"
+      },
+      {
+        "guards": [
+          "characteristic zero, so 3 and 5 are units",
+          "Zu has constant coefficient 1",
+          "fourteen P-side negative coefficients vanish",
+          "the residual F starts below the eight-row window"
+        ],
+        "id": "normalized_root_to_five_rows",
+        "implementation": "f2_original_pair_to_esystem_verify.py:derive_rows",
+        "localization": "none",
+        "output": "the first five reduced E-system rows in QQ[a1,a2,a4,am1,lam,z2,...,z9]",
+        "relation": "exact_ambient_polynomial_equality_and_one_way_polynomiality_consequence",
+        "status": "REPLAYABLE_CONDITIONAL_EXACT"
+      }
+    ],
+    "status": "CONDITIONAL_EXACT_WITH_OPEN_UPSTREAM"
+  },
+  "native_commit": "d4a18b476b8bb8366e6c4505f03294f098dfb589",
+  "native_manifest_sha256": "44e96e9423a8e0187910774d6db9057f660445d8d7078af5516d787c181489dd",
+  "native_verifier_sha256": "080e0c398bec1b5d60ade3ed1fedfe02537c8720e94c3e4d7c5432c8adb8e08f",
+  "schema": "gp-jc-original-pair-to-esystem-seam/v1"
+}

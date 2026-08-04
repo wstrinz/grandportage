@@ -19,6 +19,60 @@ def test_table_is_total():
         assert k in K.TRANSPORT[t][d], (t, d, k)
 
 
+def test_point_cells_are_compiled_from_relational_capabilities():
+    """The point table is a compiled artifact, not 42 independent choices.
+
+    For the relation from source points to target points, ``total`` licenses
+    forward witnesses and backward universal claims; ``surjective`` licenses
+    the dual directions. Predicates additionally require a corresponding
+    claim transformer, which is a separate typing obligation. Three named
+    cells refine this generic point semantics with operation-specific evidence.
+    """
+    capabilities = {
+        K.EQUIVALENCE: (True, True),
+        K.NECESSARY_CONDITION: (True, False),
+        K.RESTRICTION: (True, False),
+        K.BASE_EXTENSION: (True, False),
+        K.IMAGE_CLOSURE: (True, False),
+        K.SPECIALIZATION: (False, False),
+        K.UNTYPED: (False, False),
+    }
+    overrides = {
+        (K.BASE_EXTENSION, K.ALONG, K.EMPTY): K._SCHEME_SCOPE,
+        (K.IMAGE_CLOSURE, K.ALONG, K.PREDICATE):
+            K._CLOSED_EXACT_IMAGE,
+        (K.IMAGE_CLOSURE, K.AGAINST, K.NONEMPTY): K._EXISTENTIAL,
+    }
+    assert K._POINT_RELATION_CAPABILITIES == capabilities
+    assert K._POINT_RULE_OVERRIDES == overrides
+
+    def relational_rule(etype, direction, kind):
+        total, surjective = capabilities[etype]
+        if kind == K.NONEMPTY:
+            return total if direction == K.ALONG else surjective
+        return surjective if direction == K.ALONG else total
+
+    for etype, direction, kind in itertools.product(
+            capabilities, K.DIRECTIONS,
+            (K.EMPTY, K.NONEMPTY, K.PREDICATE)):
+        key = (etype, direction, kind)
+        expected = overrides.get(
+            key, relational_rule(etype, direction, kind))
+        assert K.TRANSPORT[etype][direction][kind] == expected, key
+        assert K.compile_point_rule(etype, direction, kind) == expected, key
+
+
+def test_point_compiler_refuses_coordinate_ring_claims():
+    """IDENTITY has a different semantic sort and stays hand-specified."""
+    with pytest.raises(KeyError, match="point-rule derivation"):
+        K.compile_point_rule(K.EQUIVALENCE, K.ALONG, K.IDENTITY)
+
+    with pytest.raises(KeyError, match="unknown edge type"):
+        K.point_relation_capabilities("NOT_AN_EDGE")
+    with pytest.raises(KeyError, match="unknown direction"):
+        K.compile_point_rule(K.EQUIVALENCE, "SIDEWAYS", K.EMPTY)
+
+
 def test_equivalence_forbids_nothing_about_points():
     """If it forbade anything about POINTS it would not be an equivalence.
 
@@ -230,6 +284,25 @@ def test_closure_predicate_transport_turns_on_zariski_closed():
     open_ = K.transport(K.IMAGE_CLOSURE, K.ALONG, K.PREDICATE,
                         zariski_closed=False)
     assert closed.licensed and not open_.licensed
+
+
+def test_image_forward_transport_needs_exact_output_authority():
+    identity = K.transport(
+        K.IMAGE_CLOSURE, K.ALONG, K.IDENTITY,
+        map_kind=K.POLYNOMIAL, image_complete=False)
+    predicate = K.transport(
+        K.IMAGE_CLOSURE, K.ALONG, K.PREDICATE,
+        zariski_closed=True, image_complete=False)
+    pullback = K.transport(
+        K.IMAGE_CLOSURE, K.AGAINST, K.IDENTITY,
+        map_kind=K.POLYNOMIAL, image_complete=False)
+
+    assert not identity.licensed
+    assert "completeness" in identity.reason
+    assert not predicate.licensed
+    assert "geometric point-closure" in predicate.reason
+    assert pullback.licensed, "the checked J subset contraction direction suffices"
+
 
 
 def test_known_conservatism_is_recorded_not_hidden():

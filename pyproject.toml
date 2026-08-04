@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "grandportage"
-version = "0.4.1"
+version = "0.23.0"
 description = "Transport typing and obstruction tracking for computational algebra"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -24,6 +24,8 @@ gp = "grandportage.cli:main"
 # it. A live session lost time to this and its error message -- "Cannot find
 # path '...\check' because it does not exist" -- names neither cause nor cure.
 gport = "grandportage.cli:main"
+portage_declare = "grandportage.cli:declare_main"
+portage-declare = "grandportage.cli:declare_main"
 
 [project.optional-dependencies]
 test = ["pytest>=7"]
@@ -45,8 +47,12 @@ testpaths = ["tests"]
 # real solver and the suite went green having not run them. So they run unless
 # you say otherwise:
 #
-#     pytest -m "not live"     fast loop while editing
-#     pytest                   everything, and what CI must run
+#     pytest -m "not live and not replay and not exhaustive"   edit loop
+#     pytest -m "replay and not live and not exhaustive"       frozen replay
+#     pytest -m "live and not exhaustive"                      real CAS boundary
+#     pytest                                                   full release gate
 markers = [
     "live: spawns a real CAS process; slow, and the only tests that touch one",
+    "replay: performs substantial deterministic frozen-artifact replay",
+    "exhaustive: performs the largest finite campaign or full reconstruction",
 ]

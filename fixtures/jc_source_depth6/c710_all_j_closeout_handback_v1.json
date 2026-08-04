@@ -1,0 +1,30 @@
+{
+  "schema": "gp-jc-h3-c710-all-j-closeout-handback/v1",
+  "binding_digest_algo": "sha256-lf-normalized",
+  "jc_commit": "8928f7a",
+  "source_bindings": {
+    "f2_h3_b0_lowjet_cover_audit_certificate.json": "a6ae555b33da84e8d94442c5d1e4d89f207557e0358094a72225f12f330be39f",
+    "f2_h3_c710_exceptional_j_closeout.py": "d34611071427179acbbed4baaa9055d8ebe003d633d430e7f357a141828da49f",
+    "f2_h3_c710_exceptional_j_closeout_certificate.json": "d448f53a2d1ba6c8f0ee74391fd63416a4860241382fb4d24c3b200607ce93e9",
+    "f2_h3_c710_generic_j_certificate.json": "b5e76ab0e8ab4a308938738c6d0f512b3603245caf27c874995f5787db592453"
+  },
+  "closeout": {
+    "verdict": "C710_DIVISOR_FACE_IDEAL_UNIT_ALL_J",
+    "wall": "b = 0, R = 0, Delta = 0 (S2 substituted)",
+    "cross_section": "c = 1, a = J != 0",
+    "pins": "c2_1 = c2_2 = 0",
+    "closed_leaf": "c710_divisor_exceptional_J",
+    "prior_leaf_status": "OPEN, <= 37 algebraic J",
+    "current_leaf_status": "EXCLUDED, zero J",
+    "terminal_guard": "det5 = 0",
+    "field_scope": "every characteristic-zero field extension on the declared guarded divisor",
+    "checks": 29,
+    "mutation_refusals": 8,
+    "all_j_licensed": true,
+    "source_witness_licensed": false,
+    "source_sufficiency_licensed": false,
+    "global_b0_licensed": false,
+    "sigma_kappa_nonzero_licensed": false
+  },
+  "authority_boundary": "The all-J result closes only the inherited guarded c7_10 divisor with c2_1=c2_2=0. It is a source-face necessary-condition exclusion, not source sufficiency or population. It does not decide sigma_kappa_nonzero, the joint c2_1/c2_2/c7_10 stratum, the full b=0 wall, H3, or (75,125)."
+}

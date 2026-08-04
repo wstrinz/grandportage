@@ -11,6 +11,8 @@ Those are orthogonal axes and conflating them is how a project ends up with an
 
 import hashlib
 
+from . import format as F
+from . import groebner as G
 from . import kernel as K
 from . import store as S
 from .cas import foreign_symbols as cas_foreign_symbols
@@ -49,12 +51,16 @@ R_FAMILY = "FAMILY"
 R_DIRECTION = "EVIDENCE-DIRECTION"
 R_CROSSCUT = "CROSS-CUT"
 R_CONTAINMENT = "CONTAINMENT"
+R_PENDING_IDEAL = "PENDING-IDEAL"
+R_INEXPRESSIBLE = "INEXPRESSIBLE-CONCLUSION"
+R_REFUTED_EVIDENCE = "REFUTED-EVIDENCE"
 R_IDENTITY = "UNTESTED-IDENTITY"
 R_SIBLING = "SIBLING-EDGE"
 R_STALE_MODEL = "STALE-MODEL"
 R_STALE_REF = "STALE-REFERENCE"
 R_BASE_COEFFS = "FOREIGN-COEFFICIENT"
 R_INTEGRAL = "NON-INTEGRAL-COEFFICIENT"
+R_ORIGIN_CONFLICT = "ORIGIN-CONTRADICTED"
 R_CITATION = "AMBIGUOUS-CITATION"
 R_DOUBT = "DOUBT"
 R_EVIDENCE = "EVIDENCE-GRADE"
@@ -158,13 +164,20 @@ def audit_inference(graph, iid):
         # A slot contributes NOTHING to coverage, deliberately: it is a
         # declaration that the branch is unsettled, so the branch stays
         # uncovered and the partition is correctly refused.
-        carried = {graph.claims[pr["claim"]]["model"] for pr in inf["premises"]
-                   if pr.get("claim")
-                   and graph.claims[pr["claim"]]["kind"] == kind}
+        carried = {
+            graph.claims[pr["claim"]]["model"] for pr in inf["premises"]
+            if pr.get("claim")
+            and graph.claims[pr["claim"]]["kind"] == kind
+            and (kind != K.EMPTY
+                 or effective_certificate(graph.claims[pr["claim"]])
+                    is not None)
+        }
         covered = all(b in carried for b in p["branches"])
         cites_exhaustive = any(pr.get("claim") == p["exhaustive"]
                                for pr in inf["premises"])
-        r = K.transport_over_partition(kind, covered, cites_exhaustive)
+        cover_verified = p.get("exhaustive_verdict") == "VERIFIED"
+        r = K.transport_over_partition(
+            kind, covered, cites_exhaustive and cover_verified)
         missing = [b for b in p["branches"] if b not in carried]
         detail = r.reason
         if missing:
@@ -178,6 +191,11 @@ def audit_inference(graph, iid):
         if not cites_exhaustive:
             detail += (" (the exhaustiveness claim %s is not among the "
                        "premises)" % p["exhaustive"])
+        if not cover_verified:
+            detail += (
+                " (partition exhaustiveness has no current VERIFIED verdict; "
+                "a declaration alone does not license a case split in "
+                "kernel epoch %d)" % F.KERNEL_EPOCH)
         return r.licensed, [(UNCOVERED_PARTITION, "COVERS", r.licensed, detail)]
     # EVERY premise, not just the first.  An argument is only as licensed as
     # its weakest leg, and before the multi-premise form existed the extra legs
@@ -194,21 +212,71 @@ def audit_inference(graph, iid):
                 "%s" % (pr["required_kind"], pr["at"], pr["missing_why"])))
             continue
         claim = graph.claims[pr["claim"]]
-        for eid, direction in pr["path"]:
+        if (claim.get("certificate") == "LOCALIZED_UNIT_IDEAL_CERT"
+                and effective_certificate(claim) is None
+                and pr["path"]):
+            ok = False
+            trace.append((
+                "(localized-unit certificate)", "PREMISE", False,
+                "LOCALIZED_UNIT_IDEAL_CERT has no current VERIFIED verdict. "
+                "The declaration remains unfinished mathematics and grants "
+                "no downstream transport until its exact proof replays."))
+            continue
+        current_condition = claim.get("condition")
+        for step_index, (eid, direction) in enumerate(pr["path"]):
             e = graph.edges[eid]
+            target_expressible = (
+                current_condition is not None and direction == K.ALONG
+                and e["type"] == K.IMAGE_CLOSURE
+                and e.get("built_by_operation") == "Eliminate"
+                and condition_expressible_at(
+                    graph, current_condition, e["dst"]))
+            if claim.get("condition") is not None:
+                zariski_closed = (
+                    target_expressible
+                    and structured_condition_closed(current_condition))
+            else:
+                zariski_closed = claim.get("zariski_closed")
             r = K.transport(
                 e["type"], direction, claim["kind"],
                 scope=claim.get("scope"),
-                certificate=claim.get("certificate"),
+                certificate=effective_certificate(claim),
                 map_kind=e["map_kind"],
-                zariski_closed=claim.get("zariski_closed"),
-                identity_origin=claim.get("identity_origin"),
+                zariski_closed=zariski_closed,
+                identity_origin=effective_origin(claim),
                 integral=claim.get("integral"),
-                ring_iso=e.get("ring_iso"),
+                ring_iso=effective_ring_iso(e),
                 coefficients_in_base=claim.get("coefficients_in_base"),
                 zariski_dense=e.get("zariski_dense"),
-                existential=claim.get("existential"))
-            trace.append((eid, direction, r.licensed, r.reason))
+                existential=claim.get("existential"),
+                exact_contraction=effective_exact_contraction(e),
+                geometric_closure=effective_geometric_closure(e),
+                point_surjective=effective_point_surjective(e),
+                target_expressible=target_expressible)
+            trace_reason = r.reason
+            next_condition = None
+            rewrite_why = None
+            if current_condition is not None and r.licensed:
+                if e["type"] == K.EQUIVALENCE:
+                    next_condition, rewrite_why = (
+                        rewrite_condition_across_equivalence(
+                            graph, current_condition, e, direction))
+                elif direction == K.AGAINST:
+                    next_condition, rewrite_why = pullback_condition_across_edge(
+                        graph, current_condition, e, direction)
+                elif target_expressible:
+                    next_condition = current_condition
+                    rewrite_why = (
+                        "structured condition is expressed in the retained "
+                        "elimination target")
+                elif step_index + 1 < len(pr["path"]):
+                    rewrite_why = (
+                        "structured condition typing stops here: this pilot "
+                        "has no rewrite contract for %s" % e["type"])
+            if rewrite_why:
+                trace_reason += "; " + rewrite_why
+            current_condition = next_condition
+            trace.append((eid, direction, r.licensed, trace_reason))
             if not r.licensed:
                 ok = False
     return ok, trace
@@ -240,17 +308,35 @@ def probe(graph, claim_id, edge_id, direction, etype=None, map_kind=None,
     """
     claim = graph.claims[claim_id]
     edge = graph.edges[edge_id]
+    target_expressible = (
+        direction == K.ALONG
+        and edge["type"] == K.IMAGE_CLOSURE
+        and edge.get("built_by_operation") == "Eliminate"
+        and claim.get("model") == edge["src"]
+        and condition_expressible_at(graph, claim, edge["dst"]))
+    if zariski_closed is None:
+        if claim.get("condition") is not None:
+            effective_closed = (
+                target_expressible and structured_condition_closed(claim))
+        else:
+            effective_closed = claim.get("zariski_closed")
+    else:
+        effective_closed = zariski_closed
     return K.transport(
         etype or edge["type"], direction, claim["kind"],
-        scope=claim.get("scope"), certificate=claim.get("certificate"),
+        scope=claim.get("scope"),
+        certificate=effective_certificate(claim),
         map_kind=map_kind or edge["map_kind"],
-        zariski_closed=(claim.get("zariski_closed")
-                        if zariski_closed is None else zariski_closed),
-        identity_origin=claim.get("identity_origin"),
-        integral=claim.get("integral"), ring_iso=edge.get("ring_iso"),
+        zariski_closed=effective_closed,
+        identity_origin=effective_origin(claim),
+        integral=claim.get("integral"), ring_iso=effective_ring_iso(edge),
         coefficients_in_base=claim.get("coefficients_in_base"),
         zariski_dense=edge.get("zariski_dense"),
-        existential=claim.get("existential"))
+        existential=claim.get("existential"),
+        exact_contraction=effective_exact_contraction(edge),
+        geometric_closure=effective_geometric_closure(edge),
+        point_surjective=effective_point_surjective(edge),
+        target_expressible=target_expressible)
 
 
 def contradicting_claims(graph, model_id, kind, exclude=()):
@@ -567,8 +653,15 @@ def withdrawn_edges(graph):
         old = graph.edges[eid].get("supersedes")
         if old and old in graph.edges:
             replaced[eid] = old
-    dead, frontier = set(), [eid for eid in sorted(graph.edges)
-                             if eid not in set(replaced.values())]
+    tombstone_targets = {
+        tomb["supersedes"]
+        for (entity, _tid), tomb in graph.retractions.items()
+        if entity == "edge" and tomb.get("discharge_kind") == "WITHDRAW"
+        and tomb.get("supersedes") in graph.edges}
+    dead = set(tombstone_targets)
+    frontier = ([eid for eid in sorted(graph.edges)
+                 if eid not in set(replaced.values())]
+                + sorted(tombstone_targets))
     while frontier:
         old = replaced.get(frontier.pop())
         if old and old not in dead:
@@ -614,9 +707,7 @@ def check_untyped(graph):
         # UNSOUND_PREMISE, which is louder than this line rather than quieter.
         if eid in dead:
             continue
-        downstream = sorted(iid for iid in graph.inference_order
-                            if any(s[0] == eid
-                                   for s in graph.inferences[iid]["path"]))
+        downstream = live_crossings(graph, [eid])
         findings.append(Finding(
             R_UNTYPED, "%s:%s" % (R_UNTYPED, eid), DEBT, eid,
             "edge %s (%s -> %s) has no declared relaxation type.\n  debt: %s\n"
@@ -691,9 +782,8 @@ def check_unjustified_equivalence(graph):
     It is also the easiest type to reach for -- "this step should be
     reversible" is a feeling, not a converse.
 
-    Reported at DEBT, not higher, and only when the edge offers NEITHER a
-    `witness` nor a `cite`.  A well-documented equivalence is not a finding;
-    an undocumented one is a claim resting on the author's confidence.
+    Reported at DEBT, not higher, when the edge offers none of a converse
+    witness, a citation, or a complete structured forward/inverse map pair.
 
     Prompted by the first live run, which observed that `witness` is optional,
     was nearly skipped, and turned out to be where the best content went.  The
@@ -710,11 +800,9 @@ def check_unjustified_equivalence(graph):
     more thoroughly it silenced the warning.  Two fields with opposite polarity
     had been collapsed into one name.
 
-    They are now separate, and only a CONVERSE witness -- the construction that
-    recovers a point of the source from a point of the target -- documents an
-    equivalence.  A strictness witness on an EQUIVALENCE edge is not merely
-    insufficient; it is the edge exhibiting its own refutation, and it gets its
-    own finding below.
+    They are now separate. A CONVERSE witness documents the point-level return
+    construction; a complete mapped pair is the structured version. A strictness
+    witness on an EQUIVALENCE instead exhibits the edge's own refutation.
     """
     findings = []
     dead = withdrawn_edges(graph)
@@ -724,13 +812,25 @@ def check_unjustified_equivalence(graph):
             continue
         if e["type"] != K.EQUIVALENCE:
             continue
-        if e.get("converse_witness") or e.get("cite"):
+        if e.get("converse_witness") or e.get("cite") or K.is_mapped_equivalence(e):
             continue
         findings.append(Finding(
             "UNJUSTIFIED-EQUIVALENCE", "UNJUSTIFIED-EQUIVALENCE:%s" % eid,
             DEBT, eid,
-            "edge %s (%s -> %s) is typed EQUIVALENCE with neither a `witness` "
-            "nor a `cite`.\n  EQUIVALENCE is the only type that forbids "
+            # THE FIELD THIS RULE TESTS, not a neighbouring one. It read
+            # `converse_witness` and reported the absence of `witness`, and on
+            # an EQUIVALENCE those two have OPPOSITE POLARITY -- `witness` is
+            # about a point of the model, `converse_witness` about recovering
+            # one across the edge. A live session wrote the field the message
+            # named and got two findings CONTRADICTING EACH OTHER on the same
+            # edge in the same run: one saying it carries a witness, this one
+            # saying it carries none.
+            #
+            # The docstring above describes exactly this field-name collapse as
+            # a bug already fixed. The code was split; the message was not.
+            "edge %s (%s -> %s) is typed EQUIVALENCE with neither a "
+            "`converse_witness` nor a `cite`.\n  EQUIVALENCE is the only type "
+            "that forbids "
             "nothing, so this one row licenses every transport across the "
             "step, in both directions, unconditionally."
             % (eid, e["src"], e["dst"]),
@@ -1121,8 +1221,8 @@ def check_aliases(graph):
                 "are not automatically the same object -- that is a claim "
                 "needing a map, not an alias."
                 % (aid, ", ".join(models), ", ".join(sorted(charts))),
-                "Either exhibit the coordinate change as an EQUIVALENCE edge "
-                "with `ring_iso`, or these are two objects and the alias is "
+                "Either exhibit the coordinate change as an EQUIVALENCE with "
+                "`forward`, `inverse`, and `ring_iso`, or the alias is "
                 "wrong."))
         # Contradictory existence claims across an alias are now contradictory
         # AT ONE OBJECT, which is worth saying out loud.
@@ -1170,14 +1270,587 @@ def check_unexhibited_witness(graph):
             "  %s\n"
             "  Nothing here distinguishes holding the point from claiming to."
             % (cid, c.get("model") or c.get("family"), c["statement"]),
-            "If you have the point, put it in `witness` and declare "
-            "witness_kind EXHIBITED -- `cas_check_witness` will substitute it "
-            "into the model's generators and confirm it is a solution, which "
-            "is arithmetic and the cheapest check this system performs. If "
+            "If you have the point, declare witness_kind EXHIBITED and give "
+            "the coordinates in `witness_point` -- {\"x\": \"3\", \"y\": "
+            "\"4\"}, a value per ring variable. `gp verify` substitutes it "
+            "into the model's generators and confirms it is a solution, which "
+            "is arithmetic and the cheapest check this system performs. "
+            "`witness` takes the prose version and stays free text. If "
             "existence follows from something else already recorded, say "
             "DERIVED and record the inference. If it is genuinely an "
             "assertion -- a published claim you have not verified -- ASSERTED "
             "is the honest answer and this finding is the record of that."))
+    return findings
+
+
+def check_witness_point(graph):
+    """Exhibited points: refuted, untested, or recorded only in prose.
+
+    THE MIRROR OF `check_identity`, and it exists for the same reason.  An
+    EMPTY claim must name a certificate or the graph will not fold; a NONEMPTY
+    claim -- where the author is holding the object, the strongest evidence in
+    the system -- carried nothing a solver could touch.  A live agent put it
+    exactly: "the graph cannot currently distinguish 'I have the point' from
+    'I claim to have the point'."
+
+    THREE TIERS, and only the first is an accusation.
+
+      NOT_A_POINT   substituted and it does not vanish. The NONEMPTY is
+                    unsupported AT ITS OWN MODEL, which no transport typing
+                    downstream would ever have surfaced -- the same shape as a
+                    REFUTED identity.
+      untested      the coordinates are recorded and nothing has substituted
+                    them. One solver call, and it is arithmetic.
+
+    AND NO THIRD TIER FOR A PROSE WITNESS, which the first version had.  It
+    fired on five claims in the retrodiction fixtures and would fire on all
+    twenty-five live ones, and the gate those fixtures enforce is exact: "a
+    framework that flags a sound step is a false-positive generator and
+    unusable".  Recording a point as "(x, y) = (3, 4)" is not a defect.
+
+    `check_identity` had already settled the same question and said so -- its
+    untested tier is "deliberately NARROW ... because it is replacing one
+    specific stop and not inventing a general campaign to structure every
+    identity in the corpus".  A campaign to structure every NONEMPTY is that
+    same campaign.  So the on-ramp lives in the ASSERTED rule's discharge and
+    in `gp declare`'s epilog, where it is available to somebody about to write
+    a claim rather than aimed at everybody who already has.
+
+    Which means this rule only ever speaks about claims that OPTED IN.
+    """
+    findings = []
+    for cid in sorted(graph.claims):
+        c = graph.claims[cid]
+        if c["kind"] != K.NONEMPTY or c.get("superseded_by"):
+            continue
+        if c.get("witness_kind") != K.EXHIBITED:
+            continue
+        verdict = c.get("witness_verdict")
+        if verdict == "NOT_A_POINT":
+            findings.append(Finding(
+                R_WITNESS, "%s:refuted:%s" % (R_WITNESS, cid),
+                UNSOUND_CONCLUSION, cid,
+                "NONEMPTY claim %s exhibits a point that is NOT ON %s: %s"
+                % (cid, c.get("model"), c.get("witness_why") or "(no detail)")
+                + "\n  Substituting a point into the generators is arithmetic, "
+                  "so this is a refutation and not a failed cheap test. The "
+                  "existence claim is unsupported at the model it was made at, "
+                  "and anything transported from it rests on nothing.",
+                "Correct the coordinates or withdraw the claim. If a point "
+                "really does exist but this is not it, the honest record is "
+                "witness_kind ASSERTED or DERIVED -- both are legal, and "
+                "neither pretends to an object you do not have.",
+                semantic_key=cid))
+            continue
+        if verdict:
+            continue
+        if c.get("witness_point"):
+            findings.append(Finding(
+                R_WITNESS, "%s:untested:%s" % (R_WITNESS, cid), TRIAGE, cid,
+                "NONEMPTY claim %s records its point and nothing has "
+                "substituted it.\n"
+                "  The cheapest check in the system: evaluating the "
+                "generators at a point has no interpretation to argue about, "
+                "no ordering assumption and no field subtlety. Either they all "
+                "vanish or one of them does not." % cid,
+                "Run `gp verify`. It substitutes every structured witness and "
+                "records the verdict, and a NOT_A_POINT answer would mean the "
+                "existence claim is unsupported at its own model.",
+                semantic_key=cid))
+    return findings
+
+
+# THE VERDICT BEATS THE DECLARATION, and until now it did not.
+#
+# `verify.identity` computes an identity's origin by reduction and RECORDS it
+# on the claim.  The transport layer went on reading the author's declared
+# `identity_origin` -- so a claim declaring AMBIENT, with a stored verdict of
+# VERIFIED_DERIVED, transported ALONG a NECESSARY_CONDITION and was reported
+# CLEAN.  That cell is licensed only for AMBIENT, and `x = 0` in k[x]/(x) is
+# exactly the counterexample the kernel quotes.
+#
+# The tool spent CAS time computing the one field that decides this transport,
+# wrote the answer into the same graph, and then licensed off the declaration
+# contradicting it.  That is the honour system surviving INSIDE the machinery
+# built to replace it.
+_VERDICT_ORIGIN = {"VERIFIED_AMBIENT": K.AMBIENT,
+                   "VERIFIED_DERIVED": K.DERIVED}
+
+
+def effective_origin(claim):
+    """The origin transport should use: computed if there is one, else declared.
+
+    A verdict is evidence and a declaration is a word.  Where they disagree the
+    evidence wins, and `check_origin_contradiction` says so out loud rather
+    than letting the correction happen silently.
+    """
+    return (_VERDICT_ORIGIN.get(claim.get("identity_verdict"))
+            or claim.get("identity_origin"))
+
+
+def effective_ring_iso(edge):
+    """Use a declared flag only when its available evidence supports it.
+
+    Structured maps are checkable, so they fail closed until VERIFIED and any
+    non-VERIFIED verdict beats the declaration. VERIFIED never mints a flag.
+    Legacy citation-backed equivalences remain declarable for historical graphs
+    that carry no machine-readable ideals, but an unsupported bare
+    boolean opens nothing.
+    """
+    if edge.get("ring_iso") is not True:
+        return False
+    if not K.is_mapped_equivalence(edge):
+        return False
+    return edge.get("ring_iso_verdict") == "VERIFIED"
+
+
+def effective_exact_contraction(edge):
+    """Whether a constructed elimination has exact contraction authority.
+
+    Two independent proofs are required: the existing operation validator
+    establishes that the target invented no equations, and either a polynomial
+    section or a checked pure-lex certificate establishes that it omitted no
+    retained source equations.
+    """
+    if edge.get("built_by_operation") != "Eliminate":
+        return True
+    return (edge.get("output_verdict") == "VERIFIED"
+            and edge.get("contraction_verdict") in (
+                "VERIFIED_SECTION", "VERIFIED_GROEBNER"))
+
+
+def _condition_payload(claim_or_condition):
+    """Return a structured condition from either its claim or direct shape."""
+    if not isinstance(claim_or_condition, dict):
+        return None
+    if "condition" in claim_or_condition:
+        return claim_or_condition.get("condition")
+    if "all" in claim_or_condition:
+        return claim_or_condition
+    return None
+
+
+def structured_condition_closed(claim_or_condition):
+    """Whether a checked exact-affine condition defines a closed subset."""
+    condition = _condition_payload(claim_or_condition) or {}
+    atoms = condition.get("all") if isinstance(condition, dict) else None
+    return bool(atoms) and all(
+        isinstance(atom, dict) and atom.get("relation") == "ZERO"
+        for atom in atoms)
+
+
+def condition_expressible_at(graph, claim_or_condition, model_id):
+    """Whether every structured condition atom parses in one model's ring."""
+    condition = _condition_payload(claim_or_condition) or {}
+    atoms = condition.get("all") if isinstance(condition, dict) else None
+    model = graph.models.get(model_id) or {}
+    ring_vars = model.get("ring_vars") or []
+    characteristic = model.get("characteristic")
+    if not atoms or not ring_vars or type(characteristic) is not int:
+        return False
+    try:
+        for atom in atoms:
+            G.parse_polynomial(atom["expression"], ring_vars, characteristic)
+    except (G.CertificateError, KeyError, TypeError, ValueError):
+        return False
+    return True
+
+
+def _canonical_condition_at(graph, condition, model_id):
+    """Recheck and canonicalize a structured condition in one exact ring."""
+    payload = _condition_payload(condition) or {}
+    atoms = payload.get("all") if isinstance(payload, dict) else None
+    model = graph.models.get(model_id) or {}
+    ring_vars = model.get("ring_vars") or []
+    characteristic = model.get("characteristic")
+    if not atoms or not ring_vars or type(characteristic) is not int:
+        raise G.CertificateError(
+            "the destination model has no exact polynomial ring")
+    return {"all": [
+        {
+            "relation": atom["relation"],
+            "expression": G.canonical_polynomial(
+                atom["expression"], ring_vars, characteristic),
+        }
+        for atom in atoms
+    ]}
+
+
+def pullback_condition_across_edge(graph, condition, edge, direction):
+    """Pull target predicate syntax back through a concrete point map.
+
+    This is the runtime projection of Lean's generic `Pullback` law. Abstract
+    PREDICATE transport remains the kernel's decision; this helper preserves
+    machine-readable syntax only for a literal identity-coordinate map or a
+    currently checked constructor-built elimination projection.
+    """
+    if direction != K.AGAINST:
+        return None, "structured predicate pullback requires AGAINST"
+    source = graph.models.get(edge.get("src")) or {}
+    target = graph.models.get(edge.get("dst")) or {}
+    source_vars = source.get("ring_vars") or []
+    target_vars = target.get("ring_vars") or []
+    source_characteristic = source.get("characteristic")
+    target_characteristic = target.get("characteristic")
+
+    if edge.get("map_kind") == K.IDENTITY_MAP:
+        if (not source_vars or set(source_vars) != set(target_vars)
+                or type(source_characteristic) is not int
+                or source_characteristic != target_characteristic):
+            return None, (
+                "structured condition pullback stopped: the declared identity "
+                "map does not have matching exact endpoint rings")
+        mode = "literal identity point map"
+    elif (edge.get("type") == K.IMAGE_CLOSURE
+          and edge.get("built_by_operation") == "Eliminate"
+          and edge.get("map_kind") == K.POLYNOMIAL
+          and edge.get("output_verdict") == "VERIFIED"):
+        eliminated = target.get("eliminated")
+        valid_eliminated = (
+            isinstance(eliminated, list) and bool(eliminated)
+            and len(eliminated) == len(set(eliminated))
+            and all(name in source_vars for name in eliminated))
+        expected_target = (
+            [name for name in source_vars if name not in set(eliminated)]
+            if valid_eliminated else None)
+        if (type(source_characteristic) is not int
+                or source_characteristic != target_characteristic
+                or target_vars != expected_target):
+            return None, (
+                "structured condition pullback stopped: the checked Eliminate "
+                "edge is not an exact retained-coordinate projection")
+        mode = "checked retained-coordinate projection"
+    else:
+        return None, (
+            "structured condition pullback stopped: this edge has no concrete "
+            "identity or checked projection map")
+
+    try:
+        rewritten = _canonical_condition_at(
+            graph, condition, edge.get("src"))
+    except (G.CertificateError, KeyError, TypeError, ValueError) as exc:
+        return None, "structured condition pullback failed exact checking: %s" % exc
+    return rewritten, (
+        "pulled back %d structured condition atom(s) through the %s"
+        % (len(rewritten["all"]), mode))
+
+
+def rewrite_condition_across_equivalence(graph, condition, edge, direction):
+    """Reindex one structured condition through a known coordinate change.
+
+    `forward` is the point map, so ALONG uses the polynomial `inverse` and
+    AGAINST uses `forward`. Only a current verified mapped ring isomorphism or
+    a literal identity-coordinate equivalence preserves machine-readable
+    expressibility. The predicate transport itself remains the kernel's job.
+    """
+    if edge.get("type") != K.EQUIVALENCE:
+        return None, "condition rewrite requires an EQUIVALENCE"
+    source_id, target_id = (
+        (edge["src"], edge["dst"])
+        if direction == K.ALONG else (edge["dst"], edge["src"]))
+    source = graph.models.get(source_id) or {}
+    target = graph.models.get(target_id) or {}
+    source_vars = source.get("ring_vars") or []
+    target_vars = target.get("ring_vars") or []
+    characteristic = target.get("characteristic")
+    if (not source_vars or set(source_vars) != set(target_vars)
+            or type(characteristic) is not int
+            or source.get("characteristic") != characteristic):
+        return None, (
+            "structured condition could not be rewritten: endpoint exact "
+            "polynomial rings do not agree")
+
+    mapped = K.is_mapped_equivalence(edge)
+    if mapped:
+        if not effective_ring_iso(edge):
+            return None, (
+                "structured condition could not be rewritten: the mapped "
+                "equivalence lacks current VERIFIED ring-isomorphism authority")
+        images = edge["inverse" if direction == K.ALONG else "forward"]
+        orientation = "inverse" if direction == K.ALONG else "forward"
+    elif edge.get("map_kind") == K.IDENTITY_MAP:
+        images = dict((name, name) for name in target_vars)
+        orientation = "identity"
+    else:
+        return None, (
+            "structured condition could not be rewritten: this equivalence "
+            "has no checked polynomial coordinate substitution")
+
+    payload = _condition_payload(condition) or {}
+    try:
+        rewritten = {"all": [
+            {
+                "relation": atom["relation"],
+                "expression": G.substitute_polynomial(
+                    atom["expression"], target_vars, images, characteristic),
+            }
+            for atom in payload.get("all") or []
+        ]}
+    except (G.CertificateError, KeyError, TypeError, ValueError) as exc:
+        return None, "structured condition rewrite failed exact checking: %s" % exc
+    if not rewritten["all"]:
+        return None, "structured condition rewrite produced no atoms"
+    return rewritten, (
+        "rewrote %d structured condition atom(s) with the %s point-map "
+        "substitution" % (len(rewritten["all"]), orientation))
+
+
+def effective_point_surjective(edge):
+    """Whether every recorded target point has a checked source-point lift.
+
+    This is strictly stronger than presenting the closure of an image. The
+    runtime producers are a checked polynomial section or finite lift cover
+    paired with the
+    independent no-invention verdict. Manual IMAGE_CLOSURE declarations and
+    pure Groebner certificates do not acquire this authority.
+    """
+    return (edge.get("built_by_operation") == "Eliminate"
+            and edge.get("output_verdict") == "VERIFIED"
+            and (edge.get("contraction_verdict") == "VERIFIED_SECTION"
+                 or edge.get("point_lift_verdict")
+                    == "VERIFIED_POINT_LIFT"))
+
+
+def effective_geometric_closure(edge):
+    """Whether closure-level geometric image transport is established.
+
+    Manual IMAGE_CLOSURE edges assert that semantic relation. For a constructed
+    elimination, a checked section or finite lift cover establishes this
+    relation as a
+    consequence of the stronger point-surjectivity fact. A pure Groebner
+    certificate proves ideal equality but supplies no point lift.
+    """
+    if edge.get("built_by_operation") != "Eliminate":
+        return True
+    return (edge.get("output_verdict") == "VERIFIED"
+            and (edge.get("contraction_verdict") == "VERIFIED_SECTION"
+                 or edge.get("point_lift_verdict")
+                    == "VERIFIED_POINT_LIFT"))
+
+
+def effective_image_complete(edge):
+    """Epoch-2 compatibility view: both exact authorities at once."""
+    return (effective_exact_contraction(edge)
+            and effective_geometric_closure(edge))
+
+
+def effective_certificate(claim):
+    """The certificate kind transport should use: refuted beats declared.
+
+    `derive_scope` reads the certificate KIND to decide whether an emptiness is
+    field-independent, and the kernel calls that the most load-bearing line in
+    the system. `verify.unit_ideal` can report NOT_UNIT -- the ideal does not
+    reduce to 1, so UNIT_IDEAL_CERT is not the certificate this claim has --
+    and nothing read it.
+
+    THAT IS THE ERRATUM'S OWN SHAPE. UNIT_IDEAL_CERT base-changes; a
+    field-relative emptiness wearing it derives SCHEME scope it never earned.
+    A live campaign has one right now: an ideal that reduces to `t^2-3`, which
+    is empty over Q and not over Q(sqrt 3).
+
+    Returning None rather than a corrected kind is deliberate. The verifier
+    knows the declared kind is WRONG; it does not know which kind is right,
+    and guessing would replace a false licence with a different one. `None`
+    makes `derive_scope` refuse, which is the honest answer.
+    """
+    certificate = claim.get("certificate")
+    if claim.get("certificate_verdict") == "NOT_UNIT":
+        return None
+    if (certificate == "LOCALIZED_UNIT_IDEAL_CERT"
+            and claim.get("certificate_verdict") != "VERIFIED"):
+        return None
+    return certificate
+
+
+def check_localized_unit_certificates(graph):
+    """A localized-unit name grants nothing until its exact proof replays."""
+    findings = []
+    for cid in sorted(graph.claims):
+        claim = graph.claims[cid]
+        if (claim.get("superseded_by")
+                or claim.get("certificate")
+                    != "LOCALIZED_UNIT_IDEAL_CERT"
+                or claim.get("certificate_verdict") == "VERIFIED"):
+            continue
+        findings.append(Finding(
+            R_EVIDENCE, "%s:localized-unit:%s" % (R_EVIDENCE, cid),
+            DEBT, cid,
+            "claim %s names LOCALIZED_UNIT_IDEAL_CERT but has no current "
+            "VERIFIED localized-unit verdict. The name alone grants no "
+            "effective certificate, base-change authority, or partition "
+            "coverage." % cid,
+            "Run `gp verify`. A bounded miss remains UNVERIFIED; only a "
+            "guard-monomial cofactor identity replayed against the exact open "
+            "model discharges this debt.",
+            semantic_key=cid))
+    return findings
+
+def check_refuted_evidence(graph):
+    """A certificate or an isomorphism the verifier REFUTED, said out loud.
+
+    `effective_certificate` and `effective_ring_iso` make the computed answer
+    win, which is right. But a silent correction is its own defect -- the
+    author believes something the graph no longer acts on -- so it is reported,
+    for the same reason `check_origin_contradiction` reports the third case.
+
+    BOTH OF THESE ARE MORE DANGEROUS THAN THEY LOOK.
+
+      NOT_UNIT             `derive_scope` reads the certificate KIND to decide
+                           whether an emptiness is FIELD-INDEPENDENT, which the
+                           kernel calls the most load-bearing line in the
+                           system. UNIT_IDEAL_CERT base-changes; an emptiness
+                           that is really field-relative wearing it derives
+                           SCHEME scope it never earned. That is the shape of
+                           the erratum this project started from.
+      NOT_AN_ISOMORPHISM   `ring_iso` licenses an IDENTITY to cross an
+                           EQUIVALENCE in BOTH directions, on the strength of a
+                           boolean. A bijection on solutions is not an
+                           isomorphism of coordinate rings, and the verifier
+                           reduces the maps to tell the difference.
+
+    Both were being written into the graph and read by nothing.
+    """
+    findings = []
+    for cid in sorted(graph.claims):
+        c = graph.claims[cid]
+        if c.get("superseded_by") or c.get("certificate_verdict") != "NOT_UNIT":
+            continue
+        findings.append(Finding(
+            R_REFUTED_EVIDENCE, "%s:cert:%s" % (R_REFUTED_EVIDENCE, cid),
+            UNSOUND_PREMISE, cid,
+            "claim %s declares certificate %s and the verifier REFUTED it: %s"
+            % (cid, c.get("certificate"),
+               c.get("certificate_why") or "(no detail)")
+            + "\n  The certificate kind is what `derive_scope` reads to decide "
+              "whether this emptiness is field-independent, so a wrong kind is "
+              "not a labelling error -- it is a claim to a scope the "
+              "mathematics does not give. Transport now treats this claim as "
+              "having NO certificate, which is why nothing it premises is "
+              "licensed.",
+            "This is a statement about the CERTIFICATE and not about the "
+            "emptiness -- the model may well be empty, established by other "
+            "means. Name the certificate kind that actually closes it. If the "
+            "argument is field-relative, the kind must be too, and "
+            "`derive_scope` will then require you to name the field.",
+            semantic_key=cid))
+    for pid in sorted(graph.partitions):
+        p = graph.partitions[pid]
+        if p.get("superseded_by"):
+            continue
+        if p.get("exhaustive_verdict") == "NOT_GEOMETRICALLY_EXHAUSTIVE":
+            findings.append(Finding(
+                R_COVERAGE, "%s:geometric:%s" % (R_COVERAGE, pid),
+                DEBT, pid,
+                "partition %s has a computed hole over the algebraic closure, "
+                "but that does not prove a hole over its declared base field: "
+                "%s"
+                % (pid, p.get("exhaustive_why") or "(no detail)"),
+                "Prove the parent empty over the base field, add the missing "
+                "branch, or provide a base-field coverage certificate. Until "
+                "then the partition cannot license a case-split inference.",
+                semantic_key=pid))
+            continue
+        if p.get("exhaustive_verdict") != "NOT_EXHAUSTIVE":
+            continue
+        findings.append(Finding(
+            R_REFUTED_EVIDENCE, "%s:cover:%s" % (R_REFUTED_EVIDENCE, pid),
+            UNSOUND_PREMISE, pid,
+            "partition %s declares its branches exhaustive and the verifier "
+            "REFUTED it: %s"
+            % (pid, p.get("exhaustive_why") or "(no detail)")
+            + "\n  Every conclusion of the form \"and those are all the "
+              "cases\" rests on this, including any EMPTY established branch "
+              "by branch.",
+            "Add the missing branch, or narrow the parent to the region the "
+            "branches do cover and re-anchor the claims there. If the split "
+            "is genuinely complete and the verifier disagrees, the branches "
+            "are not `parent AND condition` -- check that each carries the "
+            "parent's equations as well as its own.",
+            semantic_key=pid))
+    for eid in sorted(graph.edges):
+        e = graph.edges[eid]
+        if (not e.get("superseded_by")
+                and e.get("output_verdict") == "NOT_THE_STATED_OUTPUT"):
+            findings.append(Finding(
+                R_REFUTED_EVIDENCE, "%s:output:%s" % (R_REFUTED_EVIDENCE, eid),
+                UNSOUND_PREMISE, eid,
+                "the model built by %s across %s does not have the ideal that "
+                "operation produces: %s"
+                % (e.get("built_by_operation"), eid,
+                   e.get("output_why") or "(no detail)")
+                + "\n  Every claim at that model is about a different variety "
+                  "from the one its construction names.",
+                "Re-run the operation and record what it returns, or correct "
+                "the generators by hand and say which. If the ideal was typed "
+                "rather than computed, that is the defect -- the constructor "
+                "emits a program precisely so the answer does not have to be "
+                "transcribed.",
+                semantic_key=eid))
+        if (e.get("superseded_by")
+                or e.get("ring_iso") is not True
+                or e.get("ring_iso_verdict") != "NOT_AN_ISOMORPHISM"):
+            continue
+        findings.append(Finding(
+            R_REFUTED_EVIDENCE, "%s:iso:%s" % (R_REFUTED_EVIDENCE, eid),
+            UNSOUND_PREMISE, eid,
+            "edge %s declares `ring_iso` and the verifier REFUTED it: %s"
+            % (eid, e.get("ring_iso_why") or "(no detail)")
+            + "\n  That flag is the whole licence for an IDENTITY to cross an "
+              "EQUIVALENCE, in either direction. The declared maps failed an "
+              "ideal-pullback or inverse-law check, so they do not establish "
+              "an isomorphism of coordinate rings.",
+            "Drop `ring_iso` and the EQUIVALENCE still carries every existence "
+            "claim -- it is only the IDENTITY cells that need it. If the two "
+            "models really are isomorphic as rings, the declared `forward` and "
+            "`inverse` are not the maps that show it.",
+            semantic_key=eid))
+    return findings
+
+
+def check_origin_contradiction(graph):
+    """A claim whose declared origin the verifier disagreed with.
+
+    `effective_origin` makes the computed answer win, which is right -- a
+    verdict is evidence and a declaration is a word. But a silent correction
+    is its own defect: the author believes something the graph no longer acts
+    on, and the next reader sees a field that is not the one being used.
+
+    So the disagreement is reported, and at UNSOUND_PREMISE when the
+    declaration was the STRONGER of the two. Declaring AMBIENT where the
+    computation says DERIVED is a claim to a licence the mathematics does not
+    give, and it is the direction that produced a live false transport: the
+    claim rode a NECESSARY_CONDITION ALONG, a cell licensed only for AMBIENT,
+    and was reported clean while the graph already held the refutation.
+    """
+    findings = []
+    for cid in sorted(graph.claims):
+        c = graph.claims[cid]
+        if c.get("superseded_by"):
+            continue
+        computed = _VERDICT_ORIGIN.get(c.get("identity_verdict"))
+        declared = c.get("identity_origin")
+        if not computed or not declared or computed == declared:
+            continue
+        overclaimed = declared == K.AMBIENT and computed == K.DERIVED
+        findings.append(Finding(
+            R_ORIGIN_CONFLICT, "%s:%s" % (R_ORIGIN_CONFLICT, cid),
+            UNSOUND_PREMISE if overclaimed else TRIAGE, cid,
+            "claim %s declares `identity_origin: %s` and the verifier computed "
+            "%s.\n  %s"
+            % (cid, declared, computed,
+               ("AMBIENT is the STRONGER reading -- it says the rewriting never "
+                "used the model's equations -- and the computation says it "
+                "did. Transport is now decided by the computed value, so this "
+                "claim licenses less than its declaration asks for."
+                if overclaimed else
+                "The computed value is what transport now uses; the "
+                "declaration understates what was established.")),
+            "Supersede the claim with `identity_origin: %s` and a "
+            "`discharge_kind` -- that field is LICENSING, so the correction "
+            "gets the second look it deserves. Leaving the two disagreeing "
+            "means the graph shows a reader one thing and acts on another."
+            % computed,
+            semantic_key=cid))
     return findings
 
 
@@ -1391,20 +2064,30 @@ def check_stale_paths(graph):
             findings.append(Finding(
                 R_STALE_PATH, "%s:%s:%s" % (R_STALE_PATH, iid, eid),
                 DEBT if bookkeeping else UNSOUND_PREMISE, iid,
-                "inference %s is routed over edge %s, which %s replaced."
-                % (iid, eid, new_id or "another edge")
+                "inference %s is routed over edge %s, which %s."
+                % (iid, eid,
+                   ("%s replaced" % new_id) if new_id else
+                   "was withdrawn by %s" % graph.edges[eid].get("withdrawn_by"))
                 + ("\n  It licenses exactly what %s licensed, so the argument "
                    "stands as checked and only the pointer is stale."
                    % eid if bookkeeping else
-                   "\n  %s changed, so this argument was audited against cells "
-                   "the current edge does not open. The conclusion is not "
-                   "withdrawn and is not licensed either -- it is UNEXAMINED."
-                   % (", ".join(moved) or "The relation")),
-                "Redeclare this inference over %s and mark the old one "
-                "`supersedes`. Supersession does not repoint a path on its "
-                "own: an argument credited against an edge it was never "
-                "checked against is the failure this refuses to automate."
-                % (new_id or "the current edge"),
+                   ("\n  The relation was withdrawn with no successor, so this "
+                    "path no longer exists. The conclusion is not withdrawn "
+                    "and is not licensed either -- it is UNEXAMINED."
+                    if not newer else
+                    "\n  %s changed, so this argument was audited against cells "
+                    "the current edge does not open. The conclusion is not "
+                    "withdrawn and is not licensed either -- it is UNEXAMINED."
+                    % (", ".join(moved) or "The relation"))),
+                ("Retract this inference if the conclusion is abandoned, or "
+                 "redeclare it over a real path. A withdrawn edge has no "
+                 "successor to repoint at."
+                 if not new_id else
+                 "Redeclare this inference over %s and mark the old one "
+                 "`supersedes`. Supersession does not repoint a path on its "
+                 "own: an argument credited against an edge it was never "
+                 "checked against is the failure this refuses to automate."
+                 % new_id),
                 semantic_key="%s|%s" % (iid, eid)))
     return findings
 
@@ -1632,12 +2315,219 @@ def check_crosscuts(graph):
     return findings
 
 
-def check_containment(graph):
-    """The assertion the ENTIRE ontology rests on, and nothing ever checked it.
+def _legs(graph, cid):
+    """Every (inference, path) that carries claim `cid`.
 
-    Every edge asserts `V(src) subset V(dst)`.  The kernel's opening comment
-    says so and all six types are relaxations in that sense.  It has never been
-    verified, only declared -- which makes it the SIXTH instance of the pattern
+    PREMISES ONLY, and never `claim`/`path`.  The store normalises a
+    single-claim inference into a one-element `premises` list AND KEEPS the
+    original fields, so reading both counts every such inference twice --
+    which the first version of this helper did, reporting the hyperbola
+    finding two identical times.
+
+    Reading `claim`/`path` INSTEAD is the opposite bug and already cost a live
+    campaign: they are backfilled from `premises[0]` only, so any claim in slot
+    2 or later goes invisible, and that campaign had all three of its
+    structured identities in slots 2 to 4.  `check_identity` carries the
+    comment; this helper now carries the code, so there is one place to get it
+    right.
+    """
+    legs = []
+    for iid in sorted(graph.inferences):
+        inf = graph.inferences[iid]
+        if inf.get("superseded_by"):
+            continue
+        for pr in inf.get("premises") or []:
+            if pr.get("claim") == cid:
+                legs.append((iid, pr.get("path") or []))
+    return legs
+
+
+def check_inexpressible(graph):
+    """An IDENTITY transported into a ring that does not have its symbols.
+
+    THE GATE `IMAGE_CLOSURE/ALONG/IDENTITY` ACTUALLY NEEDS, and the one nothing
+    asked for.  That cell was licensed on density -- "the image is dense in its
+    closure, so a relation vanishing on the image vanishes on the closure" --
+    which is the wrong argument twice: a set is dense in its own closure by
+    definition, so the map earned nothing; and the conclusion is about POINTS
+    while an IDENTITY here is membership in an ideal, which `verify.identity`
+    decides by reduction.  The two agree only for radical ideals and an
+    elimination ideal need not be one.
+
+    The honest argument is the elimination theorem -- I(dst) = I(src) cap
+    k[remaining] -- and what it requires is that the rewriting BE A SENTENCE IN
+    THE TARGET RING.  `x*y = 1` is true on the hyperbola xy = 1, and after
+    eliminating y the target ring is k[x], where it is not a false claim: it is
+    not a claim.  The tool licensed it and `gp check` exited 0.
+
+    SAME SHAPE AS `coefficients_in_base`, which is why this is worth saying
+    twice.  Both gates exist only because a claim is a STRING and a string
+    carries no evidence about which ring it lives in; state the theorem with
+    `f g : R` and both conditions vanish into the type, which is exactly why
+    the formalisation could not see either one.
+
+    TWO TIERS, because sometimes the graph KNOWS and sometimes this is a guess.
+
+      UNSOUND_CONCLUSION  the target records the symbol in `eliminated`. Not an
+                          inference from names: the graph says that variable was
+                          projected away.
+      TRIAGE              the target declares `ring_vars` without the symbol.
+                          Syntactic and conservative -- the name might denote a
+                          constant -- so it reports.
+    """
+    findings = []
+    for cid in sorted(graph.claims):
+        c = graph.claims[cid]
+        if c.get("kind") != K.IDENTITY or c.get("superseded_by"):
+            continue
+        if c.get("lhs") is None:
+            continue
+        dead = withdrawn_edges(graph)
+        for iid, path in _legs(graph, cid):
+            for step in path:
+                eid = step[0] if isinstance(step, (list, tuple)) else step
+                direction = (step[1] if isinstance(step, (list, tuple))
+                             and len(step) > 1 else None)
+                e = graph.edges.get(eid)
+                if not e or eid in dead:
+                    continue
+                # WHERE THE CLAIM LANDS.  ALONG runs src -> dst, AGAINST runs
+                # dst -> src, and only the landing ring can be too small.
+                lands = e.get("dst") if direction == K.ALONG else e.get("src")
+                target = graph.models.get(lands) or {}
+                ring = target.get("ring_vars")
+                if not ring:
+                    continue
+                missing = cas_foreign_symbols(ring, c["lhs"], c["rhs"])
+                if not missing:
+                    continue
+                gone = [s for s in missing
+                        if s in set(target.get("eliminated") or [])]
+                findings.append(Finding(
+                    R_INEXPRESSIBLE, "%s:%s:%s" % (R_INEXPRESSIBLE, cid, eid),
+                    UNSOUND_CONCLUSION if gone else TRIAGE, cid,
+                    "inference %s carries IDENTITY %s across %s to %s, whose "
+                    "ring is k[%s] -- and the rewriting names %s.\n"
+                    "  %s"
+                    % (iid, cid, eid, lands, ", ".join(ring),
+                       ", ".join("`%s`" % s for s in missing),
+                       ("%s was ELIMINATED to build %s, so this is not a guess "
+                        "from names. The transported statement is not a false "
+                        "claim at %s -- it is not a claim there, and every "
+                        "cell downstream of it is reasoning about a sentence "
+                        "that does not parse in its own ring."
+                        % (", ".join("`%s`" % s for s in gone), lands, lands))
+                       if gone else
+                       ("The check is syntactic and cannot know whether those "
+                        "names denote constants rather than variables, so this "
+                        "reports rather than refuses. If they are variables, "
+                        "the conclusion is not expressible at %s." % lands)),
+                    ("Restate the rewriting in the target's variables, or "
+                     "keep the claim at its own model and transport something "
+                     "that survives the projection. Eliminating a variable "
+                     "does not make a statement about it into a statement "
+                     "about what is left.") if gone else
+                    ("If those names are constants of the base, say so in a "
+                     "caveat and carry this. If they are variables, the claim "
+                     "belongs at its own model only."),
+                    semantic_key="%s:%s" % (cid, eid)))
+    return findings
+
+
+def check_pending_ideals(graph):
+    """Models whose ideal is a computation nobody has run yet.
+
+    THE POINT IS TO SAY IT BEFORE THE SOLVER DOES.  `saturate_closure` and
+    `eliminate` mint a model whose ideal only the CAS knows, and both used to
+    fill `generators` with a placeholder string.  Nothing objected: CONTAINMENT
+    reported that "both models carry ideals, so the containment is CHECKABLE",
+    which was false, and its DISCHARGE sent the author to `gp verify`, which
+    passed `<saturation of M at f>` to Singular and returned `expected
+    ideal-expression`.  Two layers agreed the graph was fine and the third
+    failed to parse.
+
+    A pending ideal is not a defect and this is not an accusation -- it is the
+    normal state of a model between being constructed and being computed.  What
+    it IS is a blocker: every reduction at that model, and every containment
+    across an edge touching it, is unanswerable until the program runs.  Saying
+    so costs one finding and replaces a Singular parse error.
+    """
+    findings = []
+    for mid in sorted(graph.models):
+        m = graph.models[mid]
+        if not m.get("ideal_pending") or m.get("superseded_by"):
+            continue
+        claims = sorted(c for c in graph.claims
+                        if graph.claims[c].get("model") == mid
+                        and not graph.claims[c].get("superseded_by"))
+        edges = sorted(e for e in graph.edges
+                       if mid in (graph.edges[e].get("src"),
+                                  graph.edges[e].get("dst"))
+                       and not graph.edges[e].get("superseded_by"))
+        blocked = (("%d claim(s) and %d edge(s) rest on it: %s."
+                    % (len(claims), len(edges),
+                       ", ".join(claims + edges)))
+                   if (claims or edges) else
+                   "Nothing rests on it yet.")
+        findings.append(Finding(
+            R_PENDING_IDEAL, "%s:%s" % (R_PENDING_IDEAL, mid), DEBT, mid,
+            "model %s does not carry an ideal yet -- it is waiting on %s."
+            % (mid, m["ideal_pending"])
+            + "\n  " + blocked + " No reduction at this model can be "
+              "answered until the computation runs, so `gp verify` will "
+              "return UNVERIFIED for all of them. This is a normal state for "
+              "a constructed model, not an error; it is reported so it does "
+              "not read as a solver failure later.",
+            "Run `gp construct ... --run --declare` to execute the operation "
+            "and record its generators, or supersede this pending model with "
+            "a RELICENSE that replaces `ideal_pending`. The two "
+            "cannot be declared together -- an ideal is either known or "
+            "waiting -- so the relicensing is what moves the model from one state "
+            "to the other.",
+            semantic_key=mid))
+    return findings
+
+
+def _effective_containment(graph, eid):
+    """Containment verdict plus provenance when the exact question survives."""
+    edge = graph.edges[eid]
+    if K.is_mapped_equivalence(edge):
+        return None, None, None
+    if edge.get("containment"):
+        return edge["containment"], edge.get("containment_why"), None
+    current, seen = edge, set()
+    while current.get("supersedes"):
+        old_id = current["supersedes"]
+        if old_id in seen:
+            break
+        seen.add(old_id)
+        old = graph.edges.get(old_id)
+        if not old:
+            break
+        if (current.get("type") == K.SPECIALIZATION
+                or K.is_mapped_equivalence(current)
+                or old.get("type") == K.SPECIALIZATION
+                or K.is_mapped_equivalence(old)
+                or old.get("src") != edge.get("src")
+                or old.get("dst") != edge.get("dst")):
+            break
+        if old.get("containment"):
+            return (old["containment"], old.get("containment_why"), old_id)
+        current = old
+    return None, None, None
+
+
+def check_containment(graph):
+    """Check literal inclusion edges, without conflating mapped equivalence.
+
+    Inclusion-style edges assert `V(src) subset V(dst)`. A mapped EQUIVALENCE
+    instead asserts that its forward substitution sends source points to target
+    points and its inverse sends them back. Lean/MappedEquivalence proves that
+    neither literal inclusion follows from that relation, so those edges are
+    handled by `verify.ring_iso` and skipped here.
+
+    Literal containment was never verified, only declared -- the SIXTH instance
+    of the pattern
     this project keeps finding, at the deepest level available: a field that
     DETERMINES transport and is taken on the author's word.
 
@@ -1669,35 +2559,84 @@ def check_containment(graph):
         if eid in dead:
             continue
         e = graph.edges[eid]
+        if any((graph.models.get(e.get(end)) or {}).get("superseded_by")
+               for end in ("src", "dst")):
+            continue
         src, dst = graph.models.get(e["src"]), graph.models.get(e["dst"])
         if not src or not dst:
             continue
+        # A mapped equivalence asserts dst(forward(x)) for src(x), and the
+        # inverse statement in the other direction.  It does NOT assert that
+        # V(src) is a literal subset of V(dst) in the coordinates as written.
+        # `verify.ring_iso` checks the former; asking containment as well is a
+        # different, generally false question (MappedEquivalence.lean).
+        if K.is_mapped_equivalence(e):
+            continue
+        # A PENDING IDEAL IS NOT AN IDEAL, and the sentence below says "both
+        # models carry ideals".  Saying it about a model still waiting on a
+        # saturation was a false statement about the graph, and its DISCHARGE
+        # sent the author to `gp verify` to reduce modulo something that does
+        # not exist yet.  `pending_ideals` reports that state on its own terms.
+        if src.get("ideal_pending") or dst.get("ideal_pending"):
+            continue
         if src.get("generators") is None or dst.get("generators") is None:
             continue
-        verdict = e.get("containment")
+        # THIS RULE MUST KEY ON WHAT ITS OWN VERIFIER KEYS ON.
+        #
+        # It tested "do both models carry ideals?" and promised `gp verify`
+        # would reduce one modulo the other. `verify.containment` also requires
+        # THE SAME RING, and declines when the rings differ -- correctly: an
+        # ideal containment between two different polynomial rings is not a
+        # reduction question.
+        #
+        # So on every IMAGE_CLOSURE edge, where the rings differ BY
+        # CONSTRUCTION because the edge is a projection, the checker raised a
+        # DEBT that was UNDISCHARGEABLE BY ITS OWN STATED REMEDY: run the named
+        # command, nothing clears, re-run `gp check`, see it again verbatim.
+        # A live session hit this and had no route but `gp accept`.
+        #
+        # Not a soundness problem -- declining is the safe direction -- but a
+        # finding whose discharge cannot be delivered is worse than no finding,
+        # because it spends the author's trust in every other discharge.
+        #
+        # What IS checkable across a projection is `operation_output`, and the
+        # session's own edge carried a VERIFIED one.
+        if (src.get("ring_vars") or []) != (dst.get("ring_vars") or []):
+            continue
+        verdict, containment_why, inherited_from = _effective_containment(graph, eid)
         if verdict == "VERIFIED":
             continue
         if verdict == "NOT_BY_IDEAL":
+            ridden = live_crossings(graph, [eid])
+            untyped_unridden = e["type"] == K.UNTYPED and not ridden
             findings.append(Finding(
                 R_CONTAINMENT, "%s:%s" % (R_CONTAINMENT, eid),
-                UNSOUND_PREMISE, eid,
+                DEBT if untyped_unridden else UNSOUND_PREMISE, eid,
                 "edge %s asserts V(%s) subset V(%s) and the SUFFICIENT test for "
                 "it FAILED: %s"
                 % (eid, e["src"], e["dst"],
-                   e.get("containment_why") or "(no reduction recorded)")
-                + "\n  Every cell this edge licenses rests on that "
-                  "containment, and it is now UNESTABLISHED rather than merely "
-                  "unexamined. It is NOT refuted: reduction tests plain ideal "
-                  "membership and the containment can still hold through the "
-                  "radical.",
-                "Three honest moves. Establish it another way and record how -- "
-                "a radical-membership computation is the direct one. Or refute "
-                "it properly, which needs a POINT of the source outside the "
-                "target, a witness rather than a reduction. Or, if the two "
-                "models are related and neither contains the other -- a "
-                "birational correspondence, a flop -- this is not an edge at "
-                "all: draw it as a SPAN through the object they both map to "
-                "and type each leg separately.",
+                   containment_why or "(no reduction recorded)")
+                + (("\n  This verdict was computed for %s and applies here "
+                    "because the source and destination model ids are identical."
+                    % inherited_from) if inherited_from else "")
+                + ("\n  This edge is UNTYPED and carries no live inference, so "
+                   "it licenses no cell: the failed sufficient test is an open "
+                   "modelling debt, not yet an unsound premise. The containment "
+                   "is UNESTABLISHED, not refuted; it can still hold through "
+                   "the radical."
+                   if untyped_unridden else
+                   "\n  Every cell this edge licenses rests on that containment, "
+                   "and it is now UNESTABLISHED rather than merely unexamined. "
+                   "It is NOT refuted: reduction tests plain ideal membership "
+                   "and the containment can still hold through the radical."),
+                "Establish it another way and record how -- a radical-membership "
+                "computation is the direct one. Or refute it properly with a "
+                "POINT of the source outside the target. If the two models are "
+                "related and neither contains the other, draw a SPAN and type "
+                "each leg separately. If this declaration was never an edge, "
+                "withdraw it with an edge tombstone: `supersedes: %s`, "
+                "`discharge_kind: WITHDRAW`, and `why`."
+                % eid,
                 semantic_key=eid))
             continue
         findings.append(Finding(
@@ -2286,33 +3225,46 @@ def check_identity(graph):
             # way to record a verdict either, the phase-3 loop had no terminus:
             # you could structure a claim, not verify it, and never hear about
             # it again.  Structuring must not be how a claim goes dark.
+            # "ONE SOLVER CALL AWAY" IS FALSE IF THE IDEAL IS NOT THERE YET.
+            #
+            # Same class of wrong sentence as CONTAINMENT's "both models carry
+            # ideals": true of the common case, asserted unconditionally, and
+            # read by an author who then runs `gp verify` and gets nothing.
+            # PENDING-IDEAL already reports the model; this tier just stops
+            # promising an answer the graph cannot yet produce.
+            waiting = (graph.models.get(c.get("model")) or {}).get(
+                "ideal_pending")
             findings.append(Finding(
                 R_IDENTITY, "%s:untested:%s" % (R_IDENTITY, cid),
                 TRIAGE, cid,
                 "claim %s records its rewriting -- %s = %s -- and nothing has "
                 "reduced it.\n"
-                "  This is the cheap case. The claim asserts that lhs - rhs "
-                "lies in %s's ideal, reduction modulo a Groebner basis DECIDES "
-                "that, and the answer is one solver call away. Until it is "
-                "made, `identity_origin` is still the author's word for the "
-                "one field on this claim that decides where it may travel."
-                % (cid, c.get("lhs"), c.get("rhs"), c.get("model")),
-                "Run `gp verify`. It reduces every structured IDENTITY and "
-                "records the verdict, and a REFUTED answer here would mean the "
-                "rewriting is false at its own model -- which no transport "
-                "typing anywhere downstream would ever have surfaced.",
+                "  %s Until it is made, `identity_origin` is still the "
+                "author's word for the one field on this claim that decides "
+                "where it may travel."
+                % (cid, c.get("lhs"), c.get("rhs"),
+                   ("The claim asserts that lhs - rhs lies in %s's ideal, and "
+                    "THAT IDEAL HAS NOT BEEN COMPUTED YET -- the model is "
+                    "waiting on %s. The reduction is not one solver call away; "
+                    "it is one solver call away from being askable."
+                    % (c.get("model"), waiting)) if waiting else
+                   ("This is the cheap case. The claim asserts that lhs - rhs "
+                    "lies in %s's ideal, reduction modulo a Groebner basis "
+                    "DECIDES that, and the answer is one solver call away."
+                    % c.get("model"))),
+                ("Run the computation the model is waiting on and record its "
+                 "generators; `gp verify` can reduce this claim only once the "
+                 "ideal it names exists.") if waiting else
+                ("Run `gp verify`. It reduces every structured IDENTITY and "
+                 "records the verdict, and a REFUTED answer here would mean "
+                 "the rewriting is false at its own model -- which no "
+                 "transport typing anywhere downstream would ever have "
+                 "surfaced."),
                 semantic_key=cid))
             continue
-        # PREMISES, NOT `claim`/`path`.  Those two are backfilled from
-        # premises[0] only, so reading them made every IDENTITY in slot 2 or
-        # later invisible to this rule -- and a live campaign put all three of
-        # its structured identities in slots 2 to 4.
-        legs = []
-        for iid in sorted(graph.inferences):
-            inf = graph.inferences[iid]
-            for pr in inf.get("premises") or []:
-                if pr.get("claim") == cid:
-                    legs.append(pr.get("path") or [])
+        # PREMISES, NOT `claim`/`path` -- see `_legs`, which now owns both
+        # halves of that trap.
+        legs = [path for _, path in _legs(graph, cid)]
         for path in legs:
             hit = False
             for step in path:
@@ -2369,6 +3321,7 @@ def run(graph, accepted=None):
                 + check_self_refuting_equivalence(graph)
                 + check_unknown_identity_origin(graph)
                 + check_unexhibited_witness(graph)
+                + check_witness_point(graph)
                 + check_aliases(graph)
                 + check_partitions(graph)
                 + check_supersession(graph, accepted)
@@ -2377,6 +3330,8 @@ def run(graph, accepted=None):
                 + check_families(graph)
                 + check_evidence_direction(graph)
                 + check_crosscuts(graph)
+                + check_inexpressible(graph)
+                + check_pending_ideals(graph)
                 + check_containment(graph)
                 + check_identity(graph)
                 + check_sibling_edges(graph)
@@ -2386,6 +3341,9 @@ def run(graph, accepted=None):
                 + check_doubts(graph)
                 + check_coefficients_in_base(graph)
                 + check_integral(graph)
+                + check_origin_contradiction(graph)
+                + check_localized_unit_certificates(graph)
+                + check_refuted_evidence(graph)
                 + check_evidence(graph)
                 + check_parallel_edges(graph)
                 + check_vacuous_conclusions(graph)
@@ -2450,21 +3408,75 @@ def clean_inferences(graph, findings):
     flagged = {f.subject for f in findings
                if SEVERITY_RANK[f.derived_severity]
                >= SEVERITY_RANK[UNSOUND_PREMISE]}
-    out = []
-    for i in graph.inference_order:
-        inf = graph.inferences[i]
-        if i in flagged or inf.get("superseded_by"):
-            continue
-        touched = set()
-        for pr in inf.get("premises") or []:
-            if pr.get("claim"):
-                touched.add(pr["claim"])
-            for step in pr.get("path") or []:
-                touched.add(step[0] if isinstance(step, (list, tuple)) else step)
-        if touched & flagged:
-            continue
-        out.append(i)
+    # AND AN UNVERIFIED IDENTITY DISQUALIFIES, though it is only TRIAGE.
+    #
+    # The severity filter is right in general -- a VACUOUS-CONCLUSION at TRIAGE
+    # is a legitimate positive control -- but UNTESTED-IDENTITY is different in
+    # kind. It says the claim's CENTRAL CONTENT has never been checked, and an
+    # argument resting on that is not evidence that the checker declines to
+    # refuse sound steps.
+    #
+    # Found via a review's counterexample: localise `k[x,y]/(xy)` at `x`, where
+    # `y = 0` holds in the localisation and not in the ambient ring. Declared
+    # as an IDENTITY and transported ALONG, the table licenses it -- correctly,
+    # because a RESTRICTION shares its ideal, so the fault is that `y = 0` is
+    # not an IDENTITY at that model at all. `verify.identity` REFUTES it. But
+    # at the default floor `gp check` reported the inference CLEAN and exited
+    # 0, with the only signal sitting below the failing floor.
+    flagged |= {f.subject for f in findings if f.rule == R_IDENTITY}
+    return [i for i, _why in _partition_inferences(graph, flagged)[0]]
+
+
+def _touches(graph, iid):
+    """Everything an inference rests on: its premise claims and its path."""
+    inf = graph.inferences[iid]
+    out = set()
+    for pr in inf.get("premises") or []:
+        if pr.get("claim"):
+            out.add(pr["claim"])
+        for step in pr.get("path") or []:
+            out.add(step[0] if isinstance(step, (list, tuple)) else step)
     return out
+
+
+def _partition_inferences(graph, flagged):
+    """(clean, disqualified) -- and the second is why this function exists.
+
+    THE SILENT DISAPPEARANCE.  Making `clean_inferences` exclude anything
+    riding a flagged edge was right, and it created a third category nothing
+    reported: an inference that is not clean, because its edge is flagged, and
+    not in the findings either, because the finding names the EDGE.
+
+    A live campaign hit it on a TRUE, correctly-typed inference and said the
+    right thing about it -- "not refused; silently absent... that is the one
+    failure mode a tool like this must never have."
+
+    So the partition is explicit and both halves are returned.  A reader is
+    told which arguments are positive controls, which are refused, and which
+    are neither and why.
+    """
+    clean, disqualified = [], []
+    for iid in graph.inference_order:
+        inf = graph.inferences[iid]
+        if inf.get("superseded_by"):
+            continue
+        if iid in flagged:
+            continue          # reported in its own right
+        hit = sorted(_touches(graph, iid) & flagged)
+        if hit:
+            disqualified.append((iid, hit))
+        else:
+            clean.append((iid, []))
+    return clean, disqualified
+
+
+def disqualified_inferences(graph, findings):
+    """Inferences neither clean nor flagged, with what disqualified them."""
+    flagged = {f.subject for f in findings
+               if SEVERITY_RANK[f.derived_severity]
+               >= SEVERITY_RANK[UNSOUND_PREMISE]}
+    flagged |= {f.subject for f in findings if f.rule == R_IDENTITY}
+    return _partition_inferences(graph, flagged)[1]
 
 
 def render(findings, accepted=None, full=False):
@@ -2496,10 +3508,32 @@ def render(findings, accepted=None, full=False):
     live = [f for f in findings if f.fid not in accepted]
     carried = [f for f in findings if f.fid in accepted]
     out = []
+    # A DISCHARGE REPEATED IS NOT A DISCHARGE TWICE.
+    #
+    # Measured on a real campaign: 32 findings, 22,486 bytes, of which DISCHARGE
+    # was 47% -- and 68% of THOSE bytes were duplicates. CONTAINMENT fired 8
+    # times, TRANSPORT 7, DOUBT 5, and DOUBT's five discharges were ONE distinct
+    # string. A rule's discharge is static prose; only the ids vary.
+    #
+    # This matters more than tidiness now that the hook actually fires: the
+    # refusal path pays this cost on EVERY TOOL CALL, and the same wall arriving
+    # repeatedly buries the move it is telling you to make.
+    #
+    # COMPRESS BY NOT REPEATING THE PROSE, NEVER BY SHORTENING IT. The discharge
+    # is where this tool delivers its value -- a campaign once spent its most
+    # expensive hour on a refusal whose correct answer could not be looked up --
+    # so the first occurrence is printed in full and later identical ones point
+    # back to it. Nothing is lost and nothing has to be asked for.
+    seen_discharge = {}
     for f in live:
         out.append("%s  %s" % (f.severity, f.fid))
         out.extend("    " + l for l in f.detail.splitlines())
-        out.append("    -> DISCHARGE: %s" % f.discharge)
+        first = seen_discharge.get((f.rule, f.discharge))
+        if first is None:
+            seen_discharge[(f.rule, f.discharge)] = f.fid
+            out.append("    -> DISCHARGE: %s" % f.discharge)
+        else:
+            out.append("    -> DISCHARGE: as %s above." % first)
         out.append("")
     if carried:
         out.append("CARRIED -- examined and knowingly accepted (%d). These are "

@@ -17,10 +17,16 @@ of the JC(2) campaign it was written against, plus the SPECIALIZATION type that
 """
 
 # ---------------------------------------------------------------------------
-# Edge types.  Edges point TIGHTER -> LOOSER: `src` is the more informative
-# model, so V(src) subset V(dst) for every lossy type.  AGAINST = reasoning
-# looser -> tighter, which is the direction emptiness travels and the direction
-# that closes cells.
+# Edge types.  Inclusion-style edges point TIGHTER -> LOOSER: `src` is the more
+# informative model, so V(src) subset V(dst) for every lossy type except
+# SPECIALIZATION, whose fibres are not nested.  AGAINST = reasoning looser ->
+# tighter, which is the direction emptiness travels and the direction that
+# closes cells.
+#
+# A mapped EQUIVALENCE is the other non-inclusion presentation: `forward`
+# carries source points to target points and `inverse` carries them back.  It
+# licenses the same logical transports through that identification, without
+# asserting literal containment in the coordinates as written.
 # ---------------------------------------------------------------------------
 EQUIVALENCE = "EQUIVALENCE"
 NECESSARY_CONDITION = "NECESSARY_CONDITION"
@@ -132,6 +138,11 @@ NONEMPTY = "NONEMPTY"    # this model has a point, EXHIBITED (see above)
 PREDICATE = "PREDICATE"  # a condition satisfied by every point of this model
 IDENTITY = "IDENTITY"    # a rewriting valid in this model's coordinate ring
 CLAIM_KINDS = (EMPTY, NONEMPTY, PREDICATE, IDENTITY)
+
+# Structured exact-affine PREDICATE atoms. A conjunction of ZERO and NONZERO
+# polynomial conditions is enough to type equations and algebraic open conditions
+# without pretending to be a general logic.
+CONDITION_RELATIONS = ("ZERO", "NONZERO")
 
 # ---------------------------------------------------------------------------
 # COUNT -- the fifth kind, and it exists only AT A FAMILY.
@@ -260,6 +271,10 @@ SCHEME = "SCHEME"        # the field-independent emptiness scope
 # ---------------------------------------------------------------------------
 BUILTIN_CERTIFICATES = {
     "UNIT_IDEAL_CERT": True,            # 1 in I, exhibited over the base
+    # A guard monomial lies in I, so 1 lies in the localized ideal and the
+    # recorded principal-open model has no points.  This base-changes because
+    # the same polynomial identity survives every coefficient extension.
+    "LOCALIZED_UNIT_IDEAL_CERT": True,
     "NONZERO_RESULTANT": True,          # res in Q^*, hence in K^*
     "EXACT_VALUATION_COLLISION": True,  # an inequality between integers
     "DEGREE_COUNT": True,               # an inequality between integers
@@ -298,6 +313,10 @@ DENOMINATOR_FREE = (POLYNOMIAL, IDENTITY_MAP)
 _SCHEME_SCOPE = "scheme_scope"
 _MAP_POLYNOMIAL = "map_polynomial"
 _CLOSED_CONDITION = "closed_condition"
+# A locally validated elimination may still omit equations. Exact-image
+# forward transport needs the missing contraction-completeness direction.
+_EXACT_IMAGE_IDENTITY = "exact_image_identity"
+_CLOSED_EXACT_IMAGE = "closed_exact_image"
 # An identity pushed FORWARD along a non-injective pullback: licensed only when
 # the rewriting never depended on the source model's equations.
 _AMBIENT_IDENTITY = "ambient_identity"
@@ -430,8 +449,72 @@ _ZARISKI_DENSE = "zariski_dense"
 # ---------------------------------------------------------------------------
 _EXISTENTIAL = "existential"
 
+# ---------------------------------------------------------------------------
+# DERIVED POINT TRANSPORT.
+#
+# Every typed edge has a point relation from src to dst. Two independent
+# capabilities determine the ordinary point claims:
+#
+#   total on src       every src point relates to a dst point
+#   surjective on dst  every dst point relates to a src point
+#
+# Existential claims follow the relation and EMPTY runs contravariantly.
+# PREDICATE has the same variance only after the endpoint predicates are
+# reindexed or shown to correspond along the relation; that claim-typing
+# obligation is separate. Three cells carry operation-specific authority
+# beyond this relational core and are explicit overrides.
+# IDENTITY is deliberately absent: it is a coordinate-ring claim.
+# ---------------------------------------------------------------------------
+_POINT_RELATION_CAPABILITIES = {
+    EQUIVALENCE: (True, True),
+    NECESSARY_CONDITION: (True, False),
+    RESTRICTION: (True, False),
+    BASE_EXTENSION: (True, False),
+    IMAGE_CLOSURE: (True, False),
+    SPECIALIZATION: (False, False),
+    UNTYPED: (False, False),
+}
+
+_POINT_RULE_OVERRIDES = {
+    (BASE_EXTENSION, ALONG, EMPTY): _SCHEME_SCOPE,
+    (IMAGE_CLOSURE, ALONG, PREDICATE): _CLOSED_EXACT_IMAGE,
+    (IMAGE_CLOSURE, AGAINST, NONEMPTY): _EXISTENTIAL,
+}
+
+
+def point_relation_capabilities(etype):
+    """Return the baseline ``(total, point_surjective)`` pair for an edge."""
+    try:
+        return _POINT_RELATION_CAPABILITIES[etype]
+    except KeyError:
+        raise KeyError("unknown edge type %r" % (etype,))
+
+
+def compile_point_rule(etype, direction, kind):
+    """Compile one EMPTY/NONEMPTY/PREDICATE rule from point capabilities."""
+    if direction not in DIRECTIONS:
+        raise KeyError("unknown direction %r" % (direction,))
+    override = _POINT_RULE_OVERRIDES.get((etype, direction, kind))
+    if override is not None:
+        return override
+    total, surjective = point_relation_capabilities(etype)
+    if kind == NONEMPTY:
+        return total if direction == ALONG else surjective
+    if kind in (EMPTY, PREDICATE):
+        return surjective if direction == ALONG else total
+    raise KeyError("point-rule derivation does not cover kind %r" % (kind,))
+
+
+def _transport_row(etype, direction, identity_rule):
+    row = {kind: compile_point_rule(etype, direction, kind)
+           for kind in (EMPTY, NONEMPTY, PREDICATE)}
+    row[IDENTITY] = identity_rule
+    return row
+
+
 # ===========================================================================
-# THE TRANSPORT TABLE.  This is the whole type system.
+# THE TRANSPORT TABLE. Point cells are compiled above; identity cells remain
+# explicit because their semantics lives in coordinate rings.
 # ===========================================================================
 TRANSPORT = {
     EQUIVALENCE: {
@@ -458,10 +541,8 @@ TRANSPORT = {
         # a RING ISOMORPHISM -- the algebra is the same, not merely the
         # solution set.  Every other cell is unaffected: those are about points,
         # and about points the converse is exactly the right evidence.
-        ALONG:   {EMPTY: True, NONEMPTY: True, PREDICATE: True,
-                  IDENTITY: _RING_ISOMORPHISM},
-        AGAINST: {EMPTY: True, NONEMPTY: True, PREDICATE: True,
-                  IDENTITY: _RING_ISOMORPHISM},
+        ALONG: _transport_row(EQUIVALENCE, ALONG, _RING_ISOMORPHISM),
+        AGAINST: _transport_row(EQUIVALENCE, AGAINST, _RING_ISOMORPHISM),
     },
     NECESSARY_CONDITION: {
         # tighter -> looser.  A point of the tighter model is a point of the
@@ -469,14 +550,14 @@ TRANSPORT = {
         # rewriting to be AMBIENT: the pullback O(dst) -> O(src) is surjective
         # and not injective here, so a relation derived from src's own ideal
         # does not push forward.  See the k[x]/(x) counterexample above.
-        ALONG:   {EMPTY: False, NONEMPTY: True, PREDICATE: False,
-                  IDENTITY: _AMBIENT_IDENTITY},
+        ALONG: _transport_row(
+            NECESSARY_CONDITION, ALONG, _AMBIENT_IDENTITY),
         # looser -> tighter.  THIS is the direction that closes cells.  An
         # identity of any origin pulls back, because the ring map points this
         # way; the denominator-free condition is what keeps the expression
         # meaningful after substitution.
-        AGAINST: {EMPTY: True, NONEMPTY: False, PREDICATE: True,
-                  IDENTITY: _MAP_POLYNOMIAL},
+        AGAINST: _transport_row(
+            NECESSARY_CONDITION, AGAINST, _MAP_POLYNOMIAL),
     },
     RESTRICTION: {
         # src = the semialgebraic subset (a positivity cone, an open region);
@@ -489,16 +570,14 @@ TRANSPORT = {
         # IDENTITY ALONG IS UNCONDITIONAL, and it took an external review and a
         # nodal cubic to see that the gate here was answering a question nobody
         # had asked.  See the retraction above _ZARISKI_DENSE.
-        ALONG:   {EMPTY: False, NONEMPTY: True, PREDICATE: False,
-                  IDENTITY: True},
+        ALONG: _transport_row(RESTRICTION, ALONG, True),
         # AGAINST/IDENTITY IS THE OTHER PLACE THIS DIFFERS, and it is
         # unconditional where NECESSARY_CONDITION needs a denominator-free map.
         # A restriction does not change coordinates at all -- it is a subset
         # inclusion, the identity on functions -- so there is no substitution to
         # go wrong.  A relation valid at every point of dst is valid at every
         # point of a subset of dst, and that is the whole argument.
-        AGAINST: {EMPTY: True, NONEMPTY: False, PREDICATE: True,
-                  IDENTITY: True},
+        AGAINST: _transport_row(RESTRICTION, AGAINST, True),
     },
     BASE_EXTENSION: {
         # src = the model over the SMALL field k; dst = over the BIG field K.
@@ -520,10 +599,9 @@ TRANSPORT = {
         #
         # Descent is sound by faithful flatness exactly when both sides lie in
         # the base ring, which is a property of the CLAIM and not of the edge.
-        ALONG:   {EMPTY: _SCHEME_SCOPE, NONEMPTY: True, PREDICATE: False,
-                  IDENTITY: True},
-        AGAINST: {EMPTY: True, NONEMPTY: False, PREDICATE: True,
-                  IDENTITY: _COEFFICIENTS_IN_BASE},
+        ALONG: _transport_row(BASE_EXTENSION, ALONG, True),
+        AGAINST: _transport_row(
+            BASE_EXTENSION, AGAINST, _COEFFICIENTS_IN_BASE),
     },
     IMAGE_CLOSURE: {
         # src = the true constructible image; dst = its Zariski closure.
@@ -532,18 +610,51 @@ TRANSPORT = {
         # though it is unsound as a source of witnesses.
         #
         # IDENTITY is licensed ALONG here and that is NOT an inconsistency with
-        # the NECESSARY_CONDITION row: the image is DENSE in its closure, so the
-        # pullback O(closure) -> O(image) is INJECTIVE and a relation vanishing
-        # on the image vanishes on the closure.  This is the cell that shows a
-        # uniform "identities only ever pull back" rule would be too strong --
-        # the direction follows from a property of the map, not from the name of
-        # the edge type.
-        ALONG:   {EMPTY: False, NONEMPTY: True, PREDICATE: _CLOSED_CONDITION,
-                  IDENTITY: _MAP_POLYNOMIAL},
+        # the NECESSARY_CONDITION row.  THE ARGUMENT USED TO BE DENSITY and it
+        # was the wrong argument twice over.
+        #
+        # It read: "the image is DENSE in its closure, so the pullback
+        # O(closure) -> O(image) is INJECTIVE and a relation vanishing on the
+        # image vanishes on the closure ... the direction follows from a
+        # PROPERTY OF THE MAP".
+        #
+        #   * DENSITY IS NOT A PROPERTY OF THE MAP.  A set is dense in its own
+        #     closure by the definition of closure.  Citing it as though the
+        #     map earned it dresses a tautology as a hypothesis, which is how
+        #     `zariski_dense` -- this project's other free gate -- survived as
+        #     long as it did.
+        #
+        #   * IT CONCLUDES ABOUT POINTS AND THE CLAIM IS ABOUT AN IDEAL.
+        #     "Vanishes on the closure" and "lies in the closure's ideal" agree
+        #     only when that ideal is radical, and an elimination ideal need
+        #     not be.  `verify.identity` decides MEMBERSHIP, by reduction.
+        #     lean/GrandPortage/ImageClosure.lean has the gap as `radMem_mem`.
+        #
+        # THE HONEST ARGUMENT IS THE ELIMINATION THEOREM, at the level the tool
+        # actually works at: I(dst) = I(src) cap k[remaining], so a rewriting
+        # in I(src) that is a SENTENCE IN THE TARGET RING is in I(dst) by
+        # membership, and the converse holds because that intersection sits
+        # inside I(src).  Both directions are exact and neither needs density,
+        # reducedness, or anything about the map.
+        #
+        # WHAT IT DOES NEED IS EXPRESSIBILITY, and nothing checked it: `x*y = 1`
+        # is true on the hyperbola and is not a sentence in k[x].  That is now
+        # INEXPRESSIBLE-CONCLUSION in `check`, and it puts this gate in the same
+        # class as `coefficients_in_base` -- an artifact of claims being strings
+        # rather than terms, which is why the formalisation could not see it.
+        #
+        # `_MAP_POLYNOMIAL` STAYS.  It is not the condition the elimination
+        # theorem needs, and it is not dead either: `operations.eliminate` mints
+        # these edges from a projection, whose map is polynomial always, but a
+        # hand-declared IMAGE_CLOSURE along a RATIONAL map can introduce
+        # denominators in the pullback and this refuses it.  Two real
+        # conditions; only one of them used to be checked.
+        ALONG: _transport_row(
+            IMAGE_CLOSURE, ALONG, _EXACT_IMAGE_IDENTITY),
         # A point of the closure need NOT lift: NONEMPTY does not travel here.
         # That single cell is Chevalley.
-        AGAINST: {EMPTY: True, NONEMPTY: _EXISTENTIAL, PREDICATE: True,
-                  IDENTITY: _MAP_POLYNOMIAL},
+        AGAINST: _transport_row(
+            IMAGE_CLOSURE, AGAINST, _MAP_POLYNOMIAL),
     },
     SPECIALIZATION: {
         # generic fibre <-> special fibre of a scheme over Spec Z.
@@ -589,14 +700,13 @@ TRANSPORT = {
         #   certificate this kernel cannot see.
         #   AGAINST (lift to char 0) is unsound outright.  `p*x = 0` holds
         #   identically in characteristic p and lifts to nothing.
-        ALONG:   {EMPTY: False, NONEMPTY: False, PREDICATE: False,
-                  IDENTITY: _INTEGRAL_IDENTITY},
-        AGAINST: {EMPTY: False, NONEMPTY: False, PREDICATE: False,
-                  IDENTITY: False},
+        ALONG: _transport_row(
+            SPECIALIZATION, ALONG, _INTEGRAL_IDENTITY),
+        AGAINST: _transport_row(SPECIALIZATION, AGAINST, False),
     },
     UNTYPED: {
-        ALONG:   {k: False for k in CLAIM_KINDS},
-        AGAINST: {k: False for k in CLAIM_KINDS},
+        ALONG: _transport_row(UNTYPED, ALONG, False),
+        AGAINST: _transport_row(UNTYPED, AGAINST, False),
     },
 }
 
@@ -735,7 +845,9 @@ def transport(etype, direction, kind, scope=None, certificate=None,
               map_kind=IDENTITY_MAP, zariski_closed=None,
               identity_origin=None, integral=None, ring_iso=None,
               coefficients_in_base=None, zariski_dense=None,
-              existential=None):
+              existential=None, image_complete=True, exact_contraction=None,
+              geometric_closure=None, point_surjective=False,
+              target_expressible=False):
     """Return a Ruling for moving a claim of `kind` across an edge of `etype`.
 
     Deliberately takes plain values rather than objects: the kernel must be
@@ -750,6 +862,13 @@ def transport(etype, direction, kind, scope=None, certificate=None,
     if kind not in CLAIM_KINDS:
         raise KeyError("unknown claim kind %r" % (kind,))
 
+    # `image_complete` is the epoch-2 compatibility argument. Epoch 3 splits
+    # exact coordinate-ring contraction from geometric point-closure
+    # authority; callers that use the old argument intentionally set both.
+    if exact_contraction is None:
+        exact_contraction = image_complete
+    if geometric_closure is None:
+        geometric_closure = image_complete
     rule = TRANSPORT[etype][direction][kind]
 
     def ruling(ok, reason, rulename):
@@ -897,6 +1016,50 @@ def transport(etype, direction, kind, scope=None, certificate=None,
                       "p-torsion.  This kernel cannot see the certificate, so "
                       "it refuses"
                       % (identity_origin or UNKNOWN), _INTEGRAL_IDENTITY)
+    if rule == _EXACT_IMAGE_IDENTITY:
+        if map_kind not in DENOMINATOR_FREE:
+            return ruling(False,
+                          "IDENTITY rewriting needs a denominator-free map; "
+                          "this edge's map is %s" % map_kind,
+                          _MAP_POLYNOMIAL)
+        if exact_contraction:
+            return ruling(True,
+                          "licensed: the map is denominator-free and the "
+                          "target has exact image/contraction authority",
+                          _EXACT_IMAGE_IDENTITY)
+        return ruling(False,
+                      "the elimination output is certified only in the "
+                      "no-invention direction J subset inclusion^-1(I). "
+                      "Moving a source-derived identity ALONG needs the open "
+                      "completeness direction inclusion^-1(I) subset J",
+                      _EXACT_IMAGE_IDENTITY)
+    if rule == _CLOSED_EXACT_IMAGE:
+        if point_surjective and target_expressible:
+            return ruling(True,
+                          "licensed: every target point has a checked lift and "
+                          "the structured predicate is expressible entirely in "
+                          "the target coordinates; closedness is not required",
+                          _CLOSED_EXACT_IMAGE)
+        if not zariski_closed:
+            detail = (
+                "the map has point-lifting authority, but this predicate has "
+                "no structured target-expressibility proof"
+                if point_surjective else
+                "only Zariski-closed conditions extend from an image to its "
+                "closure; this predicate is not declared or structurally "
+                "established closed")
+            return ruling(False, detail, _CLOSED_CONDITION)
+        if geometric_closure:
+            return ruling(True,
+                          "licensed: the condition is Zariski-closed and the "
+                          "target has independently established geometric image-closure "
+                          "authority", _CLOSED_EXACT_IMAGE)
+        return ruling(False,
+                      "a closed condition extends to the actual closure, but "
+                      "this elimination has no independent geometric point-closure "
+                      "certificate; exact contraction alone does not settle "
+                      "base-relative image closure",
+                      _CLOSED_EXACT_IMAGE)
     if rule == _CLOSED_CONDITION:
         if zariski_closed:
             return ruling(True,
@@ -1374,6 +1537,34 @@ def supersession_help(entity="claim"):
         "changed. That guard exists because \"I only added an attribute\" is "
         "the sentence through which a transport-determining field arrives "
         "unexamined."
+        "\n\n"
+        # THE OTHER HALF OF THE VOCABULARY, which this omitted entirely.
+        #
+        # The four kinds above are for CLAIMS and INFERENCES. Edges use a
+        # DISJOINT set, and `gp why supersession` -- the canonical explainer --
+        # never mentioned it. A live session read the documented list, wrote
+        # RETRACT on an edge, and was refused by a message that named the valid
+        # values and the reason the vocabularies differ.
+        #
+        # The refusal was excellent. That is the problem: the author had to FAIL
+        # ONCE to learn something this function exists to tell them, which is
+        # the same shape as the defect this docstring already describes -- text
+        # that reaches you when you have got it wrong and never when you are
+        # deciding.
+        "AN EDGE USES A DIFFERENT AND DISJOINT VOCABULARY -- DERIVE, RETYPE,\n"
+        "ACCEPT, WITHDRAW -- because an edge supersession says what happened to the\n"
+        "OBLIGATION the old edge carried, while a claim or inference\n"
+        "supersession says what CHANGED about the record.\n"
+        "\n"
+        "  DERIVE     the missing mathematics now exists and the edge is\n"
+        "             replaced by one that carries it\n"
+        "  RETYPE     the relation was mis-typed; the new edge states the\n"
+        "             one that actually holds\n"
+        "  ACCEPT     the obligation is knowingly carried, with a reason\n"
+        "  WITHDRAW   the declaration was not an edge; nothing replaces it,\n"
+        "             and live traffic must be retracted or rerouted\n"
+        "\n"
+        "  These four words apply only to edges."
         % (", ".join(lic), "asserts" if entity == "inference" else "states"))
 
 # Fields whose value decides what a claim licenses.  Split in two because the
@@ -1392,7 +1583,7 @@ IDENTIFYING_FIELDS = ("kind", "model", "statement")
 # by the field the same release added.
 LICENSING_FIELDS = ("certificate", "scope", "identity_origin",
                     "lhs", "rhs", "ring_vars",
-                    "coefficients_in_base", "witness_kind")
+                    "coefficients_in_base", "witness_kind", "condition")
 
 # The same split for an inference.  What it ASSERTS identifies it; what it
 # RESTS ON licenses it.  Swapping a premise or re-routing a path leaves the
@@ -1478,7 +1669,24 @@ MODEL_LICENSING_FIELDS = ("ring_vars", "generators")
 # the claim version was written to avoid.  An EQUIVALENCE gaining `ring_iso`,
 # or a RESTRICTION gaining `zariski_dense`, keeps its type and changes which
 # cells it opens; a `map_kind` moving off IDENTITY_MAP closes one.
-EDGE_LICENSING_FIELDS = ("type", "map_kind", "ring_iso", "zariski_dense")
+EDGE_LICENSING_FIELDS = (
+    "type", "map_kind", "ring_iso", "zariski_dense", "forward", "inverse")
+
+
+def is_mapped_equivalence(edge):
+    """Whether an EQUIVALENCE is asserted through a coordinate change.
+
+    Such an edge relates ``x`` to ``forward(x)``.  It is not the separate
+    assertion that the solution sets, in the coordinates as written, are
+    literally contained in one another.
+    """
+    maps = (edge.get("forward"), edge.get("inverse"))
+    return bool(edge.get("type") == EQUIVALENCE and all(
+        isinstance(mapping, dict) and mapping and all(
+            isinstance(k, str) and k.strip()
+            and isinstance(v, str) and v.strip()
+            for k, v in mapping.items())
+        for mapping in maps))
 
 
 class SupersessionError(KernelRefusal):
@@ -1564,8 +1772,10 @@ def check_supersession_kind(old, new, declared, claim_id="<claim>",
                 "A licensing attribute is not bookkeeping: `certificate` "
                 "decides whether emptiness survives a base change, "
                 "`identity_origin` and `coefficients_in_base` decide whether a "
-                "rewriting crosses one at all, and `witness_kind` decides "
-                "whether a point is a point or an assertion.")
+                "rewriting crosses one at all, `condition` decides whether a "
+                "predicate factors through retained coordinates, and "
+                "`witness_kind` decides whether a point is a point or an "
+                "assertion.")
                if actual == RELICENSE else
                "Something that says a different thing is a different %s, and "
                "everything that used the old one has to be looked at again."

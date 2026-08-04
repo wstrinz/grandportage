@@ -1,0 +1,23 @@
+{
+  "schema": "synthetic-execution-review/v1",
+  "projection_schema": "frontier/v1",
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "graph_effect": "NONE",
+  "consumer": "synthetic-execution",
+  "history": {
+    "input_fingerprint": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "item_observations": [
+    {
+      "id": "SYNTH.CALIBRATION",
+      "replacement_ids": ["SYNTH.CALIBRATION.A", "SYNTH.CALIBRATION.B"],
+      "scope_id": "SYNTH.SCOPE.EXACT",
+      "state": "CLOSED",
+      "status": "RESOLVED_TO_SCOPED_RESULTS"
+    },
+    {"id": "SYNTH.CALIBRATION.A", "scope_id": "SYNTH.SCOPE.A", "state": "CLOSED", "status": "VERIFIED"},
+    {"id": "SYNTH.CALIBRATION.B", "scope_id": "SYNTH.SCOPE.B", "state": "OPEN", "status": "OPEN_FINITE_REMAINDER"},
+    {"id": "SYNTH.COVERAGE", "scope_id": "SYNTH.SCOPE.GLOBAL", "state": "OPEN", "status": "OPEN"}
+  ],
+  "open_items": ["SYNTH.CALIBRATION.B", "SYNTH.COVERAGE"]
+}

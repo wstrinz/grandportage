@@ -1,0 +1,132 @@
+{
+  "schema": "gp_stacks_theorem_shelf_v1",
+  "source": {
+    "repository": "https://github.com/stacks/stacks-project.git",
+    "commit": "a04446e57ec1fbc252a871afcec7752fb2807b14",
+    "license": "GNU Free Documentation License",
+    "retrieved": "2026-07-31"
+  },
+  "theorems": [
+    {
+      "tag": "00IP",
+      "official_url": "https://stacks.math.columbia.edu/tag/00IP",
+      "source_file": "algebra.tex",
+      "source_label": "algebra-lemma-intersect-powers-ideal-module-zero",
+      "environment": "lemma",
+      "title": "Krull's intersection theorem",
+      "statement_tex": "Let $R$ be a Noetherian local ring. Let $I \\subset R$ be\na proper ideal. Let $M$ be a finite $R$-module.\nThen $\\bigcap_{n \\geq 0} I^nM = 0$.",
+      "statement_sha256": "a14ec52c326702ac9e2d6340d5d95797be2073670f6c0e0642ae6f007e689caf",
+      "hypotheses": [
+        {
+          "id": "ring_noetherian_local",
+          "statement": "$R$ is a Noetherian local ring"
+        },
+        {
+          "id": "ideal_proper",
+          "statement": "$I \\subset R$ is a proper ideal"
+        },
+        {
+          "id": "module_finite",
+          "statement": "$M$ is a finite $R$-module"
+        }
+      ],
+      "conclusion": "$\\bigcap_{n \\geq 0} I^nM = 0$",
+      "dependencies": [
+        {
+          "tag": "00IN",
+          "source_ref": "lemma-Artin-Rees",
+          "source_label": "algebra-lemma-Artin-Rees"
+        },
+        {
+          "tag": "00DV",
+          "source_ref": "lemma-NAK",
+          "source_label": "algebra-lemma-NAK"
+        }
+      ]
+    },
+    {
+      "tag": "01Z2",
+      "official_url": "https://stacks.math.columbia.edu/tag/01Z2",
+      "source_file": "limits.tex",
+      "source_label": "limits-lemma-limit-nonempty",
+      "environment": "lemma",
+      "title": "Nonemptiness of a directed inverse limit",
+      "statement_tex": "Let $S = \\lim S_i$ be the limit of a directed inverse system\nof schemes with affine transition morphisms\n(Lemma \\ref{lemma-directed-inverse-system-has-limit}).\nIf all the schemes $S_i$ are nonempty and quasi-compact,\nthen the limit $S = \\lim_i S_i$ is nonempty.",
+      "statement_sha256": "3e24bd854e625d820624263fe6f0ab120972e941877ffd01951469058dcab6e1",
+      "hypotheses": [
+        {
+          "id": "directed_inverse_system",
+          "statement": "$(S_i)$ is a directed inverse system of schemes"
+        },
+        {
+          "id": "limit_identified",
+          "statement": "$S$ is the scheme limit of that system"
+        },
+        {
+          "id": "transitions_affine",
+          "statement": "all transition morphisms are affine"
+        },
+        {
+          "id": "stages_nonempty",
+          "statement": "every $S_i$ is nonempty"
+        },
+        {
+          "id": "stages_quasi_compact",
+          "statement": "every $S_i$ is quasi-compact"
+        }
+      ],
+      "conclusion": "$S$ is nonempty",
+      "dependencies": [
+        {
+          "tag": "01YX",
+          "source_ref": "lemma-directed-inverse-system-has-limit",
+          "source_label": "limits-lemma-directed-inverse-system-has-limit"
+        }
+      ]
+    },
+    {
+      "tag": "08SL",
+      "official_url": "https://stacks.math.columbia.edu/tag/08SL",
+      "source_file": "cotangent.tex",
+      "source_label": "cotangent-proposition-cotangent-complex-local-complete-intersection",
+      "environment": "proposition",
+      "title": "Cotangent complex of a local complete intersection",
+      "statement_tex": "Let $A \\to B$ be a local complete intersection map.\nThen $L_{B/A}$ is a perfect complex with tor amplitude in $[-1, 0]$.",
+      "statement_sha256": "a94d2424b7be238fbb19602528f65e3f10ad331e0be37e17e172bb1a854cae5f",
+      "hypotheses": [
+        {
+          "id": "map_lci",
+          "statement": "$A \\to B$ is a local complete intersection map"
+        }
+      ],
+      "conclusion": "$L_{B/A}$ is perfect with tor amplitude in $[-1,0]$",
+      "dependencies": [
+        {
+          "tag": "08RB",
+          "source_ref": "lemma-relation-with-naive-cotangent-complex",
+          "source_label": "cotangent-lemma-relation-with-naive-cotangent-complex"
+        },
+        {
+          "tag": "08RK",
+          "source_ref": "more-algebra-lemma-quasi-regular-ideal-finite-projective",
+          "source_label": "more-algebra-lemma-quasi-regular-ideal-finite-projective"
+        },
+        {
+          "tag": "08QS",
+          "source_ref": "equation-triangle",
+          "source_label": "cotangent-equation-triangle"
+        },
+        {
+          "tag": "08SK",
+          "source_ref": "lemma-mod-Koszul-regular-ideal",
+          "source_label": "cotangent-lemma-mod-Koszul-regular-ideal"
+        },
+        {
+          "tag": "08QH",
+          "source_ref": "lemma-cotangent-complex-polynomial-algebra",
+          "source_label": "cotangent-lemma-cotangent-complex-polynomial-algebra"
+        }
+      ]
+    }
+  ]
+}

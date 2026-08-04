@@ -1,0 +1,61 @@
+{
+  "schema": "gp-jc-h3-support-seam-handback/v1",
+  "binding_digest_algo": "sha256-lf-normalized",
+  "jc_commits": {
+    "generic_j": "4e509af",
+    "r7prime_induction": "0b55e76",
+    "support_seam": "687ebd0",
+    "torus_audit": "e0377d8"
+  },
+  "source_bindings": {
+    "f2_h3_c710_generic_j_certificate.json": "b5e76ab0e8ab4a308938738c6d0f512b3603245caf27c874995f5787db592453",
+    "f2_h3_c710_generic_j_checker.py": "f7f0f58bf9a285d7ada289301e6ac14f04c8fb9c85ac8df3a9ddf352a98ff6d6",
+    "f2_h3_c710_torus_normalization_audit.py": "ee0f0523c962f49398bd69e2ea8a6c9da897865d153704ba52fbdffda7aaeaa7",
+    "f2_h3_c710_torus_normalization_audit_certificate.json": "054e589767f2e8b24227a8fc065b3f6af98cfed24dc84eb295b88ff0321f51d2",
+    "f2_h3_source_target_pair_to_normalized_root.py": "9af43b84a9ccbcf5ac66b1aa2fed7cae240fc4f30c47f12c5d67cd400d78609a",
+    "f2_h3_source_target_pair_to_normalized_root_manifest.json": "0a9362452de131ea247634700d5fb4bcedd7e1b55b881f1d143dab93439532bc",
+    "f2_r7prime_induction.py": "56f97537b47e88836c73714a5b3a680a85950bb08fd55056ef37cbcff43e1adb",
+    "f2_r7prime_induction_manifest.json": "e316d0e71c570f064b25a4bc5779d04619df991ead4ceb2516ccc1baa3d49f49"
+  },
+  "support_seam": {
+    "coefficient_domain": "characteristic-zero field K",
+    "variable_order": [
+      "x",
+      "y"
+    ],
+    "root_series": "Zu = 1 + sum_{e>=2} z_e u^e, u = x^-1",
+    "support_depths": [
+      2,
+      23
+    ],
+    "support_status": "MATERIALIZED_EXACT",
+    "value_status": "UNMATERIALIZED",
+    "r5_status": "EXACTLY_THE_OMEGA_FLOOR_POINT_MINUS_5E_AT_E_GE_4",
+    "r6_status": "DISCHARGED_PREMISE_FREE_AS_CONSUMED",
+    "r7_prime": "deg_sigma(lambda_k) <= 15 - 3*k at every carried slot",
+    "r7_prime_status": "PROVED_NATIVE_UNCONDITIONAL",
+    "r7_status": "PREMISE_OPEN_NATIVE_ROUTE_NAMED",
+    "r6_premises": [],
+    "parent_status": "UNMATERIALIZED_OPEN",
+    "first_missing_native_object": "a source-owned exact value for one nonmonic covered P or Q coefficient; full closure requires the ordered value dictionary consumed by the root recurrence and five rows",
+    "five_normalized_rows_bound": true,
+    "replay": "python f2_h3_source_target_pair_to_normalized_root.py",
+    "mutation_replay": "python f2_h3_source_target_pair_to_normalized_root.py --self-test-mutations",
+    "ordinary_checks": 45,
+    "mutation_refusals": 8,
+    "authority_ceiling": "CONDITIONAL_NORMALIZED_ROOT_TO_DEPTH6_BOUNDARY_ONLY"
+  },
+  "generic_j": {
+    "field": "K = QQ[t]/(15*t**3 + 1)",
+    "invariant": "J = a*c^(-3)",
+    "generic_scope": "J != 0 and P_y(J)*P_z(J) != 0 on the named invariant divisor and inherited guarded stratum",
+    "verdict": "C710_DIVISOR_FACE_IDEAL_UNIT_GENERIC_IN_J",
+    "route_y_exceptional_degree": 37,
+    "route_z_exceptional_degree": 37,
+    "exceptional_fiber_semantics": "UNDECIDED_FIBER_NOT_SOURCE_WITNESS",
+    "full_chart_status": "RESOLVED_TO_GENERIC_AND_FINITE_REMAINDER",
+    "source_witness_licensed": false,
+    "all_fibers_licensed": false
+  },
+  "authority_boundary": "R7 prime is proved natively and unconditionally, and R6 is premise-free as consumed at the exact depth-six scope. R7 scalarity remains independently open and is not a premise of either result. The coefficient-value parent seam remains open. Generic-J identities exclude only off their explicit exceptional set; exceptional zeros are undecided fibers, not source witnesses. No graph, source-sufficiency, full-chart, H3, or (75,125) authority is created."
+}

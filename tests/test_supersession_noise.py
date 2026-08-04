@@ -46,9 +46,11 @@ MODELS = [
 ]
 UNTYPED_OLD = {"ev": "edge", "id": "E-IV-PD", "src": "IV", "dst": "PD",
                "type": "UNTYPED", "why": "the step is not yet characterised",
+               "map_kind": K.IDENTITY_MAP,
                "debt_why": "nobody has derived what this inclusion loses"}
 RETYPED = {"ev": "edge", "id": "E-IV-PD-RESTRICT", "src": "IV", "dst": "PD",
            "type": "RESTRICTION", "why": "the cut-out subset, same coordinates",
+           "map_kind": K.IDENTITY_MAP,
            "supersedes": "E-IV-PD", "discharge_kind": "RETYPE"}
 
 # A claim at PD, so a path read AGAINST E-IV-PD starts where the claim is.
@@ -63,6 +65,244 @@ def _rider(iid, eid, **extra):
           "asserted": "so the bound holds on IV as well"}
     ev.update(extra)
     return ev
+
+
+# ===========================================================================
+# TOMBSTONES. Retraction is lifecycle state, not a replacement object.
+# ===========================================================================
+def test_minimal_inference_retract_is_not_a_live_successor():
+    inference = {"ev": "inference", "id": "I", "claim": "C-PD",
+                 "path": [], "concludes_kind": K.PREDICATE,
+                 "asserted": "the bound holds on PD"}
+    retract = {"ev": "inference", "id": "R-I", "supersedes": "I",
+               "discharge_kind": K.RETRACT,
+               "why": "the argument was a probe and retains no conclusion"}
+    g = _graph(MODELS + [CLAIM, inference, retract])
+
+    assert g.inference_order == ["I"]
+    assert "R-I" not in g.inferences
+    assert g.inferences["I"]["retracted_by"] == "R-I"
+    assert ("inference", "R-I") in g.retractions
+    assert "I" not in C.clean_inferences(g, C.run(g))
+
+
+def test_legacy_full_shaped_inference_retract_folds_as_a_tombstone():
+    inference = {"ev": "inference", "id": "I", "claim": "C-PD",
+                 "path": [], "concludes_kind": K.PREDICATE,
+                 "asserted": "the bound holds on PD"}
+    legacy = {"ev": "inference", "id": "R-I", "claim": "C-PD",
+              "path": [], "concludes_kind": K.PREDICATE,
+              "asserted": "retracted after the clause-zero probe",
+              "supersedes": "I", "discharge_kind": K.RETRACT}
+    g = _graph(MODELS + [CLAIM, inference, legacy])
+
+    assert g.inference_order == ["I"]
+    assert "R-I" not in g.inferences
+    assert g.retractions[("inference", "R-I")]["why"].startswith("retracted")
+
+
+def test_edge_withdraw_retires_a_declaration_without_minting_an_edge():
+    withdraw = {"ev": "edge", "id": "W-E", "supersedes": "E-IV-PD",
+                "discharge_kind": "WITHDRAW",
+                "why": "the models are related by a span, not containment"}
+    g = _graph(MODELS + [UNTYPED_OLD, withdraw])
+
+    assert set(g.edges) == {"E-IV-PD"}
+    assert g.edges["E-IV-PD"]["withdrawn_by"] == "W-E"
+    assert C.withdrawn_edges(g) == {"E-IV-PD"}
+    assert not _rules(g, C.R_UNTYPED)
+
+
+def test_withdrawing_an_edge_does_not_hide_live_traffic():
+    withdraw = {"ev": "edge", "id": "W-E", "supersedes": "E-IV-PD",
+                "discharge_kind": "WITHDRAW",
+                "why": "this relation was never containment"}
+    g = _graph(MODELS + [UNTYPED_OLD, CLAIM,
+                         _rider("I-RIDES", "E-IV-PD"), withdraw])
+
+    stale = _rules(g, C.R_STALE_PATH)["STALE-PATH:I-RIDES:E-IV-PD"]
+    assert stale.severity == C.UNSOUND_PREMISE
+    assert "I-RIDES" in C.live_crossings(g, ["E-IV-PD"])
+
+
+def test_unridden_untyped_failed_containment_is_debt_until_withdrawn():
+    models = [
+        {"ev": "model", "id": "A", "what": "a", "ring_vars": ["x"],
+         "generators": ["x^2"]},
+        {"ev": "model", "id": "B", "what": "b", "ring_vars": ["x"],
+         "generators": ["x^3"]},
+    ]
+    edge = {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+            "type": K.UNTYPED, "why": "relation not characterised",
+            "debt_why": "literal containment may be the wrong relation",
+            "containment": "NOT_BY_IDEAL",
+            "containment_why": "x^3 does not reduce modulo x^2"}
+    g = _graph(models + [edge])
+    finding = _rules(g, C.R_CONTAINMENT)["CONTAINMENT:E"]
+
+    assert finding.severity == C.DEBT
+    assert "licenses no cell" in finding.detail
+    assert "WITHDRAW" in finding.discharge
+
+
+def test_tombstone_and_live_successor_are_mutually_exclusive():
+    withdraw = {"ev": "edge", "id": "W-E", "supersedes": "E-IV-PD",
+                "discharge_kind": "WITHDRAW", "why": "not an edge"}
+    with pytest.raises(S.GraphError) as exc:
+        _graph(MODELS + [UNTYPED_OLD, RETYPED, withdraw])
+    assert "Nothing-replaces-it" in str(exc.value)
+
+def test_lifecycle_tombstones_are_visible_on_cli_mcp_and_folded_json(
+        tmp_path, capsys):
+    import json
+    from grandportage import cli, mcp
+
+    inference = _rider("I", "E-IV-PD")
+    retract = {"ev": "inference", "id": "R-I", "supersedes": "I",
+               "discharge_kind": K.RETRACT,
+               "asserted": "argument abandoned"}
+    withdraw = {"ev": "edge", "id": "W-E", "src": "IV", "dst": "PD",
+                "type": K.UNTYPED, "map_kind": K.IDENTITY_MAP,
+                "supersedes": "E-IV-PD",
+                "discharge_kind": "WITHDRAW", "why": "not an edge"}
+    S.append(MODELS + [UNTYPED_OLD, CLAIM, inference, retract, withdraw],
+             str(tmp_path))
+
+    assert cli.main(["--root", str(tmp_path), "show"]) == 0
+    shown = capsys.readouterr().out
+    assert "[WITHDRAWN by W-E]" in shown
+    assert "[RETRACTED by R-I]" in shown
+
+    assert cli.main(["--root", str(tmp_path), "events", "--folded"]) == 0
+    folded = json.loads(capsys.readouterr().out)
+    assert {t["id"] for t in folded["tombstones"]} == {"R-I", "W-E"}
+    assert "R-I" not in folded["inferences"]
+    assert "W-E" not in folded["edges"]
+
+    body = mcp.h_portage_show({}, str(tmp_path))["content"][0]["text"]
+    assert "[WITHDRAWN by W-E]" in body
+    assert "[RETRACTED by R-I]" in body
+
+
+
+# ===========================================================================
+# VERIFIER PROVENANCE ACROSS SUPERSESSION.
+# ===========================================================================
+def test_verify_declines_a_live_edge_with_a_superseded_endpoint(tmp_path):
+    from grandportage import verify as V
+
+    events = [
+        {"ev": "model", "id": "SRC", "what": "source",
+         "characteristic": 0, "ring_vars": ["x", "y"],
+         "generators": ["x*y"]},
+        {"ev": "model", "id": "OLD", "what": "saturation",
+         "characteristic": 0, "ring_vars": ["x", "y"],
+         "generators": ["y"]},
+        {"ev": "model", "id": "NEW", "what": "saturation",
+         "characteristic": 0, "ring_vars": ["x", "y"],
+         "generators": ["y"], "supersedes": "OLD",
+         "discharge_kind": K.RELICENSE},
+        {"ev": "edge", "id": "E", "src": "OLD", "dst": "SRC",
+         "type": K.NECESSARY_CONDITION, "map_kind": K.POLYNOMIAL,
+         "why": "saturation adds equations"},
+    ]
+    S.append(events, str(tmp_path))
+
+    def never(program, timeout):
+        raise AssertionError("a stale endpoint reached the CAS")
+
+    results = V.verify_all(str(tmp_path), record=False, _runner=never)
+    assert results
+    assert all(verdict == V.UNVERIFIED for _subject, _oid, verdict, _why in results)
+    why = "\n".join(item[3] for item in results)
+    assert "OLD" in why and "NEW" in why and "repoint" in why
+    assert "until that computation has run" not in why
+
+    g = S.load(S.graph_path(str(tmp_path)))
+    findings = C.run(g)
+    assert any(f.rule == C.R_STALE_MODEL and f.subject == "E" for f in findings)
+    assert not [f for f in findings if f.rule == C.R_CONTAINMENT]
+
+
+def _containment_supersession(changed_dst=False, direct=None):
+    models = [
+        {"ev": "model", "id": "A", "what": "a", "ring_vars": ["x"],
+         "generators": ["x^2"]},
+        {"ev": "model", "id": "B", "what": "b", "ring_vars": ["x"],
+         "generators": ["x^3"]},
+        {"ev": "model", "id": "C", "what": "c", "ring_vars": ["x"],
+         "generators": ["x^4"]},
+    ]
+    old = {"ev": "edge", "id": "E-OLD", "src": "A", "dst": "B",
+           "type": K.EQUIVALENCE, "why": "claimed reversible",
+           "converse_witness": "a proposed inverse",
+           "containment": "NOT_BY_IDEAL",
+           "containment_why": "x^3 does not reduce modulo x^2"}
+    new = {"ev": "edge", "id": "E-NEW", "src": "A",
+           "dst": "C" if changed_dst else "B", "type": K.UNTYPED,
+           "why": "relation being repaired", "debt_why": "not classified",
+           "supersedes": "E-OLD", "discharge_kind": "RETYPE"}
+    if direct:
+        new["containment"], new["containment_why"] = direct
+    return _graph(models + [old, new])
+
+
+def test_retyped_edge_cites_predecessor_containment_when_endpoints_match():
+    g = _containment_supersession()
+    finding = _rules(g, C.R_CONTAINMENT)["CONTAINMENT:E-NEW"]
+    assert finding.severity == C.DEBT
+    assert "E-OLD" in finding.detail
+    assert "x^3 does not reduce" in finding.detail
+    assert "author's word" not in finding.detail
+
+
+def test_containment_evidence_does_not_follow_changed_endpoints_or_beat_direct():
+    changed = _containment_supersession(changed_dst=True)
+    finding = _rules(changed, C.R_CONTAINMENT)["CONTAINMENT:E-NEW"]
+    assert "author's word" in finding.detail
+    assert "E-OLD" not in finding.detail
+
+    direct = _containment_supersession(
+        direct=("VERIFIED", "checked directly on the successor"))
+    assert "CONTAINMENT:E-NEW" not in _rules(direct, C.R_CONTAINMENT)
+
+
+def test_literal_containment_does_not_flow_into_a_mapped_successor():
+    """A coordinate change supersedes the literal-inclusion question itself."""
+    g = _graph([
+        {"ev": "model", "id": "A", "what": "a", "ring_vars": ["x"],
+         "generators": ["x-1"]},
+        {"ev": "model", "id": "B", "what": "b", "ring_vars": ["x"],
+         "generators": ["x+1"]},
+        {"ev": "edge", "id": "E-OLD", "src": "A", "dst": "B",
+         "type": K.UNTYPED, "why": "proposed literal relation",
+         "debt_why": "not classified", "containment": "NOT_BY_IDEAL",
+         "containment_why": "x+1 does not reduce modulo x-1"},
+        {"ev": "edge", "id": "E-NEW", "src": "A", "dst": "B",
+         "type": K.EQUIVALENCE, "why": "x maps to -x",
+         "forward": {"x": "-x"}, "inverse": {"x": "-x"},
+         "supersedes": "E-OLD", "discharge_kind": "RETYPE"},
+    ])
+    assert not _rules(g, C.R_CONTAINMENT)
+
+
+def test_mapped_predecessor_does_not_suppress_a_literal_successor():
+    """Dropping maps creates a fresh literal-inclusion obligation."""
+    g = _graph([
+        {"ev": "model", "id": "A", "what": "a", "ring_vars": ["x"],
+         "generators": ["x-1"]},
+        {"ev": "model", "id": "B", "what": "b", "ring_vars": ["x"],
+         "generators": ["x+1"]},
+        {"ev": "edge", "id": "E-OLD", "src": "A", "dst": "B",
+         "type": K.EQUIVALENCE, "why": "x maps to -x",
+         "forward": {"x": "-x"}, "inverse": {"x": "-x"}},
+        {"ev": "edge", "id": "E-NEW", "src": "A", "dst": "B",
+         "type": K.UNTYPED, "why": "now asserted literally",
+         "debt_why": "not classified", "supersedes": "E-OLD",
+         "discharge_kind": "RETYPE"},
+    ])
+    finding = _rules(g, C.R_CONTAINMENT)["CONTAINMENT:E-NEW"]
+    assert "author's word" in finding.detail
 
 
 # ===========================================================================

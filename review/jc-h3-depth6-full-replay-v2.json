@@ -1,0 +1,239 @@
+{
+  "aggregate_graph_effect": "NONE",
+  "authority_ceiling": "CONDITIONAL_NORMALIZED_ROOT_TO_DEPTH6_BOUNDARY_ONLY",
+  "binding_digest_algo": "sha256-lf-normalized",
+  "bindings": {
+    "boundary_fixture": "sha256:4a0cf6999dedf3334e4e9f0b5918303757cdd857b88090017319ab0c87eff991",
+    "chain_certificate": "sha256:d5ed44977e1f39312fbd2d30a286f686a0cd26d55dba237420a7a3d2bf513f15",
+    "conditional_seam_fixture": "sha256:970515c9548833ee253a64302b8aa5950849ad8cd54fa0bc375d22770156934a",
+    "graded_face_fixture": "sha256:6c8887034321884b6bb0aa7cd8cf04d90e472a36f4a6ba4035a53e7eda1aa8a1",
+    "r1_r7_native:f2_original_pair_root_normalization.py": "sha256:117e0befbf0a195b85e2d11368f4085ffa0bfd650e410bbafb89fdd6e6adb89a",
+    "r1_r7_native:f2_original_pair_root_normalization_manifest.json": "sha256:4d930a9465f1e54d57bf4b5095c1ab0242e78a132e856c6f4e9fbfdffb79db09",
+    "r1_r7_native:f2_r6_shear_forcing.py": "sha256:9002b3759c1341aa76e3b5ef5f7edfbc9e490d30ba6539fdad91f71a2a425e76",
+    "r1_r7_native:f2_r6_shear_forcing_manifest.json": "sha256:d9c3926f74054c5febb47256626a772fe965d69d0391e55336abe854ddce35eb",
+    "r1_r7_native:f2_reduction_certificate.py": "sha256:5ff3faf543ba01e3e6e06f7e79d1120c667fac2836ed27de1a5c41dae07d9da0",
+    "r1_r7_native:f2_residual_y_bound_frame.py": "sha256:0953c6f42fd4d54e861b6a213fbdac168be4d49b0bfb1337633ad1ec31b34428",
+    "r1_r7_native:f2_residual_y_bound_frame_manifest.json": "sha256:c62748d41f9cfe120990d2739eb963dba4306ebe4a4f03e21e157b380ec9e793",
+    "r1_r7_seam_fixture": "sha256:e8b849d772b0a06c1afea60870576930bcc70aef261420e086c8ac5768dde982"
+  },
+  "coverage": "ALL_FROZEN_STAGES_AND_COMPLETE_TEMPLATE",
+  "first_missing_authority": {
+    "blocks": [
+      "original polynomial-pair membership",
+      "source-image sufficiency or reverse lift",
+      "chart or branch coverage",
+      "H3 promotion",
+      "(75,125) verdict change"
+    ],
+    "id": "target_pair_to_normalized_laurent_root",
+    "status": "UNMATERIALIZED_OPEN"
+  },
+  "mode": "full",
+  "native_bindings_checked": true,
+  "native_replay_executed": false,
+  "open_frontier": [
+    {
+      "blocks": [
+        "original polynomial-pair membership",
+        "source-image sufficiency",
+        "reverse lift",
+        "chart or branch coverage",
+        "I4=I1=Im1=0",
+        "H3 promotion",
+        "(75,125) verdict change"
+      ],
+      "id": "R5",
+      "premises": [],
+      "status": "CHECKED_PREMISE_BOUND",
+      "why_open": "selected monic depressed cubic face is an inherited premise"
+    },
+    {
+      "blocks": [
+        "original polynomial-pair membership",
+        "source-image sufficiency",
+        "reverse lift",
+        "chart or branch coverage",
+        "I4=I1=Im1=0",
+        "H3 promotion",
+        "(75,125) verdict change"
+      ],
+      "id": "R6",
+      "premises": [
+        "actual_pair",
+        "source_polynomiality",
+        "gap5"
+      ],
+      "status": "OPEN_NONMONOMIAL_FRAME_CONVERSION",
+      "why_open": "exact non-monomial eqq1 -> psi2 conversion"
+    },
+    {
+      "blocks": [
+        "original polynomial-pair membership",
+        "source-image sufficiency",
+        "reverse lift",
+        "chart or branch coverage",
+        "I4=I1=Im1=0",
+        "H3 promotion",
+        "(75,125) verdict change"
+      ],
+      "id": "R7",
+      "premises": [],
+      "status": "INFERRED_UNBOUND_75_125_IDENTIFICATION",
+      "why_open": "the cited source does not print the (75,125) identification"
+    },
+    {
+      "blocks": [
+        "Q-side positive-j relocation"
+      ],
+      "id": "R6.Q_side_relocation",
+      "premises": [
+        "actual_pair",
+        "source_polynomiality",
+        "gap5"
+      ],
+      "status": "OPEN",
+      "why_open": "pair positive-j does not force Q positive-j"
+    },
+    {
+      "blocks": [
+        "original polynomial-pair membership",
+        "source-image sufficiency",
+        "reverse lift",
+        "chart or branch coverage",
+        "I4=I1=Im1=0",
+        "H3 promotion",
+        "(75,125) verdict change"
+      ],
+      "id": "target_pair_to_normalized_laurent_root",
+      "premises": [],
+      "status": "UNMATERIALIZED_OPEN",
+      "why_open": "the target pair has not been materialized as normalized Laurent-root data"
+    }
+  ],
+  "overall_verdict": "VERIFIED_TO_EXPLICIT_OPEN_OBLIGATION",
+  "runtime_seconds": 310.561,
+  "schema": "gp-jc-h3-depth6-milestone-replay/v2",
+  "stages": [
+    {
+      "graph_effect": "NONE",
+      "id": "conditional_source_seam",
+      "licenses": [
+        "five_reduced_rows_replayed_from_conditional_normalized_root_data",
+        "native_row_commitments_welded_to_gp_exact_source_rows",
+        "strict_original_source_promotion_refused"
+      ],
+      "outstanding_premises": [
+        "serialize or universally bind the exact original source pair",
+        "materialize the coefficient-level target-pair to normalized-root map",
+        "prove any source-image sufficiency or reverse lift separately"
+      ],
+      "seconds": 0.01,
+      "status": "VERIFIED",
+      "summary": "Normalized Laurent-root data replay to the five reduced rows.",
+      "verdict": "VERIFIED_CONDITIONAL_ESYSTEM_SEAM"
+    },
+    {
+      "graph_effect": "NONE",
+      "id": "r1_r7_source_frontier",
+      "licenses": [
+        "R1_R4_closed_inside_conditional_normalized_root_seam",
+        "R6_branch_A_refuted_every_gauge_premise_bound",
+        "R6_pair_positive_j_forced_premise_bound",
+        "R6_landed_point_1_2_actual_nonzero_only_in_landed_normalization"
+      ],
+      "outstanding_premises": [
+        "R5 selected monic depressed cubic face",
+        "R6 exact non-monomial eqq1 -> psi2 conversion",
+        "R6 Q-side relocation remains open",
+        "R7 (75,125) identification is not printed",
+        "GAP-5 source equivalence",
+        "target_pair_to_normalized_laurent_root"
+      ],
+      "seconds": 0.005,
+      "status": "VERIFIED",
+      "summary": "R1--R4 close conditionally; R5, R6, and R7 remain typed open seams.",
+      "verdict": "VERIFIED_R1_R7_OPEN_FRONTIER"
+    },
+    {
+      "graph_effect": "NONE",
+      "id": "graded_face_extraction",
+      "licenses": [
+        "exact_depth2_6_faces_from_declared_reduced_esystem_rows",
+        "selected_face_equations_are_necessary_under_declared_root_supports",
+        "all_25_outputs_welded_to_landed_chain_faces",
+        "reduced_esystem_rows_rederived_from_defining_formula"
+      ],
+      "outstanding_premises": [
+        "original polynomial-pair -> this reduced E-system presentation",
+        "source-image sufficiency or a reverse lift",
+        "chart coverage, H3, and (75,125) verdict promotion"
+      ],
+      "seconds": 17.658,
+      "status": "VERIFIED",
+      "summary": "Five reduced rows yield the exact selected depth-2..6 faces.",
+      "verdict": "VERIFIED_GRADED_FACE_EXTRACTION_WITH_SOURCE_REPLAY"
+    },
+    {
+      "graph_effect": "POINT_INCLUSION",
+      "id": "complete_finite_template",
+      "licenses": [
+        "reduced_esystem_nonempty_implies_selected_faces_nonempty",
+        "selected_faces_empty_implies_reduced_esystem_empty"
+      ],
+      "outstanding_premises": [
+        "selected_faces_nonempty_implies_reduced_esystem_nonempty",
+        "original polynomial-pair membership",
+        "chart coverage",
+        "H3 promotion",
+        "(75,125) verdict change"
+      ],
+      "seconds": 37.482,
+      "status": "VERIFIED",
+      "summary": "The selected 25 faces are an exact generator subset of 147 rows.",
+      "verdict": "VERIFIED_EXACT_GENERATOR_INCLUSION"
+    },
+    {
+      "graph_effect": "NONE",
+      "id": "ordered_depth6_chain",
+      "licenses": [
+        "exact_ordered_depth2_6_face_replay",
+        "chain_inputs_welded_to_gp_ladder_solutions",
+        "boundary_residuals_welded_to_gp_projection"
+      ],
+      "outstanding_premises": [
+        "raw E-system rows -> the 25 bound face tables",
+        "actual-source membership and source-image sufficiency",
+        "chart coverage, H3, and (75,125) verdict promotion"
+      ],
+      "seconds": 242.742,
+      "status": "VERIFIED",
+      "summary": "The 23 ordered solve steps weld the selected faces to two residuals.",
+      "verdict": "VERIFIED_DEPTH6_CHAIN_FULL_REPLAY"
+    },
+    {
+      "graph_effect": "IDENTITY_TRANSPORT",
+      "id": "boundary_projection_and_strata",
+      "licenses": [
+        "exact_boundary_polynomials_decoded",
+        "boundary_stratum_rewrites_may_be_checked",
+        "generic_affine_rewrite_equivalence",
+        "discriminant_collapse_equivalence"
+      ],
+      "outstanding_premises": [
+        "the receipt does not expose the 33 intermediate rung polynomials",
+        "actual-source coefficient extraction remains unbound",
+        "generic and discriminant graph components have no checked cover"
+      ],
+      "seconds": 12.664,
+      "status": "VERIFIED",
+      "summary": "Both residuals and the generic/discriminant rewrites verify.",
+      "verdict": "VERIFIED_BOUNDARY_WITH_TWO_EXACT_EQUIVALENCES"
+    }
+  ],
+  "superseded_by": [
+    "math-stuff:d0257f9",
+    "math-stuff:fb18749"
+  ],
+  "tier": "full",
+  "tier_cost_seconds": 310.561
+}

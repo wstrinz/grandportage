@@ -1,0 +1,134 @@
+{
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "authority_ceiling": "SCOPED_SOURCE_EXCLUSION_AND_CONFINEMENT_ONLY; NO SOURCE_SUFFICIENCY, COMPONENT_COVER, H3, OR (75,125)",
+  "consumer": "jc-h3-low-jet-pin-ablation",
+  "counts": {
+    "changed": 0,
+    "items": 11,
+    "open": 7,
+    "premise_discharges": 0
+  },
+  "graph_effect": "NONE",
+  "history": {
+    "immutable": true,
+    "input_fingerprint": "sha256:85f37986bf17a23ad0cb1406eb40ba449d0e3ba6814c08928f395b9e95e6bc82",
+    "item_count": 11
+  },
+  "item_observations": [
+    {
+      "id": "JC.H3.B.RELAXATION",
+      "scope_id": "JC.H3.B.OFF_WALL",
+      "state": "OPEN",
+      "status": "OPEN"
+    },
+    {
+      "id": "JC.H3.B0.SOURCE.EXCLUSION",
+      "scope_id": "JC.H3.B0.FULL",
+      "state": "OPEN",
+      "status": "OPEN"
+    },
+    {
+      "id": "JC.H3.C21.RELAXATION",
+      "scope_id": "JC.H3.C21_C22.JOINT",
+      "state": "OPEN",
+      "status": "OPEN_EXPLICIT_CERTIFICATE_FAILURE"
+    },
+    {
+      "id": "JC.H3.C22.UNIFORM_SOURCE_EXCLUSION",
+      "scope_id": "JC.H3.C22.UNIFORM",
+      "state": "CLOSED",
+      "status": "CLOSED"
+    },
+    {
+      "id": "JC.H3.C22_C710.JOINT_CONFINEMENT",
+      "scope_id": "JC.H3.C22_C710.JOINT",
+      "state": "CLOSED",
+      "status": "VERIFIED_CONFINEMENT"
+    },
+    {
+      "id": "JC.H3.C22_C710.NONNORMALIZED_TRANSPORT",
+      "scope_id": "JC.H3.C22_C710.FULL_CHART",
+      "state": "OPEN",
+      "status": "OPEN_TRANSPORT"
+    },
+    {
+      "id": "JC.H3.C22_C710.NORMALIZED_LINE.GENERIC_EXCLUSION",
+      "scope_id": "JC.H3.C22_C710.NORMALIZED_LINE",
+      "state": "CLOSED",
+      "status": "VERIFIED_GENERIC_WITH_FINITE_REMAINDER"
+    },
+    {
+      "id": "JC.H3.C22_C710.NORMALIZED_LINE.RESULTANT_ROOTS",
+      "scope_id": "JC.H3.C22_C710.NORMALIZED.LINE.ROOTS",
+      "state": "OPEN",
+      "status": "OPEN_FINITE_REMAINDER"
+    },
+    {
+      "id": "JC.H3.C79.SOURCE.FACE81.PIN_ABLATION",
+      "replacement_ids": [
+        "JC.H3.B.RELAXATION",
+        "JC.H3.B0.SOURCE.EXCLUSION",
+        "JC.H3.C21.RELAXATION",
+        "JC.H3.C22.UNIFORM_SOURCE_EXCLUSION",
+        "JC.H3.C22_C710.JOINT_CONFINEMENT",
+        "JC.H3.C22_C710.NONNORMALIZED_TRANSPORT",
+        "JC.H3.C22_C710.NORMALIZED_LINE.GENERIC_EXCLUSION",
+        "JC.H3.C22_C710.NORMALIZED_LINE.RESULTANT_ROOTS",
+        "JC.H3.DELTA.RELAXATION",
+        "JC.H3.R.RELAXATION"
+      ],
+      "scope_id": "JC.H3.C79.PIN_ABLATION",
+      "state": "CLOSED",
+      "status": "RESOLVED_TO_SCOPED_RESULTS"
+    },
+    {
+      "id": "JC.H3.DELTA.RELAXATION",
+      "scope_id": "JC.H3.DELTA.OFF_WALL",
+      "state": "OPEN",
+      "status": "OPEN"
+    },
+    {
+      "id": "JC.H3.R.RELAXATION",
+      "scope_id": "JC.H3.R.OFF_WALL",
+      "state": "OPEN",
+      "status": "OPEN"
+    }
+  ],
+  "live_replay_note": "c2_2 checker passed 14/14; joint checker passed K0-K21 and refused K22 because a clean tracked Python source has CRLF checkout bytes; LF normalization matches its certificate binding",
+  "open_items": [
+    "JC.H3.B.RELAXATION",
+    "JC.H3.B0.SOURCE.EXCLUSION",
+    "JC.H3.C21.RELAXATION",
+    "JC.H3.C22_C710.NONNORMALIZED_TRANSPORT",
+    "JC.H3.C22_C710.NORMALIZED_LINE.RESULTANT_ROOTS",
+    "JC.H3.DELTA.RELAXATION",
+    "JC.H3.R.RELAXATION"
+  ],
+  "schema": "frontier/v1",
+  "sources": [
+    {
+      "commit": "25e62b05f7dbb02a64f22a6bdd18be2d91f4d144",
+      "path": "d2_plane_72_108/GP_PIN_ABLATION_HANDBACK_2026_08_03.md",
+      "sha256": "19627c9233eabf8a6f64bbd4cae259812fa97abd74ddf7a5499e001480f92492",
+      "verdict": "PROMOTION_SPECIFICATION_GRAPH_EFFECT_NONE"
+    },
+    {
+      "commit": "6e692d2ec0dc4485489cf690f756c70d88aa5e91",
+      "path": "d2_plane_72_108/f2_h3_joint_low_jet_stratification_certificate.json",
+      "sha256": "e2a0078e77b96bb9d09db3fe869e58d70ee0e8e783b723b755af1d978fddf7d8",
+      "verdict": "JOINT_ESCAPE_LOCUS_IS_ONE_HYPERPLANE"
+    },
+    {
+      "commit": "8cdb4f1232c5387465300c0f5d6f257c14fb8d0a",
+      "path": "d2_plane_72_108/f2_h3_c22_exceptional_control_certificate.json",
+      "sha256": "0cf394a76ed6497fd6910dbeb8acfb9a2c7f0cb53559bb6e2edca2ab16473039",
+      "verdict": "C22_FACE_IDEAL_UNIT_UNIFORM"
+    },
+    {
+      "commit": "e0377d86bf1fbe5bf49505ca60102d890b63416b",
+      "path": "d2_plane_72_108/f2_h3_c710_torus_normalization_audit_certificate.json",
+      "sha256": "38213bfee4533d4e174a8543eb986d26d1298d7f3aa8930203a1b65ec40de571",
+      "verdict": "AC_NORMALIZATION_REFUSED"
+    }
+  ]
+}

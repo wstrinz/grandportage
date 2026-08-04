@@ -1,0 +1,113 @@
+{
+  "characteristic": 0,
+  "coefficient_domain": "Q",
+  "initial_generators": [
+    "t**2*(2*I4 - 5*c3_5)",
+    "-t**2*(4*I4*c3_5 - 5*c3_5**2 + 5*c6_9)",
+    "t*(4*I4*c6_9 + 2*a2 + 15*c2_3*t + 10*c3_5*c6_9 + 10*c9_14)",
+    "t*(5*I1 + 4*I4*a2 + 20*I4*c2_3*t + 20*I4*c9_14 - 10*a2*c3_5 - 50*c2_3*c3_5*t - 50*c3_5**2*c6_9 - 50*c3_5*c9_14 - 25*c5_7*t - 25*c6_9**2)/5",
+    "(15*I1*c6_9 + 12*I4*a2*c6_9 + 120*I4*c2_3*c6_9*t + 60*I4*c3_5*c6_9**2 + 60*I4*c6_9*c9_14 + 60*I4*c8_12*t + 15*Im1 + 3*a2**2 + 30*a2*c2_3*t + 30*a2*c3_5*c6_9 + 30*a2*c9_14 + 75*c2_3**2*t**2 + 150*c2_3*c9_14*t - 150*c3_5**2*c5_7*t + 75*c3_5**2*c6_9**2 + 150*c3_5*c6_9*c9_14 - 150*c3_5*c8_12*t - 75*c4_5*t**2 - 150*c5_7*c6_9*t - 25*c6_9**3 + 75*c9_14**2)/15",
+    "r+I4+c6_9+c9_14+I1+Im1"
+  ],
+  "point_universe": "ALGEBRAIC_CLOSURE",
+  "ring_vars": [
+    "t",
+    "c2_3",
+    "c3_5",
+    "c4_5",
+    "c5_7",
+    "c8_12",
+    "I4",
+    "c6_9",
+    "c9_14",
+    "I1",
+    "Im1",
+    "a2",
+    "r"
+  ],
+  "schema": "localized_triangular_solve_chain_v1",
+  "source_receipt": {
+    "id": "f2_h3_q_receipt_probe",
+    "sha256": "sha256:b5513c74176f03df1b624c8940d77c21e3b5886c8301f3370f8b4919162dbb71"
+  },
+  "steps": [
+    {
+      "coefficient": "2*t**2",
+      "equation": "t**2*(2*I4 - 5*c3_5)",
+      "equation_index": 0,
+      "id": "top-r2",
+      "input_state_fingerprint": "sha256:243e87656d3b7cb1784c4aa456e4a60c1acff6594d65076741d97319384f8d7c",
+      "output_generators": [
+        "(-5)*t^2*c3_5^2+(-5)*t^2*c6_9",
+        "(15)*t^2*c2_3+(20)*t*c3_5*c6_9+(10)*t*c9_14+(2)*t*a2",
+        "(-5)*t^2*c5_7+(-10)*t*c3_5^2*c6_9+(-5)*t*c6_9^2+t*I1",
+        "(5)*t^2*c2_3^2+(-5)*t^2*c4_5+(20)*t*c2_3*c3_5*c6_9+(10)*t*c2_3*c9_14+(2)*t*c2_3*a2+(-10)*t*c3_5^2*c5_7+(-10)*t*c5_7*c6_9+(15)*c3_5^2*c6_9^2+(20)*c3_5*c6_9*c9_14+(4)*c3_5*c6_9*a2+(-5/3)*c6_9^3+c6_9*I1+(5)*c9_14^2+(2)*c9_14*a2+Im1+(1/5)*a2^2",
+        "(5/2)*c3_5+c6_9+c9_14+I1+Im1+r"
+      ],
+      "output_state_fingerprint": "sha256:9f0df366d0dd9c115ded14f439dcd88fd58a1d9ddd10d0ffeee5196437c8471b",
+      "pivot": "I4",
+      "solution": "5/2*c3_5"
+    },
+    {
+      "coefficient": "-5*t**2",
+      "equation": "(-5)*t^2*c3_5^2+(-5)*t^2*c6_9",
+      "equation_index": 0,
+      "id": "top-r5",
+      "input_state_fingerprint": "sha256:9f0df366d0dd9c115ded14f439dcd88fd58a1d9ddd10d0ffeee5196437c8471b",
+      "output_generators": [
+        "(15)*t^2*c2_3+(-20)*t*c3_5^3+(10)*t*c9_14+(2)*t*a2",
+        "(-5)*t^2*c5_7+(5)*t*c3_5^4+t*I1",
+        "(5)*t^2*c2_3^2+(-5)*t^2*c4_5+(-20)*t*c2_3*c3_5^3+(10)*t*c2_3*c9_14+(2)*t*c2_3*a2+(50/3)*c3_5^6+(-20)*c3_5^3*c9_14+(-4)*c3_5^3*a2-c3_5^2*I1+(5)*c9_14^2+(2)*c9_14*a2+Im1+(1/5)*a2^2",
+        "-c3_5^2+(5/2)*c3_5+c9_14+I1+Im1+r"
+      ],
+      "output_state_fingerprint": "sha256:38ea188ff79a4dae212047cfc0ea4e0ec4158b94d2c695644f3d4006e4991eb3",
+      "pivot": "c6_9",
+      "solution": "-c3_5^2"
+    },
+    {
+      "coefficient": "10*t",
+      "equation": "(15)*t^2*c2_3+(-20)*t*c3_5^3+(10)*t*c9_14+(2)*t*a2",
+      "equation_index": 0,
+      "id": "top-r1",
+      "input_state_fingerprint": "sha256:38ea188ff79a4dae212047cfc0ea4e0ec4158b94d2c695644f3d4006e4991eb3",
+      "output_generators": [
+        "(-5)*t^2*c5_7+(5)*t*c3_5^4+t*I1",
+        "(5/4)*t^2*c2_3^2+(-5)*t^2*c4_5+(-10/3)*c3_5^6-c3_5^2*I1+Im1",
+        "(-3/2)*t*c2_3+(2)*c3_5^3-c3_5^2+(5/2)*c3_5+I1+Im1+(-1/5)*a2+r"
+      ],
+      "output_state_fingerprint": "sha256:bc69da2f9753795b0f4580e79bcfa8358c330d89ae63758d2856f5bca6295d1f",
+      "pivot": "c9_14",
+      "solution": "2*c3_5^3 - 3/2*c2_3*t - a2/5"
+    },
+    {
+      "coefficient": "t",
+      "equation": "(-5)*t^2*c5_7+(5)*t*c3_5^4+t*I1",
+      "equation_index": 0,
+      "id": "top-r4",
+      "input_state_fingerprint": "sha256:bc69da2f9753795b0f4580e79bcfa8358c330d89ae63758d2856f5bca6295d1f",
+      "output_generators": [
+        "(5/4)*t^2*c2_3^2+(-5)*t^2*c4_5+(-5)*t*c3_5^2*c5_7+(5/3)*c3_5^6+Im1",
+        "(-3/2)*t*c2_3+(5)*t*c5_7+(-5)*c3_5^4+(2)*c3_5^3-c3_5^2+(5/2)*c3_5+Im1+(-1/5)*a2+r"
+      ],
+      "output_state_fingerprint": "sha256:0799d11e1c0414fd0d4cda3000529c2c94bc8854df5bfea5cf52abb20f990ba5",
+      "pivot": "I1",
+      "solution": "5*c5_7*t - 5*c3_5^4"
+    },
+    {
+      "coefficient": "1",
+      "equation": "(5/4)*t^2*c2_3^2+(-5)*t^2*c4_5+(-5)*t*c3_5^2*c5_7+(5/3)*c3_5^6+Im1",
+      "equation_index": 0,
+      "id": "top-r3",
+      "input_state_fingerprint": "sha256:0799d11e1c0414fd0d4cda3000529c2c94bc8854df5bfea5cf52abb20f990ba5",
+      "output_generators": [
+        "(-5/4)*t^2*c2_3^2+(5)*t^2*c4_5+(-3/2)*t*c2_3+(5)*t*c3_5^2*c5_7+(5)*t*c5_7+(-5/3)*c3_5^6+(-5)*c3_5^4+(2)*c3_5^3-c3_5^2+(5/2)*c3_5+(-1/5)*a2+r"
+      ],
+      "output_state_fingerprint": "sha256:3dea52e46657e00169c3ed38d25b3f5af05b34ae3cb473618c2a3ca63b66ba38",
+      "pivot": "Im1",
+      "solution": "5*c4_5*t^2 + 5*c3_5^2*c5_7*t - 5/3*c3_5^6 - 5/4*c2_3^2*t^2"
+    }
+  ],
+  "unit_generators": [
+    "t"
+  ]
+}

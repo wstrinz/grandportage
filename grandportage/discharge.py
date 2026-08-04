@@ -50,6 +50,10 @@ _GENERIC = ("Re-examine this step: the transport it needs is not licensed by "
 #            mathematics is hard.
 #   ACCEPT   carry it deliberately, in the open, with a reason.
 #
+#   WITHDRAW the declaration was not an edge at all. Nothing replaces it, and
+#            live traffic over it remains a stale-path error until rerouted or
+#            retracted.
+#
 # `RETYPE` READS AS "I CHANGED THE TYPE FIELD" AND DOES NOT MEAN THAT, which is
 # a naming problem worth recording rather than a bug.  A campaign retyped an
 # UNTYPED edge to RESTRICTION -- literally editing the `type` field -- and its
@@ -72,7 +76,8 @@ _GENERIC = ("Re-examine this step: the transport it needs is not licensed by "
 DERIVE = "DERIVE"
 RETYPE = "RETYPE"
 ACCEPT = "ACCEPT"
-DISCHARGE_KINDS = (DERIVE, RETYPE, ACCEPT)
+WITHDRAW = "WITHDRAW"
+DISCHARGE_KINDS = (DERIVE, RETYPE, ACCEPT, WITHDRAW)
 
 # (edge type, direction, claim kind) -> the canonical next move.
 MOVES = {
@@ -200,7 +205,14 @@ _RING_ISO_MOVE = (
     "and is false in the other.\n"
     "  If {src} -> {dst} really is invertible ON THE COORDINATE RING -- a "
     "linear change of variables, a re-presentation of the same ideal -- declare "
-    "`ring_iso: true` and say what the inverse is.\n"
+    "`ring_iso: true`, `forward: {{var: polynomial, ...}}`, and "
+    "`inverse: {{var: polynomial, ...}}`. `forward` is the point map from "
+    "source to target; polynomial pullback is contravariant. `gp verify` "
+    "checks both ideal pullbacks and both inverse compositions. The current "
+    "surface requires the endpoints to use the same ring-variable names, and "
+    "structured maps license transport only after `VERIFIED`. This is a MAPPED "
+    "equivalence; it does not separately assert literal containment of the "
+    "solution sets as written.\n"
     "  If the step is a saturation, a radicalization, or anything else that "
     "preserves solutions while changing the ring, then it does NOT carry "
     "rewritings, and the other three claim kinds still travel across it "
@@ -552,9 +564,31 @@ def discharge_for(rule_or_type, direction=None, kind=None, graph=None,
             move = _IDENTITY_MOVE
         if move is None:
             move = _GENERIC
+    if (move == _RING_ISO_MOVE and edge
+            and K.is_mapped_equivalence(edge)
+            and edge.get("ring_iso") is True):
+        verdict = edge.get("ring_iso_verdict")
+        detail = edge.get("ring_iso_why") or "(no verifier detail recorded)"
+        if verdict is None:
+            move = (
+                "This mapped EQUIVALENCE already declares `ring_iso: true` "
+                "and complete `forward`/`inverse` maps. Run `gp verify`; "
+                "structured maps fail closed until it records `VERIFIED`.")
+        elif verdict == "UNVERIFIED":
+            move = (
+                "The mapped ring-isomorphism check is UNVERIFIED: %s\n"
+                "  Resolve the missing algebra or solver condition, then rerun "
+                "`gp verify`; redeclaring the same maps cannot close this refusal."
+                % detail)
+        elif verdict == "NOT_AN_ISOMORPHISM":
+            move = (
+                "The declared maps were refuted as a ring isomorphism: %s\n"
+                "  Supersede them with correct maps, or drop `ring_iso` and "
+                "withdraw the IDENTITY transport that depended on it." % detail)
+
 
     fields = {
-        "src": "(source)", "dst": "(target)", "drops": "(undeclared)",
+        "src": "(source)", "dst": "(target)", "drops": "undeclared",
         "map_kind": "(unknown)", "src_field": "its own field",
         "axis": axis or "(axis)",
         "missing": ", ".join(str(m) for m in (missing or [])) or "(indices)",
@@ -566,7 +600,7 @@ def discharge_for(rule_or_type, direction=None, kind=None, graph=None,
         fields["dst"] = edge.get("dst", fields["dst"])
         fields["map_kind"] = edge.get("map_kind", fields["map_kind"])
         drops = edge.get("drops") or []
-        fields["drops"] = "; ".join(drops) if drops else "(none declared)"
+        fields["drops"] = "; ".join(drops) if drops else "none declared"
         fields["debt_why"] = edge.get("debt_why") or "(none recorded)"
         if graph is not None:
             srcm = graph.models.get(edge.get("src")) or {}

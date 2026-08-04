@@ -1,0 +1,46 @@
+{
+  "schema": "gp_stacks_application_packet_v1",
+  "application_id": "JC-INVERSE-LIMIT-NONEMPTY-AUDIT",
+  "theorem_pin": {
+    "tag": "01Z2",
+    "statement_sha256": "3e24bd854e625d820624263fe6f0ab120972e941877ffd01951469058dcab6e1"
+  },
+  "theorem_acceptance": "CITATION_PINNED",
+  "target_context": "JC compatible finite truncations and the proposed infinite formal-arc limit",
+  "intended_conclusion": "the compatible truncation tower has a limiting point",
+  "hypotheses": [
+    {
+      "id": "directed_inverse_system",
+      "status": "UNSUPPORTED",
+      "why": "The campaign records finitely many exact-affine models, not a typed directed inverse system."
+    },
+    {
+      "id": "limit_identified",
+      "status": "MISSING",
+      "why": "No campaign object is proved to be the scheme-theoretic inverse limit of the truncation stages."
+    },
+    {
+      "id": "transitions_affine",
+      "status": "MISSING",
+      "why": "The truncation transition maps have not been materialized and checked as affine morphisms."
+    },
+    {
+      "id": "stages_nonempty",
+      "status": "OPEN",
+      "why": "Some bounded blocks have solutions over an algebraic closure, but nonemptiness of every stage is not established."
+    },
+    {
+      "id": "stages_quasi_compact",
+      "status": "MISSING",
+      "why": "Quasi-compactness is mathematically plausible for affine stages but is not bound as a campaign premise."
+    }
+  ],
+  "application_premises": [
+    {
+      "id": "limit_point_means_formal_arc",
+      "statement": "a point of the scheme limit corresponds to a JC formal arc with the declared source semantics",
+      "status": "MISSING",
+      "why": "The source-to-truncation semantics and point universe have not been composed through an infinite limit."
+    }
+  ]
+}

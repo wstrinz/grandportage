@@ -1,0 +1,38 @@
+{
+  "certificate": {
+    "cofactors": [
+      "0",
+      "-2/5*t*c9_11-1/5*p*t^2",
+      "4/5*t^2"
+    ],
+    "localization_powers": [
+      2,
+      4
+    ],
+    "membership_target": "p^2*t^4"
+  },
+  "characteristic": 0,
+  "expression": {
+    "denominator_powers": [
+      0,
+      0
+    ],
+    "numerator": "1"
+  },
+  "generators": [
+    "15*t^3+1",
+    "10*c9_11*t + 15*p*t**2",
+    "5*c9_11**2 + 10*c9_11*p*t + 5*p**2*t**2"
+  ],
+  "guards": [
+    "p",
+    "t"
+  ],
+  "ring_vars": [
+    "p",
+    "t",
+    "c9_11",
+    "I4"
+  ],
+  "schema": "localization_membership_v1"
+}

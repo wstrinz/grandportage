@@ -33,8 +33,10 @@ from first principles:
 3. AN ERRORED CAS IS NOT A CAS THAT ANSWERED.  Singular reports an error, KEEPS
    GOING, prints the output markers with nothing behind them, and exits 0.  So
    exit status is not evidence, and neither is the presence of a marker.  A
-   verdict is read only from a run with no `? error` line and exactly one
-   parseable value per declared output.
+   verdict is read only from a run with no `? error` line, exactly one
+   parseable value per declared output, and a per-execution nonce marker as
+   the final non-whitespace line.  Parseable output from a truncated or replayed
+   transcript is not an answer to this invocation.
 
    Earned by: an `_ASSAY_` identifier prefix that was illegal because Singular
    identifiers must begin with a letter.  Reviewing the emitter would never
@@ -44,8 +46,14 @@ from first principles:
 import json
 import os
 import re
+import secrets
+import signal
 import subprocess
+import threading
 
+from . import artifacts as A
+from . import backend as B
+from . import groebner as G
 from . import kernel as K
 from . import store as S
 
@@ -288,7 +296,7 @@ class CASProgram(object):
     """
 
     def __init__(self, dialect, ring, ring_vars, decls, body, outputs,
-                 characteristic=0, generators=None):
+                 characteristic=0, generators=None, ordering="dp"):
         if dialect not in DIALECTS:
             raise ValueError("unknown CAS dialect %r" % (dialect,))
         self.dialect = dialect
@@ -303,7 +311,17 @@ class CASProgram(object):
         self.decls = [(str(n), str(t), str(e)) for n, t, e in decls]
         self.body = list(body)
         self.outputs = list(outputs)
+        if not S.valid_characteristic(characteristic):
+            raise ValueError(
+                "characteristic must be 0 or a prime, not %r"
+                % characteristic)
         self.characteristic = characteristic
+        if ordering not in ("dp", "lp"):
+            raise ValueError(
+                "ordering must be the closed Singular order `dp` or `lp`, "
+                "not %r" % ordering
+            )
+        self.ordering = ordering
         # EVERY field that reaches the program text, not a subset of them.
         # v0.2 validated the identifier half of `decls` and the expression half
         # and `body`, and left `ring`, `ring_vars` and the TYPE half of each
@@ -322,7 +340,9 @@ class CASProgram(object):
                     "carry a whole extra declaration."
                     % (name, typ, dialect,
                        ", ".join(sorted(DECL_TYPES[dialect]))))
-        assert_no_identifier_collision(dialect, self.ring_vars, self.decls)
+        assert_no_identifier_collision(
+            dialect, [self.ring] + self.ring_vars, self.decls
+        )
         assert_no_identifier_collision(dialect, self.ring_vars,
                                        [(o, "", "") for o in self.outputs])
         assert_declares_nothing(dialect, [e for _n, _t, e in self.decls],
@@ -331,18 +351,77 @@ class CASProgram(object):
 
     @property
     def text(self):
+        return self.execution_text()
+
+    def execution_text(self, completion_nonce=None):
+        """Render this reusable template, optionally bound to one run."""
         if self.dialect != SINGULAR:
             raise NotImplementedError(self.dialect)
-        lines = ["ring %s = %d,(%s),dp;"
-                 % (self.ring, self.characteristic, ",".join(self.ring_vars))]
+        lines = ["ring %s = %d,(%s),%s;"
+                 % (self.ring, self.characteristic,
+                    ",".join(self.ring_vars), self.ordering)]
+        # SINGULAR'S DEFAULT PRINTER IS NOT ROUND-TRIPPABLE. With `short=1`
+        # it prints x^3-x*y as `x3-xy`; a consumer that accepts identifiers
+        # containing digits must then read x3 and xy as new variables. W8 hit
+        # exactly that boundary: Eliminate computed the right polynomial, the
+        # constructor stored its compact printout, and operation_output issued
+        # a mathematically wrong NOT_THE_STATED_OUTPUT verdict. `short=0`
+        # makes Singular print explicit powers and products (`x^3-x*y`). The
+        # model and every later verifier now consume a representation that can
+        # be sent back to the same CAS without guessing its grammar.
+        #
+        # This belongs at the emitter, not in a heuristic output parser: ring
+        # variables may themselves contain digits, so compact notation is
+        # genuinely ambiguous after the ring declaration has been discarded.
+        lines.append("short=0;")
         for name, typ, expr in self.decls:
             lines.append("%s %s = %s;" % (typ, name, expr))
         lines.extend(self.body)
         for out in self.outputs:
             lines.append('"@@%s:";' % out.upper())
             lines.append("%s;" % out)
+        if completion_nonce is not None:
+            if not re.fullmatch(r"[0-9a-f]{32}", completion_nonce):
+                raise ValueError(
+                    "completion nonce must be 32 lowercase hex digits"
+                )
+            lines.append('"@@GP-END:%s";' % completion_nonce)
         lines.append("quit;")
         return "\n".join(lines) + "\n"
+
+    @property
+    def semantic_fingerprint(self):
+        """Address the validated template independently of its run nonce."""
+        return B.semantic_fingerprint(
+            "cas_program",
+            {
+                "dialect": self.dialect,
+                "ring": B.RingSpec(
+                    tuple(self.ring_vars), self.characteristic, self.ordering
+                ).payload(),
+                "program_text": self.text,
+                "outputs": list(self.outputs),
+            },
+        )
+
+
+class _BoundCASInvocation(object):
+    """One nonce-bound execution of an otherwise reusable CASProgram."""
+
+    def __init__(self, program, completion_nonce):
+        self._program = program
+        self.completion_nonce = completion_nonce
+
+    def __getattr__(self, name):
+        return getattr(self._program, name)
+
+    @property
+    def completion_marker(self):
+        return "@@GP-END:%s" % self.completion_nonce
+
+    @property
+    def text(self):
+        return self._program.execution_text(self.completion_nonce)
 
 
 # ---------------------------------------------------------------------------
@@ -358,7 +437,8 @@ class Transport(object):
 
     def __init__(self, src, type, why, map_kind=K.IDENTITY_MAP, drops=(),
                  witness="", debt_why="", cite="",
-                 strictness_witness="", converse_witness="", ring_iso=None):
+                 strictness_witness="", converse_witness="", ring_iso=None,
+                 forward=None, inverse=None):
         if type not in K.DECLARABLE_TYPES:
             raise TransportNotDeclared(
                 "transport type %r is not declarable.  Name what this step "
@@ -410,6 +490,9 @@ class Transport(object):
         # supported path at all, while a raw `portage_declare` could assert it
         # unaudited.  A gate that is unreachable from the front door and wide
         # open at the back is not a gate.
+        if ring_iso is not None and not isinstance(ring_iso, bool):
+            raise TransportNotDeclared(
+                "`ring_iso` must be true or false, not %r" % ring_iso)
         if ring_iso is not None and type != K.EQUIVALENCE:
             raise TransportNotDeclared(
                 "`ring_iso` says an EQUIVALENCE is an isomorphism of coordinate "
@@ -417,6 +500,33 @@ class Transport(object):
                 "meaningless on a %s edge, which is lossy by construction."
                 % type)
         self.ring_iso = ring_iso
+        if (forward is None) != (inverse is None):
+            raise TransportNotDeclared(
+                "a mapped EQUIVALENCE needs both `forward` and `inverse`; one "
+                "map cannot establish an invertible coordinate change")
+        if forward is not None:
+            if type != K.EQUIVALENCE:
+                raise TransportNotDeclared(
+                    "`forward`/`inverse` substitutions describe a mapped "
+                    "EQUIVALENCE, not a lossy %s edge" % type)
+            if (not isinstance(forward, dict) or not forward
+                    or not isinstance(inverse, dict) or not inverse):
+                raise TransportNotDeclared(
+                    "`forward` and `inverse` must be non-empty substitution "
+                    "objects: "
+                    "one polynomial expression per ring variable")
+            if not all(isinstance(k, str) and isinstance(v, str)
+                       for maps in (forward, inverse)
+                       for k, v in maps.items()):
+                raise TransportNotDeclared(
+                    "substitution names and polynomial expressions must be strings")
+            if not all(k.strip() and v.strip()
+                       for maps in (forward, inverse)
+                       for k, v in maps.items()):
+                raise TransportNotDeclared(
+                    "substitution names and expressions must be non-blank")
+        self.forward = forward
+        self.inverse = inverse
 
     @classmethod
     def from_dict(cls, d):
@@ -432,14 +542,24 @@ class Transport(object):
         unknown = set(d) - {"src", "type", "why", "map_kind", "drops",
                             "witness", "debt_why", "cite",
                             "strictness_witness", "converse_witness",
-                            "ring_iso"}
+                            "ring_iso", "forward", "inverse"}
         if unknown:
             raise TransportNotDeclared("unknown edge fields: %s"
                                        % ", ".join(sorted(unknown)))
+        if "ring_iso" in d and not isinstance(d["ring_iso"], bool):
+            raise TransportNotDeclared("`ring_iso` must be true or false")
+        fwd_present, inv_present = "forward" in d, "inverse" in d
+        if fwd_present != inv_present:
+            raise TransportNotDeclared(
+                "a mapped EQUIVALENCE needs both `forward` and `inverse`; one "
+                "map cannot establish an invertible coordinate change")
+        if fwd_present and (d["forward"] is None or d["inverse"] is None):
+            raise TransportNotDeclared(
+                "`forward` and `inverse` must be non-empty substitution objects")
         return cls(**d)
 
     def events(self, eid, dst, dst_desc, dst_field=None, dst_chart=None,
-               ring_vars=None, generators=None):
+               ring_vars=None, generators=None, characteristic=None):
         """The graph events this computation contributes.
 
         THE MODEL KEEPS THE ALGEBRA IT WAS BUILT FROM.
@@ -475,6 +595,8 @@ class Transport(object):
             model["ring_vars"] = list(ring_vars)
         if generators is not None:
             model["generators"] = list(generators)
+        if characteristic is not None:
+            model["characteristic"] = characteristic
         if dst_field:
             model["field"] = dst_field
         if dst_chart:
@@ -490,6 +612,9 @@ class Transport(object):
             edge["converse_witness"] = self.converse_witness
         if self.ring_iso is not None:
             edge["ring_iso"] = self.ring_iso
+        if self.forward is not None:
+            edge["forward"] = dict(self.forward)
+            edge["inverse"] = dict(self.inverse)
         if self.debt_why:
             edge["debt_why"] = self.debt_why
         return [model, edge]
@@ -498,7 +623,11 @@ class Transport(object):
 # ---------------------------------------------------------------------------
 # Running
 # ---------------------------------------------------------------------------
-ABORT_CODES = {124: "timeout", 137: "SIGKILL", 139: "SIGSEGV"}
+ABORT_CODES = {
+    124: "timeout", 125: "output limit", 137: "SIGKILL", 139: "SIGSEGV"
+}
+_MAX_STDOUT_BYTES = 16 * 1024 * 1024
+_MAX_STDERR_BYTES = 4 * 1024 * 1024
 
 # Windows dev boxes reach Singular through WSL; ASSAY.md recorded the same
 # arrangement.  Overridable so a Linux/Mac checkout needs no edit.
@@ -579,8 +708,7 @@ def run_cas(program, *, edge, produces, describes, root=".", timeout=300,
     if not isinstance(transport, Transport):
         raise TransportNotDeclared("edge must be a Transport or a dict")
 
-    runner = _runner or _run_subprocess
-    result = runner(program, timeout)
+    result = _execute(program, timeout, _runner)
 
     if result["aborted"]:
         result["verdict"] = "ABORTED"
@@ -607,13 +735,18 @@ def run_cas(program, *, edge, produces, describes, root=".", timeout=300,
                ", ".join(str(c) for c in sorted(ABORT_CODES)),
                result["stdout"][-2000:]))
     else:
-        result["values"] = _parse_outputs(result["stdout"], program.outputs)
+        result["values"] = _parse_result(result, program.outputs)
         result["verdict"] = "OK"
 
     result["transport"] = {"src": transport.src, "type": transport.type,
                            "dst": produces}
     if record:
         eid = edge_id or ("E-%s" % produces)
+        artifact = B.validate_execution_artifact(result, program)
+        artifact_fingerprint = A.persist(root, artifact)
+        result["artifact_fingerprint"] = artifact_fingerprint
+        artifact_fields = A.reference_fields(
+            artifact, artifact_fingerprint)
         if result["verdict"] != "OK":
             # AN UNFINISHED RUN MINTS NO MODEL.  Appending the model and the
             # semantic edge regardless of verdict put a node in the graph
@@ -631,31 +764,549 @@ def run_cas(program, *, edge, produces, describes, root=".", timeout=300,
                          "model and NO edge were recorded.  An unfinished run "
                          "is not evidence of anything."
                          % (produces, transport.src, result["verdict"]))}]
+            result["events"][0].update(artifact_fields)
         else:
             events = transport.events(
                 eid, produces, describes,
                 dst_field=dst_field, dst_chart=dst_chart,
                 ring_vars=getattr(program, "ring_vars", None),
-                generators=getattr(program, "generators", None))
+                generators=getattr(program, "generators", None),
+                characteristic=getattr(program, "characteristic", None))
             events[0]["cite"] = events[1]["cite"] = cite or transport.cite
+            events.append(dict({
+                "ev": S.EV_NOTE,
+                "kind": "cas-execution",
+                "source": eid,
+                "text": (
+                    "the exact backend execution that produced model %s; "
+                    "this note records provenance and licenses no conclusion"
+                    % produces),
+            }, **artifact_fields))
             result["events"] = events
         S.append(result["events"], root=root)
     return result
 
 
-def _run_subprocess(program, timeout):
-    argv = _argv()
+def _limited_argv(argv, timeout):
+    """Put the actual WSL child, not only its launcher, under a deadline."""
+    if (os.name == "nt" and len(argv) >= 3
+            and os.path.basename(argv[0]).lower() == "wsl.exe"
+            and argv[1] == "--"):
+        return [
+            argv[0], "--", "timeout", "--signal=KILL", "--kill-after=2s",
+            "%ss" % max(1, int(timeout)),
+        ] + list(argv[2:])
+    return list(argv)
+
+
+def _kill_process_tree(proc):
+    """Terminate exactly the spawned process group/tree, best effort."""
+    if proc.poll() is not None:
+        return
+    if os.name == "nt":
+        try:
+            killed = subprocess.run(
+                ["taskkill", "/PID", str(proc.pid), "/T", "/F"],
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                timeout=2,
+            )
+            if killed.returncode == 0:
+                return
+        except (OSError, subprocess.SubprocessError):
+            pass
     try:
-        proc = subprocess.run(argv, input=program.text, capture_output=True,
-                              text=True, timeout=timeout)
-        rc, stdout, stderr = proc.returncode, proc.stdout, proc.stderr
-    except subprocess.TimeoutExpired:
-        rc, stdout, stderr = 124, "", "timeout after %ss" % timeout
+        if os.name == "nt":
+            proc.kill()
+        else:
+            os.killpg(proc.pid, signal.SIGKILL)
+    except OSError:
+        pass
+
+
+def _run_subprocess(program, timeout):
+    """Run one CAS with bounded output and whole-tree timeout containment."""
+    base_argv = _argv()
+    argv = _limited_argv(base_argv, timeout)
+    outer_timeout = timeout + 5 if argv != list(base_argv) else timeout
+    limits = {
+        "stdout": _MAX_STDOUT_BYTES, "stderr": _MAX_STDERR_BYTES,
+    }
+    buffers = {"stdout": bytearray(), "stderr": bytearray()}
+    overflow = threading.Event()
+    overflow_stream = []
+    popen_kwargs = {}
+    if os.name == "nt":
+        popen_kwargs["creationflags"] = getattr(
+            subprocess, "CREATE_NEW_PROCESS_GROUP", 0
+        )
+    else:
+        popen_kwargs["start_new_session"] = True
+    try:
+        proc = subprocess.Popen(
+            argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, **popen_kwargs
+        )
     except FileNotFoundError as exc:
         raise CASError("cannot reach the CAS via %s: %s" % (argv, exc))
-    return {"returncode": rc, "stdout": stdout, "stderr": stderr,
-            "aborted": rc in ABORT_CODES,
-            "abort_reason": ABORT_CODES.get(rc), "argv": argv}
+
+    def drain(stream_name, pipe):
+        while True:
+            chunk = pipe.read(65536)
+            if not chunk:
+                return
+            remaining = limits[stream_name] - len(buffers[stream_name])
+            if remaining > 0:
+                buffers[stream_name].extend(chunk[:remaining])
+            if len(chunk) > remaining:
+                if not overflow.is_set():
+                    overflow_stream.append(stream_name)
+                    overflow.set()
+                    _kill_process_tree(proc)
+                return
+
+    readers = [
+        threading.Thread(
+            target=drain, args=(name, pipe), daemon=True,
+            name="gp-cas-%s" % name,
+        )
+        for name, pipe in (("stdout", proc.stdout), ("stderr", proc.stderr))
+    ]
+
+    def feed_input():
+        try:
+            proc.stdin.write(program.text.encode("utf-8"))
+            proc.stdin.close()
+        except (BrokenPipeError, OSError):
+            pass
+
+    writer = threading.Thread(
+        target=feed_input, daemon=True, name="gp-cas-stdin"
+    )
+    for reader in readers:
+        reader.start()
+    writer.start()
+    try:
+        try:
+            rc = proc.wait(timeout=max(0.001, outer_timeout))
+        except subprocess.TimeoutExpired:
+            _kill_process_tree(proc)
+            try:
+                proc.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+                proc.wait()
+            rc = 124
+    finally:
+        writer.join(timeout=10)
+        for reader in readers:
+            reader.join(timeout=10)
+        for pipe in (proc.stdin, proc.stdout, proc.stderr):
+            try:
+                pipe.close()
+            except OSError:
+                pass
+    if overflow.is_set():
+        rc = 125
+        reason = "%s exceeded its byte limit" % (
+            overflow_stream[0] if overflow_stream else "CAS output"
+        )
+        diagnostic = ("\n" + reason).encode("utf-8")
+        remaining = _MAX_STDERR_BYTES - len(buffers["stderr"])
+        if remaining > 0:
+            buffers["stderr"].extend(diagnostic[:remaining])
+    stdout = bytes(buffers["stdout"]).decode("utf-8", errors="ignore")
+    stderr = bytes(buffers["stderr"]).decode("utf-8", errors="ignore")
+    if rc == 124 and not stderr:
+        stderr = "timeout after %ss" % timeout
+    return {
+        "returncode": rc,
+        "stdout": stdout,
+        "stderr": stderr,
+        "aborted": rc in ABORT_CODES,
+        "abort_reason": ABORT_CODES.get(rc),
+        "argv": argv,
+    }
+
+
+_BINARY_VERSION_CACHE = {}
+
+
+def _singular_binary_version(timeout=30):
+    """Return the exact Singular version string used by the configured argv."""
+    argv = tuple(_argv())
+    if argv in _BINARY_VERSION_CACHE:
+        return _BINARY_VERSION_CACHE[argv]
+    try:
+        proc = subprocess.run(
+            list(argv) + ["--version"], capture_output=True, text=True,
+            timeout=timeout,
+        )
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        version = "unavailable: %s" % type(exc).__name__
+    else:
+        text = "\n".join(
+            line.strip()
+            for line in (proc.stdout + "\n" + proc.stderr).splitlines()
+            if line.strip()
+        )
+        version = text[:1000] if text else "unreported"
+    _BINARY_VERSION_CACHE[argv] = version
+    return version
+
+
+class SingularBackend(B.Backend):
+    """The reference semantic backend, with the old runner as a test adapter."""
+
+    IMPLEMENTATION_VERSION = B.SINGULAR_IMPLEMENTATION_VERSION
+
+    def __init__(self, runner=None, binary_version=None):
+        self._runner = runner
+        self._binary_version = binary_version
+        self.executions = []
+
+    @property
+    def identity(self):
+        version = self._binary_version
+        if version is None:
+            version = (
+                "test-double" if self._runner is not None
+                else _singular_binary_version()
+            )
+        implementation = (
+            B.SINGULAR_IMPLEMENTATION
+            if type(self) is SingularBackend
+            else "%s.%s" % (type(self).__module__, type(self).__qualname__)
+        )
+        return B.BackendIdentity(
+            contract=B.SINGULAR_CONTRACT,
+            implementation=implementation,
+            implementation_version=self.IMPLEMENTATION_VERSION,
+            binary_version=version,
+        )
+
+    @property
+    def can_record_verdicts(self):
+        return (type(self) is SingularBackend
+                and self._runner is None
+                and self._binary_version is None)
+
+    @property
+    def execution_count(self):
+        return len(self.executions)
+
+    def execute(self, program, timeout=300, semantic_input=None):
+        if not isinstance(program, CASProgram):
+            raise TypeError(
+                "SingularBackend accepts only CASProgram, not %r"
+                % type(program).__name__
+            )
+        completion_nonce = secrets.token_hex(16)
+        invocation = _BoundCASInvocation(program, completion_nonce)
+        runner = self._runner or _run_subprocess
+        raw = runner(invocation, timeout)
+        if isinstance(raw, B.BackendExecution):
+            raise TypeError(
+                "a backend runner must return raw process fields, not a "
+                "pre-wrapped BackendExecution. Accepting one could attach a "
+                "different program, backend, or semantic request to this run."
+            )
+        fingerprint = (
+            B.semantic_fingerprint("backend_request", semantic_input)
+            if semantic_input is not None
+            else program.semantic_fingerprint
+        )
+        execution = B.BackendExecution(
+            raw, backend=self.identity, program=program,
+            execution_program=invocation, completion_nonce=completion_nonce,
+            semantic_input_fingerprint=fingerprint,
+        )
+        self.executions.append(execution)
+        return execution
+
+    def provenance(self, start=0):
+        """Aggregate the exact executions used for one verifier verdict."""
+        if type(start) is not int or start < 0 or start > self.execution_count:
+            raise ValueError("backend provenance cursor is out of range")
+        identity = self.identity
+        artifacts = [
+            B.validate_execution_artifact(run)
+            for run in self.executions[start:]
+        ]
+        trace = [B.execution_trace_entry(artifact) for artifact in artifacts]
+        return {
+            "schema": 2,
+            "contract": identity.contract,
+            "implementation": identity.implementation,
+            "implementation_version": identity.implementation_version,
+            "protocol_version": B.BACKEND_PROTOCOL_VERSION,
+            "binary_version": identity.binary_version,
+            "executions": trace,
+            "trace_fingerprint": B.semantic_fingerprint(
+                "backend_execution_trace", trace
+            ),
+        }
+
+    def execution_artifacts(self, start=0):
+        """Return validated frozen executions since an opaque cursor."""
+        if type(start) is not int or start < 0 or start > self.execution_count:
+            raise ValueError("backend provenance cursor is out of range")
+        return tuple(
+            B.validate_execution_artifact(run)
+            for run in self.executions[start:]
+        )
+
+    def classify_identity(self, ring_vars, lhs, rhs, generators=(),
+                          characteristic=0, timeout=300):
+        return classify_identity(
+            ring_vars, lhs, rhs, generators=generators,
+            characteristic=characteristic, timeout=timeout,
+            _runner=self.execute,
+        )
+
+    def membership(self, ring_vars, target, generators, characteristic=0,
+                   timeout=300):
+        return membership_representation(
+            ring_vars, target, generators, characteristic=characteristic,
+            timeout=timeout, _runner=self.execute,
+        )
+
+    def check_membership(self, ring_vars, target, generators, cofactors,
+                         characteristic=0, timeout=300):
+        return check_membership_representation(
+            ring_vars, target, generators, cofactors,
+            characteristic=characteristic, timeout=timeout,
+            _runner=self.execute,
+        )
+
+    def pullback_reduce(self, ring_vars, expr, images, generators=(),
+                        characteristic=0, timeout=300):
+        return substitute_and_reduce(
+            ring_vars, expr, images, generators,
+            characteristic=characteristic, timeout=timeout,
+            _runner=self.execute,
+        )
+
+    def evaluate_point(self, ring_vars, generators, point, characteristic=0,
+                       timeout=300):
+        return check_witness(
+            ring_vars, generators, point, characteristic=characteristic,
+            timeout=timeout, _runner=self.execute,
+        )
+
+    def compile_saturation(self, ring_vars, generators, at,
+                           characteristic=0):
+        tvar = "GP_T"
+        return CASProgram(
+            SINGULAR, ring="GP_R", ring_vars=[tvar] + list(ring_vars),
+            decls=[
+                ("GP_I", "ideal", ",".join(
+                    list(generators) + ["1-%s*(%s)" % (tvar, at)]
+                ) or "0"),
+                ("GP_E", "ideal", "eliminate(GP_I,%s)" % tvar),
+                ("GP_OUT", "ideal", "std(GP_E)"),
+            ], body=[], outputs=["GP_OUT"], characteristic=characteristic)
+
+    def compile_elimination(self, ring_vars, generators, variables,
+                            characteristic=0):
+        variables = list(variables)
+        if not variables:
+            raise ValueError("elimination needs at least one variable")
+        if len(variables) != len(set(variables)):
+            raise ValueError("elimination variables must be unique")
+        if not set(variables).issubset(set(ring_vars)):
+            raise ValueError("cannot eliminate variables outside the ring")
+        remaining = [v for v in ring_vars if v not in set(variables)]
+        if not remaining:
+            raise ValueError("elimination cannot remove every ring variable")
+        program = CASProgram(
+            SINGULAR, ring="GP_R", ring_vars=list(ring_vars),
+            decls=[
+                ("GP_I", "ideal", ",".join(generators) or "0"),
+                ("GP_E", "ideal", "eliminate(GP_I,%s)"
+                 % "*".join(variables)),
+                ("GP_OUT", "ideal", "std(GP_E)"),
+            ], body=[], outputs=["GP_OUT"], characteristic=characteristic)
+        return remaining, program
+
+    def saturate(self, ring_vars, generators, at, characteristic=0,
+                 timeout=300):
+        return _backend_saturate(
+            self, ring_vars, generators, at,
+            characteristic=characteristic, timeout=timeout,
+        )
+
+    def eliminate(self, ring_vars, generators, variables, characteristic=0,
+                  timeout=300):
+        return _backend_eliminate(
+            self, ring_vars, generators, variables,
+            characteristic=characteristic, timeout=timeout,
+        )
+
+    def partition_cover(self, ring_vars, parent_generators, branches,
+                        characteristic=0, timeout=300):
+        return partition_covers(
+            ring_vars, parent_generators, branches,
+            characteristic=characteristic, timeout=timeout,
+            _runner=self.execute,
+        )
+
+    def factorizing_decomposition(self, ring_vars, generators,
+                                  characteristic=0, timeout=300,
+                                  return_program=False):
+        start = self.execution_count
+        pieces, program = factorizing_decomposition(
+            ring_vars, generators, characteristic=characteristic,
+            timeout=timeout, _runner=self.execute,
+            _return_program=True,
+        )
+        executions = self.executions[start:]
+        if len(executions) != 1:
+            raise CASError(
+                "factorizing_decomposition must retain exactly one execution "
+                "artifact, found %d" % len(executions))
+        answer = {
+            "pieces": pieces,
+            "program": program,
+            "execution": executions[0],
+        }
+        return answer if return_program else pieces
+
+    def unit_ideal(self, ring_vars, generators, characteristic=0,
+                   timeout=300):
+        return unit_ideal_representation(
+            ring_vars, generators, characteristic=characteristic,
+            timeout=timeout, _runner=self.execute,
+        )
+
+    def check_unit_ideal(self, ring_vars, generators, cofactors,
+                         characteristic=0, timeout=300):
+        return check_unit_ideal_representation(
+            ring_vars, generators, cofactors,
+            characteristic=characteristic, timeout=timeout,
+            _runner=self.execute,
+        )
+
+
+def _execute(program, timeout, runner=None, semantic_input=None):
+    """Compatibility adapter from the old runner seam to a backend execution."""
+    owner = getattr(runner, "__self__", None)
+    if isinstance(owner, B.Backend):
+        return owner.execute(
+            program, timeout=timeout, semantic_input=semantic_input
+        )
+    return SingularBackend(runner=runner).execute(
+        program, timeout=timeout, semantic_input=semantic_input
+    )
+
+
+def _parse_result(result, outputs, certificate=None):
+    """Parse only a complete transcript from the frozen output snapshot."""
+    if not isinstance(result, B.BackendExecution):
+        raise CASError(
+            "backend output has no retained execution envelope; mathematical "
+            "output cannot be parsed without a nonce-bound terminal marker"
+        )
+    B.validate_execution_artifact(result, result.program)
+    stdout = result.artifact.stdout
+    expected = "@@GP-END:%s" % result.artifact.completion_nonce
+    ends = list(re.finditer(
+        r"^@@GP-END:[^\r\n]*[ \t]*$", stdout, re.MULTILINE
+    ))
+    if len(ends) != 1:
+        raise CASError(
+            "expected exactly one nonce-bound terminal marker, found %d; "
+            "parseable output from an unfinished or concatenated transcript "
+            "is not a CAS answer" % len(ends)
+        )
+    terminal = ends[0]
+    if terminal.group(0).strip() != expected:
+        raise CASError(
+            "the CAS terminal marker belongs to a different invocation; "
+            "stale or replayed stdout is not an answer to this program"
+        )
+    if stdout[terminal.end():].strip():
+        raise CASError(
+            "non-whitespace follows the CAS terminal marker; the transcript "
+            "is concatenated or the marker was not terminal"
+        )
+    stdout = stdout[:terminal.start()]
+    values = _parse_outputs(stdout, outputs)
+    if isinstance(result, B.BackendExecution):
+        result.attach_parsed(values, certificate=certificate)
+    return values
+
+
+def _require_success(result, action):
+    if isinstance(result, B.BackendExecution):
+        aborted = result.artifact.aborted
+        abort_reason = result.artifact.abort_reason
+        returncode = result.artifact.returncode
+        stdout = result.artifact.stdout
+        stderr = result.artifact.stderr
+    else:
+        aborted = result["aborted"]
+        abort_reason = result.get("abort_reason")
+        returncode = result["returncode"]
+        stdout = result["stdout"]
+        stderr = result["stderr"]
+    if aborted:
+        raise CASError(
+            "%s aborted (%s); an unfinished run answered nothing"
+            % (action, abort_reason or "unknown")
+        )
+    if "? error" in stdout + stderr:
+        raise CASError("%s reported a CAS error:\n%s"
+                       % (action, stdout[-1500:]))
+    if returncode != 0:
+        raise CASError("%s exited %s" % (action, returncode))
+
+def _ideal_generators(values, output):
+    raw = values[output]
+    rows = raw if isinstance(raw, list) else [raw]
+    generators = [str(row).split("=", 1)[-1].strip() for row in rows]
+    return [g for g in generators if g and g != "0"]
+
+
+def _backend_saturate(backend, ring_vars, generators, at,
+                      characteristic=0, timeout=300):
+    program = backend.compile_saturation(
+        ring_vars, generators, at, characteristic=characteristic)
+    semantic_input = {
+        "operation": "saturate", "ring_vars": list(ring_vars),
+        "characteristic": characteristic, "generators": list(generators),
+        "at": at,
+    }
+    result = backend.execute(
+        program, timeout=timeout, semantic_input=semantic_input
+    )
+    _require_success(result, "saturation")
+    values = _parse_result(result, program.outputs)
+    return {
+        "generators": _ideal_generators(values, "GP_OUT"),
+        "program": program, "execution": result,
+    }
+
+
+def _backend_eliminate(backend, ring_vars, generators, variables,
+                       characteristic=0, timeout=300):
+    variables = list(variables)
+    remaining, program = backend.compile_elimination(
+        ring_vars, generators, variables, characteristic=characteristic)
+    semantic_input = {
+        "operation": "eliminate", "ring_vars": list(ring_vars),
+        "characteristic": characteristic, "generators": list(generators),
+        "variables": variables,
+    }
+    result = backend.execute(
+        program, timeout=timeout, semantic_input=semantic_input
+    )
+    _require_success(result, "elimination")
+    values = _parse_result(result, program.outputs)
+    return {
+        "ring_vars": remaining,
+        "generators": _ideal_generators(values, "GP_OUT"),
+        "program": program, "execution": result,
+    }
 
 
 FALSE_AT_MODEL = "FALSE_AT_MODEL"
@@ -706,8 +1357,7 @@ def classify_identity(ring_vars, lhs, rhs, generators=(), characteristic=0,
     prog = CASProgram(SINGULAR, ring="GP_R", ring_vars=ring_vars, decls=decls,
                       body=[], outputs=outputs,
                       characteristic=characteristic)
-    runner = _runner or _run_subprocess
-    result = runner(prog, timeout)
+    result = _execute(prog, timeout, _runner)
     if result["aborted"]:
         raise CASError("classification aborted (%s); an unfinished run "
                        "classifies nothing" % result.get("abort_reason"))
@@ -716,7 +1366,7 @@ def classify_identity(ring_vars, lhs, rhs, generators=(), characteristic=0,
                        % result["stdout"][-2000:])
     if result["returncode"] != 0:
         raise CASError("the CAS exited %s" % result["returncode"])
-    values = _parse_outputs(result["stdout"], outputs)
+    values = _parse_result(result, outputs)
 
     def _zero(v):
         return str(v if not isinstance(v, list) else " ".join(v)).strip() == "0"
@@ -759,6 +1409,32 @@ def check_witness(ring_vars, generators, point, characteristic=0, timeout=300,
         raise CASError(
             "the witness does not give a value for every ring variable; "
             "missing %s.  A partial point is not a point." % ", ".join(missing))
+    # THE NESTED `subst` BELOW IS SEQUENTIAL, AND SEQUENTIAL IS NOT
+    # SIMULTANEOUS.  `substitute_and_reduce`, forty lines down, exists because
+    # getting that wrong is silent: swapping two variables one at a time sends
+    # `x*y - 1` to `x*x - 1`, and it was caught only by testing a case meant to
+    # PASS.
+    #
+    # Here it is safe for one reason and one reason only -- a point's values
+    # are CONSTANTS, so after substituting `x` no `x` remains for a later
+    # substitution to disturb.  That is a precondition, not a property of the
+    # code, and nothing enforced it.  A "point" whose value named a ring
+    # variable would be evaluated in an order-dependent way and reported with
+    # the same confidence as a real one.
+    #
+    # So require it.  A point whose coordinates depend on the coordinates is
+    # not a point.
+    used = set()
+    for w in point:
+        used.update(_SYMBOL.findall(str(point[w])))
+    named = sorted(set(ring_vars) & used)
+    if named:
+        raise CASError(
+            "the witness gives a coordinate in terms of the ring variable(s) "
+            "%s.  A point's coordinates are constants -- one that refers to "
+            "another coordinate is a parametrisation, and substituting it "
+            "would depend on the order the variables happened to be in."
+            % ", ".join(named))
     # Nested `subst`, one variable at a time, so each generator becomes exactly
     # ONE declaration -- which is what the boundary check requires and why this
     # is built as an expression rather than a statement sequence.
@@ -772,13 +1448,12 @@ def check_witness(ring_vars, generators, point, characteristic=0, timeout=300,
     prog = CASProgram(SINGULAR, ring="GP_R", ring_vars=ring_vars,
                       decls=decls, body=[], outputs=outs,
                       characteristic=characteristic)
-    runner = _runner or _run_subprocess
-    result = runner(prog, timeout)
+    result = _execute(prog, timeout, _runner)
     if result["aborted"] or "? error" in result["stdout"] + result["stderr"] \
             or result["returncode"] != 0:
         raise CASError("the CAS did not evaluate the witness:\n%s"
                        % result["stdout"][-1500:])
-    values = _parse_outputs(result["stdout"], outs)
+    values = _parse_result(result, outs)
     per_gen = []
     for n, gen in enumerate(generators):
         v = values["GP_V%d" % n]
@@ -826,12 +1501,12 @@ def substitute_and_reduce(ring_vars, expr, images, generators=(),
     prog = CASProgram(SINGULAR, ring="GP_R", ring_vars=list(ring_vars),
                       decls=decls, body=[], outputs=outs,
                       characteristic=characteristic)
-    result = (_runner or _run_subprocess)(prog, timeout)
+    result = _execute(prog, timeout, _runner)
     if (result["aborted"] or result["returncode"] != 0
             or "? error" in result["stdout"] + result["stderr"]):
         raise CASError("the CAS did not apply the substitution:\n%s"
                        % result["stdout"][-1500:])
-    vals = _parse_outputs(result["stdout"], outs)
+    vals = _parse_result(result, outs)
     key = "GP_R2" if generators else "GP_E"
     got = vals[key]
     got = " ".join(got) if isinstance(got, list) else str(got)
@@ -950,12 +1625,12 @@ def unit_ideal_representation(ring_vars, generators, characteristic=0,
         decls=[("GP_I", "ideal", ",".join(generators)),
                ("GP_G", "ideal", "std(GP_I)")],
         body=[], outputs=["GP_G"], characteristic=characteristic)
-    basis_res = (_runner or _run_subprocess)(basis_prog, timeout)
+    basis_res = _execute(basis_prog, timeout, _runner)
     if (basis_res["aborted"] or basis_res["returncode"] != 0
             or "? error" in basis_res["stdout"] + basis_res["stderr"]):
         raise CASError("the CAS did not compute a basis:\n%s"
                        % basis_res["stdout"][-1500:])
-    basis = _parse_outputs(basis_res["stdout"], ["GP_G"])["GP_G"]
+    basis = _parse_result(basis_res, ["GP_G"])["GP_G"]
     basis = basis if isinstance(basis, list) else [basis]
     basis = [b.split("=", 1)[-1].strip() for b in basis]
     if basis != ["1"]:
@@ -972,12 +1647,12 @@ def unit_ideal_representation(ring_vars, generators, characteristic=0,
     # because it MINTS A MODEL; this mints nothing and touches no graph. It
     # answers a question so the answer can be recorded with a computation
     # behind it, and recording is a separate, deliberate act.
-    result = (_runner or _run_subprocess)(prog, timeout)
+    result = _execute(prog, timeout, _runner)
     if (result["aborted"] or result["returncode"] != 0
             or "? error" in result["stdout"] + result["stderr"]):
         raise CASError("the CAS did not produce a representation:\n%s"
                        % result["stdout"][-1500:])
-    out = _parse_outputs(result["stdout"], ["GP_G", "GP_M"])
+    out = _parse_result(result, ["GP_G", "GP_M"])
     # `GP_M[i,1]=...`, one row per generator and IN GENERATOR ORDER, which is
     # the only thing that makes the check below meaningful -- a permuted list
     # would verify a different identity and report it as this one.
@@ -988,6 +1663,10 @@ def unit_ideal_representation(ring_vars, generators, characteristic=0,
         want = "GP_M[%d,1]=" % (i + 1)
         hit = [r for r in rows if r.replace(" ", "").startswith(want)]
         cofactors.append(hit[0].split("=", 1)[-1].strip() if hit else "0")
+    result.attach_parsed(out, certificate={
+        "kind": "unit_ideal_membership", "target": "1",
+        "generators": list(generators), "cofactors": list(cofactors),
+    })
     return {"is_unit": True, "cofactors": cofactors, "basis": basis}
 
 
@@ -1017,15 +1696,318 @@ def check_unit_ideal_representation(ring_vars, generators, cofactors,
         SINGULAR, ring="GP_R", ring_vars=ring_vars, generators=generators,
         decls=[("GP_SUM", "poly", terms)],
         body=[], outputs=["GP_SUM"], characteristic=characteristic)
-    result = (_runner or _run_subprocess)(prog, timeout)
+    result = _execute(prog, timeout, _runner)
     if (result["aborted"] or result["returncode"] != 0
             or "? error" in result["stdout"] + result["stderr"]):
         raise CASError("the CAS did not expand the representation:\n%s"
                        % result["stdout"][-1500:])
-    got = _parse_outputs(result["stdout"], ["GP_SUM"])["GP_SUM"]
+    got = _parse_result(result, ["GP_SUM"])["GP_SUM"]
     got = " ".join(got) if isinstance(got, list) else str(got)
     got = got.split("=", 1)[-1].strip()
+    result.attach_parsed(result["parsed_values"], certificate={
+        "kind": "unit_ideal_membership", "target": "1",
+        "generators": list(generators), "cofactors": list(cofactors),
+        "valid": got == "1", "expanded": got,
+    })
     return got == "1", got
+
+
+def membership_representation(ring_vars, target, generators, characteristic=0,
+                              timeout=300, _runner=None):
+    """The COFACTORS witnessing `g = sum b_i f_i`, generalising the unit case.
+
+    `unit_ideal_representation` is this with `g = 1`, and it exists because a
+    Groebner basis reducing to 1 is EVIDENCE while a representation is a
+    CERTIFICATE: given the cofactors, confirming the identity is one expansion
+    -- no Buchberger, no monomial order, no trust in the search that found
+    them.
+
+    THE REASON TO GENERALISE IT IS THAT MEMBERSHIP IS WHERE MOST OF THIS
+    SYSTEM'S WEIGHT SITS.  Emptiness is the dramatic case and the rare one.
+    Every IDENTITY is `lhs - rhs in I`; every containment is one membership per
+    generator.  Those were decided by REDUCTION, which is a decision procedure
+    and leaves nothing behind: "it reduced to 0" is a claim about a run that
+    nobody can recheck without doing the run again.
+
+    Returns {"is_member", "cofactors", "reduced"}.  `reduced` is the normal
+    form, which is the useful thing to print when the answer is no.
+    """
+    # The exact checker accepts both infix strings and bounded sparse objects.
+    # Singular accepts text only. Compile every accepted representation here,
+    # at the backend boundary, rather than letting Python dict syntax leak into
+    # a program (first exposed by a 499-term localized guard).
+    try:
+        target = G.render_polynomial(G.parse_polynomial(
+            target, ring_vars, characteristic))
+        generators = [G.render_polynomial(G.parse_polynomial(
+            value, ring_vars, characteristic)) for value in generators]
+    except G.CertificateError as exc:
+        raise CASError("invalid exact membership polynomial: %s" % exc)
+
+    # TWO CALLS, for the reason the unit version documents: `lift` errors when
+    # there is nothing to lift, so asking for membership and a representation
+    # in one program turns "not a member" -- a fine and common answer -- into a
+    # CAS error.
+    probe = CASProgram(
+        SINGULAR, ring="GP_R", ring_vars=ring_vars, generators=generators,
+        decls=[("GP_I", "ideal", ",".join(generators)),
+               ("GP_S", "ideal", "std(GP_I)"),
+               ("GP_T", "poly", target),
+               ("GP_RED", "poly", "reduce(GP_T,GP_S)")],
+        body=[], outputs=["GP_RED"], characteristic=characteristic)
+    res = _execute(probe, timeout, _runner)
+    if (res["aborted"] or res["returncode"] != 0
+            or "? error" in res["stdout"] + res["stderr"]):
+        raise CASError("the CAS did not reduce the target:\n%s"
+                       % res["stdout"][-1500:])
+    reduced = _parse_result(res, ["GP_RED"])["GP_RED"]
+    reduced = " ".join(reduced) if isinstance(reduced, list) else str(reduced)
+    reduced = reduced.split("=", 1)[-1].strip()
+    if reduced != "0":
+        return {"is_member": False, "cofactors": None, "reduced": reduced}
+
+    prog = CASProgram(
+        SINGULAR, ring="GP_R", ring_vars=ring_vars, generators=generators,
+        decls=[("GP_I", "ideal", ",".join(generators)),
+               ("GP_T", "poly", target),
+               ("GP_M", "matrix", "lift(GP_I,ideal(GP_T))")],
+        body=[], outputs=["GP_M"], characteristic=characteristic)
+    result = _execute(prog, timeout, _runner)
+    if (result["aborted"] or result["returncode"] != 0
+            or "? error" in result["stdout"] + result["stderr"]):
+        raise CASError("the CAS did not produce a representation:\n%s"
+                       % result["stdout"][-1500:])
+    rows = _parse_result(result, ["GP_M"])["GP_M"]
+    rows = rows if isinstance(rows, list) else [rows]
+    # `GP_M[i,1]=...`, one row per generator IN GENERATOR ORDER, which is the
+    # only thing that makes the checker meaningful: a permuted list verifies a
+    # different identity and reports it as this one.
+    cofactors = []
+    for i in range(len(generators)):
+        want = "GP_M[%d,1]=" % (i + 1)
+        hit = [r for r in rows if r.replace(" ", "").startswith(want)]
+        cofactors.append(hit[0].split("=", 1)[-1].strip() if hit else "0")
+    result.attach_parsed(result["parsed_values"], certificate={
+        "kind": "ideal_membership", "target": target,
+        "generators": list(generators), "cofactors": list(cofactors),
+    })
+    return {"is_member": True, "cofactors": cofactors, "reduced": "0"}
+
+
+def check_membership_representation(ring_vars, target, generators, cofactors,
+                                    characteristic=0, timeout=300,
+                                    _runner=None):
+    """Expand `sum b_i f_i - g` and see whether it is 0.  NO GROEBNER BASIS.
+
+    The whole point, and the same argument `check_unit_ideal_representation`
+    makes: the expensive subtle computation found the cofactors, this one
+    multiplies and adds.  A checker sharing no code path with the search is
+    worth more than a second run of the search, and it is the only part of the
+    chain a reader has to trust.
+
+    It is also the bridge to a proof assistant.  Lean can check a polynomial
+    identity; it should never have to run a Groebner engine.
+    """
+    if len(cofactors) != len(generators):
+        raise CASError(
+            "%d cofactors for %d generators. A representation must give one "
+            "coefficient per generator, in the same order; a shorter list "
+            "would verify an identity about a different ideal and report it "
+            "as this one." % (len(cofactors), len(generators)))
+    try:
+        target = G.render_polynomial(G.parse_polynomial(
+            target, ring_vars, characteristic))
+        generators = [G.render_polynomial(G.parse_polynomial(
+            value, ring_vars, characteristic)) for value in generators]
+        cofactors = [G.render_polynomial(G.parse_polynomial(
+            value, ring_vars, characteristic)) for value in cofactors]
+    except G.CertificateError as exc:
+        raise CASError("invalid exact membership representation: %s" % exc)
+
+    terms = " + ".join("(%s)*(%s)" % (b, f)
+                       for b, f in zip(cofactors, generators))
+    prog = CASProgram(
+        SINGULAR, ring="GP_R", ring_vars=ring_vars, generators=generators,
+        decls=[("GP_DIFF", "poly", "(%s) - (%s)" % (terms, target))],
+        body=[], outputs=["GP_DIFF"], characteristic=characteristic)
+    result = _execute(prog, timeout, _runner)
+    if (result["aborted"] or result["returncode"] != 0
+            or "? error" in result["stdout"] + result["stderr"]):
+        raise CASError("the CAS did not expand the representation:\n%s"
+                       % result["stdout"][-1500:])
+    got = _parse_result(result, ["GP_DIFF"])["GP_DIFF"]
+    got = " ".join(got) if isinstance(got, list) else str(got)
+    got = got.split("=", 1)[-1].strip()
+    result.attach_parsed(result["parsed_values"], certificate={
+        "kind": "ideal_membership", "target": target,
+        "generators": list(generators), "cofactors": list(cofactors),
+        "valid": got == "0", "expanded_difference": got,
+    })
+    return got == "0", got
+
+
+def factorizing_decomposition(ring_vars, generators, characteristic=0,
+                              timeout=300, _runner=None,
+                              _return_program=False,
+                              _return_execution=False):
+    """Split an ideal into a COVER of simpler pieces.  Returns a list of them.
+
+    `facstd` IS A KERNEL BUILTIN, and that is the whole reason this exists.
+    `primdecGTZ`, `minAssGTZ` and `radical` all live in `primdec.lib`, which
+    the boundary will not load -- the same wall `sat` hit.  So the question
+    "can a decomposition be computed inside this dialect at all" had to be
+    settled before any vocabulary was designed around one.  It can, by probing
+    rather than by assuming either way.
+
+        facstd((xy))              ->  [(y), (x)]
+        facstd((y^2-x^3-x^2))     ->  [(cubic)]     irreducible over Q
+        facstd((x^2-y^2, xy))     ->  [(x, y)]      the origin
+
+    WHAT COMES BACK IS A COVER, NOT THE PRIMARY DECOMPOSITION, and saying so is
+    not a caveat to bury.  The pieces need not be prime and may overlap.  What
+    IS guaranteed is `V(I) = union V(I_j)` with every `I_j` containing `I` --
+    which is exactly a partition of the model, and exactly what
+    `verify.partition_exhaustiveness` decides.  So a decomposition minted here
+    carries its own exhaustiveness proof.
+
+    It cannot answer "is this component irreducible".  Nothing available inside
+    this boundary can.
+    """
+    prog = CASProgram(
+        SINGULAR, ring="GP_R", ring_vars=ring_vars,
+        decls=[("GP_I", "ideal", ",".join(generators) or "0"),
+               ("GP_L", "list", "facstd(GP_I)")],
+        body=[], outputs=["GP_L"], characteristic=characteristic)
+    res = _execute(prog, timeout, _runner)
+    if (res["aborted"] or res["returncode"] != 0
+            or "? error" in res["stdout"] + res["stderr"]):
+        raise CASError("the CAS did not decompose the ideal:\n%s"
+                       % res["stdout"][-1500:])
+    rows = _parse_result(res, ["GP_L"])["GP_L"]
+    rows = rows if isinstance(rows, list) else [rows]
+    # `[n]:` opens a piece, `_[m]=expr` is one of its generators.  Parsed
+    # positionally rather than by index arithmetic, because a piece with no
+    # generators would silently shift everything after it.
+    pieces, current = [], None
+    for raw in rows:
+        line = raw.strip()
+        if not line:
+            continue
+        if line.startswith("[") and line.endswith(":"):
+            current = []
+            pieces.append(current)
+        elif "=" in line and current is not None:
+            current.append(line.split("=", 1)[1].strip())
+    if not pieces:
+        raise CASError(
+            "the CAS returned no components for an ideal it accepted. A "
+            "decomposition with no pieces covers nothing, and reporting one "
+            "would assert a partition of the model into nothing.")
+    if any(not piece for piece in pieces):
+        raise CASError(
+            "the CAS opened a decomposition component but printed no "
+            "generator for it. An empty final component is indistinguishable "
+            "from truncated facstd output; treating it as the zero ideal would "
+            "mint an ambient branch and could falsely certify a cover.")
+    if _return_program and _return_execution:
+        return pieces, prog, res
+    if _return_program:
+        return pieces, prog
+    if _return_execution:
+        return pieces, res
+    return pieces
+
+
+def partition_covers(ring_vars, parent_generators, branches,
+                     characteristic=0, timeout=300, _runner=None):
+    """Do the branches COVER the parent?  Returns (covered, evidence).
+
+    THE STORE SAID THIS WAS NOT CHECKABLE: "The checker cannot verify that
+    gamma in {2,3,4} really matches three branches -- that is mathematics."
+    It is mathematics, and it is decidable when the models carry their ideals.
+
+        exhaustive  <=>  V(parent) subset union of V(branch_i)
+                    <=>  intersect(I(B_1), .., I(B_k)) subset radical(I(parent))
+
+    Each branch is `parent AND condition`, so every I(B_i) already contains
+    I(parent) and the reverse inclusion is automatic.  All the content is in
+    the direction above.
+
+    WHY IT MATTERS MORE THAN THE OTHER CHECKS.  A false exhaustiveness does not
+    produce a wrong answer at one model.  It produces a COMPLETE-LOOKING CASE
+    ANALYSIS WITH A HOLE, and every conclusion drawn from "these are all the
+    cases" inherits it -- while each branch remains individually correct, which
+    is what makes it invisible by construction.
+
+    RADICAL MEMBERSHIP WITHOUT `radical`, by Rabinowitsch:
+
+        g in radical(I)   <=>   1 in I + (1 - t*g)
+
+    the same identity `saturate_closure` uses, and for the same reason: both
+    `radical` and `sat` live in libraries the CAS boundary will not load.
+    """
+    if not branches:
+        raise CASError("a partition with no branches covers nothing")
+    # ONE CALL FOR THE INTERSECTION.  `intersect` needs at least two arguments.
+    # The store already refuses a one-branch partition ("a split into one piece
+    # is just the parent"), so that case cannot arrive through the graph -- but
+    # this function is callable directly and should not emit `intersect(I)`.
+    decls = [("GP_P", "ideal", ",".join(parent_generators) or "0")]
+    names = []
+    for i, gens in enumerate(branches):
+        names.append("GP_B%d" % i)
+        decls.append((names[-1], "ideal", ",".join(gens) or "0"))
+    decls.append(("GP_J", "ideal",
+                  names[0] if len(names) == 1
+                  else "intersect(%s)" % ",".join(names)))
+    decls.append(("GP_OUT", "ideal", "std(GP_J)"))
+    prog = CASProgram(SINGULAR, ring="GP_R", ring_vars=ring_vars,
+                      decls=decls, body=[], outputs=["GP_OUT"],
+                      characteristic=characteristic)
+    res = _execute(prog, timeout, _runner)
+    if (res["aborted"] or res["returncode"] != 0
+            or "? error" in res["stdout"] + res["stderr"]):
+        raise CASError("the CAS did not intersect the branches:\n%s"
+                       % res["stdout"][-1500:])
+    rows = _parse_result(res, ["GP_OUT"])["GP_OUT"]
+    rows = rows if isinstance(rows, list) else [rows]
+    common = [r.split("=", 1)[-1].strip() for r in rows]
+    common = [g for g in common if g and g != "0"]
+    if not common:
+        # The branches share only 0, so their union is everything and the
+        # parent is inside it whatever the parent is.
+        return True, {"common": [], "uncovered": [],
+                      "why": "the branch ideals intersect in (0)"}
+
+    # ONE CALL FOR EVERY RADICAL-MEMBERSHIP QUESTION AT ONCE.  The extra
+    # variable goes FIRST so it is the one eliminated by the ordering, matching
+    # what `saturate_closure` does with the same trick.
+    tvar = "GP_T"
+    decls = [("GP_P", "ideal", ",".join(parent_generators) or "0")]
+    outs = []
+    for j, g in enumerate(common):
+        decls.append(("GP_C%d" % j, "ideal",
+                      "GP_P, 1-%s*(%s)" % (tvar, g)))
+        decls.append(("GP_S%d" % j, "ideal", "std(GP_C%d)" % j))
+        outs.append("GP_S%d" % j)
+    prog = CASProgram(SINGULAR, ring="GP_R", ring_vars=[tvar] + list(ring_vars),
+                      decls=decls, body=[], outputs=outs,
+                      characteristic=characteristic)
+    res = _execute(prog, timeout, _runner)
+    if (res["aborted"] or res["returncode"] != 0
+            or "? error" in res["stdout"] + res["stderr"]):
+        raise CASError("the CAS did not decide radical membership:\n%s"
+                       % res["stdout"][-1500:])
+    values = _parse_result(res, outs)
+    uncovered = []
+    for j, g in enumerate(common):
+        v = values["GP_S%d" % j]
+        v = v if isinstance(v, list) else [v]
+        v = [str(x).split("=", 1)[-1].strip() for x in v]
+        if v != ["1"]:
+            uncovered.append(g)
+    return not uncovered, {"common": common, "uncovered": uncovered,
+                           "why": ""}
 
 
 def ideal_is_unit(ring_vars, generators, characteristic=0, name="GP_I",

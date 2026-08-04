@@ -1,0 +1,85 @@
+{
+  "all_agree": true,
+  "authority": "DERIVED_ASSAY_ONLY",
+  "normalizations": [
+    {
+      "agree": true,
+      "id": "normalize-00",
+      "internal_equal": true,
+      "singular_difference": "0",
+      "singular_origin": "AMBIENT"
+    },
+    {
+      "agree": true,
+      "id": "normalize-01",
+      "internal_equal": true,
+      "singular_difference": "0",
+      "singular_origin": "AMBIENT"
+    },
+    {
+      "agree": true,
+      "id": "normalize-02",
+      "internal_equal": true,
+      "singular_difference": "0",
+      "singular_origin": "AMBIENT"
+    },
+    {
+      "agree": true,
+      "id": "normalize-03",
+      "internal_equal": true,
+      "singular_difference": "0",
+      "singular_origin": "AMBIENT"
+    },
+    {
+      "agree": true,
+      "id": "normalize-04",
+      "internal_equal": true,
+      "singular_difference": "0",
+      "singular_origin": "AMBIENT"
+    },
+    {
+      "agree": true,
+      "id": "normalize-05",
+      "internal_equal": true,
+      "singular_difference": "0",
+      "singular_origin": "AMBIENT"
+    },
+    {
+      "agree": true,
+      "id": "normalize-06",
+      "internal_equal": true,
+      "singular_difference": "0",
+      "singular_origin": "AMBIENT"
+    },
+    {
+      "agree": true,
+      "id": "normalize-07",
+      "internal_equal": true,
+      "singular_difference": "0",
+      "singular_origin": "AMBIENT"
+    }
+  ],
+  "oracle": "Singular (untrusted disagreement oracle)",
+  "schema": "grand-portage-differential-affine/v1",
+  "seed": 19019,
+  "substitutions": [
+    {
+      "agree": true,
+      "id": "swap",
+      "internal": "-x^2+x*y^2-x*z+(3)*y",
+      "singular": "-x^2+x*y^2-x*z+(3)*y"
+    },
+    {
+      "agree": true,
+      "id": "affine-prime",
+      "internal": "(3)*x^2+x*y+(2)*x*z+(2)*x+(3)*y^2",
+      "singular": "(3)*x^2+x*y+(2)*x*z+(2)*x+(3)*y^2"
+    },
+    {
+      "agree": true,
+      "id": "triangular",
+      "internal": "x*y*z+(2)*x*y+x*z^2+(2)*x*z+x-y^2*z+(-2)*y^2-y*z^2+(-2)*y*z+(-2)*y+2",
+      "singular": "x*y*z+(2)*x*y+x*z^2+(2)*x*z+x-y^2*z+(-2)*y^2-y*z^2+(-2)*y*z+(-2)*y+2"
+    }
+  ]
+}

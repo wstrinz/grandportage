@@ -1,0 +1,87 @@
+{
+  "base_scope": {
+    "galois_conjugate": "NOT_REPLAYED",
+    "other_base_points": "OPEN",
+    "parent": "12-dimensional nine-relation survivor locus",
+    "selected": "one exact landed L-valued base witness"
+  },
+  "checked_instance_premises": {
+    "combined_rank": 4,
+    "free_fiber_coordinate": "c8_5",
+    "omega_comb_nonzero": true,
+    "point_universe": "L",
+    "solved_coordinate": "c7_4"
+  },
+  "checked_premises": [
+    "combined operator has rank 4 at the landed witness",
+    "c7_4 is solved and is not an independent rescue direction",
+    "Omega_comb is independent of c8_5 on the named fiber",
+    "Omega_comb is exactly nonzero in L at the landed witness"
+  ],
+  "coefficient_domain": "K = QQ[t]/(15*t^3+1)",
+  "does_not_license": [
+    "nonlinear nonextension without a separately checked sound linearization bridge",
+    "the Galois-conjugate witness",
+    "any other base direction or the full nine-relation locus",
+    "component emptiness",
+    "actual-source membership or exclusion",
+    "source sufficiency",
+    "H3",
+    "a (75,125) verdict change",
+    "depth-9 additive-pair authority",
+    "graph claim authority"
+  ],
+  "evidence_envelope": {
+    "authority_boundary": "The native exact checks plus the Lean fiber theorem establish first-order incompatibility along one entire c8_5 fiber. They do not establish nonlinear, other-base, component, source, H3, graph, or verdict authority.",
+    "checked_proposition": "the first-order depth-8 compatibility model is empty along the entire c8_5 fiber over one exact landed L witness",
+    "graph_effect": "NONE",
+    "licenses": [
+      "no compatible first-order depth-8 point exists anywhere along the free c8_5 fiber over the one landed L-valued base witness",
+      "the c7_4 rescue is unavailable on that exact fiber"
+    ],
+    "outstanding_premises": [
+      "P1..P5",
+      "S2",
+      "15*t^3+1=0",
+      "c5_7 != 0",
+      "H8"
+    ],
+    "schema": "first_order_fiber_obstruction_v1"
+  },
+  "fiber_scope": {
+    "compatible_first_order_fiber": "EMPTY",
+    "coordinate": "c8_5",
+    "dependent_coordinate": "c7_4",
+    "dependent_status": "SOLVED_AFFINELY_FROM_ZERO_BLOCK",
+    "quantifier": "ALL_VALUES_IN_L"
+  },
+  "graph_effect": "NONE",
+  "instance_id": "jc_h3_depth8_landed_L_witness_c8_5_fiber",
+  "lean_backing": {
+    "first_order": "fiberEmpty_of_base_obstruction",
+    "nonlinear_bridge_not_instantiated": "nonlinearFiberEmpty_of_sound_linearization"
+  },
+  "licenses": [
+    "no compatible first-order depth-8 point exists anywhere along the free c8_5 fiber over the one landed L-valued base witness",
+    "the c7_4 rescue is unavailable on that exact fiber"
+  ],
+  "native_replay": {
+    "graph_effect": "NONE",
+    "verdict": "VERIFIED_NATIVE_24_OF_24"
+  },
+  "outstanding_premises": [
+    "P1..P5",
+    "S2",
+    "15*t^3+1=0",
+    "c5_7 != 0",
+    "H8"
+  ],
+  "point_universe": "L = K[y]/(y^2-d)",
+  "schema": "first_order_fiber_obstruction_v1",
+  "semantic_layer": "FIRST_ORDER_DEPTH8_COMPATIBILITY",
+  "source_bindings": {
+    "f2_h3_straggler_zero_block_composition.py": "774e45c0783ffe3ceab9d838c42163aab78cf8d32509126475c81f897dafc744",
+    "f2_h3_straggler_zero_block_composition_certificate.json": "edd4e47668901c608f0f6a4f822c47bf5b01a9910c1ba46bdc9d45bf70103ebe"
+  },
+  "verdict": "VERIFIED_CONDITIONAL_FIRST_ORDER_EMPTY_EXACT_BASE_FIBER"
+}

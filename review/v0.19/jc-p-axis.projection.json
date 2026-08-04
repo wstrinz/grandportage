@@ -1,0 +1,698 @@
+{
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "collections": {
+    "aliases": {},
+    "baseline": {
+      "accepted": {},
+      "note": ""
+    },
+    "built_by": {},
+    "certificate_records": {},
+    "certificate_sources": {
+      "CITED_PROOF": "builtin",
+      "DEGREE_COUNT": "builtin",
+      "EXACT_VALUATION_COLLISION": "builtin",
+      "LOCALIZED_UNIT_IDEAL_CERT": "builtin",
+      "NONSQUARE_CLASS": "builtin",
+      "NONZERO_RESULTANT": "builtin",
+      "NO_RATIONAL_POINT_SEARCH": "builtin",
+      "UNIT_IDEAL_CERT": "builtin"
+    },
+    "certificates": {
+      "CITED_PROOF": false,
+      "DEGREE_COUNT": true,
+      "EXACT_VALUATION_COLLISION": true,
+      "LOCALIZED_UNIT_IDEAL_CERT": true,
+      "NONSQUARE_CLASS": false,
+      "NONZERO_RESULTANT": true,
+      "NO_RATIONAL_POINT_SEARCH": false,
+      "UNIT_IDEAL_CERT": true
+    },
+    "citations": {},
+    "claims": {
+      "JC-P-C9-AXIS-EMPTY": {
+        "caveat": "exact c9_11 p-axis stratum only; no full p-chart, actual-source-membership, infinite-lift, or H3 authority",
+        "certificate": "LOCALIZED_UNIT_IDEAL_CERT",
+        "certificate_verdict": "VERIFIED",
+        "certificate_why": "a guard monomial with powers [2, 2] belongs to the recorded ideal; exact cofactor expansion proves 1=0 in this localization, so the open model JC-P-C9-AXIS has no points. No parent emptiness is implied.",
+        "cite": "sha256:77a110c9d5fc0ab47c67f86509f3d777d8d9602bad08a992244d3fd98d1b4dde",
+        "declared_scope": null,
+        "established_by": "RAN",
+        "ev": "claim",
+        "id": "JC-P-C9-AXIS-EMPTY",
+        "identity_origin": null,
+        "kind": "EMPTY",
+        "ladder": "exact-checked",
+        "model": "JC-P-C9-AXIS",
+        "representation": {
+          "checked": {
+            "generator_count": 3,
+            "target": "p^2*t^2"
+          },
+          "claim": "JC-P-C9-AXIS-EMPTY",
+          "method": "localized_unit_ideal_v1",
+          "model": "JC-P-C9-AXIS",
+          "proof": {
+            "certificate": {
+              "cofactors": [
+                "p^2*t^2",
+                "3*p*t^3+6*t^2*c9_11",
+                "-12*t^3"
+              ],
+              "localization_powers": [
+                2,
+                2
+              ],
+              "membership_target": "p^2*t^2"
+            },
+            "characteristic": 0,
+            "expression": {
+              "denominator_powers": [
+                0,
+                0
+              ],
+              "numerator": "1"
+            },
+            "generators": [
+              "(15)*t^3+1",
+              "(15)*p*t^2+(10)*t*c9_11",
+              "(5)*p^2*t^2+(10)*p*t*c9_11+(5)*c9_11^2"
+            ],
+            "guards": [
+              "p",
+              "t"
+            ],
+            "ring_vars": [
+              "p",
+              "t",
+              "c9_11",
+              "I4"
+            ],
+            "schema": "localization_membership_v1"
+          }
+        },
+        "scope": "SCHEME",
+        "statement": "the exact localized JC c9_11 p-axis stratum has no points",
+        "witness_kind": null
+      }
+    },
+    "doubts": {},
+    "edges": {
+      "JC-P-C9-AXIS-IN-AMBIENT": {
+        "containment": "VERIFIED",
+        "containment_why": "every generator of JC-P-C9-AXIS-AMBIENT's ideal reduces to 0 modulo JC-P-C9-AXIS's, so I(JC-P-C9-AXIS-AMBIENT) is inside I(JC-P-C9-AXIS) and V(JC-P-C9-AXIS) is inside V(JC-P-C9-AXIS-AMBIENT).",
+        "drops": [
+          "E[1,22]",
+          "E[3,22]"
+        ],
+        "dst": "JC-P-C9-AXIS-AMBIENT",
+        "ev": "edge",
+        "id": "JC-P-C9-AXIS-IN-AMBIENT",
+        "map_kind": "IDENTITY_MAP",
+        "refinement": false,
+        "src": "JC-P-C9-AXIS",
+        "support": [],
+        "type": "NECESSARY_CONDITION",
+        "why": "forgetting E[1,22] and E[3,22] widens the exact axis system; one empty restricted stratum cannot empty its parent"
+      }
+    },
+    "evidence": {},
+    "families": {},
+    "findings": [],
+    "groups": {},
+    "inferences": {},
+    "models": {
+      "JC-P-C9-AXIS": {
+        "characteristic": 0,
+        "chart": "p",
+        "cite": "sha256:77a110c9d5fc0ab47c67f86509f3d777d8d9602bad08a992244d3fd98d1b4dde",
+        "coefficient_domain": "Q",
+        "coverage_axes": [],
+        "declares": {},
+        "ev": "model",
+        "generators": [
+          "15*t^3+1",
+          "10*c9_11*t + 15*p*t**2",
+          "5*c9_11**2 + 10*c9_11*p*t + 5*p**2*t**2"
+        ],
+        "id": "JC-P-C9-AXIS",
+        "open_conditions": [
+          "p",
+          "t"
+        ],
+        "point_universe": "ALGEBRAIC_CLOSURE",
+        "reads": [],
+        "ring_vars": [
+          "p",
+          "t",
+          "c9_11",
+          "I4"
+        ],
+        "touches": [],
+        "what": "exact JC c9_11 p-axis stratum; frozen JC p-axis receipt sha256:5c682ad0b2f5212fd21aba723d094793a212a1f59654a27b60969a9fa2bf0850; native parent sha256:77a110c9d5fc0ab47c67f86509f3d777d8d9602bad08a992244d3fd98d1b4dde; model digest sha256:479ed41d5caa6531a0feabb1aecacd08a8c517f0771d6048dfe7fd1e6f80626c"
+      },
+      "JC-P-C9-AXIS-AMBIENT": {
+        "characteristic": 0,
+        "chart": "p",
+        "cite": "sha256:77a110c9d5fc0ab47c67f86509f3d777d8d9602bad08a992244d3fd98d1b4dde",
+        "coefficient_domain": "Q",
+        "coverage_axes": [],
+        "declares": {},
+        "ev": "model",
+        "generators": [
+          "15*t^3+1"
+        ],
+        "id": "JC-P-C9-AXIS-AMBIENT",
+        "open_conditions": [
+          "p",
+          "t"
+        ],
+        "point_universe": "ALGEBRAIC_CLOSURE",
+        "reads": [],
+        "ring_vars": [
+          "p",
+          "t",
+          "c9_11",
+          "I4"
+        ],
+        "touches": [],
+        "what": "same pinned localized axis coordinate ring before the two selected window equations; frozen JC p-axis receipt sha256:5c682ad0b2f5212fd21aba723d094793a212a1f59654a27b60969a9fa2bf0850; native parent sha256:77a110c9d5fc0ab47c67f86509f3d777d8d9602bad08a992244d3fd98d1b4dde; model digest sha256:479ed41d5caa6531a0feabb1aecacd08a8c517f0771d6048dfe7fd1e6f80626c"
+      }
+    },
+    "named_notes": {},
+    "notes": [],
+    "partitions": {},
+    "tombstones": [],
+    "verdicts": {
+      "v.JC-P-C9-AXIS-EMPTY.6d120972939010db": {
+        "backend": "gp-backend-v2:{\"binary_version\":\"Singular for x86_64-Linux version 4.2.1 (4212, 64 bit) Dec 17 2021 20:20:53\\nwith\\nGMP(6.2.1),NTL(11.5.1),FLINT(2.8.0),\\nomalloc,static readline(8),Plural,vspace(2),DBM,\\ndynamic modules,OM_NDEBUG,SING_NDEBUG,\\nCC:OPTIMIZE,GenericAdd,TableMult,no invTable,\\neigenvalues,Gauss-Manin system,random=1785522755\\nbuilt-in modules: {}\\nAC_CONFIGURE_ARGS =  '--build=x86_64-linux-gnu' '--prefix=/usr' '--includedir=${prefix}/include' '--mandir=${prefix}/share/man' '--infodir=${prefix}/share/info' '--sysconfdir=/etc' '--localstatedir=/var' '--disable-option-checking' '--disable-silent-rules' '--libdir=${prefix}/lib/x86_64-linux-gnu' '--runstatedir=/run' '--disable-maintainer-mode' '--disable-dependency-tracking' '--libexecdir=/usr/libexec/x86_64-linux-gnu' '--enable-streamio' 'build_alias=x86_64-linux-gnu' 'CFLAGS=-g -O2 -ffile-prefix-map=/build/singular-pPci2W/singular-4.2.1-p3+ds=. -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security' 'LDFLAGS=-Wl,-Bsymbolic-functions -\",\"contract\":\"singular\",\"executions\":[{\"aborted\":false,\"artifact_fingerprint\":\"sha256:1730f30599217feab7eaab9d3274a05febec6d03fc9db0df6ba1966e18f62be8\",\"program_fingerprint\":\"sha256:51dcbb4a882916b64ee7ee504fc4df3a379a9f3f89a0e4d0b1f49a2a74eaa8ce\",\"returncode\":0,\"semantic_input_fingerprint\":\"sha256:23c4722153c9f71355fc0145724e8a249b770525e7782898a0c3a029d2b1695c\",\"stderr_fingerprint\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"stdout_fingerprint\":\"sha256:b76afea26d75e6a1d5bb9262d909ea62bba840efdeee680aaf3c122050585090\"},{\"aborted\":false,\"artifact_fingerprint\":\"sha256:a823c5eb1cdef2ff24d1c0ea657125b46ba7a54c4bc8ead094e9d9400165741b\",\"program_fingerprint\":\"sha256:8471b0f3329f31e7fec52ad971ca4bb157392ac38c3dbbee20eb605f80553eb8\",\"returncode\":0,\"semantic_input_fingerprint\":\"sha256:ebc021ca36c85418d868895ba14d23a9511a99c8a0a11b9da32a85e7d0fffb7e\",\"stderr_fingerprint\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"stdout_fingerprint\":\"sha256:bacf159315cfd85feaa621751f864b9e4bd63ee9cba11cc39093daeb96517aa3\"},{\"aborted\":false,\"artifact_fingerprint\":\"sha256:772d45fe034d0801437faf427418a5b0e58f8f9713c2dad0bfe0c13dd739e660\",\"program_fingerprint\":\"sha256:e172c01a41a742434fed93b614f4772cd7ab66509284e95c63ff58326edd87d2\",\"returncode\":0,\"semantic_input_fingerprint\":\"sha256:91d71ed98cd813311e7f7446dee14485cfa8423cbf4ecb033f0c2acafdc565b3\",\"stderr_fingerprint\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"stdout_fingerprint\":\"sha256:6994abc33acce6e7999ef63b28ac63d06063be5b8ec2ed454cee61fe9d5c9a1d\"},{\"aborted\":false,\"artifact_fingerprint\":\"sha256:c4d35358060eec8e8d02f1064773fb3449d53e3ef55553e5c9772c1222580422\",\"program_fingerprint\":\"sha256:0638430845d6c497ba5b328bcad946e664dfa293f97ce5a96ac3c089f6467897\",\"returncode\":0,\"semantic_input_fingerprint\":\"sha256:a0c918c9b5924f0e649442ceb0120ccfb555d866c5634e9f789862f119abc4ce\",\"stderr_fingerprint\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"stdout_fingerprint\":\"sha256:94012c84d29666a812e1bd1934a90e4f7069dfd8e14ec4e6da709510f8576c2d\"}],\"implementation\":\"grandportage.cas.SingularBackend\",\"implementation_version\":3,\"protocol_version\":2,\"schema\":2,\"trace_fingerprint\":\"sha256:89e418a514752efe9397e30e0b2c9aadf52b96ca45b51d050561a240ab9f9e4f\"}",
+        "current": true,
+        "ev": "verdict",
+        "id": "v.JC-P-C9-AXIS-EMPTY.6d120972939010db",
+        "input_fingerprint": "sha256:cfa7322746b878ce8c97c91c060d44b53410e38b95a3353b304171dc3cb93cb9",
+        "kernel_epoch": 10,
+        "of": "JC-P-C9-AXIS-EMPTY",
+        "representation": {
+          "checked": {
+            "generator_count": 3,
+            "target": "p^2*t^2"
+          },
+          "claim": "JC-P-C9-AXIS-EMPTY",
+          "method": "localized_unit_ideal_v1",
+          "model": "JC-P-C9-AXIS",
+          "proof": {
+            "certificate": {
+              "cofactors": [
+                "p^2*t^2",
+                "3*p*t^3+6*t^2*c9_11",
+                "-12*t^3"
+              ],
+              "localization_powers": [
+                2,
+                2
+              ],
+              "membership_target": "p^2*t^2"
+            },
+            "characteristic": 0,
+            "expression": {
+              "denominator_powers": [
+                0,
+                0
+              ],
+              "numerator": "1"
+            },
+            "generators": [
+              "(15)*t^3+1",
+              "(15)*p*t^2+(10)*t*c9_11",
+              "(5)*p^2*t^2+(10)*p*t*c9_11+(5)*c9_11^2"
+            ],
+            "guards": [
+              "p",
+              "t"
+            ],
+            "ring_vars": [
+              "p",
+              "t",
+              "c9_11",
+              "I4"
+            ],
+            "schema": "localization_membership_v1"
+          }
+        },
+        "stale_reason": null,
+        "subject": "certificate",
+        "verdict": "VERIFIED",
+        "verifier": "verify.localized_unit_ideal",
+        "verifier_version": 1,
+        "why": "a guard monomial with powers [2, 2] belongs to the recorded ideal; exact cofactor expansion proves 1=0 in this localization, so the open model JC-P-C9-AXIS has no points. No parent emptiness is implied."
+      },
+      "v.JC-P-C9-AXIS-IN-AMBIENT.318551cc1da5868d": {
+        "backend": "gp-backend-v2:{\"binary_version\":\"Singular for x86_64-Linux version 4.2.1 (4212, 64 bit) Dec 17 2021 20:20:53\\nwith\\nGMP(6.2.1),NTL(11.5.1),FLINT(2.8.0),\\nomalloc,static readline(8),Plural,vspace(2),DBM,\\ndynamic modules,OM_NDEBUG,SING_NDEBUG,\\nCC:OPTIMIZE,GenericAdd,TableMult,no invTable,\\neigenvalues,Gauss-Manin system,random=1785522755\\nbuilt-in modules: {}\\nAC_CONFIGURE_ARGS =  '--build=x86_64-linux-gnu' '--prefix=/usr' '--includedir=${prefix}/include' '--mandir=${prefix}/share/man' '--infodir=${prefix}/share/info' '--sysconfdir=/etc' '--localstatedir=/var' '--disable-option-checking' '--disable-silent-rules' '--libdir=${prefix}/lib/x86_64-linux-gnu' '--runstatedir=/run' '--disable-maintainer-mode' '--disable-dependency-tracking' '--libexecdir=/usr/libexec/x86_64-linux-gnu' '--enable-streamio' 'build_alias=x86_64-linux-gnu' 'CFLAGS=-g -O2 -ffile-prefix-map=/build/singular-pPci2W/singular-4.2.1-p3+ds=. -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security' 'LDFLAGS=-Wl,-Bsymbolic-functions -\",\"contract\":\"singular\",\"executions\":[{\"aborted\":false,\"artifact_fingerprint\":\"sha256:dd5bfaa1e18795257db14237f01f3af47f563af2184466798cc74d3d99d49fb6\",\"program_fingerprint\":\"sha256:f5a626895c1c803233c7f57762337910ac071101dd7f3834b0920632daf85373\",\"returncode\":0,\"semantic_input_fingerprint\":\"sha256:7a4b4a84e8fc8e24928f95b8f1d7f283fbdea52e4e9b217b2ec26ecca25081db\",\"stderr_fingerprint\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"stdout_fingerprint\":\"sha256:78d3b42329840dff045707df0aeff33c0ae18db74b5aeb1d1fe736d550122910\"}],\"implementation\":\"grandportage.cas.SingularBackend\",\"implementation_version\":3,\"protocol_version\":2,\"schema\":2,\"trace_fingerprint\":\"sha256:8094e6cc3a488184ca04586243f6acb81bfebdc114bb9816970ccafc0c071be0\"}",
+        "current": true,
+        "ev": "verdict",
+        "id": "v.JC-P-C9-AXIS-IN-AMBIENT.318551cc1da5868d",
+        "input_fingerprint": "sha256:922240cc34d7bee373e38066c92c6ef09be58e2c0690cba1ceba2f8f037774f2",
+        "kernel_epoch": 10,
+        "of": "JC-P-C9-AXIS-IN-AMBIENT",
+        "stale_reason": null,
+        "subject": "edge",
+        "verdict": "VERIFIED",
+        "verifier": "verify.containment",
+        "verifier_version": 2,
+        "why": "every generator of JC-P-C9-AXIS-AMBIENT's ideal reduces to 0 modulo JC-P-C9-AXIS's, so I(JC-P-C9-AXIS-AMBIENT) is inside I(JC-P-C9-AXIS) and V(JC-P-C9-AXIS) is inside V(JC-P-C9-AXIS-AMBIENT)."
+      }
+    }
+  },
+  "counts": {
+    "accepted_findings": 0,
+    "aliases": 0,
+    "baseline": 2,
+    "built_by": 0,
+    "certificate_records": 0,
+    "certificate_sources": 8,
+    "certificates": 8,
+    "citations": 0,
+    "claims": 1,
+    "doubts": 0,
+    "edges": 1,
+    "evidence": 0,
+    "families": 0,
+    "findings": 0,
+    "groups": 0,
+    "inferences": 0,
+    "models": 2,
+    "named_notes": 0,
+    "notes": 0,
+    "partitions": 0,
+    "tombstones": 0,
+    "verdicts": 2
+  },
+  "nodes": [
+    {
+      "id": "CITED_PROOF",
+      "key": "certificate:CITED_PROOF",
+      "kind": "certificate",
+      "label": "CITED_PROOF",
+      "record": {
+        "base_changes": false,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "DEGREE_COUNT",
+      "key": "certificate:DEGREE_COUNT",
+      "kind": "certificate",
+      "label": "DEGREE_COUNT",
+      "record": {
+        "base_changes": true,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "EXACT_VALUATION_COLLISION",
+      "key": "certificate:EXACT_VALUATION_COLLISION",
+      "kind": "certificate",
+      "label": "EXACT_VALUATION_COLLISION",
+      "record": {
+        "base_changes": true,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "LOCALIZED_UNIT_IDEAL_CERT",
+      "key": "certificate:LOCALIZED_UNIT_IDEAL_CERT",
+      "kind": "certificate",
+      "label": "LOCALIZED_UNIT_IDEAL_CERT",
+      "record": {
+        "base_changes": true,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "NONSQUARE_CLASS",
+      "key": "certificate:NONSQUARE_CLASS",
+      "kind": "certificate",
+      "label": "NONSQUARE_CLASS",
+      "record": {
+        "base_changes": false,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "NONZERO_RESULTANT",
+      "key": "certificate:NONZERO_RESULTANT",
+      "kind": "certificate",
+      "label": "NONZERO_RESULTANT",
+      "record": {
+        "base_changes": true,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "NO_RATIONAL_POINT_SEARCH",
+      "key": "certificate:NO_RATIONAL_POINT_SEARCH",
+      "kind": "certificate",
+      "label": "NO_RATIONAL_POINT_SEARCH",
+      "record": {
+        "base_changes": false,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "UNIT_IDEAL_CERT",
+      "key": "certificate:UNIT_IDEAL_CERT",
+      "kind": "certificate",
+      "label": "UNIT_IDEAL_CERT",
+      "record": {
+        "base_changes": true,
+        "registry_source": "builtin"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "JC-P-C9-AXIS-EMPTY",
+      "key": "claim:JC-P-C9-AXIS-EMPTY",
+      "kind": "claim",
+      "label": "JC-P-C9-AXIS-EMPTY",
+      "record": {
+        "caveat": "exact c9_11 p-axis stratum only; no full p-chart, actual-source-membership, infinite-lift, or H3 authority",
+        "certificate": "LOCALIZED_UNIT_IDEAL_CERT",
+        "certificate_verdict": "VERIFIED",
+        "certificate_why": "a guard monomial with powers [2, 2] belongs to the recorded ideal; exact cofactor expansion proves 1=0 in this localization, so the open model JC-P-C9-AXIS has no points. No parent emptiness is implied.",
+        "cite": "sha256:77a110c9d5fc0ab47c67f86509f3d777d8d9602bad08a992244d3fd98d1b4dde",
+        "declared_scope": null,
+        "established_by": "RAN",
+        "ev": "claim",
+        "id": "JC-P-C9-AXIS-EMPTY",
+        "identity_origin": null,
+        "kind": "EMPTY",
+        "ladder": "exact-checked",
+        "model": "JC-P-C9-AXIS",
+        "representation": {
+          "checked": {
+            "generator_count": 3,
+            "target": "p^2*t^2"
+          },
+          "claim": "JC-P-C9-AXIS-EMPTY",
+          "method": "localized_unit_ideal_v1",
+          "model": "JC-P-C9-AXIS",
+          "proof": {
+            "certificate": {
+              "cofactors": [
+                "p^2*t^2",
+                "3*p*t^3+6*t^2*c9_11",
+                "-12*t^3"
+              ],
+              "localization_powers": [
+                2,
+                2
+              ],
+              "membership_target": "p^2*t^2"
+            },
+            "characteristic": 0,
+            "expression": {
+              "denominator_powers": [
+                0,
+                0
+              ],
+              "numerator": "1"
+            },
+            "generators": [
+              "(15)*t^3+1",
+              "(15)*p*t^2+(10)*t*c9_11",
+              "(5)*p^2*t^2+(10)*p*t*c9_11+(5)*c9_11^2"
+            ],
+            "guards": [
+              "p",
+              "t"
+            ],
+            "ring_vars": [
+              "p",
+              "t",
+              "c9_11",
+              "I4"
+            ],
+            "schema": "localization_membership_v1"
+          }
+        },
+        "scope": "SCHEME",
+        "statement": "the exact localized JC c9_11 p-axis stratum has no points",
+        "witness_kind": null
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "JC-P-C9-AXIS-IN-AMBIENT",
+      "key": "edge:JC-P-C9-AXIS-IN-AMBIENT",
+      "kind": "edge",
+      "label": "JC-P-C9-AXIS-IN-AMBIENT",
+      "record": {
+        "containment": "VERIFIED",
+        "containment_why": "every generator of JC-P-C9-AXIS-AMBIENT's ideal reduces to 0 modulo JC-P-C9-AXIS's, so I(JC-P-C9-AXIS-AMBIENT) is inside I(JC-P-C9-AXIS) and V(JC-P-C9-AXIS) is inside V(JC-P-C9-AXIS-AMBIENT).",
+        "drops": [
+          "E[1,22]",
+          "E[3,22]"
+        ],
+        "dst": "JC-P-C9-AXIS-AMBIENT",
+        "ev": "edge",
+        "id": "JC-P-C9-AXIS-IN-AMBIENT",
+        "map_kind": "IDENTITY_MAP",
+        "refinement": false,
+        "src": "JC-P-C9-AXIS",
+        "support": [],
+        "type": "NECESSARY_CONDITION",
+        "why": "forgetting E[1,22] and E[3,22] widens the exact axis system; one empty restricted stratum cannot empty its parent"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "JC-P-C9-AXIS",
+      "key": "model:JC-P-C9-AXIS",
+      "kind": "model",
+      "label": "JC-P-C9-AXIS",
+      "record": {
+        "characteristic": 0,
+        "chart": "p",
+        "cite": "sha256:77a110c9d5fc0ab47c67f86509f3d777d8d9602bad08a992244d3fd98d1b4dde",
+        "coefficient_domain": "Q",
+        "coverage_axes": [],
+        "declares": {},
+        "ev": "model",
+        "generators": [
+          "15*t^3+1",
+          "10*c9_11*t + 15*p*t**2",
+          "5*c9_11**2 + 10*c9_11*p*t + 5*p**2*t**2"
+        ],
+        "id": "JC-P-C9-AXIS",
+        "open_conditions": [
+          "p",
+          "t"
+        ],
+        "point_universe": "ALGEBRAIC_CLOSURE",
+        "reads": [],
+        "ring_vars": [
+          "p",
+          "t",
+          "c9_11",
+          "I4"
+        ],
+        "touches": [],
+        "what": "exact JC c9_11 p-axis stratum; frozen JC p-axis receipt sha256:5c682ad0b2f5212fd21aba723d094793a212a1f59654a27b60969a9fa2bf0850; native parent sha256:77a110c9d5fc0ab47c67f86509f3d777d8d9602bad08a992244d3fd98d1b4dde; model digest sha256:479ed41d5caa6531a0feabb1aecacd08a8c517f0771d6048dfe7fd1e6f80626c"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "JC-P-C9-AXIS-AMBIENT",
+      "key": "model:JC-P-C9-AXIS-AMBIENT",
+      "kind": "model",
+      "label": "JC-P-C9-AXIS-AMBIENT",
+      "record": {
+        "characteristic": 0,
+        "chart": "p",
+        "cite": "sha256:77a110c9d5fc0ab47c67f86509f3d777d8d9602bad08a992244d3fd98d1b4dde",
+        "coefficient_domain": "Q",
+        "coverage_axes": [],
+        "declares": {},
+        "ev": "model",
+        "generators": [
+          "15*t^3+1"
+        ],
+        "id": "JC-P-C9-AXIS-AMBIENT",
+        "open_conditions": [
+          "p",
+          "t"
+        ],
+        "point_universe": "ALGEBRAIC_CLOSURE",
+        "reads": [],
+        "ring_vars": [
+          "p",
+          "t",
+          "c9_11",
+          "I4"
+        ],
+        "touches": [],
+        "what": "same pinned localized axis coordinate ring before the two selected window equations; frozen JC p-axis receipt sha256:5c682ad0b2f5212fd21aba723d094793a212a1f59654a27b60969a9fa2bf0850; native parent sha256:77a110c9d5fc0ab47c67f86509f3d777d8d9602bad08a992244d3fd98d1b4dde; model digest sha256:479ed41d5caa6531a0feabb1aecacd08a8c517f0771d6048dfe7fd1e6f80626c"
+      },
+      "status": "DECLARED"
+    },
+    {
+      "id": "v.JC-P-C9-AXIS-EMPTY.6d120972939010db",
+      "key": "verdict:v.JC-P-C9-AXIS-EMPTY.6d120972939010db",
+      "kind": "verdict",
+      "label": "v.JC-P-C9-AXIS-EMPTY.6d120972939010db",
+      "record": {
+        "backend": "gp-backend-v2:{\"binary_version\":\"Singular for x86_64-Linux version 4.2.1 (4212, 64 bit) Dec 17 2021 20:20:53\\nwith\\nGMP(6.2.1),NTL(11.5.1),FLINT(2.8.0),\\nomalloc,static readline(8),Plural,vspace(2),DBM,\\ndynamic modules,OM_NDEBUG,SING_NDEBUG,\\nCC:OPTIMIZE,GenericAdd,TableMult,no invTable,\\neigenvalues,Gauss-Manin system,random=1785522755\\nbuilt-in modules: {}\\nAC_CONFIGURE_ARGS =  '--build=x86_64-linux-gnu' '--prefix=/usr' '--includedir=${prefix}/include' '--mandir=${prefix}/share/man' '--infodir=${prefix}/share/info' '--sysconfdir=/etc' '--localstatedir=/var' '--disable-option-checking' '--disable-silent-rules' '--libdir=${prefix}/lib/x86_64-linux-gnu' '--runstatedir=/run' '--disable-maintainer-mode' '--disable-dependency-tracking' '--libexecdir=/usr/libexec/x86_64-linux-gnu' '--enable-streamio' 'build_alias=x86_64-linux-gnu' 'CFLAGS=-g -O2 -ffile-prefix-map=/build/singular-pPci2W/singular-4.2.1-p3+ds=. -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security' 'LDFLAGS=-Wl,-Bsymbolic-functions -\",\"contract\":\"singular\",\"executions\":[{\"aborted\":false,\"artifact_fingerprint\":\"sha256:1730f30599217feab7eaab9d3274a05febec6d03fc9db0df6ba1966e18f62be8\",\"program_fingerprint\":\"sha256:51dcbb4a882916b64ee7ee504fc4df3a379a9f3f89a0e4d0b1f49a2a74eaa8ce\",\"returncode\":0,\"semantic_input_fingerprint\":\"sha256:23c4722153c9f71355fc0145724e8a249b770525e7782898a0c3a029d2b1695c\",\"stderr_fingerprint\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"stdout_fingerprint\":\"sha256:b76afea26d75e6a1d5bb9262d909ea62bba840efdeee680aaf3c122050585090\"},{\"aborted\":false,\"artifact_fingerprint\":\"sha256:a823c5eb1cdef2ff24d1c0ea657125b46ba7a54c4bc8ead094e9d9400165741b\",\"program_fingerprint\":\"sha256:8471b0f3329f31e7fec52ad971ca4bb157392ac38c3dbbee20eb605f80553eb8\",\"returncode\":0,\"semantic_input_fingerprint\":\"sha256:ebc021ca36c85418d868895ba14d23a9511a99c8a0a11b9da32a85e7d0fffb7e\",\"stderr_fingerprint\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"stdout_fingerprint\":\"sha256:bacf159315cfd85feaa621751f864b9e4bd63ee9cba11cc39093daeb96517aa3\"},{\"aborted\":false,\"artifact_fingerprint\":\"sha256:772d45fe034d0801437faf427418a5b0e58f8f9713c2dad0bfe0c13dd739e660\",\"program_fingerprint\":\"sha256:e172c01a41a742434fed93b614f4772cd7ab66509284e95c63ff58326edd87d2\",\"returncode\":0,\"semantic_input_fingerprint\":\"sha256:91d71ed98cd813311e7f7446dee14485cfa8423cbf4ecb033f0c2acafdc565b3\",\"stderr_fingerprint\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"stdout_fingerprint\":\"sha256:6994abc33acce6e7999ef63b28ac63d06063be5b8ec2ed454cee61fe9d5c9a1d\"},{\"aborted\":false,\"artifact_fingerprint\":\"sha256:c4d35358060eec8e8d02f1064773fb3449d53e3ef55553e5c9772c1222580422\",\"program_fingerprint\":\"sha256:0638430845d6c497ba5b328bcad946e664dfa293f97ce5a96ac3c089f6467897\",\"returncode\":0,\"semantic_input_fingerprint\":\"sha256:a0c918c9b5924f0e649442ceb0120ccfb555d866c5634e9f789862f119abc4ce\",\"stderr_fingerprint\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"stdout_fingerprint\":\"sha256:94012c84d29666a812e1bd1934a90e4f7069dfd8e14ec4e6da709510f8576c2d\"}],\"implementation\":\"grandportage.cas.SingularBackend\",\"implementation_version\":3,\"protocol_version\":2,\"schema\":2,\"trace_fingerprint\":\"sha256:89e418a514752efe9397e30e0b2c9aadf52b96ca45b51d050561a240ab9f9e4f\"}",
+        "current": true,
+        "ev": "verdict",
+        "id": "v.JC-P-C9-AXIS-EMPTY.6d120972939010db",
+        "input_fingerprint": "sha256:cfa7322746b878ce8c97c91c060d44b53410e38b95a3353b304171dc3cb93cb9",
+        "kernel_epoch": 10,
+        "of": "JC-P-C9-AXIS-EMPTY",
+        "representation": {
+          "checked": {
+            "generator_count": 3,
+            "target": "p^2*t^2"
+          },
+          "claim": "JC-P-C9-AXIS-EMPTY",
+          "method": "localized_unit_ideal_v1",
+          "model": "JC-P-C9-AXIS",
+          "proof": {
+            "certificate": {
+              "cofactors": [
+                "p^2*t^2",
+                "3*p*t^3+6*t^2*c9_11",
+                "-12*t^3"
+              ],
+              "localization_powers": [
+                2,
+                2
+              ],
+              "membership_target": "p^2*t^2"
+            },
+            "characteristic": 0,
+            "expression": {
+              "denominator_powers": [
+                0,
+                0
+              ],
+              "numerator": "1"
+            },
+            "generators": [
+              "(15)*t^3+1",
+              "(15)*p*t^2+(10)*t*c9_11",
+              "(5)*p^2*t^2+(10)*p*t*c9_11+(5)*c9_11^2"
+            ],
+            "guards": [
+              "p",
+              "t"
+            ],
+            "ring_vars": [
+              "p",
+              "t",
+              "c9_11",
+              "I4"
+            ],
+            "schema": "localization_membership_v1"
+          }
+        },
+        "stale_reason": null,
+        "subject": "certificate",
+        "verdict": "VERIFIED",
+        "verifier": "verify.localized_unit_ideal",
+        "verifier_version": 1,
+        "why": "a guard monomial with powers [2, 2] belongs to the recorded ideal; exact cofactor expansion proves 1=0 in this localization, so the open model JC-P-C9-AXIS has no points. No parent emptiness is implied."
+      },
+      "status": "VERIFIED"
+    },
+    {
+      "id": "v.JC-P-C9-AXIS-IN-AMBIENT.318551cc1da5868d",
+      "key": "verdict:v.JC-P-C9-AXIS-IN-AMBIENT.318551cc1da5868d",
+      "kind": "verdict",
+      "label": "v.JC-P-C9-AXIS-IN-AMBIENT.318551cc1da5868d",
+      "record": {
+        "backend": "gp-backend-v2:{\"binary_version\":\"Singular for x86_64-Linux version 4.2.1 (4212, 64 bit) Dec 17 2021 20:20:53\\nwith\\nGMP(6.2.1),NTL(11.5.1),FLINT(2.8.0),\\nomalloc,static readline(8),Plural,vspace(2),DBM,\\ndynamic modules,OM_NDEBUG,SING_NDEBUG,\\nCC:OPTIMIZE,GenericAdd,TableMult,no invTable,\\neigenvalues,Gauss-Manin system,random=1785522755\\nbuilt-in modules: {}\\nAC_CONFIGURE_ARGS =  '--build=x86_64-linux-gnu' '--prefix=/usr' '--includedir=${prefix}/include' '--mandir=${prefix}/share/man' '--infodir=${prefix}/share/info' '--sysconfdir=/etc' '--localstatedir=/var' '--disable-option-checking' '--disable-silent-rules' '--libdir=${prefix}/lib/x86_64-linux-gnu' '--runstatedir=/run' '--disable-maintainer-mode' '--disable-dependency-tracking' '--libexecdir=/usr/libexec/x86_64-linux-gnu' '--enable-streamio' 'build_alias=x86_64-linux-gnu' 'CFLAGS=-g -O2 -ffile-prefix-map=/build/singular-pPci2W/singular-4.2.1-p3+ds=. -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security' 'LDFLAGS=-Wl,-Bsymbolic-functions -\",\"contract\":\"singular\",\"executions\":[{\"aborted\":false,\"artifact_fingerprint\":\"sha256:dd5bfaa1e18795257db14237f01f3af47f563af2184466798cc74d3d99d49fb6\",\"program_fingerprint\":\"sha256:f5a626895c1c803233c7f57762337910ac071101dd7f3834b0920632daf85373\",\"returncode\":0,\"semantic_input_fingerprint\":\"sha256:7a4b4a84e8fc8e24928f95b8f1d7f283fbdea52e4e9b217b2ec26ecca25081db\",\"stderr_fingerprint\":\"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"stdout_fingerprint\":\"sha256:78d3b42329840dff045707df0aeff33c0ae18db74b5aeb1d1fe736d550122910\"}],\"implementation\":\"grandportage.cas.SingularBackend\",\"implementation_version\":3,\"protocol_version\":2,\"schema\":2,\"trace_fingerprint\":\"sha256:8094e6cc3a488184ca04586243f6acb81bfebdc114bb9816970ccafc0c071be0\"}",
+        "current": true,
+        "ev": "verdict",
+        "id": "v.JC-P-C9-AXIS-IN-AMBIENT.318551cc1da5868d",
+        "input_fingerprint": "sha256:922240cc34d7bee373e38066c92c6ef09be58e2c0690cba1ceba2f8f037774f2",
+        "kernel_epoch": 10,
+        "of": "JC-P-C9-AXIS-IN-AMBIENT",
+        "stale_reason": null,
+        "subject": "edge",
+        "verdict": "VERIFIED",
+        "verifier": "verify.containment",
+        "verifier_version": 2,
+        "why": "every generator of JC-P-C9-AXIS-AMBIENT's ideal reduces to 0 modulo JC-P-C9-AXIS's, so I(JC-P-C9-AXIS-AMBIENT) is inside I(JC-P-C9-AXIS) and V(JC-P-C9-AXIS) is inside V(JC-P-C9-AXIS-AMBIENT)."
+      },
+      "status": "VERIFIED"
+    }
+  ],
+  "orders": {
+    "inferences": []
+  },
+  "relations": [
+    {
+      "kind": "certificate",
+      "label": "licenses scope",
+      "source": "certificate:LOCALIZED_UNIT_IDEAL_CERT",
+      "target": "claim:JC-P-C9-AXIS-EMPTY"
+    },
+    {
+      "kind": "edge-target",
+      "label": "NECESSARY_CONDITION",
+      "source": "edge:JC-P-C9-AXIS-IN-AMBIENT",
+      "target": "model:JC-P-C9-AXIS-AMBIENT"
+    },
+    {
+      "kind": "established-by",
+      "label": "establishes",
+      "source": "inference:RAN",
+      "target": "claim:JC-P-C9-AXIS-EMPTY"
+    },
+    {
+      "kind": "claim-model",
+      "label": "EMPTY",
+      "source": "model:JC-P-C9-AXIS",
+      "target": "claim:JC-P-C9-AXIS-EMPTY"
+    },
+    {
+      "kind": "edge-source",
+      "label": "source",
+      "source": "model:JC-P-C9-AXIS",
+      "target": "edge:JC-P-C9-AXIS-IN-AMBIENT"
+    },
+    {
+      "kind": "verdict-of",
+      "label": "VERIFIED",
+      "source": "verdict:v.JC-P-C9-AXIS-EMPTY.6d120972939010db",
+      "target": "claim:JC-P-C9-AXIS-EMPTY"
+    },
+    {
+      "kind": "verdict-of",
+      "label": "VERIFIED",
+      "source": "verdict:v.JC-P-C9-AXIS-IN-AMBIENT.318551cc1da5868d",
+      "target": "edge:JC-P-C9-AXIS-IN-AMBIENT"
+    }
+  ],
+  "schema": "grand-portage-projection/v1",
+  "source": {
+    "created_with": "grandportage/0.19.0",
+    "graph_format": 3,
+    "graphs": [
+      {
+        "bytes": 9316,
+        "fingerprint": "sha256:d45186fdd7692d44d11e6a8dabadda0b9bd99c97b26d82447d30b743ebd2f5e5",
+        "path": "review/v0.19/jc-p-axis/.portage/graph.jsonl"
+      }
+    ],
+    "kernel_epoch": 10,
+    "projected_with": "0.19.0"
+  }
+}

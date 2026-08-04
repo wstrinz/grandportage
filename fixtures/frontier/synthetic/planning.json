@@ -1,0 +1,15 @@
+{
+  "schema": "synthetic-planning-review/v1",
+  "projection_schema": "frontier/v1",
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "graph_effect": "NONE",
+  "consumer": "synthetic-planning",
+  "history": {
+    "input_fingerprint": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "item_observations": [
+    {"id": "SYNTH.CALIBRATION", "scope_id": "SYNTH.SCOPE.EXACT", "state": "OPEN", "status": "OPEN"},
+    {"id": "SYNTH.COVERAGE", "scope_id": "SYNTH.SCOPE.GLOBAL", "state": "OPEN", "status": "OPEN"}
+  ],
+  "open_items": ["SYNTH.CALIBRATION", "SYNTH.COVERAGE"]
+}

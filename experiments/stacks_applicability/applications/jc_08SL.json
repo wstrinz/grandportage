@@ -1,0 +1,32 @@
+{
+  "schema": "gp_stacks_application_packet_v1",
+  "application_id": "JC-DEPTH7-LCI-COTANGENT-AUDIT",
+  "theorem_pin": {
+    "tag": "08SL",
+    "statement_sha256": "a94d2424b7be238fbb19602528f65e3f10ad331e0be37e17e172bb1a854cae5f"
+  },
+  "theorem_acceptance": "CITATION_PINNED",
+  "target_context": "proposed reduced depth-7 source-boundary presentation",
+  "intended_conclusion": "the relevant cotangent complex is perfect with tor amplitude in $[-1,0]$",
+  "hypotheses": [
+    {
+      "id": "map_lci",
+      "status": "MISSING",
+      "why": "The current depth-7 computation has not yet produced a checked lci claim for the selected map."
+    }
+  ],
+  "application_premises": [
+    {
+      "id": "presentation_identified",
+      "statement": "the selected map $A \\to B$ exactly represents the reduced JC source-boundary problem",
+      "status": "OPEN",
+      "why": "Depth-7 extraction is still running and the source-to-boundary presentation is not frozen."
+    },
+    {
+      "id": "obstruction_problem_identified",
+      "statement": "the proposed deformation or obstruction question is governed by $L_{B/A}$",
+      "status": "MISSING",
+      "why": "Tag 08SL supplies amplitude after lci; it does not itself identify or annihilate a JC obstruction class."
+    }
+  ]
+}

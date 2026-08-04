@@ -17,12 +17,31 @@ from grandportage import check as C
 import helpers as H
 
 
+def _epoch1_expected_findings(domain):
+    """Historical pins plus deliberate epoch-1 compatibility breaks."""
+    expected = set(H.expected(domain)["findings"])
+    if domain == "jc2":
+        # E3 asserts an ideal equality but the epoch-0 fixture has neither
+        # structured maps nor a current verifier verdict. Citations remain
+        # readable history; they no longer license identity transport.
+        expected.add("TRANSPORT:INF-KSYZ-REV")
+    return expected
+
+
+def _epoch1_expected_clean(domain):
+    expected = set(H.expected(domain)["clean_inferences"])
+    if domain == "jc2":
+        expected.remove("INF-KSYZ-REV")
+    return expected
+
+
+
 @pytest.mark.parametrize("domain", H.DOMAINS)
 def test_findings_are_exactly_the_pinned_set(domain):
     """No missing flags AND no extra ones.  The second half is the load-bearing
     one: the prototype earned its credibility on zero false positives."""
     got = set(H.findings_by_id(H.load(domain)))
-    want = set(H.expected(domain)["findings"])
+    want = _epoch1_expected_findings(domain)
     assert got == want, ("missing: %s\nextra: %s"
                          % (sorted(want - got), sorted(got - want)))
 
@@ -61,7 +80,7 @@ def test_only_one_severity_is_overridden_in_total():
 def test_clean_inferences_are_exactly_the_positive_controls(domain):
     g = H.load(domain)
     got = C.clean_inferences(g, C.run(g))
-    assert sorted(got) == sorted(H.expected(domain)["clean_inferences"])
+    assert set(got) == _epoch1_expected_clean(domain)
 
 
 def test_the_contrast_pairs_differ_only_in_the_certificate():

@@ -1,0 +1,76 @@
+{
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "consumer": "jc-h3-s2-lowjet-guard-peel-handback",
+  "evidence_envelope": {
+    "authority_boundary": "This receipt closes only the declared b=R=Delta=0 S2 low-jet cover: every invariant-J Sigma candidate is an illegal det5 guard root. It does not assert source sufficiency, global b=0 emptiness, any S1/S3/S4 result, H3, or a (75,125) verdict.",
+    "certificate_payload": {
+      "corollary": "LOWJET_COVER_COMPLETE",
+      "global_b0_licensed": false,
+      "terminal_guard": "det5 = 0",
+      "verdict": "SIGMA_FULLY_SOURCE_EXCLUDED_INVARIANT_J"
+    },
+    "checked_proposition": "the invariant-J Sigma residual on the declared S2 wall consists only of illegal det5 guard roots",
+    "context": {
+      "characteristic": 0,
+      "coefficient_domain": "declared S2 low-jet guarded source-face universe",
+      "generators": [],
+      "point_universe": null,
+      "ring_vars": [],
+      "unit_generators": []
+    },
+    "graph_effect": "NONE",
+    "licenses": [
+      "S2_invariant_J_Sigma_source_exclusion",
+      "S2_lowjet_cover_complete"
+    ],
+    "outstanding_premises": [
+      "global b=0",
+      "S1/S3/S4",
+      "source sufficiency",
+      "H3"
+    ],
+    "schema": "gp-jc-h3-s2-lowjet-guard-peel-handback/v1",
+    "source_bindings": [
+      {
+        "id": "f2_h3_b0_lowjet_cover_audit_certificate.json",
+        "sha256": "sha256:a6ae555b33da84e8d94442c5d1e4d89f207557e0358094a72225f12f330be39f"
+      },
+      {
+        "id": "f2_h3_sigma_depth3_unit_pivot_certificate.json",
+        "sha256": "sha256:b1565b4a4e09fc125221d356d9f23a4ce6d7d2662c64529951ca5520312d7351"
+      },
+      {
+        "id": "f2_h3_sigma_guard_peel.py",
+        "sha256": "sha256:2f088cade132f76a226a3f187ce4caeb7634684eb8fdf64e6f4291782de37539"
+      },
+      {
+        "id": "f2_h3_sigma_guard_peel_certificate.json",
+        "sha256": "sha256:039ed0312ad0e02efcd41dc1d13bcea24d062c04566587400b15839dad6a2f38"
+      }
+    ]
+  },
+  "graph_effect": "NONE",
+  "history": {
+    "immutable": true,
+    "input_fingerprint": "sha256:b1dfdac68b16513a6129f4392128240b93e69c23ecead7a04f9cba68d81d30d6",
+    "item_count": 2
+  },
+  "item_observations": [
+    {
+      "id": "JC.H3.B0.S2.LOWJET_COVER_COMPLETE",
+      "scope_id": "JC.H3.B0.S2_LOWJET_WALL",
+      "state": "CLOSED",
+      "status": "LOWJET_COVER_COMPLETE"
+    },
+    {
+      "id": "JC.H3.B0.S2.SIGMA_GUARD_EXCLUSION",
+      "scope_id": "JC.H3.B0.S2_LOWJET_WALL",
+      "state": "CLOSED",
+      "status": "SIGMA_FULLY_SOURCE_EXCLUDED_INVARIANT_J"
+    }
+  ],
+  "open_items": [],
+  "projection_schema": "frontier/v1",
+  "schema": "gp-jc-h3-s2-lowjet-guard-peel-frontier-review/v1",
+  "source_authority_ceiling": "S2_LOWJET_SOURCE_EXCLUSION_ONLY"
+}

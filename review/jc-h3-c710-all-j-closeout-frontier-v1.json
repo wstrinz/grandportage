@@ -1,0 +1,81 @@
+{
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "consumer": "jc-h3-c710-all-j-closeout-handback",
+  "evidence_envelope": {
+    "authority_boundary": "The all-J result closes only the inherited guarded c7_10 divisor with c2_1=c2_2=0. It is a source-face necessary-condition exclusion, not source sufficiency or population. It does not decide sigma_kappa_nonzero, the joint c2_1/c2_2/c7_10 stratum, the full b=0 wall, H3, or (75,125).",
+    "certificate_payload": {
+      "closed_leaf": "c710_divisor_exceptional_J",
+      "field_scope": "every characteristic-zero field extension on the declared guarded divisor",
+      "source_sufficiency_licensed": false,
+      "terminal_guard": "det5 = 0",
+      "verdict": "C710_DIVISOR_FACE_IDEAL_UNIT_ALL_J"
+    },
+    "checked_proposition": "the finite generic-J remainder on the declared c7_10 divisor is empty because every candidate common root is the illegal det5 guard",
+    "context": {
+      "characteristic": 0,
+      "coefficient_domain": "characteristic-zero K[J] guarded c7_10 divisor",
+      "generators": [],
+      "point_universe": null,
+      "ring_vars": [],
+      "unit_generators": []
+    },
+    "graph_effect": "NONE",
+    "licenses": [
+      "C710_divisor_source_face_exclusion_all_invariant_J",
+      "finite_exceptional_J_remainder_discharged"
+    ],
+    "outstanding_premises": [
+      "source-derived target-pair coefficient values",
+      "R7 scalarity",
+      "sigma_kappa_nonzero",
+      "joint c2_1/c2_2/c7_10 stratum",
+      "full b=0 source branch"
+    ],
+    "schema": "gp-jc-h3-c710-all-j-closeout-handback/v1",
+    "source_bindings": [
+      {
+        "id": "f2_h3_b0_lowjet_cover_audit_certificate.json",
+        "sha256": "sha256:a6ae555b33da84e8d94442c5d1e4d89f207557e0358094a72225f12f330be39f"
+      },
+      {
+        "id": "f2_h3_c710_exceptional_j_closeout.py",
+        "sha256": "sha256:d34611071427179acbbed4baaa9055d8ebe003d633d430e7f357a141828da49f"
+      },
+      {
+        "id": "f2_h3_c710_exceptional_j_closeout_certificate.json",
+        "sha256": "sha256:d448f53a2d1ba6c8f0ee74391fd63416a4860241382fb4d24c3b200607ce93e9"
+      },
+      {
+        "id": "f2_h3_c710_generic_j_certificate.json",
+        "sha256": "sha256:b5e76ab0e8ab4a308938738c6d0f512b3603245caf27c874995f5787db592453"
+      }
+    ]
+  },
+  "graph_effect": "NONE",
+  "history": {
+    "immutable": true,
+    "input_fingerprint": "sha256:1fbca348ab2bb5657ca9d3a72c2ffb241671a12f8c8fe57656bca7a74b547e42",
+    "item_count": 2
+  },
+  "item_observations": [
+    {
+      "id": "JC.H3.C22_C710.ALL_J_SOURCE_FACE_EXCLUSION",
+      "scope_id": "JC.H3.C22_C710.FULL_CHART",
+      "state": "CLOSED",
+      "status": "CLOSED"
+    },
+    {
+      "id": "JC.H3.C22_C710.EXCEPTIONAL_J_FIBERS",
+      "replacement_ids": [
+        "JC.H3.C22_C710.ALL_J_SOURCE_FACE_EXCLUSION"
+      ],
+      "scope_id": "JC.H3.C22_C710.FULL_CHART",
+      "state": "CLOSED",
+      "status": "RESOLVED_BY_ALL_J_CLOSEOUT"
+    }
+  ],
+  "open_items": [],
+  "projection_schema": "frontier/v1",
+  "schema": "gp-jc-h3-c710-all-j-closeout-frontier-review/v1",
+  "source_authority_ceiling": "ON_WALL_S2_C710_DIVISOR_SOURCE_FACE_EXCLUSION_ONLY"
+}

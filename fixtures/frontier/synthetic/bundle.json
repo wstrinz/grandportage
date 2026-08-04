@@ -1,0 +1,38 @@
+{
+  "schema": "frontier-bundle-input/v1",
+  "receipts": [
+    {
+      "id": "execution",
+      "path": "execution.json",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "057f9c1a9c2ce8564c1b26bbe9779c63f379800981f79eaf2dd30b9dd7398da1"
+    },
+    {
+      "id": "planning",
+      "path": "planning.json",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "f2ef5dffd643b2da8d59abf49b1a6687427eebbf8b592fd65bb29c5176a57cf3"
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "SYNTH.COVERAGE.AGREE",
+      "item_id": "SYNTH.COVERAGE",
+      "mode": "AGREE_OPEN",
+      "scope_id": "SYNTH.SCOPE.GLOBAL",
+      "receipts": ["execution", "planning"],
+      "reason": "Both independent consumers retain the same exact obligation."
+    },
+    {
+      "id": "SYNTH.CALIBRATION.SUPERSEDE",
+      "item_id": "SYNTH.CALIBRATION",
+      "mode": "SUPERSEDE",
+      "scope_id": "SYNTH.SCOPE.EXACT",
+      "prior_receipts": ["planning"],
+      "current_receipt": "execution",
+      "current_status": "RESOLVED_TO_SCOPED_RESULTS",
+      "replacements": ["SYNTH.CALIBRATION.A", "SYNTH.CALIBRATION.B"],
+      "reason": "Execution split the generic task into two exact scoped results."
+    }
+  ]
+}

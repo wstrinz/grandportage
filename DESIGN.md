@@ -142,7 +142,10 @@ Two constraints on the implementation:
 
 ### 1.5 hook — `grandportage/hook.py`
 
-`PostToolUse`, exit 2 with the finding on stderr. The only part with teeth.
+`PostToolUse`, with runtime-specific blocking feedback: an exit-0 structured
+`{"decision":"block","reason":"..."}` for Codex, or exit 2 with the finding
+on stderr for Claude Code. The only part with teeth. A repository definition
+does not prove Codex trusted or enabled it, so live gates provoke a refusal.
 
 Two decisions that cost something to get wrong. It **fails closed on a
 malformed graph** — that is a real defect and the agent just caused it — but
@@ -158,6 +161,17 @@ reviewer can read rather than someone's memory of the normal warnings.
 
 Seven event kinds: `certificate`, `model`, `edge`, `claim`, `inference`,
 `built_by`, `note`.
+A relation has two explicit presentations. Inclusion-style edges mean literal
+`V(src) subset V(dst)` in the written coordinates. A mapped `EQUIVALENCE` has
+both `forward` and `inverse` substitution objects instead. `forward` names the
+point map from source to target; substitution into functions therefore runs in
+the opposite direction. The pair identifies the models through those maps and
+does not additionally assert either literal containment. The current verifier
+requires the same ring-variable names at both endpoints and one expression per
+variable. Structured `ring_iso` evidence fails closed until verified. This
+distinction is executable (`ring_iso` versus `containment`) and formalised in
+`lean/GrandPortage/MappedEquivalence.lean`, so the runtime cannot silently turn
+a change of coordinates into a false inclusion.
 
 The important omission: **there is no `expected_flag`.** The prototypes carried
 the answer on the inference, which is right for a retrodiction artifact and

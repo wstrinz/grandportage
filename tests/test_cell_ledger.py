@@ -354,7 +354,8 @@ def test_ic_along_predicate_not_closed():
     extend."""
 
 
-@cell(K.IMAGE_CLOSURE, K.ALONG, K.PREDICATE, True, zariski_closed=True)
+@cell(K.IMAGE_CLOSURE, K.ALONG, K.PREDICATE, True,
+      zariski_closed=True, image_complete=True)
 def test_ic_along_predicate_closed():
     """CONDITION: the predicate is Zariski-closed.  PROOF given it: a closed
     condition satisfied on a set is satisfied on its closure, by definition of
@@ -368,7 +369,7 @@ def test_ic_against_predicate():
 
 
 @cell(K.IMAGE_CLOSURE, K.ALONG, K.IDENTITY, True, map_kind=K.POLYNOMIAL,
-      identity_origin=K.DERIVED)
+      identity_origin=K.DERIVED, image_complete=True)
 def test_ic_along_identity():
     """PROOF, AND IT IS THE EXCEPTION THAT SHOWS THE RULE IS ABOUT MAPS.
 

@@ -1,0 +1,25 @@
+{
+  "schema": "jc_h3_localization_pivot_v1",
+  "chart": "q",
+  "model_digest": "a17f0a4fa0ab0b10de3c4e84310ad51ed84d95c0becb93e3dce156cf5c513999",
+  "characteristic": 0,
+  "ring_vars": ["p", "q", "t", "I4", "x"],
+  "current_generators": [
+    "15*t^3+1",
+    "3*q^2*t*x+p+I4"
+  ],
+  "guards": ["q", "t"],
+  "equation_id": "B2-q-control",
+  "equation_polynomial": "3*q^2*t*x+p+I4",
+  "pivot": "x",
+  "coefficient": "3*q^2*t",
+  "unit_witness": {
+    "coefficient": "3",
+    "powers": {
+      "q": 2,
+      "t": 1
+    },
+    "inverse": "1/(3*q^2*t)"
+  },
+  "substitution": "-(p+I4)/(3*q^2*t)"
+}

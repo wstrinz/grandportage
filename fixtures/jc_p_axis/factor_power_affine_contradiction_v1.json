@@ -1,0 +1,35 @@
+{
+  "schema": "factor_power_affine_contradiction_v1",
+  "factor_power": {
+    "schema": "factor_power_v1",
+    "characteristic": 0,
+    "ring_vars": ["p", "t", "c9_11"],
+    "unit_generators": ["p", "t"],
+    "receipts": [
+      {
+        "id": "E_3_22_c9_axis",
+        "equation": "5*c9_11^2 + 10*c9_11*p*t + 5*p^2*t^2",
+        "scalar": "5",
+        "base": "c9_11 + p*t",
+        "exponent": 2
+      },
+      {
+        "id": "E_5_22_c9_axis",
+        "equation": "-5*c9_11^2*p - 10*c9_11*p^2*t - 5*p^3*t^2",
+        "scalar": "-5*p",
+        "base": "c9_11 + p*t",
+        "exponent": 2
+      }
+    ]
+  },
+  "factor_receipt": "E_3_22_c9_axis",
+  "pivot": {
+    "variable": "c9_11",
+    "solution": "-p*t"
+  },
+  "consequence": {
+    "id": "E_1_22_c9_axis",
+    "equation": "10*t*c9_11 + 15*p*t^2",
+    "residual": "5*p*t^2"
+  }
+}

@@ -26,8 +26,10 @@ import os
 import sys
 import traceback
 
+from . import artifacts as A
 from . import cas
 from . import check as C
+from . import format as F
 from . import hook as HK
 from . import kernel as K
 from . import store as S
@@ -40,7 +42,7 @@ ROOT = os.environ.get("GP_ROOT", ".")
 # Reported in `serverInfo`, which is where a client looks to know what it is
 # talking to.  It said 0.1.0 for four minor releases -- the same drift the
 # check-count spans exist to prevent, in the one field a machine reads.
-VERSION = "0.4.1"
+from . import __version__ as VERSION  # one source of truth
 
 
 # ---------------------------------------------------------------------------
@@ -123,6 +125,26 @@ EDGE_SCHEMA = {
                         "fields above -- they have opposite polarity and one "
                         "name for both meant evidence against an equivalence "
                         "could document one.")},
+        "forward": {
+            "type": "object",
+            "additionalProperties": {"type": "string"},
+            "description": (
+                "EQUIVALENCE only. The point-forward map from source to target, "
+                "written as a simultaneous polynomial substitution with one "
+                "expression for every ring variable. Polynomial pullback runs "
+                "contravariantly. The current verifier requires both endpoints "
+                "to use the same ring-variable names. Supplying forward and "
+                "inverse declares a MAPPED equivalence, not literal containment "
+                "of the two solution sets as written. Structured maps license "
+                "IDENTITY transport only after `VERIFIED`.")},
+        "inverse": {
+            "type": "object",
+            "additionalProperties": {"type": "string"},
+            "description": (
+                "EQUIVALENCE only. The point-inverse map from target to source, "
+                "paired with forward. `gp verify` checks both ideal pullbacks "
+                "and both inverse compositions. The field names are exactly "
+                "`forward` and `inverse`, not `maps` or `inverse_maps`.")},
         "ring_iso": {
             "type": "boolean",
             "description": (
@@ -161,12 +183,83 @@ EDGE_SCHEMA = {
     },
     "required": ["src", "type", "why"],
 }
+for _legacy_edge_field in ("witness", "zariski_dense"):
+    EDGE_SCHEMA["properties"].pop(_legacy_edge_field, None)
+EDGE_SCHEMA["required"].append("map_kind")
+EDGE_SCHEMA["additionalProperties"] = False
+
+
+CONDITION_SCHEMA = {
+    "type": "object",
+    "description": (
+        "A conjunction of exact-affine point conditions. ZERO means the "
+        "polynomial vanishes; NONZERO means it does not. Every expression is "
+        "parsed against the claim model's exact polynomial ring. Verified mapped "
+        "equivalences rewrite it contravariantly. Matching identity-coordinate "
+        "maps and checked Eliminate projections preserve it under AGAINST before "
+        "a polynomial-section elimination checks target expressibility."),
+    "properties": {
+        "all": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "relation": {"type": "string",
+                                 "enum": list(K.CONDITION_RELATIONS)},
+                    "expression": {"type": "string", "minLength": 1},
+                },
+                "required": ["relation", "expression"],
+                "additionalProperties": False,
+            },
+        },
+    },
+    "required": ["all"],
+    "additionalProperties": False,
+}
+
+
+def _event_schema(kind):
+    properties = {field: {} for field in sorted(F.EVENT_FIELDS[kind])}
+    if kind == "claim":
+        properties["condition"] = CONDITION_SCHEMA
+    properties["ev"] = {"type": "string", "enum": [kind]}
+    if kind == "model":
+        properties["coefficient_domain"] = {
+            "type": "string",
+            "pattern": "^(Q|F_[0-9]+)$",
+            "description": (
+                "exact certificate domain; must match characteristic"),
+        }
+        properties["point_universe"] = {
+            "type": "string",
+            "enum": list(S.POINT_UNIVERSES),
+            "description": "BASE or algebraic closure of coefficient_domain",
+        }
+    return {
+        "type": "object",
+        "properties": properties,
+        "required": sorted(F.REQUIRED_FIELDS.get(kind, {"ev"})),
+        "additionalProperties": False,
+    }
+
+
+DECLARABLE_EVENT_SCHEMA = {
+    "description": (
+        "A native graph event. Event schemas are closed: misspelled or "
+        "unowned fields are rejected rather than retained as inert metadata."),
+    "oneOf": [
+        _event_schema(kind) for kind in sorted(F.EVENT_FIELDS)
+        if kind not in ("meta", "verdict")
+    ],
+}
 
 
 def _tool(name, description, properties, required):
     return {"name": name, "description": description,
             "inputSchema": {"type": "object", "properties": properties,
-                            "required": required}}
+                            "required": required,
+                            "additionalProperties": False}}
 
 
 TOOLS = [
@@ -202,13 +295,20 @@ TOOLS = [
         "gets recorded, and recording it is what submits it to the checker. "
         "The write is transactional against the fold -- if the events do not "
         "produce a well-formed graph, nothing is written.",
-        {"events": {"type": "array", "items": {"type": "object"},
+        {"events": {"type": "array", "items": DECLARABLE_EVENT_SCHEMA,
                     "description": (
                         "graph events. Each needs `ev`: one of certificate, "
                         "model, edge, claim, inference, built_by, note. An "
                         "EMPTY claim must carry a `certificate` kind, and its "
                         "scope is DERIVED from that certificate rather than "
-                        "from what you declare. "
+                        "from what you declare. A PREDICATE may carry a closed-schema "
+                        "structured `condition`: {all: [{relation: ZERO or "
+                        "NONZERO, expression: polynomial}, ...]}. Expressions "
+                        "must parse in the claim model. Verified equivalences "
+                        "rewrite them contravariantly; matching identity maps "
+                        "and checked Eliminate projections preserve them under "
+                        "AGAINST. A later section-certified elimination checks "
+                        "the resulting expressions in its retained target. "
                         "An inference may rest on SEVERAL premises: use "
                         "`premises: [{claim, path}, ...]` instead of "
                         "`claim`+`path` when the argument combines facts. "
@@ -274,14 +374,15 @@ TOOLS = [
                         "before you think about the change at all, by WHAT "
                         "you are replacing: an EDGE takes one list, a CLAIM "
                         "or an INFERENCE takes the other. There is no "
-                        "combined list of seven, because the two lists answer "
+                        "combined list, because the two lists answer "
                         "different questions -- and borrowing across them "
                         "fails in two different ways, neither of which helps: "
                         "a supersession kind from the edge list is REFUSED on "
                         "a claim, and one from the claim list is a word no "
                         "obligation has ever admitted, so on an edge it "
                         "discharges nothing.\n"
-                        "REPLACING AN EDGE -- DERIVE, RETYPE, ACCEPT. An edge "
+                        "REPLACING AN EDGE -- DERIVE, RETYPE, ACCEPT, WITHDRAW. "
+                        "An edge "
                         "is what a transport refusal is recorded AGAINST, so "
                         "replacing one asks: WHAT HAPPENED TO THE OBLIGATION "
                         "the old edge was carrying? Supersession INHERITS "
@@ -298,6 +399,9 @@ TOOLS = [
                         "refuses it.\n"
                         "  ACCEPT - carry it deliberately, in the open, with "
                         "a reason.\n"
+                        "  WITHDRAW - this was not an edge at all. Nothing "
+                        "replaces it, and any live inference crossing it must "
+                        "be retracted or rerouted over a real path.\n"
                         "  DERIVE is a discharge kind and is NOT the "
                         "identity_origin value DERIVED described above. One "
                         "is a move that closes an obligation; the other says "
@@ -406,6 +510,56 @@ TOOLS = [
         []),
 
     _tool(
+        "portage_verify_elimination",
+        "Certify exact coordinate-ring contraction for one constructor-built "
+        "Eliminate edge using a polynomial section. The section fixes retained "
+        "variables and maps every eliminated variable to a polynomial in them. "
+        "It also supplies explicit polynomial point lifts; constructed image "
+        "authority requires the independent no-invention verdict as well.",
+        {"edge": {"type": "string"},
+         "section": {
+             "type": "object",
+             "additionalProperties": {"type": "string"},
+             "description": (
+                 "map each eliminated variable to its polynomial image in the "
+                 "retained variables")},
+         "timeout": {"type": "integer", "default": 300},
+         "dry_run": {"type": "boolean", "default": False},
+         "root": {"type": "string",
+                  "description": "campaign directory holding .portage/"}},
+        ["edge", "section"]),
+    _tool(
+        "portage_verify_elimination_point_lift",
+        "Check a finite cover of a constructor-built Eliminate target by "
+        "principal-open rational lift charts plus one all-guards-zero "
+        "polynomial fallback. Exact membership identities are replayed before "
+        "point-surjective authority is recorded; contraction exactness remains "
+        "a separate obligation.",
+        {"edge": {"type": "string"},
+         "certificate": {
+             "type": "object",
+             "description": (
+                 "{charts:[{guard, lift:{variable:{numerator,"
+                 "denominator_power}}}], fallback:{lift:{variable:poly}}}")},
+         "timeout": {"type": "integer", "default": 300},
+         "dry_run": {"type": "boolean", "default": False},
+         "root": {"type": "string",
+                  "description": "campaign directory holding .portage/"}},
+        ["edge", "certificate"]),
+    _tool(
+        "portage_verify_elimination_groebner",
+        "Produce a bounded pure-lex Groebner certificate for one constructor-"
+        "built Eliminate edge, check it without trusting Singular, persist "
+        "the proof and producer artifacts, and license exact contraction only "
+        "when the separate no-invention verdict is also current. This grants "
+        "no geometric point-image authority.",
+        {"edge": {"type": "string"},
+         "timeout": {"type": "integer", "default": 300},
+         "dry_run": {"type": "boolean", "default": False},
+         "root": {"type": "string",
+                  "description": "campaign directory holding .portage/"}},
+        ["edge"]),
+    _tool(
         "cas_health",
         "Check that the CAS is reachable and answers correctly, WITHOUT "
         "touching the graph. Runs a trivial ideal with a known answer. Use "
@@ -504,7 +658,7 @@ def h_cas_health(args, root):
                ("GPH_G", "ideal", "std(GPH_I)")],
         body=[], outputs=["GPH_G"])
     try:
-        result = cas._run_subprocess(prog, 60)
+        result = cas._execute(prog, 60)
     except cas.CASError as exc:
         return _err("CAS UNREACHABLE via %s\n%s" % (cas._argv(), exc))
     if result["aborted"]:
@@ -513,7 +667,7 @@ def h_cas_health(args, root):
     if "? error" in result["stdout"] + result["stderr"]:
         return _err("CAS reported an error:\n%s" % result["stdout"][-800:])
     try:
-        values = cas._parse_outputs(result["stdout"], prog.outputs)
+        values = cas._parse_result(result, prog.outputs)
     except cas.CASError as exc:
         return _err("CAS output unparseable: %s" % exc)
     gb = values["GPH_G"]
@@ -617,6 +771,63 @@ def h_portage_verify(args, root):
     return _text("\n\n".join(lines))
 
 
+def h_portage_verify_elimination(args, root):
+    from . import verify as V
+    path = S.graph_path(root)
+    if not os.path.exists(path):
+        return _text("no graph yet at %s" % path)
+    section = args.get("section")
+    if not isinstance(section, dict):
+        return _err("section must be an object mapping variables to polynomials")
+    try:
+        verdict, why, _representation = V.verify_elimination_section(
+            root, args.get("edge"), section,
+            timeout=int(args.get("timeout") or 300),
+            record=not args.get("dry_run"))
+    except (A.ArtifactError, OSError, S.GraphError, ValueError) as exc:
+        return _err("elimination verification failed: %s" % exc)
+    suffix = ("--dry-run: nothing was recorded."
+              if args.get("dry_run") else "verdict recorded.")
+    return _text("%s  elimination %s\n    %s\n\n%s"
+                 % (verdict, args.get("edge"), why, suffix))
+
+def h_portage_verify_elimination_point_lift(args, root):
+    from . import verify as V
+    path = S.graph_path(root)
+    if not os.path.exists(path):
+        return _text("no graph yet at %s" % path)
+    certificate = args.get("certificate")
+    if not isinstance(certificate, dict):
+        return _err("certificate must be an object with charts and fallback")
+    try:
+        verdict, why, _representation = V.verify_elimination_point_lift(
+            root, args.get("edge"), certificate,
+            timeout=int(args.get("timeout") or 300),
+            record=not args.get("dry_run"))
+    except (A.ArtifactError, OSError, S.GraphError, ValueError) as exc:
+        return _err("point-lift verification failed: %s" % exc)
+    suffix = ("--dry-run: nothing was recorded."
+              if args.get("dry_run") else "checked lift cover recorded.")
+    return _text("%s  point lift %s\n    %s\n\n%s"
+                 % (verdict, args.get("edge"), why, suffix))
+
+def h_portage_verify_elimination_groebner(args, root):
+    from . import verify as V
+    path = S.graph_path(root)
+    if not os.path.exists(path):
+        return _text("no graph yet at %s" % path)
+    try:
+        verdict, why, _representation = V.verify_elimination_groebner(
+            root, args.get("edge"),
+            timeout=int(args.get("timeout") or 300),
+            record=not args.get("dry_run"))
+    except (A.ArtifactError, OSError, S.GraphError, ValueError) as exc:
+        return _err("Groebner elimination verification failed: %s" % exc)
+    suffix = ("--dry-run: nothing was recorded."
+              if args.get("dry_run") else
+              "checked proof and producer provenance recorded.")
+    return _text("%s  elimination %s\n    %s\n\n%s"
+                 % (verdict, args.get("edge"), why, suffix))
 def _render(findings):
     if not findings:
         return "no findings: every recorded conclusion is licensed by the "\
@@ -642,12 +853,18 @@ def h_portage_show(args, root):
         out.append("MODEL %-16s %-14s %s" % (mid, tag, m.get("desc", "")[:70]))
     for eid in sorted(g.edges):
         e = g.edges[eid]
-        out.append("EDGE  %-16s %s -> %s  %s"
-                   % (eid, e["src"], e["dst"], e["type"]))
+        mark = ("  [WITHDRAWN by %s]" % e["withdrawn_by"]
+                if e.get("withdrawn_by") else
+                ("  [SUPERSEDED by %s]" % S.successors(e)
+                 if e.get("superseded_by") else ""))
+        out.append("EDGE  %-16s %s -> %s  %s%s"
+                   % (eid, e["src"], e["dst"], e["type"], mark))
     for cid in sorted(g.claims):
         c = g.claims[cid]
-        mark = ("  [SUPERSEDED by %s]" % S.successors(c)
-                if c.get("superseded_by") else "")
+        mark = ("  [RETRACTED by %s]" % c["retracted_by"]
+                if c.get("retracted_by") else
+                ("  [SUPERSEDED by %s]" % S.successors(c)
+                 if c.get("superseded_by") else ""))
         out.append("CLAIM %-16s %-9s @%-14s scope=%s cert=%s%s"
                    % (cid, c["kind"],
                       c.get("model") or ("family:%s" % c.get("family")),
@@ -675,8 +892,10 @@ def h_portage_show(args, root):
         premises = i["premises"]
         # A record that is dead and prints like a live one is the whole reason
         # supersession exists; it has to be visible in the handoff view too.
-        mark = ("  [SUPERSEDED by %s]" % S.successors(i)
-                if i.get("superseded_by") else "")
+        mark = ("  [RETRACTED by %s]" % i["retracted_by"]
+                if i.get("retracted_by") else
+                ("  [SUPERSEDED by %s]" % S.successors(i)
+                 if i.get("superseded_by") else ""))
         out.append("INFER %-16s %d premise%s -> %s%s"
                    % (iid, len(premises), "" if len(premises) == 1 else "s",
                       i["concludes_at"], mark))
@@ -758,6 +977,11 @@ HANDLERS = {
     "portage_declare": h_portage_declare,
     "portage_check": h_portage_check,
     "portage_verify": h_portage_verify,
+    "portage_verify_elimination": h_portage_verify_elimination,
+    "portage_verify_elimination_point_lift": (
+        h_portage_verify_elimination_point_lift),
+    "portage_verify_elimination_groebner": (
+        h_portage_verify_elimination_groebner),
     "cas_health": h_cas_health,
     "portage_show": h_portage_show,
     "portage_transport_table": h_portage_transport_table,
@@ -818,8 +1042,9 @@ def dispatch(request, root=ROOT):
         call_root = args.get("root") or root
         try:
             return _ok(rid, handler(args, call_root))
-        except (cas.TransportNotDeclared, cas.IdentifierCollision,
-                cas.CASError, S.GraphError, K.KernelRefusal) as exc:
+        except (A.ArtifactError, cas.TransportNotDeclared,
+                cas.IdentifierCollision, cas.CASError, S.GraphError,
+                K.KernelRefusal) as exc:
             # Expected refusals.  These are the product, not a crash: the
             # message tells the caller what to do differently.
             return _ok(rid, _err("%s: %s" % (type(exc).__name__, exc)))

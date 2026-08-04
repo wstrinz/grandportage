@@ -19,8 +19,10 @@ import sys
 
 import pytest
 
+from grandportage import backend as B
 from grandportage import cas
 from grandportage import check as C
+from grandportage import format as F
 from grandportage import hook as H
 from grandportage import kernel as K
 from grandportage import store as S
@@ -31,6 +33,53 @@ def _graph(events):
     for i, ev in enumerate(events):
         g.apply(ev, lineno=i)
     return g.validate()
+
+
+def _native_graph(events):
+    """Fold declarations under the epoch-1 boundary."""
+    records = [F.meta_event()] + list(events)
+    return S.Graph().apply_all([
+        (ev, "<native-test>", i) for i, ev in enumerate(records, 1)
+    ]).validate()
+
+
+def _fresh_verdict_graph(events):
+    """Replace authored verdict stubs with current, fingerprinted events."""
+    from grandportage import verify as V
+
+    declarations = [ev for ev in events if ev.get("ev") != "verdict"]
+    base = _native_graph(declarations)
+    trace = [{
+        "semantic_input_fingerprint": B.semantic_fingerprint(
+            "test_semantic_input", []),
+        "program_fingerprint": B.text_fingerprint("test program"),
+        "stdout_fingerprint": B.text_fingerprint("test stdout"),
+        "stderr_fingerprint": B.text_fingerprint(""),
+        "artifact_fingerprint": B.semantic_fingerprint(
+            "test_execution_artifact", []),
+        "returncode": 0,
+        "aborted": False,
+    }]
+    execution = {
+        "schema": 2,
+        "contract": B.SINGULAR_CONTRACT,
+        "implementation": B.SINGULAR_IMPLEMENTATION,
+        "implementation_version": B.SINGULAR_IMPLEMENTATION_VERSION,
+        "protocol_version": B.BACKEND_PROTOCOL_VERSION,
+        "binary_version": "Singular 4.2.1",
+        "executions": trace,
+        "trace_fingerprint": B.semantic_fingerprint(
+            "backend_execution_trace", trace),
+    }
+    current = []
+    for ev in events:
+        if ev.get("ev") != "verdict":
+            current.append(ev)
+            continue
+        current.append(V._verdict_event(
+            base, ev["subject"], ev["of"], ev["verdict"], ev["why"],
+            ev.get("representation"), execution=execution))
+    return _native_graph(current)
 
 
 TWO_MODELS = [
@@ -148,10 +197,195 @@ def test_ring_iso_is_declarable_through_the_supported_path():
     assert edge["ring_iso"] is True
 
 
+def test_mapped_equivalence_fields_are_on_the_supported_path():
+    import grandportage.mcp as M
+    for field in ("forward", "inverse"):
+        assert field in M.EDGE_SCHEMA["properties"]
+    t = cas.Transport.from_dict({
+        "src": "A", "type": K.EQUIVALENCE,
+        "why": "an invertible coordinate change",
+        "map_kind": K.POLYNOMIAL, "ring_iso": True,
+        "forward": {"x": "-x"}, "inverse": {"x": "-x"},
+    })
+    _model, edge = t.events("E", "B", "desc")
+    assert edge["forward"] == {"x": "-x"}
+    assert edge["inverse"] == {"x": "-x"}
+
+
+@pytest.mark.parametrize("missing", ["forward", "inverse"])
+def test_supported_transport_requires_both_mapped_equivalence_fields(missing):
+    fields = {
+        "src": "A", "type": K.EQUIVALENCE,
+        "why": "an invertible coordinate change",
+        "forward": {"x": "-x"}, "inverse": {"x": "-x"},
+    }
+    fields.pop(missing)
+    with pytest.raises(cas.TransportNotDeclared) as exc:
+        cas.Transport.from_dict(fields)
+    assert "both `forward` and `inverse`" in str(exc.value)
+
+
+@pytest.mark.parametrize("bad,wanted", [
+    ("maps", "forward"),
+    ("inverse_maps", "inverse"),
+])
+def test_load_bearing_map_field_near_misses_are_refused(bad, wanted):
+    events = [
+        {"ev": "model", "id": "A", "what": "a"},
+        {"ev": "model", "id": "B", "what": "b"},
+        {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+         "type": K.EQUIVALENCE, "why": "a coordinate change",
+         bad: {"x": "-x"}},
+    ]
+    with pytest.raises(S.GraphError) as exc:
+        _graph(events)
+    assert wanted in str(exc.value)
+
+
+def test_unrelated_domain_metadata_remains_extensible():
+    graph = _graph([
+        {"ev": "model", "id": "A", "what": "a"},
+        {"ev": "model", "id": "B", "what": "b"},
+        {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+         "type": K.EQUIVALENCE, "why": "same object",
+         "converse_witness": "identity", "domain_note": "project metadata"},
+    ])
+    assert graph.edges["E"]["domain_note"] == "project metadata"
+
+
+@pytest.mark.parametrize("missing", ["forward", "inverse"])
+def test_mapped_equivalence_requires_both_maps(missing):
+    maps = {"forward": {"x": "-x"}, "inverse": {"x": "-x"}}
+    maps.pop(missing)
+    event = {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+             "type": K.EQUIVALENCE, "why": "coordinate change"}
+    event.update(maps)
+    with pytest.raises(S.GraphError) as exc:
+        _graph([
+            {"ev": "model", "id": "A", "what": "a"},
+            {"ev": "model", "id": "B", "what": "b"}, event])
+    assert "both `forward` and `inverse`" in str(exc.value)
+
+
+def test_mapped_equivalence_maps_justify_the_equivalence_shape():
+    graph = _graph([
+        {"ev": "model", "id": "A", "what": "a", "ring_vars": ["x"],
+         "generators": []},
+        {"ev": "model", "id": "B", "what": "b", "ring_vars": ["x"],
+         "generators": []},
+        {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+         "type": K.EQUIVALENCE, "why": "coordinate change",
+         "forward": {"x": "-x"}, "inverse": {"x": "-x"}},
+    ])
+    assert not [f for f in C.run(graph)
+                if f.rule == "UNJUSTIFIED-EQUIVALENCE"]
+
+@pytest.mark.parametrize("maps,wanted", [
+    ({"forward": {"x": "x"}, "inverse": {"x": "x"}}, "Missing: y"),
+    ({"forward": {"x": "x", "y": 1},
+      "inverse": {"x": "x", "y": "y"}}, "must be strings"),
+    ({"forward": None, "inverse": None}, "non-empty objects"),
+])
+def test_mapped_equivalence_rejects_malformed_substitution_objects(maps, wanted):
+    edge = {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+            "type": K.EQUIVALENCE, "why": "coordinate change"}
+    edge.update(maps)
+    with pytest.raises(S.GraphError) as exc:
+        _graph([
+            {"ev": "model", "id": "A", "what": "a",
+             "ring_vars": ["x", "y"], "generators": []},
+            {"ev": "model", "id": "B", "what": "b",
+             "ring_vars": ["x", "y"], "generators": []},
+            edge,
+        ])
+    assert wanted in str(exc.value)
+
+
+def test_structured_maps_require_declared_compatible_endpoint_rings():
+    with pytest.raises(S.GraphError) as exc:
+        _graph([
+            {"ev": "model", "id": "A", "what": "a"},
+            {"ev": "model", "id": "B", "what": "b"},
+            {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+             "type": K.EQUIVALENCE, "why": "coordinate change",
+             "forward": {"x": "x"}, "inverse": {"x": "x"}},
+        ])
+    assert "both endpoint models must declare `ring_vars`" in str(exc.value)
+
+
+@pytest.mark.parametrize("bad", ["false", 1, None])
+def test_ring_iso_is_a_real_boolean_on_raw_and_supported_surfaces(bad):
+    events = [
+        {"ev": "model", "id": "A", "what": "a"},
+        {"ev": "model", "id": "B", "what": "b"},
+        {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+         "type": K.EQUIVALENCE, "why": "same object", "ring_iso": bad},
+    ]
+    with pytest.raises(S.GraphError):
+        _graph(events)
+    with pytest.raises(cas.TransportNotDeclared):
+        cas.Transport.from_dict({
+            "src": "A", "type": K.EQUIVALENCE, "why": "same object",
+            "ring_iso": bad,
+        })
+
+
+def test_supported_transport_rejects_non_string_map_expressions():
+    with pytest.raises(cas.TransportNotDeclared) as exc:
+        cas.Transport.from_dict({
+            "src": "A", "type": K.EQUIVALENCE, "why": "coordinate change",
+            "forward": {"x": 1}, "inverse": {"x": "x"},
+        })
+    assert "must be strings" in str(exc.value)
+
+@pytest.mark.parametrize("blank", ["", "   "])
+def test_mapped_equivalence_rejects_blank_map_expressions(blank):
+    fields = {
+        "src": "A", "type": K.EQUIVALENCE, "why": "coordinate change",
+        "forward": {"x": blank}, "inverse": {"x": "x"},
+    }
+    with pytest.raises(cas.TransportNotDeclared) as exc:
+        cas.Transport.from_dict(fields)
+    assert "non-blank" in str(exc.value)
+    assert not K.is_mapped_equivalence(fields)
+
+    edge = {"ev": "edge", "id": "E", "dst": "B"}
+    edge.update(fields)
+    with pytest.raises(S.GraphError) as exc:
+        _graph([
+            {"ev": "model", "id": "A", "what": "a", "ring_vars": ["x"]},
+            {"ev": "model", "id": "B", "what": "b", "ring_vars": ["x"]},
+            edge,
+        ])
+    assert "non-blank" in str(exc.value)
+
+
+
+
+
 def test_ring_iso_is_meaningless_on_a_lossy_edge():
     with pytest.raises(cas.TransportNotDeclared):
         cas.Transport(src="A", type=K.NECESSARY_CONDITION, why="drops eqs",
                       ring_iso=True)
+
+
+@pytest.mark.parametrize("verdict,wanted", [
+    (None, "Run `gp verify`"),
+    ("UNVERIFIED", "missing ideal"),
+    ("NOT_AN_ISOMORPHISM", "refuted as a ring isomorphism"),
+])
+def test_mapped_ring_iso_discharge_names_the_next_open_move(verdict, wanted):
+    from grandportage.discharge import discharge_for
+    edge = {
+        "src": "S", "dst": "D", "type": K.EQUIVALENCE,
+        "ring_iso": True, "forward": {"x": "x"}, "inverse": {"x": "x"},
+    }
+    if verdict is not None:
+        edge["ring_iso_verdict"] = verdict
+        edge["ring_iso_why"] = "missing ideal"
+    move = discharge_for(K.EQUIVALENCE, K.ALONG, K.IDENTITY, edge=edge)
+    assert wanted in move
+    assert "declare `ring_iso: true`" not in move
 
 
 @pytest.mark.parametrize("cell,wanted", [
@@ -182,10 +416,16 @@ def test_legal_programs_still_pass():
                    body=["I = std(I);"], outputs=["G"])
 
 
+def _completed(program, stdout):
+    separator = "" if stdout.endswith("\n") else "\n"
+    return stdout + separator + program.completion_marker + "\n"
+
+
 def _fake_run(returncode=0, stdout="@@GP_G:\n1\n", stderr="", aborted=False,
               abort_reason=None):
     def runner(program, timeout):
-        return {"returncode": returncode, "stdout": stdout, "stderr": stderr,
+        return {"returncode": returncode,
+                "stdout": _completed(program, stdout), "stderr": stderr,
                 "aborted": aborted, "abort_reason": abort_reason,
                 "argv": ["fake"]}
     return runner
@@ -1095,10 +1335,13 @@ PARTITION = [
 
 
 def _split(premises, kind="EMPTY"):
-    return _graph(PARTITION + [
+    graph = _graph(PARTITION + [
         {"ev": "inference", "id": "J", "via_partition": "P",
          "premises": [{"claim": c} for c in premises],
          "concludes_kind": kind, "asserted": "so the parent is empty"}])
+    # These kernel tests isolate premise coverage from CAS verification.
+    graph.partitions["P"]["exhaustive_verdict"] = "VERIFIED"
+    return graph
 
 
 def test_a_case_split_is_licensed_by_the_partition_not_by_an_edge():
@@ -1474,6 +1717,16 @@ def test_amend_is_computed_not_declared():
     msg = str(exc.value)
     assert "`coefficients_in_base` changed" in msg and "RELICENSE" in msg
 
+    with pytest.raises(K.SupersessionError) as condition_exc:
+        K.check_supersession_kind(
+            _C1,
+            dict(_C1, condition={"all": [
+                {"relation": "NONZERO", "expression": "x"},
+            ]}),
+            K.AMEND, claim_id="C1R")
+    assert "`condition` changed" in str(condition_exc.value)
+    assert "RELICENSE" in str(condition_exc.value)
+
 
 def test_over_declaring_a_supersession_is_allowed():
     """One direction only.  Calling a citation fix a RESTATE costs a second
@@ -1614,6 +1867,19 @@ def test_a_restriction_may_not_change_coordinates():
             {"ev": "edge", "id": "E", "src": "TIGHT", "dst": "LOOSE",
              "type": K.RESTRICTION, "why": "positivity", "map_kind": "RATIONAL"}])
     assert "SAME COORDINATES" in str(exc.value)
+
+    exact_models = [
+        {"ev": "model", "id": "CHAR0", "desc": "char zero",
+         "characteristic": 0, "ring_vars": ["x"], "generators": ["x"]},
+        {"ev": "model", "id": "CHAR2", "desc": "char two",
+         "characteristic": 2, "ring_vars": ["x"], "generators": ["x"]},
+    ]
+    with pytest.raises(S.GraphError, match="same exact coordinate ring"):
+        _graph(exact_models + [{
+            "ev": "edge", "id": "E", "src": "CHAR0", "dst": "CHAR2",
+            "type": K.RESTRICTION, "map_kind": K.IDENTITY_MAP,
+            "why": "incorrectly hides a coefficient change",
+        }])
 
 
 def test_the_generic_versus_global_cell_refuses_and_says_why():
@@ -1815,6 +2081,7 @@ def test_every_id_bearing_kind_can_be_superseded():
     than superseding.
     """
     exempt = {
+        "meta": "the format header carries no id and occurs exactly once",
         "built_by": "carries no id -- it is a link, not a record",
         "erratum": "voids a record that will not fold; nothing to supersede",
         "verdict": "written by a verifier, not declared; re-run instead",
@@ -2339,7 +2606,7 @@ def test_the_public_readme_links_only_to_files_that_sync():
     """A BROKEN LINK FOR EVERY READER OF THE PUBLIC REPOSITORY.
 
     The sync is a plain copy of an enumerated list -- `grandportage/ tests/
-    fixtures/ docs/ DESIGN.md README.md REVIEW.md` -- and root-level files
+    fixtures/ docs/ COMPATIBILITY.md DESIGN.md README.md REVIEW.md` -- and root-level files
     deliberately do NOT travel, because two of them describe traps in blind
     trials that have not been run.  README.md DOES travel, and it linked three
     files that do not.
@@ -2351,8 +2618,8 @@ def test_the_public_readme_links_only_to_files_that_sync():
     """
     import re
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    syncs = {"DESIGN.md", "README.md", "REVIEW.md", "LICENSE",
-             "QUICKSTART.md"}
+    syncs = {"COMPATIBILITY.md", "DESIGN.md", "README.md", "REVIEW.md",
+             "LICENSE", "QUICKSTART.md"}
     with open(os.path.join(root, "README.md"), encoding="utf-8") as fh:
         readme = fh.read()
     bad = []
@@ -2408,7 +2675,46 @@ def test_no_message_points_at_a_command_that_does_not_exist():
         % ("; ".join(bad), ", ".join(sorted(real))))
 
 
-def test_verify_all_actually_writes_and_the_finding_goes_away(tmp_path):
+def test_no_message_points_at_a_why_topic_that_does_not_exist():
+    """GATE 3 STOPPED AT THE SUBCOMMAND, and I walked through the gap.
+
+    The rule above scans for `gp <word>` and checks <word> against the real
+    subcommands. `gp why hook` passed it -- `why` exists -- while the TOPIC did
+    not, so the message pointed at nothing. Written, of all places, into the
+    line that reports enforcement is missing.
+
+    `why` is the one subcommand with a closed topic vocabulary, so it is the
+    one where a phantom argument is checkable. Third instance of the same
+    class: `gp verify`, `gp why supersession`, `gp why hook`.
+    """
+    import glob
+    import re
+    from grandportage import cli, kernel as K
+
+    topics = ({"supersession", "supersede", "supersedes", "hook"}
+              | {t.lower() for t in K.DECLARABLE_TYPES}
+              | {t.lower() for t in K.SUPERSESSION_KINDS}
+              | {t.lower() for t in DISCHARGE_KINDS_FOR_TEST})
+    bad = []
+    for path in sorted(glob.glob(os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            "grandportage", "*.py"))):
+        with open(path, encoding="utf-8") as fh:
+            for n, line in enumerate(fh, 1):
+                for topic in re.findall(r"`gp why ([a-z][a-z_-]*)", line):
+                    if topic.lower() not in topics:
+                        bad.append("%s:%d says `gp why %s`"
+                                   % (os.path.basename(path), n, topic))
+    assert not bad, (
+        "these name a `gp why` topic that does not exist: %s.\n"
+        "  Real topics: %s" % ("; ".join(bad), ", ".join(sorted(topics))))
+
+
+from grandportage.discharge import DISCHARGE_KINDS as DISCHARGE_KINDS_FOR_TEST
+
+
+def test_verify_all_actually_writes_and_the_finding_goes_away(
+        tmp_path, monkeypatch):
     """THE RECORDING PATH HAD NEVER BEEN RUN, and it crashed on first contact.
 
     `verify_all` passed the RESOLVED graph path to `S.append`, which takes a
@@ -2439,7 +2745,11 @@ def test_verify_all_actually_writes_and_the_finding_goes_away(tmp_path):
 
     # Nonzero in the polynomial ring, zero modulo the ideal -> DERIVED.
     runner = _fake_run(stdout="@@GP_D:\ny2-x3\n@@GP_RED:\n0\n")
-    results = V.verify_all(root=root, _runner=runner, record=True)
+    backend = cas.SingularBackend(
+        runner=runner, binary_version="Singular 4.2.1 test fixture")
+    monkeypatch.setattr(
+        cas.SingularBackend, "can_record_verdicts", property(lambda _self: True))
+    results = V.verify_all(root=root, backend=backend, record=True)
     assert results, "the claim is verifiable and must be verified"
 
     after = C.run(S.load(S.graph_path(root)))
@@ -2526,7 +2836,8 @@ def test_the_nodal_cubic_is_refused_by_computation_not_declaration():
 
     g = S.Graph().apply_all([
         ({"ev": "model", "id": "X", "what": "the nodal cubic over R",
-          "ring_vars": ["x", "y"], "generators": ["y^2+x^2-x^3"]}, "t", 1),
+          "ring_vars": ["x", "y"], "generators": ["y^2+x^2-x^3"],
+          "characteristic": 0}, "t", 1),
         ({"ev": "claim", "id": "C", "model": "X", "kind": K.IDENTITY,
           "statement": "x = 0 on the region", "lhs": "x", "rhs": "0",
           # Still DECLARED at fold time even though the claim now carries
@@ -2576,7 +2887,9 @@ def test_the_readme_transport_table_matches_the_kernel():
              "integral_identity": "if p-integral",
              "map_polynomial": "if denominator-free",
              "scheme_scope": "only with a certificate",
-             "closed_condition": "if Zariski-closed"}
+             "closed_condition": "if Zariski-closed",
+             "exact_image_identity": "if exact contraction",
+             "closed_exact_image": "if closed + closure, or retained condition + point lift"}
 
     documented = {}
     for line in text.splitlines():
@@ -3294,6 +3607,7 @@ def test_a_graph_broken_before_your_write_does_not_blame_your_write(tmp_path):
     p = S.graph_path(root)
     os.makedirs(os.path.dirname(p), exist_ok=True)
     with open(p, "w", encoding="utf-8") as fh:
+        fh.write(json.dumps(F.meta_event()) + "\n")
         fh.write(json.dumps({"ev": "model", "id": "M", "desc": "m"}) + "\n")
         # A half-grade: the exact record that broke the live root graph.
         fh.write(json.dumps({"ev": "claim", "id": "PRE-EXISTING", "model": "M",
@@ -3322,6 +3636,7 @@ def test_a_write_that_IS_your_fault_still_says_so(tmp_path):
     p = S.graph_path(root)
     os.makedirs(os.path.dirname(p), exist_ok=True)
     with open(p, "w", encoding="utf-8") as fh:
+        fh.write(json.dumps(F.meta_event()) + "\n")
         fh.write(json.dumps({"ev": "model", "id": "M", "desc": "m"}) + "\n")
 
     with pytest.raises((S.GraphError, K.KernelRefusal)) as exc:
@@ -3404,13 +3719,17 @@ def test_gp_show_prints_what_a_model_is(tmp_path, capsys):
     from grandportage import cli
     _accept_fixture(tmp_path, [
         {"ev": "model", "id": "M", "desc": "the quotient",
-         "ring_vars": ["x", "y"], "generators": ["x^2 - y", "y^3"]},
+         "ring_vars": ["x", "y"], "generators": ["x^2 - y", "y^3"],
+         "characteristic": 0, "coefficient_domain": "Q",
+         "point_universe": S.ALGEBRAIC_CLOSURE_POINT_UNIVERSE},
         {"ev": "model", "id": "N", "desc": "asserted into existence"}])
     cli.main(["--root", str(tmp_path), "show"])
     out = capsys.readouterr().out
     assert "ring   k[x, y]" in out
     assert "ideal  (x^2 - y, y^3)" in out
     # And a model with no algebra prints none, rather than an empty ring.
+    assert "coeff=Q" in out
+    assert "points=ALGEBRAIC_CLOSURE" in out
     assert out.count("ring   k[") == 1
 
 
@@ -3450,36 +3769,31 @@ def test_specialization_has_no_containment_to_verify():
     assert "not nested" in why and "Fano" in why
 
 
-def test_most_point_cells_follow_from_inclusion_alone():
-    """The measurement that found the bug above, kept as a gate.
+def test_only_three_point_cells_override_the_relational_core():
+    """The old inclusion measurement is now an exact compiler invariant.
 
-    If a future edit makes one of the 27 inclusion-derived cells disagree with
-    plain subset reasoning, that is either a discovery or a mistake -- and
-    either way it should be noticed rather than absorbed into the table.
+    Totality and surjectivity derive every ordinary point cell.  The only
+    differences are three evidence-sensitive refinements whose mathematical
+    reasons are named by their rule values.
     """
-    inclusion = {
-        (K.ALONG, K.EMPTY): False, (K.ALONG, K.NONEMPTY): True,
-        (K.ALONG, K.PREDICATE): False,
-        (K.AGAINST, K.EMPTY): True, (K.AGAINST, K.NONEMPTY): False,
-        (K.AGAINST, K.PREDICATE): True,
-    }
-    # The three groups that legitimately differ, each for a stated reason.
-    stronger = {K.EQUIVALENCE}          # inclusion BOTH ways
-    conditional = {K.BASE_EXTENSION, K.IMAGE_CLOSURE}   # needs a capability
-    not_nested = {K.SPECIALIZATION}     # different fibres, not a subset
-
-    for etype in K.ALL_TYPES:
-        for d in K.DIRECTIONS:
+    observed = set()
+    for etype, capabilities in K._POINT_RELATION_CAPABILITIES.items():
+        total, surjective = capabilities
+        for direction in K.DIRECTIONS:
             for kind in (K.EMPTY, K.NONEMPTY, K.PREDICATE):
-                actual = K.TRANSPORT[etype][d][kind]
-                want = inclusion[(d, kind)]
-                if actual == want or isinstance(actual, str):
-                    continue
-                assert etype in stronger | conditional | not_nested, (
-                    "%s/%s/%s departs from plain inclusion (%s vs %s) and its "
-                    "type is not in a group with a recorded reason. Either the "
-                    "cell is wrong or a fourth reason exists and should be "
-                    "named." % (etype, d, kind, actual, want))
+                if kind == K.NONEMPTY:
+                    core = total if direction == K.ALONG else surjective
+                else:
+                    core = surjective if direction == K.ALONG else total
+                if K.TRANSPORT[etype][direction][kind] != core:
+                    observed.add((etype, direction, kind))
+
+    assert observed == {
+        (K.BASE_EXTENSION, K.ALONG, K.EMPTY),
+        (K.IMAGE_CLOSURE, K.ALONG, K.PREDICATE),
+        (K.IMAGE_CLOSURE, K.AGAINST, K.NONEMPTY),
+    }
+    assert set(K._POINT_RULE_OVERRIDES) == observed
 
 
 def test_the_witness_discharge_names_the_right_model_at_each_end():
@@ -3501,6 +3815,8 @@ def test_the_witness_discharge_names_the_right_model_at_each_end():
     assert "Lift it to TIGHT" in msg, (
         "the witness is at the relaxation; lifting means getting it into the "
         "SOURCE, which is what the dropped conditions cost")
+    assert "DROPS (none declared)" in msg and "((none declared))" not in msg
+
     assert "emptiness spend for LOOSE" in msg, (
         "and what it soundly buys is at the relaxation, not the source")
 
@@ -3582,3 +3898,1140 @@ def test_a_declared_integral_is_checked_against_the_prime():
     # And an integral rewriting is silent at 2.
     assert not [f for f in C.run(mk("h2 - 3*h1^2", 2))
                 if f.rule == C.R_INTEGRAL]
+
+
+def test_an_inference_on_an_unverified_identity_is_not_clean():
+    """AN UNVERIFIED IDENTITY DISQUALIFIES, though it is only TRIAGE.
+
+    The severity filter in `clean_inferences` is right in general -- a
+    VACUOUS-CONCLUSION at TRIAGE is a legitimate positive control. But
+    UNTESTED-IDENTITY is different in kind: it says the claim's CENTRAL
+    CONTENT has never been checked, and an argument resting on that is not
+    evidence that the checker declines to refuse sound steps.
+
+    Found via a review's counterexample. Localise `k[x,y]/(xy)` at `x`: in the
+    localisation `y = 0`, and in the ambient ring it does not. Declared as an
+    IDENTITY and transported ALONG, the table licenses it -- correctly, since a
+    RESTRICTION shares its ideal, so the fault is that `y = 0` is not an
+    IDENTITY at that model at all. `verify.identity` REFUTES it outright.
+
+    But at the default floor `gp check` called the inference CLEAN and exited
+    0, with the only signal below the failing floor. That is the "clean
+    inferences" number lying again, in a narrower way than this morning's fix
+    covered.
+    """
+    from grandportage import operations as O
+    op = O.localize("AMB", "x", "LOC", ["x", "y"], ["x*y"])
+    g = _graph(
+        [{"ev": "model", "id": "AMB", "what": "k[x,y]/(xy)",
+          "ring_vars": ["x", "y"], "generators": ["x*y"]}]
+        + op.events
+        + [{"ev": "claim", "id": "C", "model": "LOC", "kind": K.IDENTITY,
+            "statement": "y = 0 where x is invertible", "lhs": "y",
+            "rhs": "0", "ring_vars": ["x", "y"],
+            "identity_origin": K.DERIVED, "established_by": K.DERIVED,
+            "ladder": "claimed"},
+           {"ev": "inference", "id": "I", "claim": "C",
+            "path": [["E-LOC", K.ALONG]], "concludes_kind": K.IDENTITY,
+            "asserted": "so y = 0 in the ambient ring too"}])
+
+    findings = C.run(g)
+    assert [f for f in findings if f.rule == C.R_IDENTITY], (
+        "the claim is structured and unverified, so it must be reported")
+    assert "I" not in C.clean_inferences(g, findings), (
+        "and an inference resting on it must not be a positive control")
+
+
+def test_no_inference_disappears_from_both_lists():
+    """GATE 5.  THE ONE FAILURE MODE A TOOL LIKE THIS MUST NEVER HAVE.
+
+    Making `clean_inferences` exclude anything riding a flagged edge was
+    right, and it created a third category nothing reported: an inference that
+    is not clean, because its edge is flagged, and not in the findings either,
+    because the finding names the EDGE.
+
+    A live campaign lost a TRUE, correctly-typed inference that way -- its
+    edge carried a CONTAINMENT verdict that was itself wrong -- and said the
+    right thing about it: "not refused; silently absent."
+
+    A wrong verdict is arguable. A missing one is not even visible enough to
+    argue with, so this asserts the partition is TOTAL: every live inference
+    is clean, flagged, or explicitly held with a reason.
+    """
+    g = _graph([
+        {"ev": "model", "id": "A", "what": "a", "ring_vars": ["x"],
+         "generators": ["x^2"]},
+        {"ev": "model", "id": "B", "what": "b", "ring_vars": ["x"],
+         "generators": ["x^3"]},
+        {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+         "type": K.NECESSARY_CONDITION, "why": "drops", "map_kind": K.POLYNOMIAL,
+         "containment": "NOT_BY_IDEAL", "containment_why": "does not reduce"},
+        {"ev": "claim", "id": "C", "model": "B", "kind": K.EMPTY,
+         "statement": "empty", "certificate": "UNIT_IDEAL_CERT",
+         "established_by": "RAN", "ladder": "exact-checked"},
+        {"ev": "inference", "id": "I", "claim": "C",
+         "path": [["E", K.AGAINST]], "concludes_kind": K.EMPTY,
+         "asserted": "so A is empty"}])
+    findings = C.run(g)
+
+    held = C.disqualified_inferences(g, findings)
+    assert ("I", ["E"]) in held, (
+        "the inference rests on a flagged edge and must be reported as held, "
+        "naming what held it")
+
+    # THE PARTITION IS TOTAL: every live inference lands in exactly one of the
+    # three buckets, and this is the assertion that keeps it that way.
+    live = [i for i in g.inference_order
+            if not g.inferences[i].get("superseded_by")]
+    clean = set(C.clean_inferences(g, findings))
+    flagged = {f.subject for f in findings}
+    accounted = clean | flagged | {i for i, _ in held}
+    assert set(live) <= accounted, (
+        "these inferences appear in no list at all: %s"
+        % ", ".join(sorted(set(live) - accounted)))
+
+
+def test_a_computed_origin_beats_a_declared_one():
+    """THE HONOUR SYSTEM SURVIVING INSIDE THE MACHINERY BUILT TO REPLACE IT.
+
+    `verify.identity` computes an identity's origin by reduction and RECORDS
+    it on the claim. The transport layer went on reading the author's declared
+    `identity_origin` -- so a claim declaring AMBIENT, with a stored verdict of
+    VERIFIED_DERIVED, transported ALONG a NECESSARY_CONDITION and was reported
+    CLEAN.
+
+    That cell is licensed only for AMBIENT, and the counterexample is the one
+    the kernel itself quotes: `x = 0` is valid in k[x]/(x) and false in k[x].
+    The tool spent CAS time computing the single field that decides the
+    transport, wrote the answer into the same graph, and licensed off the
+    declaration contradicting it.
+
+    A verdict is evidence; a declaration is a word. Where they disagree the
+    evidence wins -- and the disagreement is REPORTED, because a silent
+    correction leaves the graph showing a reader one thing and acting on
+    another.
+    """
+    evs = [
+        {"ev": "model", "id": "T", "what": "tight", "ring_vars": ["x"],
+         "generators": ["x"]},
+        {"ev": "model", "id": "L", "what": "loose", "ring_vars": ["x"],
+         "generators": []},
+        {"ev": "edge", "id": "E", "src": "T", "dst": "L",
+         "type": K.NECESSARY_CONDITION, "why": "drops x",
+         "map_kind": K.POLYNOMIAL},
+        {"ev": "claim", "id": "C", "model": "T", "kind": K.IDENTITY,
+         "statement": "x = 0", "lhs": "x", "rhs": "0", "ring_vars": ["x"],
+         "identity_origin": K.AMBIENT, "established_by": "RAN",
+         "ladder": "exact-checked"},
+        {"ev": "verdict", "id": "V", "subject": "claim", "of": "C",
+         "verdict": "VERIFIED_DERIVED", "why": "reduces modulo T only"},
+        {"ev": "inference", "id": "I", "claim": "C",
+         "path": [["E", K.ALONG]], "concludes_kind": K.IDENTITY,
+         "asserted": "so x = 0 in the looser model"}]
+    g = _fresh_verdict_graph(evs)
+    findings = C.run(g)
+
+    assert [f for f in findings if f.rule == C.R_TRANSPORT], (
+        "the computed DERIVED must refuse a cell licensed only for AMBIENT")
+    conflict = [f for f in findings if f.rule == C.R_ORIGIN_CONFLICT]
+    assert conflict and conflict[0].severity == C.UNSOUND_PREMISE, (
+        "declaring the STRONGER reading where the computation says otherwise "
+        "is a claim to a licence the mathematics does not give")
+    assert "I" not in C.clean_inferences(g, findings)
+
+    # Agreement is silent, and an UNDERSTATED declaration is only TRIAGE --
+    # claiming less than was established costs a look, not a licence.
+    agree = _fresh_verdict_graph(evs[:4] + [
+        dict(evs[4], verdict="VERIFIED_AMBIENT")] + evs[5:])
+    assert not [f for f in C.run(agree) if f.rule == C.R_ORIGIN_CONFLICT]
+
+
+def test_one_bad_object_does_not_cost_the_whole_run(tmp_path, monkeypatch):
+    """A LIVE CAMPAIGN LOST A WHOLE VERIFICATION RUN TO THIS.
+
+    One claim named a symbol its ring did not have, `classify_identity`
+    raised, the batch aborted, and `S.append` -- which runs at the END --
+    never fired. FOUR CLAIMS AND TWELVE EDGES that had already verified were
+    discarded. And `gp check` had reported that exact claim politely, as
+    FOREIGN-COEFFICIENT, one command earlier.
+
+    Also asserts the two things the same function was missing: it now reaches
+    `unit_ideal` and `ring_iso` -- which worked, caught a planted false
+    EQUIVALENCE in that campaign, and were reachable only by importing the
+    module from Python, the same defect `gp verify` itself had two days
+    earlier -- and it skips SUPERSEDED records, which `check` has always done
+    and `verify` did not, so a claim corrected by supersession kept being
+    re-verified and kept re-raising the error that motivated the correction.
+    """
+    from grandportage import verify as V
+
+    root = str(tmp_path)
+    S.append([
+        {"ev": "model", "id": "M", "what": "a curve", "ring_vars": ["x", "y"],
+         "generators": ["y^2-x^3"]},
+        {"ev": "claim", "id": "GOOD", "model": "M", "kind": K.IDENTITY,
+         "statement": "ok", "lhs": "y^2", "rhs": "x^3",
+         "ring_vars": ["x", "y"], "identity_origin": K.DERIVED,
+         "established_by": "RAN", "ladder": "exact-checked"},
+        {"ev": "claim", "id": "OLD", "model": "M", "kind": K.IDENTITY,
+         "statement": "superseded", "lhs": "y^2", "rhs": "x^3",
+         "ring_vars": ["x", "y"], "identity_origin": K.DERIVED,
+         "established_by": "RAN", "ladder": "exact-checked"},
+        {"ev": "claim", "id": "NEW", "model": "M", "kind": K.IDENTITY,
+         "statement": "the correction", "lhs": "y^2", "rhs": "x^3",
+         "ring_vars": ["x", "y"], "identity_origin": K.DERIVED,
+         "established_by": "RAN", "ladder": "exact-checked",
+         "supersedes": "OLD", "discharge_kind": K.RESTATE}], root)
+
+    calls = []
+
+    def runner(prog, timeout):
+        calls.append(prog)
+        if len(calls) == 1:                      # the first object explodes
+            raise cas.CASError("the CAS reported an error: `sqrt3` undefined")
+        return _fake_run(stdout="@@GP_D:\ny2-x3\n@@GP_RED:\n0\n")(prog, timeout)
+
+    backend = cas.SingularBackend(
+        runner=runner, binary_version="Singular 4.2.1 test fixture")
+    monkeypatch.setattr(
+        cas.SingularBackend, "can_record_verdicts", property(lambda _self: True))
+    results = V.verify_all(root=root, backend=backend, record=True)
+    got = {oid: verdict for _s, oid, verdict, _w in results}
+
+    assert "OLD" not in got, "a superseded claim must not be re-verified"
+    assert got.get("GOOD") is not None and got.get("NEW") is not None, (
+        "one object raising must not cost the others their verdicts")
+    assert V.UNVERIFIED in got.values(), (
+        "and the one that failed is recorded as unverified, not dropped")
+
+    g = S.load(S.graph_path(root))
+    assert g.claims["GOOD"].get("identity_verdict"), (
+        "verdicts must reach the graph -- the old code appended at the very "
+        "end, so an exception meant nothing was written at all")
+
+
+# ===========================================================================
+# EXPRESSIBILITY: the gate IMAGE_CLOSURE/ALONG/IDENTITY actually needs.
+#
+# The cell was licensed on density -- "the image is dense in its closure, so a
+# relation vanishing on the image vanishes on the closure".  Wrong twice: a set
+# is dense in its own closure by definition, so the map earned nothing; and the
+# conclusion is about POINTS while an IDENTITY here is ideal membership, which
+# `verify.identity` decides by reduction.  Those agree only for radical ideals.
+#
+# The honest argument is the elimination theorem, and what it requires is that
+# the rewriting be a SENTENCE IN THE TARGET RING.  Nothing checked that, so
+# `x*y = 1` -- true on the hyperbola, and about y -- transported into k[x] and
+# `gp check` exited 0.
+#
+# lean/GrandPortage/ImageClosure.lean: `elim_along` needs expressibility and
+# nothing else; `radMem_mem` is the points/ideal gap.
+# ===========================================================================
+def _hyperbola(target_extra=None, direction="ALONG", lhs="x*y", rhs="1",
+               ring=("x", "y")):
+    """The projection that drops y, with an identity carried across it.
+
+    THE EDGE ALWAYS RUNS HYP -> IMG.  Only the claim's home moves, because the
+    store enforces that a path is connected: reading an edge AGAINST means the
+    claim has already reached its `dst`.  The first version of this helper
+    flipped `src` and `dst` along with the direction and built an unfoldable
+    graph, which is the store refusing correctly.
+    """
+    target = {"ev": "model", "id": "IMG", "desc": "the closure of the image",
+              "ring_vars": ["x"], "generators": []}
+    target.update(target_extra or {})
+    home = "HYP" if direction == "ALONG" else "IMG"
+    return _graph([
+        {"ev": "model", "id": "HYP", "desc": "the hyperbola xy = 1",
+         "ring_vars": ["x", "y"], "generators": ["x*y-1"]},
+        target,
+        {"ev": "edge", "id": "E", "src": "HYP", "dst": "IMG",
+         "type": K.IMAGE_CLOSURE, "map_kind": K.POLYNOMIAL,
+         "why": "projection to the x-line; the target is the CLOSURE"},
+        {"ev": "claim", "id": "CL", "model": home, "kind": K.IDENTITY,
+         "statement": "a rewriting", "lhs": lhs, "rhs": rhs,
+         "ring_vars": list(ring), "identity_origin": K.DERIVED},
+        {"ev": "inference", "id": "INF", "claim": "CL",
+         "path": [["E", direction]], "concludes_kind": K.IDENTITY,
+         "asserted": "so it holds at the other end"},
+    ])
+
+
+def test_an_identity_cannot_be_carried_into_a_ring_without_its_symbols():
+    """THE FALSE LICENCE. `x*y = 1` is not a false claim in k[x]; it is not a
+    claim. The tool licensed it and exited 0."""
+    findings = [f for f in C.run(_hyperbola())
+                if f.rule == C.R_INEXPRESSIBLE]
+    assert findings, "an identity about y still travels into k[x] unchallenged"
+    assert "`y`" in findings[0].detail
+
+
+def test_an_eliminated_variable_is_not_a_guess_from_names():
+    """TWO TIERS. When the target records what was projected away, the tool is
+    not inferring anything from spelling -- the graph says so."""
+    certain = [f for f in C.run(_hyperbola({"eliminated": ["y"]}))
+               if f.rule == C.R_INEXPRESSIBLE]
+    assert certain[0].severity == C.UNSOUND_CONCLUSION
+    assert "ELIMINATED" in certain[0].detail
+    assert C.exit_code(C.run(_hyperbola({"eliminated": ["y"]}))) == 1
+
+    # Without that record the same shape is only syntactic: the name might
+    # denote a constant, so it reports rather than refusing.
+    guessed = [f for f in C.run(_hyperbola()) if f.rule == C.R_INEXPRESSIBLE]
+    assert guessed[0].severity == C.TRIAGE
+
+
+def test_expressibility_is_asked_only_where_the_ring_can_shrink():
+    """AGAINST runs into the BIGGER ring, where every polynomial fits.
+
+    A rule that fired in both directions would refuse the sound half of the
+    cell, which is the shape of overreach this project keeps producing.
+    """
+    against = [f for f in C.run(_hyperbola(direction="AGAINST", lhs="x^2",
+                                           rhs="x*x", ring=("x",)))
+               if f.rule == C.R_INEXPRESSIBLE]
+    assert not against, (
+        "transport into a larger ring cannot fail to be expressible")
+    # And the pair pins WHICH endpoint is read: checking the claim's own model
+    # instead of where it lands would make the ALONG case above go quiet, since
+    # HYP has both variables.
+
+
+def test_an_expressible_identity_crosses_without_complaint():
+    """The positive control. `x^2 = x*x` says nothing about the eliminated
+    variable and travels."""
+    ok = [f for f in C.run(_hyperbola({"eliminated": ["y"]},
+                                      lhs="x^2", rhs="x*x"))
+          if f.rule == C.R_INEXPRESSIBLE]
+    assert not ok, "a rewriting entirely in the target's variables was refused"
+
+
+def test_a_single_claim_inference_is_not_counted_twice():
+    """REGRESSION. The store normalises `claim`/`path` into a one-element
+    `premises` list AND KEEPS the originals, so reading both reports every
+    single-claim inference twice -- which the first version of `_legs` did.
+
+    Reading `claim`/`path` INSTEAD is the opposite bug and already cost a live
+    campaign: they are backfilled from `premises[0]` only, so a claim in slot 2
+    or later goes invisible. `_legs` has to thread between them.
+    """
+    fids = [f.fid for f in C.run(_hyperbola()) if f.rule == C.R_INEXPRESSIBLE]
+    assert len(fids) == len(set(fids)) == 1, fids
+
+
+# ===========================================================================
+# THE POINT, SUBSTITUTED.
+#
+# "the graph cannot currently distinguish 'I have the point' from 'I claim to
+# have the point'" -- a live agent, unprompted, naming the largest honour-
+# system hole left.  An EMPTY claim must name a certificate or the graph will
+# not fold; a NONEMPTY claim, where the author is holding the object, carried
+# nothing checkable.
+#
+# `cas.check_witness` had existed and worked the whole time.  Nothing called
+# it: two check rules and one kernel refusal promised it BY NAME and no code
+# path ever reached it.  Fourth instance of a capability with no surface.
+# ===========================================================================
+CIRCLE = [
+    {"ev": "model", "id": "M", "desc": "the circle of radius 5",
+     "ring_vars": ["x", "y"], "generators": ["x^2+y^2-25"],
+     "characteristic": 0},
+]
+
+
+def _witness_claim(cid, point, **kw):
+    ev = {"ev": "claim", "id": cid, "model": "M", "kind": K.NONEMPTY,
+          "statement": "the circle has a rational point",
+          "witness_kind": K.EXHIBITED, "witness": "a point on the circle",
+          "established_by": "RAN", "ladder": "exact-checked"}
+    if point is not None:
+        ev["witness_point"] = point
+    ev.update(kw)
+    return ev
+
+
+def test_a_fabricated_point_no_longer_types_like_a_real_one():
+    """Two claims identical in every typed field but the coordinates."""
+    from grandportage import verify as V
+
+    def fake(prog, timeout):
+        # (3,4) is on the circle; (3,5) gives 9.
+        val = "0" if "4" in dict(
+            (name, expr) for name, _kind, expr in prog.decls
+        )["GP_V0"] else "9"
+        stdout = "@@GP_V0:\nGP_V0=%s\n" % val
+        return {"aborted": False, "returncode": 0, "stderr": "",
+                "stdout": _completed(prog, stdout)}
+
+    g = _graph(CIRCLE + [_witness_claim("REAL", {"x": "3", "y": "4"}),
+                         _witness_claim("FAKE", {"x": "3", "y": "5"})])
+    assert V.point_witness(g, "REAL", _runner=fake)[0] == V.WITNESS_VERIFIED
+    verdict, why = V.point_witness(g, "FAKE", _runner=fake)
+    assert verdict == V.WITNESS_REFUTED
+    assert "x^2+y^2-25 evaluates to 9" in why
+
+
+def test_a_refuted_witness_is_unsound_at_its_own_model():
+    """The same shape as a REFUTED identity: no transport typing anywhere
+    downstream would ever have surfaced it."""
+    # Through the VERDICT EVENT, because declaring `witness_verdict` by hand is
+    # now refused -- the field is computed, and asserting the checker's most
+    # severe finding with nothing behind it is the honour system this verifier
+    # exists to replace.
+    g = _fresh_verdict_graph(CIRCLE + [
+        _witness_claim("FAKE", {"x": "3", "y": "5"}),
+        {"ev": "verdict", "id": "v1", "subject": "witness", "of": "FAKE",
+         "verdict": "NOT_A_POINT",
+         "why": "x^2+y^2-25 evaluates to 9"}])
+    found = [f for f in C.run(g) if f.rule == C.R_WITNESS]
+    assert found[0].severity == C.UNSOUND_CONCLUSION
+    assert C.exit_code(C.run(g)) == 1
+
+
+def test_a_structured_witness_nobody_substituted_is_triage():
+    g = _graph(CIRCLE + [_witness_claim("W", {"x": "3", "y": "4"})])
+    found = [f for f in C.run(g) if f.rule == C.R_WITNESS]
+    assert len(found) == 1 and found[0].severity == C.TRIAGE
+    assert "untested" in found[0].fid
+
+
+def test_a_prose_witness_is_not_a_finding():
+    """NO CAMPAIGN TO STRUCTURE THE CORPUS.
+
+    The first version of this rule had a third tier for prose-only witnesses.
+    It fired on five claims in the retrodiction fixtures -- whose gate asserts
+    the clean sets EXACTLY, because "a framework that flags a sound step is a
+    false-positive generator and unusable" -- and would fire on all twenty-five
+    live ones. `check_identity` had already declined the identical campaign for
+    identities and said so in its own docstring.
+    """
+    g = _graph(CIRCLE + [_witness_claim("W", None)])
+    assert not [f for f in C.run(g) if f.rule == C.R_WITNESS]
+
+
+def test_recording_coordinates_is_exhibiting_the_point():
+    """A structured point on an ASSERTED claim is the graph contradicting
+    itself about the one thing this field exists to settle."""
+    with pytest.raises(S.GraphError) as e:
+        _graph(CIRCLE + [_witness_claim("W", {"x": "3", "y": "4"},
+                                        witness_kind=K.ASSERTED)])
+    assert "Recording the coordinates IS exhibiting" in str(e.value)
+
+
+def test_a_coordinate_cannot_be_written_in_the_coordinates():
+    """SEQUENTIAL SUBSTITUTION IS NOT SIMULTANEOUS, and `check_witness` uses
+    nested `subst`.
+
+    That is safe for a point ONLY because coordinates are constants -- after
+    substituting x, no x survives for a later step to disturb. It is a
+    precondition, not a property of the code, and nothing enforced it. The same
+    confusion already produced a silent bug in `verify.ring_iso`, where
+    swapping two variables one at a time sent `x*y - 1` to `x*x - 1`.
+    """
+    with pytest.raises(cas.CASError) as e:
+        cas.check_witness(["x", "y"], ["x^2+y^2-25"], {"x": "3", "y": "x"})
+    assert "constants" in str(e.value) and "order" in str(e.value)
+
+
+def test_a_partial_point_is_not_a_point():
+    with pytest.raises(cas.CASError) as e:
+        cas.check_witness(["x", "y"], ["x^2+y^2-25"], {"x": "3"})
+    assert "missing y" in str(e.value)
+
+
+# ===========================================================================
+# THE DERIVATION AS AN ARTIFACT, not a report of one.
+#
+# "it reduced to 0" is a claim about a run. Nobody can recheck it without doing
+# the run again, so the only real check is trusting the search -- exactly where
+# UNIT_IDEAL_CERT stood before its cofactors were captured, and that one
+# produced an erratum.
+#
+# A DERIVED rewriting rests on the model's equations, so lhs - rhs = sum b_i f_i
+# and the cofactors ARE the derivation. Expanding them is arithmetic.
+# ===========================================================================
+HYP_MODEL = {"ev": "model", "id": "H", "desc": "the hyperbola xy = 1",
+             "ring_vars": ["x", "y"], "generators": ["x*y-1"],
+             "characteristic": 0}
+HYP_CLAIM = {"ev": "claim", "id": "CL", "model": "H", "kind": K.IDENTITY,
+             "statement": "x^2*y = x on the hyperbola",
+             "lhs": "x^2*y", "rhs": "x", "ring_vars": ["x", "y"],
+             "identity_origin": K.DERIVED}
+
+
+def _hyperbola_runner(expand="0", lift_row="x"):
+    """Enough of Singular to drive `identity` down the DERIVED branch.
+
+    Keyed on the DECLARATIONS each program makes, because three different
+    programs run here and two of them both output GP_RED:
+
+        classify_identity        GP_D  (the difference) and GP_RED
+        membership_representation probe   GP_T and GP_RED
+        ... then the lift        GP_M
+        check_membership_repr.   GP_DIFF
+    """
+    # A POLY PRINTS BARE; only matrices and ideals carry a `NAME[i,j]=` prefix.
+    # The first version of this helper prefixed everything, so `GP_RED` came
+    # back as the string "GP_RED=0", compared unequal to "0", and the fixture
+    # reported REFUTED for an identity that holds.
+    def run(prog, timeout):
+        t = prog.text
+        if "GP_DIFF" in t:
+            out = "@@GP_DIFF:\n%s\n" % expand
+        elif "GP_M" in t:
+            out = "@@GP_M:\nGP_M[1,1]=%s\n" % lift_row
+        elif "GP_T" in t:
+            out = "@@GP_RED:\n0\n"
+        else:
+            out = "@@GP_D:\nx2y-x\n@@GP_RED:\n0\n"
+        return {"aborted": False, "returncode": 0, "stderr": "",
+                "stdout": _completed(prog, out)}
+    return run
+
+
+def test_a_derived_identity_leaves_a_certificate():
+    """The cofactors go into the graph, so the derivation can be rechecked by
+    expansion instead of by repeating the search."""
+    from grandportage import verify as V
+    g = _graph([HYP_MODEL, HYP_CLAIM])
+    out = V.identity(g, "CL", _runner=_hyperbola_runner())
+    assert out[0] == V.DERIVED
+    assert len(out) == 3 and out[2]["cofactors"] == ["x"]
+    assert out[2]["generators"] == ["x*y-1"]
+    assert "WITHOUT recomputing a basis" in out[1]
+
+
+def test_the_verifier_does_not_trust_its_own_lift():
+    """THE CASE THE EXPANSION EXISTS TO CATCH. Reduction says the difference is
+    in the ideal; expanding the cofactors returned for it says otherwise. The
+    arithmetic is the half a reader can check, so nothing is recorded."""
+    from grandportage import verify as V
+    g = _graph([HYP_MODEL, HYP_CLAIM])
+    verdict, why = V.identity(
+        g, "CL", _runner=_hyperbola_runner(expand="7"))[:2]
+    assert verdict == V.UNVERIFIED
+    assert "disagree" in why and "7" in why
+
+
+def test_a_representation_cannot_be_declared():
+    """A certificate nobody computed is the honour system this replaces."""
+    with pytest.raises(S.GraphError) as e:
+        _graph([HYP_MODEL, dict(HYP_CLAIM, representation={
+            "cofactors": ["x"], "generators": ["x*y-1"]})])
+    assert "VERDICT and not a declaration" in str(e.value)
+
+
+def test_every_verdict_field_is_guarded():
+    """THE HAND-KEPT LIST HAD DRIFTED.
+
+    `_COMPUTED_FIELDS` named the two verdicts that existed when it was written.
+    Three more were added over the following days and none reached it, so
+    `certificate_verdict`, `ring_iso_verdict` and `witness_verdict` were all
+    DECLARABLE -- typing one made the checker treat a computation that never
+    ran as having run. It is derived from `_VERDICTS` now, and this asserts the
+    derivation rather than a second copy of the list.
+    """
+    for subject, spec in S.Graph._VERDICTS.items():
+        field = S.Graph._verdict_field(spec)
+        for f in (field, spec["why_field"]):
+            assert f in S.Graph._COMPUTED_FIELDS, (
+                "%s's %r is writable by an author" % (subject, f))
+        assert S.Graph._COMPUTED_FIELDS[field] == spec["writer"]
+
+
+def test_a_minted_representation_reaches_the_graph():
+    """`unit_ideal` returned a representation as a third element from the day
+    it was written, and `verify_all` sliced it off with `[:2]`. The expensive
+    part ran, the expansion confirmed it, and the graph kept only the word.
+
+    Asserted through the FOLD rather than by grepping the source: the first
+    version of this test looked for `[:2]` in `verify_all` and matched the
+    comment explaining why it is gone.
+    """
+    ev = _verdict_event_for_test()
+    g = _fresh_verdict_graph([HYP_MODEL, HYP_CLAIM, ev])
+    assert g.claims["CL"]["representation"]["cofactors"] == ["x"]
+
+
+def _verdict_event_for_test():
+    return {"ev": "verdict", "id": "v1", "subject": "claim", "of": "CL",
+            "verdict": "VERIFIED_DERIVED", "why": "reduces to 0",
+            "representation": {"cofactors": ["x"],
+                               "generators": ["x*y-1"],
+                               "ring_vars": ["x", "y"],
+                               "target": "(x^2*y) - (x)"}}
+
+
+def test_a_representation_with_no_cofactors_is_refused():
+    """The cofactors ARE the certificate; a representation without them
+    records that one exists without recording what it is."""
+    ev = _verdict_event_for_test()
+    ev["representation"] = {"generators": ["x*y-1"]}
+    with pytest.raises(S.GraphError) as e:
+        _fresh_verdict_graph([HYP_MODEL, HYP_CLAIM, ev])
+    assert "cofactors ARE the certificate" in str(e.value)
+
+
+# ===========================================================================
+# THE VERDICT BEATS THE DECLARATION -- for the two fields where it did not.
+#
+# `effective_origin` fixed this for `identity_origin` and the sentence it was
+# written under is now true of two more: the tool spent CAS time computing the
+# field that decides a transport, wrote the answer into the same graph, and
+# licensed off the declaration contradicting it.
+#
+# `check` read NEITHER `certificate_verdict` NOR `ring_iso_verdict`. Both were
+# being written and consumed by nothing.
+# ===========================================================================
+def test_a_refuted_certificate_stops_deriving_scope():
+    """`derive_scope` reads the certificate KIND to decide FIELD-INDEPENDENCE,
+    which the kernel calls its most load-bearing line. UNIT_IDEAL_CERT
+    base-changes, so a field-relative emptiness wearing it derives SCHEME scope
+    it never earned -- the shape of the erratum this project started from."""
+    claim = {"certificate": "UNIT_IDEAL_CERT",
+             "certificate_verdict": "NOT_UNIT"}
+    assert C.effective_certificate(claim) is None, (
+        "a refuted certificate still derives a scope")
+    # None rather than a guessed replacement: the verifier knows the declared
+    # kind is wrong and does NOT know which one is right.
+    assert C.effective_certificate({"certificate": "UNIT_IDEAL_CERT"}) == \
+        "UNIT_IDEAL_CERT"
+
+
+def test_a_refuted_isomorphism_stops_licensing_identities():
+    """`ring_iso` licenses an IDENTITY across an EQUIVALENCE in BOTH
+    directions, on the strength of one boolean."""
+    assert C.effective_ring_iso(
+        {"ring_iso": True, "ring_iso_verdict": "NOT_AN_ISOMORPHISM"}) is False
+    # VERIFIED confirms, it does not MINT: an author who never declared the
+    # flag is not granted it by a check they did not ask for.
+    assert not C.effective_ring_iso({"ring_iso_verdict": "VERIFIED"})
+    assert not C.effective_ring_iso({"ring_iso": True})
+    assert not C.effective_ring_iso(
+        {"ring_iso": True, "converse_witness": "inverse on points"})
+    # Citations remain readable provenance, but prose does not establish a
+    # typed coordinate-ring isomorphism.
+    assert not C.effective_ring_iso({"ring_iso": True, "cite": "a proof"})
+    mapped = {
+        "type": K.EQUIVALENCE, "ring_iso": True,
+        "forward": {"x": "x"}, "inverse": {"x": "x"},
+    }
+    assert not C.effective_ring_iso(mapped), "structured maps await verification"
+    assert not C.effective_ring_iso(dict(
+        mapped, ring_iso_verdict="UNVERIFIED"))
+    assert C.effective_ring_iso(dict(
+        mapped, ring_iso_verdict="VERIFIED"))
+
+
+def test_a_refuted_isomorphism_is_reported_not_only_acted_on():
+    """A silent correction is its own defect: the author believes something the
+    graph no longer acts on."""
+    g = _fresh_verdict_graph([
+        {"ev": "model", "id": "A", "desc": "a", "ring_vars": ["x"],
+         "generators": []},
+        {"ev": "model", "id": "B", "desc": "b", "ring_vars": ["x"],
+         "generators": []},
+        {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+         "type": K.EQUIVALENCE, "why": "w", "map_kind": K.POLYNOMIAL,
+         "ring_iso": True, "forward": {"x": "x"}, "inverse": {"x": "x"}},
+        {"ev": "verdict", "id": "v", "subject": "ring_iso", "of": "E",
+         "verdict": "NOT_AN_ISOMORPHISM",
+         "why": "generator 'b' does not land in the ideal"},
+    ])
+    found = [f for f in C.run(g) if f.rule == C.R_REFUTED_EVIDENCE]
+    assert found and found[0].severity == C.UNSOUND_PREMISE
+    assert C.exit_code(C.run(g)) == 1
+
+
+def test_maps_only_negative_verdict_does_not_refute_undeclared_ring_iso():
+    """Point equivalence may survive when coordinate rings differ by nilpotents."""
+    g = _fresh_verdict_graph([
+        {"ev": "model", "id": "A", "what": "a", "ring_vars": ["x"],
+         "generators": ["x^2"]},
+        {"ev": "model", "id": "B", "what": "b", "ring_vars": ["x"],
+         "generators": ["x"]},
+        {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+         "type": K.EQUIVALENCE, "why": "same point set",
+         "map_kind": K.POLYNOMIAL,
+         "forward": {"x": "x"}, "inverse": {"x": "x"}},
+        {"ev": "verdict", "id": "V", "subject": "ring_iso", "of": "E",
+         "verdict": "NOT_AN_ISOMORPHISM",
+         "why": "identity maps do not identify the nonreduced coordinate rings"},
+    ])
+    assert not [f for f in C.run(g) if f.rule == C.R_REFUTED_EVIDENCE]
+
+
+def test_the_unit_verifier_refuses_a_certificate_it_does_not_decide():
+    """THE FALSE REFUTATION, found one command after `check` began acting on
+    these verdicts.
+
+    `unit_ideal` ran on ANY EMPTY claim carrying ANY certificate and reported
+    "UNIT_IDEAL_CERT is not the certificate this claim has" about a live claim
+    that had never said it was. That claim cites NONSQUARE_CLASS and is
+    CORRECT: its ideal reduces to `t^2-3`, which is what a nonsquare-class
+    argument looks like -- empty over Q, not over Q(sqrt 3).
+
+    Harmless while nothing read the verdict; a false UNSOUND_PREMISE against a
+    sound claim the moment something did.
+    """
+    from grandportage import verify as V
+
+    def never(prog, timeout):
+        raise AssertionError("the CAS was called for a certificate kind this "
+                             "verifier does not decide")
+
+    g = _graph([
+        {"ev": "model", "id": "M", "desc": "m",
+         "ring_vars": ["t"], "generators": ["t^2-3"]},
+        {"ev": "claim", "id": "CL", "model": "M", "kind": K.EMPTY,
+         "statement": "no rational point", "certificate": "NONSQUARE_CLASS",
+         "scope": "over Q"},
+    ])
+    verdict, why = V.unit_ideal(g, "CL", _runner=never)[:2]
+    assert verdict == V.UNVERIFIED
+    assert "only decides UNIT_IDEAL_CERT" in why
+
+
+# ===========================================================================
+# ABSENT IS NOT EMPTY.
+#
+# Measured across the live campaigns: SEVENTY-FIVE models have no `generators`
+# key and ZERO declare `[]`. So "the model imposes no equations" was being read
+# off the common case, which actually means "nobody recorded the ideal".
+#
+# Safe in one direction and not the other. A difference that is zero in the
+# polynomial ring is AMBIENT whatever the unrecorded equations are, so the SOS
+# Gram case is untouched. A difference that is NONZERO was being called REFUTED
+# -- at UNSOUND_CONCLUSION, saying the rewriting is false at its own model --
+# when it may hold perfectly well modulo equations nobody wrote down.
+# ===========================================================================
+NO_IDEAL = {"ev": "model", "id": "U", "desc": "ideal never recorded",
+            "ring_vars": ["x", "y"], "characteristic": 0}
+NO_EQUATIONS = {"ev": "model", "id": "U", "desc": "the ambient plane",
+                "ring_vars": ["x", "y"], "generators": [],
+                "characteristic": 0}
+
+
+def _identity_at(model, lhs, rhs, origin=K.DERIVED):
+    return _graph([model, {
+        "ev": "claim", "id": "CL", "model": "U", "kind": K.IDENTITY,
+        "statement": "a rewriting", "lhs": lhs, "rhs": rhs,
+        "ring_vars": ["x", "y"], "identity_origin": origin}])
+
+
+def _nonzero_runner(value="xy-1"):
+    def run(prog, timeout):
+        stdout = "@@GP_D:\n%s\n@@GP_RED:\n%s\n" % (value, value)
+        return {"aborted": False, "returncode": 0, "stderr": "",
+                "stdout": _completed(prog, stdout)}
+    return run
+
+
+def test_an_unrecorded_ideal_does_not_refute():
+    """THE FALSE REFUTATION. UNSOUND_CONCLUSION against a rewriting that may be
+    perfectly true, on the strength of equations nobody wrote down."""
+    from grandportage import verify as V
+    verdict, why = V.identity(_identity_at(NO_IDEAL, "x*y", "1"), "CL",
+                              _runner=_nonzero_runner())[:2]
+    assert verdict == V.UNVERIFIED, verdict
+    assert "CANNOT BE DECIDED" in why and "not a refutation" in why
+
+
+def test_a_model_that_says_it_has_no_equations_still_refutes():
+    """`generators: []` is a STATEMENT, and it makes the question answerable.
+    Reading absent and empty the same way is what had to stop; refusing both
+    would have been the opposite overreach."""
+    from grandportage import verify as V
+    verdict, why = V.identity(_identity_at(NO_EQUATIONS, "x*y", "1"), "CL",
+                              _runner=_nonzero_runner())[:2]
+    assert verdict == V.REFUTED
+    assert "imposes no equations" in why
+
+
+def test_an_ambient_identity_survives_an_unrecorded_ideal():
+    """THE SOS GRAM CASE, and the reason this fix is narrow.
+
+    `mon^T G mon - f = 0` lives in the polynomial ring and needs no ideal. That
+    conclusion is about the AMBIENT ring, so unrecorded equations cannot make
+    it false -- and refusing it would be a false refusal on exactly the case
+    that motivated letting bare models verify at all.
+    """
+    from grandportage import verify as V
+    verdict, why = V.identity(
+        _identity_at(NO_IDEAL, "(x+y)^2", "x^2+2*x*y+y^2", K.AMBIENT), "CL",
+        _runner=_nonzero_runner("0"))[:2]
+    assert verdict == V.AMBIENT
+
+
+# ===========================================================================
+# EXHAUSTIVENESS, CHECKED RATHER THAN DECLARED.
+#
+# `store._apply_partition` said this was out of reach: "The checker cannot
+# verify that gamma in {2,3,4} really matches three branches -- that is
+# mathematics." It is mathematics, and it is decidable once the models carry
+# ideals:
+#
+#     V(parent) subset union V(B_i)  <=>  intersect(I(B_i)) subset rad(I(parent))
+#
+# Radical membership without `radical`, by Rabinowitsch -- the same identity
+# `saturate_closure` uses, and for the same reason: both `radical` and `sat`
+# live in libraries the CAS boundary will not load.
+#
+# THIS ONE IS UNLIKE THE OTHER VERIFIERS. Every other verdict is about a single
+# object. A false exhaustiveness is about the SPACE BETWEEN objects: each branch
+# stays individually correct, every computation on it stays sound, and the
+# argument is still broken. That is why nothing else could see it.
+# ===========================================================================
+CUBIC = "y^2-x^3-x^2"
+
+
+def _partition_graph(branches, parent_gens=(CUBIC,), point_universe=None):
+    scope = ({
+        "coefficient_domain": "Q",
+        "point_universe": point_universe,
+    } if point_universe else {})
+    evs = [{"ev": "model", "id": "C", "desc": "the nodal cubic",
+            "ring_vars": ["x", "y"], "generators": list(parent_gens),
+            "characteristic": 0,
+            **scope}]
+    for name, gens in branches:
+        evs.append({"ev": "model", "id": name, "desc": "a branch",
+                    "ring_vars": ["x", "y"], "generators": list(gens),
+                    "characteristic": 0,
+                    **scope})
+    evs += [
+        {"ev": "claim", "id": "CL", "model": "C", "kind": K.PREDICATE,
+         "statement": "the branches cover the parent",
+         "established_by": "READ", "ladder": "claimed"},
+        {"ev": "partition", "id": "P", "parent": "C",
+         "branches": [n for n, _ in branches], "exhaustive": "CL",
+         "why": "a case split"},
+    ]
+    return _graph(evs)
+
+
+@pytest.mark.live
+def test_a_hole_between_correct_branches_is_found():
+    """THE CASE THAT MOTIVATES THE WHOLE CHECK. On the nodal cubic, "y = 0" and
+    "x = 0" are both genuine sub-loci -- every computation on either is sound
+    -- and their union is three points while the curve is a curve."""
+    from grandportage import verify as V
+    g = _partition_graph([("B_Y", [CUBIC, "y"]), ("B_X", [CUBIC, "x"])])
+    verdict, why = V.partition_exhaustiveness(g, "P")
+    assert verdict == V.NOT_GEOMETRICALLY_EXHAUSTIVE, why
+    # QUALIFIED, because the criterion is equivalent to the covering only by
+    # the Nullstellensatz and this tool works over Q. A failing test shows a
+    # point over the CLOSURE that no branch reaches; over the base field that
+    # point may not exist. See lean/GrandPortage/Exhaustive.lean.
+    assert "OVER THE ALGEBRAIC CLOSURE" in why
+    assert "NO POINTS OVER THE BASE FIELD" in why
+    # The witness is NAMED: something vanishing wherever the branches do and
+    # not on the parent cuts out the region no branch reaches.
+    # CASProgram pins ``short=0`` so solver output remains round-trippable.
+    # Compact y2/xy is ambiguous in rings whose variables may contain digits.
+    assert "y^2" in why or "x*y" in why
+
+
+class _GeometricHoleBackend:
+    def membership(self, *_args, **_kwargs):
+        return {"is_member": False, "reduced": "1"}
+
+    def partition_cover(self, *_args, **_kwargs):
+        return False, {"why": "a geometric point is missed",
+                       "uncovered": ["x"]}
+
+
+def test_geometric_hole_refutes_an_algebraically_closed_partition():
+    """The same CAS result changes force when the point universe is typed."""
+    from grandportage import verify as V
+    graph = _partition_graph(
+        [("B_Y", [CUBIC, "y"]), ("B_X", [CUBIC, "x"])],
+        point_universe=S.ALGEBRAIC_CLOSURE_POINT_UNIVERSE,
+    )
+    verdict, why = V.partition_exhaustiveness(
+        graph, "P", _backend=_GeometricHoleBackend())
+    assert verdict == V.NOT_EXHAUSTIVE
+    assert "DECLARED point universe" in why
+    assert "not merely a possible geometric hole" in why
+
+
+def test_geometric_hole_remains_debt_over_the_base_point_universe():
+    from grandportage import verify as V
+    graph = _partition_graph(
+        [("B_Y", [CUBIC, "y"]), ("B_X", [CUBIC, "x"])],
+        point_universe=S.BASE_POINT_UNIVERSE,
+    )
+    verdict, why = V.partition_exhaustiveness(
+        graph, "P", _backend=_GeometricHoleBackend())
+    assert verdict == V.NOT_GEOMETRICALLY_EXHAUSTIVE
+    assert "OVER THE ALGEBRAIC CLOSURE" in why
+    assert "NO POINTS OVER THE BASE FIELD" in why
+
+
+def test_partition_refuses_a_branch_in_another_point_universe():
+    from grandportage import verify as V
+    graph = _partition_graph(
+        [("B_Y", [CUBIC, "y"]), ("B_X", [CUBIC, "x"])],
+        point_universe=S.ALGEBRAIC_CLOSURE_POINT_UNIVERSE,
+    )
+    graph.models["B_X"]["point_universe"] = S.BASE_POINT_UNIVERSE
+
+    class MustNotRun:
+        def membership(self, *_args, **_kwargs):
+            raise AssertionError("scope mismatch must stop before CAS")
+
+    verdict, why = V.partition_exhaustiveness(
+        graph, "P", _backend=MustNotRun())
+    assert verdict == V.UNVERIFIED
+    assert "point scope" in why and "changing either" in why
+
+
+def test_partition_fingerprint_binds_the_declared_point_universe():
+    from grandportage import provenance as P
+    graph = _partition_graph(
+        [("B_Y", [CUBIC, "y"]), ("B_X", [CUBIC, "x"])],
+        point_universe=S.ALGEBRAIC_CLOSURE_POINT_UNIVERSE,
+    )
+    before = P.input_fingerprint(graph, "partition", "P")
+    graph.models["C"]["point_universe"] = S.BASE_POINT_UNIVERSE
+    after = P.input_fingerprint(graph, "partition", "P")
+    assert after != before
+    assert P.VERIFIERS["partition"] == (
+        "verify.partition_exhaustiveness", 3)
+
+
+@pytest.mark.live
+def test_a_genuine_split_is_confirmed():
+    """The positive control. V(xy) really is V(x) union V(y), and a checker
+    that could not say so would be refusing sound case analyses."""
+    from grandportage import verify as V
+    g = _partition_graph([("B_X", ["x*y", "x"]), ("B_Y", ["x*y", "y"])],
+                         parent_gens=["x*y"])
+    verdict, why = V.partition_exhaustiveness(g, "P")
+    assert verdict == V.COVERS, why
+    assert "COMPLETE" in why
+
+
+def test_a_refuted_cover_is_an_unsound_premise():
+    g = _partition_graph([("B_Y", [CUBIC, "y"]), ("B_X", [CUBIC, "x"])])
+    g.partitions["P"]["exhaustive_verdict"] = "NOT_EXHAUSTIVE"
+    g.partitions["P"]["exhaustive_why"] = "the branches do not cover C"
+    found = [f for f in C.run(g) if f.rule == C.R_REFUTED_EVIDENCE]
+    assert found and found[0].severity == C.UNSOUND_PREMISE
+    assert C.exit_code(C.run(g)) == 1
+
+
+def test_a_geometric_hole_is_debt_not_a_base_field_refutation():
+    g = _partition_graph([("B_Y", [CUBIC, "y"]),
+                          ("B_X", [CUBIC, "x"])])
+    g.partitions["P"]["exhaustive_verdict"] = (
+        "NOT_GEOMETRICALLY_EXHAUSTIVE")
+    g.partitions["P"]["exhaustive_why"] = (
+        "a point exists over the algebraic closure")
+    found = [f for f in C.run(g) if f.rule == C.R_COVERAGE]
+    assert found and found[0].severity == C.DEBT
+    assert "does not prove a hole over its declared base field" in found[0].detail
+
+
+def test_a_branch_in_another_ring_is_not_a_branch():
+    """A case split does not change coordinates. Comparing ideals across two
+    rings would produce a confident answer about neither."""
+    from grandportage import verify as V
+    g = _graph([
+        {"ev": "model", "id": "C", "desc": "parent",
+         "ring_vars": ["x", "y"], "generators": ["x*y"],
+         "characteristic": 0},
+        {"ev": "model", "id": "B", "desc": "branch in a smaller ring",
+         "ring_vars": ["x"], "generators": ["x"], "characteristic": 0},
+        {"ev": "model", "id": "B2", "desc": "a second branch",
+         "ring_vars": ["x", "y"], "generators": ["x*y", "y"],
+         "characteristic": 0},
+        {"ev": "claim", "id": "CL", "model": "C", "kind": K.PREDICATE,
+         "statement": "covered", "established_by": "READ", "ladder": "claimed"},
+        {"ev": "partition", "id": "P", "parent": "C",
+         "branches": ["B", "B2"], "exhaustive": "CL", "why": "a split"},
+    ])
+    verdict, why = V.partition_exhaustiveness(g, "P")
+    assert verdict == V.UNVERIFIED
+    assert "does not change coordinates" in why
+
+
+def test_exhaustiveness_is_unverifiable_without_ideals():
+    """Expected, and reported as such rather than worked around: most live
+    partitions sit on models that record no algebra (#37)."""
+    from grandportage import verify as V
+    g = _graph([
+        {"ev": "model", "id": "C", "desc": "no ideal", "ring_vars": ["x"]},
+        {"ev": "model", "id": "B", "desc": "no ideal", "ring_vars": ["x"]},
+        {"ev": "model", "id": "B2", "desc": "no ideal", "ring_vars": ["x"]},
+        {"ev": "claim", "id": "CL", "model": "C", "kind": K.PREDICATE,
+         "statement": "covered", "established_by": "READ", "ladder": "claimed"},
+        {"ev": "partition", "id": "P", "parent": "C",
+         "branches": ["B", "B2"], "exhaustive": "CL", "why": "a split"},
+    ])
+    verdict, why = V.partition_exhaustiveness(g, "P")
+    assert verdict == V.UNVERIFIED
+    assert "records no ideal" in why
+
+
+# ===========================================================================
+# WHAT A CONSTRUCTOR ACTUALLY PRODUCED, against what it says it did.
+#
+# `decompose` proves its cover, membership carries cofactors, a witness gets
+# substituted -- but `saturate_closure` and `eliminate` emitted a program and
+# whatever came back was recorded as the target's ideal on the strength of
+# having asked the right question. The transcription step was unchecked.
+#
+# ONE DIRECTION IS CHEAP AND IT IS THE DANGEROUS ONE. "Nothing was invented"
+# catches an ideal carrying something extra, which cuts out a SMALLER variety
+# and makes EMPTY claims -- the ones that carry certificates and derive scope
+# -- unsound. "Nothing was missed" is as hard as recomputing the answer and is
+# not checked; a missed generator gives a LOOSER model, sound for EMPTY.
+# ===========================================================================
+def _op_graph(built_gens, op="SaturateClosure"):
+    if op == "SaturateClosure":
+        return _graph([
+            {"ev": "model", "id": "SRC", "desc": "source",
+             "ring_vars": ["x", "y"], "generators": ["x^2*y", "x*y^2"],
+             "characteristic": 0},
+            {"ev": "model", "id": "SAT", "desc": "the closure of x != 0",
+             "ring_vars": ["x", "y"], "generators": built_gens, "characteristic": 0,
+             "saturated_at": "x"},
+            {"ev": "edge", "id": "E", "src": "SAT", "dst": "SRC",
+             "type": K.NECESSARY_CONDITION, "map_kind": K.POLYNOMIAL,
+             "why": "saturating removes components inside V(x)",
+             "built_by_operation": "SaturateClosure"}])
+    return _graph([
+        {"ev": "model", "id": "SRC", "desc": "the hyperbola",
+         "ring_vars": ["x", "y"], "generators": ["x*y-1"],
+         "characteristic": 0},
+        {"ev": "model", "id": "IMG", "desc": "the closure of the image",
+         "ring_vars": ["x"], "generators": built_gens, "characteristic": 0,
+         "eliminated": ["y"]},
+        {"ev": "edge", "id": "E", "src": "SRC", "dst": "IMG",
+         "type": K.IMAGE_CLOSURE, "map_kind": K.POLYNOMIAL,
+         "why": "project away y", "built_by_operation": "Eliminate"}])
+
+
+def _nonmember_runner():
+    def run(prog, timeout):
+        return {"aborted": False, "returncode": 0, "stderr": "",
+                "stdout": _completed(prog, "@@GP_RED:\n1\n")}
+    return run
+
+
+def test_bounded_saturation_search_does_not_refute():
+    """Failure to find a bounded existential witness is not non-membership."""
+    from grandportage import verify as V
+
+    verdict, why, _ = V.operation_output(
+        _op_graph(["x+y"]), "E", _runner=_nonmember_runner())
+    assert verdict == V.UNVERIFIED
+    assert "bounded witness search" in why
+    assert "not a non-membership proof" in why
+
+
+def test_a_power_nine_saturation_witness_is_not_falsely_refuted(monkeypatch):
+    """Sol's counterexample: I=(x^9*y), f=x has saturation (y).
+    The first witness has exponent 9, beyond the bounded search. The verifier
+    may decline, but must not claim that the correct output is false.
+    """
+    from grandportage import verify as V
+
+    graph = _graph([
+        {"ev": "model", "id": "SRC", "desc": "source",
+         "ring_vars": ["x", "y"], "generators": ["x^9*y"],
+         "characteristic": 0},
+        {"ev": "model", "id": "SAT", "desc": "saturation",
+         "ring_vars": ["x", "y"], "generators": ["y"],
+         "characteristic": 0, "saturated_at": "x"},
+        {"ev": "edge", "id": "E", "src": "SAT", "dst": "SRC",
+         "type": K.NECESSARY_CONDITION, "map_kind": K.POLYNOMIAL,
+         "why": "saturating removes V(x)",
+         "built_by_operation": "SaturateClosure"},
+    ])
+
+    def membership(ring, target, generators, **kwargs):
+        # The mathematically valid witness exists, but only at exponent 9.
+        is_member = target == "(x)^9*(y)"
+        return {"is_member": is_member,
+                "cofactors": ["1"] if is_member else None,
+                "reduced": "0" if is_member else target}
+
+    monkeypatch.setattr(V.cas, "membership_representation", membership)
+    verdict, why, certificate = V.operation_output(graph, "E")
+    assert verdict == V.UNVERIFIED
+    assert certificate is None
+    assert "up to 8" in why and "not a non-membership proof" in why
+
+
+@pytest.mark.live
+def test_a_correct_saturation_certifies_its_own_output():
+    """Certifying, not just deciding: the power AND the cofactors come back, so
+    a second checker expands one identity instead of redoing a saturation."""
+    from grandportage import verify as V
+    verdict, _, rep = V.operation_output(_op_graph(["y"]), "E", timeout=120)
+    assert verdict == V.OP_SOUND
+    assert rep["targets"] == ["(x)^2*(y)"]
+    assert rep["cofactors"] == [["1", "0"]]
+
+
+@pytest.mark.live
+def test_an_elimination_naming_an_eliminated_variable_is_caught():
+    """An elimination ideal is `I cap k[remaining]`, so each generator owes
+    membership AND expressibility. This is the second condition, asked of an
+    ideal rather than of a claim."""
+    from grandportage import verify as V
+    verdict, why, _ = V.operation_output(_op_graph(["y"], "Eliminate"),
+                                         "E", timeout=120)
+    assert verdict == V.OP_UNSOUND
+    assert "which the projection removed" in why
+
+
+def test_a_verified_output_does_not_claim_completeness():
+    """The message must not let a reader take the stronger reading. Whether the
+    operation MISSED something is the other direction and is not checked."""
+    from grandportage import verify as V
+
+    def fake(prog, timeout):
+        stdout = "@@GP_RED:\n0\n@@GP_M:\nGP_M[1,1]=1\nGP_M[2,1]=0\n"
+        return {"aborted": False, "returncode": 0, "stderr": "",
+                "stdout": _completed(prog, stdout)}
+    verdict, why, _ = V.operation_output(_op_graph(["y"]), "E", _runner=fake)
+    assert verdict == V.OP_SOUND
+    assert "DOES NOT SAY" in why and "COMPLETE" in why
+
+    assert "certified saturation witness" in why and "some n" in why
+    assert "accounted for in" not in why
+
+
+def test_a_refuted_output_is_an_unsound_premise():
+    g = _op_graph(["x+y"])
+    g.edges["E"]["output_verdict"] = "NOT_THE_STATED_OUTPUT"
+    g.edges["E"]["output_why"] = "no power of x carries x+y into SRC's ideal"
+    found = [f for f in C.run(g) if f.rule == C.R_REFUTED_EVIDENCE]
+    assert found and found[0].severity == C.UNSOUND_PREMISE
+    assert C.exit_code(C.run(g)) == 1
+
+
+@pytest.mark.live
+def test_a_parent_with_no_points_is_covered_vacuously():
+    """LEAN FOUND THIS -- lean/GrandPortage/Exhaustive.lean,
+    `empty_parent_covered`, two lines: an empty parent is covered by anything,
+    including nothing.
+
+    The ideal criterion is equivalent to the covering only by the
+    NULLSTELLENSATZ, which needs an algebraically closed field. This tool works
+    over Q. So a FAILING test shows a point over the CLOSURE that no branch
+    reaches, and says nothing about the base field.
+
+    A unit-ideal parent has no points over ANY field, so no branch arithmetic
+    can refute the cover. This case was returning NOT_EXHAUSTIVE at
+    UNSOUND_PREMISE -- calling a sound case analysis broken.
+    """
+    from grandportage import verify as V
+    g = _partition_graph([("B0", ["x*y", "x", "1"]), ("B1", ["x*y", "y", "1"])],
+                         parent_gens=["x*y", "1"])
+    verdict, why = V.partition_exhaustiveness(g, "P", timeout=120)
+    assert verdict == V.COVERS, why
+    assert "UNIT IDEAL" in why and "vacuously" in why

@@ -18,6 +18,7 @@ from grandportage import discharge as D
 from grandportage import kernel as K
 from grandportage import mcp
 from grandportage import store as S
+from grandportage import verify as V
 
 
 def rpc(method, params=None, rid=1):
@@ -83,6 +84,30 @@ def test_tools_list_is_well_formed():
             assert req in schema["properties"], (t["name"], req)
 
 
+def test_claim_condition_schema_is_closed_and_teaches_exact_affine_atoms():
+    claims = [schema for schema in mcp.DECLARABLE_EVENT_SCHEMA["oneOf"]
+              if schema["properties"]["ev"].get("enum") == ["claim"]]
+    assert len(claims) == 1
+    condition = claims[0]["properties"]["condition"]
+    assert condition["additionalProperties"] is False
+    atom = condition["properties"]["all"]["items"]
+    assert atom["additionalProperties"] is False
+    assert atom["properties"]["relation"]["enum"] == ["ZERO", "NONZERO"]
+    assert "polynomial-section" in condition["description"]
+
+
+def test_model_schema_teaches_the_two_point_scope_axes():
+    models = [schema for schema in mcp.DECLARABLE_EVENT_SCHEMA["oneOf"]
+              if schema["properties"]["ev"].get("enum") == ["model"]]
+    assert len(models) == 1
+    properties = models[0]["properties"]
+    assert properties["coefficient_domain"]["pattern"] == "^(Q|F_[0-9]+)$"
+    assert properties["point_universe"]["enum"] == [
+        S.BASE_POINT_UNIVERSE,
+        S.ALGEBRAIC_CLOSURE_POINT_UNIVERSE,
+    ]
+
+
 def test_serve_round_trips_over_a_stream(project):
     out = io.StringIO()
     mcp.serve(stdin=io.StringIO(json.dumps(rpc("tools/list")) + "\n"),
@@ -114,7 +139,8 @@ def test_the_edge_schema_teaches_the_decision_not_just_the_enum():
     for t in K.DECLARABLE_TYPES:
         assert t in desc
     assert "LOSES" in desc
-    assert set(mcp.EDGE_SCHEMA["required"]) == {"src", "type", "why"}
+    assert set(mcp.EDGE_SCHEMA["required"]) == {
+        "src", "type", "why", "map_kind"}
 
 
 def test_a_client_ignoring_its_own_schema_still_cannot_reach_the_solver(project):
@@ -156,7 +182,8 @@ def test_declare_writes_and_immediately_reports_findings(project):
     r = call("portage_declare", {"events": [
         {"ev": "model", "id": "DST", "desc": "the target", "field": "K"},
         {"ev": "edge", "id": "E1", "src": "SRC", "dst": "DST",
-         "type": K.BASE_EXTENSION, "why": "the field grows"},
+         "type": K.BASE_EXTENSION, "map_kind": K.IDENTITY_MAP,
+         "why": "the field grows"},
         {"ev": "claim", "id": "CL", "model": "SRC", "kind": K.EMPTY,
          "statement": "no solution", "scope": "Q",
          "certificate": "NONSQUARE_CLASS"},
@@ -208,7 +235,8 @@ def test_show_renders_the_graph_as_a_handoff(project):
     call("portage_declare", {"events": [
         {"ev": "model", "id": "DST", "desc": "the target"},
         {"ev": "edge", "id": "E1", "src": "SRC", "dst": "DST",
-         "type": K.NECESSARY_CONDITION, "why": "drops equations"},
+         "type": K.NECESSARY_CONDITION, "map_kind": K.IDENTITY_MAP,
+         "why": "drops equations"},
         {"ev": "claim", "id": "CL", "model": "DST", "kind": K.NONEMPTY,
          "statement": "a witness", "witness_kind": K.EXHIBITED},
         {"ev": "inference", "id": "INF", "claim": "CL",
@@ -232,7 +260,8 @@ def test_show_prints_every_premise_of_a_multi_premise_inference(project):
     r = call("portage_declare", {"events": [
         {"ev": "model", "id": "DST", "desc": "the target"},
         {"ev": "edge", "id": "E1", "src": "SRC", "dst": "DST",
-         "type": K.NECESSARY_CONDITION, "why": "drops equations"},
+         "type": K.NECESSARY_CONDITION, "map_kind": K.IDENTITY_MAP,
+         "why": "drops equations"},
         {"ev": "claim", "id": "CL-FAR", "model": "DST", "kind": K.NONEMPTY,
          "statement": "a witness in the relaxation",
          "witness_kind": K.EXHIBITED},
@@ -373,7 +402,9 @@ def test_the_edge_vocabulary_says_what_it_discharges_and_the_other_does_not():
 def test_a_successful_cas_call_records_the_typed_edge(project, monkeypatch):
     monkeypatch.setattr(cas, "_run_subprocess",
                         lambda prog, timeout: {
-                            "returncode": 0, "stdout": "@@GP_G:\nGP_G[1]=1\n",
+                            "returncode": 0,
+                            "stdout": ("@@GP_G:\nGP_G[1]=1\n"
+                                       + prog.completion_marker + "\n"),
                             "stderr": "", "aborted": False,
                             "abort_reason": None, "argv": ["fake"]})
     r = call("cas_ideal_is_unit", {
@@ -397,7 +428,9 @@ def test_a_unit_ideal_result_is_reported_as_evidence_not_a_kill(project,
     """
     monkeypatch.setattr(cas, "_run_subprocess",
                         lambda prog, timeout: {
-                            "returncode": 0, "stdout": "@@GP_G:\nGP_G[1]=1\n",
+                            "returncode": 0,
+                            "stdout": ("@@GP_G:\nGP_G[1]=1\n"
+                                       + prog.completion_marker + "\n"),
                             "stderr": "", "aborted": False,
                             "abort_reason": None, "argv": ["fake"]})
     body = text(call("cas_ideal_is_unit", {
@@ -502,3 +535,55 @@ def test_a_refused_graph_says_which_graph_refused(tmp_path):
     assert "THE GRAPH BEING WRITTEN IS" in text
     assert os.path.abspath(p) in text
     assert "may be about your campaign at all" in text
+
+def test_elimination_verifier_tool_exposes_and_passes_typed_section(
+        project, monkeypatch):
+    seen = {}
+
+    def fake(root, edge, section, timeout, record):
+        seen.update(root=root, edge=edge, section=section,
+                    timeout=timeout, record=record)
+        return V.SECTION_VERIFIED, "checked exact contraction", {"rows": []}
+
+    monkeypatch.setattr(V, "verify_elimination_section", fake)
+    result = call("portage_verify_elimination", {
+        "edge": "E", "section": {"y": "x^2"},
+        "timeout": 17, "dry_run": True,
+    }, project)
+
+    assert not result.get("isError")
+    assert "VERIFIED_SECTION" in text(result)
+    assert seen == {
+        "root": project, "edge": "E", "section": {"y": "x^2"},
+        "timeout": 17, "record": False,
+    }
+
+
+def test_elimination_verifier_tool_schema_requires_edge_and_section():
+    tools = {tool["name"]: tool
+             for tool in mcp.dispatch(rpc("tools/list"))["result"]["tools"]}
+    schema = tools["portage_verify_elimination"]["inputSchema"]
+    assert set(schema["required"]) == {"edge", "section"}
+    assert schema["properties"]["section"]["type"] == "object"
+    assert schema["properties"]["section"]["additionalProperties"] == {
+        "type": "string"}
+def test_groebner_elimination_tool_exposes_and_runs_the_producer(
+        project, monkeypatch):
+    called = {}
+
+    def fake(root, edge, timeout=300, record=True):
+        called.update(root=root, edge=edge, timeout=timeout, record=record)
+        return V.GROEBNER_VERIFIED, "checked pure-lex proof", {"checked": {}}
+
+    monkeypatch.setattr(V, "verify_elimination_groebner", fake)
+    result = call("portage_verify_elimination_groebner", {
+        "edge": "E", "timeout": 19, "dry_run": True,
+    }, project)
+
+    assert called == {
+        "root": project, "edge": "E", "timeout": 19, "record": False,
+    }
+    assert "VERIFIED_GROEBNER" in text(result)
+    tools = {item["name"]: item for item in mcp.TOOLS}
+    schema = tools["portage_verify_elimination_groebner"]["inputSchema"]
+    assert schema["required"] == ["edge"]

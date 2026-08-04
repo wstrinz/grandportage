@@ -30,13 +30,19 @@ the edge is drawn.
 
 ## Status
 
-All five layers are built and gated: <!--checks-->717<!--/checks--> checks, live against Singular 4.2.1,
-and it has had four live user sessions — see [docs/first-run/](docs/first-run/)
+All five layers are built and gated: <!--checks-->1576<!--/checks--> checks, live against Singular 4.2.1,
+and it has had eleven live user sessions — see [docs/first-run/](docs/first-run/)
 for the first, written up in full.
 
+* **[COMPATIBILITY.md](COMPATIBILITY.md) — graph format 4, kernel epoch 10, proof-carrying mapped equivalences, durable artifacts, and conservative migration**
 * **[QUICKSTART.md](QUICKSTART.md) — install, a campaign in ten minutes, and the three things worth knowing on day one**
 * [DESIGN.md](DESIGN.md) — architecture and the decisions behind it
 * [REVIEW.md](REVIEW.md) — **where I am least confident**, for a reviewer
+* [Foundations and prior art](docs/FOUNDATIONS-PRIOR-ART.md) - bounded research questions and deliberate deferrals
+* [JC `dm4` polynomial-lift audit](docs/JC-DM4-POLYNOMIAL-LIFT.md) - corrected valuation proof spine and remaining obligations
+* [Campaign projections and Three.js explorer](docs/VISUALIZATION.md) - read-only review artifacts and local visualization
+* `gp frontier INPUT.json` - exact-scope proof-state linking over immutable evidence envelopes
+* `gp frontier-bundle MANIFEST.json` - fail-closed aggregation with explicit overlap resolution
 
 Five further documents live in the private workspace only — `HANDOFF.md` and
 `TESTPLAN.md` because they describe traps in blind trials not yet run, and
@@ -64,7 +70,10 @@ What they contain, since the summaries name no domain:
 |---|---|---|
 | kernel | `grandportage/kernel.py` | the transport table — the only code with mathematical judgement in it |
 | store | `grandportage/store.py` | append-only graph log; merge is concatenation |
+| artifacts | `grandportage/artifacts.py` | immutable raw programs/transcripts addressed outside the semantic graph |
 | checker | `grandportage/check.py` | findings, derived severities, exit code |
+| projection | `grandportage/frontier.py`, `frontier_bundle.py`, `projection.py`, `visualization.py` | versioned proof frontier and bundle, campaign read model, and guided Three.js explorer |
+| evidence manifest | `grandportage/evidence.py` | shared affine context, envelope, compilation targets, and graph-effect boundaries |
 | discharge | `grandportage/discharge.py` | refusal → canonical next move |
 | CAS + MCP | `grandportage/cas.py`, `mcp.py` | **declare the transport or no process spawns** |
 | hook | `grandportage/hook.py` | runs the checker after each tool call and refuses |
@@ -75,7 +84,7 @@ Pointed at `d2_plane_72_108`'s live front — see
 ## The loop, end to end
 
 ```
-$ python -m grandportage.mcp          # registered in .claude/.mcp.json
+$ python -m grandportage.mcp          # registered by the portable root .mcp.json
 
   cas_ideal_is_unit(ring_vars=[...], generators=[...],
                     produces="RES_K", describes="the same support over K")
@@ -97,14 +106,36 @@ $ python -m grandportage.mcp          # registered in .claude/.mcp.json
           claim at that scope and stop consuming it as geometric emptiness.
 ```
 
-The hook then returns exit 2 on the next tool call, so the refusal blocks
-rather than scrolls past. See [examples/](examples/) for the wiring.
+The hook then blocks the tool result rather than letting the refusal scroll
+past: Codex receives an exit-0 structured `PostToolUse` block, while Claude
+Code receives exit 2 and stderr. Codex project hooks must also be trusted and
+enabled in `/hooks`. See [examples/](examples/) for the wiring.
 
 ## The six relaxation types
 
-Edges point **tighter → looser**: `V(src) ⊆ V(dst)`. `AGAINST` is reasoning
-looser → tighter, which is the direction emptiness travels and the direction
-that closes cases.
+Inclusion-style edges point **tighter → looser**: `V(src) ⊆ V(dst)`.
+`AGAINST` is reasoning looser → tighter, which is the direction emptiness
+travels and the direction that closes cases.
+
+A mapped `EQUIVALENCE` is the deliberate exception. It carries both
+`forward` and `inverse` simultaneous substitutions and identifies the two
+models through those maps; it does **not** also assert literal containment in
+the coordinates as written. `forward` is the point map from source to target,
+so polynomial pullback runs contravariantly. `gp verify` checks both ideal
+pullbacks and both inverse compositions with the `ring_iso` verifier, while the
+literal `containment` verifier skips that edge. Structured maps must cover every
+ring variable and currently require the endpoint models to use the same variable
+names. They fail closed until the verifier records `VERIFIED`. The exact field
+names are `forward` and `inverse`; the plausible aliases `maps` and
+`inverse_maps` are refused. Structured predicate conditions also compose through
+these verified maps: `ALONG` rewrites with `inverse`, `AGAINST` with `forward`,
+and a later section-certified elimination checks the rewritten condition in its
+retained ring. A bare flag or stale verdict never supplies this typing authority.
+
+Ordinary predicate pullback is also executable in the sound `AGAINST` direction:
+a literal identity-coordinate edge preserves syntax only across matching exact
+rings (and a mismatched exact RESTRICTION is rejected as ill-typed), and a currently checked `Eliminate` projection embeds retained-coordinate
+syntax back into its source. Unspecified polynomial maps remain conservative.
 
 Printed by the kernel itself with `gp table`, so a document quoting it and the
 code applying it cannot drift apart.
@@ -117,7 +148,7 @@ code applying it cannot drift apart.
 | `NECESSARY_CONDITION` | AGAINST | yes | NO | yes | if denominator-free |
 | `BASE_EXTENSION` | **ALONG** | **only with a certificate** | **yes** | NO | yes |
 | `BASE_EXTENSION` | AGAINST | yes | NO | yes | if defined over base |
-| `IMAGE_CLOSURE` | ALONG | NO | yes | if Zariski-closed | if denominator-free |
+| `IMAGE_CLOSURE` | ALONG | NO | yes | if closed + closure, or retained condition + point lift | if exact contraction |
 | `IMAGE_CLOSURE` | **AGAINST** | yes | **if existential** | yes | if denominator-free |
 | `SPECIALIZATION` | ALONG | **NO** | **NO** | NO | if p-integral |
 | `SPECIALIZATION` | AGAINST | **NO** | **NO** | NO | NO |
@@ -137,6 +168,147 @@ Three rows carry most of the value:
   `NONEMPTY` travels along the arrow and `EMPTY` needs a certificate. Anyone
   who internalised "emptiness always transports" is primed to get this exactly
   backwards, which is how the erratum above happened.
+* **Constructed elimination is one-sided by default; exactness and point lifts
+  are separate certificates.** The local verifier proves every recorded target
+  generator lies in the source contraction, `J ⊆ ι⁻¹(I)`. `gp
+  verify-elimination` checks a global polynomial section; `gp
+  verify-elimination-groebner` asks Singular for a bounded pure-lex proof and
+  rechecks it with GP's small exact-polynomial checker. Either can earn the
+  missing contraction inclusion. `gp verify-elimination-point-lift` instead
+  checks finitely many principal-open rational lift charts plus an
+  all-guards-zero fallback. Its localization/radical membership cofactors are
+  exactly replayed and earn point-surjectivity without pretending to prove
+  contraction exactness. Beginning in kernel epoch 8, a structured retained-coordinate
+  `ZERO`/`NONZERO` condition can use that authority through verified coordinate
+  rewrites, identity refinements, and elimination projections. The pure
+  Groebner route remains coordinate-ring authority only.
+* **Coefficient expansion is a checked compiler boundary.** `gp
+  verify-coefficient-expansion --spec lowering.json` independently reconstructs
+  a polynomial template after bounded-coordinate substitution and checks the
+  recorded scalar rows. Selected coefficients are licensed only as necessary
+  conditions; complete `0..degree` coverage earns the converse and rejects
+  omitted overflow rows. The first JC cap assay proves why this is separate
+  from scalar elimination: `dm2=1,d2=y` satisfies the scalar exact target but
+  needs `dm4=-y/2`, so it cannot lift when `dm4` has cap zero.
+* **Finite Laurent lowering is a separate checked compiler pass.** `gp
+  verify-laurent-lowering --spec laurent.json` evaluates a closed, bounded
+  straight-line program over finite Laurent expressions. Inputs have exact
+  polynomial coefficients; nodes may add, multiply, scale, shift by a declared
+  `y` exponent, or take the formal derivative. Every declared output equality
+  is recomputed. This catches chart-sensitive errors before ordinary bounded
+  coefficient expansion, including the rows 7--8 mistake of replacing
+  `6*y^2*G` and `-3*y^2*G^2` by zero while `G` remains symbolic. The verdict
+  licenses only those finite Laurent equalities: it does not establish the
+  source template, chart change, antiderivative existence, guard invertibility,
+  or any graph claim transport.
+  A requested export succeeds only after an explicit `y` shift clears every
+  negative exponent, and emits canonical `sparse_polynomial_v1` accepted
+  directly by coefficient expansion. Equality and export are distinct licenses.
+  `gp verify-laurent-coefficient-pipeline --spec pipeline.json` verifies both
+  passes and requires every downstream source image to equal its named export
+  as the same canonical JSON object; a separately self-consistent edited
+  intermediate fails.
+* **Factor-power receipts expose their semantic debt.** `gp
+  verify-factor-power --spec factor.json` checks exact identities of the form
+  `equation = scalar * base^k`, with `k > 0` and `scalar` a nonzero coefficient
+  times a monomial in declared unit generators. It licenses only that
+  polynomial identity. Concluding `base = 0` still requires the equation to
+  vanish in the interpreted target, the target to have no zero divisors, and
+  the coefficient and declared generators to remain units. The first live
+  fixture independently replays the two landed JC p-axis square receipts while
+  refusing axis emptiness and graph transport. The companion `gp
+  verify-factor-power-contradiction` pass selects one factor receipt, verifies a
+  monic affine solution for its base, and recomputes a second equation's exact
+  declared-unit residual. It still grants no model binding or emptiness.
+  The v0.19 JC adapter supplies that concrete binding without enlarging the
+  authority vocabulary: it compiles the specialized contradiction to an
+  ordinary localized cofactor certificate. The graph-bound verifier replays
+  it and mints `EMPTY` only on the exact `c9_11` axis model; the parent edge
+  remains refused.
+* **Product splits stop before branch authority.** `gp verify-product-split`
+  checks exact binary factorizations with declared-unit monomial scalars. The
+  first fixture replays the landed JC `E[2,0]` split and its `-p` multiple
+  `E[4,0]`. A successful check licenses the receipt identities only. The
+  supported `gp construct product-split --src MODEL --spec RECEIPTS.json
+  --receipt ID` path (or the underlying `operations.product_split` constructor)
+  may mint two same-ring branch models only when a constant-unit receipt
+  equation is literally a parent generator; `--declare` persists them through
+  the ordinary closed graph schema. The existing partition verifier then
+  independently checks their coverage. The variable-unit `E[4,0]` receipt
+  cannot mint a cover until that verifier understands localization guards.
+* **Affine product branches normalize through checked coordinate maps.** `gp
+  construct affine-solve --src BRANCH --solve c8_0 --value=-p*c6_0
+  --produces NORMAL` recognizes only a literal monic affine generator
+  `c8_0-(-p*c6_0)`. It translates the pivot to zero, simultaneously rewrites
+  every generator and open condition through the inverse map, and emits an
+  `EQUIVALENCE` with explicit forward/inverse substitutions. The declaration
+  carries `ring_iso: true`, but structured identity transport remains disabled
+  until `gp verify` checks both ideal pullbacks and both map round trips. The
+  first real Singular replay verifies the JC left-branch translation; the right
+  branch has the symmetric `c9_0 -> -p*c7_0` form.
+* **Localized coordinate identities now have a deliberately narrow checker.**
+  `gp verify-localization-membership --spec localization.json` records
+  principal-open guards, explicit denominator powers, and an exact guard-
+  monomial/cofactor identity. It licenses only equality in that declared
+  localization. It does not turn the open-locus `RESTRICTION` into a different
+  coordinate ring, promote the equality to the ambient ideal, or grant point
+  transport. This is the first bounded surface for unit-sensitive JC
+  elimination pivots; arbitrary localized identities still gain no graph
+  authority.
+  Version 0.15 adds a second exact-polynomial wire form,
+  `sparse_polynomial_v1`, for certificates too large to survive the bounded
+  infix AST. It is not a larger parser budget: coefficients, term count,
+  variable-power entries, exponents, ring-variable order, and descending
+  monomial order are all checked before arithmetic. Small legacy strings remain
+  readable and normalize as before. Localization and coefficient-expansion
+  replay retain sparse values end to end. In the first live JC application, GP
+  independently verified all twelve 163--2,011-term q-window pivots under the
+  frozen q-chart digest, granting one localized identity per pivot and no
+  whole-chain, ambient, source-membership, or H3 authority.
+  The rows 7--8 live packet also supplies two unit-ideal controls: after
+  localizing at `q,t`, the row-8 coefficient `-5*q^3*t^2` kills the q bare
+  family; after localizing at `p,t`, `5*p^4*t^2` kills the p bare family. The
+  exact checker verifies both as localized `1=0` identities, and Lean proves
+  such an identity admits no localized point. Version 0.16 implements the
+  distinct `LOCALIZED_UNIT_IDEAL_CERT`: `gp verify` may now promote this exact
+  proof to persisted `EMPTY` on the recorded open model. The proof is replayed
+  and fingerprint-bound; bounded search failure stays `UNVERIFIED`, and the
+  existing RESTRICTION law refuses to move the emptiness to the parent.
+  The first full composition is retained under `review/v0.19/`: native and
+  frozen source digests, specialized receipt, compiled localized certificate,
+  real Singular artifacts, folded graph, projection, and explorer. Nothing in
+  it licenses the full p chart, actual-source membership, infinite lift, or H3.
+* **Evidence contracts have one descriptive source.** `gp evidence` (or
+  `gp evidence --json`) lists every standalone affine evidence schema, its
+  maturity and compilation target, plus the exact graph effect and containment
+  of current authority verifiers. This shared envelope reduces context drift;
+  it is deliberately not a dynamic theorem-plugin system.
+  The JC `b=0` free-plane assay is a deliberately campaign-local example:
+  `exceptional_factor_column_v1` freezes a complete finite coefficient ledger,
+  independently checks its `b`/`Delta` factorizations and one reversible affine
+  pivot, and retains graph effect `NONE`. It distinguishes a solved rung value
+  from a new compatibility equation without adding a graph relation or claim.
+  Its depth-eight successor uses `affine_fiber_block_v1`: an exact coefficient
+  block may determine named fiber coordinates and expose a residual
+  compatibility, but it still grants no graph authority until the residual and
+  exact necessary-condition model are materialized and bound.
+* **Ordered localized solves now have a bounded composition envelope.** `gp
+  verify-localized-triangular-chain --spec chain.json` checks a closed sequence
+  of exact equations `unit * (pivot - solution)`, requires the unit to use only
+  declared guards, recomputes every ordered post-substitution generator list,
+  and binds every step to input/output state fingerprints. The first fixture
+  preserves the landed five-step JC source top-face order and expressions. Its
+  standalone verdict is intentionally translation validation only. The isolated
+  authority adapter compiles each checked chain into a mapped equivalence plus
+  `mapped_ring_iso_v1`: explicit cofactors for both ideal pullbacks and exact
+  forward/inverse maps. The checker expands this proof without Gröbner search;
+  the legacy Singular route remains an independent top-face differential. The
+  top face adjoins an inverse coordinate for `t`. On the second face,
+  `15*t^3+1=0` supplies the checked polynomial inverse `-15*t^2`, so no redundant
+  coordinate is added. Both recorded `review/v0.20/` campaigns earn identity
+  transport only between their exact quotient rings; source extraction, parent
+  coverage, and H3 remain outside. A mutated cofactor is refused as unverified,
+  and removing the top-face inverse equation fails the solver crosscheck.
 * **`IMAGE_CLOSURE` AGAINST / `NONEMPTY` is Chevalley.** A point of the Zariski
   closure need not lift. This is why elimination is a sound way to *derive*
   equations and an unsound source of *witnesses* — and why a cell that survives
@@ -189,21 +361,29 @@ not a finding: the graph refuses to state it at all.
 
 ```bash
 gp init                          # create .portage/graph.jsonl
+portage_declare --file events.json # literal transactional write fallback
 gp check                         # type-check; exit 1 if anything is unsound
 gp check --json                  # machine-readable findings
 gp table                         # print the transport table and certificates
 gp show                          # print the graph
+gp artifacts check               # audit exact raw CAS executions
+gp project --output campaign.json  # complete, derived read model
+gp visualize --output campaign.html # read-only Three.js explorer
+gp frontier frontier-input.json    # scoped premise updates and open research boundary
+gp frontier-bundle fixtures/frontier/current_v1.json  # current cross-consumer boundary
 
 gp --graph fixtures/jc2/graph.jsonl check      # the JC(2) retrodiction
 gp --graph fixtures/matroid/graph.jsonl check  # the matroid retrodiction
 ```
 
-Pure stdlib. No solver, no network, no model in the loop. Under a second.
+The core checker and JSON projection are pure stdlib: no solver, network, or
+model in the loop, and under a second. The generated explorer imports a pinned
+Three.js build by default; `--three-root` can point it at a local package.
 
 ## The retrodiction gate
 
 ```bash
-python -m pytest        # <!--checks-->717<!--/checks--> checks
+python -m pytest        # <!--checks-->1576<!--/checks--> checks
 ```
 
 Grand Portage's credibility rests on reproducing, from **data**, what two

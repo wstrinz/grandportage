@@ -1,0 +1,26 @@
+{
+  "schema": "jc_h3_localization_pivot_v1",
+  "chart": "p",
+  "model_digest": "479ed41d5caa6531a0feabb1aecacd08a8c517f0771d6048dfe7fd1e6f80626c",
+  "characteristic": 0,
+  "ring_vars": ["p", "q", "t", "I4", "x"],
+  "current_generators": [
+    "15*t^3+1",
+    "q",
+    "-15*p*t^3*x+I4"
+  ],
+  "guards": ["p", "t"],
+  "equation_id": "B3-p-control",
+  "equation_polynomial": "-15*p*t^3*x+I4",
+  "pivot": "x",
+  "coefficient": "-15*p*t^3",
+  "unit_witness": {
+    "coefficient": "-15",
+    "powers": {
+      "p": 1,
+      "t": 3
+    },
+    "inverse": "-1/(15*p*t^3)"
+  },
+  "substitution": "I4/(15*p*t^3)"
+}

@@ -1,0 +1,93 @@
+{
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "consumer": "jc-h3-source-target-first-value-handback",
+  "evidence_envelope": {
+    "authority_boundary": "This handback records only forward, gauge-aware necessary consequences of the covered psi2 hulls and bracket. It splits the old source-target coefficient seam into a closed sigma-top partial value receipt and an explicitly open remaining coefficient-map obligation. It does not construct a pair, prove pair existence, reverse lifting, source sufficiency, R5, R7, H3, or a (75,125) verdict.",
+    "certificate_payload": {
+      "gauge_free_value": {
+        "coordinate": "covered P_(3,0)",
+        "value": 0
+      },
+      "partial_status": "SIGMA_TOP_FACE_PARTIALLY_MATERIALIZED",
+      "remaining_status": "OPEN_REMAINING_COEFFICIENT_MAP",
+      "source_sufficiency_licensed": false
+    },
+    "checked_proposition": "the covered sigma-top coefficient ratios and the gauge-free necessary zero P_(3,0)=0 are exact forward consequences",
+    "context": {
+      "characteristic": 0,
+      "coefficient_domain": "covered psi2 source-target coefficient seam",
+      "generators": [],
+      "point_universe": null,
+      "ring_vars": [],
+      "unit_generators": []
+    },
+    "graph_effect": "NONE",
+    "licenses": [
+      "gauge_aware_sigma_top_coefficient_ratios",
+      "P_3_0_zero_necessary_condition",
+      "row6_fringe_value_cross_check"
+    ],
+    "outstanding_premises": [
+      "remaining coefficient map",
+      "R5",
+      "R7 scalarity",
+      "reverse lifting",
+      "source sufficiency"
+    ],
+    "schema": "gp-jc-h3-source-target-first-value-handback/v1",
+    "source_bindings": [
+      {
+        "id": "f2_covered_bracket_monomial_manifest.json",
+        "sha256": "sha256:514239efee7f853abe50adbbb4f1f50a90357866512a5c1622099377ae295ed8"
+      },
+      {
+        "id": "f2_h3_source_target_pair_first_value.py",
+        "sha256": "sha256:2fc90f96ce38ed4835bc94116c7eb11558c7e456ec7ea5103a3c99a2084c7288"
+      },
+      {
+        "id": "f2_h3_source_target_pair_first_value_manifest.json",
+        "sha256": "sha256:7f9951f2a5849cfe15e74abec762f543cd6dc71b933ceb30e074fe5124728ae6"
+      },
+      {
+        "id": "f2_h3_source_target_pair_to_normalized_root_manifest.json",
+        "sha256": "sha256:0a9362452de131ea247634700d5fb4bcedd7e1b55b881f1d143dab93439532bc"
+      }
+    ]
+  },
+  "graph_effect": "NONE",
+  "history": {
+    "immutable": true,
+    "input_fingerprint": "sha256:aa0ac91cfcd3e78a5c14c021d68a76e3f03ac44cb01cb3525ae7fb35d0b22b8c",
+    "item_count": 3
+  },
+  "item_observations": [
+    {
+      "id": "JC.H3.SOURCE.REMAINING_COEFFICIENT_MAP",
+      "scope_id": "JC.H3.SOURCE.TARGET_PAIR.SEAM",
+      "state": "OPEN",
+      "status": "OPEN_REMAINING_COEFFICIENT_MAP"
+    },
+    {
+      "id": "JC.H3.SOURCE.SIGMA_TOP_FACE_VALUES",
+      "scope_id": "JC.H3.SOURCE.TARGET_PAIR.SEAM",
+      "state": "CLOSED",
+      "status": "SIGMA_TOP_FACE_PARTIALLY_MATERIALIZED"
+    },
+    {
+      "id": "JC.H3.SOURCE.TARGET_PAIR_TO_NORMALIZED_LAURENT_ROOT",
+      "replacement_ids": [
+        "JC.H3.SOURCE.REMAINING_COEFFICIENT_MAP",
+        "JC.H3.SOURCE.SIGMA_TOP_FACE_VALUES"
+      ],
+      "scope_id": "JC.H3.SOURCE.TARGET_PAIR.SEAM",
+      "state": "CLOSED",
+      "status": "RESOLVED_TO_PARTIAL_VALUE_AND_REMAINDER"
+    }
+  ],
+  "open_items": [
+    "JC.H3.SOURCE.REMAINING_COEFFICIENT_MAP"
+  ],
+  "projection_schema": "frontier/v1",
+  "schema": "gp-jc-h3-source-target-first-value-frontier-review/v1",
+  "source_authority_ceiling": "FORWARD_GAUGE_AWARE_COEFFICIENT_SEAM_ONLY"
+}

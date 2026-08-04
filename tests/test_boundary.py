@@ -12,10 +12,12 @@ import subprocess
 
 import pytest
 
+from grandportage import artifacts as A
 from grandportage import cas
 from grandportage import check as C
 from grandportage import hook as HK
 from grandportage import kernel as K
+from grandportage import migration as MIG
 from grandportage import store as S
 
 import helpers as H
@@ -38,7 +40,9 @@ def program(**kw):
 
 def fake_runner(stdout="", stderr="", rc=0):
     def run(prog, timeout):
-        return {"returncode": rc, "stdout": stdout, "stderr": stderr,
+        separator = "" if stdout.endswith("\n") else "\n"
+        completed = stdout + separator + prog.completion_marker + "\n"
+        return {"returncode": rc, "stdout": completed, "stderr": stderr,
                 "aborted": rc in cas.ABORT_CODES,
                 "abort_reason": cas.ABORT_CODES.get(rc), "argv": ["fake"]}
     return run
@@ -50,6 +54,13 @@ def project(tmp_path):
     S.append([{"ev": "model", "id": "SRC", "desc": "the source system",
                "field": "Q"}], root=root)
     return root
+
+
+def _install_epoch1_fixture(domain, root):
+    """Migrate a legacy fixture before extending it with native events."""
+    path = S.graph_path(root)
+    os.unlink(path)
+    MIG.migrate_epoch1([H.graph_file(domain)], output=path)
 
 
 # ===========================================================================
@@ -191,7 +202,8 @@ def test_a_missing_or_doubled_marker_refuses_a_verdict(project):
 @pytest.mark.parametrize("rc", sorted(cas.ABORT_CODES))
 def test_abort_codes_are_never_a_verdict(project, rc):
     r = cas.run_cas(program(), edge=EDGE, produces="M", describes="d",
-                    root=project, _runner=fake_runner("@@GP_I:\n1\n", rc=rc))
+                    root=project, record=False,
+                    _runner=fake_runner("@@GP_I:\n1\n", rc=rc))
     assert r["verdict"] == "ABORTED" and r["values"] is None
 
 
@@ -208,6 +220,20 @@ def test_a_successful_run_records_a_typed_edge(project):
     assert "ELIM" in g.models
     assert g.edges["E-ELIM"]["type"] == K.IMAGE_CLOSURE
     assert g.edges["E-ELIM"]["src"] == "SRC"
+    assert g.models["ELIM"]["characteristic"] == 0
+    reference = A.note_reference(g.notes[-1]["source"])
+    assert reference["artifact_fingerprint"] == r["artifact_fingerprint"]
+    assert A.load(project, reference["artifact_fingerprint"])["stdout"]
+    assert A.audit_graph(project, g) == []
+
+
+def test_a_cas_record_preserves_nonzero_characteristic(project):
+    cas.run_cas(
+        program(characteristic=7), edge=EDGE, produces="ELIM7",
+        describes="the characteristic-seven output", root=project,
+        _runner=fake_runner("@@GP_I:\n1\n"))
+    graph = S.load(S.graph_path(project))
+    assert graph.models["ELIM7"]["characteristic"] == 7
 
 
 def test_recording_a_step_whose_source_does_not_exist_is_refused(project):
@@ -259,7 +285,7 @@ def test_the_full_loop_compute_record_conclude_refuse(project):
         {"ev": "model", "id": "RES_K", "desc": "the same over arbitrary char-0 K",
          "field": "K"},
         {"ev": "edge", "id": "E-EXT", "src": "RES_L", "dst": "RES_K",
-         "type": K.BASE_EXTENSION,
+         "type": K.BASE_EXTENSION, "map_kind": K.IDENTITY_MAP,
          "why": "the coefficient field changes from Q(sqrt 17) to arbitrary K",
          "drops": ["every field-relative arithmetic fact, in particular "
                    "square classes"]},
@@ -289,7 +315,8 @@ def test_the_same_step_is_ALLOWED_with_a_base_changing_certificate(project):
         {"ev": "model", "id": "RES_L", "desc": "over L", "field": "Q"},
         {"ev": "model", "id": "RES_K", "desc": "over K", "field": "K"},
         {"ev": "edge", "id": "E-EXT", "src": "RES_L", "dst": "RES_K",
-         "type": K.BASE_EXTENSION, "why": "the coefficient field changes"},
+         "type": K.BASE_EXTENSION, "map_kind": K.IDENTITY_MAP,
+         "why": "the coefficient field changes"},
         {"ev": "claim", "id": "CL-KILL", "model": "RES_L", "kind": K.EMPTY,
          "statement": "1 lies in the ideal, exhibited over Q",
          "certificate": "UNIT_IDEAL_CERT", "established_by": K.RAN,
@@ -324,7 +351,7 @@ def test_the_baseline_suppresses_known_findings_but_not_new_ones(project):
     hook, so the baseline records what is knowingly carried -- in a file a
     reviewer can read, not in someone's memory of the normal warnings."""
     findings = C.run(H.load("jc2"))
-    shutil.copy(H.graph_file("jc2"), S.graph_path(project))
+    _install_epoch1_fixture("jc2", project)
     block, _ = HK.evaluate(project)
     assert block, "the four historical errors are present"
 
@@ -481,7 +508,7 @@ def test_the_first_run_hint_appears_only_when_no_baseline_exists(project):
 def test_a_baseline_that_exists_suppresses_the_hint(project):
     """Once a baseline exists, a NEW finding must read as a new finding -- not
     as a setup problem the operator already solved."""
-    shutil.copy(H.graph_file("gamma_window"), S.graph_path(project))
+    _install_epoch1_fixture("gamma_window", project)
     HK.save_baseline(project, C.run(S.load(S.graph_path(project))), note="x")
     S.append([{"ev": "inference", "id": "I-FRESH", "claim": "GC-A2-KILL",
                "path": [["GE4", K.ALONG]],
@@ -588,7 +615,9 @@ def test_a_legacy_list_baseline_still_loads(project):
         json.dump({"accepted": ["TRANSPORT:GI-BRIDGE"], "note": "old form"}, fh)
     assert HK.load_baseline(project) == {"TRANSPORT:GI-BRIDGE"}
     block, message = HK.evaluate(project)
-    assert block and "GI-BRIDGE" not in message
+    assert block
+    assert "TRANSPORT:GI-BRIDGE" in message
+    assert "ACCEPTANCE IS STALE" in message
 
 
 def test_accept_rejects_an_unknown_finding_id(project):
@@ -688,7 +717,8 @@ def test_a_unit_ideal_certificate_is_checkable_by_expansion():
 
     g = S.Graph().apply_all([(e, "t", i) for i, e in enumerate([
         {"ev": "model", "id": "M", "what": "an empty model",
-         "ring_vars": ["x", "y"], "generators": ["x", "1-x"]},
+         "characteristic": 0, "ring_vars": ["x", "y"],
+         "generators": ["x", "1-x"]},
         {"ev": "claim", "id": "C", "model": "M", "kind": K.EMPTY,
          "statement": "no points", "certificate": "UNIT_IDEAL_CERT",
          "established_by": "RAN", "ladder": "exact-checked"},
@@ -713,7 +743,8 @@ def test_a_declared_certificate_that_is_false_is_caught():
 
     g = S.Graph().apply_all([(e, "t", i) for i, e in enumerate([
         {"ev": "model", "id": "N", "what": "a model with points",
-         "ring_vars": ["x", "y"], "generators": ["x", "y"]},
+         "characteristic": 0, "ring_vars": ["x", "y"],
+         "generators": ["x", "y"]},
         {"ev": "claim", "id": "D", "model": "N", "kind": K.EMPTY,
          "statement": "no points", "certificate": "UNIT_IDEAL_CERT",
          "established_by": "RAN", "ladder": "exact-checked"},
@@ -764,9 +795,9 @@ def test_ring_iso_is_checkable_and_radicalisation_is_caught():
     def mk(fwd, inv, sg, dg):
         g = S.Graph().apply_all([(e, "t", i) for i, e in enumerate([
             {"ev": "model", "id": "A", "what": "a", "ring_vars": ["x", "y"],
-             "generators": sg},
+             "characteristic": 0, "generators": sg},
             {"ev": "model", "id": "B", "what": "b", "ring_vars": ["x", "y"],
-             "generators": dg},
+             "characteristic": 0, "generators": dg},
             {"ev": "edge", "id": "E", "src": "A", "dst": "B",
              "type": K.EQUIVALENCE, "why": "a change of variables",
              "map_kind": K.POLYNOMIAL, "ring_iso": True,
@@ -788,6 +819,92 @@ def test_ring_iso_is_checkable_and_radicalisation_is_caught():
         "is the half that fails, and the message must say which")
 
 
+def test_ring_iso_checks_both_inverse_compositions(monkeypatch):
+    """The executable contract matches both inverse laws in Lean."""
+    from grandportage import verify as V
+
+    graph = S.Graph().apply_all([(event, "t", i) for i, event in enumerate([
+        {"ev": "model", "id": "A", "what": "a",
+         "characteristic": 0, "ring_vars": ["x"], "generators": []},
+        {"ev": "model", "id": "B", "what": "b",
+         "characteristic": 0, "ring_vars": ["x"], "generators": []},
+        {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+         "type": K.EQUIVALENCE, "why": "proposed maps",
+         "map_kind": K.POLYNOMIAL,
+         "forward": {"x": "f"}, "inverse": {"x": "i"}},
+    ])])
+
+    def fake(_ring, polynomial, substitution, _generators, **_kwargs):
+        table = {
+            ("x", "f"): "u",
+            ("u", "i"): "not_x",
+            ("x", "i"): "v",
+            ("v", "f"): "x",
+        }
+        marker = substitution["x"]
+        return table[(polynomial, marker)], True
+
+    monkeypatch.setattr(V.cas, "substitute_and_reduce", fake)
+    verdict, why = V.ring_iso(graph, "E")
+    assert verdict == V.ISO_NOT_ISO
+    assert "right inverse" in why
+
+
+@live
+def test_w10_involution_is_verified_as_a_mapped_equivalence():
+    """Lock the exact live shape that exposed mapped/literal conflation."""
+    from grandportage import verify as V
+
+    f = "a^3+a^2*b-a^2*b^2-a*b^3-a^2-a*b+a*b^2+b^3"
+    fp = "a^3-a^2*b-a^2*b^2+a*b^3-a^2+a*b+a*b^2-b^3"
+    graph = S.Graph().apply_all([(event, "t", i) for i, event in enumerate([
+        {"ev": "model", "id": "Z", "what": "W10 curve",
+         "characteristic": 0, "ring_vars": ["t", "a", "b"],
+         "generators": ["t", f]},
+        {"ev": "model", "id": "ZP", "what": "its involutive image",
+         "characteristic": 0, "ring_vars": ["t", "a", "b"],
+         "generators": ["t", fp]},
+        {"ev": "edge", "id": "E-SIGMA", "src": "Z", "dst": "ZP",
+         "type": K.EQUIVALENCE, "why": "b maps to -b",
+         "map_kind": K.POLYNOMIAL,
+         "forward": {"t": "t", "a": "a", "b": "-b"},
+         "inverse": {"t": "t", "a": "a", "b": "-b"}},
+    ])])
+
+    verdict, why = V.ring_iso(graph, "E-SIGMA")
+    assert verdict == V.ISO_VERIFIED, why
+    assert "both compositions" in why
+
+@live
+def test_ring_iso_forward_is_the_point_forward_map_not_its_pullback():
+    """A non-involution fixes the orientation hidden by every swap test."""
+    from grandportage import verify as V
+
+    def graph(forward, inverse):
+        return S.Graph().apply_all([
+            (event, "t", i) for i, event in enumerate([
+                {"ev": "model", "id": "A", "what": "the point zero",
+                 "characteristic": 0, "ring_vars": ["x"],
+                 "generators": ["x"]},
+                {"ev": "model", "id": "B", "what": "the point one",
+                 "characteristic": 0, "ring_vars": ["x"],
+                 "generators": ["x-1"]},
+                {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+                 "type": K.EQUIVALENCE, "why": "translation by one",
+                 "map_kind": K.POLYNOMIAL,
+                 "forward": {"x": forward}, "inverse": {"x": inverse}},
+            ])])
+
+    verdict, why = V.ring_iso(graph("x+1", "x-1"), "E")
+    assert verdict == V.ISO_VERIFIED, why
+
+    verdict, why = V.ring_iso(graph("x-1", "x+1"), "E")
+    assert verdict == V.ISO_NOT_ISO
+    assert "point-forward" in why
+
+
+
+
 @live
 def test_a_substitution_is_simultaneous():
     """NESTED `subst` IS NOT SIMULTANEOUS, and getting it wrong is silent.
@@ -804,9 +921,144 @@ def test_a_substitution_is_simultaneous():
 
     got, _ = C2.substitute_and_reduce(["x", "y"], "x^2+y",
                                       {"x": "y", "y": "x"}, [])
-    assert got.replace(" ", "") == "y2+x", (
+    assert got.replace(" ", "") == "y^2+x", (
         "a genuinely asymmetric case, so the test is not passing by symmetry")
 
     with pytest.raises(C2.CASError) as exc:
         C2.substitute_and_reduce(["x", "y"], "x", {"x": "y"}, [])
     assert "every ring variable" in str(exc.value)
+
+
+@live
+def test_the_verifier_reads_the_model_characteristic():
+    """A FALSE LICENCE, in the code written to prevent false licences.
+
+    A live campaign declared `characteristic: 23` on eight models, and nothing
+    read it. Every reduction the verifier ran was in characteristic 0. So
+    `verify.unit_ideal` returned VERIFIED for a claim the campaign KNEW was
+    false -- over F_23 the ideal is (y, x+10) and it had exhibited the singular
+    point -- and handed back a certificate whose every cofactor had 23 in the
+    denominator. Undefined at the very prime the model declares.
+
+    `gp check` reported zero findings on that graph, and `UNIT_IDEAL_CERT`
+    base-changes, so the emptiness was SCHEME-scoped and would have travelled
+    to every field.
+    """
+    from grandportage import verify as V
+
+    g = S.Graph().apply_all([(e, "t", i) for i, e in enumerate([
+        {"ev": "model", "id": "SING", "what": "the singular locus over F23",
+         "ring_vars": ["x", "y"],
+         "generators": ["y^2-x^3+x-1", "3*x^2-1", "2*y"],
+         "characteristic": 23},
+        {"ev": "claim", "id": "C", "model": "SING", "kind": K.EMPTY,
+         "statement": "no singular point", "certificate": "UNIT_IDEAL_CERT",
+         "established_by": "RAN", "ladder": "exact-checked"}])])
+    g.validate()
+    verdict, why, cap = V.unit_ideal(g, "C")
+    assert verdict == V.CERT_NOT_UNIT, (
+        "this ideal is (y, x+10) over F_23; a VERIFIED here is a false licence")
+    assert cap is None
+
+
+@live
+def test_a_true_containment_in_characteristic_two_is_not_refused():
+    """The same root cause, refusing something TRUE.
+
+    In characteristic 2, `y^2 + 1 = (y+1)^2`, so V(x+1,y+1) really is inside
+    V(y^2+1, x^2+1). Reducing in characteristic 0 the verifier reported that
+    `y^2+1` "reduces to 2" -- the number 2, which is ZERO in the ring both
+    models declare -- and escalated that to UNSOUND_PREMISE.
+    """
+    from grandportage import verify as V
+
+    g = S.Graph().apply_all([(e, "t", i) for i, e in enumerate([
+        {"ev": "model", "id": "PT", "what": "the point",
+         "ring_vars": ["x", "y"], "generators": ["x+1", "y+1"],
+         "characteristic": 2},
+        {"ev": "model", "id": "SING", "what": "the singular locus",
+         "ring_vars": ["x", "y"], "generators": ["y^2+1", "x^2+1"],
+         "characteristic": 2},
+        {"ev": "edge", "id": "E", "src": "PT", "dst": "SING",
+         "type": K.NECESSARY_CONDITION, "why": "drops equations",
+         "map_kind": K.POLYNOMIAL}])])
+    g.validate()
+    verdict, why = V.containment(g, "E")
+    assert verdict == V.VERIFIED, why
+
+
+@live
+def test_the_saturation_constructor_can_actually_run():
+    """IT COULD NEVER HAVE RUN.  `sat` lives in `elim.lib`, and `LIB` is in the
+    dialect's FORBIDDEN set -- deliberately, so no emitted program can pull in
+    arbitrary code. So the constructor emitted `sat(GP_I,GP_F)[1]` and Singular
+    answered "`int` expected while building `sat(`".
+
+    I tested `eliminate` against a real solver and did not test this one. A
+    live campaign found it by trying to use it.
+
+    Saturation by elimination needs no library:  I : f^oo = (I + (1-t*f)) ∩ R.
+    """
+    from grandportage import cas as C2
+    from grandportage import operations as O
+
+    op = O.saturate_closure("M", "x", "M_SAT", ["x", "y"], ["x*y"])
+    res = C2._run_subprocess(op.program, 120)
+    assert "? error" not in res["stdout"] + res["stderr"], res["stdout"][-400:]
+    assert "y" in res["stdout"], "sat((xy), x) is (y); got %r" % res["stdout"]
+
+    # AND AN EMPTY IDEAL IS NOT EXOTIC -- it is the ambient space, which is the
+    # motivating use of `localize`: the smooth locus of a plane is the plane
+    # with an inequality. `",".join([])` emitted `ideal GP_I = ;`.
+    for op in (O.localize("M", "f", "L", ["a", "b"], []),
+               O.saturate_closure("M", "a", "SS", ["a", "b"], []),
+               O.eliminate("M", ["b"], "E", ["a", "b"], [])):
+        res = C2._run_subprocess(op.program, 120)
+        assert "? error" not in res["stdout"] + res["stderr"], (
+            "%s on a zero ideal: %s" % (op.kind, res["stdout"][-200:]))
+
+
+def test_the_cli_and_the_hook_agree_where_the_campaign_is(tmp_path, capsys):
+    """W7 D10 -- THE WALK-UP WAS ADDED TO ONE OF THEM.
+
+    From a subdirectory of a campaign the hook resolved the root correctly,
+    refused the step, and printed its standard line: "run `gp check`". And
+    `gp check` from that same directory reported there was no graph at all.
+
+    Two components disagreeing about where the campaign is, surfacing as
+    REMEDIATION THAT FAILS EXACTLY WHERE THE REFUSAL FIRES -- found on the
+    first live use of the feature, one day after it was added.
+    """
+    import os
+    from grandportage import cli, store as S, hook as HK
+    cli.main(["--root", str(tmp_path), "init"])
+    S.append([{"ev": "model", "id": "M", "what": "a model"}], str(tmp_path))
+    deep = tmp_path / "a" / "b" / "c"
+    deep.mkdir(parents=True)
+    here = os.getcwd()
+    try:
+        os.chdir(str(deep))
+        assert S.find_root(".") == os.path.abspath(str(tmp_path))
+        assert cli.main(["check"]) == 0
+        assert "1 models" in capsys.readouterr().out
+    finally:
+        os.chdir(here)
+
+
+def test_init_does_not_walk_up(tmp_path):
+    """`gp init` CREATES a graph, so walking up would silently initialise a
+    parent campaign instead of here -- the one outcome worse than not finding
+    one."""
+    import os
+    from grandportage import cli, store as S
+    cli.main(["--root", str(tmp_path), "init"])
+    child = tmp_path / "sub"
+    child.mkdir()
+    here = os.getcwd()
+    try:
+        os.chdir(str(child))
+        cli.main(["init"])
+        assert os.path.isdir(str(child / ".portage")), (
+            "init walked up and wrote to the parent campaign")
+    finally:
+        os.chdir(here)

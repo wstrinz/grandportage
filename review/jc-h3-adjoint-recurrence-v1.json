@@ -1,0 +1,113 @@
+{
+  "checked_instance_premises": {
+    "S7_annihilates": false,
+    "cutoff_gap": 8,
+    "domain_start": 6,
+    "each_linear_factor_necessary": true,
+    "endpoint_depth": 13,
+    "endpoint_nonzero": true,
+    "global_polynomial_coefficient_annihilator": "(d-7)*(d-9)*(d-11)*(d-13)*(S-1)",
+    "jump_depths": [
+      7,
+      9,
+      11,
+      13
+    ],
+    "pure_forward_annihilator": "S^8",
+    "zero_from": 14
+  },
+  "claims": {
+    "S7": {
+      "status": "REFUTED_BY_B13_AT_D6"
+    },
+    "constant_coefficient_annihilator_ideal": {
+      "lean_theorem": "annihilatesFrom_iff_coefficients_below_gap_zero",
+      "status": "VERIFIED_LEAN_BACKED_FROM_CHECKED_PREMISES",
+      "value": "(S^8)"
+    },
+    "nonzero_constant_term_annihilator": {
+      "status": "REFUTED"
+    },
+    "polynomial_coefficient_annihilator": {
+      "minimality_scope": "S_DEGREE_ONE_ONLY",
+      "operator": "(d-7)*(d-9)*(d-11)*(d-13)*(S-1)",
+      "status": "VERIFIED_ON_PADDED_SEQUENCE"
+    },
+    "pure_forward_truncation": {
+      "operator": "S^8",
+      "status": "VERIFIED"
+    },
+    "reversible_backward_recurrence": {
+      "status": "REFUTED"
+    }
+  },
+  "domain": {
+    "kind": "UNILATERAL",
+    "start": 6
+  },
+  "evidence_envelope": {
+    "authority_boundary": "The checked finite-tail premises plus the Lean theorem establish the unilateral constant-coefficient annihilator ideal (S^8). They do not discharge H8 or license source, geometric, H3, graph, or verdict promotion.",
+    "checked_proposition": "on d>=6, the padded operator sequence has constant-coefficient annihilator ideal exactly (S^8), conditional on the native sequence assumptions",
+    "graph_effect": "NONE",
+    "licenses": [
+      "S8_annihilates_padded_sequence",
+      "S7_does_not_annihilate_padded_sequence",
+      "all_constant_coefficients_below_shift_8_vanish",
+      "no_nonzero_constant_term_annihilator",
+      "no_reversible_backward_recurrence"
+    ],
+    "outstanding_premises": [
+      "P1..P5",
+      "S2",
+      "15*t^3+1=0",
+      "H8 for depths >=8"
+    ],
+    "schema": "parametric_recurrence_v1"
+  },
+  "graph_effect": "NONE",
+  "instance_id": "jc_h3_adjoint_fresh_operator",
+  "native_replay": {
+    "graph_effect": "NONE",
+    "verdict": "VERIFIED_NATIVE_44_OF_44"
+  },
+  "operator_coefficient_domain": "QQ",
+  "operator_representation": "finite coefficient sequences canonically padded to width >= 8",
+  "outside_adapter": [
+    "cokernel-basis correctness",
+    "depth-8 straggler and determinant identities",
+    "additive compatibility values Omega_8 or Omega_9",
+    "minimality among higher-S-degree polynomial-coefficient operators",
+    "blanket minimality of S-1 within every regime (the zero-tail regimes admit the unit annihilator)"
+  ],
+  "premises": {
+    "checked_by_adapter": [
+      "padded B_d is zero for every d >= 14",
+      "padded B_13 is nonzero",
+      "operator jumps occur exactly at d=7,9,11,13",
+      "entries are exact sparse QQ-polynomials, so nonzero QQ scalars act faithfully"
+    ],
+    "native_assumptions_not_discharged": [
+      "P1..P5",
+      "S2",
+      "15*t^3+1=0",
+      "H8 for depths >=8"
+    ]
+  },
+  "refusals": [
+    "H8 discharge",
+    "source-image sufficiency",
+    "actual-source membership",
+    "geometric component exclusion",
+    "H3 promotion",
+    "(75,125) verdict change",
+    "graph claim or transport authority"
+  ],
+  "schema": "parametric_recurrence_v1",
+  "sequence_value_module": "padded 5x2 sparse polynomial matrices with faithful QQ scaling",
+  "shift_convention": "(S B)_d = B_(d+1)",
+  "source_bindings": {
+    "f2_h3_adjoint_recurrence.py": "9c99a96ee5c273ada10aae5d3beea4de0a0db980c78cf0570c4dd9dfc1244d64",
+    "f2_h3_adjoint_recurrence_certificate.json": "9a3f3854b19d5efe988c660f51babbb7b71eca00cf99b2fd88c8b6168ccb7ba4"
+  },
+  "verdict": "VERIFIED_CONDITIONAL_UNILATERAL_ANNIHILATOR_IDEAL_S8"
+}

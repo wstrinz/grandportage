@@ -1,0 +1,119 @@
+{
+  "base_model": "X_b with P1..P5, S2, pin, and declared guards",
+  "checked_block": {
+    "columns": [
+      "D7",
+      "D8"
+    ],
+    "determines": [
+      "transported c7_4",
+      "c8_5"
+    ],
+    "excess_rows": 1,
+    "left_syzygy": [
+      "c2_3",
+      "0",
+      "2"
+    ],
+    "rank": 2,
+    "residual_status": "NOT_EXPORTED",
+    "rows": [
+      "E[2,19]",
+      "E[3,20]",
+      "E[4,22]"
+    ],
+    "symbolic_compatibility": "Psi8=c2_3*r8_1+2*r8_3"
+  },
+  "checked_instance": {
+    "left_syzygy": [
+      "c2_3",
+      "0",
+      "2"
+    ],
+    "rank": 2,
+    "raw_coefficients": 9,
+    "residual_exported": false,
+    "symbolic_compatibility": "Psi8=c2_3*r8_1+2*r8_3",
+    "transported_shape": [
+      3,
+      2
+    ],
+    "unit_minor": "-(25/8)*c2_3^5*c3_5*t"
+  },
+  "coefficient_domain": "K = QQ[t]/(15*t^3+1)",
+  "consumed_frozen_semantics": [
+    "the native derivative-table chain-rule assembly transports the raw columns through every earlier solved-coordinate sensitivity",
+    "the derivative/support argument makes the depth-eight dependence affine in the transported directions",
+    "the boundary triple is a necessary condition for actual-source extension under the named premises"
+  ],
+  "does_not_license": [
+    "an explicit polynomial Psi8 before r8 is exported",
+    "materialization of any depth-eight boundary body or the c9_6 rung",
+    "equivalence with the complete depth-eight fiber or actual-source fiber",
+    "sufficiency for extension past depth eight",
+    "nonzerodivisor, component, irreducibility, point, or emptiness claims on Z(Psi8)",
+    "depth nine, H8, H3, source membership, or a (75,125) verdict change",
+    "any graph claim or transport authority"
+  ],
+  "evidence_envelope": {
+    "authority_boundary": "The exact coefficient block determines two coordinates only in the named necessary extension model. The residual r8 and thus the explicit Psi8 polynomial are absent; no sufficiency, source, geometric, verdict, or graph authority is minted.",
+    "checked_proposition": "the pivot-transported depth-eight necessary block has constant rank two and one symbolic residual compatibility",
+    "consumed_frozen_semantics": [
+      "the native derivative-table chain-rule assembly transports the raw columns through every earlier solved-coordinate sensitivity",
+      "the derivative/support argument makes the depth-eight dependence affine in the transported directions",
+      "the boundary triple is a necessary condition for actual-source extension under the named premises"
+    ],
+    "first_open_obligation": "export r8=(r8_1,r8_2,r8_3), the three boundary residuals after earlier legal solves on X_b, without promoting necessary to sufficient",
+    "graph_effect": "NONE",
+    "licenses": [
+      "the nine raw boundary coefficients are the frozen exact coefficients",
+      "the pivot-absorbed transported block is the declared exact 3x2 matrix",
+      "the block has constant rank two under the audited localization units",
+      "the two transported directions are determined in this necessary extension block",
+      "for every symbolic residual, solvability is equivalent to one compatibility pairing Psi8=0"
+    ],
+    "schema": "affine_fiber_block_v1"
+  },
+  "first_open_obligation": "export r8=(r8_1,r8_2,r8_3), the three boundary residuals after earlier legal solves on X_b, without promoting necessary to sufficient",
+  "gp_prerequisite": {
+    "fixture": "fixtures/jc_b0_free_plane/v1.json",
+    "required_result": "affine_round_trip and pivot-independent downstream",
+    "sha256": "b0bdca0a0b410d3510dd6b9285f9484c9c4462b42ebf3ff3439925a2326fac58"
+  },
+  "graph_effect": "NONE",
+  "instance_id": "jc_h3_b0_depth8_transported_free_plane_block",
+  "licenses": [
+    "the nine raw boundary coefficients are the frozen exact coefficients",
+    "the pivot-absorbed transported block is the declared exact 3x2 matrix",
+    "the block has constant rank two under the audited localization units",
+    "the two transported directions are determined in this necessary extension block",
+    "for every symbolic residual, solvability is equivalent to one compatibility pairing Psi8=0"
+  ],
+  "native_replay": {
+    "graph_effect": "NONE",
+    "verdict": "VERIFIED_NATIVE_40_OF_40"
+  },
+  "schema": "affine_fiber_block_v1",
+  "semantic_layer": "NECESSARY_DEPTH8_EXTENSION_BLOCK",
+  "source_bindings": {
+    "f2_h3_b0_compatibility_module.json": "944f95d762e05d3dec4ffa6599b4f0d1d2674e4127e5d168712a62de50291840",
+    "f2_h3_b0_depth8_free_plane_coefficients.json": "5cf9015b0065eb6fd5cd181be28f4c9e8004ca61786fafba1af463fddfc3024a",
+    "f2_h3_b0_depth8_free_plane_coefficients.py": "75261cd6a03796bab720d1b95c0a012290e2722353801d7429ad19e059ee760c",
+    "f2_h3_b0_free_plane_receipt.json": "e6c731f984d9c06d84aac014db8bff234bb15962d1ee6fac2ee80df7795e00da",
+    "f2_h3_esystem_seam.py": "e21ecff0f9f389b620fa599820e95c93eb44343c44ff20e9d25879f330b39aca",
+    "f2_h3_graded_eliminator_contract.py": "63da51c56475d39266f3fc74e6f5b0a2f70d05e0d7781d98791aa6bf12535965",
+    "f2_h3_p_c6_1_receipt.json": "d971325110dcab38b25089c542c4cc5fd79ddb04342124ebf11c5d673ce4ee25",
+    "f2_h3_source_depth6_chain_certificate.json.gz": "2280c88410667ce9c8ac5900c61b044f5cd7174540d859485c04bcca3a27eba0",
+    "f2_h3_source_depth6_receipt.json": "3dde87dd53b07c851ce78c27227b63660a9177860791cc2dca5bff5152db9c0d",
+    "f2_h3_source_depth7_producer.py": "19bbf03fbc69b1d34054a2a6b1d590c062189e0a65917857c151dcc98244753f",
+    "f2_h3_source_depth7_receipt.json": "2b50fc44669222a335697119c6221588e056cc32dfc1e1590e96162a4d301b86",
+    "f2_target_root_support_data.py": "16eb77a98c9c02939cc48a9b7f0e9f1141234784013daf4a34ca375666a2f2d2"
+  },
+  "transport": {
+    "D7": "d/dc7_4-(3/2)*c2_3*d/dc9_7",
+    "D8": "d/dc8_5",
+    "invariant_coordinate": "q7=c9_7+(3/2)*c2_3*c7_4",
+    "prerequisite": "verified depth-7 c9_7 affine pivot absorption"
+  },
+  "verdict": "VERIFIED_RANK2_NECESSARY_AFFINE_BLOCK"
+}
