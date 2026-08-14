@@ -59,16 +59,14 @@ def test_conditional_seam_welds_native_rows_without_graph_authority():
     assert all("H3" not in license for license in envelope["licenses"])
 
 
-def test_current_native_seam_files_and_all_transitive_bindings_match():
-    if not ADAPTER.NATIVE_ROOT.exists():
-        pytest.skip("the sibling JC research checkout is not present")
+def test_current_native_seam_files_and_all_transitive_bindings_match(
+        explicit_jc_native_binding_check):
     report = ADAPTER.verify_fixture(check_native_bindings=True)
     assert report["native_commit"] == ADAPTER.EXPECTED_NATIVE_COMMIT
 
 
-def test_frozen_projection_rebuilds_from_the_landed_native_manifest():
-    if not ADAPTER.NATIVE_ROOT.exists():
-        pytest.skip("the sibling JC research checkout is not present")
+def test_frozen_projection_rebuilds_from_the_landed_native_manifest(
+        explicit_jc_native_binding_check):
     assert ADAPTER.build_fixture() == _fixture()
 
 

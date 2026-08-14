@@ -86,6 +86,21 @@ Rules:
   weakening;
 - `frontier-bundle/v1` never resolves repeated semantic IDs by input order;
   every overlap requires an exact-scope agreement or explicit supersession;
+- `campaign-packet/v0` binds an exact bundle observation, source receipt,
+  evidence-envelope authority ceiling, and task-catalog entry without minting
+  mathematical or graph authority; its ledger is append-only operational
+  history, not evidence;
+- `campaign-dossier/v0` binds graded portrait claims, residual price cards,
+  release artifacts, and named closeout criteria; readiness is campaign-policy
+  coverage, never theorem authority, and source drift blocks freshness rather
+  than rewriting a claim;
+- `campaign-release/v0` computes transitive profile coverage, replay and
+  publication-rights debt, and an immutable archive plan; materialization is
+  permitted only from a clean matching source and grants no theorem authority;
+- `campaign-publication/v0` renders exact-scope portrait dependency cards,
+  residual-price tables, replay matrices, and blocker ledgers from the same
+  release observation; generated editorial material never satisfies an
+  undeclared artifact contract;
 - backend disagreements block promotion rather than selecting a winner;
 - a native campaign remains the source of its discovery artifacts.
 

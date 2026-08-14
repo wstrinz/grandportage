@@ -3,10 +3,10 @@
 This is the attack surface for the current release. The full historical review
 through v0.18 is preserved in `HISTORY/REVIEW-through-v0.18.md`.
 
-**Version <!--version-->0.23.0<!--/version-->, graph format
+**Version <!--version-->0.24.0<!--/version-->, graph format
 <!--graph-format-->4<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->10<!--/kernel-epoch-->, and
-<!--checks-->1576<!--/checks--> collected checks.**
+<!--checks-->1649<!--/checks--> collected checks.**
 
 ## Highest-risk claim
 
@@ -14,6 +14,12 @@ Grand Portage now has a small semantic kernel and a nontrivial certifying-
 checker trust base. Review both separately. A correct transport table does not
 repair a parser, canonicalizer, cofactor replay, fingerprint binding, or
 authority-projection defect.
+
+v0.24 adds a second release-critical boundary: `public-snapshot-v1.json` and
+`scripts/public_snapshot.py` decide which exact Git blobs enter the public
+mirror. Attack its classification precedence, path normalization, required-file
+set, generated receipt, and refusal of unclassified paths independently from
+the mathematical kernel.
 
 ## 1. Authority binding
 

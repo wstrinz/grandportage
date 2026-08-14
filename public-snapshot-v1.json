@@ -1,0 +1,71 @@
+{
+  "schema": "grand-portage-public-snapshot/v1",
+  "generated_paths": [
+    "PUBLIC-SNAPSHOT-RECEIPT.json"
+  ],
+  "private_paths": [
+    ".codex/config.toml",
+    "CURRENT.md",
+    "DESIGN_DIRECTION.md",
+    "EXPERIMENT-B.md",
+    "HANDOFF.md",
+    "JC-COORDINATOR-NEXT-PACKET.md",
+    "JC-H3-LOCALIZATION-COORDINATOR-PACKET.md",
+    "JC-LEAD-AGENT-PACKET.md",
+    "KILL-CRITERIA.md",
+    "SCOPE.md",
+    "TESTPLAN.md",
+    "docs/JC-CLOSEOUT-AND-GP-ROADMAP.md",
+    "docs/portagecommandconceptv2.md",
+    "uv.lock"
+  ],
+  "private_prefixes": [
+    ".claude/",
+    ".codex/",
+    ".portage/",
+    "HISTORY/"
+  ],
+  "public_paths": [
+    ".gitattributes",
+    ".gitignore",
+    ".mcp.json",
+    "ARCHITECTURE.md",
+    "COMPATIBILITY.md",
+    "DESIGN.md",
+    "LICENSE",
+    "OPERATION-CONTRACTS.md",
+    "QUICKSTART.md",
+    "README.md",
+    "REVIEW.md",
+    "public-snapshot-v1.json",
+    "pyproject.toml"
+  ],
+  "public_prefixes": [
+    ".github/",
+    "docs/",
+    "examples/",
+    "experiments/",
+    "fixtures/",
+    "gpdemo/",
+    "grandportage/",
+    "lean/",
+    "review/",
+    "scripts/",
+    "tests/"
+  ],
+  "required_public_paths": [
+    ".gitattributes",
+    ".github/workflows/ci.yml",
+    "LICENSE",
+    "README.md",
+    "REVIEW.md",
+    "experiments/jc_formalization_transport/adapter.py",
+    "fixtures/jc_formalization_transport/v0.json",
+    "grandportage/__init__.py",
+    "public-snapshot-v1.json",
+    "pyproject.toml",
+    "scripts/public_snapshot.py",
+    "tests/test_jc_formalization_transport.py",
+    "tests/test_public_snapshot.py"
+  ]
+}

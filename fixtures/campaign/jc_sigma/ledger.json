@@ -1,0 +1,72 @@
+{
+  "schema": "campaign-ledger-input/v0",
+  "root": "../../..",
+  "packet_manifest": {
+    "path": "fixtures/campaign/jc_sigma/packets.json",
+    "digest_algo": "sha256-lf-normalized",
+    "sha256": "653efcf75ef85b2ae4b57122ca764de298e20f27b2178a34d84aa5454684e189"
+  },
+  "attempts": [
+    {
+      "id": "JC.H3.ATTEMPT.SIGMA_WEIGHTED_PROJECTIVE.001",
+      "packet_id": "JC.H3.SIGMA.WEIGHTED_PROJECTIVE.CLASSIFY.v0",
+      "worker_ref": "math-stuff/4869cdd",
+      "outcome": "USEFUL_REFUTATION",
+      "summary": "Constructed a second exact weighted-projective cone point, refuting exhaustiveness of the displayed family while retaining the source and H3 ceilings.",
+      "artifact_bindings": [
+        {
+          "id": "sigma_weighted_projective_certificate",
+          "sha256": "c16134f22f66e5bb250ed4dba554e2be80b8f99c5b7d763d59116b166361a31a"
+        }
+      ],
+      "replay": {
+        "status": "PASS",
+        "command": "python d2_plane_72_108/f2_h3_sigma_weighted_projective.py --verify",
+        "receipt": "90 exact checks and 10 refusal mutations passed at math-stuff/4869cdd"
+      },
+      "refused_mutations": [
+        "mutate_second_component_coordinate",
+        "promote_family_to_exhaustive",
+        "promote_to_source_pair"
+      ],
+      "value_categories": [
+        "MAP_REFINEMENT",
+        "UNSAFE_INFERENCE_COUNTEREXAMPLE"
+      ],
+      "successor_packet_ids": [
+        "JC.H3.SIGMA.D_ANSATZ.TEST.v0",
+        "JC.H3.SIGMA.Q51_HYPERPLANE.CLASSIFY.v0"
+      ]
+    },
+    {
+      "id": "JC.H3.ATTEMPT.SIGMA_D_ANSATZ.001",
+      "packet_id": "JC.H3.SIGMA.D_ANSATZ.TEST.v0",
+      "worker_ref": "math-stuff/f6e1579",
+      "outcome": "USEFUL_REFUTATION",
+      "summary": "Refuted the D-cube compression by an exact coefficient identity and showed that it loses precisely the essential family modulus.",
+      "artifact_bindings": [
+        {
+          "id": "sigma_d_ansatz_certificate",
+          "sha256": "61c8b6b6dade5191e5457280f0bb99426d4e6bf692eae1b6103af12e705066c7"
+        }
+      ],
+      "replay": {
+        "status": "PASS",
+        "command": "python d2_plane_72_108/f2_h3_sigma_d_ansatz.py --verify",
+        "receipt": "64 exact checks and 8 refusal mutations passed at math-stuff/f6e1579"
+      },
+      "refused_mutations": [
+        "broaden_laurent_polynomial_to_completion",
+        "erase_essential_modulus",
+        "repair_failed_ansatz_ad_hoc"
+      ],
+      "value_categories": [
+        "MAP_REFINEMENT",
+        "NEGATIVE_THEOREM"
+      ],
+      "successor_packet_ids": [
+        "JC.H3.SIGMA.Q51_HYPERPLANE.CLASSIFY.v0"
+      ]
+    }
+  ]
+}

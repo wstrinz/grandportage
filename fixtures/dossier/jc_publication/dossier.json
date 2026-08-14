@@ -1,0 +1,523 @@
+{
+  "schema": "campaign-dossier-input/v0",
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "graph_effect": "NONE",
+  "campaign": {
+    "id": "JC.75_125",
+    "title": "JC (75,125) reduction package",
+    "summit_status": "OPEN — no summit survivor may be promoted without the typed upstream adapter"
+  },
+  "source": {
+    "id": "JC.MATH_STUFF.CURRENT_HEAD",
+    "repository": "math-stuff",
+    "expected_commit": "1bbdec4334602dd755375ef414100bd44b90338d",
+    "canonical_sources": [
+      {
+        "id": "JC.AUTHORITY.CURRENT",
+        "path": "d2_plane_72_108/CURRENT.md",
+        "digest_algo": "sha256-lf-normalized",
+        "sha256": "eebc0ad2fb79bc1dda00116743e5f7f095777dd2ff6e97667af410e3f8aeb111"
+      },
+      {
+        "id": "JC.AUTHORITY.PUBLICATION_FLAG",
+        "path": "d2_plane_72_108/REDUCTION_PACKAGE_PUBLICATION_FLAG_2026_08_12.md",
+        "digest_algo": "sha256-lf-normalized",
+        "sha256": "8d37a9632d94a84d1eee22689ae01ffd81fb3870b28ff5c3d6faf4ed5eab8618"
+      },
+      {
+        "id": "JC.AUTHORITY.SHADOW_FRONTIER",
+        "path": "d2_plane_72_108/lean/SHADOW_FRONTIER.md",
+        "digest_algo": "sha256-lf-normalized",
+        "sha256": "c1848005a8202a709d9c4144386fd5d67b836ad21ab735f96d524fcf5b4e0dc3"
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "JC.ARTIFACT.CURRENT_SHADOW",
+      "availability": "PRESENT",
+      "path": "d2_plane_72_108/lean/JC/SigmaCurrentShadow.lean",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "75b9066ad45158ccad00618504d3d61f7804e44ac660be3e3673ab6a2ef21382",
+      "role": "FORMAL_INTERFACE",
+      "grade": "PROVED",
+      "description": "Compile-time integration point for the current formal shadow surface.",
+      "public_disposition": "INCLUDE",
+      "replay": {
+        "status": "PASS",
+        "command": "bash build.sh SigmaCurrentShadow",
+        "receipt": "Current-head formal shadow replay recorded clean in the authoritative shadow frontier."
+      }
+    },
+    {
+      "id": "JC.ARTIFACT.ENDGAME_COMPOSITION",
+      "availability": "PRESENT",
+      "path": "d2_plane_72_108/lean/JC/SigmaEndgameComposition.lean",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "6255cdb7330b6e9fbd53105426ac7707ad6b0da5d962e692c9846b234836879c",
+      "role": "FORMAL_INTERFACE",
+      "grade": "PROVED",
+      "description": "Zero-sorry conditional composition through the named theorem-facing leaves.",
+      "public_disposition": "INCLUDE",
+      "replay": {
+        "status": "PASS",
+        "command": "bash build.sh SigmaEndgameComposition",
+        "receipt": "Publication policy records a fresh current-head build with no campaign axiom or sorry."
+      }
+    },
+    {
+      "id": "JC.ARTIFACT.LOCAL_ALGEBRA_CONSUMER",
+      "availability": "PRESENT",
+      "path": "d2_plane_72_108/lean/JC/SigmaLocalAlgebraToS2.lean",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "b237762f882cead06a73a19e50d7504354aacd6479989e82014e1bd77b15ae28",
+      "role": "FORMAL_INTERFACE",
+      "grade": "PROVED",
+      "description": "Formal consumer from a matching finite-algebra squeeze to the S2 contradiction.",
+      "public_disposition": "INCLUDE",
+      "replay": {
+        "status": "PASS",
+        "command": "bash build.sh SigmaLocalAlgebraToS2",
+        "receipt": "Publication policy records a fresh build using only foundational Lean/mathlib axioms."
+      }
+    },
+    {
+      "id": "JC.ARTIFACT.I4_ENDGAME",
+      "availability": "PRESENT",
+      "path": "d2_plane_72_108/lean/JC/SigmaI4Endgame.lean",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "82de6eebe41cb183a3730ffda4310c6067353e196b919ae0561e727b046271d6",
+      "role": "FORMAL_INTERFACE",
+      "grade": "PROVED",
+      "description": "Typed conditional I4 bypass and its explicit open inputs.",
+      "public_disposition": "INCLUDE",
+      "replay": {
+        "status": "PASS",
+        "command": "bash build.sh SigmaI4Endgame",
+        "receipt": "Publication policy records a fresh current-head build with no campaign axiom or sorry."
+      }
+    },
+    {
+      "id": "JC.ARTIFACT.OMEGA36",
+      "availability": "PRESENT",
+      "path": "d2_plane_72_108/F2_OMEGA36_ACTUAL_PAIR_PROOF_2026_08_11.md",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "a9cf327ac836f18ddd953dffe587cd7e2d49acd11d24016d4162d15822c71f1c",
+      "role": "CLAIM_SUPPORT",
+      "grade": "PROVED",
+      "description": "Actual-pair construction of the seven-shear OMEGA-36 coordinate.",
+      "public_disposition": "INCLUDE",
+      "replay": {
+        "status": "PASS",
+        "command": "python f2_omega36_actual_pair.py --emit",
+        "receipt": "Fresh clean-checkout replay at 1bbdec4 passed 74/74 checks."
+      }
+    },
+    {
+      "id": "JC.ARTIFACT.EXTRACTION_ROOT_BRIDGE",
+      "availability": "PRESENT",
+      "path": "d2_plane_72_108/F2_ROY_EXTRACTION_ROOT_BRIDGE_2026_08_11.md",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "bba17b03f8e430518cbe498facc524c817461a435b508e04262d3f8719ed2948",
+      "role": "CLAIM_SUPPORT",
+      "grade": "PROVED",
+      "description": "Exact extraction-root exponent/cokernel bridge and length-54 packet.",
+      "public_disposition": "INCLUDE",
+      "replay": {
+        "status": "PASS",
+        "command": "python f2_roy_extraction_root_bridge.py --emit",
+        "receipt": "Fresh clean-checkout replay at 1bbdec4 passed 23/23 checks."
+      }
+    },
+    {
+      "id": "JC.ARTIFACT.ENTRY_Z1_REDUCTION",
+      "availability": "PRESENT",
+      "path": "d2_plane_72_108/F2_H3_SIGMA_ENTRY_T_FIVE_COLON_EXACT.md",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "9f29b8366386e2f66527a1378a10e2757fa3866d0d1263d882cd273f297ee15f",
+      "role": "CLAIM_SUPPORT",
+      "grade": "PROVED",
+      "description": "Exact z1 reduction and four-variable rank-six ENTRY module.",
+      "public_disposition": "INCLUDE",
+      "replay": {
+        "status": "PASS",
+        "command": "python f2_h3_sigma_entry_t_five_colon_z1_reduction.py --self-test-mutations --emit",
+        "receipt": "Fresh clean-checkout replay at 1bbdec4 passed 19/19 checks and refused 6/6 mutations in 1113.5 seconds."
+      }
+    },
+    {
+      "id": "JC.ARTIFACT.LOCAL_RECURRENCE",
+      "availability": "PRESENT",
+      "path": "d2_plane_72_108/F2_H3_SIGMA_LOCAL_Z10_D9_INTEGRABILITY9.md",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "733107bef935224abfb2d57d674dbd15b72b0cc45fb399338371ffa8ed97cb27",
+      "role": "MECHANISM_CEILING",
+      "grade": "PROVED",
+      "description": "Coboundary derivation of the nine missing level-10 integrability equations and bounded-width architecture.",
+      "public_disposition": "INCLUDE",
+      "replay": {
+        "status": "PASS",
+        "command": "python z10_d9_integrability9_replay.py",
+        "receipt": "Fresh clean-checkout replay at 1bbdec4 passed 19/19 checks in 142.2 seconds."
+      }
+    },
+    {
+      "id": "JC.ARTIFACT.LOCAL_CONNECTING_NOTE",
+      "availability": "PRESENT",
+      "path": "d2_plane_72_108/F2_H3_SIGMA_LOCAL_Z10_D9_CONNECTING_MAP.md",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "272a8b505a7e9a27a077f2056bc39284bbe4ef9b3a10cfd175db8ec13fc43b81",
+      "role": "MECHANISM_CEILING",
+      "grade": "PROVED",
+      "description": "Preimage-free connecting row, exact 36-dimensional page binding, and the quantified failure of the 31-wide cohomological target to prove the remaining rank-nine bound.",
+      "public_disposition": "INCLUDE",
+      "replay": {
+        "status": "PASS",
+        "command": "python z10_d9_connecting_map_replay.py",
+        "receipt": "Fresh clean-checkout rho-free replay at 1bbdec4 passed 38/38 checks in 150.3 seconds."
+      }
+    },
+    {
+      "id": "JC.ARTIFACT.LOCAL_CONNECTING_FORMAL",
+      "availability": "PRESENT",
+      "path": "d2_plane_72_108/lean/JC/SigmaLocalConnecting.lean",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "3e9faec355bfff18c601e4b8e78bb28fd1e01a24492cea13a4d4553fc6f0593c",
+      "role": "FORMAL_INTERFACE",
+      "grade": "PROVED",
+      "description": "Representation-independent Lean interface for the connecting row, canonical cut, page identification, and ten-row dimension consequence.",
+      "public_disposition": "INCLUDE",
+      "replay": {
+        "status": "PASS",
+        "command": "bash build.sh SigmaLocalConnecting",
+        "receipt": "Fresh replay at 1bbdec4 completed in 71 seconds with zero sorry declarations."
+      }
+    },
+    {
+      "id": "JC.ARTIFACT.ORDER6_VERTEX",
+      "availability": "PRESENT",
+      "path": "d2_plane_72_108/F2_SIGMA_SOURCE_ORDER6_VERTEX_REALIZABILITY_2026_08_12.md",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "58fc779e1557688987c5093c30739c70c988f3c77fbea0063ab6134244974a9a",
+      "role": "CLAIM_SUPPORT",
+      "grade": "PROVED",
+      "description": "Field-independent order-six vertex kill at the typed finite-jet stratum.",
+      "public_disposition": "INCLUDE",
+      "replay": {
+        "status": "PASS",
+        "command": "python -u f2_sigma_source_order6_vertex_realizability.py --emit --self-test-mutations",
+        "receipt": "Fresh clean-checkout replay at 1bbdec4 passed 14/14 checks, refused 7/7 mutations, and reproduced certificate sha256 564f9130c87339529d5994bfedc3f4254d3984583b1a97fbf6ed1b791c8f08e8."
+      }
+    },
+    {
+      "id": "JC.ARTIFACT.PORTRAIT_AUDIT",
+      "availability": "MISSING",
+      "role": "PUBLICATION",
+      "grade": "ADVISORY",
+      "description": "Current-head dependency cards for every assertion in the counterexample portrait.",
+      "public_disposition": "INCLUDE",
+      "generated_by": "PORTRAIT_AUDIT",
+      "replay": {"status": "NOT_RUN", "command": null, "receipt": null}
+    },
+    {
+      "id": "JC.ARTIFACT.RELEASE_MANIFEST",
+      "availability": "MISSING",
+      "role": "PUBLICATION",
+      "grade": "ADVISORY",
+      "description": "Content-addressed release manifest separating exact, formal, checked, conditional, cited, reconnaissance, and mechanism-ceiling artifacts.",
+      "public_disposition": "INCLUDE",
+      "generated_by": "RELEASE_MANIFEST",
+      "replay": {"status": "NOT_RUN", "command": null, "receipt": null}
+    },
+    {
+      "id": "JC.ARTIFACT.MANUSCRIPT",
+      "availability": "MISSING",
+      "role": "PUBLICATION",
+      "grade": "ADVISORY",
+      "description": "Technical report or preprint presenting the portrait and machine-checked reduction without claiming the summit theorem.",
+      "public_disposition": "INCLUDE",
+      "replay": {"status": "NOT_APPLICABLE", "command": null, "receipt": null}
+    },
+    {
+      "id": "JC.ARTIFACT.GOLD_COMPOSITION",
+      "availability": "MISSING",
+      "role": "FORMAL_INTERFACE",
+      "grade": "ADVISORY",
+      "description": "End-to-end formal composition with exact S2 closure welded in rather than assumed.",
+      "public_disposition": "INCLUDE",
+      "replay": {"status": "NOT_RUN", "command": null, "receipt": null}
+    }
+  ],
+  "claims": [
+    {
+      "id": "JC.PORTRAIT.CONDITIONAL_COMPOSITION",
+      "scope_id": "JC.75_125.ACTUAL_PAIR",
+      "proposition": "Any actual normalized (75,125) counterexample reduces through the formal shadow to the named theorem-facing residual leaves.",
+      "grade": "CONDITIONAL",
+      "evidence_ids": ["JC.ARTIFACT.CURRENT_SHADOW", "JC.ARTIFACT.ENDGAME_COMPOSITION"],
+      "assumptions": ["JC.S1_PRIME", "JC.S2", "JC.S3", "JC.S4", "JC.S5", "JC.S6.A2", "JC.S6.H_RECIP"],
+      "consumers": ["JC.PUBLICATION_FLAG", "JC.GOLD_FLAG"]
+    },
+    {
+      "id": "JC.PORTRAIT.OMEGA36_LENGTH54",
+      "scope_id": "JC.ACTUAL_F2_PAIR.BOUNDARY",
+      "proposition": "The actual-pair boundary packet has ord_W(omega)=36 and branch-matching length 54 at its declared scope.",
+      "grade": "PROVED",
+      "evidence_ids": ["JC.ARTIFACT.EXTRACTION_ROOT_BRIDGE", "JC.ARTIFACT.OMEGA36"],
+      "assumptions": [],
+      "consumers": ["JC.PORTRAIT.CONDITIONAL_COMPOSITION"]
+    },
+    {
+      "id": "JC.PORTRAIT.I4_BYPASS",
+      "scope_id": "JC.COVERED_INFRAME_LADDERED_SOURCE",
+      "proposition": "At the declared covered, in-frame, laddered source scope, I4=0 routes to u=0 and the typed endpoint contradiction.",
+      "grade": "CONDITIONAL",
+      "evidence_ids": ["JC.ARTIFACT.I4_ENDGAME"],
+      "assumptions": ["A2 atlas authority", "ladder necessity", "I4=0 at the actual source"],
+      "consumers": ["JC.PORTRAIT.CONDITIONAL_COMPOSITION"]
+    },
+    {
+      "id": "JC.PORTRAIT.ENTRY_Z1_ZERO",
+      "scope_id": "JC.ENTRY_T.Z1_ZERO",
+      "proposition": "The z1=0 half of ENTRY-T is empty over QQ at the exact localized scope.",
+      "grade": "PROVED",
+      "evidence_ids": ["JC.ARTIFACT.ENTRY_Z1_REDUCTION"],
+      "assumptions": [],
+      "consumers": ["JC.S5"]
+    },
+    {
+      "id": "JC.PORTRAIT.LOCAL_CONSUMER",
+      "scope_id": "JC.LOCAL.FINITE_ALGEBRA",
+      "proposition": "Matching exact upper and lower finite-algebra bounds plus the native localization map imply the S2 contradiction.",
+      "grade": "CONDITIONAL",
+      "evidence_ids": ["JC.ARTIFACT.LOCAL_ALGEBRA_CONSUMER", "JC.ARTIFACT.LOCAL_CONNECTING_FORMAL", "JC.ARTIFACT.LOCAL_CONNECTING_NOTE", "JC.ARTIFACT.LOCAL_RECURRENCE"],
+      "assumptions": ["matching finite-algebra bounds", "native arc-to-generic-algebra localization map"],
+      "consumers": ["JC.S2", "JC.GOLD_FLAG"]
+    },
+    {
+      "id": "JC.PORTRAIT.ORDER6_VERTEX",
+      "scope_id": "JC.UPSTREAM.ORDER6.VERTEX_FINITE_JET",
+      "proposition": "At the unique order-six finite-jet vertex, the actual-source quadratic guard is coprime to the residual cubic and forces zeta_65=0 over every characteristic-zero field.",
+      "grade": "PROVED",
+      "evidence_ids": ["JC.ARTIFACT.ORDER6_VERTEX"],
+      "assumptions": [],
+      "consumers": ["JC.S6"]
+    }
+  ],
+  "leaves": [
+    {
+      "id": "JC.S1_PRIME",
+      "state": "OPEN",
+      "theorem_role": "Actual pair to indexed row-open/row-zero exclusion",
+      "exact_object": "A source-provenance adapter from an actual normalized pair to one indexed row exclusion statement.",
+      "next_accepted_object": "A scope-correct actual-pair provenance theorem or a faithful smaller object that prices it.",
+      "price": {"status": "UNPRICED", "cost_class": "UNKNOWN", "basis": null, "detail": null},
+      "retired_representations": [],
+      "resume_condition": "A typed actual-pair-to-row adapter or a bounded faithful character calculation lands.",
+      "evidence_ids": ["JC.ARTIFACT.ENDGAME_COMPOSITION"]
+    },
+    {
+      "id": "JC.S2",
+      "state": "OPEN",
+      "theorem_role": "LOCAL / positive-dimensional infinity kill",
+      "exact_object": "The depth-one page is identified exactly with the 36-dimensional W_10, and a preimage-free ten-row map has the 26-shell as its specialized kernel. The remaining generic lower obligation is rank_K(OBS restricted to page)<=9; the finite-algebra upper relation bound remains separately open.",
+      "next_accepted_object": "A characteristic-zero certificate for rank_K(OBS restricted to page)<=9 together with the structural generic upper relation bound, or another exact theorem-level LOCAL kill.",
+      "price": {
+        "status": "PRICED",
+        "cost_class": "SIEGE",
+        "basis": "one remaining generic rank-nine obstruction bound plus the independent finite-algebra upper relation bound, after exact page and connecting-row identification",
+        "detail": "The page-binding and preimage seam are closed. The obvious truncated H2 target is 31-dimensional and leaves 22 unreachable directions, while the upper relation module still lacks a bounded torsion mechanism."
+      },
+      "retired_representations": [
+        {
+          "id": "JC.S2.DIRECT_CRT_PML",
+          "reason": "Alpha-bearing rows are structurally dense and remain unreconstructible through the measured height range; more primes and basis changes are retired.",
+          "evidence_ids": ["JC.ARTIFACT.LOCAL_RECURRENCE"]
+        },
+        {
+          "id": "JC.S2.DIRECT_UPPER_COFACTOR",
+          "reason": "The direct upper PML/cofactor transplant inherits the non-Koszul gate and is far beyond its wall/RSS cap.",
+          "evidence_ids": ["JC.ARTIFACT.LOCAL_RECURRENCE"]
+        },
+        {
+          "id": "JC.S2.TRUNCATED_H2_TARGET",
+          "reason": "The intrinsic truncated second-cohomology target has dimension 31 and therefore leaves 22 directions of slack; closedness plus the degree-eight head cannot prove the required rank-nine bound.",
+          "evidence_ids": ["JC.ARTIFACT.LOCAL_CONNECTING_NOTE"]
+        }
+      ],
+      "resume_condition": "A proof of the generic rank-nine obstruction bound, a structural upper torsion bound, a smaller faithful exact object, or a new external theorem lands.",
+      "evidence_ids": ["JC.ARTIFACT.LOCAL_ALGEBRA_CONSUMER", "JC.ARTIFACT.LOCAL_CONNECTING_FORMAL", "JC.ARTIFACT.LOCAL_CONNECTING_NOTE", "JC.ARTIFACT.LOCAL_RECURRENCE"]
+    },
+    {
+      "id": "JC.S3",
+      "state": "OPEN",
+      "theorem_role": "AFF-A isolated-point kill",
+      "exact_object": "A faithful quadratic-pivot algebra with sampled generic degree 874.",
+      "next_accepted_object": "An exact finite quotient/operator or exceptional-denominator certificate.",
+      "price": {"status": "UNPRICED", "cost_class": "UNKNOWN", "basis": null, "detail": null},
+      "retired_representations": [],
+      "resume_condition": "A bounded exact finite operator or denominator structure replaces determinant interpolation.",
+      "evidence_ids": ["JC.ARTIFACT.CURRENT_SHADOW"]
+    },
+    {
+      "id": "JC.S4",
+      "state": "OPEN",
+      "theorem_role": "AFF-B isolated-point kill on D(z1)",
+      "exact_object": "The exact quartic gives a faithful rank-four module, but its certificate crossover is weight 129 versus 109 for the plain formulation.",
+      "next_accepted_object": "A cheap sign decision from late-row Fitting minors or a smaller exact residual before buying the weight-109 certificate.",
+      "price": {
+        "status": "PARTIAL",
+        "cost_class": "LARGE",
+        "basis": "weight-129 rank-four module versus weight-109 plain formulation",
+        "detail": "The losing crossover is measured, but the leaf lacks one canonical final price card."
+      },
+      "retired_representations": [
+        {
+          "id": "JC.S4.RANK4_EARLY_FITTING",
+          "reason": "Quartic elimination and early-row Fitting minors are proved losing or redundant closeout representations.",
+          "evidence_ids": ["JC.ARTIFACT.CURRENT_SHADOW"]
+        }
+      ],
+      "resume_condition": "A positive late-row unit candidate or a smaller faithful exact residual lands.",
+      "evidence_ids": ["JC.ARTIFACT.CURRENT_SHADOW"]
+    },
+    {
+      "id": "JC.S5",
+      "state": "OPEN",
+      "theorem_role": "ENTRY-T isolated-point kill on D(z1)",
+      "exact_object": "On D(z1), exact z1-division reduces the target to membership in an explicit 30-generator submodule of QQ[z2,z3,z4,z6]^6; one controlled prime is positive reconnaissance only.",
+      "next_accepted_object": "Exact rational rank-six module membership/nonmembership or a smaller faithful quotient-algebra certificate.",
+      "price": {
+        "status": "PARTIAL",
+        "cost_class": "LARGE",
+        "basis": "rank-six four-variable module; direct source syzygy export hit a one-hour exact watchdog",
+        "detail": "The faithful object and one algorithm ceiling are known, but the canonical certificate-height price card remains incomplete."
+      },
+      "retired_representations": [
+        {
+          "id": "JC.S5.BANDED_LADDER",
+          "reason": "Finite Fredholm duals price the old banded ladder beyond a feasible membership window.",
+          "evidence_ids": ["JC.ARTIFACT.ENTRY_Z1_REDUCTION"]
+        }
+      ],
+      "resume_condition": "A rational column-syzygy certificate, quotient-algebra relation, or smaller faithful module appears.",
+      "evidence_ids": ["JC.ARTIFACT.ENTRY_Z1_REDUCTION"]
+    },
+    {
+      "id": "JC.S6.A2",
+      "state": "OPEN",
+      "theorem_role": "Atlas/scope authority for the arbitrary-(75,125) reduction",
+      "exact_object": "A2 remains checked/delegated while the gamma naming and F2 naming bindings are proved.",
+      "next_accepted_object": "An authority-complete exact atlas audit and binding at the actual-pair scope.",
+      "price": {"status": "UNPRICED", "cost_class": "UNKNOWN", "basis": null, "detail": null},
+      "retired_representations": [],
+      "resume_condition": "The delegated atlas premise is independently materialized or replaced by an exact scoped theorem.",
+      "evidence_ids": ["JC.ARTIFACT.ENDGAME_COMPOSITION"]
+    },
+    {
+      "id": "JC.S6.H_RECIP",
+      "state": "OPEN",
+      "theorem_role": "Actual-provenance reciprocal open seam",
+      "exact_object": "On the reciprocal summit, C!=0 is reduced to the smaller carrier D!=0; the typed z6=0 residual remains separately visible.",
+      "next_accepted_object": "An actual-provenance D!=0 theorem or exact disposal of the typed z6=0 residual.",
+      "price": {
+        "status": "PARTIAL",
+        "cost_class": "LARGE",
+        "basis": "57-term carrier D versus the retired 342-term chart-wide C readout; z6=0 residual has 65,238 terms",
+        "detail": "A smaller carrier and one residual size are known, but no canonical character/height price card is complete."
+      },
+      "retired_representations": [
+        {
+          "id": "JC.S6.H_RECIP.CHART_WIDE_C",
+          "reason": "The chart-wide C readout is stronger than H-RECIP needs and is closed as a route.",
+          "evidence_ids": ["JC.ARTIFACT.CURRENT_SHADOW"]
+        }
+      ],
+      "resume_condition": "A genuine actual-source nonvanishing law, compact D-character, or faithful z6=0 exclusion lands.",
+      "evidence_ids": ["JC.ARTIFACT.CURRENT_SHADOW"]
+    }
+  ],
+  "profiles": [
+    {
+      "id": "JC.PUBLICATION_FLAG",
+      "kind": "SHORT_OF_SUMMIT",
+      "title": "JC reduction-package publication flag",
+      "criteria": [
+        {
+          "id": "JC.PUBLICATION.CURRENT_HEAD",
+          "kind": "SOURCE_FRESH",
+          "description": "The dossier binds a clean current source head and unchanged canonical authority files.",
+          "allowed_statuses": ["CURRENT_CLEAN"]
+        },
+        {
+          "id": "JC.PUBLICATION.PORTRAIT_AUDIT",
+          "kind": "ARTIFACTS_PRESENT",
+          "description": "Every portrait assertion has a current-head dependency card.",
+          "artifact_ids": ["JC.ARTIFACT.PORTRAIT_AUDIT"]
+        },
+        {
+          "id": "JC.PUBLICATION.PORTRAIT_GRADES",
+          "kind": "CLAIMS_PRESENT",
+          "description": "The current portrait keeps proved and conditional claims explicitly distinct.",
+          "claim_ids": ["JC.PORTRAIT.CONDITIONAL_COMPOSITION", "JC.PORTRAIT.ENTRY_Z1_ZERO", "JC.PORTRAIT.I4_BYPASS", "JC.PORTRAIT.LOCAL_CONSUMER", "JC.PORTRAIT.OMEGA36_LENGTH54", "JC.PORTRAIT.ORDER6_VERTEX"],
+          "allowed_grades": ["PROVED", "CONDITIONAL"]
+        },
+        {
+          "id": "JC.PUBLICATION.FORMAL_REPLAY",
+          "kind": "ARTIFACT_REPLAY_PASS",
+          "description": "The load-bearing formal composition and consumers replay at the bound head.",
+          "artifact_ids": ["JC.ARTIFACT.CURRENT_SHADOW", "JC.ARTIFACT.ENDGAME_COMPOSITION", "JC.ARTIFACT.I4_ENDGAME", "JC.ARTIFACT.LOCAL_ALGEBRA_CONSUMER", "JC.ARTIFACT.LOCAL_CONNECTING_FORMAL"]
+        },
+        {
+          "id": "JC.PUBLICATION.LEAF_PRICES",
+          "kind": "LEAVES_PRICED",
+          "description": "Every unresolved non-S2 theorem-facing residual has one canonical price card and resume condition.",
+          "leaf_ids": ["JC.S1_PRIME", "JC.S3", "JC.S4", "JC.S5", "JC.S6.A2", "JC.S6.H_RECIP"]
+        },
+        {
+          "id": "JC.PUBLICATION.RELEASE_BUNDLE",
+          "kind": "ARTIFACTS_PRESENT",
+          "description": "A content-addressed replay/release manifest is assembled.",
+          "artifact_ids": ["JC.ARTIFACT.RELEASE_MANIFEST"]
+        },
+        {
+          "id": "JC.PUBLICATION.WRITEUP",
+          "kind": "ARTIFACTS_PRESENT",
+          "description": "The technical report or preprint and archival payload exist.",
+          "artifact_ids": ["JC.ARTIFACT.MANUSCRIPT"]
+        }
+      ]
+    },
+    {
+      "id": "JC.GOLD_FLAG",
+      "kind": "GOLD",
+      "title": "JC reduction-package gold flag",
+      "criteria": [
+        {
+          "id": "JC.GOLD.CURRENT_HEAD",
+          "kind": "SOURCE_FRESH",
+          "description": "The gold package binds a clean current source head.",
+          "allowed_statuses": ["CURRENT_CLEAN"]
+        },
+        {
+          "id": "JC.GOLD.S2",
+          "kind": "LEAVES_CLOSED",
+          "description": "The exact finite-algebra squeeze closes S2.",
+          "leaf_ids": ["JC.S2"]
+        },
+        {
+          "id": "JC.GOLD.COMPOSITION",
+          "kind": "ARTIFACTS_PRESENT",
+          "description": "The formal endgame is rebuilt with S2 discharged rather than assumed.",
+          "artifact_ids": ["JC.ARTIFACT.GOLD_COMPOSITION"]
+        },
+        {
+          "id": "JC.GOLD.PUBLICATION",
+          "kind": "ARTIFACTS_PRESENT",
+          "description": "The replay manifest and manuscript exist.",
+          "artifact_ids": ["JC.ARTIFACT.MANUSCRIPT", "JC.ARTIFACT.RELEASE_MANIFEST"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schema": "campaign-packet-input/v0",
+  "root": "../../..",
+  "frontier_bundle": {
+    "path": "fixtures/frontier/current_v1.json",
+    "digest_algo": "sha256-lf-normalized",
+    "sha256": "8837d8e7e195eb8da3dd919a80cae885f791eca129dc47bdf7546030d030528c"
+  },
+  "task_catalog": {
+    "path": "fixtures/campaign/jc_sigma/tasks_v0.json",
+    "digest_algo": "sha256-lf-normalized",
+    "sha256": "93d6b774dbbc621715165fe5db90978155fc505eb2793f02e059be30c78ba41f"
+  },
+  "packets": [
+    "JC.H3.SIGMA.WEIGHTED_PROJECTIVE.CLASSIFY.v0",
+    "JC.H3.SIGMA.D_ANSATZ.TEST.v0",
+    "JC.H3.SIGMA.Q51_HYPERPLANE.CLASSIFY.v0"
+  ]
+}

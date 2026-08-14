@@ -1,0 +1,76 @@
+{
+  "schema": "campaign-release-input/v0",
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "graph_effect": "NONE",
+  "root": "../../..",
+  "dossier": {
+    "path": "fixtures/dossier/synthetic/dossier.json",
+    "digest_algo": "sha256-lf-normalized",
+    "sha256": "4344e2439ccaccca39fb9e478e1e1a7aa43f546370dd9cf4178dd8ce463eb739"
+  },
+  "profile_id": "SYNTHETIC.PUBLICATION_FLAG",
+  "package": {
+    "id": "SYNTHETIC.RELEASE",
+    "title": "Synthetic publication release",
+    "version": "v0"
+  },
+  "generated_artifacts": [],
+  "replay_resources": [
+    {
+      "id": "SYNTHETIC.REPLAY.CHECKER",
+      "role": "CHECKER",
+      "source_path": "verify_synthetic.py",
+      "release_path": "replay/verify_synthetic.py",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "074bc83d664ccc7d29ec59f754a0d1acd8249ba6acacf7d106e43a430d9a58b7",
+      "license_status": "CLEAR",
+      "provenance": "Offline deterministic fixture replay."
+    },
+    {
+      "id": "SYNTHETIC.REPLAY.RECEIPT",
+      "role": "RECEIPT",
+      "source_path": "synthetic-receipt.json",
+      "release_path": "replay/synthetic-receipt.json",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "8cb1d819e6756e8f97240917431bfc8ffc20538b1c4a47c73c815d4642e49bad",
+      "license_status": "CLEAR",
+      "provenance": "Expected normalized digests and passing replay verdict."
+    }
+  ],
+  "items": [
+    {
+      "id": "SYNTHETIC.AUTHORITY",
+      "kind": "SOURCE",
+      "release_path": "authority/authority.md",
+      "payload_class": "SOURCE",
+      "license_status": "CLEAR",
+      "provenance": "Canonical authority source bound by the dossier."
+    },
+    {
+      "id": "SYNTHETIC.PROOF",
+      "kind": "ARTIFACT",
+      "release_path": "receipts/proof.txt",
+      "payload_class": "COMPACT_RECEIPT",
+      "license_status": "CLEAR",
+      "provenance": "Exact compact receipt supporting the portrait and leaf ledger."
+    }
+  ],
+  "replay_lanes": [
+    {
+      "id": "SYNTHETIC.REPLAY.FAST",
+      "class": "FAST",
+      "title": "Synthetic exact replay",
+      "working_directory": "replay",
+      "environment": {
+        "runtime": "Python 3.11+",
+        "external_dependencies": [],
+        "network": "FORBIDDEN",
+        "notes": ["Uses only the Python standard library."]
+      },
+      "commands": ["python verify_synthetic.py"],
+      "artifact_ids": ["SYNTHETIC.PROOF"],
+      "resource_ids": ["SYNTHETIC.REPLAY.CHECKER", "SYNTHETIC.REPLAY.RECEIPT"],
+      "receipt_ids": ["SYNTHETIC.REPLAY.RECEIPT"]
+    }
+  ]
+}

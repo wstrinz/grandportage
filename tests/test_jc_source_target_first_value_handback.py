@@ -47,7 +47,8 @@ def test_ratio_mutation_refuses(handback):
         ADAPTER.validate_handback_value(value)
 
 
-def test_native_bindings_match_current_sibling_checkout(handback):
+def test_native_bindings_match_current_sibling_checkout(
+        handback, explicit_jc_native_binding_check):
     ADAPTER.check_native_bindings(handback)
 
 

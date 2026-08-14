@@ -1,0 +1,25 @@
+{
+  "schema": "gp-matroid-retrodiction-frontier-review/v0",
+  "projection_schema": "frontier/v1",
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "graph_effect": "NONE",
+  "consumer": "matroid-retrodiction",
+  "history": {
+    "input_fingerprint": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+  },
+  "item_observations": [
+    {
+      "id": "MATROID.RETRODICTION.BASE_EXTENSION.EMPTY_DIRECTION",
+      "scope_id": "MATROID.ML8.Q_TO_QSQRT_MINUS3",
+      "state": "CLOSED",
+      "status": "RETRODICTED_WITH_POSITIVE_AND_NEGATIVE_CONTROLS"
+    }
+  ],
+  "open_items": [],
+  "source_authority_ceiling": "RETRODICTION_FIXTURE_ONLY",
+  "evidence_envelope": {
+    "schema": "gp-matroid-retrodiction-envelope/v0",
+    "graph_effect": "NONE",
+    "authority_boundary": "This fixture demonstrates the directional asymmetry of base extension against externally settled matroid facts. It grants no new matroid theorem, no authority outside the exact fixture graph, and no inference about the JC campaign."
+  }
+}

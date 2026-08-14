@@ -1,0 +1,81 @@
+{
+  "schema": "campaign-task-catalog/v0",
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "graph_effect": "NONE",
+  "tasks": [
+    {
+      "id": "MATROID.RETRODICTION.BASE_EXTENSION.v0",
+      "frontier": {
+        "id": "MATROID.RETRODICTION.BASE_EXTENSION.EMPTY_DIRECTION",
+        "scope_id": "MATROID.ML8.Q_TO_QSQRT_MINUS3",
+        "state": "CLOSED",
+        "status": "RETRODICTED_WITH_POSITIVE_AND_NEGATIVE_CONTROLS",
+        "receipt_id": "matroid"
+      },
+      "statement": {
+        "proposition": "Retrodict that emptiness over Q does not transport along Q to Q(sqrt(-3)), while a witnessed point does transport onward to C.",
+        "scope": {
+          "id": "MATROID.ML8.Q_TO_QSQRT_MINUS3",
+          "description": "the exact ML8 base-extension contrast in the checked matroid fixture"
+        }
+      },
+      "source_bindings": [
+        {
+          "id": "matroid_expectations",
+          "path": "fixtures/matroid/expect.json",
+          "sha256": "f1e9fb262671dd9cfe343a93091c1975a179382ac8b81849c5603189d2189934"
+        },
+        {
+          "id": "matroid_graph",
+          "path": "fixtures/matroid/graph.jsonl",
+          "sha256": "3f511076e2ea3e9e15beb4bea33fd926e07920e91bd278d27d6ab66a6d52de2a"
+        },
+        {
+          "id": "retrodiction_gate",
+          "path": "tests/test_retrodiction.py",
+          "sha256": "fc7c2e5c6ebe5737cace0364ef63f86d75cda7840c9d291cd92d07e432481456"
+        }
+      ],
+      "requested_output": {
+        "acceptable_forms": [
+          "typed_directional_classification"
+        ],
+        "must_identify": [
+          "the claim kind",
+          "the direction of transport",
+          "the positive witness control",
+          "why the empty claim is refused"
+        ]
+      },
+      "acceptance": {
+        "kind": "NATIVE_REPLAY",
+        "replay": {
+          "command": "python -m pytest -q tests/test_retrodiction.py",
+          "success": "the published-ground-truth retrodiction and direction mutations pass"
+        },
+        "required_mutations": [
+          {
+            "id": "reverse_base_extension_direction",
+            "description": "transport emptiness along a field extension"
+          },
+          {
+            "id": "erase_positive_witness_control",
+            "description": "remove the witnessed nonempty contrast"
+          },
+          {
+            "id": "promote_fixture_to_new_theorem",
+            "description": "claim authority beyond the settled retrodiction fixture"
+          }
+        ]
+      },
+      "planning": {
+        "maturity": "PACKETIZED",
+        "cost_class": "SMALL",
+        "lifecycle": "COMPLETE",
+        "downstream": [],
+        "attack_log": [],
+        "argument": "This second-domain packet tests that campaign vocabulary does not assume affine elimination, coefficient maps, or JC-specific scopes."
+      }
+    }
+  ]
+}

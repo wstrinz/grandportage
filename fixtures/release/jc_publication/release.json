@@ -1,0 +1,288 @@
+{
+  "schema": "campaign-release-input/v0",
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "graph_effect": "NONE",
+  "root": "../../..",
+  "dossier": {
+    "path": "fixtures/dossier/jc_publication/dossier.json",
+    "digest_algo": "sha256-lf-normalized",
+    "sha256": "b0b570f02e786e7f9494fb1c8fe12a5c71cff43050b582b80cf86e060ec53a02"
+  },
+  "profile_id": "JC.PUBLICATION_FLAG",
+  "package": {
+    "id": "JC.PUBLICATION.RELEASE",
+    "title": "JC (75,125) reduction-package publication",
+    "version": "2026-08-12-draft"
+  },
+  "generated_artifacts": [
+    {
+      "id": "JC.ARTIFACT.PORTRAIT_AUDIT",
+      "generator": "PORTRAIT_AUDIT",
+      "release_path": "reports/PORTRAIT-AUDIT.md",
+      "license_status": "CLEAR",
+      "provenance": "Deterministically generated from the bound dossier claim and evidence cards."
+    },
+    {
+      "id": "JC.ARTIFACT.RELEASE_MANIFEST",
+      "generator": "RELEASE_MANIFEST",
+      "release_path": "manifest.json",
+      "license_status": "CLEAR",
+      "provenance": "The materialized campaign-release/v0 manifest."
+    }
+  ],
+  "replay_resource_manifests": [
+    {
+      "path": "fixtures/release/jc_publication/replay-resources.json",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "8ad01816e8d3a3735a8c9d724b31544964ab7b39d3d3945d914d64dce4156d8d"
+    }
+  ],
+  "items": [
+    {
+      "id": "JC.ARTIFACT.CURRENT_SHADOW",
+      "kind": "ARTIFACT",
+      "release_path": "artifacts/d2_plane_72_108/lean/JC/SigmaCurrentShadow.lean",
+      "payload_class": "COMPACT_RECEIPT",
+      "license_status": "CLEAR",
+      "provenance": "Compile-time integration point for the current formal shadow surface."
+    },
+    {
+      "id": "JC.ARTIFACT.ENDGAME_COMPOSITION",
+      "kind": "ARTIFACT",
+      "release_path": "artifacts/d2_plane_72_108/lean/JC/SigmaEndgameComposition.lean",
+      "payload_class": "COMPACT_RECEIPT",
+      "license_status": "CLEAR",
+      "provenance": "Zero-sorry conditional composition through the named theorem-facing leaves."
+    },
+    {
+      "id": "JC.ARTIFACT.ENTRY_Z1_REDUCTION",
+      "kind": "ARTIFACT",
+      "release_path": "artifacts/d2_plane_72_108/F2_H3_SIGMA_ENTRY_T_FIVE_COLON_EXACT.md",
+      "payload_class": "REGENERABLE",
+      "license_status": "CLEAR",
+      "provenance": "Exact z1 reduction and four-variable rank-six ENTRY module."
+    },
+    {
+      "id": "JC.ARTIFACT.EXTRACTION_ROOT_BRIDGE",
+      "kind": "ARTIFACT",
+      "release_path": "artifacts/d2_plane_72_108/F2_ROY_EXTRACTION_ROOT_BRIDGE_2026_08_11.md",
+      "payload_class": "REGENERABLE",
+      "license_status": "CLEAR",
+      "provenance": "Exact extraction-root exponent/cokernel bridge and length-54 packet."
+    },
+    {
+      "id": "JC.ARTIFACT.I4_ENDGAME",
+      "kind": "ARTIFACT",
+      "release_path": "artifacts/d2_plane_72_108/lean/JC/SigmaI4Endgame.lean",
+      "payload_class": "COMPACT_RECEIPT",
+      "license_status": "CLEAR",
+      "provenance": "Typed conditional I4 bypass and its explicit open inputs."
+    },
+    {
+      "id": "JC.ARTIFACT.LOCAL_ALGEBRA_CONSUMER",
+      "kind": "ARTIFACT",
+      "release_path": "artifacts/d2_plane_72_108/lean/JC/SigmaLocalAlgebraToS2.lean",
+      "payload_class": "COMPACT_RECEIPT",
+      "license_status": "CLEAR",
+      "provenance": "Formal consumer from a matching finite-algebra squeeze to the S2 contradiction."
+    },
+    {
+      "id": "JC.ARTIFACT.LOCAL_RECURRENCE",
+      "kind": "ARTIFACT",
+      "release_path": "artifacts/d2_plane_72_108/F2_H3_SIGMA_LOCAL_Z10_D9_INTEGRABILITY9.md",
+      "payload_class": "REGENERABLE",
+      "license_status": "CLEAR",
+      "provenance": "Coboundary derivation of the missing level-10 integrability equations and bounded-width architecture."
+    },
+    {
+      "id": "JC.ARTIFACT.LOCAL_CONNECTING_NOTE",
+      "kind": "ARTIFACT",
+      "release_path": "artifacts/d2_plane_72_108/F2_H3_SIGMA_LOCAL_Z10_D9_CONNECTING_MAP.md",
+      "payload_class": "REGENERABLE",
+      "license_status": "CLEAR",
+      "provenance": "Preimage-free connecting row, exact page binding, and quantified cohomological mechanism ceiling."
+    },
+    {
+      "id": "JC.ARTIFACT.LOCAL_CONNECTING_FORMAL",
+      "kind": "ARTIFACT",
+      "release_path": "artifacts/d2_plane_72_108/lean/JC/SigmaLocalConnecting.lean",
+      "payload_class": "COMPACT_RECEIPT",
+      "license_status": "CLEAR",
+      "provenance": "Representation-independent formal connecting-row and ten-obstruction-page interface."
+    },
+    {
+      "id": "JC.ARTIFACT.OMEGA36",
+      "kind": "ARTIFACT",
+      "release_path": "artifacts/d2_plane_72_108/F2_OMEGA36_ACTUAL_PAIR_PROOF_2026_08_11.md",
+      "payload_class": "REGENERABLE",
+      "license_status": "CLEAR",
+      "provenance": "Actual-pair construction of the seven-shear OMEGA-36 coordinate."
+    },
+    {
+      "id": "JC.ARTIFACT.ORDER6_VERTEX",
+      "kind": "ARTIFACT",
+      "release_path": "artifacts/d2_plane_72_108/F2_SIGMA_SOURCE_ORDER6_VERTEX_REALIZABILITY_2026_08_12.md",
+      "payload_class": "REGENERABLE",
+      "license_status": "CLEAR",
+      "provenance": "Field-independent order-six vertex kill at the typed finite-jet stratum."
+    },
+    {
+      "id": "JC.AUTHORITY.CURRENT",
+      "kind": "SOURCE",
+      "release_path": "sources/d2_plane_72_108/CURRENT.md",
+      "payload_class": "SOURCE",
+      "license_status": "CLEAR",
+      "provenance": "Bound current-head JC authority source."
+    },
+    {
+      "id": "JC.AUTHORITY.PUBLICATION_FLAG",
+      "kind": "SOURCE",
+      "release_path": "sources/d2_plane_72_108/REDUCTION_PACKAGE_PUBLICATION_FLAG_2026_08_12.md",
+      "payload_class": "SOURCE",
+      "license_status": "CLEAR",
+      "provenance": "Bound JC publication policy source."
+    },
+    {
+      "id": "JC.AUTHORITY.SHADOW_FRONTIER",
+      "kind": "SOURCE",
+      "release_path": "sources/d2_plane_72_108/lean/SHADOW_FRONTIER.md",
+      "payload_class": "SOURCE",
+      "license_status": "CLEAR",
+      "provenance": "Bound formal-shadow frontier source."
+    }
+  ],
+  "replay_lanes": [
+    {
+      "id": "JC.REPLAY.FORMAL",
+      "class": "FORMAL",
+      "title": "Lean formal-shadow publication lane",
+      "working_directory": "replay/jc/d2_plane_72_108/lean",
+      "environment": {
+        "runtime": "Lean 4.23.0 via elan and Git Bash",
+        "external_dependencies": ["mathlib and the packages named by build.sh at compatible revisions"],
+        "network": "FORBIDDEN",
+        "notes": ["build.sh consumes prebuilt external Lean packages through JC_LEAN_PKGS."]
+      },
+      "commands": [
+        "bash build.sh SigmaCloseoutConsumers SigmaDerivativePascal SigmaDividedPowerPoincare SigmaEndgameComposition SigmaFiniteSqueeze SigmaLiveThetaCorner SigmaLocalCoboundary SigmaPascalHasse SigmaPascalHasseGeneral SigmaI4Endgame SigmaLocalAlgebraToS2 SigmaLocalConnecting SigmaOrderSixVertex SigmaRowDichotomy SigmaUpstreamS6Chain SigmaActualPivotCompression SigmaAtlasA2Enumeration SigmaRecipCarrierReduction SigmaCurrentShadow",
+        "bash build.sh SigmaCurrentShadow",
+        "bash build.sh SigmaEndgameComposition",
+        "bash build.sh SigmaI4Endgame",
+        "bash build.sh SigmaLocalAlgebraToS2",
+        "bash build.sh SigmaLocalConnecting"
+      ],
+      "artifact_ids": [
+        "JC.ARTIFACT.CURRENT_SHADOW",
+        "JC.ARTIFACT.ENDGAME_COMPOSITION",
+        "JC.ARTIFACT.I4_ENDGAME",
+        "JC.ARTIFACT.LOCAL_ALGEBRA_CONSUMER",
+        "JC.ARTIFACT.LOCAL_CONNECTING_FORMAL"
+      ],
+      "resource_ids": ["JC.REPLAY.RECEIPT.FORMAL"],
+      "resource_set_ids": ["JC.REPLAY.SET.FORMAL"],
+      "receipt_ids": ["JC.REPLAY.RECEIPT.FORMAL"]
+    },
+    {
+      "id": "JC.REPLAY.ENTRY",
+      "class": "EXHAUSTIVE",
+      "title": "ENTRY exact z1 reduction and mutation replay",
+      "working_directory": "replay/jc/d2_plane_72_108",
+      "environment": {
+        "runtime": "CPython 3.10",
+        "external_dependencies": ["python-flint", "sympy"],
+        "network": "FORBIDDEN",
+        "notes": ["Measured clean-checkout runtime was 1113.5 seconds."]
+      },
+      "commands": ["python f2_h3_sigma_entry_t_five_colon_z1_reduction.py --self-test-mutations --emit"],
+      "artifact_ids": ["JC.ARTIFACT.ENTRY_Z1_REDUCTION"],
+      "resource_ids": ["JC.REPLAY.RECEIPT.ENTRY"],
+      "resource_set_ids": ["JC.REPLAY.SET.ENTRY"],
+      "receipt_ids": ["JC.REPLAY.RECEIPT.ENTRY"]
+    },
+    {
+      "id": "JC.REPLAY.EXTRACTION",
+      "class": "FAST",
+      "title": "Extraction-root bridge replay",
+      "working_directory": "replay/jc/d2_plane_72_108",
+      "environment": {
+        "runtime": "Python 3.10+",
+        "external_dependencies": [],
+        "network": "FORBIDDEN",
+        "notes": ["Uses only the Python standard library and pinned local inputs."]
+      },
+      "commands": ["python f2_roy_extraction_root_bridge.py --emit"],
+      "artifact_ids": ["JC.ARTIFACT.EXTRACTION_ROOT_BRIDGE"],
+      "resource_ids": ["JC.REPLAY.RECEIPT.EXTRACTION"],
+      "resource_set_ids": ["JC.REPLAY.SET.EXTRACTION"],
+      "receipt_ids": ["JC.REPLAY.RECEIPT.EXTRACTION"]
+    },
+    {
+      "id": "JC.REPLAY.OMEGA36",
+      "class": "FAST",
+      "title": "Actual-pair OMEGA-36 replay",
+      "working_directory": "replay/jc/d2_plane_72_108",
+      "environment": {
+        "runtime": "CPython 3.10",
+        "external_dependencies": ["sympy"],
+        "network": "FORBIDDEN",
+        "notes": ["The external research repository is provenance only and is not fetched at replay time."]
+      },
+      "commands": ["python f2_omega36_actual_pair.py --emit"],
+      "artifact_ids": ["JC.ARTIFACT.OMEGA36"],
+      "resource_ids": ["JC.REPLAY.RECEIPT.OMEGA36"],
+      "resource_set_ids": ["JC.REPLAY.SET.OMEGA36"],
+      "receipt_ids": ["JC.REPLAY.RECEIPT.OMEGA36"]
+    },
+    {
+      "id": "JC.REPLAY.ORDER6",
+      "class": "REPLAY",
+      "title": "Order-six source vertex and mutation replay",
+      "working_directory": "replay/jc/d2_plane_72_108",
+      "environment": {
+        "runtime": "Python 3.10+",
+        "external_dependencies": [],
+        "network": "FORBIDDEN",
+        "notes": ["Fresh replay passed 14 checks and refused 7 mutations."]
+      },
+      "commands": ["python -u f2_sigma_source_order6_vertex_realizability.py --emit --self-test-mutations"],
+      "artifact_ids": ["JC.ARTIFACT.ORDER6_VERTEX"],
+      "resource_ids": ["JC.REPLAY.RECEIPT.ORDER6"],
+      "resource_set_ids": ["JC.REPLAY.SET.ORDER6"],
+      "receipt_ids": ["JC.REPLAY.RECEIPT.ORDER6"]
+    },
+    {
+      "id": "JC.REPLAY.LOCAL_CONNECTING",
+      "class": "REPLAY",
+      "title": "LOCAL connecting-row rho-free replay",
+      "working_directory": "replay/jc/d2_plane_72_108/_local_finite_algebra",
+      "environment": {
+        "runtime": "CPython 3.10",
+        "external_dependencies": ["numpy"],
+        "network": "FORBIDDEN",
+        "notes": ["Fresh replay passed 38 checks without constructing rho."]
+      },
+      "commands": ["python z10_d9_connecting_map_replay.py"],
+      "artifact_ids": ["JC.ARTIFACT.LOCAL_CONNECTING_NOTE"],
+      "resource_ids": ["JC.REPLAY.RECEIPT.LOCAL_CONNECTING"],
+      "resource_set_ids": ["JC.REPLAY.SET.LOCAL_CONNECTING"],
+      "receipt_ids": ["JC.REPLAY.RECEIPT.LOCAL_CONNECTING"]
+    },
+    {
+      "id": "JC.REPLAY.LOCAL_INTEGRABILITY",
+      "class": "REPLAY",
+      "title": "LOCAL nine-row integrability replay",
+      "working_directory": "replay/jc/d2_plane_72_108/_local_finite_algebra",
+      "environment": {
+        "runtime": "CPython 3.10",
+        "external_dependencies": ["numpy"],
+        "network": "FORBIDDEN",
+        "notes": ["Fresh replay passed 19 checks including planted controls."]
+      },
+      "commands": ["python z10_d9_integrability9_replay.py"],
+      "artifact_ids": ["JC.ARTIFACT.LOCAL_RECURRENCE"],
+      "resource_ids": ["JC.REPLAY.RECEIPT.LOCAL_INTEGRABILITY"],
+      "resource_set_ids": ["JC.REPLAY.SET.LOCAL_INTEGRABILITY"],
+      "receipt_ids": ["JC.REPLAY.RECEIPT.LOCAL_INTEGRABILITY"]
+    }
+  ]
+}
