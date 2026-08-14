@@ -1,0 +1,243 @@
+{
+  "schema": "campaign-task-catalog/v0",
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "graph_effect": "NONE",
+  "tasks": [
+    {
+      "id": "JC.H3.SIGMA.WEIGHTED_PROJECTIVE.CLASSIFY.v0",
+      "frontier": {
+        "id": "JC.H3.SOURCE.REMAINING_COEFFICIENT_MAP",
+        "scope_id": "JC.H3.SOURCE.TARGET_PAIR.SEAM",
+        "state": "OPEN",
+        "status": "OPEN_REMAINING_COEFFICIENT_MAP",
+        "receipt_id": "source-target-first-value"
+      },
+      "statement": {
+        "proposition": "Classify the finite covered sigma cone beyond the displayed five-parameter family, preserving exact projective scope and refusing any source or H3 promotion.",
+        "scope": {
+          "id": "JC.H3.SOURCE.TARGET_PAIR.SEAM",
+          "description": "the source-derived target-pair coefficient seam in the covered psi2 frame"
+        }
+      },
+      "source_bindings": [
+        {
+          "id": "sigma_weighted_projective_certificate",
+          "path": "d2_plane_72_108/f2_h3_sigma_weighted_projective_certificate.json",
+          "commit": "4869cdd",
+          "sha256": "c16134f22f66e5bb250ed4dba554e2be80b8f99c5b7d763d59116b166361a31a"
+        },
+        {
+          "id": "sigma_weighted_projective_report",
+          "path": "d2_plane_72_108/F2_H3_SIGMA_WEIGHTED_PROJECTIVE.md",
+          "commit": "4869cdd",
+          "sha256": "d950e1a4a6600f9e3c0443de74b8d3a6907ef99d60b4f02339dbddba75259c04"
+        }
+      ],
+      "requested_output": {
+        "acceptable_forms": [
+          "exact_weighted_projective_component",
+          "exact_coordinate_stratum_certificates",
+          "bounded_nonexhaustiveness_witness"
+        ],
+        "must_identify": [
+          "the exact weighted-projective scope",
+          "which strata are proved, checked, or open",
+          "whether the displayed family is exhaustive",
+          "every authority refusal"
+        ]
+      },
+      "acceptance": {
+        "kind": "NATIVE_REPLAY",
+        "replay": {
+          "command": "python d2_plane_72_108/f2_h3_sigma_weighted_projective.py --verify",
+          "success": "all exact checks and every declared mutation refusal pass"
+        },
+        "required_mutations": [
+          {
+            "id": "mutate_second_component_coordinate",
+            "description": "alter one exact coordinate of the second component"
+          },
+          {
+            "id": "promote_family_to_exhaustive",
+            "description": "claim that the displayed family is the whole cone"
+          },
+          {
+            "id": "promote_to_source_pair",
+            "description": "treat a covered-cone point as an actual source pair"
+          }
+        ]
+      },
+      "planning": {
+        "maturity": "PACKETIZED",
+        "cost_class": "MEDIUM",
+        "lifecycle": "COMPLETE",
+        "downstream": [
+          "JC.H3.SOURCE.REMAINING_COEFFICIENT_MAP"
+        ],
+        "attack_log": [
+          "JC.H3.ATTEMPT.SIGMA_WEIGHTED_PROJECTIVE.001"
+        ],
+        "argument": "This completed attack is retained because its counterexample redrew the frontier and is the strongest test that useful progress is not synonymous with closure."
+      }
+    },
+    {
+      "id": "JC.H3.SIGMA.D_ANSATZ.TEST.v0",
+      "frontier": {
+        "id": "JC.H3.SOURCE.REMAINING_COEFFICIENT_MAP",
+        "scope_id": "JC.H3.SOURCE.TARGET_PAIR.SEAM",
+        "state": "OPEN",
+        "status": "OPEN_REMAINING_COEFFICIENT_MAP",
+        "receipt_id": "source-target-first-value"
+      },
+      "statement": {
+        "proposition": "Decide whether the covered sigma locus admits the compression P=D^3+x^2*y in the Laurent-polynomial category, and stop with an exact mismatch if either known component fails.",
+        "scope": {
+          "id": "JC.H3.SOURCE.TARGET_PAIR.SEAM",
+          "description": "the source-derived target-pair coefficient seam in the covered psi2 frame"
+        }
+      },
+      "source_bindings": [
+        {
+          "id": "sigma_d_ansatz_certificate",
+          "path": "d2_plane_72_108/f2_h3_sigma_d_ansatz_certificate.json",
+          "commit": "f6e1579",
+          "sha256": "61c8b6b6dade5191e5457280f0bb99426d4e6bf692eae1b6103af12e705066c7"
+        },
+        {
+          "id": "sigma_d_ansatz_report",
+          "path": "d2_plane_72_108/F2_H3_SIGMA_D_ANSATZ.md",
+          "commit": "f6e1579",
+          "sha256": "ca7c5b032137bc02db3e1e4ce52644aa38fa897ffbfffa2e5fd7d09de31efd00"
+        }
+      ],
+      "requested_output": {
+        "acceptable_forms": [
+          "exact_ansatz_classification",
+          "exact_compression_refutation"
+        ],
+        "must_identify": [
+          "the category of D",
+          "the exact first coefficient mismatch",
+          "which component passes and which fails",
+          "why declared gauges cannot repair the mismatch"
+        ]
+      },
+      "acceptance": {
+        "kind": "NATIVE_REPLAY",
+        "replay": {
+          "command": "python d2_plane_72_108/f2_h3_sigma_d_ansatz.py --verify",
+          "success": "the identity, category audit, component controls, and mutation refusals all pass"
+        },
+        "required_mutations": [
+          {
+            "id": "broaden_laurent_polynomial_to_completion",
+            "description": "silently replace a Laurent polynomial by a formal completion element"
+          },
+          {
+            "id": "erase_essential_modulus",
+            "description": "treat the family modulus as a removable Q-side gauge"
+          },
+          {
+            "id": "repair_failed_ansatz_ad_hoc",
+            "description": "widen the ansatz after the requested precondition fails"
+          }
+        ]
+      },
+      "planning": {
+        "maturity": "PACKETIZED",
+        "cost_class": "SMALL",
+        "lifecycle": "COMPLETE",
+        "downstream": [
+          "JC.H3.SOURCE.REMAINING_COEFFICIENT_MAP"
+        ],
+        "attack_log": [
+          "JC.H3.ATTEMPT.SIGMA_D_ANSATZ.001"
+        ],
+        "argument": "The negative answer is a successful campaign result: it removes a false compression and identifies the modulus direction as transverse to the D-cube stratum."
+      }
+    },
+    {
+      "id": "JC.H3.SIGMA.Q51_HYPERPLANE.CLASSIFY.v0",
+      "frontier": {
+        "id": "JC.H3.SOURCE.REMAINING_COEFFICIENT_MAP",
+        "scope_id": "JC.H3.SOURCE.TARGET_PAIR.SEAM",
+        "state": "OPEN",
+        "status": "OPEN_REMAINING_COEFFICIENT_MAP",
+        "receipt_id": "source-target-first-value"
+      },
+      "statement": {
+        "proposition": "Classify the covered sigma locus on the exact hyperplane Q_(5,1)=0, or return a bounded sparse rational certificate or exact obstruction that narrows the remaining size-at-least-four strata.",
+        "scope": {
+          "id": "JC.H3.SOURCE.TARGET_PAIR.SEAM",
+          "description": "the source-derived target-pair coefficient seam in the covered psi2 frame"
+        }
+      },
+      "source_bindings": [
+        {
+          "id": "sigma_d_ansatz_certificate",
+          "path": "d2_plane_72_108/f2_h3_sigma_d_ansatz_certificate.json",
+          "commit": "f6e1579",
+          "sha256": "61c8b6b6dade5191e5457280f0bb99426d4e6bf692eae1b6103af12e705066c7"
+        },
+        {
+          "id": "sigma_d_ansatz_report",
+          "path": "d2_plane_72_108/F2_H3_SIGMA_D_ANSATZ.md",
+          "commit": "f6e1579",
+          "sha256": "ca7c5b032137bc02db3e1e4ce52644aa38fa897ffbfffa2e5fd7d09de31efd00"
+        }
+      ],
+      "requested_output": {
+        "acceptable_forms": [
+          "sparse_rational_nullstellensatz_certificate",
+          "exact_hyperplane_component_classification",
+          "bounded_interface_blocker"
+        ],
+        "must_identify": [
+          "the exact Q_(5,1)=0 chart and guards",
+          "which projective strata are addressed",
+          "which exclusions are rational and which are modular reconnaissance",
+          "the smallest surviving residual obligation"
+        ]
+      },
+      "acceptance": {
+        "kind": "NATIVE_REPLAY",
+        "replay": {
+          "command": "python d2_plane_72_108/f2_h3_sigma_q51_hyperplane.py --verify",
+          "success": "every claimed rational identity replays exactly and all unproved modular evidence remains explicitly checked-only"
+        },
+        "required_mutations": [
+          {
+            "id": "promote_modular_membership_to_rational",
+            "description": "treat mod-p ideal membership as a proof over QQ"
+          },
+          {
+            "id": "drop_q51_hyperplane_scope",
+            "description": "export a hyperplane conclusion to the whole weighted cone"
+          },
+          {
+            "id": "infer_reverse_source_transport",
+            "description": "turn a covered-cone exclusion into source-pair authority"
+          },
+          {
+            "id": "erase_surviving_stratum",
+            "description": "omit a residual projective stratum without an exact certificate"
+          }
+        ]
+      },
+      "planning": {
+        "maturity": "DECOMPOSABLE",
+        "cost_class": "LARGE",
+        "lifecycle": "ACTIVE",
+        "downstream": [
+          "JC.H3.SOURCE.REMAINING_COEFFICIENT_MAP",
+          "JC.H3.D6.R7.75_125_IDENTIFICATION"
+        ],
+        "attack_log": [
+          "JC.H3.ATTEMPT.SIGMA_WEIGHTED_PROJECTIVE.001",
+          "JC.H3.ATTEMPT.SIGMA_D_ANSATZ.001"
+        ],
+        "argument": "The failed D-cube compression leaves a smaller exact hyperplane problem and a certificate-verification route whose checking cost is much lower than blind elimination."
+      }
+    }
+  ]
+}

@@ -114,10 +114,9 @@ def test_mandatory_authority_mutations_are_independently_refused(
         module.validate_fixture_value(value)
 
 
-def test_fixture_is_a_deterministic_copy_and_projection_of_native_inputs():
+def test_fixture_is_a_deterministic_copy_and_projection_of_native_inputs(
+        explicit_jc_native_binding_check):
     module = load_adapter()
-    if not module.NATIVE_ROOT.exists():
-        pytest.skip("live sibling math-stuff checkout is not available")
     frozen = fixture_value(module)
     rebuilt = module.build_fixture()
 
@@ -126,11 +125,9 @@ def test_fixture_is_a_deterministic_copy_and_projection_of_native_inputs():
         module.EXPECTED_FIXTURE_SHA256)
 
 
-def test_live_native_bindings_when_sibling_checkout_is_available():
+def test_live_native_bindings_when_sibling_checkout_is_available(
+        explicit_jc_native_binding_check):
     module = load_adapter()
-    if not module.NATIVE_ROOT.exists():
-        pytest.skip("live sibling math-stuff checkout is not available")
-
     report = module.verify_fixture(check_bindings=True)
     assert report["binding_digest_algo"] == "sha256-lf-normalized"
 

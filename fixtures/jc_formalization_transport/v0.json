@@ -1,0 +1,632 @@
+{
+  "schema": "formalization-transport-ledger-input/v0",
+  "campaign": "JC (75,125) Lean-native summit push",
+  "source_commit": "4d1b5296c49c22cfb82b99c0df7c8c9fe25ab931",
+  "sources": [
+    {
+      "id": "JC.SOURCE.CURRENT",
+      "kind": "CANONICAL_COORDINATION",
+      "path": "d2_plane_72_108/CURRENT.md",
+      "sha256": "cd02506cc76ecdf3d91f94842ec3a0865baac96cab369aada08a150ead525308"
+    },
+    {
+      "id": "JC.SOURCE.ENDGAME",
+      "kind": "LEAN_MODULE",
+      "path": "d2_plane_72_108/lean/JC/SigmaEndgameComposition.lean",
+      "sha256": "808229e58fb130035b7f429fe9058372d63765ac075ba5f36bbae2d9256a65b1"
+    },
+    {
+      "id": "JC.SOURCE.ROW_DICHOTOMY",
+      "kind": "LEAN_MODULE",
+      "path": "d2_plane_72_108/lean/JC/SigmaRowDichotomy.lean",
+      "sha256": "e91742d50a0c99a6aaa4195d074a2498cae770e5ab706876d0b745bcd7fb54b8"
+    },
+    {
+      "id": "JC.SOURCE.MARKED_TOWER",
+      "kind": "LEAN_MODULE",
+      "path": "d2_plane_72_108/lean/JC/SigmaMarkedNativeTower.lean",
+      "sha256": "bdab572ec3dd690a50f8566eadcf202817014af465d9e05ba58935252ab09ecf"
+    },
+    {
+      "id": "JC.SOURCE.TRANSFER_SLICE",
+      "kind": "LEAN_MODULE",
+      "path": "d2_plane_72_108/lean/JC/SigmaMarkedTransferSlice.lean",
+      "sha256": "446b09e72b5f4cd186a3dc16313ccfc05c374558d8fd869161eae292a95c34ad"
+    },
+    {
+      "id": "JC.SOURCE.BLOCK_ONE",
+      "kind": "LEAN_MODULE",
+      "path": "d2_plane_72_108/lean/JC/SigmaMarkedBlockOneInstance.lean",
+      "sha256": "b5166e7dab739f8238269c4c29a48d8727c97137862b3a2651ea5e9790069e69"
+    },
+    {
+      "id": "JC.SOURCE.EXACT_ARC_SUPPORT",
+      "kind": "LEAN_MODULE",
+      "path": "d2_plane_72_108/lean/JC/SigmaExactMarkedArcSupport.lean",
+      "sha256": "20d10605304df88f9b58f23976ebde5cf8e6bcb10ea33e21f97e7ad326b2eef1"
+    }
+  ],
+  "objects": [
+    {
+      "id": "JC.SEM.ACTUAL_COUNTEREXAMPLE",
+      "label": "Actual source counterexample",
+      "representation": "RELATIONAL_SCOPE",
+      "status": "LANDED",
+      "scope_id": "JC.75_125.ACTUAL",
+      "coefficient_domain": "characteristic zero",
+      "source_ids": ["JC.SOURCE.ENDGAME"],
+      "notes": "Current Lean represents this abstractly as Scope.Actual with separate BadA and BadB predicates."
+    },
+    {
+      "id": "JC.SEM.COVERED_PAIR",
+      "label": "Covered target pair",
+      "representation": "LEAN_TYPE",
+      "status": "LANDED",
+      "scope_id": "JC.SIGMA.COVERED_PAIR",
+      "coefficient_domain": "characteristic zero",
+      "source_ids": ["JC.SOURCE.ENDGAME"],
+      "notes": "Current Forward.Pair is abstract; a concrete proof-carrying CoveredPair structure has not landed."
+    },
+    {
+      "id": "JC.SEM.ACTUAL_PROVENANCE_SUMMIT",
+      "label": "Summit retaining pair and descent provenance",
+      "representation": "RELATIONAL_SCOPE",
+      "status": "PLANNED",
+      "scope_id": "JC.SIGMA.ACTUAL_SUMMIT",
+      "coefficient_domain": "characteristic zero",
+      "source_ids": ["JC.SOURCE.ENDGAME", "JC.SOURCE.ROW_DICHOTOMY"],
+      "notes": "Not yet a Lean structure; current provenance is the tuple of Presented, InPackage, Transports, and SummitCore hypotheses."
+    },
+    {
+      "id": "JC.SEM.RELAXED_SUMMIT_POINT",
+      "label": "Relaxed seven-coordinate summit point",
+      "representation": "LEAN_TYPE",
+      "status": "LANDED",
+      "scope_id": "JC.SIGMA.RELAXED_SUMMIT",
+      "coefficient_domain": "characteristic zero",
+      "source_ids": ["JC.SOURCE.ENDGAME", "JC.SOURCE.ROW_DICHOTOMY"],
+      "notes": "Current Forward.Summit with SummitCore; relaxed summit-level RowOpen is known false."
+    },
+    {
+      "id": "JC.SEM.ROWZERO_CONTRADICTION",
+      "label": "Actual-provenance RowZero contradiction",
+      "representation": "LEAN_PREDICATE",
+      "status": "OPEN",
+      "scope_id": "JC.S1_PRIME.ACTUAL_PROVENANCE",
+      "coefficient_domain": "characteristic zero",
+      "source_ids": ["JC.SOURCE.ROW_DICHOTOMY"],
+      "notes": "Lean types RowZeroActualImpossible but does not prove the campaign mathematics."
+    },
+    {
+      "id": "JC.SEM.LOCAL_PRESENTATION_7",
+      "label": "Seven-coordinate local presentation at x0",
+      "representation": "AFFINE_MODEL",
+      "status": "OPEN",
+      "scope_id": "JC.LOCAL.X0.SEVEN_COORDINATE",
+      "coefficient_domain": "QQ",
+      "source_ids": ["JC.SOURCE.CURRENT"],
+      "notes": "Retains unit coordinates and their positive-order displacements."
+    },
+    {
+      "id": "JC.SEM.LOCAL_PRESENTATION_5",
+      "label": "Obsolete five-coordinate marked reduction",
+      "representation": "AFFINE_MODEL",
+      "status": "RETIRED",
+      "scope_id": "JC.LOCAL.X0.FIVE_COORDINATE",
+      "coefficient_domain": "QQ",
+      "source_ids": ["JC.SOURCE.CURRENT"],
+      "notes": "Deleting z1 and z4 loses derivative information even though their base-point values are units."
+    },
+    {
+      "id": "JC.SEM.FORMAL_MARKED_ARC",
+      "label": "Genuine marked formal arc",
+      "representation": "FORMAL_POWER_SERIES",
+      "status": "LANDED",
+      "scope_id": "JC.S2.GENUINE_MARKED_ARC",
+      "coefficient_domain": "QQ",
+      "source_ids": ["JC.SOURCE.EXACT_ARC_SUPPORT"],
+      "notes": "A genuine PowerSeries object, outside GP's finite exact-affine kernel."
+    },
+    {
+      "id": "JC.SEM.FINITE_EXACT_MARKED_WITNESS",
+      "label": "Canonical finite exact marked witness",
+      "representation": "FINITE_JET",
+      "status": "LANDED",
+      "scope_id": "JC.S2.EXACT_MARKED_WITNESS",
+      "coefficient_domain": "QQ",
+      "source_ids": ["JC.SOURCE.EXACT_ARC_SUPPORT"],
+      "notes": "Canonically emitted from a genuine arc; existence of a finite witness does not reverse to a formal arc."
+    },
+    {
+      "id": "JC.SEM.FULL_TRANSFER_TOWER",
+      "label": "Full marked PowerSeries transfer tower",
+      "representation": "FORMAL_POWER_SERIES",
+      "status": "OPEN",
+      "scope_id": "JC.S2.MARKED_TRANSFER.FULL",
+      "coefficient_domain": "QQ",
+      "source_ids": ["JC.SOURCE.MARKED_TOWER", "JC.SOURCE.CURRENT"],
+      "notes": "The current theorem consumes an emitted slice plus an explicit remainder bound rather than a compiled full transfer object."
+    },
+    {
+      "id": "JC.SEM.TRANSFER_SLICE_3_7",
+      "label": "Emitted degree-three-through-seven transfer slice",
+      "representation": "LEAN_TYPE",
+      "status": "LANDED",
+      "scope_id": "JC.S2.MARKED_TRANSFER.SLICE_3_7",
+      "coefficient_domain": "QQ",
+      "source_ids": ["JC.SOURCE.TRANSFER_SLICE"],
+      "notes": "Contains 11723 exact emitted monomials and is not the full tower without remainder control."
+    },
+    {
+      "id": "JC.SEM.ORDER_EIGHT_BOUND",
+      "label": "Order-eight remainder bound",
+      "representation": "LEAN_PREDICATE",
+      "status": "OPEN",
+      "scope_id": "JC.S2.MARKED_TRANSFER.REMAINDER",
+      "coefficient_domain": "QQ",
+      "source_ids": ["JC.SOURCE.MARKED_TOWER"],
+      "notes": "A named load-bearing premise, not a consequence of compiling the degree-three-through-seven slice."
+    },
+    {
+      "id": "JC.SEM.BLOCK_ONE_ZERO",
+      "label": "First marked block vanishes",
+      "representation": "LEAN_PREDICATE",
+      "status": "LANDED",
+      "scope_id": "JC.S2.MARKED_TRANSFER.BLOCK_ONE",
+      "coefficient_domain": "QQ",
+      "source_ids": ["JC.SOURCE.BLOCK_ONE"],
+      "notes": "Conditional on the emitted slice solution, order-eight remainder bound, and all-orders gauge."
+    },
+    {
+      "id": "JC.SEM.ACTUAL_GR5_LAYER",
+      "label": "Actual degree-five torsion layer",
+      "representation": "LEAN_TYPE",
+      "status": "OPEN",
+      "scope_id": "JC.LOCAL.GR5.ACTUAL_LAYER",
+      "coefficient_domain": "QQ",
+      "source_ids": ["JC.SOURCE.CURRENT"],
+      "notes": "The required injection into the finite candidate target is still a native obligation."
+    },
+    {
+      "id": "JC.SEM.CANDIDATE_GR5_TARGET",
+      "label": "Candidate degree-five codomain",
+      "representation": "LEAN_TYPE",
+      "status": "LANDED",
+      "scope_id": "JC.LOCAL.GR5.CANDIDATE_TARGET",
+      "coefficient_domain": "QQ",
+      "source_ids": ["JC.SOURCE.CURRENT"],
+      "notes": "A ten- or eleven-dimensional codomain ceiling, never lower-layer credit."
+    },
+    {
+      "id": "JC.SEM.INITIAL_FORM_SOLUTION",
+      "label": "Weighted initial-form solution",
+      "representation": "AFFINE_MODEL",
+      "status": "LANDED",
+      "scope_id": "JC.S2.MARKED_INITIAL",
+      "coefficient_domain": "QQ",
+      "source_ids": ["JC.SOURCE.CURRENT"],
+      "notes": "A finite initial solution does not carry an actual source-open formal lift."
+    },
+    {
+      "id": "JC.SEM.QQ_ROOT_OBSTRUCTION",
+      "label": "Rational-root obstruction over QQ",
+      "representation": "AFFINE_MODEL",
+      "status": "LANDED",
+      "scope_id": "JC.FIELD.QQ.ROOT_OBSTRUCTION",
+      "coefficient_domain": "QQ",
+      "source_ids": ["JC.SOURCE.CURRENT"],
+      "notes": "Field-relative unless replaced by a base-change-stable identity such as an integer Bezout certificate."
+    },
+    {
+      "id": "JC.SEM.CHAR0_EXTENSION_OBSTRUCTION",
+      "label": "Obstruction after arbitrary characteristic-zero extension",
+      "representation": "AFFINE_MODEL",
+      "status": "PLANNED",
+      "scope_id": "JC.FIELD.CHAR0.ROOT_OBSTRUCTION",
+      "coefficient_domain": "arbitrary characteristic-zero field",
+      "source_ids": ["JC.SOURCE.CURRENT"],
+      "notes": "Cannot inherit a merely rational-root exclusion."
+    }
+  ],
+  "authorities": [
+    {
+      "id": "JC.AUTH.FORWARD_WELD_INTERFACE",
+      "kind": "LEAN_DEFINITION",
+      "source_id": "JC.SOURCE.ENDGAME",
+      "declaration": "JC.SigmaEndgameComposition.Forward.weld",
+      "source_contains": "weld : ∀ p, InPackage p",
+      "source_object_id": "JC.SEM.COVERED_PAIR",
+      "target_object_id": "JC.SEM.RELAXED_SUMMIT_POINT",
+      "scope_id": "JC.SIGMA.COVERED_PAIR_TO_SUMMIT",
+      "coefficient_domain": "characteristic zero",
+      "premise_ids": ["JC.PREM.WELD_COMPLETENESS"],
+      "replay": {
+        "command": "./build.sh SigmaEndgameComposition",
+        "status": "PACKET_REPORTED_PASS"
+      }
+    },
+    {
+      "id": "JC.AUTH.ROWZERO_ACTUAL_INTERFACE",
+      "kind": "LEAN_DEFINITION",
+      "source_id": "JC.SOURCE.ROW_DICHOTOMY",
+      "declaration": "JC.SigmaRowDichotomy.RowZeroActualImpossible",
+      "source_contains": "def RowZeroActualImpossible",
+      "source_object_id": "JC.SEM.ACTUAL_PROVENANCE_SUMMIT",
+      "target_object_id": "JC.SEM.ROWZERO_CONTRADICTION",
+      "scope_id": "JC.S1_PRIME.ACTUAL_PROVENANCE",
+      "coefficient_domain": "characteristic zero",
+      "premise_ids": [],
+      "replay": {
+        "command": "./build.sh SigmaRowDichotomy",
+        "status": "PACKET_REPORTED_PASS"
+      }
+    },
+    {
+      "id": "JC.AUTH.EXACT_ARC_WITNESS",
+      "kind": "LEAN_THEOREM",
+      "source_id": "JC.SOURCE.EXACT_ARC_SUPPORT",
+      "declaration": "JC.SigmaExactMarkedArcSupport.emitsExact_exactWitness",
+      "source_contains": "theorem emitsExact_exactWitness",
+      "source_object_id": "JC.SEM.FORMAL_MARKED_ARC",
+      "target_object_id": "JC.SEM.FINITE_EXACT_MARKED_WITNESS",
+      "scope_id": "JC.S2.GENUINE_MARKED_ARC",
+      "coefficient_domain": "QQ",
+      "premise_ids": [],
+      "replay": {
+        "command": "./build.sh SigmaExactMarkedArcSupport",
+        "status": "PACKET_REPORTED_PASS"
+      }
+    },
+    {
+      "id": "JC.AUTH.TRANSFER_SLICE",
+      "kind": "LEAN_DEFINITION",
+      "source_id": "JC.SOURCE.TRANSFER_SLICE",
+      "declaration": "JC.SigmaMarkedTransferSlice.slice",
+      "source_contains": "def slice : TransferSystem (Fin 15)",
+      "source_object_id": "JC.SEM.FULL_TRANSFER_TOWER",
+      "target_object_id": "JC.SEM.TRANSFER_SLICE_3_7",
+      "scope_id": "JC.S2.MARKED_TRANSFER.SLICE_3_7",
+      "coefficient_domain": "QQ",
+      "premise_ids": [],
+      "replay": {
+        "command": "./build.sh SigmaMarkedTransferSlice",
+        "status": "PACKET_REPORTED_PASS"
+      }
+    },
+    {
+      "id": "JC.AUTH.ORDER_EIGHT_BOUND_INTERFACE",
+      "kind": "LEAN_DEFINITION",
+      "source_id": "JC.SOURCE.MARKED_TOWER",
+      "declaration": "JC.SigmaMarkedNativeTower.OrderEightBounded",
+      "source_contains": "def OrderEightBounded",
+      "source_object_id": "JC.SEM.FULL_TRANSFER_TOWER",
+      "target_object_id": "JC.SEM.ORDER_EIGHT_BOUND",
+      "scope_id": "JC.S2.MARKED_TRANSFER.REMAINDER",
+      "coefficient_domain": "QQ",
+      "premise_ids": [],
+      "replay": {
+        "command": "./build.sh SigmaMarkedNativeTower",
+        "status": "PACKET_REPORTED_PASS"
+      }
+    },
+    {
+      "id": "JC.AUTH.ACTUAL_BLOCK_ONE",
+      "kind": "LEAN_THEOREM",
+      "source_id": "JC.SOURCE.BLOCK_ONE",
+      "declaration": "JC.SigmaMarkedBlockOneInstance.actual_blockOne",
+      "source_contains": "theorem actual_blockOne",
+      "source_object_id": "JC.SEM.TRANSFER_SLICE_3_7",
+      "target_object_id": "JC.SEM.BLOCK_ONE_ZERO",
+      "scope_id": "JC.S2.MARKED_TRANSFER.BLOCK_ONE",
+      "coefficient_domain": "QQ",
+      "premise_ids": [
+        "JC.PREM.ORDER_EIGHT_BOUNDED",
+        "JC.PREM.SLICE_IS_SOLUTION",
+        "JC.PREM.ALL_ORDERS_GAUGE"
+      ],
+      "replay": {
+        "command": "./build.sh SigmaMarkedBlockOneInstance",
+        "status": "PACKET_REPORTED_PASS"
+      }
+    }
+  ],
+  "premises": [
+    {
+      "id": "JC.PREM.WELD_COMPLETENESS",
+      "statement": "The concrete covered pair is bound through every required weld component to the same summit packet.",
+      "status": "OPEN",
+      "scope_id": "JC.SIGMA.COVERED_PAIR_TO_SUMMIT",
+      "authority_id": null
+    },
+    {
+      "id": "JC.PREM.ORDER_EIGHT_BOUNDED",
+      "statement": "Every omitted transfer term is zero below stage eight times the first live block.",
+      "status": "OPEN",
+      "scope_id": "JC.S2.MARKED_TRANSFER.REMAINDER",
+      "authority_id": "JC.AUTH.ORDER_EIGHT_BOUND_INTERFACE"
+    },
+    {
+      "id": "JC.PREM.SLICE_IS_SOLUTION",
+      "statement": "The block family solves every stage of the exact emitted degree-three-through-seven slice plus the declared remainder.",
+      "status": "ASSUMED",
+      "scope_id": "JC.S2.MARKED_TRANSFER.SLICE_3_7",
+      "authority_id": null
+    },
+    {
+      "id": "JC.PREM.ALL_ORDERS_GAUGE",
+      "statement": "The all-orders reparametrization gauge vanishes in every block.",
+      "status": "OPEN",
+      "scope_id": "JC.S2.MARKED_TRANSFER.GAUGE",
+      "authority_id": null
+    }
+  ],
+  "edges": [
+    {
+      "id": "JC.EDGE.ACTUAL_TO_COVERED_PAIR",
+      "source": "JC.SEM.ACTUAL_COUNTEREXAMPLE",
+      "target": "JC.SEM.COVERED_PAIR",
+      "status": "OPEN",
+      "relation": "OUT_OF_KERNEL",
+      "authority_id": null,
+      "losses": [],
+      "premise_ids": [],
+      "consumers": ["JC.S1_PRIME.ACTUAL_PROVENANCE"],
+      "rationale": "The current scope arrow is abstract and the arbitrary-counterexample atlas authority remains open."
+    },
+    {
+      "id": "JC.EDGE.COVERED_PAIR_TO_SUMMIT",
+      "source": "JC.SEM.COVERED_PAIR",
+      "target": "JC.SEM.RELAXED_SUMMIT_POINT",
+      "status": "OPEN",
+      "relation": "OUT_OF_KERNEL",
+      "authority_id": "JC.AUTH.FORWARD_WELD_INTERFACE",
+      "losses": ["the current target does not definitionally retain the originating pair or descent witness"],
+      "premise_ids": ["JC.PREM.WELD_COMPLETENESS"],
+      "consumers": ["JC.S1_PRIME.ACTUAL_PROVENANCE"],
+      "rationale": "Lean currently types the weld as an opaque relational field; the concrete proof-carrying compiler has not landed."
+    },
+    {
+      "id": "JC.EDGE.FORGET_ACTUAL_SUMMIT",
+      "source": "JC.SEM.ACTUAL_PROVENANCE_SUMMIT",
+      "target": "JC.SEM.RELAXED_SUMMIT_POINT",
+      "status": "PLANNED",
+      "relation": "NECESSARY_CONDITION",
+      "authority_id": null,
+      "losses": ["originating covered pair", "triangular descent witness", "actual-realizability index"],
+      "premise_ids": [],
+      "consumers": ["JC.S1_PRIME.ACTUAL_PROVENANCE", "JC.SIGMA.RELAXED_ANALYSIS"],
+      "rationale": "Conservatively models the actual-realizable locus as tighter than the relaxed summit locus until Lean makes the projection definitional."
+    },
+    {
+      "id": "JC.EDGE.ACTUAL_ROWZERO_TO_CONTRADICTION",
+      "source": "JC.SEM.ACTUAL_PROVENANCE_SUMMIT",
+      "target": "JC.SEM.ROWZERO_CONTRADICTION",
+      "status": "OPEN",
+      "relation": "OUT_OF_KERNEL",
+      "authority_id": "JC.AUTH.ROWZERO_ACTUAL_INTERFACE",
+      "losses": [],
+      "premise_ids": [],
+      "consumers": ["JC.75_125.ENDGAME"],
+      "rationale": "The declaration fixes the required scope but the campaign-specific impossibility theorem remains mathematics to be proved."
+    },
+    {
+      "id": "JC.EDGE.SUMMIT_TO_LOCAL7",
+      "source": "JC.SEM.RELAXED_SUMMIT_POINT",
+      "target": "JC.SEM.LOCAL_PRESENTATION_7",
+      "status": "OPEN",
+      "relation": "OUT_OF_KERNEL",
+      "authority_id": null,
+      "losses": [],
+      "premise_ids": [],
+      "consumers": ["JC.S2.LOCAL"],
+      "rationale": "The concrete translation and same-source artifact binding are not represented by a current generic GP edge."
+    },
+    {
+      "id": "JC.EDGE.LOCAL7_TO_LOCAL5",
+      "source": "JC.SEM.LOCAL_PRESENTATION_7",
+      "target": "JC.SEM.LOCAL_PRESENTATION_5",
+      "status": "RETIRED",
+      "relation": "IMAGE_CLOSURE",
+      "authority_id": null,
+      "losses": ["z1 displacement", "z4 displacement", "derivative information in both unit coordinates"],
+      "premise_ids": [],
+      "consumers": ["JC.S2.MARKED_INITIAL"],
+      "rationale": "A coordinate projection is not reversible merely because the deleted coordinates have unit base-point values."
+    },
+    {
+      "id": "JC.EDGE.FORMAL_ARC_TO_EXACT_WITNESS",
+      "source": "JC.SEM.FORMAL_MARKED_ARC",
+      "target": "JC.SEM.FINITE_EXACT_MARKED_WITNESS",
+      "status": "LANDED",
+      "relation": "OUT_OF_KERNEL",
+      "authority_id": "JC.AUTH.EXACT_ARC_WITNESS",
+      "losses": ["the unbounded power-series tail beyond the finite witness interface"],
+      "premise_ids": [],
+      "consumers": ["JC.S2.MARKED_FACE_ATLAS"],
+      "rationale": "Lean constructs the canonical witness, while GP records the cross-representation binding and refuses the converse."
+    },
+    {
+      "id": "JC.EDGE.FULL_TOWER_TO_SLICE",
+      "source": "JC.SEM.FULL_TRANSFER_TOWER",
+      "target": "JC.SEM.TRANSFER_SLICE_3_7",
+      "status": "LANDED",
+      "relation": "NECESSARY_CONDITION",
+      "authority_id": "JC.AUTH.TRANSFER_SLICE",
+      "losses": ["transfer terms of degree eight and above", "automatic remainder control"],
+      "premise_ids": [],
+      "consumers": ["JC.S2.MARKED_TRANSFER.BLOCK_ONE"],
+      "rationale": "The slice drops higher equations and cannot be treated as equivalent to the full tower."
+    },
+    {
+      "id": "JC.EDGE.FULL_TOWER_TO_ORDER8_BOUND",
+      "source": "JC.SEM.FULL_TRANSFER_TOWER",
+      "target": "JC.SEM.ORDER_EIGHT_BOUND",
+      "status": "OPEN",
+      "relation": "OUT_OF_KERNEL",
+      "authority_id": "JC.AUTH.ORDER_EIGHT_BOUND_INTERFACE",
+      "losses": [],
+      "premise_ids": [],
+      "consumers": ["JC.S2.MARKED_TRANSFER.BLOCK_ONE"],
+      "rationale": "Lean defines the exact obligation; the native degree census still has to establish it for the campaign system."
+    },
+    {
+      "id": "JC.EDGE.SLICE_TO_BLOCK_ONE_ZERO",
+      "source": "JC.SEM.TRANSFER_SLICE_3_7",
+      "target": "JC.SEM.BLOCK_ONE_ZERO",
+      "status": "LANDED",
+      "relation": "OUT_OF_KERNEL",
+      "authority_id": "JC.AUTH.ACTUAL_BLOCK_ONE",
+      "losses": [],
+      "premise_ids": [
+        "JC.PREM.ORDER_EIGHT_BOUNDED",
+        "JC.PREM.SLICE_IS_SOLUTION",
+        "JC.PREM.ALL_ORDERS_GAUGE"
+      ],
+      "consumers": ["JC.S2.MARKED_TRANSFER.RIGIDITY"],
+      "rationale": "A Lean theorem establishes the implication only with all three named premises retained."
+    },
+    {
+      "id": "JC.EDGE.ACTUAL_GR5_TO_CANDIDATE_TARGET",
+      "source": "JC.SEM.ACTUAL_GR5_LAYER",
+      "target": "JC.SEM.CANDIDATE_GR5_TARGET",
+      "status": "OPEN",
+      "relation": "OUT_OF_KERNEL",
+      "authority_id": null,
+      "losses": ["no reverse realization", "no lower-bound or ClosureLedger credit"],
+      "premise_ids": [],
+      "consumers": ["JC.LOCAL.CLOSURE_LEDGER"],
+      "rationale": "The true object is a conditional injection into a codomain; GP has no dimension-credit claim kind."
+    },
+    {
+      "id": "JC.EDGE.INITIAL_TO_FORMAL_ARC",
+      "source": "JC.SEM.INITIAL_FORM_SOLUTION",
+      "target": "JC.SEM.FORMAL_MARKED_ARC",
+      "status": "OPEN",
+      "relation": "OUT_OF_KERNEL",
+      "authority_id": null,
+      "losses": ["formal lift", "source-open condition", "all higher compatibility equations"],
+      "premise_ids": [],
+      "consumers": ["JC.S2.FORMAL_ARC_SELECTION"],
+      "rationale": "A degeneration or lifting theorem would be required; current GP deliberately has no such relation."
+    },
+    {
+      "id": "JC.EDGE.QQ_TO_CHAR0_EXTENSION",
+      "source": "JC.SEM.QQ_ROOT_OBSTRUCTION",
+      "target": "JC.SEM.CHAR0_EXTENSION_OBSTRUCTION",
+      "status": "PLANNED",
+      "relation": "BASE_EXTENSION",
+      "authority_id": null,
+      "losses": ["field-relative rational-root exclusions"],
+      "premise_ids": [],
+      "consumers": ["JC.S2.MARKED_TRANSFER.FIELD_SCOPE"],
+      "rationale": "Only base-change-stable certificates may carry emptiness to the larger field."
+    }
+  ],
+  "assays": [
+    {
+      "id": "JC.ASSAY.A.FORWARD_FORGET",
+      "case": "A",
+      "edge_id": "JC.EDGE.FORGET_ACTUAL_SUMMIT",
+      "claim_kind": "NONEMPTY",
+      "direction": "ALONG",
+      "scope": "characteristic zero",
+      "transport_attributes": {},
+      "expected_verdict": "LICENSED"
+    },
+    {
+      "id": "JC.ASSAY.A.REVERSE_REALIZATION",
+      "case": "A",
+      "edge_id": "JC.EDGE.FORGET_ACTUAL_SUMMIT",
+      "claim_kind": "NONEMPTY",
+      "direction": "AGAINST",
+      "scope": "characteristic zero",
+      "transport_attributes": {},
+      "expected_verdict": "REFUSED"
+    },
+    {
+      "id": "JC.ASSAY.B.CODOMAIN_CREDIT",
+      "case": "B",
+      "edge_id": "JC.EDGE.ACTUAL_GR5_TO_CANDIDATE_TARGET",
+      "claim_kind": "DIMENSION_LOWER_CREDIT",
+      "direction": "AGAINST",
+      "scope": "QQ",
+      "transport_attributes": {},
+      "expected_verdict": "INEXPRESSIBLE"
+    },
+    {
+      "id": "JC.ASSAY.C.FINITE_TO_FORMAL",
+      "case": "C",
+      "edge_id": "JC.EDGE.FORMAL_ARC_TO_EXACT_WITNESS",
+      "claim_kind": "NONEMPTY",
+      "direction": "AGAINST",
+      "scope": "QQ",
+      "transport_attributes": {},
+      "expected_verdict": "REFUSED"
+    },
+    {
+      "id": "JC.ASSAY.D.INITIAL_TO_ACTUAL",
+      "case": "D",
+      "edge_id": "JC.EDGE.INITIAL_TO_FORMAL_ARC",
+      "claim_kind": "NONEMPTY",
+      "direction": "ALONG",
+      "scope": "QQ",
+      "transport_attributes": {},
+      "expected_verdict": "REFUSED"
+    },
+    {
+      "id": "JC.ASSAY.E.FIELD_WIDENING",
+      "case": "E",
+      "edge_id": "JC.EDGE.QQ_TO_CHAR0_EXTENSION",
+      "claim_kind": "EMPTY",
+      "direction": "ALONG",
+      "scope": "QQ",
+      "transport_attributes": {},
+      "expected_verdict": "REFUSED"
+    },
+    {
+      "id": "JC.ASSAY.F.DELETE_DISPLACEMENTS",
+      "case": "F",
+      "edge_id": "JC.EDGE.LOCAL7_TO_LOCAL5",
+      "claim_kind": "NONEMPTY",
+      "direction": "AGAINST",
+      "scope": "QQ",
+      "transport_attributes": {
+        "map_kind": "POLYNOMIAL"
+      },
+      "expected_verdict": "REFUSED"
+    },
+    {
+      "id": "JC.ASSAY.G.SLICE_TO_FULL",
+      "case": "G",
+      "edge_id": "JC.EDGE.FULL_TOWER_TO_SLICE",
+      "claim_kind": "NONEMPTY",
+      "direction": "AGAINST",
+      "scope": "QQ",
+      "transport_attributes": {},
+      "expected_verdict": "REFUSED"
+    },
+    {
+      "id": "JC.ASSAY.H.ROWZERO_SCOPE_WIDENING",
+      "case": "H",
+      "edge_id": "JC.EDGE.FORGET_ACTUAL_SUMMIT",
+      "claim_kind": "PREDICATE",
+      "direction": "ALONG",
+      "scope": "characteristic zero",
+      "transport_attributes": {},
+      "expected_verdict": "REFUSED"
+    }
+  ],
+  "non_goals": [
+    "no new kernel relation or claim kind",
+    "no graph authority or verdict promotion",
+    "no replay of mathematics already proved by Lean",
+    "no GP duplicate of CoveredPair, ActualSummit, descent, or PowerSeries semantics",
+    "no Portage Command, planner, UI, distribution, or release expansion"
+  ],
+  "stop_conditions": [
+    "stop if the ledger merely restates Lean types and catches no cross-world binding error",
+    "stop if a proposed extension is needed only for the dimension-credit case and has no second consumer",
+    "retire any edge made definitional by the proof-carrying Lean architecture",
+    "promote formal-declaration binding only after it catches a live drift or materially simplifies native-to-Lean binding"
+  ]
+}

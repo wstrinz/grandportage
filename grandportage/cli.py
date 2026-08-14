@@ -13,9 +13,11 @@ import sys
 
 from . import __version__
 from . import artifacts as A
+from . import campaign as CAMP
 from . import cas
 from . import check as C
 from . import coefficient_expansion as CE
+from . import dossier as DOSSIER
 from . import evidence as EV
 from . import factor_power as FP
 from . import factor_power_contradiction as FPC
@@ -31,6 +33,8 @@ from . import migration as MIG
 from . import provenance as P
 from . import product_split as PS
 from . import projection as PROJ
+from . import publication as PUBLICATION
+from . import release as RELEASE
 from . import store as S
 from . import triangular as TRI
 from . import visualization as VIZ
@@ -2077,13 +2081,12 @@ def _read_projection(args):
         raise SystemExit(2)
 
 
-def _write_derived_output(args, content):
+def _write_named_derived_output(args, content, protected=()):
     path = os.path.abspath(args.output)
-    protected = {os.path.abspath(source) for source in _graphs(args)}
+    protected = {os.path.abspath(source) for source in protected}
     if path in protected:
         sys.stderr.write(
-            "refusing to overwrite an authoritative graph with a derived "
-            "view: %s\n" % path)
+            "refusing to overwrite an input with a derived view: %s\n" % path)
         return 2
     if os.path.exists(path) and not args.force:
         sys.stderr.write(
@@ -2105,6 +2108,10 @@ def _write_derived_output(args, content):
             os.unlink(temporary)
     print(path)
     return 0
+
+
+def _write_derived_output(args, content):
+    return _write_named_derived_output(args, content, protected=_graphs(args))
 
 
 def cmd_project(args):
@@ -2146,6 +2153,115 @@ def cmd_frontier_bundle(args):
     else:
         sys.stdout.write(FRONT_BUNDLE.canonical_json(
             projection, pretty=not args.compact))
+    return 0
+
+
+def cmd_campaign_packet(args):
+    """Compile digest-bound research tasks from the current frontier."""
+    try:
+        packet_set = CAMP.build_packets_path(args.input, args.packet)
+        if args.format == "json":
+            content = CAMP.canonical_json(
+                packet_set, pretty=not args.compact)
+        else:
+            content = CAMP.render_packets(packet_set, audience=args.format)
+    except (OSError, CAMP.CampaignError) as exc:
+        sys.stderr.write("campaign-packet refused: %s\n" % exc)
+        return 2
+    sys.stdout.write(content)
+    return 0
+
+
+def cmd_campaign_ledger(args):
+    """Compile an append-only campaign attempt ledger or console overlay."""
+    try:
+        ledger = CAMP.build_ledger_path(args.input)
+        if args.overlay:
+            manifest_path = os.path.abspath(args.input)
+            with open(manifest_path, encoding="utf-8") as stream:
+                manifest = json.load(stream)
+            root = os.path.abspath(os.path.join(
+                os.path.dirname(manifest_path), manifest.get("root", ".")))
+            binding = manifest["packet_manifest"]
+            packet_path = os.path.join(root, binding["path"])
+            packet_set = CAMP.build_packets_path(packet_path)
+            output = CAMP.build_overlay(packet_set, ledger)
+        else:
+            output = ledger
+    except (OSError, json.JSONDecodeError, KeyError, CAMP.CampaignError) as exc:
+        sys.stderr.write("campaign-ledger refused: %s\n" % exc)
+        return 2
+    sys.stdout.write(CAMP.canonical_json(output, pretty=not args.compact))
+    return 0
+
+
+def cmd_campaign_dossier(args):
+    """Compile a campaign portrait, residual ledger, and closeout profiles."""
+    try:
+        dossier = DOSSIER.build_path(args.input, source_root=args.source_root)
+        if args.format == "human":
+            output = DOSSIER.render(dossier)
+        else:
+            output = DOSSIER.canonical_json(
+                dossier, pretty=not args.compact)
+    except (OSError, DOSSIER.DossierError) as exc:
+        sys.stderr.write("campaign-dossier refused: %s\n" % exc)
+        return 2
+    sys.stdout.write(output)
+    return 0
+
+
+def cmd_campaign_release(args):
+    """Compile or materialize a content-addressed campaign release."""
+    try:
+        release = RELEASE.build_path(args.input, source_root=args.source_root)
+        output_dir = args.output_dir or args.replay_kit_dir
+        if output_dir:
+            if not args.source_root:
+                raise RELEASE.ReleaseError(
+                    "materialization requires --source-root for a fresh payload audit")
+            materializer = (RELEASE.materialize_replay_kit
+                            if args.replay_kit_dir else RELEASE.materialize)
+            report = materializer(release, args.source_root, output_dir)
+            output = RELEASE.canonical_json(report, pretty=not args.compact)
+        elif args.format == "human":
+            output = RELEASE.render(release)
+        else:
+            output = RELEASE.canonical_json(release, pretty=not args.compact)
+    except (OSError, RELEASE.ReleaseError) as exc:
+        sys.stderr.write("campaign-release refused: %s\n" % exc)
+        return 2
+    sys.stdout.write(output)
+    readiness = (release["replay_materializable"] if args.replay_kit_dir
+                 else release["materializable"])
+    if args.require_ready and not readiness:
+        return 1
+    return 0
+
+
+def cmd_campaign_publication(args):
+    """Render a portrait audit or manuscript tables from a release plan."""
+    try:
+        release = RELEASE.build_path(args.input, source_root=args.source_root)
+        publication = release["publication"]
+        if args.format == "json":
+            output = PUBLICATION.canonical_json(
+                publication, pretty=not args.compact)
+        else:
+            document = {
+                "full": "FULL_REPORT",
+                "portrait-audit": "PORTRAIT_AUDIT",
+                "manuscript-tables": "MANUSCRIPT_TABLES",
+            }[args.document]
+            output = PUBLICATION.render(publication, document)
+    except (OSError, RELEASE.ReleaseError,
+            PUBLICATION.PublicationError) as exc:
+        sys.stderr.write("campaign-publication refused: %s\n" % exc)
+        return 2
+    if args.output:
+        return _write_named_derived_output(
+            args, output, protected=[args.input])
+    sys.stdout.write(output)
     return 0
 
 
@@ -2224,6 +2340,79 @@ def build_parser():
     fb.add_argument("--emit-review",
                     help="atomically write the compact current-bundle review receipt")
     fb.set_defaults(func=cmd_frontier_bundle)
+
+    cp = sub.add_parser(
+        "campaign-packet",
+        help="compile digest-bound research tasks from a proof frontier")
+    cp.add_argument("input", help="campaign-packet-input/v0 JSON manifest")
+    cp.add_argument("--packet", action="append",
+                    help="emit only this packet id; repeat for several")
+    cp.add_argument("--format", choices=("json", "human", "agent"),
+                    default="json", help="output surface (default: json)")
+    cp.add_argument("--compact", action="store_true",
+                    help="emit canonical compact JSON")
+    cp.set_defaults(func=cmd_campaign_packet)
+
+    cl = sub.add_parser(
+        "campaign-ledger",
+        help="compile an append-only attempt ledger or campaign overlay")
+    cl.add_argument("input", help="campaign-ledger-input/v0 JSON manifest")
+    cl.add_argument("--overlay", action="store_true",
+                    help="emit maturity, outcomes, and verification debt")
+    cl.add_argument("--compact", action="store_true",
+                    help="emit canonical compact JSON")
+    cl.set_defaults(func=cmd_campaign_ledger)
+
+    cd = sub.add_parser(
+        "campaign-dossier",
+        help="compile a campaign portrait, leaf prices, and closeout profiles")
+    cd.add_argument("input", help="campaign-dossier-input/v0 JSON document")
+    cd.add_argument("--source-root",
+                    help="audit canonical source files and git freshness here")
+    cd.add_argument("--format", choices=("json", "human"), default="json",
+                    help="output surface (default: json)")
+    cd.add_argument("--compact", action="store_true",
+                    help="emit canonical compact JSON")
+    cd.set_defaults(func=cmd_campaign_dossier)
+
+    cr = sub.add_parser(
+        "campaign-release",
+        help="compile or materialize a content-addressed campaign release")
+    cr.add_argument("input", help="campaign-release-input/v0 JSON document")
+    cr.add_argument("--source-root",
+                    help="audit and copy bound source payloads from here")
+    cr_output = cr.add_mutually_exclusive_group()
+    cr_output.add_argument(
+        "--output-dir",
+        help="materialize a publication-ready release into this new directory")
+    cr_output.add_argument(
+        "--replay-kit-dir",
+        help="materialize replay closure without requiring publication readiness")
+    cr.add_argument("--require-ready", action="store_true",
+                    help="exit 1 when the release still has blockers")
+    cr.add_argument("--format", choices=("json", "human"), default="json",
+                    help="output surface (default: json)")
+    cr.add_argument("--compact", action="store_true",
+                    help="emit canonical compact JSON")
+    cr.set_defaults(func=cmd_campaign_release)
+
+    pub = sub.add_parser(
+        "campaign-publication",
+        help="render a portrait audit and manuscript-ready campaign tables")
+    pub.add_argument("input", help="campaign-release-input/v0 JSON document")
+    pub.add_argument("--source-root",
+                     help="audit the release against this source checkout")
+    pub.add_argument("--format", choices=("markdown", "json"),
+                     default="markdown", help="output surface (default: markdown)")
+    pub.add_argument("--document",
+                     choices=("full", "portrait-audit", "manuscript-tables"),
+                     default="full", help="Markdown document to render")
+    pub.add_argument("--output", help="write the derived document here")
+    pub.add_argument("--compact", action="store_true",
+                     help="emit canonical compact JSON")
+    pub.add_argument("--force", action="store_true",
+                     help="replace an existing derived output file")
+    pub.set_defaults(func=cmd_campaign_publication)
 
     vz = sub.add_parser("visualize",
                         help="generate a read-only Three.js campaign explorer")

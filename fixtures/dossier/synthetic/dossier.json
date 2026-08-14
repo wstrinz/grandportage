@@ -1,0 +1,133 @@
+{
+  "schema": "campaign-dossier-input/v0",
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "graph_effect": "NONE",
+  "campaign": {
+    "id": "SYNTHETIC.CAMPAIGN",
+    "title": "Synthetic closeout campaign",
+    "summit_status": "OPEN"
+  },
+  "source": {
+    "id": "SYNTHETIC.SOURCE",
+    "repository": "synthetic/example",
+    "expected_commit": "0000000",
+    "canonical_sources": [
+      {
+        "id": "SYNTHETIC.AUTHORITY",
+        "path": "authority.md",
+        "digest_algo": "sha256-lf-normalized",
+        "sha256": "46cf451fffb0b6cbaecd5a11851288c79efebc01dcf5eff66bff8ef4c4ebe09a"
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "SYNTHETIC.PROOF",
+      "availability": "PRESENT",
+      "path": "proof.txt",
+      "digest_algo": "sha256-lf-normalized",
+      "sha256": "c107518bc5cd0067a8bf325a10f7cf796c9d44daa81cf89f25ede4f19552a6a1",
+      "role": "CLAIM_SUPPORT",
+      "grade": "PROVED",
+      "description": "Compact exact proof receipt for the closed synthetic leaf.",
+      "public_disposition": "INCLUDE",
+      "replay": {
+        "status": "PASS",
+        "command": "python verify_synthetic.py",
+        "receipt": "synthetic replay passed"
+      }
+    }
+  ],
+  "claims": [
+    {
+      "id": "SYNTHETIC.CLAIM.A",
+      "scope_id": "SYNTHETIC.SCOPE.A",
+      "proposition": "The exact object at leaf A is empty.",
+      "grade": "PROVED",
+      "evidence_ids": ["SYNTHETIC.PROOF"],
+      "assumptions": [],
+      "consumers": ["SYNTHETIC.COMPOSITION"]
+    }
+  ],
+  "leaves": [
+    {
+      "id": "SYNTHETIC.LEAF.A",
+      "state": "CLOSED",
+      "theorem_role": "First exact leaf",
+      "exact_object": "A three-row rational linear system.",
+      "next_accepted_object": null,
+      "price": {
+        "status": "PRICED",
+        "cost_class": "SMALL",
+        "basis": "3 x 3 exact rank certificate",
+        "detail": "Closed by the compact proof receipt."
+      },
+      "retired_representations": [],
+      "resume_condition": null,
+      "evidence_ids": ["SYNTHETIC.PROOF"]
+    },
+    {
+      "id": "SYNTHETIC.LEAF.B",
+      "state": "OPEN",
+      "theorem_role": "Remaining summit leaf",
+      "exact_object": "A faithful rank-five module membership problem.",
+      "next_accepted_object": "An exact rational membership or nonmembership certificate.",
+      "price": {
+        "status": "PRICED",
+        "cost_class": "LARGE",
+        "basis": "rank-five module with a measured 120-bit height wall",
+        "detail": "The faithful object is compact, but its normalized certificate is tall."
+      },
+      "retired_representations": [
+        {
+          "id": "SYNTHETIC.LEAF.B.DENSE_MATRIX",
+          "reason": "The dense presentation is ten times larger than the faithful module.",
+          "evidence_ids": ["SYNTHETIC.PROOF"]
+        }
+      ],
+      "resume_condition": "A structural denominator bound or a tenfold smaller faithful presentation lands.",
+      "evidence_ids": ["SYNTHETIC.PROOF"]
+    }
+  ],
+  "profiles": [
+    {
+      "id": "SYNTHETIC.PUBLICATION_FLAG",
+      "kind": "SHORT_OF_SUMMIT",
+      "title": "Synthetic publication flag",
+      "criteria": [
+        {
+          "id": "SYNTHETIC.CRITERION.CLAIMS",
+          "kind": "CLAIMS_PRESENT",
+          "description": "The portrait claim is explicitly graded.",
+          "claim_ids": ["SYNTHETIC.CLAIM.A"],
+          "allowed_grades": ["PROVED"]
+        },
+        {
+          "id": "SYNTHETIC.CRITERION.PRICE",
+          "kind": "LEAVES_PRICED",
+          "description": "The admitted open leaf has a complete price card.",
+          "leaf_ids": ["SYNTHETIC.LEAF.B"]
+        },
+        {
+          "id": "SYNTHETIC.CRITERION.REPLAY",
+          "kind": "ARTIFACT_REPLAY_PASS",
+          "description": "The load-bearing receipt replays.",
+          "artifact_ids": ["SYNTHETIC.PROOF"]
+        }
+      ]
+    },
+    {
+      "id": "SYNTHETIC.GOLD_FLAG",
+      "kind": "GOLD",
+      "title": "Synthetic gold flag",
+      "criteria": [
+        {
+          "id": "SYNTHETIC.CRITERION.SUMMIT",
+          "kind": "LEAVES_CLOSED",
+          "description": "The remaining summit leaf is closed.",
+          "leaf_ids": ["SYNTHETIC.LEAF.B"]
+        }
+      ]
+    }
+  ]
+}
