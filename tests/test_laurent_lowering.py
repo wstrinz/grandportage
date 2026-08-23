@@ -1,12 +1,8 @@
 """Finite Laurent lowering checks and the rows 7--8 chart control."""
 
 import copy
-import json
-from pathlib import Path
-
 import pytest
 
-from grandportage import cli
 from grandportage import coefficient_expansion as CE
 from grandportage import laurent_coefficient_pipeline as LCP
 from grandportage import laurent_lowering as LL
@@ -205,34 +201,6 @@ def test_pipeline_requires_total_bindings():
     with pytest.raises(LCP.LaurentCoefficientPipelineError,
                        match="nonempty"):
         LCP.verify(spec)
-
-def test_checked_in_jc_fixture_and_cli_authority_boundary(capsys):
-    path = (Path(__file__).parents[1] / "fixtures" / "jc_rows78" /
-            "laurent_lowering_v1.json")
-    checked_in = json.loads(path.read_text(encoding="utf-8"))
-    assert checked_in == _rows78_spec()
-
-    assert cli.main([
-        "verify-laurent-lowering", "--spec", str(path),
-    ]) == 0
-    output = capsys.readouterr().out
-    assert LL.VERIFIED in output
-    assert "no chart validity, integration, or claim transport" in output
-
-
-def test_checked_in_bound_pipeline_and_cli(capsys):
-    path = (Path(__file__).parents[1] / "fixtures" / "jc_rows78" /
-            "laurent_coefficient_pipeline_v1.json")
-    checked_in = json.loads(path.read_text(encoding="utf-8"))
-    assert checked_in == _pipeline_spec()
-
-    assert cli.main([
-        "verify-laurent-coefficient-pipeline", "--spec", str(path),
-    ]) == 0
-    output = capsys.readouterr().out
-    assert LCP.VERIFIED in output
-    assert CE.VERIFIED_COMPLETE in output
-    assert "no source derivation, chart validity, or claim transport" in output
 
 def test_covered_chart_zero_rhs_is_rejected_for_symbolic_G():
     spec = _rows78_spec()

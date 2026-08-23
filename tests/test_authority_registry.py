@@ -1,6 +1,9 @@
 """Drift gate for the unified authority and classification registry."""
 
 import argparse
+from pathlib import Path
+
+import pytest
 
 from grandportage import authority_registry as registry
 from grandportage import cli
@@ -57,6 +60,33 @@ def test_classification_has_zero_unclassified_rows():
     assert rows
     assert all(row["classification"] in registry.CLASSIFICATIONS for row in rows)
     assert not [row for row in rows if "UNCLASSIFIED" in row.values()]
+
+
+def test_every_builtin_certificate_names_a_lean_stability_decision():
+    rows = registry.CERTIFICATE_STABILITY
+    assert set(rows) == set(kernel.BUILTIN_CERTIFICATES)
+
+    lean = (Path(__file__).parents[1] / "lean" / "GrandPortage" /
+            "CertificateScope.lean").read_text(encoding="utf-8")
+    for certificate, row in rows.items():
+        assert "def %s " % row["lean_decision"] in lean, certificate
+
+
+def test_runtime_certificate_scopes_match_the_named_lean_derivations():
+    for certificate, base_changes in kernel.BUILTIN_CERTIFICATES.items():
+        row = registry.CERTIFICATE_STABILITY[certificate]
+        if row["lean_derived_scope"] == "SCHEME":
+            assert base_changes is True
+            assert kernel.derive_scope(
+                kernel.EMPTY, certificate, None) == kernel.SCHEME
+        else:
+            assert row["lean_derived_scope"] == "FIELD_RELATIVE"
+            assert base_changes is False
+            assert kernel.derive_scope(
+                kernel.EMPTY, certificate, "Q") == "Q"
+            with pytest.raises(kernel.ScopeError):
+                kernel.derive_scope(
+                    kernel.EMPTY, certificate, kernel.SCHEME)
 
 
 def test_table_and_evidence_commands_share_the_registry(capsys):

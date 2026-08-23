@@ -18,6 +18,13 @@ open. Runtime disagreement is a finding; Lean is not the source of authority.
   makes the two-level registry an admission interface: each kind supplies a
   stability theorem or a counterexample, and derived scope is maximal among
   justified scopes.
+- **2026-08-23 — runtime scope is an atom-under-scheme poset.** Exact declared
+  field scopes are incomparable atoms below field-independent `SCHEME`, not a
+  single undifferentiated lower point. All eight builtin kinds now name a Lean
+  decision: the five identity/integer shapes are extension-stable; nonsquare,
+  bounded rational-point search, and carried citations retain countermodels.
+  The citation countermodel formalizes missing transported justification, not
+  a claim that the cited theorem itself is intrinsically field-relative.
 
 ## Refutations and compressions
 
@@ -35,8 +42,6 @@ open. Runtime disagreement is a finding; Lean is not the source of authority.
 
 ## Open questions
 
-- State concrete stability theorems for every runtime builtin certificate
-  kind, including the algebraic premises hidden by the Mathlib-free model.
 - Audit every transport row against a named preservation theorem or retained
   countermodel; use the result as the admission test for a seventh edge type.
 - Study whether a typed claim language dissolves the expressibility gates.

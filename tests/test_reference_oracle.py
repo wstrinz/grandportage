@@ -144,4 +144,6 @@ def test_seeded_live_differential_lane_uses_singular_as_untrusted_ground_truth()
             characteristic=characteristic, timeout=60)
         assert accepted and difference == "0"
         checked += 1
+    print("reference_fuzz_checked=%d seed=270027 seconds=%s" % (
+        checked, seconds))
     assert checked > 0

@@ -1,0 +1,107 @@
+{
+  "characteristic": 0,
+  "coefficient_domain": "Q",
+  "initial_generators": [
+    "u*(x1-1)",
+    "u*(x2-2)",
+    "u*(x3-3)",
+    "u*(x4-4)",
+    "u*(x5-5)",
+    "y+0+x1+x2+x3+x4+x5"
+  ],
+  "point_universe": "ALGEBRAIC_CLOSURE",
+  "ring_vars": [
+    "u",
+    "y",
+    "x1",
+    "x2",
+    "x3",
+    "x4",
+    "x5"
+  ],
+  "schema": "localized_triangular_solve_chain_v1",
+  "source_receipt": {
+    "id": "synthetic-triangular-chain",
+    "sha256": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "steps": [
+    {
+      "coefficient": "u",
+      "equation": "u*(x1-1)",
+      "equation_index": 0,
+      "id": "step-1",
+      "input_state_fingerprint": "sha256:ce945489a9b277c56b4d1f3850aa957b66f0e19bce68992a7148f422e5b30f49",
+      "output_generators": [
+        "u*(x2-2)",
+        "u*(x3-3)",
+        "u*(x4-4)",
+        "u*(x5-5)",
+        "y+1+x2+x3+x4+x5"
+      ],
+      "output_state_fingerprint": "sha256:c42698bc8ffd86ffe85eed12a1d89e7b560eb3d12467fa16231f5d1af6102e20",
+      "pivot": "x1",
+      "solution": "1"
+    },
+    {
+      "coefficient": "u",
+      "equation": "u*(x2-2)",
+      "equation_index": 0,
+      "id": "step-2",
+      "input_state_fingerprint": "sha256:c42698bc8ffd86ffe85eed12a1d89e7b560eb3d12467fa16231f5d1af6102e20",
+      "output_generators": [
+        "u*(x3-3)",
+        "u*(x4-4)",
+        "u*(x5-5)",
+        "y+3+x3+x4+x5"
+      ],
+      "output_state_fingerprint": "sha256:faf36bf2eb9270eb0ba6d976f42f088f2e33dc6eb3388a0e41a150790f4c2f0f",
+      "pivot": "x2",
+      "solution": "2"
+    },
+    {
+      "coefficient": "u",
+      "equation": "u*(x3-3)",
+      "equation_index": 0,
+      "id": "step-3",
+      "input_state_fingerprint": "sha256:faf36bf2eb9270eb0ba6d976f42f088f2e33dc6eb3388a0e41a150790f4c2f0f",
+      "output_generators": [
+        "u*(x4-4)",
+        "u*(x5-5)",
+        "y+6+x4+x5"
+      ],
+      "output_state_fingerprint": "sha256:9b5667c6252bb60caca611d5b355dc7dcb52e15cf8d2cdf605694f8285a451fd",
+      "pivot": "x3",
+      "solution": "3"
+    },
+    {
+      "coefficient": "u",
+      "equation": "u*(x4-4)",
+      "equation_index": 0,
+      "id": "step-4",
+      "input_state_fingerprint": "sha256:9b5667c6252bb60caca611d5b355dc7dcb52e15cf8d2cdf605694f8285a451fd",
+      "output_generators": [
+        "u*(x5-5)",
+        "y+10+x5"
+      ],
+      "output_state_fingerprint": "sha256:3b3a0cb58dec95adc23818c8e88f9691312e152ab901d9f714de79c7b42a865d",
+      "pivot": "x4",
+      "solution": "4"
+    },
+    {
+      "coefficient": "u",
+      "equation": "u*(x5-5)",
+      "equation_index": 0,
+      "id": "step-5",
+      "input_state_fingerprint": "sha256:3b3a0cb58dec95adc23818c8e88f9691312e152ab901d9f714de79c7b42a865d",
+      "output_generators": [
+        "y+15"
+      ],
+      "output_state_fingerprint": "sha256:869d028620289351b0e42a2602d2bfb75525fe631afacaac9a856f6e8a1bcafc",
+      "pivot": "x5",
+      "solution": "5"
+    }
+  ],
+  "unit_generators": [
+    "u"
+  ]
+}

@@ -10,7 +10,7 @@ from grandportage import cli
 from grandportage import factor_power as FP
 
 
-FIXTURE = (Path(__file__).parents[1] / "fixtures" / "jc_p_axis" /
+FIXTURE = (Path(__file__).parents[1] / "fixtures" / "algebraic_contracts" /
            "factor_power_v1.json")
 
 
@@ -18,7 +18,7 @@ def _spec():
     return json.loads(FIXTURE.read_text(encoding="utf-8"))
 
 
-def test_landed_jc_p_axis_factor_receipts_verify():
+def test_synthetic_factor_receipts_verify():
     report = FP.verify(_spec())
 
     assert report["verdict"] == FP.VERIFIED

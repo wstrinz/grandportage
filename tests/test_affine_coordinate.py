@@ -76,7 +76,7 @@ def test_affine_solve_contract_is_a_verified_mapped_equivalence():
     assert OC.CONTRACTS["AffineCoordinateSolve"] is contract
 
 
-def test_jc_left_branch_normalizes_the_pivot_by_exact_translation():
+def test_synthetic_left_branch_normalizes_the_pivot_by_exact_translation():
     op = _operation()
     model, edge = op.events
 
@@ -132,7 +132,7 @@ def test_ring_iso_verifier_consumes_the_constructed_maps():
 
 
 @pytest.mark.live
-def test_jc_affine_coordinate_change_verifies_against_real_backend():
+def test_synthetic_affine_coordinate_change_verifies_against_real_backend():
     verdict, why = V.ring_iso(_graph(), "E-LEFT-NORMAL", timeout=120)
     assert verdict == V.ISO_VERIFIED, why
 
@@ -190,7 +190,7 @@ def test_cli_affine_solve_requires_its_specific_inputs(tmp_path, capsys):
 
 
 def test_checked_product_branch_feeds_affine_normalization_directly():
-    fixture = (Path(__file__).parents[1] / "fixtures" / "jc_p_axis" /
+    fixture = (Path(__file__).parents[1] / "fixtures" / "algebraic_contracts" /
                "product_split_v1.json")
     spec = json.loads(fixture.read_text(encoding="utf-8"))
     receipt = spec["receipts"][0]

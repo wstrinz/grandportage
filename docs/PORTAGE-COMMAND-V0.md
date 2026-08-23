@@ -8,43 +8,32 @@ verification debt for a future console.
 It is a derived read surface. Every schema in this document has authority
 `DERIVED_READ_MODEL_ONLY` and graph effect `NONE`.
 
-## Current JC pilot
-
-The first packet set binds all three attacks to the still-open
-`JC.H3.SOURCE.REMAINING_COEFFICIENT_MAP` observation:
-
-- `JC.H3.SIGMA.WEIGHTED_PROJECTIVE.CLASSIFY.v0` records the second-component
-  counterexample as a completed useful refutation;
-- `JC.H3.SIGMA.D_ANSATZ.TEST.v0` records the failed compression as a completed
-  useful refutation;
-- `JC.H3.SIGMA.Q51_HYPERPLANE.CLASSIFY.v0` is the active narrowed mission.
+## Domain-neutral example
 
 Compile the exact packet set:
 
 ```text
-gp campaign-packet fixtures/campaign/jc_sigma/packets.json
+gp campaign-packet fixtures/campaign/matroid/packets.json
 ```
 
 Generate the active cold-agent prompt from the same packet:
 
 ```text
-gp campaign-packet fixtures/campaign/jc_sigma/packets.json \
-  --packet JC.H3.SIGMA.Q51_HYPERPLANE.CLASSIFY.v0 \
+gp campaign-packet fixtures/campaign/matroid/packets.json \
+  --packet MATROID.RETRODICTION.BASE_EXTENSION.v0 \
   --format agent
 ```
 
 Inspect the immutable attempt ledger or console overlay:
 
 ```text
-gp campaign-ledger fixtures/campaign/jc_sigma/ledger.json
-gp campaign-ledger fixtures/campaign/jc_sigma/ledger.json --overlay
+gp campaign-ledger fixtures/campaign/matroid/ledger.json
+gp campaign-ledger fixtures/campaign/matroid/ledger.json --overlay
 ```
 
-The matroid packet is the first non-JC shape check:
-
-```text
-gp campaign-packet fixtures/campaign/matroid/packets.json --format human
-```
+The extracted JC pilot and its historical ledgers are retained in the optional
+[`grandportage-jc-campaign`](https://github.com/wstrinz/grandportage-jc-campaign)
+companion.
 
 ## Binding model
 

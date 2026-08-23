@@ -29,23 +29,10 @@ priced open leaf and a gold flag that requires it to close:
 gp campaign-dossier fixtures/dossier/synthetic/dossier.json --format human
 ```
 
-The current JC closeout fixture encodes both the short-of-summit publication
-flag and the stronger gold flag:
-
-```text
-gp campaign-dossier fixtures/dossier/jc_publication/dossier.json \
-  --source-root ../math-stuff --format human
-```
-
-The final Family-F2 `(75,125)` publication freeze is a separate pressure test,
-not a rewrite of that historical fixture.  It uses the public export's current
-Theorems A--C, Propositions D--E, eight priced open residuals, and the literal
-policy names `F2_PUBLICATION` and `75125_EXCLUSION`:
-
-```text
-gp campaign-dossier fixtures/dossier/f2_75_125_publication/dossier.json \
-  --source-root ../math-stuff --format human
-```
+The signed-off JC and Family-F2 pressure tests now live in the optional
+[`grandportage-jc-campaign`](https://github.com/wstrinz/grandportage-jc-campaign)
+companion. The core repository keeps the domain-neutral shape fixture and the
+compiler they exercise.
 
 At the current public preview, the manuscript, advertised checkers, quick
 replay, and standalone formalization are present. The publication profile is
@@ -55,19 +42,8 @@ exclusion profile remains blocked because those residuals are genuinely open.
 This uses the existing v0 schema and leaves graph format 5 and kernel epoch 10
 untouched.
 
-The companion experimental audit compares that portrait with the literal
-release manifest, Gate-B CSV, advertised checker paths, checksum index, release
-gates, and standalone Lean declaration surfaces. It also distinguishes passing
-kernel/comparator/nanoda replay layers from an unnecessarily broad tactic-import
-closure. It reports both blockers and conservative-custody opportunities:
-
-```text
-python -m experiments.f2_75_125_publication.adapter \
-  fixtures/dossier/f2_75_125_publication/dossier.json \
-  --source-root ../math-stuff \
-  --source-ref 96da278f \
-  --export-root ../plane-jacobian-75-125 --require-clear
-```
+The companion retains the campaign-specific audit, release manifest checks,
+and immutable source-ref examples.
 
 Without `--source-root`, the dossier remains portable and the source audit is
 `UNCHECKED`. Any profile requiring `CURRENT_CLEAN` stays blocked. With a source
@@ -98,16 +74,8 @@ The resulting source status is one of:
 Drift is reported as a readiness blocker, not silently accepted and not
 mistaken for a mathematical retraction.
 
-Historical JC sidecar fixtures remain deterministic release tests. Their
-moving-head comparisons are now intentionally opt-in because the sibling
-research campaign can advance without invalidating the frozen retrodiction:
-
-```text
-GP_CHECK_JC_NATIVE_BINDINGS=1 python -m pytest -q tests/test_jc_*.py
-```
-
-Use that gate while coordinating a new native handback. Use the dossier source
-audit for ordinary current-head drift reporting.
+Campaign-specific moving-head comparisons are owned by the companion. Use the
+dossier source audit here for ordinary current-head drift reporting.
 
 ## Portrait claims
 
@@ -198,5 +166,4 @@ transport gates.
 - planner or distributed-runner policy;
 - freezing any schema as v1.
 
-The current JC fixture is the first live pressure test. A non-JC dossier is
-required before the schema freezes.
+The schema remains provisional until another independent campaign uses it.

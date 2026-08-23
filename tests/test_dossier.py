@@ -12,7 +12,6 @@ from grandportage import dossier as D
 ROOT = Path(__file__).resolve().parents[1]
 SYNTHETIC = ROOT / "fixtures" / "dossier" / "synthetic" / "dossier.json"
 SYNTHETIC_ROOT = SYNTHETIC.parent
-JC = ROOT / "fixtures" / "dossier" / "jc_publication" / "dossier.json"
 
 
 def _load(path=SYNTHETIC):
@@ -102,30 +101,6 @@ def test_source_freshness_is_a_fail_closed_profile_criterion(monkeypatch):
     assert fresh["blockers"] == [
         "source is UNCHECKED; accepted: CURRENT_CLEAN"
     ]
-
-
-def test_current_jc_dossier_names_real_publication_and_gold_blockers():
-    dossier = D.build_path(JC)
-    profiles = _profiles(dossier)
-    publication = profiles["JC.PUBLICATION_FLAG"]
-    gold = profiles["JC.GOLD_FLAG"]
-
-    assert dossier["campaign"]["summit_status"].startswith("OPEN")
-    assert dossier["counts"]["open_leaves"] == 7
-    assert dossier["counts"]["priced_open_leaves"] == 1
-    assert publication["status"] == "NOT_READY"
-    assert gold["status"] == "NOT_READY"
-    blockers = [blocker for item in publication["criteria"]
-                for blocker in item["blockers"]]
-    assert "JC.S1_PRIME price is UNPRICED" in blockers
-    assert "JC.S4 price is PARTIAL" in blockers
-    assert "JC.ARTIFACT.PORTRAIT_AUDIT is missing" in blockers
-    assert "JC.ARTIFACT.RELEASE_MANIFEST is missing" in blockers
-    assert "JC.ARTIFACT.MANUSCRIPT is missing" in blockers
-    gold_blockers = [blocker for item in gold["criteria"]
-                     for blocker in item["blockers"]]
-    assert "JC.S2 remains OPEN" in gold_blockers
-    assert dossier["graph_effect"] == "NONE"
 
 
 def test_reconnaissance_cannot_support_a_theorem_claim():

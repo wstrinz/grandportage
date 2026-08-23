@@ -17,6 +17,7 @@ def main(argv=None):
         parser.error("output already exists: %s" % args.output)
     value = projection.compact_review_projection(
         args.source, max_records=args.max_records)
+    args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("w", encoding="utf-8", newline="\n") as stream:
         stream.write(projection.canonical_json(value))
     return 0

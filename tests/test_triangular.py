@@ -10,11 +10,11 @@ from grandportage import cli
 from grandportage import triangular as TRI
 
 
-FIXTURE = (Path(__file__).parents[1] / "fixtures" / "jc_source_ladder" /
+FIXTURE = (Path(__file__).parents[1] / "fixtures" / "algebraic_contracts" /
            "localized_triangular_solve_chain_v1.json")
 SECOND_FIXTURE = (Path(__file__).parents[1] / "fixtures" /
-                  "jc_source_ladder" /
-                  "localized_triangular_solve_chain_v2_second_face.json")
+                  "algebraic_contracts" /
+                  "localized_triangular_solve_chain_v2.json")
 
 
 def _spec():
@@ -29,36 +29,34 @@ def _initial_fingerprint(spec):
     )
 
 
-def test_jc_top_face_five_step_contract_pilot_verifies():
+def test_synthetic_five_step_contract_verifies():
     report = TRI.verify(_spec())
 
     assert report["verdict"] == TRI.VERIFIED
     assert report["checked_steps"] == 5
     assert [step["id"] for step in report["steps"]] == [
-        "top-r2", "top-r5", "top-r1", "top-r4", "top-r3",
+        "step-1", "step-2", "step-3", "step-4", "step-5",
     ]
     assert [step["pivot"] for step in report["steps"]] == [
-        "I4", "c6_9", "c9_14", "I1", "Im1",
+        "x1", "x2", "x3", "x4", "x5",
     ]
-    assert report["source_receipt"]["id"] == "f2_h3_q_receipt_probe"
-    assert _spec()["initial_generators"][2].count("I4") > 0
-    assert _spec()["initial_generators"][2].count("c6_9") > 0
+    assert report["source_receipt"]["id"] == "synthetic-triangular-chain"
     assert len(report["final_generators"]) == 1
 
 
-def test_jc_second_face_verifies_modulo_exact_scalar_gauge_receipts():
+def test_synthetic_chain_verifies_modulo_exact_normalization_receipt():
     spec = json.loads(SECOND_FIXTURE.read_text(encoding="utf-8"))
     report = TRI.verify(spec)
 
     assert report["schema"] == TRI.SCHEMA_V2
     assert report["checked_steps"] == 5
-    assert report["normalization_generators"] == ["(15)*t^3+1"]
+    assert report["normalization_generators"] == ["u-1"]
     assert report["licenses"] == [
         "exact_ordered_localized_triangular_substitution_chain_"
         "modulo_declared_normalization_generators",
     ]
     assert [step["id"] for step in report["steps"]] == [
-        "second-r2", "second-r5", "second-r1", "second-r4", "second-r3",
+        "step-1", "step-2", "step-3", "step-4", "step-5",
     ]
     assert all(step["normalization_cofactors"]
                for step in report["steps"])
@@ -75,7 +73,7 @@ def test_changed_second_face_normalization_cofactor_is_rejected():
 
 def test_second_face_context_is_state_fingerprint_bound():
     spec = json.loads(SECOND_FIXTURE.read_text(encoding="utf-8"))
-    spec["normalization_generators"][0] = "15*t^3+2"
+    spec["normalization_generators"][0] = "u-2"
 
     with pytest.raises(TRI.TriangularChainError,
                        match="input_state_fingerprint"):
@@ -84,7 +82,7 @@ def test_second_face_context_is_state_fingerprint_bound():
 
 def test_normalization_context_may_not_depend_on_a_chain_pivot():
     spec = json.loads(SECOND_FIXTURE.read_text(encoding="utf-8"))
-    spec["normalization_generators"][0] = "15*t^3+c3_4"
+    spec["normalization_generators"][0] = "u-1+x3"
 
     with pytest.raises(TRI.TriangularChainError,
                        match="may not use chain pivot"):
@@ -118,7 +116,7 @@ def test_changed_step_order_is_rejected():
 def test_missing_prior_substitution_is_rejected():
     spec = _spec()
     spec["steps"][0]["output_generators"][-1] = (
-        spec["steps"][0]["output_generators"][-1] + "+I4"
+        spec["steps"][0]["output_generators"][-1] + "+x1"
     )
 
     with pytest.raises(TRI.TriangularChainError,
@@ -137,10 +135,10 @@ def test_changed_state_fingerprint_is_rejected():
 
 def test_coordinate_bearing_pivot_coefficient_is_not_a_unit():
     spec = _spec()
-    equation = "c3_5*(I4-5/2*c3_5)"
+    equation = "y*(x1-1)"
     spec["initial_generators"][0] = equation
     spec["steps"][0]["equation"] = equation
-    spec["steps"][0]["coefficient"] = "c3_5"
+    spec["steps"][0]["coefficient"] = "y"
     spec["steps"][0]["input_state_fingerprint"] = _initial_fingerprint(spec)
 
     with pytest.raises(TRI.TriangularChainError,
@@ -168,10 +166,10 @@ def test_changed_normalized_output_polynomial_is_rejected():
 
 def test_solution_may_not_reintroduce_another_chain_pivot():
     spec = _spec()
-    equation = "2*t^2*(I4-c6_9)"
+    equation = "u*(x1-x2)"
     spec["initial_generators"][0] = equation
     spec["steps"][0]["equation"] = equation
-    spec["steps"][0]["solution"] = "c6_9"
+    spec["steps"][0]["solution"] = "x2"
     spec["steps"][0]["input_state_fingerprint"] = _initial_fingerprint(spec)
 
     with pytest.raises(TRI.TriangularChainError,
@@ -228,7 +226,7 @@ def test_cli_states_no_graph_authority(capsys):
 
 def test_cli_rejects_false_chain(tmp_path, capsys):
     spec = copy.deepcopy(_spec())
-    spec["steps"][4]["coefficient"] = "t"
+    spec["steps"][4]["coefficient"] = "y"
     path = tmp_path / "false-chain.json"
     path.write_text(json.dumps(spec), encoding="utf-8")
 

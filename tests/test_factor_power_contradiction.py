@@ -1,4 +1,4 @@
-"""Composition of a factor receipt with the landed JC affine consequence."""
+"""Composition of a factor receipt with a synthetic affine consequence."""
 
 import copy
 import json
@@ -10,9 +10,9 @@ from grandportage import cli
 from grandportage import factor_power_contradiction as FPC
 
 
-FIXTURE = (Path(__file__).parents[1] / "fixtures" / "jc_p_axis" /
+FIXTURE = (Path(__file__).parents[1] / "fixtures" / "algebraic_contracts" /
            "factor_power_affine_contradiction_v1.json")
-FACTOR_FIXTURE = (Path(__file__).parents[1] / "fixtures" / "jc_p_axis" /
+FACTOR_FIXTURE = (Path(__file__).parents[1] / "fixtures" / "algebraic_contracts" /
                   "factor_power_v1.json")
 
 
@@ -25,7 +25,7 @@ def test_composition_binds_the_checked_in_factor_fixture_exactly():
     assert _spec()["factor_power"] == factor
 
 
-def test_landed_jc_axis_contradiction_pattern_verifies_exactly():
+def test_synthetic_contradiction_pattern_verifies_exactly():
     report = FPC.verify(_spec())
 
     assert report["verdict"] == FPC.VERIFIED

@@ -1,4 +1,6 @@
 import json
+import importlib.util
+from pathlib import Path
 
 from grandportage import projection
 
@@ -33,3 +35,19 @@ def test_compact_projection_commits_first_and_last_records(tmp_path):
     value = projection.compact_review_projection(source, max_records=10)
     assert [item["line"] for item in value["records"]] == [
         1, 2, 3, 4, 5, 11996, 11997, 11998, 11999, 12000]
+
+
+def test_projection_cli_creates_the_exact_output_parent(tmp_path):
+    script_path = (Path(__file__).parents[1] / "scripts" /
+                   "compact_review_projection.py")
+    spec = importlib.util.spec_from_file_location("compact_projection_cli",
+                                                  script_path)
+    script = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(script)
+    source = tmp_path / "source.jsonl"
+    _large_jsonl(source)
+    output = tmp_path / "new" / "nested" / "projection.json"
+
+    assert script.main([str(source), str(output), "--max-records", "10"]) == 0
+    assert json.loads(output.read_text(encoding="utf-8"))["selection"][
+        "selected"] == 10

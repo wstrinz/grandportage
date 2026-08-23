@@ -14,7 +14,6 @@ from grandportage import release as R
 ROOT = Path(__file__).resolve().parents[1]
 SYNTHETIC = ROOT / "fixtures" / "release" / "synthetic" / "release.json"
 SYNTHETIC_SOURCE = ROOT / "fixtures" / "dossier" / "synthetic"
-JC = ROOT / "fixtures" / "release" / "jc_publication" / "release.json"
 
 
 def _load(path=SYNTHETIC):
@@ -112,39 +111,6 @@ def test_materializer_rechecks_payload_after_planning(monkeypatch, tmp_path):
         R.materialize(release, source, output)
     assert not output.exists()
     assert not list(tmp_path.glob(".gp-release-*"))
-
-
-def test_jc_draft_generates_audit_and_manifest_but_exposes_remaining_debt():
-    release = R.build_path(JC)
-    blockers = release["blockers"]
-    profile_blockers = [item["detail"] for item in blockers
-                        if item["code"] == "PROFILE_BLOCKED"]
-
-    assert release["provides_artifact_ids"] == [
-        "JC.ARTIFACT.PORTRAIT_AUDIT", "JC.ARTIFACT.RELEASE_MANIFEST"]
-    assert release["coverage"]["missing_ids"] == [
-        "JC.ARTIFACT.MANUSCRIPT"]
-    assert release["counts"]["required"] == 17
-    assert release["counts"]["selected"] == 16
-    assert release["counts"]["replay_debt"] == 0
-    assert release["counts"]["replay_resources"] == 152
-    assert not any("RELEASE_MANIFEST is missing" in item
-                   for item in profile_blockers)
-    assert not any("PORTRAIT_AUDIT is missing" in item
-                   for item in profile_blockers)
-    release_criterion = next(
-        item for item in release["profile"]["criteria"]
-        if item["id"] == "JC.PUBLICATION.RELEASE_BUNDLE")
-    assert release_criterion["passed"]
-    audit_criterion = next(
-        item for item in release["profile"]["criteria"]
-        if item["id"] == "JC.PUBLICATION.PORTRAIT_AUDIT")
-    assert audit_criterion["passed"]
-    generated = {item["generator"]: item
-                 for item in release["generated_artifacts"]}
-    assert generated["PORTRAIT_AUDIT"]["sha256"].startswith("sha256:")
-    assert generated["RELEASE_MANIFEST"]["sha256"] is None
-    assert not release["materializable"]
 
 
 def test_release_binding_paths_and_portable_archive_paths_fail_closed():
@@ -286,25 +252,10 @@ def test_replay_kit_rechecks_resource_after_planning(monkeypatch, tmp_path):
 
 
 def test_generated_artifact_must_match_the_dossier_contract():
-    value = json.loads(JC.read_text(encoding="utf-8"))
-    value["generated_artifacts"][0]["generator"] = "MANUSCRIPT_TABLES"
-    with pytest.raises(R.ReleaseError, match="does not permit"):
-        R.build(value, manifest_path=JC)
-
     value = _load()
     value["provides_artifact_ids"] = []
     with pytest.raises(R.ReleaseError, match="replaced by bound"):
         R.build(value, manifest_path=SYNTHETIC)
-
-
-def test_generated_artifact_license_debt_blocks_materialization():
-    value = json.loads(JC.read_text(encoding="utf-8"))
-    value["generated_artifacts"][0]["license_status"] = "REVIEW"
-    release = R.build(value, manifest_path=JC)
-    assert any(item["code"] == "LICENSE_DEBT" and
-               item.get("record_id") == "JC.ARTIFACT.PORTRAIT_AUDIT"
-               for item in release["blockers"])
-    assert not release["materializable"]
 
 
 def test_generated_portrait_audit_is_checksumned_in_a_ready_archive(

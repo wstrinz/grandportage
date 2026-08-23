@@ -1,0 +1,42 @@
+{
+  "schema": "gp_stacks_application_packet_v1",
+  "application_id": "SYNTHETIC-KRULL-INTERSECTION-AUDIT",
+  "theorem_pin": {
+    "tag": "00IP",
+    "statement_sha256": "a14ec52c326702ac9e2d6340d5d95797be2073670f6c0e0642ae6f007e689caf"
+  },
+  "theorem_acceptance": "CITATION_PINNED",
+  "target_context": "a hypothetical discrepancy module over a local coefficient ring",
+  "intended_conclusion": "a persistent discrepancy class vanishes",
+  "hypotheses": [
+    {
+      "id": "ring_noetherian_local",
+      "status": "MISSING",
+      "why": "The example does not bind a Noetherian local coefficient ring."
+    },
+    {
+      "id": "ideal_proper",
+      "status": "MISSING",
+      "why": "No exact claim identifies and proves the filtration ideal proper."
+    },
+    {
+      "id": "module_finite",
+      "status": "MISSING",
+      "why": "The discrepancy module has not been constructed or proved finite."
+    }
+  ],
+  "application_premises": [
+    {
+      "id": "class_in_every_power",
+      "statement": "the discrepancy class lies in $I^nM$ for every $n \\geq 0$",
+      "status": "OPEN",
+      "why": "Finite-depth evidence does not establish the quantified premise."
+    },
+    {
+      "id": "class_identified",
+      "statement": "the class whose vanishing is sought is an element of the declared module $M$",
+      "status": "UNSUPPORTED",
+      "why": "The example deliberately leaves the module element unbound."
+    }
+  ]
+}

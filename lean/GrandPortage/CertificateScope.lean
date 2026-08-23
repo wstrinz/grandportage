@@ -1,43 +1,38 @@
 /-
-# Certificate scope as a stability theorem
+# Runtime certificate scope as a stability theorem
 
-The runtime says scope is derived from certificate kind. This file turns the
-two-level version of that rule into an admission interface: a certificate kind
-must carry either a proof that its validity survives every declared extension,
-or a counterexample showing that it does not. The derived scope is then the
-maximal class justified by that decision.
+The Python kernel derives EMPTY scope from certificate kind. Scheme scope is
+licensed only when validity survives every declared coefficient extension;
+otherwise the author must name one exact field. This file models that actual
+atom-under-scheme poset and supplies a theorem or countermodel for every
+builtin runtime certificate kind.
 
-This remains a non-authoritative semantic shadow. It neither reads the Python
-registry nor blesses a runtime declaration.
+This remains a non-authoritative semantic shadow. Python/Lean drift tests
+compare names and derived rows; this file does not read or bless a graph.
 -/
 
 namespace GrandPortage
 
 universe u v
 
-inductive CertificateScope where
-  | fieldRelative
+inductive CertificateScope (FieldId : Type u) where
+  | fieldRelative (field : FieldId)
   | scheme
   deriving DecidableEq
 
-def CertificateScope.le : CertificateScope -> CertificateScope -> Prop
-  | .fieldRelative, _ => True
+/-- Exact field scopes are incomparable atoms below field-independent scope. -/
+def CertificateScope.le {FieldId : Type u} [DecidableEq FieldId] :
+    CertificateScope FieldId -> CertificateScope FieldId -> Prop
+  | .fieldRelative source, .fieldRelative target => source = target
+  | .fieldRelative _, .scheme => True
   | .scheme, .scheme => True
-  | .scheme, .fieldRelative => False
+  | .scheme, .fieldRelative _ => False
 
 def StableUnder {Context : Type u} {Certificate : Type v}
     (extension : Context -> Context -> Prop)
     (valid : Context -> Certificate -> Prop) : Prop :=
   forall source target, extension source target ->
     forall certificate, valid source certificate -> valid target certificate
-
-theorem stableUnder_sameContext
-    {Context : Type u} {Certificate : Type v}
-    (valid : Context -> Certificate -> Prop) :
-    StableUnder (fun source target => source = target) valid := by
-  intro source target equal certificate sourceValid
-  cases equal
-  exact sourceValid
 
 /-- Admission requires a theorem or a refuting instance, never a Boolean. -/
 inductive StabilityDecision
@@ -48,109 +43,210 @@ inductive StabilityDecision
   | unstable (counterexample : Not (StableUnder extension valid))
 
 def derivedCertificateScope
-    {Context : Type u} {Certificate : Type v}
+    {FieldId : Type u} {Context : Type v} {Certificate : Type _}
     {extension : Context -> Context -> Prop}
     {valid : Context -> Certificate -> Prop}
-    (decision : StabilityDecision extension valid) : CertificateScope :=
+    (field : FieldId)
+    (decision : StabilityDecision extension valid) : CertificateScope FieldId :=
   match decision with
   | .stable _ => .scheme
-  | .unstable _ => .fieldRelative
+  | .unstable _ => .fieldRelative field
 
+/-- For an unstable kind, only the exact declared field is admissible. -/
 def ScopeAdmissible
-    {Context : Type u} {Certificate : Type v}
+    {FieldId : Type u} [DecidableEq FieldId]
+    {Context : Type v} {Certificate : Type _}
     {extension : Context -> Context -> Prop}
     {valid : Context -> Certificate -> Prop}
-    (_decision : StabilityDecision extension valid) : CertificateScope -> Prop
-  | .fieldRelative => True
+    (field : FieldId)
+    (_decision : StabilityDecision extension valid) :
+    CertificateScope FieldId -> Prop
+  | .fieldRelative requested => requested = field
   | .scheme => StableUnder extension valid
 
 theorem derivedCertificateScope_admissible
-    {Context : Type u} {Certificate : Type v}
+    {FieldId : Type u} [DecidableEq FieldId]
+    {Context : Type v} {Certificate : Type _}
     {extension : Context -> Context -> Prop}
     {valid : Context -> Certificate -> Prop}
+    (field : FieldId)
     (decision : StabilityDecision extension valid) :
-    ScopeAdmissible decision (derivedCertificateScope decision) := by
+    ScopeAdmissible field decision (derivedCertificateScope field decision) := by
   cases decision with
   | stable proof => exact proof
-  | unstable _ => trivial
+  | unstable _ => rfl
 
-/-- The derived scope is maximal in the two-level lattice. -/
+/-- The runtime-derived scope is maximal among scopes justified at this field. -/
 theorem derivedCertificateScope_maximal
-    {Context : Type u} {Certificate : Type v}
+    {FieldId : Type u} [DecidableEq FieldId]
+    {Context : Type v} {Certificate : Type _}
     {extension : Context -> Context -> Prop}
     {valid : Context -> Certificate -> Prop}
+    (field : FieldId)
     (decision : StabilityDecision extension valid)
-    (requested : CertificateScope)
-    (admissible : ScopeAdmissible decision requested) :
-    CertificateScope.le requested (derivedCertificateScope decision) := by
+    (requested : CertificateScope FieldId)
+    (admissible : ScopeAdmissible field decision requested) :
+    CertificateScope.le requested
+      (derivedCertificateScope field decision) := by
   cases decision with
   | stable _ =>
       cases requested <;> trivial
   | unstable counterexample =>
       cases requested with
-      | fieldRelative => trivial
+      | fieldRelative requested => exact admissible
       | scheme => exact False.elim (counterexample admissible)
 
-/-! ## Positive and negative certificate shapes -/
+/-! ## Algebraic premises carried by stable certificate shapes -/
 
-/-- Exact identities are functorial under every map. -/
-theorem exactIdentity_stable_under_map
-    {R : Type u} {S : Type v} (map : R -> S) {left right : R} :
-    left = right -> map left = map right :=
-  congrArg map
+/-- Mathlib-free interface for the facts coefficient extension must preserve. -/
+structure AlgebraicContext where
+  unitIdeal : Prop
+  localizedUnitIdeal : Prop
+  nonzeroResultant : Prop
 
-def NoWitness {Point : Type u} (predicate : Point -> Prop) : Prop :=
-  forall point, Not (predicate point)
+structure AlgebraicExtension (source target : AlgebraicContext) : Prop where
+  unitIdeal : source.unitIdeal -> target.unitIdeal
+  localizedUnitIdeal : source.localizedUnitIdeal -> target.localizedUnitIdeal
+  nonzeroResultant : source.nonzeroResultant -> target.nonzeroResultant
 
-/-- Negative existential evidence can be destroyed by adding a witness. -/
-theorem noWitness_not_stable_under_carrier_extension :
-    let basePredicate : Empty -> Prop := fun point => point.elim
-    let extendedPredicate : Unit -> Prop := fun _ => True
-    NoWitness basePredicate /\
-      Not (NoWitness extendedPredicate) := by
-  dsimp
-  constructor
-  · intro point
-    exact point.elim
-  · intro noWitness
-    exact noWitness () True.intro
+def UnitIdealValid (context : AlgebraicContext) (_certificate : Unit) : Prop :=
+  context.unitIdeal
 
-/-! ## Executable two-row registry model -/
+def LocalizedUnitIdealValid
+    (context : AlgebraicContext) (_certificate : Unit) : Prop :=
+  context.localizedUnitIdeal
 
-def ExampleExtends : Bool -> Bool -> Prop
+def NonzeroResultantValid
+    (context : AlgebraicContext) (_certificate : Unit) : Prop :=
+  context.nonzeroResultant
+
+theorem unitIdeal_stable :
+    StableUnder AlgebraicExtension UnitIdealValid := by
+  intro source target extension _certificate valid
+  exact extension.unitIdeal valid
+
+theorem localizedUnitIdeal_stable :
+    StableUnder AlgebraicExtension LocalizedUnitIdealValid := by
+  intro source target extension _certificate valid
+  exact extension.localizedUnitIdeal valid
+
+theorem nonzeroResultant_stable :
+    StableUnder AlgebraicExtension NonzeroResultantValid := by
+  intro source target extension _certificate valid
+  exact extension.nonzeroResultant valid
+
+/-- Valuation collisions and degree counts are integer statements. -/
+def IntegerStatementValid (_context : Unit) (_certificate : Unit) : Prop := True
+
+theorem integerStatement_stable :
+    StableUnder (fun (_source _target : Unit) => True) IntegerStatementValid := by
+  intro _source _target _extension _certificate _valid
+  trivial
+
+/-! ## Retained countermodels for field-relative/refusal shapes -/
+
+def FieldExtends : Bool -> Bool -> Prop
   | false, false => True
   | false, true => True
   | true, true => True
   | true, false => False
 
-def StableExample (_context : Bool) (_certificate : Unit) : Prop := True
-
-def FragileExample : Bool -> Unit -> Prop
+/-- `false` is the base field; `true` adjoins the missing witness/root. -/
+def NonsquareClassValid : Bool -> Unit -> Prop
   | false, _ => True
   | true, _ => False
 
-theorem stableExample_survives :
-    StableUnder ExampleExtends StableExample := by
-  intro _source _target _extends _certificate _valid
-  trivial
+def NoRationalPointSearchValid : Bool -> Unit -> Prop
+  | false, _ => True
+  | true, _ => False
 
-theorem fragileExample_fails_extension :
-    Not (StableUnder ExampleExtends FragileExample) := by
+/-- A citation recorded only at its stated field carries no extension proof. -/
+def CitedProofValid : Bool -> Unit -> Prop
+  | false, _ => True
+  | true, _ => False
+
+theorem fragileFieldEvidence_not_stable
+    (valid : Bool -> Unit -> Prop)
+    (baseValid : valid false ())
+    (extendedInvalid : Not (valid true ())) :
+    Not (StableUnder FieldExtends valid) := by
   intro stable
-  exact stable false true True.intro () True.intro
+  exact extendedInvalid (stable false true True.intro () baseValid)
 
-def stableExampleDecision :
-    StabilityDecision ExampleExtends StableExample :=
-  .stable stableExample_survives
+theorem nonsquareClass_not_stable :
+    Not (StableUnder FieldExtends NonsquareClassValid) :=
+  fragileFieldEvidence_not_stable NonsquareClassValid True.intro
+    (by simp [NonsquareClassValid])
 
-def fragileExampleDecision :
-    StabilityDecision ExampleExtends FragileExample :=
-  .unstable fragileExample_fails_extension
+theorem noRationalPointSearch_not_stable :
+    Not (StableUnder FieldExtends NoRationalPointSearchValid) :=
+  fragileFieldEvidence_not_stable NoRationalPointSearchValid True.intro
+    (by simp [NoRationalPointSearchValid])
 
-theorem stableExample_has_scheme_scope :
-    derivedCertificateScope stableExampleDecision = .scheme := rfl
+theorem citedProof_not_stable :
+    Not (StableUnder FieldExtends CitedProofValid) :=
+  fragileFieldEvidence_not_stable CitedProofValid True.intro
+    (by simp [CitedProofValid])
 
-theorem fragileExample_is_fieldRelative :
-    derivedCertificateScope fragileExampleDecision = .fieldRelative := rfl
+/-! ## One named decision for every Python builtin certificate kind -/
+
+def unitIdealDecision : StabilityDecision AlgebraicExtension UnitIdealValid :=
+  .stable unitIdeal_stable
+
+def localizedUnitIdealDecision :
+    StabilityDecision AlgebraicExtension LocalizedUnitIdealValid :=
+  .stable localizedUnitIdeal_stable
+
+def nonzeroResultantDecision :
+    StabilityDecision AlgebraicExtension NonzeroResultantValid :=
+  .stable nonzeroResultant_stable
+
+def exactValuationCollisionDecision :
+    StabilityDecision (fun (_source _target : Unit) => True)
+      IntegerStatementValid :=
+  .stable integerStatement_stable
+
+def degreeCountDecision :
+    StabilityDecision (fun (_source _target : Unit) => True)
+      IntegerStatementValid :=
+  .stable integerStatement_stable
+
+def nonsquareClassDecision :
+    StabilityDecision FieldExtends NonsquareClassValid :=
+  .unstable nonsquareClass_not_stable
+
+def noRationalPointSearchDecision :
+    StabilityDecision FieldExtends NoRationalPointSearchValid :=
+  .unstable noRationalPointSearch_not_stable
+
+def citedProofDecision : StabilityDecision FieldExtends CitedProofValid :=
+  .unstable citedProof_not_stable
+
+theorem unitIdeal_scope (field : String) :
+    derivedCertificateScope field unitIdealDecision = .scheme := rfl
+
+theorem localizedUnitIdeal_scope (field : String) :
+    derivedCertificateScope field localizedUnitIdealDecision = .scheme := rfl
+
+theorem nonzeroResultant_scope (field : String) :
+    derivedCertificateScope field nonzeroResultantDecision = .scheme := rfl
+
+theorem exactValuationCollision_scope (field : String) :
+    derivedCertificateScope field exactValuationCollisionDecision = .scheme := rfl
+
+theorem degreeCount_scope (field : String) :
+    derivedCertificateScope field degreeCountDecision = .scheme := rfl
+
+theorem nonsquareClass_scope (field : String) :
+    derivedCertificateScope field nonsquareClassDecision =
+      .fieldRelative field := rfl
+
+theorem noRationalPointSearch_scope (field : String) :
+    derivedCertificateScope field noRationalPointSearchDecision =
+      .fieldRelative field := rfl
+
+theorem citedProof_scope (field : String) :
+    derivedCertificateScope field citedProofDecision =
+      .fieldRelative field := rfl
 
 end GrandPortage

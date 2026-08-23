@@ -30,13 +30,9 @@ The synthetic fixture is complete except for a live clean-source audit:
 gp campaign-release fixtures/release/synthetic/release.json --format human
 ```
 
-The JC draft consumes the publication profile and provides the portrait-audit
-and release-manifest placeholders through declared generators:
-
-```text
-gp campaign-release fixtures/release/jc_publication/release.json \
-  --source-root ../math-stuff --format human --require-ready
-```
+The signed-off JC draft and its replay closure now live in the optional
+[`grandportage-jc-campaign`](https://github.com/wstrinz/grandportage-jc-campaign)
+companion.
 
 `--require-ready` exits 1 after printing a valid blocked plan and exits 0 for a
 materializable plan. Invalid schemas, stale dossier bindings, unsafe paths, and
@@ -145,9 +141,9 @@ publication-only coverage and projected profile blockers. It includes all
 selected source payloads, every replay resource, `manifest.json`,
 `SHA256SUMS`, and `REPLAY.md`, but no generated publication artifacts.
 
-## Current JC result
+## Historical campaign result
 
-The draft release generates the content-addressed release manifest and exact
+The extracted companion release generates the content-addressed release manifest and exact
 portrait dependency audit. All six native computational lanes now carry fresh
 passing receipts, and the formal lane has a passing no-`sorry` build receipt.
 The 152-resource JC replay lock closes the local Python, certificate, data,
@@ -165,5 +161,5 @@ gold-profile concern.
 - incremental/prior-release lineage;
 - schema freeze as v1.
 
-The native manifest should stabilize through a non-JC release before any
+The manifest should stabilize through another independent release before any
 interchange wrapper becomes authoritative infrastructure.

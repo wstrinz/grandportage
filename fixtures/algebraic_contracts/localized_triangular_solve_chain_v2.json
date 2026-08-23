@@ -1,0 +1,125 @@
+{
+  "characteristic": 0,
+  "coefficient_domain": "Q",
+  "initial_generators": [
+    "u*(x1-1)+(u-1)",
+    "u*(x2-2)+(u-1)",
+    "u*(x3-3)+(u-1)",
+    "u*(x4-4)+(u-1)",
+    "u*(x5-5)+(u-1)",
+    "y+0+x1+x2+x3+x4+x5"
+  ],
+  "normalization_generators": [
+    "u-1"
+  ],
+  "point_universe": "ALGEBRAIC_CLOSURE",
+  "ring_vars": [
+    "u",
+    "y",
+    "x1",
+    "x2",
+    "x3",
+    "x4",
+    "x5"
+  ],
+  "schema": "localized_triangular_solve_chain_v2",
+  "source_receipt": {
+    "id": "synthetic-triangular-chain",
+    "sha256": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "steps": [
+    {
+      "coefficient": "u",
+      "equation": "u*(x1-1)+(u-1)",
+      "equation_index": 0,
+      "id": "step-1",
+      "input_state_fingerprint": "sha256:d4b37eb8ffac1e84364a6883ea74b1c0c452fadc8ef62f5f1ee0e1ebc697bd9f",
+      "normalization_cofactors": [
+        "1"
+      ],
+      "output_generators": [
+        "u*(x2-2)+(u-1)",
+        "u*(x3-3)+(u-1)",
+        "u*(x4-4)+(u-1)",
+        "u*(x5-5)+(u-1)",
+        "y+1+x2+x3+x4+x5"
+      ],
+      "output_state_fingerprint": "sha256:f2fa7f5a438deea3f0b96f74a10be6d67c24b580166fd087f5f660308b356c46",
+      "pivot": "x1",
+      "solution": "1"
+    },
+    {
+      "coefficient": "u",
+      "equation": "u*(x2-2)+(u-1)",
+      "equation_index": 0,
+      "id": "step-2",
+      "input_state_fingerprint": "sha256:f2fa7f5a438deea3f0b96f74a10be6d67c24b580166fd087f5f660308b356c46",
+      "normalization_cofactors": [
+        "1"
+      ],
+      "output_generators": [
+        "u*(x3-3)+(u-1)",
+        "u*(x4-4)+(u-1)",
+        "u*(x5-5)+(u-1)",
+        "y+3+x3+x4+x5"
+      ],
+      "output_state_fingerprint": "sha256:5867eade7f19266c4713a85f1b2092c1c88c6f2bf330dcdeb8f1c514a5909e35",
+      "pivot": "x2",
+      "solution": "2"
+    },
+    {
+      "coefficient": "u",
+      "equation": "u*(x3-3)+(u-1)",
+      "equation_index": 0,
+      "id": "step-3",
+      "input_state_fingerprint": "sha256:5867eade7f19266c4713a85f1b2092c1c88c6f2bf330dcdeb8f1c514a5909e35",
+      "normalization_cofactors": [
+        "1"
+      ],
+      "output_generators": [
+        "u*(x4-4)+(u-1)",
+        "u*(x5-5)+(u-1)",
+        "y+6+x4+x5"
+      ],
+      "output_state_fingerprint": "sha256:3dbb1882c20b028ddd8d6fe76f8664d16df7139c0c79d6b84c55d207ec782c41",
+      "pivot": "x3",
+      "solution": "3"
+    },
+    {
+      "coefficient": "u",
+      "equation": "u*(x4-4)+(u-1)",
+      "equation_index": 0,
+      "id": "step-4",
+      "input_state_fingerprint": "sha256:3dbb1882c20b028ddd8d6fe76f8664d16df7139c0c79d6b84c55d207ec782c41",
+      "normalization_cofactors": [
+        "1"
+      ],
+      "output_generators": [
+        "u*(x5-5)+(u-1)",
+        "y+10+x5"
+      ],
+      "output_state_fingerprint": "sha256:cb04f7814defd34024bd8c5db70728e252ced66738f8bff0ad6162f3f7257868",
+      "pivot": "x4",
+      "solution": "4"
+    },
+    {
+      "coefficient": "u",
+      "equation": "u*(x5-5)+(u-1)",
+      "equation_index": 0,
+      "id": "step-5",
+      "input_state_fingerprint": "sha256:cb04f7814defd34024bd8c5db70728e252ced66738f8bff0ad6162f3f7257868",
+      "normalization_cofactors": [
+        "1"
+      ],
+      "output_generators": [
+        "y+15"
+      ],
+      "output_state_fingerprint": "sha256:3a8c79f12d20331dfc8ea5e2a696f17d460d59acdc42f346cf540b65cb6e899d",
+      "pivot": "x5",
+      "solution": "5"
+    }
+  ],
+  "unit_generators": [
+    "u"
+  ]
+}

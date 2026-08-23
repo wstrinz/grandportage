@@ -14,8 +14,8 @@ def _shelf():
     return S.load_json(SPIKE / "theorem_shelf.json")
 
 
-def _packet(tag):
-    return S.load_json(SPIKE / "applications" / ("jc_%s.json" % tag))
+def _packet():
+    return S.load_json(SPIKE / "applications" / "synthetic_00IP.json")
 
 
 def test_three_theorem_shelf_is_portably_pinned():
@@ -33,9 +33,8 @@ def test_discovery_scores_cannot_leak_into_a_pin():
         S.validate_shelf(shelf)
 
 
-@pytest.mark.parametrize("tag", ["00IP", "01Z2", "08SL"])
-def test_live_jc_application_is_refused_and_has_no_graph_effect(tag):
-    audit = S.audit_application(_shelf(), _packet(tag))
+def test_neutral_application_is_refused_and_has_no_graph_effect():
+    audit = S.audit_application(_shelf(), _packet())
     assert audit["decision"] == "REFUSED_MISSING_HYPOTHESES"
     assert audit["authority_if_recorded"] == "NONE"
     assert audit["graph_effect"] == "NONE"
@@ -43,7 +42,7 @@ def test_live_jc_application_is_refused_and_has_no_graph_effect(tag):
 
 
 def test_krull_audit_separates_printed_and_bridge_premises():
-    audit = S.audit_application(_shelf(), _packet("00IP"))
+    audit = S.audit_application(_shelf(), _packet())
     unresolved = {(item["kind"], item["id"])
                   for item in audit["unresolved"]}
     assert ("theorem_hypothesis", "module_finite") in unresolved
@@ -52,14 +51,14 @@ def test_krull_audit_separates_printed_and_bridge_premises():
 
 
 def test_omitting_a_printed_hypothesis_is_malformed_not_merely_missing():
-    packet = _packet("01Z2")
+    packet = _packet()
     packet["hypotheses"] = packet["hypotheses"][:-1]
     with pytest.raises(S.SidecarError, match="hypothesis map differs"):
         S.audit_application(_shelf(), packet)
 
 
 def test_mutating_theorem_statement_digest_breaks_the_application_weld():
-    packet = _packet("08SL")
+    packet = _packet()
     packet["theorem_pin"]["statement_sha256"] = "0" * 64
     with pytest.raises(S.SidecarError, match="does not match pinned"):
         S.audit_application(_shelf(), packet)
@@ -67,7 +66,7 @@ def test_mutating_theorem_statement_digest_breaks_the_application_weld():
 
 def test_all_bound_still_waits_for_external_theorem_acceptance():
     shelf = _shelf()
-    packet = _packet("08SL")
+    packet = _packet()
     for item in packet["hypotheses"] + packet["application_premises"]:
         item["status"] = "BOUND"
         item["gp_claim"] = "SYNTHETIC-%s" % item["id"]
@@ -79,7 +78,7 @@ def test_all_bound_still_waits_for_external_theorem_acceptance():
 
 def test_external_acceptance_only_makes_a_packet_ready_for_review():
     shelf = _shelf()
-    packet = _packet("08SL")
+    packet = _packet()
     packet["theorem_acceptance"] = "EXTERNAL_THEOREM_ACCEPTED"
     for item in packet["hypotheses"] + packet["application_premises"]:
         item["status"] = "BOUND"
@@ -106,7 +105,7 @@ def test_discovery_parser_accepts_only_official_stacks_tag_urls():
 
 
 def test_rendered_packet_shouts_the_authority_boundary():
-    rendered = S.render_application(_shelf(), _packet("00IP"))
+    rendered = S.render_application(_shelf(), _packet())
     assert "REFUSED_MISSING_HYPOTHESES" in rendered
     assert "Application-specific bridge premises" in rendered
     assert "Graph effect: **NONE**" in rendered

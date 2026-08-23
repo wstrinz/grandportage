@@ -17,6 +17,46 @@ CAMPAIGN = "CAMPAIGN"
 CLASSIFICATIONS = (CORE, GENERAL_CONTRIB, CAMPAIGN)
 
 
+# The Lean shadow deliberately does not import this table. These names make
+# the comparison explicit and mechanically total without making Lean runtime
+# authority. ``lean_derived_scope`` is the result proved by the named
+# decision; FIELD_RELATIVE means the exact declared field atom.
+CERTIFICATE_STABILITY = {
+    "UNIT_IDEAL_CERT": {
+        "lean_decision": "unitIdealDecision",
+        "lean_derived_scope": "SCHEME",
+    },
+    "LOCALIZED_UNIT_IDEAL_CERT": {
+        "lean_decision": "localizedUnitIdealDecision",
+        "lean_derived_scope": "SCHEME",
+    },
+    "NONZERO_RESULTANT": {
+        "lean_decision": "nonzeroResultantDecision",
+        "lean_derived_scope": "SCHEME",
+    },
+    "EXACT_VALUATION_COLLISION": {
+        "lean_decision": "exactValuationCollisionDecision",
+        "lean_derived_scope": "SCHEME",
+    },
+    "DEGREE_COUNT": {
+        "lean_decision": "degreeCountDecision",
+        "lean_derived_scope": "SCHEME",
+    },
+    "NONSQUARE_CLASS": {
+        "lean_decision": "nonsquareClassDecision",
+        "lean_derived_scope": "FIELD_RELATIVE",
+    },
+    "NO_RATIONAL_POINT_SEARCH": {
+        "lean_decision": "noRationalPointSearchDecision",
+        "lean_derived_scope": "FIELD_RELATIVE",
+    },
+    "CITED_PROOF": {
+        "lean_decision": "citedProofDecision",
+        "lean_derived_scope": "FIELD_RELATIVE",
+    },
+}
+
+
 @dataclass(frozen=True)
 class VerifierDeclaration:
     verifier: str
@@ -174,6 +214,7 @@ def manifest():
             "rows": transport_rows(),
             "type_meanings": dict(kernel.TYPE_MEANS),
             "certificate_base_change": dict(kernel.BUILTIN_CERTIFICATES),
+            "certificate_stability": dict(CERTIFICATE_STABILITY),
         },
         "evidence_contracts": [
             contract.as_dict() for contract in evidence.EVIDENCE_CONTRACTS

@@ -87,10 +87,10 @@ From the GP repository root:
   validate-shelf --checkout C:\path\to\stacks-project
 
 .\.venv\Scripts\python.exe experiments\stacks_applicability\sidecar.py `
-  audit experiments\stacks_applicability\applications\jc_00IP.json
+  audit experiments\stacks_applicability\applications\synthetic_00IP.json
 
 .\.venv\Scripts\python.exe experiments\stacks_applicability\sidecar.py `
-  render experiments\stacks_applicability\applications\jc_00IP.json
+  render experiments\stacks_applicability\applications\synthetic_00IP.json
 
 .\.venv\Scripts\python.exe experiments\stacks_applicability\sidecar.py `
   discover "persistent I-adic divisibility forces a finite-module class to vanish"

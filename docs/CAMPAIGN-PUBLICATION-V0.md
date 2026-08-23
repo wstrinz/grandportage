@@ -21,22 +21,21 @@ graph_effect: NONE
 It cannot upgrade a claim, close a leaf, satisfy an undeclared publication
 artifact, or write the graph.
 
-## Render the JC handback
+## Render a publication projection
 
-The full report combines the dependency audit and manuscript tables:
+The synthetic fixture exercises the full report and both component renderers:
 
 ```text
-gp campaign-publication fixtures/release/jc_publication/release.json \
-  --source-root ../math-stuff
+gp campaign-publication fixtures/release/synthetic/release.json
 ```
 
 Render either component separately:
 
 ```text
-gp campaign-publication fixtures/release/jc_publication/release.json \
+gp campaign-publication fixtures/release/synthetic/release.json \
   --document portrait-audit --output PORTRAIT-AUDIT.md
 
-gp campaign-publication fixtures/release/jc_publication/release.json \
+gp campaign-publication fixtures/release/synthetic/release.json \
   --document manuscript-tables --output MANUSCRIPT-TABLES.md
 ```
 
@@ -107,9 +106,11 @@ This prevents two important category errors: arbitrary generation cannot
 stand in for a proof/formal interface, and manuscript tables cannot stand in
 for the manuscript.
 
-## Current JC result
+## Historical campaign result
 
-The current JC publication release requires 17 records. Sixteen are now
+The signed-off JC publication pressure test, now retained in the optional
+[`grandportage-jc-campaign`](https://github.com/wstrinz/grandportage-jc-campaign)
+companion, requires 17 records. Sixteen are
 selected or generated. The portrait audit and release manifest are generated
 under exact dossier contracts, leaving the manuscript as the sole absent
 payload. Independent readiness debt remains visible: six non-S2 leaf price

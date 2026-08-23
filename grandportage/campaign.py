@@ -315,6 +315,19 @@ def _normalize_catalog(value):
     return tasks
 
 
+def _verify_task_sources(root, tasks):
+    """Refuse packets whose declared research inputs are absent or drifted."""
+    for task in tasks:
+        for source in task["source_bindings"]:
+            binding = {
+                "path": source["path"],
+                "digest_algo": DIGEST_ALGO,
+                "sha256": source["sha256"],
+            }
+            _bound_path(root, binding,
+                        "%s source %s" % (task["id"], source["id"]))
+
+
 def _build_packet(task, bundle, bundle_digest, catalog_digest,
                   bundle_manifest_path):
     frontier_id = task["frontier"]["id"]
@@ -390,6 +403,7 @@ def build_packets_path(path, packet_ids=None):
     except FRONTIER_BUNDLE.FrontierBundleError as exc:
         raise CampaignError("frontier bundle refused: %s" % exc)
     tasks = _normalize_catalog(_load_json(catalog_path, "task catalog"))
+    _verify_task_sources(root, tasks)
     requested = set(packet_ids or manifest.get("packets", []))
     if requested:
         known = {task["id"] for task in tasks}

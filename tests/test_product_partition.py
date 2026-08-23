@@ -14,7 +14,7 @@ from grandportage import store as S
 from grandportage import verify as V
 
 
-FIXTURE = (Path(__file__).parents[1] / "fixtures" / "jc_p_axis" /
+FIXTURE = (Path(__file__).parents[1] / "fixtures" / "algebraic_contracts" /
            "product_split_v1.json")
 
 
@@ -28,7 +28,7 @@ def _parent_equation():
 
 def _operation(**overrides):
     args = {
-        "src": "P_AXIS_BOTTOM",
+        "src": "SYNTHETIC_PRODUCT",
         "ring_vars": _spec()["ring_vars"],
         "generators": [_parent_equation()],
         "receipt_spec": _spec(),
@@ -51,8 +51,8 @@ def _init_campaign(root, equation=None):
     assert cli.main(["--root", str(root), "init"]) == 0
     S.append([{
         "ev": "model",
-        "id": "P_AXIS_BOTTOM",
-        "what": "JC bottom-block equation",
+        "id": "SYNTHETIC_PRODUCT",
+        "what": "synthetic binary-product equation",
         "characteristic": 0,
         "ring_vars": _spec()["ring_vars"],
         "generators": [equation or _parent_equation()],
@@ -84,7 +84,7 @@ def test_partition_contract_is_immutable_audit_data():
         OC.PRODUCT_SPLIT_PARTITION.semantic_relation = "trust the factors"
 
 
-def test_jc_product_receipt_mints_two_branch_models_and_one_partition():
+def test_synthetic_product_receipt_mints_two_branch_models_and_one_partition():
     op = _operation(open_conditions=["p"])
 
     assert op.contract is OC.PRODUCT_SPLIT_PARTITION
@@ -99,15 +99,15 @@ def test_jc_product_receipt_mints_two_branch_models_and_one_partition():
     assert models[0]["generators"][-1] == "p*c6_0+c8_0"
     assert models[1]["generators"][-1] == "p*c7_0+c9_0"
     assert all(model["open_conditions"] == ["p"] for model in models)
-    assert all(model["component_of"] == "P_AXIS_BOTTOM" for model in models)
+    assert all(model["component_of"] == "SYNTHETIC_PRODUCT" for model in models)
 
 
 def test_branch_edges_run_from_each_tighter_branch_to_parent():
     op = _operation()
     edges = [event for event in op.events if event["ev"] == "edge"]
 
-    assert all(edge["dst"] == "P_AXIS_BOTTOM" for edge in edges)
-    assert all(edge["src"] != "P_AXIS_BOTTOM" for edge in edges)
+    assert all(edge["dst"] == "SYNTHETIC_PRODUCT" for edge in edges)
+    assert all(edge["src"] != "SYNTHETIC_PRODUCT" for edge in edges)
     assert all(edge["type"] == K.NECESSARY_CONDITION for edge in edges)
     assert all(edge["built_by_operation"] == "ProductSplit" for edge in edges)
 
@@ -127,7 +127,7 @@ def test_partition_binds_the_exact_receipt_fingerprint():
 
 def test_emitted_events_form_a_valid_graph_partition():
     parent = {
-        "ev": "model", "id": "P_AXIS_BOTTOM", "what": "JC bottom block",
+        "ev": "model", "id": "SYNTHETIC_PRODUCT", "what": "synthetic product",
         "characteristic": 0, "ring_vars": _spec()["ring_vars"],
         "generators": [_parent_equation()],
         "coefficient_domain": "Q",
@@ -136,14 +136,14 @@ def test_emitted_events_form_a_valid_graph_partition():
     graph = _fold([parent] + _operation().events)
 
     partition = graph.partitions[
-        "P-P_AXIS_BOTTOM-E_2_0_bottom_split"]
+        "P-SYNTHETIC_PRODUCT-E_2_0_bottom_split"]
     assert len(partition["branches"]) == 2
-    assert partition["parent"] == "P_AXIS_BOTTOM"
+    assert partition["parent"] == "SYNTHETIC_PRODUCT"
 
 
 def test_existing_exhaustiveness_verifier_consumes_the_emitted_partition():
     parent = {
-        "ev": "model", "id": "P_AXIS_BOTTOM", "what": "JC bottom block",
+        "ev": "model", "id": "SYNTHETIC_PRODUCT", "what": "synthetic product",
         "characteristic": 0, "ring_vars": _spec()["ring_vars"],
         "generators": [_parent_equation()],
         "coefficient_domain": "Q",
@@ -166,15 +166,15 @@ def test_existing_exhaustiveness_verifier_consumes_the_emitted_partition():
             return True, {"why": "exact binary product"}
 
     verdict, why = V.partition_exhaustiveness(
-        graph, "P-P_AXIS_BOTTOM-E_2_0_bottom_split", _backend=Backend())
+        graph, "P-SYNTHETIC_PRODUCT-E_2_0_bottom_split", _backend=Backend())
     assert verdict == V.COVERS
     assert "COMPLETE" in why
 
 
 @pytest.mark.live
-def test_jc_product_partition_verifies_against_real_backend():
+def test_synthetic_product_partition_verifies_against_real_backend():
     parent = {
-        "ev": "model", "id": "P_AXIS_BOTTOM", "what": "JC bottom block",
+        "ev": "model", "id": "SYNTHETIC_PRODUCT", "what": "synthetic product",
         "characteristic": 0, "ring_vars": _spec()["ring_vars"],
         "generators": [_parent_equation()],
         "coefficient_domain": "Q",
@@ -183,7 +183,7 @@ def test_jc_product_partition_verifies_against_real_backend():
     graph = _fold([parent] + _operation().events)
 
     verdict, why = V.partition_exhaustiveness(
-        graph, "P-P_AXIS_BOTTOM-E_2_0_bottom_split", timeout=120)
+        graph, "P-SYNTHETIC_PRODUCT-E_2_0_bottom_split", timeout=120)
     assert verdict == V.COVERS, why
 
 def test_variable_unit_receipt_remains_evidence_but_cannot_mint_cover():
@@ -210,7 +210,7 @@ def test_receipt_id_and_branch_ids_fail_closed():
         _operation(receipt_id="missing")
 
     with pytest.raises(ValueError, match="two distinct branch ids"):
-        _operation(src="P_AXIS_BOTTOM0", produces="P_AXIS_BOTTOM")
+        _operation(src="SYNTHETIC_PRODUCT0", produces="SYNTHETIC_PRODUCT")
 
 
 def test_false_product_receipt_fails_before_any_events_are_minted():
@@ -228,18 +228,18 @@ def test_cli_construct_product_split_dry_run_uses_source_algebra(
 
     rc = cli.main([
         "--root", str(tmp_path), "construct", "product-split",
-        "--src", "P_AXIS_BOTTOM", "--spec", str(FIXTURE),
-        "--receipt", "E_2_0_bottom_split", "--produces", "JC-F%d",
+        "--src", "SYNTHETIC_PRODUCT", "--spec", str(FIXTURE),
+        "--receipt", "E_2_0_bottom_split", "--produces", "SYN-F%d",
     ])
 
     assert rc == 0
     events = json.loads(capsys.readouterr().out)
     models = [event for event in events if event["ev"] == "model"]
-    assert [model["id"] for model in models] == ["JC-F0", "JC-F1"]
+    assert [model["id"] for model in models] == ["SYN-F0", "SYN-F1"]
     assert all(model["ring_vars"] == _spec()["ring_vars"] for model in models)
     assert all(model["open_conditions"] == ["p"] for model in models)
     assert any(event["ev"] == "partition" for event in events)
-    assert "JC-F0" not in S.load(S.graph_path(str(tmp_path))).models
+    assert "SYN-F0" not in S.load(S.graph_path(str(tmp_path))).models
 
 
 def test_cli_construct_product_split_declare_persists_valid_partition(
@@ -249,18 +249,18 @@ def test_cli_construct_product_split_declare_persists_valid_partition(
 
     rc = cli.main([
         "--root", str(tmp_path), "construct", "product-split",
-        "--src", "P_AXIS_BOTTOM", "--spec", str(FIXTURE),
+        "--src", "SYNTHETIC_PRODUCT", "--spec", str(FIXTURE),
         "--receipt", "E_2_0_bottom_split", "--declare",
     ])
 
     assert rc == 0
     assert "declared 6 event(s)" in capsys.readouterr().out
     graph = S.load(S.graph_path(str(tmp_path))).validate()
-    assert {"P_AXIS_BOTTOM_F0", "P_AXIS_BOTTOM_F1"} <= set(graph.models)
+    assert {"SYNTHETIC_PRODUCT_F0", "SYNTHETIC_PRODUCT_F1"} <= set(graph.models)
     partition = graph.partitions[
-        "P-P_AXIS_BOTTOM-E_2_0_bottom_split"]
+        "P-SYNTHETIC_PRODUCT-E_2_0_bottom_split"]
     assert partition["branches"] == [
-        "P_AXIS_BOTTOM_F0", "P_AXIS_BOTTOM_F1"]
+        "SYNTHETIC_PRODUCT_F0", "SYNTHETIC_PRODUCT_F1"]
 
 
 def test_cli_product_split_reports_missing_inputs_and_files(tmp_path, capsys):
@@ -269,14 +269,14 @@ def test_cli_product_split_reports_missing_inputs_and_files(tmp_path, capsys):
 
     rc = cli.main([
         "--root", str(tmp_path), "construct", "product-split",
-        "--src", "P_AXIS_BOTTOM",
+        "--src", "SYNTHETIC_PRODUCT",
     ])
     assert rc == 2
     assert "requires --spec and --receipt" in capsys.readouterr().err
 
     rc = cli.main([
         "--root", str(tmp_path), "construct", "product-split",
-        "--src", "P_AXIS_BOTTOM", "--spec", str(tmp_path / "missing.json"),
+        "--src", "SYNTHETIC_PRODUCT", "--spec", str(tmp_path / "missing.json"),
         "--receipt", "E_2_0_bottom_split",
     ])
     assert rc == 2
@@ -290,7 +290,7 @@ def test_cli_product_split_preserves_localization_refusal(tmp_path, capsys):
 
     rc = cli.main([
         "--root", str(tmp_path), "construct", "product-split",
-        "--src", "P_AXIS_BOTTOM", "--spec", str(FIXTURE),
+        "--src", "SYNTHETIC_PRODUCT", "--spec", str(FIXTURE),
         "--receipt", "E_4_0_bottom_split",
     ])
 

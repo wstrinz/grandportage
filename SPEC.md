@@ -64,7 +64,7 @@ and read-only merge workflows. No transport type or core claim kind was added.
 
 ## Status
 
-All five layers are built and gated: <!--checks-->1752<!--/checks--> checks, live against Singular 4.2.1,
+All five layers are built and gated: <!--checks-->1445<!--/checks--> checks, live against Singular 4.2.1,
 and it has had eleven live user sessions — see [docs/first-run/](docs/first-run/)
 for the first, written up in full.
 
@@ -74,13 +74,12 @@ for the first, written up in full.
 * [DESIGN.md](DESIGN.md) — architecture and the decisions behind it
 * [REVIEW.md](REVIEW.md) — **where I am least confident**, for a reviewer
 * [Foundations and prior art](docs/FOUNDATIONS-PRIOR-ART.md) - bounded research questions and deliberate deferrals
-* [JC `dm4` polynomial-lift audit](docs/JC-DM4-POLYNOMIAL-LIFT.md) - corrected valuation proof spine and remaining obligations
 * [Campaign projections and Three.js explorer](docs/VISUALIZATION.md) - read-only review artifacts and local visualization
 * [Portage Command v0](docs/PORTAGE-COMMAND-V0.md) - digest-bound research packets, attempt ledger, and verification-debt overlay
 * [Campaign dossier v0](docs/CAMPAIGN-DOSSIER-V0.md) - graded portraits, residual price cards, artifact replay inventory, and profile-based closeout readiness
 * [Campaign release v0](docs/CAMPAIGN-RELEASE-V0.md) - transitive profile coverage, replay/licensing debt, and fail-closed content-addressed archives
 * [Campaign publication v0](docs/CAMPAIGN-PUBLICATION-V0.md) - exact-scope portrait audit and manuscript-ready residual, replay, and blocker tables
-* [JC formalization transport ledger v0](experiments/jc_formalization_transport/README.md) - theorem-bound Lean/GP crossing assay with no graph authority
+* [JC campaign companion](https://github.com/wstrinz/grandportage-jc-campaign) - extracted signed-off campaign assays and publication fixtures
 * `gp frontier INPUT.json` - exact-scope proof-state linking over immutable evidence envelopes
 * `gp frontier-bundle MANIFEST.json` - fail-closed aggregation with explicit overlap resolution
 * `gp campaign-packet MANIFEST.json` / `gp campaign-ledger MANIFEST.json` - provisional research operations with graph effect `NONE`
@@ -430,8 +429,8 @@ gp project --output campaign.json  # complete, derived read model
 gp visualize --output campaign.html # read-only Three.js explorer
 gp frontier frontier-input.json    # scoped premise updates and open research boundary
 gp frontier-bundle fixtures/frontier/current_v1.json  # current cross-consumer boundary
-gp campaign-packet fixtures/campaign/jc_sigma/packets.json --format human
-gp campaign-ledger fixtures/campaign/jc_sigma/ledger.json --overlay
+gp campaign-packet fixtures/campaign/matroid/packets.json --format human
+gp campaign-ledger fixtures/campaign/matroid/ledger.json --overlay
 python scripts/public_snapshot.py  # audit the public/private release boundary
 
 gp --graph fixtures/jc2/graph.jsonl check      # the JC(2) retrodiction
@@ -445,7 +444,7 @@ Three.js build by default; `--three-root` can point it at a local package.
 ## The retrodiction gate
 
 ```bash
-python -m pytest        # <!--checks-->1752<!--/checks--> checks
+python -m pytest        # <!--checks-->1445<!--/checks--> checks
 ```
 
 Grand Portage's credibility rests on reproducing, from **data**, what two

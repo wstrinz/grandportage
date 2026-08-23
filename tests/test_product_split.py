@@ -10,7 +10,7 @@ from grandportage import cli
 from grandportage import product_split as PS
 
 
-FIXTURE = (Path(__file__).parents[1] / "fixtures" / "jc_p_axis" /
+FIXTURE = (Path(__file__).parents[1] / "fixtures" / "algebraic_contracts" /
            "product_split_v1.json")
 
 
@@ -18,7 +18,7 @@ def _spec():
     return json.loads(FIXTURE.read_text(encoding="utf-8"))
 
 
-def test_landed_jc_bottom_product_splits_verify():
+def test_synthetic_product_splits_verify():
     report = PS.verify(_spec())
 
     assert report["verdict"] == PS.VERIFIED
