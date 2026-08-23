@@ -15,7 +15,7 @@ PACKAGE = ROOT / "grandportage"
 PACKAGE_ROOT = {"__version__"}
 
 SEMANTIC_CORE = {
-    "kernel", "format", "contracts", "discharge",
+    "kernel", "format", "contracts", "discharge", "backend", "identity",
 }
 AFFINE_EVIDENCE = {
     "evidence",

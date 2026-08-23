@@ -108,6 +108,135 @@ def test_model_schema_teaches_the_two_point_scope_axes():
     ]
 
 
+def test_schema_teaches_evidence_before_a_rejected_write(project):
+    result = call("portage_schema", {}, project)
+    document = json.loads(text(result))
+    evidence = document["events"]["evidence"]["schema"]
+    assert set(evidence["required"]) >= {
+        "ev", "id", "for", "method", "ran", "what"}
+    assert evidence["properties"]["method"]["enum"] == [
+        "ENUMERATION", "REPLICATION"]
+    assert evidence["properties"]["decides"]["enum"] == [
+        "BOTH", "EXCLUSIONS", "INCLUSIONS"]
+    assert evidence["properties"]["for"][
+        "x-grand-portage-target-types"] == ["claim"]
+    assert any(
+        row.get("if", {}).get("properties", {}).get("method")
+        == {"const": "REPLICATION"}
+        and row.get("then", {}).get("required") == ["agrees_with"]
+        for row in evidence["allOf"])
+    assert document["examples"]["evidence_enumeration"]["decides"] == "BOTH"
+    assert document["examples"]["evidence_replication"]["agrees_with"]
+
+
+def test_mcp_baseline_accept_read_and_check_visibility(tmp_path):
+    root = str(tmp_path)
+    S.append([
+        {"ev": "model", "id": "A", "what": "a"},
+        {"ev": "model", "id": "B", "what": "b"},
+        {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+         "type": K.UNTYPED, "map_kind": K.IDENTITY_MAP,
+         "why": "relation unknown", "debt_why": "needs classification"},
+    ], root)
+    before = text(call("portage_check", {}, root))
+    assert "UNTYPED-EDGE:E" in before
+    refused = call("portage_baseline_accept", {"reason": ""}, root)
+    assert refused["isError"] is True
+
+    accepted = json.loads(text(call(
+        "portage_baseline_accept",
+        {"reason": "known campaign boundary",
+         "findings": ["UNTYPED-EDGE:E"]},
+        root)))
+    assert accepted["accepted"]["UNTYPED-EDGE:E"]["why"] == (
+        "known campaign boundary")
+    read = json.loads(text(call("portage_baseline_read", {}, root)))
+    assert read["accepted"]["UNTYPED-EDGE:E"]["status"] == "CURRENT"
+    compact = text(call("portage_check", {}, root))
+    assert "CARRIED" in compact and "UNTYPED-EDGE:E" in compact
+    assert "edge E (A -> B)" not in compact
+    full = text(call("portage_check", {"full": True}, root))
+    assert "UNTYPED-EDGE:E" in full and "edge E (A -> B)" in full
+
+
+def test_mcp_prefix_tail_and_read_only_merge_assay(tmp_path):
+    base = tmp_path / "base"
+    branch = tmp_path / "branch"
+    base.mkdir()
+    branch.mkdir()
+    initial = [{"ev": "model", "id": "M", "what": "common"}]
+    S.append(initial, str(base))
+    S.append(initial, str(branch))
+    receipt = json.loads(text(call("portage_graph_receipt", {}, str(base))))
+    S.append([{"ev": "model", "id": "N", "what": "branch only"}],
+             str(branch))
+    tail = json.loads(text(call(
+        "portage_export_tail", {"receipt": receipt}, str(branch))))
+
+    before = open(S.graph_path(str(base)), "rb").read()
+    report = json.loads(text(call(
+        "portage_merge_assay", {"tail": tail}, str(base))))
+    assert report["status"] == "COMPOSES"
+    assert report["mutation"] == "NONE"
+    assert report["counts"]["models"] == 2
+    assert open(S.graph_path(str(base)), "rb").read() == before
+
+    whole_graph = json.loads(text(call(
+        "portage_merge_assay",
+        {"other_graph": S.graph_path(str(branch))}, str(base))))
+    assert whole_graph["status"] == "COMPOSES"
+    assert whole_graph["counts"]["models"] == 2
+    assert open(S.graph_path(str(base)), "rb").read() == before
+
+    tail["base"]["prefix_sha256"] = "sha256:" + "0" * 64
+    refused = call("portage_merge_assay", {"tail": tail}, str(base))
+    assert refused["isError"] is True
+    assert "base receipt does not match" in text(refused)
+
+
+def test_malformed_lifecycle_shape_is_a_graph_error_not_python_typeerror(
+        project):
+    result = call("portage_declare", {"events": [{
+        "ev": "model", "id": "NEW", "what": "bad successor",
+        "supersedes": ["SRC"], "discharge_kind": "AMEND",
+    }]}, project)
+    assert result["isError"] is True
+    message = text(result)
+    assert message.startswith("GraphError:")
+    assert "supersedes` must be a non-empty string" in message
+    assert "TypeError" not in message
+
+
+def test_mcp_verify_accepts_a_supplied_localized_factor_chain(tmp_path):
+    root = str(tmp_path)
+    S.append([
+        {"ev": "model", "id": "OPEN", "what": "V(x) intersect D(x)",
+         "characteristic": 0, "ring_vars": ["x"], "generators": ["x"],
+         "open_conditions": ["x"]},
+        {"ev": "claim", "id": "EMPTY-OPEN", "model": "OPEN",
+         "kind": K.EMPTY, "statement": "the open locus is empty",
+         "certificate": "LOCALIZED_UNIT_IDEAL_CERT"},
+    ], root)
+    certificate = {
+        "schema": "localized_guard_reduction_chain_v2",
+        "characteristic": 0,
+        "ring_vars": ["x"],
+        "generators": ["x"],
+        "guards": ["x"],
+        "certificate": {"steps": [{
+            "guard_index": 0, "remainder": "0", "cofactors": ["1"],
+        }]},
+    }
+    result = call("portage_verify", {
+        "dry_run": True,
+        "localized_certificates": {"EMPTY-OPEN": certificate},
+    }, root)
+    assert result.get("isError") is not True
+    output = text(result)
+    assert "VERIFIED  certificate EMPTY-OPEN" in output
+    assert "reduction chain" in output
+
+
 def test_serve_round_trips_over_a_stream(project):
     out = io.StringIO()
     mcp.serve(stdin=io.StringIO(json.dumps(rpc("tools/list")) + "\n"),

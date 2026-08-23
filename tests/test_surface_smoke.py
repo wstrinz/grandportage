@@ -283,8 +283,13 @@ def _family():
                        "enumeration": "CF-ENUM"},
                       {"ev": "claim", "id": "CF-ENUM", "family": "F",
                        "kind": K.PREDICATE,
+                       "asserts_count": 4,
                        "statement": "there are exactly four",
                        "established_by": "RAN", "ladder": "exact-checked"},
+                      {"ev": "evidence", "id": "EF-ENUM",
+                       "for": "CF-ENUM", "method": "ENUMERATION",
+                       "ran": "four_cases.py",
+                       "what": "enumerated all four cases", "decides": "BOTH"},
                       {"ev": "claim", "id": "D", "family": "F", "kind": K.COUNT,
                        "statement": "three of four are settled",
                        "splits": "F",
@@ -607,8 +612,12 @@ def test_gp_events_dumps_the_log_without_hand_parsing(tmp_path, capsys):
 
     cli.main(["--root", str(tmp_path), "events", "--folded"])
     folded = json.loads(capsys.readouterr().out)
-    assert set(folded) == {"models", "edges", "claims", "inferences",
-                           "partitions", "tombstones"}
+    assert set(folded) == {
+        "metadata", "certificates", "models", "edges", "claims",
+        "inferences", "partitions", "families", "groups", "same_as",
+        "built_by", "citations", "evidence", "doubts", "notes",
+        "named_notes", "verdicts", "tombstones",
+    }
     assert folded["models"]["M"]["generators"] == ["x"]
 
 

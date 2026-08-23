@@ -527,6 +527,7 @@ def test_materializer_builds_both_checked_directions_without_writing(tmp_path):
     assert "CUSP" not in unchanged.models
 
     candidate = copy.deepcopy(unchanged)
+    candidate._check_binary_version = False
     for event in result["events"]:
         candidate.apply(event)
     candidate.validate()
@@ -587,6 +588,9 @@ def test_materializer_records_model_edge_both_verdicts_and_artifacts(
     root = str(tmp_path)
     _write_materializer_source(root)
     backend = _backend(_materializer_runner)
+    monkeypatch.setitem(
+        cas._BINARY_VERSION_CACHE, tuple(cas._argv()),
+        backend.identity.binary_version)
     monkeypatch.setattr(
         cas.SingularBackend, "can_record_verdicts",
         property(lambda _self: True),

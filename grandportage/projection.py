@@ -18,6 +18,7 @@ SCHEMA = "grand-portage-projection/v2"
 # an edge.
 VERDICT_TARGET_KINDS = {
     "claim": "claim",
+    "condition": "claim",
     "certificate": "claim",
     "witness": "claim",
     "partition": "partition",
@@ -73,7 +74,8 @@ def _status(record):
     if record.get("superseded_by"):
         return "SUPERSEDED"
     for field in (
-            "verdict", "identity_verdict", "witness_verdict",
+            "verdict", "identity_verdict", "condition_verdict",
+            "witness_verdict",
             "ring_iso_verdict", "section_verdict", "groebner_verdict"):
         if record.get(field):
             return str(record[field])

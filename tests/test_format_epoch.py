@@ -27,15 +27,23 @@ def test_init_starts_with_epoch_metadata(tmp_path):
     assert cli.main(["--root", str(tmp_path), "init"]) == 0
     path = S.graph_path(str(tmp_path))
     events = list(S.load_events(path))
-    assert events[0][0] == {
-        "created_with": "grandportage/0.24.0",
-        "ev": "meta",
-        "graph_format": 4,
-        "kernel_epoch": F.KERNEL_EPOCH,
+    meta = events[0][0]
+    assert meta["created_with"] == F.created_with()
+    assert meta["ev"] == "meta"
+    assert meta["graph_format"] == F.GRAPH_FORMAT
+    assert meta["kernel_epoch"] == F.KERNEL_EPOCH
+    assert meta["implementation"]["graph_format"] == F.GRAPH_FORMAT
+    assert meta["implementation"]["kernel_epoch"] == F.KERNEL_EPOCH
+    assert meta["implementation"]["package_version"] == (
+        F.created_with().split("/", 1)[1])
+    assert set(meta) == {
+        "created_with", "ev", "graph_format", "implementation",
+        "kernel_epoch",
     }
     graph = S.load(path)
-    assert graph.graph_format == 4
+    assert graph.graph_format == F.GRAPH_FORMAT
     assert graph.kernel_epoch == F.KERNEL_EPOCH
+    assert graph.implementation == meta["implementation"]
     assert graph.compatibility_mode is False
 
 
@@ -413,9 +421,9 @@ def test_older_epochs_migrate_non_destructively_to_format4_epoch10(tmp_path):
     assert source.read_bytes() == before
     assert reports[0]["from_graph_format"] == 1
     assert reports[0]["from_kernel_epoch"] == 4
-    assert reports[0]["graph_format"] == F.GRAPH_FORMAT == 4
+    assert reports[0]["graph_format"] == F.GRAPH_FORMAT
     assert reports[0]["kernel_epoch"] == F.KERNEL_EPOCH == 10
-    assert S.load(str(destination)).graph_format == 4
+    assert S.load(str(destination)).graph_format == F.GRAPH_FORMAT
     assert S.load(str(destination)).kernel_epoch == 10
 
     epoch5 = tmp_path / "format2-epoch5.jsonl"
@@ -430,7 +438,7 @@ def test_older_epochs_migrate_non_destructively_to_format4_epoch10(tmp_path):
     assert epoch5.read_bytes() == epoch5_before
     assert epoch5_reports[0]["from_graph_format"] == 2
     assert epoch5_reports[0]["from_kernel_epoch"] == 5
-    assert epoch5_reports[0]["graph_format"] == 4
+    assert epoch5_reports[0]["graph_format"] == F.GRAPH_FORMAT
     assert epoch5_reports[0]["kernel_epoch"] == 10
     assert S.load(str(epoch8_from_epoch5)).kernel_epoch == 10
 
@@ -446,7 +454,7 @@ def test_older_epochs_migrate_non_destructively_to_format4_epoch10(tmp_path):
     assert epoch6.read_bytes() == epoch6_before
     assert epoch6_reports[0]["from_graph_format"] == 2
     assert epoch6_reports[0]["from_kernel_epoch"] == 6
-    assert epoch6_reports[0]["graph_format"] == 4
+    assert epoch6_reports[0]["graph_format"] == F.GRAPH_FORMAT
     assert epoch6_reports[0]["kernel_epoch"] == 10
     assert S.load(str(epoch8)).kernel_epoch == 10
 
@@ -462,7 +470,7 @@ def test_older_epochs_migrate_non_destructively_to_format4_epoch10(tmp_path):
     assert epoch7.read_bytes() == epoch7_before
     assert epoch7_reports[0]["from_graph_format"] == 2
     assert epoch7_reports[0]["from_kernel_epoch"] == 7
-    assert epoch7_reports[0]["graph_format"] == 4
+    assert epoch7_reports[0]["graph_format"] == F.GRAPH_FORMAT
     assert epoch7_reports[0]["kernel_epoch"] == 10
     assert S.load(str(epoch8_from_epoch7)).kernel_epoch == 10
     future = tmp_path / "format1-future-epoch.jsonl"

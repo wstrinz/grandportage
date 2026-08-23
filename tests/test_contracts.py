@@ -312,6 +312,9 @@ def test_empty_elimination_output_records_its_checked_scope(
     backend = cas.SingularBackend(
         runner=lambda *_args: pytest.fail("empty output needs no CAS run"),
         binary_version="Singular 4.4.1")
+    monkeypatch.setitem(
+        cas._BINARY_VERSION_CACHE, tuple(cas._argv()),
+        backend.identity.binary_version)
     monkeypatch.setattr(
         cas.SingularBackend, "can_record_verdicts",
         property(lambda _self: True))

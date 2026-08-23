@@ -658,6 +658,43 @@ def substitute_polynomial(expression, variables, images, characteristic=0,
     return render_polynomial(answer)
 
 
+def substitute_polynomial_between(expression, source_variables,
+                                  target_variables, images,
+                                  characteristic=0, _budget=None):
+    """Apply a simultaneous polynomial map between differently named rings.
+
+    ``images`` is keyed by every source variable and each value is parsed in
+    the target ring.  This is the unambiguous source-generator convention used
+    by cross-presentation equivalences such as ``{x: y}``.
+    """
+    source_variables = tuple(source_variables)
+    target_variables = tuple(target_variables)
+    if (not isinstance(images, dict)
+            or set(images) != set(source_variables)):
+        raise CertificateError(
+            "a cross-ring substitution must give exactly one target "
+            "expression for every source variable; got %s for %s"
+            % (", ".join(sorted(images)) if isinstance(images, dict) else
+               type(images).__name__, ", ".join(source_variables)))
+    source = parse_polynomial(
+        expression, source_variables, characteristic, _ArithmeticBudget())
+    budget = _budget or _ArithmeticBudget()
+    parsed_images = {
+        name: parse_polynomial(
+            images[name], target_variables, characteristic, budget)
+        for name in source_variables
+    }
+    answer = Polynomial.scalar(target_variables, characteristic, 0, budget)
+    for monomial, coefficient in source.terms.items():
+        term = Polynomial.scalar(
+            target_variables, characteristic, coefficient, budget)
+        for name, exponent in zip(source_variables, monomial):
+            if exponent:
+                term = term * (parsed_images[name] ** exponent)
+        answer = answer + term
+    return render_polynomial(answer)
+
+
 def guarded_rational_substitute(expression, source_variables, target_variables,
                                 images, guard, characteristic=0,
                                 _budget=None):

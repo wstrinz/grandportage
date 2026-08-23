@@ -31,10 +31,11 @@ from . import cas
 from . import check as C
 from . import format as F
 from . import hook as HK
+from . import identity as I
 from . import kernel as K
 from . import store as S
 
-PROTOCOL_VERSION = "2025-06-18"
+PROTOCOL_VERSION = I.MCP_PROTOCOL_VERSION
 SUPPORTED_PROTOCOLS = ("2024-11-05", "2025-03-26", "2025-06-18")
 
 ROOT = os.environ.get("GP_ROOT", ".")
@@ -129,11 +130,12 @@ EDGE_SCHEMA = {
             "type": "object",
             "additionalProperties": {"type": "string"},
             "description": (
-                "EQUIVALENCE only. The point-forward map from source to target, "
-                "written as a simultaneous polynomial substitution with one "
-                "expression for every ring variable. Polynomial pullback runs "
-                "contravariantly. The current verifier requires both endpoints "
-                "to use the same ring-variable names. Supplying forward and "
+                "EQUIVALENCE only. On a shared coordinate ring this is the "
+                "historical point-forward substitution and polynomial pullback "
+                "runs contravariantly. When endpoint variable names differ, "
+                "forward is keyed by every SOURCE generator and gives its "
+                "polynomial expression in TARGET variables (for example "
+                "{x: y}). Supplying forward and "
                 "inverse declares a MAPPED equivalence, not literal containment "
                 "of the two solution sets as written. Structured maps license "
                 "IDENTITY transport only after `VERIFIED`.")},
@@ -141,8 +143,9 @@ EDGE_SCHEMA = {
             "type": "object",
             "additionalProperties": {"type": "string"},
             "description": (
-                "EQUIVALENCE only. The point-inverse map from target to source, "
-                "paired with forward. `gp verify` checks both ideal pullbacks "
+                "EQUIVALENCE only. Paired with forward. For differently named "
+                "rings it is keyed by every TARGET generator and gives its "
+                "expression in SOURCE variables. `gp verify` checks both ideals "
                 "and both inverse compositions. The field names are exactly "
                 "`forward` and `inverse`, not `maps` or `inverse_maps`.")},
         "ring_iso": {
@@ -197,7 +200,9 @@ CONDITION_SCHEMA = {
         "parsed against the claim model's exact polynomial ring. Verified mapped "
         "equivalences rewrite it contravariantly. Matching identity-coordinate "
         "maps and checked Eliminate projections preserve it under AGAINST before "
-        "a polynomial-section elimination checks target expressibility."),
+        "a polynomial-section elimination checks target expressibility. `gp "
+        "verify` also checks the condition at its own model: ZERO by certified "
+        "ideal membership and NONZERO by a certified empty vanishing locus."),
     "properties": {
         "all": {
             "type": "array",
@@ -236,12 +241,66 @@ def _event_schema(kind):
             "enum": list(S.POINT_UNIVERSES),
             "description": "BASE or algebraic closure of coefficient_domain",
         }
-    return {
+    if kind == "evidence":
+        properties["method"] = {
+            "type": "string", "enum": list(F.EVIDENCE_METHODS),
+        }
+        properties["decides"] = {
+            "type": "string", "enum": list(F.EVIDENCE_DECISIONS),
+            "description": (
+                "Soundness direction of this computation: BOTH means exact; "
+                "EXCLUSIONS means only removals are definitive; INCLUSIONS "
+                "means only survivors are definitive. This field never lists "
+                "claim ids; `for` names the claim supported by the evidence."),
+        }
+        properties["for"] = {
+            "type": "string",
+            "description": "id of the claim this evidence supports",
+            "x-grand-portage-target-types": ["claim"],
+        }
+        properties["agrees_with"] = {
+            "type": "string",
+            "description": "independent procedure or artifact replicated",
+        }
+    schema = {
         "type": "object",
         "properties": properties,
-        "required": sorted(F.REQUIRED_FIELDS.get(kind, {"ev"})),
+        "required": sorted(F.AUTHOR_REQUIRED_FIELDS.get(
+            kind, F.REQUIRED_FIELDS.get(kind, {"ev"}))),
         "additionalProperties": False,
     }
+    if kind == "claim":
+        schema["oneOf"] = [
+            {
+                "required": ["model"],
+                "not": {"required": ["family"]},
+                "properties": {
+                    "kind": {"enum": list(K.CLAIM_KINDS)},
+                },
+            },
+            {
+                "required": ["family"],
+                "not": {"required": ["model"]},
+                "properties": {
+                    "kind": {"enum": [K.EMPTY, K.NONEMPTY,
+                                      K.PREDICATE, K.COUNT]},
+                },
+            },
+        ]
+    for rule in F.CONDITIONAL_REQUIREMENTS.get(kind, ()):
+        schema.setdefault("allOf", []).append({
+            "if": {"properties": {
+                field: {"const": value}
+                for field, value in rule["if"].items()
+            }, "required": sorted(rule["if"])},
+            "then": {"required": list(rule["required"])},
+        })
+    for qualified, target_types in F.TARGET_ENTITY_TYPES.items():
+        event_kind, field = qualified.split(".", 1)
+        if event_kind == kind and field in properties:
+            properties[field].setdefault(
+                "x-grand-portage-target-types", list(target_types))
+    return schema
 
 
 DECLARABLE_EVENT_SCHEMA = {
@@ -474,6 +533,10 @@ TOOLS = [
                       "into the baseline. Off by default: once a campaign has "
                       "a real graph, re-printing every carried obligation is "
                       "noise on every call.")},
+         "history": {"type": "boolean", "default": False,
+                     "description": (
+                         "also list findings owned by superseded generations; "
+                         "they remain history but do not fail the current gate")},
          "root": {"type": "string",
                   "description": (
                       "the campaign directory to read or write -- the one "
@@ -500,6 +563,13 @@ TOOLS = [
                          "report the verdicts without recording them. Off by "
                          "default: a verification that lives in a scrollback "
                          "is one nobody can act on next week.")},
+         "localized_certificates": {
+             "type": "object",
+             "description": (
+                 "optional map from EMPTY claim id to a closed "
+                 "localized_guard_reduction_chain_v2 certificate produced "
+                 "by the research CAS; GP checks every row exactly"),
+             "additionalProperties": {"type": "object"}},
          "root": {"type": "string",
                   "description": (
                       "the campaign directory to read or write -- the one "
@@ -578,6 +648,61 @@ TOOLS = [
                       "the campaign directory to read -- the one holding "
                       "`.portage/`. Omit and the server uses its own working "
                       "directory, which is the SESSION root.")}}, []),
+
+    _tool(
+        "portage_schema",
+        "Read the exact native declaration contract, enums, conditional "
+        "requirements, target types, lifecycle rules, and valid examples. "
+        "This is generated from the same contract used by validation.",
+        {}, []),
+
+    _tool(
+        "portage_baseline_read",
+        "Read accepted findings with their rationales and current/stale "
+        "fingerprints. This never changes the baseline.",
+        {"root": {"type": "string",
+                  "description": "campaign directory holding .portage/"}}, []),
+
+    _tool(
+        "portage_baseline_accept",
+        "Accept selected current findings as deliberately carried debt. A "
+        "non-empty rationale is mandatory. Existing acceptances are merged; "
+        "prune removes only entries no longer present in the current graph.",
+        {"reason": {"type": "string", "minLength": 1},
+         "findings": {"type": "array", "items": {"type": "string"},
+                      "description": "finding ids; omit to accept all current"},
+         "prune": {"type": "boolean", "default": False},
+         "root": {"type": "string",
+                  "description": "campaign directory holding .portage/"}},
+        ["reason"]),
+
+    _tool(
+        "portage_graph_receipt",
+        "Return a SHA-256 and event-count receipt for the current exact graph "
+        "prefix. Use it before a lane branches.",
+        {"event_count": {"type": "integer", "minimum": 0},
+         "root": {"type": "string",
+                  "description": "campaign directory holding .portage/"}}, []),
+
+    _tool(
+        "portage_export_tail",
+        "Export events after a graph-prefix receipt. The count and SHA-256 "
+        "must both match; an unrelated same-length graph is refused.",
+        {"receipt": {"type": "object"},
+         "root": {"type": "string",
+                  "description": "campaign directory holding .portage/"}},
+        ["receipt"]),
+
+    _tool(
+        "portage_merge_assay",
+        "Read-only assay of this campaign graph with either a verified branch "
+        "tail or another graph path. Reports every conflict and never appends, "
+        "normalizes, or resolves presentations.",
+        {"tail": {"type": "object"},
+         "other_graph": {"type": "string"},
+         "root": {"type": "string",
+                  "description": "base campaign directory holding .portage/"}},
+        []),
 
     _tool(
         "portage_transport_table",
@@ -744,8 +869,132 @@ def h_portage_check(args, root):
     # caller reasons from.
     accepted = HK.read_baseline(root)["accepted"]
     return _text("%s\nclean inferences (%d): %s"
-                 % (C.render(findings, accepted, full=bool(args.get("full"))),
+                 % (C.render(
+                     findings, accepted, full=bool(args.get("full")),
+                     include_history=bool(args.get("history"))),
                     len(clean), ", ".join(clean) or "-"))
+
+
+def h_portage_schema(args, root):
+    from . import cli as CLI
+    return _text(json.dumps(
+        CLI.native_schema_document(), indent=2, sort_keys=True))
+
+
+def h_portage_baseline_read(args, root):
+    path = S.graph_path(root)
+    if not os.path.exists(path):
+        return _text("no graph yet at %s" % path)
+    graph = S.load(path)
+    findings = C.actionable_findings(C.run(graph))
+    current = {finding.fid: finding for finding in findings}
+    baseline = HK.read_baseline(root)
+    rows = {}
+    for fid, entry in baseline["accepted"].items():
+        entry = dict(entry or {})
+        finding = current.get(fid)
+        entry["status"] = (
+            "RESOLVED_OR_HISTORICAL" if finding is None else
+            "CURRENT" if entry.get("fingerprint") == finding.fingerprint
+            else "STALE_ACCEPTANCE")
+        rows[fid] = entry
+    return _text(json.dumps({
+        "path": os.path.abspath(HK.baseline_path(root)),
+        "accepted": rows,
+        "current_finding_count": len(findings),
+    }, indent=2, sort_keys=True))
+
+
+def h_portage_baseline_accept(args, root):
+    reason = args.get("reason")
+    if not isinstance(reason, str) or not reason.strip():
+        return _err("baseline acceptance requires a non-empty rationale")
+    path = S.graph_path(root)
+    if not os.path.exists(path):
+        return _err("no graph yet at %s" % path)
+    live = C.actionable_findings(C.run(S.load(path)))
+    by_id = {finding.fid: finding for finding in live}
+    selected_ids = args.get("findings")
+    if selected_ids is None:
+        selected = live
+    else:
+        if (not isinstance(selected_ids, list)
+                or not all(isinstance(value, str) and value
+                           for value in selected_ids)
+                or len(selected_ids) != len(set(selected_ids))):
+            return _err("findings must be a list of unique non-empty ids")
+        missing = sorted(set(selected_ids) - set(by_id))
+        if missing:
+            return _err("cannot accept absent or historical finding(s): %s"
+                        % ", ".join(missing))
+        selected = [by_id[fid] for fid in selected_ids]
+    payload = HK.save_baseline(
+        root, selected, note=reason.strip(), merge=True,
+        prune=bool(args.get("prune")), live=live)
+    return _text(json.dumps({
+        "path": os.path.abspath(HK.baseline_path(root)),
+        "accepted": payload["accepted"],
+        "dropped": payload.get("dropped") or [],
+    }, indent=2, sort_keys=True))
+
+
+def h_portage_graph_receipt(args, root):
+    path = S.graph_path(root)
+    if not os.path.exists(path):
+        return _err("no graph yet at %s" % path)
+    try:
+        receipt = S.graph_prefix_receipt(path, args.get("event_count"))
+    except (S.GraphError, TypeError, ValueError) as exc:
+        return _err("graph receipt refused: %s" % exc)
+    return _text(json.dumps(receipt, indent=2, sort_keys=True))
+
+
+def h_portage_export_tail(args, root):
+    path = S.graph_path(root)
+    if not os.path.exists(path):
+        return _err("no graph yet at %s" % path)
+    try:
+        tail = S.export_graph_tail(path, args.get("receipt"))
+    except (S.GraphError, TypeError, ValueError) as exc:
+        return _err("graph tail export refused: %s" % exc)
+    return _text(json.dumps(tail, indent=2, sort_keys=True))
+
+
+def h_portage_merge_assay(args, root):
+    tail = args.get("tail")
+    other = args.get("other_graph")
+    if (tail is None) == (other is None):
+        return _err("pass exactly one of tail or other_graph")
+    base_path = S.graph_path(root)
+    if not os.path.exists(base_path):
+        return _err("no graph yet at %s" % base_path)
+    try:
+        base_events = [event for event, _line in S.load_events(base_path)]
+        sources = [(os.path.abspath(base_path), base_events)]
+        if tail is not None:
+            sources.append((
+                "supplied-branch-tail",
+                S.validate_graph_tail(tail, base_events=base_events)))
+        else:
+            sources.append((
+                os.path.abspath(other),
+                [event for event, _line in S.load_events(other)],
+            ))
+        graph, conflicts = S.merge_report_events(sources)
+    except (OSError, S.GraphError, K.KernelRefusal, TypeError, ValueError) as exc:
+        return _err("merge assay refused: %s" % exc)
+    if conflicts:
+        report = {"status": "REFUSES", "conflicts": conflicts,
+                  "mutation": "NONE"}
+    else:
+        findings = C.run(graph)
+        report = {
+            "status": "COMPOSES", "conflicts": [], "mutation": "NONE",
+            "counts": {"models": len(graph.models), "edges": len(graph.edges),
+                       "claims": len(graph.claims),
+                       "findings": len(C.actionable_findings(findings))},
+        }
+    return _text(json.dumps(report, indent=2, sort_keys=True))
 
 
 def h_portage_verify(args, root):
@@ -753,8 +1002,15 @@ def h_portage_verify(args, root):
     path = S.graph_path(root)
     if not os.path.exists(path):
         return _text("no graph yet at %s" % path)
-    results = V.verify_all(root=root, timeout=int(args.get("timeout") or 300),
-                           record=not args.get("dry_run"))
+    supplied = args.get("localized_certificates") or {}
+    if not isinstance(supplied, dict) or not all(
+            isinstance(key, str) and key and isinstance(value, dict)
+            for key, value in supplied.items()):
+        return _err(
+            "localized_certificates must map claim ids to certificate objects")
+    results = V.verify_all(
+        root=root, timeout=int(args.get("timeout") or 300),
+        record=not args.get("dry_run"), supplied_certificates=supplied)
     if not results:
         return _text(
             "nothing to verify: no edge or claim carries the data a reduction "
@@ -851,6 +1107,13 @@ def h_portage_show(args, root):
         m = g.models[mid]
         tag = " ".join(x for x in (m.get("chart"), m.get("field")) if x)
         out.append("MODEL %-16s %-14s %s" % (mid, tag, m.get("desc", "")[:70]))
+    for fid in sorted(g.families):
+        family = g.families[fid]
+        mark = ("  [SUPERSEDED by %s]" % S.successors(family)
+                if family.get("superseded_by") else "")
+        out.append("FAMILY %-15s count=%d enumeration=%s%s"
+                   % (fid, family["count"],
+                      family.get("enumeration") or "UNRECORDED", mark))
     for eid in sorted(g.edges):
         e = g.edges[eid]
         mark = ("  [WITHDRAWN by %s]" % e["withdrawn_by"]
@@ -976,6 +1239,12 @@ HANDLERS = {
     "cas_classify_identity": h_cas_classify_identity,
     "portage_declare": h_portage_declare,
     "portage_check": h_portage_check,
+    "portage_schema": h_portage_schema,
+    "portage_baseline_read": h_portage_baseline_read,
+    "portage_baseline_accept": h_portage_baseline_accept,
+    "portage_graph_receipt": h_portage_graph_receipt,
+    "portage_export_tail": h_portage_export_tail,
+    "portage_merge_assay": h_portage_merge_assay,
     "portage_verify": h_portage_verify,
     "portage_verify_elimination": h_portage_verify_elimination,
     "portage_verify_elimination_point_lift": (
@@ -1000,10 +1269,15 @@ def dispatch(request, root=ROOT):
     if method == "initialize":
         asked = params.get("protocolVersion")
         version = asked if asked in SUPPORTED_PROTOCOLS else PROTOCOL_VERSION
+        implementation = I.implementation_identity(
+            VERSION, F.GRAPH_FORMAT, F.KERNEL_EPOCH)
         return _ok(rid, {
             "protocolVersion": version,
             "capabilities": {"tools": {}},
-            "serverInfo": {"name": "grand-portage", "version": VERSION},
+            "serverInfo": {
+                "name": "grand-portage", "version": VERSION,
+                "grandPortage": implementation,
+            },
             "instructions": (
                 "Every computation that produces a model must declare how that "
                 "model relates to its source. Call portage_transport_table if "

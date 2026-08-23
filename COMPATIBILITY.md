@@ -4,6 +4,14 @@ Grand Portage separates **file readability** from **mathematical authority**.
 An old graph may remain valuable history without retaining every licence that an
 older kernel inferred from it.
 
+Version 0.25 makes that separation executable for native formats 1--4. Their
+original headers and bytes remain readable by `check`, `show`, `doctor`, and
+artifact audit even though they predate the closed format-5 implementation
+identity. The missing identity remains explicitly unknown, every historical
+verdict remains inactive, and append refuses with the audited
+`migrate --to-current-kernel` route. Read compatibility never becomes write
+compatibility.
+
 ## The year-zero boundary and first semantic transition
 
 Version 0.5.0 established:
@@ -311,6 +319,51 @@ Within one kernel epoch, no field may silently acquire a more permissive
 interpretation. A syntax-only extension can bump `graph_format`; transport
 meaning or verifier trust bumps `kernel_epoch` or the narrower verifier/backend
 implementation version as appropriate.
+
+Version 0.25.0 advances to **graph format 5** and keeps **kernel epoch 10**.
+Format 5 makes the implementation identity in every native graph header exact
+and closed: package version, source commit, dirty state, graph format, kernel
+epoch, MCP protocol, and backend implementation/protocol versions travel
+together. Format-4 headers do not contain those fields and are not rewritten in
+place; `gp migrate --to-current-kernel` copies them into a format-5 graph and
+records the source digest in its audit receipt.
+
+This is a provenance syntax boundary, not a new mathematical licence. The six
+exact-affine transport types, four model claim kinds, transport cells, and
+kernel meaning are unchanged, so epoch 10 remains current. Singular backend
+implementation version 4 closes stdin during binary discovery and persisted
+verdict freshness now compares the executing binary identity after reload.
+Unknown, timed-out, failed, or historical `unavailable` identities remain
+stale. The narrower backend implementation version changes; the kernel does
+not.
+
+The same release closes the existing census-family completeness contract and
+adds agent-facing inspection, root diagnostics, schema introspection, immutable
+finding deltas, and presentation-safe merge guidance. These surfaces do not
+add a database-filter edge, census-to-affine transport, algebraic-witness field
+extension, or measurement authority.
+
+Version 0.26.0 keeps **graph format 5** and **kernel epoch 10**. It repairs the
+existing exact-affine/open-locus implementation without adding a transport or
+claim kind. NONEMPTY point verification now checks both equations and every
+declared nonvanishing guard, including equation-free open charts. The witness
+verifier advances to version 3.
+
+Localized emptiness search is bounded and fail-closed. A verifier error on one
+claim no longer aborts the batch, and large campaigns can supply a
+`localized_guard_reduction_chain_v2` certificate: GP checks each exact
+factor/remainder cofactor identity without constructing the full guard
+product. The localized-unit verifier advances to version 2; old verdicts stay
+readable but stale.
+
+Finding presentation now distinguishes current debt, historical debt on a
+superseded generation, and live references into historical state. Baseline
+read/accept, native schema discovery, graph-prefix receipts, tail export, and
+read-only merge assay are available through MCP. These are custody and read
+semantics, not new mathematical licences. Structurally valid backend-v2
+manifests whose executable identity was historically unavailable are audited
+as legacy-readable/legacy-unverifiable; their immutable artifacts are checked
+without promoting their verdicts to current authority.
 
 ## Epoch-0 graphs
 

@@ -2747,6 +2747,9 @@ def test_verify_all_actually_writes_and_the_finding_goes_away(
     runner = _fake_run(stdout="@@GP_D:\ny2-x3\n@@GP_RED:\n0\n")
     backend = cas.SingularBackend(
         runner=runner, binary_version="Singular 4.2.1 test fixture")
+    monkeypatch.setitem(
+        cas._BINARY_VERSION_CACHE, tuple(cas._argv()),
+        backend.identity.binary_version)
     monkeypatch.setattr(
         cas.SingularBackend, "can_record_verdicts", property(lambda _self: True))
     results = V.verify_all(root=root, backend=backend, record=True)
@@ -4093,6 +4096,9 @@ def test_one_bad_object_does_not_cost_the_whole_run(tmp_path, monkeypatch):
 
     backend = cas.SingularBackend(
         runner=runner, binary_version="Singular 4.2.1 test fixture")
+    monkeypatch.setitem(
+        cas._BINARY_VERSION_CACHE, tuple(cas._argv()),
+        backend.identity.binary_version)
     monkeypatch.setattr(
         cas.SingularBackend, "can_record_verdicts", property(lambda _self: True))
     results = V.verify_all(root=root, backend=backend, record=True)
@@ -4269,6 +4275,68 @@ def test_a_fabricated_point_no_longer_types_like_a_real_one():
     verdict, why = V.point_witness(g, "FAKE", _runner=fake)
     assert verdict == V.WITNESS_REFUTED
     assert "x^2+y^2-25 evaluates to 9" in why
+
+
+class _ExactPointBackend(object):
+    """Small exact-value seam for open-locus witness contract tests."""
+
+    def evaluate_point(self, ring, expressions, point, **_kw):
+        values = []
+        for expression in expressions:
+            if expression == "0":
+                value = "0"
+            elif expression == "x":
+                value = str(point["x"])
+            elif expression == "y":
+                value = str(point["y"])
+            else:
+                raise AssertionError("unexpected expression %r" % expression)
+            values.append({"generator": expression, "value": value,
+                           "vanishes": value == "0"})
+        return all(row["vanishes"] for row in values), {
+            "point": dict(point), "generators": values,
+            "failed": [row["generator"] for row in values
+                       if not row["vanishes"]],
+        }
+
+
+def _open_witness_graph(generators, point, cid="W"):
+    model = {"ev": "model", "id": "M", "desc": "an exact open locus",
+             "ring_vars": ["x", "y"] if "y" in generators else ["x"],
+             "generators": list(generators), "open_conditions": ["x"],
+             "characteristic": 0}
+    claim = _witness_claim(cid, point)
+    return _graph([model, claim])
+
+
+def test_open_locus_witness_checks_equations_and_nonvanishing_guards():
+    from grandportage import verify as V
+
+    bad = _open_witness_graph(["y"], {"x": "0", "y": "0"}, "BAD")
+    verdict, why = V.point_witness(
+        bad, "BAD", _backend=_ExactPointBackend())
+    assert verdict == V.WITNESS_REFUTED
+    assert "open guard 'x' evaluates to 0" in why
+
+    good = _open_witness_graph(["y"], {"x": "1", "y": "0"}, "GOOD")
+    verdict, why = V.point_witness(
+        good, "GOOD", _backend=_ExactPointBackend())
+    assert verdict == V.WITNESS_VERIFIED
+    assert "1 open guard" in why
+
+
+def test_equation_free_open_locus_still_checks_its_guard():
+    from grandportage import verify as V
+
+    good = _open_witness_graph([], {"x": "1"}, "GOOD")
+    assert V.point_witness(
+        good, "GOOD", _backend=_ExactPointBackend())[0] == V.WITNESS_VERIFIED
+
+    bad = _open_witness_graph([], {"x": "0"}, "BAD")
+    verdict, why = V.point_witness(
+        bad, "BAD", _backend=_ExactPointBackend())
+    assert verdict == V.WITNESS_REFUTED
+    assert "open guard 'x' evaluates to 0" in why
 
 
 def test_a_refuted_witness_is_unsound_at_its_own_model():

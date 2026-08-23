@@ -1,5 +1,7 @@
 """M2 backend contract and semantic golden corpus."""
 
+import subprocess
+
 import pytest
 
 from grandportage import artifacts as A
@@ -39,6 +41,49 @@ def _program(characteristic=0, outputs=None):
         outputs=outputs,
         characteristic=characteristic,
     )
+
+
+def test_version_probe_closes_stdin_and_uses_only_the_stable_banner(monkeypatch):
+    seen = {}
+
+    def run(argv, **kwargs):
+        seen.update(kwargs)
+        return subprocess.CompletedProcess(
+            argv, 0,
+            stdout=("Singular for x86_64-Linux version 4.2.1\n"
+                    "random=1787417218\nAC_CONFIGURE_ARGS=...\n"),
+            stderr="")
+
+    monkeypatch.setattr(cas, "_argv", lambda: ["Singular", "-q"])
+    monkeypatch.setattr(cas.subprocess, "run", run)
+    cas._BINARY_VERSION_CACHE.clear()
+
+    assert cas._singular_binary_version() == (
+        "Singular for x86_64-Linux version 4.2.1")
+    assert seen["stdin"] is subprocess.DEVNULL
+
+
+def test_version_probe_failure_is_not_a_backend_identity(monkeypatch):
+    monkeypatch.setattr(cas, "_argv", lambda: ["Singular", "-q"])
+    monkeypatch.setattr(
+        cas.subprocess, "run",
+        lambda argv, **kwargs: subprocess.CompletedProcess(
+            argv, 1, stdout="Access is denied", stderr="launcher failed"))
+    cas._BINARY_VERSION_CACHE.clear()
+    assert cas._singular_binary_version() == "unavailable: exit 1"
+    assert cas.SingularBackend().can_record_verdicts is False
+
+
+def test_version_probe_timeout_remains_fail_closed(monkeypatch):
+    monkeypatch.setattr(cas, "_argv", lambda: ["Singular", "-q"])
+
+    def timeout(*_args, **_kwargs):
+        raise subprocess.TimeoutExpired(["Singular", "--version"], 1)
+
+    monkeypatch.setattr(cas.subprocess, "run", timeout)
+    cas._BINARY_VERSION_CACHE.clear()
+    assert cas._singular_binary_version(timeout=1) == (
+        "unavailable: TimeoutExpired")
 
 
 def test_execution_artifact_snapshots_program_backend_raw_and_parsed_output():
@@ -754,6 +799,8 @@ def test_section_wrapper_persists_verdict_and_every_answering_artifact(
     assert verdict == V.SECTION_VERIFIED, why
     assert len(backend.executions) == 8
     assert representation["rows"][1]["cofactors"] == ["x"]
+    monkeypatch.setattr(
+        cas, "_singular_binary_version", lambda: "Singular 4.4.1")
     graph = S.load(S.graph_path(root))
     assert graph.edges["E"]["contraction_verdict"] == V.SECTION_VERIFIED
     assert A.audit_graph(root, graph) == []

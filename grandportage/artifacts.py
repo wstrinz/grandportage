@@ -248,20 +248,28 @@ def audit_manifest(root, manifest):
     return problems
 
 
-def audit_graph(root, graph):
-    """Audit all syntactically current and stale verdict history."""
+def audit_graph_report(root, graph):
+    """Audit verdict history, separating damage from legacy authority debt."""
     problems = []
+    legacy_unverifiable = []
     from . import provenance as P
     for verdict_id in sorted(graph.verdicts):
         event = graph.verdicts[verdict_id]
         encoded = event.get("backend")
-        manifest = P.backend_provenance(encoded, current_only=False)
+        manifest = P.decode_backend_provenance(encoded, current_only=False)
         if manifest is None:
             if (isinstance(encoded, str)
                     and encoded.startswith(P.BACKEND_PROVENANCE_PREFIX)):
                 problems.append(
                     "%s: backend v2 manifest is malformed" % verdict_id)
             continue
+        version = manifest["binary_version"]
+        if (version.startswith("unavailable:")
+                or version in ("unreported", "test-double")):
+            legacy_unverifiable.append(
+                "%s: backend identity is %s; artifacts remain readable but "
+                "this verdict cannot be promoted as current authority"
+                % (verdict_id, version))
         for problem in audit_manifest(root, manifest):
             problems.append("%s: %s" % (verdict_id, problem))
         if (event.get("verifier") == "verify.elimination_groebner"
@@ -304,4 +312,12 @@ def audit_graph(root, graph):
                 != value["program_fingerprint"]):
             problems.append(
                 "note %d: artifact projection does not match note" % index)
-    return problems
+    return {
+        "problems": problems,
+        "legacy_unverifiable": legacy_unverifiable,
+    }
+
+
+def audit_graph(root, graph):
+    """Backward-compatible problem list for callers that only need pass/fail."""
+    return audit_graph_report(root, graph)["problems"]

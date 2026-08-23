@@ -166,9 +166,12 @@ A relation has two explicit presentations. Inclusion-style edges mean literal
 both `forward` and `inverse` substitution objects instead. `forward` names the
 point map from source to target; substitution into functions therefore runs in
 the opposite direction. The pair identifies the models through those maps and
-does not additionally assert either literal containment. The current verifier
-requires the same ring-variable names at both endpoints and one expression per
-variable. Structured `ring_iso` evidence fails closed until verified. This
+does not additionally assert either literal containment. Shared-coordinate maps
+retain that historical point-map convention. Differently named presentations
+use unambiguous generator images: `forward` is keyed by source variables with
+target-ring expressions and `inverse` reverses that assignment. Both ideals and
+both quotient-ring compositions are checked. Rational maps remain explicit
+localization debt. Structured `ring_iso` evidence fails closed until verified. This
 distinction is executable (`ring_iso` versus `containment`) and formalised in
 `lean/GrandPortage/MappedEquivalence.lean`, so the runtime cannot silently turn
 a change of coordinates into a false inclusion.

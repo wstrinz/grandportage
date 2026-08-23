@@ -17,6 +17,7 @@ agent branches either composes or fails loudly, which is the failure mode you
 want when the alternative is a silently blended graph.
 """
 
+import hashlib
 import json
 import os
 
@@ -158,7 +159,8 @@ class Graph(object):
     """The folded state.  Plain dicts throughout -- the checker walks this, the
     CLI prints it, and neither needs a class hierarchy to do so."""
 
-    def __init__(self):
+    def __init__(self, check_binary_version=False):
+        self._check_binary_version = bool(check_binary_version)
         self.certificates = dict(K.BUILTIN_CERTIFICATES)
         self.cert_source = {k: "builtin" for k in K.BUILTIN_CERTIFICATES}
         self.cert_records = {}     # id -> the declaring event, for supersession
@@ -186,6 +188,7 @@ class Graph(object):
         self.graph_format = 0
         self.kernel_epoch = 0
         self.created_with = None
+        self.implementation = None
         self.compatibility_mode = True
 
     # -- fold ---------------------------------------------------------------
@@ -200,12 +203,18 @@ class Graph(object):
             _require(self._event_count == 0 and self.graph_format == 0,
                      "%s: `meta` is only legal as the first graph event"
                      % where)
-            F.validate_meta(ev, where, GraphError)
+            F.validate_meta_for_read(ev, where, GraphError)
             self._event_count = 1
             self.graph_format = ev["graph_format"]
             self.kernel_epoch = ev["kernel_epoch"]
             self.created_with = ev["created_with"]
-            self.compatibility_mode = False
+            implementation = ev.get("implementation")
+            self.implementation = (dict(implementation)
+                                   if isinstance(implementation, dict)
+                                   else None)
+            self.compatibility_mode = (
+                self.graph_format != F.GRAPH_FORMAT
+                or self.kernel_epoch != F.KERNEL_EPOCH)
             return
         if self.graph_format == F.GRAPH_FORMAT:
             F.validate_native_event(ev, where, GraphError)
@@ -317,6 +326,10 @@ class Graph(object):
                                        "REFUTED", "UNVERIFIED"),
                   "why_field": "identity_why",
                   "writer": "verify.identity"},
+        "condition": {"condition_verdict": ("VERIFIED", "REFUTED",
+                                              "UNVERIFIED"),
+                      "why_field": "condition_why",
+                      "writer": "verify.predicate_condition"},
         "edge": {"containment": ("VERIFIED", "NOT_BY_IDEAL", "UNVERIFIED"),
                  "why_field": "containment_why",
                  "writer": "verify.containment"},
@@ -385,7 +398,7 @@ class Graph(object):
     # transport anywhere; it is why you believe the proposition that does.
     # Making it a claim kind would have owed the ledger twelve transport cells
     # for something with no transport behaviour at all.
-    EVIDENCE_METHODS = ("ENUMERATION", "REPLICATION")
+    EVIDENCE_METHODS = F.EVIDENCE_METHODS
 
     # WHICH VERDICT AN ENUMERATION DECIDES, and this is the field a live
     # session called the single most important epistemic fact about its run.
@@ -428,7 +441,8 @@ class Graph(object):
                  "%s: evidence %r needs `what` -- what the computation "
                  "actually did, in a sentence." % (where, ev["id"]))
         if ev.get("decides") is not None:
-            _require(ev["decides"] in self.DECIDES,
+            _require(isinstance(ev["decides"], str)
+                     and ev["decides"] in self.DECIDES,
                      "%s: evidence %r decides %r; the values are %s"
                      % (where, ev["id"], ev["decides"],
                         ", ".join(sorted(self.DECIDES))))
@@ -591,7 +605,7 @@ class Graph(object):
         target = (self.partitions if subject == "partition"
                   else self.edges if subject == "operation"
                   else self.claims
-                  if subject in ("claim", "certificate", "witness")
+                  if subject in ("claim", "condition", "certificate", "witness")
                   else self.edges)
         of = ev.get("of")
         _require(of in target,
@@ -632,7 +646,8 @@ class Graph(object):
         # records and answers produced by another verifier/kernel/backend (or
         # against different semantic inputs) remain readable history, but
         # they never populate the fields the checker treats as evidence.
-        current, stale_reason = P.current_verdict(self, ev)
+        current, stale_reason = P.current_verdict(
+            self, ev, check_binary_version=self._check_binary_version)
         stored = dict(ev)
         stored["current"] = current
         stored["stale_reason"] = None if current else stale_reason
@@ -1031,7 +1046,10 @@ class Graph(object):
                     "has no recorded generators."
                     % (where, ev.get("id")))
             elif (subject == "certificate"
-                  and rep.get("method") == "localized_unit_ideal_v1"):
+                  and rep.get("method") in {
+                      "localized_unit_ideal_v1",
+                      "localized_guard_reduction_chain_v2",
+                  }):
                 required = {
                     "method", "claim", "model", "proof", "checked",
                 }
@@ -1040,7 +1058,7 @@ class Graph(object):
                     and set(rep) == required
                     and rep.get("claim") == of
                     and isinstance(rep.get("proof"), dict)
-                    and isinstance(rep.get("checked"), dict),
+                    and isinstance(rep.get("checked"), (dict, list)),
                     "%s: localized-unit verdict %r carries a malformed "
                     "certificate envelope." % (where, ev.get("id")))
                 claim = target[of]
@@ -1053,7 +1071,11 @@ class Graph(object):
                     "claim and model it names." % (where, ev.get("id")))
                 try:
                     from . import localization as L
-                    replay = L.verify(rep["proof"])
+                    replay = (
+                        L.verify(rep["proof"])
+                        if rep.get("method") == "localized_unit_ideal_v1"
+                        else L.verify_guard_reduction_chain(rep["proof"])
+                    )
                     variables = model.get("ring_vars") or []
                     characteristic = model.get("characteristic")
                     expected_generators = [
@@ -1072,6 +1094,12 @@ class Graph(object):
                         "%s: localized-unit verdict %r fails exact replay: %s"
                         % (where, ev.get("id"), exc))
                 normalized = replay["normalized"]
+                v1_expression_ok = (
+                    rep.get("method") != "localized_unit_ideal_v1"
+                    or (normalized["expression"]["numerator"] == "1"
+                        and all(power == 0 for power in
+                                normalized["expression"][
+                                    "denominator_powers"])))
                 _require(
                     normalized["characteristic"]
                         == model.get("characteristic")
@@ -1079,13 +1107,70 @@ class Graph(object):
                         == (model.get("ring_vars") or [])
                     and normalized["generators"] == expected_generators
                     and normalized["guards"] == expected_guards
-                    and normalized["expression"]["numerator"] == "1"
-                    and all(power == 0 for power in
-                            normalized["expression"]["denominator_powers"])
+                    and v1_expression_ok
                     and replay["checked"] == rep["checked"],
                     "%s: localized-unit verdict %r's proof does not match "
                     "the exact open model, or does not prove localized 1=0."
                     % (where, ev.get("id")))
+            elif subject == "condition":
+                claim = target[of]
+                model = self.models.get(claim.get("model")) or {}
+                atoms = (claim.get("condition") or {}).get("all") or []
+                rows = rep.get("atoms") if isinstance(rep, dict) else None
+                _require(isinstance(rows, list) and len(rows) == len(atoms),
+                         "%s: condition verdict %r must carry one checked row "
+                         "per structured atom." % (where, ev.get("id")))
+                variables = model.get("ring_vars") or []
+                characteristic = model.get("characteristic")
+                generators = list(model.get("generators") or [])
+                for atom, row in zip(atoms, rows):
+                    _require(
+                        isinstance(row, dict) and set(row) == {
+                            "relation", "expression", "status", "cofactors"}
+                        and row["relation"] == atom["relation"]
+                        and row["expression"] == atom["expression"],
+                        "%s: condition verdict %r carries an atom row that "
+                        "does not match the claim." % (where, ev.get("id")))
+                    status = row["status"]
+                    allowed = ({"VERIFIED_IDEAL_MEMBERSHIP", "NOT_BY_IDEAL"}
+                               if atom["relation"] == "ZERO" else {
+                                   "REFUTED_ZERO_MOD_IDEAL",
+                                   "VERIFIED_NOWHERE_ZERO",
+                                   "NONVANISHING_UNESTABLISHED"})
+                    _require(status in allowed,
+                             "%s: condition verdict %r has invalid %s status "
+                             "%r." % (where, ev.get("id"), atom["relation"],
+                                      status))
+                    try:
+                        if status in ("VERIFIED_IDEAL_MEMBERSHIP",
+                                      "REFUTED_ZERO_MOD_IDEAL"):
+                            if generators:
+                                G.check_membership_identity(
+                                    atom["expression"], generators,
+                                    row["cofactors"], variables,
+                                    characteristic)
+                            else:
+                                _require(
+                                    G.canonical_polynomial(
+                                        atom["expression"], variables,
+                                        characteristic) == "0"
+                                    and row["cofactors"] is None,
+                                    "%s: condition verdict %r claims ambient "
+                                    "zero without an exact zero expression."
+                                    % (where, ev.get("id")))
+                        elif status == "VERIFIED_NOWHERE_ZERO":
+                            G.check_membership_identity(
+                                "1", generators + [atom["expression"]],
+                                row["cofactors"], variables, characteristic)
+                        else:
+                            _require(row["cofactors"] is None,
+                                     "%s: inconclusive condition row in %r "
+                                     "may not carry licensing cofactors."
+                                     % (where, ev.get("id")))
+                    except (G.CertificateError, TypeError, ValueError) as exc:
+                        raise GraphError(
+                            "%s: condition verdict %r fails exact cofactor "
+                            "replay: %s" % (where, ev.get("id"), exc))
             else:
                 _require(isinstance(rep, dict) and rep.get("cofactors"),
                          "%s: verdict %r carries a `representation` with no "
@@ -1780,6 +1865,16 @@ class Graph(object):
                      "reduction can be run." % (where, ev["id"]))
         if ev.get("kind") == K.COUNT:
             self._apply_disposition(ev, where)
+        if at_family and ev.get("kind") == K.PREDICATE:
+            asserted_count = ev.get("asserts_count")
+            if asserted_count is not None:
+                _require(
+                    type(asserted_count) is int and asserted_count >= 0,
+                    "%s: family PREDICATE claim %r `asserts_count` must be "
+                    "a nonnegative integer, not %r. A completeness claim "
+                    "needs a machine-checkable count; do not make the "
+                    "checker parse it out of `statement`."
+                    % (where, ev["id"], asserted_count))
         c = dict(ev)
         # Scope derivation happens at fold time, not at check time: a claim
         # whose declared scope contradicts its certificate is a malformed
@@ -2211,7 +2306,7 @@ class Graph(object):
             canonical = None
             for ev, source, lineno in metas:
                 where = "%s:%d" % (source, lineno)
-                F.validate_meta(ev, where, GraphError)
+                F.validate_meta_for_read(ev, where, GraphError)
                 current = (ev["graph_format"], ev["kernel_epoch"])
                 _require(canonical in (None, current),
                          "%s: cannot merge graphs from different format "
@@ -2221,12 +2316,19 @@ class Graph(object):
             self.graph_format = meta["graph_format"]
             self.kernel_epoch = meta["kernel_epoch"]
             self.created_with = meta["created_with"]
-            self.compatibility_mode = False
+            implementation = meta.get("implementation")
+            self.implementation = (dict(implementation)
+                                   if isinstance(implementation, dict)
+                                   else None)
+            self.compatibility_mode = (
+                self.graph_format != F.GRAPH_FORMAT
+                or self.kernel_epoch != F.KERNEL_EPOCH)
             self._event_count = 1
-            for ev, source, lineno in batch:
-                if isinstance(ev, dict) and ev.get("ev") != EV_META:
-                    F.validate_native_event(
-                        ev, "%s:%d" % (source, lineno), GraphError)
+            if self.graph_format == F.GRAPH_FORMAT:
+                for ev, source, lineno in batch:
+                    if isinstance(ev, dict) and ev.get("ev") != EV_META:
+                        F.validate_native_event(
+                            ev, "%s:%d" % (source, lineno), GraphError)
         voided = {}
         for ev, source, lineno in batch:
             if not isinstance(ev, dict) or ev.get("ev") != EV_ERRATUM:
@@ -2383,6 +2485,26 @@ class Graph(object):
                        ", ".join(source_vars) or "?",
                        target_characteristic,
                        ", ".join(target_vars) or "?"))
+                if (self.graph_format == F.GRAPH_FORMAT
+                        and not e.get("withdrawn_by")
+                        and not e.get("superseded_by")):
+                    exact_source = (
+                        type(source_characteristic) is int
+                        and isinstance(source_model.get("ring_vars"), list)
+                        and isinstance(source_model.get("generators"), list))
+                    exact_target = (
+                        type(target_characteristic) is int
+                        and isinstance(target_model.get("ring_vars"), list)
+                        and isinstance(target_model.get("generators"), list))
+                    _require(
+                        exact_source and exact_target,
+                        "edge %r is a RESTRICTION/IDENTITY_MAP and therefore "
+                        "asserts algebraic identity-coordinate transport, but "
+                        "both endpoints need exact `characteristic`, "
+                        "`ring_vars`, and `generators` presentations. Missing "
+                        "algebraic metadata is not an identity map; use an "
+                        "UNTYPED documentary relation or nontransporting "
+                        "evidence instead." % eid)
             if K.is_mapped_equivalence(e):
                 src_vars = self.models[e["src"]].get("ring_vars") or []
                 dst_vars = self.models[e["dst"]].get("ring_vars") or []
@@ -2390,11 +2512,7 @@ class Graph(object):
                          "edge %r declares structured maps, but both endpoint "
                          "models must declare `ring_vars` before those maps "
                          "can mean a coordinate change." % eid)
-                _require(set(src_vars) == set(dst_vars),
-                         "edge %r uses the current mapped-equivalence verifier, "
-                         "which requires the endpoints to have the same ring "
-                         "variable names; got %s and %s."
-                         % (eid, ", ".join(src_vars), ", ".join(dst_vars)))
+                cross_ring = set(src_vars) != set(dst_vars)
                 for field, wanted in (("forward", src_vars),
                                       ("inverse", dst_vars)):
                     got = set(e[field])
@@ -2406,6 +2524,34 @@ class Graph(object):
                              % (eid, field,
                                 ", ".join(missing) or "(none)",
                                 ", ".join(extra) or "(none)"))
+                if cross_ring and e.get("map_kind") == K.IDENTITY_MAP:
+                    raise GraphError(
+                        "edge %r changes coordinate names from %s to %s, so "
+                        "its map is not an IDENTITY_MAP. Use POLYNOMIAL for "
+                        "exact substitutions or RATIONAL when denominators "
+                        "are genuinely part of the presentation."
+                        % (eid, ", ".join(src_vars), ", ".join(dst_vars)))
+                if cross_ring and e.get("map_kind") == K.POLYNOMIAL:
+                    src_model = self.models[e["src"]]
+                    dst_model = self.models[e["dst"]]
+                    characteristic = src_model.get("characteristic")
+                    _require(type(characteristic) is int
+                             and dst_model.get("characteristic")
+                             == characteristic,
+                             "edge %r is a cross-ring polynomial equivalence, "
+                             "so both endpoints must declare the same integer "
+                             "characteristic." % eid)
+                    try:
+                        for expression in e["forward"].values():
+                            G.parse_polynomial(
+                                expression, dst_vars, characteristic)
+                        for expression in e["inverse"].values():
+                            G.parse_polynomial(
+                                expression, src_vars, characteristic)
+                    except (G.CertificateError, TypeError, ValueError) as exc:
+                        raise GraphError(
+                            "edge %r cross-ring polynomial map is not typed in "
+                            "its endpoint rings: %s" % (eid, exc))
         for aid, a in sorted(self.aliases.items()):
             for m in a["models"]:
                 _require(m in self.models,
@@ -2533,7 +2679,7 @@ def load_native_events(path):
     _require(isinstance(first, dict) and first.get("ev") == EV_META,
              "%s:%d: epoch-1 graph must begin with a `meta` event"
              % (path, lineno))
-    F.validate_meta(first, "%s:%d" % (path, lineno), GraphError)
+    F.validate_meta_for_read(first, "%s:%d" % (path, lineno), GraphError)
     for ev, n in events:
         if n != lineno and isinstance(ev, dict) and ev.get("ev") == EV_META:
             raise GraphError(
@@ -2571,6 +2717,93 @@ def load_events(path):
         yield item
 
 
+GRAPH_PREFIX_SCHEMA = "grand-portage-graph-prefix/v1"
+GRAPH_TAIL_SCHEMA = "grand-portage-graph-tail/v1"
+
+
+def _events_digest(events):
+    payload = "".join(_canon(event) + "\n" for event in events)
+    return "sha256:" + hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def _prefix_receipt(events, count):
+    prefix = events[:count]
+    return {
+        "schema": GRAPH_PREFIX_SCHEMA,
+        "event_count": count,
+        "prefix_sha256": _events_digest(prefix),
+        "graph_format": prefix[0].get("graph_format") if prefix else None,
+        "kernel_epoch": prefix[0].get("kernel_epoch") if prefix else None,
+    }
+
+
+def graph_prefix_receipt(path, event_count=None):
+    """Content-bind an exact semantic prefix of one append-only graph."""
+    events = [event for event, _line in load_events(path)]
+    count = len(events) if event_count is None else event_count
+    _require(type(count) is int and 0 <= count <= len(events),
+             "event_count must select a prefix of this graph")
+    return _prefix_receipt(events, count)
+
+
+def export_graph_tail(path, receipt):
+    """Export only events after a verified prefix receipt; never guess base."""
+    required = {"schema", "event_count", "prefix_sha256", "graph_format",
+                "kernel_epoch"}
+    _require(isinstance(receipt, dict) and set(receipt) == required,
+             "graph prefix receipt has the wrong fields")
+    _require(receipt.get("schema") == GRAPH_PREFIX_SCHEMA,
+             "graph prefix receipt schema must be %s" % GRAPH_PREFIX_SCHEMA)
+    actual = graph_prefix_receipt(path, receipt.get("event_count"))
+    _require(actual == receipt,
+             "graph prefix receipt does not match this graph; refusing to "
+             "export an unrelated tail")
+    events = [event for event, _line in load_events(path)]
+    tail = events[receipt["event_count"]:]
+    return {
+        "schema": GRAPH_TAIL_SCHEMA,
+        "base": receipt,
+        "events": tail,
+        "tail_sha256": _events_digest(tail),
+        "head": graph_prefix_receipt(path),
+    }
+
+
+def validate_graph_tail(value, base_events=None):
+    required = {"schema", "base", "events", "tail_sha256", "head"}
+    _require(isinstance(value, dict) and set(value) == required,
+             "graph tail envelope has the wrong fields")
+    _require(value.get("schema") == GRAPH_TAIL_SCHEMA,
+             "graph tail schema must be %s" % GRAPH_TAIL_SCHEMA)
+    events = value.get("events")
+    _require(isinstance(events, list)
+             and all(isinstance(event, dict) for event in events),
+             "graph tail events must be a list of event objects")
+    _require(value.get("tail_sha256") == _events_digest(events),
+             "graph tail digest does not match its events")
+    base = value.get("base")
+    head = value.get("head")
+    _require(isinstance(base, dict) and isinstance(head, dict)
+             and base.get("schema") == GRAPH_PREFIX_SCHEMA
+             and head.get("schema") == GRAPH_PREFIX_SCHEMA
+             and head.get("event_count")
+                 == base.get("event_count") + len(events),
+             "graph tail base/head receipts are inconsistent")
+    if base_events is not None:
+        _require(isinstance(base_events, list)
+                 and all(isinstance(event, dict) for event in base_events),
+                 "base events must be a list of event objects")
+        count = base.get("event_count")
+        _require(type(count) is int and 0 <= count <= len(base_events),
+                 "graph tail base count is not a prefix of the assay graph")
+        prefix = base_events[:count]
+        _require(base == _prefix_receipt(prefix, count),
+                 "graph tail base receipt does not match the assay graph")
+        _require(head == _prefix_receipt(prefix + events, count + len(events)),
+                 "graph tail head receipt does not match its base and events")
+    return events
+
+
 def load(*paths):
     """Fold one or more logs into a single validated Graph.
 
@@ -2582,9 +2815,47 @@ def load(*paths):
              "cannot merge epoch-0 and epoch-1 logs directly. Import the "
              "epoch-0 source into a new epoch-1 artifact first; a mixed fold "
              "would validate legacy records as native declarations.")
-    g = Graph()
+    g = Graph(check_binary_version=True)
     batch = [(ev, p, n) for p in paths for ev, n in load_events(p)]
     return g.apply_all(batch).validate()
+
+
+def merge_report_events(sources):
+    """Merge-assay named event sequences without filesystem materialization."""
+    seen, conflicts, events = {}, [], []
+    for label, source_events in sources:
+        for n, ev in enumerate(source_events, 1):
+            kind, eid = ev.get("ev"), ev.get("id")
+            if kind in (EV_NOTE, EV_BUILT_BY):
+                events.append((ev, label, n))
+                continue
+            # Native branch logs each carry the common format header. Treat it
+            # like the one named object it is: identical headers deduplicate;
+            # different implementation/kernel identities are a loud conflict.
+            key = ((kind, "__header__") if kind == EV_META
+                   else (kind, eid))
+            if not eid and kind != EV_META:
+                events.append((ev, label, n))
+                continue
+            canon = _canon(ev)
+            if key in seen and seen[key][0] != canon:
+                prior_ev, prior_label, prior_n = seen[key][1]
+                differing = sorted(
+                    field for field in set(prior_ev) | set(ev)
+                    if prior_ev.get(field) != ev.get(field))
+                conflicts.append({
+                    "kind": kind, "id": eid, "fields": differing,
+                    "a": {"path": prior_label, "line": prior_n,
+                          "event": prior_ev},
+                    "b": {"path": label, "line": n, "event": ev},
+                })
+                continue
+            if key not in seen:
+                seen[key] = (canon, (ev, label, n))
+                events.append((ev, label, n))
+    if conflicts:
+        return None, conflicts
+    return Graph().apply_all(events).validate(), []
 
 
 def merge_report(paths):
@@ -2619,30 +2890,10 @@ def merge_report(paths):
              "cannot merge epoch-0 and epoch-1 logs directly. Import the "
              "epoch-0 source into a new epoch-1 artifact first; a mixed fold "
              "would validate legacy records as native declarations.")
-    seen, conflicts, events = {}, [], []
-    for p in paths:
-        for ev, n in load_events(p):
-            kind, eid = ev.get("ev"), ev.get("id")
-            if kind in (EV_NOTE, EV_BUILT_BY) or not eid:
-                events.append((ev, p, n))
-                continue
-            key, canon = (kind, eid), _canon(ev)
-            if key in seen and seen[key][0] != canon:
-                prior_ev, prior_p, prior_n = seen[key][1]
-                differing = sorted(
-                    k for k in set(prior_ev) | set(ev)
-                    if prior_ev.get(k) != ev.get(k))
-                conflicts.append({
-                    "kind": kind, "id": eid, "fields": differing,
-                    "a": {"path": prior_p, "line": prior_n, "event": prior_ev},
-                    "b": {"path": p, "line": n, "event": ev}})
-                continue
-            if key not in seen:
-                seen[key] = (canon, (ev, p, n))
-                events.append((ev, p, n))
-    if conflicts:
-        return None, conflicts
-    return Graph().apply_all(events).validate(), []
+    return merge_report_events([
+        (path, [event for event, _line in load_events(path)])
+        for path in paths
+    ])
 
 
 def find_root(start="."):
@@ -2721,6 +2972,21 @@ def append(events, root=".", graph=None):
                 "the append-only original remains the source artifact."
                 % os.path.abspath(path))
         existing = [(ev, path, n) for ev, n in load_events(path)]
+        if existing:
+            meta = existing[0][0]
+            if (meta.get("graph_format") != F.GRAPH_FORMAT
+                    or meta.get("kernel_epoch") != F.KERNEL_EPOCH):
+                raise GraphError(
+                    "REFUSING TO APPEND TO A HISTORICAL NATIVE GRAPH.\n"
+                    "  graph: %s\n"
+                    "  graph format/kernel: %s/%s; this writer requires %s/%s.\n"
+                    "  The graph remains readable, but writes require an "
+                    "audited copy: `gp --graph \"%s\" migrate "
+                    "--to-current-kernel`. The append-only source is never "
+                    "replaced."
+                    % (os.path.abspath(path), meta.get("graph_format"),
+                       meta.get("kernel_epoch"), F.GRAPH_FORMAT,
+                       F.KERNEL_EPOCH, os.path.abspath(path)))
     if not existing:
         existing = [(F.meta_event(), path, 1)]
     if os.path.exists(path) and os.path.getsize(path):

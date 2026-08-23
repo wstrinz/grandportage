@@ -228,7 +228,7 @@ def evaluate(root=".", floor=C.UNSOUND_PREMISE):
     findings = C.run(graph, accepted)
     rank = C.SEVERITY_RANK[floor]
     new, stale = [], []
-    for f in findings:
+    for f in C.actionable_findings(findings):
         if C.SEVERITY_RANK[f.severity] < rank:
             continue
         entry = accepted.get(f.fid)

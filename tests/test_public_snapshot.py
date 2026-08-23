@@ -51,7 +51,9 @@ def test_every_current_path_has_exactly_one_public_boundary_classification():
         assert result["generated"] == [module.RECEIPT_PATH]
     else:
         assert "HANDOFF.md" in result["private"]
-        assert "uv.lock" in result["private"]
+        assert "uv.lock" in manifest["private_paths"]
+        if (ROOT / "uv.lock").exists():
+            assert "uv.lock" in result["private"]
         assert not result["generated"]
 
 

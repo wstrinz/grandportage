@@ -482,7 +482,22 @@ def _git(root, *args):
     return result.stdout.strip(), None
 
 
-def _audit_source(source, artifacts, source_root):
+def _git_bytes(root, *args):
+    try:
+        result = subprocess.run(
+            ["git", "-c", "safe.directory=%s" % root.as_posix(),
+             "-C", str(root), *args], check=False,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=15,
+        )
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        return None, str(exc)
+    if result.returncode:
+        return None, result.stderr.decode(
+            "utf-8", errors="replace").strip() or "git command failed"
+    return result.stdout, None
+
+
+def _audit_source(source, artifacts, source_root, source_ref=None):
     if source_root is None:
         return {
             "status": "UNCHECKED",
@@ -506,6 +521,12 @@ def _audit_source(source, artifacts, source_root):
             "files": [],
             "problems": ["source checkout is absent: %s" % root],
         }
+    pinned_head = None
+    pinned_error = None
+    if source_ref is not None:
+        pinned_head, pinned_error = _git(
+            root, "rev-parse", "--verify", str(source_ref) + "^{commit}")
+
     records = [("source", item) for item in source["canonical_sources"]]
     records.extend(("artifact", item) for item in artifacts
                    if item["availability"] == "PRESENT")
@@ -523,14 +544,26 @@ def _audit_source(source, artifacts, source_root):
             file_results.append({"id": item["id"], "kind": record_kind,
                                  "path": relative, "status": "ESCAPED"})
             continue
-        if not path.is_file():
+        if source_ref is not None:
+            if pinned_head is None:
+                present, observed = False, None
+            else:
+                payload, payload_error = _git_bytes(
+                    root, "show", "%s:%s" %
+                    (pinned_head, relative.replace("\\", "/")))
+                present = payload_error is None
+                observed = (hashlib.sha256(payload).hexdigest()
+                            if present else None)
+        else:
+            present = path.is_file()
+            observed = _digest(path) if present else None
+        if not present:
             result = {"id": item["id"], "kind": record_kind,
                       "path": relative, "status": "MISSING",
                       "expected_sha256": "sha256:" + expected,
                       "observed_sha256": None}
             problems.append("%s is missing" % item["id"])
         else:
-            observed = _digest(path)
             status = "MATCH" if observed == expected else "DIGEST_MISMATCH"
             result = {"id": item["id"], "kind": record_kind,
                       "path": relative, "status": status,
@@ -543,9 +576,13 @@ def _audit_source(source, artifacts, source_root):
             problems.append("%s has conflicting expected digests" % relative)
         seen_paths[relative] = expected
         file_results.append(result)
-    head, head_error = _git(root, "rev-parse", "HEAD")
-    status_text, status_error = _git(root, "status", "--porcelain",
-                                     "--untracked-files=all")
+    if source_ref is None:
+        head, head_error = _git(root, "rev-parse", "HEAD")
+        status_text, status_error = _git(root, "status", "--porcelain",
+                                         "--untracked-files=all")
+    else:
+        head, head_error = pinned_head, pinned_error
+        status_text, status_error = "", None
     if head_error:
         problems.append("cannot read source commit: %s" % head_error)
     if status_error:
@@ -568,6 +605,7 @@ def _audit_source(source, artifacts, source_root):
     return {
         "status": audit_status,
         "root": str(root),
+        "source_ref": source_ref,
         "expected_commit": source["expected_commit"],
         "observed_commit": head,
         "commit_matches": commit_matches,
@@ -641,13 +679,15 @@ def _evaluate_profiles(profiles, source_audit, claims, leaves, artifacts):
     return results
 
 
-def build(value, source_root=None):
+def build(value, source_root=None, source_ref=None):
     """Compile one normalized dossier and evaluate its closeout profiles."""
     normalized = _normalize(value)
     artifacts = {item["id"]: item for item in normalized["artifacts"]}
     claims = {item["id"]: item for item in normalized["claims"]}
     leaves = {item["id"]: item for item in normalized["leaves"]}
-    audit = _audit_source(normalized["source"], normalized["artifacts"], source_root)
+    audit = _audit_source(
+        normalized["source"], normalized["artifacts"], source_root,
+        source_ref=source_ref)
     profiles = _evaluate_profiles(normalized["profiles"], audit,
                                   claims, leaves, artifacts)
     body = {
@@ -686,12 +726,12 @@ def build(value, source_root=None):
     return body
 
 
-def build_path(path, source_root=None):
+def build_path(path, source_root=None, source_ref=None):
     try:
         value = json.loads(Path(path).read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
         raise DossierError("campaign dossier is not JSON: %s" % exc)
-    return build(value, source_root=source_root)
+    return build(value, source_root=source_root, source_ref=source_ref)
 
 
 def render(dossier):

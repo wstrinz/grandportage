@@ -11,7 +11,9 @@ JSON booleans rather than merely truthy values.
 
 import re
 
-GRAPH_FORMAT = 4
+from . import identity as I
+
+GRAPH_FORMAT = 5
 KERNEL_EPOCH = 10
 META_EVENT = "meta"
 
@@ -23,21 +25,28 @@ def created_with():
 
 
 def meta_event():
+    from . import __version__
     return {
         "ev": META_EVENT,
         "graph_format": GRAPH_FORMAT,
         "kernel_epoch": KERNEL_EPOCH,
         "created_with": created_with(),
+        "implementation": I.implementation_identity(
+            __version__, GRAPH_FORMAT, KERNEL_EPOCH),
     }
 
 
-_LIFECYCLE = {"supersedes", "discharge_kind", "why"}
+LIFECYCLE_FIELDS = frozenset({"supersedes", "discharge_kind", "why"})
+_LIFECYCLE = set(LIFECYCLE_FIELDS)
 
 # Closed schemas are intentionally data, not a forest of ad-hoc ``if key``
 # checks.  Adding an authored field now requires placing it in the vocabulary
 # of the event that owns it.
 EVENT_FIELDS = {
-    "meta": {"ev", "graph_format", "kernel_epoch", "created_with"},
+    "meta": {
+        "ev", "graph_format", "kernel_epoch", "created_with",
+        "implementation",
+    },
     "certificate": {
         "ev", "id", "base_changes", "why",
     } | _LIFECYCLE,
@@ -75,7 +84,9 @@ EVENT_FIELDS = {
         "receipt_schema", "receipt_id", "receipt_fingerprint",
     } | _LIFECYCLE,
     "same_as": {"ev", "id", "models", "why"} | _LIFECYCLE,
-    "family": {"ev", "id", "count", "desc", "members"} | _LIFECYCLE,
+    "family": {
+        "ev", "id", "count", "desc", "members", "enumeration",
+    } | _LIFECYCLE,
     "evidence": {
         "ev", "id", "for", "method", "ran", "what", "decides",
         "agrees_with", "cite",
@@ -99,13 +110,59 @@ EVENT_FIELDS = {
 }
 
 REQUIRED_FIELDS = {
-    "meta": {"ev", "graph_format", "kernel_epoch", "created_with"},
+    "meta": {
+        "ev", "graph_format", "kernel_epoch", "created_with",
+        "implementation",
+    },
     "edge": {"ev", "id", "src", "dst", "type", "why", "map_kind"},
     "verdict": {
         "ev", "id", "subject", "of", "verdict", "why", "verifier",
         "verifier_version", "kernel_epoch", "backend",
         "input_fingerprint",
     },
+}
+
+# Authoring requirements are data because the fold, CLI schema and MCP schema
+# must not teach three subtly different event languages.  ``REQUIRED_FIELDS``
+# above remains the wire-format minimum (notably for lifecycle tombstones);
+# these are the fields required for a live authored record of each kind.
+AUTHOR_REQUIRED_FIELDS = {
+    "certificate": {"ev", "id", "base_changes", "why"},
+    "model": {"ev", "id"},
+    "edge": {"ev", "id", "src", "dst", "type", "why", "map_kind"},
+    "claim": {"ev", "id", "kind", "statement"},
+    "inference": {"ev", "id", "asserted"},
+    "built_by": {"ev", "model", "inference"},
+    "partition": {"ev", "id", "parent", "branches", "exhaustive", "why"},
+    "same_as": {"ev", "id", "models", "why"},
+    "family": {"ev", "id", "count", "desc"},
+    "evidence": {"ev", "id", "for", "method", "ran", "what"},
+    "doubt": {"ev", "id", "about", "kind", "why"},
+    "citation": {"ev", "id", "cites", "resolves_to", "why"},
+    "erratum": {"ev", "id", "voids", "why"},
+    "note": {"ev", "text"},
+}
+
+EVIDENCE_METHODS = ("ENUMERATION", "REPLICATION")
+EVIDENCE_DECISIONS = ("BOTH", "EXCLUSIONS", "INCLUSIONS")
+
+# Machine-readable additions to JSON Schema.  They are intentionally small:
+# the fold remains the authority for mathematical validation, while these
+# rules make the common authoring mistakes discoverable without a rejected
+# write first.
+CONDITIONAL_REQUIREMENTS = {
+    "evidence": ({"if": {"method": "REPLICATION"},
+                  "required": ("agrees_with",)},),
+}
+
+TARGET_ENTITY_TYPES = {
+    "evidence.for": ("claim",),
+    "doubt.about": ("claim", "inference", "model", "edge"),
+    "built_by.model": ("model",),
+    "built_by.inference": ("inference",),
+    "partition.parent": ("model",),
+    "partition.branches": ("model",),
+    "partition.exhaustive": ("claim",),
 }
 
 LICENSING_BOOLEANS = {
@@ -135,7 +192,13 @@ def validate_native_event(ev, where, error):
             "closed; fix the spelling or add the field to the format."
             % (where, kind, "s" if len(unknown) != 1 else "",
                ", ".join("`%s`" % x for x in unknown)))
-    missing = sorted(REQUIRED_FIELDS.get(kind, set()) - set(ev))
+    tombstone = (
+        isinstance(ev.get("supersedes"), str)
+        and ev.get("discharge_kind") in ("RETRACT", "WITHDRAW"))
+    required = REQUIRED_FIELDS.get(kind, {"ev"})
+    if not tombstone:
+        required = AUTHOR_REQUIRED_FIELDS.get(kind, required)
+    missing = sorted(required - set(ev))
     if missing:
         raise error(
             "%s: epoch-1 %s event needs %s"
@@ -145,6 +208,20 @@ def validate_native_event(ev, where, error):
             raise error(
                 "%s: epoch-1 %s %r `%s` must be true or false, not %r"
                 % (where, kind, ev.get("id"), field, ev[field]))
+    lifecycle_present = set(ev) & LIFECYCLE_FIELDS
+    for field in sorted(lifecycle_present):
+        if not isinstance(ev[field], str) or not ev[field].strip():
+            raise error(
+                "%s: epoch-1 %s `%s` must be a non-empty string"
+                % (where, kind, field))
+    if "supersedes" in ev and "discharge_kind" not in ev:
+        raise error(
+            "%s: epoch-1 %s with `supersedes` also needs `discharge_kind`"
+            % (where, kind))
+    if "discharge_kind" in ev and "supersedes" not in ev:
+        raise error(
+            "%s: epoch-1 %s with `discharge_kind` also needs `supersedes`"
+            % (where, kind))
     if (kind == "edge" and "ring_iso_certificate" in ev
             and not isinstance(ev["ring_iso_certificate"], dict)):
         raise error(
@@ -210,6 +287,91 @@ def validate_meta(ev, where, error):
         raise error(
             "%s: kernel_epoch %r is incompatible with this build's epoch %d"
             % (where, ev["kernel_epoch"], KERNEL_EPOCH))
+    if not isinstance(ev["created_with"], str) or not ev["created_with"].strip():
+        raise error("%s: `created_with` must be a non-empty string" % where)
+    implementation = ev["implementation"]
+    required = {
+        "schema", "package_version", "source_commit", "source_dirty",
+        "graph_format", "kernel_epoch", "mcp_protocol", "backend",
+    }
+    if not isinstance(implementation, dict) or set(implementation) != required:
+        raise error("%s: `implementation` must be the closed %s identity"
+                    % (where, I.IDENTITY_SCHEMA))
+    if implementation["schema"] != I.IDENTITY_SCHEMA:
+        raise error("%s: unsupported implementation identity schema %r"
+                    % (where, implementation["schema"]))
+    if (not isinstance(implementation["package_version"], str)
+            or not implementation["package_version"].strip()):
+        raise error("%s: implementation package_version must be non-empty"
+                    % where)
+    commit = implementation["source_commit"]
+    if commit is not None and not re.match(r"^[0-9a-f]{40}$", commit):
+        raise error("%s: implementation source_commit must be 40 lowercase hex"
+                    % where)
+    if (implementation["source_dirty"] is not None
+            and type(implementation["source_dirty"]) is not bool):
+        raise error("%s: implementation source_dirty must be true, false, or null"
+                    % where)
+    if (implementation["graph_format"] != ev["graph_format"]
+            or implementation["kernel_epoch"] != ev["kernel_epoch"]):
+        raise error("%s: implementation identity disagrees with graph metadata"
+                    % where)
+    if (not isinstance(implementation["mcp_protocol"], str)
+            or not implementation["mcp_protocol"].strip()):
+        raise error("%s: implementation mcp_protocol must be non-empty" % where)
+    backend = implementation["backend"]
+    backend_fields = {
+        "contract", "implementation", "implementation_version",
+        "protocol_version",
+    }
+    if (not isinstance(backend, dict) or set(backend) != backend_fields
+            or not isinstance(backend["contract"], str)
+            or not isinstance(backend["implementation"], str)
+            or type(backend["implementation_version"]) is not int
+            or type(backend["protocol_version"]) is not int):
+        raise error("%s: implementation backend identity is malformed" % where)
+
+
+def validate_meta_for_read(ev, where, error):
+    """Validate a native header at the read boundary.
+
+    Current-format metadata remains strict.  Older native formats are archival
+    inputs: they may be inspected and migrated, but their missing implementation
+    identity is preserved as unknown rather than fabricated.  Writers enforce
+    the current boundary separately before appending anything.
+    """
+    if not isinstance(ev, dict):
+        raise error("%s: event is not an object" % where)
+    if ev.get("ev") != META_EVENT:
+        raise error("%s: native graph must begin with a `meta` event" % where)
+    graph_format = ev.get("graph_format")
+    kernel_epoch = ev.get("kernel_epoch")
+    for field, value in (("graph_format", graph_format),
+                         ("kernel_epoch", kernel_epoch)):
+        if not isinstance(value, int) or isinstance(value, bool):
+            raise error("%s: `%s` must be an integer, not %r"
+                        % (where, field, value))
+    if graph_format == GRAPH_FORMAT:
+        validate_meta(ev, where, error)
+        return
+    if graph_format < 1 or graph_format > GRAPH_FORMAT:
+        raise error(
+            "%s: graph_format %r is unsupported; this build reads historical "
+            "formats 1..%d and current format %d"
+            % (where, graph_format, GRAPH_FORMAT - 1, GRAPH_FORMAT))
+    if kernel_epoch < 1 or kernel_epoch > KERNEL_EPOCH:
+        raise error(
+            "%s: historical kernel_epoch %r cannot be read by this build's "
+            "epoch %d" % (where, kernel_epoch, KERNEL_EPOCH))
+    expected = {"ev", "graph_format", "kernel_epoch", "created_with"}
+    if set(ev) != expected:
+        missing = sorted(expected - set(ev))
+        extra = sorted(set(ev) - expected)
+        raise error(
+            "%s: historical meta event has the wrong fields; missing: %s; "
+            "extra: %s"
+            % (where, ", ".join(missing) or "(none)",
+               ", ".join(extra) or "(none)"))
     if not isinstance(ev["created_with"], str) or not ev["created_with"].strip():
         raise error("%s: `created_with` must be a non-empty string" % where)
 

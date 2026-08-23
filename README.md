@@ -28,15 +28,45 @@ That finding is a real error that shipped in a public artifact. It took an
 independent field-scope audit to find. Here it is a type error at the moment
 the edge is drawn.
 
+## What Grand Portage is for
+
+Grand Portage is research middleware for the seams between exact-affine
+computations. Use it to record models, typed changes of model, claims, checked
+witnesses and certificates, and the precise scope in which an inference is
+licensed. It is especially useful when several researchers or agents hand a
+campaign back and forth.
+
+It is not a general mathematical database and it is not the right home for
+every CAS transcript, Betti table, or one-row-per-object census. Keep bulk
+computation in ordinary content-addressed artifacts or Git; use GP for the
+compact conclusions, provenance, and transport obligations that future work
+must not misread.
+
+For a local checkout:
+
+```console
+python -m pip install -e .
+gp init --mcp
+gp schema                 # read the declaration contract before writing
+gp check                  # current actionable debt first
+gp check --history        # include superseded generations
+```
+
+Version 0.26 hardens that niche under ARR15 pressure: point witnesses now
+check every equation and nonvanishing guard; large localized-emptiness proofs
+can arrive as bounded, replayable factor chains; one over-budget claim cannot
+abort an unrelated verification; and MCP exposes schema, baseline, graph-tail,
+and read-only merge workflows. No transport type or core claim kind was added.
+
 ## Status
 
-All five layers are built and gated: <!--checks-->1649<!--/checks--> checks, live against Singular 4.2.1,
+All five layers are built and gated: <!--checks-->1718<!--/checks--> checks, live against Singular 4.2.1,
 and it has had eleven live user sessions — see [docs/first-run/](docs/first-run/)
 for the first, written up in full.
 
-* **[COMPATIBILITY.md](COMPATIBILITY.md) — graph format 4, kernel epoch 10, proof-carrying mapped equivalences, durable artifacts, and conservative migration**
+* **[COMPATIBILITY.md](COMPATIBILITY.md) — graph format 5, kernel epoch 10, exact implementation provenance, durable artifacts, and conservative migration**
 * **[QUICKSTART.md](QUICKSTART.md) — install, a campaign in ten minutes, and the three things worth knowing on day one**
-* **[v0.24 release packet](review/v0.24/README.md) — public boundary, validation, and review map**
+* **[v0.26 release packet](review/v0.26/README.md) — ARR15 open-locus soundness, bounded localization, and MCP custody**
 * [DESIGN.md](DESIGN.md) — architecture and the decisions behind it
 * [REVIEW.md](REVIEW.md) — **where I am least confident**, for a reviewer
 * [Foundations and prior art](docs/FOUNDATIONS-PRIOR-ART.md) - bounded research questions and deliberate deferrals
@@ -137,14 +167,25 @@ models through those maps; it does **not** also assert literal containment in
 the coordinates as written. `forward` is the point map from source to target,
 so polynomial pullback runs contravariantly. `gp verify` checks both ideal
 pullbacks and both inverse compositions with the `ring_iso` verifier, while the
-literal `containment` verifier skips that edge. Structured maps must cover every
-ring variable and currently require the endpoint models to use the same variable
-names. They fail closed until the verifier records `VERIFIED`. The exact field
+literal `containment` verifier skips that edge. Shared-coordinate maps retain
+that point-map convention. When endpoint variable names differ, `forward` maps
+every source generator to an expression in target variables and `inverse` maps
+every target generator back; `{"x":"y"}` therefore verifies an ordinary
+presentation rename. Polynomial maps are checked in both endpoint ideals;
+rational cross-ring maps stop at an explicit localization-certificate boundary.
+They fail closed until the verifier records `VERIFIED`. The exact field
 names are `forward` and `inverse`; the plausible aliases `maps` and
 `inverse_maps` are refused. Structured predicate conditions also compose through
 these verified maps: `ALONG` rewrites with `inverse`, `AGAINST` with `forward`,
 and a later section-certified elimination checks the rewritten condition in its
 retained ring. A bare flag or stale verdict never supplies this typing authority.
+
+A structured model-level `PREDICATE.condition` is also a direct verifier input,
+not write-only syntax. `gp verify` certifies each `ZERO` atom by exact ideal
+membership. It certifies `NONZERO` by proving the atom's vanishing locus empty
+with a replayable unit-ideal identity; an atom already zero modulo the model
+ideal is refuted. Failed sufficient tests remain visible as `UNVERIFIED`, and
+an unchecked condition is reported by `gp check` as `UNTESTED-CONDITION`.
 
 Ordinary predicate pullback is also executable in the sound `AGAINST` direction:
 a literal identity-coordinate edge preserves syntax only across matching exact
@@ -400,7 +441,7 @@ Three.js build by default; `--three-root` can point it at a local package.
 ## The retrodiction gate
 
 ```bash
-python -m pytest        # <!--checks-->1649<!--/checks--> checks
+python -m pytest        # <!--checks-->1718<!--/checks--> checks
 ```
 
 Grand Portage's credibility rests on reproducing, from **data**, what two

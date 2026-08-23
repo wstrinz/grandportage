@@ -12,9 +12,12 @@ from . import groebner as G
 
 
 SCHEMA = "localization_membership_v1"
+CHAIN_SCHEMA = "localized_guard_reduction_chain_v2"
 VERIFIED = "VERIFIED_LOCALIZATION_MEMBERSHIP"
 MAX_GUARDS = 16
 MAX_POWER = 64
+MAX_CHAIN_GUARDS = 1024
+MAX_CHAIN_STEPS = 4096
 
 
 class LocalizationError(ValueError):
@@ -171,6 +174,133 @@ def verify(spec):
         "schema": SCHEMA,
         "verdict": VERIFIED,
         "licenses": ["identity_in_declared_localization_only"],
+        "normalized": normalized,
+        "checked": checked,
+        "spec_fingerprint": hashlib.sha256(json.dumps(
+            spec, sort_keys=True, separators=(",", ":"), ensure_ascii=True,
+        ).encode("utf-8")).hexdigest(),
+    }
+
+
+def verify_guard_reduction_chain(spec):
+    """Check a bounded, factorized guard-monomial membership certificate.
+
+    Starting with ``r_0 = 1``, each row proves
+
+        r_(k-1) * guard[guard_index] - r_k = sum a_j * generator_j.
+
+    A final zero remainder proves that a finite monomial in the inverted
+    guards belongs to the ideal. Every row is checked independently, so this
+    path never materializes the full product of hundreds of guards.
+    """
+    _closed(spec, {
+        "schema", "characteristic", "ring_vars", "generators", "guards",
+        "certificate",
+    }, "guard reduction-chain specification")
+    _require(spec.get("schema") == CHAIN_SCHEMA,
+             "schema must be %s" % CHAIN_SCHEMA)
+    characteristic = spec.get("characteristic")
+    _require(G._valid_characteristic(characteristic),
+             "characteristic must be 0 or a prime")
+    variables = spec.get("ring_vars")
+    _require(isinstance(variables, list)
+             and all(isinstance(value, str)
+                     and G._IDENTIFIER.fullmatch(value)
+                     for value in variables)
+             and len(variables) == len(set(variables)),
+             "ring_vars must be unique ASCII CAS identifiers")
+    generators = spec.get("generators")
+    _require(isinstance(generators, list) and generators,
+             "generators must be a non-empty list")
+    generators = [
+        _canonical(value, variables, characteristic, "generator %d" % n)
+        for n, value in enumerate(generators, 1)
+    ]
+    guards = spec.get("guards")
+    _require(isinstance(guards, list)
+             and 0 < len(guards) <= MAX_CHAIN_GUARDS,
+             "guards must contain 1 through %d polynomials"
+             % MAX_CHAIN_GUARDS)
+    guards = [
+        _canonical(value, variables, characteristic, "guard %d" % n)
+        for n, value in enumerate(guards, 1)
+    ]
+    _require(all(not G.parse_polynomial(
+        value, variables, characteristic
+    ).is_zero for value in guards),
+             "a zero polynomial cannot be inverted")
+
+    certificate = spec.get("certificate")
+    _closed(certificate, {"steps"}, "certificate")
+    steps = certificate.get("steps")
+    _require(isinstance(steps, list)
+             and 0 < len(steps) <= MAX_CHAIN_STEPS,
+             "certificate.steps must contain 1 through %d rows"
+             % MAX_CHAIN_STEPS)
+
+    before = _canonical("1", variables, characteristic, "initial remainder")
+    normalized_steps = []
+    checked = []
+    for position, step in enumerate(steps, 1):
+        where = "certificate step %d" % position
+        _closed(step, {"guard_index", "remainder", "cofactors"}, where)
+        guard_index = step.get("guard_index")
+        _require(type(guard_index) is int
+                 and 0 <= guard_index < len(guards),
+                 "%s guard_index must select one declared guard" % where)
+        after = _canonical(
+            step.get("remainder"), variables, characteristic,
+            "%s remainder" % where)
+        cofactors = step.get("cofactors")
+        _require(isinstance(cofactors, list)
+                 and len(cofactors) == len(generators),
+                 "%s needs one cofactor per generator" % where)
+        cofactors = [
+            _canonical(value, variables, characteristic,
+                       "%s cofactor %d" % (where, n))
+            for n, value in enumerate(cofactors, 1)
+        ]
+        try:
+            budget = G._ArithmeticBudget()
+            left = (
+                G.parse_polynomial(before, variables, characteristic, budget)
+                * G.parse_polynomial(
+                    guards[guard_index], variables, characteristic, budget)
+                - G.parse_polynomial(
+                    after, variables, characteristic, budget)
+            )
+            target = G.portable_polynomial(
+                left, prefer_sparse=(isinstance(before, dict)
+                                     or isinstance(after, dict)
+                                     or isinstance(guards[guard_index], dict)))
+            row_check = G.check_membership_identity(
+                target, generators, cofactors, variables, characteristic)
+        except G.CertificateError as exc:
+            raise LocalizationError("%s: %s" % (where, exc))
+        normalized_steps.append({
+            "guard_index": guard_index,
+            "remainder": after,
+            "cofactors": cofactors,
+        })
+        checked.append({"step": position, "target": target,
+                        "identity": row_check})
+        before = after
+
+    _require(G.parse_polynomial(
+        before, variables, characteristic
+    ).is_zero, "the final reduction-chain remainder must be zero")
+    normalized = {
+        "schema": CHAIN_SCHEMA,
+        "characteristic": characteristic,
+        "ring_vars": list(variables),
+        "generators": generators,
+        "guards": guards,
+        "certificate": {"steps": normalized_steps},
+    }
+    return {
+        "schema": CHAIN_SCHEMA,
+        "verdict": VERIFIED,
+        "licenses": ["empty_exact_declared_open_model_only"],
         "normalized": normalized,
         "checked": checked,
         "spec_fingerprint": hashlib.sha256(json.dumps(

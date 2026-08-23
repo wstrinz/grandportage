@@ -2,11 +2,13 @@
 
 import json
 import os
+from dataclasses import replace
 
 import pytest
 
 from grandportage import artifacts as A
 from grandportage import backend as B
+from grandportage import cas
 from grandportage import cli
 from grandportage import kernel as K
 from grandportage import provenance as P
@@ -150,7 +152,7 @@ def test_persist_all_uses_content_addresses_in_execution_order(tmp_path):
 
 
 def test_cli_audits_referenced_objects_without_changing_graph_fold(
-        tmp_path, capsys):
+        tmp_path, capsys, monkeypatch):
     root = str(tmp_path)
     S.append([
         {"ev": "model", "id": "M", "what": "origin",
@@ -161,6 +163,9 @@ def test_cli_audits_referenced_objects_without_changing_graph_fold(
     ], root)
     graph = S.load(S.graph_path(root))
     artifact = _artifact()
+    monkeypatch.setitem(
+        cas._BINARY_VERSION_CACHE, tuple(cas._argv()),
+        artifact.backend.binary_version)
     A.persist(root, artifact)
     verdict = V._verdict_event(
         graph, "claim", "C", "VERIFIED_DERIVED", "test reduction",
@@ -200,6 +205,42 @@ def test_malformed_v2_manifest_is_an_explicit_audit_failure(tmp_path):
     problems = A.audit_graph(root, S.load(S.graph_path(root)))
     assert any("backend v2 manifest is malformed" in problem
                for problem in problems)
+
+
+def test_unavailable_historical_backend_is_readable_but_not_authority(
+        tmp_path, capsys):
+    root = str(tmp_path)
+    S.append([
+        {"ev": "model", "id": "M", "what": "origin",
+         "characteristic": 0, "ring_vars": ["x"], "generators": ["x"]},
+        {"ev": "claim", "id": "C", "model": "M", "kind": K.IDENTITY,
+         "statement": "x vanishes", "lhs": "x", "rhs": "0",
+         "ring_vars": ["x"], "identity_origin": K.DERIVED},
+    ], root)
+    graph = S.load(S.graph_path(root))
+    artifact = _artifact()
+    unavailable = replace(
+        artifact,
+        backend=replace(
+            artifact.backend,
+            binary_version="unavailable: TimeoutExpired"))
+    A.persist(root, unavailable)
+    manifest = _manifest(unavailable)
+    verdict = V._verdict_event(
+        graph, "claim", "C", "VERIFIED_DERIVED", "historical reduction",
+        execution=manifest)
+    S.append([verdict], root)
+
+    encoded = verdict["backend"]
+    assert P.decode_backend_provenance(encoded, current_only=False) is not None
+    assert P.backend_provenance(encoded, current_only=False) is None
+    report = A.audit_graph_report(root, S.load(S.graph_path(root)))
+    assert report["problems"] == []
+    assert len(report["legacy_unverifiable"]) == 1
+    assert cli.main(["--root", root, "artifacts", "check"]) == 0
+    output = capsys.readouterr().out
+    assert "1 execution reference checked" in output
+    assert "legacy-readable / legacy-unverifiable: 1 verdict" in output
 
 
 def test_cli_reports_artifact_publication_failure_without_traceback(

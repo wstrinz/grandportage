@@ -28,10 +28,11 @@ BACKEND = "singular"
 # these independent avoids invalidating every verdict when one checker changes.
 VERIFIERS = {
     "claim": ("verify.identity", 2),
+    "condition": ("verify.predicate_condition", 1),
     "edge": ("verify.containment", 3),
     "certificate": ("verify.unit_ideal", 2),
-    "ring_iso": ("verify.ring_iso", 3),
-    "witness": ("verify.point_witness", 2),
+    "ring_iso": ("verify.ring_iso", 4),
+    "witness": ("verify.point_witness", 3),
     "operation": ("verify.operation_output", 2),
     "elimination": ("verify.elimination_section", 2),
     "point_lift": ("verify.elimination_point_lift", 1),
@@ -45,7 +46,7 @@ VERIFIERS = {
 VERIFIER_ALTERNATIVES = {
     "certificate": {
         "verify.unit_ideal": 2,
-        "verify.localized_unit_ideal": 1,
+        "verify.localized_unit_ideal": 2,
     },
     "elimination": {
         "verify.elimination_section": 2,
@@ -75,6 +76,7 @@ _FINGERPRINT_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 # instant it was applied.
 _COMPUTED_FIELDS = {
     "identity_verdict", "identity_why",
+    "condition_verdict", "condition_why",
     "containment", "containment_why",
     "certificate_verdict", "certificate_why",
     "ring_iso_verdict", "ring_iso_why",
@@ -125,7 +127,7 @@ def input_payload(graph, subject, of):
             "src": _semantic(graph.models.get(edge.get("src"))) if edge else None,
             "dst": _semantic(graph.models.get(edge.get("dst"))) if edge else None,
         }
-    if subject in ("claim", "certificate", "witness"):
+    if subject in ("claim", "condition", "certificate", "witness"):
         claim = graph.claims.get(of)
         return {
             "subject": subject,
@@ -344,8 +346,14 @@ def encode_backend_provenance(execution):
     )
 
 
-def backend_provenance(value, current_only=True):
-    """Decode and validate a v2 backend descriptor, or return ``None``."""
+def decode_backend_provenance(value, current_only=True):
+    """Decode a structurally valid v2 backend descriptor.
+
+    This deliberately does not require an identified executable.  Historical
+    manifests produced while binary-version discovery timed out remain
+    structurally readable and their content-addressed artifacts can still be
+    audited, even though they cannot be current verification authority.
+    """
     if not isinstance(value, str) or not value.startswith(_BACKEND_PREFIX):
         return None
     try:
@@ -380,9 +388,7 @@ def backend_provenance(value, current_only=True):
             or manifest["protocol_version"] != B.BACKEND_PROTOCOL_VERSION):
         return None
     version = manifest["binary_version"]
-    if (not isinstance(version, str) or not version.strip()
-            or version.startswith("unavailable:")
-            or version in ("unreported", "test-double")):
+    if not isinstance(version, str) or not version.strip():
         return None
     trace = manifest["executions"]
     if (not isinstance(trace, list)
@@ -391,6 +397,18 @@ def backend_provenance(value, current_only=True):
         return None
     expected = B.semantic_fingerprint("backend_execution_trace", trace)
     if manifest["trace_fingerprint"] != expected:
+        return None
+    return manifest
+
+
+def backend_provenance(value, current_only=True):
+    """Decode a v2 descriptor that is eligible to act as authority."""
+    manifest = decode_backend_provenance(value, current_only=current_only)
+    if manifest is None:
+        return None
+    version = manifest["binary_version"]
+    if (version.startswith("unavailable:")
+            or version in ("unreported", "test-double")):
         return None
     return manifest
 
@@ -435,7 +453,7 @@ def metadata(graph, subject, of, execution=None, representation=None,
             graph, subject, of, representation=representation),
     }
 
-def current_verdict(graph, event):
+def current_verdict(graph, event, check_binary_version=False):
     """Return ``(is_current, reason)`` for a stored verdict event.
 
     Missing metadata is the epoch-0 form.  It remains valid log history but is
@@ -478,6 +496,19 @@ def current_verdict(graph, event):
     manifest = backend_provenance(event.get("backend"))
     if manifest is None:
         return False, "backend execution provenance is absent or invalid"
+    if check_binary_version:
+        # Imported lazily because cas imports store and store imports this
+        # module. Freshness is evaluated only after initialization, while a
+        # persisted graph is being loaded.
+        from . import cas
+        current_version = cas.SingularBackend().identity.binary_version
+        if (not isinstance(current_version, str)
+                or not current_version.strip()
+                or current_version.startswith("unavailable:")
+                or current_version in ("unreported", "test-double")):
+            return False, "current backend binary identity is unavailable"
+        if manifest["binary_version"] != current_version:
+            return False, "backend binary version does not match current process"
     if (not manifest["executions"]
             and not _allows_empty_structural_trace(graph, event)):
         return False, (

@@ -62,6 +62,7 @@ def _rules(g, rule):
 # ===========================================================================
 ENUM = {"ev": "claim", "id": "CL-N4-ENUM", "family": "F-N4",
         "kind": K.PREDICATE,
+        "asserts_count": 1567,
         "statement": "there are exactly 1567 isomorphism classes; orbit sizes "
                      "sum to 34,752 = 543 labelled DAGs x 64 bigraphs",
         "established_by": "RAN", "ladder": "exact-checked",
@@ -120,7 +121,14 @@ D_NOT = {"ev": "claim", "id": "D-NOT", "family": "F-N4", "kind": "COUNT",
                 "sampling and are a different kind of statement.",
          "established_by": "RAN", "ladder": "exact-checked"}
 
-CENSUS = [FAMILY, ENUM, D_JAC, D_HTC, D_NOT]
+ENUM_EVIDENCE = {
+    "ev": "evidence", "id": "EV-N4-ENUM", "for": "CL-N4-ENUM",
+    "method": "ENUMERATION", "ran": "n4/census4.py",
+    "what": "enumerated every class and checked the orbit-size total",
+    "decides": "BOTH",
+}
+
+CENSUS = [FAMILY, ENUM, ENUM_EVIDENCE, D_JAC, D_HTC, D_NOT]
 
 
 def test_the_census_triage_is_expressible_at_all():
@@ -232,9 +240,13 @@ NINE = [
                  "R-75-125", "R-A", "R-B", "R-C"]},
     {"ev": "claim", "id": "CL-NINE-ENUM", "family": "F-NINE",
      "kind": K.PREDICATE,
+     "asserts_count": 9,
      "statement": "exactly 9 of GGV5's 34 rows satisfy b0 = 4a0",
      "established_by": "RAN", "ladder": "exact-checked",
      "cite": "corner_atlas.json"},
+    {"ev": "evidence", "id": "EV-NINE-ENUM", "for": "CL-NINE-ENUM",
+     "method": "ENUMERATION", "ran": "corner_atlas.py",
+     "what": "checked all 34 rows against b0 = 4a0", "decides": "BOTH"},
     # Decomposition one: by status.
     {"ev": "claim", "id": "D-STATUS", "family": "F-NINE", "kind": "COUNT",
      "statement": "2 of the 9 are settled (Moh, both at (5,20)); 7 are open",

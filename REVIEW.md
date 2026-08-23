@@ -3,10 +3,10 @@
 This is the attack surface for the current release. The full historical review
 through v0.18 is preserved in `HISTORY/REVIEW-through-v0.18.md`.
 
-**Version <!--version-->0.24.0<!--/version-->, graph format
-<!--graph-format-->4<!--/graph-format-->, kernel epoch
+**Version <!--version-->0.26.0<!--/version-->, graph format
+<!--graph-format-->5<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->10<!--/kernel-epoch-->, and
-<!--checks-->1649<!--/checks--> collected checks.**
+<!--checks-->1718<!--/checks--> collected checks.**
 
 ## Highest-risk claim
 
@@ -15,7 +15,13 @@ checker trust base. Review both separately. A correct transport table does not
 repair a parser, canonicalizer, cofactor replay, fingerprint binding, or
 authority-projection defect.
 
-v0.24 adds a second release-critical boundary: `public-snapshot-v1.json` and
+v0.25 makes implementation identity and distributed campaign custody a release
+boundary. Attack source commit/dirty reporting, format-5 graph provenance,
+MCP/CLI identity agreement, backend freshness across process restart, absolute
+root pinning, finding-receipt fingerprints, and immutable format migration.
+Historical `unavailable` backend identities must remain stale.
+
+v0.24 added a second release-critical boundary: `public-snapshot-v1.json` and
 `scripts/public_snapshot.py` decide which exact Git blobs enter the public
 mirror. Attack its classification precedence, path normalization, required-file
 set, generated receipt, and refusal of unclassified paths independently from

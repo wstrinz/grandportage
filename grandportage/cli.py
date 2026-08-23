@@ -27,6 +27,7 @@ from . import format as F
 from . import laurent_coefficient_pipeline as LCP
 from . import laurent_lowering as LL
 from . import hook as H
+from . import identity as I
 from . import localization as L
 from . import kernel as K
 from . import migration as MIG
@@ -69,18 +70,74 @@ def _load(args):
         raise SystemExit(2)
 
 
+def _finding_delta(findings, receipt_path):
+    """Compare current findings with an immutable JSON check/baseline receipt."""
+    try:
+        with open(receipt_path, "r", encoding="utf-8") as stream:
+            receipt = json.load(stream)
+    except (OSError, ValueError) as exc:
+        raise ValueError("cannot read finding receipt %s: %s"
+                         % (receipt_path, exc))
+    prior = {}
+    if isinstance(receipt.get("findings"), list):
+        for finding in receipt["findings"]:
+            if isinstance(finding, dict) and finding.get("id"):
+                prior[finding["id"]] = finding.get("fingerprint")
+    elif isinstance(receipt.get("accepted"), dict):
+        for fid, entry in receipt["accepted"].items():
+            prior[fid] = (entry or {}).get("fingerprint")
+    else:
+        raise ValueError(
+            "%s is neither `gp check --json` output nor a baseline receipt"
+            % receipt_path)
+    if any(not fingerprint for fingerprint in prior.values()):
+        raise ValueError(
+            "%s has fingerprintless findings and cannot establish unchanged "
+            "identity; make a fresh `gp check --json` receipt" % receipt_path)
+
+    current = {finding.fid: finding for finding in findings}
+    unchanged = sorted(
+        fid for fid in set(prior) & set(current)
+        if prior[fid] == current[fid].fingerprint)
+    changed = sorted(
+        fid for fid in set(prior) & set(current)
+        if prior[fid] != current[fid].fingerprint)
+    return {
+        "receipt": os.path.abspath(receipt_path),
+        "inherited_unchanged": unchanged,
+        "new": sorted(set(current) - set(prior)),
+        "changed_inherited": [{
+            "id": fid,
+            "before": prior[fid],
+            "after": current[fid].fingerprint,
+        } for fid in changed],
+        "resolved": sorted(set(prior) - set(current)),
+    }
 def cmd_check(args):
     g = _load(args)
     accepted = H.read_baseline(args.root)["accepted"]
     findings = C.run(g, accepted)
+    historical = [f for f in findings if f.lifecycle == C.HISTORICAL]
+    visible = (findings if args.history or args.full
+               else C.actionable_findings(findings))
+    delta = None
+    if args.since:
+        try:
+            delta = _finding_delta(C.actionable_findings(findings), args.since)
+        except ValueError as exc:
+            sys.stderr.write("CHECK RECEIPT ERROR\n  %s\n" % exc)
+            return 2
     if args.json:
-        print(json.dumps({
-            "findings": [f.as_dict() for f in findings],
+        result = {
+            "findings": [f.as_dict() for f in visible],
             "clean": C.clean_inferences(g, findings),
             "counts": {"models": len(g.models), "edges": len(g.edges),
                        "claims": len(g.claims),
                        "inferences": len(g.inference_order)},
-        }, indent=2))
+        }
+        if delta is not None:
+            result["since"] = delta
+        print(json.dumps(result, indent=2))
         return C.exit_code(findings, args.floor, accepted)
 
     if not args.quiet:
@@ -135,12 +192,16 @@ def cmd_check(args):
                   "a live gate must provoke a refusal before relying on it.")
         print()
     accepted = H.read_baseline(args.root)["accepted"]
-    for f in findings:
+    for f in visible:
         carried = f.fid in accepted
+        lifecycle = (
+            "HISTORICAL" if f.lifecycle == C.HISTORICAL else
+            "STALE-HISTORICAL-REFERENCE"
+            if f.lifecycle == C.STALE_HISTORICAL_REFERENCE else "live")
         if args.quiet:
             print("%-18s %-20s %-28s %s"
                   % (f.severity, f.rule, f.subject,
-                     "CARRIED" if carried else "live"))
+                     "CARRIED" if carried else lifecycle))
             continue
         if carried and not args.full:
             # Compact, but never silent.  Printing nothing about accepted
@@ -152,8 +213,16 @@ def cmd_check(args):
                      or "(no reason recorded)"))
             print()
             continue
-        print("%s  %s%s" % (f.severity, f.fid,
-                            "   [CARRIED]" if carried else ""))
+        marks = []
+        if carried:
+            marks.append("CARRIED")
+        if f.lifecycle == C.HISTORICAL:
+            marks.append("HISTORICAL / SUPERSEDED")
+        elif f.lifecycle == C.STALE_HISTORICAL_REFERENCE:
+            marks.append("STALE REFERENCE TO HISTORICAL")
+        print("%s  %s%s" % (
+            f.severity, f.fid,
+            "   [" + "; ".join(marks) + "]" if marks else ""))
         for line in f.detail.splitlines():
             print("    " + line)
         if f.overridden:
@@ -181,16 +250,31 @@ def cmd_check(args):
                 print("    %-24s rests on %s" % (iid, ", ".join(why)))
         print()
         rank = C.SEVERITY_RANK[args.floor]
-        at_floor = [f for f in findings
+        at_floor = [f for f in C.actionable_findings(findings)
                     if C.SEVERITY_RANK[f.severity] >= rank]
         live = [f for f in at_floor if f.fid not in accepted]
         print("%d finding(s) at or above %s: %d LIVE, %d carried"
               % (len(at_floor), args.floor, len(live),
                  len(at_floor) - len(live)))
+        if historical and not (args.history or args.full):
+            print("%d historical finding(s) retained on superseded "
+                  "generations; use --history to inspect them."
+                  % len(historical))
         if at_floor and not live:
             print("Nothing live. Every finding at this floor was examined and "
                   "accepted deliberately -- this campaign is carrying debt in "
                   "the open, not failing.")
+        if delta is not None:
+            print("\nchanges since %s:" % delta["receipt"])
+            for label in ("inherited_unchanged", "new", "resolved"):
+                values = delta[label]
+                print("  %-21s %d%s" % (
+                    label.replace("_", " "), len(values),
+                    ": " + ", ".join(values) if values else ""))
+            changed = [item["id"] for item in delta["changed_inherited"]]
+            print("  %-21s %d%s" % (
+                "changed inherited", len(changed),
+                ": " + ", ".join(changed) if changed else ""))
     return C.exit_code(findings, args.floor, accepted)
 
 
@@ -474,8 +558,10 @@ def _declare_epilog():
         "  \"inverse\": {\"x\": \"-x\", \"y\": \"y\"}\n"
         "`forward` is the point map from source to target; polynomial pullback\n"
         "is contravariant. Both maps are simultaneous substitutions with one\n"
-        "expression per ring variable. The current verifier requires the same\n"
-        "ring-variable names at both endpoints. `gp verify` checks both ideal\n"
+        "expression per ring variable. When endpoint variable names differ,\n"
+        "`forward` instead maps every source generator into target variables\n"
+        "and `inverse` maps every target generator back (for example x<->y).\n"
+        "`gp verify` checks both ideal\n"
         "pullbacks and both inverse compositions; structured maps license\n"
         "transport only after `VERIFIED`. This does NOT also assert literal\n"
         "containment in the written coordinates. Structured conditions also\n"
@@ -483,6 +569,8 @@ def _declare_epilog():
         "AGAINST uses forward before later operation contracts inspect them.\n"
         "Ordinary AGAINST pullback also preserves structured syntax through a\n"
         "matching exact identity map or a checked Eliminate projection.\n"
+        "At a PREDICATE's own model, `gp verify` checks structured ZERO atoms\n"
+        "by ideal membership and NONZERO atoms by an empty vanishing locus.\n"
         "The spellings `maps` and `inverse_maps` are refused as inert aliases.\n"
         "\n"
         "vocabularies:\n"
@@ -663,10 +751,33 @@ def cmd_verify(args):
     that was wrong here.
     """
     from . import verify as V
+    if args.graph and len(args.graph) != 1:
+        sys.stderr.write(
+            "verify writes verdicts and therefore needs exactly one "
+            "--graph target; repeated --graph is read/merge syntax.\n")
+        return 2
+    graph_path = args.graph[0] if args.graph else None
     try:
-        results = V.verify_all(root=args.root, timeout=args.timeout,
-                               record=not args.dry_run)
-    except (A.ArtifactError, OSError) as exc:
+        supplied = {}
+        for binding in args.localized_certificate or []:
+            if "=" not in binding:
+                raise ValueError(
+                    "--localized-certificate must be CLAIM=SPEC.json")
+            claim_id, spec_path = binding.split("=", 1)
+            if not claim_id or claim_id in supplied:
+                raise ValueError(
+                    "localized certificate claim ids must be non-empty and "
+                    "unique")
+            with open(spec_path, "r", encoding="utf-8") as handle:
+                spec = json.load(handle)
+            if not isinstance(spec, dict):
+                raise ValueError(
+                    "localized certificate %s is not a JSON object" % spec_path)
+            supplied[claim_id] = spec
+        results = V.verify_all(
+            root=args.root, timeout=args.timeout, record=not args.dry_run,
+            graph_path=graph_path, supplied_certificates=supplied)
+    except (A.ArtifactError, OSError, ValueError, S.GraphError) as exc:
         sys.stderr.write(
             "ARTIFACT PERSISTENCE FAILED\n  %s\n\n"
             "  No verdict was appended. The graph is unchanged.\n" % exc)
@@ -1009,10 +1120,15 @@ def cmd_artifacts_check(args):
     else:
         audits = [(S.graph_path(args.root), args.root, _load(args))]
     problems = []
+    legacy = []
     for path, artifact_root, graph in audits:
-        for problem in A.audit_graph(artifact_root, graph):
+        report = A.audit_graph_report(artifact_root, graph)
+        for problem in report["problems"]:
             problems.append(
                 "%s: %s" % (path, problem) if len(audits) > 1 else problem)
+        for item in report["legacy_unverifiable"]:
+            legacy.append(
+                "%s: %s" % (path, item) if len(audits) > 1 else item)
     if problems:
         sys.stderr.write(
             "ARTIFACT AUDIT FAILED (%d problem%s)\n"
@@ -1023,7 +1139,7 @@ def cmd_artifacts_check(args):
     references = 0
     for _path, _artifact_root, graph in audits:
         for event in graph.verdicts.values():
-            manifest = P.backend_provenance(
+            manifest = P.decode_backend_provenance(
                 event.get("backend"), current_only=False)
             if manifest is not None and manifest.get("schema") == 2:
                 references += len(manifest["executions"])
@@ -1035,6 +1151,10 @@ def cmd_artifacts_check(args):
                 pass
     print("artifact audit clean: %d execution reference%s checked."
           % (references, "" if references == 1 else "s"))
+    if legacy:
+        print("legacy-readable / legacy-unverifiable: %d verdict%s "
+              "(artifact integrity checked; not current authority)."
+              % (len(legacy), "" if len(legacy) == 1 else "s"))
     return 0
 
 
@@ -1357,6 +1477,11 @@ def cmd_merge(args):
         return 0
 
     print("MERGE CONFLICTS: %d\n" % len(conflicts))
+    presentation_fields = {
+        "ring_vars", "generators", "coefficient_domain", "field",
+        "characteristic", "point_universe", "chart",
+    }
+    presentation_conflicts = []
     for c in conflicts:
         print("%s %r -- declared differently in two branches" % (c["kind"], c["id"]))
         print("  fields that differ: %s" % ", ".join(c["fields"]))
@@ -1365,7 +1490,19 @@ def cmd_merge(args):
             print("  %s  %s:%d" % (side.upper(), s["path"], s["line"]))
             for f in c["fields"]:
                 print("        %-10s %s" % (f, json.dumps(s["event"].get(f))))
+        if (c["kind"] == "model"
+                and presentation_fields.intersection(c["fields"])):
+            presentation_conflicts.append(c["id"])
         print()
+    if presentation_conflicts:
+        print("PRESENTATION CONFLICT: %s" % ", ".join(presentation_conflicts))
+        print("  A coordinate-bearing model ID identifies one presentation, "
+              "not an abstract mathematical object. Different coordinates, "
+              "rings, fields, or equations are not normalization candidates.")
+        print("  mint separate presentation IDs")
+        print("    -> declare a mapped EQUIVALENCE with forward/inverse maps")
+        print("    -> run `gp verify` before transporting identities")
+        print("  Do not use `same_as` to silently assert a coordinate change.\n")
     print("Neither version is preferred and the fold will not blend them. Two "
           "cases, with opposite resolutions:")
     print("  SAME OBJECT, described differently -- both branches are right. "
@@ -1573,6 +1710,20 @@ def cmd_show(args):
         print("EDGE  %-6s %-14s -> %-14s %s%s"
               % (eid, e["src"], e["dst"], e["type"], mark))
     print()
+    for fid in sorted(g.families):
+        family = g.families[fid]
+        mark = ("  [SUPERSEDED by %s]" % S.successors(family)
+                if family.get("superseded_by") else "")
+        print("FAMILY %-18s count=%d%s"
+              % (fid, family["count"], mark))
+        if family.get("desc"):
+            print("    %s" % family["desc"])
+        if family.get("enumeration"):
+            print("    enumeration: %s" % family["enumeration"])
+        if family.get("members") is not None:
+            print("    members: %d recorded" % len(family["members"]))
+    if g.families:
+        print()
     # CERTIFICATE and ORIGIN are printed, and INFERENCES are printed at all.
     #
     # `gp show` used to print models, edges and claims only -- no inferences,
@@ -1740,7 +1891,7 @@ def cmd_accept(args):
     # hand.  `hook.py`'s own comment calls a hook that blocks every tool call
     # "the day-one trap this module already warns about".
     accepted_now = H.read_baseline(args.root)["accepted"]
-    findings = C.run(g, accepted_now)
+    findings = C.actionable_findings(C.run(g, accepted_now))
     live = list(findings)          # before any --only filtering; see below
     before = H.load_baseline(args.root)
     if args.only:
@@ -1776,8 +1927,14 @@ def cmd_accept(args):
 
 def cmd_init(args):
     path = S.graph_path(args.root)
+    mcp_path = os.path.join(os.path.abspath(args.root), ".mcp.json")
     if os.path.exists(path):
         sys.stderr.write("%s already exists\n" % path)
+        return 1
+    if args.mcp and os.path.exists(mcp_path):
+        sys.stderr.write(
+            "%s already exists; refusing to overwrite MCP configuration\n"
+            % mcp_path)
         return 1
     d = os.path.dirname(path)
     if d and not os.path.isdir(d):
@@ -1808,7 +1965,180 @@ def cmd_init(args):
                      "with `gp events`, or one json.loads per line.")},
             sort_keys=True) + "\n")
     print("initialised %s" % path)
+    if args.mcp:
+        config = {
+            "mcpServers": {
+                "grand-portage": {
+                    "command": sys.executable,
+                    "args": ["-m", "grandportage.mcp", "--root",
+                             os.path.abspath(args.root)],
+                },
+            },
+        }
+        with open(mcp_path, "x", encoding="utf-8") as fh:
+            json.dump(config, fh, indent=2, sort_keys=True)
+            fh.write("\n")
+        print("MCP configuration: %s" % mcp_path)
     return 0
+
+
+def _implementation_identity():
+    return I.implementation_identity(
+        __version__, F.GRAPH_FORMAT, F.KERNEL_EPOCH)
+
+
+class _ExactVersionAction(argparse.Action):
+    def __init__(self, option_strings, dest=argparse.SUPPRESS, default=None,
+                 required=False, help=None):
+        super().__init__(
+            option_strings=option_strings, dest=dest, nargs=0,
+            default=default, required=required, help=help)
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        parser._print_message(
+            I.version_text(_implementation_identity()) + "\n", sys.stdout)
+        parser.exit()
+
+
+def native_schema_document():
+    """Return the one closed native event schema used by MCP and the fold."""
+    from . import mcp as MCP
+
+    events = {}
+    for kind in sorted(F.EVENT_FIELDS):
+        events[kind] = {
+            "authorable": kind not in (F.META_EVENT, "verdict"),
+            "schema": MCP._event_schema(kind),
+        }
+    return {
+        "schema": "grand-portage-native-schema/v1",
+        "graph_format": F.GRAPH_FORMAT,
+        "kernel_epoch": F.KERNEL_EPOCH,
+        "events": events,
+        "enums": {
+            "edge.type": list(K.DECLARABLE_TYPES),
+            "edge.map_kind": list(K.MAP_KINDS),
+            "claim.kind": list(K.CLAIM_KINDS),
+            "claim.condition.relation": list(K.CONDITION_RELATIONS),
+            "model.point_universe": list(S.POINT_UNIVERSES),
+            "inference.direction": list(K.DIRECTIONS),
+            "evidence.method": list(S.Graph.EVIDENCE_METHODS),
+            "evidence.decides": sorted(S.Graph.DECIDES),
+        },
+        "placement_rules": {
+            "meta": "first event only; generated by gp init or migration",
+            "verdict": "verifier-authored only; never accepted by declare",
+            "claim": (
+                "exactly one of model or family; IDENTITY belongs only at a "
+                "model, while COUNT belongs only at a family"),
+            "condition": "only a PREDICATE claim at a model",
+            "closed_objects": True,
+        },
+        "target_entity_types": {
+            field: list(kinds)
+            for field, kinds in sorted(F.TARGET_ENTITY_TYPES.items())
+        },
+        "lifecycle": {
+            "fields": sorted(F.LIFECYCLE_FIELDS),
+            "replacement": (
+                "supersedes and discharge_kind identify an explicit successor; "
+                "RETRACT/WITHDRAW are sparse tombstones and require why"),
+        },
+        "mutual_exclusions": [{
+            "event": "claim",
+            "exactly_one_of": ["model", "family"],
+        }],
+        "examples": {
+            "evidence_enumeration": {
+                "ev": "evidence", "id": "EV-ENUM", "for": "C-COUNT",
+                "method": "ENUMERATION", "ran": "python census.py",
+                "what": "exhaustively enumerated the bounded search space",
+                "decides": "BOTH",
+            },
+            "evidence_replication": {
+                "ev": "evidence", "id": "EV-REPL", "for": "C-COUNT",
+                "method": "REPLICATION", "ran": "sage recount.sage",
+                "what": "independently recomputed the class count",
+                "agrees_with": "python census.py",
+            },
+            "family_completeness": [{
+                "ev": "family", "id": "F", "count": 2,
+                "enumeration": "C-F-COUNT",
+            }, {
+                "ev": "claim", "id": "C-F-COUNT", "family": "F",
+                "kind": "PREDICATE", "statement": "the census is complete",
+                "asserts_count": 2,
+            }, {
+                "ev": "evidence", "id": "EV-F-COUNT", "for": "C-F-COUNT",
+                "method": "ENUMERATION", "ran": "exact command or artifact",
+                "what": "enumerated the complete finite index",
+                "decides": "BOTH",
+            }],
+        },
+    }
+
+
+def cmd_schema(args):
+    """Print the one closed native event schema used by MCP and the fold."""
+    print(json.dumps(native_schema_document(), indent=2, sort_keys=True))
+    return 0
+
+
+def cmd_doctor(args):
+    """Report the exact root, graph, implementation, and CAS health."""
+    from . import mcp as MCP
+
+    root = os.path.abspath(args.root)
+    if args.graph and len(args.graph) != 1:
+        sys.stderr.write(
+            "doctor diagnoses one graph at a time; pass exactly one --graph.\n")
+        return 2
+    graph_path = os.path.abspath(
+        args.graph[0] if args.graph else S.graph_path(root))
+    report = {
+        "schema": "grand-portage-doctor/v1",
+        "root": root,
+        "graph": {
+            "path": graph_path,
+            "exists": os.path.isfile(graph_path),
+            "writable": os.access(
+                graph_path if os.path.exists(graph_path)
+                else os.path.dirname(graph_path) or root, os.W_OK),
+            "header": None,
+            "error": None,
+        },
+        "implementation": _implementation_identity(),
+        "cas": {
+            "argv": cas._argv(),
+            "binary_version": cas.SingularBackend().identity.binary_version,
+        },
+    }
+    if report["graph"]["exists"]:
+        try:
+            first = next(S._raw_events(graph_path))[0]
+            report["graph"]["header"] = first
+            S.load(graph_path)
+        except (OSError, StopIteration, ValueError, S.GraphError,
+                K.KernelRefusal) as exc:
+            report["graph"]["error"] = str(exc)
+
+    health = MCP.h_cas_health({}, root)
+    report["cas"]["health"] = health["content"][0]["text"]
+    report["cas"]["healthy"] = not health.get("isError", False)
+    healthy = (report["cas"]["healthy"]
+               and report["graph"]["error"] is None)
+    if args.json:
+        print(json.dumps(report, indent=2, sort_keys=True))
+    else:
+        print("Grand Portage doctor")
+        print("  ROOT:  %s" % report["root"])
+        print("  GRAPH: %s" % report["graph"]["path"])
+        print("  graph exists: %s; writable: %s"
+              % (report["graph"]["exists"], report["graph"]["writable"]))
+        print(I.version_text(report["implementation"]))
+        print("CAS binary: %s" % report["cas"]["binary_version"])
+        print(report["cas"]["health"])
+    return 0 if healthy else 1
 
 
 def _json_has_post_tool_hook(text):
@@ -2058,10 +2388,32 @@ def cmd_events(args):
         return 0
     g = S.load(S.graph_path(args.root)) if not args.graph else _load(args)
     print(json.dumps({
+        "metadata": {
+            "graph_format": g.graph_format,
+            "kernel_epoch": g.kernel_epoch,
+            "created_with": g.created_with,
+            "implementation": g.implementation,
+            "compatibility_mode": g.compatibility_mode,
+        },
+        "certificates": {
+            "registry": g.certificates,
+            "sources": g.cert_source,
+            "records": g.cert_records,
+        },
         "models": g.models, "edges": g.edges, "claims": g.claims,
         "inferences": {i: g.inferences[i] for i in g.inference_order},
         "tombstones": [g.retractions[k] for k in sorted(g.retractions)],
         "partitions": g.partitions,
+        "families": g.families,
+        "groups": g.groups,
+        "same_as": g.aliases,
+        "built_by": g.built_by,
+        "citations": g.citations,
+        "evidence": g.evidence,
+        "doubts": g.doubts,
+        "notes": g.notes,
+        "named_notes": g.named_notes,
+        "verdicts": g.verdicts,
     }, indent=2, sort_keys=True, default=str))
     return 0
 
@@ -2280,8 +2632,9 @@ def build_parser():
     # `--version` printed the top-level usage and exited 2 without saying no
     # such flag existed -- argparse's default for an unknown option, which
     # reads as "you typed something wrong" rather than "that is not supported".
-    p.add_argument("--version", action="version",
-                   version="grand-portage %s" % __version__)
+    p.add_argument(
+        "--version", action=_ExactVersionAction,
+        help="print package, source, graph, kernel, MCP, and backend identity")
     p.add_argument("--root", default=".", help="project root (default: .)")
     p.add_argument("--graph", action="append",
                    help="graph log to read; repeat to MERGE several")
@@ -2289,10 +2642,16 @@ def build_parser():
 
     c = sub.add_parser("check", help="type-check the graph")
     c.add_argument("--json", action="store_true")
+    c.add_argument(
+        "--since", metavar="RECEIPT",
+        help="classify unchanged, new, changed, and resolved findings against "
+             "earlier `gp check --json` output or a fingerprinted baseline")
     c.add_argument("--quiet", action="store_true")
     c.add_argument("--full", action="store_true",
                    help="print the full detail of CARRIED findings too, not "
                         "just their reason")
+    c.add_argument("--history", action="store_true",
+                   help="also print findings owned by superseded generations")
     c.add_argument("--floor", default=C.UNSOUND_PREMISE,
                    choices=C.SEVERITY_ORDER,
                    help="lowest severity that fails the run")
@@ -2526,6 +2885,11 @@ def build_parser():
     v.add_argument("--timeout", type=int, default=300)
     v.add_argument("--dry-run", action="store_true",
                    help="report the verdicts without recording them")
+    v.add_argument(
+        "--localized-certificate", action="append", default=[],
+        metavar="CLAIM=SPEC.json",
+        help="check a supplied localized_guard_reduction_chain_v2 for CLAIM; "
+             "repeat for multiple claims")
     v.set_defaults(func=cmd_verify)
 
     exact = sub.add_parser(
@@ -2666,7 +3030,17 @@ def build_parser():
     d.set_defaults(func=cmd_declare)
 
     i = sub.add_parser("init", help="create an empty graph")
+    i.add_argument(
+        "--mcp", action="store_true",
+        help="also write an isolated .mcp.json pinned to this absolute root")
     i.set_defaults(func=cmd_init)
+    schema = sub.add_parser(
+        "schema", help="print the closed native event schema as JSON")
+    schema.set_defaults(func=cmd_schema)
+    doctor = sub.add_parser(
+        "doctor", help="show the exact root, graph, build identity, and CAS health")
+    doctor.add_argument("--json", action="store_true")
+    doctor.set_defaults(func=cmd_doctor)
     con = sub.add_parser(
         "construct",
         help="run a structured operation and emit its events")

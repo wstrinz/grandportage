@@ -38,6 +38,25 @@ def _rules(g, rule):
     return {f.fid: f for f in C.run(g) if f.rule == rule}
 
 
+def test_superseded_family_findings_are_historical_not_live_debt():
+    old = {"ev": "family", "id": "F-OLD", "count": 1,
+           "desc": "first census", "members": ["IV"]}
+    new = {"ev": "family", "id": "F-NEW", "count": 1,
+           "desc": "corrected census", "members": ["IV"],
+           "supersedes": "F-OLD", "discharge_kind": K.RESTATE}
+    graph = _graph(MODELS + [old, new])
+    findings = _rules(graph, C.R_FAMILY)
+
+    assert findings["FAMILY:F-OLD"].lifecycle == C.HISTORICAL
+    assert findings["FAMILY:F-NEW"].lifecycle == C.CURRENT
+    assert C.exit_code(list(findings.values()), accepted={"FAMILY:F-NEW"}) == 0
+    rendered = C.render(list(findings.values()))
+    assert "1 historical finding(s) retained but omitted" in rendered
+    assert "family F-OLD declares" not in rendered
+    assert "FAMILY:F-OLD" in C.render(
+        list(findings.values()), include_history=True)
+
+
 # The two models of the live incident, and the edge between them that was
 # declared UNTYPED because the relation genuinely was not known yet.
 MODELS = [

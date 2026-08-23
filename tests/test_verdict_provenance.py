@@ -1,8 +1,15 @@
 """Epoch-1 verifier answers are evidence only while their provenance matches."""
 
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+
 import pytest
 
 from grandportage import backend as B
+from grandportage import cas
 from grandportage import format as F
 from grandportage import kernel as K
 from grandportage import provenance as P
@@ -67,6 +74,118 @@ def test_fresh_epoch1_verdict_is_active():
 
     assert graph.claims["C"]["identity_verdict"] == "VERIFIED_DERIVED"
     assert graph.verdicts[event["id"]]["current"] is True
+
+
+def _persist_identity_verdict(root):
+    S.append([
+        {"ev": "model", "id": "M", "what": "a line",
+         "characteristic": 0, "ring_vars": ["x"], "generators": ["x"]},
+        {"ev": "claim", "id": "C", "model": "M", "kind": K.IDENTITY,
+         "statement": "x vanishes", "lhs": "x", "rhs": "0",
+         "ring_vars": ["x"], "identity_origin": K.DERIVED,
+         "established_by": "RAN", "ladder": "exact-checked"},
+    ], str(root))
+    graph = S.Graph()
+    graph.apply(F.meta_event())
+    graph.apply({
+        "ev": "model", "id": "M", "what": "a line",
+        "characteristic": 0, "ring_vars": ["x"], "generators": ["x"]})
+    graph.apply({
+        "ev": "claim", "id": "C", "model": "M", "kind": K.IDENTITY,
+        "statement": "x vanishes", "lhs": "x", "rhs": "0",
+        "ring_vars": ["x"], "identity_origin": K.DERIVED,
+        "established_by": "RAN", "ladder": "exact-checked"})
+    S.append([_verdict(graph)], str(root))
+
+
+def test_persisted_verdict_survives_reload_when_binary_is_unchanged(
+        tmp_path, monkeypatch):
+    _persist_identity_verdict(tmp_path)
+    monkeypatch.setattr(
+        cas, "_singular_binary_version", lambda: "Singular 4.2.1")
+    graph = S.load(S.graph_path(str(tmp_path)))
+    verdict = next(iter(graph.verdicts.values()))
+    assert verdict["current"] is True
+    assert graph.claims["C"]["identity_verdict"] == "VERIFIED_DERIVED"
+
+
+def test_changed_binary_invalidates_persisted_verdict(tmp_path, monkeypatch):
+    _persist_identity_verdict(tmp_path)
+    monkeypatch.setattr(
+        cas, "_singular_binary_version", lambda: "Singular 4.4.1")
+    graph = S.load(S.graph_path(str(tmp_path)))
+    verdict = next(iter(graph.verdicts.values()))
+    assert verdict["current"] is False
+    assert "binary version does not match" in verdict["stale_reason"]
+    assert "identity_verdict" not in graph.claims["C"]
+
+
+def test_unidentifiable_current_binary_invalidates_persisted_verdict(
+        tmp_path, monkeypatch):
+    _persist_identity_verdict(tmp_path)
+    monkeypatch.setattr(
+        cas, "_singular_binary_version",
+        lambda: "unavailable: TimeoutExpired")
+    graph = S.load(S.graph_path(str(tmp_path)))
+    verdict = next(iter(graph.verdicts.values()))
+    assert verdict["current"] is False
+    assert "identity is unavailable" in verdict["stale_reason"]
+
+
+def test_fresh_process_persists_exits_and_consumes_current_verdict(tmp_path):
+    source_root = str(Path(__file__).resolve().parents[1])
+    environment = dict(os.environ, PYTHONPATH=source_root)
+    writer = r'''
+import sys
+from grandportage import backend as B, kernel as K, store as S, verify as V
+root = sys.argv[1]
+events = [
+    {"ev":"model","id":"M","what":"a line","characteristic":0,
+     "ring_vars":["x"],"generators":["x"]},
+    {"ev":"claim","id":"C","model":"M","kind":K.IDENTITY,
+     "statement":"x vanishes","lhs":"x","rhs":"0","ring_vars":["x"],
+     "identity_origin":K.DERIVED,"established_by":"RAN",
+     "ladder":"exact-checked"},
+]
+S.append(events, root)
+graph = S.load(S.graph_path(root))
+trace = [{
+    "semantic_input_fingerprint": B.semantic_fingerprint("input", []),
+    "program_fingerprint": B.text_fingerprint("program"),
+    "stdout_fingerprint": B.text_fingerprint("stdout"),
+    "stderr_fingerprint": B.text_fingerprint(""),
+    "artifact_fingerprint": B.semantic_fingerprint("artifact", []),
+    "returncode": 0, "aborted": False,
+}]
+execution = {
+    "schema": 2, "contract": B.SINGULAR_CONTRACT,
+    "implementation": B.SINGULAR_IMPLEMENTATION,
+    "implementation_version": B.SINGULAR_IMPLEMENTATION_VERSION,
+    "protocol_version": B.BACKEND_PROTOCOL_VERSION,
+    "binary_version": "Singular 4.2.1",
+    "executions": trace,
+    "trace_fingerprint": B.semantic_fingerprint("backend_execution_trace", trace),
+}
+S.append([V._verdict_event(
+    graph, "claim", "C", "VERIFIED_DERIVED", "checked", execution=execution)], root)
+'''
+    reader = r'''
+import json, sys
+from grandportage import cas, store as S
+cas._singular_binary_version = lambda timeout=30: "Singular 4.2.1"
+graph = S.load(S.graph_path(sys.argv[1]))
+verdict = next(iter(graph.verdicts.values()))
+print(json.dumps({"current": verdict["current"],
+                  "projected": graph.claims["C"].get("identity_verdict")}))
+'''
+    subprocess.run(
+        [sys.executable, "-c", writer, str(tmp_path)], check=True,
+        cwd=source_root, env=environment, capture_output=True, text=True)
+    completed = subprocess.run(
+        [sys.executable, "-c", reader, str(tmp_path)], check=True,
+        cwd=source_root, env=environment, capture_output=True, text=True)
+    assert json.loads(completed.stdout) == {
+        "current": True, "projected": "VERIFIED_DERIVED"}
 
 
 def test_fresh_verdict_carries_detailed_backend_provenance():

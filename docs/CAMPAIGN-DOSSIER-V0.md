@@ -37,6 +37,38 @@ gp campaign-dossier fixtures/dossier/jc_publication/dossier.json \
   --source-root ../math-stuff --format human
 ```
 
+The final Family-F2 `(75,125)` publication freeze is a separate pressure test,
+not a rewrite of that historical fixture.  It uses the public export's current
+Theorems A--C, Propositions D--E, eight priced open residuals, and the literal
+policy names `F2_PUBLICATION` and `75125_EXCLUSION`:
+
+```text
+gp campaign-dossier fixtures/dossier/f2_75_125_publication/dossier.json \
+  --source-root ../math-stuff --format human
+```
+
+At the current public preview, the manuscript, advertised checkers, quick
+replay, and standalone formalization are present. The publication profile is
+still blocked by a dirty canonical source observation and absent independent
+human review, while every mathematical residual is already priced. The
+exclusion profile remains blocked because those residuals are genuinely open.
+This uses the existing v0 schema and leaves graph format 5 and kernel epoch 10
+untouched.
+
+The companion experimental audit compares that portrait with the literal
+release manifest, Gate-B CSV, advertised checker paths, checksum index, release
+gates, and standalone Lean declaration surfaces. It also distinguishes passing
+kernel/comparator/nanoda replay layers from an unnecessarily broad tactic-import
+closure. It reports both blockers and conservative-custody opportunities:
+
+```text
+python -m experiments.f2_75_125_publication.adapter \
+  fixtures/dossier/f2_75_125_publication/dossier.json \
+  --source-root ../math-stuff \
+  --source-ref 96da278f \
+  --export-root ../plane-jacobian-75-125 --require-clear
+```
+
 Without `--source-root`, the dossier remains portable and the source audit is
 `UNCHECKED`. Any profile requiring `CURRENT_CLEAN` stays blocked. With a source
 checkout, the compiler checks:
@@ -45,6 +77,13 @@ checkout, the compiler checks:
 - every canonical coordination-source digest;
 - every present artifact digest;
 - working-tree dirt.
+
+Publication adapters may instead pass `source_ref` to `build`/`build_path`.
+In that mode the compiler resolves the full commit and hashes each declared
+source/artifact directly with `git show COMMIT:PATH`; worktree dirt is outside
+the observation by construction. This is the preferred mode for an immutable
+release audit. The command above exposes it as `--source-ref` in the Family-F2
+publication adapter.
 
 The resulting source status is one of:
 

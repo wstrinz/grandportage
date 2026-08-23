@@ -214,6 +214,131 @@ def test_localized_unit_bounded_miss_is_typed_ignorance_not_refutation():
     assert "search exhaustion" in why
     assert "not evidence" in why
 
+
+def test_factorized_guard_chain_checks_without_materializing_guard_product():
+    spec = {
+        "schema": L.CHAIN_SCHEMA,
+        "characteristic": 0,
+        "ring_vars": ["x", "y"],
+        "generators": ["x*y"],
+        "guards": ["x", "y"],
+        "certificate": {"steps": [
+            {"guard_index": 0, "remainder": "x", "cofactors": ["0"]},
+            {"guard_index": 1, "remainder": "0", "cofactors": ["1"]},
+        ]},
+    }
+    report = L.verify_guard_reduction_chain(spec)
+    assert report["verdict"] == L.VERIFIED
+    assert len(report["checked"]) == 2
+
+
+def test_factorized_guard_chain_scales_past_v1_guard_limit():
+    guards = ["x+%d" % n for n in range(1, 300)] + ["x"]
+    report = L.verify_guard_reduction_chain({
+        "schema": L.CHAIN_SCHEMA,
+        "characteristic": 0,
+        "ring_vars": ["x"],
+        "generators": ["x"],
+        "guards": guards,
+        "certificate": {"steps": [{
+            "guard_index": 299, "remainder": "0", "cofactors": ["1"],
+        }]},
+    })
+    assert len(report["normalized"]["guards"]) == 300
+
+
+def test_supplied_factorized_chain_mints_replayable_open_model_authority():
+    guards = ["x+%d" % n for n in range(1, 300)] + ["x"]
+    graph = _localized_empty_graph({
+        "ring_vars": ["x"], "generators": ["x"],
+        "open_conditions": guards,
+    })
+    spec = {
+        "schema": L.CHAIN_SCHEMA,
+        "characteristic": 0,
+        "ring_vars": ["x"],
+        "generators": ["x"],
+        "guards": guards,
+        "certificate": {"steps": [{
+            "guard_index": 299, "remainder": "0", "cofactors": ["1"],
+        }]},
+    }
+    verdict, why, representation = V.localized_unit_ideal(
+        graph, "OPEN-EMPTY", supplied_certificate=spec)
+    assert verdict == V.CERT_VERIFIED
+    assert representation["method"] == L.CHAIN_SCHEMA
+    assert "expensive search happened outside GP" in why
+
+    event = V._verdict_event(
+        graph, "certificate", "OPEN-EMPTY", verdict, why, representation,
+        execution=_execution_manifest())
+    graph.apply(event)
+    assert graph.claims["OPEN-EMPTY"]["certificate_verdict"] == V.CERT_VERIFIED
+
+
+def test_localization_budget_failure_does_not_abort_unrelated_witness(
+        tmp_path, monkeypatch):
+    assert cli.main(["--root", str(tmp_path), "init"]) == 0
+    S.append([
+        {"ev": "model", "id": "LOC", "desc": "oversized localization",
+         "ring_vars": ["x"], "generators": ["x"],
+         "open_conditions": ["x"], "characteristic": 0},
+        {"ev": "claim", "id": "A-LOC", "model": "LOC", "kind": K.EMPTY,
+         "statement": "the chart is empty",
+         "certificate": "LOCALIZED_UNIT_IDEAL_CERT",
+         "established_by": "RAN", "ladder": "exact-checked"},
+        {"ev": "model", "id": "POINT", "desc": "the origin",
+         "ring_vars": ["y"], "generators": ["y"], "characteristic": 0},
+        {"ev": "claim", "id": "B-POINT", "model": "POINT",
+         "kind": K.NONEMPTY, "statement": "the origin is a point",
+         "witness_kind": K.EXHIBITED, "witness": "y=0",
+         "witness_point": {"y": "0"},
+         "established_by": "RAN", "ladder": "exact-checked"},
+    ], str(tmp_path))
+
+    def explode(*_args, **_kwargs):
+        raise G.CertificateError("synthetic sparse budget exhausted")
+
+    monkeypatch.setattr(V, "localized_unit_ideal", explode)
+
+    class Backend(object):
+        execution_count = 0
+
+        def evaluate_point(self, _ring, expressions, point, **_kw):
+            rows = [{"generator": expression, "value": "0",
+                     "vanishes": True} for expression in expressions]
+            return True, {"point": point, "generators": rows, "failed": []}
+
+        def provenance(self, _start=0):
+            return _execution_manifest()
+
+    results = V.verify_all(
+        root=str(tmp_path), record=False, backend=Backend())
+    by_id = {oid: verdict for _subject, oid, verdict, _why in results}
+    assert by_id["A-LOC"] == V.UNVERIFIED
+    assert by_id["B-POINT"] == V.WITNESS_VERIFIED
+
+
+def test_factorized_guard_chain_rejects_false_or_nonterminating_rows():
+    base = {
+        "schema": L.CHAIN_SCHEMA,
+        "characteristic": 0,
+        "ring_vars": ["x"],
+        "generators": ["x"],
+        "guards": ["x"],
+    }
+    false = dict(base, certificate={"steps": [{
+        "guard_index": 0, "remainder": "0", "cofactors": ["0"],
+    }]})
+    with pytest.raises(L.LocalizationError, match="membership cofactors"):
+        L.verify_guard_reduction_chain(false)
+
+    unfinished = dict(base, certificate={"steps": [{
+        "guard_index": 0, "remainder": "x", "cofactors": ["0"],
+    }]})
+    with pytest.raises(L.LocalizationError, match="final.*zero"):
+        L.verify_guard_reduction_chain(unfinished)
+
 def _execution_manifest():
     trace = [{
         "semantic_input_fingerprint": B.semantic_fingerprint("test", []),
