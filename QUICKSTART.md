@@ -9,8 +9,8 @@ test suite or by a live session; nothing is aspirational.
 git clone <this repo> grand-portage
 cd grand-portage
 pip install -e .
-python -m pytest -q -m "not live and not replay and not exhaustive"
-# measured at about 2m20s on the current development machine; no CAS needed
+python -m pytest -q
+# live tests run when Singular is reachable and otherwise skip with a reason
 ```
 
 Four command names are installed: `gp` and `gport` expose the full CLI, while
@@ -22,7 +22,10 @@ writer directly. `gp` and `gport` are otherwise the same program.
 Everywhere else — cmd, bash, zsh — `gp` is fine.
 
 A CAS is optional. Without one you get the checker, the graph and every
-refusal; you lose `gp verify` and the live tests. With one, set it up so that
+refusal; you lose `gp verify` and the live tests. Bare `pytest` probes CAS
+reachability once at collection time and skips the live tier when Singular is
+absent. Set `GP_REQUIRE_LIVE=1` for an authorized live gate that must fail
+rather than skip if the CAS cannot be reached. With one, set it up so that
 `wsl.exe -- Singular -q` works (or edit `cas._argv`). A cold WSL can take ~45
 seconds to answer the first time — that is normal, not a broken install.
 

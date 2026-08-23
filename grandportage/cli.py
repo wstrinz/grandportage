@@ -13,6 +13,7 @@ import sys
 
 from . import __version__
 from . import artifacts as A
+from . import authority_registry as AR
 from . import campaign as CAMP
 from . import cas
 from . import check as C
@@ -1523,11 +1524,15 @@ def cmd_table(args):
                                                for k in K.CLAIM_KINDS))
     print(hdr)
     print("|" + "-" * (len(hdr) - 2) + "|")
+    registered = {
+        (row["edge_type"], row["direction"], row["claim_kind"]): row["rule"]
+        for row in AR.transport_rows()
+    }
     for t in K.DECLARABLE_TYPES:
         for d in K.DIRECTIONS:
             cells = []
             for k in K.CLAIM_KINDS:
-                v = K.TRANSPORT[t][d][k]
+                v = registered[(t, d, k)]
                 cells.append("%-9s" % ("yes" if v is True else
                                        "NO" if v is False else v))
             print("| %-*s | %-7s | %s |" % (width, t, d, " | ".join(cells)))
@@ -1602,6 +1607,20 @@ def cmd_evidence(args):
         print("      representation: %s" % contract.representation)
         print("      binds: %s" % ", ".join(contract.binds))
         print("      containment: %s" % contract.containment)
+    print()
+    print("COMPLETE VERIFIER DECLARATIONS")
+    for declaration in AR.VERIFIER_DECLARATIONS:
+        print("  %-42s effect=%-20s %s" % (
+            declaration.verifier, declaration.graph_effect,
+            declaration.classification))
+        print("      ceiling: %s" % declaration.authority_ceiling)
+        print("      consumes: %s" % (", ".join(declaration.consumes) or "none"))
+        print("      mints: %s" % (", ".join(declaration.mints) or "none"))
+    print()
+    print("CLASSIFICATION")
+    for row in AR.classification_rows():
+        print("  %-46s %-15s %s" % (
+            row["surface"], row["classification"], row["why"]))
     return 0
 
 

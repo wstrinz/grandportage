@@ -18,6 +18,7 @@ RECEIPT_PATH = "PUBLIC-SNAPSHOT-RECEIPT.json"
 _FIELDS = {
     "schema", "generated_paths", "private_paths", "private_prefixes",
     "public_paths", "public_prefixes", "required_public_paths",
+    "campaign_path_allowlist",
 }
 
 
@@ -74,7 +75,7 @@ def load_manifest_bytes(payload):
              "unsupported public snapshot schema")
     result = {"schema": SCHEMA}
     for field in ("generated_paths", "private_paths", "public_paths",
-                  "required_public_paths"):
+                  "required_public_paths", "campaign_path_allowlist"):
         result[field] = _path_list(value[field], field)
     for field in ("private_prefixes", "public_prefixes"):
         result[field] = _path_list(value[field], field, prefixes=True)
@@ -91,7 +92,28 @@ def _matches(path, exact, prefixes):
     return path in exact or any(path.startswith(prefix) for prefix in prefixes)
 
 
+def _campaign_domain_path(path):
+    lowered = path.lower()
+    parts = PurePosixPath(lowered).parts
+    markers = ("jc_", "jc-", "arr15")
+    return any(part.startswith(markers) or part in {
+        "jc2", "gamma_window", "jc_sigma", "jc_publication"
+    } for part in parts)
+
+
+def refuse_new_campaign_paths(manifest, paths):
+    allowlist = manifest["campaign_path_allowlist"]
+    violations = sorted(path for path in paths
+                        if _campaign_domain_path(path)
+                        and not any(path == allowed or path.startswith(allowed)
+                                    for allowed in allowlist))
+    _require(not violations, "CAMP1",
+             "campaign-domain paths require an explicit custody allowlist: %s"
+             % ", ".join(violations))
+
+
 def classify_paths(manifest, paths):
+    refuse_new_campaign_paths(manifest, paths)
     public = []
     private = []
     generated = []

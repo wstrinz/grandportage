@@ -12,6 +12,8 @@ from pathlib import Path
 
 import pytest
 
+from grandportage import cas
+
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 JC_NATIVE_ROOT = REPOSITORY_ROOT.parent / "math-stuff"
@@ -33,11 +35,29 @@ def explicit_jc_native_binding_check():
         pytest.skip("the sibling JC research checkout is not present")
 
 
-def pytest_collection_modifyitems(items):
-    if JC_NATIVE_ROOT.exists():
+LIVE_CAS_SKIP_REASON = (
+    "Singular not found; live tier requires a CAS — see QUICKSTART")
+
+
+def _mark_unreachable_live_tests(items, binary_version=None):
+    """Skip only a CAS-less collection, never a failure after a run starts."""
+    live_items = [item for item in items if item.get_closest_marker("live")]
+    if not live_items or os.environ.get("GP_REQUIRE_LIVE") == "1":
         return
-    missing = pytest.mark.skip(
-        reason="JC integration tests require the sibling math-stuff checkout")
-    for item in items:
-        if Path(str(item.fspath)).name.startswith("test_jc_"):
-            item.add_marker(missing)
+    if binary_version is None:
+        binary_version = cas._singular_binary_version(timeout=10)
+    if not binary_version.startswith("unavailable:"):
+        return
+    missing = pytest.mark.skip(reason=LIVE_CAS_SKIP_REASON)
+    for item in live_items:
+        item.add_marker(missing)
+
+
+def pytest_collection_modifyitems(items):
+    _mark_unreachable_live_tests(items)
+    if not JC_NATIVE_ROOT.exists():
+        missing = pytest.mark.skip(
+            reason="JC integration tests require the sibling math-stuff checkout")
+        for item in items:
+            if Path(str(item.fspath)).name.startswith("test_jc_"):
+                item.add_marker(missing)

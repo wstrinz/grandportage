@@ -146,6 +146,7 @@ def test_factor_proof_compiles_to_existing_localized_unit_certificate():
     assert report["checked"] == {
         "target": "p^2*t^4",
         "generator_count": 3,
+        "reference_oracle": "REFERENCE_CHECKED",
     }
     assert report["licenses"] == ["identity_in_declared_localization_only"]
 

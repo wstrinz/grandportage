@@ -1,0 +1,42 @@
+{
+  "schema": "reference_oracle_corpus_v1",
+  "retention": "append-only; minimized differential failures may be added, never removed",
+  "cases": [
+    {
+      "id": "HISTORY-v0.2-simultaneous-variable-swap",
+      "provenance": "HISTORY/REVIEW-through-v0.18.md section 1",
+      "variables": ["x", "y"],
+      "characteristic": 0,
+      "target": "x-y",
+      "generators": ["x", "y"],
+      "cofactors": ["1", "-1"]
+    },
+    {
+      "id": "reordered-generator-family",
+      "provenance": "v0.27 differential seed",
+      "variables": ["x", "y"],
+      "characteristic": 0,
+      "target": "x^2-y^2",
+      "generators": ["x-y", "x+y"],
+      "cofactors": ["x+y", "0"]
+    },
+    {
+      "id": "prime-characteristic-cancellation",
+      "provenance": "v0.27 differential seed",
+      "variables": ["x"],
+      "characteristic": 3,
+      "target": "0",
+      "generators": ["x"],
+      "cofactors": ["3"]
+    },
+    {
+      "id": "large-exact-coefficient",
+      "provenance": "v0.27 differential seed",
+      "variables": ["x"],
+      "characteristic": 0,
+      "target": "123456789012345678901*x^12",
+      "generators": ["x^4"],
+      "cofactors": ["123456789012345678901*x^8"]
+    }
+  ]
+}

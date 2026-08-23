@@ -8,9 +8,12 @@ Nothing in the projection is accepted as input to the transport kernel.
 import hashlib
 import json
 import os
+from collections import deque
 
 
 SCHEMA = "grand-portage-projection/v2"
+COMPACT_REVIEW_SCHEMA = "grand-portage-compact-review/v0"
+COMPACT_REVIEW_MAX_BYTES = 1000000
 
 # Verdict subjects describe verifier jobs, not always graph entity kinds.
 # Keep this projection explicit and test it against Graph._VERDICTS: a
@@ -431,3 +434,80 @@ def canonical_json(projection, pretty=True):
         projection, sort_keys=True, indent=2 if pretty else None,
         separators=None if pretty else (",", ":"), ensure_ascii=True,
     ) + "\n"
+
+
+def compact_review_projection(path, max_records=2000):
+    """Stream a bounded, content-addressed review index over a large JSONL.
+
+    This is a projection substrate prototype, not graph input. It retains the
+    full source digest and bounded first/last record commitments without
+    copying a potentially enormous authoritative payload.
+    """
+    if type(max_records) is not int or not 2 <= max_records <= 10000:
+        raise ValueError("max_records must be between 2 and 10000")
+    absolute = os.path.abspath(path)
+    digest = hashlib.sha256()
+    first = []
+    last = deque(maxlen=max_records // 2)
+    line_count = 0
+    invalid_json = 0
+
+    def commitment(number, payload):
+        nonlocal invalid_json
+        label = None
+        keys = []
+        try:
+            value = json.loads(payload.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            invalid_json += 1
+        else:
+            if isinstance(value, dict):
+                keys = sorted(str(key) for key in value)[:16]
+                for field in ("id", "class_id", "canonical_id", "schema"):
+                    if field in value:
+                        label = str(value[field])[:200]
+                        break
+        return {
+            "line": number,
+            "sha256": hashlib.sha256(payload).hexdigest(),
+            "bytes": len(payload),
+            "label": label,
+            "keys": keys,
+        }
+
+    with open(absolute, "rb") as stream:
+        for line_count, payload in enumerate(stream, 1):
+            digest.update(payload)
+            item = commitment(line_count, payload)
+            if len(first) < max_records - (max_records // 2):
+                first.append(item)
+            else:
+                last.append(item)
+    selected = first + [item for item in last
+                        if item["line"] > len(first)]
+    source_bytes = os.path.getsize(absolute)
+    value = {
+        "schema": COMPACT_REVIEW_SCHEMA,
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE",
+        "source": {
+            "name": os.path.basename(absolute),
+            "sha256": "sha256:" + digest.hexdigest(),
+            "bytes": source_bytes,
+            "records": line_count,
+        },
+        "selection": {
+            "rule": "BOUNDED_FIRST_AND_LAST_RECORD_COMMITMENTS",
+            "selected": len(selected),
+            "omitted": max(0, line_count - len(selected)),
+            "invalid_json": invalid_json,
+        },
+        "records": selected,
+    }
+    addressable = canonical_json(value, pretty=False).encode("utf-8")
+    value["projection_sha256"] = "sha256:" + \
+        hashlib.sha256(addressable).hexdigest()
+    encoded = canonical_json(value, pretty=False).encode("utf-8")
+    if len(encoded) >= COMPACT_REVIEW_MAX_BYTES:
+        raise ValueError("compact review projection exceeds the 1 MB boundary")
+    return value

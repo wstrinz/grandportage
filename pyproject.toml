@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "grandportage"
-version = "0.26.0"
+version = "0.27.0"
 description = "Transport typing and obstruction tracking for computational algebra"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -68,4 +68,5 @@ markers = [
     "live: spawns a real CAS process; slow, and the only tests that touch one",
     "replay: performs substantial deterministic frozen-artifact replay",
     "exhaustive: performs the largest finite campaign or full reconstruction",
+    "reference_fuzz: seeded independent-checker differential corpus and live fuzz lane",
 ]

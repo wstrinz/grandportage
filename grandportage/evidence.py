@@ -267,12 +267,6 @@ def evidence_contract(schema):
 
 
 def manifest():
-    """Stable machine-readable authority manifest."""
-    return {
-        "evidence_contracts": [
-            contract.as_dict() for contract in EVIDENCE_CONTRACTS
-        ],
-        "authority_contracts": [
-            contract.as_dict() for contract in AUTHORITY_CONTRACTS
-        ],
-    }
+    """Stable machine-readable unified authority manifest."""
+    from . import authority_registry
+    return authority_registry.manifest()

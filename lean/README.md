@@ -135,6 +135,19 @@ depressed row cannot be replaced by the covered-chart zero row. Runtime
 parsing, finiteness budgets, and polynomial arithmetic remain translation-
 validation implementation rather than Lean claims.
 
+`GrandPortage/CertificateScope.lean` — a bounded probe of the runtime's most
+load-bearing declaration, “scope is derived.” A certificate kind is admitted
+with either a proof that validity survives the declared extension class or a
+counterexample showing it does not. Lean proves the derived two-level scope is
+admissible and maximal, proves exact equality is functorial under every map,
+and retains a negative-witness extension countermodel. This is an admission
+shape for a future registry, not authority over the Python registry.
+
+`THEORY.md` is the append-only ledger of identifications, refutations,
+compressions, and open questions. It keeps the possible theory extractive:
+findings accumulate from real campaign contact rather than becoming a separate
+roadmap.
+
 `GrandPortage/Conditions.lean` — **that conjecture is refuted.** The four gated
 conditions turn out to be three different shapes, and one of them is not about
 the map at all. Details below.

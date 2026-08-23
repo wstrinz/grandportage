@@ -15,6 +15,7 @@ mathematics and therefore to every existing test.
 import inspect
 import json
 import os
+from pathlib import Path
 import sys
 
 import pytest
@@ -2618,8 +2619,9 @@ def test_the_public_readme_links_only_to_files_that_sync():
     """
     import re
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    syncs = {"COMPATIBILITY.md", "DESIGN.md", "README.md", "REVIEW.md",
-             "LICENSE", "QUICKSTART.md"}
+    manifest = json.loads((Path(root) / "public-snapshot-v1.json").read_text(
+        encoding="utf-8"))
+    syncs = set(manifest["public_paths"])
     with open(os.path.join(root, "README.md"), encoding="utf-8") as fh:
         readme = fh.read()
     bad = []
@@ -2859,7 +2861,7 @@ def test_the_nodal_cubic_is_refused_by_computation_not_declaration():
     assert "REFUTATION" in why
 
 
-def test_the_readme_transport_table_matches_the_kernel():
+def test_the_operational_spec_transport_table_matches_the_kernel():
     """THE README SAID IT COULD NOT DRIFT, AND IT HAD.
 
     "Printed by the kernel itself with `gp table`, so a document quoting it and
@@ -2878,7 +2880,7 @@ def test_the_readme_transport_table_matches_the_kernel():
     import os
     import re
     readme = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                          "README.md")
+                          "SPEC.md")
     with open(readme, encoding="utf-8") as fh:
         text = fh.read()
 
@@ -2906,7 +2908,7 @@ def test_the_readme_transport_table_matches_the_kernel():
 
     missing = [t for t in K.ALL_TYPES
                if not any(k[0] == t for k in documented)]
-    assert not missing, "types absent from the README table: %s" % missing
+    assert not missing, "types absent from the operational SPEC table: %s" % missing
 
     for (etype, direction), cells in sorted(documented.items()):
         assert len(cells) == len(K.CLAIM_KINDS), (etype, direction, cells)

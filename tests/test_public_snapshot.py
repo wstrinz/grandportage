@@ -65,6 +65,16 @@ def test_new_unclassified_path_fails_closed():
         module.classify_paths(manifest, _candidate_paths() + ["SECRETS.md"])
 
 
+def test_new_campaign_domain_path_fails_before_broad_public_prefix():
+    module = _load()
+    manifest = module.load_manifest(MANIFEST)
+    with pytest.raises(module.PublicSnapshotError, match="CAMP1"):
+        module.classify_paths(
+            manifest,
+            _candidate_paths() + ["experiments/arr15_ranker/adapter.py"],
+        )
+
+
 def test_public_and_private_overlap_is_refused():
     module = _load()
     manifest = module.load_manifest(MANIFEST)

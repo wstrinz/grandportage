@@ -16,6 +16,8 @@ from fractions import Fraction
 from functools import lru_cache
 import re
 
+from . import reference_oracle as reference
+
 
 class CertificateError(ValueError):
     """A proposed certificate is malformed or mathematically false."""
@@ -816,12 +818,28 @@ def check_membership_identity(target, generators, cofactors, variables,
             "membership cofactors expand to the wrong polynomial: %s"
             % render_polynomial(difference)
         )
+    reference_status = _reference_membership_status(
+        target, generators, cofactors, variables, characteristic)
     return {
         "target": portable_polynomial(
             wanted, prefer_sparse=isinstance(target, dict)
         ),
         "generator_count": len(generators),
+        "reference_oracle": reference_status,
     }
+
+
+def _reference_membership_status(target, generators, cofactors, variables,
+                                 characteristic):
+    try:
+        return reference.reduce_by_explicit_cofactors(
+            target, list(generators), list(cofactors), variables,
+            characteristic)
+    except reference.ReferenceUnchecked:
+        return reference.REFERENCE_UNCHECKED
+    except reference.ReferenceError as exc:
+        raise CertificateError(
+            "reference oracle disagrees with the fast checker: %s" % exc)
 
 def s_polynomial(expression_left, expression_right, variables,
                  characteristic=0, _budget=None):
@@ -927,13 +945,14 @@ def _parse_vector(values, variables, characteristic, expected, field, budget):
 
 
 def _check_rows(rows, targets, generators, variables, characteristic, field,
-                budget):
+                budget, raw_targets=None, raw_generators=None):
     if not isinstance(rows, list) or len(rows) != len(targets):
         raise CertificateError(
             "%s must have one row for each of its %d targets"
             % (field, len(targets))
         )
     parsed_rows = []
+    reference_statuses = []
     for index, (row, target) in enumerate(zip(rows, targets)):
         coefficients = _parse_vector(
             row, variables, characteristic, len(generators),
@@ -949,8 +968,15 @@ def _check_rows(rows, targets, generators, variables, characteristic, field,
                 "%s[%d] does not expand to its declared target"
                 % (field, index)
             )
+        reference_statuses.append(_reference_membership_status(
+            (raw_targets[index] if raw_targets is not None
+             else render_polynomial(target)),
+            (raw_generators if raw_generators is not None
+             else [render_polynomial(value) for value in generators]),
+            row, variables, characteristic,
+        ))
         parsed_rows.append(coefficients)
-    return parsed_rows
+    return parsed_rows, reference_statuses
 
 
 def _monomial_lcm(left, right):
@@ -1095,9 +1121,10 @@ def check_elimination_certificate(certificate):
             "target_generators must belong to the retained-coordinate ring"
         )
 
-    _check_rows(
+    _source_rows, reference_statuses = _check_rows(
         certificate["source_in_basis"], source, basis, variables,
-        characteristic, "source_in_basis", budget
+        characteristic, "source_in_basis", budget,
+        certificate["source_generators"], certificate["basis"]
     )
 
     expected_pairs = [
@@ -1165,6 +1192,10 @@ def check_elimination_certificate(certificate):
                 "critical_pairs[%d] does not expand to the S-polynomial"
                 % position
             )
+        reference_statuses.append(_reference_membership_status(
+            render_polynomial(s_polynomial), certificate["basis"],
+            row["reducers"], variables, characteristic,
+        ))
     if seen != set(expected_pairs):
         raise CertificateError("critical_pairs does not cover every basis pair")
 
@@ -1190,10 +1221,12 @@ def check_elimination_certificate(certificate):
                     raise CertificateError(
                         "%s uses an eliminated variable" % field
                     )
-    _check_rows(
+    _retained_rows, retained_statuses = _check_rows(
         certificate["retained_in_target"], retained, target, variables,
-        characteristic, "retained_in_target", budget
+        characteristic, "retained_in_target", budget,
+        retained_strings, certificate["target_generators"]
     )
+    reference_statuses.extend(retained_statuses)
 
     return {
         "method": "groebner_elimination_v1",
@@ -1206,4 +1239,9 @@ def check_elimination_certificate(certificate):
         "critical_pair_count": len(expected_pairs),
         "retained_basis": retained_strings,
         "target_generator_count": len(target),
+        "reference_oracle": (
+            reference.REFERENCE_UNCHECKED
+            if reference.REFERENCE_UNCHECKED in reference_statuses
+            else reference.REFERENCE_CHECKED
+        ),
     }
