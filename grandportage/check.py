@@ -148,6 +148,27 @@ class Finding(object):
         return "<%s %s %s>" % (self.rule, self.fid, self.severity)
 
 
+def effective_selected_embedding_identity(
+        graph, edge, etype=None, map_kind=None):
+    """Whether an edge identifies selected images, not merely their rings.
+
+    ``None`` preserves legacy behavior when neither endpoint selects an
+    embedding. Once either endpoint does, only a literal IDENTITY_MAP between
+    byte-identical selected-embedding payloads licenses copying a free
+    predicate unchanged. Polynomial automorphisms remain useful ring maps but
+    move the selected image rather than identifying it.
+    """
+    if (etype or edge.get("type")) != K.EQUIVALENCE:
+        return None
+    source = graph.models.get(edge.get("src")) or {}
+    target = graph.models.get(edge.get("dst")) or {}
+    if (S.declared_embedding(source) is None
+            and S.declared_embedding(target) is None):
+        return None
+    return ((map_kind or edge.get("map_kind")) == K.IDENTITY_MAP
+            and S.selected_embedding_identity(source, target) is True)
+
+
 def audit_inference(graph, iid):
     """Walk an inference's path through the kernel.
 
@@ -254,6 +275,8 @@ def audit_inference(graph, iid):
                 identity_origin=effective_origin(claim),
                 integral=claim.get("integral"),
                 ring_iso=effective_ring_iso(e),
+                selected_embedding_identity=(
+                    effective_selected_embedding_identity(graph, e)),
                 coefficients_in_base=claim.get("coefficients_in_base"),
                 zariski_dense=e.get("zariski_dense"),
                 existential=claim.get("existential"),
@@ -338,6 +361,8 @@ def probe(graph, claim_id, edge_id, direction, etype=None, map_kind=None,
         zariski_closed=effective_closed,
         identity_origin=effective_origin(claim),
         integral=claim.get("integral"), ring_iso=effective_ring_iso(edge),
+        selected_embedding_identity=effective_selected_embedding_identity(
+            graph, edge, etype=etype, map_kind=map_kind),
         coefficients_in_base=claim.get("coefficients_in_base"),
         zariski_dense=edge.get("zariski_dense"),
         existential=claim.get("existential"),
@@ -1445,6 +1470,80 @@ def structured_condition_closed(claim_or_condition):
     return bool(atoms) and all(
         isinstance(atom, dict) and atom.get("relation") == "ZERO"
         for atom in atoms)
+
+
+_CONDITION_SIGNS = {
+    "ZERO": frozenset({0}),
+    "NONZERO": frozenset({-1, 1}),
+    "POSITIVE": frozenset({1}),
+    "NEGATIVE": frozenset({-1}),
+    "NONNEGATIVE": frozenset({0, 1}),
+    "NONPOSITIVE": frozenset({-1, 0}),
+}
+
+
+def check_condition_contradictions(graph):
+    """Surface incompatible sign assertions at one exact model.
+
+    The checker need not decide which claim is false to know that both cannot
+    be used together. Canonical polynomial syntax prevents whitespace or an
+    algebraically identical spelling from hiding the collision.
+    """
+    indexed = {}
+    for cid, claim in sorted(graph.claims.items()):
+        if (claim.get("kind") != K.PREDICATE
+                or not claim.get("condition")
+                or claim.get("superseded_by")):
+            continue
+        model_id = claim.get("model")
+        model = graph.models.get(model_id) or {}
+        ring = model.get("ring_vars") or []
+        characteristic = model.get("characteristic")
+        for atom in claim["condition"]["all"]:
+            try:
+                expression = G.canonical_polynomial(
+                    atom["expression"], ring, characteristic)
+            except (G.CertificateError, TypeError, ValueError):
+                continue
+            indexed.setdefault((model_id, expression), []).append(
+                (cid, atom["relation"]))
+    findings = []
+    seen = set()
+    for (model_id, expression), assertions in sorted(indexed.items()):
+        for index, (left_id, left_relation) in enumerate(assertions):
+            for right_id, right_relation in assertions[index + 1:]:
+                if (_CONDITION_SIGNS[left_relation]
+                        & _CONDITION_SIGNS[right_relation]):
+                    continue
+                pair = tuple(sorted((left_id, right_id)))
+                key = (model_id, expression, pair)
+                if key in seen:
+                    continue
+                seen.add(key)
+                subject = (pair[0] if pair[0] == pair[1]
+                           else "%s,%s" % pair)
+                detail = (
+                    "claim %s contains incompatible relations %s and %s on "
+                    "the same polynomial %s at model %s. The conjunction is "
+                    "self-contradictory."
+                    % (pair[0], left_relation, right_relation,
+                       expression, model_id)
+                    if pair[0] == pair[1] else
+                    "claims %s and %s impose incompatible relations %s and "
+                    "%s on the same polynomial %s at model %s. The graph "
+                    "need not decide which assertion fails to know they "
+                    "cannot both be premises."
+                    % (pair[0], pair[1], left_relation, right_relation,
+                       expression, model_id))
+                findings.append(Finding(
+                    R_CONDITION,
+                    "%s:contradiction:%s:%s:%s" % (
+                        R_CONDITION, model_id, pair[0], pair[1]),
+                    DEBT, subject, detail,
+                    "Supersede or retract the incorrect condition claim, or "
+                    "record separate models if the assertions concern "
+                    "different selected embeddings."))
+    return findings
 
 
 def condition_expressible_at(graph, claim_or_condition, model_id):
@@ -3536,6 +3635,7 @@ def run(graph, accepted=None):
                 + check_pending_ideals(graph)
                 + check_containment(graph)
                 + check_identity(graph)
+                + check_condition_contradictions(graph)
                 + check_predicate_conditions(graph)
                 + check_sibling_edges(graph)
                 + check_stale_models(graph)

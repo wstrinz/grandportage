@@ -80,6 +80,7 @@ from . import groebner as G
 from . import groebner_producer as GP
 from . import kernel as K
 from . import operations as O
+from . import ordered as OR
 from . import provenance as P
 from . import store as S
 
@@ -1662,9 +1663,9 @@ def predicate_condition(graph, cid, timeout=300, _runner=None, _backend=None):
 
     ZERO is established by certified ideal membership. NONZERO is established
     when adjoining the expression makes the ideal unit, again with an exact
-    cofactor expansion. Failure of either sufficient test is inconclusive;
-    NONZERO is refuted only when the expression is identically zero modulo the
-    model ideal.
+    cofactor expansion. Ordered atoms are signs at a uniquely isolated real
+    algebraic root and use exact rational Sturm/interval arithmetic. Failure of
+    any sufficient test is inconclusive, never a mathematical refutation.
     """
     claim = graph.claims.get(cid)
     if not claim:
@@ -1688,6 +1689,7 @@ def predicate_condition(graph, cid, timeout=300, _runner=None, _backend=None):
     backend = _backend or cas.SingularBackend(runner=_runner)
     rows = []
     inconclusive = []
+    refuted = []
 
     def membership(expression, ideal):
         if not ideal:
@@ -1708,6 +1710,33 @@ def predicate_condition(graph, cid, timeout=300, _runner=None, _backend=None):
     for atom in claim["condition"]["all"]:
         relation = atom["relation"]
         expression = atom["expression"]
+        if relation in OR.ORDERED_RELATIONS:
+            try:
+                sign, certificate = OR.selected_real_sign(model, expression)
+            except (OR.OrderedError, G.CertificateError,
+                    TypeError, ValueError) as exc:
+                inconclusive.append("%s: %s" % (expression, exc))
+                rows.append({
+                    "relation": relation, "expression": expression,
+                    "status": "ORDERED_SIGN_UNESTABLISHED",
+                    "cofactors": None,
+                })
+                continue
+            holds = OR.relation_holds(relation, sign)
+            rows.append({
+                "relation": relation, "expression": expression,
+                "status": ("VERIFIED_ORDERED_SIGN" if holds
+                           else "REFUTED_ORDERED_SIGN"),
+                "cofactors": certificate,
+            })
+            if not holds:
+                refuted.append(
+                    "%s is %s at the selected real root, not %s"
+                    % (expression,
+                       "zero" if sign == 0 else
+                       "positive" if sign > 0 else "negative",
+                       relation))
+            continue
         zero_mod_ideal, membership_answer = membership(
             expression, generators)
         if relation == "ZERO":
@@ -1732,10 +1761,10 @@ def predicate_condition(graph, cid, timeout=300, _runner=None, _backend=None):
                 "status": "REFUTED_ZERO_MOD_IDEAL",
                 "cofactors": (membership_answer or {}).get("cofactors"),
             })
-            return CONDITION_REFUTED, (
+            refuted.append(
                 "the condition requires %s to be NONZERO, but it is zero in "
-                "%s's coordinate ring. This refutes the predicate at its own "
-                "model." % (expression, claim.get("model"))), {"atoms": rows}
+                "%s's coordinate ring" % (expression, claim.get("model")))
+            continue
 
         unit_generators = list(generators) + [expression]
         unit = backend.unit_ideal(
@@ -1763,15 +1792,19 @@ def predicate_condition(graph, cid, timeout=300, _runner=None, _backend=None):
             })
 
     representation = {"atoms": rows}
+    if refuted:
+        return CONDITION_REFUTED, (
+            "the structured condition is false at its own model: %s."
+            % "; ".join(refuted)), representation
     if inconclusive:
         return UNVERIFIED, (
             "the structured condition was typed but not decided: %s. A failed "
             "sufficient ideal test is not a mathematical refutation."
             % "; ".join(inconclusive)), representation
     return CONDITION_VERIFIED, (
-        "all %d structured condition atoms were certified at %s: every ZERO "
-        "is an exact ideal membership and every NONZERO has an exact unit-"
-        "ideal certificate for its vanishing locus."
+        "all %d structured condition atoms were certified at %s: algebraic "
+        "atoms have exact ideal certificates and ordered atoms have exact "
+        "selected-real sign certificates."
         % (len(rows), claim.get("model"))), representation
 
 

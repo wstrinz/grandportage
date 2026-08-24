@@ -365,6 +365,37 @@ manifests whose executable identity was historically unavailable are audited
 as legacy-readable/legacy-unverifiable; their immutable artifacts are checked
 without promoting their verdicts to current authority.
 
+Version 0.29.0 advances to **graph format 6** and **kernel epoch 11**. Format 6
+adds the optional closed `model.embedding` object. REAL selections carry an
+exact rational isolating interval; COMPLEX selections carry an exact rational
+box and an explicit `EXACT` or `STRUCTURAL_ONLY` verification grade. Omission
+and JSON null both retain the historical abstract-ring meaning.
+
+Endpoint identity now binds model id, coefficient domain, characteristic,
+point universe, ordered ring variables and generators, and the selected
+embedding payload. Map custody additionally binds edge id, endpoint ids, edge
+type, map kind, and exact forward/inverse substitutions. Conflicting same-kind
+ids remain rejected before overwrite, while byte-identical redeclarations stay
+idempotent for append-only branch merges.
+
+Epoch 11 changes transport meaning conservatively. An `IDENTITY_MAP` cannot
+identify two different selected embeddings. A genuine nontrivial polynomial
+automorphism remains an abstract ring isomorphism and may transport identities
+through substitution, but it cannot copy a free `PREDICATE` unchanged between
+selected images. If neither endpoint selects an embedding, epoch-10 behavior
+is retained.
+
+While v0.29 was still unreleased, the same format/epoch boundary also gained
+`REAL_CLOSURE` over Q, coupled structurally to a selected REAL embedding.
+Structured predicates add four sign relations at the selected root. Exact
+univariate Sturm isolation and rational interval refinement produce replayable
+sign receipts; inability to isolate or separate a sign remains `UNVERIFIED`.
+Typed edges still require equal point universes and selected-image predicate
+transport remains conservative. Direct incompatible sign assertions are
+reported as contradiction debt. General multivariate real algebraic geometry,
+quantifier elimination, and order-changing transport remain outside this
+bounded slice.
+
 ## Epoch-0 graphs
 
 Unversioned graphs are epoch 0. Version 0.14 continues to read them through a conservative,

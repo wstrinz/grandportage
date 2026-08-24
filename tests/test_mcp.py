@@ -92,7 +92,8 @@ def test_claim_condition_schema_is_closed_and_teaches_exact_affine_atoms():
     assert condition["additionalProperties"] is False
     atom = condition["properties"]["all"]["items"]
     assert atom["additionalProperties"] is False
-    assert atom["properties"]["relation"]["enum"] == ["ZERO", "NONZERO"]
+    assert atom["properties"]["relation"]["enum"] == list(
+        K.CONDITION_RELATIONS)
     assert "polynomial-section" in condition["description"]
 
 
@@ -105,6 +106,7 @@ def test_model_schema_teaches_the_two_point_scope_axes():
     assert properties["point_universe"]["enum"] == [
         S.BASE_POINT_UNIVERSE,
         S.ALGEBRAIC_CLOSURE_POINT_UNIVERSE,
+        S.REAL_CLOSURE_POINT_UNIVERSE,
     ]
 
 

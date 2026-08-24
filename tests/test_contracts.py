@@ -103,8 +103,13 @@ def test_operation_contracts_project_to_the_point_rule_compiler(contract):
             (K.ALONG, K.NONEMPTY),
             (K.AGAINST, K.EMPTY),
             (K.AGAINST, K.PREDICATE)):
-        assert K.compile_point_rule(
-            contract.edge_type, direction, kind) is True
+        observed = K.compile_point_rule(
+            contract.edge_type, direction, kind)
+        expected = (K._SELECTED_EMBEDDING_IDENTITY
+                    if (contract.edge_type == K.EQUIVALENCE
+                        and kind == K.PREDICATE)
+                    else True)
+        assert observed == expected
 
     if contract is OC.ELIMINATION:
         assert not point.point_surjective

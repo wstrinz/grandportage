@@ -56,19 +56,20 @@ gp check                  # current actionable debt first
 gp check --history        # include superseded generations
 ```
 
-Version 0.26 hardens that niche under ARR15 pressure: point witnesses now
-check every equation and nonvanishing guard; large localized-emptiness proofs
-can arrive as bounded, replayable factor chains; one over-budget claim cannot
-abort an unrelated verification; and MCP exposes schema, baseline, graph-tail,
-and read-only merge workflows. No transport type or core claim kind was added.
+Version 0.29 adds exact selected-embedding identity and a bounded ordered-real
+slice without adding a transport type or claim kind. Models may select a REAL
+root by rational isolating interval or a COMPLEX image by rational box. Map
+custody fingerprints both endpoint definitions, and a ring automorphism no
+longer silently means that predicates at two selected images are identical.
+`REAL_CLOSURE` models can state exact polynomial signs at their selected root.
 
 ## Status
 
-All five layers are built and gated: <!--checks-->1445<!--/checks--> checks, live against Singular 4.2.1,
+All five layers are built and gated: <!--checks-->1515<!--/checks--> checks, live against Singular 4.2.1,
 and it has had eleven live user sessions — see [docs/first-run/](docs/first-run/)
 for the first, written up in full.
 
-* **[COMPATIBILITY.md](COMPATIBILITY.md) — graph format 5, kernel epoch 10, exact implementation provenance, durable artifacts, and conservative migration**
+* **[COMPATIBILITY.md](COMPATIBILITY.md) — graph format 6, kernel epoch 11, selected-embedding identity, exact implementation provenance, durable artifacts, and conservative migration**
 * **[QUICKSTART.md](QUICKSTART.md) — install, a campaign in ten minutes, and the three things worth knowing on day one**
 * **[v0.26 release packet](review/v0.26/README.md) — ARR15 open-locus soundness, bounded localization, and MCP custody**
 * [DESIGN.md](DESIGN.md) — architecture and the decisions behind it
@@ -183,12 +184,35 @@ these verified maps: `ALONG` rewrites with `inverse`, `AGAINST` with `forward`,
 and a later section-certified elimination checks the rewritten condition in its
 retained ring. A bare flag or stale verdict never supplies this typing authority.
 
+`model.embedding` is optional and closed. `null` and omission both mean an
+abstract, embedding-agnostic model. A REAL selection names one `ring_vars`
+variable and an exact rational `{lo, hi}` isolating interval. A COMPLEX
+selection names the variable, a rational rectangular box, and whether that box
+is `EXACT` or only `STRUCTURAL_ONLY`; `conjugate_of` remains descriptive and
+does not mint a map. An `IDENTITY_MAP` between two selected endpoints is legal
+only when their serialized embedding payloads are identical. A nontrivial
+`POLYNOMIAL` map such as `w -> -7-w` or `x -> -x` may still verify as a ring
+isomorphism, but it moves the selected image and therefore cannot copy a free
+`PREDICATE` unchanged. Identity claims continue to travel through the checked
+substitution. When neither endpoint selects an embedding, historical transport
+is unchanged.
+
 A structured model-level `PREDICATE.condition` is also a direct verifier input,
 not write-only syntax. `gp verify` certifies each `ZERO` atom by exact ideal
 membership. It certifies `NONZERO` by proving the atom's vanishing locus empty
 with a replayable unit-ideal identity; an atom already zero modulo the model
 ideal is refuted. Failed sufficient tests remain visible as `UNVERIFIED`, and
 an unchecked condition is reported by `gp check` as `UNTESTED-CONDITION`.
+
+On a `REAL_CLOSURE` model over Q with one variable, one generator, and a
+selected REAL interval, the same condition language accepts `POSITIVE`,
+`NEGATIVE`, `NONNEGATIVE`, and `NONPOSITIVE`. Each is the sign of `expression`
+at the selected root; write `a < b` as `NEGATIVE` on `a-b`. `gp verify` checks
+the interval isolates exactly one root using exact Sturm arithmetic, refines it
+with rational intervals until the sign separates, and records a deterministic
+receipt that the graph fold recomputes. A malformed isolator or bounded miss is
+`UNVERIFIED`, never authority. Incompatible sign assertions on the same
+canonical polynomial and selected model create visible contradiction debt.
 
 Ordinary predicate pullback is also executable in the sound `AGAINST` direction:
 a literal identity-coordinate edge preserves syntax only across matching exact
@@ -200,8 +224,8 @@ code applying it cannot drift apart.
 
 | edge type | dir | EMPTY | NONEMPTY | PREDICATE | IDENTITY |
 |---|---|---|---|---|---|
-| `EQUIVALENCE` | ALONG | yes | yes | yes | if ring iso |
-| `EQUIVALENCE` | AGAINST | yes | yes | yes | if ring iso |
+| `EQUIVALENCE` | ALONG | yes | yes | if selected embeddings are identical | if ring iso |
+| `EQUIVALENCE` | AGAINST | yes | yes | if selected embeddings are identical | if ring iso |
 | `NECESSARY_CONDITION` | **ALONG** | NO | yes | **NO** | if ambient |
 | `NECESSARY_CONDITION` | AGAINST | yes | NO | yes | if denominator-free |
 | `BASE_EXTENSION` | **ALONG** | **only with a certificate** | **yes** | NO | yes |
@@ -444,7 +468,7 @@ Three.js build by default; `--three-root` can point it at a local package.
 ## The retrodiction gate
 
 ```bash
-python -m pytest        # <!--checks-->1445<!--/checks--> checks
+python -m pytest        # <!--checks-->1515<!--/checks--> checks
 ```
 
 Grand Portage's credibility rests on reproducing, from **data**, what two

@@ -139,10 +139,13 @@ PREDICATE = "PREDICATE"  # a condition satisfied by every point of this model
 IDENTITY = "IDENTITY"    # a rewriting valid in this model's coordinate ring
 CLAIM_KINDS = (EMPTY, NONEMPTY, PREDICATE, IDENTITY)
 
-# Structured exact-affine PREDICATE atoms. A conjunction of ZERO and NONZERO
-# polynomial conditions is enough to type equations and algebraic open conditions
-# without pretending to be a general logic.
-CONDITION_RELATIONS = ("ZERO", "NONZERO")
+# Structured exact-affine PREDICATE atoms. Ordered relations mean the sign of
+# ``expression`` at a model's selected real algebraic embedding. Thus ``a < b``
+# is recorded as NEGATIVE on ``a-b`` without adding a second expression grammar.
+CONDITION_RELATIONS = (
+    "ZERO", "NONZERO",
+    "POSITIVE", "NEGATIVE", "NONNEGATIVE", "NONPOSITIVE",
+)
 
 # ---------------------------------------------------------------------------
 # COUNT -- the fifth kind, and it exists only AT A FAMILY.
@@ -327,6 +330,9 @@ _INTEGRAL_IDENTITY = "integral_identity"
 # An identity across an EQUIVALENCE: licensed only when the equivalence is an
 # isomorphism of coordinate rings, not merely a bijection on solutions.
 _RING_ISOMORPHISM = "ring_isomorphism"
+# A free predicate at a selected image cannot be copied through a map that
+# changes or forgets that image. Abstract endpoints retain historical behavior.
+_SELECTED_EMBEDDING_IDENTITY = "selected_embedding_identity"
 # An identity DESCENDING to a smaller coefficient field: licensed only when both
 # sides are defined over that field.
 #
@@ -461,7 +467,7 @@ _EXISTENTIAL = "existential"
 # Existential claims follow the relation and EMPTY runs contravariantly.
 # PREDICATE has the same variance only after the endpoint predicates are
 # reindexed or shown to correspond along the relation; that claim-typing
-# obligation is separate. Three cells carry operation-specific authority
+# obligation is separate. Five cells carry operation-specific authority
 # beyond this relational core and are explicit overrides.
 # IDENTITY is deliberately absent: it is a coordinate-ring claim.
 # ---------------------------------------------------------------------------
@@ -476,6 +482,8 @@ _POINT_RELATION_CAPABILITIES = {
 }
 
 _POINT_RULE_OVERRIDES = {
+    (EQUIVALENCE, ALONG, PREDICATE): _SELECTED_EMBEDDING_IDENTITY,
+    (EQUIVALENCE, AGAINST, PREDICATE): _SELECTED_EMBEDDING_IDENTITY,
     (BASE_EXTENSION, ALONG, EMPTY): _SCHEME_SCOPE,
     (IMAGE_CLOSURE, ALONG, PREDICATE): _CLOSED_EXACT_IMAGE,
     (IMAGE_CLOSURE, AGAINST, NONEMPTY): _EXISTENTIAL,
@@ -844,6 +852,7 @@ def derive_identity_origin(kind, origin, claim_id="<claim>"):
 def transport(etype, direction, kind, scope=None, certificate=None,
               map_kind=IDENTITY_MAP, zariski_closed=None,
               identity_origin=None, integral=None, ring_iso=None,
+              selected_embedding_identity=None,
               coefficients_in_base=None, zariski_dense=None,
               existential=None, image_complete=True, exact_contraction=None,
               geometric_closure=None, point_surjective=False,
@@ -879,6 +888,22 @@ def transport(etype, direction, kind, scope=None, certificate=None,
                       "the edge is declared UNTYPED: no transport is licensed "
                       "across a step whose relaxation type has not been named",
                       "untyped")
+    if rule == _SELECTED_EMBEDDING_IDENTITY:
+        if selected_embedding_identity is not False:
+            return ruling(
+                True,
+                "licensed: neither endpoint selects an embedding, or the "
+                "edge is a literal identity between identical selected "
+                "embedding payloads",
+                _SELECTED_EMBEDDING_IDENTITY)
+        return ruling(
+            False,
+            "this EQUIVALENCE relates abstract coordinate rings but does not "
+            "identify the endpoints' selected embeddings. A nontrivial field "
+            "automorphism can carry identities through substitution, but an "
+            "embedding-sensitive predicate cannot be copied unchanged to a "
+            "different selected root",
+            _SELECTED_EMBEDDING_IDENTITY)
     if rule is True:
         return ruling(True, "licensed by %s/%s/%s" % (etype, direction, kind),
                       "table")

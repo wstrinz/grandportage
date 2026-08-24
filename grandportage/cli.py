@@ -1556,6 +1556,8 @@ def cmd_table(args):
     print("                      equations does not survive dropping them")
     print("  ring_isomorphism    an EQUIVALENCE carries a rewriting only if it")
     print("                      preserves the coordinate ring, not just points")
+    print("  selected_embedding_identity free predicates cross an EQUIVALENCE only")
+    print("                      when selected endpoint images are identical")
     print("  integral_identity   reducing mod p needs p-integral coefficients")
     print("  coefficients_in_base descending needs both sides defined over the")
     print("                      base field")

@@ -42,6 +42,10 @@ def test_point_cells_are_compiled_from_relational_capabilities():
         (K.IMAGE_CLOSURE, K.ALONG, K.PREDICATE):
             K._CLOSED_EXACT_IMAGE,
         (K.IMAGE_CLOSURE, K.AGAINST, K.NONEMPTY): K._EXISTENTIAL,
+        (K.EQUIVALENCE, K.ALONG, K.PREDICATE):
+            K._SELECTED_EMBEDDING_IDENTITY,
+        (K.EQUIVALENCE, K.AGAINST, K.PREDICATE):
+            K._SELECTED_EMBEDDING_IDENTITY,
     }
     assert K._POINT_RELATION_CAPABILITIES == capabilities
     assert K._POINT_RULE_OVERRIDES == overrides
@@ -73,21 +77,23 @@ def test_point_compiler_refuses_coordinate_ring_claims():
         K.compile_point_rule(K.EQUIVALENCE, "SIDEWAYS", K.EMPTY)
 
 
-def test_equivalence_forbids_nothing_about_points():
-    """If it forbade anything about POINTS it would not be an equivalence.
+def test_equivalence_preserves_points_without_conflating_selected_images():
+    """An equivalence is total on points but selected predicates are typed.
 
     IDENTITY is deliberately excluded, and the exclusion is the point.  The
     evidence that earns an EQUIVALENCE is a converse -- a construction
     recovering a point of the source from a point of the target -- which is a
     statement about points.  An identity is a statement about functions, and a
     bijection on points is not an isomorphism of coordinate rings.  So IDENTITY
-    is conditional on `ring_iso` while every point-level cell stays
-    unconditional.
+    is conditional on `ring_iso`; PREDICATE is conditional only once a model
+    selects an embedding, while EMPTY and NONEMPTY remain unconditional.
     """
     for d, k in itertools.product(K.DIRECTIONS, K.CLAIM_KINDS):
         if k == K.IDENTITY:
             continue
-        assert K.TRANSPORT[K.EQUIVALENCE][d][k] is True
+        expected = (K._SELECTED_EMBEDDING_IDENTITY
+                    if k == K.PREDICATE else True)
+        assert K.TRANSPORT[K.EQUIVALENCE][d][k] == expected
 
 
 def test_equivalence_licenses_identity_only_across_a_ring_isomorphism():

@@ -397,16 +397,16 @@ def test_kernel_epoch1_migration_is_non_destructive_and_reaudits_transport(
 
     assert source.read_bytes() == before
     graph = S.load(str(destination))
-    assert graph.kernel_epoch == F.KERNEL_EPOCH == 10
+    assert graph.kernel_epoch == F.KERNEL_EPOCH == 11
     finding = [item for item in C.run(graph) if item.rule == C.R_TRANSPORT]
     assert len(finding) == 1
     assert "completeness" in finding[0].detail
     audit = json.loads((tmp_path / "current-kernel.jsonl.audit.json").read_text())
     assert audit["from_kernel_epoch"] == 1
-    assert audit["kernel_epoch"] == 10
+    assert audit["kernel_epoch"] == 11
 
 
-def test_older_epochs_migrate_non_destructively_to_format4_epoch10(tmp_path):
+def test_older_epochs_migrate_non_destructively_to_current_format_and_epoch(tmp_path):
     source = tmp_path / "format1-epoch4.jsonl"
     destination = tmp_path / "format4-epoch10.jsonl"
     _write(source, [{
@@ -422,9 +422,9 @@ def test_older_epochs_migrate_non_destructively_to_format4_epoch10(tmp_path):
     assert reports[0]["from_graph_format"] == 1
     assert reports[0]["from_kernel_epoch"] == 4
     assert reports[0]["graph_format"] == F.GRAPH_FORMAT
-    assert reports[0]["kernel_epoch"] == F.KERNEL_EPOCH == 10
+    assert reports[0]["kernel_epoch"] == F.KERNEL_EPOCH == 11
     assert S.load(str(destination)).graph_format == F.GRAPH_FORMAT
-    assert S.load(str(destination)).kernel_epoch == 10
+    assert S.load(str(destination)).kernel_epoch == 11
 
     epoch5 = tmp_path / "format2-epoch5.jsonl"
     epoch8_from_epoch5 = tmp_path / "format2-epoch8-from-epoch5.jsonl"
@@ -439,8 +439,8 @@ def test_older_epochs_migrate_non_destructively_to_format4_epoch10(tmp_path):
     assert epoch5_reports[0]["from_graph_format"] == 2
     assert epoch5_reports[0]["from_kernel_epoch"] == 5
     assert epoch5_reports[0]["graph_format"] == F.GRAPH_FORMAT
-    assert epoch5_reports[0]["kernel_epoch"] == 10
-    assert S.load(str(epoch8_from_epoch5)).kernel_epoch == 10
+    assert epoch5_reports[0]["kernel_epoch"] == 11
+    assert S.load(str(epoch8_from_epoch5)).kernel_epoch == 11
 
     epoch6 = tmp_path / "format2-epoch6.jsonl"
     epoch8 = tmp_path / "format2-epoch8-from-epoch6.jsonl"
@@ -455,8 +455,8 @@ def test_older_epochs_migrate_non_destructively_to_format4_epoch10(tmp_path):
     assert epoch6_reports[0]["from_graph_format"] == 2
     assert epoch6_reports[0]["from_kernel_epoch"] == 6
     assert epoch6_reports[0]["graph_format"] == F.GRAPH_FORMAT
-    assert epoch6_reports[0]["kernel_epoch"] == 10
-    assert S.load(str(epoch8)).kernel_epoch == 10
+    assert epoch6_reports[0]["kernel_epoch"] == 11
+    assert S.load(str(epoch8)).kernel_epoch == 11
 
     epoch7 = tmp_path / "format2-epoch7.jsonl"
     epoch8_from_epoch7 = tmp_path / "format2-epoch8-from-epoch7.jsonl"
@@ -471,11 +471,11 @@ def test_older_epochs_migrate_non_destructively_to_format4_epoch10(tmp_path):
     assert epoch7_reports[0]["from_graph_format"] == 2
     assert epoch7_reports[0]["from_kernel_epoch"] == 7
     assert epoch7_reports[0]["graph_format"] == F.GRAPH_FORMAT
-    assert epoch7_reports[0]["kernel_epoch"] == 10
-    assert S.load(str(epoch8_from_epoch7)).kernel_epoch == 10
+    assert epoch7_reports[0]["kernel_epoch"] == 11
+    assert S.load(str(epoch8_from_epoch7)).kernel_epoch == 11
     future = tmp_path / "format1-future-epoch.jsonl"
     _write(future, [{
-        "ev": "meta", "graph_format": 1, "kernel_epoch": 11,
+        "ev": "meta", "graph_format": 1, "kernel_epoch": 12,
         "created_with": "grandportage/future",
     }])
     with pytest.raises(S.GraphError, match="cannot migrate forward"):

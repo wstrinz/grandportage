@@ -2894,7 +2894,8 @@ def test_the_operational_spec_transport_table_matches_the_kernel():
              "scheme_scope": "only with a certificate",
              "closed_condition": "if Zariski-closed",
              "exact_image_identity": "if exact contraction",
-             "closed_exact_image": "if closed + closure, or retained condition + point lift"}
+                 "closed_exact_image": "if closed + closure, or retained condition + point lift",
+                 "selected_embedding_identity": "if selected embeddings are identical"}
 
     documented = {}
     for line in text.splitlines():
@@ -3774,11 +3775,11 @@ def test_specialization_has_no_containment_to_verify():
     assert "not nested" in why and "Fano" in why
 
 
-def test_only_three_point_cells_override_the_relational_core():
+def test_only_five_point_cells_override_the_relational_core():
     """The old inclusion measurement is now an exact compiler invariant.
 
     Totality and surjectivity derive every ordinary point cell.  The only
-    differences are three evidence-sensitive refinements whose mathematical
+    differences are five evidence-sensitive refinements whose mathematical
     reasons are named by their rule values.
     """
     observed = set()
@@ -3794,6 +3795,8 @@ def test_only_three_point_cells_override_the_relational_core():
                     observed.add((etype, direction, kind))
 
     assert observed == {
+        (K.EQUIVALENCE, K.ALONG, K.PREDICATE),
+        (K.EQUIVALENCE, K.AGAINST, K.PREDICATE),
         (K.BASE_EXTENSION, K.ALONG, K.EMPTY),
         (K.IMAGE_CLOSURE, K.ALONG, K.PREDICATE),
         (K.IMAGE_CLOSURE, K.AGAINST, K.NONEMPTY),
@@ -4868,6 +4871,192 @@ def test_partition_fingerprint_binds_the_declared_point_universe():
     assert after != before
     assert P.VERIFIERS["partition"] == (
         "verify.partition_exhaustiveness", 3)
+
+
+# ===========================================================================
+# POINT-UNIVERSE-CHANGING EQUIVALENCE (GP P0, CFG23/DKC point-universe-
+# equivalence-p0-handoff).
+#
+# A mapped EQUIVALENCE with identical coordinate rings but different endpoint
+# `point_universe` verified as a ring isomorphism and licensed a false
+# NONEMPTY descent: `Q[x]/(x^2+1)` has a root over ALGEBRAIC_CLOSURE and none
+# over BASE, and the kernel's EQUIVALENCE point row is unconditional in both
+# directions once the edge exists. `ring_iso` cannot be the gate for this --
+# the isomorphism genuinely holds -- so the refusal is structural, in
+# `Graph.validate()`, before any CAS call and before the kernel table is ever
+# consulted.
+# ===========================================================================
+_PU_RING = ["x"]
+_PU_GENS = ["x^2+1"]
+
+
+def _point_universe_scope(universe):
+    return ({"coefficient_domain": "Q", "point_universe": universe}
+            if universe is not None else {})
+
+
+def _point_universe_toy(src_universe, dst_universe, etype=K.EQUIVALENCE,
+                         map_kind=K.IDENTITY_MAP):
+    return [
+        {"ev": "model", "id": "TOY_SRC", "what": "x^2+1=0",
+         "characteristic": 0, "ring_vars": _PU_RING, "generators": _PU_GENS,
+         **_point_universe_scope(src_universe)},
+        {"ev": "model", "id": "TOY_DST", "what": "x^2+1=0, same ideal",
+         "characteristic": 0, "ring_vars": _PU_RING, "generators": _PU_GENS,
+         **_point_universe_scope(dst_universe)},
+        {"ev": "edge", "id": "E_TOY", "src": "TOY_SRC", "dst": "TOY_DST",
+         "type": etype, "map_kind": map_kind,
+         "forward": {"x": "x"}, "inverse": {"x": "x"}, "ring_iso": True,
+         "why": "identity map on a shared coordinate ring"},
+    ]
+
+
+def test_equivalence_refuses_base_to_closure_point_universe_change():
+    """Direction one of the accepted CFG23 gap: BASE -> ALGEBRAIC_CLOSURE."""
+    events = _point_universe_toy(
+        S.BASE_POINT_UNIVERSE, S.ALGEBRAIC_CLOSURE_POINT_UNIVERSE)
+    with pytest.raises(S.GraphError) as exc:
+        _graph(events)
+    msg = str(exc.value)
+    assert "point functor" in msg
+    assert "TOY_SRC" in msg and "TOY_DST" in msg
+
+
+def test_equivalence_refuses_closure_to_base_point_universe_change():
+    """Direction two, the reverse of the assay: ALGEBRAIC_CLOSURE -> BASE."""
+    events = _point_universe_toy(
+        S.ALGEBRAIC_CLOSURE_POINT_UNIVERSE, S.BASE_POINT_UNIVERSE)
+    with pytest.raises(S.GraphError) as exc:
+        _graph(events)
+    assert "point functor" in str(exc.value)
+
+
+def test_equivalence_with_matching_point_universes_still_folds():
+    """The positive control: the endpoints agree, so nothing about this
+    patch should refuse a genuine same-universe mapped equivalence."""
+    events = _point_universe_toy(
+        S.ALGEBRAIC_CLOSURE_POINT_UNIVERSE, S.ALGEBRAIC_CLOSURE_POINT_UNIVERSE)
+    g = _graph(events)
+    assert g.edges["E_TOY"]["type"] == K.EQUIVALENCE
+
+
+def test_equivalence_with_both_point_universes_omitted_still_folds():
+    """Omission on BOTH sides is the pre-existing, unchanged behaviour: a
+    graph that never declares `point_universe` makes no point-functor claim,
+    and this patch must not start refusing every legacy EQUIVALENCE."""
+    events = _point_universe_toy(None, None)
+    g = _graph(events)
+    assert g.edges["E_TOY"]["type"] == K.EQUIVALENCE
+
+
+def test_equivalence_refuses_when_only_one_endpoint_names_a_point_universe():
+    """Omission must not become a bypass: leaving one endpoint unstated is
+    not a weaker claim than the other endpoint's, it is an unanswered one,
+    and it must refuse exactly like an explicit mismatch would -- both
+    orderings."""
+    events = _point_universe_toy(S.ALGEBRAIC_CLOSURE_POINT_UNIVERSE, None)
+    with pytest.raises(S.GraphError) as exc:
+        _graph(events)
+    assert "point functor" in str(exc.value)
+
+    events = _point_universe_toy(None, S.BASE_POINT_UNIVERSE)
+    with pytest.raises(S.GraphError) as exc:
+        _graph(events)
+    assert "point functor" in str(exc.value)
+
+
+def test_the_accepted_cfg23_false_descent_no_longer_folds():
+    """The retained CFG23 reproduction (point-universe-equivalence-assay),
+    folded verbatim. Before this patch `E_TOY_EQUIV` verified as a ring
+    isomorphism and `I_TOY_FALSE_DESCENT` -- "x^2+1 has a root in Qbar,
+    therefore it has one in Q" -- reported clean under `gp check`. It must
+    not even reach that computation now: the graph refuses to fold."""
+    events = [
+        {"ev": "model", "id": "TOY_BASE",
+         "what": "x^2+1=0 over the base field Q",
+         "coefficient_domain": "Q", "characteristic": 0,
+         "point_universe": S.BASE_POINT_UNIVERSE,
+         "ring_vars": ["x"], "generators": ["x^2+1"]},
+        {"ev": "model", "id": "TOY_CLOSURE",
+         "what": "the same ideal over the algebraic closure of Q",
+         "coefficient_domain": "Q", "characteristic": 0,
+         "point_universe": S.ALGEBRAIC_CLOSURE_POINT_UNIVERSE,
+         "ring_vars": ["x"], "generators": ["x^2+1"]},
+        {"ev": "edge", "id": "E_TOY_EQUIV", "src": "TOY_BASE",
+         "dst": "TOY_CLOSURE", "type": K.EQUIVALENCE,
+         "map_kind": K.IDENTITY_MAP, "ring_iso": True,
+         "forward": {"x": "x"}, "inverse": {"x": "x"},
+         "why": "adversarial probe: identical coordinate rings but different "
+                "point universes are not equivalent as point sets"},
+        {"ev": "claim", "id": "CL_TOY_WITNESS", "model": "TOY_CLOSURE",
+         "kind": K.NONEMPTY,
+         "statement": "x^2+1 has a root in the algebraic closure of Q",
+         "witness_kind": "EXHIBITED", "witness_point": {"x": "i"},
+         "established_by": "RAN", "ladder": "exact-checked"},
+        {"ev": "inference", "id": "I_TOY_FALSE_DESCENT",
+         "claim": "CL_TOY_WITNESS", "path": [["E_TOY_EQUIV", "AGAINST"]],
+         "concludes_kind": "NONEMPTY",
+         "asserted": "therefore x^2+1 has a root in the base field Q"},
+    ]
+    with pytest.raises(S.GraphError) as exc:
+        _graph(events)
+    msg = str(exc.value)
+    assert "TOY_BASE" in msg and "TOY_CLOSURE" in msg
+    assert "point functor" in msg
+
+
+@pytest.mark.parametrize("etype,map_kind", [
+    (K.NECESSARY_CONDITION, K.POLYNOMIAL),
+    (K.BASE_EXTENSION, K.POLYNOMIAL),
+    (K.IMAGE_CLOSURE, K.POLYNOMIAL),
+    (K.RESTRICTION, K.IDENTITY_MAP),
+    (K.SPECIALIZATION, K.POLYNOMIAL),
+])
+def test_other_edge_types_refuse_the_same_point_universe_bypass(
+        etype, map_kind):
+    """The audit the handoff required: nothing about the CFG23 bypass was
+    specific to EQUIVALENCE. Every declarable type reasons from V(src)
+    subset V(dst) or a coefficient-ring map, and every one of those
+    arguments silently assumed both endpoints named the same point functor.
+    A bare `point_universe` mismatch must refuse before any type-specific
+    check (e.g. RESTRICTION's matching-ring-vars rule) even runs."""
+    events = [
+        {"ev": "model", "id": "TOY_SRC", "what": "src",
+         "characteristic": 0, "coefficient_domain": "Q",
+         "point_universe": S.BASE_POINT_UNIVERSE,
+         "ring_vars": _PU_RING, "generators": _PU_GENS},
+        {"ev": "model", "id": "TOY_DST", "what": "dst",
+         "characteristic": 0, "coefficient_domain": "Q",
+         "point_universe": S.ALGEBRAIC_CLOSURE_POINT_UNIVERSE,
+         "ring_vars": _PU_RING, "generators": _PU_GENS},
+        {"ev": "edge", "id": "E_TOY", "src": "TOY_SRC", "dst": "TOY_DST",
+         "type": etype, "map_kind": map_kind, "why": "probe"},
+    ]
+    with pytest.raises(S.GraphError) as exc:
+        _graph(events)
+    assert "point functor" in str(exc.value)
+
+
+def test_untyped_remains_the_escape_valve_for_a_real_point_universe_change():
+    """UNTYPED licenses nothing, so a genuine, not-yet-typed point-universe
+    change stays sayable as recorded debt instead of becoming
+    unrepresentable."""
+    events = [
+        {"ev": "model", "id": "TOY_SRC", "what": "src",
+         "characteristic": 0, "coefficient_domain": "Q",
+         "point_universe": S.BASE_POINT_UNIVERSE,
+         "ring_vars": _PU_RING, "generators": _PU_GENS},
+        {"ev": "model", "id": "TOY_DST", "what": "dst",
+         "characteristic": 0, "coefficient_domain": "Q",
+         "point_universe": S.ALGEBRAIC_CLOSURE_POINT_UNIVERSE,
+         "ring_vars": _PU_RING, "generators": _PU_GENS},
+        {"ev": "edge", "id": "E_TOY", "src": "TOY_SRC", "dst": "TOY_DST",
+         "type": K.UNTYPED, "why": "probe",
+         "debt_why": "the point universe genuinely changes here and no "
+                     "typed operation for that change exists yet"},
+    ]
+    g = _graph(events)
+    assert g.edges["E_TOY"]["type"] == K.UNTYPED
 
 
 @pytest.mark.live

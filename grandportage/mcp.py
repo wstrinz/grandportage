@@ -196,13 +196,17 @@ CONDITION_SCHEMA = {
     "type": "object",
     "description": (
         "A conjunction of exact-affine point conditions. ZERO means the "
-        "polynomial vanishes; NONZERO means it does not. Every expression is "
+        "polynomial vanishes; NONZERO means it does not. POSITIVE, NEGATIVE, "
+        "NONNEGATIVE, and NONPOSITIVE mean its sign at a selected exact real "
+        "algebraic embedding and require point_universe REAL_CLOSURE. Write "
+        "a < b as NEGATIVE on a-b. Every expression is "
         "parsed against the claim model's exact polynomial ring. Verified mapped "
         "equivalences rewrite it contravariantly. Matching identity-coordinate "
         "maps and checked Eliminate projections preserve it under AGAINST before "
         "a polynomial-section elimination checks target expressibility. `gp "
         "verify` also checks the condition at its own model: ZERO by certified "
-        "ideal membership and NONZERO by a certified empty vanishing locus."),
+        "ideal membership, NONZERO by a certified empty vanishing locus, and "
+        "ordered signs by exact Sturm isolation and rational interval replay."),
     "properties": {
         "all": {
             "type": "array",
@@ -239,7 +243,49 @@ def _event_schema(kind):
         properties["point_universe"] = {
             "type": "string",
             "enum": list(S.POINT_UNIVERSES),
-            "description": "BASE or algebraic closure of coefficient_domain",
+            "description": (
+                "BASE, ALGEBRAIC_CLOSURE, or REAL_CLOSURE. REAL_CLOSURE is "
+                "currently supported over Q and requires a selected REAL "
+                "embedding."),
+        }
+        rational = {"type": "string", "pattern": r"^-?[0-9]+(?:/[1-9][0-9]*)?(?:\.[0-9]+)?$"}
+        properties["embedding"] = {
+            "oneOf": [
+                {"type": "null"},
+                {
+                    "type": "object",
+                    "properties": {
+                        "var": {"type": "string"},
+                        "kind": {"type": "string", "enum": list(S.EMBEDDING_KINDS)},
+                        "isolating_interval": {
+                            "type": "object",
+                            "properties": {"lo": rational, "hi": rational},
+                            "required": ["lo", "hi"],
+                            "additionalProperties": False,
+                        },
+                        "isolating_box": {
+                            "type": "object",
+                            "properties": {
+                                key: rational for key in
+                                ("re_lo", "re_hi", "im_lo", "im_hi")
+                            },
+                            "required": ["re_lo", "re_hi", "im_lo", "im_hi"],
+                            "additionalProperties": False,
+                        },
+                        "conjugate_of": {"type": "string"},
+                        "box_verification": {
+                            "type": "string",
+                            "enum": list(S.COMPLEX_BOX_VERIFICATIONS),
+                        },
+                        "caveat": {"type": "string"},
+                    },
+                    "required": ["var", "kind"],
+                    "additionalProperties": False,
+                },
+            ],
+            "description": (
+                "optional exact selected number-field embedding; null or "
+                "omission remains abstract/embedding-agnostic"),
         }
     if kind == "evidence":
         properties["method"] = {
@@ -361,8 +407,11 @@ TOOLS = [
                         "EMPTY claim must carry a `certificate` kind, and its "
                         "scope is DERIVED from that certificate rather than "
                         "from what you declare. A PREDICATE may carry a closed-schema "
-                        "structured `condition`: {all: [{relation: ZERO or "
-                        "NONZERO, expression: polynomial}, ...]}. Expressions "
+                        "structured `condition`: {all: [{relation: ZERO, "
+                        "NONZERO, POSITIVE, NEGATIVE, NONNEGATIVE, or "
+                        "NONPOSITIVE, expression: polynomial}, ...]}. Ordered "
+                        "relations require REAL_CLOSURE; a < b is NEGATIVE on "
+                        "a-b. Expressions "
                         "must parse in the claim model. Verified equivalences "
                         "rewrite them contravariantly; matching identity maps "
                         "and checked Eliminate projections preserve them under "

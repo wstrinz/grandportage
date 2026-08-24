@@ -20,10 +20,12 @@ want when the alternative is a silently blended graph.
 import hashlib
 import json
 import os
+from fractions import Fraction
 
 from . import kernel as K
 from . import format as F
 from . import groebner as G
+from . import ordered as O
 from . import provenance as P
 from .discharge import DISCHARGE_KINDS as D_KINDS
 from .discharge import WITHDRAW
@@ -89,10 +91,115 @@ def valid_characteristic(value):
 
 BASE_POINT_UNIVERSE = "BASE"
 ALGEBRAIC_CLOSURE_POINT_UNIVERSE = "ALGEBRAIC_CLOSURE"
+REAL_CLOSURE_POINT_UNIVERSE = "REAL_CLOSURE"
 POINT_UNIVERSES = (
     BASE_POINT_UNIVERSE,
     ALGEBRAIC_CLOSURE_POINT_UNIVERSE,
+    REAL_CLOSURE_POINT_UNIVERSE,
 )
+
+EMBEDDING_KINDS = ("REAL", "COMPLEX")
+COMPLEX_BOX_VERIFICATIONS = ("EXACT", "STRUCTURAL_ONLY")
+
+
+def declared_embedding(model):
+    """Return a selected embedding, with omission and JSON null both abstract."""
+    value = model.get("embedding")
+    return value if isinstance(value, dict) else None
+
+
+def selected_embedding_identity(source, target):
+    """Whether endpoints select the same exact serialized embedding.
+
+    ``None`` means neither endpoint selects an embedding, preserving legacy
+    abstract-ring behavior. ``False`` includes asymmetric selection: forgetting
+    a selected image is not an assertion that the abstract endpoint denotes it.
+    """
+    src = declared_embedding(source)
+    dst = declared_embedding(target)
+    if src is None and dst is None:
+        return None
+    return src is not None and dst is not None and _canon(src) == _canon(dst)
+
+
+def _rational(value, label):
+    _require(isinstance(value, str) and value.strip(),
+             "%s must be a non-empty exact rational string" % label)
+    try:
+        return Fraction(value)
+    except (ValueError, ZeroDivisionError):
+        raise GraphError("%s must be an exact rational string, got %r"
+                         % (label, value))
+
+
+def _validate_embedding(model, where):
+    """Validate the bounded selected-number-field-embedding vocabulary."""
+    if "embedding" not in model or model.get("embedding") is None:
+        return
+    embedding = model["embedding"]
+    _require(isinstance(embedding, dict),
+             "%s: model %r `embedding` must be null or an object"
+             % (where, model["id"]))
+    allowed = {
+        "var", "kind", "isolating_interval", "isolating_box",
+        "conjugate_of", "box_verification", "caveat",
+    }
+    unknown = sorted(set(embedding) - allowed)
+    _require(not unknown,
+             "%s: model %r embedding has unknown field%s %s"
+             % (where, model["id"], "s" if len(unknown) != 1 else "",
+                ", ".join("`%s`" % key for key in unknown)))
+    var = embedding.get("var")
+    _require(isinstance(var, str) and var in (model.get("ring_vars") or []),
+             "%s: model %r embedding `var` must name one of ring_vars"
+             % (where, model["id"]))
+    kind = embedding.get("kind")
+    _require(kind in EMBEDDING_KINDS,
+             "%s: model %r embedding kind must be REAL or COMPLEX"
+             % (where, model["id"]))
+    if "caveat" in embedding:
+        _require(isinstance(embedding["caveat"], str)
+                 and embedding["caveat"].strip(),
+                 "%s: model %r embedding caveat must be a non-empty string"
+                 % (where, model["id"]))
+    if kind == "REAL":
+        _require(set(embedding) <= {"var", "kind", "isolating_interval"},
+                 "%s: REAL embedding on model %r may carry only var, kind, "
+                 "and isolating_interval" % (where, model["id"]))
+        interval = embedding.get("isolating_interval")
+        _require(isinstance(interval, dict) and set(interval) == {"lo", "hi"},
+                 "%s: REAL embedding on model %r needs the closed "
+                 "isolating_interval {lo, hi}" % (where, model["id"]))
+        lo = _rational(interval["lo"], "%s: embedding interval lo" % where)
+        hi = _rational(interval["hi"], "%s: embedding interval hi" % where)
+        _require(lo < hi,
+                 "%s: model %r embedding interval must satisfy lo < hi"
+                 % (where, model["id"]))
+        return
+    required = {"var", "kind", "isolating_box", "box_verification"}
+    _require(required <= set(embedding),
+             "%s: COMPLEX embedding on model %r needs isolating_box and "
+             "box_verification" % (where, model["id"]))
+    box = embedding["isolating_box"]
+    box_fields = {"re_lo", "re_hi", "im_lo", "im_hi"}
+    _require(isinstance(box, dict) and set(box) == box_fields,
+             "%s: COMPLEX embedding on model %r needs the closed "
+             "isolating_box {re_lo, re_hi, im_lo, im_hi}"
+             % (where, model["id"]))
+    values = {key: _rational(box[key], "%s: embedding box %s" % (where, key))
+              for key in box_fields}
+    _require(values["re_lo"] <= values["re_hi"]
+             and values["im_lo"] <= values["im_hi"],
+             "%s: model %r embedding box bounds are reversed"
+             % (where, model["id"]))
+    _require(embedding["box_verification"] in COMPLEX_BOX_VERIFICATIONS,
+             "%s: model %r box_verification must be EXACT or STRUCTURAL_ONLY"
+             % (where, model["id"]))
+    if "conjugate_of" in embedding:
+        _require(isinstance(embedding["conjugate_of"], str)
+                 and embedding["conjugate_of"].strip(),
+                 "%s: model %r conjugate_of must be a non-empty model id"
+                 % (where, model["id"]))
 
 
 def exact_coefficient_domain(characteristic):
@@ -1132,17 +1239,43 @@ class Graph(object):
                         "%s: condition verdict %r carries an atom row that "
                         "does not match the claim." % (where, ev.get("id")))
                     status = row["status"]
-                    allowed = ({"VERIFIED_IDEAL_MEMBERSHIP", "NOT_BY_IDEAL"}
-                               if atom["relation"] == "ZERO" else {
-                                   "REFUTED_ZERO_MOD_IDEAL",
-                                   "VERIFIED_NOWHERE_ZERO",
-                                   "NONVANISHING_UNESTABLISHED"})
+                    if atom["relation"] in O.ORDERED_RELATIONS:
+                        allowed = {
+                            "VERIFIED_ORDERED_SIGN",
+                            "REFUTED_ORDERED_SIGN",
+                            "ORDERED_SIGN_UNESTABLISHED",
+                        }
+                    else:
+                        allowed = (
+                            {"VERIFIED_IDEAL_MEMBERSHIP", "NOT_BY_IDEAL"}
+                            if atom["relation"] == "ZERO" else {
+                                "REFUTED_ZERO_MOD_IDEAL",
+                                "VERIFIED_NOWHERE_ZERO",
+                                "NONVANISHING_UNESTABLISHED"})
                     _require(status in allowed,
                              "%s: condition verdict %r has invalid %s status "
                              "%r." % (where, ev.get("id"), atom["relation"],
                                       status))
                     try:
-                        if status in ("VERIFIED_IDEAL_MEMBERSHIP",
+                        if status in ("VERIFIED_ORDERED_SIGN",
+                                      "REFUTED_ORDERED_SIGN"):
+                            sign, certificate = O.selected_real_sign(
+                                model, atom["expression"])
+                            _require(
+                                row["cofactors"] == certificate
+                                and ((status == "VERIFIED_ORDERED_SIGN")
+                                     == O.relation_holds(
+                                         atom["relation"], sign)),
+                                "%s: condition verdict %r's ordered-sign "
+                                "receipt does not replay against the selected "
+                                "real embedding." % (where, ev.get("id")))
+                        elif status == "ORDERED_SIGN_UNESTABLISHED":
+                            _require(
+                                row["cofactors"] is None,
+                                "%s: inconclusive ordered condition row in %r "
+                                "may not carry a licensing receipt."
+                                % (where, ev.get("id")))
+                        elif status in ("VERIFIED_IDEAL_MEMBERSHIP",
                                       "REFUTED_ZERO_MOD_IDEAL"):
                             if generators:
                                 G.check_membership_identity(
@@ -1167,7 +1300,8 @@ class Graph(object):
                                      "%s: inconclusive condition row in %r "
                                      "may not carry licensing cofactors."
                                      % (where, ev.get("id")))
-                    except (G.CertificateError, TypeError, ValueError) as exc:
+                    except (O.OrderedError, G.CertificateError,
+                            TypeError, ValueError) as exc:
                         raise GraphError(
                             "%s: condition verdict %r fails exact cofactor "
                             "replay: %s" % (where, ev.get("id"), exc))
@@ -1505,6 +1639,19 @@ class Graph(object):
                      "%s: model %r declares `point_universe` without the "
                      "structured `coefficient_domain` it is relative to"
                      % (where, ev["id"]))
+            if point_universe == REAL_CLOSURE_POINT_UNIVERSE:
+                _require(
+                    ev.get("characteristic") == 0
+                    and coefficient_domain == "Q",
+                    "%s: model %r REAL_CLOSURE is supported only over the "
+                    "exact coefficient domain Q in characteristic 0"
+                    % (where, ev["id"]))
+                embedding = declared_embedding(ev)
+                _require(
+                    embedding is not None and embedding.get("kind") == "REAL",
+                    "%s: model %r REAL_CLOSURE requires a selected REAL "
+                    "embedding; an abstract field selects no ordering"
+                    % (where, ev["id"]))
 
         # "I DO NOT KNOW THIS IDEAL YET" IS A STATE, AND IT WAS NOT SAYABLE.
         #
@@ -1571,6 +1718,7 @@ class Graph(object):
                  "exact identity test -- would have to guess it. A check that "
                  "guesses its own ring is not a check."
                  % (where, ev["id"]))
+        _validate_embedding(ev, where)
         m = dict(ev)
         m["declares"] = {a: list(v) for a, v in declares.items()}
         m["touches"] = list(ev.get("touches") or [])
@@ -1819,7 +1967,8 @@ class Graph(object):
                      and isinstance(condition["all"], list)
                      and condition["all"],
                      "%s: claim %r `condition` must be "
-                     "{\"all\": [{\"relation\": \"ZERO|NONZERO\", "
+                    "{\"all\": [{\"relation\": \"ZERO|NONZERO|POSITIVE|"
+                    "NEGATIVE|NONNEGATIVE|NONPOSITIVE\", "
                      "\"expression\": \"polynomial\"}, ...]}. The list must "
                      "be non-empty; an unstructured predicate stays in `statement`."
                      % (where, ev["id"]))
@@ -2430,6 +2579,14 @@ class Graph(object):
                          "Without an exact coefficient domain its polynomial "
                          "expressions cannot be typed." % (cid, c["model"]))
                 for n, atom in enumerate(c["condition"]["all"], 1):
+                    _require(
+                        atom.get("relation") not in O.ORDERED_RELATIONS
+                        or model.get("point_universe")
+                            == REAL_CLOSURE_POINT_UNIVERSE,
+                        "claim %r condition atom %d uses ordered relation %s, "
+                        "which requires its model to select point_universe "
+                        "REAL_CLOSURE"
+                        % (cid, n, atom.get("relation")))
                     try:
                         G.parse_polynomial(atom["expression"], ring_vars,
                                            characteristic)
@@ -2459,6 +2616,155 @@ class Graph(object):
                 _require(e[end] in self.models,
                          "edge %r has undeclared %s model %r"
                          % (eid, end, e[end]))
+            # A COORDINATE-RING ISOMORPHISM IS NOT A STATEMENT ABOUT POINTS,
+            # and every typed edge except UNTYPED licenses SOME point-kind
+            # transport (EMPTY, NONEMPTY or PREDICATE) in at least one
+            # direction. `point_universe` selects WHICH point functor a
+            # model's claims are read against -- k-points (`BASE`) or
+            # kbar-points (`ALGEBRAIC_CLOSURE`) -- and it is independent of
+            # the coordinate ring: `Q[x]/(x^2+1)` is one ring with zero
+            # points over `BASE` and two over `ALGEBRAIC_CLOSURE`.
+            #
+            # A live CFG23 replay declared an `EQUIVALENCE` between exactly
+            # that ring at both universes, with the identity map as its own
+            # converse. `ring_iso` verified TRUE -- correctly, the map really
+            # is a ring isomorphism -- and the kernel's point-transport row
+            # for EQUIVALENCE is unconditional in both directions, so a
+            # NONEMPTY witness at the closure endpoint transported AGAINST to
+            # the base endpoint and `gp check` reported the false descent
+            # clean. `ring_iso` cannot be the gate for this: the isomorphism
+            # is genuine, so refusing it there would be refusing a true
+            # fact. The endpoints are simply talking about different point
+            # sets, and no edge type's point row was ever meant to license
+            # transport between them -- RESTRICTION and NECESSARY_CONDITION
+            # reason from V(src) subset V(dst), IMAGE_CLOSURE from a
+            # contraction identity, BASE_EXTENSION from a tensor product:
+            # every one of those arguments silently assumes both sides name
+            # the same point functor, because nothing before this checked
+            # that they do.
+            #
+            # So this is checked STRUCTURALLY, at fold time, before any CAS
+            # call and before the kernel table is ever consulted -- refusing
+            # here means a mismatched EQUIVALENCE cannot even reach
+            # `verify.ring_iso`, let alone license a transport with it.
+            #
+            # OMISSION IS NOT A WEAKER DECLARATION, IT IS AN UNANSWERED
+            # QUESTION, and treating "one side declared, the other silent" as
+            # compatible would hand back exactly the bypass this closes: an
+            # author (or a generator) could dodge the mismatch by leaving one
+            # endpoint's `point_universe` unset. So once EITHER endpoint
+            # names a universe, BOTH must, and they must agree. Two models
+            # that both leave it unset are unchanged from every graph in the
+            # corpus before this field existed, and stay green.
+            # -----------------------------------------------------------------
+            # DESIGN NOTE (patch-author, GP feedback mode -- CFG23/DKC
+            # point-universe-equivalence-p0-handoff).
+            #
+            # WHICH LAYER OWNS THE INVARIANT, AND WHY.  `store.validate()`,
+            # not `verify.ring_iso` and not `kernel.transport`.  `ring_iso`
+            # answers a real and different question -- is the substitution a
+            # coordinate-ring isomorphism -- and on the retained assay it is:
+            # the identity map on `Q[x]/(x^2+1)` really is one.  Gating there
+            # would mean refusing a true fact to compensate for a mismatch it
+            # cannot see, since it is never handed a model, only ring data.
+            # `kernel.transport` is deliberately model-blind too -- it takes
+            # plain values so it stays callable from a test, a mutation
+            # harness or an MCP handler without adopting a `Graph`.  The one
+            # place already holding both endpoint MODELS at fold time, before
+            # any CAS call or kernel lookup, is here, in the same loop that
+            # already refuses a RESTRICTION whose endpoints disagree on
+            # ring_vars/characteristic. Point-universe agreement is that same
+            # kind of fact -- a precondition for the edge to mean what its
+            # type claims -- so it belongs beside it, not inside the
+            # isomorphism check or the transport table.
+            #
+            # WHAT OMISSION MEANS.  Not "BASE" and not "compatible with
+            # anything": UNSPECIFIED, on the same footing as every other
+            # optional structured field this store refuses to default
+            # (`declared_point_universe`'s own docstring: "legacy prose is
+            # intentionally untyped"). Two omitted endpoints make no
+            # point-functor claim at all, so every graph predating this field
+            # keeps folding. The moment EITHER endpoint commits to one,
+            # though, leaving the other silent cannot become the escape
+            # route from an explicit mismatch -- that is what "omission must
+            # not become a bypass" rules out -- so the two are required to
+            # agree once either speaks.
+            #
+            # DID THE CONTRACT/KERNEL SEPARATION MAKE THIS LOCAL, OR FORCE
+            # DUPLICATION.  Local, and cheaply so, but not for free. The
+            # bypass was never specific to EQUIVALENCE: `_POINT_RELATION_
+            # CAPABILITIES` in kernel.py grants every declarable type but
+            # UNTYPED some nonzero point-transport capability, and not one of
+            # their justifications (V(src) subset V(dst); a tensor product;
+            # an elimination contraction) mentions which point functor "V"
+            # ranges over. Because store.py already owns both endpoint MODELS
+            # in one place -- the kernel never does, by design -- one check
+            # ahead of the existing per-type block closes all six at once
+            # instead of six near-identical CAS-side gates. The audit (see
+            # `test_other_edge_types_refuse_the_same_point_universe_bypass`)
+            # is what earns the word "structural": the separation meant the
+            # fix could be ONE new fact checked in the one place that already
+            # had the data, not a change repeated at every kernel cell.
+            #
+            # FOLLOW-ON WORK THIS DELIBERATELY DOES NOT DO.  `point_universe`
+            # currently has exactly two values and no edge type is typed to
+            # move an object between them -- BASE_EXTENSION is a coefficient-
+            # field axis (Q into a number field), a different and separate
+            # obligation the handoff already carves out. A model genuinely
+            # changing point universe today has one honest spelling: UNTYPED
+            # with `debt_why`. The reduction in future misuse is a typed
+            # operation for exactly that step (name to be chosen with the
+            # eventual ordered/real-closed and number-field vocabulary, so it
+            # is not invented twice) -- out of scope here on purpose, per the
+            # instruction not to expand this patch into that vocabulary.
+            # -----------------------------------------------------------------
+            if e.get("type") != K.UNTYPED:
+                src_universe = declared_point_universe(self.models[e["src"]])
+                dst_universe = declared_point_universe(self.models[e["dst"]])
+                if src_universe is not None or dst_universe is not None:
+                    _require(
+                        src_universe is not None and dst_universe is not None
+                        and src_universe == dst_universe,
+                        "edge %r is %s from %r (point_universe=%r) to %r "
+                        "(point_universe=%r). A coordinate-ring identity or "
+                        "isomorphism says nothing about points if the two "
+                        "endpoints select different point functors: "
+                        "Q[x]/(x^2+1) has no point over BASE and a point "
+                        "over ALGEBRAIC_CLOSURE, so identifying those models "
+                        "would license the false inference that closure-"
+                        "nonemptiness descends to the base field. Once "
+                        "either endpoint declares `point_universe`, both "
+                        "must, and they must be equal; leaving one "
+                        "unstated is not a lesser claim, it is not a claim. "
+                        "If the two universes genuinely differ and no typed "
+                        "operation for that change exists yet, record the "
+                        "step UNTYPED with `debt_why` instead."
+                        % (eid, e.get("type"), e["src"], src_universe,
+                           e["dst"], dst_universe))
+            # IDENTITY_MAP says the endpoint coordinates denote the same
+            # selected point.  A ring presentation cannot make that true for
+            # two different roots: Q[w]/(f) is the same abstract ring at both
+            # real embeddings, while w>0 and w<0 distinguish its images.
+            # Nontrivial POLYNOMIAL equivalences remain legal field
+            # automorphisms; the checker separately prevents them from
+            # transporting an embedding-sensitive free predicate unchanged.
+            if (e.get("type") == K.EQUIVALENCE
+                    and e.get("map_kind") == K.IDENTITY_MAP):
+                source_model = self.models[e["src"]]
+                target_model = self.models[e["dst"]]
+                source_embedding = declared_embedding(source_model)
+                target_embedding = declared_embedding(target_model)
+                if source_embedding is not None and target_embedding is not None:
+                    _require(
+                        selected_embedding_identity(
+                            source_model, target_model) is True,
+                        "edge %r is an IDENTITY_MAP between models %r and %r "
+                        "that select different serialized embeddings. The "
+                        "coordinate ring does not choose a root: use the "
+                        "actual POLYNOMIAL automorphism when one exists, or "
+                        "record the relation UNTYPED when selected-root "
+                        "compatibility has not been certified."
+                        % (eid, e["src"], e["dst"]))
             if e.get("type") == K.RESTRICTION:
                 source_model = self.models[e["src"]]
                 target_model = self.models[e["dst"]]

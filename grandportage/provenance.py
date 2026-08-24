@@ -28,7 +28,7 @@ BACKEND = "singular"
 # these independent avoids invalidating every verdict when one checker changes.
 VERIFIERS = {
     "claim": ("verify.identity", 2),
-    "condition": ("verify.predicate_condition", 1),
+    "condition": ("verify.predicate_condition", 2),
     "edge": ("verify.containment", 3),
     "certificate": ("verify.unit_ideal", 2),
     "ring_iso": ("verify.ring_iso", 4),
@@ -98,6 +98,55 @@ _LIFECYCLE_FIELDS = {
     "superseded_by", "retracted_by", "withdrawn_by",
 }
 
+_ENDPOINT_IDENTITY_FIELDS = (
+    "id", "coefficient_domain", "characteristic", "point_universe",
+    "ring_vars", "generators",
+)
+_EDGE_IDENTITY_FIELDS = (
+    "id", "src", "dst", "type", "map_kind", "forward", "inverse",
+)
+
+
+def _fingerprint_payload(payload):
+    encoded = json.dumps(
+        payload, sort_keys=True, separators=(",", ":"), ensure_ascii=True
+    ).encode("utf-8")
+    return "sha256:" + hashlib.sha256(encoded).hexdigest()
+
+
+def model_semantic_payload(model):
+    """The exact endpoint object authenticated for selected-map custody."""
+    if model is None:
+        return None
+    payload = {field: model.get(field) for field in _ENDPOINT_IDENTITY_FIELDS}
+    # Omission and explicit null both mean abstract/no selected embedding.
+    payload["embedding"] = model.get("embedding")
+    return payload
+
+
+def endpoint_fingerprint(model):
+    """Stable identity for a model endpoint, including selected embedding."""
+    payload = model_semantic_payload(model)
+    return None if payload is None else _fingerprint_payload(payload)
+
+
+def edge_endpoint_payload(graph, edge_id):
+    """Bind a map's serialized identity to both live endpoint definitions."""
+    edge = graph.edges.get(edge_id)
+    if edge is None:
+        return None
+    return {
+        "edge": {field: edge.get(field) for field in _EDGE_IDENTITY_FIELDS},
+        "src_model": model_semantic_payload(graph.models.get(edge.get("src"))),
+        "dst_model": model_semantic_payload(graph.models.get(edge.get("dst"))),
+    }
+
+
+def edge_endpoint_fingerprint(graph, edge_id):
+    """Stable digest preventing edge-id or endpoint-payload substitution."""
+    payload = edge_endpoint_payload(graph, edge_id)
+    return None if payload is None else _fingerprint_payload(payload)
+
 
 def _semantic(record):
     """Return the declared, verifier-relevant form of one folded record."""
@@ -164,13 +213,7 @@ def input_fingerprint(graph, subject, of, representation=None):
     # answer. Binding it here makes any later certificate mutation stale.
     if representation is not None:
         payload["verifier_evidence"] = representation
-    encoded = json.dumps(
-        payload,
-        sort_keys=True,
-        separators=(",", ":"),
-        ensure_ascii=True,
-    ).encode("utf-8")
-    return "sha256:" + hashlib.sha256(encoded).hexdigest()
+    return _fingerprint_payload(payload)
 
 
 def event_fingerprint(value):
@@ -323,6 +366,29 @@ def _eligible_structural_ring_iso(graph, event):
         and certificate.get("schema") == "mapped_ring_iso_v1"
     )
 
+def _eligible_structural_ordered_condition(graph, event):
+    """Exact selected-real receipts need arithmetic, not a CAS subprocess."""
+    claim = graph.claims.get(event.get("of")) or {}
+    model = graph.models.get(claim.get("model")) or {}
+    atoms = (claim.get("condition") or {}).get("all") or []
+    rows = (event.get("representation") or {}).get("atoms") or []
+    ordered = {"POSITIVE", "NEGATIVE", "NONNEGATIVE", "NONPOSITIVE"}
+    return (
+        event.get("subject") == "condition"
+        and event.get("verdict") in ("VERIFIED", "REFUTED")
+        and model.get("point_universe") == "REAL_CLOSURE"
+        and len(rows) == len(atoms) and bool(rows)
+        and all(atom.get("relation") in ordered for atom in atoms)
+        and all(
+            row.get("status") in (
+                "VERIFIED_ORDERED_SIGN", "REFUTED_ORDERED_SIGN")
+            and isinstance(row.get("cofactors"), dict)
+            and row["cofactors"].get("method")
+                == "selected_real_interval_v1"
+            for row in rows)
+    )
+
+
 def _allows_empty_structural_trace(graph, event):
     """Recognize eligible verifier-native decisions with no backend run."""
     if event.get("verdict") == "UNVERIFIED":
@@ -331,6 +397,8 @@ def _allows_empty_structural_trace(graph, event):
         return _eligible_structural_containment(graph, event.get("of"))
     if event.get("subject") == "ring_iso":
         return _eligible_structural_ring_iso(graph, event)
+    if event.get("subject") == "condition":
+        return _eligible_structural_ordered_condition(graph, event)
     if event.get("subject") == "operation":
         return _eligible_structural_operation(graph, event)
     if event.get("subject") == "elimination":

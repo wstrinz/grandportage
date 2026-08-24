@@ -13,8 +13,8 @@ import re
 
 from . import identity as I
 
-GRAPH_FORMAT = 5
-KERNEL_EPOCH = 10
+GRAPH_FORMAT = 6
+KERNEL_EPOCH = 11
 META_EVENT = "meta"
 
 
@@ -54,6 +54,7 @@ EVENT_FIELDS = {
         "ev", "id", "desc", "what", "field", "chart", "universe",
         "coefficient_domain", "point_universe",
         "characteristic", "ring_vars", "generators", "ideal_pending",
+        "embedding",
         "open_conditions", "saturated_at", "eliminated", "component_of",
         "declares", "touches", "reads", "coverage_axes", "cite",
     } | _LIFECYCLE,
