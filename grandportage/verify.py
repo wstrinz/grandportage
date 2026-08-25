@@ -79,6 +79,7 @@ from . import cas
 from . import groebner as G
 from . import groebner_producer as GP
 from . import kernel as K
+from . import number_field as N
 from . import operations as O
 from . import ordered as OR
 from . import provenance as P
@@ -1812,6 +1813,48 @@ WITNESS_VERIFIED = "VERIFIED"
 WITNESS_REFUTED = "NOT_A_POINT"
 
 
+def needs_verification(verdict):
+    """Whether a batch should attempt an obligation again.
+
+    ``UNVERIFIED`` records that an attempt was inconclusive.  It is useful
+    history, but it is not a terminal answer: a later run may have a repaired
+    input, a larger bounded certificate, or an available execution capability.
+    """
+    return verdict in (None, "", UNVERIFIED)
+
+
+def _inexecutable_model_reason(model):
+    """Why ``model``'s generators/open_conditions cannot be substituted into.
+
+    A model's closed native schema allows `generators`/`open_conditions` to be
+    almost any JSON -- authored descriptor objects (`{expr, id, why}` per
+    generator, kept for readability/provenance) or a prose inventory pointer
+    (a real one: 474 guards recorded as an artifact reference plus a summary,
+    not duplicated into the graph). Both are legitimate authoring choices and
+    neither is the flat list-of-polynomial-strings every CAS-backed verifier
+    below this point assumes.  Sending either into `evaluate_point` formats a
+    Python `dict`/`str` repr straight into a Singular session -- a real
+    campaign graph did exactly this and got back an indecipherable parser
+    dump ending in `I is not defined`, an UNVERIFIED verdict that answered
+    nothing and named nothing.  Catching the mismatch here, before any
+    backend call, keeps the refusal honest instead of cryptic.
+    """
+    generators = model.get("generators")
+    if generators is not None and not (
+            isinstance(generators, list)
+            and all(isinstance(item, str) for item in generators)):
+        return ("its `generators` are structured descriptor objects, not "
+                "the flat polynomial-string list this verifier substitutes")
+    guards = model.get("open_conditions")
+    if guards is not None and not (
+            isinstance(guards, list)
+            and all(isinstance(item, str) for item in guards)):
+        return ("its `open_conditions` is prose/inventory documentation "
+                "(likely pointing at an out-of-graph artifact), not an "
+                "executable list of polynomial guard expressions")
+    return None
+
+
 def point_witness(graph, cid, timeout=300, _runner=None, _backend=None):
     """Substitute a NONEMPTY witness into its model's exact open locus.
 
@@ -1860,6 +1903,31 @@ def point_witness(graph, cid, timeout=300, _runner=None, _backend=None):
             "value for each ring variable -- is what makes it an arithmetic "
             "question rather than a reading question." % cid)
     model = graph.models.get(c.get("model")) or {}
+    inexecutable = _inexecutable_model_reason(model)
+    if inexecutable:
+        return UNVERIFIED, (
+            "model %s cannot be substituted: %s. `gp verify` refuses to "
+            "guess a flat polynomial reading of a schema it was not given -- "
+            "it names nothing VERIFIED or NOT_A_POINT here, and it checked "
+            "none of whatever guard count the model's own prose claims."
+            % (c.get("model"), inexecutable))
+    if c.get("witness_field") is not None:
+        try:
+            is_point, detail, representation = N.check_extension_witness(
+                model, c.get("witness_field"), point)
+        except (N.NumberFieldError, G.CertificateError,
+                TypeError, ValueError) as exc:
+            return UNVERIFIED, (
+                "the algebraic-extension witness could not be checked: %s"
+                % exc), None
+        if is_point:
+            return WITNESS_VERIFIED, (
+                "the structured point evaluates every equation to zero and "
+                "every open guard to a nonzero element of the checked simple "
+                "number field"), representation
+        return WITNESS_REFUTED, (
+            "the extension-valued coordinates do not define a point of %s: %s"
+            % (c.get("model"), detail)), representation
     pending = _pending_ideal(c.get("model"), model)
     if pending:
         return UNVERIFIED, pending
@@ -2224,6 +2292,32 @@ def _verdict_event(graph, subject, of, verdict, why, representation=None,
     return ev
 
 
+def _execution_result(graph, subject, of, backend, execution_start, verdict,
+                      why, representation, record):
+    """Bind one result to the capability that actually answered it."""
+    used_backend = backend.execution_count > execution_start
+    if record and used_backend and not backend.can_record_verdicts:
+        return (UNVERIFIED,
+                "the verifier reached a non-authoritative CAS adapter. Its "
+                "answer was not recorded as mathematical authority (%s); "
+                "install the exact production backend and retry." % why,
+                None, P.native_execution_provenance(), ())
+    if used_backend:
+        artifacts = (backend.execution_artifacts(execution_start)
+                     if record else ())
+        return (verdict, why, representation,
+                backend.provenance(execution_start), artifacts)
+    if record and not P.native_verdict_allowed(
+            graph, subject, of, verdict, representation=representation):
+        return (UNVERIFIED,
+                "the verifier produced no authoritative execution trace, and "
+                "this obligation is not one of the closed verifier-native "
+                "contracts. Install the exact production backend and retry.",
+                None, P.native_execution_provenance(), ())
+    return (verdict, why, representation,
+            P.native_execution_provenance(), ())
+
+
 def verify_elimination_section(root, eid, section, timeout=300, record=True,
                                backend=None, _runner=None):
     """Check and optionally persist one explicit elimination section."""
@@ -2232,10 +2326,6 @@ def verify_elimination_section(root, eid, section, timeout=300, record=True,
     if backend is not None and _runner is not None:
         raise ValueError("pass backend or legacy _runner, not both")
     backend = backend or cas.SingularBackend(runner=_runner)
-    if record and not backend.can_record_verdicts:
-        raise ValueError(
-            "record=True requires the exact production backend and binary; "
-            "test doubles may be used only with record=False")
     execution_start = backend.execution_count
     try:
         verdict, why, representation = elimination_section(
@@ -2243,11 +2333,14 @@ def verify_elimination_section(root, eid, section, timeout=300, record=True,
     except cas.CASError as exc:
         verdict, why, representation = UNVERIFIED, (
             "the CAS could not check this section:\n  %s" % exc), None
+    verdict, why, representation, execution, artifacts = _execution_result(
+        graph, "elimination", eid, backend, execution_start, verdict, why,
+        representation, record)
     if record:
-        A.persist_all(root, backend.execution_artifacts(execution_start))
+        A.persist_all(root, artifacts)
         event = _verdict_event(
             graph, "elimination", eid, verdict, why, representation,
-            execution=backend.provenance(execution_start))
+            execution=execution)
         S.append([event], root)
     return verdict, why, representation
 
@@ -2259,11 +2352,6 @@ def verify_elimination_point_lift(root, eid, certificate, timeout=300,
     if backend is not None and _runner is not None:
         raise ValueError("pass backend or legacy _runner, not both")
     backend = backend or cas.SingularBackend(runner=_runner)
-    if record and not backend.can_record_verdicts:
-        raise ValueError(
-            "record=True requires the exact production backend and binary; "
-            "test doubles may be used only with record=False"
-        )
     execution_start = backend.execution_count
     try:
         verdict, why, representation = elimination_piecewise_lift(
@@ -2273,11 +2361,14 @@ def verify_elimination_point_lift(root, eid, certificate, timeout=300,
         verdict, why, representation = UNVERIFIED, (
             "the CAS could not check this point-lift cover:\n  %s" % exc
         ), None
+    verdict, why, representation, execution, artifacts = _execution_result(
+        graph, "point_lift", eid, backend, execution_start, verdict, why,
+        representation, record)
     if record:
-        A.persist_all(root, backend.execution_artifacts(execution_start))
+        A.persist_all(root, artifacts)
         event = _verdict_event(
             graph, "point_lift", eid, verdict, why, representation,
-            execution=backend.provenance(execution_start),
+            execution=execution,
             verifier="verify.elimination_point_lift",
         )
         S.append([event], root)
@@ -2290,11 +2381,6 @@ def verify_elimination_groebner(root, eid, timeout=300, record=True,
     if backend is not None and _runner is not None:
         raise ValueError("pass backend or legacy _runner, not both")
     backend = backend or cas.SingularBackend(runner=_runner)
-    if record and not backend.can_record_verdicts:
-        raise ValueError(
-            "record=True requires the exact production backend and binary; "
-            "test doubles may be used only with record=False"
-        )
     execution_start = backend.execution_count
     # Settle structural eligibility before spawning a process. An empty proof
     # reaches CERTIFICATE_REJECTED only after the edge, endpoints, field, and
@@ -2329,11 +2415,14 @@ def verify_elimination_groebner(root, eid, timeout=300, record=True,
                 "the certificate producer could not complete a checked proof:\n"
                 "  %s" % exc
             ), None
+    verdict, why, representation, execution, artifacts = _execution_result(
+        graph, "elimination", eid, backend, execution_start, verdict, why,
+        representation, record)
     if record:
-        A.persist_all(root, backend.execution_artifacts(execution_start))
+        A.persist_all(root, artifacts)
         event = _verdict_event(
             graph, "elimination", eid, verdict, why, representation,
-            execution=backend.provenance(execution_start),
+            execution=execution,
             verifier="verify.elimination_groebner",
         )
         S.append([event], root)
@@ -2534,11 +2623,6 @@ def verify_all(root=".", timeout=300, _runner=None, record=True, backend=None,
     if backend is not None and _runner is not None:
         raise ValueError("pass backend or legacy _runner, not both")
     backend = backend or cas.SingularBackend(runner=_runner)
-    if record and not backend.can_record_verdicts:
-        raise ValueError(
-            "record=True requires the exact production backend and binary; "
-            "subclasses, injected runners, and version overrides may be used "
-            "only with record=False")
 
     def run(subject, oid, fn):
         """One object, and a failure here must not cost the other twenty.
@@ -2567,16 +2651,18 @@ def verify_all(root=".", timeout=300, _runner=None, record=True, backend=None,
             # the word VERIFIED. The one artifact a reader could have rechecked
             # without trusting the search was computed and dropped.
             rep = out[2] if len(out) > 2 else None
+        verdict, why, rep, execution, artifacts = _execution_result(
+            graph, subject, oid, backend, execution_start, verdict, why, rep,
+            record)
         if record:
             # OBJECT BEFORE LOG. A persistence failure leaves the append-only
             # graph byte-identical; a later append failure can leave only a
             # harmless, deduplicated orphan.
-            A.persist_all(
-                artifact_root, backend.execution_artifacts(execution_start))
+            A.persist_all(artifact_root, artifacts)
         results.append((subject, oid, verdict, why))
         events.append(_verdict_event(
             graph, subject, oid, verdict, why, rep,
-            execution=backend.provenance(execution_start)))
+            execution=execution))
 
     for eid in sorted(graph.edges):
         e = graph.edges[eid]
@@ -2589,7 +2675,7 @@ def verify_all(root=".", timeout=300, _runner=None, record=True, backend=None,
         src, dst = graph.models.get(e["src"]), graph.models.get(e["dst"])
         if not src or not dst:
             continue
-        if (not e.get("containment")
+        if (needs_verification(e.get("containment"))
                 and not K.is_mapped_equivalence(e)
                 and src.get("generators") is not None
                 and dst.get("generators") is not None):
@@ -2601,7 +2687,7 @@ def verify_all(root=".", timeout=300, _runner=None, record=True, backend=None,
         # itself had two days earlier.
         # WHAT A CONSTRUCTOR ACTUALLY PRODUCED, against what it says it did.
         if (e.get("built_by_operation") in ("SaturateClosure", "Eliminate")
-                and not e.get("output_verdict")):
+                and needs_verification(e.get("output_verdict"))):
             run("operation", eid, lambda eid=eid: operation_output(
                 graph, eid, timeout=timeout, _backend=backend))
         # THE MAPS ARE THE TRIGGER, NOT THE FLAG.
@@ -2618,7 +2704,7 @@ def verify_all(root=".", timeout=300, _runner=None, record=True, backend=None,
         # check they did not ask for -- so running this unconditionally records
         # an answer without licensing anything.
         if (K.is_mapped_equivalence(e)
-                and not e.get("ring_iso_verdict")):
+                and needs_verification(e.get("ring_iso_verdict"))):
             run("ring_iso", eid, lambda eid=eid: ring_iso(
                 graph, eid, timeout=timeout, _backend=backend))
 
@@ -2627,10 +2713,11 @@ def verify_all(root=".", timeout=300, _runner=None, record=True, backend=None,
         if c.get("superseded_by"):
             continue
         if (c.get("kind") == K.PREDICATE and c.get("condition")
-                and not c.get("condition_verdict")):
+                and needs_verification(c.get("condition_verdict"))):
             run("condition", cid, lambda cid=cid: predicate_condition(
                 graph, cid, timeout=timeout, _backend=backend))
-        if (c.get("kind") == K.IDENTITY and not c.get("identity_verdict")
+        if (c.get("kind") == K.IDENTITY
+                and needs_verification(c.get("identity_verdict"))
                 and c.get("lhs") is not None and c.get("rhs") is not None):
             # Silent where the rewriting was never recorded.  An unstructured
             # IDENTITY is not a failed verification, it is an unasked
@@ -2642,7 +2729,7 @@ def verify_all(root=".", timeout=300, _runner=None, record=True, backend=None,
         # claimed.
         if (c.get("kind") == K.EMPTY
                 and c.get("certificate") == "UNIT_IDEAL_CERT"
-                and not c.get("certificate_verdict")):
+                and needs_verification(c.get("certificate_verdict"))):
             # NO `[:2]` -- that slice is what threw the cofactors away.
             run("certificate", cid,
                 lambda cid=cid: unit_ideal(graph, cid, timeout=timeout,
@@ -2654,13 +2741,13 @@ def verify_all(root=".", timeout=300, _runner=None, record=True, backend=None,
         # gets reported.
         if (c.get("kind") == K.EMPTY
                 and c.get("certificate") == "LOCALIZED_UNIT_IDEAL_CERT"
-                and not c.get("certificate_verdict")):
+                and needs_verification(c.get("certificate_verdict"))):
             run("certificate", cid,
                 lambda cid=cid: localized_unit_ideal(
                     graph, cid, timeout=timeout, _backend=backend,
                     supplied_certificate=(supplied_certificates or {}).get(cid)))
         if (c.get("kind") == K.NONEMPTY and c.get("witness_point")
-                and not c.get("witness_verdict")):
+                and needs_verification(c.get("witness_verdict"))):
             run("witness", cid, lambda cid=cid: point_witness(
                 graph, cid, timeout=timeout, _backend=backend))
 
@@ -2669,7 +2756,8 @@ def verify_all(root=".", timeout=300, _runner=None, record=True, backend=None,
     # until now it was a claim id pointing at prose.
     for pid in sorted(graph.partitions):
         p = graph.partitions[pid]
-        if p.get("superseded_by") or p.get("exhaustive_verdict"):
+        if (p.get("superseded_by")
+                or not needs_verification(p.get("exhaustive_verdict"))):
             continue
         run("partition", pid, lambda pid=pid: partition_exhaustiveness(
             graph, pid, timeout=timeout, _backend=backend))

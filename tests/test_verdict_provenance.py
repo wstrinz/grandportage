@@ -202,6 +202,19 @@ def test_fresh_verdict_carries_detailed_backend_provenance():
     )
 
 
+def test_native_execution_manifest_is_closed_and_versioned():
+    manifest = P.native_execution_provenance()
+    encoded = P.encode_execution_provenance(manifest)
+    assert P.native_provenance(encoded) == manifest
+    assert P.backend_provenance(encoded) is None
+
+    attacked = dict(manifest)
+    attacked["implementation_version"] += 1
+    stale = P.encode_execution_provenance(attacked)
+    assert P.native_provenance(stale) is None
+    assert P.native_provenance(stale, current_only=False) == attacked
+
+
 def test_exact_ring_iso_certificate_allows_a_verifier_native_empty_trace():
     graph = S.Graph()
     graph.apply(F.meta_event())

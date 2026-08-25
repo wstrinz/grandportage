@@ -258,10 +258,16 @@ def audit_graph_report(root, graph):
         encoded = event.get("backend")
         manifest = P.decode_backend_provenance(encoded, current_only=False)
         if manifest is None:
+            native = P.native_provenance(encoded, current_only=False)
             if (isinstance(encoded, str)
                     and encoded.startswith(P.BACKEND_PROVENANCE_PREFIX)):
                 problems.append(
                     "%s: backend v2 manifest is malformed" % verdict_id)
+            if (isinstance(encoded, str)
+                    and encoded.startswith(P.NATIVE_PROVENANCE_PREFIX)
+                    and native is None):
+                problems.append(
+                    "%s: native v1 manifest is malformed" % verdict_id)
             continue
         version = manifest["binary_version"]
         if (version.startswith("unavailable:")

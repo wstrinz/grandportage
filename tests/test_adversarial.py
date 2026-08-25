@@ -2735,7 +2735,8 @@ def test_verify_all_actually_writes_and_the_finding_goes_away(
     root = str(tmp_path)
     S.append([
         {"ev": "model", "id": "X", "what": "a curve",
-         "ring_vars": ["x", "y"], "generators": ["y^2-x^3"]},
+         "characteristic": 0, "ring_vars": ["x", "y"],
+         "generators": ["y^2-x^3"]},
         {"ev": "claim", "id": "C", "model": "X", "kind": K.IDENTITY,
          "statement": "y^2 = x^3", "lhs": "y^2", "rhs": "x^3",
          "ring_vars": ["x", "y"], "identity_origin": K.DERIVED,
@@ -2746,7 +2747,17 @@ def test_verify_all_actually_writes_and_the_finding_goes_away(
         "a structured but unreduced identity must be reported")
 
     # Nonzero in the polynomial ring, zero modulo the ideal -> DERIVED.
-    runner = _fake_run(stdout="@@GP_D:\ny2-x3\n@@GP_RED:\n0\n")
+    def runner(program, _timeout):
+        if "GP_DIFF" in program.text:
+            output = "@@GP_DIFF:\n0\n"
+        elif "GP_M" in program.text:
+            output = "@@GP_M:\nGP_M[1,1]=1\n"
+        elif "GP_T" in program.text:
+            output = "@@GP_RED:\n0\n"
+        else:
+            output = "@@GP_D:\ny2-x3\n@@GP_RED:\n0\n"
+        return {"aborted": False, "returncode": 0, "stderr": "",
+                "stdout": _completed(program, output)}
     backend = cas.SingularBackend(
         runner=runner, binary_version="Singular 4.2.1 test fixture")
     monkeypatch.setitem(
@@ -3949,6 +3960,35 @@ def test_an_inference_on_an_unverified_identity_is_not_clean():
     assert "I" not in C.clean_inferences(g, findings), (
         "and an inference resting on it must not be a positive control")
 
+    g.claims["C"]["identity_verdict"] = "UNVERIFIED"
+    g.claims["C"]["identity_why"] = "backend unavailable during reduction"
+    attempted = C.run(g)
+    unresolved = [f for f in attempted
+                  if f.rule == C.R_IDENTITY and f.subject == "C"]
+    assert unresolved
+    assert "backend unavailable" in unresolved[0].detail
+    assert "I" not in C.clean_inferences(g, attempted)
+
+
+def test_every_non_domain_specific_unverified_attempt_has_a_read_surface():
+    graph = _graph([
+        {"ev": "model", "id": "A", "what": "source",
+         "ring_vars": ["x"], "generators": ["x"]},
+        {"ev": "model", "id": "B", "what": "target",
+         "ring_vars": ["x"], "generators": ["x"]},
+        {"ev": "edge", "id": "E", "src": "A", "dst": "B",
+         "type": K.EQUIVALENCE, "map_kind": K.IDENTITY_MAP,
+         "why": "same coordinates", "ring_iso": True,
+         "forward": {"x": "x"}, "inverse": {"x": "x"}},
+    ])
+    graph.edges["E"]["ring_iso_verdict"] = "UNVERIFIED"
+    graph.edges["E"]["ring_iso_why"] = "exact map replay was unavailable"
+
+    findings = C.check_inconclusive_verdicts(graph)
+    assert len(findings) == 1
+    assert findings[0].rule == C.R_INCONCLUSIVE
+    assert "exact map replay was unavailable" in findings[0].detail
+
 
 def test_no_inference_disappears_from_both_lists():
     """GATE 5.  THE ONE FAILURE MODE A TOOL LIKE THIS MUST NEVER HAVE.
@@ -4280,6 +4320,139 @@ def test_a_fabricated_point_no_longer_types_like_a_real_one():
     verdict, why = V.point_witness(g, "FAKE", _runner=fake)
     assert verdict == V.WITNESS_REFUTED
     assert "x^2+y^2-25 evaluates to 9" in why
+
+
+class _ProductionLikeBackend(cas.SingularBackend):
+    """A real `SingularBackend` with a scripted runner, but reporting a
+    stable production identity instead of the ordinary "test-double" one.
+
+    A plain `SingularBackend(runner=...)` always reports `can_record_verdicts
+    = False` and a "test-double" binary version (it is a test double by
+    construction), so `verify_all` discards its answer to UNVERIFIED
+    regardless of what the runner returned -- exactly right for a test that
+    checks the DISCARD (below), wrong for one that wants to drive a realistic
+    unavailable-then-AVAILABLE transition through to a recorded VERIFIED
+    authority that also survives `S.load`'s binary-version currency check on
+    reload. This subclass changes only those two things, and pins the
+    identity to a fixed string (via the monkeypatched
+    `cas._singular_binary_version`) so the test does not depend on whether
+    this machine happens to have Singular installed.
+    """
+
+    @property
+    def can_record_verdicts(self):
+        return True
+
+    @property
+    def identity(self):
+        return B.BackendIdentity(
+            contract=B.SINGULAR_CONTRACT,
+            implementation=B.SINGULAR_IMPLEMENTATION,
+            implementation_version=self.IMPLEMENTATION_VERSION,
+            binary_version=cas._singular_binary_version(),
+        )
+
+
+def test_unavailable_then_available_backend_retries_a_genuinely_unverified_witness(
+        tmp_path, monkeypatch):
+    """`needs_verification` promises that UNVERIFIED is not a terminal
+    answer: "a later run may have ... an available execution capability".
+    This is that later run -- a transient backend OUTAGE, not the
+    permanently-UNVERIFIED structural mismatch of an inexecutable model
+    (that one stays UNVERIFIED forever regardless of backend availability;
+    see `verify._inexecutable_model_reason` and its M-CT1-CLOSED honesty
+    tests)."""
+    from grandportage import verify as V
+
+    # A fixed, environment-independent "current" Singular identity: the test
+    # must not depend on whether this machine happens to have Singular
+    # installed, only on the unavailable -> available TRANSITION.
+    monkeypatch.setattr(
+        cas, "_singular_binary_version",
+        lambda: "Singular for test-fixture version 9.9.9")
+
+    S.append(CIRCLE + [_witness_claim("REAL", {"x": "3", "y": "4"})],
+            str(tmp_path))
+
+    def unavailable_runner(prog, timeout):
+        return {"aborted": True, "returncode": 124, "stdout": "",
+                "stderr": "", "abort_reason": "backend unavailable"}
+
+    # An ordinary test-double SingularBackend: `verify_all` must discard its
+    # answer to UNVERIFIED rather than trust a non-production adapter.
+    unavailable = cas.SingularBackend(runner=unavailable_runner)
+    first = V.verify_all(root=str(tmp_path), backend=unavailable, record=True)
+    assert [(oid, verdict) for _subj, oid, verdict, _why in first] == [
+        ("REAL", V.UNVERIFIED)]
+    assert "install the exact production backend and retry" in first[0][3]
+
+    graph = S.load(S.graph_path(str(tmp_path)))
+    assert V.needs_verification(graph.claims["REAL"].get("witness_verdict"))
+
+    def available_runner(prog, timeout):
+        stdout = "@@GP_V0:\nGP_V0=0\n"
+        return {"aborted": False, "returncode": 0, "stderr": "",
+                "stdout": _completed(prog, stdout)}
+
+    available = _ProductionLikeBackend(runner=available_runner)
+    second = V.verify_all(root=str(tmp_path), backend=available, record=True)
+    assert [(oid, verdict) for _subj, oid, verdict, _why in second] == [
+        ("REAL", V.WITNESS_VERIFIED)]
+
+    graph = S.load(S.graph_path(str(tmp_path)))
+    assert graph.claims["REAL"]["witness_verdict"] == V.WITNESS_VERIFIED
+    assert not V.needs_verification(graph.claims["REAL"]["witness_verdict"])
+
+
+def test_structured_descriptor_model_is_visible_unverified_without_backend_or_authority(
+        tmp_path):
+    """Minimized M-CT1-CLOSED schema: refuse it before CAS substitution."""
+    from grandportage import provenance as P
+    from grandportage import verify as V
+
+    model = {
+        "ev": "model", "id": "M-CT1-CLOSED",
+        "desc": "minimized real CFG23 closed-model schema",
+        "coefficient_domain": "Q", "characteristic": 0,
+        "point_universe": "ALGEBRAIC_CLOSURE", "ring_vars": ["t1"],
+        "generators": [{
+            "id": "G1", "expr": "t1", "why": "descriptor provenance",
+        }],
+        "open_conditions": {
+            "summary": "474 guards are documented outside the graph",
+            "full_inventory": "artifact pointer",
+        },
+    }
+    claim = _witness_claim(
+        "C-CT1-QI-WITNESS", {"t1": "I"}, model="M-CT1-CLOSED")
+    S.append([model, claim], str(tmp_path))
+
+    def must_not_run(_program, _timeout):
+        raise AssertionError("an inexecutable model reached the CAS backend")
+
+    backend = cas.SingularBackend(runner=must_not_run)
+    first = V.verify_all(root=str(tmp_path), backend=backend, record=True)
+    assert [(subject, oid, verdict)
+            for subject, oid, verdict, _why in first] == [
+                ("witness", "C-CT1-QI-WITNESS", V.UNVERIFIED)]
+    assert "structured descriptor objects" in first[0][3]
+    assert "checked none" in first[0][3]
+    assert backend.execution_count == 0
+
+    graph = S.load(S.graph_path(str(tmp_path)))
+    event = next(iter(graph.verdicts.values()))
+    assert event["verdict"] == V.UNVERIFIED
+    assert event["current"] is True
+    assert P.native_provenance(event["backend"]) is not None
+    assert graph.claims["C-CT1-QI-WITNESS"]["witness_verdict"] == V.UNVERIFIED
+    assert graph.claims["C-CT1-QI-WITNESS"]["witness_verdict"] != (
+        V.WITNESS_VERIFIED)
+    assert V.needs_verification(
+        graph.claims["C-CT1-QI-WITNESS"]["witness_verdict"])
+
+    second = V.verify_all(root=str(tmp_path), backend=backend, record=False)
+    assert second[0][2] == V.UNVERIFIED
+    assert backend.execution_count == 0
 
 
 class _ExactPointBackend(object):
@@ -4658,7 +4831,7 @@ def test_the_unit_verifier_refuses_a_certificate_it_does_not_decide():
          "ring_vars": ["t"], "generators": ["t^2-3"]},
         {"ev": "claim", "id": "CL", "model": "M", "kind": K.EMPTY,
          "statement": "no rational point", "certificate": "NONSQUARE_CLASS",
-         "scope": "over Q"},
+         "scope": "Q"},
     ])
     verdict, why = V.unit_ideal(g, "CL", _runner=never)[:2]
     assert verdict == V.UNVERIFIED

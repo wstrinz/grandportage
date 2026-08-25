@@ -13,9 +13,16 @@ import re
 
 from . import identity as I
 
-GRAPH_FORMAT = 6
+GRAPH_FORMAT = 7
 KERNEL_EPOCH = 11
 META_EVENT = "meta"
+
+# Format 5 closed the historical meta header over a portable implementation
+# identity (see 59e119c); formats 1-4 predate it and never carried the field.
+# Any format from this point up to (but not including) the live GRAPH_FORMAT
+# is a historical format that must still preserve and validate its recorded
+# identity, without asserting it matches the implementation now reading it.
+IMPLEMENTATION_IDENTITY_MIN_FORMAT = 5
 
 
 def created_with():
@@ -68,7 +75,7 @@ EVENT_FIELDS = {
     "claim": {
         "ev", "id", "model", "family", "kind", "statement", "certificate",
         "scope", "identity_origin", "witness_kind", "witness",
-        "witness_point", "lhs", "rhs", "ring_vars", "integral",
+        "witness_point", "witness_field", "lhs", "rhs", "ring_vars", "integral",
         "coefficients_in_base", "zariski_closed", "existential",
         "condition", "established_by", "ladder", "cite", "citation", "caveat",
         "groups", "splits", "method", "proves", "rests_on",
@@ -272,24 +279,16 @@ def validate_native_event(ev, where, error):
                         % where)
 
 
-def validate_meta(ev, where, error):
-    validate_native_event(ev, where, error)
-    for field in ("graph_format", "kernel_epoch"):
-        if (not isinstance(ev[field], int)
-                or isinstance(ev[field], bool)):
-            raise error(
-                "%s: `%s` must be an integer, not %r"
-                % (where, field, ev[field]))
-    if ev["graph_format"] != GRAPH_FORMAT:
-        raise error(
-            "%s: graph_format %r is unsupported; this build reads format %d"
-            % (where, ev["graph_format"], GRAPH_FORMAT))
-    if ev["kernel_epoch"] != KERNEL_EPOCH:
-        raise error(
-            "%s: kernel_epoch %r is incompatible with this build's epoch %d"
-            % (where, ev["kernel_epoch"], KERNEL_EPOCH))
-    if not isinstance(ev["created_with"], str) or not ev["created_with"].strip():
-        raise error("%s: `created_with` must be a non-empty string" % where)
+def _validate_implementation_identity(ev, where, error):
+    """Structurally validate the closed implementation identity on ``ev``.
+
+    This only checks that the identity is well-formed and internally
+    consistent with ``ev``'s own ``graph_format``/``kernel_epoch``; it never
+    asserts that the identity matches the implementation doing the reading.
+    Historical formats 5+ recorded another build's identity, and that
+    recorded identity must be preserved and validated, not overwritten or
+    treated as the current build (see :func:`validate_meta_for_read`).
+    """
     implementation = ev["implementation"]
     required = {
         "schema", "package_version", "source_commit", "source_dirty",
@@ -313,6 +312,12 @@ def validate_meta(ev, where, error):
             and type(implementation["source_dirty"]) is not bool):
         raise error("%s: implementation source_dirty must be true, false, or null"
                     % where)
+    for field in ("graph_format", "kernel_epoch"):
+        if (not isinstance(implementation[field], int)
+                or isinstance(implementation[field], bool)):
+            raise error(
+                "%s: implementation `%s` must be an integer, not %r"
+                % (where, field, implementation[field]))
     if (implementation["graph_format"] != ev["graph_format"]
             or implementation["kernel_epoch"] != ev["kernel_epoch"]):
         raise error("%s: implementation identity disagrees with graph metadata"
@@ -333,13 +338,41 @@ def validate_meta(ev, where, error):
         raise error("%s: implementation backend identity is malformed" % where)
 
 
+def validate_meta(ev, where, error):
+    validate_native_event(ev, where, error)
+    for field in ("graph_format", "kernel_epoch"):
+        if (not isinstance(ev[field], int)
+                or isinstance(ev[field], bool)):
+            raise error(
+                "%s: `%s` must be an integer, not %r"
+                % (where, field, ev[field]))
+    if ev["graph_format"] != GRAPH_FORMAT:
+        raise error(
+            "%s: graph_format %r is unsupported; this build reads format %d"
+            % (where, ev["graph_format"], GRAPH_FORMAT))
+    if ev["kernel_epoch"] != KERNEL_EPOCH:
+        raise error(
+            "%s: kernel_epoch %r is incompatible with this build's epoch %d"
+            % (where, ev["kernel_epoch"], KERNEL_EPOCH))
+    if not isinstance(ev["created_with"], str) or not ev["created_with"].strip():
+        raise error("%s: `created_with` must be a non-empty string" % where)
+    _validate_implementation_identity(ev, where, error)
+
+
 def validate_meta_for_read(ev, where, error):
     """Validate a native header at the read boundary.
 
     Current-format metadata remains strict.  Older native formats are archival
-    inputs: they may be inspected and migrated, but their missing implementation
-    identity is preserved as unknown rather than fabricated.  Writers enforce
-    the current boundary separately before appending anything.
+    inputs: they may be inspected and migrated.  Formats before
+    :data:`IMPLEMENTATION_IDENTITY_MIN_FORMAT` never carried an implementation
+    identity and keep their original four-field header contract; their missing
+    identity is preserved as unknown rather than fabricated.  Formats from
+    :data:`IMPLEMENTATION_IDENTITY_MIN_FORMAT` up to (but excluding) the
+    current :data:`GRAPH_FORMAT` closed over a recorded implementation
+    identity, and that identity is required, preserved, and structurally
+    validated -- but never checked against the implementation now reading it,
+    since an archival header describes the build that wrote it, not this one.
+    Writers enforce the current boundary separately before appending anything.
     """
     if not isinstance(ev, dict):
         raise error("%s: event is not an object" % where)
@@ -364,7 +397,10 @@ def validate_meta_for_read(ev, where, error):
         raise error(
             "%s: historical kernel_epoch %r cannot be read by this build's "
             "epoch %d" % (where, kernel_epoch, KERNEL_EPOCH))
+    closes_over_identity = graph_format >= IMPLEMENTATION_IDENTITY_MIN_FORMAT
     expected = {"ev", "graph_format", "kernel_epoch", "created_with"}
+    if closes_over_identity:
+        expected = expected | {"implementation"}
     if set(ev) != expected:
         missing = sorted(expected - set(ev))
         extra = sorted(set(ev) - expected)
@@ -375,6 +411,8 @@ def validate_meta_for_read(ev, where, error):
                ", ".join(extra) or "(none)"))
     if not isinstance(ev["created_with"], str) or not ev["created_with"].strip():
         raise error("%s: `created_with` must be a non-empty string" % where)
+    if closes_over_identity:
+        _validate_implementation_identity(ev, where, error)
 
 
 def import_epoch0_event(ev):

@@ -31,8 +31,10 @@ report has no graph effect.
 
 Representative modules: `groebner`, `coefficient_expansion`, `localization`,
 `factor_power`, `factor_power_contradiction`, `product_split`,
-`laurent_lowering`, `laurent_coefficient_pipeline`, `triangular`, and the
-shared descriptive `evidence` manifest.
+`laurent_lowering`, `laurent_coefficient_pipeline`, `triangular`,
+`number_field`, `ordered`, `ordered_receipt`, and the shared descriptive
+`evidence` manifest. `ordered_receipt` is independently authored from the
+ordered-sign producer and is the fold-time authority checker.
 
 Rules:
 

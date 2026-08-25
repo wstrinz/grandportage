@@ -56,20 +56,19 @@ gp check                  # current actionable debt first
 gp check --history        # include superseded generations
 ```
 
-Version 0.29 adds exact selected-embedding identity and a bounded ordered-real
-slice without adding a transport type or claim kind. Models may select a REAL
-root by rational isolating interval or a COMPLEX image by rational box. Map
-custody fingerprints both endpoint definitions, and a ring automorphism no
-longer silently means that predicates at two selected images are identical.
-`REAL_CLOSURE` models can state exact polynomial signs at their selected root.
+Version 0.30 retains v0.29's selected-embedding and bounded ordered-real
+transport semantics while hardening the evidence layer. Solver-free verdicts
+carry native provenance, `UNVERIFIED` attempts remain visible and retryable,
+selected-real signs carry independently checked Sturm receipts, and NONEMPTY
+claims may exhibit points in a bounded simple quadratic/cubic extension of Q.
 
 ## Status
 
-All five layers are built and gated: <!--checks-->1515<!--/checks--> checks, live against Singular 4.2.1,
+All five layers are built and gated: <!--checks-->1627<!--/checks--> checks, live against Singular 4.2.1,
 and it has had eleven live user sessions — see [docs/first-run/](docs/first-run/)
 for the first, written up in full.
 
-* **[COMPATIBILITY.md](COMPATIBILITY.md) — graph format 6, kernel epoch 11, selected-embedding identity, exact implementation provenance, durable artifacts, and conservative migration**
+* **[COMPATIBILITY.md](COMPATIBILITY.md) — graph format 7, kernel epoch 11, selected-embedding identity, native/CAS provenance, extension witnesses, durable artifacts, and conservative migration**
 * **[QUICKSTART.md](QUICKSTART.md) — install, a campaign in ten minutes, and the three things worth knowing on day one**
 * **[v0.26 release packet](review/v0.26/README.md) — ARR15 open-locus soundness, bounded localization, and MCP custody**
 * [DESIGN.md](DESIGN.md) — architecture and the decisions behind it
@@ -210,9 +209,21 @@ selected REAL interval, the same condition language accepts `POSITIVE`,
 at the selected root; write `a < b` as `NEGATIVE` on `a-b`. `gp verify` checks
 the interval isolates exactly one root using exact Sturm arithmetic, refines it
 with rational intervals until the sign separates, and records a deterministic
-receipt that the graph fold recomputes. A malformed isolator or bounded miss is
-`UNVERIFIED`, never authority. Incompatible sign assertions on the same
+`selected_real_interval_v2` receipt containing the Sturm chain, variation
+counts, refined interval, and zero/endpoint evidence. A separately authored
+checker recomputes that arithmetic before the graph fold activates authority.
+A malformed isolator or bounded miss is `UNVERIFIED`, never authority.
+Incompatible sign assertions on the same
 canonical polynomial and selected model create visible contradiction debt.
+
+A `NONEMPTY` claim may pair `witness_point` with a closed
+`simple_number_field_v1` certificate. The witness field is Q[a]/(f), separate
+from the model coefficient field; v1 accepts only checked irreducible quadratic
+or cubic f and only establishes points in `ALGEBRAIC_CLOSURE`. Coordinates are
+polynomials or explicit numerator/denominator polynomials in a. Exact quotient
+arithmetic checks every equation, open guard, and denominator inverse. BASE and
+REAL_CLOSURE extension witnesses remain unsupported rather than silently
+changing the model's ambient field or ordering.
 
 Ordinary predicate pullback is also executable in the sound `AGAINST` direction:
 a literal identity-coordinate edge preserves syntax only across matching exact
@@ -468,7 +479,7 @@ Three.js build by default; `--three-root` can point it at a local package.
 ## The retrodiction gate
 
 ```bash
-python -m pytest        # <!--checks-->1515<!--/checks--> checks
+python -m pytest        # <!--checks-->1627<!--/checks--> checks
 ```
 
 Grand Portage's credibility rests on reproducing, from **data**, what two

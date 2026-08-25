@@ -69,6 +69,7 @@ R_ORIGIN_CONFLICT = "ORIGIN-CONTRADICTED"
 R_CITATION = "AMBIGUOUS-CITATION"
 R_DOUBT = "DOUBT"
 R_EVIDENCE = "EVIDENCE-GRADE"
+R_INCONCLUSIVE = "VERIFICATION-INCONCLUSIVE"
 
 EXISTENCE_OPPOSITE = {K.EMPTY: K.NONEMPTY, K.NONEMPTY: K.EMPTY}
 
@@ -1375,6 +1376,19 @@ def check_witness_point(graph):
                 "neither pretends to an object you do not have.",
                 semantic_key=cid))
             continue
+        if verdict == "UNVERIFIED":
+            findings.append(Finding(
+                R_WITNESS, "%s:unverified:%s" % (R_WITNESS, cid),
+                TRIAGE, cid,
+                "NONEMPTY claim %s has structured coordinates, but its latest "
+                "verification attempt was inconclusive: %s"
+                % (cid, c.get("witness_why") or
+                   "no diagnostic was recorded"),
+                "Run `gp verify` again after repairing the reported input or "
+                "making the required verifier capability available. "
+                "UNVERIFIED is an attempt result, not a settled verdict.",
+                semantic_key=cid))
+            continue
         if verdict:
             continue
         if c.get("witness_point"):
@@ -1799,10 +1813,72 @@ def check_localized_unit_certificates(graph):
             "claim %s names LOCALIZED_UNIT_IDEAL_CERT but has no current "
             "VERIFIED localized-unit verdict. The name alone grants no "
             "effective certificate, base-change authority, or partition "
-            "coverage." % cid,
+            "coverage.%s" % (
+                cid,
+                (" The latest attempt was inconclusive: %s"
+                 % (claim.get("certificate_why") or
+                    "no diagnostic was recorded"))
+                if claim.get("certificate_verdict") == "UNVERIFIED" else ""),
             "Run `gp verify`. A bounded miss remains UNVERIFIED; only a "
             "guard-monomial cofactor identity replayed against the exact open "
             "model discharges this debt.",
+            semantic_key=cid))
+    return findings
+
+
+def check_inconclusive_verdicts(graph):
+    """Surface verifier attempts that ended without a mathematical answer.
+
+    Identity, witness, condition, containment, and localized-unit checks have
+    richer domain-specific findings.  The remaining verdict subjects used to
+    have no read surface at all once ``UNVERIFIED`` was projected into the
+    folded graph, so a failed attempt could be found only in raw history.
+    """
+    findings = []
+    specs = (
+        ("ring-isomorphism", graph.edges, "ring_iso_verdict",
+         "ring_iso_why"),
+        ("operation-output", graph.edges, "output_verdict", "output_why"),
+        ("elimination", graph.edges, "contraction_verdict",
+         "contraction_why"),
+        ("point-lift", graph.edges, "point_lift_verdict", "point_lift_why"),
+        ("partition-exhaustiveness", graph.partitions, "exhaustive_verdict",
+         "exhaustive_why"),
+    )
+    for label, registry, verdict_field, why_field in specs:
+        for oid in sorted(registry):
+            obj = registry[oid]
+            if (obj.get("superseded_by")
+                    or obj.get(verdict_field) != "UNVERIFIED"):
+                continue
+            findings.append(Finding(
+                R_INCONCLUSIVE,
+                "%s:%s:%s" % (R_INCONCLUSIVE, label, oid),
+                TRIAGE, oid,
+                "%s verification for %s was attempted but remains "
+                "inconclusive: %s"
+                % (label, oid, obj.get(why_field) or
+                   "no diagnostic was recorded"),
+                "Repair the reported input or make the required verifier "
+                "capability available, then run `gp verify` again. An "
+                "UNVERIFIED attempt is visible, retryable history and grants "
+                "no authority.", semantic_key=oid))
+    for cid in sorted(graph.claims):
+        claim = graph.claims[cid]
+        if (claim.get("superseded_by")
+                or claim.get("certificate") == "LOCALIZED_UNIT_IDEAL_CERT"
+                or claim.get("certificate_verdict") != "UNVERIFIED"):
+            continue
+        findings.append(Finding(
+            R_INCONCLUSIVE,
+            "%s:certificate:%s" % (R_INCONCLUSIVE, cid),
+            TRIAGE, cid,
+            "certificate verification for %s was attempted but remains "
+            "inconclusive: %s"
+            % (cid, claim.get("certificate_why") or
+               "no diagnostic was recorded"),
+            "Repair the reported input or supply a bounded certificate, then "
+            "run `gp verify` again. UNVERIFIED grants no new evidence.",
             semantic_key=cid))
     return findings
 
@@ -2762,6 +2838,18 @@ def check_containment(graph):
         verdict, containment_why, inherited_from = _effective_containment(graph, eid)
         if verdict == "VERIFIED":
             continue
+        if verdict == "UNVERIFIED":
+            findings.append(Finding(
+                R_CONTAINMENT, "%s:unverified:%s" % (R_CONTAINMENT, eid),
+                DEBT, eid,
+                "containment verification for edge %s was attempted but "
+                "remains inconclusive: %s"
+                % (eid, containment_why or "no diagnostic was recorded"),
+                "Repair the reported input or make the exact containment "
+                "capability available, then run `gp verify` again. "
+                "UNVERIFIED is retryable and grants no transport authority.",
+                semantic_key=eid))
+            continue
         if verdict == "NOT_BY_IDEAL":
             ridden = live_crossings(graph, [eid])
             untyped_unridden = e["type"] == K.UNTYPED and not ridden
@@ -3372,6 +3460,19 @@ def check_identity(graph):
                 "the error is at the origin rather than on any edge.",
                 semantic_key=cid))
             continue
+        if c.get("identity_verdict") == "UNVERIFIED":
+            findings.append(Finding(
+                R_IDENTITY, "%s:unverified:%s" % (R_IDENTITY, cid),
+                TRIAGE, cid,
+                "claim %s has a structured identity, but its latest "
+                "verification attempt was inconclusive: %s"
+                % (cid, c.get("identity_why") or
+                   "no diagnostic was recorded"),
+                "Run `gp verify` again after repairing the reported input or "
+                "making the required verifier capability available. "
+                "UNVERIFIED is retryable and grants no authority.",
+                semantic_key=cid))
+            continue
         if c.get("identity_verdict"):
             continue
         if c.get("lhs") is not None:
@@ -3646,6 +3747,7 @@ def run(graph, accepted=None):
                 + check_integral(graph)
                 + check_origin_contradiction(graph)
                 + check_localized_unit_certificates(graph)
+                + check_inconclusive_verdicts(graph)
                 + check_refuted_evidence(graph)
                 + check_evidence(graph)
                 + check_parallel_edges(graph)
@@ -3731,7 +3833,7 @@ def clean_inferences(graph, findings):
     # at the default floor `gp check` reported the inference CLEAN and exited
     # 0, with the only signal sitting below the failing floor.
     flagged |= {f.subject for f in findings
-                if f.rule in (R_IDENTITY, R_CONDITION)}
+                if f.rule in (R_IDENTITY, R_CONDITION, R_INCONCLUSIVE)}
     return [i for i, _why in _partition_inferences(graph, flagged)[0]]
 
 
@@ -3785,7 +3887,7 @@ def disqualified_inferences(graph, findings):
                if SEVERITY_RANK[f.derived_severity]
                >= SEVERITY_RANK[UNSOUND_PREMISE]}
     flagged |= {f.subject for f in findings
-                if f.rule in (R_IDENTITY, R_CONDITION)}
+                if f.rule in (R_IDENTITY, R_CONDITION, R_INCONCLUSIVE)}
     return _partition_inferences(graph, flagged)[1]
 
 

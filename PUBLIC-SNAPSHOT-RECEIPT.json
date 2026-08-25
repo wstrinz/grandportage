@@ -2,7 +2,7 @@
   "counts": {
     "generated_files": 1,
     "private_files": 11,
-    "public_files": 248
+    "public_files": 257
   },
   "files": [
     {
@@ -27,11 +27,11 @@
     },
     {
       "path": "ARCHITECTURE.md",
-      "sha256": "222074514c7ed91160a1b6abc0e34d8e2dca3275cd6c4e608fa5edaae64253d9"
+      "sha256": "457484672a524b1eafc3236442d8f65200c051b410c717cd834bc1716ba0f40a"
     },
     {
       "path": "COMPATIBILITY.md",
-      "sha256": "dd4ba37680d3c44aa08b43c9cdd42a77b702dd5b70e8d09aab06073147cb586e"
+      "sha256": "51f24e99f4d634c3c09c39ec102685fb7b378879b93ac85fc75d0dd5fff45d6a"
     },
     {
       "path": "DESIGN.md",
@@ -51,15 +51,15 @@
     },
     {
       "path": "README.md",
-      "sha256": "05375b30ebbb0ed739f11a0385e11db65f5e150b522b14dafe52d9a0aed1e776"
+      "sha256": "b9ade43e228597cc6cbce0c25bfba63cf6a253ab4e7c73d20ce4cbd6e10e19ce"
     },
     {
       "path": "REVIEW.md",
-      "sha256": "023e72f4b65ee609c22e6af12c3fca34d598779dc9c0a44797c501f890bc1619"
+      "sha256": "494e1a4fc90c2d2b0a990b0e5daaf3e05c0e7ad09e8c505d4c943f3474ce0456"
     },
     {
       "path": "SPEC.md",
-      "sha256": "26022f95542f6b18a89d5045fb6f8905ef7ac7dc39e9de55cb13d25a6e954323"
+      "sha256": "a283c76fc88428b6979e10d3e74b56b934268cd39a9ca62e45a4069cbbc28b6e"
     },
     {
       "path": "docs/CAMPAIGN-DOSSIER-V0.md",
@@ -283,7 +283,7 @@
     },
     {
       "path": "grandportage/__init__.py",
-      "sha256": "4a68e2a5b4271f173552a1cbad8145c8ae6518982407c02beb035dd20b6ce3e5"
+      "sha256": "5bc8312072a96a6fa7b3dffc540a45ac2df83831e71437c2a459c72f60d23f4f"
     },
     {
       "path": "grandportage/adapter_conformance.py",
@@ -291,7 +291,7 @@
     },
     {
       "path": "grandportage/artifacts.py",
-      "sha256": "3726dc0cf9e44020a955227717382831c90686131964d39de48e96eb3e963a9b"
+      "sha256": "1d3da9853c59899b29a522c4646f488712f80b1efbcc93fa843f1243ee098864"
     },
     {
       "path": "grandportage/authority_registry.py",
@@ -311,7 +311,7 @@
     },
     {
       "path": "grandportage/check.py",
-      "sha256": "ed63ab6a6aa4a9546ff5845a2fad25525585dbc390539344f4a7be41b37430cf"
+      "sha256": "59c62e4448dfa3bb152975828c16f9b9a5aaa5b7d0c1778c04c1b670c2165ad4"
     },
     {
       "path": "grandportage/cli.py",
@@ -347,7 +347,7 @@
     },
     {
       "path": "grandportage/format.py",
-      "sha256": "04e5f7c21260911603a4dd560330aed024e766d510e8ade6d64e462cff48e048"
+      "sha256": "0299998e09600605b50901b9ff352e5f03007b5b61830bac54ddfc18f32cb763"
     },
     {
       "path": "grandportage/frontier.py",
@@ -375,7 +375,7 @@
     },
     {
       "path": "grandportage/kernel.py",
-      "sha256": "a581f55ac717f5db3241137b548f7ef877b312d37c0ba00375d89edf178a2f4e"
+      "sha256": "c7852c976c65444c3cce310b74e11e4e1689101e7b0da76a328aff6d4a108601"
     },
     {
       "path": "grandportage/laurent_coefficient_pipeline.py",
@@ -395,7 +395,11 @@
     },
     {
       "path": "grandportage/migration.py",
-      "sha256": "91101653806711db665b96e05028c44d24b4c68d5dcfe2d78e582b7ee09bc680"
+      "sha256": "ea015e83bbd8bc0a3410c9fd3156227c0fc8ff05c17045f000127d3ad9ba75d8"
+    },
+    {
+      "path": "grandportage/number_field.py",
+      "sha256": "bb815c2cfe03feb2eaae94756e5d41fcf8d5b836ba50d97c750fd52a7cad877e"
     },
     {
       "path": "grandportage/operations.py",
@@ -403,7 +407,11 @@
     },
     {
       "path": "grandportage/ordered.py",
-      "sha256": "44fe471e68436690d9dad285f005bf4aaba19f736ebe3ea695fbd5c04e297d40"
+      "sha256": "f34cfbe57349335e3d46460335fda6b1150ac94759559ee9a2d1397b3266d28f"
+    },
+    {
+      "path": "grandportage/ordered_receipt.py",
+      "sha256": "159da2efcdd6024325fa32fe4050772401d50c48cbd244a4b5d126abe3d66ac9"
     },
     {
       "path": "grandportage/product_split.py",
@@ -415,7 +423,7 @@
     },
     {
       "path": "grandportage/provenance.py",
-      "sha256": "6b039ecb6ca47ca137ee7b1840fc24ba7597ea32a46a5d0e1cea3f1292de5cc4"
+      "sha256": "873fe70b221d8a27d4bce76e1c042a7aa519d096dbe24baeb88f00fb86143e77"
     },
     {
       "path": "grandportage/publication.py",
@@ -431,7 +439,7 @@
     },
     {
       "path": "grandportage/store.py",
-      "sha256": "9420ec7f50832c83f1e473448f4d1b4d1bdc17779b1524f43864b2916b382c6f"
+      "sha256": "a4a95485e16d28964c4979c30d23464347f637952b243731e1ac6aa88e8c3553"
     },
     {
       "path": "grandportage/triangular.py",
@@ -439,7 +447,7 @@
     },
     {
       "path": "grandportage/verify.py",
-      "sha256": "526fd2dd522df84de4a6413b71a78c63d545ac03c35d71d7f4159b9239a30678"
+      "sha256": "c2e98101a49cf60a89619c259615ce681cf9860bfbb30d0c7d591a27e7305475"
     },
     {
       "path": "grandportage/visualization.py",
@@ -451,7 +459,7 @@
     },
     {
       "path": "lean/GrandPortage.lean",
-      "sha256": "f58bd373b961b098fba2c883d176c4944b21af2a88840f62c413ce5b5e836dec"
+      "sha256": "2d4b1a4b39d19761e159c9c7dbf1a91d5138eab2acece6b3a09aa20492a87825"
     },
     {
       "path": "lean/GrandPortage/AffineCoordinate.lean",
@@ -546,16 +554,20 @@
       "sha256": "4f603585855359d79562f0cd5ae92c1c1c0f8e71860ecff951982bc170b4e5d5"
     },
     {
+      "path": "lean/GrandPortage/SelectedEmbedding.lean",
+      "sha256": "6713dd21d316a112be9823d29f5ff39c9a4f956a8d92ae1a06ba95c5017e6bda"
+    },
+    {
       "path": "lean/GrandPortage/TriangularChain.lean",
       "sha256": "b4e3f8e73c6e771f7df695ef8c0627baead4394c5e1212a740d124e0f84a41e0"
     },
     {
       "path": "lean/README.md",
-      "sha256": "6a0dfe871f0f47065265f80237b1b2b4728fed2c1bb4e254a14aabd953e3b786"
+      "sha256": "b275a8bbde586d29734234051003ec747b4c4b4ed244a3d730051f08e42353b2"
     },
     {
       "path": "lean/THEORY.md",
-      "sha256": "20b748d06a12d6a9cd122122758ec5dc7e9e8bd38a6449ae51b28a05508372eb"
+      "sha256": "57b694d0ee34e4393521319635bf3fdb0249e097d68044217d64bd3af1b91c43"
     },
     {
       "path": "lean/lake-manifest.json",
@@ -575,7 +587,7 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "67474eed4cc4c3192aa620774318c5bf1b96338a0410c1f6a456a7aef8a5d579"
+      "sha256": "1251854ea4736b7d34bc14dd85c6a1aab9c7a6a6bd8df4ee2c110a5c2bf0c89b"
     },
     {
       "path": "review/LSEM-COLD-RETEST-PACKET-2026-08-03.md",
@@ -726,6 +738,22 @@
       "sha256": "b6031c993e76beebfde881d764a800fc81bb1c411d85aa423d9e60a20e436642"
     },
     {
+      "path": "review/v0.30/COMPATIBILITY-ASSAY.md",
+      "sha256": "cf1d735f3d25dc25c3c4f5c865a558763092c637e556e3787772603cbadda601"
+    },
+    {
+      "path": "review/v0.30/README.md",
+      "sha256": "7e6d96594dccc5923dde82a8c22860777eb0f4b8f9ca0f2ac3a014a7cddf2358"
+    },
+    {
+      "path": "review/v0.30/field-scope-validation-v1/POSTMORTEM.md",
+      "sha256": "fa2e43d576c997ffeb9f248345da0d67d2e77de2d3d3c57a79ad9bd703ee9a4a"
+    },
+    {
+      "path": "review/v0.31/README.md",
+      "sha256": "3f4f57add9ea5b8f68bd32d6e30060bc06050d837afc713dd028eeb648cadd67"
+    },
+    {
       "path": "scripts/build_jc_replay_resources.py",
       "sha256": "e6e4224b8d07b4430541088e7d762356f91c32ba98ea58a00b1b66e624f82209"
     },
@@ -771,7 +799,7 @@
     },
     {
       "path": "tests/test_adversarial.py",
-      "sha256": "74284a6a624a9e7935a7dcae5136a708310a827e5aea7176343840c37677ab66"
+      "sha256": "18253c0a01580d3ca34172f86ee505200f41f02b593fdb7888451b1e23186774"
     },
     {
       "path": "tests/test_affine_coordinate.py",
@@ -779,7 +807,7 @@
     },
     {
       "path": "tests/test_architecture.py",
-      "sha256": "ac9a8de337b6b4d1e0cc20f7844c14d1177064d7df8a4adeca01cdbb692a7149"
+      "sha256": "ab14c2b59deb51832de156ea51a9cc2324ec201633ebbe57ac562e971c4a9e39"
     },
     {
       "path": "tests/test_arr15_contract_closure.py",
@@ -807,7 +835,7 @@
     },
     {
       "path": "tests/test_backend.py",
-      "sha256": "1699de9f0dcedf601cf5604ff26b313bdd0fede695f20fe314822ca348aa88cf"
+      "sha256": "24d38a1800f104363a388d9163e7fcaad74e93ac1548d314960b85ae5237159b"
     },
     {
       "path": "tests/test_boundary.py",
@@ -866,8 +894,12 @@
       "sha256": "ba11e7d325bf0d92b9287616dfb44f64d4c31afaad2e5bdabbfde001464a3802"
     },
     {
+      "path": "tests/test_field_scope_validation.py",
+      "sha256": "86dbc2a7aad600dcd5778afc2f00a38d0be700cdb5fc89b2e5f7b3888f9e53cc"
+    },
+    {
       "path": "tests/test_format_epoch.py",
-      "sha256": "04086398a2345c08f997956ec7b177ec92a590813c9915d1be28bae488db2340"
+      "sha256": "453c20bbbf232bc07a95eda15f529ce7922bd103e5e20b821e5b4c0f95a9163e"
     },
     {
       "path": "tests/test_frontier.py",
@@ -922,12 +954,16 @@
       "sha256": "6a5960ec076b9986b3df0ea80cf7cabf4e326ed5dcd30be85826b246f6ae9ccc"
     },
     {
+      "path": "tests/test_number_field_witness.py",
+      "sha256": "effd06747f14a4ae1e2f9cd5c29bd000590fc59020ba846b074dee0c9c108bdf"
+    },
+    {
       "path": "tests/test_operations.py",
       "sha256": "32feab1ee81fef22c67ed3767ff3bfb06815ab59c58d25d2fe6a539dceb48428"
     },
     {
       "path": "tests/test_ordered_real_semantics.py",
-      "sha256": "7c4ccd4da9491075a4b83b379bd57679b5bc4c5c18de23e62ac79a2a8127ece6"
+      "sha256": "94a74580265e851d9ced55b866eada76c427f5570dc87140664da09b1c2ac348"
     },
     {
       "path": "tests/test_point_lift.py",
@@ -991,7 +1027,7 @@
     },
     {
       "path": "tests/test_verdict_provenance.py",
-      "sha256": "f569523edbe15de0d6a2daf33c84571122f906b4b6244b45de6aba6ba75b3cc6"
+      "sha256": "0768ed5bd2b671ba57127b708dfd877970740cae40587631ae5fcd7c0e2ad7bd"
     },
     {
       "path": "tools/replay_arr15_e10.py",
@@ -1016,6 +1052,6 @@
     "docs/portagecommandconceptv2.md"
   ],
   "schema": "grand-portage-public-snapshot-receipt/v1",
-  "snapshot_sha256": "ea6d3362915c81f13e5c3cc8b23d3605ecd611d0d2a763b18f71072053538456",
-  "source_commit": "23b0d481e93682b622d85fdfda954bd9e9d83063"
+  "snapshot_sha256": "d2a0065cdf6e528f411fea153ef51e12e5ed10ddd45c7627c0b5c434bf6a6597",
+  "source_commit": "26de40830883df521a762817539fdcd612039c68"
 }

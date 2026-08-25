@@ -155,6 +155,36 @@ def _text(value):
             else "%s/%s" % (value.numerator, value.denominator))
 
 
+def _poly_text(poly):
+    return [_text(value) for value in poly]
+
+
+def _certificate(generator_text, expression, embedding, selection,
+                 root_interval, value_interval, sign, sequence,
+                 zero_gcd=None, endpoint_root=None):
+    return {
+        "method": "selected_real_interval_v2",
+        "generator": generator_text,
+        "expression": expression,
+        "embedding": embedding,
+        "selection_interval": {
+            "lo": _text(selection[0]), "hi": _text(selection[1])},
+        "root_interval": {
+            "lo": _text(root_interval[0]), "hi": _text(root_interval[1])},
+        "value_interval": {
+            "lo": _text(value_interval[0]), "hi": _text(value_interval[1])},
+        "sign": sign,
+        "sturm_chain": [_poly_text(polynomial) for polynomial in sequence],
+        "variations": {
+            "lo": _variations(sequence, root_interval[0]),
+            "hi": _variations(sequence, root_interval[1]),
+        },
+        "zero_gcd": (_poly_text(zero_gcd) if zero_gcd else None),
+        "endpoint_root": (_text(endpoint_root)
+                          if endpoint_root is not None else None),
+    }
+
+
 def selected_real_sign(model, expression, max_refinements=256):
     """Return ``(sign, certificate)`` or raise ``OrderedError``.
 
@@ -187,6 +217,8 @@ def selected_real_sign(model, expression, max_refinements=256):
     wanted = _coefficients(expression, variable)
     if not generator:
         raise OrderedError("the selected generator must be nonzero")
+    selection = (lo, hi)
+    sequence = _sturm(generator)
     lo_root = _evaluate(generator, lo) == 0
     hi_root = _evaluate(generator, hi) == 0
     if lo_root and hi_root:
@@ -201,17 +233,12 @@ def selected_real_sign(model, expression, max_refinements=256):
                 "its endpoint root")
         exact = _evaluate(wanted, endpoint_root)
         sign = 1 if exact > 0 else -1 if exact < 0 else 0
-        certificate = {
-            "method": "selected_real_interval_v1",
-            "generator": generators[0],
-            "embedding": embedding,
-            "root_interval": {
-                "lo": _text(endpoint_root), "hi": _text(endpoint_root)},
-            "value_interval": {"lo": _text(exact), "hi": _text(exact)},
-            "sign": sign,
-        }
+        common = _gcd(generator, wanted) if sign == 0 else None
+        certificate = _certificate(
+            generators[0], expression, embedding, selection,
+            (endpoint_root, endpoint_root), (exact, exact), sign, sequence,
+            zero_gcd=common, endpoint_root=endpoint_root)
         return sign, certificate
-    sequence = _sturm(generator)
     if _root_count(sequence, lo, hi) != 1:
         raise OrderedError("the selected interval must isolate exactly one real root")
 
@@ -246,17 +273,10 @@ def selected_real_sign(model, expression, max_refinements=256):
                 "exact interval refinement did not separate the sign within "
                 "%d steps" % max_refinements)
 
-    certificate = {
-        "method": "selected_real_interval_v1",
-        "generator": generators[0],
-        "embedding": embedding,
-        "root_interval": {"lo": _text(lo), "hi": _text(hi)},
-        "value_interval": {
-            "lo": _text(value_interval[0]),
-            "hi": _text(value_interval[1]),
-        },
-        "sign": sign,
-    }
+    certificate = _certificate(
+        generators[0], expression, embedding, selection, (lo, hi),
+        value_interval, sign, sequence,
+        zero_gcd=common if sign == 0 else None)
     return sign, certificate
 
 

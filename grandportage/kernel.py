@@ -16,6 +16,8 @@ of the JC(2) campaign it was written against, plus the SPECIALIZATION type that
 `whetstone/MATROID_TRANSFER.md` sec.8 showed was forced by a second domain.
 """
 
+import re
+
 # ---------------------------------------------------------------------------
 # Edge types.  Inclusion-style edges point TIGHTER -> LOOSER: `src` is the more
 # informative model, so V(src) subset V(dst) for every lossy type except
@@ -758,6 +760,96 @@ class ScopeError(KernelRefusal):
     """An emptiness claim whose declared scope contradicts its certificate."""
 
 
+# ---------------------------------------------------------------------------
+# THE CLOSED GRAMMAR OF A FIELD-RELATIVE SCOPE.
+#
+# `derive_scope` used to check only that a field-relative EMPTY claim's scope
+# was neither `None` nor `SCHEME` -- which means any other string, including
+# "ALL_FIELDS" or "banana", was accepted and folded into the graph as though
+# it named a field.  Two independent CFG23 scratch assays found exactly that.
+# The claim that base-changes is refused; the claim that reads as typed while
+# naming nothing is not, and that is the worse failure: it makes a graph that
+# LOOKS checked.
+#
+# The vocabulary below is read off the field-relative scopes already live
+# across CFG23 fixtures and tests (`Q`, `R`, `F_2`, `Q(sqrt 17)`,
+# `Q(sqrt(-3))`), generalized along the two axes those examples actually use:
+#
+#   ATOMIC     a field this kernel already has other structure for: the exact
+#              rationals, the reals (REAL_CLOSURE point universe, ordered
+#              receipts), the complexes (ALGEBRAIC_CLOSURE point universe).
+#   FINITE     `F_p` for a prime `p` -- the one finite-field shape any live
+#              graph uses, and the one a `NONSQUARE_CLASS`/exhaustion
+#              certificate can actually be relative to.
+#   EXTENSION  `Q(...)` or `R(...)` -- a simple algebraic extension named in
+#              prose, exactly the shape `Q(sqrt 17)` and `Q(sqrt(-3))` use.
+#              The parenthesized content is NOT parsed as mathematics -- this
+#              kernel has no number-field grammar -- only required non-blank,
+#              so the check still catches the unstructured strings this
+#              defect was found with while not inventing semantics for
+#              content nothing here can verify.
+#
+# `combinatorial` -- the one other value live in a real graph -- is
+# deliberately EXCLUDED here: it names no field, it is used only on a
+# NONEMPTY claim, and no field-relative EMPTY certificate has ever cited it.
+# Widening this grammar to admit it would be inventing a vocabulary item no
+# live claim demonstrates, which is exactly what this repair refuses to do.
+# ---------------------------------------------------------------------------
+ATOMIC_FIELD_SCOPES = ("Q", "R", "C")
+_FINITE_FIELD_SCOPE = re.compile(r"^F_([1-9]\d*)$")
+_EXTENSION_FIELD_SCOPE = re.compile(r"^[QR]\((.+)\)$")
+_MAX_FIELD_SCOPE_LENGTH = 256
+_MAX_FINITE_CHARACTERISTIC_BITS = 32
+
+
+def _is_prime(n):
+    if n < 2:
+        return False
+    if n < 4:
+        return True
+    if n % 2 == 0:
+        return False
+    d = 3
+    while d * d <= n:
+        if n % d == 0:
+            return False
+        d += 2
+    return True
+
+
+def valid_field_scope(value):
+    """Whether `value` is a scope this kernel recognizes as naming a field.
+
+    Closed, not permissive: a field-relative EMPTY claim stakes its entire
+    certificate on ONE named field, and a scope string this kernel cannot
+    read as a field is not a weaker version of that claim -- it is not one.
+    See the grammar note above `ATOMIC_FIELD_SCOPES` for what is and is not
+    admitted, and why.
+    """
+    if (not isinstance(value, str) or not value.strip()
+            or value != value.strip()
+            or len(value) > _MAX_FIELD_SCOPE_LENGTH):
+        return False
+    if value in ATOMIC_FIELD_SCOPES:
+        return True
+    m = _FINITE_FIELD_SCOPE.match(value)
+    if m:
+        digits = m.group(1)
+        # Bound conversion and trial division before parsing an authored
+        # decimal. Exact polynomial checking already supports only 32-bit
+        # prime characteristics; a scope must not offer a larger, slower
+        # field vocabulary than the arithmetic it purports to scope.
+        if len(digits) > 10:
+            return False
+        characteristic = int(digits)
+        return (characteristic.bit_length() <= _MAX_FINITE_CHARACTERISTIC_BITS
+                and _is_prime(characteristic))
+    m = _EXTENSION_FIELD_SCOPE.match(value)
+    if m:
+        return bool(m.group(1).strip())
+    return False
+
+
 def derive_scope(kind, certificate, declared_scope, certificates=None,
                  claim_id="<claim>"):
     """DERIVE an emptiness claim's scope from its certificate.
@@ -767,7 +859,9 @@ def derive_scope(kind, certificate, declared_scope, certificates=None,
     base-changes is SCHEME-scoped whatever the author wrote; a claim whose
     certificate does not base-change MUST carry an explicit field scope, and
     declaring it SCHEME is an error rather than a flag -- you cannot assert
-    field-independence on the strength of a field-relative certificate.
+    field-independence on the strength of a field-relative certificate.  Nor
+    can it be an unrecognized string standing in for a field: see
+    `valid_field_scope`.
 
     Non-emptiness claims keep whatever scope they declared: `NONEMPTY over R`
     is a fact about R and travels by the transport table, not by derivation.
@@ -792,6 +886,17 @@ def derive_scope(kind, certificate, declared_scope, certificates=None,
             "EMPTY claim %s cites a field-relative certificate (%s) but "
             "declares scope %r.  Name the field the certificate is relative to."
             % (claim_id, certificate, declared_scope))
+    if not valid_field_scope(declared_scope):
+        raise ScopeError(
+            "EMPTY claim %s declares scope %r, which this kernel does not "
+            "recognize as a field.  A field-relative certificate (%s) must "
+            "name the exact field it is relative to: an atomic field (%s), "
+            "a finite field `F_p` for prime p, or a simple extension "
+            "`Q(...)`/`R(...)` (e.g. \"Q(sqrt 17)\").  Repair path: correct "
+            "the scope to name that field, or register a wider certificate "
+            "if the claim base-changes."
+            % (claim_id, declared_scope, certificate,
+               ", ".join(ATOMIC_FIELD_SCOPES)))
     return declared_scope
 
 

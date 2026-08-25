@@ -22,13 +22,16 @@ from . import kernel as K
 
 
 BACKEND = "singular"
+NATIVE_CONTRACT = "grandportage-native"
+NATIVE_IMPLEMENTATION = "grandportage.verify"
+NATIVE_IMPLEMENTATION_VERSION = 1
 
 # Increment one entry whenever that verifier's meaning or implementation
 # changes in a way that requires stored answers to be recomputed.  Keeping
 # these independent avoids invalidating every verdict when one checker changes.
 VERIFIERS = {
     "claim": ("verify.identity", 2),
-    "condition": ("verify.predicate_condition", 2),
+    "condition": ("verify.predicate_condition", 3),
     "edge": ("verify.containment", 3),
     "certificate": ("verify.unit_ideal", 2),
     "ring_iso": ("verify.ring_iso", 4),
@@ -52,6 +55,10 @@ VERIFIER_ALTERNATIVES = {
         "verify.elimination_section": 2,
         "verify.elimination_groebner": 1,
     },
+    "witness": {
+        "verify.point_witness": 3,
+        "verify.extension_point_witness": 1,
+    },
 }
 
 
@@ -60,6 +67,13 @@ def _certificate_verifier(graph, of):
     if claim.get("certificate") == "LOCALIZED_UNIT_IDEAL_CERT":
         return "verify.localized_unit_ideal"
     return "verify.unit_ideal"
+
+
+def _witness_verifier(graph, of):
+    claim = graph.claims.get(of) or {}
+    return ("verify.extension_point_witness"
+            if claim.get("witness_field") is not None
+            else "verify.point_witness")
 
 
 ELIMINATION_VERDICT_VERIFIER = {
@@ -235,6 +249,8 @@ def event_digest(event):
 
 _BACKEND_PREFIX = "gp-backend-v2:"
 BACKEND_PROVENANCE_PREFIX = _BACKEND_PREFIX
+_NATIVE_PREFIX = "gp-native-v1:"
+NATIVE_PROVENANCE_PREFIX = _NATIVE_PREFIX
 _SYMBOL = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 
 
@@ -384,9 +400,19 @@ def _eligible_structural_ordered_condition(graph, event):
                 "VERIFIED_ORDERED_SIGN", "REFUTED_ORDERED_SIGN")
             and isinstance(row.get("cofactors"), dict)
             and row["cofactors"].get("method")
-                == "selected_real_interval_v1"
+                == "selected_real_interval_v2"
             for row in rows)
     )
+
+
+def _eligible_extension_witness(graph, event):
+    if (event.get("subject") != "witness"
+            or event.get("verdict") not in ("VERIFIED", "NOT_A_POINT")):
+        return False
+    claim = graph.claims.get(event.get("of")) or {}
+    representation = event.get("representation") or {}
+    return (claim.get("witness_field") is not None
+            and representation.get("method") == "simple_number_field_v1")
 
 
 def _allows_empty_structural_trace(graph, event):
@@ -399,11 +425,24 @@ def _allows_empty_structural_trace(graph, event):
         return _eligible_structural_ring_iso(graph, event)
     if event.get("subject") == "condition":
         return _eligible_structural_ordered_condition(graph, event)
+    if event.get("subject") == "witness":
+        return _eligible_extension_witness(graph, event)
     if event.get("subject") == "operation":
         return _eligible_structural_operation(graph, event)
     if event.get("subject") == "elimination":
         return _eligible_structural_elimination(graph, event)
     return False
+
+
+def native_verdict_allowed(graph, subject, of, verdict,
+                           representation=None):
+    """Whether a solver-free result may become current authority."""
+    return _allows_empty_structural_trace(graph, {
+        "subject": subject,
+        "of": of,
+        "verdict": verdict,
+        "representation": representation,
+    })
 
 def encode_backend_provenance(execution):
     """Encode a versioned manifest inside the format-1 `backend` string."""
@@ -412,6 +451,71 @@ def encode_backend_provenance(execution):
     return _BACKEND_PREFIX + json.dumps(
         execution, sort_keys=True, separators=(",", ":"), ensure_ascii=True
     )
+
+
+def native_execution_provenance():
+    """Canonical manifest for a verifier-native decision with no CAS run."""
+    trace = []
+    return {
+        "schema": 1,
+        "contract": NATIVE_CONTRACT,
+        "implementation": NATIVE_IMPLEMENTATION,
+        "implementation_version": NATIVE_IMPLEMENTATION_VERSION,
+        "executions": trace,
+        "trace_fingerprint": B.semantic_fingerprint(
+            "native_execution_trace", trace),
+    }
+
+
+def encode_execution_provenance(execution):
+    """Encode either exact CAS execution or verifier-native execution."""
+    if not isinstance(execution, dict):
+        raise ValueError("execution provenance must be an explicit manifest")
+    if execution.get("contract") == NATIVE_CONTRACT:
+        return _NATIVE_PREFIX + json.dumps(
+            execution, sort_keys=True, separators=(",", ":"),
+            ensure_ascii=True)
+    return encode_backend_provenance(execution)
+
+
+def native_provenance(value, current_only=True):
+    if not isinstance(value, str) or not value.startswith(_NATIVE_PREFIX):
+        return None
+    try:
+        manifest = json.loads(value[len(_NATIVE_PREFIX):])
+    except (TypeError, ValueError):
+        return None
+    required = {
+        "schema", "contract", "implementation", "implementation_version",
+        "executions", "trace_fingerprint",
+    }
+    if not isinstance(manifest, dict) or set(manifest) != required:
+        return None
+    if (manifest["schema"] != 1
+            or manifest["contract"] != NATIVE_CONTRACT
+            or not isinstance(manifest["implementation"], str)
+            or not manifest["implementation"]
+            or type(manifest["implementation_version"]) is not int
+            or manifest["implementation_version"] < 1
+            or manifest["executions"] != []):
+        return None
+    if current_only and (
+            manifest["implementation"] != NATIVE_IMPLEMENTATION
+            or manifest["implementation_version"]
+            != NATIVE_IMPLEMENTATION_VERSION):
+        return None
+    expected = B.semantic_fingerprint("native_execution_trace", [])
+    if manifest["trace_fingerprint"] != expected:
+        return None
+    return manifest
+
+
+def execution_provenance(value, current_only=True):
+    """Decode current native or authoritative CAS execution provenance."""
+    native = native_provenance(value, current_only=current_only)
+    if native is not None:
+        return native
+    return backend_provenance(value, current_only=current_only)
 
 
 def decode_backend_provenance(value, current_only=True):
@@ -492,7 +596,9 @@ def metadata(graph, subject, of, execution=None, representation=None,
     default_verifier, default_version = VERIFIERS[subject]
     verifier = verifier or (
         _certificate_verifier(graph, of)
-        if subject == "certificate" else default_verifier)
+        if subject == "certificate" else
+        _witness_verifier(graph, of)
+        if subject == "witness" else default_verifier)
     alternatives = VERIFIER_ALTERNATIVES.get(subject, {
         default_verifier: default_version,
     })
@@ -507,6 +613,8 @@ def metadata(graph, subject, of, execution=None, representation=None,
     )
     if subject == "certificate":
         required_verifier = _certificate_verifier(graph, of)
+    if subject == "witness":
+        required_verifier = _witness_verifier(graph, of)
     if required_verifier is not None and verifier != required_verifier:
         raise ValueError(
             "%s verdict must be produced by %s, not %s"
@@ -516,7 +624,7 @@ def metadata(graph, subject, of, execution=None, representation=None,
         "verifier": verifier,
         "verifier_version": verifier_version,
         "kernel_epoch": F.KERNEL_EPOCH,
-        "backend": encode_backend_provenance(execution),
+        "backend": encode_execution_provenance(execution),
         "input_fingerprint": input_fingerprint(
             graph, subject, of, representation=representation),
     }
@@ -554,6 +662,9 @@ def current_verdict(graph, event, check_binary_version=False):
     if subject == "certificate":
         required_verifier = _certificate_verifier(
             graph, event.get("of"))
+    if subject == "witness":
+        required_verifier = _witness_verifier(
+            graph, event.get("of"))
     if (required_verifier is not None
             and event.get("verifier") != required_verifier):
         return False, "verifier identity does not match verdict method"
@@ -561,10 +672,10 @@ def current_verdict(graph, event, check_binary_version=False):
         return False, "verifier version does not match"
     if event.get("kernel_epoch") != F.KERNEL_EPOCH:
         return False, "kernel epoch does not match"
-    manifest = backend_provenance(event.get("backend"))
+    manifest = execution_provenance(event.get("backend"))
     if manifest is None:
         return False, "backend execution provenance is absent or invalid"
-    if check_binary_version:
+    if check_binary_version and manifest.get("contract") != NATIVE_CONTRACT:
         # Imported lazily because cas imports store and store imports this
         # module. Freshness is evaluated only after initialization, while a
         # persisted graph is being loaded.

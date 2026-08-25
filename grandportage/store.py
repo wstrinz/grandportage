@@ -25,7 +25,9 @@ from fractions import Fraction
 from . import kernel as K
 from . import format as F
 from . import groebner as G
+from . import number_field as N
 from . import ordered as O
+from . import ordered_receipt as ORC
 from . import provenance as P
 from .discharge import DISCHARGE_KINDS as D_KINDS
 from .discharge import WITHDRAW
@@ -749,6 +751,13 @@ class Graph(object):
             "%s: VERIFIED_POINT_LIFT verdict %r needs its finite lift-cover "
             "representation; the proof object is the authority"
             % (where, ev.get("id")))
+        _require(
+            subject != "witness"
+            or (self.claims.get(ev.get("of")) or {}).get("witness_field") is None
+            or ev.get("verdict") == "UNVERIFIED"
+            or ev.get("representation") is not None,
+            "%s: extension-valued witness verdict %r needs its exact quotient-"
+            "field receipt." % (where, ev.get("id")))
         # A VERDICT IS EXECUTABLE TRUST, NOT AN IMMORTAL STRING. Epoch-0
         # records and answers produced by another verifier/kernel/backend (or
         # against different semantic inputs) remain readable history, but
@@ -1219,6 +1228,24 @@ class Graph(object):
                     "%s: localized-unit verdict %r's proof does not match "
                     "the exact open model, or does not prove localized 1=0."
                     % (where, ev.get("id")))
+            elif subject == "witness":
+                claim = target[of]
+                model = self.models.get(claim.get("model")) or {}
+                try:
+                    is_point, _reason, replay = N.check_extension_witness(
+                        model, claim.get("witness_field"),
+                        claim.get("witness_point"))
+                except (N.NumberFieldError, G.CertificateError,
+                        TypeError, ValueError) as exc:
+                    raise GraphError(
+                        "%s: extension witness verdict %r fails exact replay: "
+                        "%s" % (where, ev.get("id"), exc))
+                expected = "VERIFIED" if is_point else "NOT_A_POINT"
+                _require(
+                    rep == replay and ev.get("verdict") == expected,
+                    "%s: extension witness verdict %r does not replay against "
+                    "the declared field, model, and coordinates."
+                    % (where, ev.get("id")))
             elif subject == "condition":
                 claim = target[of]
                 model = self.models.get(claim.get("model")) or {}
@@ -1259,11 +1286,11 @@ class Graph(object):
                     try:
                         if status in ("VERIFIED_ORDERED_SIGN",
                                       "REFUTED_ORDERED_SIGN"):
-                            sign, certificate = O.selected_real_sign(
-                                model, atom["expression"])
+                            certificate = row["cofactors"]
+                            sign = ORC.verify(
+                                model, atom["expression"], certificate)
                             _require(
-                                row["cofactors"] == certificate
-                                and ((status == "VERIFIED_ORDERED_SIGN")
+                                ((status == "VERIFIED_ORDERED_SIGN")
                                      == O.relation_holds(
                                          atom["relation"], sign)),
                                 "%s: condition verdict %r's ordered-sign "
@@ -1300,7 +1327,8 @@ class Graph(object):
                                      "%s: inconclusive condition row in %r "
                                      "may not carry licensing cofactors."
                                      % (where, ev.get("id")))
-                    except (O.OrderedError, G.CertificateError,
+                    except (O.OrderedError, ORC.OrderedReceiptError,
+                            G.CertificateError,
                             TypeError, ValueError) as exc:
                         raise GraphError(
                             "%s: condition verdict %r fails exact cofactor "
@@ -2082,10 +2110,19 @@ class Graph(object):
                      "from ring variable to value, e.g. {\"x\": \"1\", "
                      "\"y\": \"-2\"}. Prose belongs in `witness`."
                      % (where, ev["id"]))
+            def valid_coordinate(value):
+                if isinstance(value, bool):
+                    return False
+                if isinstance(value, (str, int)):
+                    return True
+                return (isinstance(value, dict)
+                        and set(value) == {"numerator", "denominator"}
+                        and all(not isinstance(part, bool)
+                                and isinstance(part, (str, int))
+                                for part in value.values()))
+
             bad = sorted(k for k, v in wp.items()
-                         if not isinstance(k, str)
-                         or isinstance(v, bool)
-                         or not isinstance(v, (str, int)))
+                         if not isinstance(k, str) or not valid_coordinate(v))
             _require(not bad,
                      "%s: claim %r `witness_point` has non-scalar coordinate(s) "
                      "for %s. A coordinate is a number or an expression for "
@@ -2099,6 +2136,22 @@ class Graph(object):
                      "the point -- declare EXHIBITED, or drop the point if you "
                      "do not have it."
                      % (where, ev["id"], c["witness_kind"]))
+        if ev.get("witness_field") is not None:
+            witness_field = ev["witness_field"]
+            _require(
+                isinstance(witness_field, dict)
+                and set(witness_field) == {
+                    "kind", "base", "symbol", "minimal_polynomial"}
+                and witness_field.get("kind") == N.SCHEMA
+                and witness_field.get("base") == "Q"
+                and all(isinstance(witness_field.get(field), str)
+                        and witness_field.get(field)
+                        for field in ("symbol", "minimal_polynomial")),
+                "%s: claim %r `witness_field` must be a closed %s object "
+                "over Q." % (where, ev["id"], N.SCHEMA))
+            _require(ev.get("witness_point") is not None,
+                     "%s: claim %r gives a witness field but no structured "
+                     "witness_point." % (where, ev["id"]))
         # Evidence grading licenses nothing, so both fields are optional -- an
         # ungraded claim is merely ungraded.  What is refused is a grade that
         # is WRONG, including a pair that contradicts itself.

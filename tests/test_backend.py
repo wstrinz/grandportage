@@ -14,6 +14,14 @@ from grandportage import store as S
 from grandportage import verify as V
 
 
+@pytest.mark.parametrize("verdict, expected", [
+    (None, True), ("", True), (V.UNVERIFIED, True),
+    ("VERIFIED", False), ("REFUTED", False), ("NOT_A_POINT", False),
+])
+def test_only_unsettled_verdicts_are_retried(verdict, expected):
+    assert V.needs_verification(verdict) is expected
+
+
 def _raw(stdout, *, returncode=0, aborted=False, stderr=""):
     return {
         "returncode": returncode,
@@ -263,11 +271,14 @@ def test_verify_all_uses_semantic_backend_methods_not_cas_programs(tmp_path):
     backend = SemanticOnly()
     assert backend.identity.implementation.endswith(".<locals>.SemanticOnly")
     assert backend.can_record_verdicts is False
-    with pytest.raises(ValueError, match="record=True requires"):
-        V.verify_all(root=str(tmp_path), backend=backend, record=True)
+    recorded = V.verify_all(root=str(tmp_path), backend=backend, record=True)
+    assert recorded[0][2] == V.UNVERIFIED
+    assert (S.load(S.graph_path(str(tmp_path))).claims["C"]
+            ["identity_verdict"] == V.UNVERIFIED)
     results = V.verify_all(root=str(tmp_path), backend=backend, record=False)
 
     assert backend.calls == [
+        "classify_identity", "membership", "check_membership",
         "classify_identity", "membership", "check_membership"
     ]
     assert [(subject, oid, verdict) for subject, oid, verdict, _ in results] == [
@@ -302,7 +313,8 @@ def test_derived_identity_without_a_replayable_representation_is_unverified():
     assert "NO REPRESENTATION" in why
 
 
-def test_verify_all_refuses_to_record_an_injected_runner(tmp_path):
+def test_verify_all_records_only_an_inconclusive_native_refusal_for_injected_runner(
+        tmp_path):
     S.append([
         {
             "ev": "model", "id": "M", "what": "the origin",
@@ -321,9 +333,14 @@ def test_verify_all_refuses_to_record_an_injected_runner(tmp_path):
                          for output in program.outputs)
         return _raw(stdout)
 
-    with pytest.raises(ValueError, match="injected runners"):
-        V.verify_all(root=str(tmp_path), _runner=runner, record=True)
-    assert S.load(S.graph_path(str(tmp_path))).verdicts == {}
+    results = V.verify_all(root=str(tmp_path), _runner=runner, record=True)
+    assert results[0][2] == V.UNVERIFIED
+    graph = S.load(S.graph_path(str(tmp_path)))
+    verdict = next(iter(graph.verdicts.values()))
+    assert verdict["current"] is True
+    assert graph.claims["C"]["identity_verdict"] == V.UNVERIFIED
+    assert P.native_provenance(verdict["backend"]) is not None
+    assert P.backend_provenance(verdict["backend"]) is None
 
 
 @pytest.mark.live

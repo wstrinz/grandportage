@@ -47,6 +47,12 @@ Its predicate theorems expose an additional premise hidden by the table shape:
 endpoint predicates must correspond along the relation. Totality or
 surjectivity alone transports existence/emptiness, but cannot type a predicate.
 
+`GrandPortage/SelectedEmbedding.lean` pins the modeled runtime kernel epoch and
+formalizes epoch 11's extra-structure premise. A two-root conjugation is an
+involutive equivalence that does not preserve a predicate reading the chosen
+root; identical or omitted selections recover safe literal copying. The model
+keeps selected structure separate from EMPTY certificate scope.
+
 `GrandPortage/JCDm4Valuation.lean` - the integer-arithmetic spine of the JC
 polynomial-lift conjecture. If a rational `dm4` had a pole, the cancellation
 balances forced by `G1` and `G2` make `c*dm4` strictly lower in valuation than

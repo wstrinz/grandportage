@@ -124,6 +124,18 @@ def migrate_kernel_epoch(paths, dry_run=False, output=None):
                 "format %d / epoch %d"
                 % (source, old_format, old_epoch,
                    F.GRAPH_FORMAT, F.KERNEL_EPOCH))
+        # Migration replaces the historical header with this build's current
+        # header, but replacement must not become a way to launder malformed
+        # archival provenance.  In particular, formats 5 and 6 closed over an
+        # implementation identity that direct reads require and validate.
+        # Apply that same historical read boundary before discarding the old
+        # header.  Current-format/older-epoch inputs are handled separately:
+        # validate_meta_for_read intentionally requires the current epoch for
+        # current-format reads, while this command is precisely their explicit
+        # epoch-advancement route.
+        if old_format < F.GRAPH_FORMAT:
+            F.validate_meta_for_read(
+                meta, "%s:%d" % (source, raw[0][1]), S.GraphError)
         with open(source, "rb") as fh:
             fingerprint = "sha256:" + hashlib.sha256(fh.read()).hexdigest()
         destination = output or _kernel_destination(source)

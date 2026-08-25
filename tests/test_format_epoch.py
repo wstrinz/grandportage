@@ -482,6 +482,253 @@ def test_older_epochs_migrate_non_destructively_to_current_format_and_epoch(tmp_
         MIG.migrate_kernel_epoch([str(future)])
 
 
+def _implementation_identity(
+        graph_format, kernel_epoch, package_version="0.29.0",
+        source_commit="d798f6f7b9a800bc78cc045c54147c90ef38ca44"):
+    return {
+        "schema": "grand-portage-implementation/v1",
+        "package_version": package_version,
+        "source_commit": source_commit,
+        "source_dirty": False,
+        "graph_format": graph_format,
+        "kernel_epoch": kernel_epoch,
+        "mcp_protocol": "2025-06-18",
+        "backend": {
+            "contract": "singular",
+            "implementation": "grandportage.cas.SingularBackend",
+            "implementation_version": 4,
+            "protocol_version": 2,
+        },
+    }
+
+
+def _format5_meta():
+    # Historically faithful clean v0.25.0 header.  Commit fb72a34 is the
+    # tagged v0.25.0 release and actually wrote graph format 5 / kernel epoch
+    # 10; using the later d798f6f format-6 commit here would only manufacture
+    # the shape rather than pin a possible historical writer identity.
+    return {
+        "ev": "meta", "graph_format": 5, "kernel_epoch": 10,
+        "created_with": "grandportage/0.25.0",
+        "implementation": _implementation_identity(
+            5, 10, "0.25.0",
+            "fb72a341916ad14cfa7982b4f48912c439310115"),
+    }
+
+
+def _format6_meta():
+    return {
+        "ev": "meta", "graph_format": 6, "kernel_epoch": 11,
+        "created_with": "grandportage/0.29.0",
+        "implementation": _implementation_identity(6, 11, "0.29.0"),
+    }
+
+
+# A byte-identical copy of the real CFG23 campaign graph's first line
+# (`campaigns/cfg23/.portage/graph.jsonl:1`), pinned so the P0 direct-read
+# regression -- `line 1: historical meta event has wrong fields; extra:
+# implementation` -- is exercised against real production data, not only a
+# synthetic analogue.
+REAL_CFG23_FORMAT6_META = {
+    "created_with": "grandportage/0.29.0",
+    "ev": "meta",
+    "graph_format": 6,
+    "implementation": {
+        "backend": {
+            "contract": "singular",
+            "implementation": "grandportage.cas.SingularBackend",
+            "implementation_version": 4,
+            "protocol_version": 2,
+        },
+        "graph_format": 6,
+        "kernel_epoch": 11,
+        "mcp_protocol": "2025-06-18",
+        "package_version": "0.29.0",
+        "schema": "grand-portage-implementation/v1",
+        "source_commit": "d798f6f7b9a800bc78cc045c54147c90ef38ca44",
+        "source_dirty": False,
+    },
+    "kernel_epoch": 11,
+}
+
+
+def test_real_cfg23_format6_meta_reads_directly():
+    F.validate_meta_for_read(REAL_CFG23_FORMAT6_META, "cfg23:1", S.GraphError)
+    graph = S.Graph()
+    graph.apply(REAL_CFG23_FORMAT6_META)
+    assert graph.graph_format == 6
+    assert graph.compatibility_mode is True
+    assert graph.implementation == REAL_CFG23_FORMAT6_META["implementation"]
+    assert graph.implementation["source_commit"] == (
+        "d798f6f7b9a800bc78cc045c54147c90ef38ca44")
+
+
+def test_real_cfg23_format6_meta_migrates_to_current_format(tmp_path):
+    source = _write(tmp_path / "cfg23-min.jsonl", [
+        REAL_CFG23_FORMAT6_META,
+        {"ev": "model", "id": "M", "desc": "minimized stand-in model"},
+    ])
+    destination = tmp_path / "cfg23-min.current.jsonl"
+    reports = MIG.migrate_kernel_epoch([source], output=str(destination))
+    assert reports[0]["from_graph_format"] == 6
+    assert reports[0]["graph_format"] == F.GRAPH_FORMAT
+    migrated = S.load(str(destination))
+    assert migrated.graph_format == F.GRAPH_FORMAT
+    assert migrated.compatibility_mode is False
+    assert "M" in migrated.models
+
+
+@pytest.mark.parametrize("meta_factory", [_format5_meta, _format6_meta])
+def test_formats_5_and_6_require_and_preserve_implementation_identity(
+        meta_factory):
+    meta = meta_factory()
+    F.validate_meta_for_read(meta, "test:1", S.GraphError)
+    graph = S.Graph()
+    graph.apply(meta)
+    assert graph.implementation == meta["implementation"]
+    assert graph.compatibility_mode is True
+
+
+@pytest.mark.parametrize("meta_factory", [_format5_meta, _format6_meta])
+def test_formats_5_and_6_reject_missing_implementation(meta_factory):
+    meta = meta_factory()
+    del meta["implementation"]
+    with pytest.raises(S.GraphError, match="missing: implementation"):
+        F.validate_meta_for_read(meta, "test:1", S.GraphError)
+
+
+@pytest.mark.parametrize("graph_format", [1, 2, 3, 4])
+def test_formats_1_through_4_reject_implementation_as_extra_field(
+        graph_format):
+    meta = {
+        "ev": "meta", "graph_format": graph_format, "kernel_epoch": 4,
+        "created_with": "grandportage/0.8.0",
+        "implementation": _implementation_identity(graph_format, 4),
+    }
+    with pytest.raises(S.GraphError, match="extra: implementation"):
+        F.validate_meta_for_read(meta, "test:1", S.GraphError)
+
+
+@pytest.mark.parametrize("graph_format", [1, 2, 3, 4])
+def test_formats_1_through_4_still_accept_old_bare_header(graph_format):
+    meta = {
+        "ev": "meta", "graph_format": graph_format, "kernel_epoch": 4,
+        "created_with": "grandportage/0.8.0",
+    }
+    F.validate_meta_for_read(meta, "test:1", S.GraphError)
+
+
+@pytest.mark.parametrize("meta_factory", [_format5_meta, _format6_meta])
+def test_formats_5_and_6_reject_malformed_implementation_shape(meta_factory):
+    meta = meta_factory()
+    meta["implementation"] = dict(meta["implementation"])
+    meta["implementation"].pop("backend")
+    with pytest.raises(S.GraphError, match=r"closed .* identity"):
+        F.validate_meta_for_read(meta, "test:1", S.GraphError)
+
+
+@pytest.mark.parametrize("meta_factory", [_format5_meta, _format6_meta])
+def test_formats_5_and_6_reject_implementation_disagreeing_with_meta(
+        meta_factory):
+    meta = meta_factory()
+    meta["implementation"] = dict(meta["implementation"], graph_format=999)
+    with pytest.raises(S.GraphError, match="disagrees with graph metadata"):
+        F.validate_meta_for_read(meta, "test:1", S.GraphError)
+
+
+@pytest.mark.parametrize("meta_factory", [_format5_meta, _format6_meta])
+def test_formats_5_and_6_reject_unsupported_identity_schema(meta_factory):
+    meta = meta_factory()
+    meta["implementation"] = dict(meta["implementation"], schema="other/v1")
+    with pytest.raises(S.GraphError,
+                        match="unsupported implementation identity schema"):
+        F.validate_meta_for_read(meta, "test:1", S.GraphError)
+
+
+@pytest.mark.parametrize("meta_factory", [_format5_meta, _format6_meta])
+def test_formats_5_and_6_reject_non_boolean_source_dirty(meta_factory):
+    meta = meta_factory()
+    meta["implementation"] = dict(meta["implementation"], source_dirty="false")
+    with pytest.raises(S.GraphError, match="source_dirty must be true, false, or null"):
+        F.validate_meta_for_read(meta, "test:1", S.GraphError)
+
+
+@pytest.mark.parametrize("meta_factory", [_format5_meta, _format6_meta])
+def test_formats_5_and_6_migration_rejects_missing_implementation(
+        tmp_path, meta_factory):
+    meta = meta_factory()
+    del meta["implementation"]
+    source = _write(tmp_path / "missing-implementation.jsonl", [meta])
+    with pytest.raises(S.GraphError, match="missing: implementation"):
+        MIG.migrate_kernel_epoch([source], dry_run=True)
+
+
+@pytest.mark.parametrize("meta_factory", [_format5_meta, _format6_meta])
+def test_formats_5_and_6_migration_rejects_malformed_implementation(
+        tmp_path, meta_factory):
+    meta = meta_factory()
+    meta["implementation"] = dict(meta["implementation"])
+    meta["implementation"].pop("backend")
+    source = _write(tmp_path / "malformed-implementation.jsonl", [meta])
+    with pytest.raises(S.GraphError, match=r"closed .* identity"):
+        MIG.migrate_kernel_epoch([source], dry_run=True)
+
+
+@pytest.mark.parametrize("meta_factory", [_format5_meta, _format6_meta])
+def test_formats_5_and_6_migration_rejects_identity_disagreeing_with_meta(
+        tmp_path, meta_factory):
+    meta = meta_factory()
+    meta["implementation"] = dict(
+        meta["implementation"], kernel_epoch=999)
+    source = _write(tmp_path / "disagreeing-implementation.jsonl", [meta])
+    with pytest.raises(S.GraphError, match="disagrees with graph metadata"):
+        MIG.migrate_kernel_epoch([source], dry_run=True)
+
+
+def test_formats_5_and_6_do_not_require_identity_to_match_current_build():
+    """The recorded identity describes the build that WROTE the graph; this
+    build's own version/commit is never substituted, compared, or asserted
+    against it."""
+    meta = _format5_meta()
+    meta["implementation"] = dict(
+        meta["implementation"], source_commit="b" * 40, source_dirty=True,
+        package_version="0.1.0-some-ancient-build")
+    F.validate_meta_for_read(meta, "test:1", S.GraphError)
+    graph = S.Graph()
+    graph.apply(meta)
+    assert graph.implementation["source_commit"] == "b" * 40
+    assert graph.implementation["package_version"] == (
+        "0.1.0-some-ancient-build")
+
+
+def test_format5_and_format6_graphs_load_directly_via_store(tmp_path):
+    for graph_format, kernel_epoch, factory in (
+            (5, 10, _format5_meta), (6, 11, _format6_meta)):
+        events = [factory(), {"ev": "model", "id": "M", "desc": "m"}]
+        path = _write(tmp_path / ("g%d.jsonl" % graph_format), events)
+        graph = S.load(path)
+        assert graph.graph_format == graph_format
+        assert graph.kernel_epoch == kernel_epoch
+        assert graph.compatibility_mode is True
+        assert "M" in graph.models
+
+
+def test_format5_and_format6_graphs_migrate_to_current_format_and_epoch(
+        tmp_path):
+    for index, (graph_format, factory) in enumerate(
+            ((5, _format5_meta), (6, _format6_meta))):
+        events = [factory(), {"ev": "model", "id": "M", "desc": "m"}]
+        source = _write(tmp_path / ("src%d.jsonl" % index), events)
+        destination = tmp_path / ("dst%d.jsonl" % index)
+        reports = MIG.migrate_kernel_epoch([source], output=str(destination))
+        assert reports[0]["from_graph_format"] == graph_format
+        assert reports[0]["graph_format"] == F.GRAPH_FORMAT
+        migrated = S.load(str(destination))
+        assert migrated.graph_format == F.GRAPH_FORMAT
+        assert migrated.compatibility_mode is False
+        assert "M" in migrated.models
+
+
 def test_partition_receipt_binding_fields_are_native_schema():
     event = {
         "ev": "partition",

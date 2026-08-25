@@ -6,6 +6,19 @@ open. Runtime disagreement is a finding; Lean is not the source of authority.
 
 ## Identifications
 
+- **2026-08-24 — kernel epoch 11: selected structure is a separate gate.**
+  `SelectedEmbedding.lean` models the two-root conjugation counterexample and
+  the safe identical/omitted-selection cases. `selected_embedding_identity`
+  is not a fifth identity-rewriting gate: it is the first explicit member of
+  an extra-structure-preservation family for predicates that read an ordering
+  or selected embedding. `modeledKernelEpoch` is pinned to 11 and CI compares
+  it with the runtime epoch.
+- **2026-08-24 — structure context is not certificate scope.** EMPTY
+  certificate scope describes stability under field change. A selected
+  embedding instead belongs to the model-side validity context read by a
+  predicate. The shadow keeps these axes separate rather than stretching
+  `CertificateScope` until two different mechanisms share one name.
+
 - **2026-08-23 — point transport as predicate transformers.** Existential
   image and universal precondition form the familiar adjunction behind
   over/under approximation. Totality and surjectivity determine variance;
@@ -41,6 +54,16 @@ open. Runtime disagreement is a finding; Lean is not the source of authority.
   certificate therefore needs a countermodel, not a prose label.
 
 ## Open questions
+
+- Epoch 11 deliberately defers symmetric `conjugate_of` custody, exact
+  nontrivial complex-box isolation, mandatory campaign-wide embedding scope,
+  general ordered ambient fields, authored required-map certificates, and
+  quotient-normalized endpoint/map fingerprints. These are conservative
+  refusals, not missing licences in the current kernel.
+- A preservation-theorem audit may compare the bounded table with ACF/RCF
+  transfer principles, but current `REAL_CLOSURE` support is not a general
+  Tarski-transfer rule: it checks selected univariate signs and exact selected
+  endpoint identity only.
 
 - Audit every transport row against a named preservation theorem or retained
   countermodel; use the result as the admission test for a seventh edge type.

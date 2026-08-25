@@ -26,7 +26,8 @@ AFFINE_EVIDENCE = {
     "evidence",
     "groebner", "coefficient_expansion", "localization", "factor_power",
     "factor_power_contradiction", "product_split", "laurent_lowering",
-    "laurent_coefficient_pipeline", "triangular",
+    "laurent_coefficient_pipeline", "triangular", "number_field", "ordered",
+    "ordered_receipt",
 }
 AUTHORITY_DECLARATIONS = {"authority_registry"}
 DERIVED_READ_SURFACES = {
@@ -102,6 +103,21 @@ def test_every_marked_release_boundary_in_root_docs_is_current():
                         name, key, match.group(1)))
     assert all(seen.values()), seen
     assert not wrong, "Run `gp docs` to resync: %s" % "; ".join(wrong)
+
+
+def test_lean_shadow_epoch_cannot_drift_silently():
+    source = (ROOT / "lean" / "GrandPortage" /
+              "SelectedEmbedding.lean").read_text(encoding="utf-8")
+    match = re.search(
+        r"^def modeledKernelEpoch\s*:\s*Nat\s*:=\s*(\d+)\s*$",
+        source, re.MULTILINE)
+    assert match, "Lean shadow must publish modeledKernelEpoch"
+    assert int(match.group(1)) == F.KERNEL_EPOCH, (
+        "runtime kernel epoch %d has advanced past Lean shadow epoch %s"
+        % (F.KERNEL_EPOCH, match.group(1)))
+    aggregate = (ROOT / "lean" / "GrandPortage.lean").read_text(
+        encoding="utf-8")
+    assert "import GrandPortage.SelectedEmbedding" in aggregate
 
 
 def test_readme_remains_a_bounded_introduction():
