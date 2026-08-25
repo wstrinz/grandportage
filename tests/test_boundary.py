@@ -280,18 +280,21 @@ def test_the_full_loop_compute_record_conclude_refuse(project):
     step is simply not licensed, and the hook is what stops it.
     """
     S.append([
-        {"ev": "model", "id": "RES_L", "desc": "the residue equation over L",
-         "field": "Q(sqrt 17)"},
-        {"ev": "model", "id": "RES_K", "desc": "the same over arbitrary char-0 K",
-         "field": "K"},
+        {"ev": "model", "id": "RES_L", "desc": "the residue equation over F_3",
+         "characteristic": 3, "coefficient_domain": "F_3",
+         "point_universe": "BASE"},
+        {"ev": "model", "id": "RES_K", "desc": "the formal extension target",
+         "characteristic": 3, "coefficient_domain": "F_3",
+         "point_universe": "BASE"},
         {"ev": "edge", "id": "E-EXT", "src": "RES_L", "dst": "RES_K",
          "type": K.BASE_EXTENSION, "map_kind": K.IDENTITY_MAP,
-         "why": "the coefficient field changes from Q(sqrt 17) to arbitrary K",
+         "why": "synthetic BASE_EXTENSION used only to exercise the kernel "
+                "cell; the extension is not encoded in this fixture's models",
          "drops": ["every field-relative arithmetic fact, in particular "
                    "square classes"]},
         {"ev": "claim", "id": "CL-KILL", "model": "RES_L", "kind": K.EMPTY,
          "statement": "no solution with all leading coefficients nonzero",
-         "scope": "Q(sqrt 17)", "certificate": "NONSQUARE_CLASS",
+         "scope": "F_3", "certificate": "NONSQUARE_CLASS",
          "established_by": K.RAN, "ladder": "exact-checked"},
     ], root=project)
 
@@ -299,7 +302,7 @@ def test_the_full_loop_compute_record_conclude_refuse(project):
     assert not block, "nothing has been concluded yet"
 
     _conclude(project, "CL-KILL", "E-EXT", K.ALONG,
-              "the branch does not exist over the theorem's arbitrary char-0 K")
+              "the branch does not exist at the formal extension target")
 
     block, message = HK.evaluate(project)
     assert block

@@ -70,6 +70,7 @@ R_CITATION = "AMBIGUOUS-CITATION"
 R_DOUBT = "DOUBT"
 R_EVIDENCE = "EVIDENCE-GRADE"
 R_INCONCLUSIVE = "VERIFICATION-INCONCLUSIVE"
+R_EMPTY_SCOPE = "FIELD-EMPTY-MODEL-SCOPE"
 
 EXISTENCE_OPPOSITE = {K.EMPTY: K.NONEMPTY, K.NONEMPTY: K.EMPTY}
 
@@ -1314,6 +1315,49 @@ def check_unexhibited_witness(graph):
             "DERIVED and record the inference. If it is genuinely an "
             "assertion -- a published claim you have not verified -- ASSERTED "
             "is the honest answer and this finding is the record of that."))
+    return findings
+
+
+def check_field_empty_model_scope(graph):
+    """A field-relative EMPTY needs a model of field-valued points.
+
+    CFG23 found the bypass after the point-universe guard did its job:
+    REAL_CLOSURE on a bare incidence model was refused, so the declaration
+    simply omitted both ``point_universe`` and ``coefficient_domain`` and put
+    ``scope: R`` on the EMPTY claim.  A combinatorial orientability certificate
+    then read as a clean real-geometric nonrealizability result.
+
+    This deliberately does not infer semantics from proof prose or introduce
+    a certificate ontology.  It checks the one structural fact GP can know:
+    a field name on a claim cannot turn a bare combinatorial model into a set
+    of field-valued points.  This is a finding rather than a fold error so old
+    append-only logs remain readable and repairable; the enforcement hook still
+    blocks it at UNSOUND_PREMISE.
+    """
+    findings = []
+    for cid in sorted(graph.claims):
+        c = graph.claims[cid]
+        if (c.get("kind") != K.EMPTY or c.get("scope") == K.SCHEME
+                or c.get("superseded_by")):
+            continue
+        model = graph.models[c["model"]]
+        if (S.declared_coefficient_domain(model) is not None
+                and S.declared_point_universe(model) is not None):
+            continue
+        findings.append(Finding(
+            R_EMPTY_SCOPE, "%s:%s" % (R_EMPTY_SCOPE, cid),
+            UNSOUND_PREMISE, cid,
+            "field-relative EMPTY claim %s declares scope %s at model %s, "
+            "but that model does not declare BOTH a coefficient domain and "
+            "a point universe. A field name on the claim cannot turn a bare "
+            "combinatorial model into a space of field-valued points.\n  %s"
+            % (cid, c.get("scope"), c["model"], c.get("statement")),
+            "Declare the exact model point scope (`coefficient_domain` plus "
+            "`point_universe`), or keep the combinatorial/topological EMPTY "
+            "at its own model with SCHEME scope and transport it over an "
+            "honestly typed edge.",
+            semantic_key="%s:%s:%s" %
+                         (cid, c.get("scope"), c.get("model"))))
     return findings
 
 
@@ -3722,6 +3766,7 @@ def run(graph, accepted=None):
                 + check_unjustified_equivalence(graph)
                 + check_self_refuting_equivalence(graph)
                 + check_unknown_identity_origin(graph)
+                + check_field_empty_model_scope(graph)
                 + check_unexhibited_witness(graph)
                 + check_witness_point(graph)
                 + check_aliases(graph)

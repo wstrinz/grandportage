@@ -25,6 +25,20 @@ def _epoch1_expected_findings(domain):
         # structured maps nor a current verifier verdict. Citations remain
         # readable history; they no longer license identity transport.
         expected.add("TRANSPORT:INF-KSYZ-REV")
+        # v0.31's field-scope grammar made the claim's field name precise;
+        # CFG23 then showed that the owner model could remain wholly untyped.
+        # These are deliberate new structural findings, not retrodictions of
+        # the hard-coded prototype.
+        expected.update({
+            "FIELD-EMPTY-MODEL-SCOPE:CL-C08",
+            "FIELD-EMPTY-MODEL-SCOPE:CL-C20",
+        })
+    if domain == "matroid":
+        expected.update({
+            "FIELD-EMPTY-MODEL-SCOPE:CM-ML8-Q-EMPTY",
+            "FIELD-EMPTY-MODEL-SCOPE:CM-ML8-R-EMPTY",
+            "FIELD-EMPTY-MODEL-SCOPE:CM-NF-F2-EMPTY",
+        })
     return expected
 
 
@@ -32,6 +46,9 @@ def _epoch1_expected_clean(domain):
     expected = set(H.expected(domain)["clean_inferences"])
     if domain == "jc2":
         expected.remove("INF-KSYZ-REV")
+        # Its transport is licensed, but its field-relative premise is now
+        # structurally unanchored and therefore not a positive control.
+        expected.remove("INF-C08-CURRENT")
     return expected
 
 

@@ -12,6 +12,13 @@ verdict remains inactive, and append refuses with the audited
 `migrate --to-current-kernel` route. Read compatibility never becomes write
 compatibility.
 
+Version 0.31.1 keeps **graph format 7** and **kernel epoch 11**. It adds the
+`FIELD-EMPTY-MODEL-SCOPE` checker rule: a field-relative `EMPTY` claim whose
+model lacks either a structured coefficient domain or a point universe is
+reported as `UNSOUND_PREMISE`. This is a checker correction rather than a file
+or transport-semantic change. Existing logs remain readable; previously clean
+untyped field-relative claims now surface as repairable debt.
+
 ## The year-zero boundary and first semantic transition
 
 Version 0.5.0 established:

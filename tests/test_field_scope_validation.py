@@ -32,6 +32,7 @@ import os
 import pytest
 
 from grandportage import format as F
+from grandportage import check as C
 from grandportage import kernel as K
 from grandportage import migration as MIG
 from grandportage import store as S
@@ -191,9 +192,24 @@ def test_migration_cannot_launder_a_malformed_scope(tmp_path):
         "a refused migration must not leave a laundered destination file")
 
 
-def test_migration_of_an_honest_scope_still_succeeds(tmp_path):
+def test_migration_preserves_an_unanchored_honest_field_name_as_a_finding(tmp_path):
     source = tmp_path / "old.jsonl"
     events = [_old_epoch_meta(), MODEL_A, _empty_claim("F_2")]
+    with open(source, "w", encoding="utf-8") as fh:
+        for ev in events:
+            fh.write(json.dumps(ev) + "\n")
+    destination = tmp_path / "old.epoch11.jsonl"
+    MIG.migrate_kernel_epoch([str(source)], output=str(destination))
+    g = S.load(str(destination))
+    assert any(f.rule == C.R_EMPTY_SCOPE and f.subject == "CL"
+               for f in C.run(g))
+
+
+def test_migration_of_an_anchored_honest_scope_still_succeeds(tmp_path):
+    source = tmp_path / "old.jsonl"
+    model = dict(MODEL_A, characteristic=2, coefficient_domain="F_2",
+                 point_universe="BASE")
+    events = [_old_epoch_meta(), model, _empty_claim("F_2")]
     with open(source, "w", encoding="utf-8") as fh:
         for ev in events:
             fh.write(json.dumps(ev) + "\n")

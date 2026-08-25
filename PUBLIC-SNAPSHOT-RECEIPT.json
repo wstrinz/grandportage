@@ -2,7 +2,7 @@
   "counts": {
     "generated_files": 1,
     "private_files": 11,
-    "public_files": 257
+    "public_files": 259
   },
   "files": [
     {
@@ -31,7 +31,7 @@
     },
     {
       "path": "COMPATIBILITY.md",
-      "sha256": "51f24e99f4d634c3c09c39ec102685fb7b378879b93ac85fc75d0dd5fff45d6a"
+      "sha256": "1f372f23daaf94e06fe0947c83acb74361d8097a56e50d3b5f36da81dc4fd6f0"
     },
     {
       "path": "DESIGN.md",
@@ -51,15 +51,15 @@
     },
     {
       "path": "README.md",
-      "sha256": "b9ade43e228597cc6cbce0c25bfba63cf6a253ab4e7c73d20ce4cbd6e10e19ce"
+      "sha256": "f44ec0d0a0ff2db18767b112ef82547d87a53f5c4176c6f9b48203df50bfc912"
     },
     {
       "path": "REVIEW.md",
-      "sha256": "494e1a4fc90c2d2b0a990b0e5daaf3e05c0e7ad09e8c505d4c943f3474ce0456"
+      "sha256": "abe830f922f1071adb5d06b7e0e0eefe4ad0f962f039554630c93f15a83b1c40"
     },
     {
       "path": "SPEC.md",
-      "sha256": "a283c76fc88428b6979e10d3e74b56b934268cd39a9ca62e45a4069cbbc28b6e"
+      "sha256": "002b53bb306bf31793d8074789a12fe3811897b938059aee46cc3c3d7a0d5cf6"
     },
     {
       "path": "docs/CAMPAIGN-DOSSIER-V0.md",
@@ -211,11 +211,11 @@
     },
     {
       "path": "fixtures/campaign/matroid/ledger.json",
-      "sha256": "f58e02b45ad2de4d4d558868354d541e87c35079688de9b6cc0afbcb56058b73"
+      "sha256": "2d2c52364952948e1abc7f6ca6d3376e8411c2525c3e5f4e9ed889011d0bf8e7"
     },
     {
       "path": "fixtures/campaign/matroid/packets.json",
-      "sha256": "3020f92864de45e85cd6a2264015eadb11717c67303227cf23582b74228e0ded"
+      "sha256": "56da96b8d8d0073510a79e9ed8d0a5641a0d9d13a01d55d4ac077b5cda319f01"
     },
     {
       "path": "fixtures/campaign/matroid/receipt.json",
@@ -223,7 +223,7 @@
     },
     {
       "path": "fixtures/campaign/matroid/tasks_v0.json",
-      "sha256": "e3be9b22265a918ef7df6599198663a4862de27f4af08b8704f20353009e6c27"
+      "sha256": "ce199f6f5fb2d44ff8aa311537868122efc8b99f33379d2a2780fa0713f44e8e"
     },
     {
       "path": "fixtures/dossier/synthetic/authority.md",
@@ -283,7 +283,7 @@
     },
     {
       "path": "grandportage/__init__.py",
-      "sha256": "5bc8312072a96a6fa7b3dffc540a45ac2df83831e71437c2a459c72f60d23f4f"
+      "sha256": "6c8cb42e01066e57204c2ccf9b72cb9bb336b5ea798a5e1e992f097a231c8a60"
     },
     {
       "path": "grandportage/adapter_conformance.py",
@@ -311,7 +311,7 @@
     },
     {
       "path": "grandportage/check.py",
-      "sha256": "59c62e4448dfa3bb152975828c16f9b9a5aaa5b7d0c1778c04c1b670c2165ad4"
+      "sha256": "c3536279d701429283fbea9819d952b9a95c920b9adcaab6976d9f31ce93d641"
     },
     {
       "path": "grandportage/cli.py",
@@ -587,7 +587,7 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "1251854ea4736b7d34bc14dd85c6a1aab9c7a6a6bd8df4ee2c110a5c2bf0c89b"
+      "sha256": "bb81d485ce5b5246e04f39926b17a4662f8d23144a9c06c3a158de421b445e6f"
     },
     {
       "path": "review/LSEM-COLD-RETEST-PACKET-2026-08-03.md",
@@ -750,6 +750,10 @@
       "sha256": "fa2e43d576c997ffeb9f248345da0d67d2e77de2d3d3c57a79ad9bd703ee9a4a"
     },
     {
+      "path": "review/v0.31.1/README.md",
+      "sha256": "f8e752edfba9d5891d83b079ca68bae4c14eafd9be4e1fbef6aba4ae1c268cf5"
+    },
+    {
       "path": "review/v0.31/README.md",
       "sha256": "3f4f57add9ea5b8f68bd32d6e30060bc06050d837afc713dd028eeb648cadd67"
     },
@@ -839,7 +843,7 @@
     },
     {
       "path": "tests/test_boundary.py",
-      "sha256": "3c480f27a7b44ddd2d29944e938000ce494504249943012400a649cb547df2c2"
+      "sha256": "64ab66da2ae7e9c2be5c4dd8fda370953ef55bc8fe4acc258aaa8150f0898dcf"
     },
     {
       "path": "tests/test_campaign.py",
@@ -878,6 +882,10 @@
       "sha256": "7a930d10a09b75d44e787ef6a6b1352b36b5508a05a3bf1b89803e09c2bcf887"
     },
     {
+      "path": "tests/test_empty_scope_anchor.py",
+      "sha256": "102d5abe64f328e6ca9cf0a8adba7449c576a548276b969ca71525606ea060c8"
+    },
+    {
       "path": "tests/test_evidence.py",
       "sha256": "df6b0d1ce7d69190eecd9140e8af4e75857c33fd49ea87b27e553869092e76fe"
     },
@@ -895,7 +903,7 @@
     },
     {
       "path": "tests/test_field_scope_validation.py",
-      "sha256": "86dbc2a7aad600dcd5778afc2f00a38d0be700cdb5fc89b2e5f7b3888f9e53cc"
+      "sha256": "ab8e61bff845f4694e1a4a0b1a02c326186a56a7c802763e5ab9bfb752e4fcaa"
     },
     {
       "path": "tests/test_format_epoch.py",
@@ -999,7 +1007,7 @@
     },
     {
       "path": "tests/test_retrodiction.py",
-      "sha256": "fc7c2e5c6ebe5737cace0364ef63f86d75cda7840c9d291cd92d07e432481456"
+      "sha256": "66a0bb4a416400121d08b72b8c0464b8d1e549fabcfb78a91441acd26e15abf4"
     },
     {
       "path": "tests/test_stacks_applicability_spike.py",
@@ -1052,6 +1060,6 @@
     "docs/portagecommandconceptv2.md"
   ],
   "schema": "grand-portage-public-snapshot-receipt/v1",
-  "snapshot_sha256": "d2a0065cdf6e528f411fea153ef51e12e5ed10ddd45c7627c0b5c434bf6a6597",
-  "source_commit": "26de40830883df521a762817539fdcd612039c68"
+  "snapshot_sha256": "ec172b8ef819ab02fff7ecd412aef0b01c54508eb6cd877a2a0ecfaac802dd2a",
+  "source_commit": "cf8c205dad86635c55348af952901a55fe9141c4"
 }

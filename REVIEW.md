@@ -3,10 +3,10 @@
 This is the attack surface for the current release. The full historical review
 through v0.18 is preserved in `HISTORY/REVIEW-through-v0.18.md`.
 
-**Version <!--version-->0.31.0<!--/version-->, graph format
+**Version <!--version-->0.31.1<!--/version-->, graph format
 <!--graph-format-->7<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->11<!--/kernel-epoch-->, and
-<!--checks-->1627<!--/checks--> collected checks.**
+<!--checks-->1637<!--/checks--> collected checks.**
 
 ## Highest-risk claim
 
@@ -39,6 +39,13 @@ oversized, composite, and implementation-drifted scopes. Formats 1--4 must not
 acquire an implementation field they never carried; formats 5--6 must preserve
 and validate theirs without demanding equality to the current binary. Neither
 direct read nor migration may turn malformed history into current authority.
+
+v0.31.1 closes the adjacent model-typing bypass. Attack field-relative
+`EMPTY` claims whose owner model omits either `coefficient_domain` or
+`point_universe`, including historical graphs and migrated logs. The checker
+must report current `UNSOUND_PREMISE` debt without making old logs unreadable.
+A typed model is necessary but not sufficient evidence: this patch does not
+infer that a combinatorial certificate proves geometric emptiness.
 
 The other new v0.30 authority is `simple_number_field_v1`. Attack the
 irreducibility check, quotient reduction, rational-function denominator
