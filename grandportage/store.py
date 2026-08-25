@@ -1147,6 +1147,12 @@ class Graph(object):
                     rep["target_generators"] + guards
                 )
                 target[of]["point_lift_representation"] = rep
+            elif subject == "claim":
+                _require(
+                    P.replayable_derived_identity(self, ev),
+                    "%s: identity verdict %r's cofactor derivation does not "
+                    "replay against the exact claim and model."
+                    % (where, ev.get("id")))
             elif subject == "operation":
                 required = {
                     "cofactors", "targets", "generators", "ring_vars",

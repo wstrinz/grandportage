@@ -230,6 +230,46 @@ def input_fingerprint(graph, subject, of, representation=None):
     return _fingerprint_payload(payload)
 
 
+def replayable_derived_identity(graph, event):
+    """Whether an identity verdict carries a complete exact derivation.
+
+    Singular may discover the cofactors, but once ``lhs - rhs = sum b_i f_i``
+    is retained, checking the result is polynomial arithmetic rather than a
+    backend execution.  A recorded derivation must therefore remain usable on
+    a reader whose local Singular is unavailable, while malformed or detached
+    envelopes fail closed.
+    """
+    if (event.get("subject") != "claim"
+            or event.get("verdict") != "VERIFIED_DERIVED"):
+        return False
+    claim = graph.claims.get(event.get("of")) or {}
+    model = graph.models.get(claim.get("model")) or {}
+    representation = event.get("representation")
+    required = {"cofactors", "generators", "ring_vars", "target"}
+    if (claim.get("kind") != K.IDENTITY
+            or claim.get("lhs") is None or claim.get("rhs") is None
+            or not isinstance(representation, dict)
+            or set(representation) != required):
+        return False
+    ring = claim.get("ring_vars") or []
+    generators = model.get("generators")
+    target = "(%s) - (%s)" % (claim.get("lhs"), claim.get("rhs"))
+    if (not ring or not isinstance(generators, list) or not generators
+            or representation.get("ring_vars") != ring
+            or representation.get("generators") != generators
+            or representation.get("target") != target
+            or not isinstance(representation.get("cofactors"), list)
+            or len(representation["cofactors"]) != len(generators)):
+        return False
+    try:
+        G.check_membership_identity(
+            target, generators, representation["cofactors"], ring,
+            model.get("characteristic"))
+    except (G.CertificateError, TypeError, ValueError):
+        return False
+    return True
+
+
 def event_fingerprint(value):
     """Stable SHA-256 for an execution trace or other provenance payload."""
     encoded = json.dumps(
@@ -675,7 +715,9 @@ def current_verdict(graph, event, check_binary_version=False):
     manifest = execution_provenance(event.get("backend"))
     if manifest is None:
         return False, "backend execution provenance is absent or invalid"
-    if check_binary_version and manifest.get("contract") != NATIVE_CONTRACT:
+    replayable_identity = replayable_derived_identity(graph, event)
+    if (check_binary_version and manifest.get("contract") != NATIVE_CONTRACT
+            and not replayable_identity):
         # Imported lazily because cas imports store and store imports this
         # module. Freshness is evaluated only after initialization, while a
         # persisted graph is being loaded.

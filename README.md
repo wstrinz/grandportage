@@ -82,11 +82,12 @@ ten-minute campaign and the recovery commands.
 
 ## Status and documents
 
-Version <!--version-->0.31.1<!--/version-->, graph format
+Version <!--version-->0.31.2<!--/version-->, graph format
 <!--graph-format-->7<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->11<!--/kernel-epoch-->. The suite currently has
-<!--checks-->1637<!--/checks--> checks. v0.31.1 closes the remaining untyped-model
-escape hatch for field-relative emptiness; v0.31 publishes the v0.30 native
+<!--checks-->1643<!--/checks--> checks. v0.31.2 makes exact cofactor-certified
+identity authority independent of local CAS availability; v0.31.1 closes the
+remaining untyped-model escape hatch for field-relative emptiness; v0.31 publishes the v0.30 native
 verification, extension-witness, ordered-receipt, and Lean work together with
 historical-format migration repairs and a closed, bounded grammar for
 field-relative emptiness scope. The transport table remains at kernel epoch 11.
@@ -101,6 +102,7 @@ field-relative emptiness scope. The transport table remains at kernel epoch 11.
 - [review/v0.30/README.md](review/v0.30/README.md) — native verification, extension witnesses, ordered receipt independence, and Lean epoch-11 parity
 - [review/v0.31/README.md](review/v0.31/README.md) — public release record, compatibility repairs, and field-scope hardening
 - [review/v0.31.1/README.md](review/v0.31.1/README.md) — patch release record for field-scoped emptiness on untyped models
+- [review/v0.31.2/README.md](review/v0.31.2/README.md) — patch release record for environment-independent exact identity receipts
 - [grandportage-jc-campaign](https://github.com/wstrinz/grandportage-jc-campaign) — optional extracted campaign fixtures, replay, and historical review brief
 - [HISTORY/](HISTORY/) — superseded findings retained as evidence
 - [lean/README.md](lean/README.md) — non-authoritative semantic shadow

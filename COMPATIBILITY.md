@@ -19,6 +19,13 @@ reported as `UNSOUND_PREMISE`. This is a checker correction rather than a file
 or transport-semantic change. Existing logs remain readable; previously clean
 untyped field-relative claims now surface as repairable debt.
 
+Version 0.31.2 also keeps **graph format 7** and **kernel epoch 11**. A
+`VERIFIED_DERIVED` identity with a complete exact cofactor representation is
+replayed against its claim and model during fold. Its authority no longer
+depends on probing an identical local Singular binary; changing or removing a
+reader's backend cannot change the graph answer. Verdicts without such an
+independently checkable receipt retain the existing backend-identity boundary.
+
 ## The year-zero boundary and first semantic transition
 
 Version 0.5.0 established:

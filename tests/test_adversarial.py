@@ -4699,6 +4699,19 @@ def test_a_minted_representation_reaches_the_graph():
     assert g.claims["CL"]["representation"]["cofactors"] == ["x"]
 
 
+@pytest.mark.parametrize("field,value", [
+    ("cofactors", ["1"]),
+    ("generators", ["x*y+1"]),
+    ("ring_vars", ["x"]),
+    ("target", "(x^2*y) - (0)"),
+])
+def test_a_derived_identity_representation_must_replay_exactly(field, value):
+    ev = _verdict_event_for_test()
+    ev["representation"][field] = value
+    with pytest.raises(S.GraphError, match="cofactor derivation does not replay"):
+        _fresh_verdict_graph([HYP_MODEL, HYP_CLAIM, ev])
+
+
 def _verdict_event_for_test():
     return {"ev": "verdict", "id": "v1", "subject": "claim", "of": "CL",
             "verdict": "VERIFIED_DERIVED", "why": "reduces to 0",
@@ -4715,7 +4728,7 @@ def test_a_representation_with_no_cofactors_is_refused():
     ev["representation"] = {"generators": ["x*y-1"]}
     with pytest.raises(S.GraphError) as e:
         _fresh_verdict_graph([HYP_MODEL, HYP_CLAIM, ev])
-    assert "cofactors ARE the certificate" in str(e.value)
+    assert "cofactor derivation does not replay" in str(e.value)
 
 
 # ===========================================================================

@@ -184,6 +184,50 @@ def test_cli_audits_referenced_objects_without_changing_graph_fold(
     assert S.load(S.graph_path(root)).claims["C"]["identity_verdict"] == (
         "VERIFIED_DERIVED")
 
+
+@pytest.mark.parametrize("current_binary", [
+    "unavailable: exit 1",
+    "Singular for test-fixture version 99.0",
+])
+def test_exact_identity_receipt_survives_local_backend_state(
+        tmp_path, monkeypatch, current_binary):
+    """Reading exact authority must not depend on whether WSL is reachable.
+
+    CFG23's final identities carried complete cofactor derivations. The same
+    graph folded VERIFIED with Singular available and UNVERIFIED when the WSL
+    service was denied, producing TRIAGE findings that disappeared when the
+    reader changed execution context. The retained arithmetic certificate is
+    the stable boundary.
+    """
+    root = str(tmp_path)
+    S.append([
+        {"ev": "model", "id": "M", "what": "double point",
+         "characteristic": 0, "ring_vars": ["x"], "generators": ["x"]},
+        {"ev": "claim", "id": "C", "model": "M", "kind": K.IDENTITY,
+         "statement": "x squared vanishes", "lhs": "x^2", "rhs": "0",
+         "ring_vars": ["x"], "identity_origin": K.DERIVED},
+    ], root)
+    graph = S.load(S.graph_path(root))
+    artifact = _artifact()
+    A.persist(root, artifact)
+    representation = {
+        "cofactors": ["x"], "generators": ["x"],
+        "ring_vars": ["x"], "target": "(x^2) - (0)",
+    }
+    verdict = V._verdict_event(
+        graph, "claim", "C", "VERIFIED_DERIVED", "exact derivation",
+        representation, execution=_manifest(artifact))
+    S.append([verdict], root)
+
+    monkeypatch.setattr(
+        cas, "_singular_binary_version", lambda **_kw: current_binary)
+    cas._BINARY_VERSION_CACHE.clear()
+    reloaded = S.load(S.graph_path(root))
+    assert reloaded.claims["C"]["identity_verdict"] == "VERIFIED_DERIVED"
+    assert reloaded.verdicts[verdict["id"]]["current"] is True
+    assert V.verify_all(root=root, record=False) == []
+
+
 def test_malformed_v2_manifest_is_an_explicit_audit_failure(tmp_path):
     root = str(tmp_path)
     S.append([

@@ -3,10 +3,10 @@
 This is the attack surface for the current release. The full historical review
 through v0.18 is preserved in `HISTORY/REVIEW-through-v0.18.md`.
 
-**Version <!--version-->0.31.1<!--/version-->, graph format
+**Version <!--version-->0.31.2<!--/version-->, graph format
 <!--graph-format-->7<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->11<!--/kernel-epoch-->, and
-<!--checks-->1637<!--/checks--> collected checks.**
+<!--checks-->1643<!--/checks--> collected checks.**
 
 ## Highest-risk claim
 
@@ -46,6 +46,13 @@ v0.31.1 closes the adjacent model-typing bypass. Attack field-relative
 must report current `UNSOUND_PREMISE` debt without making old logs unreadable.
 A typed model is necessary but not sufficient evidence: this patch does not
 infer that a combinatorial certificate proves geometric emptiness.
+
+v0.31.2 makes a retained `VERIFIED_DERIVED` identity cofactor equation the
+authority boundary instead of the reader's ambient Singular installation.
+Attack the receipt's target, ordered ring variables, exact model generators,
+cofactor count, coefficients, characteristic, and input fingerprint. A
+different or unavailable local backend must not change the folded answer; a
+malformed receipt must never inherit this backend-independent path.
 
 The other new v0.30 authority is `simple_number_field_v1`. Attack the
 irreducibility check, quotient reduction, rational-function denominator

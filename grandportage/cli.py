@@ -784,10 +784,11 @@ def cmd_verify(args):
             "  No verdict was appended. The graph is unchanged.\n" % exc)
         return 2
     if not results:
-        print("nothing to verify: no edge or claim carries the data a "
-              "reduction needs.\n"
-              "  Edges need `generators` and `ring_vars` on BOTH endpoints; "
-              "IDENTITY claims need `lhs`, `rhs` and `ring_vars`.\n"
+        print("nothing to verify: no current retryable obligation is both "
+              "eligible and checkable.\n"
+              "  Already-current terminal verdicts are not retried. Edges "
+              "need `generators` and `ring_vars` on BOTH endpoints; IDENTITY "
+              "claims need `lhs`, `rhs` and `ring_vars`.\n"
               "  A model carrying `ideal_pending` has none of this yet by "
               "design -- it is waiting on the computation that produces its "
               "ideal.\n"
