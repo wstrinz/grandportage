@@ -1792,7 +1792,11 @@ CITATION_IDENTIFYING_FIELDS = ("cites", "resolves_to")
 CITATION_LICENSING_FIELDS = ("hazard",)
 
 MODEL_IDENTIFYING_FIELDS = ("what",)
-MODEL_LICENSING_FIELDS = ("ring_vars", "generators")
+MODEL_LICENSING_FIELDS = (
+    "ring_vars", "generators", "field", "coefficient_domain", "characteristic",
+    "universe", "point_universe", "embedding", "open_conditions",
+    "saturated_at", "ideal_pending", "eliminated", "component_of",
+)
 
 # And for an EDGE.  Exactly the fields `transport` reads off one -- not `type`
 # alone, which was the first version of this list and repeated the very mistake

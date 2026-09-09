@@ -1,0 +1,14 @@
+--- gp declare ---
+declared 4 event(s) to <GRAPH>.
+--- gp check ---
+graph: 0 models, 0 edges, 2 claims, 0 inferences
+
+UNSOUND_PREMISE  FAMILY:C-SPLIT
+    COUNT claim C-SPLIT splits F, which covers 42 members, into groups totalling 1: G-DONE 1.
+      A member unaccounted for is a member no verdict was reached about, and a member counted twice is a verdict reached twice about one object.
+    -> DISCHARGE: Make the groups total 42, or declare the remainder as its own group with an honest verdict -- `unsettled` is a verdict and an empty residue is not the same as a covered one.
+
+clean inferences (0): 
+
+1 finding(s) at or above UNSOUND_PREMISE: 1 LIVE, 0 carried
+--- exit: 1 ---

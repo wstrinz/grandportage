@@ -20,3 +20,32 @@ jobs:
         run: python -m pip install --upgrade pip && python -m pip install -e ".[test]"
       - name: Test deterministic non-live surface
         run: python -m pytest -q -m "not live and not replay and not exhaustive"
+
+  witness-boundary:
+    runs-on: ubuntu-22.04
+    env:
+      GP_REQUIRE_LIVE: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install pinned Singular build
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends singular=1:4.2.1-p3+ds-1 singular-ui=1:4.2.1-p3+ds-1 singular-data=1:4.2.1-p3+ds-1 singular-modules=1:4.2.1-p3+ds-1
+          dpkg-query -W singular singular-ui singular-data singular-modules
+          Singular --version
+      - name: Install GP
+        run: python -m pip install -e ".[test]"
+      - name: Replay frozen witness boundaries and scaling controls
+        run: python -m pytest -v tests/test_guard_release.py -m live --junitxml=witness-boundary.xml
+      - name: Capture separate declaration, verification and check results
+        run: python scripts/replay_guard_fixtures.py --live --output guard-replay.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: witness-boundary
+          path: |
+            witness-boundary.xml
+            guard-replay.json

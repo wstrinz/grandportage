@@ -34,6 +34,7 @@ from . import hook as HK
 from . import identity as I
 from . import kernel as K
 from . import store as S
+from . import work as WORK
 
 PROTOCOL_VERSION = I.MCP_PROTOCOL_VERSION
 SUPPORTED_PROTOCOLS = ("2024-11-05", "2025-03-26", "2025-06-18")
@@ -574,7 +575,9 @@ TOOLS = [
         "portage_check",
         "Type-check the accumulated graph. Returns findings with their "
         "discharge moves, and the list of inferences that came back clean.",
-        {"floor": {"type": "string", "enum": list(C.SEVERITY_ORDER),
+        {"seam": {"type": "string", "enum": ["checked", "unchecked"],
+                  "default": "checked", "description": "unchecked reports accounting only; no transport authority"},
+         "floor": {"type": "string", "enum": list(C.SEVERITY_ORDER),
                    "description": "lowest severity to report as failing"},
          "full": {"type": "boolean", "default": False,
                   "description": (
@@ -905,23 +908,35 @@ def h_portage_declare(args, root):
 
 
 def h_portage_check(args, root):
+    if args.get("seam", "checked") not in ("checked", "unchecked"):
+        return _err("seam must be checked or unchecked")
+    unchecked = args.get("seam") == "unchecked"
     path = S.graph_path(root)
     if not os.path.exists(path):
         return _text("no graph yet at %s" % path)
     graph = S.load(path)
     accepted = HK.read_baseline(root)["accepted"]
-    findings = C.run(graph, accepted)
-    clean = C.clean_inferences(graph, findings)
+    findings = C.run_accounting(graph, accepted) if unchecked else C.run(graph, accepted)
+    try:
+        work = WORK.unresolved([path], graph)
+    except WORK.WorkError as exc:
+        return _err(str(exc))
+    clean = [] if unchecked else C.clean_inferences(graph, findings)
     # `full` was declared in this tool's schema and never read here, so an
     # agent could ask to see carried obligations and be handed the same output.
     # A schema that lies is worse than a missing feature: it is a promise the
     # caller reasons from.
     accepted = HK.read_baseline(root)["accepted"]
-    return _text("%s\nclean inferences (%d): %s"
-                 % (C.render(
+    report = C.render(
                      findings, accepted, full=bool(args.get("full")),
-                     include_history=bool(args.get("history"))),
-                    len(clean), ", ".join(clean) or "-"))
+                     include_history=bool(args.get("history")))
+    if unchecked:
+        report = "ACCOUNTING ONLY: field-scope transports were not checked.\n" + report
+    else:
+        report += "\nclean inferences (%d): %s" % (len(clean), ", ".join(clean) or "-")
+    if work:
+        report += "\nUNRESOLVED WORK (no graph authority):\n" + json.dumps(work, indent=2)
+    return _text(report)
 
 
 def h_portage_schema(args, root):

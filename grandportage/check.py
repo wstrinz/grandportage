@@ -3750,6 +3750,37 @@ def actionable_findings(findings):
             if finding.lifecycle != HISTORICAL]
 
 
+def run_accounting(graph, accepted=None):
+    """Explicit accounting selection; this never audits a field transport.
+
+    Results are partial observations and cannot establish clean inferences or
+    serve as full-check baseline receipts. Graph structural validation remains
+    mandatory before this function, including existing point-universe guards.
+    """
+    findings = []
+    for iid in graph.inference_order:
+        inf = graph.inferences[iid]
+        if inf.get("superseded_by"):
+            continue
+        slots = [pr for pr in inf["premises"] if pr.get("required_kind")]
+        if slots:
+            detail = "\n".join("this argument needs a %s claim at %s: %s" % (
+                pr["required_kind"], pr["at"], pr["missing_why"]) for pr in slots)
+            findings.append(Finding(
+                "OPEN-PREMISE", "OPEN-PREMISE:" + iid, UNSOUND_PREMISE, iid,
+                detail, discharge_for(MISSING_PREMISE, K.ALONG,
+                                       inf["concludes_kind"], graph=graph)))
+    for rule in (check_families, check_evidence_direction, check_crosscuts,
+                 check_stale_premises, check_stale_paths, check_stale_models,
+                 check_stale_references, check_doubts, check_evidence, check_citations):
+        findings.extend(rule(graph))
+    findings.extend(check_supersession(graph, accepted))
+    classify_finding_lifecycle(graph, findings)
+    findings.sort(key=lambda f: (f.lifecycle == HISTORICAL,
+                                 -SEVERITY_RANK[f.severity], f.rule, f.fid))
+    return findings
+
+
 def run(graph, accepted=None):
     """All rules, in a stable order, most severe first.
 

@@ -1,0 +1,16 @@
+[
+ {"ev":"note","text":"X8/X9/X10 in the closest EXPRESSIBLE form. The packet's own shape (a census COUNT claim as an inference premise) crashes GP -- see defects/D1. These use GP's open-premise-slot mechanism, which exists for exactly this purpose: 'the graph could record claims, edges and inferences, and had no way to record a claim that should exist and does not.'"},
+ {"ev":"model","id":"M-23-4-REAL","what":"the real (23_4) realization space with a faithful V4 action","field":"R","characteristic":0},
+
+ {"ev":"claim","id":"CL-E3B","model":"M-23-4-REAL","kind":"PREDICATE","statement":"E3b: for every geometric (23_4) in RP^2, |Sym(X)| is in {1,2,4}; order four implies V4","scope":"collineations only","established_by":"DERIVED","ladder":"derivation-checked"},
+ {"ev":"claim","id":"CL-E5A","model":"M-23-4-REAL","kind":"PREDICATE","statement":"E5a: every faithful real V4 action is simultaneously diagonalizable to the standard sign group","established_by":"DERIVED","ladder":"claimed"},
+ {"ev":"claim","id":"CL-E5B","model":"M-23-4-REAL","kind":"PREDICATE","statement":"E5b: V and W are singletons at the same index, and the selected point is not incident with the selected line","established_by":"DERIVED","ladder":"claimed"},
+ {"ev":"claim","id":"CL-E5C","model":"M-23-4-REAL","kind":"PREDICATE","statement":"E5c: exactly six orbit-profile cells remain","established_by":"DERIVED","ladder":"claimed"},
+ {"ev":"claim","id":"CL-E5-DECLARED","model":"M-23-4-REAL","kind":"PREDICATE","statement":"E5 DECLARED BUT UNPROVED: the 5,395-action census is complete for faithful V4 <= PGL_3(R) actions","scope":"faithful V4 actions on real (23_4) types","established_by":"RAN","ladder":"claimed","caveat":"declared at candidate authority; E5-gap (the generative bridge) is open"},
+
+ {"ev":"inference","id":"INF-X8","premises":[{"claim":"CL-E3B","path":[]},{"required_kind":"PREDICATE","at":"M-23-4-REAL","missing_why":"X8 cites E4 (exactly 2 of the 5,395 actions realizable) and E3b and stops. E5 -- that the 5,395-action census is COMPLETE -- is not among the premises and is not in this graph as a settled claim. Without it, 'exactly 2 of the census' does not become 'exactly 2 in the world'. E4 itself is a COUNT claim at a family and cannot be cited as a premise at all in GP 0.31.2 (defects/D1)."}],"concludes_kind":"PREDICATE","asserted":"X8: therefore the V4-symmetric real (23_4) configurations are exactly E1 and E2"},
+
+ {"ev":"inference","id":"INF-X9","premises":[{"claim":"CL-E3B","path":[]},{"claim":"CL-E5-DECLARED","path":[]}],"concludes_kind":"PREDICATE","asserted":"X9: E4 + E3b + E5 (declared, unproved) -> CLASS, at the authority of E5 and no higher"},
+
+ {"ev":"inference","id":"INF-X10","premises":[{"claim":"CL-E5A","path":[]},{"claim":"CL-E5B","path":[]},{"claim":"CL-E5C","path":[]},{"required_kind":"PREDICATE","at":"M-23-4-REAL","missing_why":"E5-gap, the generative bridge: that every fence-valid type produced by E5a-c is present in the frozen 5,299-pin corpus. E5-argument.md section 5 declines to certify it and names the missing same-method n=22 census retrodiction. This is the SOLE open obligation under E5."}],"concludes_kind":"PREDICATE","asserted":"X10: E5a-c proved plus the generative bridge -> E5"}
+]

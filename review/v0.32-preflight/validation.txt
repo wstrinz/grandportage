@@ -1,0 +1,23 @@
+Grand Portage preflight, 2026-09-09
+Product source: fa5644dd6f50cf904ad2c1be5f37e7371fe9bf0d
+DK source: b876fe4ed5c8963a0e8c19e18c829821c0686654
+
+python -m pytest -q -m "not live and not replay and not exhaustive"
+1593 passed, 50 deselected in 111.04s (0:01:51)
+
+GP_REQUIRE_LIVE=1 python -m pytest -q -m "live or replay or exhaustive"
+50 passed, 1593 deselected in 554.53s (0:09:14)
+
+Total: 1643 existing Python tests passed; no skips across the two selections.
+Live tests ran outside the Windows sandbox to access WSL/Singular.
+Singular: 4.2.1 (4212), Debian package 4.2.1-p3+ds-1.
+The Lean build was not rerun.
+
+DK input replay: see observations.json, observations-live.json, source-manifest.json.
+D2 direct CAS reproduction: 96 variables succeeds 3/3; 97 fails 3/3.
+Ledger: 57 claims, 52 live; DOUBT:D-E5-GAP first; LF digest matches T1.
+History: 5 displayed claim chains, model chain missing.
+Native scope mutation: BASE -> ALGEBRAIC_CLOSURE accepted as AMEND.
+
+No product code or campaign input was edited. Only review/v0.32-preflight files added.
+DK tracked working tree remained clean. No fixture runner --record was used.

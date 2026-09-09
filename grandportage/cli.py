@@ -40,6 +40,7 @@ from . import release as RELEASE
 from . import store as S
 from . import triangular as TRI
 from . import visualization as VIZ
+from . import work as WORK
 from .discharge import (DISCHARGE_KINDS, KNOWN_CONSERVATISM,
                         KNOWN_UNSOUND, discharge_for)
 
@@ -79,6 +80,8 @@ def _finding_delta(findings, receipt_path):
     except (OSError, ValueError) as exc:
         raise ValueError("cannot read finding receipt %s: %s"
                          % (receipt_path, exc))
+    if receipt.get("seam", "checked") != "checked":
+        raise ValueError("an unchecked accounting receipt cannot be used as a full-check receipt")
     prior = {}
     if isinstance(receipt.get("findings"), list):
         for finding in receipt["findings"]:
@@ -116,8 +119,17 @@ def _finding_delta(findings, receipt_path):
     }
 def cmd_check(args):
     g = _load(args)
+    unchecked = getattr(args, "seam", "checked") == "unchecked"
+    if unchecked and args.since:
+        sys.stderr.write("CHECK RECEIPT ERROR\n  unchecked accounting cannot compare full-check receipts\n")
+        return 2
+    try:
+        unresolved = WORK.unresolved(_graphs(args), g)
+    except WORK.WorkError as exc:
+        sys.stderr.write("WORK LOG ERROR\n  %s\n" % exc)
+        return 2
     accepted = H.read_baseline(args.root)["accepted"]
-    findings = C.run(g, accepted)
+    findings = C.run_accounting(g, accepted) if unchecked else C.run(g, accepted)
     historical = [f for f in findings if f.lifecycle == C.HISTORICAL]
     visible = (findings if args.history or args.full
                else C.actionable_findings(findings))
@@ -131,7 +143,9 @@ def cmd_check(args):
     if args.json:
         result = {
             "findings": [f.as_dict() for f in visible],
-            "clean": C.clean_inferences(g, findings),
+            "clean": [] if unchecked else C.clean_inferences(g, findings),
+            "seam": "unchecked" if unchecked else "checked",
+            "unresolved": unresolved,
             "counts": {"models": len(g.models), "edges": len(g.edges),
                        "claims": len(g.claims),
                        "inferences": len(g.inference_order)},
@@ -141,6 +155,14 @@ def cmd_check(args):
         print(json.dumps(result, indent=2))
         return C.exit_code(findings, args.floor, accepted)
 
+    if unchecked:
+        print("ACCOUNTING ONLY: field-scope transports were not checked.")
+    if unresolved:
+        print("UNRESOLVED WORK (operational; no claim or scope effect)")
+        for item in unresolved:
+            print("  %s / %s: %s [%s] budget %s %s" % (
+                item["family"], item["locus"], item["reason"], item["id"],
+                item["budget"]["value"], item["budget"]["unit"]))
     if not args.quiet:
         print("graph: %d models, %d edges, %d claims, %d inferences"
               % (len(g.models), len(g.edges), len(g.claims),
@@ -236,14 +258,15 @@ def cmd_check(args):
         print()
 
     if not args.quiet:
-        clean = C.clean_inferences(g, findings)
-        print("clean inferences (%d): %s" % (len(clean), ", ".join(clean)))
+        clean = [] if unchecked else C.clean_inferences(g, findings)
+        if not unchecked:
+            print("clean inferences (%d): %s" % (len(clean), ", ".join(clean)))
         # THE THIRD CATEGORY, and it used to be invisible.  An inference whose
         # EDGE is flagged is not clean and is not in the findings either --
         # the finding names the edge.  A live campaign lost a true,
         # correctly-typed inference that way and said the right thing about
         # it: not refused, silently absent.
-        held = C.disqualified_inferences(g, findings)
+        held = [] if unchecked else C.disqualified_inferences(g, findings)
         if held:
             print("not clean, not refused (%d) -- each rests on something "
                   "flagged above:" % len(held))
@@ -1160,6 +1183,32 @@ def cmd_artifacts_check(args):
     return 0
 
 
+def cmd_work(args):
+    """Record or resolve operational work without appending a graph event."""
+    graph = _load(args)
+    paths = _graphs(args)
+    if len(paths) != 1:
+        sys.stderr.write("WORK REFUSED\n  select exactly one graph for a work record\n")
+        return 2
+    try:
+        if args.file:
+            if args.why:
+                raise WORK.WorkError("--why belongs to --resolve; input files contain the whole record")
+            if args.file == "-":
+                payload = json.load(sys.stdin)
+            else:
+                with open(args.file, encoding="utf-8") as stream:
+                    payload = json.load(stream)
+        else:
+            payload = WORK.resolution(args.resolve, args.why)
+        item = WORK.append(paths[0], graph, payload)
+    except (OSError, ValueError) as exc:
+        sys.stderr.write("WORK REFUSED\n  %s\n" % exc)
+        return 2
+    print(json.dumps({"graph_effect": "NONE", "record": item}, indent=2))
+    return 0
+
+
 def cmd_history(args):
     """Where did this campaign STRUGGLE?  `gp show` cannot answer that.
 
@@ -1202,22 +1251,30 @@ def cmd_history(args):
     replaced_by = {}
     order = {}
     for i, (_p, _n, ev) in enumerate(events):
-        if ev.get("id") and ev.get("ev") in ("edge", "claim", "inference"):
+        if ev.get("id") and ev.get("ev") in S.Graph._SUPERSEDABLE:
             order.setdefault((ev["ev"], ev["id"]), i)
         if ev.get("supersedes"):
-            replaced_by[(ev["ev"], ev["supersedes"])] = (
-                ev["id"], ev.get("discharge_kind"), ev.get("ev"))
+            successors = replaced_by.setdefault((ev["ev"], ev["supersedes"]), [])
+            successor = (ev["id"], ev.get("discharge_kind"), ev.get("ev"))
+            if successor not in successors:
+                successors.append(successor)
     chains = []
-    for key in sorted(order, key=lambda k: order[k]):
-        if key in replaced_by and not any(
-                replaced_by.get(k, (None,))[0] == key[1] for k in replaced_by):
-            chain, cur = [key[1]], key
-            while cur in replaced_by:
-                nxt, kind, ent = replaced_by[cur]
-                chain.append("--%s-->" % (kind or "?"))
-                chain.append(nxt)
-                cur = (ent, nxt)
-            chains.append((key[0], chain))
+    targets = {(ent, nxt) for values in replaced_by.values()
+               for nxt, _kind, ent in values}
+    roots = [key for key in order if key in replaced_by and key not in targets]
+    # History can inspect malformed logs too. Bound cycles rather than hanging
+    # if a raw log was edited into a cycle outside the validated writer.
+    for key in sorted(roots or replaced_by, key=lambda k: order.get(k, -1)):
+        pending = [(key, [key[1]], set())]
+        while pending:
+            cur, chain, seen = pending.pop()
+            if cur in seen:
+                chains.append((key[0], chain + ["[cycle]"]))
+            elif cur not in replaced_by:
+                chains.append((key[0], chain))
+            else:
+                for nxt, kind, ent in reversed(replaced_by[cur]):
+                    pending.append(((ent, nxt), chain + ["--%s-->" % (kind or "?"), nxt], seen | {cur}))
 
     print("HISTORY -- what this campaign reconsidered\n")
     if chains:
@@ -1256,7 +1313,8 @@ def cmd_history(args):
                      if kinds.count(w))
     print("%d model(s)/edge(s)/claim(s)/inference(s)%s declared across %d log "
           "line(s); %d note(s) carried and never typed."
-          % (len(order), (", " + said) if said else "",
+          % (sum(kind in ("model", "edge", "claim", "inference")
+                 for kind, _ in order), (", " + said) if said else "",
              len(events), len(notes)))
     if notes:
         print("A note is prose that happens to live in a JSONL file. If a "
@@ -2663,6 +2721,8 @@ def build_parser():
     sub = p.add_subparsers(dest="cmd")
 
     c = sub.add_parser("check", help="type-check the graph")
+    c.add_argument("--seam", choices=("checked", "unchecked"), default="checked",
+                   help="unchecked runs accounting only; no field transport authority")
     c.add_argument("--json", action="store_true")
     c.add_argument(
         "--since", metavar="RECEIPT",
@@ -3085,6 +3145,12 @@ def build_parser():
                      help="write the events instead of printing them")
     con.add_argument("--timeout", type=int, default=300)
     con.set_defaults(func=cmd_construct)
+    work = sub.add_parser("work", help="record unfinished operational work; no graph authority")
+    operation = work.add_mutually_exclusive_group(required=True)
+    operation.add_argument("--file", help="UNRESOLVED work record JSON; - reads stdin")
+    operation.add_argument("--resolve", help="id of an earlier operational attempt")
+    work.add_argument("--why", help="reason for explicitly resolving an attempt")
+    work.set_defaults(func=cmd_work)
     ev = sub.add_parser("events",
                         help="dump the log as JSON (do not parse the file)")
     ev.add_argument("--folded", action="store_true",

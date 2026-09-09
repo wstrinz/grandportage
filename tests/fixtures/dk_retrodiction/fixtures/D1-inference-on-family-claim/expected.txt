@@ -1,0 +1,23 @@
+--- gp declare ---
+Traceback (most recent call last):
+  File "<PY>/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "<PY>/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "<PY>/Scripts/gp.exe/__main__.py", line 7, in <module>
+  File "<GP>/grandportage/cli.py", line 3117, in main
+    return args.func(args)
+  File "<GP>/grandportage/cli.py", line 727, in cmd_declare
+    S.append(events, args.root, graph=target)
+  File "<GP>/grandportage/store.py", line 3374, in append
+    g.apply_all(batch).validate()
+  File "<GP>/grandportage/store.py", line 2967, in validate
+    at = self.claims[pr["claim"]]["model"]
+KeyError: 'model'
+--- gp check ---
+graph: 0 models, 0 edges, 0 claims, 0 inferences
+
+clean inferences (0): 
+
+0 finding(s) at or above UNSOUND_PREMISE: 0 LIVE, 0 carried
+--- exit: 0 ---

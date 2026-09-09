@@ -4,6 +4,19 @@ Grand Portage separates **file readability** from **mathematical authority**.
 An old graph may remain valuable history without retaining every licence that an
 older kernel inferred from it.
 
+Version 0.32.0 keeps **graph format 7** and **kernel epoch 11**. Live non-COUNT
+claims carrying COUNT-exclusive `splits`, `groups`, `method`, or `proves` now
+refuse; explicitly superseded malformed historical claims remain readable.
+Family premises refuse with a discharge rather than entering model transport.
+Additional semantic model fields require RELICENSE when superseded.
+No transport-table cell or point-universe vocabulary changes.
+
+Operational UNRESOLVED records live in a separate `grand-portage-work/v1`
+sidecar, described in `docs/WORK.md`; they never become graph claims or
+verifier authority. Accounting-only receipts are explicitly marked unchecked
+and cannot serve as full-check baselines. Old readers do not display the
+sidecar, so operators should use v0.32 to review operational incompleteness.
+
 Version 0.25 makes that separation executable for native formats 1--4. Their
 original headers and bytes remain readable by `check`, `show`, `doctor`, and
 artifact audit even though they predate the closed format-5 implementation

@@ -1,0 +1,7 @@
+[
+  {"ev": "family", "id": "F", "count": 2, "desc": "a member", "enumeration": "C-COUNT"},
+  {"ev": "claim", "id": "C-COUNT", "family": "F", "kind": "PREDICATE",
+   "asserts_count": 2, "statement": "the family has exactly two members"},
+  {"ev": "inference", "id": "INF", "premises": [{"claim": "C-COUNT", "path": []}],
+   "concludes_kind": "PREDICATE", "asserted": "so something follows from the count"}
+]

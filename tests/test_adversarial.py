@@ -4307,9 +4307,12 @@ def test_a_fabricated_point_no_longer_types_like_a_real_one():
 
     def fake(prog, timeout):
         # (3,4) is on the circle; (3,5) gives 9.
-        val = "0" if "4" in dict(
-            (name, expr) for name, _kind, expr in prog.decls
-        )["GP_V0"] else "9"
+        # The point now lives in a simultaneous map, not nested subst text.
+        # Keep this test double's arithmetic independent of the output name.
+        from fractions import Fraction
+        mapping = next(expr for _name, kind, expr in prog.decls if kind == "map")
+        x, y = map(Fraction, mapping.split(",")[1:])
+        val = str(x*x + y*y - 25)
         stdout = "@@GP_V0:\nGP_V0=%s\n" % val
         return {"aborted": False, "returncode": 0, "stderr": "",
                 "stdout": _completed(prog, stdout)}

@@ -1,0 +1,416 @@
+{
+  "fixtures/D1-inference-on-family-claim/input.json": {
+    "sha256_lf": "023ae70cb544e795fa78710a629886d4f25e0193b50f41c4df30938ebd97e591",
+    "fold": "GraphError",
+    "detail": "inference 'INF' premise 0 cites PREDICATE claim 'C-COUNT' at family 'F'. Model transport does not compose family claims. DISCHARGE: retain the family count and its enumeration obligation; establish an explicit model-scoped bridge before citing it here, or record the needed model claim as an open required_kind/at/missing_why slot. Do not write the missing claim as though it held."
+  },
+  "fixtures/D3-inert-disposition/before.json": {
+    "sha256_lf": "7be21751fd5243e0e9736337a47c3e521bdae26c5ccfea772fcdf6cd27387723",
+    "fold": "GraphError",
+    "detail": "claim 'C-SPLIT' has kind PREDICATE but carries COUNT-only field(s) splits, groups, method, proves. DISCHARGE: use a family COUNT disposition, or remove these fields and keep the narrower claim. Disposition fields cannot be silently ignored."
+  },
+  "fixtures/D3-inert-disposition/after.json": {
+    "sha256_lf": "4c45f1d6a945a51da173ec1b70ab13cba314409b51ba833aa95b745482149f35",
+    "fold": "OK",
+    "groups": 1,
+    "clean_inferences": [],
+    "findings": [
+      {
+        "id": "FAMILY:C-SPLIT",
+        "severity": "UNSOUND_PREMISE"
+      }
+    ]
+  },
+  "followup/field-class-probe/A1-Q-to-R-structured.json": {
+    "sha256_lf": "76a3a22ceac3445e1e18578a27be104b176d75da5c78eae5cdf727889ede151a",
+    "fold": "OK",
+    "groups": 0,
+    "clean_inferences": [
+      "INF"
+    ],
+    "findings": [
+      {
+        "id": "ASSERTED-WITNESS:C-SRC",
+        "severity": "DEBT"
+      },
+      {
+        "id": "CONTAINMENT:E",
+        "severity": "DEBT"
+      }
+    ]
+  },
+  "followup/field-class-probe/A2-Q-to-R-structured-dst-silent.json": {
+    "sha256_lf": "cee080fa4a92c9ddc416d7a52acd260f788ca9aaf97af1a75c74fa9423f37373",
+    "fold": "GraphError",
+    "detail": "edge 'E' is BASE_EXTENSION from 'M-SRC' (point_universe='BASE') to 'M-R' (point_universe=None). A coordinate-ring identity or isomorphism says nothing about points if the two endpoints select different point functors: Q[x]/(x^2+1) has no point over BASE and a point over ALGEBRAIC_CLOSURE, so identifying those models would license the false inference that closure-nonemptiness descends to the base field. Once either endpoint declares `point_universe`, both must, and they must be equal; leaving one unstated is not a lesser claim, it is not a claim. If the two universes genuinely differ and no typed operation for that change exists yet, record the step UNTYPED with `debt_why` instead."
+  },
+  "followup/field-class-probe/A3-Q-to-R-legacy.json": {
+    "sha256_lf": "070110e51b24a3276788b0517119a8604e6e9142b14ac5e34325a92681f8312f",
+    "fold": "OK",
+    "groups": 0,
+    "clean_inferences": [
+      "INF"
+    ],
+    "findings": [
+      {
+        "id": "ASSERTED-WITNESS:C-SRC",
+        "severity": "DEBT"
+      },
+      {
+        "id": "CONTAINMENT:E",
+        "severity": "DEBT"
+      }
+    ]
+  },
+  "followup/field-class-probe/B1-C-to-R-structured.json": {
+    "sha256_lf": "f3457daf3a2c35ce1bfea9e83524c8fd2eef041400ca0561c634d021f61ec5a3",
+    "fold": "OK",
+    "groups": 0,
+    "clean_inferences": [
+      "INF"
+    ],
+    "findings": [
+      {
+        "id": "ASSERTED-WITNESS:C-SRC",
+        "severity": "DEBT"
+      },
+      {
+        "id": "CONTAINMENT:E",
+        "severity": "DEBT"
+      }
+    ]
+  },
+  "followup/field-class-probe/B2-C-to-R-legacy.json": {
+    "sha256_lf": "cf3dfac77f7fbc4e6d0ef8ae680fbda51da9b5e68e71ee0ba296bd5154f087b9",
+    "fold": "OK",
+    "groups": 0,
+    "clean_inferences": [
+      "INF"
+    ],
+    "findings": [
+      {
+        "id": "ASSERTED-WITNESS:C-SRC",
+        "severity": "DEBT"
+      },
+      {
+        "id": "CONTAINMENT:E",
+        "severity": "DEBT"
+      }
+    ]
+  },
+  "transports/X1.json": {
+    "sha256_lf": "8f8055d8e3b085c9594f500e25d66a6281eb6706d376a5ea8526f357622bc53e",
+    "fold": "OK",
+    "groups": 0,
+    "clean_inferences": [],
+    "findings": [
+      {
+        "id": "TRANSPORT:INF-X1",
+        "severity": "UNSOUND_PREMISE"
+      }
+    ]
+  },
+  "transports/X2.json": {
+    "sha256_lf": "a9c8a529d9bbab4d280f2607dc48903eab3526aa4b3300940ddba4ac192a4fea",
+    "fold": "ScopeError",
+    "detail": "EMPTY claim CL-ORDER-EMPTY declares scope 'any ordered field', which this kernel does not recognize as a field.  A field-relative certificate (ORDER_CERTIFICATE) must name the exact field it is relative to: an atomic field (Q, R, C), a finite field `F_p` for prime p, or a simple extension `Q(...)`/`R(...)` (e.g. \"Q(sqrt 17)\").  Repair path: correct the scope to name that field, or register a wider certificate if the claim base-changes."
+  },
+  "transports/X2b.json": {
+    "sha256_lf": "1495fd7c524c446a70ff344d46aa3860720aca823a571851f713e45a46d98f6f",
+    "fold": "OK",
+    "groups": 0,
+    "clean_inferences": [],
+    "findings": [
+      {
+        "id": "FIELD-EMPTY-MODEL-SCOPE:CL-ORDER-EMPTY-R",
+        "severity": "UNSOUND_PREMISE"
+      }
+    ]
+  },
+  "transports/X2c.json": {
+    "sha256_lf": "8ae7d4fada5d73111aef4b2c229850942854d37fcda0f54dad3cf9737ef5b7b6",
+    "fold": "OK",
+    "groups": 0,
+    "clean_inferences": [
+      "INF-X2C"
+    ],
+    "findings": []
+  },
+  "transports/X3.json": {
+    "sha256_lf": "5e138694fe71e5e007b34e0ba50bcaa56ee30426332d7cce8dacbabff6f67312",
+    "fold": "GraphError",
+    "detail": "<preflight>:7: edge 'E-TORUS-TO-FULL' is a RESTRICTION with map_kind 'POLYNOMIAL'. A RESTRICTION cuts a subset out of a model IN THE SAME COORDINATES -- it is an inclusion, not a map. If coordinates change, the step is a change of variables composed with a restriction; declare the two edges separately so each is typed for what it does."
+  },
+  "transports/X3b.json": {
+    "sha256_lf": "b3a37120b111fd9daf22f7825b6899616a4acabda760f5c6c258aeed08eed3dc",
+    "fold": "OK",
+    "groups": 0,
+    "clean_inferences": [],
+    "findings": [
+      {
+        "id": "TRANSPORT:INF-X3B",
+        "severity": "UNSOUND_PREMISE"
+      },
+      {
+        "id": "CONTAINMENT:E-TORUS-TO-FULL",
+        "severity": "DEBT"
+      },
+      {
+        "id": "EVIDENCE-GRADE:localized-unit:CL-TORUS-EMPTY",
+        "severity": "DEBT"
+      }
+    ]
+  },
+  "transports/X4.json": {
+    "sha256_lf": "43ca16414fab8567c879c0d39b044b2594acbfdbdefa9aa1c75c6783d3e3cd9f",
+    "fold": "GraphError",
+    "detail": "edge 'E-Q-TO-R' is BASE_EXTENSION from 'M-E1-Q' (point_universe='BASE') to 'M-E1-R' (point_universe=None). A coordinate-ring identity or isomorphism says nothing about points if the two endpoints select different point functors: Q[x]/(x^2+1) has no point over BASE and a point over ALGEBRAIC_CLOSURE, so identifying those models would license the false inference that closure-nonemptiness descends to the base field. Once either endpoint declares `point_universe`, both must, and they must be equal; leaving one unstated is not a lesser claim, it is not a claim. If the two universes genuinely differ and no typed operation for that change exists yet, record the step UNTYPED with `debt_why` instead."
+  },
+  "transports/X4b.json": {
+    "sha256_lf": "cad4989519359e26a735e02e09e33cc7ae6693a2bc30c4b36e9c47a93cc87525",
+    "fold": "GraphError",
+    "detail": "<preflight>:3: model 'M-E1-Q' REAL_CLOSURE requires a selected REAL embedding; an abstract field selects no ordering"
+  },
+  "transports/X5.json": {
+    "sha256_lf": "0fad7a2d111a187ffe8b84dd9ff6779630fdc32630a637cf6eb575ade9e45d3d",
+    "fold": "GraphError",
+    "detail": "edge 'E-POS-TO-NEG' is an IDENTITY_MAP between models 'M-E2-POS' and 'M-E2-NEG' that select different serialized embeddings. The coordinate ring does not choose a root: use the actual POLYNOMIAL automorphism when one exists, or record the relation UNTYPED when selected-root compatibility has not been certified."
+  },
+  "transports/X5b.json": {
+    "sha256_lf": "3263a4af0459efa12d099213a639361a1e43f5f5d2254e927c59a4ed6423a36b",
+    "fold": "OK",
+    "groups": 0,
+    "clean_inferences": [],
+    "findings": [
+      {
+        "id": "TRANSPORT:INF-X5B-NZ",
+        "severity": "UNSOUND_PREMISE"
+      },
+      {
+        "id": "TRANSPORT:INF-X5B-SIGN",
+        "severity": "UNSOUND_PREMISE"
+      },
+      {
+        "id": "UNTESTED-CONDITION:untested:CL-NONVANISH",
+        "severity": "TRIAGE"
+      },
+      {
+        "id": "UNTESTED-CONDITION:untested:CL-SIGN",
+        "severity": "TRIAGE"
+      }
+    ]
+  },
+  "transports/X6.json": {
+    "sha256_lf": "bda44d8a3fe636ad18f90d90eadf9b1056307edcba791f2baaa7f7f54ae6e26c",
+    "fold": "OK",
+    "groups": 0,
+    "clean_inferences": [],
+    "findings": []
+  },
+  "transports/X6b.json": {
+    "sha256_lf": "432b54f4cc9e11a9e80180bbdbe6bfb5bf0a2a8ee75b3b5aba99a1b3b13b1a3a",
+    "fold": "OK",
+    "groups": 0,
+    "clean_inferences": [
+      "INF-X6B"
+    ],
+    "findings": [
+      {
+        "id": "CONTAINMENT:E-ACTION-TO-CELL",
+        "severity": "DEBT"
+      }
+    ]
+  },
+  "transports/X6c.json": {
+    "sha256_lf": "31aebf16d700e08e141b7a74f13fd7826b8555d7f1b6fbf087e01ba5fa003900",
+    "fold": "ScopeError",
+    "detail": "EMPTY claim CL-NO-CERT has no certificate.  An emptiness with no certificate has no derivable scope, and a scope taken on trust is exactly the failure this kernel exists to refuse."
+  },
+  "transports/X7.json": {
+    "sha256_lf": "97be203ef35b8c11dfd0b551e0d85aa4f77e529884ed603d3bf3de32b0166ffd",
+    "fold": "OK",
+    "groups": 0,
+    "clean_inferences": [],
+    "findings": [
+      {
+        "id": "STALE-PREMISE:INF-C2-COMPLETION:CL-C2-TABLE",
+        "severity": "UNSOUND_PREMISE"
+      },
+      {
+        "id": "CONTAINMENT:E-CENSUS-TO-DESCENT",
+        "severity": "DEBT"
+      }
+    ]
+  },
+  "transports/X8-X10.json": {
+    "sha256_lf": "b1009142a6cad512e9d6f87fdeaeadc507081c3481aaadf026fd7eea0d9fded1",
+    "fold": "OK",
+    "groups": 0,
+    "clean_inferences": [
+      "INF-X9"
+    ],
+    "findings": [
+      {
+        "id": "TRANSPORT:INF-X10",
+        "severity": "UNSOUND_PREMISE"
+      },
+      {
+        "id": "TRANSPORT:INF-X8",
+        "severity": "UNSOUND_PREMISE"
+      }
+    ]
+  },
+  "transports/X8.json": {
+    "sha256_lf": "a6710653a93430683db1489497da3d0c2944c96ef967b2d95b421b1ff700a2ad",
+    "fold": "GraphError",
+    "detail": "claim 'CL-E4' has kind PREDICATE but carries COUNT-only field(s) splits, groups, method, proves. DISCHARGE: use a family COUNT disposition, or remove these fields and keep the narrower claim. Disposition fields cannot be silently ignored."
+  },
+  "misuse/BAD-1.json": {
+    "sha256_lf": "dc074f49de4d451d84a66e6180b5c4821dcda099f0f300f9b54cf3437c3b1a51",
+    "fold": "OK",
+    "groups": 0,
+    "clean_inferences": [],
+    "findings": []
+  },
+  "misuse/BAD-2-count.json": {
+    "sha256_lf": "db2182c5de2d3ec30e3fab98bb2fd849dc7dc761d70e9e5f9425cea829f97f12",
+    "fold": "OK",
+    "groups": 1,
+    "clean_inferences": [],
+    "findings": []
+  },
+  "misuse/BAD-2.json": {
+    "sha256_lf": "0f8034da371b24645841aea3568e8944f565d619319a64a46aa45a7156dec644",
+    "fold": "GraphError",
+    "detail": "claim 'CL-BAD2' has kind PREDICATE but carries COUNT-only field(s) splits, groups, method, proves. DISCHARGE: use a family COUNT disposition, or remove these fields and keep the narrower claim. Disposition fields cannot be silently ignored."
+  },
+  "misuse/BAD-2b-count.json": {
+    "sha256_lf": "5bd579e5df009ee34620fde26168aecaed60fa6598e0b847f76e775cb8f07b40",
+    "fold": "OK",
+    "groups": 1,
+    "clean_inferences": [],
+    "findings": [
+      {
+        "id": "FAMILY:CL-BAD2B",
+        "severity": "UNSOUND_PREMISE"
+      }
+    ]
+  },
+  "misuse/BAD-2b.json": {
+    "sha256_lf": "9a204049367e21fc1702aeccd687673d3b120fad7e6c33800e591ccb927695d5",
+    "fold": "GraphError",
+    "detail": "claim 'CL-BAD2B' has kind PREDICATE but carries COUNT-only field(s) splits, groups, method, proves. DISCHARGE: use a family COUNT disposition, or remove these fields and keep the narrower claim. Disposition fields cannot be silently ignored."
+  },
+  "ledger": {
+    "sha256_lf": "647006161a9af5b6ac2fd6d1e9938c1e5519e6b576359bfa9d6735b88a6a0fd8",
+    "claims": 57,
+    "live_claims": 52,
+    "findings": [
+      {
+        "id": "DOUBT:D-E5-GAP",
+        "severity": "UNSOUND_PREMISE"
+      },
+      {
+        "id": "FAMILY:F-BARE-TYPES",
+        "severity": "UNSOUND_PREMISE"
+      },
+      {
+        "id": "FAMILY:F-V4-ACTIONS",
+        "severity": "UNSOUND_PREMISE"
+      },
+      {
+        "id": "ASSERTED-WITNESS:untested:CL-E1-2",
+        "severity": "TRIAGE"
+      }
+    ]
+  },
+  "legacy_C_to_R_edge_mutations": {
+    "BASE_EXTENSION": {
+      "fold": "OK",
+      "groups": 0,
+      "clean_inferences": [
+        "INF"
+      ],
+      "findings": [
+        {
+          "id": "ASSERTED-WITNESS:C-SRC",
+          "severity": "DEBT"
+        },
+        {
+          "id": "CONTAINMENT:E",
+          "severity": "DEBT"
+        }
+      ]
+    },
+    "NECESSARY_CONDITION": {
+      "fold": "OK",
+      "groups": 0,
+      "clean_inferences": [
+        "INF"
+      ],
+      "findings": [
+        {
+          "id": "ASSERTED-WITNESS:C-SRC",
+          "severity": "DEBT"
+        },
+        {
+          "id": "CONTAINMENT:E",
+          "severity": "DEBT"
+        }
+      ]
+    },
+    "RESTRICTION": {
+      "fold": "OK",
+      "groups": 0,
+      "clean_inferences": [
+        "INF"
+      ],
+      "findings": [
+        {
+          "id": "ASSERTED-WITNESS:C-SRC",
+          "severity": "DEBT"
+        },
+        {
+          "id": "CONTAINMENT:E",
+          "severity": "DEBT"
+        }
+      ]
+    }
+  },
+  "model_change_classification": {
+    "field": [
+      "RELICENSE",
+      [
+        "field"
+      ]
+    ],
+    "point_universe": [
+      "RELICENSE",
+      [
+        "point_universe"
+      ]
+    ],
+    "characteristic": [
+      "RELICENSE",
+      [
+        "characteristic"
+      ]
+    ],
+    "open_conditions": [
+      "RELICENSE",
+      [
+        "open_conditions"
+      ]
+    ],
+    "embedding": [
+      "RELICENSE",
+      [
+        "embedding"
+      ]
+    ]
+  },
+  "native_universe_change_as_AMEND": {
+    "fold": "SupersessionError",
+    "detail": "model NEW supersedes OLD and calls it AMEND, but `point_universe` changed, which is RELICENSE.\n  A licensing attribute is not bookkeeping: `certificate` decides whether emptiness survives a base change, `identity_origin` and `coefficients_in_base` decide whether a rewriting crosses one at all, `condition` decides whether a predicate factors through retained coordinates, and `witness_kind` decides whether a point is a point or an assertion.\n  The tool compares the two records rather than taking the word for it, because 'I only added an attribute' is how a field that DECIDES transport arrives without being looked at. Declare RELICENSE, or leave the field alone."
+  }
+}

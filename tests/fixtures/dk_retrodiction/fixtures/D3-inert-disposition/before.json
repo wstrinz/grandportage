@@ -1,0 +1,10 @@
+[
+ {"ev":"family","id":"F","count":42,"desc":"a template","enumeration":"C-COUNT"},
+ {"ev":"claim","id":"C-COUNT","family":"F","kind":"PREDICATE","asserts_count":42,"statement":"the family has 42 members"},
+ {"ev":"evidence","id":"EV","for":"C-COUNT","method":"ENUMERATION","ran":"an exact enumerator","what":"counted them","decides":"BOTH","why":"exact both ways"},
+ {"ev":"claim","id":"C-SPLIT","family":"F","kind":"PREDICATE",
+  "statement":"only 1 of the 42 is settled -- the coverage arithmetic should refuse this",
+  "splits":"F","method":"a certificate","proves":["G-DONE"],
+  "why":"a certificate decides its template",
+  "groups":[{"id":"G-DONE","verdict":"settled","settles":1}]}
+]

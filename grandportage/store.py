@@ -2621,6 +2621,18 @@ class Graph(object):
                      "something; if the thing it doubts is not recorded, "
                      "record that first." % (did, d["about"]))
         for cid, c in sorted(self.claims.items()):
+            # Evaluate after supersession: the DK ledger retains the original
+            # malformed dispositions as explicitly retired history. A live
+            # occurrence, including an empty groups/proves value, must refuse.
+            if c.get("kind") != K.COUNT and not c.get("superseded_by"):
+                inert = [key for key in ("splits", "groups", "method", "proves")
+                         if key in c]
+                _require(not inert,
+                         "claim %r has kind %s but carries COUNT-only field(s) "
+                         "%s. DISCHARGE: use a family COUNT disposition, or "
+                         "remove these fields and keep the narrower claim. "
+                         "Disposition fields cannot be silently ignored."
+                         % (cid, c.get("kind"), ", ".join(inert)))
             if c.get("family"):
                 _require(c["family"] in self.families,
                          "claim %r lives at undeclared family %r"
@@ -2964,7 +2976,18 @@ class Graph(object):
                 _require(pr["claim"] in self.claims,
                          "inference %r premise %d cites undeclared claim %r"
                          % (iid, n, pr["claim"]))
-                at = self.claims[pr["claim"]]["model"]
+                premise = self.claims[pr["claim"]]
+                _require(not premise.get("family"),
+                         "inference %r premise %d cites %s claim %r at family "
+                         "%r. Model transport does not compose family claims. "
+                         "DISCHARGE: retain the family count and its enumeration "
+                         "obligation; establish an explicit model-scoped bridge "
+                         "before citing it here, or record the needed model "
+                         "claim as an open required_kind/at/missing_why slot. "
+                         "Do not write the missing claim as though it held."
+                         % (iid, n, premise["kind"], pr["claim"],
+                            premise.get("family")))
+                at = premise["model"]
                 for eid, direction in pr["path"]:
                     _require(eid in self.edges,
                              "inference %r cites undeclared edge %r"

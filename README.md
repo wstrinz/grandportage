@@ -53,6 +53,12 @@ read-surface defects. They are part of the review posture, not release notes.
 
 ## Start here
 
+The v0.32 guard release preserves graph format 7 and kernel epoch 11. It fixes
+family-premise refusals, inert disposition fields, large witness evaluation,
+and supersession reporting. [Release notes](review/v0.32/README.md) describe
+the accepted DK deltas. [Operational work](docs/WORK.md) covers unresolved
+attempts and the explicit accounting-only check mode.
+
 ```console
 python -m pip install -e .
 python -m pytest -q
@@ -82,10 +88,10 @@ ten-minute campaign and the recovery commands.
 
 ## Status and documents
 
-Version <!--version-->0.31.2<!--/version-->, graph format
+Version <!--version-->0.32.0<!--/version-->, graph format
 <!--graph-format-->7<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->11<!--/kernel-epoch-->. The suite currently has
-<!--checks-->1643<!--/checks--> checks. v0.31.2 makes exact cofactor-certified
+<!--checks-->1685<!--/checks--> checks. v0.31.2 makes exact cofactor-certified
 identity authority independent of local CAS availability; v0.31.1 closes the
 remaining untyped-model escape hatch for field-relative emptiness; v0.31 publishes the v0.30 native
 verification, extension-witness, ordered-receipt, and Lean work together with

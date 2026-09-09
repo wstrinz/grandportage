@@ -1,0 +1,63 @@
+Grand Portage v0.32.0 Phase A source validation — 2026-09-09
+Graph format 7; kernel epoch 11. No transport-table or Lean theorem changes.
+
+Frozen input source: dk-retrodiction b876fe4ed5c8963a0e8c19e18c829821c0686654.
+LF digests are in tests/fixtures/dk_retrodiction/manifest.json.
+Source DK tracked worktree remains clean; no cfg23/configuration-23-4 edits.
+
+Deterministic release lane (after the final work-log newline repair):
+  python -m pytest -q -m "not live and not replay and not exhaustive"
+  1626 passed, 59 deselected in 96.22s.
+  Together with the independent live/replay/exhaustive lane, all 1685 current
+  tests are accounted for. Documentation markers match the collection.
+  The initial full run passed 1684 tests; the final extra deterministic test
+  verifies appending to a valid work log without its trailing newline.
+
+Live/replay/exhaustive release lane:
+  GP_REQUIRE_LIVE=1 python -m pytest -q -m "live or replay or exhaustive"
+  59 passed, 1625 deselected in 485.01s.
+  Real WSL Singular 4.2.1 (4212); no live availability skips.
+  Includes the 96/97-variable frozen pair repeated three times, positive and
+  negative 138/174/1024-variable controls, and all prior live/campaign lanes.
+
+CLI replay:
+  python scripts/replay_guard_fixtures.py --live --output review/v0.32/guard-replay.json
+  33 commands, all passed. Every init/declare/verify/check has its own exit
+  code and complete stdout/stderr. Temporary graph roots are separate from
+  frozen source inputs. The six D2 CLI verifications all return VERIFIED.
+
+Lean:
+  ELAN_HOME=C:/Users/wstri/.elan lake build (from lean/)
+  Exit 0, 28 jobs. Two existing linter warnings (unnecessarySimpa and
+  unusedVariables). The first invocation lacked ELAN_HOME; explicit installed
+  toolchain configuration resolved it without source changes.
+
+Cross-input observation replay:
+  review/v0.32/observations.json retains the current probe results separately
+  from preflight observations. Ledger: 57 claims, D-E5-GAP first, F-TRADE
+  unflagged. Tests also confirm the added sixth/model history chain and open
+  X8/X10 slots. Misuse BAD-1 and dishonest BAD-2-count remain accepted; honest
+  BAD-2b-count retains its finding. PREDICATE BAD-2/BAD-2b now refuse inert
+  COUNT fields as required by D3; their original observations are unchanged.
+
+Independent Lane Watch repository:
+  math-research/infrastructure/agent-observer
+  bun test tests/directive.test.ts tests/campaign-adviser.test.ts tests/architecture-boundaries.test.ts
+  28 passed, 0 failed, 188 expectations.
+  TypeScript tsc --noEmit: exit 0. Svelte check: 0 errors, 0 warnings.
+  Directive text, actor, timestamp, coordinator attachment and recommendation
+  snapshot are persisted via the existing event/action mechanism.
+  No live event, coordinator message, service restart or deployment performed.
+
+Publication status:
+  This is source preparation, not a remote release or deployed service.
+  The pinned Ubuntu CI workflow is added but has not run remotely here.
+  Epoch 12 remains gated on shipping Phase A and freezing the corrected
+  extension/instantiation, certificate migration and family/model contract.
+
+Packaging:
+  pip wheel . --no-deps --no-build-isolation --no-cache-dir
+  Built grandportage-0.32.0-py3-none-any.whl; work.py and version metadata verified.
+  SHA256 adf919c99bd5e602014f346544d1ca5fd7c786f4f2d1ad7f803a0601c47973e9
+  Initial cache-enabled attempt hit sandbox cache access; no-cache retry passed.
+  git diff --check passed in both edited repositories.

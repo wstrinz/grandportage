@@ -3,12 +3,21 @@
 This is the attack surface for the current release. The full historical review
 through v0.18 is preserved in `HISTORY/REVIEW-through-v0.18.md`.
 
-**Version <!--version-->0.31.2<!--/version-->, graph format
+**Version <!--version-->0.32.0<!--/version-->, graph format
 <!--graph-format-->7<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->11<!--/kernel-epoch-->, and
-<!--checks-->1643<!--/checks--> collected checks.**
+<!--checks-->1685<!--/checks--> collected checks.**
 
 ## Highest-risk claim
+
+For v0.32, attack the simultaneous Singular point map with false points,
+coordinate references, guards and large rings; the live release controls
+cover 96/97, 138, 174 and 1024 variables. Check that non-COUNT rejection
+retains repaired history, and that semantic model edits propagate RELICENSE.
+The separate work log must never license a claim: malformed logs refuse,
+resolutions are operational, and unchecked receipts cannot become full-check
+baselines. Frozen DK findings and open-premise slots are pinned in
+`tests/fixtures/dk_retrodiction/` and `tests/test_guard_release.py`.
 
 Grand Portage now has a small semantic kernel and a nontrivial certifying-
 checker trust base. Review both separately. A correct transport table does not

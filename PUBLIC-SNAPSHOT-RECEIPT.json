@@ -1,17 +1,17 @@
 {
   "counts": {
     "generated_files": 1,
-    "private_files": 11,
-    "public_files": 260
+    "private_files": 12,
+    "public_files": 293
   },
   "files": [
     {
       "path": ".gitattributes",
-      "sha256": "d60f352d0db1404c70afb4bb8b2ca3fd1c610572aa40720e8a0b7baa7885418c"
+      "sha256": "2e155e6fb4a5f3505fe3ff30df14f8c901bb8eee4f1787b79f986299b4a679fa"
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256": "3c38fe61437f629d535be7a58040f33ea7488200de11893a7957ca3ee5a006e5"
+      "sha256": "bfee32d825ba6dac74eb5994206c26f4422232137545c01e27a0923e49e66788"
     },
     {
       "path": ".gitignore",
@@ -31,7 +31,7 @@
     },
     {
       "path": "COMPATIBILITY.md",
-      "sha256": "3795372fab9778c93ae82cbe693a67224286db6f626c00bbd83acbc05c3652a1"
+      "sha256": "3eb36516715ebbc0822b41d8907b2c92e74b4d61f3348eb35c8032dc4341aed3"
     },
     {
       "path": "DESIGN.md",
@@ -51,15 +51,15 @@
     },
     {
       "path": "README.md",
-      "sha256": "db2e3f277e1af95023a4dd886d93d2bd0d4e33d98ee8d9c9c9745dad193d359d"
+      "sha256": "51349e2f21dac568d6455f8d733b2bf154e8c9479cf1b1de33616f675d4296af"
     },
     {
       "path": "REVIEW.md",
-      "sha256": "c13d65e994f1e693e0d6bd9d682a983c62c5c03c84efb74b21238d7b1d0cb847"
+      "sha256": "11850dc56c4f0286eca924c8bf1921ba70eeb81798dd12e0422d8cbb5a781946"
     },
     {
       "path": "SPEC.md",
-      "sha256": "c13e2ab914c46c21d3ed6e79d8395b0d5112934c32afad9c236fc3d522f6d11b"
+      "sha256": "a27a3ffeeacd0056789305a97beb4450b68cf9cfdfd3f8d9f3e4d6d11b8a351f"
     },
     {
       "path": "docs/CAMPAIGN-DOSSIER-V0.md",
@@ -92,6 +92,10 @@
     {
       "path": "docs/VISUALIZATION.md",
       "sha256": "171c52a80e21e16a021725d8d0ce0bb581543600d6e40217b89a2fe3fc52eaf5"
+    },
+    {
+      "path": "docs/WORK.md",
+      "sha256": "963cd51416a27414845dd66d4efd69aac6904a2e0fc19d1acb44d9d3e536d8f1"
     },
     {
       "path": "docs/first-run/BRIEF.md",
@@ -283,7 +287,7 @@
     },
     {
       "path": "grandportage/__init__.py",
-      "sha256": "ce31a5d1d9c7968208e4434b4d4c21b9e7d747c61c280d9aa48e9c0b29f51930"
+      "sha256": "2427188784588a3cd35a29445bc1dc4d31efa5e8fdc59b1a62b3e1d52e3c3c7b"
     },
     {
       "path": "grandportage/adapter_conformance.py",
@@ -307,15 +311,15 @@
     },
     {
       "path": "grandportage/cas.py",
-      "sha256": "1422e5e831fb4e6b3c4c296c4a63145e6d8c797393e55f6522366f3949e8f4f9"
+      "sha256": "d462a567bc69f71136b45cb7d624061934c7313a72053be996a3f4557972cdfe"
     },
     {
       "path": "grandportage/check.py",
-      "sha256": "c3536279d701429283fbea9819d952b9a95c920b9adcaab6976d9f31ce93d641"
+      "sha256": "41f5ae57ef698335fba75b54b913f2e5e9de06e6a205b202c33981beadfe5d0f"
     },
     {
       "path": "grandportage/cli.py",
-      "sha256": "e8c259fb8b33dfca69bf8cc9a84249693c0386f80f2d27657dbeef36a2cb0a58"
+      "sha256": "b9621d41679a787a211d899fa98b433757558e2f474ddbfe90c340cb7ab0d44c"
     },
     {
       "path": "grandportage/coefficient_expansion.py",
@@ -375,7 +379,7 @@
     },
     {
       "path": "grandportage/kernel.py",
-      "sha256": "c7852c976c65444c3cce310b74e11e4e1689101e7b0da76a328aff6d4a108601"
+      "sha256": "5b27d6265d3e769d946eb389feef44e411d00c68e818b22462fa27b5edf870a9"
     },
     {
       "path": "grandportage/laurent_coefficient_pipeline.py",
@@ -391,7 +395,7 @@
     },
     {
       "path": "grandportage/mcp.py",
-      "sha256": "394362ba1aea55312dd5231fe25d57cda77a71a332ac7c0cb5f10fe97ce9dc28"
+      "sha256": "509b48a092b25c8f4a2e90c3f456d9d00d582a2e3a62c55d67331aef048ae5cf"
     },
     {
       "path": "grandportage/migration.py",
@@ -439,7 +443,7 @@
     },
     {
       "path": "grandportage/store.py",
-      "sha256": "b5e71b8ff473a1dbe7c8dd3b3b366456adf6eb5a40e044e91afb6a5e6361e835"
+      "sha256": "9d659abf9e39567ea723d1661627b5ea6f5b1bff14a2c42eebb71ab40f055181"
     },
     {
       "path": "grandportage/triangular.py",
@@ -452,6 +456,10 @@
     {
       "path": "grandportage/visualization.py",
       "sha256": "140292913b02ed344464aad5b1c7a1bd93a0fc9e626aa6a358157e8c772a09d1"
+    },
+    {
+      "path": "grandportage/work.py",
+      "sha256": "4af7fde10b1b83dadef0528d8699eeca154c684a2789985fb99136eddae90eac"
     },
     {
       "path": "lean/.gitignore",
@@ -583,11 +591,11 @@
     },
     {
       "path": "public-snapshot-v1.json",
-      "sha256": "84e307b79d638d87bc5177d2ac2425a4fac79b713a8059eb1d5c2e1118baa779"
+      "sha256": "53ed4140816d3a399b0ded93c4e5e85471ccb7925193b6543399c682b36caa58"
     },
     {
       "path": "pyproject.toml",
-      "sha256": "f57e5943b88d886c6d97a5180713b2c4beb274990ef368e17e02376f0c760dbe"
+      "sha256": "b6b8f8b86a39823a2494768c0e4c9e15c8de443f1307fbd415f87391a34707b9"
     },
     {
       "path": "review/LSEM-COLD-RETEST-PACKET-2026-08-03.md",
@@ -762,6 +770,50 @@
       "sha256": "3f4f57add9ea5b8f68bd32d6e30060bc06050d837afc713dd028eeb648cadd67"
     },
     {
+      "path": "review/v0.32-preflight/README.md",
+      "sha256": "bde02ea0fab6e52dea8a94784221f0a4f234979811a8c9438bd01c6e09f8f90c"
+    },
+    {
+      "path": "review/v0.32-preflight/history-baseline.txt",
+      "sha256": "597994268630583059010ae442989312b9ef18f60b7c8b7e1495eb5f3678b114"
+    },
+    {
+      "path": "review/v0.32-preflight/observations-live.json",
+      "sha256": "ec754479cd22b406633d967952924bde01877c3146b4d01ab0194b4ecd76986a"
+    },
+    {
+      "path": "review/v0.32-preflight/observations.json",
+      "sha256": "289c9da49c7448ac7f80bc951a7b1393e46440440ec156b50b016a18e80f9126"
+    },
+    {
+      "path": "review/v0.32-preflight/probe.py",
+      "sha256": "70f7a153a19f37efa627dbece528a901b362577bc5c10e29c35e6423aa3f6ac9"
+    },
+    {
+      "path": "review/v0.32-preflight/source-manifest.json",
+      "sha256": "a69e3144cd5c93acb1458ee01f8d1edf9bf23895b040fda8ca2eafb3d8e1c9c6"
+    },
+    {
+      "path": "review/v0.32-preflight/validation.txt",
+      "sha256": "b8dbe0c30a1f988403a867fc29d47230949def04c2c851d256340f002d5dcd45"
+    },
+    {
+      "path": "review/v0.32/README.md",
+      "sha256": "0795612d72448800a2c2015aba00c825cb63cc237ac81211e2f0aca11515beb3"
+    },
+    {
+      "path": "review/v0.32/guard-replay.json",
+      "sha256": "9302f3e16b90f2602c2efca43746292ccfae1cde0ef28dc60f1e166cb9db00dc"
+    },
+    {
+      "path": "review/v0.32/observations.json",
+      "sha256": "179cf8ba10780ba8fcbbd94b3d4237652b0d2238af861677c3eb66cd17ea8cfa"
+    },
+    {
+      "path": "review/v0.32/validation.txt",
+      "sha256": "5034ad34c6b9d8d10d5cbf51213a5dd92071c39aaaffca8bd1b0c1b88cfe9530"
+    },
+    {
       "path": "scripts/build_jc_replay_resources.py",
       "sha256": "e6e4224b8d07b4430541088e7d762356f91c32ba98ea58a00b1b66e624f82209"
     },
@@ -776,6 +828,10 @@
     {
       "path": "scripts/public_snapshot.py",
       "sha256": "92bb275a6398db2477159b0f69eeea1312e1a0959ef7bf5ca3a93a1152ad2616"
+    },
+    {
+      "path": "scripts/replay_guard_fixtures.py",
+      "sha256": "ed2c26002a0fa258a9df07a413377f1a5667e5d65d43258f4673d6e1f94e4688"
     },
     {
       "path": "tests/conftest.py",
@@ -794,6 +850,74 @@
       "sha256": "42e3be08f3650b4667409cc72e4c9e81a05a60a31b906c19b1a0dc6cfc308859"
     },
     {
+      "path": "tests/fixtures/dk_retrodiction/README.md",
+      "sha256": "6654d624a9f2c74bdc0b90754e7efe3db500683a44859bca2099ab6701462af1"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D1-inference-on-family-claim/expected.txt",
+      "sha256": "21debb428672b46ea12ed15b2abe3c4eafebf9c6736d9345381cb57ed3d67464"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D1-inference-on-family-claim/input.json",
+      "sha256": "023ae70cb544e795fa78710a629886d4f25e0193b50f41c4df30938ebd97e591"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D2-witness-substitution-scaling/expected-fail-97vars.txt",
+      "sha256": "89e8e01b547ff346e29afc83547ee1b71cc07ea4bea00e2c1a51e76ef380ce2f"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D2-witness-substitution-scaling/expected-pass-96vars.txt",
+      "sha256": "e13dc31274066c3dc148211462f84d3d3c27c3be16bb2c4c82f5b361030c606d"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D2-witness-substitution-scaling/fail-97vars.json",
+      "sha256": "c9277c0b3849ff6684bb90f22c083a47249de2cf046516666121068c5df42406"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D2-witness-substitution-scaling/pass-96vars.json",
+      "sha256": "328cebd63060b94a684719157c726c441583f6070743b48f7b6d3b4aa5962aac"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D3-inert-disposition/after.json",
+      "sha256": "4c45f1d6a945a51da173ec1b70ab13cba314409b51ba833aa95b745482149f35"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D3-inert-disposition/before.json",
+      "sha256": "7be21751fd5243e0e9736337a47c3e521bdae26c5ccfea772fcdf6cd27387723"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D3-inert-disposition/expected-after.txt",
+      "sha256": "59293198f2cbfce907a54218198482040addcde2a2a4ba06f43603cef6f9a10d"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D3-inert-disposition/expected-before.txt",
+      "sha256": "b76f03e3f0562cf58b10cfad8e93f81dd022e73214615b9bcdaad1b067ac62ea"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/ledger/expected-check.txt",
+      "sha256": "e5b7cfa50ec2bb6575bc0c0ad4ce629a202887a3531717c1ed1535f7da209581"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/ledger/expected-history.txt",
+      "sha256": "597994268630583059010ae442989312b9ef18f60b7c8b7e1495eb5f3678b114"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/ledger/graph.jsonl",
+      "sha256": "647006161a9af5b6ac2fd6d1e9938c1e5519e6b576359bfa9d6735b88a6a0fd8"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/manifest.json",
+      "sha256": "06611bc58480dfae824e22cb3682738f932169c912edd17d62e96d1dbabe7ef5"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/transports/X8-X10.json",
+      "sha256": "b1009142a6cad512e9d6f87fdeaeadc507081c3481aaadf026fd7eea0d9fded1"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/transports/verbatim-v0.31.2.md",
+      "sha256": "f358aa047692c42b312b7e6626da6c50a08faeb85cf156899b3454661425cf9c"
+    },
+    {
       "path": "tests/fixtures/reference_oracle/corpus_v1.json",
       "sha256": "904cbe96b5f646c1750a132c664218111187398faf86744fc5d1c99e49d92159"
     },
@@ -807,7 +931,7 @@
     },
     {
       "path": "tests/test_adversarial.py",
-      "sha256": "9b5bda587425cb416d7f83ebe70a9334ee4343d89d0bca809ca5e603414f8944"
+      "sha256": "1150aa49c0596af1a9816a71f44694838e6fef17370a2fc8337b453b3d43c9f8"
     },
     {
       "path": "tests/test_affine_coordinate.py",
@@ -930,6 +1054,10 @@
       "sha256": "ace224400c762dd754841c8937a3e619a00a3ce68dce0835a6c2050d5581f910"
     },
     {
+      "path": "tests/test_guard_release.py",
+      "sha256": "d5ed7349d29c011ee64d5bee97a24e20485053dfc6572022e663af90993a0763"
+    },
+    {
       "path": "tests/test_identity_surface.py",
       "sha256": "174f93c487c744f7091c28fdf16a86dae52e3ee9515e5c7e0d4c8458f476fc40"
     },
@@ -995,7 +1123,7 @@
     },
     {
       "path": "tests/test_public_snapshot.py",
-      "sha256": "ea7975534bced28ffa0b40f5e260332f8dd35124388752812470f761c3d1d60e"
+      "sha256": "2bac7f6b28ce9d1323102812ac7e210bfab6ee45ca77fd21b5615fe04343a607"
     },
     {
       "path": "tests/test_publication.py",
@@ -1042,13 +1170,17 @@
       "sha256": "0768ed5bd2b671ba57127b708dfd877970740cae40587631ae5fcd7c0e2ad7bd"
     },
     {
+      "path": "tests/test_work_accounting.py",
+      "sha256": "53d8f496a5a648638324d1d41876105797a6db19c616b928c62fad8479f1c2e4"
+    },
+    {
       "path": "tools/replay_arr15_e10.py",
       "sha256": "eefc090387837c761596de46f56f3872750d1691479b1484f4b374416e3cdf75"
     }
   ],
   "manifest": {
     "path": "public-snapshot-v1.json",
-    "sha256": "84e307b79d638d87bc5177d2ac2425a4fac79b713a8059eb1d5c2e1118baa779"
+    "sha256": "53ed4140816d3a399b0ded93c4e5e85471ccb7925193b6543399c682b36caa58"
   },
   "private_paths": [
     ".codex/config.toml",
@@ -1061,9 +1193,10 @@
     "KILL-CRITERIA.md",
     "SCOPE.md",
     "TESTPLAN.md",
-    "docs/portagecommandconceptv2.md"
+    "docs/portagecommandconceptv2.md",
+    "review/v0.32/SOL-HANDOFF.md"
   ],
   "schema": "grand-portage-public-snapshot-receipt/v1",
-  "snapshot_sha256": "56fb924f74ca854bf78fa8d277c3cdd17a4470987154e07e08f7fafbcba89c37",
-  "source_commit": "fa5644dd6f50cf904ad2c1be5f37e7371fe9bf0d"
+  "snapshot_sha256": "1bd56b18158969877cfcebbaad9e9b96f63323afd27659d0a57eacbb2a476f3e",
+  "source_commit": "cca5b05d1d74df68d2fb8eb0e13429d3d6fe85ee"
 }

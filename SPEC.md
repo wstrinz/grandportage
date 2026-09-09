@@ -64,7 +64,7 @@ claims may exhibit points in a bounded simple quadratic/cubic extension of Q.
 
 ## Status
 
-All five layers are built and gated: <!--checks-->1643<!--/checks--> checks, live against Singular 4.2.1,
+All five layers are built and gated: <!--checks-->1685<!--/checks--> checks, live against Singular 4.2.1,
 and it has had eleven live user sessions — see [docs/first-run/](docs/first-run/)
 for the first, written up in full.
 
@@ -479,7 +479,7 @@ Three.js build by default; `--three-root` can point it at a local package.
 ## The retrodiction gate
 
 ```bash
-python -m pytest        # <!--checks-->1643<!--/checks--> checks
+python -m pytest        # <!--checks-->1685<!--/checks--> checks
 ```
 
 Grand Portage's credibility rests on reproducing, from **data**, what two
@@ -556,6 +556,24 @@ Two things the run showed that the prose does not:
   Which is precisely the assertion the `print` statement skipped.
 
 ## What this does not do
+
+### Explicit open-premise slots
+
+An argument can record the claim it still needs without asserting that claim.
+A premise slot uses `required_kind`, `at`, and `missing_why` instead of a
+claim id. It retains the intended conclusion while full checks refuse the
+inference and provide a discharge. Accounting-only checks also report the
+open slot, without certifying any field transport. A family claim cannot be
+substituted directly for a model premise: retain its counting obligations
+and establish the explicit bridge, or leave this slot open.
+
+The frozen `tests/fixtures/dk_retrodiction/transports/X8-X10.json` demonstrates
+both missing-premise refusals and a clean control. The accompanying
+`transports/verbatim-v0.31.2.md` preserves the source campaign's original
+outputs, including its naming and failed repair attempts; it is historical
+evidence, not a revised answer key.
+
+### Limits
 
 Stated plainly, because the failure mode of a tool like this is that four
 tracked hazards start feeling like a guarantee.
