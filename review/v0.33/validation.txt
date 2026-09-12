@@ -1,0 +1,52 @@
+Grand Portage v0.33.0 authority-boundary release validation — 2026-09-12
+Graph format 7; kernel epoch 11. No verifier, fingerprint, transport-table,
+persisted-schema, or Lean theorem changes.
+
+Complete Python collection:
+  python -m pytest --collect-only -q
+  1716 tests collected in 0.76s.
+
+Deterministic release lane, after the version and documentation update:
+  python -m pytest -q -m "not live and not replay and not exhaustive"
+  1657 passed, 59 deselected in 100.83s.
+
+Required live CAS release lane, after the version update:
+  GP_REQUIRE_LIVE=1 python -m pytest -q -m "live and not exhaustive"
+  59 passed, 1657 deselected in 663.95s (11:03).
+  Real WSL/Singular was required; no availability skips were permitted.
+  The two disjoint lanes account for all 1716 collected tests; there are no
+  separately collected replay-only or exhaustive-only checks in this tree.
+
+Focused release surfaces:
+  python -m pytest -q tests/test_architecture.py tests/test_authority_binding.py
+    tests/test_identity_surface.py tests/test_public_snapshot.py
+    tests/test_match4_hardening.py
+  56 passed in 5.31s.
+
+  The implementation checkpoint's broader verifier family passed 195 tests
+  with 6 capability-dependent skips before the metadata-only version update.
+
+Lean semantic shadow:
+  ELAN_HOME=C:/Users/wstri/.elan lake build (from lean/)
+  Build completed successfully, 28 jobs. The existing unnecessarySimpa and
+  unusedVariables linter warnings remain; no Lean source changed.
+
+Packaging:
+  python -m pip wheel . --no-deps --no-build-isolation --no-cache-dir
+    --wheel-dir tmp/v033-dist
+  Built grandportage-0.33.0-py3-none-any.whl.
+  SHA256 3faf7a04cc7e47d5f64d43093e9154a536020200359cfbd2da6dfc6e5636d83c
+  The archive has 51 entries; grandportage/authority.py and Version: 0.33.0
+  were verified. A clean --target install imported grandportage and
+  grandportage.authority and reported 0.33.0.
+
+Documentation and source hygiene:
+  gp docs --count 1716 synchronized CURRENT.md, README.md, and REVIEW.md.
+  gp --version reported 0.33.0, graph format 7, and kernel epoch 11.
+  git diff --check passed; PowerShell reported only expected CRLF-to-LF notices.
+
+Compatibility conclusion:
+  Existing current verdicts retain exactly their previous epoch, verifier,
+  backend, and semantic-input freshness rules. AuthorityReceipt values exist
+  only on the folded in-memory graph. No migration is required. Epoch-12 field
+  reach and family/model composition remain deferred to v0.34.

@@ -4,6 +4,21 @@ Grand Portage separates **file readability** from **mathematical authority**.
 An old graph may remain valuable history without retaining every licence that an
 older kernel inferred from it.
 
+Version 0.33.0 keeps **graph format 7** and **kernel epoch 11**. It extracts a
+single fold-time authority binder for all ten existing verdict subjects without
+changing verdict schemas, verifier versions, input fingerprints, projections,
+or transport-table cells. Subject-specific proof objects replay before a sealed
+in-memory receipt can project authority; stale or malformed evidence projects
+nothing. The receipts are not serialized and ordinary callers cannot construct
+them through the public API. Existing current verdicts therefore remain current
+solely according to their prior epoch, verifier, backend, and input bindings.
+
+The release also ships the post-v0.32 review diagnostics: `gp review` provides
+the cold-reader-safe full-history surface, free witness parameters refuse before
+CAS execution, and quotient identities are labelled vacuous when a current
+verified unit-ideal anchor already proves the zero ring. These changes add no
+persisted field or verdict and grant no new mathematical authority.
+
 Version 0.32.0 keeps **graph format 7** and **kernel epoch 11**. Live non-COUNT
 claims carrying COUNT-exclusive `splits`, `groups`, `method`, or `proves` now
 refuse; explicitly superseded malformed historical claims remain readable.

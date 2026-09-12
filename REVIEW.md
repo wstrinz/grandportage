@@ -3,12 +3,26 @@
 This is the attack surface for the current release. The full historical review
 through v0.18 is preserved in `HISTORY/REVIEW-through-v0.18.md`.
 
-**Version <!--version-->0.32.0<!--/version-->, graph format
+**Version <!--version-->0.33.0<!--/version-->, graph format
 <!--graph-format-->7<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->11<!--/kernel-epoch-->, and
-<!--checks-->1685<!--/checks--> collected checks.**
+<!--checks-->1716<!--/checks--> collected checks.**
 
 ## Highest-risk claim
+
+For a cold campaign read, run `gp review`. It is the checked-seam equivalent
+of `gp check --history --full`: current authority debt, full carried detail,
+and findings retained on superseded generations are all visible without
+requiring a returning agent to remember the safe flag combination. Plain
+`gp check` remains the concise enforcement-oriented surface.
+
+For v0.33, attack the fold-time boundary itself. Every verdict subject must
+pass through `authority.check`, `bind`, and `project`; stale evidence and failed
+representation replay must project nothing; negative elimination and point-lift
+proof objects must not erase earlier accepted authority. Ordinary callers must
+not mint the sealed receipt types, and folding must not serialize them or change
+the graph bytes. The source-shape gate and all-subject characterization matrix
+live in `tests/test_architecture.py` and `tests/test_authority_binding.py`.
 
 For v0.32, attack the simultaneous Singular point map with false points,
 coordinate references, guards and large rings; the live release controls

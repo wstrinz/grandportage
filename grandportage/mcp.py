@@ -864,9 +864,6 @@ def h_cas_health(args, root):
 
 
 def h_portage_declare(args, root):
-    events = args.get("events") or []
-    if not isinstance(events, list):
-        return _err("`events` must be a list of graph events")
     # NAME THE GRAPH BEING WRITTEN, ALWAYS.
     #
     # `GP_ROOT` defaults to "." and "." is the SERVER PROCESS's cwd, which is
@@ -882,21 +879,37 @@ def h_portage_declare(args, root):
     # had just created.  They diagnosed it by diffing four copies of a fixture.
     #
     # Resolving the root differently is not available here -- the server does
-    # not know where its config lives.  Saying which graph it wrote is, costs
-    # one line, and turns a mystery into a fact on the first call.
-    where = os.path.abspath(S.graph_path(root))
+    # not know where its config lives. Saying which graph changed (or stayed
+    # unchanged) turns a mystery into a fact. A relative input deserves a
+    # neutral reminder about server-cwd resolution; an absolute input is not
+    # evidence of a mismatch and must not receive the old blanket alarm.
+    root_input = os.fspath(root)
+    input_kind = "absolute" if os.path.isabs(root_input) else "relative"
+    server_cwd = os.path.abspath(os.getcwd())
+    resolved_root = os.path.abspath(root_input)
+    where = os.path.abspath(S.graph_path(root_input))
+
+    def unchanged(message):
+        detail = (
+            "%s\n\ngraph unchanged: %s\n"
+            "root provenance: input=%s; resolved GP_ROOT=%s; server cwd=%s"
+            % (message, where, input_kind, resolved_root, server_cwd))
+        if input_kind == "relative":
+            detail += (
+                "\nConfirm this is the intended campaign graph; relative "
+                "GP_ROOT values resolve from server cwd.")
+        return _err(detail)
+
+    events = args.get("events") or []
+    if not isinstance(events, list):
+        return unchanged("`events` must be a list of graph events")
     try:
-        S.append(events, root=root)
+        S.append(events, root=root_input)
     except Exception as exc:
         # The exception TYPE is part of the message on purpose -- a caller
         # distinguishes a ScopeError from a GraphError by name, and an existing
         # test pins it. The first version of this wrapper dropped it.
-        return _err("%s: %s\n\nTHE GRAPH BEING WRITTEN IS %s\nIf that is not "
-                    "the campaign you are working in, `GP_ROOT` resolved "
-                    "against this server's working directory rather than the "
-                    "directory its `.mcp.json` sits in. Nothing above may be "
-                    "about your campaign at all."
-                    % (type(exc).__name__, exc, where))
+        return unchanged("%s: %s" % (type(exc).__name__, exc))
     kinds = {}
     for e in events:
         kinds[e.get("ev")] = kinds.get(e.get("ev"), 0) + 1

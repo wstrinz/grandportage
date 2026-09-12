@@ -22,6 +22,7 @@ import json
 import os
 from fractions import Fraction
 
+from . import authority as A
 from . import kernel as K
 from . import format as F
 from . import groebner as G
@@ -292,6 +293,9 @@ class Graph(object):
         self.notes = []
         self.named_notes = {}      # id -> note, for notes that can be corrected
         self.verdicts = {}         # id -> verdict event plus freshness status
+        # Sealed, fold-local receipts. These are derived from verdict events and
+        # never serialized back into the append-only graph.
+        self.authority_receipts = {}
         self._seen = {}            # (kind, id) -> canonical event
         self._event_count = 0       # meta must be the first and only header
         self.graph_format = 0
@@ -762,27 +766,25 @@ class Graph(object):
         # records and answers produced by another verifier/kernel/backend (or
         # against different semantic inputs) remain readable history, but
         # they never populate the fields the checker treats as evidence.
-        current, stale_reason = P.current_verdict(
+        checked_evidence = A.check(
             self, ev, check_binary_version=self._check_binary_version)
         stored = dict(ev)
-        stored["current"] = current
-        stored["stale_reason"] = None if current else stale_reason
+        stored["current"] = not isinstance(
+            checked_evidence, A.AuthorityRefusal)
+        stored["stale_reason"] = (
+            checked_evidence.reason
+            if isinstance(checked_evidence, A.AuthorityRefusal)
+            else None)
         self.verdicts[ev["id"]] = stored
-        if not current:
+        if isinstance(checked_evidence, A.AuthorityRefusal):
             return
 
         # A rejected section refutes the proposed proof object, not exact
         # contraction. Keep it as history without erasing an earlier valid
         # certificate projected onto the edge.
-        if (subject == "elimination"
-                and ev["verdict"] not in (
-                    "VERIFIED_SECTION", "VERIFIED_GROEBNER")):
+        if not A.projects_authority(checked_evidence):
             return
-        if (subject == "point_lift"
-                and ev["verdict"] != "VERIFIED_POINT_LIFT"):
-            return
-        target[of][field] = ev["verdict"]
-        target[of][spec["why_field"]] = ev["why"]
+        extra_projections = []
         # THE CERTIFICATE, WHEN THE VERIFIER MINTED ONE.
         #
         # A verdict says WHAT a run concluded; a representation says why, in a
@@ -878,7 +880,7 @@ class Graph(object):
                     "%s: elimination verdict %r's checked summary does not "
                     "match a fresh exact-checker result."
                     % (where, ev.get("id")))
-                target[of]["contraction_representation"] = rep
+                extra_projections.append(("contraction_representation", rep))
             elif subject == "elimination":
                 required = {
                     "method", "section", "source_ring_vars",
@@ -934,7 +936,7 @@ class Graph(object):
                     "the exact source, target, partition, or fixed-coordinate "
                     "section it claims to certify."
                     % (where, ev.get("id")))
-                target[of]["contraction_representation"] = rep
+                extra_projections.append(("contraction_representation", rep))
             elif subject == "point_lift":
                 required = {
                     "method", "edge", "source_model", "target_model",
@@ -1146,7 +1148,7 @@ class Graph(object):
                     fallback["rows"], fallback_images, "1",
                     rep["target_generators"] + guards
                 )
-                target[of]["point_lift_representation"] = rep
+                extra_projections.append(("point_lift_representation", rep))
             elif subject == "claim":
                 _require(
                     P.replayable_derived_identity(self, ev),
@@ -1343,9 +1345,19 @@ class Graph(object):
                 _require(isinstance(rep, dict) and rep.get("cofactors"),
                          "%s: verdict %r carries a `representation` with no "
                          "cofactors. The cofactors ARE the certificate."
-                         % (where, ev.get("id")))
+                          % (where, ev.get("id")))
             if subject not in ("elimination", "point_lift"):
-                target[of]["representation"] = rep
+                extra_projections.append(("representation", rep))
+
+        receipt = A.bind(
+            checked_evidence, field, spec["why_field"], extra_projections)
+        _require(
+            isinstance(receipt, A.AuthorityReceipt),
+            "%s: verdict %r passed projection policy but authority binding "
+            "refused it: %s" % (
+                where, ev.get("id"), getattr(receipt, "reason", "unknown")))
+        A.project(receipt, target[of])
+        self.authority_receipts[receipt.evidence.event_id] = receipt
 
     def _apply_certificate(self, ev, where):
         # A BUILT-IN CANNOT BE REDEFINED FROM A GRAPH.

@@ -401,6 +401,20 @@ def identity(graph, cid, timeout=300, _runner=None, _backend=None):
                "modulo %s's ideal, so the rewriting holds in that coordinate "
                "ring and DERIVES from the model's own equations."
                % (c["lhs"], c["rhs"], c.get("model")))
+        anchors = sorted(
+            claim_id for claim_id, claim in graph.claims.items()
+            if not claim.get("superseded_by")
+            and claim.get("model") == c.get("model")
+            and claim.get("kind") == K.EMPTY
+            and claim.get("certificate") == "UNIT_IDEAL_CERT"
+            and claim.get("certificate_verdict") == CERT_VERIFIED)
+        if anchors:
+            why += (
+                "\n  DEGENERATE_MODEL: %s's anchor ideal is certified unit by "
+                "%s, so its coordinate ring is the zero ring and every "
+                "quotient-derived identity is vacuous here. Use an ambient-"
+                "ring model to check the identity itself."
+                % (c.get("model"), ", ".join(anchors)))
         rep = (_backend or cas.SingularBackend(runner=_runner)).membership(
             ring, target, gens, characteristic=ch,
             timeout=timeout)

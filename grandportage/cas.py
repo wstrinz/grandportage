@@ -1434,6 +1434,13 @@ def check_witness(ring_vars, generators, point, characteristic=0, timeout=300,
             "another coordinate is a parametrisation, and substituting it "
             "would depend on the order the variables happened to be in."
             % ", ".join(named))
+    foreign = sorted(used - set(ring_vars))
+    if foreign:
+        raise CASError(
+            "the witness coordinate(s) use undeclared symbol(s) %s. A point's "
+            "coordinates must be constants in the declared coefficient field; "
+            "a free parameter is a family, not a point. No CAS was run."
+            % ", ".join(foreign))
     # One map avoids Singular's expression nesting limit at 97 variables.
     # Program construction is linear in the coordinate payload plus generator
     # text; no nesting depends on ring dimension. Exact arithmetic and the CAS

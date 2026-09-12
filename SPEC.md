@@ -64,7 +64,7 @@ claims may exhibit points in a bounded simple quadratic/cubic extension of Q.
 
 ## Status
 
-All five layers are built and gated: <!--checks-->1685<!--/checks--> checks, live against Singular 4.2.1,
+All five layers are built and gated: <!--checks-->1716<!--/checks--> checks, live against Singular 4.2.1,
 and it has had eleven live user sessions — see [docs/first-run/](docs/first-run/)
 for the first, written up in full.
 
@@ -479,7 +479,7 @@ Three.js build by default; `--three-root` can point it at a local package.
 ## The retrodiction gate
 
 ```bash
-python -m pytest        # <!--checks-->1685<!--/checks--> checks
+python -m pytest        # <!--checks-->1716<!--/checks--> checks
 ```
 
 Grand Portage's credibility rests on reproducing, from **data**, what two

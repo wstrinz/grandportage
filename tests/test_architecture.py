@@ -30,6 +30,7 @@ AFFINE_EVIDENCE = {
     "ordered_receipt",
 }
 AUTHORITY_DECLARATIONS = {"authority_registry"}
+AUTHORITY_BINDING = {"authority", "provenance"}
 DERIVED_READ_SURFACES = {
     "campaign", "dossier", "frontier", "frontier_bundle", "projection",
     "publication", "release", "visualization",
@@ -66,6 +67,27 @@ def test_standalone_affine_evidence_never_imports_graph_or_adapters():
             module, _local_imports(module) - allowed)
 
 
+def test_authority_binding_imports_only_trusted_lower_layers():
+    allowed = (SEMANTIC_CORE | AFFINE_EVIDENCE | AUTHORITY_BINDING |
+               PACKAGE_ROOT)
+    for module in AUTHORITY_BINDING:
+        # Provenance lazily asks the production adapter for its binary identity
+        # while reloading persisted backend verdicts. ARCHITECTURE.md records
+        # this existing downward call; the new binder must not add another.
+        module_allowed = allowed | ({"cas"} if module == "provenance" else set())
+        assert _local_imports(module) <= module_allowed, (
+            module, _local_imports(module) - module_allowed)
+
+
+def test_store_projects_verdict_authority_only_through_the_binder():
+    source = (PACKAGE / "store.py").read_text(encoding="utf-8")
+    assert "P.current_verdict(" not in source
+    assert "A.check(" in source
+    assert "A.bind(" in source
+    assert "A.project(receipt, target[of])" in source
+    assert "target[of][field] =" not in source
+
+
 def test_derived_read_surfaces_do_not_enter_trusted_modules():
     trusted = SEMANTIC_CORE | AFFINE_EVIDENCE | {
         "store", "check", "verify", "operations", "provenance",
@@ -76,7 +98,7 @@ def test_derived_read_surfaces_do_not_enter_trusted_modules():
 
 def test_every_named_zone_module_exists():
     named = (SEMANTIC_CORE | AFFINE_EVIDENCE | AUTHORITY_DECLARATIONS |
-             DERIVED_READ_SURFACES)
+             AUTHORITY_BINDING | DERIVED_READ_SURFACES)
     missing = [module for module in sorted(named)
                if not (PACKAGE / (module + ".py")).is_file()]
     assert not missing

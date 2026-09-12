@@ -646,9 +646,11 @@ def test_declare_names_the_graph_it_writes(tmp_path):
     text = out["content"][0]["text"]
     assert os.path.abspath(S.graph_path(root)) in text, (
         "a write must name the file it wrote")
+    assert text.startswith("recorded 1 model in ")
+    assert "Confirm this is the intended campaign graph" not in text
 
 
-def test_a_refused_graph_says_which_graph_refused(tmp_path):
+def test_a_refused_absolute_graph_says_it_was_unchanged_without_alarm(tmp_path):
     """The failure path matters more than the success path here, because that
     is the one that cost a session an hour."""
     from grandportage import mcp as M
@@ -663,9 +665,50 @@ def test_a_refused_graph_says_which_graph_refused(tmp_path):
     out = M.h_portage_declare(
         {"events": [{"ev": "model", "id": "N", "desc": "another"}]}, root)
     text = out["content"][0]["text"]
-    assert "THE GRAPH BEING WRITTEN IS" in text
+    assert "GraphError:" in text
+    assert "graph unchanged:" in text
     assert os.path.abspath(p) in text
-    assert "may be about your campaign at all" in text
+    assert "root provenance: input=absolute" in text
+    assert "resolved GP_ROOT=%s" % os.path.abspath(root) in text
+    assert "THE GRAPH BEING WRITTEN IS" not in text
+    assert "may be about your campaign at all" not in text
+    assert "Confirm this is the intended campaign graph" not in text
+
+
+def test_a_refused_relative_graph_reports_resolution_neutrally_without_write(
+        tmp_path, monkeypatch):
+    from grandportage import mcp as M
+    monkeypatch.chdir(tmp_path)
+    root = "campaign"
+    path = os.path.abspath(S.graph_path(root))
+
+    out = M.h_portage_declare(
+        {"events": [{"ev": "claim", "id": "C", "model": "MISSING",
+                     "kind": "PREDICATE", "statement": "P"}]}, root)
+    text = out["content"][0]["text"]
+
+    assert "GraphError:" in text
+    assert "graph unchanged: %s" % path in text
+    assert "root provenance: input=relative" in text
+    assert "resolved GP_ROOT=%s" % os.path.abspath(root) in text
+    assert "server cwd=%s" % os.path.abspath(os.getcwd()) in text
+    assert "Confirm this is the intended campaign graph" in text
+    assert "Nothing above may be about your campaign at all" not in text
+    assert not os.path.exists(path)
+
+
+def test_non_list_declare_input_still_names_unchanged_absolute_graph(tmp_path):
+    from grandportage import mcp as M
+    root = str(tmp_path)
+    path = os.path.abspath(S.graph_path(root))
+
+    out = M.h_portage_declare({"events": "not a list"}, root)
+    text = out["content"][0]["text"]
+
+    assert "`events` must be a list" in text
+    assert "graph unchanged: %s" % path in text
+    assert "root provenance: input=absolute" in text
+    assert not os.path.exists(path)
 
 def test_elimination_verifier_tool_exposes_and_passes_typed_section(
         project, monkeypatch):

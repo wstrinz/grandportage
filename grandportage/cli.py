@@ -120,6 +120,7 @@ def _finding_delta(findings, receipt_path):
 def cmd_check(args):
     g = _load(args)
     unchecked = getattr(args, "seam", "checked") == "unchecked"
+    reviewing = getattr(args, "review_mode", False)
     if unchecked and args.since:
         sys.stderr.write("CHECK RECEIPT ERROR\n  unchecked accounting cannot compare full-check receipts\n")
         return 2
@@ -150,11 +151,15 @@ def cmd_check(args):
                        "claims": len(g.claims),
                        "inferences": len(g.inference_order)},
         }
+        if reviewing:
+            result["mode"] = "review"
         if delta is not None:
             result["since"] = delta
         print(json.dumps(result, indent=2))
         return C.exit_code(findings, args.floor, accepted)
 
+    if reviewing:
+        print("REVIEW: current authority debt plus historical/superseded findings.")
     if unchecked:
         print("ACCOUNTING ONLY: field-scope transports were not checked.")
     if unresolved:
@@ -300,6 +305,17 @@ def cmd_check(args):
                 "changed inherited", len(changed),
                 ": " + ", ".join(changed) if changed else ""))
     return C.exit_code(findings, args.floor, accepted)
+
+
+def cmd_review(args):
+    """Cold-reader-safe check: full carried detail and historical generations."""
+    args.seam = "checked"
+    args.since = None
+    args.quiet = False
+    args.full = True
+    args.history = True
+    args.review_mode = True
+    return cmd_check(args)
 
 
 def cmd_migrate(args):
@@ -2738,6 +2754,15 @@ def build_parser():
                    choices=C.SEVERITY_ORDER,
                    help="lowest severity that fails the run")
     c.set_defaults(func=cmd_check)
+
+    review = sub.add_parser(
+        "review",
+        help="review all current authority debt and historical generations")
+    review.add_argument("--json", action="store_true")
+    review.add_argument("--floor", default=C.UNSOUND_PREMISE,
+                        choices=C.SEVERITY_ORDER,
+                        help="lowest severity that fails the review")
+    review.set_defaults(func=cmd_review)
 
     t = sub.add_parser("table", help="print the transport table")
     t.set_defaults(func=cmd_table)
