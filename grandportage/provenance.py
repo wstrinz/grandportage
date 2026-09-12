@@ -50,6 +50,7 @@ VERIFIER_ALTERNATIVES = {
     "certificate": {
         "verify.unit_ideal": 2,
         "verify.localized_unit_ideal": 2,
+        "verify.ordered_sos": 1,
     },
     "elimination": {
         "verify.elimination_section": 2,
@@ -66,6 +67,8 @@ def _certificate_verifier(graph, of):
     claim = graph.claims.get(of) or {}
     if claim.get("certificate") == "LOCALIZED_UNIT_IDEAL_CERT":
         return "verify.localized_unit_ideal"
+    if claim.get("certificate") == "ORDERED_SOS_CERT":
+        return "verify.ordered_sos"
     return "verify.unit_ideal"
 
 
@@ -93,6 +96,7 @@ _COMPUTED_FIELDS = {
     "condition_verdict", "condition_why",
     "containment", "containment_why",
     "certificate_verdict", "certificate_why",
+    "certificate_reach",
     "ring_iso_verdict", "ring_iso_why",
     "witness_verdict", "witness_why",
     "output_verdict", "output_why",
@@ -113,7 +117,7 @@ _LIFECYCLE_FIELDS = {
 }
 
 _ENDPOINT_IDENTITY_FIELDS = (
-    "id", "coefficient_domain", "characteristic", "point_universe",
+    "id", "about", "compute_in", "coefficient_domain", "characteristic", "point_universe",
     "ring_vars", "generators",
 )
 _EDGE_IDENTITY_FIELDS = (
@@ -192,7 +196,7 @@ def input_payload(graph, subject, of):
         }
     if subject in ("claim", "condition", "certificate", "witness"):
         claim = graph.claims.get(of)
-        return {
+        payload = {
             "subject": subject,
             "of": of,
             "claim": _semantic(claim),
@@ -201,6 +205,18 @@ def input_payload(graph, subject, of):
                 if claim else None
             ),
         }
+        if subject == "certificate" and claim:
+            certificate = claim.get("certificate")
+            payload["certificate_policy"] = _semantic(
+                graph.cert_records.get(certificate))
+            if (payload["certificate_policy"] is None
+                    and certificate in K.BUILTIN_CERTIFICATE_REACH_POLICY):
+                payload["certificate_policy"] = {
+                    "id": certificate,
+                    "reach": K.BUILTIN_CERTIFICATE_REACH_POLICY[certificate],
+                    "source": "builtin",
+                }
+        return payload
     if subject == "partition":
         partition = graph.partitions.get(of)
         branches = partition.get("branches") or [] if partition else []
@@ -467,6 +483,14 @@ def _allows_empty_structural_trace(graph, event):
         return _eligible_structural_ordered_condition(graph, event)
     if event.get("subject") == "witness":
         return _eligible_extension_witness(graph, event)
+    if event.get("subject") == "certificate":
+        claim = graph.claims.get(event.get("of")) or {}
+        return (
+            claim.get("certificate") == "ORDERED_SOS_CERT"
+            and event.get("verdict") in ("VERIFIED", "NOT_UNIT")
+            and (event.get("representation") or {}).get("method")
+                == "rational_sos_cofactor_v1"
+        )
     if event.get("subject") == "operation":
         return _eligible_structural_operation(graph, event)
     if event.get("subject") == "elimination":

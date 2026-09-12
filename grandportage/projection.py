@@ -10,6 +10,8 @@ import json
 import os
 from collections import deque
 
+from . import kernel as K
+
 
 SCHEMA = "grand-portage-projection/v2"
 COMPACT_REVIEW_SCHEMA = "grand-portage-compact-review/v0"
@@ -185,6 +187,7 @@ def build(graph, sources=(), findings=(), accepted=None, package_version=""):
         "built_by": _record_map(graph.built_by),
         "partitions": _record_map(graph.partitions),
         "families": _record_map(graph.families),
+        "family_bridges": _record_map(graph.family_bridges),
         "groups": _record_map(graph.groups),
         "aliases": _record_map(graph.aliases),
         "citations": _record_map(graph.citations),
@@ -214,6 +217,7 @@ def build(graph, sources=(), findings=(), accepted=None, package_version=""):
         ("inference", "inferences", collections["inferences"]),
         ("partition", "partitions", collections["partitions"]),
         ("family", "families", collections["families"]),
+        ("family_bridge", "family_bridges", collections["family_bridges"]),
         ("alias", "aliases", collections["aliases"]),
         ("citation", "citations", collections["citations"]),
         ("evidence", "evidence", collections["evidence"]),
@@ -232,7 +236,11 @@ def build(graph, sources=(), findings=(), accepted=None, package_version=""):
                 record_ref={"collection": "notes", "index": index})
     for identifier, base_changes in collections["certificates"].items():
         record = dict(collections["certificate_records"].get(identifier, {}))
-        record.setdefault("base_changes", base_changes)
+        if identifier in K.BUILTIN_CERTIFICATE_REACH_POLICY:
+            record.setdefault(
+                "reach", K.BUILTIN_CERTIFICATE_REACH_POLICY[identifier])
+        elif "reach" not in record:
+            record.setdefault("base_changes", base_changes)
         record["registry_source"] = collections["certificate_sources"].get(
             identifier, "unknown")
         add("certificate", identifier, record)
@@ -301,6 +309,16 @@ def build(graph, sources=(), findings=(), accepted=None, package_version=""):
         for member in family.get("members") or []:
             link("family-member", family_key, _resolve(member, nodes_by_kind),
                  "member")
+
+    for identifier, bridge in collections["family_bridges"].items():
+        bridge_key = "family_bridge:%s" % identifier
+        link("bridge-family", "family:%s" % bridge["family"], bridge_key,
+             "family")
+        link("bridge-model", bridge_key, "model:%s" % bridge["model"],
+             bridge.get("member", "member"))
+        for field in ("enumeration", "coverage"):
+            link("bridge-%s" % field, "claim:%s" % bridge[field], bridge_key,
+                 field)
 
     for identifier, alias in collections["aliases"].items():
         for model in alias.get("models") or []:

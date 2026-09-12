@@ -3,10 +3,10 @@
 This is the attack surface for the current release. The full historical review
 through v0.18 is preserved in `HISTORY/REVIEW-through-v0.18.md`.
 
-**Version <!--version-->0.33.0<!--/version-->, graph format
-<!--graph-format-->7<!--/graph-format-->, kernel epoch
-<!--kernel-epoch-->11<!--/kernel-epoch-->, and
-<!--checks-->1716<!--/checks--> collected checks.**
+**Version <!--version-->0.34.0<!--/version-->, graph format
+<!--graph-format-->8<!--/graph-format-->, kernel epoch
+<!--kernel-epoch-->12<!--/kernel-epoch-->, and
+<!--checks-->1742<!--/checks--> collected checks.**
 
 ## Highest-risk claim
 
@@ -15,6 +15,15 @@ of `gp check --history --full`: current authority debt, full carried detail,
 and findings retained on superseded generations are all visible without
 requiring a returning agent to remember the safe flag combination. Plain
 `gp check` remains the concise enforcement-oriented surface.
+
+For v0.34, attack the new semantic seams. A certificate declaration must never
+mint effective reach; only a current, model-bound verifier receipt may do so.
+Try every otherwise-licensed point edge with incompatible `about`,
+`point_universe`, and selected embeddings, including `same_as`. Attack
+historical migration with misleading booleans and unknown certificate names.
+For `family_bridge`, vary premise order and independently remove exact
+enumeration, proved coverage, exhibited membership, and the model binding. The
+frozen DK E5 gap must remain open under EXCLUSIONS-only evidence.
 
 For v0.33, attack the fold-time boundary itself. Every verdict subject must
 pass through `authority.check`, `bind`, and `project`; stale evidence and failed

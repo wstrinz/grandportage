@@ -13,8 +13,8 @@ import re
 
 from . import identity as I
 
-GRAPH_FORMAT = 7
-KERNEL_EPOCH = 11
+GRAPH_FORMAT = 8
+KERNEL_EPOCH = 12
 META_EVENT = "meta"
 
 # Format 5 closed the historical meta header over a portable implementation
@@ -55,11 +55,11 @@ EVENT_FIELDS = {
         "implementation",
     },
     "certificate": {
-        "ev", "id", "base_changes", "why",
+        "ev", "id", "reach", "why",
     } | _LIFECYCLE,
     "model": {
         "ev", "id", "desc", "what", "field", "chart", "universe",
-        "coefficient_domain", "point_universe",
+        "about", "compute_in", "coefficient_domain", "point_universe",
         "characteristic", "ring_vars", "generators", "ideal_pending",
         "embedding",
         "open_conditions", "saturated_at", "eliminated", "component_of",
@@ -84,7 +84,7 @@ EVENT_FIELDS = {
     "inference": {
         "ev", "id", "claim", "path", "premises", "concludes_kind",
         "asserted", "severity_override", "severity_why", "cite", "citation",
-        "note", "era",
+        "note", "era", "family_bridges",
     } | _LIFECYCLE,
     "built_by": {"ev", "model", "inference"},
     "partition": {
@@ -94,6 +94,10 @@ EVENT_FIELDS = {
     "same_as": {"ev", "id", "models", "why"} | _LIFECYCLE,
     "family": {
         "ev", "id", "count", "desc", "members", "enumeration",
+    } | _LIFECYCLE,
+    "family_bridge": {
+        "ev", "id", "family", "enumeration", "coverage", "group",
+        "member", "model", "why",
     } | _LIFECYCLE,
     "evidence": {
         "ev", "id", "for", "method", "ran", "what", "decides",
@@ -135,7 +139,7 @@ REQUIRED_FIELDS = {
 # above remains the wire-format minimum (notably for lifecycle tombstones);
 # these are the fields required for a live authored record of each kind.
 AUTHOR_REQUIRED_FIELDS = {
-    "certificate": {"ev", "id", "base_changes", "why"},
+    "certificate": {"ev", "id", "reach", "why"},
     "model": {"ev", "id"},
     "edge": {"ev", "id", "src", "dst", "type", "why", "map_kind"},
     "claim": {"ev", "id", "kind", "statement"},
@@ -144,6 +148,10 @@ AUTHOR_REQUIRED_FIELDS = {
     "partition": {"ev", "id", "parent", "branches", "exhaustive", "why"},
     "same_as": {"ev", "id", "models", "why"},
     "family": {"ev", "id", "count", "desc"},
+    "family_bridge": {
+        "ev", "id", "family", "enumeration", "coverage", "group",
+        "member", "model", "why",
+    },
     "evidence": {"ev", "id", "for", "method", "ran", "what"},
     "doubt": {"ev", "id", "about", "kind", "why"},
     "citation": {"ev", "id", "cites", "resolves_to", "why"},
@@ -174,7 +182,6 @@ TARGET_ENTITY_TYPES = {
 }
 
 LICENSING_BOOLEANS = {
-    "certificate": {"base_changes"},
     "edge": {"refinement", "ring_iso"},
     "claim": {
         "integral", "coefficients_in_base", "zariski_closed", "existential",

@@ -216,7 +216,7 @@ def test_model_separates_coefficient_domain_from_point_universe():
     model = graph.models["M"]
     assert S.declared_coefficient_domain(model) == "Q"
     assert S.declared_point_universe(model) == "ALGEBRAIC_CLOSURE"
-    assert S.point_scope(model) == ("Q", "ALGEBRAIC_CLOSURE")
+    assert S.point_scope(model) == (None, "Q", "ALGEBRAIC_CLOSURE")
 
 
 @pytest.mark.parametrize("fields, message", [
@@ -251,7 +251,7 @@ def test_prime_field_scope_is_canonical():
         "characteristic": 5, "coefficient_domain": "F_5",
         "point_universe": "BASE",
     })
-    assert S.point_scope(graph.models["M"]) == ("F_5", "BASE")
+    assert S.point_scope(graph.models["M"]) == (None, "F_5", "BASE")
 
 
 def test_cas_program_rejects_composite_characteristic():
@@ -397,13 +397,13 @@ def test_kernel_epoch1_migration_is_non_destructive_and_reaudits_transport(
 
     assert source.read_bytes() == before
     graph = S.load(str(destination))
-    assert graph.kernel_epoch == F.KERNEL_EPOCH == 11
+    assert graph.kernel_epoch == F.KERNEL_EPOCH == 12
     finding = [item for item in C.run(graph) if item.rule == C.R_TRANSPORT]
     assert len(finding) == 1
     assert "completeness" in finding[0].detail
     audit = json.loads((tmp_path / "current-kernel.jsonl.audit.json").read_text())
     assert audit["from_kernel_epoch"] == 1
-    assert audit["kernel_epoch"] == 11
+    assert audit["kernel_epoch"] == 12
 
 
 def test_older_epochs_migrate_non_destructively_to_current_format_and_epoch(tmp_path):
@@ -422,9 +422,9 @@ def test_older_epochs_migrate_non_destructively_to_current_format_and_epoch(tmp_
     assert reports[0]["from_graph_format"] == 1
     assert reports[0]["from_kernel_epoch"] == 4
     assert reports[0]["graph_format"] == F.GRAPH_FORMAT
-    assert reports[0]["kernel_epoch"] == F.KERNEL_EPOCH == 11
+    assert reports[0]["kernel_epoch"] == F.KERNEL_EPOCH == 12
     assert S.load(str(destination)).graph_format == F.GRAPH_FORMAT
-    assert S.load(str(destination)).kernel_epoch == 11
+    assert S.load(str(destination)).kernel_epoch == 12
 
     epoch5 = tmp_path / "format2-epoch5.jsonl"
     epoch8_from_epoch5 = tmp_path / "format2-epoch8-from-epoch5.jsonl"
@@ -439,8 +439,8 @@ def test_older_epochs_migrate_non_destructively_to_current_format_and_epoch(tmp_
     assert epoch5_reports[0]["from_graph_format"] == 2
     assert epoch5_reports[0]["from_kernel_epoch"] == 5
     assert epoch5_reports[0]["graph_format"] == F.GRAPH_FORMAT
-    assert epoch5_reports[0]["kernel_epoch"] == 11
-    assert S.load(str(epoch8_from_epoch5)).kernel_epoch == 11
+    assert epoch5_reports[0]["kernel_epoch"] == 12
+    assert S.load(str(epoch8_from_epoch5)).kernel_epoch == 12
 
     epoch6 = tmp_path / "format2-epoch6.jsonl"
     epoch8 = tmp_path / "format2-epoch8-from-epoch6.jsonl"
@@ -455,8 +455,8 @@ def test_older_epochs_migrate_non_destructively_to_current_format_and_epoch(tmp_
     assert epoch6_reports[0]["from_graph_format"] == 2
     assert epoch6_reports[0]["from_kernel_epoch"] == 6
     assert epoch6_reports[0]["graph_format"] == F.GRAPH_FORMAT
-    assert epoch6_reports[0]["kernel_epoch"] == 11
-    assert S.load(str(epoch8)).kernel_epoch == 11
+    assert epoch6_reports[0]["kernel_epoch"] == 12
+    assert S.load(str(epoch8)).kernel_epoch == 12
 
     epoch7 = tmp_path / "format2-epoch7.jsonl"
     epoch8_from_epoch7 = tmp_path / "format2-epoch8-from-epoch7.jsonl"
@@ -471,11 +471,11 @@ def test_older_epochs_migrate_non_destructively_to_current_format_and_epoch(tmp_
     assert epoch7_reports[0]["from_graph_format"] == 2
     assert epoch7_reports[0]["from_kernel_epoch"] == 7
     assert epoch7_reports[0]["graph_format"] == F.GRAPH_FORMAT
-    assert epoch7_reports[0]["kernel_epoch"] == 11
-    assert S.load(str(epoch8_from_epoch7)).kernel_epoch == 11
+    assert epoch7_reports[0]["kernel_epoch"] == 12
+    assert S.load(str(epoch8_from_epoch7)).kernel_epoch == 12
     future = tmp_path / "format1-future-epoch.jsonl"
     _write(future, [{
-        "ev": "meta", "graph_format": 1, "kernel_epoch": 12,
+        "ev": "meta", "graph_format": 1, "kernel_epoch": 13,
         "created_with": "grandportage/future",
     }])
     with pytest.raises(S.GraphError, match="cannot migrate forward"):
@@ -576,6 +576,29 @@ def test_real_cfg23_format6_meta_migrates_to_current_format(tmp_path):
     assert migrated.graph_format == F.GRAPH_FORMAT
     assert migrated.compatibility_mode is False
     assert "M" in migrated.models
+
+
+def test_format7_certificate_booleans_use_named_conservative_migration(tmp_path):
+    meta = _format6_meta()
+    meta["graph_format"] = 7
+    meta["implementation"] = _implementation_identity(7, 11, "0.32.0")
+    source = _write(tmp_path / "cert-format7.jsonl", [
+        meta,
+        {"ev": "certificate", "id": "ORDER_CERTIFICATE",
+         "base_changes": False, "why": "historical ordered proof kind"},
+        {"ev": "certificate", "id": "UNKNOWN_TRUE",
+         "base_changes": True, "why": "historical custom kind"},
+    ])
+    destination = tmp_path / "cert-current.jsonl"
+    report = MIG.migrate_kernel_epoch([source], output=str(destination))[0]
+    graph = S.load(str(destination))
+    assert graph.cert_records["ORDER_CERTIFICATE"]["reach"] == {
+        "kind": "ORDERED"}
+    assert graph.cert_records["UNKNOWN_TRUE"]["reach"] == {"kind": "NONE"}
+    actions = [change["actions"][0]["action"]
+               for change in report["changes"] if change["kind"] == "certificate"]
+    assert all("base_changes" in action for action in actions)
+    assert "conservative fallback" in actions[1]
 
 
 @pytest.mark.parametrize("meta_factory", [_format5_meta, _format6_meta])

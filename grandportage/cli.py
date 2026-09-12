@@ -552,11 +552,13 @@ def _declare_epilog():
         "built_by and erratum):\n"
         "\n"
         "  model       what\n"
+        "  certificate reach, why\n"
         "  edge        src, dst, type, why\n"
         "  claim       model|family, kind, statement\n"
         "  inference   claim|premises, concludes_kind, asserted\n"
         "  partition   parent, branches, exhaustive\n"
         "  family      count, enumeration\n"
+        "  family_bridge family, enumeration, coverage, group, member, model, why\n"
         "  same_as     models, why\n"
         "  built_by    model, inference\n"
         "  evidence    for, method, ran, what   (+ agrees_with if REPLICATION)\n"
@@ -1762,6 +1764,8 @@ def cmd_show(args):
     for mid in sorted(g.models):
         m = g.models[mid]
         bits = [b for b in (m.get("chart"),) if b]
+        if m.get("about"):
+            bits.append("about=%s" % m["about"])
         if m.get("coefficient_domain"):
             bits.append("coeff=%s" % m["coefficient_domain"])
         elif m.get("field"):
@@ -1819,6 +1823,18 @@ def cmd_show(args):
         if family.get("members") is not None:
             print("    members: %d recorded" % len(family["members"]))
     if g.families:
+        print()
+    for bid in sorted(g.family_bridges):
+        bridge = g.family_bridges[bid]
+        mark = ("  [SUPERSEDED by %s]" % S.successors(bridge)
+                if bridge.get("superseded_by") else "")
+        print("BRIDGE %-18s %s:%s -> %s%s"
+              % (bid, bridge["family"], bridge["member"],
+                 bridge["model"], mark))
+        print("    enumeration=%s coverage=%s group=%s"
+              % (bridge["enumeration"], bridge["coverage"],
+                 bridge["group"]))
+    if g.family_bridges:
         print()
     # CERTIFICATE and ORIGIN are printed, and INFERENCES are printed at all.
     #
@@ -1886,6 +1902,10 @@ def cmd_show(args):
             extra.append("cert=%s" % c["certificate"])
         if c.get("certificate_verdict"):
             extra.append("cert-verdict=%s" % c["certificate_verdict"])
+        if c.get("certificate_reach"):
+            extra.append("reach=%s" % json.dumps(
+                c["certificate_reach"], sort_keys=True,
+                separators=(",", ":")))
         if c.get("identity_origin"):
             extra.append("origin=%s" % c["identity_origin"])
         # THE REWRITING ITSELF, and whether anybody has checked it.

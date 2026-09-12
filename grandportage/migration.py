@@ -8,6 +8,40 @@ from . import format as F
 from . import store as S
 
 
+_CERTIFICATE_REACH_MIGRATION = {
+    "UNIT_IDEAL_CERT": {"kind": "CHAR_0"},
+    "LOCALIZED_UNIT_IDEAL_CERT": {"kind": "CHAR_0"},
+    "NONZERO_RESULTANT": {"kind": "CHAR_0"},
+    "EXACT_VALUATION_COLLISION": {"kind": "CHAR_0"},
+    "DEGREE_COUNT": {"kind": "CHAR_0"},
+    "ORDERED_SOS_CERT": {"kind": "ORDERED"},
+    "ORDER_CERTIFICATE": {"kind": "ORDERED"},
+    "TORUS_CERTIFICATE": {"kind": "CHAR_0"},
+    "FORCED_INCIDENCE_COFACTOR": {"kind": "CHAR_0"},
+    "NONSQUARE_CLASS": {"kind": "NONE"},
+    "NO_RATIONAL_POINT_SEARCH": {"kind": "NONE"},
+    "CITED_PROOF": {"kind": "NONE"},
+    "BLAND_JENSEN_GF2_CONTRADICTION": {"kind": "NONE"},
+}
+
+
+def _migrate_certificate_reach(event):
+    """Convert one historical certificate by name, never by its boolean."""
+    converted = dict(event)
+    old = converted.pop("base_changes", None)
+    reach = _CERTIFICATE_REACH_MIGRATION.get(
+        converted.get("id"), {"kind": "NONE"})
+    converted["reach"] = dict(reach)
+    action = (
+        "removed historical base_changes=%r; certificate-specific table "
+        "mapped %s to %s%s"
+        % (old, converted.get("id"), reach["kind"],
+           " (unknown certificate: conservative fallback)"
+           if converted.get("id") not in _CERTIFICATE_REACH_MIGRATION else "")
+    )
+    return converted, action
+
+
 def _destination(source):
     stem, ext = os.path.splitext(source)
     return stem + ".epoch1" + (ext or ".jsonl")
@@ -49,6 +83,10 @@ def _native_record(raw, source_fingerprint):
             "field": "zariski_dense",
             "action": "dropped; retracted and non-licensing in epoch 1",
         })
+
+    if kind == "certificate" and "base_changes" in out:
+        out, action = _migrate_certificate_reach(out)
+        actions.append({"field": "reach", "action": action})
 
     for field in sorted(F.LICENSING_BOOLEANS.get(kind, set())):
         if field in source and not isinstance(source[field], bool):
@@ -145,7 +183,18 @@ def migrate_kernel_epoch(paths, dry_run=False, output=None):
                 "migration output already exists; refusing to overwrite:\n  %s"
                 % (destination if os.path.exists(destination) else audit_path))
 
-        converted = [F.meta_event()] + [event for event, _line in raw[1:]]
+        converted = [F.meta_event()]
+        certificate_changes = []
+        for event, line in raw[1:]:
+            if old_format < 8 and event.get("ev") == "certificate":
+                event, action = _migrate_certificate_reach(event)
+                certificate_changes.append({
+                    "line": line,
+                    "event": event.get("id"),
+                    "kind": "certificate",
+                    "actions": [{"field": "reach", "action": action}],
+                })
+            converted.append(event)
         S.Graph().apply_all([
             (event, destination, n)
             for n, event in enumerate(converted, 1)
@@ -174,7 +223,7 @@ def migrate_kernel_epoch(paths, dry_run=False, output=None):
                     "action": "advanced from %d to %d; prior verdicts stay stale"
                               % (old_epoch, F.KERNEL_EPOCH),
                 }] if old_epoch != F.KERNEL_EPOCH else []),
-            }],
+            }] + certificate_changes,
             "dry_run": bool(dry_run),
         }
         if not dry_run:

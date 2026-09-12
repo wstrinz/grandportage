@@ -285,6 +285,9 @@ BUILTIN_CERTIFICATES = {
     "DEGREE_COUNT": True,               # an inequality between integers
     "NONSQUARE_CLASS": False,           # field-relative by construction
     "NO_RATIONAL_POINT_SEARCH": False,  # field-relative by construction
+    # The name alone carries no reach.  Only the replay-only exact checker can
+    # project ORDERED authority onto the particular claim it checked.
+    "ORDERED_SOS_CERT": False,
     # A PROOF THAT EXISTS AND IS NOT CARRIED HERE.
     #
     # T5 pointed the tool at a foreign campaign and it had to record a refereed
@@ -303,6 +306,21 @@ BUILTIN_CERTIFICATES = {
     # Pair it with `established_by: CITED`.  The certificate says what kind of
     # argument closes the claim; `established_by` says you did not run it.
     "CITED_PROOF": False,
+}
+
+# Format-8 declaration policy is structured and intentionally separate from
+# the legacy boolean registry above. Effective reach is still minted only by a
+# current verifier receipt on one claim.
+BUILTIN_CERTIFICATE_REACH_POLICY = {
+    "UNIT_IDEAL_CERT": {"kind": "CHAR_0"},
+    "LOCALIZED_UNIT_IDEAL_CERT": {"kind": "CHAR_0"},
+    "NONZERO_RESULTANT": {"kind": "CHAR_0"},
+    "EXACT_VALUATION_COLLISION": {"kind": "CHAR_0"},
+    "DEGREE_COUNT": {"kind": "CHAR_0"},
+    "NONSQUARE_CLASS": {"kind": "NONE"},
+    "NO_RATIONAL_POINT_SEARCH": {"kind": "NONE"},
+    "ORDERED_SOS_CERT": {"kind": "ORDERED"},
+    "CITED_PROOF": {"kind": "NONE"},
 }
 
 # Map kinds.  Needed only for IDENTITY transport: rewriting a dictionary across
@@ -795,7 +813,7 @@ class ScopeError(KernelRefusal):
 # Widening this grammar to admit it would be inventing a vocabulary item no
 # live claim demonstrates, which is exactly what this repair refuses to do.
 # ---------------------------------------------------------------------------
-ATOMIC_FIELD_SCOPES = ("Q", "R", "C")
+ATOMIC_FIELD_SCOPES = ("Q", "R", "C", "ANY_ORDERED", "ANY_CHAR_0")
 _FINITE_FIELD_SCOPE = re.compile(r"^F_([1-9]\d*)$")
 _EXTENSION_FIELD_SCOPE = re.compile(r"^[QR]\((.+)\)$")
 _MAX_FIELD_SCOPE_LENGTH = 256
@@ -1720,7 +1738,7 @@ LICENSING_FIELDS = ("certificate", "scope", "identity_origin",
 # sentence at the bottom identical and changes everything above it, which is
 # precisely the change that most needs a second look.
 INFERENCE_IDENTIFYING_FIELDS = ("asserted", "concludes_kind")
-INFERENCE_LICENSING_FIELDS = ("premises",)
+INFERENCE_LICENSING_FIELDS = ("premises", "family_bridges")
 
 # And for a MODEL, which had no supersession machinery at all -- `supersedes`
 # on one was accepted with no existence check, no self-check, no back-pointer
@@ -1771,7 +1789,7 @@ NOTE_LICENSING_FIELDS = ()
 # a field extension; a partition's exhaustive is the whole of its coverage
 # claim; a family's members decide what a COUNT is counting.
 CERTIFICATE_IDENTIFYING_FIELDS = ("why",)
-CERTIFICATE_LICENSING_FIELDS = ("base_changes",)
+CERTIFICATE_LICENSING_FIELDS = ("reach",)
 
 PARTITION_IDENTIFYING_FIELDS = ("parent", "branches")
 PARTITION_LICENSING_FIELDS = ("exhaustive",)
@@ -1781,6 +1799,9 @@ FAMILY_LICENSING_FIELDS = ("members",)
 
 SAME_AS_IDENTIFYING_FIELDS = ("models",)
 SAME_AS_LICENSING_FIELDS = ()
+
+FAMILY_BRIDGE_IDENTIFYING_FIELDS = ("family", "member", "model")
+FAMILY_BRIDGE_LICENSING_FIELDS = ("enumeration", "coverage", "group")
 
 EVIDENCE_IDENTIFYING_FIELDS = ("for", "method", "ran")
 EVIDENCE_LICENSING_FIELDS = ("decides", "agrees_with")
@@ -1793,7 +1814,8 @@ CITATION_LICENSING_FIELDS = ("hazard",)
 
 MODEL_IDENTIFYING_FIELDS = ("what",)
 MODEL_LICENSING_FIELDS = (
-    "ring_vars", "generators", "field", "coefficient_domain", "characteristic",
+    "ring_vars", "generators", "field", "about", "compute_in",
+    "coefficient_domain", "characteristic",
     "universe", "point_universe", "embedding", "open_conditions",
     "saturated_at", "ideal_pending", "eliminated", "component_of",
 )
@@ -1845,6 +1867,8 @@ FIELD_SPLITS = {
     "partition": (PARTITION_IDENTIFYING_FIELDS,
                   PARTITION_LICENSING_FIELDS),
     "family": (FAMILY_IDENTIFYING_FIELDS, FAMILY_LICENSING_FIELDS),
+    "family_bridge": (FAMILY_BRIDGE_IDENTIFYING_FIELDS,
+                      FAMILY_BRIDGE_LICENSING_FIELDS),
     "same_as": (SAME_AS_IDENTIFYING_FIELDS, SAME_AS_LICENSING_FIELDS),
 }
 

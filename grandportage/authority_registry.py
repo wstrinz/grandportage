@@ -50,6 +50,10 @@ CERTIFICATE_STABILITY = {
         "lean_decision": "noRationalPointSearchDecision",
         "lean_derived_scope": "FIELD_RELATIVE",
     },
+    "ORDERED_SOS_CERT": {
+        "lean_decision": "orderedSosDecision",
+        "lean_derived_scope": "FIELD_RELATIVE",
+    },
     "CITED_PROOF": {
         "lean_decision": "citedProofDecision",
         "lean_derived_scope": "FIELD_RELATIVE",
@@ -95,6 +99,9 @@ VERIFIER_DECLARATIONS = (
     _v("verify.localized_unit_ideal", "verify", "LOCAL_EMPTY",
        "the exact localized model only", ("localized_guard_reduction_chain_v2",),
        ("LOCALIZED_UNIT_IDEAL_CERT",)),
+    _v("verify.ordered_sos", "verify", "ORDERED_EMPTY",
+       "all ordered fields through exact rational identity replay",
+       ("rational_sos_cofactor_v1",), ("ORDERED",)),
     _v("verify.ring_iso", "verify", "IDENTITY_TRANSPORT",
        "the exact endpoint quotient rings", ("mapped polynomial maps",),
        ("mapped_ring_iso_v1",)),
@@ -213,7 +220,10 @@ def manifest():
         "transport": {
             "rows": transport_rows(),
             "type_meanings": dict(kernel.TYPE_MEANS),
-            "certificate_base_change": dict(kernel.BUILTIN_CERTIFICATES),
+            "certificate_reach_policy": dict(
+                kernel.BUILTIN_CERTIFICATE_REACH_POLICY),
+            "legacy_certificate_base_change": dict(
+                kernel.BUILTIN_CERTIFICATES),
             "certificate_stability": dict(CERTIFICATE_STABILITY),
         },
         "evidence_contracts": [

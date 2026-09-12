@@ -369,7 +369,7 @@ _HTML = r'''<!doctype html>
       };
       if (node.kind === 'certificate') return {
         headline: `Certificate ${node.id}`,
-        summary: `Registered certificate; base_changes=${String(r.base_changes)}; source=${r.registry_source || 'unknown'}.`,
+        summary: `Registered certificate; reach=${r.reach ? JSON.stringify(r.reach) : 'legacy base_changes=' + String(r.base_changes)}; source=${r.registry_source || 'unknown'}.`,
         why: 'A certificate is evidence metadata, not the proposition itself. Connected claims show where its authority is being used.'
       };
       return {

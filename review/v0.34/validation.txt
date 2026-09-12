@@ -1,0 +1,81 @@
+Grand Portage v0.34.0 capability-bound composition release validation — 2026-09-12
+Graph format 8; kernel epoch 12.
+
+Complete Python collection:
+  python -m pytest --collect-only -q
+  1742 tests collected in 0.79s.
+
+Deterministic release lane, after version and documentation update:
+  python -m pytest -q -m "not live and not replay and not exhaustive"
+  1683 passed, 59 deselected in 80.22s.
+
+Marker accounting:
+  replay and not live: 0 selected, 1742 deselected.
+  exhaustive and not live: 0 selected, 1742 deselected.
+  live and not exhaustive: 59 selected, 1683 deselected.
+  The deterministic and live lanes account for every collected check.
+
+Required live CAS release lane:
+  GP_REQUIRE_LIVE=1 python -m pytest -q -m "live and not exhaustive"
+  59 passed, 1683 deselected in 471.62s (7:51).
+  Real WSL/Singular was required; no availability skips were permitted.
+  An initial sandboxed attempt produced Wsl/Service/CreateInstance/
+  E_ACCESSDENIED (58 failures, one solver-free pass); the identical command
+  passed after authorizing the existing WSL boundary. This was environment
+  access, not a changed test or code path.
+
+Focused release surfaces:
+  python -m pytest -q tests/test_architecture.py
+    tests/test_authority_binding.py tests/test_identity_surface.py
+    tests/test_public_snapshot.py tests/test_match4_hardening.py
+    tests/test_epoch12_contract.py tests/test_guard_release.py
+    tests/test_format_epoch.py
+  180 passed, 9 skipped in 7.61s.
+
+  python -m pytest -q tests/test_public_snapshot.py
+    tests/test_identity_surface.py tests/test_architecture.py
+  29 passed in 4.51s.
+
+Epoch-12 and frozen-DK seam:
+  The format-6 DK ledger migrated in memory through the current strict fold:
+  104 events and four certificate-specific conversions. ORDER_CERTIFICATE
+  mapped to ORDERED; TORUS_CERTIFICATE and FORCED_INCIDENCE_COFACTOR mapped to
+  CHAR_0; BLAND_JENSEN_GF2_CONTRADICTION mapped to NONE. D-E5-GAP remains the
+  first frozen finding. Unknown certificate names map to NONE.
+
+Lean semantic shadow:
+  ELAN_HOME=C:/Users/wstri/.elan lake build (from lean/)
+  Build completed successfully, 28 jobs. CertificateScope and
+  SelectedEmbedding rebuilt. The existing unnecessarySimpa and
+  unusedVariables linter warnings remain.
+
+Packaging:
+  python -m pip wheel . --no-deps --no-build-isolation --no-cache-dir
+    --wheel-dir tmp/v034-dist
+  Built grandportage-0.34.0-py3-none-any.whl, 53 entries.
+  SHA256 437bfcaa2336e70fba9073a71dc83f4d20568e6fcc0905738c6ee881e1962814
+  grandportage/field.py, grandportage/ordered_sos.py, and Version: 0.34.0
+  were verified. A clean --target install imported all three modules and
+  reported 0.34.0.
+
+Documentation and source hygiene:
+  gp docs synchronized 1742 checks, version 0.34.0, graph format 8, and kernel
+  epoch 12 across marked current-state spans.
+  gp --version reported 0.34.0, graph format 8, and kernel epoch 12.
+  git diff --check passed; PowerShell reported only expected CRLF-to-LF notices.
+
+Public snapshot gate:
+  scripts/public_snapshot.py compiled release-prep commit
+  b21a98601de92c3b78d836136b0a9a883221d956 into 305 public files while
+  excluding 12 private files. The receipt/path comparison found no stale
+  tracked mirror paths and exactly seven expected new v0.34 paths.
+
+  python -m pytest -q -m "not live and not replay and not exhaustive"
+    (from the compiled public mirror)
+  1683 passed, 59 deselected in 107.86s.
+
+The final public receipt is compiled from the validation commit that contains
+this result; its content digest and source commit live in the public repository
+as PUBLIC-SNAPSHOT-RECEIPT.json. Remote push, tag, and release URLs are external
+state and are reported by the release operation rather than written recursively
+into this source record.

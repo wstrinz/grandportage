@@ -4,6 +4,28 @@ Grand Portage separates **file readability** from **mathematical authority**.
 An old graph may remain valuable history without retaining every licence that an
 older kernel inferred from it.
 
+Version 0.34.0 advances to **graph format 8** and **kernel epoch 12**. Current
+models may declare `about` independently from the exact `compute_in` domain.
+Point-carrying transport retains that field context, point universe, and
+selected embedding; incompatible or incomplete contexts refuse across every
+edge type and `same_as`.
+
+Format 8 replaces authored certificate `base_changes` booleans with closed
+reach objects: `ORDERED`, `CHAR_0`, `FIELD_SPECIFIC(field)`, or `NONE`. The
+record is policy, not authority. Effective reach is projected onto one EMPTY
+claim only by a current verifier receipt; exact rational unit/cofactor
+identities earn `CHAR_0`, finite-field identities remain field-specific, and
+the new replay-only rational SOS/cofactor identity earns `ORDERED`. Failed,
+stale, cited-only, or no-search evidence carries no reach.
+
+Formats 1--7 remain readable. `migrate --to-current-kernel` writes a separate
+format-8 graph and audit file, advances prior verdicts into stale history, and
+converts certificate records by a certificate-specific table. It never maps
+the old Boolean mechanically; unknown certificate names become `NONE`.
+Format 8 also adds `family_bridge`, which binds exact enumeration and proved
+family coverage to one exhibited member and model before a mixed-regime
+inference can compose.
+
 Version 0.33.0 keeps **graph format 7** and **kernel epoch 11**. It extracts a
 single fold-time authority binder for all ten existing verdict subjects without
 changing verdict schemas, verifier versions, input fingerprints, projections,

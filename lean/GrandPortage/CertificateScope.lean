@@ -160,6 +160,13 @@ def NoRationalPointSearchValid : Bool -> Unit -> Prop
   | false, _ => True
   | true, _ => False
 
+/-- An ordered-field contradiction need not survive adjoining i.  Epoch 12's
+Python checker gives it ORDERED reach after exact replay; this older stability
+shadow records only that it is not stable under arbitrary field extension. -/
+def OrderedSOSValid : Bool -> Unit -> Prop
+  | false, _ => True
+  | true, _ => False
+
 /-- A citation recorded only at its stated field carries no extension proof. -/
 def CitedProofValid : Bool -> Unit -> Prop
   | false, _ => True
@@ -182,6 +189,11 @@ theorem noRationalPointSearch_not_stable :
     Not (StableUnder FieldExtends NoRationalPointSearchValid) :=
   fragileFieldEvidence_not_stable NoRationalPointSearchValid True.intro
     (by simp [NoRationalPointSearchValid])
+
+theorem orderedSOS_not_stable :
+    Not (StableUnder FieldExtends OrderedSOSValid) :=
+  fragileFieldEvidence_not_stable OrderedSOSValid True.intro
+    (by simp [OrderedSOSValid])
 
 theorem citedProof_not_stable :
     Not (StableUnder FieldExtends CitedProofValid) :=
@@ -218,6 +230,9 @@ def nonsquareClassDecision :
 def noRationalPointSearchDecision :
     StabilityDecision FieldExtends NoRationalPointSearchValid :=
   .unstable noRationalPointSearch_not_stable
+
+def orderedSosDecision : StabilityDecision FieldExtends OrderedSOSValid :=
+  .unstable orderedSOS_not_stable
 
 def citedProofDecision : StabilityDecision FieldExtends CitedProofValid :=
   .unstable citedProof_not_stable

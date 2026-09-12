@@ -1,7 +1,8 @@
 /-
 # Selected structure is an independent predicate-transport premise
 
-Kernel epoch 11 added selected embedding identity for PREDICATE transport.
+Kernel epoch 12 retains selected embedding identity for PREDICATE transport
+while Python adds explicit field-context and checked-reach judgments.
 It is not a fifth identity-rewriting gate: it says that a map preserving the
 abstract carrier may still fail to preserve extra structure read by a claim.
 -/
@@ -10,7 +11,7 @@ namespace GrandPortage
 
 /-- The runtime kernel epoch modeled by this shadow. Python CI reads this exact
 declaration so a future runtime epoch cannot advance silently. -/
-def modeledKernelEpoch : Nat := 11
+def modeledKernelEpoch : Nat := 12
 
 /-- A model-side validity context may select extra structure independently of
 certificate scope. Keeping this separate prevents EMPTY-certificate stability

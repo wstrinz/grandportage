@@ -11,6 +11,7 @@ Those are orthogonal axes and conflating them is how a project ends up with an
 
 import hashlib
 
+from . import field as EC
 from . import format as F
 from . import groebner as G
 from . import kernel as K
@@ -171,6 +172,59 @@ def effective_selected_embedding_identity(
             and S.selected_embedding_identity(source, target) is True)
 
 
+def _field_transport_decision(graph, claim, edge, direction):
+    """Epoch-12 field gate, or ``None`` for an entirely legacy edge."""
+    source = graph.models.get(edge.get("src")) or {}
+    target = graph.models.get(edge.get("dst")) or {}
+    if direction == K.AGAINST:
+        source, target = target, source
+    if source.get("about") is None and target.get("about") is None:
+        return None
+    if source.get("about") is None or target.get("about") is None:
+        return EC.Decision(
+            False, "field context is explicit at only one endpoint; declare "
+            "about on both models before transporting a claim")
+    if (source.get("point_universe") not in EC.POINT_UNIVERSES
+            or target.get("point_universe") not in EC.POINT_UNIVERSES):
+        return EC.Decision(
+            False, "both field-typed endpoints must declare point_universe")
+    if claim.get("kind") == K.EMPTY:
+        reach = claim.get("certificate_reach")
+        if reach is None:
+            return EC.Decision(
+                False, "the EMPTY claim has no current verifier-earned "
+                "certificate reach")
+        try:
+            decision = EC.instantiate(reach, target.get("about"))
+        except EC.FieldError as exc:
+            return EC.Decision(False, "malformed checked reach: %s" % exc)
+        if (decision.allowed and reach.get("kind") == EC.ORDERED
+                and target.get("point_universe")
+                    == S.ALGEBRAIC_CLOSURE_POINT_UNIVERSE):
+            return EC.Decision(
+                False, "ORDERED reach cannot instantiate at an algebraic-"
+                "closure point universe")
+        return decision
+    return EC.compatible_point_context({
+        "about": source.get("about"),
+        "point_universe": source.get("point_universe"),
+        "embedding": source.get("embedding"),
+    }, {
+        "about": target.get("about"),
+        "point_universe": target.get("point_universe"),
+        "embedding": target.get("embedding"),
+    })
+
+
+def _apply_field_gate(ruling, decision):
+    if (decision is None or decision.allowed
+            or (not ruling.licensed and ruling.rule != "scheme_scope")):
+        return ruling
+    return K.Ruling(
+        False, "epoch-12 field-context refusal: %s" % decision.reason,
+        "field_context", ruling.etype, ruling.direction, ruling.kind)
+
+
 def audit_inference(graph, iid):
     """Walk an inference's path through the kernel.
 
@@ -256,6 +310,8 @@ def audit_inference(graph, iid):
         current_condition = claim.get("condition")
         for step_index, (eid, direction) in enumerate(pr["path"]):
             e = graph.edges[eid]
+            field_decision = _field_transport_decision(
+                graph, claim, e, direction)
             target_expressible = (
                 current_condition is not None and direction == K.ALONG
                 and e["type"] == K.IMAGE_CLOSURE
@@ -270,7 +326,10 @@ def audit_inference(graph, iid):
                 zariski_closed = claim.get("zariski_closed")
             r = K.transport(
                 e["type"], direction, claim["kind"],
-                scope=claim.get("scope"),
+                scope=(K.SCHEME if claim.get("kind") == K.EMPTY
+                       and field_decision is not None
+                       and field_decision.allowed
+                       else claim.get("scope")),
                 certificate=effective_certificate(claim),
                 map_kind=e["map_kind"],
                 zariski_closed=zariski_closed,
@@ -286,6 +345,7 @@ def audit_inference(graph, iid):
                 geometric_closure=effective_geometric_closure(e),
                 point_surjective=effective_point_surjective(e),
                 target_expressible=target_expressible)
+            r = _apply_field_gate(r, field_decision)
             trace_reason = r.reason
             next_condition = None
             rewrite_why = None
@@ -341,6 +401,8 @@ def probe(graph, claim_id, edge_id, direction, etype=None, map_kind=None,
     """
     claim = graph.claims[claim_id]
     edge = graph.edges[edge_id]
+    field_decision = _field_transport_decision(
+        graph, claim, edge, direction)
     target_expressible = (
         direction == K.ALONG
         and edge["type"] == K.IMAGE_CLOSURE
@@ -355,9 +417,11 @@ def probe(graph, claim_id, edge_id, direction, etype=None, map_kind=None,
             effective_closed = claim.get("zariski_closed")
     else:
         effective_closed = zariski_closed
-    return K.transport(
+    ruling = K.transport(
         etype or edge["type"], direction, claim["kind"],
-        scope=claim.get("scope"),
+        scope=(K.SCHEME if claim.get("kind") == K.EMPTY
+               and field_decision is not None and field_decision.allowed
+               else claim.get("scope")),
         certificate=effective_certificate(claim),
         map_kind=map_kind or edge["map_kind"],
         zariski_closed=effective_closed,
@@ -372,6 +436,7 @@ def probe(graph, claim_id, edge_id, direction, etype=None, map_kind=None,
         geometric_closure=effective_geometric_closure(edge),
         point_surjective=effective_point_surjective(edge),
         target_expressible=target_expressible)
+    return _apply_field_gate(ruling, field_decision)
 
 
 def contradicting_claims(graph, model_id, kind, exclude=()):
@@ -3653,8 +3718,9 @@ def check_predicate_conditions(graph):
 def _entity_registries(graph):
     return (
         graph.models, graph.edges, graph.claims, graph.inferences,
-        graph.partitions, graph.families, graph.evidence, graph.doubts,
-        graph.citations, graph.named_notes,
+        graph.partitions, graph.families, graph.family_bridges, graph.aliases,
+        graph.cert_records, graph.evidence, graph.doubts, graph.citations,
+        graph.named_notes,
     )
 
 

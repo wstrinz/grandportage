@@ -30,10 +30,12 @@ It is not a mathematical database or a home for bulk CAS output. Keep large
 computations in content-addressed artifacts; use GP for compact conclusions,
 provenance, and obligations that later work must not misread.
 
-Scope is derived from certificate kind, never accepted from an author's label.
-For example, a unit-ideal identity is stable under base change and receives
-`SCHEME`; a nonsquare-class obstruction is field-relative. A contradiction
-between declared scope and derived scope is refused at fold time.
+EMPTY reach is earned by a current verifier receipt, never accepted from an
+author's label or attached globally to a certificate name. For example, an
+exact rational unit-ideal identity earns `CHAR_0`, the replay-only rational SOS
+identity earns `ORDERED`, and an unchecked or failed certificate earns `NONE`.
+The model separately records the field whose points are discussed and the
+exact coefficient domain used for computation.
 
 ## Transport at a glance
 
@@ -53,12 +55,13 @@ read-surface defects. They are part of the review posture, not release notes.
 
 ## Start here
 
-The v0.33 authority-boundary release preserves graph format 7 and kernel epoch
-11. It routes every existing fold-time verdict projection through one checked,
-sealed binder and ships the post-v0.32 review diagnostics without widening
-mathematical authority. [Release notes](review/v0.33/README.md) describe the
-boundary and validation. [Operational work](docs/WORK.md) covers unresolved
-attempts and the explicit accounting-only check mode.
+The v0.34 semantic release advances to graph format 8 and kernel epoch 12. It
+adds explicit field context, verifier-earned structured reach, exact rational
+SOS replay, and a checked family-to-model bridge. Historical certificate
+booleans migrate through a named conservative table rather than a Boolean
+ladder. [Release notes](review/v0.34/README.md) describe the boundary and
+validation. [Operational work](docs/WORK.md) covers unresolved attempts and
+the explicit accounting-only check mode.
 
 ```console
 python -m pip install -e .
@@ -89,16 +92,18 @@ ten-minute campaign and the recovery commands.
 
 ## Status and documents
 
-Version <!--version-->0.33.0<!--/version-->, graph format
-<!--graph-format-->7<!--/graph-format-->, kernel epoch
-<!--kernel-epoch-->11<!--/kernel-epoch-->. The suite currently has
-<!--checks-->1716<!--/checks--> checks. v0.33 centralizes fold-time verdict
-authority without changing transport semantics; v0.31.2 makes exact cofactor-certified
+Version <!--version-->0.34.0<!--/version-->, graph format
+<!--graph-format-->8<!--/graph-format-->, kernel epoch
+<!--kernel-epoch-->12<!--/kernel-epoch-->. The suite currently has
+<!--checks-->1742<!--/checks--> checks. v0.34 adds field-aware point transport,
+model-bound certificate reach, and explicit family/model composition on top of
+v0.33's centralized fold-time authority; v0.31.2 makes exact cofactor-certified
 identity authority independent of local CAS availability; v0.31.1 closes the
 remaining untyped-model escape hatch for field-relative emptiness; v0.31 publishes the v0.30 native
 verification, extension-witness, ordered-receipt, and Lean work together with
 historical-format migration repairs and a closed, bounded grammar for
-field-relative emptiness scope. The transport table remains at kernel epoch 11.
+field-relative emptiness scope. The current transport semantics are kernel
+epoch 12.
 
 - [QUICKSTART.md](QUICKSTART.md) — install and first campaign
 - [SPEC.md](SPEC.md) — complete transport and verifier behavior
@@ -113,6 +118,7 @@ field-relative emptiness scope. The transport table remains at kernel epoch 11.
 - [review/v0.31.2/README.md](review/v0.31.2/README.md) — patch release record for environment-independent exact identity receipts
 - [review/v0.32/README.md](review/v0.32/README.md) — guard release, DK acceptance deltas, and operational accounting
 - [review/v0.33/README.md](review/v0.33/README.md) — authority-binding boundary and review diagnostics
+- [review/v0.34/README.md](review/v0.34/README.md) — field reach, ordered SOS replay, family/model bridge, and migration
 - [grandportage-jc-campaign](https://github.com/wstrinz/grandportage-jc-campaign) — optional extracted campaign fixtures, replay, and historical review brief
 - [HISTORY/](HISTORY/) — superseded findings retained as evidence
 - [lean/README.md](lean/README.md) — non-authoritative semantic shadow

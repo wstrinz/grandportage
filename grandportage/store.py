@@ -23,12 +23,14 @@ import os
 from fractions import Fraction
 
 from . import authority as A
+from . import field as EC
 from . import kernel as K
 from . import format as F
 from . import groebner as G
 from . import number_field as N
 from . import ordered as O
 from . import ordered_receipt as ORC
+from . import ordered_sos as OSOS
 from . import provenance as P
 from .discharge import DISCHARGE_KINDS as D_KINDS
 from .discharge import WITHDRAW
@@ -46,6 +48,7 @@ EV_BUILT_BY = "built_by"
 EV_PARTITION = "partition"
 EV_SAME_AS = "same_as"
 EV_FAMILY = "family"      # a finite INDEX of objects, not a variety
+EV_FAMILY_BRIDGE = "family_bridge"
 EV_EVIDENCE = "evidence"  # a COMPUTATION standing behind a claim
 EV_DOUBT = "doubt"        # an AUTHORED defeater; becomes a finding
 EV_CITATION = "citation"  # which external object an identifier denotes
@@ -56,6 +59,7 @@ EV_META = F.META_EVENT     # mandatory first record of an epoch-1 graph
 
 EVENT_KINDS = (EV_META, EV_CERTIFICATE, EV_MODEL, EV_EDGE, EV_CLAIM, EV_INFERENCE,
                EV_BUILT_BY, EV_PARTITION, EV_SAME_AS, EV_FAMILY,
+               EV_FAMILY_BRIDGE,
                EV_EVIDENCE, EV_DOUBT, EV_CITATION, EV_ERRATUM,
                EV_VERDICT, EV_NOTE)
 
@@ -214,7 +218,10 @@ def exact_coefficient_domain(characteristic):
 
 def declared_coefficient_domain(model):
     """Structured domain, or the legacy declaration a verifier must inspect."""
+    compute_in = model.get("compute_in")
     explicit = model.get("coefficient_domain")
+    if compute_in is not None:
+        return compute_in
     if explicit is not None:
         return explicit
     # Do not normalize an unsupported legacy declaration into ignorance.  A
@@ -228,8 +235,9 @@ def declared_point_universe(model):
 
 
 def point_scope(model):
-    """The two independent model attributes governing point claims."""
+    """The three independent model attributes governing point claims."""
     return (
+        model.get("about"),
         declared_coefficient_domain(model),
         declared_point_universe(model),
     )
@@ -285,6 +293,7 @@ class Graph(object):
         self.built_by = {}         # model id -> [inference id, ...]
         self.partitions = {}       # id -> {parent, branches, exhaustive}
         self.families = {}         # id -> {count, enumeration, members?}
+        self.family_bridges = {}   # id -> explicit family-member/model binding
         self.groups = {}           # group id -> {of, settles, exhibited, ...}
         self.aliases = {}          # id -> {models: [...], why}
         self.citations = {}        # id -> which external object a name denotes
@@ -785,6 +794,10 @@ class Graph(object):
         if not A.projects_authority(checked_evidence):
             return
         extra_projections = []
+        certificate_reach = (
+            {"kind": EC.NONE}
+            if subject == "certificate" and target[of].get("certificate")
+            else None)
         # THE CERTIFICATE, WHEN THE VERIFIER MINTED ONE.
         #
         # A verdict says WHAT a run concluded; a representation says why, in a
@@ -1170,6 +1183,49 @@ class Graph(object):
                     "has no recorded generators."
                     % (where, ev.get("id")))
             elif (subject == "certificate"
+                  and (self.claims.get(of) or {}).get("certificate")
+                      == "ORDERED_SOS_CERT"):
+                claim = target[of]
+                model = self.models.get(claim.get("model")) or {}
+                _require(ev.get("verdict") == "VERIFIED",
+                         "%s: ordered-SOS verdict %r may carry a proof only "
+                         "when VERIFIED." % (where, ev.get("id")))
+                try:
+                    replay = OSOS.verify(model, rep)
+                except OSOS.OrderedSOSError as exc:
+                    raise GraphError(
+                        "%s: ordered-SOS verdict %r fails exact replay: %s"
+                        % (where, ev.get("id"), exc))
+                _require(replay == rep,
+                         "%s: ordered-SOS verdict %r is not canonical."
+                         % (where, ev.get("id")))
+                certificate_reach = {"kind": EC.ORDERED}
+            elif (subject == "certificate"
+                  and (self.claims.get(of) or {}).get("certificate")
+                      == "UNIT_IDEAL_CERT"):
+                required = {"cofactors", "generators", "ring_vars"}
+                claim = target[of]
+                model = self.models.get(claim.get("model")) or {}
+                _require(
+                    ev.get("verdict") == "VERIFIED"
+                    and isinstance(rep, dict) and set(rep) == required
+                    and rep.get("ring_vars") == (model.get("ring_vars") or [])
+                    and rep.get("generators") == model.get("generators")
+                    and isinstance(rep.get("cofactors"), list),
+                    "%s: unit-ideal verdict %r carries a malformed or "
+                    "detached cofactor identity." % (where, ev.get("id")))
+                try:
+                    G.check_membership_identity(
+                        "1", rep["generators"], rep["cofactors"],
+                        rep["ring_vars"], model.get("characteristic"))
+                    certificate_reach = EC.reach_for_exact_identity(
+                        declared_coefficient_domain(model))
+                except (EC.FieldError, G.CertificateError,
+                        TypeError, ValueError) as exc:
+                    raise GraphError(
+                        "%s: unit-ideal verdict %r fails exact replay: %s"
+                        % (where, ev.get("id"), exc))
+            elif (subject == "certificate"
                   and rep.get("method") in {
                       "localized_unit_ideal_v1",
                       "localized_guard_reduction_chain_v2",
@@ -1236,6 +1292,13 @@ class Graph(object):
                     "%s: localized-unit verdict %r's proof does not match "
                     "the exact open model, or does not prove localized 1=0."
                     % (where, ev.get("id")))
+                try:
+                    certificate_reach = EC.reach_for_exact_identity(
+                        declared_coefficient_domain(model))
+                except EC.FieldError as exc:
+                    raise GraphError(
+                        "%s: localized-unit verdict %r has unsupported "
+                        "computation context: %s" % (where, ev.get("id"), exc))
             elif subject == "witness":
                 claim = target[of]
                 model = self.models.get(claim.get("model")) or {}
@@ -1349,6 +1412,9 @@ class Graph(object):
             if subject not in ("elimination", "point_lift"):
                 extra_projections.append(("representation", rep))
 
+        if certificate_reach is not None:
+            extra_projections.append(("certificate_reach", certificate_reach))
+
         receipt = A.bind(
             checked_evidence, field, spec["why_field"], extra_projections)
         _require(
@@ -1360,6 +1426,35 @@ class Graph(object):
         self.authority_receipts[receipt.evidence.event_id] = receipt
 
     def _apply_certificate(self, ev, where):
+        if self.graph_format == F.GRAPH_FORMAT:
+            try:
+                reach = EC.validate_reach(ev.get("reach"))
+            except EC.FieldError as exc:
+                raise GraphError("%s: certificate %r has invalid reach: %s"
+                                 % (where, ev["id"], exc))
+            builtin = K.BUILTIN_CERTIFICATE_REACH_POLICY.get(ev["id"])
+            _require(builtin is None or reach == builtin,
+                     "%s: certificate %r is a BUILT-IN with reach policy %r; "
+                     "a graph cannot redefine it to %r. Built-in policy is a "
+                     "kernel change." % (where, ev["id"], builtin, reach))
+            _require(ev.get("why"),
+                     "%s: certificate %r must declare `why`. A reach policy "
+                     "without an explanation is not reviewable."
+                     % (where, ev["id"]))
+            record = dict(ev)
+            record["reach"] = reach
+            # A declaration is only a ceiling. It never mints effective reach:
+            # that belongs to a current verifier receipt on one EMPTY claim.
+            # Keep the legacy scope derivation conservative by treating every
+            # custom format-8 certificate as field-relative.
+            if builtin is None:
+                self.certificates[ev["id"]] = False
+            self.cert_records[ev["id"]] = record
+            self.cert_source[ev["id"]] = where
+            return
+
+        # Historical formats retain the boolean registry only for archival
+        # readability. The format-8 migration converts each record explicitly.
         # A BUILT-IN CANNOT BE REDEFINED FROM A GRAPH.
         #
         # The registry is seeded from BUILTIN_CERTIFICATES but the redeclaration
@@ -1581,6 +1676,16 @@ class Graph(object):
         f["members"] = members
         self.families[ev["id"]] = f
 
+    def _apply_family_bridge(self, ev, where):
+        """Record an explicit, later-validated family-member/model seam."""
+        for field in (
+                "family", "enumeration", "coverage", "group", "member",
+                "model", "why"):
+            _require(isinstance(ev.get(field), str) and ev[field].strip(),
+                     "%s: family_bridge %r needs non-empty `%s`"
+                     % (where, ev["id"], field))
+        self.family_bridges[ev["id"]] = dict(ev)
+
     def _apply_partition(self, ev, where):
         """A parent model split into branches, with its exhaustiveness stated.
 
@@ -1655,11 +1760,20 @@ class Graph(object):
                      "characteristic, so a wrong one produces confident "
                      "answers about a different ring."
                      % (where, ev["id"], ch))
-        coefficient_domain = ev.get("coefficient_domain")
+        try:
+            coefficient_domain = EC.model_compute_in(ev)
+        except EC.FieldError as exc:
+            raise GraphError("%s: model %r %s" % (where, ev["id"], exc))
+        about = ev.get("about")
+        if about is not None:
+            try:
+                EC.validate_about(about)
+            except EC.FieldError as exc:
+                raise GraphError("%s: model %r %s" % (where, ev["id"], exc))
         point_universe = ev.get("point_universe")
         _require(not (coefficient_domain is not None and ev.get("field") is not None),
                  "%s: model %r declares both structured `coefficient_domain` "
-                 "and legacy `field`. They are competing sources of truth; "
+                 "or `compute_in` and legacy `field`. They are competing sources of truth; "
                  "keep only the structured field."
                  % (where, ev["id"]))
         _require(not (point_universe is not None and ev.get("universe") is not None),
@@ -1766,6 +1880,8 @@ class Graph(object):
                  % (where, ev["id"]))
         _validate_embedding(ev, where)
         m = dict(ev)
+        if coefficient_domain is not None:
+            m["coefficient_domain"] = coefficient_domain
         m["declares"] = {a: list(v) for a, v in declares.items()}
         m["touches"] = list(ev.get("touches") or [])
         m["reads"] = list(ev.get("reads") or [])
@@ -1933,6 +2049,7 @@ class Graph(object):
         "verify.elimination_section")
     _COMPUTED_FIELDS["point_lift_representation"] = (
         "verify.elimination_point_lift")
+    _COMPUTED_FIELDS["certificate_reach"] = "verify.certificate"
 
     def _reject_computed_fields(self, ev, where):
         for bad, writer in sorted(self._COMPUTED_FIELDS.items()):
@@ -2206,7 +2323,7 @@ class Graph(object):
     # -----------------------------------------------------------------------
     _SUPERSEDABLE = ("claim", "inference", "edge", "model", "note",
                      "evidence", "doubt", "citation", "certificate",
-                     "partition", "family", "same_as")
+                     "partition", "family", "family_bridge", "same_as")
 
     def _resolve_supersessions(self):
         for entity in self._SUPERSEDABLE:
@@ -2218,6 +2335,7 @@ class Graph(object):
                         "certificate": self.cert_records,
                         "partition": self.partitions,
                         "family": self.families,
+                        "family_bridge": self.family_bridges,
                         "same_as": self.aliases}[entity]
             kinds = (D_KINDS if entity == "edge" else K.SUPERSESSION_KINDS)
             for new_id in sorted(registry):
@@ -2305,6 +2423,7 @@ class Graph(object):
                       "certificate": self.cert_records,
                       "partition": self.partitions,
                       "family": self.families,
+                      "family_bridge": self.family_bridges,
                       "same_as": self.aliases}
         for (entity, tomb_id), tomb in sorted(self.retractions.items()):
             old_id = tomb["supersedes"]
@@ -2448,6 +2567,15 @@ class Graph(object):
             premises = [{"claim": ev["claim"],
                          "path": _norm_path(ev.get("path") or [], "`path`")}]
         i = dict(ev)
+        bridges = ev.get("family_bridges") or {}
+        _require(isinstance(bridges, dict)
+                 and all(isinstance(claim_id, str)
+                         and isinstance(bridge_id, str)
+                         and claim_id and bridge_id
+                         for claim_id, bridge_id in bridges.items()),
+                 "%s: inference %r `family_bridges` must map family claim "
+                 "ids to family_bridge ids" % (where, ev["id"]))
+        i["family_bridges"] = dict(bridges)
         i["premises"] = premises
         # `claim` and `path` stay populated from the FIRST premise so that
         # everything reading an inference the old way keeps working.  The first
@@ -2694,6 +2822,52 @@ class Graph(object):
                          "member. A cross-cut is computed from these names, so "
                          "a name that is not in the family silently changes an "
                          "intersection." % (gid, ", ".join(unknown), g["of"]))
+        for bid, bridge in sorted(self.family_bridges.items()):
+            family = self.families.get(bridge["family"])
+            _require(family is not None and not family.get("superseded_by"),
+                     "family_bridge %r names missing or stale family %r"
+                     % (bid, bridge["family"]))
+            enumeration = self.claims.get(bridge["enumeration"])
+            _require(
+                family.get("enumeration") == bridge["enumeration"]
+                and enumeration is not None
+                and not enumeration.get("superseded_by")
+                and enumeration.get("family") == bridge["family"]
+                and enumeration.get("kind") == K.PREDICATE,
+                "family_bridge %r does not bind the family's live exact "
+                "enumeration claim" % bid)
+            exact_evidence = [
+                evidence for evidence in self.evidence.values()
+                if evidence.get("for") == bridge["enumeration"]
+                and evidence.get("method") == "ENUMERATION"
+                and evidence.get("decides") == "BOTH"
+                and not evidence.get("superseded_by")
+            ]
+            _require(exact_evidence,
+                     "family_bridge %r needs current ENUMERATION evidence "
+                     "that decides BOTH; one-sided evidence grants no bridge"
+                     % bid)
+            coverage = self.claims.get(bridge["coverage"])
+            group = self.groups.get(bridge["group"])
+            _require(
+                coverage is not None and not coverage.get("superseded_by")
+                and coverage.get("kind") == K.COUNT
+                and coverage.get("family") == bridge["family"]
+                and group is not None and group.get("by") == bridge["coverage"]
+                and group.get("of") == bridge["family"]
+                and group.get("proved") is True,
+                "family_bridge %r must cite a live COUNT coverage claim and "
+                "one of its proved groups" % bid)
+            _require(family.get("members")
+                     and bridge["member"] in family["members"],
+                     "family_bridge %r member %r is not explicitly listed "
+                     "by family %r" % (bid, bridge["member"], bridge["family"]))
+            _require(bridge["member"] in group.get("exhibited", []),
+                     "family_bridge %r member %r is not exhibited by proved "
+                     "group %r" % (bid, bridge["member"], bridge["group"]))
+            _require(bridge["model"] in self.models,
+                     "family_bridge %r names undeclared model %r"
+                     % (bid, bridge["model"]))
         for eid, e in sorted(self.edges.items()):
             for end in ("src", "dst"):
                 _require(e[end] in self.models,
@@ -2952,6 +3126,29 @@ class Graph(object):
                      "disagree about their field: %s.  Two models over "
                      "different fields are not the same object."
                      % (aid, ", ".join(a["models"]), ", ".join(sorted(fields))))
+            contexts = [point_scope(self.models[m]) for m in a["models"]]
+            if any(any(value is not None for value in context)
+                   for context in contexts):
+                _require(
+                    len(set(contexts)) == 1
+                    and all(all(value is not None for value in context)
+                            for context in contexts),
+                    "same_as %r declares %s to be one point-bearing object, "
+                    "but their (about, compute_in, point_universe) contexts "
+                    "are not identical and complete: %r. Missing context is "
+                    "not a wildcard." % (aid, ", ".join(a["models"]), contexts))
+            embeddings = {
+                _canon(self.models[m].get("embedding"))
+                for m in a["models"]
+                if self.models[m].get("embedding") is not None
+            }
+            _require(
+                len(embeddings) <= 1
+                and (not embeddings or all(
+                    self.models[m].get("embedding") is not None
+                    for m in a["models"])),
+                "same_as %r cannot identify models with different or missing "
+                "selected embeddings." % aid)
         for pid, p in sorted(self.partitions.items()):
             _require(p["parent"] in self.models,
                      "partition %r names undeclared parent model %r"
@@ -2989,17 +3186,29 @@ class Graph(object):
                          "inference %r premise %d cites undeclared claim %r"
                          % (iid, n, pr["claim"]))
                 premise = self.claims[pr["claim"]]
-                _require(not premise.get("family"),
-                         "inference %r premise %d cites %s claim %r at family "
-                         "%r. Model transport does not compose family claims. "
-                         "DISCHARGE: retain the family count and its enumeration "
-                         "obligation; establish an explicit model-scoped bridge "
-                         "before citing it here, or record the needed model "
-                         "claim as an open required_kind/at/missing_why slot. "
-                         "Do not write the missing claim as though it held."
-                         % (iid, n, premise["kind"], pr["claim"],
-                            premise.get("family")))
-                at = premise["model"]
+                if premise.get("family"):
+                    bridge_id = i.get("family_bridges", {}).get(pr["claim"])
+                    bridge = self.family_bridges.get(bridge_id)
+                    _require(bridge is not None,
+                             "inference %r premise %d cites %s claim %r at "
+                             "family %r without an explicit family_bridge. "
+                             "DISCHARGE: retain the family claim and its "
+                             "enumeration debt, then declare a checked "
+                             "family_bridge to one exhibited proved member, "
+                             "or keep the required model claim as an open slot."
+                             % (iid, n, premise["kind"], pr["claim"],
+                                premise.get("family")))
+                    _require(bridge["family"] == premise["family"]
+                             and premise.get("rests_on") == bridge["group"],
+                             "inference %r family premise %r must rest on the "
+                             "same proved group named by bridge %r"
+                             % (iid, pr["claim"], bridge_id))
+                    at = bridge["model"]
+                else:
+                    _require(pr["claim"] not in i.get("family_bridges", {}),
+                             "inference %r assigns a family_bridge to model "
+                             "claim %r" % (iid, pr["claim"]))
+                    at = premise["model"]
                 for eid, direction in pr["path"]:
                     _require(eid in self.edges,
                              "inference %r cites undeclared edge %r"
@@ -3014,6 +3223,13 @@ class Graph(object):
                              % (iid, n, at, eid, direction, frm))
                     at = to
                 lands.append(at)
+            used_family_claims = {
+                pr["claim"] for pr in i["premises"] if pr.get("claim")
+                and self.claims[pr["claim"]].get("family")
+            }
+            _require(set(i.get("family_bridges", {})) == used_family_claims,
+                     "inference %r family_bridges must name exactly its "
+                     "family-scoped premises" % iid)
             # A PARTITION-LICENSED INFERENCE is the one case where premises
             # legitimately live apart: the branch claims sit in their own
             # branches by construction, and it is the partition -- not any

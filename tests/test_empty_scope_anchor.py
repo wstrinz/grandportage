@@ -27,7 +27,7 @@ def _certificate(base_changes=False):
     return {
         "ev": "certificate",
         "id": "CERT_COMBINATORIAL",
-        "base_changes": base_changes,
+        "reach": {"kind": "CHAR_0" if base_changes else "NONE"},
         "why": "a finite combinatorial contradiction, not a field model",
     }
 
@@ -91,8 +91,7 @@ def test_typed_base_field_model_accepts_field_relative_empty():
 def test_combinatorial_empty_at_bare_model_remains_legal():
     events = [
         {"ev": "model", "id": "M", "desc": "orientation feasibility"},
-        _certificate(base_changes=True),
-        _claim(),
+        dict(_claim(), certificate="EXACT_VALUATION_COLLISION"),
     ]
     graph = H.fold([F.meta_event()] + events)
     assert graph.claims["CL"]["scope"] == K.SCHEME
@@ -100,9 +99,12 @@ def test_combinatorial_empty_at_bare_model_remains_legal():
 
 
 def test_epoch0_fieldless_model_remains_readable_for_compatibility():
+    certificate = _certificate(base_changes=False)
+    certificate["base_changes"] = False
+    certificate.pop("reach")
     events = [
         {"ev": "model", "id": "M", "desc": "legacy prose says over Q"},
-        _certificate(base_changes=False),
+        certificate,
         _claim("Q"),
     ]
     graph = H.fold(events)

@@ -1182,7 +1182,12 @@ def h_portage_show(args, root):
     out = []
     for mid in sorted(g.models):
         m = g.models[mid]
-        tag = " ".join(x for x in (m.get("chart"), m.get("field")) if x)
+        tag = " ".join(x for x in (
+            m.get("chart"),
+            "about=%s" % m["about"] if m.get("about") else None,
+            "coeff=%s" % m["coefficient_domain"]
+            if m.get("coefficient_domain") else m.get("field"),
+        ) if x)
         out.append("MODEL %-16s %-14s %s" % (mid, tag, m.get("desc", "")[:70]))
     for fid in sorted(g.families):
         family = g.families[fid]
@@ -1191,6 +1196,16 @@ def h_portage_show(args, root):
         out.append("FAMILY %-15s count=%d enumeration=%s%s"
                    % (fid, family["count"],
                       family.get("enumeration") or "UNRECORDED", mark))
+    for bid in sorted(g.family_bridges):
+        bridge = g.family_bridges[bid]
+        mark = ("  [SUPERSEDED by %s]" % S.successors(bridge)
+                if bridge.get("superseded_by") else "")
+        out.append("BRIDGE %-15s %s:%s -> %s%s"
+                   % (bid, bridge["family"], bridge["member"],
+                      bridge["model"], mark))
+        out.append("    enumeration=%s coverage=%s group=%s"
+                   % (bridge["enumeration"], bridge["coverage"],
+                      bridge["group"]))
     for eid in sorted(g.edges):
         e = g.edges[eid]
         mark = ("  [WITHDRAWN by %s]" % e["withdrawn_by"]
@@ -1205,11 +1220,14 @@ def h_portage_show(args, root):
                 if c.get("retracted_by") else
                 ("  [SUPERSEDED by %s]" % S.successors(c)
                  if c.get("superseded_by") else ""))
-        out.append("CLAIM %-16s %-9s @%-14s scope=%s cert=%s%s"
+        reach = (json.dumps(c["certificate_reach"], sort_keys=True,
+                            separators=(",", ":"))
+                 if c.get("certificate_reach") else None)
+        out.append("CLAIM %-16s %-9s @%-14s scope=%s cert=%s reach=%s%s"
                    % (cid, c["kind"],
                       c.get("model") or ("family:%s" % c.get("family")),
                       c.get("scope"),
-                      c.get("certificate"), mark))
+                      c.get("certificate"), reach, mark))
         if c.get("supersedes"):
             out.append("    supersedes %s (%s)"
                        % (c["supersedes"], c.get("discharge_kind")))

@@ -5,7 +5,8 @@ from pathlib import Path
 
 import pytest
 
-from grandportage import cas, check as C, cli, format as F, kernel as K, store as S
+from grandportage import cas, check as C, cli, format as F, kernel as K
+from grandportage import migration as MIG, store as S
 from helpers import fold
 
 ROOT = Path(__file__).parent / "fixtures" / "dk_retrodiction"
@@ -87,6 +88,24 @@ def test_ledger_and_open_slots_keep_their_original_obligations(tmp_path, capsys)
     history = capsys.readouterr().out
     assert "M-E1-RING --RELICENSE--> M-E1-RING-2" in history
     assert history.count("--") >= 12
+
+
+def test_frozen_dk_ledger_migrates_with_explicit_certificate_reach():
+    source = str(ROOT / "fixtures/ledger/graph.jsonl")
+    report = MIG.migrate_kernel_epoch([source], dry_run=True)[0]
+    converted = {
+        change["event"]: change["actions"][0]["action"]
+        for change in report["changes"]
+        if change["kind"] == "certificate"
+    }
+    assert set(converted) == {
+        "ORDER_CERTIFICATE", "TORUS_CERTIFICATE",
+        "FORCED_INCIDENCE_COFACTOR", "BLAND_JENSEN_GF2_CONTRADICTION",
+    }
+    assert "mapped ORDER_CERTIFICATE to ORDERED" in converted[
+        "ORDER_CERTIFICATE"]
+    assert "mapped BLAND_JENSEN_GF2_CONTRADICTION to NONE" in converted[
+        "BLAND_JENSEN_GF2_CONTRADICTION"]
 
 
 def test_history_keeps_both_successors_of_a_model(tmp_path, capsys):

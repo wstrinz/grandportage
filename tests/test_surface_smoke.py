@@ -269,7 +269,7 @@ def _part_slot():
     return evs
 
 
-@construct("family_and_dispositions", ["family"])
+@construct("family_and_dispositions", ["family", "family_bridge"])
 def _family():
     """A family claim has no `model`, and five rules subscripted it. The
     inference is not decoration: without one, `contradicting_claims` never runs
@@ -301,7 +301,11 @@ def _family():
                        "method": "a cheap screen",
                        "proves": ["G-OK"],
                        "why": "the screen proves the kill and not the survival",
-                       "established_by": "RAN", "ladder": "exact-checked"}]
+                       "established_by": "RAN", "ladder": "exact-checked"},
+                      {"ev": "family_bridge", "id": "B-m1", "family": "F",
+                       "enumeration": "CF-ENUM", "coverage": "D",
+                       "group": "G-OK", "member": "m1", "model": "TIGHT",
+                       "why": "TIGHT presents the exhibited member m1"}]
 
 
 @construct("family_crosscut", [])

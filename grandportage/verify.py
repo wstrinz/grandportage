@@ -82,6 +82,7 @@ from . import kernel as K
 from . import number_field as N
 from . import operations as O
 from . import ordered as OR
+from . import ordered_sos as SOS
 from . import provenance as P
 from . import store as S
 
@@ -2291,6 +2292,34 @@ def localized_unit_ideal(graph, cid, timeout=300, _runner=None,
         "guard monomials. This is search exhaustion, not evidence that the "
         "open model has a point.%s" % (len(candidates), suffix)), None
 
+
+def ordered_sos(graph, cid, certificate):
+    """Replay one supplied rational SOS/cofactor certificate, without search."""
+    claim = graph.claims.get(cid)
+    if not claim:
+        return UNVERIFIED, "no such claim", None
+    if (claim.get("kind") != K.EMPTY
+            or claim.get("certificate") != "ORDERED_SOS_CERT"):
+        return UNVERIFIED, (
+            "claim %s does not ask for ORDERED_SOS_CERT" % cid), None
+    if certificate is None:
+        return UNVERIFIED, (
+            "claim %s has no supplied rational SOS/cofactor proof object; "
+            "this verifier never searches for one" % cid), None
+    model = graph.models.get(claim.get("model")) or {}
+    try:
+        representation = SOS.verify(model, certificate)
+    except SOS.OrderedSOSError as exc:
+        return CERT_NOT_UNIT, (
+            "the supplied rational SOS/cofactor proof was rejected: %s" % exc
+        ), None
+    return CERT_VERIFIED, (
+        "the supplied rational identity replays exactly over Q: -1 is a sum "
+        "of squares modulo the recorded model ideal. Every ordered field "
+        "would make the left side negative and the right side nonnegative, "
+        "so the model has no ordered-field point. No SOS search ran."
+    ), representation
+
 def _verdict_event(graph, subject, of, verdict, why, representation=None,
                    execution=None, verifier=None):
     # Content-address the answer together with the exact verifier/kernel/backend
@@ -2760,6 +2789,12 @@ def verify_all(root=".", timeout=300, _runner=None, record=True, backend=None,
                 lambda cid=cid: localized_unit_ideal(
                     graph, cid, timeout=timeout, _backend=backend,
                     supplied_certificate=(supplied_certificates or {}).get(cid)))
+        if (c.get("kind") == K.EMPTY
+                and c.get("certificate") == "ORDERED_SOS_CERT"
+                and needs_verification(c.get("certificate_verdict"))):
+            run("certificate", cid,
+                lambda cid=cid: ordered_sos(
+                    graph, cid, (supplied_certificates or {}).get(cid)))
         if (c.get("kind") == K.NONEMPTY and c.get("witness_point")
                 and needs_verification(c.get("witness_verdict"))):
             run("witness", cid, lambda cid=cid: point_witness(
