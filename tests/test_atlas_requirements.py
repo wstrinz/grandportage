@@ -22,3 +22,16 @@ def test_incomparable_catalog_rules_remain_alternatives():
         A.classify({"DERIVATION"}, rules=rules)
     with pytest.raises(ValueError, match="unknown"):
         A.classify({"MAGIC"})
+
+
+def test_three_interpreters_and_their_lean_dictionary_are_complete():
+    from pathlib import Path
+    assert set(A.CATALOG) == {"unit", "ordered", "cancellation"}
+    assert sum(len(A.inventory(name)) for name in A.CATALOG) == 48
+    for name, item in A.CATALOG.items():
+        cells = A.inventory(name)
+        assert sum(c["status"] == "PROVED" for c in cells) == 1
+        removed = set(item["premises"]) - {item["deleted"]}
+        assert next(c for c in cells if set(c["premises"]) == removed)["status"] == "REFUTED"
+    check_file = Path(__file__).resolve().parents[1] / "lean/GrandPortage/RequirementChecks.lean"
+    assert check_file.read_text(encoding="utf-8") == A.lean_checks()

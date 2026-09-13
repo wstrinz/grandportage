@@ -1,0 +1,3429 @@
+{
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "categories": {
+    "bindings": {},
+    "claims": {
+      "CL-A10-SURV": {
+        "candidate": {
+          "context_ref": "ELIM_CLOSURE",
+          "kind": "NONEMPTY",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "ELIM_CLOSURE",
+          "statement": {
+            "nonempty": []
+          },
+          "vocabulary": {
+            "chosen_witness": false,
+            "family": "field_points",
+            "model": "ELIM_CLOSURE"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-A10-SURV",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-ATLE9-PHI": {
+        "candidate": {
+          "context_ref": "SLICEPHI",
+          "kind": "EMPTY",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "SLICEPHI",
+          "statement": {
+            "empty": []
+          },
+          "vocabulary": {
+            "chosen_witness": false,
+            "family": "field_points",
+            "model": "SLICEPHI"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-ATLE9-PHI",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-ATLE9-SYZ": {
+        "candidate": {
+          "context_ref": "SYZCOLL",
+          "kind": "EMPTY",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "SYZCOLL",
+          "statement": {
+            "empty": []
+          },
+          "vocabulary": {
+            "chosen_witness": false,
+            "family": "field_points",
+            "model": "SYZCOLL"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-ATLE9-SYZ",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-C08": {
+        "candidate": {
+          "context_ref": "RES08_L",
+          "kind": "EMPTY",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "RES08_L",
+          "statement": {
+            "empty": []
+          },
+          "vocabulary": {
+            "chosen_witness": false,
+            "family": "field_points",
+            "model": "RES08_L"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-C08",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-C08-REAL": {
+        "candidate": {
+          "context_ref": "RES08_K",
+          "kind": "NONEMPTY",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "RES08_K",
+          "statement": {
+            "nonempty": []
+          },
+          "vocabulary": {
+            "chosen_witness": false,
+            "family": "field_points",
+            "model": "RES08_K"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-C08-REAL",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-C20": {
+        "candidate": {
+          "context_ref": "RES20_L",
+          "kind": "EMPTY",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "RES20_L",
+          "statement": {
+            "empty": []
+          },
+          "vocabulary": {
+            "chosen_witness": false,
+            "family": "field_points",
+            "model": "RES20_L"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-C20",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-C20-REAL": {
+        "candidate": {
+          "context_ref": "RES20_K",
+          "kind": "NONEMPTY",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "RES20_K",
+          "statement": {
+            "nonempty": []
+          },
+          "vocabulary": {
+            "chosen_witness": false,
+            "family": "field_points",
+            "model": "RES20_K"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-C20-REAL",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-DICT": {
+        "candidate": {
+          "context_ref": "GERM",
+          "kind": "IDENTITY",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "GERM",
+          "statement": null,
+          "vocabulary": {
+            "family": "coordinate_ring",
+            "model": "GERM",
+            "origin": "AMBIENT"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-DICT",
+        "missing": [
+          "claim.identity_expression",
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-KSYZ": {
+        "candidate": {
+          "context_ref": "GSYS_K",
+          "kind": "EMPTY",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "GSYS_K",
+          "statement": {
+            "empty": []
+          },
+          "vocabulary": {
+            "chosen_witness": false,
+            "family": "field_points",
+            "model": "GSYS_K"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-KSYZ",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-KSYZ-ID": {
+        "candidate": {
+          "context_ref": "GSYS",
+          "kind": "IDENTITY",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "GSYS",
+          "statement": null,
+          "vocabulary": {
+            "family": "coordinate_ring",
+            "model": "GSYS",
+            "origin": "AMBIENT"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-KSYZ-ID",
+        "missing": [
+          "claim.identity_expression",
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-POSSLICE": {
+        "candidate": {
+          "context_ref": "GSYS_POS",
+          "kind": "EMPTY",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "GSYS_POS",
+          "statement": {
+            "empty": []
+          },
+          "vocabulary": {
+            "chosen_witness": false,
+            "family": "field_points",
+            "model": "GSYS_POS"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-POSSLICE",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-PSLICE-COND": {
+        "candidate": {
+          "context_ref": "GERM",
+          "kind": "PREDICATE",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "GERM",
+          "statement": null,
+          "vocabulary": {
+            "family": "structured_predicate",
+            "model": "GERM"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-PSLICE-COND",
+        "missing": [
+          "claim.predicate_interpretation",
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-R9-NONEMPTY": {
+        "candidate": {
+          "context_ref": "R9_RELAXED",
+          "kind": "NONEMPTY",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "R9_RELAXED",
+          "statement": {
+            "nonempty": []
+          },
+          "vocabulary": {
+            "chosen_witness": false,
+            "family": "field_points",
+            "model": "R9_RELAXED"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-R9-NONEMPTY",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-SUB2-EMPTY": {
+        "candidate": {
+          "context_ref": "GSYS_POS",
+          "kind": "EMPTY",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "GSYS_POS",
+          "statement": {
+            "empty": []
+          },
+          "vocabulary": {
+            "chosen_witness": false,
+            "family": "field_points",
+            "model": "GSYS_POS"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-SUB2-EMPTY",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      }
+    },
+    "evidence": {
+      "certificate:CL-ATLE9-PHI": {
+        "candidate": {
+          "candidate_interpreter": "unit",
+          "claim": "CL-ATLE9-PHI",
+          "lean_type": "GrandPortage.IR.Evidence",
+          "requirement_profile": null,
+          "tag": "UNIT_IDEAL_CERT"
+        },
+        "flags": [
+          "PROFILE_FROM_TAG"
+        ],
+        "id": "certificate:CL-ATLE9-PHI",
+        "missing": [
+          "evidence.actual_requirement_discharge"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "certificate:CL-ATLE9-SYZ": {
+        "candidate": {
+          "candidate_interpreter": null,
+          "claim": "CL-ATLE9-SYZ",
+          "lean_type": "GrandPortage.IR.Evidence",
+          "requirement_profile": null,
+          "tag": "EXACT_VALUATION_COLLISION"
+        },
+        "flags": [
+          "PROFILE_FROM_TAG"
+        ],
+        "id": "certificate:CL-ATLE9-SYZ",
+        "missing": [
+          "evidence.actual_requirement_discharge"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "certificate:CL-C08": {
+        "candidate": {
+          "candidate_interpreter": null,
+          "claim": "CL-C08",
+          "lean_type": "GrandPortage.IR.Evidence",
+          "requirement_profile": null,
+          "tag": "NONSQUARE_CLASS"
+        },
+        "flags": [
+          "PROFILE_FROM_TAG"
+        ],
+        "id": "certificate:CL-C08",
+        "missing": [
+          "evidence.actual_requirement_discharge"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "certificate:CL-C20": {
+        "candidate": {
+          "candidate_interpreter": null,
+          "claim": "CL-C20",
+          "lean_type": "GrandPortage.IR.Evidence",
+          "requirement_profile": null,
+          "tag": "NONSQUARE_CLASS"
+        },
+        "flags": [
+          "PROFILE_FROM_TAG"
+        ],
+        "id": "certificate:CL-C20",
+        "missing": [
+          "evidence.actual_requirement_discharge"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "certificate:CL-KSYZ": {
+        "candidate": {
+          "candidate_interpreter": "unit",
+          "claim": "CL-KSYZ",
+          "lean_type": "GrandPortage.IR.Evidence",
+          "requirement_profile": null,
+          "tag": "UNIT_IDEAL_CERT"
+        },
+        "flags": [
+          "PROFILE_FROM_TAG"
+        ],
+        "id": "certificate:CL-KSYZ",
+        "missing": [
+          "evidence.actual_requirement_discharge"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "certificate:CL-POSSLICE": {
+        "candidate": {
+          "candidate_interpreter": null,
+          "claim": "CL-POSSLICE",
+          "lean_type": "GrandPortage.IR.Evidence",
+          "requirement_profile": null,
+          "tag": "NONZERO_RESULTANT"
+        },
+        "flags": [
+          "PROFILE_FROM_TAG"
+        ],
+        "id": "certificate:CL-POSSLICE",
+        "missing": [
+          "evidence.actual_requirement_discharge"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "certificate:CL-SUB2-EMPTY": {
+        "candidate": {
+          "candidate_interpreter": null,
+          "claim": "CL-SUB2-EMPTY",
+          "lean_type": "GrandPortage.IR.Evidence",
+          "requirement_profile": null,
+          "tag": "NONZERO_RESULTANT"
+        },
+        "flags": [
+          "PROFILE_FROM_TAG"
+        ],
+        "id": "certificate:CL-SUB2-EMPTY",
+        "missing": [
+          "evidence.actual_requirement_discharge"
+        ],
+        "status": "UNPROJECTABLE"
+      }
+    },
+    "licences": {
+      "INF-A10-SURV": {
+        "candidate": {
+          "conclusion_at": "ELIM_IMAGE",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-A10-SURV",
+              "path": [
+                [
+                  "E10",
+                  "AGAINST"
+                ]
+              ],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": false,
+          "runtime_path_licensed": false,
+          "trace": [
+            [
+              "E10",
+              "AGAINST",
+              false,
+              "a point of the Zariski closure need not lift to the image (Chevalley): 0 lies in the closure of G_m and not in G_m.  That is decisive for a WITNESS -- a claim holding a specific point -- and it is NOT decisive for an existence proof, because cl(empty) = empty, so a nonempty closure does force a nonempty image.  If this claim exhibits a point, the refusal stands and the discharge is to lift it.  If it only proves one EXISTS, declare `existential: true` and say how existence was established without a witness"
+            ]
+          ]
+        },
+        "flags": [],
+        "id": "INF-A10-SURV",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt",
+          "licence.step_justification_and_discharge",
+          "runtime.full_check_refused",
+          "runtime.transport_refused"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "INF-C08-CURRENT": {
+        "candidate": {
+          "conclusion_at": "RES08_L",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-C08",
+              "path": [],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": false,
+          "runtime_path_licensed": true,
+          "trace": []
+        },
+        "flags": [],
+        "id": "INF-C08-CURRENT",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt",
+          "runtime.full_check_refused"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "INF-C08-HIST": {
+        "candidate": {
+          "conclusion_at": "RES08_K",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-C08",
+              "path": [
+                [
+                  "E8",
+                  "ALONG"
+                ]
+              ],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": false,
+          "runtime_path_licensed": false,
+          "trace": [
+            [
+              "E8",
+              "ALONG",
+              false,
+              "BASE_EXTENSION licenses EMPTY along the extension only at scope SCHEME; this claim has scope 'Q(sqrt 17)' (certificate NONSQUARE_CLASS, which does not base-change)"
+            ]
+          ]
+        },
+        "flags": [],
+        "id": "INF-C08-HIST",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt",
+          "licence.step_justification_and_discharge",
+          "runtime.full_check_refused",
+          "runtime.transport_refused"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "INF-C20-HIST": {
+        "candidate": {
+          "conclusion_at": "RES20_K",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-C20",
+              "path": [
+                [
+                  "E9",
+                  "ALONG"
+                ]
+              ],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": false,
+          "runtime_path_licensed": false,
+          "trace": [
+            [
+              "E9",
+              "ALONG",
+              false,
+              "BASE_EXTENSION licenses EMPTY along the extension only at scope SCHEME; this claim has scope 'Q(sqrt 17)' (certificate NONSQUARE_CLASS, which does not base-change)"
+            ]
+          ]
+        },
+        "flags": [],
+        "id": "INF-C20-HIST",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt",
+          "licence.step_justification_and_discharge",
+          "runtime.full_check_refused",
+          "runtime.transport_refused"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "INF-G4-MONO": {
+        "candidate": {
+          "conclusion_at": "GSYS_POS_G4",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-SUB2-EMPTY",
+              "path": [
+                [
+                  "E5b",
+                  "AGAINST"
+                ]
+              ],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": true,
+          "runtime_path_licensed": true,
+          "trace": [
+            [
+              "E5b",
+              "AGAINST",
+              true,
+              "licensed by NECESSARY_CONDITION/AGAINST/EMPTY"
+            ]
+          ]
+        },
+        "flags": [],
+        "id": "INF-G4-MONO",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt",
+          "licence.step_justification_and_discharge"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "INF-KSYZ": {
+        "candidate": {
+          "conclusion_at": "GSYS",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-KSYZ",
+              "path": [
+                [
+                  "E3",
+                  "ALONG"
+                ]
+              ],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": true,
+          "runtime_path_licensed": true,
+          "trace": [
+            [
+              "E3",
+              "ALONG",
+              true,
+              "licensed by EQUIVALENCE/ALONG/EMPTY"
+            ]
+          ]
+        },
+        "flags": [],
+        "id": "INF-KSYZ",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt",
+          "licence.step_justification_and_discharge"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "INF-KSYZ-REV": {
+        "candidate": {
+          "conclusion_at": "GSYS_K",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-KSYZ-ID",
+              "path": [
+                [
+                  "E3",
+                  "AGAINST"
+                ]
+              ],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": false,
+          "runtime_path_licensed": false,
+          "trace": [
+            [
+              "E3",
+              "AGAINST",
+              false,
+              "this EQUIVALENCE is not declared a ring isomorphism.  The converse that earns an EQUIVALENCE is evidence about POINTS, and an identity is a statement about FUNCTIONS: V(x^2) and V(x) have the same single point and any converse you like, yet `x = 0` holds in one coordinate ring and is false in the other.  Saturation and radicalization are exactly this step"
+            ]
+          ]
+        },
+        "flags": [],
+        "id": "INF-KSYZ-REV",
+        "missing": [
+          "claim.identity_expression",
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt",
+          "licence.step_justification_and_discharge",
+          "runtime.full_check_refused",
+          "runtime.transport_refused"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "INF-POSSLICE": {
+        "candidate": {
+          "conclusion_at": "GERM",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-POSSLICE",
+              "path": [
+                [
+                  "E6",
+                  "AGAINST"
+                ]
+              ],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": true,
+          "runtime_path_licensed": true,
+          "trace": [
+            [
+              "E6",
+              "AGAINST",
+              true,
+              "licensed by NECESSARY_CONDITION/AGAINST/EMPTY"
+            ]
+          ]
+        },
+        "flags": [],
+        "id": "INF-POSSLICE",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt",
+          "licence.step_justification_and_discharge"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "INF-R9": {
+        "candidate": {
+          "conclusion_at": "R9_RELAXED",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-R9-NONEMPTY",
+              "path": [],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": true,
+          "runtime_path_licensed": true,
+          "trace": []
+        },
+        "flags": [],
+        "id": "INF-R9",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "INF-SLICEPHI": {
+        "candidate": {
+          "conclusion_at": "SLICEPHI",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-PSLICE-COND",
+              "path": [
+                [
+                  "E12",
+                  "ALONG"
+                ]
+              ],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": false,
+          "runtime_path_licensed": false,
+          "trace": [
+            [
+              "E12",
+              "ALONG",
+              false,
+              "NECESSARY_CONDITION does NOT license PREDICATE in the ALONG direction"
+            ]
+          ]
+        },
+        "flags": [],
+        "id": "INF-SLICEPHI",
+        "missing": [
+          "claim.predicate_interpretation",
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt",
+          "licence.step_justification_and_discharge",
+          "runtime.full_check_refused",
+          "runtime.transport_refused"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "INF-SLICEPHI-KILL": {
+        "candidate": {
+          "conclusion_at": "GERM",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-ATLE9-PHI",
+              "path": [
+                [
+                  "E12",
+                  "AGAINST"
+                ]
+              ],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": true,
+          "runtime_path_licensed": true,
+          "trace": [
+            [
+              "E12",
+              "AGAINST",
+              true,
+              "licensed by NECESSARY_CONDITION/AGAINST/EMPTY"
+            ]
+          ]
+        },
+        "flags": [],
+        "id": "INF-SLICEPHI-KILL",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt",
+          "licence.step_justification_and_discharge"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "INF-SYZCOLL": {
+        "candidate": {
+          "conclusion_at": "GERM",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-ATLE9-SYZ",
+              "path": [
+                [
+                  "E13",
+                  "AGAINST"
+                ]
+              ],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": true,
+          "runtime_path_licensed": true,
+          "trace": [
+            [
+              "E13",
+              "AGAINST",
+              true,
+              "licensed by NECESSARY_CONDITION/AGAINST/EMPTY"
+            ]
+          ]
+        },
+        "flags": [],
+        "id": "INF-SYZCOLL",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt",
+          "licence.step_justification_and_discharge"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "INF-SYZCOLL-DICT": {
+        "candidate": {
+          "conclusion_at": "SYZCOLL",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-DICT",
+              "path": [
+                [
+                  "E13",
+                  "ALONG"
+                ]
+              ],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": true,
+          "runtime_path_licensed": true,
+          "trace": [
+            [
+              "E13",
+              "ALONG",
+              true,
+              "licensed: the rewriting is AMBIENT -- it holds in the shared coordinate ring and never depended on the source model's equations, so it survives forgetting them"
+            ]
+          ]
+        },
+        "flags": [],
+        "id": "INF-SYZCOLL-DICT",
+        "missing": [
+          "claim.identity_expression",
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt",
+          "licence.step_justification_and_discharge"
+        ],
+        "status": "UNPROJECTABLE"
+      }
+    },
+    "models": {
+      "CASCADE": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "CASCADE",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "CASCADE",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "ELIM_CLOSURE": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "ELIM_CLOSURE",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "ELIM_CLOSURE",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "ELIM_IMAGE": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "ELIM_IMAGE",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "ELIM_IMAGE",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "GERM": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "GERM",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "GERM",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "GSYS": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "GSYS",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "GSYS",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "GSYS_G4": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "GSYS_G4",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "GSYS_G4",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "GSYS_K": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "GSYS_K",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "GSYS_K",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "GSYS_POS": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "GSYS_POS",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "GSYS_POS",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "GSYS_POS_G4": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "GSYS_POS_G4",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "GSYS_POS_G4",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "GSYS_RL": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "GSYS_RL",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "GSYS_RL",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "R9_RELAXED": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "R9_RELAXED",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "R9_RELAXED",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "RES08_K": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "RES08_K",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "RES08_K",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "RES08_L": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "RES08_L",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "RES08_L",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "RES20_K": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "RES20_K",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "RES20_K",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "RES20_L": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "RES20_L",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "RES20_L",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "SLICEPHI": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "SLICEPHI",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "SLICEPHI",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "SYZCOLL": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "SYZCOLL",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "SYZCOLL",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "WINDOW": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "WINDOW",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "WINDOW",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      }
+    },
+    "steps": {
+      "E1": {
+        "candidate": {
+          "lean_type": "GrandPortage.IR.Step",
+          "map_kind": "RATIONAL",
+          "profile": [
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "ambient_identity",
+              "kind": "IDENTITY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "map_polynomial",
+              "kind": "IDENTITY"
+            }
+          ],
+          "profile_semantics": "kernel rule conjoined with referenced contextual gate functions",
+          "relation_class": "NECESSARY_CONDITION",
+          "source": "GERM",
+          "target": "WINDOW"
+        },
+        "flags": [
+          "CONDITIONAL_PROFILE_FROM_CODE",
+          "NO_PRESERVATION_PROOF_PROJECTED"
+        ],
+        "id": "E1",
+        "missing": [],
+        "status": "PROJECTABLE"
+      },
+      "E10": {
+        "candidate": {
+          "lean_type": "GrandPortage.IR.Step",
+          "map_kind": "IDENTITY_MAP",
+          "profile": [
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "closed_exact_image",
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "exact_image_identity",
+              "kind": "IDENTITY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "existential",
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "map_polynomial",
+              "kind": "IDENTITY"
+            }
+          ],
+          "profile_semantics": "kernel rule conjoined with referenced contextual gate functions",
+          "relation_class": "IMAGE_CLOSURE",
+          "source": "ELIM_IMAGE",
+          "target": "ELIM_CLOSURE"
+        },
+        "flags": [
+          "CONDITIONAL_PROFILE_FROM_CODE",
+          "NO_PRESERVATION_PROOF_PROJECTED"
+        ],
+        "id": "E10",
+        "missing": [],
+        "status": "PROJECTABLE"
+      },
+      "E11": {
+        "candidate": {
+          "lean_type": "GrandPortage.IR.Step",
+          "map_kind": "IDENTITY_MAP",
+          "profile": [
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "closed_exact_image",
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "exact_image_identity",
+              "kind": "IDENTITY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "existential",
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "map_polynomial",
+              "kind": "IDENTITY"
+            }
+          ],
+          "profile_semantics": "kernel rule conjoined with referenced contextual gate functions",
+          "relation_class": "IMAGE_CLOSURE",
+          "source": "GERM",
+          "target": "R9_RELAXED"
+        },
+        "flags": [
+          "CONDITIONAL_PROFILE_FROM_CODE",
+          "NO_PRESERVATION_PROOF_PROJECTED"
+        ],
+        "id": "E11",
+        "missing": [],
+        "status": "PROJECTABLE"
+      },
+      "E12": {
+        "candidate": {
+          "lean_type": "GrandPortage.IR.Step",
+          "map_kind": "RATIONAL",
+          "profile": [
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "ambient_identity",
+              "kind": "IDENTITY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "map_polynomial",
+              "kind": "IDENTITY"
+            }
+          ],
+          "profile_semantics": "kernel rule conjoined with referenced contextual gate functions",
+          "relation_class": "NECESSARY_CONDITION",
+          "source": "GERM",
+          "target": "SLICEPHI"
+        },
+        "flags": [
+          "CONDITIONAL_PROFILE_FROM_CODE",
+          "NO_PRESERVATION_PROOF_PROJECTED"
+        ],
+        "id": "E12",
+        "missing": [],
+        "status": "PROJECTABLE"
+      },
+      "E13": {
+        "candidate": {
+          "lean_type": "GrandPortage.IR.Step",
+          "map_kind": "POLYNOMIAL",
+          "profile": [
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "ambient_identity",
+              "kind": "IDENTITY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "map_polynomial",
+              "kind": "IDENTITY"
+            }
+          ],
+          "profile_semantics": "kernel rule conjoined with referenced contextual gate functions",
+          "relation_class": "NECESSARY_CONDITION",
+          "source": "GERM",
+          "target": "SYZCOLL"
+        },
+        "flags": [
+          "CONDITIONAL_PROFILE_FROM_CODE",
+          "NO_PRESERVATION_PROOF_PROJECTED"
+        ],
+        "id": "E13",
+        "missing": [],
+        "status": "PROJECTABLE"
+      },
+      "E2": {
+        "candidate": {
+          "lean_type": "GrandPortage.IR.Step",
+          "map_kind": "RATIONAL",
+          "profile": [
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "ambient_identity",
+              "kind": "IDENTITY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "map_polynomial",
+              "kind": "IDENTITY"
+            }
+          ],
+          "profile_semantics": "kernel rule conjoined with referenced contextual gate functions",
+          "relation_class": "NECESSARY_CONDITION",
+          "source": "WINDOW",
+          "target": "GSYS"
+        },
+        "flags": [
+          "CONDITIONAL_PROFILE_FROM_CODE",
+          "NO_PRESERVATION_PROOF_PROJECTED"
+        ],
+        "id": "E2",
+        "missing": [],
+        "status": "PROJECTABLE"
+      },
+      "E3": {
+        "candidate": {
+          "lean_type": "GrandPortage.IR.Step",
+          "map_kind": "POLYNOMIAL",
+          "profile": [
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "selected_embedding_identity",
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "ring_isomorphism",
+              "kind": "IDENTITY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "selected_embedding_identity",
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "ring_isomorphism",
+              "kind": "IDENTITY"
+            }
+          ],
+          "profile_semantics": "kernel rule conjoined with referenced contextual gate functions",
+          "relation_class": "EQUIVALENCE",
+          "source": "GSYS_K",
+          "target": "GSYS"
+        },
+        "flags": [
+          "CONDITIONAL_PROFILE_FROM_CODE",
+          "NO_PRESERVATION_PROOF_PROJECTED"
+        ],
+        "id": "E3",
+        "missing": [],
+        "status": "PROJECTABLE"
+      },
+      "E4": {
+        "candidate": {
+          "lean_type": "GrandPortage.IR.Step",
+          "map_kind": "IDENTITY_MAP",
+          "profile": [
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "ambient_identity",
+              "kind": "IDENTITY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "map_polynomial",
+              "kind": "IDENTITY"
+            }
+          ],
+          "profile_semantics": "kernel rule conjoined with referenced contextual gate functions",
+          "relation_class": "NECESSARY_CONDITION",
+          "source": "GSYS_G4",
+          "target": "GSYS"
+        },
+        "flags": [
+          "CONDITIONAL_PROFILE_FROM_CODE",
+          "NO_PRESERVATION_PROOF_PROJECTED"
+        ],
+        "id": "E4",
+        "missing": [],
+        "status": "PROJECTABLE"
+      },
+      "E5": {
+        "candidate": {
+          "lean_type": "GrandPortage.IR.Step",
+          "map_kind": "IDENTITY_MAP",
+          "profile": [
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "ambient_identity",
+              "kind": "IDENTITY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "map_polynomial",
+              "kind": "IDENTITY"
+            }
+          ],
+          "profile_semantics": "kernel rule conjoined with referenced contextual gate functions",
+          "relation_class": "NECESSARY_CONDITION",
+          "source": "GSYS_POS",
+          "target": "GSYS"
+        },
+        "flags": [
+          "CONDITIONAL_PROFILE_FROM_CODE",
+          "NO_PRESERVATION_PROOF_PROJECTED"
+        ],
+        "id": "E5",
+        "missing": [],
+        "status": "PROJECTABLE"
+      },
+      "E5b": {
+        "candidate": {
+          "lean_type": "GrandPortage.IR.Step",
+          "map_kind": "IDENTITY_MAP",
+          "profile": [
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "ambient_identity",
+              "kind": "IDENTITY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "map_polynomial",
+              "kind": "IDENTITY"
+            }
+          ],
+          "profile_semantics": "kernel rule conjoined with referenced contextual gate functions",
+          "relation_class": "NECESSARY_CONDITION",
+          "source": "GSYS_POS_G4",
+          "target": "GSYS_POS"
+        },
+        "flags": [
+          "CONDITIONAL_PROFILE_FROM_CODE",
+          "NO_PRESERVATION_PROOF_PROJECTED"
+        ],
+        "id": "E5b",
+        "missing": [],
+        "status": "PROJECTABLE"
+      },
+      "E6": {
+        "candidate": {
+          "lean_type": "GrandPortage.IR.Step",
+          "map_kind": "RATIONAL",
+          "profile": [
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "ambient_identity",
+              "kind": "IDENTITY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "map_polynomial",
+              "kind": "IDENTITY"
+            }
+          ],
+          "profile_semantics": "kernel rule conjoined with referenced contextual gate functions",
+          "relation_class": "NECESSARY_CONDITION",
+          "source": "GERM",
+          "target": "GSYS_POS"
+        },
+        "flags": [
+          "CONDITIONAL_PROFILE_FROM_CODE",
+          "NO_PRESERVATION_PROOF_PROJECTED"
+        ],
+        "id": "E6",
+        "missing": [],
+        "status": "PROJECTABLE"
+      },
+      "E7": {
+        "candidate": {
+          "lean_type": "GrandPortage.IR.Step",
+          "map_kind": "IDENTITY_MAP",
+          "profile": [
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "ambient_identity",
+              "kind": "IDENTITY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "map_polynomial",
+              "kind": "IDENTITY"
+            }
+          ],
+          "profile_semantics": "kernel rule conjoined with referenced contextual gate functions",
+          "relation_class": "NECESSARY_CONDITION",
+          "source": "GSYS",
+          "target": "CASCADE"
+        },
+        "flags": [
+          "CONDITIONAL_PROFILE_FROM_CODE",
+          "NO_PRESERVATION_PROOF_PROJECTED"
+        ],
+        "id": "E7",
+        "missing": [],
+        "status": "PROJECTABLE"
+      },
+      "E8": {
+        "candidate": {
+          "lean_type": "GrandPortage.IR.Step",
+          "map_kind": "IDENTITY_MAP",
+          "profile": [
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "scheme_scope",
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "IDENTITY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "coefficients_in_base",
+              "kind": "IDENTITY"
+            }
+          ],
+          "profile_semantics": "kernel rule conjoined with referenced contextual gate functions",
+          "relation_class": "BASE_EXTENSION",
+          "source": "RES08_L",
+          "target": "RES08_K"
+        },
+        "flags": [
+          "CONDITIONAL_PROFILE_FROM_CODE",
+          "NO_PRESERVATION_PROOF_PROJECTED"
+        ],
+        "id": "E8",
+        "missing": [],
+        "status": "PROJECTABLE"
+      },
+      "E9": {
+        "candidate": {
+          "lean_type": "GrandPortage.IR.Step",
+          "map_kind": "IDENTITY_MAP",
+          "profile": [
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "scheme_scope",
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "IDENTITY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "coefficients_in_base",
+              "kind": "IDENTITY"
+            }
+          ],
+          "profile_semantics": "kernel rule conjoined with referenced contextual gate functions",
+          "relation_class": "BASE_EXTENSION",
+          "source": "RES20_L",
+          "target": "RES20_K"
+        },
+        "flags": [
+          "CONDITIONAL_PROFILE_FROM_CODE",
+          "NO_PRESERVATION_PROOF_PROJECTED"
+        ],
+        "id": "E9",
+        "missing": [],
+        "status": "PROJECTABLE"
+      },
+      "E9b": {
+        "candidate": {
+          "lean_type": "GrandPortage.IR.Step",
+          "map_kind": "IDENTITY_MAP",
+          "profile": [
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "scheme_scope",
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "ALONG",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "IDENTITY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_certificate",
+                "check._field_transport_decision"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "EMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.check_unexhibited_witness"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": false,
+              "kind": "NONEMPTY"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check._field_transport_decision",
+                "check.effective_selected_embedding_identity",
+                "check.condition_expressible_at",
+                "check.structured_condition_closed",
+                "check.effective_geometric_closure",
+                "check.effective_point_surjective",
+                "check.pullback_condition_across_edge",
+                "check.rewrite_condition_across_equivalence"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": true,
+              "kind": "PREDICATE"
+            },
+            {
+              "direction": "AGAINST",
+              "discharge": "UNKNOWN",
+              "gates": [
+                "check.effective_origin",
+                "check.effective_ring_iso",
+                "check.effective_exact_contraction",
+                "check.check_coefficients_in_base",
+                "check.check_integral",
+                "check.check_inexpressible"
+              ],
+              "justification": "NOT_PROJECTED",
+              "kernel_rule": "coefficients_in_base",
+              "kind": "IDENTITY"
+            }
+          ],
+          "profile_semantics": "kernel rule conjoined with referenced contextual gate functions",
+          "relation_class": "BASE_EXTENSION",
+          "source": "GSYS_RL",
+          "target": "GSYS"
+        },
+        "flags": [
+          "CONDITIONAL_PROFILE_FROM_CODE",
+          "NO_PRESERVATION_PROOF_PROJECTED"
+        ],
+        "id": "E9b",
+        "missing": [],
+        "status": "PROJECTABLE"
+      }
+    }
+  },
+  "counts": {
+    "bindings": {},
+    "claims": {
+      "UNPROJECTABLE": 14
+    },
+    "evidence": {
+      "UNPROJECTABLE": 7
+    },
+    "licences": {
+      "UNPROJECTABLE": 13
+    },
+    "models": {
+      "UNPROJECTABLE": 18
+    },
+    "steps": {
+      "PROJECTABLE": 15
+    }
+  },
+  "graph_effect": "NONE",
+  "missing_model_context_fraction": 1.0,
+  "native_binary_identity_rechecked": false,
+  "profile_from_tag": {
+    "count": 7,
+    "denominator": 7,
+    "rate": 1.0
+  },
+  "reason_counts": {
+    "claim.identity_expression": 4,
+    "claim.predicate_interpretation": 2,
+    "context.about": 45,
+    "context.characteristic": 45,
+    "context.coefficient_domain": 45,
+    "context.generators": 45,
+    "context.point_universe": 45,
+    "context.ring_vars": 45,
+    "evidence.actual_requirement_discharge": 7,
+    "licence.leaf_receipt": 13,
+    "licence.step_justification_and_discharge": 11,
+    "runtime.full_check_refused": 6,
+    "runtime.transport_refused": 5
+  },
+  "schema": "grand-portage-ir-v2-projection/v0",
+  "source": {
+    "adapter": "stored events (no inferred meta or context)",
+    "hash_encoding": "source bytes with CRLF normalized to LF",
+    "path": "fixtures/jc2/graph.jsonl",
+    "sha256": "0106dfd0ec7a69ec9acc6b6c384b730ea29acf71d42e4cf192b2813910121346"
+  },
+  "source_graph_format": 0,
+  "state_fingerprint": "sha256:6cb5cf48ef6efa80bcde37691e87957e3e25a0c6e36883aeca885e16b627101c",
+  "stop_for_missing_context": true,
+  "strict_format8_input": false
+}

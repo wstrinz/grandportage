@@ -1,0 +1,72 @@
+{
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "categories": {
+    "bindings": {},
+    "claims": {},
+    "evidence": {},
+    "licences": {},
+    "models": {
+      "M": {
+        "candidate": {
+          "about": null,
+          "characteristic": null,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "M",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "M",
+        "missing": [
+          "context.about",
+          "context.characteristic",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      }
+    },
+    "steps": {}
+  },
+  "counts": {
+    "bindings": {},
+    "claims": {},
+    "evidence": {},
+    "licences": {},
+    "models": {
+      "UNPROJECTABLE": 1
+    },
+    "steps": {}
+  },
+  "graph_effect": "NONE",
+  "missing_model_context_fraction": 1.0,
+  "native_binary_identity_rechecked": false,
+  "profile_from_tag": {
+    "count": 0,
+    "denominator": 0,
+    "rate": null
+  },
+  "reason_counts": {
+    "context.about": 1,
+    "context.characteristic": 1,
+    "context.coefficient_domain": 1,
+    "context.generators": 1,
+    "context.point_universe": 1,
+    "context.ring_vars": 1
+  },
+  "schema": "grand-portage-ir-v2-projection/v0",
+  "source": {
+    "adapter": "Cloquet/Match4 existing literal regression; not a complete campaign ledger",
+    "hash_encoding": "source bytes with CRLF normalized to LF",
+    "path": "tests/test_match4_hardening.py",
+    "sha256": "592d07cdd3ba73cc89abf736576009877a2ea2e110785dfb6b4535f681eadbaf"
+  },
+  "source_graph_format": 8,
+  "state_fingerprint": "sha256:4f5045b571647fc5b04752fff75559d4fd5191850f9e0ae85256de636719b415",
+  "stop_for_missing_context": true,
+  "strict_format8_input": true
+}

@@ -6,7 +6,7 @@ through v0.18 is preserved in `HISTORY/REVIEW-through-v0.18.md`.
 **Version <!--version-->0.35.0<!--/version-->, graph format
 <!--graph-format-->8<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->12<!--/kernel-epoch-->, and
-<!--checks-->1762<!--/checks--> collected checks.**
+<!--checks-->1771<!--/checks--> collected checks.**
 
 ## Highest-risk claim
 
@@ -126,6 +126,16 @@ also reads the current identity when aggregating. An argv cache cannot detect
 binary replacement at that path. Before adding automatic probe retries, require
 per-execution identity agreement, mixed-trace refusal, and retained controls for
 replacement/recovery. No retry-policy or native-authority change is made here.
+
+## Read-only IR-v2 experiment
+
+Attack `project_v2` for invented context, manufactured requirement discharge,
+process-level identity copied into per-execution slots, and stale receipts
+reported current. Its JSON is DERIVED_READ_MODEL_ONLY with graph effect NONE;
+PROJECTABLE is a data skeleton, never an earned runtime licence. Check both
+Lean-name dictionaries for drift and distinguish UNKNOWN from countermodels.
+The corpus triggers the missing-context stopping condition, so no epoch/format
+recommendation follows from this run. See docs/IR-V2-PROJECTION-REPORT.md.
 
 ## 1. Authority binding
 

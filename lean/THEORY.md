@@ -112,3 +112,27 @@ open. Runtime disagreement is a finding; Lean is not the source of authority.
   The Python parser, rational normalization, and general field libraries remain
   outside the proof. `InterpreterParity.lean` serializes this exact example for
   Python replay and comparison with the graph fixture.
+
+
+## 2026-09-13: three interfaces and read-only IR v2
+
+`CancellationInterpreter.lean` proves syntactic cancellation/contradiction and
+retains Z/4 with the same Laws as its deletion countermodel. The structural
+profiles U (nontrivial), O (SOS Ordering), Z (no zero divisors) have U < O and
+Z incomparable with both: the product of integers, F2 and zero algebra prove
+the non-implications. O is not a standard LinearOrderedField interface. A pinned
+Mathlib adapter would connect these small interfaces to standard fields/rings;
+none is imported into this core. No novelty claim is made for these elementary
+arguments. See docs/REQUIREMENT-PROFILES-V0.md for the exact order convention.
+
+`IR.lean` parameterizes model-indexed vocabulary and conditional profiles. Its
+licence soundness is induction under explicit leaf/step semantic, replay and
+binding hypotheses, not verification of Python. Loss means computed lack of
+admitted transport with current premises, not semantic reconstruction loss.
+RequirementChecks/IRChecks mechanically check the dictionary declaration names;
+Python tests prevent those generated dictionaries from drifting.
+
+The read-only corpus projection reaches the packet's missing-context stop
+condition (72/73 models), so no format/epoch recommendation is issued. Legacy
+fixture coverage and unsupported IR adapters are confounders. No runtime
+transport, verifier, binder or authority registry changes were made.

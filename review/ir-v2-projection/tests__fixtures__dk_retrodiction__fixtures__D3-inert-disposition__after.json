@@ -1,0 +1,108 @@
+{
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "categories": {
+    "bindings": {},
+    "claims": {
+      "C-COUNT": {
+        "candidate": {
+          "context_ref": null,
+          "kind": "PREDICATE",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": null,
+          "statement": null,
+          "vocabulary": {
+            "family": "structured_predicate",
+            "model": null
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "C-COUNT",
+        "missing": [
+          "claim.algebraic_model_context",
+          "claim.predicate_interpretation"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "C-SPLIT": {
+        "candidate": {
+          "context_ref": null,
+          "kind": "COUNT",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": null,
+          "statement": null,
+          "vocabulary": null
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "C-SPLIT",
+        "missing": [
+          "claim.algebraic_model_context",
+          "claim.kind_adapter:COUNT"
+        ],
+        "status": "UNPROJECTABLE"
+      }
+    },
+    "evidence": {
+      "evidence:EV": {
+        "candidate": {
+          "for": "C-COUNT",
+          "lean_type": "GrandPortage.IR.Evidence",
+          "method": "ENUMERATION"
+        },
+        "flags": [],
+        "id": "evidence:EV",
+        "missing": [
+          "binding.replay_receipt",
+          "evidence.actual_requirement_discharge",
+          "evidence.interpreter"
+        ],
+        "status": "UNPROJECTABLE"
+      }
+    },
+    "licences": {},
+    "models": {},
+    "steps": {}
+  },
+  "counts": {
+    "bindings": {},
+    "claims": {
+      "UNPROJECTABLE": 2
+    },
+    "evidence": {
+      "UNPROJECTABLE": 1
+    },
+    "licences": {},
+    "models": {},
+    "steps": {}
+  },
+  "graph_effect": "NONE",
+  "missing_model_context_fraction": null,
+  "native_binary_identity_rechecked": false,
+  "profile_from_tag": {
+    "count": 0,
+    "denominator": 0,
+    "rate": null
+  },
+  "reason_counts": {
+    "binding.replay_receipt": 1,
+    "claim.algebraic_model_context": 2,
+    "claim.kind_adapter:COUNT": 1,
+    "claim.predicate_interpretation": 1,
+    "evidence.actual_requirement_discharge": 1,
+    "evidence.interpreter": 1
+  },
+  "schema": "grand-portage-ir-v2-projection/v0",
+  "source": {
+    "adapter": "stored events (no inferred meta or context)",
+    "hash_encoding": "source bytes with CRLF normalized to LF",
+    "path": "tests/fixtures/dk_retrodiction/fixtures/D3-inert-disposition/after.json",
+    "sha256": "4c45f1d6a945a51da173ec1b70ab13cba314409b51ba833aa95b745482149f35"
+  },
+  "source_graph_format": 0,
+  "state_fingerprint": "sha256:0f9eacf49e600333ed3c13106944b71a60a5b9057478342db86d2ce7c6e72311",
+  "stop_for_missing_context": false,
+  "strict_format8_input": false
+}

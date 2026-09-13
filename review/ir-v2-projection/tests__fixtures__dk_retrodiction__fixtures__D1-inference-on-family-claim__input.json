@@ -1,0 +1,16 @@
+{
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "graph_effect": "NONE",
+  "load_error": "inference 'INF' premise 0 cites PREDICATE claim 'C-COUNT' at family 'F' without an explicit family_bridge. DISCHARGE: retain the family claim and its enumeration debt, then declare a checked family_bridge to one exhibited proved member, or keep the required model claim as an open slot.",
+  "missing": [
+    "loadable_graph"
+  ],
+  "schema": "grand-portage-ir-v2-projection/v0",
+  "source": {
+    "adapter": "stored events (no inferred meta or context)",
+    "hash_encoding": "source bytes with CRLF normalized to LF",
+    "path": "tests/fixtures/dk_retrodiction/fixtures/D1-inference-on-family-claim/input.json",
+    "sha256": "023ae70cb544e795fa78710a629886d4f25e0193b50f41c4df30938ebd97e591"
+  },
+  "status": "UNPROJECTABLE"
+}

@@ -28,3 +28,7 @@ import GrandPortage.SelectedEmbedding
 
 import GrandPortage.ExpressionTransport
 import GrandPortage.UnitInterpreter
+import GrandPortage.CancellationInterpreter
+import GrandPortage.RequirementChecks
+import GrandPortage.IR
+import GrandPortage.IRChecks

@@ -1,0 +1,24 @@
+import GrandPortage.CancellationInterpreter
+
+#check GrandPortage.CertificateInterpreter.cancel_derivation
+#check GrandPortage.CertificateInterpreter.cancellation_contradiction
+#check GrandPortage.CertificateInterpreter.cancellation_deletion_countermodel
+#check GrandPortage.CertificateInterpreter.certificate_empty
+#check GrandPortage.CertificateInterpreter.integer_domain
+#check GrandPortage.CertificateInterpreter.modFour_laws
+#check GrandPortage.CertificateInterpreter.modFour_not_no_zero_divisors
+#check GrandPortage.CertificateInterpreter.modTwo_domain
+#check GrandPortage.CertificateInterpreter.modTwo_laws
+#check GrandPortage.CertificateInterpreter.modTwo_not_ordered
+#check GrandPortage.CertificateInterpreter.modTwo_sos_countermodel
+#check GrandPortage.CertificateInterpreter.nontriviality_deletion_countermodel
+#check GrandPortage.CertificateInterpreter.ordered_nontrivial
+#check GrandPortage.CertificateInterpreter.product_laws
+#check GrandPortage.CertificateInterpreter.product_not_domain
+#check GrandPortage.CertificateInterpreter.product_order
+#check GrandPortage.CertificateInterpreter.sample_derivation
+#check GrandPortage.CertificateInterpreter.unit_certificate_empty
+#check GrandPortage.CertificateInterpreter.unit_sample_derivation
+#check GrandPortage.CertificateInterpreter.zeroAlgebra_laws
+#check GrandPortage.CertificateInterpreter.zeroAlgebra_no_zero_divisors
+#check GrandPortage.CertificateInterpreter.zeroAlgebra_not_nontrivial

@@ -1,0 +1,333 @@
+{
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "categories": {
+    "bindings": {},
+    "claims": {
+      "CL-E3B": {
+        "candidate": {
+          "context_ref": "M-23-4-REAL",
+          "kind": "PREDICATE",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "M-23-4-REAL",
+          "statement": null,
+          "vocabulary": {
+            "family": "structured_predicate",
+            "model": "M-23-4-REAL"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-E3B",
+        "missing": [
+          "claim.predicate_interpretation",
+          "context.about",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-E5-DECLARED": {
+        "candidate": {
+          "context_ref": "M-23-4-REAL",
+          "kind": "PREDICATE",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "M-23-4-REAL",
+          "statement": null,
+          "vocabulary": {
+            "family": "structured_predicate",
+            "model": "M-23-4-REAL"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-E5-DECLARED",
+        "missing": [
+          "claim.predicate_interpretation",
+          "context.about",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-E5A": {
+        "candidate": {
+          "context_ref": "M-23-4-REAL",
+          "kind": "PREDICATE",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "M-23-4-REAL",
+          "statement": null,
+          "vocabulary": {
+            "family": "structured_predicate",
+            "model": "M-23-4-REAL"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-E5A",
+        "missing": [
+          "claim.predicate_interpretation",
+          "context.about",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-E5B": {
+        "candidate": {
+          "context_ref": "M-23-4-REAL",
+          "kind": "PREDICATE",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "M-23-4-REAL",
+          "statement": null,
+          "vocabulary": {
+            "family": "structured_predicate",
+            "model": "M-23-4-REAL"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-E5B",
+        "missing": [
+          "claim.predicate_interpretation",
+          "context.about",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "CL-E5C": {
+        "candidate": {
+          "context_ref": "M-23-4-REAL",
+          "kind": "PREDICATE",
+          "lean_type": "GrandPortage.IR.Claim",
+          "model": "M-23-4-REAL",
+          "statement": null,
+          "vocabulary": {
+            "family": "structured_predicate",
+            "model": "M-23-4-REAL"
+          }
+        },
+        "flags": [
+          "VOCABULARY_INDEX_FROM_EXISTING_FIELDS"
+        ],
+        "id": "CL-E5C",
+        "missing": [
+          "claim.predicate_interpretation",
+          "context.about",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      }
+    },
+    "evidence": {},
+    "licences": {
+      "INF-X10": {
+        "candidate": {
+          "conclusion_at": "M-23-4-REAL",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-E5A",
+              "path": [],
+              "receipts": []
+            },
+            {
+              "claim": "CL-E5B",
+              "path": [],
+              "receipts": []
+            },
+            {
+              "claim": "CL-E5C",
+              "path": [],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": false,
+          "runtime_path_licensed": false,
+          "trace": [
+            [
+              "(missing)",
+              "PREMISE",
+              false,
+              "this argument needs a PREDICATE claim at M-23-4-REAL and the graph has none: E5-gap, the generative bridge: that every fence-valid type produced by E5a-c is present in the frozen 5,299-pin corpus. E5-argument.md section 5 declines to certify it and names the missing same-method n=22 census retrodiction. This is the SOLE open obligation under E5."
+            ]
+          ]
+        },
+        "flags": [],
+        "id": "INF-X10",
+        "missing": [
+          "claim.predicate_interpretation",
+          "context.about",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt",
+          "licence.premise_claim",
+          "licence.step_justification_and_discharge",
+          "runtime.full_check_refused",
+          "runtime.transport_refused"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "INF-X8": {
+        "candidate": {
+          "conclusion_at": "M-23-4-REAL",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-E3B",
+              "path": [],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": false,
+          "runtime_path_licensed": false,
+          "trace": [
+            [
+              "(missing)",
+              "PREMISE",
+              false,
+              "this argument needs a PREDICATE claim at M-23-4-REAL and the graph has none: X8 cites E4 (exactly 2 of the 5,395 actions realizable) and E3b and stops. E5 -- that the 5,395-action census is COMPLETE -- is not among the premises and is not in this graph as a settled claim. Without it, 'exactly 2 of the census' does not become 'exactly 2 in the world'. E4 itself is a COUNT claim at a family and cannot be cited as a premise at all in GP 0.31.2 (defects/D1)."
+            ]
+          ]
+        },
+        "flags": [],
+        "id": "INF-X8",
+        "missing": [
+          "claim.predicate_interpretation",
+          "context.about",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt",
+          "licence.premise_claim",
+          "licence.step_justification_and_discharge",
+          "runtime.full_check_refused",
+          "runtime.transport_refused"
+        ],
+        "status": "UNPROJECTABLE"
+      },
+      "INF-X9": {
+        "candidate": {
+          "conclusion_at": "M-23-4-REAL",
+          "lean_type": "GrandPortage.IR.Licence",
+          "premises": [
+            {
+              "claim": "CL-E3B",
+              "path": [],
+              "receipts": []
+            },
+            {
+              "claim": "CL-E5-DECLARED",
+              "path": [],
+              "receipts": []
+            }
+          ],
+          "runtime_licensed": true,
+          "runtime_path_licensed": true,
+          "trace": []
+        },
+        "flags": [],
+        "id": "INF-X9",
+        "missing": [
+          "claim.predicate_interpretation",
+          "context.about",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars",
+          "licence.leaf_receipt"
+        ],
+        "status": "UNPROJECTABLE"
+      }
+    },
+    "models": {
+      "M-23-4-REAL": {
+        "candidate": {
+          "about": null,
+          "characteristic": 0,
+          "coefficient_domain": null,
+          "lean_type": "GrandPortage.IR.Context",
+          "model": "M-23-4-REAL",
+          "point_universe": null,
+          "ring_variables": null,
+          "selected": null
+        },
+        "flags": [],
+        "id": "M-23-4-REAL",
+        "missing": [
+          "context.about",
+          "context.coefficient_domain",
+          "context.generators",
+          "context.point_universe",
+          "context.ring_vars"
+        ],
+        "status": "UNPROJECTABLE"
+      }
+    },
+    "steps": {}
+  },
+  "counts": {
+    "bindings": {},
+    "claims": {
+      "UNPROJECTABLE": 5
+    },
+    "evidence": {},
+    "licences": {
+      "UNPROJECTABLE": 3
+    },
+    "models": {
+      "UNPROJECTABLE": 1
+    },
+    "steps": {}
+  },
+  "graph_effect": "NONE",
+  "missing_model_context_fraction": 1.0,
+  "native_binary_identity_rechecked": false,
+  "profile_from_tag": {
+    "count": 0,
+    "denominator": 0,
+    "rate": null
+  },
+  "reason_counts": {
+    "claim.predicate_interpretation": 8,
+    "context.about": 9,
+    "context.coefficient_domain": 9,
+    "context.generators": 9,
+    "context.point_universe": 9,
+    "context.ring_vars": 9,
+    "licence.leaf_receipt": 3,
+    "licence.premise_claim": 2,
+    "licence.step_justification_and_discharge": 2,
+    "runtime.full_check_refused": 2,
+    "runtime.transport_refused": 2
+  },
+  "schema": "grand-portage-ir-v2-projection/v0",
+  "source": {
+    "adapter": "stored events (no inferred meta or context)",
+    "hash_encoding": "source bytes with CRLF normalized to LF",
+    "path": "tests/fixtures/dk_retrodiction/transports/X8-X10.json",
+    "sha256": "b1009142a6cad512e9d6f87fdeaeadc507081c3481aaadf026fd7eea0d9fded1"
+  },
+  "source_graph_format": 0,
+  "state_fingerprint": "sha256:e73d7b797a93567a147478c79526705217df073e68ebee5ed3fcba770b27f3b7",
+  "stop_for_missing_context": true,
+  "strict_format8_input": false
+}

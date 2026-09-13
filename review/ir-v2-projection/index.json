@@ -1,0 +1,320 @@
+{
+  "authority": "DERIVED_READ_MODEL_ONLY",
+  "counts": {
+    "bindings": {},
+    "claims": {
+      "PROJECTABLE": 1,
+      "UNPROJECTABLE": 99
+    },
+    "evidence": {
+      "UNPROJECTABLE": 32
+    },
+    "licences": {
+      "UNPROJECTABLE": 33
+    },
+    "models": {
+      "PROJECTABLE": 1,
+      "UNPROJECTABLE": 72
+    },
+    "steps": {
+      "PROJECTABLE": 28,
+      "UNPROJECTABLE": 3
+    }
+  },
+  "coverage_limit": "all stored event fixtures plus two ARR15 payloads, the atlas sample, and one existing Cloquet regression; no private sibling campaign graphs imported",
+  "graph_effect": "NONE",
+  "profile_from_tag": {
+    "count": 21,
+    "denominator": 21,
+    "rate": 1.0
+  },
+  "reason_counts": {
+    "binding.replay_receipt": 11,
+    "claim.algebraic_model_context": 19,
+    "claim.identity_expression": 4,
+    "claim.kind_adapter:COUNT": 8,
+    "claim.predicate_interpretation": 58,
+    "context.about": 185,
+    "context.characteristic": 113,
+    "context.coefficient_domain": 171,
+    "context.generators": 172,
+    "context.point_universe": 171,
+    "context.ring_vars": 172,
+    "evidence.actual_requirement_discharge": 32,
+    "evidence.interpreter": 11,
+    "licence.leaf_receipt": 33,
+    "licence.premise_claim": 2,
+    "licence.step_justification_and_discharge": 30,
+    "runtime.full_check_refused": 18,
+    "runtime.transport_refused": 17,
+    "step.relation_class": 6
+  },
+  "recommendation": null,
+  "schema": "grand-portage-ir-v2-projection/v0",
+  "sources": [
+    {
+      "counts": {
+        "bindings": {},
+        "claims": {
+          "UNPROJECTABLE": 5
+        },
+        "evidence": {
+          "UNPROJECTABLE": 1
+        },
+        "licences": {
+          "UNPROJECTABLE": 5
+        },
+        "models": {
+          "UNPROJECTABLE": 10
+        },
+        "steps": {
+          "PROJECTABLE": 3,
+          "UNPROJECTABLE": 3
+        }
+      },
+      "missing_model_context_fraction": 1.0,
+      "report": "fixtures__gamma_window__graph.json",
+      "source": "fixtures/gamma_window/graph.jsonl",
+      "source_graph_format": 0,
+      "status": "MEASURED"
+    },
+    {
+      "counts": {
+        "bindings": {},
+        "claims": {
+          "UNPROJECTABLE": 14
+        },
+        "evidence": {
+          "UNPROJECTABLE": 7
+        },
+        "licences": {
+          "UNPROJECTABLE": 13
+        },
+        "models": {
+          "UNPROJECTABLE": 18
+        },
+        "steps": {
+          "PROJECTABLE": 15
+        }
+      },
+      "missing_model_context_fraction": 1.0,
+      "report": "fixtures__jc2__graph.json",
+      "source": "fixtures/jc2/graph.jsonl",
+      "source_graph_format": 0,
+      "status": "MEASURED"
+    },
+    {
+      "counts": {
+        "bindings": {},
+        "claims": {
+          "UNPROJECTABLE": 14
+        },
+        "evidence": {
+          "UNPROJECTABLE": 7
+        },
+        "licences": {
+          "UNPROJECTABLE": 12
+        },
+        "models": {
+          "UNPROJECTABLE": 19
+        },
+        "steps": {
+          "PROJECTABLE": 10
+        }
+      },
+      "missing_model_context_fraction": 1.0,
+      "report": "fixtures__matroid__graph.json",
+      "source": "fixtures/matroid/graph.jsonl",
+      "source_graph_format": 0,
+      "status": "MEASURED"
+    },
+    {
+      "counts": {},
+      "missing_model_context_fraction": null,
+      "report": "tests__fixtures__dk_retrodiction__fixtures__D1-inference-on-family-claim__input.json",
+      "source": "tests/fixtures/dk_retrodiction/fixtures/D1-inference-on-family-claim/input.json",
+      "source_graph_format": null,
+      "status": "UNPROJECTABLE"
+    },
+    {
+      "counts": {
+        "bindings": {},
+        "claims": {
+          "UNPROJECTABLE": 1
+        },
+        "evidence": {},
+        "licences": {},
+        "models": {
+          "UNPROJECTABLE": 1
+        },
+        "steps": {}
+      },
+      "missing_model_context_fraction": 1.0,
+      "report": "tests__fixtures__dk_retrodiction__fixtures__D2-witness-substitution-scaling__fail-97vars.json",
+      "source": "tests/fixtures/dk_retrodiction/fixtures/D2-witness-substitution-scaling/fail-97vars.json",
+      "source_graph_format": 0,
+      "status": "MEASURED"
+    },
+    {
+      "counts": {
+        "bindings": {},
+        "claims": {
+          "UNPROJECTABLE": 1
+        },
+        "evidence": {},
+        "licences": {},
+        "models": {
+          "UNPROJECTABLE": 1
+        },
+        "steps": {}
+      },
+      "missing_model_context_fraction": 1.0,
+      "report": "tests__fixtures__dk_retrodiction__fixtures__D2-witness-substitution-scaling__pass-96vars.json",
+      "source": "tests/fixtures/dk_retrodiction/fixtures/D2-witness-substitution-scaling/pass-96vars.json",
+      "source_graph_format": 0,
+      "status": "MEASURED"
+    },
+    {
+      "counts": {
+        "bindings": {},
+        "claims": {
+          "UNPROJECTABLE": 2
+        },
+        "evidence": {
+          "UNPROJECTABLE": 1
+        },
+        "licences": {},
+        "models": {},
+        "steps": {}
+      },
+      "missing_model_context_fraction": null,
+      "report": "tests__fixtures__dk_retrodiction__fixtures__D3-inert-disposition__after.json",
+      "source": "tests/fixtures/dk_retrodiction/fixtures/D3-inert-disposition/after.json",
+      "source_graph_format": 0,
+      "status": "MEASURED"
+    },
+    {
+      "counts": {},
+      "missing_model_context_fraction": null,
+      "report": "tests__fixtures__dk_retrodiction__fixtures__D3-inert-disposition__before.json",
+      "source": "tests/fixtures/dk_retrodiction/fixtures/D3-inert-disposition/before.json",
+      "source_graph_format": null,
+      "status": "UNPROJECTABLE"
+    },
+    {
+      "counts": {
+        "bindings": {},
+        "claims": {
+          "UNPROJECTABLE": 57
+        },
+        "evidence": {
+          "UNPROJECTABLE": 15
+        },
+        "licences": {},
+        "models": {
+          "UNPROJECTABLE": 19
+        },
+        "steps": {}
+      },
+      "missing_model_context_fraction": 1.0,
+      "report": "tests__fixtures__dk_retrodiction__fixtures__ledger__graph.json",
+      "source": "tests/fixtures/dk_retrodiction/fixtures/ledger/graph.jsonl",
+      "source_graph_format": 7,
+      "status": "MEASURED"
+    },
+    {
+      "counts": {
+        "bindings": {},
+        "claims": {
+          "UNPROJECTABLE": 5
+        },
+        "evidence": {},
+        "licences": {
+          "UNPROJECTABLE": 3
+        },
+        "models": {
+          "UNPROJECTABLE": 1
+        },
+        "steps": {}
+      },
+      "missing_model_context_fraction": 1.0,
+      "report": "tests__fixtures__dk_retrodiction__transports__X8-X10.json",
+      "source": "tests/fixtures/dk_retrodiction/transports/X8-X10.json",
+      "source_graph_format": 0,
+      "status": "MEASURED"
+    },
+    {
+      "counts": {
+        "bindings": {},
+        "claims": {},
+        "evidence": {},
+        "licences": {},
+        "models": {
+          "UNPROJECTABLE": 1
+        },
+        "steps": {}
+      },
+      "missing_model_context_fraction": 1.0,
+      "report": "tests__fixtures__arr15__class_12909_open_witness.json",
+      "source": "tests/fixtures/arr15/class_12909_open_witness.json",
+      "source_graph_format": 8,
+      "status": "MEASURED"
+    },
+    {
+      "counts": {
+        "bindings": {},
+        "claims": {},
+        "evidence": {},
+        "licences": {},
+        "models": {
+          "UNPROJECTABLE": 1
+        },
+        "steps": {}
+      },
+      "missing_model_context_fraction": 1.0,
+      "report": "tests__fixtures__arr15__class_4102.json",
+      "source": "tests/fixtures/arr15/class_4102.json",
+      "source_graph_format": 8,
+      "status": "MEASURED"
+    },
+    {
+      "counts": {
+        "bindings": {},
+        "claims": {
+          "PROJECTABLE": 1
+        },
+        "evidence": {
+          "UNPROJECTABLE": 1
+        },
+        "licences": {},
+        "models": {
+          "PROJECTABLE": 1
+        },
+        "steps": {}
+      },
+      "missing_model_context_fraction": 0.0,
+      "report": "tests__fixtures__atlas__ordered_certificate.json",
+      "source": "tests/fixtures/atlas/ordered_certificate.json",
+      "source_graph_format": 8,
+      "status": "MEASURED"
+    },
+    {
+      "counts": {
+        "bindings": {},
+        "claims": {},
+        "evidence": {},
+        "licences": {},
+        "models": {
+          "UNPROJECTABLE": 1
+        },
+        "steps": {}
+      },
+      "missing_model_context_fraction": 1.0,
+      "report": "tests__test_match4_hardening.json",
+      "source": "tests/test_match4_hardening.py",
+      "source_graph_format": 8,
+      "status": "MEASURED"
+    }
+  ],
+  "stop_condition": "MISSING_CONTEXT_ABOVE_10_PERCENT"
+}
