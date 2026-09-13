@@ -147,7 +147,7 @@ def test_singular_labeled_empty_trace_still_pays_the_binary_version_toll(
     fake_singular_manifest = {
         "schema": 2, "contract": "singular",
         "implementation": "grandportage.cas.SingularBackend",
-        "implementation_version": 4, "protocol_version": 2,
+        "implementation_version": B.SINGULAR_IMPLEMENTATION_VERSION, "protocol_version": 2,
         "binary_version": "Singular for x86_64 version 0.0.0 (fabricated)",
         "executions": [],
         "trace_fingerprint": B.semantic_fingerprint(
