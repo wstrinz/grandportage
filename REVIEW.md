@@ -3,14 +3,14 @@
 This is the attack surface for the current release. The full historical review
 through v0.18 is preserved in `HISTORY/REVIEW-through-v0.18.md`.
 
-**Version <!--version-->0.36.0<!--/version-->, graph format
+**Version <!--version-->0.37.0<!--/version-->, graph format
 <!--graph-format-->8<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->12<!--/kernel-epoch-->, and
 <!--checks-->1811<!--/checks--> collected checks.**
 
 ## Highest-risk claim
 
-The post-v0.36 Cloquet division repair rejects nonconstant divisors before CAS
+The v0.37 Cloquet division repair rejects nonconstant divisors before CAS
 execution. Attack both claim sides, model generators, maps and body statements,
 including nested division, cancellation, denominator guards and zero constants
 in finite characteristic. Singular polynomial quotient can discard a remainder;

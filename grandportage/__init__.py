@@ -13,7 +13,7 @@ licensed after a step under available evidence, and refuses unsupported conclusi
 # `pyproject.toml` -- and this one had been stale at 0.1.0 through four
 # releases while the other two moved. A version nobody reads does not rot
 # loudly; it rots silently and then gets printed to a user.
-__version__ = "0.36.0"
+__version__ = "0.37.0"
 
 from . import kernel, store, check, discharge  # noqa: F401
 
