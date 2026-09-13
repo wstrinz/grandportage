@@ -92,7 +92,7 @@ ten-minute campaign and the recovery commands.
 
 ## Status and documents
 
-Version <!--version-->0.36.0<!--/version-->, graph format
+Version <!--version-->0.37.0<!--/version-->, graph format
 <!--graph-format-->8<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->12<!--/kernel-epoch-->. The suite currently has
 <!--checks-->1811<!--/checks--> checks. v0.34 adds field-aware point transport,
