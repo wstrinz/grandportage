@@ -7,3 +7,9 @@ tmp/
 .pytest_cache/
 .claude/
 .portage/
+
+# Verbatim campaign corpus stays local; never public snapshot material.
+corpus/
+
+review/ir-v2-projection/*.json
+!review/ir-v2-projection/index.json

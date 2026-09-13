@@ -1,4 +1,8 @@
-# IR-v2 projection: stopping condition reached
+# Historical IR-v2 projection: stopping condition reached
+
+This records the initial d81eb12 experiment. The current fixture index/report
+generator now includes the nonlocal read-model adapter; these historical counts
+are not the new campaign measurement. See IR-V2-CORPUS-REPORT.md.
 
 **No epoch-13 or new-format recommendation is issued.** The packet requires a
 stop if more than a small minority of nodes would need invented fields. The

@@ -114,6 +114,20 @@ theorem profile_polarity {R : Type} (steps : Step R → Prop) (kinds : ClaimKind
 
 variable {Vocabulary : String → Type} {Selection Requirement : Type}
 
+/-- Nonlocal nodes keep fresh binding for every premise and for the whole step. -/
+def NonlocalReady
+    (expresses : Claim Vocabulary Selection → Prop)
+    (receiptValid : Evidence Requirement → Prop) (current : Binding → Prop)
+    (bindsClaim : Binding → Claim Vocabulary Selection → Prop)
+    (bindsStep : Binding → Step Requirement → List (Claim Vocabulary Selection) → Claim Vocabulary Selection → Prop)
+    (c : Claim Vocabulary Selection) (ps : List (Claim Vocabulary Selection))
+    (s : Step Requirement) (e : Evidence Requirement) : Prop :=
+  expresses c ∧ Covered s c.kind ∧ receiptValid e ∧ current e.binding ∧
+  current s.binding ∧ bindsStep e.binding s ps c ∧ bindsStep s.binding s ps c ∧
+  (∀ p ∈ ps, ∃ b, current b ∧ bindsClaim b p) ∧
+  s.relationClass.admits s.relation ∧ c.context.model = s.target ∧
+  (∃ needs, s.profile c.kind s.direction needs ∧ Subset needs e.discharges ∧ Subset e.discharges s.available)
+
 /-- Each proof-tree constructor retains evidence and the exact current binding.
 Binding predicates are external obligations, never discharged by a matching tag. -/
 inductive Licence
@@ -141,6 +155,67 @@ inductive Licence
       (boundStep : bindsStep s.binding s premises c) :
       Licence expresses receiptValid current bindsClaim bindsStep c
 
+  | partition (c cover : Claim Vocabulary Selection) (ps : List (Claim Vocabulary Selection))
+      (s : Step Requirement) (e : Evidence Requirement)
+      (kind : c.kind = .empty ∨ c.kind = .predicate)
+      (children : ∀ p ∈ ps, Licence expresses receiptValid current bindsClaim bindsStep p)
+      (coverageLicence : Licence expresses receiptValid current bindsClaim bindsStep cover)
+      (covers : Claim Vocabulary Selection → List (Claim Vocabulary Selection) → Claim Vocabulary Selection → Prop)
+      (coverage : covers cover ps c)
+      (ready : NonlocalReady expresses receiptValid current bindsClaim bindsStep c ps s e) :
+      Licence expresses receiptValid current bindsClaim bindsStep c
+  | family (c familyClaim : Claim Vocabulary Selection) (s : Step Requirement) (e : Evidence Requirement)
+      (familyLicence : Licence expresses receiptValid current bindsClaim bindsStep familyClaim)
+      (members proved : String → Prop) (member : String)
+      (allProved : ∀ i, members i → proved i) (listed : members member)
+      (ready : NonlocalReady expresses receiptValid current bindsClaim bindsStep c [familyClaim] s e) :
+      Licence expresses receiptValid current bindsClaim bindsStep c
+
+/-- Each nonlocal constructor explicitly requires the same admission intersection. -/
+theorem partition_admission
+    (expresses : Claim Vocabulary Selection → Prop) (receiptValid : Evidence Requirement → Prop)
+    (current : Binding → Prop) (bindsClaim : Binding → Claim Vocabulary Selection → Prop)
+    (bindsStep : Binding → Step Requirement → List (Claim Vocabulary Selection) → Claim Vocabulary Selection → Prop)
+    (c : Claim Vocabulary Selection) (ps : List (Claim Vocabulary Selection))
+    (s : Step Requirement) (e : Evidence Requirement)
+    (ready : NonlocalReady expresses receiptValid current bindsClaim bindsStep c ps s e) :
+    expresses c ∧ Covered s c.kind := ⟨ready.1, ready.2.1⟩
+
+theorem family_admission
+    (expresses : Claim Vocabulary Selection → Prop) (receiptValid : Evidence Requirement → Prop)
+    (current : Binding → Prop) (bindsClaim : Binding → Claim Vocabulary Selection → Prop)
+    (bindsStep : Binding → Step Requirement → List (Claim Vocabulary Selection) → Claim Vocabulary Selection → Prop)
+    (c familyClaim : Claim Vocabulary Selection) (s : Step Requirement) (e : Evidence Requirement)
+    (ready : NonlocalReady expresses receiptValid current bindsClaim bindsStep c [familyClaim] s e) :
+    expresses c ∧ Covered s c.kind := ⟨ready.1, ready.2.1⟩
+
+/-- Actual exhaustive-partition EMPTY semantics; coverage is a supplied proof. -/
+theorem partition_empty {X Index : Type} (parent : X → Prop) (branch : Index → X → Prop)
+    (coverage : ∀ x, parent x → ∃ i, branch i x)
+    (empty : ∀ i x, ¬ branch i x) : ∀ x, ¬ parent x := by
+  intro x hx
+  obtain ⟨i, hi⟩ := coverage x hx
+  exact empty i x hi
+
+/-- Predicate elimination uses the same coverage premise with pointwise truth. -/
+theorem partition_predicate {X Index : Type} (parent : X → Prop) (branch : Index → X → Prop)
+    (predicate : X → Prop) (coverage : ∀ x, parent x → ∃ i, branch i x)
+    (holds : ∀ i x, branch i x → predicate x) : ∀ x, parent x → predicate x := by
+  intro x hx
+  obtain ⟨i, hi⟩ := coverage x hx
+  exact holds i x hi
+
+theorem family_reindex {Index Other : Type} (f : Other → Index) (members proved : Index → Prop)
+    (allProved : ∀ i, members i → proved i) : ∀ j, members (f j) → proved (f j) :=
+  Atlas.reindex_forall f (fun i => members i → proved i) allProved
+
+/-- If coverage is dropped, an empty reported branch says nothing about another branch. -/
+theorem missing_partition_branch_countermodel :
+    (∀ x : Bool, x = false → ¬ (x = true)) ∧ (∃ x : Bool, x = true) := by
+  constructor
+  · intro x h; cases h; decide
+  · exact ⟨true, rfl⟩
+
 /-- The intersection theorem is stated at a step constructor, where the step
 is known. A leaf licence need not name any transport step. -/
 theorem licence_step_admission (s : Step Requirement) (c : (Claim Vocabulary Selection))
@@ -167,6 +242,14 @@ theorem sound (interpret expresses : (Claim Vocabulary Selection) → Prop)
       s.relationClass.admits s.relation → expresses c → Covered s c.kind → receiptValid e → current e.binding →
       current s.binding → bindsStep e.binding s premises c →
       bindsStep s.binding s premises c → interpret c)
+    (partitionSound : ∀ c cover ps (s : Step Requirement) (e : Evidence Requirement)
+      (covers : Claim Vocabulary Selection → List (Claim Vocabulary Selection) → Claim Vocabulary Selection → Prop),
+      (c.kind = .empty ∨ c.kind = .predicate) → (∀ p ∈ ps, interpret p) → interpret cover →
+      covers cover ps c → NonlocalReady expresses receiptValid current bindsClaim bindsStep c ps s e → interpret c)
+    (familySound : ∀ c familyClaim (s : Step Requirement) (e : Evidence Requirement)
+      (members proved : String → Prop) member,
+      interpret familyClaim → members member → proved member →
+      NonlocalReady expresses receiptValid current bindsClaim bindsStep c [familyClaim] s e → interpret c)
     (c : (Claim Vocabulary Selection)) (licence : Licence expresses receiptValid current bindsClaim bindsStep c) :
     interpret c := by
   induction licence with
@@ -176,5 +259,11 @@ theorem sound (interpret expresses : (Claim Vocabulary Selection) → Prop)
     exact stepSound c ps s e ih nonempty sources target related typed
       ⟨needs, profile, fun r hr => available r (discharged r hr)⟩
       checked freshEvidence freshStep boundEvidence boundStep
+
+  | partition c cover ps s e kind children coverageLicence covers coverage ready ih coverIH =>
+    exact partitionSound c cover ps s e covers kind ih coverIH coverage ready
+  | family c fc s e familyLicence members proved member allProved listed ready ih =>
+    exact familySound c fc s e members proved member ih listed
+      (Atlas.family_member members proved allProved member listed) ready
 
 end GrandPortage.IR

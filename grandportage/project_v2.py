@@ -240,8 +240,10 @@ def project(graph, source=None):
             for edge_id, _direction in premise.get("path", []):
                 missing.extend(steps[edge_id]["missing"])
             leaves.append({"claim": cid, "path": deepcopy(premise.get("path", [])), "receipts": receipts})
-        if inference.get("via_partition") or inference.get("family_bridges"):
-            missing.append("licence.nonlocal_composition_adapter")
+        from . import explain as EX
+        reconstructed = EX.explain(graph, iid)["tree"]
+        if not reconstructed["complete"]:
+            missing.append("licence.reconstruction_obligations")
         if trace:
             missing.append("licence.step_justification_and_discharge")
         if not licensed:
@@ -249,7 +251,7 @@ def project(graph, source=None):
         if iid not in clean:
             missing.append("runtime.full_check_refused")
         licences[iid] = row(iid, {"lean_type": LEAN_TYPES["Licence"], "runtime_path_licensed": licensed, "runtime_licensed": iid in clean,
-            "conclusion_at": inference.get("concludes_at"), "premises": leaves,
+            "conclusion_at": inference.get("concludes_at"), "premises": leaves, "licence_tree": reconstructed,
             "trace": [list(t) for t in trace]}, missing)
     categories = {"models": models, "claims": claims, "steps": steps, "evidence": evidence,
                   "bindings": bindings, "licences": licences}

@@ -32,3 +32,7 @@ import GrandPortage.CancellationInterpreter
 import GrandPortage.RequirementChecks
 import GrandPortage.IR
 import GrandPortage.IRChecks
+
+import GrandPortage.SemanticLoss
+
+import GrandPortage.ExplainChecks

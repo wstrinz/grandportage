@@ -99,7 +99,7 @@ def run(output):
                       "graph_effect": "NONE", "status": "UNPROJECTABLE",
                       "missing": ["loadable_graph"], "load_error": str(exc)}
         (output/name).write_text(json.dumps(report, sort_keys=True, indent=2) + "\n", encoding="utf-8")
-        manifest.append({"source": relative, "report": name, "status": report.get("status", "MEASURED"),
+        manifest.append({"source": relative, "source_sha256": source["sha256"], "report_sha256": hashlib.sha256((output/name).read_bytes().replace(b"\r\n",b"\n")).hexdigest(), "report": name, "status": report.get("status", "MEASURED"),
                          "source_graph_format": report.get("source_graph_format"),
                          "counts": report.get("counts", {}),
                          "missing_model_context_fraction": report.get("missing_model_context_fraction")})
@@ -114,7 +114,56 @@ def run(output):
     print(json.dumps({k:v for k,v in summary.items() if k != "sources"}, indent=2))
 
 
+def run_campaign_corpus(corpus_root, output):
+    """Decision-bearing corpus is validated separately, never merged with fixtures."""
+    from scripts import corpus_check
+    from grandportage import explain as EX, check as C
+    intake=corpus_check.check(corpus_root)
+    output=Path(output);output.mkdir(parents=True,exist_ok=True)
+    report={"source_class":"campaign-corpus", "status":intake["status"],
+            "authority":I.AUTHORITY,"graph_effect":"NONE", "campaigns":{}, "recommendation":None}
+    if intake["status"] != "READY":
+        report["reason"]="BLOCKED-ON-CORPUS: require eligible verbatim format-8 exports with retained receipts; migrated/replayed copies are separate recovery evidence"
+    else:
+        for campaign in corpus_check.CAMPAIGNS:
+            graph=S.load(str(Path(corpus_root)/campaign/"graph.jsonl"))
+            clean=list(C.clean_inferences(graph,C.run(graph)))
+            clean.extend(cid for cid in graph.claims if any(EX._current(graph,rid,v)[0] and
+                         str(v.get("verdict", "")).startswith("VERIFIED") for rid,v in EX._receipts(graph,cid)))
+            clean=sorted(set(clean))
+            explanations=[EX.explain(graph,node) for node in clean]
+            per_obligation={name:Counter() for name in EX.OBLIGATIONS};data_gaps=Counter();examples={}
+            def visit(tree):
+                for name,ob in tree["obligations"].items():
+                    per_obligation[name][ob["status"]]+=1
+                    if ob["status"]=="DATA_GAP":
+                        data_gaps[ob["missing"]]+=1;examples.setdefault(ob["missing"],tree["id"])
+                for child in tree["children"]:visit(child)
+            for explanation in explanations:visit(explanation["tree"])
+            predicates=[c for c in graph.claims.values() if c.get("kind")==K.PREDICATE and not c.get("superseded_by")]
+            tagged_receipts=[(rid,v) for rid,v in graph.verdicts.items() if graph.claims.get(v.get("of"),{}).get("certificate")]
+            from_tag=sum(not (EX._current(graph,rid,v)[0] and v.get("verifier")=="verify.ordered_sos"
+                         and v.get("verifier_version")==1 and v.get("verdict")=="VERIFIED"
+                         and isinstance(v.get("representation"),dict)
+                         and set(v["representation"])=={"method","ring_vars","generators","squares","cofactors"})
+                         for rid,v in tagged_receipts)
+            report["campaigns"][campaign]={"licensed_conclusions":len(clean),
+                "reconstructed":sum(e["tree"]["complete"] for e in explanations),
+                "reconstructed_fraction":sum(e["tree"]["complete"] for e in explanations)/len(clean) if clean else None,
+                "obligations":{k:dict(v) for k,v in per_obligation.items()},
+                "data_gaps":[{"datum":k,"count":v,"example":examples[k]} for k,v in data_gaps.most_common()],
+                "prose_predicate":{"count":sum(c.get("condition") is None for c in predicates),"denominator":len(predicates)},
+                "profile_from_tag_receipts":{"count":from_tag,"denominator":len(tagged_receipts)}}
+    (output/"corpus-report.json").write_text(json.dumps(report,sort_keys=True,indent=2)+"\n",encoding="utf-8")
+    return report
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--corpus", type=Path, help="validate and measure campaign exports separately from fixtures")
     parser.add_argument("--output", type=Path, default=ROOT/"review/ir-v2-projection")
-    run(parser.parse_args().output)
+    args=parser.parse_args()
+    if args.corpus:
+        print(json.dumps(run_campaign_corpus(args.corpus,args.output),indent=2))
+    else:
+        run(args.output)

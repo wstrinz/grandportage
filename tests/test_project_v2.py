@@ -84,17 +84,20 @@ def test_integer_identity_projects_but_rational_syntax_is_a_named_gap():
         I.expression("510", [], 0)
 
 
-def test_corpus_manifest_covers_available_inputs_and_pins_source_bytes():
+def test_corpus_manifest_covers_available_inputs_and_pins_source_bytes(tmp_path):
     import hashlib
     from scripts import project_ir_corpus as corpus
     root = Path(__file__).resolve().parents[1]
-    index = json.loads((root / "review/ir-v2-projection/index.json").read_text(encoding="utf-8"))
+    corpus.run(tmp_path)
+    index = json.loads((tmp_path/"index.json").read_text(encoding="utf-8"))
+    retained=json.loads((root/"review/ir-v2-projection/index.json").read_text(encoding="utf-8"))
+    assert [(s["source"],s["source_sha256"],s["report_sha256"]) for s in index["sources"]] == [(s["source"],s["source_sha256"],s["report_sha256"]) for s in retained["sources"]]
     available = {p.relative_to(root).as_posix() for p, _, _ in
                  list(corpus.event_files()) + list(corpus.wrapped_fixtures())}
     assert {s["source"] for s in index["sources"]} == available
     assert index["recommendation"] is None
     for item in index["sources"]:
-        report = json.loads((root / "review/ir-v2-projection" / item["report"]).read_text(encoding="utf-8"))
+        report = json.loads((tmp_path / item["report"]).read_text(encoding="utf-8"))
         source = report["source"]
         assert hashlib.sha256((root/source["path"]).read_bytes().replace(b"\r\n", b"\n")).hexdigest() == source["sha256"]
         assert report["graph_effect"] == "NONE"

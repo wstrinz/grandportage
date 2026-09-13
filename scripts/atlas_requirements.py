@@ -49,17 +49,40 @@ def inventory(interpreter="unit"):
             for count in range(len(vocabulary) + 1) for choice in combinations(vocabulary, count)]
 
 
+
+def target_discharge():
+    """Universal target-class discharge, with explicit uninstantiated interfaces."""
+    rows=[]
+    for target in ("Q", "R", "C", "F_p", "ANY_ORDERED", "ANY_CHAR_0"):
+        for profile in ("U", "O", "Z"):
+            proof = "field_target_"+profile if profile != "O" else None
+            status = "PROVED_UNDER_FIELD_INTERFACE" if proof else "UNKNOWN"
+            countermodel = None
+            if profile == "O" and target == "ANY_ORDERED":
+                proof="ordered_target_O"; status="PROVED_UNDER_ORDERED_INTERFACE"
+            if profile == "O" and target == "F_p":
+                countermodel="modTwo_not_ordered"; status="REFUTED_AS_UNIFORM_DISCHARGE"
+            rows.append({"target":target,"profile":profile,"status":status,
+                         "proof":PREFIX+proof if proof else None,
+                         "countermodel":PREFIX+countermodel if countermodel else None,
+                         "instance_status":"F_2 instance checked; general prime adapter missing" if target=="F_p" else
+                         "class interface" if target.startswith("ANY_") else "canonical instance adapter UNKNOWN",
+                         "authority":"NONE"})
+    return rows
+
 def lean_names():
     names = {PREFIX + name for item in CATALOG.values()
              for name in [item["theorem"], item["countermodel"]] + item["support"]}
     names.update(PREFIX + name for name in ["ordered_nontrivial", "integer_domain",
                  "modTwo_domain", "product_laws", "product_order", "product_not_domain",
                  "zeroAlgebra_no_zero_divisors", "zeroAlgebra_not_nontrivial", "modFour_not_no_zero_divisors"])
+    names.update(row[key] for row in target_discharge() for key in ("proof","countermodel") if row[key])
+    names.add(PREFIX+"modTwo_field_target")
     return sorted(names)
 
 
 def lean_checks():
-    return "import GrandPortage.CancellationInterpreter\n\n" + "".join(
+    return "import GrandPortage.TargetDischarge\n\n" + "".join(
         "#check " + name + "\n" for name in lean_names())
 
 
@@ -69,4 +92,4 @@ if __name__ == "__main__":
     else:
         print(json.dumps({"model_class": "Operations + Laws; interpreter-specific expressions and points",
                           "claim": "the listed assumptions imply contradiction",
-                          "cells": [cell for name in CATALOG for cell in inventory(name)]}, indent=2))
+                          "cells": [cell for name in CATALOG for cell in inventory(name)], "target_discharge": target_discharge()}, indent=2))

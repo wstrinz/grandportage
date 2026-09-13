@@ -35,3 +35,16 @@ def test_three_interpreters_and_their_lean_dictionary_are_complete():
         assert next(c for c in cells if set(c["premises"]) == removed)["status"] == "REFUTED"
     check_file = Path(__file__).resolve().parents[1] / "lean/GrandPortage/RequirementChecks.lean"
     assert check_file.read_text(encoding="utf-8") == A.lean_checks()
+
+
+def test_target_discharge_keeps_interface_proofs_and_instance_gaps_distinct():
+    from scripts import atlas_requirements as A
+    rows=A.target_discharge()
+    assert len(rows)==18
+    assert len({(r["target"],r["profile"]) for r in rows})==18
+    for row in rows:
+        if row["status"].startswith("PROVED"):
+            assert row["proof"] in A.lean_names()
+        if row["countermodel"]:
+            assert row["countermodel"] in A.lean_names()
+    assert next(r for r in rows if (r["target"],r["profile"])==("C","O"))["status"]=="UNKNOWN"

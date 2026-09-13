@@ -2749,6 +2749,19 @@ def cmd_visualize(args):
     return _write_derived_output(args, content)
 
 
+
+def cmd_explain(args):
+    """Read a licence derivation without graph mutation or verifier execution."""
+    from . import explain as EX
+    try:
+        graph = S.load(args.input)
+        report = EX.explain(graph, args.node, args.kind)
+    except (OSError, ValueError, S.GraphError, K.KernelRefusal) as exc:
+        print("explain refused: %s" % exc, file=sys.stderr)
+        return 2
+    print(json.dumps(report, sort_keys=True, indent=2) if args.json else EX.render(report), end="\n")
+    return 0
+
 def build_parser():
     p = argparse.ArgumentParser(prog="gp", description=__doc__)
     # `--version` printed the top-level usage and exited 2 without saying no
@@ -2761,6 +2774,13 @@ def build_parser():
     p.add_argument("--graph", action="append",
                    help="graph log to read; repeat to MERGE several")
     sub = p.add_subparsers(dest="cmd")
+
+    ex = sub.add_parser("explain", help="reconstruct a read-only licence tree")
+    ex.add_argument("input", metavar="graph")
+    ex.add_argument("node")
+    ex.add_argument("--kind", choices=K.CLAIM_KINDS)
+    ex.add_argument("--json", action="store_true")
+    ex.set_defaults(func=cmd_explain)
 
     c = sub.add_parser("check", help="type-check the graph")
     c.add_argument("--seam", choices=("checked", "unchecked"), default="checked",

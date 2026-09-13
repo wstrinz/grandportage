@@ -34,7 +34,7 @@ missing information requiring a new storage format:
 | `check.audit_inference` 349–375: predicate rewriting across a path | Step justification for the source/target statements, not only kind |
 | `check.effective_exact_contraction` 1563 and image gates 1842–1880 | Profile alternatives plus evidence of exactly the needed premise |
 | `check.effective_certificate` 1881, `provenance.current_verdict` | Evidence interpreter/requirement profile distinct from its reach projection |
-| `check.audit_inference` 239–288: exhaustive coverage and all premises | Licence tree; current IR handles co-located joins, not cross-model partition elimination (explicit projection gap) |
+| `check.audit_inference` 239–288: exhaustive coverage and all premises | Licence tree; nonlocal partition/family constructors retain coverage and each premise binding |
 | `check.check_stale_paths` 2324 and provenance/binder freshness | Binding of step endpoints/payload/state and each execution identity |
 | `check.check_unexhibited_witness` 1351 | Claim vocabulary distinguishing existential truth from chosen-witness custody |
 
@@ -50,3 +50,12 @@ Necessary-condition/restriction share left-total relational content; additional
 algebraic distinctions stay in profiles. Closure, field-map, and specialization
 premises are parameters. No theorem silently assigns these properties to GP's
 edge labels. Projection must retain unresolved predicates, never manufacture them.
+
+## Read-model continuation
+
+Licence.partition and Licence.family now represent nonlocal joins, with explicit
+coverage/member premises and individual bindings. The old co-location limitation
+above describes the initial prototype. grandportage/explain.py classifies each
+of the nine obligations as REIFIED, DATA_GAP or ADAPTER_GAP. A REIFIED data tree
+is conditional on the interpretation hypotheses of IR.sound, not a Lean proof
+serialized by Python. See IR-V2-CORPUS-REPORT.md for the withheld measurement.
