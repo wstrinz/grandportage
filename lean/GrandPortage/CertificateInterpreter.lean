@@ -41,6 +41,7 @@ structure Laws (o : Operations Value) : Prop where
   neg_add : ∀ a b, o.neg (o.add a b) = o.add (o.neg a) (o.neg b)
   neg_one_mul : ∀ a, o.mul (o.neg o.one) a = o.neg a
   mul_zero : ∀ a, o.mul a o.zero = o.zero
+  one_mul : ∀ a, o.mul o.one a = a
 
 inductive Derivation : Expr → Expr → Prop where
   | refl (a) : Derivation a a
@@ -54,6 +55,7 @@ inductive Derivation : Expr → Expr → Prop where
   | zeroAdd (a) : Derivation (.add .zero a) a
   | cancel (a) : Derivation (.add a (.neg a)) .zero
   | negAdd (a b) : Derivation (.neg (.add a b)) (.add (.neg a) (.neg b))
+  | oneMul (a) : Derivation (.mul .one a) a
   | negOneMul (a) : Derivation (.mul (.neg .one) a) (.neg a)
 
 theorem derivation_sound (laws : Laws o) (point : Nat → Value)
@@ -71,6 +73,7 @@ theorem derivation_sound (laws : Laws o) (point : Nat → Value)
   | cancel => exact laws.add_neg _
   | negAdd => exact laws.neg_add _ _
   | negOneMul => exact laws.neg_one_mul _
+  | oneMul => exact laws.one_mul _
 
 def sumExpr : List Expr → Expr
   | [] => .zero
@@ -171,6 +174,7 @@ theorem integer_laws : Laws integers := {
   neg_add := fun _ _ => Int.neg_add
   neg_one_mul := Int.neg_one_mul
   mul_zero := Int.mul_zero
+  one_mul := Int.one_mul
 }
 
 def integer_order : Ordering integers := {

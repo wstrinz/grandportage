@@ -25,3 +25,6 @@ import GrandPortage.CertificateScope
 import GrandPortage.Atlas
 import GrandPortage.CertificateInterpreter
 import GrandPortage.SelectedEmbedding
+
+import GrandPortage.ExpressionTransport
+import GrandPortage.UnitInterpreter

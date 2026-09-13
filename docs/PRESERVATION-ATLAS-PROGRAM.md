@@ -100,9 +100,9 @@ separation but is not wired into runtime state.
 
 The next useful proof is an end-to-end *small* certificate: a formally evaluated
 polynomial identity, its cofactor vanishing, and a contradiction in an explicit
-algebraic interface. The current ordered theorem starts at the evaluated equality.
-Moving that boundary one step toward the actual verifier would strengthen GP
-more than adding many certificate-name declarations.
+algebraic interface. The initial Atlas ordered theorem starts at the evaluated equality; the
+CertificateInterpreter continuation now starts from a syntactic derivation.
+The remaining boundary is the real parser and general rational normalization.
 
 ## Composition is the next experiment
 
@@ -169,8 +169,9 @@ verifiers, binding rules, and retained negative controls.
 | E: foreign-domain comparison | One non-polynomial domain using the same four judgments | Reuse must explain a real refusal or eliminate duplicated machinery |
 | F: broader theory | Precise comparison with Isabelle, Trocq, and partial Galois transport | Demonstrable result beyond terminology alignment before novelty claims |
 
-Package B has a bounded integer-expression instance, and C has the ordered
-certificate experiments linked above. The rest of C and packages D–F remain
+Package B has ordered and unit-cofactor integer-expression instances, and C
+has both certificate-route experiments. D now has an eight-cell interpreter
+profile with explicit UNKNOWN results. The rest of C/D and packages E–F remain
 follow-on research. A new edge type or claim language should wait for those experiments.
 The IMAGE_CLOSURE/ALONG/EMPTY opportunity should be taken only when its checked
 geometric premise and point-universe interpretation can be exhibited together.
@@ -179,3 +180,15 @@ The next target is to extend B to rational normalization or explicit algebra
 homomorphisms, then test C with a second certificate interpretation. That tests
 reuse where GP can supply evidence and counterexamples, while leaving the larger
 theory open to being refined or rejected by the results.
+
+## Continuation beyond the release candidate
+
+[Expression transport](EXPRESSION-TRANSPORT-V0.md) now derives evaluation
+naturality, forward solution transport, and backward emptiness transport from
+explicit operation preservation. A concrete integer-to-Gaussian map proves
+that forward equality transport does not suffice for forward emptiness. This
+continuation is separate from the frozen v0.35.0 snapshot.
+
+The [feedback response and next results](ATLAS-FOLLOWUP-V1.md) add the second
+unit-cofactor interpretation, native graph composition, a bounded requirements
+inventory, and the Mathlib/foreign-domain decisions.

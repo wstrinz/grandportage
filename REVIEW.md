@@ -6,7 +6,7 @@ through v0.18 is preserved in `HISTORY/REVIEW-through-v0.18.md`.
 **Version <!--version-->0.35.0<!--/version-->, graph format
 <!--graph-format-->8<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->12<!--/kernel-epoch-->, and
-<!--checks-->1757<!--/checks--> collected checks.**
+<!--checks-->1762<!--/checks--> collected checks.**
 
 ## Highest-risk claim
 
@@ -109,6 +109,23 @@ v0.24 added a second release-critical boundary: `public-snapshot-v1.json` and
 mirror. Attack its classification precedence, path normalization, required-file
 set, generated receipt, and refusal of unclassified paths independently from
 the mathematical kernel.
+
+## Backend identification and execution custody
+
+The argv-keyed Singular identity cache retains failed probes for the process
+lifetime. A later computation can complete while authority remains unavailable.
+Attack recovery by retaining an execution with an unavailable identity, then
+successfully identifying the backend: the old frozen artifact must keep its old
+identity. Never let a later aggregate identity rehabilitate unidentified runs.
+`tests/test_backend.py::test_later_backend_identity_does_not_rewrite_earlier_execution`
+pins artifact immutability with a non-authoritative adapter; it is not a proof
+that an argv/version probe identifies the exact binary used by every process.
+
+`execute` currently snapshots identity after the process returns; `provenance`
+also reads the current identity when aggregating. An argv cache cannot detect
+binary replacement at that path. Before adding automatic probe retries, require
+per-execution identity agreement, mixed-trace refusal, and retained controls for
+replacement/recovery. No retry-policy or native-authority change is made here.
 
 ## 1. Authority binding
 

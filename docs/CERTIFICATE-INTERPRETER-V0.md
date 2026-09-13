@@ -84,7 +84,8 @@ The CI Lean job runs both executable comparisons. The ordinary deterministic
 job runs the graph and comparison mutation tests. No graph format, kernel epoch,
 transport rule, certificate verifier, or backend implementation changed.
 
-The next proof boundary is rational-polynomial normalization or evaluation
-transport along explicit algebra homomorphisms. The next composition boundary
-should use a second certificate interpretation, so reuse is tested across
-different algebraic requirements rather than inferred from one example.
+Evaluation transport along explicit operation-preserving maps is now proved in
+[EXPRESSION-TRANSPORT-V0](EXPRESSION-TRANSPORT-V0.md). Rational-polynomial
+normalization remains an open proof boundary. The [unit-cofactor follow-up](ATLAS-FOLLOWUP-V1.md) now tests a second
+certificate interpretation across composed routes with different algebraic
+requirements. General rational normalization remains separate.

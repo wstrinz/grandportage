@@ -95,7 +95,7 @@ ten-minute campaign and the recovery commands.
 Version <!--version-->0.35.0<!--/version-->, graph format
 <!--graph-format-->8<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->12<!--/kernel-epoch-->. The suite currently has
-<!--checks-->1757<!--/checks--> checks. v0.34 adds field-aware point transport,
+<!--checks-->1762<!--/checks--> checks. v0.34 adds field-aware point transport,
 model-bound certificate reach, and explicit family/model composition on top of
 v0.33's centralized fold-time authority; v0.31.2 makes exact cofactor-certified
 identity authority independent of local CAS availability; v0.31.1 closes the

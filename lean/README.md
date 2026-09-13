@@ -309,3 +309,9 @@ explicit derivation for the x²+1 ordered certificate. From the repository root,
 `python scripts/check_interpreter_parity.py` serializes that Lean example and
 replays it against the Python/graph fixture. See
 [the interpreter boundary](../docs/CERTIFICATE-INTERPRETER-V0.md).
+
+`ExpressionTransport.lean` proves evaluation naturality along explicit operation
+maps. `UnitInterpreter.lean` supplies a second contradiction interpreter and a
+nontriviality-deletion countermodel. The default build remains Mathlib-free;
+see [the follow-up](../docs/ATLAS-FOLLOWUP-V1.md) for the dependency decision,
+requirements inventory, and what these proofs do not establish.

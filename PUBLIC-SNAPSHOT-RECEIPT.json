@@ -2,7 +2,7 @@
   "counts": {
     "generated_files": 1,
     "private_files": 12,
-    "public_files": 320
+    "public_files": 327
   },
   "files": [
     {
@@ -11,7 +11,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256": "de8ea385db942216cd6a36aa4eefb99661dc76b23ed2d87dfe382ec462895ce6"
+      "sha256": "3e5f24b2acfb5086f87215dd26cfff50eeb420aa8cb389d03107a695f4c2080d"
     },
     {
       "path": ".gitignore",
@@ -51,15 +51,19 @@
     },
     {
       "path": "README.md",
-      "sha256": "cb4ec2f116aad117badf237d308611de4d4dadb07ce4e10ef7e0cfe82bdb697d"
+      "sha256": "c593a1ba772290f8b39630f955dd54e1372c427a32bfca95ae534d2ae8cf046c"
     },
     {
       "path": "REVIEW.md",
-      "sha256": "02cc816df6a32fc1711b6de46470ae64896211821e22485f4092027f61e583fc"
+      "sha256": "ac230c584e3cab85c7dca067e33cddfa9213aa462ec38b6462eb4deb30ed4b99"
     },
     {
       "path": "SPEC.md",
-      "sha256": "fde9166ed8bcd3b95d68cafabc20c943ca4b6d24ee93ff7c48b6050709600430"
+      "sha256": "7df93ec1dbda85a07fdb34c74605dd94c3ef7d29630f1f6c84eeab5581c92982"
+    },
+    {
+      "path": "docs/ATLAS-FOLLOWUP-V1.md",
+      "sha256": "166b6930e1137359a2137c6949037243562ad13a76033a1dcd5920c001e33dab"
     },
     {
       "path": "docs/ATLAS-MAPPING-V0.md",
@@ -83,7 +87,11 @@
     },
     {
       "path": "docs/CERTIFICATE-INTERPRETER-V0.md",
-      "sha256": "84135330fe2c914a61d89ad067eef7a272e51ab8f8683baa2c77613f2e0e9437"
+      "sha256": "3862fa82899d505936096ec5dc5f45de5be5ee8807a175c04ca937adc488fb31"
+    },
+    {
+      "path": "docs/EXPRESSION-TRANSPORT-V0.md",
+      "sha256": "c7badf258c41d2cbc02342bf3ea99c4cbaac80a278758fce91b410708a0e7968"
     },
     {
       "path": "docs/FOUNDATIONS-PRIOR-ART.md",
@@ -95,7 +103,7 @@
     },
     {
       "path": "docs/PRESERVATION-ATLAS-PROGRAM.md",
-      "sha256": "685c9187554ba327f2a9bea7961d53c5adaf6d21245a51dc3cba5b2d40e970fd"
+      "sha256": "975d8c121f7e2b6103f610674a5da30efc74e0fff400e967401401a1b2193c5a"
     },
     {
       "path": "docs/V0.27-JC-EXTRACTION-INVENTORY.md",
@@ -499,7 +507,7 @@
     },
     {
       "path": "lean/GrandPortage.lean",
-      "sha256": "a50f67691f2259792631d1404da74e4b65f9f2e1639ba8f764c7a02bee18c953"
+      "sha256": "68e0d541bd83eef0813ec5df83452fa35af23681bdb5c61facf0738043a03265"
     },
     {
       "path": "lean/GrandPortage/AffineCoordinate.lean",
@@ -519,7 +527,7 @@
     },
     {
       "path": "lean/GrandPortage/CertificateInterpreter.lean",
-      "sha256": "2a79fa885c1119e9b9cc8a2878dc7ee2235a455b1d0c975a4ca388d37421d0cd"
+      "sha256": "3824a47e2e7f8abb75a9dcb09c2ccbbfaeb6e5143949c66de0a239d324a9eda5"
     },
     {
       "path": "lean/GrandPortage/CertificateScope.lean",
@@ -536,6 +544,10 @@
     {
       "path": "lean/GrandPortage/Exhaustive.lean",
       "sha256": "66cf5719c671ef74a6ac0c2c7fec407f5a62c967dc7f0844034bee5825685953"
+    },
+    {
+      "path": "lean/GrandPortage/ExpressionTransport.lean",
+      "sha256": "015901fb41122ce9e4bad1409686ee569eb3e4d1a92b992dd781cad2c19b92e7"
     },
     {
       "path": "lean/GrandPortage/FactorPower.lean",
@@ -610,12 +622,16 @@
       "sha256": "b4e3f8e73c6e771f7df695ef8c0627baead4394c5e1212a740d124e0f84a41e0"
     },
     {
+      "path": "lean/GrandPortage/UnitInterpreter.lean",
+      "sha256": "587d337ea4246d0666fc27d9425610832e8b9c6ff6dbe2199047839bb4d5d67b"
+    },
+    {
       "path": "lean/InterpreterParity.lean",
       "sha256": "db12fe38f73b21e79ad2812477bf273a47a7229c4ab7956b415f2d8b31068604"
     },
     {
       "path": "lean/README.md",
-      "sha256": "c87de10507ee3c15f816c5cc9b48f7338ea4b9ff7fb266665ae76778f1133e17"
+      "sha256": "e04e94d28ec869e15970dbe21ab610cfb8b8d6698eb13ae903378a938f9b7d08"
     },
     {
       "path": "lean/THEORY.md",
@@ -890,6 +906,10 @@
       "sha256": "1f8405b3e040fecfa3c22969fda4e13cbdfbb7bd86765c29b1687c30fd184b65"
     },
     {
+      "path": "scripts/atlas_requirements.py",
+      "sha256": "0523abc23c983de43c815cba026bb5163812b6fd021e5d9ed29f07297a9b761d"
+    },
+    {
       "path": "scripts/build_jc_replay_resources.py",
       "sha256": "e6e4224b8d07b4430541088e7d762356f91c32ba98ea58a00b1b66e624f82209"
     },
@@ -1054,6 +1074,10 @@
       "sha256": "5b8708f451c4c0b461207a6ebbae8ab432fa612f7174120b1a3371ed3d560d09"
     },
     {
+      "path": "tests/test_atlas_requirements.py",
+      "sha256": "09039348deb479430f84b5419f1dd321464d132fbf9ea421b948d8cb9d56954f"
+    },
+    {
       "path": "tests/test_authority_binding.py",
       "sha256": "9720cdf5d4d7090ab5c224d92441ed32e92c8b62fe9cfd647ca6972ccedcbb49"
     },
@@ -1063,7 +1087,7 @@
     },
     {
       "path": "tests/test_backend.py",
-      "sha256": "24d38a1800f104363a388d9163e7fcaad74e93ac1548d314960b85ae5237159b"
+      "sha256": "99faee8eb7f47e3a39a5fda6e94c553bcf988744d2a7eceb8080291b57cc9650"
     },
     {
       "path": "tests/test_boundary.py",
@@ -1274,6 +1298,10 @@
       "sha256": "7453337802a64d38e7ef65806b69d414b78e7b3a8733605ffa7cae049965de9a"
     },
     {
+      "path": "tests/test_unit_certificate_composition.py",
+      "sha256": "fa2210128dc0e3455ca3e1638ee094fdbc70725c6ef74a8b16ac8dd74795517c"
+    },
+    {
       "path": "tests/test_verdict_provenance.py",
       "sha256": "0768ed5bd2b671ba57127b708dfd877970740cae40587631ae5fcd7c0e2ad7bd"
     },
@@ -1305,6 +1333,6 @@
     "review/v0.32/SOL-HANDOFF.md"
   ],
   "schema": "grand-portage-public-snapshot-receipt/v1",
-  "snapshot_sha256": "30b7da6491c0470f4df4498ad4ad170bbd2bfb20c9e2a26decd8fe309087a975",
-  "source_commit": "39976e02802f8176fc17234a9272038955e5f7bb"
+  "snapshot_sha256": "368c280e7792e1c366594a282f28daeb42e4d91ee1d951280bdd9c5d0d95bb98",
+  "source_commit": "6b1c26ba8e1ebac8b61c0054aced244b6cec8e69"
 }
