@@ -71,3 +71,44 @@ open. Runtime disagreement is a finding; Lean is not the source of authority.
   This is a study question, not authorization to redesign runtime claims.
 - Keep certificate-typed transportability as the possible novel object. Wait
   for ARR15 and another foreign domain before extracting a paper-level theory.
+
+## Atlas audit after v0.34.0
+
+- `Atlas.lean` adds bounded Isabelle-style quantifier transfer, data-level
+  witness mapping, restriction of stability, and proved/refuted/unknown
+  stability knowledge. These are independent Lean statements, not imports of
+  external prover theorems. Predicate relatedness remains an explicit premise.
+- The canonical epoch-12 reach model separates class instantiation from concrete
+  field extension. `instantiate_sound` proves target-class membership;
+  `orderedReach_stable` and `char0Reach_stable` are membership-stability laws,
+  not algebraic certificate-validity theorems. The 139-row Python/Lean comparison
+  supplements the historical Boolean scope registry, which remains legacy.
+- `orderedSOS_contradiction` proves contradiction from a replayed evaluated
+  equality, zero cofactor terms, and explicit ordered-arithmetic laws. Polynomial
+  parsing/evaluation, concrete field laws, and receipt binding remain outside
+  that proof. Equality alone is not the contradiction interpretation.
+- `preservation_polarity` states the elementary antitone correspondence between
+  operation classes and their common preserved claims. It organizes known
+  preservation facts; it does not prove unknown table entries or minimality.
+- A square-zero/nonzero example proves that reduced observations kill epsilon.
+  Ordinary field points therefore miss information needed for coordinate-ring
+  equality; a general functor-of-points reconstruction is not formalized here.
+- No false kernel licence was reproduced. IMAGE_CLOSURE/ALONG/EMPTY is a
+  conservative refusal with a possible stronger geometric rule, pending checked
+  authority and point interpretation. No transport licence changed.
+- The primary-source mapping and outstanding algebraic obligations are in
+  [ATLAS-MAPPING-V0](../docs/ATLAS-MAPPING-V0.md); the bounded research sequence is
+  in [PRESERVATION-ATLAS-PROGRAM](../docs/PRESERVATION-ATLAS-PROGRAM.md). Trocq's
+  sufficient constraints and its constraint solver must not be represented as
+  a proved globally minimal semantic requirements theorem.
+
+- **Certificate interpreter continuation:** `CertificateInterpreter.lean`
+  supplies a small expression language and proves equational derivations sound
+  under evaluation. `certificate_empty` derives the evaluated equality from the
+  derivation and vanishing cofactor terms from the model equations.
+  `sample_derivation` proves the x²+1 SOS example, and `integer_laws` plus
+  `integer_order` discharge the concrete integer interpretation. An explicit
+  Gaussian-integer solution preserves equality but rules out the ordering.
+  The Python parser, rational normalization, and general field libraries remain
+  outside the proof. `InterpreterParity.lean` serializes this exact example for
+  Python replay and comparison with the graph fixture.

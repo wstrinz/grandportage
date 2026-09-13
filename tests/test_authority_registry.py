@@ -97,3 +97,16 @@ def test_table_and_evidence_commands_share_the_registry(capsys):
     evidence_text = capsys.readouterr().out
     assert "COMPLETE VERIFIER DECLARATIONS" in evidence_text
     assert "CLASSIFICATION" in evidence_text
+
+
+def test_table_describes_epoch12_policy_without_granting_authority(capsys):
+    assert cli.main(["table"]) == 0
+    table = capsys.readouterr().out
+    sos = next(line for line in table.splitlines()
+               if "ORDERED_SOS_CERT" in line)
+    assert "ORDERED" in sos.split("ORDERED_SOS_CERT", 1)[1]
+    assert "NO -- field-relative" not in table
+    assert "policy ceilings" in table
+    assert "current verifier receipt" in table
+    assert "FIELD_SPECIFIC" in table
+    assert "NONE means no earned EMPTY authority" in table
