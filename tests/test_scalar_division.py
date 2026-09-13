@@ -86,7 +86,7 @@ def test_pre_fix_receipt_remains_history_without_authority():
 @pytest.mark.live
 def test_native_constant_denominator_control_and_true_polynomial_restatement():
     backend = cas.SingularBackend()
-    origin, _ = backend.classify_identity(["T"], "(T^2+2)/2", "T^2/2+1", timeout=20)
+    origin, _ = backend.classify_identity(["T"], "(T^2+2)/2", "(T^2)/2+1", timeout=20)
     assert origin == K.AMBIENT
     # Exact constant-denominator flattening of sqrt(5) in Q[T]/(T^4-16T^2+4).
     origin, _ = backend.classify_identity(
