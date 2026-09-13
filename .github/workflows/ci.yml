@@ -9,6 +9,26 @@ permissions:
   contents: read
 
 jobs:
+  lean-atlas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: lean
+          auto-config: "false"
+          build: "true"
+          test: "false"
+          lint: "false"
+          use-mathlib-cache: "false"
+      - name: Compare canonical field and reach decisions
+        run: python scripts/check_atlas_parity.py
+      - name: Replay the Lean certificate against the graph fixture
+        run: python scripts/check_interpreter_parity.py
+
   fast:
     runs-on: ubuntu-latest
     steps:

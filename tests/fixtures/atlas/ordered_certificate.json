@@ -1,0 +1,17 @@
+{
+  "model": {
+    "about": "ANY_ORDERED",
+    "compute_in": "Q",
+    "characteristic": 0,
+    "point_universe": "BASE",
+    "ring_vars": ["x"],
+    "generators": ["x^2+1"]
+  },
+  "certificate": {
+    "method": "rational_sos_cofactor_v1",
+    "ring_vars": ["x"],
+    "generators": ["x^2+1"],
+    "squares": ["x"],
+    "cofactors": ["-1"]
+  }
+}

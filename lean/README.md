@@ -291,3 +291,21 @@ not from anything load-bearing.
 ```bash
 lake build
 ```
+
+For the post-v0.34.0 preservation atlas, run from the repository root after
+building:
+
+```bash
+python scripts/check_atlas_parity.py
+```
+
+This compares 139 canonical reach/extension decisions against Python. It does
+not cover parsing, primality, graph binding, or all primes. See
+[the mapping](../docs/ATLAS-MAPPING-V0.md) for the new `Atlas.lean` laws and the
+remaining interpretation boundaries. CI runs the build and this comparison.
+
+`CertificateInterpreter.lean` extends this with expression evaluation and an
+explicit derivation for the x²+1 ordered certificate. From the repository root,
+`python scripts/check_interpreter_parity.py` serializes that Lean example and
+replays it against the Python/graph fixture. See
+[the interpreter boundary](../docs/CERTIFICATE-INTERPRETER-V0.md).

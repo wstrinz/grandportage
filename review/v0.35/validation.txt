@@ -1,0 +1,22 @@
+v0.35.0 validation
+
+Source implementation: 6f99c5e053c20cca6bd7e8b5623610151bc4978c.
+Release preparation: 8bc0b2f81cab3e91369dde6229bbce7da18ccdd5.
+1,757 collected checks. Non-live: 1,698 passed, 59 deselected (211.26s).
+All 59 native checks passed in split runs; detailed evidence and cold backend
+probe diagnosis are in docs/ATLAS-WORK.md. No production algorithm changed
+between those native runs and this release.
+Lean: 30 jobs built; 139 reach/field parity rows and certificate replay passed.
+Hosted release-preparation CI: fast, lean-atlas, witness-boundary all passed.
+https://github.com/wstrinz/grand-portage-workspace/actions/runs/34732576822
+
+Wheel: grandportage-0.35.0-py3-none-any.whl
+SHA256: fe30057454c1bc5d106aad63fdf60d9edddb42f3a361a236b6f24fbbbc406a11
+Built using pip wheel --no-deps --no-build-isolation --no-cache-dir.
+Fresh pip --target installation imported grandportage, field and ordered_sos;
+version asserted 0.35.0 and import path checked against the target directory.
+
+gp docs --count 1757 synchronized marked version/count spans.
+Public export uses scripts/public_snapshot.py and public-snapshot-v1.json.
+The public snapshot receipt records the exact source revision and file hashes.
+Public snapshot test outcome is recorded in the public release/PR record.

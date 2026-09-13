@@ -2,7 +2,7 @@
   "counts": {
     "generated_files": 1,
     "private_files": 12,
-    "public_files": 305
+    "public_files": 320
   },
   "files": [
     {
@@ -11,7 +11,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256": "bfee32d825ba6dac74eb5994206c26f4422232137545c01e27a0923e49e66788"
+      "sha256": "de8ea385db942216cd6a36aa4eefb99661dc76b23ed2d87dfe382ec462895ce6"
     },
     {
       "path": ".gitignore",
@@ -51,15 +51,23 @@
     },
     {
       "path": "README.md",
-      "sha256": "b4ab21d32dc4107273c228b6e6d318a0d8f2df6dd29fb648e8d62778057e3bc4"
+      "sha256": "cb4ec2f116aad117badf237d308611de4d4dadb07ce4e10ef7e0cfe82bdb697d"
     },
     {
       "path": "REVIEW.md",
-      "sha256": "cc5a3b5c457e20596717c066565e1cc4d939a277ee0aee9c0efa8aa4332d3232"
+      "sha256": "02cc816df6a32fc1711b6de46470ae64896211821e22485f4092027f61e583fc"
     },
     {
       "path": "SPEC.md",
-      "sha256": "a3b98d2cb78304d84511208ef6d9adb091d72cb70e16109135aff9e642b434bb"
+      "sha256": "fde9166ed8bcd3b95d68cafabc20c943ca4b6d24ee93ff7c48b6050709600430"
+    },
+    {
+      "path": "docs/ATLAS-MAPPING-V0.md",
+      "sha256": "96cc75b6bd67b40e1572d15cc5defd798b6c8ee4a56b5e0374c316a0be22cbd0"
+    },
+    {
+      "path": "docs/ATLAS-WORK.md",
+      "sha256": "4895a3df507f2b0b7683ff3b194656b4b396f5ad2c4fb76d31c386da628f54bc"
     },
     {
       "path": "docs/CAMPAIGN-DOSSIER-V0.md",
@@ -74,12 +82,20 @@
       "sha256": "cd6e122cd6605d133632cdbd688e757187b498cd2c2e114f3a39703052ff04cf"
     },
     {
+      "path": "docs/CERTIFICATE-INTERPRETER-V0.md",
+      "sha256": "84135330fe2c914a61d89ad067eef7a272e51ab8f8683baa2c77613f2e0e9437"
+    },
+    {
       "path": "docs/FOUNDATIONS-PRIOR-ART.md",
       "sha256": "c29360b50fa45bd0fb2c6d98f8ddaa223f344ce7891451327f154379fcac69e3"
     },
     {
       "path": "docs/PORTAGE-COMMAND-V0.md",
       "sha256": "a466cadaa03d281c7c2e24f93674007889b946e120a9cbb17126594bf28ee426"
+    },
+    {
+      "path": "docs/PRESERVATION-ATLAS-PROGRAM.md",
+      "sha256": "685c9187554ba327f2a9bea7961d53c5adaf6d21245a51dc3cba5b2d40e970fd"
     },
     {
       "path": "docs/V0.27-JC-EXTRACTION-INVENTORY.md",
@@ -287,7 +303,7 @@
     },
     {
       "path": "grandportage/__init__.py",
-      "sha256": "b860b6284b8e1a892b05c5aceeecee66e933e8d0fe4e968d0304e3b64e921c15"
+      "sha256": "772e269ce21e27381e07a0fa768f38a632ab626c014d5ef0d2378917e638078f"
     },
     {
       "path": "grandportage/adapter_conformance.py",
@@ -303,7 +319,7 @@
     },
     {
       "path": "grandportage/authority_registry.py",
-      "sha256": "399cf524d6d1fa020732d9102dd99de135e8e5c9b7ec378327f9a9e00c51b2eb"
+      "sha256": "b376e62b9e6dd8cff23ab2acf491d1c7ea5da44c7111ab652ffec41400cfe364"
     },
     {
       "path": "grandportage/backend.py",
@@ -323,7 +339,7 @@
     },
     {
       "path": "grandportage/cli.py",
-      "sha256": "0fb043d22c7708af4b3724933aa4cc5c17f48ef876c91e2329e96ca3c3bef44d"
+      "sha256": "8cdca04db97e292d23200f63b56d3c49c50ce9781e4e5e38cebd564507982362"
     },
     {
       "path": "grandportage/coefficient_expansion.py",
@@ -478,8 +494,12 @@
       "sha256": "5375c2c5e323f40c0031aa8c82f66bb9197214001039e6a8c9ff2a5eb3aa24a9"
     },
     {
+      "path": "lean/AtlasParity.lean",
+      "sha256": "06634f4a211d1f47e80b329a37e8ffe963e9e72bda345b803d38e7e9bfa6dbf8"
+    },
+    {
       "path": "lean/GrandPortage.lean",
-      "sha256": "2d4b1a4b39d19761e159c9c7dbf1a91d5138eab2acece6b3a09aa20492a87825"
+      "sha256": "a50f67691f2259792631d1404da74e4b65f9f2e1639ba8f764c7a02bee18c953"
     },
     {
       "path": "lean/GrandPortage/AffineCoordinate.lean",
@@ -490,8 +510,16 @@
       "sha256": "a5051f56b07871005983561e94f0047ed08d5c6f03b8e9377aac092612633da5"
     },
     {
+      "path": "lean/GrandPortage/Atlas.lean",
+      "sha256": "114d0560bbfead5f3b695cdf59d3fe06f0af841f8f0476c2e6184d7c673f5209"
+    },
+    {
       "path": "lean/GrandPortage/BackendTrust.lean",
       "sha256": "1f8d239d78b3a05da3b17ec52cf61be0f5a86614e2f7003b53aa5df46c4e836e"
+    },
+    {
+      "path": "lean/GrandPortage/CertificateInterpreter.lean",
+      "sha256": "2a79fa885c1119e9b9cc8a2878dc7ee2235a455b1d0c975a4ca388d37421d0cd"
     },
     {
       "path": "lean/GrandPortage/CertificateScope.lean",
@@ -582,12 +610,16 @@
       "sha256": "b4e3f8e73c6e771f7df695ef8c0627baead4394c5e1212a740d124e0f84a41e0"
     },
     {
+      "path": "lean/InterpreterParity.lean",
+      "sha256": "db12fe38f73b21e79ad2812477bf273a47a7229c4ab7956b415f2d8b31068604"
+    },
+    {
       "path": "lean/README.md",
-      "sha256": "b275a8bbde586d29734234051003ec747b4c4b4ed244a3d730051f08e42353b2"
+      "sha256": "c87de10507ee3c15f816c5cc9b48f7338ea4b9ff7fb266665ae76778f1133e17"
     },
     {
       "path": "lean/THEORY.md",
-      "sha256": "57b694d0ee34e4393521319635bf3fdb0249e097d68044217d64bd3af1b91c43"
+      "sha256": "1d7905e4f0c99de73d5a9404d4afa5e5518e49280cf7eeb99c2b61fd354224d7"
     },
     {
       "path": "lean/lake-manifest.json",
@@ -607,7 +639,7 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "f73263cd39c8c3cb86b3784c14d52aaadff4780b76ecfe1966a4693ab5685f87"
+      "sha256": "50cf5953e21e9c557a6fd5f30977a4dfd0392cb38b70cfa108dbeca490c7c651"
     },
     {
       "path": "review/LSEM-COLD-RETEST-PACKET-2026-08-03.md",
@@ -850,12 +882,28 @@
       "sha256": "e798d67d9ec308a57105498213f349004d5e378198d3e9c356dd4aaa35bb4d0e"
     },
     {
+      "path": "review/v0.35/README.md",
+      "sha256": "dd82ea45273c21814e29fb7050414965348d7f2fd3b07a46ae1862a69ff3266d"
+    },
+    {
+      "path": "review/v0.35/validation.txt",
+      "sha256": "1f8405b3e040fecfa3c22969fda4e13cbdfbb7bd86765c29b1687c30fd184b65"
+    },
+    {
       "path": "scripts/build_jc_replay_resources.py",
       "sha256": "e6e4224b8d07b4430541088e7d762356f91c32ba98ea58a00b1b66e624f82209"
     },
     {
       "path": "scripts/build_synthetic_triangular_fixtures.py",
       "sha256": "2d2c31f96d74952840292d64fcea55bce1bf00af6592f7e03e1f5980529fb859"
+    },
+    {
+      "path": "scripts/check_atlas_parity.py",
+      "sha256": "04be670566ecebb6b3674cd7d47f16735717ab4537863f931e949941abef137e"
+    },
+    {
+      "path": "scripts/check_interpreter_parity.py",
+      "sha256": "fb7b7dfc9c3299fe4a6c736bbdd98477b439f6b6cd5a619cc0cbac9ab2a770d8"
     },
     {
       "path": "scripts/compact_review_projection.py",
@@ -884,6 +932,10 @@
     {
       "path": "tests/fixtures/arr15/class_4102.json",
       "sha256": "42e3be08f3650b4667409cc72e4c9e81a05a60a31b906c19b1a0dc6cfc308859"
+    },
+    {
+      "path": "tests/fixtures/atlas/ordered_certificate.json",
+      "sha256": "80e1f320d6b8b9ed8d631d4da9e5a53d405bac55314cca59ebd4e38e594c3191"
     },
     {
       "path": "tests/fixtures/dk_retrodiction/README.md",
@@ -998,12 +1050,16 @@
       "sha256": "1b78dc5d7c7212f4dac39d989bde1ca4fa92734c6aba222ae8cd89d35611cb3b"
     },
     {
+      "path": "tests/test_atlas.py",
+      "sha256": "5b8708f451c4c0b461207a6ebbae8ab432fa612f7174120b1a3371ed3d560d09"
+    },
+    {
       "path": "tests/test_authority_binding.py",
       "sha256": "9720cdf5d4d7090ab5c224d92441ed32e92c8b62fe9cfd647ca6972ccedcbb49"
     },
     {
       "path": "tests/test_authority_registry.py",
-      "sha256": "2c6d57ecfbfd05d7f8323348e8b723dbccd887e24eed8aa62c7d0b2b76291aec"
+      "sha256": "ecbf9aba9d5e99bb15f25418b01d7d382e962a540b736ec5c682018f30c695a2"
     },
     {
       "path": "tests/test_backend.py",
@@ -1020,6 +1076,10 @@
     {
       "path": "tests/test_cell_ledger.py",
       "sha256": "5801c0caa4fb25f16da291a4d71325c33d0d1d42dc2ced793dd44dc97a8dd7a7"
+    },
+    {
+      "path": "tests/test_certificate_composition.py",
+      "sha256": "663c30e473bdbc76a3d0374e9d4531502d38c81f2290e37ca82fc377771e8b7c"
     },
     {
       "path": "tests/test_coefficient_expansion.py",
@@ -1245,6 +1305,6 @@
     "review/v0.32/SOL-HANDOFF.md"
   ],
   "schema": "grand-portage-public-snapshot-receipt/v1",
-  "snapshot_sha256": "b1e831ab62fbf853888dfa65ef38ef89e31217fabd723243e149ee40f8ed6c62",
-  "source_commit": "c89d055abccd3176fc32e2b712fba55c3d4e0c6f"
+  "snapshot_sha256": "30b7da6491c0470f4df4498ad4ad170bbd2bfb20c9e2a26decd8fe309087a975",
+  "source_commit": "39976e02802f8176fc17234a9272038955e5f7bb"
 }

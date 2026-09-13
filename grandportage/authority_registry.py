@@ -19,8 +19,12 @@ CLASSIFICATIONS = (CORE, GENERAL_CONTRIB, CAMPAIGN)
 
 # The Lean shadow deliberately does not import this table. These names make
 # the comparison explicit and mechanically total without making Lean runtime
-# authority. ``lean_derived_scope`` is the result proved by the named
-# decision; FIELD_RELATIVE means the exact declared field atom.
+# authority. These decisions model the HISTORICAL Boolean scope interface,
+# not epoch-12 effective reach. In particular orderedSosDecision only refutes
+# arbitrary extension stability; it does not classify ORDERED as one field.
+# Atlas.lean and scripts/check_atlas_parity.py cover current instantiation.
+# ``lean_derived_scope`` is the historical result; FIELD_RELATIVE means the
+# exact declared field atom within that older two-level vocabulary.
 CERTIFICATE_STABILITY = {
     "UNIT_IDEAL_CERT": {
         "lean_decision": "unitIdealDecision",
@@ -225,6 +229,7 @@ def manifest():
             "legacy_certificate_base_change": dict(
                 kernel.BUILTIN_CERTIFICATES),
             "certificate_stability": dict(CERTIFICATE_STABILITY),
+            "certificate_stability_role": "LEGACY_BOOLEAN_SCOPE_SHADOW",
         },
         "evidence_contracts": [
             contract.as_dict() for contract in evidence.EVIDENCE_CONTRACTS
