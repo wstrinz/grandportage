@@ -112,3 +112,53 @@ open. Runtime disagreement is a finding; Lean is not the source of authority.
   The Python parser, rational normalization, and general field libraries remain
   outside the proof. `InterpreterParity.lean` serializes this exact example for
   Python replay and comparison with the graph fixture.
+
+
+## 2026-09-13: three interfaces and read-only IR v2
+
+`CancellationInterpreter.lean` proves syntactic cancellation/contradiction and
+retains Z/4 with the same Laws as its deletion countermodel. The structural
+profiles U (nontrivial), O (SOS Ordering), Z (no zero divisors) have U < O and
+Z incomparable with both: the product of integers, F2 and zero algebra prove
+the non-implications. O is not a standard LinearOrderedField interface. A pinned
+Mathlib adapter would connect these small interfaces to standard fields/rings;
+none is imported into this core. No novelty claim is made for these elementary
+arguments. See docs/REQUIREMENT-PROFILES-V0.md for the exact order convention.
+
+`IR.lean` parameterizes model-indexed vocabulary and conditional profiles. Its
+licence soundness is induction under explicit leaf/step semantic, replay and
+binding hypotheses, not verification of Python. Loss means computed lack of
+admitted transport with current premises, not semantic reconstruction loss.
+RequirementChecks/IRChecks mechanically check the dictionary declaration names;
+Python tests prevent those generated dictionaries from drifting.
+
+The read-only corpus projection reaches the packet's missing-context stop
+condition (72/73 models), so no format/epoch recommendation is issued. Legacy
+fixture coverage and unsupported IR adapters are confounders. No runtime
+transport, verifier, binder or authority registry changes were made.
+
+## Licence read model and concrete observer kernel
+
+IR.Licence now has partition and family constructors. Partition elimination
+retains a coverage licence and an explicit coverage relation; premises may be
+at different models, with individual current bindings. NonlocalReady retains
+expressibility, a covered profile, actual evidence discharge and step binding.
+Partition and family admission lemmas recover the same intersection. The
+soundness induction adds explicit coverage and family interpretation hypotheses;
+it does not verify the JSON adapter. missing_partition_branch_countermodel
+retains an empty reported Boolean branch alongside an inhabited omitted branch.
+The family case uses Atlas.family_member; Atlas.reindex_forall remains the
+corresponding reindexing theorem.
+
+SemanticLoss.integer_gaussian_no_loss proves that integerToGaussian collapses
+no pair under exact-value observers. **Semantic loss identifies distinguishable
+source states merged by a specified mapped observer, whereas IR.lost identifies
+claim kinds lacking a covered transport profile under available discharge.**
+Neither ordering failure nor a missing receipt implies an exact-value kernel
+collision for the integer-to-Gaussian injection.
+
+TargetDischarge states field-interface implications U and Z; F2 discharges the
+interface and refutes uniform ordering over finite-field targets. Canonical Q,
+R, C adapters and characteristic-zero ordering countermodels remain UNKNOWN in
+this Mathlib-free core. The generated target table names these interpretation
+premises explicitly; a pinned Mathlib adapter would be the next step.

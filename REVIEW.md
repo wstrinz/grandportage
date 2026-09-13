@@ -6,7 +6,7 @@ through v0.18 is preserved in `HISTORY/REVIEW-through-v0.18.md`.
 **Version <!--version-->0.36.0<!--/version-->, graph format
 <!--graph-format-->8<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->12<!--/kernel-epoch-->, and
-<!--checks-->1766<!--/checks--> collected checks.**
+<!--checks-->1789<!--/checks--> collected checks.**
 
 ## Highest-risk claim
 
@@ -110,6 +110,16 @@ mirror. Attack its classification precedence, path normalization, required-file
 set, generated receipt, and refusal of unclassified paths independently from
 the mathematical kernel.
 
+## Read-only IR-v2 experiment
+
+Attack `project_v2` for invented context, manufactured requirement discharge,
+process-level identity copied into per-execution slots, and stale receipts
+reported current. Its JSON is DERIVED_READ_MODEL_ONLY with graph effect NONE;
+PROJECTABLE is a data skeleton, never an earned runtime licence. Check both
+Lean-name dictionaries for drift and distinguish UNKNOWN from countermodels.
+The corpus triggers the missing-context stopping condition, so no epoch/format
+recommendation follows from this run. See docs/IR-V2-PROJECTION-REPORT.md.
+
 ## 1. Authority binding
 
 Attack every path that turns a checked report into graph authority:
@@ -194,6 +204,24 @@ test suites and the certifying checker is a real trust surface. The relevant
 question is no longer whether validators are tiny, but whether they remain
 bounded replay checkers, share a small exact substrate, resist differential
 attacks, and compose into conclusions worth their cost.
+
+## Licence explanation and corpus intake
+
+Attack explain for conflating a fresh negative verdict with a positive licence,
+using a tag as an interpreter, suppressing missing family or coverage records,
+and labeling a missing proof-tree adapter as semantic loss. Every expanded node
+classifies nine obligations, citing stored fields when REIFIED. Current ordered
+SOS receipts recover a conditional interpretation; other interpreter adapters
+remain explicit gaps. The gate-profile lost set is independent of full tree
+completeness; leaves have no transport step and unresolved evaluation is UNKNOWN.
+
+Corpus integrity is relative to the retained export manifest, not a signature.
+The intake baseline pins each export manifest and preserves the old pin on
+refusal; changing an export manifest cannot reset it. This is not a signature.
+Attack changed bytes, added fields, unmanifested files, unsafe paths, missing
+receipts, and legacy headers. Migration and fresh replay are separately labelled
+recovery products and must never replace the verbatim A3 corpus unnoticed.
+Raw campaign data stays local and outside public snapshot classification.
 
 ## Backend identification and execution custody (v0.36)
 

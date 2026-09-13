@@ -25,3 +25,14 @@ import GrandPortage.CertificateScope
 import GrandPortage.Atlas
 import GrandPortage.CertificateInterpreter
 import GrandPortage.SelectedEmbedding
+
+import GrandPortage.ExpressionTransport
+import GrandPortage.UnitInterpreter
+import GrandPortage.CancellationInterpreter
+import GrandPortage.RequirementChecks
+import GrandPortage.IR
+import GrandPortage.IRChecks
+
+import GrandPortage.SemanticLoss
+
+import GrandPortage.ExplainChecks

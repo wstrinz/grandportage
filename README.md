@@ -95,7 +95,7 @@ ten-minute campaign and the recovery commands.
 Version <!--version-->0.36.0<!--/version-->, graph format
 <!--graph-format-->8<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->12<!--/kernel-epoch-->. The suite currently has
-<!--checks-->1766<!--/checks--> checks. v0.34 adds field-aware point transport,
+<!--checks-->1789<!--/checks--> checks. v0.34 adds field-aware point transport,
 model-bound certificate reach, and explicit family/model composition on top of
 v0.33's centralized fold-time authority; v0.31.2 makes exact cofactor-certified
 identity authority independent of local CAS availability; v0.31.1 closes the
@@ -146,8 +146,14 @@ judgment explicit and keeps it from dissolving during handoff.
 The name is the 8.5-mile haul around the Pigeon River falls: the deliberate
 carry between two bodies of water, with constant attention to what can cross.
 
-For the distinction from semantic information loss, see the
-[observation-axis research note](https://github.com/wstrinz/grandportage/blob/d81eb12/docs/OBSERVATION-AXIS-V0.md).
+## Licence explanation (research read model)
+
+`gp explain GRAPH NODE [--kind K] [--json]` reconstructs a conditional licence
+view, classifying nine obligations as REIFIED, DATA_GAP or ADAPTER_GAP. It grants
+no authority and never writes to the graph. See the [corpus report](docs/IR-V2-CORPUS-REPORT.md)
+and [IR specification](docs/IR-V2-TYPES.md). Raw campaign exports belong in a
+local ignored corpus bundle, separately from regression fixtures; intake and
+recovery instructions are in `scripts/corpus_check.py --help`.
 
 For the distinction from semantic information loss, see the
-[observation-axis note](https://github.com/wstrinz/grandportage/blob/d81eb12/docs/OBSERVATION-AXIS-V0.md).
+[observation-axis note](docs/OBSERVATION-AXIS-V0.md).
