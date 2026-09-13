@@ -6,9 +6,27 @@ through v0.18 is preserved in `HISTORY/REVIEW-through-v0.18.md`.
 **Version <!--version-->0.36.0<!--/version-->, graph format
 <!--graph-format-->8<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->12<!--/kernel-epoch-->, and
-<!--checks-->1789<!--/checks--> collected checks.**
+<!--checks-->1811<!--/checks--> collected checks.**
 
 ## Highest-risk claim
+
+The post-v0.36 Cloquet division repair rejects nonconstant divisors before CAS
+execution. Attack both claim sides, model generators, maps and body statements,
+including nested division, cancellation, denominator guards and zero constants
+in finite characteristic. Singular polynomial quotient can discard a remainder;
+a nonzero guard does not turn it into rational-function evaluation. The true
+selected-root rational identity must refuse in this input language while its
+constant-denominator polynomial restatement still verifies. See
+`tests/test_scalar_division.py`.
+
+Singular adapter implementation version 5 makes all prior adapter executions
+historical rather than current authority, including otherwise valid old CAS
+receipts: replay is required. Verifier-native receipts, graph format 8 and
+kernel epoch 12 are unchanged. The guard accepts only literal scalar arithmetic
+in divisors; variable expressions that simplify to constants are conservatively
+refused. This is not a localization implementation or a claim that Python
+parses every Singular expression. Expressions containing division must pass the
+bounded syntax check; unsupported syntax fails closed.
 
 For a cold campaign read, run `gp review`. It is the checked-seam equivalent
 of `gp check --history --full`: current authority debt, full carried detail,

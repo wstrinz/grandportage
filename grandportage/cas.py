@@ -43,6 +43,7 @@ from first principles:
    have caught it; only running it did.
 """
 
+import ast
 import json
 import os
 import re
@@ -288,6 +289,43 @@ def assert_declares_nothing(dialect, statements, field):
     return True
 
 
+def assert_scalar_divisors(text, characteristic=0):
+    """Refuse polynomial-quotient syntax before Singular can discard a remainder.
+
+    This checks every division node, including nested divisors, without expanding
+    the numerator. Only literal scalar arithmetic is accepted in a divisor;
+    a guard or an invertible element of a quotient ring is not scalar division.
+    This is a conservative syntax gate, not a rational-function interpreter.
+    """
+    if "/" not in text:
+        return
+    diagnostic = (
+        "unsupported division: divisors must be nonzero scalar coefficients; "
+        "nonconstant divisors require an explicit checked rational-function "
+        "interpretation. A denominator guard does not make polynomial quotient "
+        "sound. No CAS was run."
+    )
+    try:
+        if len(text) > 200000:
+            raise ValueError("division expression exceeds the syntax budget")
+        source = text.replace("^", "**").strip()
+        tree = ast.parse(source, mode="exec")
+        nodes = list(ast.walk(tree))
+        if len(nodes) > 20000:
+            raise ValueError("division expression exceeds the syntax budget")
+        for node in nodes:
+            if isinstance(node, ast.BinOp) and isinstance(node.op, ast.FloorDiv):
+                raise ValueError("integer quotient is unsupported")
+            if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Div):
+                divisor = ast.get_source_segment(source, node.right)
+                scalar = G.parse_polynomial(divisor, (), characteristic)
+                if scalar.is_zero:
+                    raise ValueError("zero divisor in the coefficient field")
+    except (SyntaxError, ValueError, G.CertificateError,
+            RecursionError, MemoryError) as exc:
+        raise CASError("%s (%s)" % (diagnostic, exc)) from exc
+
+
 class CASProgram(object):
     """The ONLY thing `run_cas` accepts.  There is no string path to a solver.
 
@@ -348,6 +386,8 @@ class CASProgram(object):
         assert_declares_nothing(dialect, [e for _n, _t, e in self.decls],
                                 "a declaration expression")
         assert_declares_nothing(dialect, self.body, "a body statement")
+        for text in [e for _n, _t, e in self.decls] + self.body:
+            assert_scalar_divisors(text, characteristic)
 
     @property
     def text(self):

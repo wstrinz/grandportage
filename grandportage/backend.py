@@ -16,7 +16,9 @@ import re
 BACKEND_PROTOCOL_VERSION = 2
 SINGULAR_CONTRACT = "singular"
 SINGULAR_IMPLEMENTATION = "grandportage.cas.SingularBackend"
-SINGULAR_IMPLEMENTATION_VERSION = 4
+# Version 4 and earlier could interpret nonconstant '/' as polynomial quotient.
+# Those executions remain history, but must be replayed to regain authority.
+SINGULAR_IMPLEMENTATION_VERSION = 5
 
 
 def _canonical(value):
