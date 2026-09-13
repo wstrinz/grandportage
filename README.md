@@ -3,8 +3,8 @@
 **Transport typing and obstruction tracking for computational algebra.**
 
 A computation produces an artifact. The artifact does not carry its own
-license to conclude. Grand Portage records what each modelling step loses and
-refuses conclusions that loss does not support.
+license to conclude. Grand Portage computes which claims remain licensed after each modelling step
+under available evidence, and refuses unsupported conclusions.
 
 ```text
 $ gp check
@@ -92,10 +92,10 @@ ten-minute campaign and the recovery commands.
 
 ## Status and documents
 
-Version <!--version-->0.35.0<!--/version-->, graph format
+Version <!--version-->0.36.0<!--/version-->, graph format
 <!--graph-format-->8<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->12<!--/kernel-epoch-->. The suite currently has
-<!--checks-->1757<!--/checks--> checks. v0.34 adds field-aware point transport,
+<!--checks-->1766<!--/checks--> checks. v0.34 adds field-aware point transport,
 model-bound certificate reach, and explicit family/model composition on top of
 v0.33's centralized fold-time authority; v0.31.2 makes exact cofactor-certified
 identity authority independent of local CAS availability; v0.31.1 closes the
@@ -105,23 +105,23 @@ historical-format migration repairs and a closed, bounded grammar for
 field-relative emptiness scope. The current transport semantics are kernel
 epoch 12.
 
-- [QUICKSTART.md](QUICKSTART.md) — install and first campaign
-- [SPEC.md](SPEC.md) — complete transport and verifier behavior
-- [OPERATION-CONTRACTS.md](OPERATION-CONTRACTS.md) — operation semantics versus checked guarantees
-- [COMPATIBILITY.md](COMPATIBILITY.md) — formats, epochs, and migration
-- [ARCHITECTURE.md](ARCHITECTURE.md) — trust zones and module boundaries
-- [REVIEW.md](REVIEW.md) — current general attack surface
-- [review/v0.29/README.md](review/v0.29/README.md) — public release record, selected-embedding implementation, and CFG23 replay evidence
-- [review/v0.30/README.md](review/v0.30/README.md) — native verification, extension witnesses, ordered receipt independence, and Lean epoch-11 parity
-- [review/v0.31/README.md](review/v0.31/README.md) — public release record, compatibility repairs, and field-scope hardening
-- [review/v0.31.1/README.md](review/v0.31.1/README.md) — patch release record for field-scoped emptiness on untyped models
-- [review/v0.31.2/README.md](review/v0.31.2/README.md) — patch release record for environment-independent exact identity receipts
-- [review/v0.32/README.md](review/v0.32/README.md) — guard release, DK acceptance deltas, and operational accounting
-- [review/v0.33/README.md](review/v0.33/README.md) — authority-binding boundary and review diagnostics
-- [review/v0.34/README.md](review/v0.34/README.md) — field reach, ordered SOS replay, family/model bridge, and migration
-- [grandportage-jc-campaign](https://github.com/wstrinz/grandportage-jc-campaign) — optional extracted campaign fixtures, replay, and historical review brief
-- [HISTORY/](HISTORY/) — superseded findings retained as evidence
-- [lean/README.md](lean/README.md) — non-authoritative semantic shadow
+- [QUICKSTART.md](QUICKSTART.md) â€” install and first campaign
+- [SPEC.md](SPEC.md) â€” complete transport and verifier behavior
+- [OPERATION-CONTRACTS.md](OPERATION-CONTRACTS.md) â€” operation semantics versus checked guarantees
+- [COMPATIBILITY.md](COMPATIBILITY.md) â€” formats, epochs, and migration
+- [ARCHITECTURE.md](ARCHITECTURE.md) â€” trust zones and module boundaries
+- [REVIEW.md](REVIEW.md) â€” current general attack surface
+- [review/v0.29/README.md](review/v0.29/README.md) â€” public release record, selected-embedding implementation, and CFG23 replay evidence
+- [review/v0.30/README.md](review/v0.30/README.md) â€” native verification, extension witnesses, ordered receipt independence, and Lean epoch-11 parity
+- [review/v0.31/README.md](review/v0.31/README.md) â€” public release record, compatibility repairs, and field-scope hardening
+- [review/v0.31.1/README.md](review/v0.31.1/README.md) â€” patch release record for field-scoped emptiness on untyped models
+- [review/v0.31.2/README.md](review/v0.31.2/README.md) â€” patch release record for environment-independent exact identity receipts
+- [review/v0.32/README.md](review/v0.32/README.md) â€” guard release, DK acceptance deltas, and operational accounting
+- [review/v0.33/README.md](review/v0.33/README.md) â€” authority-binding boundary and review diagnostics
+- [review/v0.34/README.md](review/v0.34/README.md) â€” field reach, ordered SOS replay, family/model bridge, and migration
+- [grandportage-jc-campaign](https://github.com/wstrinz/grandportage-jc-campaign) â€” optional extracted campaign fixtures, replay, and historical review brief
+- [HISTORY/](HISTORY/) â€” superseded findings retained as evidence
+- [lean/README.md](lean/README.md) â€” non-authoritative semantic shadow
 
 After the companion is published, its optional external conformance lane is:
 
@@ -145,3 +145,9 @@ judgment explicit and keeps it from dissolving during handoff.
 
 The name is the 8.5-mile haul around the Pigeon River falls: the deliberate
 carry between two bodies of water, with constant attention to what can cross.
+
+For the distinction from semantic information loss, see the
+[observation-axis research note](https://github.com/wstrinz/grandportage/blob/d81eb12/docs/OBSERVATION-AXIS-V0.md).
+
+For the distinction from semantic information loss, see the
+[observation-axis note](https://github.com/wstrinz/grandportage/blob/d81eb12/docs/OBSERVATION-AXIS-V0.md).

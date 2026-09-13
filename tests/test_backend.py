@@ -821,3 +821,29 @@ def test_section_wrapper_persists_verdict_and_every_answering_artifact(
     graph = S.load(S.graph_path(root))
     assert graph.edges["E"]["contraction_verdict"] == V.SECTION_VERIFIED
     assert A.audit_graph(root, graph) == []
+
+
+def test_later_backend_identity_does_not_rewrite_earlier_execution(monkeypatch):
+    monkeypatch.setattr(cas, "_BINARY_VERSION_CACHE", {})
+    monkeypatch.setattr(cas, "_argv", lambda: ["Singular", "-q"])
+    calls = []
+    def probe(argv, **kwargs):
+        calls.append(argv)
+        if len(calls) == 1:
+            raise subprocess.TimeoutExpired(argv, 1)
+        return subprocess.CompletedProcess(argv, 0, "Singular recovered", "")
+    monkeypatch.setattr(cas.subprocess, "run", probe)
+    backend = cas.SingularBackend(runner=lambda program, _timeout:
+        _raw(_finished(program, "@@GP_G:\nGP_G[1]=x\n")))
+    # Explicit versions on a test adapter exercise frozen artifact identity;
+    # they never establish native authority.
+    backend._binary_version = cas._singular_binary_version()
+    earlier = backend.execute(_program())
+    assert cas._singular_binary_version() == "unavailable: TimeoutExpired"
+    assert len(calls) == 1
+    cas._BINARY_VERSION_CACHE.clear()  # simulated recovery, not a new retry policy
+    backend._binary_version = cas._singular_binary_version()
+    later = backend.execute(_program())
+    assert later.artifact.backend.binary_version == "Singular recovered"
+    assert earlier.artifact.backend.binary_version == "unavailable: TimeoutExpired"
+    assert not backend.can_record_verdicts

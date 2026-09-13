@@ -2749,6 +2749,25 @@ def cmd_visualize(args):
     return _write_derived_output(args, content)
 
 
+
+def cmd_lint(args):
+    """Report prose predicates; this advisory view grants no authority."""
+    graph = _load(args)
+    warnings = [{"code": "PROSE_PREDICATE", "claim": cid,
+                 "message": "new charters require a machine-readable condition; prose remains legal"}
+                for cid, claim in sorted(graph.claims.items())
+                if claim.get("kind") == K.PREDICATE and claim.get("condition") is None
+                and not claim.get("superseded_by")]
+    if args.json:
+        print(json.dumps({"authority": "DERIVED_READ_MODEL_ONLY", "graph_effect": "NONE",
+                          "warnings": warnings}, sort_keys=True))
+    else:
+        for warning in warnings:
+            print("WARNING %(code)s %(claim)s: %(message)s" % warning)
+        if not warnings:
+            print("No prose-PREDICATE warnings.")
+    return 0
+
 def build_parser():
     p = argparse.ArgumentParser(prog="gp", description=__doc__)
     # `--version` printed the top-level usage and exited 2 without saying no
@@ -2761,6 +2780,10 @@ def build_parser():
     p.add_argument("--graph", action="append",
                    help="graph log to read; repeat to MERGE several")
     sub = p.add_subparsers(dest="cmd")
+
+    lint = sub.add_parser("lint", help="warn about prose predicates without graph changes")
+    lint.add_argument("--json", action="store_true")
+    lint.set_defaults(func=cmd_lint)
 
     c = sub.add_parser("check", help="type-check the graph")
     c.add_argument("--seam", choices=("checked", "unchecked"), default="checked",
