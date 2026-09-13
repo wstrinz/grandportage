@@ -32,3 +32,16 @@ def test_unmanifested_artifact_and_path_escape_are_refused(tmp_path):
     p=dst/"export-manifest.json"; m=json.loads(p.read_text())
     m["files"][0]["path"]="../source/graph.jsonl"; p.write_text(json.dumps(m))
     assert "unsafe manifest path" in C.validate_campaign(dst)["reasons"]
+
+
+def test_rewriting_export_manifest_cannot_reset_the_intake_pin(tmp_path):
+    src=source(tmp_path); root=tmp_path/"corpus"; dst=root/"arr15"
+    C.export(src,dst)
+    baseline=C.check(root); (root/"manifest.json").write_text(json.dumps(baseline))
+    p=dst/"export-manifest.json"; m=json.loads(p.read_text())
+    m["source"]="different source"; p.write_text(json.dumps(m))
+    refused=C.check(root)
+    assert "export manifest changed since intake" in refused["campaigns"]["arr15"]["reasons"]
+    assert refused["campaigns"]["arr15"]["export_manifest_sha256"]==baseline["campaigns"]["arr15"]["export_manifest_sha256"]
+    (root/"manifest.json").write_text(json.dumps(refused))
+    assert "export manifest changed since intake" in C.check(root)["campaigns"]["arr15"]["reasons"]

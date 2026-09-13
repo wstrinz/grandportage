@@ -112,8 +112,19 @@ def validate_campaign(root):
 
 def check(root):
     root = Path(root)
+    baseline_path = root / "manifest.json"
+    baseline = json.loads(baseline_path.read_text(encoding="utf-8")) if baseline_path.exists() else {}
     result = {"schema": "gp-corpus-intake/v1", "no_backfill": True,
               "campaigns": {c: validate_campaign(root/c) for c in CAMPAIGNS}}
+    for campaign, report in result["campaigns"].items():
+        expected = baseline.get("campaigns", {}).get(campaign, {}).get("export_manifest_sha256")
+        observed = report.get("export_manifest_sha256")
+        if expected is not None and observed != expected:
+            report["status"] = "BLOCKED-ON-CORPUS"
+            report["reasons"].append("export manifest changed since intake")
+            report["observed_export_manifest_sha256"] = observed
+            # A failed check must not silently replace the original pin.
+            report["export_manifest_sha256"] = expected
     result["status"] = "READY" if all(c["status"] == "READY" for c in result["campaigns"].values()) else "BLOCKED-ON-CORPUS"
     return result
 

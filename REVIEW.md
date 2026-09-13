@@ -6,7 +6,7 @@ through v0.18 is preserved in `HISTORY/REVIEW-through-v0.18.md`.
 **Version <!--version-->0.36.0<!--/version-->, graph format
 <!--graph-format-->8<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->12<!--/kernel-epoch-->, and
-<!--checks-->1788<!--/checks--> collected checks.**
+<!--checks-->1789<!--/checks--> collected checks.**
 
 ## Highest-risk claim
 
@@ -216,6 +216,8 @@ remain explicit gaps. The gate-profile lost set is independent of full tree
 completeness; leaves have no transport step and unresolved evaluation is UNKNOWN.
 
 Corpus integrity is relative to the retained export manifest, not a signature.
+The intake baseline pins each export manifest and preserves the old pin on
+refusal; changing an export manifest cannot reset it. This is not a signature.
 Attack changed bytes, added fields, unmanifested files, unsafe paths, missing
 receipts, and legacy headers. Migration and fresh replay are separately labelled
 recovery products and must never replace the verbatim A3 corpus unnoticed.
