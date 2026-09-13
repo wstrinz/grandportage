@@ -3,10 +3,10 @@
 This is the attack surface for the current release. The full historical review
 through v0.18 is preserved in `HISTORY/REVIEW-through-v0.18.md`.
 
-**Version <!--version-->0.35.0<!--/version-->, graph format
+**Version <!--version-->0.36.0<!--/version-->, graph format
 <!--graph-format-->8<!--/graph-format-->, kernel epoch
 <!--kernel-epoch-->12<!--/kernel-epoch-->, and
-<!--checks-->1780<!--/checks--> collected checks.**
+<!--checks-->1788<!--/checks--> collected checks.**
 
 ## Highest-risk claim
 
@@ -109,23 +109,6 @@ v0.24 added a second release-critical boundary: `public-snapshot-v1.json` and
 mirror. Attack its classification precedence, path normalization, required-file
 set, generated receipt, and refusal of unclassified paths independently from
 the mathematical kernel.
-
-## Backend identification and execution custody
-
-The argv-keyed Singular identity cache retains failed probes for the process
-lifetime. A later computation can complete while authority remains unavailable.
-Attack recovery by retaining an execution with an unavailable identity, then
-successfully identifying the backend: the old frozen artifact must keep its old
-identity. Never let a later aggregate identity rehabilitate unidentified runs.
-`tests/test_backend.py::test_later_backend_identity_does_not_rewrite_earlier_execution`
-pins artifact immutability with a non-authoritative adapter; it is not a proof
-that an argv/version probe identifies the exact binary used by every process.
-
-`execute` currently snapshots identity after the process returns; `provenance`
-also reads the current identity when aggregating. An argv cache cannot detect
-binary replacement at that path. Before adding automatic probe retries, require
-per-execution identity agreement, mixed-trace refusal, and retained controls for
-replacement/recovery. No retry-policy or native-authority change is made here.
 
 ## Read-only IR-v2 experiment
 
@@ -237,3 +220,21 @@ Attack changed bytes, added fields, unmanifested files, unsafe paths, missing
 receipts, and legacy headers. Migration and fresh replay are separately labelled
 recovery products and must never replace the verbatim A3 corpus unnoticed.
 Raw campaign data stays local and outside public snapshot classification.
+
+## Backend identification and execution custody (v0.36)
+
+Native execution emits the version banner inside a nonce-bound identity block.
+The artifact binary_version comes from that transcript and must agree with the
+early probe. Missing, duplicate, wrong-nonce and mismatched blocks are refused;
+the frozen execution remains inspectable. The cache still retains failed probes.
+A version banner is not an executable digest: replacement by an identically
+labelled build remains outside this version-level contract.
+
+Attack mixed traces and late recovery: aggregate provenance refuses different
+frozen backend identities; recording cannot rehabilitate unidentified runs.
+The retained immutability control and tests/test_inband_identity.py cover these
+cases, including native Singular 4.2.1 replay. Injected runners stay non-authoritative.
+
+Upstream option dispatch: https://github.com/Singular/Singular/blob/spielwiese/Singular/extra.cc
+(jjSYSTEM). A local 4.2.1 probe confirmed system("--version") returns to the
+program and the completion marker follows it. No retry policy changes here.

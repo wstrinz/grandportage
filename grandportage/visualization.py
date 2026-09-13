@@ -355,7 +355,7 @@ _HTML = r'''<!doctype html>
       if (node.kind === 'edge') return {
         headline: `${r.src || '?'} -> ${r.dst || '?'} (${r.type || 'transformation'})`,
         summary: clipped(r.why || r.desc || `Transformation ${node.id}`),
-        why: r.drops?.length ? `Recorded loss: ${r.drops.join('; ')}` : 'No recorded loss is shown; inspect the operation contract and evidence before treating this as exact.'
+        why: r.drops?.length ? `Recorded claim restrictions: ${r.drops.join('; ')}` : 'No claim restrictions are recorded; inspect the operation contract and available evidence.'
       };
       if (node.kind === 'claim') return {
         headline: `${r.kind || 'Claim'} on ${r.model || 'a model'}`,

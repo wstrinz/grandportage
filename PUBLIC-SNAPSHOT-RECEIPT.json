@@ -2,7 +2,7 @@
   "counts": {
     "generated_files": 1,
     "private_files": 12,
-    "public_files": 349
+    "public_files": 354
   },
   "files": [
     {
@@ -11,7 +11,7 @@
     },
     {
       "path": ".github/workflows/ci.yml",
-      "sha256": "130c7f63761f99e53416013dc665b1c049f4e4ed0580972e2c356c7ebdfab775"
+      "sha256": "c788248e311b639f5e9509c24c385100bb24c81e97b19978c94c89f2c86d4564"
     },
     {
       "path": ".gitignore",
@@ -27,7 +27,7 @@
     },
     {
       "path": "ARCHITECTURE.md",
-      "sha256": "c72f66d185ef76357465e97e7655a324ffaf6aa5939438ee473e76e80f04bcf0"
+      "sha256": "4c6cda69df440016f9ce71f7f89d8d095d10a46816d3b066238019639ab75e33"
     },
     {
       "path": "COMPATIBILITY.md",
@@ -51,15 +51,15 @@
     },
     {
       "path": "README.md",
-      "sha256": "d209efb3d507634e863a2651677306974179170d8839a84b9c8d9c0b54ffd9ad"
+      "sha256": "352714fbc85f872c7c67ce6531e079f0cb50aff18a14ae9858d409d532167ead"
     },
     {
       "path": "REVIEW.md",
-      "sha256": "b2646eb6793dc436c32e657c7e34e87a8effb1e8e19481ab665023401d37e5b6"
+      "sha256": "451cc173e2dc9709c877dcebe7f47907b07300ef9ebb4dc6dd010541335e5a6f"
     },
     {
       "path": "SPEC.md",
-      "sha256": "4ff53e7ba285a03e80e4181038a8c548a08e9a7d0cd0c06b31de2dc4c89f79fe"
+      "sha256": "a068883d35f32d73bda4f34e49bdb7c8638eba7a3f9828064717356069961cd7"
     },
     {
       "path": "docs/ATLAS-FOLLOWUP-V1.md",
@@ -331,7 +331,7 @@
     },
     {
       "path": "grandportage/__init__.py",
-      "sha256": "772e269ce21e27381e07a0fa768f38a632ab626c014d5ef0d2378917e638078f"
+      "sha256": "737136b8471126e1af366700db86b6b0b8391bdc6ebda0ef58cd4302d8ccf835"
     },
     {
       "path": "grandportage/adapter_conformance.py",
@@ -359,7 +359,7 @@
     },
     {
       "path": "grandportage/cas.py",
-      "sha256": "a824137ae92b3f234529561041850a227bf67505dea46c3da0dc6d7931d6c718"
+      "sha256": "686aa2c4fbad9a5ecd90a3eaaea003f1a831440673473c661d1267fdf835b6f6"
     },
     {
       "path": "grandportage/check.py",
@@ -367,7 +367,7 @@
     },
     {
       "path": "grandportage/cli.py",
-      "sha256": "82ec644edbaf13c5f023d13d5fd509ec7b60bca9d5729ab0c449c68b03748e7a"
+      "sha256": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308"
     },
     {
       "path": "grandportage/coefficient_expansion.py",
@@ -391,7 +391,7 @@
     },
     {
       "path": "grandportage/explain.py",
-      "sha256": "5bdcf5da4cc1ff4d481e42c6817774697c37c6afc301430c76296d6f6f21fad4"
+      "sha256": "da8976e35b4594c61165c03bd3a7441216d3ee073015b006c2a2445f63fbf3d8"
     },
     {
       "path": "grandportage/factor_power.py",
@@ -451,7 +451,7 @@
     },
     {
       "path": "grandportage/mcp.py",
-      "sha256": "65a3e81a2a31b3301fbd82d339e5f904655425de2123e62ec922c1c502efebe2"
+      "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
     },
     {
       "path": "grandportage/migration.py",
@@ -519,7 +519,7 @@
     },
     {
       "path": "grandportage/visualization.py",
-      "sha256": "227b0df098f93f09b7b7f4ceb21ac673c90cf038206af7ce5ed728dba16ae4fa"
+      "sha256": "4883f98eafd1773bc33e654ef5f825f6142c42fb65d6fdfd750446cad3432020"
     },
     {
       "path": "grandportage/work.py",
@@ -711,7 +711,7 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "50cf5953e21e9c557a6fd5f30977a4dfd0392cb38b70cfa108dbeca490c7c651"
+      "sha256": "f13f20bb8fc1d9daecd939d4991e53b7e3d247f09f5e8122ad55b346a0ce254e"
     },
     {
       "path": "review/LSEM-COLD-RETEST-PACKET-2026-08-03.md",
@@ -968,6 +968,18 @@
     {
       "path": "review/v0.35/validation.txt",
       "sha256": "1f8405b3e040fecfa3c22969fda4e13cbdfbb7bd86765c29b1687c30fd184b65"
+    },
+    {
+      "path": "review/v0.36/README.md",
+      "sha256": "c0dcdba2d4cb270e70a3302db2d075890dfba2f426fc33b7bdce7de998e1759b"
+    },
+    {
+      "path": "review/v0.36/hosted-validation.json",
+      "sha256": "25d662477e42a088cb386eb4c46acf2224f2589f8fa79e730e0225d0774746f6"
+    },
+    {
+      "path": "review/v0.36/validation.txt",
+      "sha256": "c67030fc8cb667755021e117af3326455a0f99d515f1079a4c64dcf45241c991"
     },
     {
       "path": "scripts/atlas_requirements.py",
@@ -1227,7 +1239,7 @@
     },
     {
       "path": "tests/test_explain.py",
-      "sha256": "14def8abcbedac2e333679fafd164f95044cd47fe48e04117e0605ef87c9ad24"
+      "sha256": "10d6ae4ed556ab3113cf3bd34619d7cbce3a1b999a13c0ccf9058d48192c8434"
     },
     {
       "path": "tests/test_factor_power.py",
@@ -1274,6 +1286,10 @@
       "sha256": "174f93c487c744f7091c28fdf16a86dae52e3ee9515e5c7e0d4c8458f476fc40"
     },
     {
+      "path": "tests/test_inband_identity.py",
+      "sha256": "cbab4d51cfd162f8d0ea2336c56b69464dbf37a85b69bfb5c7f90eea9e4af5c7"
+    },
+    {
       "path": "tests/test_kernel.py",
       "sha256": "7a61a1d466d6e1d03b293cd862fd4b1b3955c0b095dda4fe8579dbd51f15d61a"
     },
@@ -1299,7 +1315,7 @@
     },
     {
       "path": "tests/test_mcp.py",
-      "sha256": "cc07598989e8783932a2caf2dc49c7a4c52cb68b140370d893298b6ff9b66b05"
+      "sha256": "44c7c558a23466411be991f6a17207d0beb38e0cfc6db26b09f66116a06cd37c"
     },
     {
       "path": "tests/test_merge_assay.py",
@@ -1324,6 +1340,10 @@
     {
       "path": "tests/test_point_lift.py",
       "sha256": "c1aaa17493ff2a824f7707ff28aaa2dd13c024d8b7814d080a5463cae4aea6ee"
+    },
+    {
+      "path": "tests/test_predicate_lint.py",
+      "sha256": "82f816bf49e1db71a8e34de3377ac3b38a4550aa24caafbf85701440d8530f21"
     },
     {
       "path": "tests/test_product_partition.py",
@@ -1421,6 +1441,6 @@
     "review/v0.32/SOL-HANDOFF.md"
   ],
   "schema": "grand-portage-public-snapshot-receipt/v1",
-  "snapshot_sha256": "59334ff10cb52660bf20b656783f9457e9e533d5a7e4975d842365c97ef77743",
-  "source_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5"
+  "snapshot_sha256": "be48eaafcf625d4080384a5bc13143ac9633554045d6b6d7b52ec80e98b58ef0",
+  "source_commit": "c985339780b03d00931bbe5e7a4e5d26e8285dba"
 }

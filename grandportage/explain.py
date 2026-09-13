@@ -48,7 +48,9 @@ def explain(graph, node, kind=None):
     if node in graph.models:
         matches=[iid for iid,i in graph.inferences.items() if i.get("concludes_at")==node
                  and (kind is None or i.get("concludes_kind")==kind) and not i.get("superseded_by")]
-        if len(matches)!=1: raise ValueError("model selection requires exactly one matching inference; name its id")
+        matches.extend(cid for cid,c in graph.claims.items() if c.get("model")==node
+                       and (kind is None or c.get("kind")==kind) and not c.get("superseded_by"))
+        if len(matches)!=1: raise ValueError("model selection requires exactly one matching conclusion; name its claim or inference id")
         node=matches[0]
     if node not in graph.claims and node not in graph.inferences: raise ValueError("unknown claim or inference: "+node)
     try:

@@ -48,7 +48,7 @@ def test_cli_is_read_only_and_dictionary_is_in_aggregate(tmp_path,capsys):
     receipt_graph(tmp_path); path=Path(S.graph_path(str(tmp_path))); before=path.read_bytes()
     assert cli.main(["explain",str(path),"C","--json"])==0
     assert json.loads(capsys.readouterr().out)["graph_effect"]=="NONE"
-    assert cli.main(["explain",str(path),"C"])==0
+    assert cli.main(["explain",str(path),"M","--kind","EMPTY"])==0
     assert "unlicensed observations under available discharge" in capsys.readouterr().out
     assert path.read_bytes()==before
     root=Path(__file__).resolve().parents[1]

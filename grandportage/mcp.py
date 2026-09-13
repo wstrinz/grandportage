@@ -70,7 +70,7 @@ EDGE_SCHEMA = {
             "type": "string",
             "enum": list(K.DECLARABLE_TYPES),
             "description": (
-                "Ask what the step LOSES.\n"
+                "Ask which claims remain licensed under available evidence.\n"
                 "  EQUIVALENCE - nothing, and you can exhibit the converse. "
                 "Do not use this because a step 'should be' reversible.\n"
                 "  NECESSARY_CONDITION - equations. The target is a strict "
@@ -1289,11 +1289,12 @@ def h_portage_transport_table(args, root):
                                         "NO" if v is False else v))
             rows.append("%-20s %-8s %s" % (t, d, " ".join(cells)))
     rows.append("")
-    rows.append("Certificate kinds. An EMPTY claim's SCOPE is derived from "
-                "this, not from what you declare:")
-    for c, bc in sorted(K.BUILTIN_CERTIFICATES.items()):
-        rows.append("  %-28s %s" % (c, "base-changes (scope SCHEME)" if bc
-                                    else "FIELD-RELATIVE -- name the field"))
+    rows.append("Certificate policy ceilings (declarations grant no authority):")
+    for certificate, policy in sorted(K.BUILTIN_CERTIFICATE_REACH_POLICY.items()):
+        rows.append("  %-28s %s" % (certificate, policy["kind"]))
+    rows.append("Effective reach requires a current verifier receipt and target-context gates.")
+    rows.append("CHAR_0, ORDERED, FIELD_SPECIFIC and NONE summarize interpreter requirements.")
+    rows.append("The legacy Boolean scope registry is historical, not the current transport rule.")
     return _text("\n".join(rows))
 
 
