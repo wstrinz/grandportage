@@ -373,6 +373,12 @@ class CASProgram(object):
         # This belongs at the emitter, not in a heuristic output parser: ring
         # variables may themselves contain digits, so compact notation is
         # genuinely ambiguous after the ring declaration has been discarded.
+        if completion_nonce is not None:
+            if not re.fullmatch(r"[0-9a-f]{32}", completion_nonce):
+                raise ValueError("completion nonce must be 32 lowercase hex digits")
+            lines.extend(['"@@GP-ID:%s";' % completion_nonce,
+                          'system("--version");',
+                          '"@@GP-ID-END:%s";' % completion_nonce])
         lines.append("short=0;")
         for name, typ, expr in self.decls:
             lines.append("%s %s = %s;" % (typ, name, expr))
@@ -961,6 +967,22 @@ def _singular_binary_version(timeout=30):
     return version
 
 
+def _inband_binary_version(stdout, nonce):
+    """Read the stable banner inside this invocation's unique identity block."""
+    lines = stdout.splitlines()
+    start, end = "@@GP-ID:" + nonce, "@@GP-ID-END:" + nonce
+    if (lines.count(start) != 1 or lines.count(end) != 1
+            or lines.index(start) >= lines.index(end)
+            or sum(line.startswith("@@GP-ID:") for line in lines) != 1
+            or sum(line.startswith("@@GP-ID-END:") for line in lines) != 1):
+        raise CASError("missing, duplicate or mismatched in-band backend identity")
+    banners = [line.strip() for line in lines[lines.index(start)+1:lines.index(end)]
+               if line.strip().startswith("Singular for ") and " version " in line]
+    if len(banners) != 1:
+        raise CASError("in-band backend identity lacks a unique stable banner")
+    return banners[0][:1000]
+
+
 class SingularBackend(B.Backend):
     """The reference semantic backend, with the old runner as a test adapter."""
 
@@ -1000,7 +1022,9 @@ class SingularBackend(B.Backend):
                 and isinstance(version, str)
                 and bool(version.strip())
                 and not version.startswith("unavailable:")
-                and version not in ("unreported", "test-double"))
+                and version not in ("unreported", "test-double")
+                and all(run.artifact.backend.binary_version == version
+                        for run in self.executions))
 
     @property
     def execution_count(self):
@@ -1015,6 +1039,7 @@ class SingularBackend(B.Backend):
         completion_nonce = secrets.token_hex(16)
         invocation = _BoundCASInvocation(program, completion_nonce)
         runner = self._runner or _run_subprocess
+        probed_identity = self.identity
         raw = runner(invocation, timeout)
         if isinstance(raw, B.BackendExecution):
             raise TypeError(
@@ -1027,12 +1052,29 @@ class SingularBackend(B.Backend):
             if semantic_input is not None
             else program.semantic_fingerprint
         )
+        identity = probed_identity
+        identity_error = None
+        if self._runner is None:
+            try:
+                version = _inband_binary_version(str(raw.get("stdout", "")), completion_nonce)
+            except CASError as exc:
+                version = "unavailable: in-band identity"
+                identity_error = str(exc)
+            identity = B.BackendIdentity(
+                contract=probed_identity.contract,
+                implementation=probed_identity.implementation,
+                implementation_version=probed_identity.implementation_version,
+                binary_version=version)
+            if version != probed_identity.binary_version:
+                identity_error = identity_error or "in-band backend identity disagrees with early probe"
         execution = B.BackendExecution(
-            raw, backend=self.identity, program=program,
+            raw, backend=identity, program=program,
             execution_program=invocation, completion_nonce=completion_nonce,
             semantic_input_fingerprint=fingerprint,
         )
         self.executions.append(execution)
+        if identity_error:
+            raise CASError(identity_error)
         return execution
 
     def provenance(self, start=0):
@@ -1044,6 +1086,8 @@ class SingularBackend(B.Backend):
             B.validate_execution_artifact(run)
             for run in self.executions[start:]
         ]
+        if any(artifact.backend != identity for artifact in artifacts):
+            raise CASError("mixed backend identity trace cannot acquire aggregate authority")
         trace = [B.execution_trace_entry(artifact) for artifact in artifacts]
         return {
             "schema": 2,

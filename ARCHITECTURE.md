@@ -7,6 +7,12 @@ directories.
 
 ## 1. Semantic core
 
+Semantic decisions combine the transport table with gates for context, reach
+instantiation, expressibility, evidence custody and freshness. The table alone
+does not license an inference. The [atlas gate table](docs/ATLAS-MAPPING-V0.md)
+identifies the checker obligations. This boundary spans pure rules and authority
+binding below; it does not combine their Python import zones.
+
 Owns:
 
 - graph-format vocabulary and compatibility constants;

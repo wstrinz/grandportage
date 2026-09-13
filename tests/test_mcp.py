@@ -265,11 +265,11 @@ def test_edge_is_required_in_the_schema_of_every_producing_tool():
 def test_the_edge_schema_teaches_the_decision_not_just_the_enum():
     """The caller is being asked to make a modelling judgement, and an enum
     alone does not tell it how to choose.  Every declarable type must appear in
-    the guidance, phrased around what the step LOSES."""
+    the guidance, phrased around which claims remain licensed under available evidence."""
     desc = mcp.EDGE_SCHEMA["properties"]["type"]["description"]
     for t in K.DECLARABLE_TYPES:
         assert t in desc
-    assert "LOSES" in desc
+    assert "claims remain licensed under available evidence" in desc
     assert set(mcp.EDGE_SCHEMA["required"]) == {
         "src", "type", "why", "map_kind"}
 
@@ -359,7 +359,9 @@ def test_transport_table_names_every_type_and_certificate(project):
         assert t in body
     for c in K.BUILTIN_CERTIFICATES:
         assert c in body
-    assert "FIELD-RELATIVE" in body
+    assert "FIELD_SPECIFIC" in body
+    assert "current verifier receipt" in body
+    assert "base-changes (scope SCHEME)" not in body
 
 
 def test_show_renders_the_graph_as_a_handoff(project):
@@ -531,10 +533,13 @@ def test_the_edge_vocabulary_says_what_it_discharges_and_the_other_does_not():
 
 
 def test_a_successful_cas_call_records_the_typed_edge(project, monkeypatch):
+    banner = "Singular for test version 4.2.1"
+    monkeypatch.setattr(cas, "_singular_binary_version", lambda: banner)
     monkeypatch.setattr(cas, "_run_subprocess",
                         lambda prog, timeout: {
                             "returncode": 0,
-                            "stdout": ("@@GP_G:\nGP_G[1]=1\n"
+                            "stdout": ("@@GP-ID:" + prog.completion_nonce + "\n" + banner + "\n@@GP-ID-END:"
+                                       + prog.completion_nonce + "\n@@GP_G:\nGP_G[1]=1\n"
                                        + prog.completion_marker + "\n"),
                             "stderr": "", "aborted": False,
                             "abort_reason": None, "argv": ["fake"]})
@@ -557,10 +562,13 @@ def test_a_unit_ideal_result_is_reported_as_evidence_not_a_kill(project,
     An ideal reducing to (1) is where the shipped error STARTED, so the tool
     that reports it must say what it is and is not.
     """
+    banner = "Singular for test version 4.2.1"
+    monkeypatch.setattr(cas, "_singular_binary_version", lambda: banner)
     monkeypatch.setattr(cas, "_run_subprocess",
                         lambda prog, timeout: {
                             "returncode": 0,
-                            "stdout": ("@@GP_G:\nGP_G[1]=1\n"
+                            "stdout": ("@@GP-ID:" + prog.completion_nonce + "\n" + banner + "\n@@GP-ID-END:"
+                                       + prog.completion_nonce + "\n@@GP_G:\nGP_G[1]=1\n"
                                        + prog.completion_marker + "\n"),
                             "stderr": "", "aborted": False,
                             "abort_reason": None, "argv": ["fake"]})

@@ -1,0 +1,9 @@
+Release candidate validation; graph format 8 / kernel epoch 12 unchanged.
+Non-live: 1706 passed, 60 deselected. Final MCP read-surface regression rerun passed.
+Lean: 30 jobs. Atlas parity: 139 rows. Certificate interpreter parity passed.
+Native focused in-band identity: 1 passed on Singular 4.2.1 through Ubuntu WSL.
+Full local live run stopped after prolonged WSL subprocess waiting; no full-pass
+claim is made for that run. The complete live lane is required in hosted CI.
+Wheel built with pip wheel --no-deps --no-build-isolation --no-cache-dir.
+Wheel SHA256: 1096c28ba8e295a064e9480dbea2ec05721e7c707f31f1e64fa972111dff828b
+Hosted CI and release publication results will be recorded after completion.

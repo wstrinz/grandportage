@@ -7,8 +7,8 @@ detail; sections are indexed by the command or checker a reviewer must audit.
 **Transport typing and obstruction tracking for computational algebra.**
 
 A computation produces an artifact. The artifact does not carry its own license
-to conclude. Grand Portage records what each modelling step *loses*, and
-refuses the conclusions that loss does not support.
+to conclude. Grand Portage computes which claims remain licensed after each modelling step
+under available evidence, and refuses unsupported conclusions.
 
 ```
 $ gp check
@@ -64,7 +64,7 @@ claims may exhibit points in a bounded simple quadratic/cubic extension of Q.
 
 ## Status
 
-All five layers are built and gated: <!--checks-->1757<!--/checks--> checks, live against Singular 4.2.1,
+All five layers are built and gated: <!--checks-->1766<!--/checks--> checks, live against Singular 4.2.1,
 and it has had eleven live user sessions — see [docs/first-run/](docs/first-run/)
 for the first, written up in full.
 
@@ -111,7 +111,7 @@ What they contain, since the summaries name no domain:
 
 | layer | module | what it does |
 |---|---|---|
-| kernel | `grandportage/kernel.py` | the transport table — the only code with mathematical judgement in it |
+| kernel | `grandportage/kernel.py` | transport relations and claim-kind rules, subject to contextual checker gates |
 | store | `grandportage/store.py` | append-only graph log; merge is concatenation |
 | artifacts | `grandportage/artifacts.py` | immutable raw programs/transcripts addressed outside the semantic graph |
 | checker | `grandportage/check.py` | findings, derived severities, exit code |
@@ -436,19 +436,30 @@ Three rows carry most of the value:
 
 ## Scope is derived, never declared
 
-The single most load-bearing line in the system. An emptiness claim's scope
-comes from its **certificate kind**, not from the author's label:
+Epoch-12 transport instantiates certificate reach at the target field and point
+universe through [field.py](grandportage/field.py). Reach summarizes an
+interpreter's requirements; it is not the domain on which a bare polynomial
+identity holds. A unit-ideal interpretation needs nontriviality; an SOS
+contradiction additionally needs an ordered interpretation. Equality may replay
+where the contradiction interpretation fails. Evidence, binding and context
+gates still apply after reach admission.
 
-```
-UNIT_IDEAL_CERT            -> SCHEME   (1 in I over Q stays 1 in I over K)
-NONZERO_RESULTANT          -> SCHEME   (res in Q* stays in K*)
-EXACT_VALUATION_COLLISION  -> SCHEME   (an inequality between integers)
-NONSQUARE_CLASS            -> field-relative, by construction
-NO_RATIONAL_POINT_SEARCH   -> field-relative, by construction
-```
+`SCHEME` survives as compatibility vocabulary. The legacy Boolean stability
+registry is not the current transport rule. See the [atlas mapping](docs/ATLAS-MAPPING-V0.md)
+and [requirement profiles](https://github.com/wstrinz/grandportage/blob/d81eb12/docs/REQUIREMENT-PROFILES-V0.md).
 
-Declaring a field-relative certificate at `SCHEME` scope is a **fold error**,
-not a finding: the graph refuses to state it at all.
+Latest historical correction (v0.36 atlas finding): this paragraph previously
+explained current transport through Boolean certificate stability. The table
+printer was corrected in v0.35; this prose now names reach and interpreter
+requirements. Earlier historical confessions remain in this document.
+
+## Predicate policy for new campaign charters
+
+New campaign charters, Cloquet onward, require a machine-readable `condition`
+formula for every PREDICATE claim. Prose PREDICATE claims remain legal and retain
+existing behavior; they are transport-inert beyond claim kind. No formula is
+inferred and graph construction does not refuse prose. `gp lint` lists these
+claims as warnings without changing graph authority.
 
 ## Quick start
 
@@ -479,7 +490,7 @@ Three.js build by default; `--three-root` can point it at a local package.
 ## The retrodiction gate
 
 ```bash
-python -m pytest        # <!--checks-->1757<!--/checks--> checks
+python -m pytest        # <!--checks-->1766<!--/checks--> checks
 ```
 
 Grand Portage's credibility rests on reproducing, from **data**, what two
@@ -603,3 +614,6 @@ severities, path continuity, probes, merge semantics — is what is new.
 The name is the 8.5-mile haul around the Pigeon River falls: the deliberate,
 effortful carry between two bodies of water, where you are acutely aware of
 what you can bring.
+
+For the distinction from semantic information loss, see the
+[observation-axis note](https://github.com/wstrinz/grandportage/blob/d81eb12/docs/OBSERVATION-AXIS-V0.md).
