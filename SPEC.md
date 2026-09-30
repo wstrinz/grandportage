@@ -64,11 +64,15 @@ claims may exhibit points in a bounded simple quadratic/cubic extension of Q.
 
 ## Status
 
-All five layers are built and gated: <!--checks-->1811<!--/checks--> checks, live against Singular 4.2.1,
-and it has had eleven live user sessions — see [docs/first-run/](docs/first-run/)
-for the first, written up in full.
+Frozen reference: package version 0.37.0, graph format 8, kernel epoch 12.
+The release records <!--checks-->1811<!--/checks--> checks; this is a historical
+release count, not a new verification run. See
+[review/v0.37/README.md](review/v0.37/README.md) for the frozen boundary.
+[docs/first-run/](docs/first-run/) retains the first campaign record.
+Known limitations and misleading guidance are recorded in
+[known issues](review/v0.37/KNOWN-ISSUES.md).
 
-* **[COMPATIBILITY.md](COMPATIBILITY.md) — graph format 7, kernel epoch 11, selected-embedding identity, native/CAS provenance, extension witnesses, durable artifacts, and conservative migration**
+* **[COMPATIBILITY.md](COMPATIBILITY.md) — graph format 8, kernel epoch 12, field context, verifier-earned reach, and conservative migration**
 * **[QUICKSTART.md](QUICKSTART.md) — install, a campaign in ten minutes, and the three things worth knowing on day one**
 * **[v0.26 release packet](review/v0.26/README.md) — ARR15 open-locus soundness, bounded localization, and MCP custody**
 * [DESIGN.md](DESIGN.md) — architecture and the decisions behind it
