@@ -1,0 +1,41 @@
+{
+  "status": "user_approved_correction_integrated_and_full_replay_verified",
+  "approval": "DECISIONS.md closeout decisions ratified2026-09-29",
+  "case": "GP-A24",
+  "old_case_path": "reports/A24-CORRECTION-AUDIT/GP-A24-original.json",
+  "old_case_sha256": "1e8c599b53e2a18a03938271eb84eba4c641ea0793f2014b7d136a3cd7a906a1",
+  "new_case_sha256": "242632ffbc9468314e540061bcd9f514a92a5eee481eea51a91a538e75daccee",
+  "expected_verdict_before_and_after": "REFUSE",
+  "source_pin_schema_preserved": true,
+  "previous_replay": "reports/oracle-runs/20260930T000850355521Z.json",
+  "new_replay": "reports/oracle-runs/20260930T021113009291Z.json",
+  "new_replay_sha256": "0996858153e6f1fec40aad3fe1d71a70cff72b39972cd78937646818214be04d",
+  "summary": {
+    "AGREES": 403,
+    "DIAGNOSTIC_OBSERVED": 4,
+    "KNOWN_DIFFERENCE": 14,
+    "UNSUPPORTED": 9,
+    "RETAINED_DIAGNOSTIC": 29
+  },
+  "preservation": {
+    "other_case_bytes": 458,
+    "other_route_entries": 458,
+    "other_outcomes": 458,
+    "immutable_replays": 63,
+    "full_record_variation": {
+      "only_fields": "reason framing nonce",
+      "ids": [
+        "GP-X236",
+        "GP-X237"
+      ],
+      "normalized_equal": true
+    }
+  },
+  "targeted_check": {
+    "path": "reports/A24-CORRECTION-AUDIT/TARGETED-CHECK.json",
+    "sha256": "e3171473ffe4552fb7d838389c219908181b81f1671e6692c5f3a153523b5449"
+  },
+  "native_verdict": "NOT_A_POINT",
+  "positive_contrast": "VERIFIED",
+  "limit": "Only offered extension-valued point rejected. No selected real embedding, global emptiness, Singular execution or persisted authority. No new checker admission."
+}

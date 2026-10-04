@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X234",
+  "seed": null,
+  "title": "Computation recording: typed, structured, success",
+  "situation": "A computation must declare its relation and complete without execution errors before recording a produced model.",
+  "inputs": {
+    "declaration": "typed",
+    "request_form": "structured",
+    "process_outcome": "success"
+  },
+  "attempted_conclusion": "Accept the attempted computation as a completed operation and record its output model. No mathematical claim is inferred.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Computation recording: typed, structured, success"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_boundary.py",
+      "line": 214,
+      "anchor": "def test_a_successful_run_records_a_typed_edge("
+    }
+  ]
+}

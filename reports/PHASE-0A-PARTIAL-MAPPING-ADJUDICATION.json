@@ -1,0 +1,1151 @@
+{
+  "schema_version": 1,
+  "scope": "Exactly the 22 rows classified partial in reports/PHASE-0A-DELETED-MAPPING-REVIEW.json.",
+  "baseline_commit": "b3ac20f",
+  "method_note": "Different fixture names, sizes, counts, or event IDs are incidental unless they change a logical premise, conclusion, or failure mechanism. A positive case was never used alone to cover a mutation refusal.",
+  "counts": {
+    "unresolved": 1,
+    "covered": 20,
+    "partially_covered": 1
+  },
+  "records": [
+    {
+      "source_path": "tests/test_jc_h3_adjoint_recurrence.py",
+      "test": "test_zeroing_depth13_endpoint_refuses_minimal_shift_claim",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_adjoint_recurrence.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 95,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/5/tests/4"
+      },
+      "logically_distinct_assertions": [
+        "A minimal-shift claim requires a checked nonzero endpoint immediately before the zero tail.",
+        "Replacing that endpoint by zero must invalidate the claimed minimality."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X118",
+          "pointer": "corpus/must/GP-X118.json",
+          "equivalence": "Checks the required positive premises: a zero tail from depth 14 and a nonzero depth-13 endpoint.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "On indices starting at six the eighth shift annihilates the checked sequence while the seventh does not. The generic Lean theorem is not recompiled here."
+          }
+        },
+        {
+          "id": "GP-X110",
+          "pointer": "corpus/must/GP-X110.json",
+          "equivalence": "Refuses a changed recurrence statement, but not a false minimality certificate.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Changing the index domain changes the recurrence statement."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The 5x2 matrix shape, regime number, and J4/A2 error labels."
+      ],
+      "genuinely_unmatched_assertions": [
+        "A neutral refusal case for a purported minimal shift whose claimed last nonzero endpoint has been zeroed. X118 is positive, so it cannot by itself cover this mutation refusal."
+      ],
+      "disposition": "unresolved"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_compatibility.py",
+      "test": "test_exact_affine_and_quotient_replay_classifies_phi_narrowly",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_compatibility.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 36,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/6/tests/0"
+      },
+      "logically_distinct_assertions": [
+        "Nonzero and nonunit observations are compatible.",
+        "Those observations do not establish nonzerodivisor status."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X119",
+          "pointer": "corpus/must/GP-X119.json",
+          "equivalence": "Accepts the nonzero/nonunit conjunction in a quotient.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "In Q[z]/(z^2-z), z maps to 1 at z=1 and to 0 at z=0."
+          }
+        },
+        {
+          "id": "GP-X120",
+          "pointer": "corpus/must/GP-X120.json",
+          "equivalence": "Refuses the nonzero/nonunit-to-nonzerodivisor inference.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The same element has the nonzero annihilator z-1. Nonzero and nonunit do not establish nonzerodivisor."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The phi term count, determinant/resultant degree, dimensions, guard names, and frozen digest."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "test": "test_arithmetic_and_scope_mutations_refuse",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 87,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/7/tests/2"
+      },
+      "logically_distinct_assertions": [
+        "An affine block needs compatible right-hand sides; changing a checked row or block cannot retain the result.",
+        "A report with graph_effect NONE cannot be promoted to point inclusion or actual-source equivalence without a warrant.",
+        "A listed open obligation cannot be declared closed, and an uninverted localization factor cannot be removed."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X121",
+          "pointer": "corpus/must/GP-X121.json",
+          "equivalence": "Refuses existence from affine rank without compatibility.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The equations x=0, y=0 and x=1 have a rank-two coefficient matrix but inconsistent right-hand side."
+          }
+        },
+        {
+          "id": "GP-X122",
+          "pointer": "corpus/must/GP-X122.json",
+          "equivalence": "Provides the paired compatible affine positive control.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The rank-two system x=1, y=2, x=1 has the displayed solution."
+          }
+        },
+        {
+          "id": "GP-X75",
+          "pointer": "corpus/must/GP-X75.json",
+          "equivalence": "Refuses a changed checked affine solution.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The proposed value must satisfy its ordered affine equation."
+          }
+        },
+        {
+          "id": "GP-X41",
+          "pointer": "corpus/must/GP-X41.json",
+          "equivalence": "Removing a stated refusal cannot earn the excluded conclusion.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The report does not establish the stronger theorem; erasing its boundary cannot create a warrant."
+          }
+        },
+        {
+          "id": "GP-X37",
+          "pointer": "corpus/must/GP-X37.json",
+          "equivalence": "A completion label cannot supply a missing map/obligation.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Changing a declaration is not a checked map or source binding."
+          }
+        },
+        {
+          "id": "GP-X68",
+          "pointer": "corpus/must/GP-X68.json",
+          "equivalence": "Changing an open guard stales the receipt.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original localized proof requires the original open guards."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The raw-column names, D7 formula, semantic-layer strings, and error-code labels."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "test": "test_explicit_residual_pullback_and_finite_unit_replay",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 43,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/8/tests/0"
+      },
+      "logically_distinct_assertions": [
+        "A checked residual/fiber witness may be recorded without excluding its parent.",
+        "Exceptional factors cannot be cancelled without invertibility.",
+        "The displayed finite-quotient witness is a unit in its specified quotient."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X123",
+          "pointer": "corpus/must/GP-X123.json",
+          "equivalence": "Refuses promotion from one excluded fiber to parent exclusion.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "For the family a=0 with free x, the fiber at a=1 is empty while (a,x)=(0,0) lies in the parent."
+          }
+        },
+        {
+          "id": "GP-X124",
+          "pointer": "corpus/must/GP-X124.json",
+          "equivalence": "Refuses cancellation of an exceptional factor.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The point z=0, x=1 is an exact counterexample; cancelling z discards the exceptional component."
+          }
+        },
+        {
+          "id": "GP-X63",
+          "pointer": "corpus/must/GP-X63.json",
+          "equivalence": "Accepts a replayed localized unit-ideal certificate, supplying the general positive unit-witness control.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The displayed cofactors sum to p^2*t^4, a unit when both p and t are nonzero."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The r8/psi8/omega names, term counts, dimension, codimension, and factor exponents."
+      ],
+      "genuinely_unmatched_assertions": [
+        "Replay of a unit witness specifically in a finite quotient algebra (as distinct from the existing localized ideal-unit replay)."
+      ],
+      "disposition": "partially_covered"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "test": "test_scope_pin_order_digest_middle_and_slice_mutations_refuse",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 88,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/8/tests/2"
+      },
+      "logically_distinct_assertions": [
+        "Local-fiber evidence cannot be relabelled as LOCAL_EMPTY.",
+        "Changing the coefficient field, canonical variable order, source binding, an unexplained intermediate, or witness slice invalidates the receipt."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X64",
+          "pointer": "corpus/must/GP-X64.json",
+          "equivalence": "Refuses promotion of local emptiness to the ambient model.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Forgetting two equations enlarges the model and does not transport emptiness forward."
+          }
+        },
+        {
+          "id": "GP-X67",
+          "pointer": "corpus/must/GP-X67.json",
+          "equivalence": "A changed checked equation stales a receipt.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Changing an equation changes the verifier input fingerprint."
+          }
+        },
+        {
+          "id": "GP-X69",
+          "pointer": "corpus/must/GP-X69.json",
+          "equivalence": "A changed point universe stales a receipt.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A receipt bound to closure points does not acquire base-field authority by relabeling."
+          }
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "equivalence": "A changed source digest stales a receipt.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          }
+        },
+        {
+          "id": "GP-X65",
+          "pointer": "corpus/must/GP-X65.json",
+          "equivalence": "An incomplete/named certificate has no authority without a current checked verdict.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "No current checked verdict is attached to the named certificate."
+          }
+        },
+        {
+          "id": "GP-X304",
+          "pointer": "corpus/must/GP-X304.json",
+          "equivalence": "Canonical-object binding refuses a changed representation.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Equivalent infix expression fails canonical-object binding"
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The names psi8, r8_2 and c2_1; exact field presentation; and N4/N6/N7/N8 error labels."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "test": "test_changed_syzygy_body_refuses",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 96,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/8/tests/3"
+      },
+      "logically_distinct_assertions": [
+        "A changed polynomial cofactor/syzygy cannot retain authority unless its exact identity replays."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X225",
+          "pointer": "corpus/must/GP-X225.json",
+          "equivalence": "Directly refuses a wrong cofactor identity.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Wrong cofactor cannot gain identity authority"
+          }
+        },
+        {
+          "id": "GP-X76",
+          "pointer": "corpus/must/GP-X76.json",
+          "equivalence": "A changed isomorphism cofactor fails exact replay and remains unverified.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A changed cofactor fails exact replay; UNVERIFIED is not a refutation of isomorphism."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The r8_1 name, sparse term position, and A1 adapter label."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "test": "test_changed_finite_algebra_modulus_refuses",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 111,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/8/tests/5"
+      },
+      "logically_distinct_assertions": [
+        "A finite-quotient witness is bound to its modulus; changing that modulus invalidates the existing witness/receipt."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X67",
+          "pointer": "corpus/must/GP-X67.json",
+          "equivalence": "Changing an equation bound into a local receipt stales it.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Changing an equation changes the verifier input fingerprint."
+          }
+        },
+        {
+          "id": "GP-X225",
+          "pointer": "corpus/must/GP-X225.json",
+          "equivalence": "A certificate must replay in the actual input algebra, not merely retain its label.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Wrong cofactor cannot gain identity authority"
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The r_final array location and W3/W5 error labels."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_free_plane.py",
+      "test": "test_complete_factor_ledger_and_affine_round_trip",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 38,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/9/tests/0"
+      },
+      "logically_distinct_assertions": [
+        "Explicit affine translations with checked inverses preserve the declared localized model.",
+        "A normalization equation can supply the inverse of the localized variable."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X73",
+          "pointer": "corpus/must/GP-X73.json",
+          "equivalence": "Accepts ordered affine translations with explicit inverse coordinates.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Explicit inverse coordinates and checked triangular substitutions give a polynomial ring isomorphism."
+          }
+        },
+        {
+          "id": "GP-X74",
+          "pointer": "corpus/must/GP-X74.json",
+          "equivalence": "Accepts the normalization-derived inverse for t.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Modulo 15*t^3+1, -15*t^2 is an inverse for t; no extra inverse coordinate is needed."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "Body counts, names of live bodies/factors, equation count, and fixture digest."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_free_plane.py",
+      "test": "test_scope_and_arithmetic_mutations_refuse",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 82,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/9/tests/2"
+      },
+      "logically_distinct_assertions": [
+        "Changing a checked pivot/equation or deleting a model equation cannot retain an affine isomorphism result.",
+        "NONE evidence cannot be promoted to NONEMPTY, a compatibility equation, or a closed obligation."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X75",
+          "pointer": "corpus/must/GP-X75.json",
+          "equivalence": "Refuses a changed triangular solution.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The proposed value must satisfy its ordered affine equation."
+          }
+        },
+        {
+          "id": "GP-X76",
+          "pointer": "corpus/must/GP-X76.json",
+          "equivalence": "Refuses a changed exact cofactor.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A changed cofactor fails exact replay; UNVERIFIED is not a refutation of isomorphism."
+          }
+        },
+        {
+          "id": "GP-X77",
+          "pointer": "corpus/must/GP-X77.json",
+          "equivalence": "Refuses reuse after deleting the inverse equation.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The localization must remain algebraized in the source ideal."
+          }
+        },
+        {
+          "id": "GP-X41",
+          "pointer": "corpus/must/GP-X41.json",
+          "equivalence": "Refusal removal cannot create the stronger theorem.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The report does not establish the stronger theorem; erasing its boundary cannot create a warrant."
+          }
+        },
+        {
+          "id": "GP-X37",
+          "pointer": "corpus/must/GP-X37.json",
+          "equivalence": "Closing an unmet obligation does not supply it.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Changing a declaration is not a checked map or source binding."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The c7_4/c5_7/Delta names, exact pivot coefficient, and M3/A3 labels."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_h3_depth8_fiber.py",
+      "test": "test_authorizing_depth9_pair_is_refused",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_depth8_fiber.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 78,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/12/tests/3"
+      },
+      "logically_distinct_assertions": [
+        "A first-order fiber exclusion cannot be promoted to a nonlinear depth-9 lift obstruction without a checked bridge."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X113",
+          "pointer": "corpus/must/GP-X113.json",
+          "equivalence": "Exactly refuses that first-order-to-nonlinear promotion.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A separately checked sound linearization bridge has not been instantiated."
+          }
+        },
+        {
+          "id": "GP-X114",
+          "pointer": "corpus/must/GP-X114.json",
+          "equivalence": "Separately refuses generalizing one named fiber to every base point.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The report covers all free fiber values over one base point, not all base points."
+          }
+        },
+        {
+          "id": "GP-X115",
+          "pointer": "corpus/must/GP-X115.json",
+          "equivalence": "Separately refuses treating a constrained coordinate as free.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The solved coordinate is constrained by the zero block."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The depth-9 flag name and N7 adapter error label."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_frozen_polynomials_compile_to_existing_localized_unit_identity",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 82,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/0"
+      },
+      "logically_distinct_assertions": [
+        "A checked localized cofactor identity establishes the local unit ideal only under its stated open guards."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X63",
+          "pointer": "corpus/must/GP-X63.json",
+          "equivalence": "Accepts the p-axis localized unit ideal under open guards.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The displayed cofactors sum to p^2*t^4, a unit when both p and t are nonzero."
+          }
+        },
+        {
+          "id": "GP-X68",
+          "pointer": "corpus/must/GP-X68.json",
+          "equivalence": "Shows those guards are binding premises, not labels.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original localized proof requires the original open guards."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The 502/499 term counts, polynomial names, and on-wall fixture digest."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_graph_verdict_mints_only_local_empty_on_exact_consequence_model",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 100,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/2"
+      },
+      "logically_distinct_assertions": [
+        "A current checked localized-unit receipt may mint local EMPTY only.",
+        "A certificate name without a current verdict mints nothing.",
+        "The receipt becomes stale when a required open guard changes."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X63",
+          "pointer": "corpus/must/GP-X63.json",
+          "equivalence": "Accepts the local unit-ideal conclusion.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The displayed cofactors sum to p^2*t^4, a unit when both p and t are nonzero."
+          }
+        },
+        {
+          "id": "GP-X65",
+          "pointer": "corpus/must/GP-X65.json",
+          "equivalence": "Refuses authority from a certificate name alone.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "No current checked verdict is attached to the named certificate."
+          }
+        },
+        {
+          "id": "GP-X68",
+          "pointer": "corpus/must/GP-X68.json",
+          "equivalence": "Refuses reuse after removing a required guard.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original localized proof requires the original open guards."
+          }
+        },
+        {
+          "id": "GP-X64",
+          "pointer": "corpus/must/GP-X64.json",
+          "equivalence": "Refuses promotion of local emptiness to the ambient model.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Forgetting two equations enlarges the model and does not transport emptiness forward."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The event ID, graph storage count, and wording of the nine-body caveat."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_removing_ob_guard_stales_old_authority",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 118,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/4"
+      },
+      "logically_distinct_assertions": [
+        "Removing any required open guard makes an old localized receipt noncurrent and removes its authority."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X68",
+          "pointer": "corpus/must/GP-X68.json",
+          "equivalence": "Same rule with the t guard: a changed open context stales the receipt.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original localized proof requires the original open guards."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The guard is named OB here rather than t, and the graph event sequence is fixture-specific."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_p_axis_authority.py",
+      "test": "test_verifier_input_fingerprint_contains_the_frozen_source_digest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_p_axis_authority.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 218,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/19/tests/9"
+      },
+      "logically_distinct_assertions": [
+        "A verification receipt/input payload binds the frozen source digest, so a changed source cannot reuse it."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "equivalence": "Refuses a receipt after its source digest changes.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          }
+        },
+        {
+          "id": "GP-X72",
+          "pointer": "corpus/must/GP-X72.json",
+          "equivalence": "Refuses supplied native bytes that differ from the frozen parent.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The supplied bytes do not match the frozen native parent digest."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The particular digest substring and JSON encoding of the verifier payload."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_authority.py",
+      "test": "test_checked_in_boundary_projection_is_canonical_and_scope_honest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_authority.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 45,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/22/tests/0"
+      },
+      "logically_distinct_assertions": [
+        "A verified boundary may license only its checked stratum rewrites.",
+        "Digest commitments alone do not prove intermediate derivations or an actual-source edge.",
+        "The boundary report has no graph effect."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X78",
+          "pointer": "corpus/must/GP-X78.json",
+          "equivalence": "Accepts the invertible-alpha stratum rewrite.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The explicit inverse equation supports both polynomial pullback identities."
+          }
+        },
+        {
+          "id": "GP-X79",
+          "pointer": "corpus/must/GP-X79.json",
+          "equivalence": "Accepts the discriminant-stratum rewrite.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The coefficient alpha vanishes modulo the discriminant; c7_5 remains free."
+          }
+        },
+        {
+          "id": "GP-X82",
+          "pointer": "corpus/must/GP-X82.json",
+          "equivalence": "Refuses digest commitments as a source derivation.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A hash commitment supplies neither intermediate polynomials nor their derivation."
+          }
+        },
+        {
+          "id": "GP-X83",
+          "pointer": "corpus/must/GP-X83.json",
+          "equivalence": "Refuses an actual-source edge from an unbound boundary.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The imported boundary is source-unbound and carries no source or parent-cover edge."
+          }
+        },
+        {
+          "id": "GP-X43",
+          "pointer": "corpus/must/GP-X43.json",
+          "equivalence": "Conditional row evidence cannot prove original-source membership.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The verified metadata report explicitly preserves the missing source-map obligation."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The 33 commitment count, R2B/beta term counts, and envelope field names."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_chain.py",
+      "test": "test_full_exact_face_replay",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_chain.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 127,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/23/tests/7"
+      },
+      "logically_distinct_assertions": [
+        "An ordered chain with exact unit witnesses and its source-face replay may be accepted.",
+        "Input binding alone is not mathematical chain authority, and changing order, inverse, or solved value must fail.",
+        "The successful replay grants no graph effect or H3 promotion."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X84",
+          "pointer": "corpus/must/GP-X84.json",
+          "equivalence": "Accepts the ordered reduced chain with exact unit witnesses.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The checked solve identities and endpoint commitments agree; source-face substitution is a separate replay tier."
+          }
+        },
+        {
+          "id": "GP-X90",
+          "pointer": "corpus/must/GP-X90.json",
+          "equivalence": "Accepts exact graded-face extraction under declared finite supports.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Exact sparse products reproduce the committed faces of five reduced rows."
+          }
+        },
+        {
+          "id": "GP-X85",
+          "pointer": "corpus/must/GP-X85.json",
+          "equivalence": "Refuses treating preflight binding as chain identity authority.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Digest checks identify inputs but do not execute the mathematical chain."
+          }
+        },
+        {
+          "id": "GP-X86",
+          "pointer": "corpus/must/GP-X86.json",
+          "equivalence": "Refuses exchanged chain steps.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Each step is bound to the ordered prior state."
+          }
+        },
+        {
+          "id": "GP-X87",
+          "pointer": "corpus/must/GP-X87.json",
+          "equivalence": "Refuses a bad pivot inverse.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The inverse times the pivot must equal one modulo the pin."
+          }
+        },
+        {
+          "id": "GP-X88",
+          "pointer": "corpus/must/GP-X88.json",
+          "equivalence": "Refuses a changed solved polynomial.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The solved value no longer matches the committed intermediate result."
+          }
+        },
+        {
+          "id": "GP-X89",
+          "pointer": "corpus/must/GP-X89.json",
+          "equivalence": "Refuses removal of the H3 restriction.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The frozen report contract must preserve its excluded conclusion."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The depth-2-to-6 range, report verdict string, and license spelling."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_face_extraction.py",
+      "test": "test_full_source_formula_replay_rederives_all_five_rows",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_face_extraction.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 60,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/24/tests/1"
+      },
+      "logically_distinct_assertions": [
+        "The declared source formula and finite supports can be replayed to derive its reduced faces.",
+        "Changing the source row/formula window or merely recomputing a local digest cannot reuse downstream face authority."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X90",
+          "pointer": "corpus/must/GP-X90.json",
+          "equivalence": "Accepts finite-support graded-face extraction.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Exact sparse products reproduce the committed faces of five reduced rows."
+          }
+        },
+        {
+          "id": "GP-X91",
+          "pointer": "corpus/must/GP-X91.json",
+          "equivalence": "Refuses a changed source row after its own digest is recomputed.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Updating the row commitment does not make its extracted faces match the downstream commitments."
+          }
+        },
+        {
+          "id": "GP-X94",
+          "pointer": "corpus/must/GP-X94.json",
+          "equivalence": "Refuses reuse under a changed source formula window.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Changing the source window changes the defining formula contract."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "Five rows versus the neutral case's 25 faces, exact report label, and graph-effect field."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_full_template.py",
+      "test": "test_complete_template_has_the_measured_finite_boundary",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_full_template.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 38,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/25/tests/0"
+      },
+      "logically_distinct_assertions": [
+        "Finite selected equations must be distinguished from omitted equations; a selected-face result is one-way unless completeness/provenance is supplied."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X27",
+          "pointer": "corpus/must/GP-X27.json",
+          "equivalence": "Accepts a complete coefficient expansion.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "All coefficients through the true degree are checked."
+          }
+        },
+        {
+          "id": "GP-X28",
+          "pointer": "corpus/must/GP-X28.json",
+          "equivalence": "Refuses the converse from selected rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The omitted quadratic row can be nonzero."
+          }
+        },
+        {
+          "id": "GP-X51",
+          "pointer": "corpus/must/GP-X51.json",
+          "equivalence": "Allows forward forgetting/projection.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "A point with actual-source provenance projects to the relaxed object; retaining provenance is not necessary for the weaker existence claim."
+          }
+        },
+        {
+          "id": "GP-X52",
+          "pointer": "corpus/must/GP-X52.json",
+          "equivalence": "Refuses reverse recovery of missing provenance.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A relaxed point does not carry the missing originating pair and descent witness."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The 78/147/25/122 counts, row-depth table, sparse-term total, and generator-bundle digest are historical inventory facts, not additional logical warrants."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_full_template.py",
+      "test": "test_complete_template_earns_selected_face_containment",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_full_template.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 53,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/25/tests/1"
+      },
+      "logically_distinct_assertions": [
+        "A checked unit-cofactor inclusion establishes the stated containment; it supports the permitted empty-direction transport."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X15",
+          "pointer": "corpus/must/GP-X15.json",
+          "equivalence": "Accepts an exact ideal-membership/cofactor identity.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The cross term 2*y vanishes exactly in characteristic two."
+          }
+        },
+        {
+          "id": "GP-C02",
+          "pointer": "corpus/must/GP-C02.json",
+          "equivalence": "Accepts emptiness transport back along a checked inclusion.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Any source point would give a target point."
+          }
+        },
+        {
+          "id": "GP-X225",
+          "pointer": "corpus/must/GP-X225.json",
+          "equivalence": "Paired refusal control: a wrong cofactor has no identity authority.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Wrong cofactor cannot gain identity authority"
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The specific containment edge, backend stub, and eligibility function name."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_full_template.py",
+      "test": "test_mutated_selected_face_loses_structural_authority",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_full_template.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 64,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/25/tests/2"
+      },
+      "logically_distinct_assertions": [
+        "Mutating a generator invalidates the checked cofactor/containment evidence; it cannot retain structural authority."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X225",
+          "pointer": "corpus/must/GP-X225.json",
+          "equivalence": "Directly refuses a wrong cofactor identity.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Wrong cofactor cannot gain identity authority"
+          }
+        },
+        {
+          "id": "GP-X28",
+          "pointer": "corpus/must/GP-X28.json",
+          "equivalence": "Shows selected evidence does not grant a converse beyond what was checked.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The omitted quadratic row can be nonzero."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The selected-generator index, coefficient 999, and assertion-message text."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_full_template.py",
+      "test": "test_authority_still_refuses_reverse_lift_and_h3",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_full_template.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 80,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/25/tests/3"
+      },
+      "logically_distinct_assertions": [
+        "Checked inclusion supports the empty direction but not reverse nonempty lifting.",
+        "A conditional reduced-row report does not establish original-source membership.",
+        "Deleting or ignoring an H3 refusal cannot mint the excluded theorem."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-C02",
+          "pointer": "corpus/must/GP-C02.json",
+          "equivalence": "Accepts empty-direction transport along checked inclusion.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Any source point would give a target point."
+          }
+        },
+        {
+          "id": "GP-X52",
+          "pointer": "corpus/must/GP-X52.json",
+          "equivalence": "Refuses reverse realization after provenance was forgotten.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A relaxed point does not carry the missing originating pair and descent witness."
+          }
+        },
+        {
+          "id": "GP-X43",
+          "pointer": "corpus/must/GP-X43.json",
+          "equivalence": "Refuses original-source membership from conditional evidence.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The verified metadata report explicitly preserves the missing source-map obligation."
+          }
+        },
+        {
+          "id": "GP-X41",
+          "pointer": "corpus/must/GP-X41.json",
+          "equivalence": "Refuses deleting an H3 refusal.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The report does not establish the stronger theorem; erasing its boundary cannot create a warrant."
+          }
+        },
+        {
+          "id": "GP-X89",
+          "pointer": "corpus/must/GP-X89.json",
+          "equivalence": "Refuses removing the chain H3 restriction.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The frozen report contract must preserve its excluded conclusion."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The selected-face/reduced-esystem vocabulary and authority-list encoding."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_source_ladder_authority.py",
+      "test": "test_normalization_bearing_second_face_compiles_with_exact_context",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_ladder_authority.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 78,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/26/tests/3"
+      },
+      "logically_distinct_assertions": [
+        "A normalization equation may provide t's inverse without adding a separate inverse variable.",
+        "With checked triangular substitutions and inverse witnesses, the second-face map is an isomorphism."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X73",
+          "pointer": "corpus/must/GP-X73.json",
+          "equivalence": "Accepts ordered affine translations with explicit inverse coordinates.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Explicit inverse coordinates and checked triangular substitutions give a polynomial ring isomorphism."
+          }
+        },
+        {
+          "id": "GP-X74",
+          "pointer": "corpus/must/GP-X74.json",
+          "equivalence": "Accepts the normalization-derived inverse for t.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Modulo 15*t^3+1, -15*t^2 is an inverse for t; no extra inverse coordinate is needed."
+          }
+        },
+        {
+          "id": "GP-X76",
+          "pointer": "corpus/must/GP-X76.json",
+          "equivalence": "Paired refusal: changed cofactor makes the map unverified.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A changed cofactor fails exact replay; UNVERIFIED is not a refutation of isomorphism."
+          }
+        },
+        {
+          "id": "GP-X77",
+          "pointer": "corpus/must/GP-X77.json",
+          "equivalence": "Paired refusal: deleting the inverse equation invalidates reuse.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The localization must remain algebraized in the source ideal."
+          }
+        }
+      ],
+      "incidental_historical_fixture_differences": [
+        "The five target generator names, step count, edge/model IDs, and empty event-list representation."
+      ],
+      "genuinely_unmatched_assertions": [],
+      "disposition": "covered"
+    }
+  ]
+}

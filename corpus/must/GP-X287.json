@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "GP-X287",
+  "seed": null,
+  "title": "Variable-unit product needs localization-aware branch construction",
+  "situation": "Exact product equality and branch construction are distinct operations. The construction request uses a matching parent generator and supplies no ideal-membership witness.",
+  "inputs": {
+    "variables": [
+      "x",
+      "y",
+      "z"
+    ],
+    "characteristic": 0,
+    "declared_units": [
+      "z"
+    ],
+    "identity": {
+      "equation": "z*x*y",
+      "scalar": "z",
+      "left": "x",
+      "right": "y"
+    },
+    "parent_equations": [
+      "z*x*y"
+    ],
+    "open_guards": [
+      "z"
+    ],
+    "question": "construct_from_matching_generator"
+  },
+  "attempted_conclusion": "Construct proposed branches under the normalized matching-generator contract, preserving open guards; do not grant coverage authority.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Variable-unit product needs localization-aware branch construction"
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/operations.py",
+      "line": 473,
+      "anchor": "def product_split("
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X231",
+  "seed": null,
+  "title": "Computation recording: unknown_relation, structured, success",
+  "situation": "A computation must declare its relation and complete without execution errors before recording a produced model.",
+  "inputs": {
+    "declaration": "unknown_relation",
+    "request_form": "structured",
+    "process_outcome": "success"
+  },
+  "attempted_conclusion": "Accept the attempted computation as a completed operation and record its output model. No mathematical claim is inferred.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Computation recording: unknown_relation, structured, success"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_boundary.py",
+      "line": 108,
+      "anchor": "def test_an_unknown_type_names_the_five_options("
+    }
+  ]
+}

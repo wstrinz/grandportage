@@ -1,0 +1,51 @@
+{
+  "source": "lean/GrandPortage/OperationContract.lean",
+  "pin": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sha256": "7c9afad6ba96f38f352554b778d2e9e01a1cb37f540a477da12e8f2042838196",
+  "reading_extent": {
+    "prior": "1-225 in Batch85",
+    "this_review": "226-829 in three bounded untruncated reads",
+    "complete_text_read": true
+  },
+  "resolves_reading_obligation": "85.8",
+  "execution": "No Lean compilation, new theorem or runtime test.",
+  "findings": [
+    {
+      "kind": "boundary",
+      "description": "No-invention lifts finite generator checks through explicitly supplied generated-ideal premises. Completeness is a separate inclusion; together they establish exact contraction. Section proof carries source generators and uses retract_embedding; point surjectivity additionally requires valid evaluation under precomposition."
+    },
+    {
+      "kind": "boundary",
+      "description": "Finite lift cover includes the actual coverage hypothesis. Predicate transport needs RetainedCoordinateExpressible; no closedness restriction is used by this theorem."
+    },
+    {
+      "kind": "boundary",
+      "description": "EliminationBasisProperty names, but does not prove, the Buchberger/elimination algebraic theorem. Runtime certificate cannot simply assert it. The bridge to completeness is conditional on that checker-soundness result."
+    },
+    {
+      "kind": "counterexample_needs_mapping",
+      "description": "Unchanged ideal (6) passes local saturation checks at 2 but misses 3 in the saturation. Exact saturation still does not transport 3=0 back to ambient (6).",
+      "candidate_cases": [
+        "GP-X141"
+      ],
+      "limit": "Do not conflate missing completeness with invalid ambient return; separate the two attempts."
+    },
+    {
+      "kind": "counterexample_needs_mapping",
+      "description": "Source (2), target (0), identity embedding: no-invention holds vacuously for empty target generators, but completeness and forward identity fail. This is the opposite inclusion gap from newly extracted X315-X317."
+    },
+    {
+      "kind": "counterexample_needs_mapping",
+      "description": "Exact contraction with noValidEvaluation source and anyValidEvaluation target does not imply point-surjectivity. Abstract evaluation-predicate example, not a constructed hyperbola or arbitrary standard algebra instance."
+    },
+    {
+      "kind": "counterexample_needs_mapping",
+      "description": "Identity point map with True source predicate and False target predicate is surjective but cannot transport unrelated predicates; expressibility is missing.",
+      "candidate_cases": [
+        "GP-X05",
+        "GP-X06"
+      ]
+    }
+  ],
+  "closure": "Reading complete only. Counterexample mapping remains explicit; global source coverage labels and gates unchanged."
+}

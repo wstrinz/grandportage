@@ -8,7 +8,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "public_snapshot.py"
-MANIFEST = ROOT / "public-snapshot-v1.json"
+MANIFEST = ROOT / "public-snapshot-v2.json"
 
 
 def _load():

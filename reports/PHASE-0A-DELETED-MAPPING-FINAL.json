@@ -1,0 +1,1098 @@
+{
+  "schema_version": 1,
+  "scope": "Fixed 42 deleted-test assertions in PHASE-0A-DELETED-MAPPING-REVIEW; no broader audit or source edits",
+  "source_pin": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+  "reconciliation_basis": [
+    "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json",
+    "reports/PHASE-0A-CLOSURE-DECISIONS.json",
+    "reports/PHASE-0A-NONINCIDENT-PARENT-DISPOSITION.json",
+    "corpus/must/GP-X*.json"
+  ],
+  "method": "Compare each historical assertion and altered premise to current case payload and expected mechanism. Distinguish outer binding checks from substantive arithmetic; positive source-regression assertions may be nonincident without case-equivalent full replay. Parent retains Cramer and other final closure judgments.",
+  "counts": {
+    "exact_case_reuse": 8,
+    "split_parent_owned_residual": 1,
+    "binding_only_reuse": 10,
+    "residual_minimum": 4,
+    "supported_nonincident": 16,
+    "split_residual": 1,
+    "bounded_mechanism_reuse": 2
+  },
+  "rows": [
+    {
+      "index": 0,
+      "source_path": "tests/test_jc_h3_adjoint_recurrence.py",
+      "test": "test_changed_jump_schedule_is_refused",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_adjoint_recurrence.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 86,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/5/tests/3"
+      },
+      "prior_classification": "unresolved",
+      "source_assertion": "def test_changed_jump_schedule_is_refused():\n    module = _load()\n    value = _fixture(module)\n    value[\"native_certificate\"][\"operator_jumps\"][\"nonzero_at\"] = [7, 8, 11, 13]\n\n    with pytest.raises(module.RecurrenceEvidenceError, match=\"J2\"):\n        module.validate_fixture_value(value)",
+      "disposition": "exact_case_reuse",
+      "case_ids": [
+        "GP-X321"
+      ],
+      "premise_mechanism_match": "The same pinned unilateral recurrence changes the declared jump schedule from [7,9,11,13] to [7,8,11,13] while keeping the checked sequence and annihilator claim; the validator refuses the J2 premise.",
+      "coverage_limit": "No broader recurrence theorem is inferred.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/0",
+        "corpus/must/GP-X321.json"
+      ]
+    },
+    {
+      "index": 1,
+      "source_path": "tests/test_jc_h3_adjoint_recurrence.py",
+      "test": "test_zeroing_depth13_endpoint_refuses_minimal_shift_claim",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_adjoint_recurrence.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 95,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/5/tests/4"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_zeroing_depth13_endpoint_refuses_minimal_shift_claim():\n    module = _load()\n    value = _fixture(module)\n    zero = copy.deepcopy(\n        value[\"native_certificate\"][\"regimes\"][0][\"matrix\"][0][\"value\"])\n    assert zero[\"terms\"] == 0\n    for entry in value[\"native_certificate\"][\"regimes\"][3][\"matrix\"]:\n        entry[\"value\"] = copy.deepcopy(zero)\n\n    with pytest.raises(module.RecurrenceEvidenceError, match=\"J4|A2\"):\n        module.validate_fixture_value(value)",
+      "disposition": "exact_case_reuse",
+      "case_ids": [
+        "GP-X118",
+        "GP-X318"
+      ],
+      "premise_mechanism_match": "The positive checked depth-13 endpoint and its zeroed counterpart are the same minimum-eighth-shift premise pair; zeroing the entire last nonzero depth removes minimality.",
+      "coverage_limit": "The case addresses minimality, not every endpoint property.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/1",
+        "corpus/must/GP-X118.json",
+        "corpus/must/GP-X318.json"
+      ]
+    },
+    {
+      "index": 2,
+      "source_path": "tests/test_jc_h3_b0_compatibility.py",
+      "test": "test_exact_affine_and_quotient_replay_classifies_phi_narrowly",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_compatibility.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 36,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/6/tests/0"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_exact_affine_and_quotient_replay_classifies_phi_narrowly(checked):\n    assert checked == {\n        \"phi_terms\": 3137,\n        \"chart_determinant\": \"VERIFIED_DET5\",\n        \"clearing_exponent\": 2,\n        \"power_one_refuted\": True,\n        \"resultant_degree\": 26,\n        \"nonzero_observation_dimension\": 2,\n        \"zero_observation_dimension\": 14,\n        \"zero_witness_guards\": [\n            \"c2_3\", \"p\", \"det5\", \"OB-pivot\", \"S11\"],\n        \"module_rendezvous\": \"BOUND_FROZEN_SAME_PHI\",\n    }\n    assert hashlib.sha256(FIXTURE_RAW).hexdigest() == (\n        MODULE.EXPECTED_FIXTURE_SHA256)",
+      "disposition": "split_parent_owned_residual",
+      "case_ids": [
+        "GP-X119",
+        "GP-X120"
+      ],
+      "premise_mechanism_match": "The cases distinguish nonzero/nonunit from nonzerodivisor in the affine quotient, the narrow phi classification tested by the frozen fixture.",
+      "coverage_limit": "The full 3137-term fixture, determinant, resultant, dimensions, guards, and module rendezvous are source evidence. Neither case replays the exact clearing exponent 2 and power-one refutation.",
+      "minimum_residual": "Parent-owned Cramer judgment: determine whether the exact exponent-two versus exponent-one premise needs a separate bounded control; do not equate the nearby nonunit cases with that arithmetic claim.",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/2",
+        "corpus/must/GP-X119.json",
+        "corpus/must/GP-X120.json"
+      ]
+    },
+    {
+      "index": 3,
+      "source_path": "tests/test_jc_h3_b0_compatibility.py",
+      "test": "test_changed_native_binding_refuses_before_replay",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_compatibility.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 89,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/6/tests/3"
+      },
+      "prior_classification": "mapped_outer_hash_only",
+      "source_assertion": "def test_changed_native_binding_refuses_before_replay():\n    changed = copy.deepcopy(FIXTURE)\n    changed[\"source_bindings\"][\"f2_h3_b0_uniform_lambda.json\"] = \"0\" * 64\n    with pytest.raises(MODULE.CompatibilityEvidenceError, match=\"F3\"):\n        MODULE.validate_fixture_value(changed)",
+      "disposition": "binding_only_reuse",
+      "case_ids": [
+        "GP-X71"
+      ],
+      "premise_mechanism_match": "Changing a source_bindings SHA to all zeroes stales the native source binding before replay, the same digest-currentness gate.",
+      "coverage_limit": "F3 outer binding only; no native arithmetic replay.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/3",
+        "corpus/must/GP-X71.json"
+      ]
+    },
+    {
+      "index": 4,
+      "source_path": "tests/test_jc_h3_b0_compatibility.py",
+      "test": "test_changed_witness_polynomial_refuses_by_frozen_artifact_digest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_compatibility.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 96,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/6/tests/4"
+      },
+      "prior_classification": "mapped_outer_hash_only",
+      "source_assertion": "def test_changed_witness_polynomial_refuses_by_frozen_artifact_digest(tmp_path):\n    changed = copy.deepcopy(FIXTURE)\n    changed[\"slice\"][\"final_modulus\"][0][0] = \"1\"\n    path = tmp_path / \"changed.json\"\n    path.write_bytes(MODULE.encoded(changed))\n    with pytest.raises(MODULE.CompatibilityEvidenceError, match=\"F4\"):\n        MODULE.verify_fixture(path)",
+      "disposition": "binding_only_reuse",
+      "case_ids": [
+        "GP-X44"
+      ],
+      "premise_mechanism_match": "Changing a witness-polynomial coefficient changes frozen fixture bytes and fails the artifact digest gate.",
+      "coverage_limit": "F4 outer artifact identity only; not a semantic witness-polynomial check.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/4",
+        "corpus/must/GP-X44.json"
+      ]
+    },
+    {
+      "index": 5,
+      "source_path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "test": "test_arithmetic_and_scope_mutations_refuse",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 87,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/7/tests/2"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_arithmetic_and_scope_mutations_refuse(frozen, mutator, check):\n    changed = copy.deepcopy(frozen[1])\n    mutator(changed)\n    with pytest.raises(MODULE.Depth8BlockEvidenceError, match=check):\n        MODULE.validate_fixture_value(changed)",
+      "disposition": "exact_case_reuse",
+      "case_ids": [
+        "GP-X324",
+        "GP-X325",
+        "GP-X326",
+        "GP-X327",
+        "GP-X328",
+        "GP-X329",
+        "GP-X330",
+        "GP-X37",
+        "GP-X331"
+      ],
+      "premise_mechanism_match": "The positive depth-eight block and eight separately parameterized raw-column, transported-block, graph-effect, D7-sign, residual-label, equivalence-label, CLOSED-open-obligation, and never-inverted-R mutations are represented by these controls.",
+      "coverage_limit": "The accepted decision is complete for the eight historical mutations; no algebraic invalidity beyond their checked commitments is claimed.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/5",
+        "corpus/must/GP-X324.json",
+        "corpus/must/GP-X325.json",
+        "corpus/must/GP-X326.json",
+        "corpus/must/GP-X327.json",
+        "corpus/must/GP-X328.json",
+        "corpus/must/GP-X329.json",
+        "corpus/must/GP-X330.json",
+        "corpus/must/GP-X37.json",
+        "corpus/must/GP-X331.json"
+      ]
+    },
+    {
+      "index": 6,
+      "source_path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "test": "test_changed_previous_gp_prerequisite_refuses",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 94,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/7/tests/3"
+      },
+      "prior_classification": "unresolved",
+      "source_assertion": "def test_changed_previous_gp_prerequisite_refuses(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"gp_prerequisite\"][\"sha256\"] = \"0\" * 64\n    with pytest.raises(MODULE.Depth8BlockEvidenceError, match=\"C1\"):\n        MODULE.validate_fixture_value(changed)",
+      "disposition": "residual_minimum",
+      "case_ids": [
+        "GP-X324"
+      ],
+      "premise_mechanism_match": "GP-X324 is the same unmodified depth-eight block baseline, but its existing mutations do not change the prior-GP prerequisite digest.",
+      "coverage_limit": "GP-X121/X122 are affine compatibility checks and GP-X71 is a different source digest binding.",
+      "minimum_residual": "One bounded REFUSE control: retain the checked block and replace only gp_prerequisite.sha256 with 64 zeroes; require C1 prerequisite-currentness refusal.",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/6",
+        "corpus/must/GP-X324.json"
+      ]
+    },
+    {
+      "index": 7,
+      "source_path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "test": "test_changed_native_binding_refuses",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 101,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/7/tests/4"
+      },
+      "prior_classification": "mapped_outer_hash_only",
+      "source_assertion": "def test_changed_native_binding_refuses(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"source_bindings\"][\n        \"f2_h3_b0_depth8_free_plane_coefficients.json\"] = \"0\" * 64\n    with pytest.raises(MODULE.Depth8BlockEvidenceError, match=\"F3\"):\n        MODULE.validate_fixture_value(changed)",
+      "disposition": "binding_only_reuse",
+      "case_ids": [
+        "GP-X71"
+      ],
+      "premise_mechanism_match": "Zeroing the named native source binding is the same digest-currentness gate.",
+      "coverage_limit": "F3 binding only; no arithmetic replay.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/7",
+        "corpus/must/GP-X71.json"
+      ]
+    },
+    {
+      "index": 8,
+      "source_path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "test": "test_changed_fixture_refuses_by_digest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 109,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/7/tests/5"
+      },
+      "prior_classification": "mapped_outer_hash_only",
+      "source_assertion": "def test_changed_fixture_refuses_by_digest(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"authority_boundary\"] = \"widened\"\n    with tempfile.TemporaryDirectory(prefix=\"gp-depth8-block-\", dir=ROOT) as temp:\n        path = Path(temp) / \"changed.json\"\n        path.write_bytes(MODULE.encoded(changed))\n        with pytest.raises(MODULE.Depth8BlockEvidenceError, match=\"F4\"):\n            MODULE.verify_fixture(path)",
+      "disposition": "binding_only_reuse",
+      "case_ids": [
+        "GP-X44"
+      ],
+      "premise_mechanism_match": "Changing authority_boundary to widened changes frozen artifact bytes.",
+      "coverage_limit": "F4 outer digest only; no authority-boundary semantic judgment.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/8",
+        "corpus/must/GP-X44.json"
+      ]
+    },
+    {
+      "index": 9,
+      "source_path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "test": "test_explicit_residual_pullback_and_finite_unit_replay",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 43,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/8/tests/0"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_explicit_residual_pullback_and_finite_unit_replay(checked, frozen):\n    assert checked == {\n        \"r8_terms\": [552, 704],\n        \"psi8_terms\": 709,\n        \"psi8_class\": \"NONZERO_NONUNIT_FIBER_AFFINE\",\n        \"omega8_terms\": 4123,\n        \"exceptional_content\": \"c2_3^26*c3_5^2\",\n        \"witness\": {\n            \"dimension\": 14,\n            \"slice_codimension\": 7,\n            \"omega_image_degree\": 13,\n            \"gcd_degree\": 0,\n            \"omega_unit\": True,\n        },\n    }\n    assert hashlib.sha256(frozen[0]).hexdigest() == (\n        MODULE.EXPECTED_FIXTURE_SHA256)",
+      "disposition": "supported_nonincident",
+      "case_ids": [
+        "GP-X319",
+        "GP-X320"
+      ],
+      "premise_mechanism_match": "The finite quotient unit/gcd mechanism is exercised by the exact positive unit and false-gcd controls.",
+      "coverage_limit": "The full residual pullback counts, 709/4123 terms, exceptional content, and 14-dimensional witness are positive frozen-source observations; no separate false conclusion is attempted.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/9",
+        "corpus/must/GP-X319.json",
+        "corpus/must/GP-X320.json"
+      ]
+    },
+    {
+      "index": 10,
+      "source_path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "test": "test_scope_pin_order_digest_middle_and_slice_mutations_refuse",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 88,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/8/tests/2"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_scope_pin_order_digest_middle_and_slice_mutations_refuse(\n        frozen, mutator, check):\n    changed = copy.deepcopy(frozen[1])\n    mutator(changed)\n    with pytest.raises(MODULE.Depth8ResidualEvidenceError, match=check):\n        MODULE.validate_fixture_value(changed)",
+      "disposition": "exact_case_reuse",
+      "case_ids": [
+        "GP-X319",
+        "GP-X123",
+        "GP-X332",
+        "GP-X333",
+        "GP-X334",
+        "GP-X335",
+        "GP-X71"
+      ],
+      "premise_mechanism_match": "The positive finite unit and each historical scope/pin/order/digest/middle/slice mutation are mapped in the parent-accepted six-mutation extraction.",
+      "coverage_limit": "Each mutation is a distinct fixture premise; the source-digest member remains a binding refusal.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/10",
+        "corpus/must/GP-X319.json",
+        "corpus/must/GP-X332.json",
+        "corpus/must/GP-X333.json",
+        "corpus/must/GP-X334.json",
+        "corpus/must/GP-X335.json",
+        "corpus/must/GP-X71.json",
+        "corpus/must/GP-X123.json"
+      ]
+    },
+    {
+      "index": 11,
+      "source_path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "test": "test_changed_syzygy_body_refuses",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 96,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/8/tests/3"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_changed_syzygy_body_refuses(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"psi8_certificate\"][\"r8_1\"][\"sparse\"][\"terms\"][0][1] = \"-449\"\n    with pytest.raises(MODULE.Depth8ResidualEvidenceError, match=\"A1\"):\n        MODULE.validate_fixture_value(changed)",
+      "disposition": "residual_minimum",
+      "case_ids": [],
+      "premise_mechanism_match": "No current case changes the sparse r8_1 syzygy-body coefficient itself.",
+      "coverage_limit": "GP-X334 removes the explanation for a missing middle residual, a different premise.",
+      "minimum_residual": "One bounded REFUSE control: alter only psi8_certificate.r8_1.sparse.terms[0][1] to -449 in the frozen fixture; require A1 refusal.",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/11"
+      ]
+    },
+    {
+      "index": 12,
+      "source_path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "test": "test_changed_finite_algebra_modulus_refuses",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 111,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/8/tests/5"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_changed_finite_algebra_modulus_refuses(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"pullback_certificate\"][\"witness\"][\"r_final\"][0] = \"1\"\n    with pytest.raises(MODULE.Depth8ResidualEvidenceError, match=\"W3|W5\"):\n        MODULE.validate_fixture_value(changed)",
+      "disposition": "exact_case_reuse",
+      "case_ids": [
+        "GP-X336"
+      ],
+      "premise_mechanism_match": "The quotient modulus first coefficient is changed while the finite unit assertion and sliced equations are retained, exactly the historical modulus mutation.",
+      "coverage_limit": "No claim about all possible modulus edits.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/12",
+        "corpus/must/GP-X336.json"
+      ]
+    },
+    {
+      "index": 13,
+      "source_path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "test": "test_changed_fixture_refuses_by_digest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 118,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/8/tests/6"
+      },
+      "prior_classification": "mapped_outer_hash_only",
+      "source_assertion": "def test_changed_fixture_refuses_by_digest(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"authority_boundary\"] = \"widened\"\n    with tempfile.TemporaryDirectory(\n            prefix=\"gp-depth8-residual-\", dir=ROOT) as temporary:\n        path = Path(temporary) / \"changed.json\"\n        path.write_bytes(MODULE.encoded(changed))\n        with pytest.raises(MODULE.Depth8ResidualEvidenceError, match=\"F4\"):\n            MODULE.verify_fixture(path)",
+      "disposition": "binding_only_reuse",
+      "case_ids": [
+        "GP-X44"
+      ],
+      "premise_mechanism_match": "Widening authority_boundary changes the frozen fixture bytes and trips the outer digest.",
+      "coverage_limit": "F4 only; no semantic promotion check.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/13",
+        "corpus/must/GP-X44.json"
+      ]
+    },
+    {
+      "index": 14,
+      "source_path": "tests/test_jc_h3_b0_free_plane.py",
+      "test": "test_complete_factor_ledger_and_affine_round_trip",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 38,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/9/tests/0"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_complete_factor_ledger_and_affine_round_trip(checked, frozen):\n    assert checked == {\n        \"loaded_bodies\": 35,\n        \"distinct_bodies\": 31,\n        \"live_bodies\": [\n            \"E321\", \"VD\", \"d7rung:row1/c9_7\", \"d7rung:row4/c5_0\"],\n        \"ambient_factors\": [\"c5_7\", \"Delta\"],\n        \"S2_factors\": [\"c5_7\"],\n        \"affine_round_trip\": True,\n        \"downstream_equations\": 8,\n    }\n    assert hashlib.sha256(frozen[0]).hexdigest() == (\n        MODULE.EXPECTED_FIXTURE_SHA256)",
+      "disposition": "supported_nonincident",
+      "case_ids": [
+        "GP-X73",
+        "GP-X74"
+      ],
+      "premise_mechanism_match": "The current cases carry the ordered affine normalization and inverse-round-trip mechanism.",
+      "coverage_limit": "The full factor ledger and exact fixture counts are positive source checks, not distinct attempted invalid conclusions.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/14",
+        "corpus/must/GP-X73.json",
+        "corpus/must/GP-X74.json"
+      ]
+    },
+    {
+      "index": 15,
+      "source_path": "tests/test_jc_h3_b0_free_plane.py",
+      "test": "test_report_has_no_graph_or_research_promotion",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 53,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/9/tests/1"
+      },
+      "prior_classification": "unresolved",
+      "source_assertion": "def test_report_has_no_graph_or_research_promotion(checked, frozen):\n    report = MODULE.report_from_checked_fixture(frozen[1], checked)\n    assert report[\"verdict\"] == \"VERIFIED_EXCEPTIONAL_FACTOR_LEDGER\"\n    assert report[\"graph_effect\"] == \"NONE\"\n    assert report[\"evidence_envelope\"][\"graph_effect\"] == \"NONE\"\n    assert \"six coefficients\" in report[\"first_open_obligation\"]\n    refused = \" \".join(report[\"does_not_license\"])\n    assert \"R=0\" in refused and \"component\" in refused\n    assert \"source\" in refused and \"H3\" in refused",
+      "disposition": "supported_nonincident",
+      "case_ids": [
+        "GP-X327",
+        "GP-X41",
+        "GP-X89"
+      ],
+      "premise_mechanism_match": "Graph-effect NONE and H3/scope refusal principles are represented by these negative controls.",
+      "coverage_limit": "The test asserts the original report fields, including six coefficients and four refusal strings; it has no changed premise or attempted promotion. These cases do not reproduce the whole report.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/15",
+        "corpus/must/GP-X327.json",
+        "corpus/must/GP-X41.json",
+        "corpus/must/GP-X89.json"
+      ]
+    },
+    {
+      "index": 16,
+      "source_path": "tests/test_jc_h3_b0_free_plane.py",
+      "test": "test_scope_and_arithmetic_mutations_refuse",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 82,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/9/tests/2"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_scope_and_arithmetic_mutations_refuse(frozen, mutator, check):\n    changed = copy.deepcopy(frozen[1])\n    mutator(changed)\n    with pytest.raises(MODULE.FreePlaneEvidenceError, match=check):\n        MODULE.validate_fixture_value(changed)",
+      "disposition": "split_residual",
+      "case_ids": [
+        "GP-X327"
+      ],
+      "premise_mechanism_match": "GP-X327 reuses the graph_effect promotion principle, but on a different depth-eight fixture.",
+      "coverage_limit": "The historical free-plane test parameterizes seven distinct mutations, including equation/role/open-obligation edits and two arithmetic changes; GP-X328 uses a different D7 sign transport.",
+      "minimum_residual": "Minimum bounded residual family on the free-plane fixture: graph_effect NONEMPTY; pivot role NINTH_COMPATIBILITY_EQUATION; remove c5_7=0; remove Delta=0; first_open_obligation CLOSED; change VD c8_5 coefficient to 14; change pivot sign to +3/2. Preserve M3 versus A3 refusal distinctions.",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/16",
+        "corpus/must/GP-X327.json"
+      ]
+    },
+    {
+      "index": 17,
+      "source_path": "tests/test_jc_h3_b0_free_plane.py",
+      "test": "test_changed_native_binding_refuses",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 89,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/9/tests/3"
+      },
+      "prior_classification": "mapped_outer_hash_only",
+      "source_assertion": "def test_changed_native_binding_refuses(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"source_bindings\"][\"f2_h3_b0_free_plane_receipt.json\"] = \"0\" * 64\n    with pytest.raises(MODULE.FreePlaneEvidenceError, match=\"F3\"):\n        MODULE.validate_fixture_value(changed)",
+      "disposition": "binding_only_reuse",
+      "case_ids": [
+        "GP-X71"
+      ],
+      "premise_mechanism_match": "Zeroing the free-plane receipt source binding stales source identity.",
+      "coverage_limit": "F3 binding only; no receipt arithmetic replay.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/17",
+        "corpus/must/GP-X71.json"
+      ]
+    },
+    {
+      "index": 18,
+      "source_path": "tests/test_jc_h3_b0_free_plane.py",
+      "test": "test_changed_fixture_refuses_by_digest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 96,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/9/tests/4"
+      },
+      "prior_classification": "mapped_outer_hash_only",
+      "source_assertion": "def test_changed_fixture_refuses_by_digest(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"authority_boundary\"] = \"widened\"\n    with tempfile.TemporaryDirectory(prefix=\"gp-free-plane-\", dir=ROOT) as temp:\n        path = Path(temp) / \"changed.json\"\n        path.write_bytes(MODULE.encoded(changed))\n        with pytest.raises(MODULE.FreePlaneEvidenceError, match=\"F4\"):\n            MODULE.verify_fixture(path)",
+      "disposition": "binding_only_reuse",
+      "case_ids": [
+        "GP-X44"
+      ],
+      "premise_mechanism_match": "Widening the authority-boundary text changes frozen fixture bytes.",
+      "coverage_limit": "F4 outer digest only.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/18",
+        "corpus/must/GP-X44.json"
+      ]
+    },
+    {
+      "index": 19,
+      "source_path": "tests/test_jc_h3_depth8_fiber.py",
+      "test": "test_zeroed_omega_comb_is_refused",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_depth8_fiber.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 69,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/12/tests/2"
+      },
+      "prior_classification": "unresolved",
+      "source_assertion": "def test_zeroed_omega_comb_is_refused():\n    module = _load()\n    value = _fixture(module)\n    value[\"native_certificate\"][\"witness_values\"][\"omega_comb\"] = [\n        [\"0\", \"0\", \"0\"], [\"0\", \"0\", \"0\"]]\n    with pytest.raises(module.FiberEvidenceError, match=\"N8\"):\n        module.validate_fixture_value(value)",
+      "disposition": "exact_case_reuse",
+      "case_ids": [
+        "GP-X322",
+        "GP-X323"
+      ],
+      "premise_mechanism_match": "The named fiber positive control retains checked nonzero omega_comb; its paired control replaces omega_comb with the exact zero element and refuses the nonzero-dependent conclusion.",
+      "coverage_limit": "Only this named witness and first-order fiber claim are covered.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/19",
+        "corpus/must/GP-X322.json",
+        "corpus/must/GP-X323.json"
+      ]
+    },
+    {
+      "index": 20,
+      "source_path": "tests/test_jc_h3_depth8_fiber.py",
+      "test": "test_authorizing_depth9_pair_is_refused",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_depth8_fiber.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 78,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/12/tests/3"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_authorizing_depth9_pair_is_refused():\n    module = _load()\n    value = _fixture(module)\n    value[\"native_certificate\"][\"verdict\"][\n        \"depth9_additive_pair_authorized\"] = True\n    with pytest.raises(module.FiberEvidenceError, match=\"N7\"):\n        module.validate_fixture_value(value)",
+      "disposition": "residual_minimum",
+      "case_ids": [],
+      "premise_mechanism_match": "No current case changes native_certificate.verdict.depth9_additive_pair_authorized from false to true in this fiber fixture.",
+      "coverage_limit": "GP-X113/X114/X115 concern neighboring inference/scope claims, not the N7 authorization flag.",
+      "minimum_residual": "One bounded REFUSE control with the identical fiber fixture except depth9_additive_pair_authorized=true; require N7 refusal without minting a depth-nine pair.",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/20"
+      ]
+    },
+    {
+      "index": 21,
+      "source_path": "tests/test_jc_h3_s4_scope.py",
+      "test": "test_sparse_body_mutation_is_refused",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_s4_scope.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 72,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/15/tests/2"
+      },
+      "prior_classification": "unresolved",
+      "source_assertion": "def test_sparse_body_mutation_is_refused():\n    module = _load()\n    value = _fixture(module)\n    value[\"polynomials\"][\"C\"][\"terms\"][0][1] = \"2\"\n\n    with pytest.raises(module.S4ScopeError, match=\"P9\"):\n        module.validate_fixture_value(value)",
+      "disposition": "residual_minimum",
+      "case_ids": [],
+      "premise_mechanism_match": "No current case changes the sparse polynomial C body coefficient in the S4 fixture.",
+      "coverage_limit": "GP-X106/X107/X117 concern search status, branch, or point-witness conclusions rather than P9 sparse-body integrity.",
+      "minimum_residual": "One bounded REFUSE control changing only polynomials.C.terms[0][1] to 2; require P9 refusal.",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/21"
+      ]
+    },
+    {
+      "index": 22,
+      "source_path": "tests/test_jc_h3_s4_scope.py",
+      "test": "test_frozen_digest_is_a_checked_boundary",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_s4_scope.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 81,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/15/tests/3"
+      },
+      "prior_classification": "mapped_outer_hash_only",
+      "source_assertion": "def test_frozen_digest_is_a_checked_boundary(tmp_path):\n    module = _load()\n    value = _fixture(module)\n    path = tmp_path / \"scope.json\"\n    path.write_text(json.dumps(value, sort_keys=True), encoding=\"utf-8\")\n\n    with pytest.raises(module.S4ScopeError, match=\"F5\"):\n        module.verify_fixture(path)",
+      "disposition": "binding_only_reuse",
+      "case_ids": [
+        "GP-X44"
+      ],
+      "premise_mechanism_match": "Re-serializing the frozen JSON with sorted keys changes its checked bytes.",
+      "coverage_limit": "F5 byte-identity gate only; no source or algebra change.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/22",
+        "corpus/must/GP-X44.json"
+      ]
+    },
+    {
+      "index": 23,
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_frozen_polynomials_compile_to_existing_localized_unit_identity",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 82,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/0"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_frozen_polynomials_compile_to_existing_localized_unit_identity():\n    module, frozen, raw, report = (\n        MODULE, FROZEN, FROZEN_BYTES, VALIDATION_REPORT)\n\n    assert hashlib.sha256(raw).hexdigest() == module.EXPECTED_FROZEN_SHA256\n    assert report[\"verdict\"] == L.VERIFIED\n    assert report[\"checked\"][\"generator_count\"] == 3\n    assert len(frozen[\"polynomials\"][\"value_24_delta\"][\"terms\"]) == 502\n    assert len(frozen[\"polynomials\"][\"OB_ambient\"][\"terms\"]) == 499\n    assert frozen[\"scope\"][\"constructible_piece\"] == \"R=0 and OB!=0\"",
+      "disposition": "supported_nonincident",
+      "case_ids": [
+        "GP-X63"
+      ],
+      "premise_mechanism_match": "GP-X63 exercises the localized unit-ideal identity that the frozen polynomials positively compile to.",
+      "coverage_limit": "The exact 502/499-term frozen polynomials are source evidence; the case does not replay that complete fixture and the test attempts no false conclusion.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/23",
+        "corpus/must/GP-X63.json"
+      ]
+    },
+    {
+      "index": 24,
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_checked_in_authority_fixture_is_exact_adapter_output",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 94,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/1"
+      },
+      "prior_classification": "unresolved",
+      "source_assertion": "def test_checked_in_authority_fixture_is_exact_adapter_output():\n    module, frozen = MODULE, FROZEN\n    assert module.DEFAULT_AUTHORITY.read_bytes() == module._encoded(\n        module.authority_spec(frozen))",
+      "disposition": "supported_nonincident",
+      "case_ids": [],
+      "premise_mechanism_match": "The wall-OB test compares checked-in authority bytes with deterministic adapter output.",
+      "coverage_limit": "A positive serialization regression guard with no altered premise or attempted false conclusion; digest refusal cases are not equivalent to this equality.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/24"
+      ]
+    },
+    {
+      "index": 25,
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_graph_verdict_mints_only_local_empty_on_exact_consequence_model",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 100,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/2"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_graph_verdict_mints_only_local_empty_on_exact_consequence_model():\n    module = MODULE\n    graph, event = _verified_graph(module)\n    claim = graph.claims[module.EMPTY_CLAIM]\n\n    assert claim[\"certificate_verdict\"] == V.CERT_VERIFIED\n    assert graph.verdicts[event[\"id\"]][\"current\"] is True\n    assert C.effective_certificate(claim) == \"LOCALIZED_UNIT_IDEAL_CERT\"\n    assert len(graph.models) == 1\n    assert \"no automatic nine-body\" in claim[\"caveat\"]",
+      "disposition": "supported_nonincident",
+      "case_ids": [
+        "GP-X63",
+        "GP-X64",
+        "GP-X65"
+      ],
+      "premise_mechanism_match": "The local EMPTY claim and refusal to turn a certificate name into wider authority align with these bounded cases.",
+      "coverage_limit": "The original graph event sequence and exact consequence-model fixture are positive source evidence, not replayed end to end here.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/25",
+        "corpus/must/GP-X63.json",
+        "corpus/must/GP-X64.json",
+        "corpus/must/GP-X65.json"
+      ]
+    },
+    {
+      "index": 26,
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_certificate_name_without_current_verdict_has_no_authority",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 112,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/3"
+      },
+      "prior_classification": "mapped",
+      "source_assertion": "def test_certificate_name_without_current_verdict_has_no_authority():\n    module, frozen, raw = MODULE, FROZEN, FROZEN_BYTES\n    graph = module.graph_from_frozen(frozen, raw)\n    assert C.effective_certificate(graph.claims[module.EMPTY_CLAIM]) is None",
+      "disposition": "exact_case_reuse",
+      "case_ids": [
+        "GP-X65"
+      ],
+      "premise_mechanism_match": "A certificate name without a current checked verdict gives no EMPTY authority, matching the historical current-verdict premise.",
+      "coverage_limit": "Local p-axis authority only.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/26",
+        "corpus/must/GP-X65.json"
+      ]
+    },
+    {
+      "index": 27,
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_removing_ob_guard_stales_old_authority",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 118,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/4"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_removing_ob_guard_stales_old_authority():\n    module, frozen, raw = MODULE, FROZEN, FROZEN_BYTES\n    _original, event = _verified_graph(module)\n    events = module.graph_events(frozen, raw)\n    events[0][\"open_conditions\"] = [\"t\", \"p\", \"c2_3\", \"c5_7\"]\n    changed = S.Graph()\n    from grandportage import format as F\n    changed.apply(F.meta_event())\n    for item in events:\n        changed.apply(item)\n    changed.apply(copy.deepcopy(event))\n\n    assert changed.verdicts[event[\"id\"]][\"current\"] is False\n    assert changed.claims[module.EMPTY_CLAIM].get(\n        \"certificate_verdict\") is None",
+      "disposition": "bounded_mechanism_reuse",
+      "case_ids": [
+        "GP-X68"
+      ],
+      "premise_mechanism_match": "Removing a required open guard makes a formerly checked receipt stale; GP-X68 tests that same currentness mechanism.",
+      "coverage_limit": "GP-X68 uses the p-axis t guard, while the deleted test removes the wall-OB guard from a graph event; it does not replay that full event sequence.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/27",
+        "corpus/must/GP-X68.json"
+      ]
+    },
+    {
+      "index": 28,
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_scope_refuses_parent_component_source_and_h3_promotion",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 135,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/5"
+      },
+      "prior_classification": "unresolved",
+      "source_assertion": "def test_scope_refuses_parent_component_source_and_h3_promotion():\n    module, frozen = MODULE, FROZEN\n    boundary = frozen[\"authority_boundary\"]\n    assert \"exact R=0, OB!=0 dead-row consequence model\" in boundary\n    assert \"no automatic nine-body\" in boundary\n    assert \"component\" in boundary and \"actual-source\" in boundary\n    assert \"H3\" in boundary and \"verdict\" in boundary\n    assert \"complete nine-body parent\" in frozen[\"scope\"][\"not_materialized\"]",
+      "disposition": "supported_nonincident",
+      "case_ids": [
+        "GP-X41",
+        "GP-X52",
+        "GP-X64",
+        "GP-X89"
+      ],
+      "premise_mechanism_match": "The cases bound parent/component/source/H3 or reverse-realization promotion principles.",
+      "coverage_limit": "The deleted test only asserts original scope strings and not_materialized metadata; it does not attempt a false graph conclusion.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/28",
+        "corpus/must/GP-X41.json",
+        "corpus/must/GP-X52.json",
+        "corpus/must/GP-X64.json",
+        "corpus/must/GP-X89.json"
+      ]
+    },
+    {
+      "index": 29,
+      "source_path": "tests/test_jc_p_axis_authority.py",
+      "test": "test_checked_in_authority_fixture_is_exact_adapter_output",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_p_axis_authority.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 119,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/19/tests/2"
+      },
+      "prior_classification": "unresolved",
+      "source_assertion": "def test_checked_in_authority_fixture_is_exact_adapter_output():\n    frozen, _raw = _frozen()\n    expected = ADAPTER._encoded(ADAPTER.authority_spec(frozen))\n\n    assert AUTHORITY_PATH.read_bytes() == expected",
+      "disposition": "supported_nonincident",
+      "case_ids": [],
+      "premise_mechanism_match": "The p-axis test compares checked-in authority bytes with deterministic adapter output.",
+      "coverage_limit": "Positive serialization regression guard with no changed premise or attempted false conclusion; GP-X44 is not an exact positive match.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/29"
+      ]
+    },
+    {
+      "index": 30,
+      "source_path": "tests/test_jc_p_axis_authority.py",
+      "test": "test_verifier_input_fingerprint_contains_the_frozen_source_digest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_p_axis_authority.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 218,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/19/tests/9"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_verifier_input_fingerprint_contains_the_frozen_source_digest():\n    frozen, raw = _frozen()\n    graph = ADAPTER.graph_from_frozen(frozen, raw)\n    payload = P.input_payload(graph, \"certificate\", ADAPTER.EMPTY_CLAIM)\n    encoded = json.dumps(payload, sort_keys=True)\n\n    assert ADAPTER.EXPECTED_NATIVE_SHA256 in encoded\n    assert \"5c682ad0b2f5212fd21aba723d094793a\" in encoded",
+      "disposition": "supported_nonincident",
+      "case_ids": [
+        "GP-X71"
+      ],
+      "premise_mechanism_match": "The source digest is visibly included in the verifier input fingerprint, consistent with the source-currentness negative control.",
+      "coverage_limit": "The string-containment assertion is positive metadata visibility; it does not prove all fingerprint semantics or add a separate invalid conclusion.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/30",
+        "corpus/must/GP-X71.json"
+      ]
+    },
+    {
+      "index": 31,
+      "source_path": "tests/test_jc_source_depth6_authority.py",
+      "test": "test_checked_in_boundary_projection_is_canonical_and_scope_honest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_authority.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 45,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/22/tests/0"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_checked_in_boundary_projection_is_canonical_and_scope_honest():\n    frozen = _frozen()\n    report = ADAPTER.verify_frozen(frozen)\n\n    assert report[\"verdict\"] == \"VERIFIED_FROZEN_DEPTH6_BOUNDARY\"\n    assert report[\"rung_commitments\"] == 33\n    assert report[\"R2B_terms\"] == 3262\n    assert report[\"beta_terms\"] == 6124\n    envelope = report[\"evidence_envelope\"]\n    assert envelope[\"graph_effect\"] == EV.GRAPH_EFFECT_NONE\n    assert envelope[\"licenses\"] == [\n        \"exact_boundary_polynomials_decoded\",\n        \"boundary_stratum_rewrites_may_be_checked\",\n    ]\n    assert \"does not expose\" in envelope[\"outstanding_premises\"][0]\n    assert frozen[\"source_binding\"] == \"UNBOUND_DIGEST_COMMITMENTS_ONLY\"",
+      "disposition": "supported_nonincident",
+      "case_ids": [
+        "GP-X78",
+        "GP-X79",
+        "GP-X80",
+        "GP-X81",
+        "GP-X82",
+        "GP-X83"
+      ],
+      "premise_mechanism_match": "The current cases bound projection coordinate/scope principles for the checked boundary.",
+      "coverage_limit": "The full canonical projection and fixture counts are positive source checks and not replayed by the listed cases.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/31",
+        "corpus/must/GP-X78.json",
+        "corpus/must/GP-X79.json",
+        "corpus/must/GP-X80.json",
+        "corpus/must/GP-X81.json",
+        "corpus/must/GP-X82.json",
+        "corpus/must/GP-X83.json"
+      ]
+    },
+    {
+      "index": 32,
+      "source_path": "tests/test_jc_source_depth6_authority.py",
+      "test": "test_native_sparse_coefficient_mutation_breaks_roundtrip_digest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_authority.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 63,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/22/tests/1"
+      },
+      "prior_classification": "mapped_outer_hash_only",
+      "source_assertion": "def test_native_sparse_coefficient_mutation_breaks_roundtrip_digest():\n    frozen = _frozen()\n    term = frozen[\"residuals\"][\"beta\"][\"polynomial\"][\"terms\"][0]\n    term[\"coefficient\"] = \"1\" if term[\"coefficient\"] != \"1\" else \"2\"\n\n    with pytest.raises(ADAPTER.Depth6ReceiptError,\n                       match=\"exact native sparse-map binding\"):\n        ADAPTER.verify_frozen(frozen)",
+      "disposition": "binding_only_reuse",
+      "case_ids": [
+        "GP-X40",
+        "GP-X44"
+      ],
+      "premise_mechanism_match": "Changing a native sparse-map coefficient breaks its committed round-trip digest/binding.",
+      "coverage_limit": "Only equality and digest integrity are reused; no arithmetic conclusion from the mutated map.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/32",
+        "corpus/must/GP-X40.json",
+        "corpus/must/GP-X44.json"
+      ]
+    },
+    {
+      "index": 33,
+      "source_path": "tests/test_jc_source_depth6_chain.py",
+      "test": "test_full_exact_face_replay",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_chain.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 127,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/23/tests/7"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_full_exact_face_replay():\n    report = ADAPTER.verify_chain(full_replay=True)\n\n    assert report[\"verdict\"] == \"VERIFIED_DEPTH6_CHAIN_FULL_REPLAY\"\n    assert \"exact_ordered_depth2_6_face_replay\" in (\n        report[\"evidence_envelope\"][\"licenses\"])\n    assert report[\"evidence_envelope\"][\"graph_effect\"] == EV.GRAPH_EFFECT_NONE",
+      "disposition": "supported_nonincident",
+      "case_ids": [
+        "GP-X84",
+        "GP-X86",
+        "GP-X87",
+        "GP-X88"
+      ],
+      "premise_mechanism_match": "The cases cover bounded ordered-chain and exact-face principles.",
+      "coverage_limit": "The deleted test positively replays the complete source fixture and graph_effect NONE; these cases are not the full replay and no false conclusion is attempted.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/33",
+        "corpus/must/GP-X84.json",
+        "corpus/must/GP-X86.json",
+        "corpus/must/GP-X87.json",
+        "corpus/must/GP-X88.json"
+      ]
+    },
+    {
+      "index": 34,
+      "source_path": "tests/test_jc_source_depth6_face_extraction.py",
+      "test": "test_full_source_formula_replay_rederives_all_five_rows",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_face_extraction.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 60,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/24/tests/1"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_full_source_formula_replay_rederives_all_five_rows():\n    report = ADAPTER.verify_fixture(full_source_replay=True)\n\n    assert report[\"verdict\"] == (\n        \"VERIFIED_GRADED_FACE_EXTRACTION_WITH_SOURCE_REPLAY\")\n    assert \"reduced_esystem_rows_rederived_from_defining_formula\" in (\n        report[\"evidence_envelope\"][\"licenses\"])\n    assert report[\"evidence_envelope\"][\"graph_effect\"] == EV.GRAPH_EFFECT_NONE",
+      "disposition": "supported_nonincident",
+      "case_ids": [
+        "GP-X90"
+      ],
+      "premise_mechanism_match": "GP-X90 covers the bounded source-row to face-extraction conclusion.",
+      "coverage_limit": "The deleted test positively rederives all five rows from the complete formula; GP-X90 is not a full formula replay.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/34",
+        "corpus/must/GP-X90.json"
+      ]
+    },
+    {
+      "index": 35,
+      "source_path": "tests/test_jc_source_depth6_face_extraction.py",
+      "test": "test_source_row_coefficient_mutation_breaks_its_digest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_face_extraction.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 77,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/24/tests/3"
+      },
+      "prior_classification": "mapped_outer_hash_only",
+      "source_assertion": "def test_source_row_coefficient_mutation_breaks_its_digest(monkeypatch, tmp_path):\n    fixture = _fixture()\n    term = fixture[\"source_rows\"][0][\"sparse\"][\"terms\"][0]\n    term[1] = str(ADAPTER.Q(term[1]) + 1)\n    path = _repin_mutation(monkeypatch, tmp_path, fixture)\n\n    with pytest.raises(ADAPTER.FaceExtractionError,\n                       match=\"source row digest\"):\n        ADAPTER.verify_fixture(path)",
+      "disposition": "binding_only_reuse",
+      "case_ids": [
+        "GP-X40",
+        "GP-X44"
+      ],
+      "premise_mechanism_match": "After repinning the outer fixture, a changed sparse source-row coefficient fails its internal row digest; GP-X40 is the same row-currentness premise.",
+      "coverage_limit": "Only internal row-binding equality is covered, not downstream face arithmetic.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/35",
+        "corpus/must/GP-X40.json",
+        "corpus/must/GP-X44.json"
+      ]
+    },
+    {
+      "index": 36,
+      "source_path": "tests/test_jc_source_depth6_face_extraction.py",
+      "test": "test_dropped_authority_refusal_is_rejected_after_resigning",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_face_extraction.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 142,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/24/tests/9"
+      },
+      "prior_classification": "unresolved",
+      "source_assertion": "def test_dropped_authority_refusal_is_rejected_after_resigning(\n        monkeypatch, tmp_path):\n    fixture = _fixture()\n    fixture[\"refusals\"].remove(\"H3 promotion\")\n    path = _repin_mutation(monkeypatch, tmp_path, fixture)\n\n    with pytest.raises(ADAPTER.FaceExtractionError,\n                       match=\"required authority refusal\"):\n        ADAPTER.verify_fixture(path)",
+      "disposition": "bounded_mechanism_reuse",
+      "case_ids": [
+        "GP-X89",
+        "GP-X41"
+      ],
+      "premise_mechanism_match": "Dropping the required H3-promotion refusal after repinning tries to expand authority; GP-X89 rejects that same missing-refusal premise.",
+      "coverage_limit": "The case uses a chain report rather than the historical face-extraction fixture; it does not replay the exact adapter.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/36",
+        "corpus/must/GP-X89.json",
+        "corpus/must/GP-X41.json"
+      ]
+    },
+    {
+      "index": 37,
+      "source_path": "tests/test_jc_source_depth6_full_template.py",
+      "test": "test_complete_template_has_the_measured_finite_boundary",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_full_template.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 38,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/25/tests/0"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_complete_template_has_the_measured_finite_boundary(campaign):\n    assert campaign[\"ring_variables\"] == 78\n    assert campaign[\"source_generators\"] == 147\n    assert campaign[\"selected_generators\"] == 25\n    assert campaign[\"dropped_generators\"] == 122\n    assert campaign[\"row_complete_depths\"] == {\n        1: 25, 2: 27, 3: 28, 4: 30, 5: 32,\n    }\n    assert campaign[\"sparse_terms\"] == 424934\n    assert campaign[\"selected_face_weld_verified\"] is True\n    assert campaign[\"generator_bundle_sha256\"] == (\n        \"739ea3abeb73a60db99dfa7712e596ecc13b2a2dea9460cb635638c3b8dca371\"\n    )",
+      "disposition": "supported_nonincident",
+      "case_ids": [
+        "GP-X337"
+      ],
+      "premise_mechanism_match": "The selected-face structural control is compatible with the measured finite boundary.",
+      "coverage_limit": "The 78/147/25/122 template counts are positive source measurements; GP-X337 is a small structural control, not a full-template replay.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/37",
+        "corpus/must/GP-X337.json"
+      ]
+    },
+    {
+      "index": 38,
+      "source_path": "tests/test_jc_source_depth6_full_template.py",
+      "test": "test_complete_template_earns_selected_face_containment",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_full_template.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 53,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/25/tests/1"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_complete_template_earns_selected_face_containment(campaign):\n    graph = ADAPTER.graph_from_campaign(campaign)\n\n    verdict, why = V.containment(\n        graph, ADAPTER.EDGE, _backend=_NoBackend())\n\n    assert verdict == V.VERIFIED\n    assert \"unit-cofactor inclusion\" in why\n    assert P._eligible_structural_containment(graph, ADAPTER.EDGE)",
+      "disposition": "supported_nonincident",
+      "case_ids": [
+        "GP-X337"
+      ],
+      "premise_mechanism_match": "Literal selected-generator inclusion gives structural containment without backend search, the narrow mechanism isolated by GP-X337.",
+      "coverage_limit": "The deleted test uses the complete 147/25 template and a forbidden backend; the small case does not replay all fixture arithmetic.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/38",
+        "corpus/must/GP-X337.json"
+      ]
+    },
+    {
+      "index": 39,
+      "source_path": "tests/test_jc_source_depth6_full_template.py",
+      "test": "test_mutated_selected_face_loses_structural_authority",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_full_template.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 64,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/25/tests/2"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_mutated_selected_face_loses_structural_authority(campaign):\n    source, selected, edge = campaign[\"events\"]\n    selected = dict(selected)\n    selected[\"generators\"] = list(selected[\"generators\"])\n    changed = copy.deepcopy(selected[\"generators\"][0])\n    changed[\"terms\"][0][\"coefficient\"] = \"999\"\n    selected[\"generators\"][0] = changed\n    mutated = dict(campaign)\n    mutated[\"events\"] = [source, selected, edge]\n    graph = ADAPTER.graph_from_campaign(mutated)\n\n    assert not P._eligible_structural_containment(graph, ADAPTER.EDGE)\n    with pytest.raises(AssertionError, match=\"must remain structural\"):\n        V.containment(graph, ADAPTER.EDGE, _backend=_NoBackend())",
+      "disposition": "exact_case_reuse",
+      "case_ids": [
+        "GP-X337",
+        "GP-X338"
+      ],
+      "premise_mechanism_match": "The positive literal selected generator is paired with a changed selected coefficient 999, removing the structural shortcut and requiring backend fallback.",
+      "coverage_limit": "This is dispatch authority, not a claim that the mutated polynomial lies outside the ideal.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/39",
+        "corpus/must/GP-X337.json",
+        "corpus/must/GP-X338.json"
+      ]
+    },
+    {
+      "index": 40,
+      "source_path": "tests/test_jc_source_depth6_full_template.py",
+      "test": "test_authority_still_refuses_reverse_lift_and_h3",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_full_template.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 80,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/25/tests/3"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_authority_still_refuses_reverse_lift_and_h3(campaign):\n    authority = campaign[\"authority\"]\n\n    assert \"selected_faces_empty_implies_reduced_esystem_empty\" in (\n        authority[\"licenses\"])\n    assert \"selected_faces_nonempty_implies_reduced_esystem_nonempty\" in (\n        authority[\"refuses\"])\n    assert \"original polynomial-pair membership\" in authority[\"refuses\"]\n    assert \"H3 promotion\" in authority[\"refuses\"]",
+      "disposition": "supported_nonincident",
+      "case_ids": [
+        "GP-X52",
+        "GP-X41",
+        "GP-X89"
+      ],
+      "premise_mechanism_match": "The cases preserve reverse-lift and H3-promotion refusal principles.",
+      "coverage_limit": "The deleted test asserts refusal strings in the original authority report; no mutation or false conclusion is attempted.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/40",
+        "corpus/must/GP-X52.json",
+        "corpus/must/GP-X41.json",
+        "corpus/must/GP-X89.json"
+      ]
+    },
+    {
+      "index": 41,
+      "source_path": "tests/test_jc_source_ladder_authority.py",
+      "test": "test_normalization_bearing_second_face_compiles_with_exact_context",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_ladder_authority.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 78,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/26/tests/3"
+      },
+      "prior_classification": "partial",
+      "source_assertion": "def test_normalization_bearing_second_face_compiles_with_exact_context():\n    graph, compiled = ADAPTER.graph_from_spec(_second_specification())\n    source = graph.models[ADAPTER.SECOND_SOURCE_MODEL]\n    target = graph.models[ADAPTER.SECOND_TARGET_MODEL]\n\n    assert compiled[\"edge_id\"] == ADAPTER.SECOND_EDGE\n    assert compiled[\"chain_report\"][\"checked_steps\"] == 5\n    assert source[\"generators\"][0] == \"(15)*t^3+1\"\n    assert target[\"generators\"][0] == \"(15)*t^3+1\"\n    assert target[\"generators\"][1:6] == [\n        \"c3_4\", \"c6_8\", \"c9_13\", \"c5_6\", \"c4_4\"]\n    assert compiled[\"inverse_variables\"] == []\n    assert compiled[\"inverse_witnesses\"] == {\"t\": \"(-15)*t^2\"}\n    assert \"GP_INV_t\" not in source[\"ring_vars\"]\n    assert \"GP_INV_t\" not in target[\"ring_vars\"]\n    assert C.run(graph) == []",
+      "disposition": "supported_nonincident",
+      "case_ids": [
+        "GP-X73",
+        "GP-X74"
+      ],
+      "premise_mechanism_match": "The ordered affine normalization and inverse mechanism matches the second-face context.",
+      "coverage_limit": "The five target generators and exact context are positive fixture facts, not fully replayed by these small cases.",
+      "minimum_residual": "",
+      "evidence": [
+        "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/41",
+        "corpus/must/GP-X73.json",
+        "corpus/must/GP-X74.json"
+      ]
+    }
+  ]
+}

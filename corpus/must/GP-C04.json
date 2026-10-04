@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "GP-C04",
+  "seed": null,
+  "title": "A variable named g0 is legal without shadowing",
+  "situation": "A CAS program uses g0 as a ring variable and a distinct name for its ideal.",
+  "inputs": {
+    "variables": [
+      "x",
+      "g0"
+    ],
+    "declaration": {
+      "name": "GP_I",
+      "type": "ideal",
+      "expression": "g0-x"
+    }
+  },
+  "attempted_conclusion": "Admit the program to the adapter input boundary.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The declaration does not shadow a variable."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_boundary.py",
+      "line": 156,
+      "anchor": "def test_the_assert_DISCRIMINATES_rather_than_refusing_everything("
+    }
+  ]
+}

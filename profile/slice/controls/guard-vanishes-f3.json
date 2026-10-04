@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "CTRL-GUARD-VANISHES-F3",
+  "title": "A witness whose guard vanishes after reduction mod 3",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "generators": [
+      "x-1"
+    ],
+    "guards": [
+      "x+2"
+    ],
+    "point": {
+      "x": "1"
+    },
+    "characteristic": 3
+  },
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The guard value 3 is zero in F_3, so x = 1 is not a point (GP-X410)."
+  },
+  "control": "adversarial admission control (post-G2 \u00a73.3); not a corpus case"
+}

@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "id": "GP-X161",
+  "seed": null,
+  "title": "Retain both successors when a claim is split",
+  "situation": "One old claim may have several successors; none may be silently overwritten.",
+  "inputs": {
+    "vocabulary": "lifecycle-scenario/v1",
+    "objects": {
+      "object-1": {
+        "category": "context",
+        "name": "M",
+        "properties": {
+          "description": "m"
+        }
+      },
+      "object-2": {
+        "category": "context",
+        "name": "N",
+        "properties": {
+          "description": "n"
+        }
+      },
+      "object-3": {
+        "category": "assertion",
+        "name": "C",
+        "properties": {
+          "context": "M",
+          "statement_class": "universal_property",
+          "statement": "P"
+        }
+      },
+      "object-4": {
+        "category": "assertion",
+        "name": "C2",
+        "properties": {
+          "context": "M",
+          "statement_class": "universal_property",
+          "statement": "P"
+        }
+      },
+      "object-5": {
+        "category": "assertion",
+        "name": "C3",
+        "properties": {
+          "context": "M",
+          "statement_class": "universal_property",
+          "statement": "P"
+        }
+      }
+    },
+    "history": [
+      {
+        "object": "object-1"
+      },
+      {
+        "object": "object-2"
+      },
+      {
+        "object": "object-3"
+      },
+      {
+        "object": "object-4",
+        "replacement": {
+          "prior": "C",
+          "change": "restatement"
+        }
+      },
+      {
+        "object": "object-5",
+        "replacement": {
+          "prior": "C",
+          "change": "restatement"
+        }
+      }
+    ],
+    "question": {
+      "object": "C",
+      "successors": [
+        "C2",
+        "C3"
+      ]
+    }
+  },
+  "attempted_conclusion": "Retain both successors when a claim is split.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "One old claim may have several successors; none may be silently overwritten."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 2345,
+      "anchor": "def test_a_claim_can_be_split_and_the_split_is_not_lost("
+    }
+  ]
+}

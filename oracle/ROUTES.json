@@ -1,0 +1,2989 @@
+{
+  "schema_version": 1,
+  "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "routes": {
+    "GP-A01": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "BASE_EXTENSION",
+        "direction": "ALONG",
+        "kind": "EMPTY",
+        "scope": "Q(sqrt 17)",
+        "certificate": "NONSQUARE_CLASS"
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-A02": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "BASE_EXTENSION",
+        "direction": "AGAINST",
+        "kind": "IDENTITY",
+        "coefficients_in_base": false
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-A03a": {
+      "kind": "advice_audit",
+      "layer": "diagnostic",
+      "path": "grandportage/check.py",
+      "needles": [
+        "Every cell this edge licenses rests on that containment",
+        "a radical-membership"
+      ],
+      "limitation": "Records the problematic advice, not an executed false held claim."
+    },
+    "GP-A03b": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "NECESSARY_CONDITION",
+        "direction": "ALONG",
+        "kind": "NONEMPTY"
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-A04": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "SPECIALIZATION",
+        "direction": "ALONG",
+        "kind": "IDENTITY",
+        "integral": true,
+        "identity_origin": "DERIVED",
+        "map_kind": "POLYNOMIAL"
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-A05": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "SPECIALIZATION",
+        "direction": "ALONG",
+        "kind": "IDENTITY",
+        "integral": false,
+        "identity_origin": "AMBIENT",
+        "map_kind": "POLYNOMIAL"
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-A06": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "RESTRICTION",
+        "direction": "ALONG",
+        "kind": "PREDICATE",
+        "zariski_dense": true
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-A07a": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "IMAGE_CLOSURE",
+        "direction": "AGAINST",
+        "kind": "NONEMPTY",
+        "existential": false
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-A07b": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "IMAGE_CLOSURE",
+        "direction": "AGAINST",
+        "kind": "NONEMPTY",
+        "existential": true
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-A08a": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "SPECIALIZATION",
+        "direction": "ALONG",
+        "kind": "EMPTY"
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-A08b": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "SPECIALIZATION",
+        "direction": "ALONG",
+        "kind": "EMPTY",
+        "integral": true
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "known_difference": "specialization_conservatism",
+      "control": "unit_mod_three"
+    },
+    "GP-A08c": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "SPECIALIZATION",
+        "direction": "ALONG",
+        "kind": "NONEMPTY",
+        "integral": true
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "known_difference": "specialization_conservatism",
+      "control": "witness_mod_three"
+    },
+    "GP-A09": {
+      "layer": "graph_diagnostic",
+      "limitation": "Pinned regression graph explicitly records eliminated y; no CAS is run.",
+      "kind": "expressibility"
+    },
+    "GP-A10-Q": {
+      "kind": "sos",
+      "layer": "receipt_and_reach",
+      "target": "Q"
+    },
+    "GP-A10-R": {
+      "kind": "sos",
+      "layer": "receipt_and_reach",
+      "target": "R"
+    },
+    "GP-A10-C": {
+      "kind": "sos",
+      "layer": "receipt_and_reach",
+      "target": "C"
+    },
+    "GP-A11a": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "EQUIVALENCE",
+        "direction": "ALONG",
+        "kind": "PREDICATE",
+        "selected_embedding_identity": false
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-A11b": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "EQUIVALENCE",
+        "direction": "ALONG",
+        "kind": "IDENTITY",
+        "ring_iso": true
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-A12": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "EQUIVALENCE",
+        "direction": "ALONG",
+        "kind": "IDENTITY",
+        "ring_iso": false
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-A13-ambient": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "NECESSARY_CONDITION",
+        "direction": "ALONG",
+        "kind": "IDENTITY",
+        "map_kind": "POLYNOMIAL",
+        "identity_origin": "AMBIENT"
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-A13-derived": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "NECESSARY_CONDITION",
+        "direction": "ALONG",
+        "kind": "IDENTITY",
+        "map_kind": "POLYNOMIAL",
+        "identity_origin": "DERIVED"
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-A14": {
+      "kind": "disconnected",
+      "layer": "graph_validation"
+    },
+    "GP-A15": {
+      "kind": "join_fixture",
+      "layer": "graph_diagnostic",
+      "limitation": "Replays the pinned gamma-window historical fixture."
+    },
+    "GP-A16-missing": {
+      "kind": "partition",
+      "layer": "conditional_rule",
+      "arguments": {
+        "kind": "EMPTY",
+        "branches_covered": true,
+        "exhaustive": false
+      },
+      "limitation": "Tests the partition rule assuming checked prerequisites, not exhaustiveness replay."
+    },
+    "GP-A16-covered": {
+      "kind": "partition",
+      "layer": "conditional_rule",
+      "arguments": {
+        "kind": "EMPTY",
+        "branches_covered": true,
+        "exhaustive": true
+      },
+      "limitation": "Tests the partition rule assuming checked prerequisites, not exhaustiveness replay."
+    },
+    "GP-A17": {
+      "kind": "unverified_attempt",
+      "layer": "graph_authority",
+      "limitation": "Constructed UNVERIFIED event; no backend timeout is simulated. Receipt wrappers are not positive authority."
+    },
+    "GP-A18": {
+      "kind": "stale_input",
+      "layer": "graph_authority",
+      "limitation": "Uses the oracle's pinned regression helper to construct a receipt; tests binding, not backend execution."
+    },
+    "GP-A19": {
+      "kind": "identifier",
+      "layer": "adapter_validation",
+      "shadow": true
+    },
+    "GP-A20a": {
+      "kind": "division",
+      "layer": "adapter_validation",
+      "expression": "1/T"
+    },
+    "GP-A20b": {
+      "layer": "receipt_replay",
+      "kind": "exact_ambient"
+    },
+    "GP-A21": {
+      "kind": "laurent_zero",
+      "layer": "receipt_replay",
+      "limitation": "Pinned rows 7-8 receipt with the first equality replaced by zero; no kernel authority is inferred."
+    },
+    "GP-A22": {
+      "kind": "jc_cap_obstruction",
+      "layer": "exact_replay",
+      "limitation": "Recovery projection from the pinned four-equation fixture: exact unrestricted source substitution, complete bounded coefficient expansion and unit replay. The projected source point establishes all retained polynomial consequences by substitution; the historical 17-generator elimination run is not repeated."
+    },
+    "GP-A23": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "RESTRICTION",
+        "direction": "ALONG",
+        "kind": "EMPTY"
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-A24": {
+      "kind": "a24_collapsed_extension",
+      "layer": "native_number_field_point",
+      "case_sha256": "242632ffbc9468314e540061bcd9f514a92a5eee481eea51a91a538e75daccee",
+      "source_sha256": {
+        "grandportage/verify.py": "51ee50fd4be7e8f0f6b2cdd10f680ac7060ef8f91f1f424290a342e3c7ce9c03",
+        "grandportage/number_field.py": "bb815c2cfe03feb2eaae94756e5d41fcf8d5b836ba50d97c750fd52a7cad877e"
+      },
+      "limitation": "Rejects only the supplied collapsed point; same-point unguarded positive contrast, no Singular/real-embedding/persisted authority or global nonexistence."
+    },
+    "GP-A25a": {
+      "kind": "redeclaration",
+      "layer": "graph_validation",
+      "conflict": true
+    },
+    "GP-A25b": {
+      "kind": "alias_binding",
+      "layer": "receipt_binding",
+      "limitation": "Uses the pinned test helper fabricated backend descriptor only to test receipt input binding. No backend execution or proof of x=0 is claimed."
+    },
+    "GP-A26": {
+      "kind": "unknown_certificate",
+      "layer": "declaration_validation"
+    },
+    "GP-C01": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "BASE_EXTENSION",
+        "direction": "ALONG",
+        "kind": "EMPTY",
+        "scope": "SCHEME",
+        "certificate": "UNIT_IDEAL_CERT"
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-C02": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "NECESSARY_CONDITION",
+        "direction": "AGAINST",
+        "kind": "EMPTY"
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-C03": {
+      "kind": "redeclaration",
+      "layer": "graph_validation",
+      "conflict": false
+    },
+    "GP-C04": {
+      "kind": "identifier",
+      "layer": "adapter_validation",
+      "shadow": false
+    },
+    "GP-X01": {
+      "kind": "sos",
+      "layer": "receipt_and_reach",
+      "target": "Q",
+      "mutation": "false"
+    },
+    "GP-X02": {
+      "kind": "sos",
+      "layer": "receipt_and_reach",
+      "target": "Q",
+      "mutation": "detached"
+    },
+    "GP-X03": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "IMAGE_CLOSURE",
+        "direction": "ALONG",
+        "kind": "EMPTY"
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "known_difference": "registered_conservatism"
+    },
+    "GP-X04": {
+      "kind": "partition",
+      "layer": "conditional_rule",
+      "arguments": {
+        "kind": "EMPTY",
+        "branches_covered": false,
+        "exhaustive": true
+      }
+    },
+    "GP-X05": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "IMAGE_CLOSURE",
+        "direction": "ALONG",
+        "kind": "PREDICATE",
+        "point_surjective": true,
+        "target_expressible": false,
+        "zariski_closed": false
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-X06": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "IMAGE_CLOSURE",
+        "direction": "ALONG",
+        "kind": "PREDICATE",
+        "point_surjective": true,
+        "target_expressible": true,
+        "zariski_closed": false
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-X07": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "IMAGE_CLOSURE",
+        "direction": "ALONG",
+        "kind": "PREDICATE",
+        "exact_contraction": true,
+        "geometric_closure": false,
+        "zariski_closed": true
+      },
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+    },
+    "GP-X08": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "NECESSARY_CONDITION",
+        "direction": "ALONG",
+        "kind": "IDENTITY",
+        "map_kind": "POLYNOMIAL",
+        "identity_origin": "DERIVED"
+      },
+      "control": "target_membership",
+      "known_difference": "registered_conservatism",
+      "limitation": "The legacy table refuses despite independently replayed target membership; no claim about other verifier routes."
+    },
+    "GP-X09": {
+      "kind": "kind_composition",
+      "layer": "declaration_validation"
+    },
+    "GP-X10": {
+      "kind": "point_universe",
+      "layer": "graph_validation",
+      "limitation": "Checks the declared relation boundary; no ring-isomorphism or held-claim assertion."
+    },
+    "GP-X11": {
+      "kind": "point_universe",
+      "layer": "graph_validation",
+      "limitation": "Checks the declared relation boundary; no ring-isomorphism or held-claim assertion."
+    },
+    "GP-X12": {
+      "kind": "point_universe",
+      "layer": "graph_validation",
+      "limitation": "Checks the declared relation boundary; no ring-isomorphism or held-claim assertion."
+    },
+    "GP-X13": {
+      "kind": "empty_anchor",
+      "layer": "graph_diagnostic",
+      "limitation": "Audits the missing model anchor; does not run or admit the combinatorial checker."
+    },
+    "GP-X14": {
+      "kind": "empty_anchor",
+      "layer": "graph_diagnostic",
+      "limitation": "Audits the missing model anchor; does not run or admit the combinatorial checker."
+    },
+    "GP-X15": {
+      "kind": "membership",
+      "layer": "exact_replay",
+      "limitation": "Exact cofactor replay; no live CAS containment query is claimed."
+    },
+    "GP-X16": {
+      "kind": "membership",
+      "layer": "exact_replay",
+      "limitation": "Exact cofactor replay; no live CAS containment query is claimed."
+    },
+    "GP-X17": {
+      "kind": "localization",
+      "layer": "exact_replay",
+      "limitation": "Native exact replay with narrow localization authority; grants no identity or emptiness on the parent."
+    },
+    "GP-X18": {
+      "kind": "localization",
+      "layer": "exact_replay",
+      "limitation": "Native exact replay with narrow localization authority; grants no identity or emptiness on the parent."
+    },
+    "GP-X19": {
+      "kind": "localization",
+      "layer": "exact_replay",
+      "limitation": "Native exact replay with narrow localization authority; grants no identity or emptiness on the parent."
+    },
+    "GP-X20": {
+      "kind": "ring_iso",
+      "layer": "exact_replay",
+      "limitation": "Native exact coordinate-ring proof; does not grant a point-universe change or an arbitrary transported claim."
+    },
+    "GP-X21": {
+      "kind": "ring_iso",
+      "layer": "exact_replay",
+      "limitation": "Native exact coordinate-ring proof; does not grant a point-universe change or an arbitrary transported claim."
+    },
+    "GP-X22": {
+      "kind": "extension_witness",
+      "layer": "exact_replay",
+      "limitation": "Native bounded quadratic-extension replay; REFUSE means no accepted witness, not global emptiness."
+    },
+    "GP-X23": {
+      "kind": "extension_witness",
+      "layer": "exact_replay",
+      "limitation": "Native bounded quadratic-extension replay; REFUSE means no accepted witness, not global emptiness."
+    },
+    "GP-X24": {
+      "kind": "extension_witness",
+      "layer": "exact_replay",
+      "limitation": "Native bounded quadratic-extension replay; REFUSE means no accepted witness, not global emptiness."
+    },
+    "GP-X25": {
+      "kind": "bounded_source_point",
+      "layer": "exact_replay",
+      "limitation": "Exact substitution and degree checks only; no full JC realization or original-source lift is claimed."
+    },
+    "GP-X26": {
+      "kind": "bounded_source_point",
+      "layer": "exact_replay",
+      "limitation": "Exact substitution and degree checks only; no full JC realization or original-source lift is claimed."
+    },
+    "GP-X27": {
+      "kind": "coefficient_expansion",
+      "layer": "exact_replay",
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority."
+    },
+    "GP-X28": {
+      "kind": "coefficient_expansion",
+      "layer": "exact_replay",
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority."
+    },
+    "GP-X29": {
+      "kind": "coefficient_expansion",
+      "layer": "exact_replay",
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority."
+    },
+    "GP-X30": {
+      "kind": "coefficient_expansion",
+      "layer": "exact_replay",
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority."
+    },
+    "GP-X31": {
+      "kind": "coefficient_expansion",
+      "layer": "exact_replay",
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority."
+    },
+    "GP-X32": {
+      "kind": "coefficient_expansion",
+      "layer": "exact_replay",
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority."
+    },
+    "GP-X33": {
+      "kind": "coefficient_expansion",
+      "layer": "exact_replay",
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority."
+    },
+    "GP-X34": {
+      "kind": "coefficient_expansion",
+      "layer": "exact_replay",
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority."
+    },
+    "GP-X35": {
+      "kind": "historical_seam",
+      "layer": "historical_metadata_audit",
+      "action": "conditional",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash."
+    },
+    "GP-X36": {
+      "kind": "historical_seam",
+      "layer": "historical_metadata_audit",
+      "action": "strict_authority",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash."
+    },
+    "GP-X37": {
+      "kind": "historical_seam",
+      "layer": "historical_metadata_audit",
+      "action": "source_map",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash."
+    },
+    "GP-X38": {
+      "kind": "historical_seam",
+      "layer": "historical_metadata_audit",
+      "action": "serialized_pair",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash."
+    },
+    "GP-X39": {
+      "kind": "historical_seam",
+      "layer": "historical_metadata_audit",
+      "action": "downstream_pin",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash."
+    },
+    "GP-X40": {
+      "kind": "historical_seam",
+      "layer": "historical_metadata_audit",
+      "action": "row_digest",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash."
+    },
+    "GP-X41": {
+      "kind": "historical_seam",
+      "layer": "historical_metadata_audit",
+      "action": "drop_refusal",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash."
+    },
+    "GP-X42": {
+      "kind": "historical_seam",
+      "layer": "historical_metadata_audit",
+      "action": "native_commit",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash."
+    },
+    "GP-X43": {
+      "kind": "historical_seam",
+      "layer": "historical_metadata_audit",
+      "action": "source_authority",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash."
+    },
+    "GP-X44": {
+      "kind": "historical_seam",
+      "layer": "historical_metadata_audit",
+      "action": "outer_digest",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash."
+    },
+    "GP-X45": {
+      "kind": "native_witness_binding",
+      "action": "unchanged",
+      "layer": "native_receipt_binding",
+      "limitation": "Pinned native exact witness replay plus graph-fold currentness. No fabricated backend trace; these are minimal binding controls, not a replay of the deleted p-axis fixture."
+    },
+    "GP-X46": {
+      "kind": "native_witness_binding",
+      "action": "model",
+      "layer": "native_receipt_binding",
+      "limitation": "Pinned native exact witness replay plus graph-fold currentness. No fabricated backend trace; these are minimal binding controls, not a replay of the deleted p-axis fixture."
+    },
+    "GP-X47": {
+      "kind": "native_witness_binding",
+      "action": "model",
+      "layer": "native_receipt_binding",
+      "limitation": "Pinned native exact witness replay plus graph-fold currentness. No fabricated backend trace; these are minimal binding controls, not a replay of the deleted p-axis fixture."
+    },
+    "GP-X48": {
+      "kind": "native_witness_binding",
+      "action": "model",
+      "layer": "native_receipt_binding",
+      "limitation": "Pinned native exact witness replay plus graph-fold currentness. No fabricated backend trace; these are minimal binding controls, not a replay of the deleted p-axis fixture."
+    },
+    "GP-X49": {
+      "kind": "native_witness_binding",
+      "action": "verifier_version",
+      "layer": "native_receipt_binding",
+      "limitation": "Pinned native exact witness replay plus graph-fold currentness. No fabricated backend trace; these are minimal binding controls, not a replay of the deleted p-axis fixture."
+    },
+    "GP-X50": {
+      "kind": "native_witness_binding",
+      "action": "tamper_coordinate",
+      "layer": "native_receipt_binding",
+      "limitation": "Pinned native exact witness replay plus graph-fold currentness. No fabricated backend trace; these are minimal binding controls, not a replay of the deleted p-axis fixture."
+    },
+    "GP-X51": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "NECESSARY_CONDITION",
+        "direction": "ALONG",
+        "kind": "NONEMPTY",
+        "scope": "characteristic zero"
+      },
+      "limitation": "Direct pinned-kernel table observation with relation prerequisites assumed. The historical ledger expected-verdict comparison is not consulted; no declaration or theorem name is treated as a warrant."
+    },
+    "GP-X52": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "NECESSARY_CONDITION",
+        "direction": "AGAINST",
+        "kind": "NONEMPTY",
+        "scope": "characteristic zero"
+      },
+      "limitation": "Direct pinned-kernel table observation with relation prerequisites assumed. The historical ledger expected-verdict comparison is not consulted; no declaration or theorem name is treated as a warrant."
+    },
+    "GP-X53": {
+      "kind": "formalization_ledger",
+      "action": "assay",
+      "assay": "JC.ASSAY.B.CODOMAIN_CREDIT",
+      "layer": "legacy_expressiveness",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Historical ledger vocabulary outcome, not replay of a native theorem or a new held claim. An INEXPRESSIBLE result is recorded as UNSUPPORTED, not counted as a mathematical refusal."
+    },
+    "GP-X54": {
+      "kind": "formalization_ledger",
+      "action": "assay",
+      "assay": "JC.ASSAY.C.FINITE_TO_FORMAL",
+      "layer": "historical_vocabulary_guard",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Historical ledger vocabulary outcome, not replay of a native theorem or a new held claim. An INEXPRESSIBLE result is recorded as UNSUPPORTED, not counted as a mathematical refusal."
+    },
+    "GP-X55": {
+      "kind": "formalization_ledger",
+      "action": "assay",
+      "assay": "JC.ASSAY.D.INITIAL_TO_ACTUAL",
+      "layer": "historical_vocabulary_guard",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Historical ledger vocabulary outcome, not replay of a native theorem or a new held claim. An INEXPRESSIBLE result is recorded as UNSUPPORTED, not counted as a mathematical refusal."
+    },
+    "GP-X56": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "BASE_EXTENSION",
+        "direction": "ALONG",
+        "kind": "EMPTY",
+        "scope": "QQ"
+      },
+      "limitation": "Direct pinned-kernel table observation with relation prerequisites assumed. The historical ledger expected-verdict comparison is not consulted; no declaration or theorem name is treated as a warrant."
+    },
+    "GP-X57": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "IMAGE_CLOSURE",
+        "direction": "AGAINST",
+        "kind": "NONEMPTY",
+        "scope": "QQ",
+        "map_kind": "POLYNOMIAL"
+      },
+      "limitation": "Direct pinned-kernel table observation with relation prerequisites assumed. The historical ledger expected-verdict comparison is not consulted; no declaration or theorem name is treated as a warrant."
+    },
+    "GP-X58": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "NECESSARY_CONDITION",
+        "direction": "AGAINST",
+        "kind": "NONEMPTY",
+        "scope": "QQ"
+      },
+      "limitation": "Direct pinned-kernel table observation with relation prerequisites assumed. The historical ledger expected-verdict comparison is not consulted; no declaration or theorem name is treated as a warrant."
+    },
+    "GP-X59": {
+      "kind": "transport",
+      "layer": "conditional_rule",
+      "arguments": {
+        "etype": "NECESSARY_CONDITION",
+        "direction": "ALONG",
+        "kind": "PREDICATE",
+        "scope": "characteristic zero"
+      },
+      "limitation": "Direct pinned-kernel table observation with relation prerequisites assumed. The historical ledger expected-verdict comparison is not consulted; no declaration or theorem name is treated as a warrant."
+    },
+    "GP-X60": {
+      "kind": "formalization_ledger",
+      "action": "retain",
+      "layer": "historical_metadata_audit",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Calls only the historical endpoint/premise normalizer, before any expected-verdict comparison. Acceptance preserves conditional metadata; it does not discharge premises or mint mathematical authority."
+    },
+    "GP-X61": {
+      "kind": "formalization_ledger",
+      "action": "omit_premise",
+      "layer": "historical_metadata_audit",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Calls only the historical endpoint/premise normalizer, before any expected-verdict comparison. Acceptance preserves conditional metadata; it does not discharge premises or mint mathematical authority."
+    },
+    "GP-X62": {
+      "kind": "formalization_ledger",
+      "action": "rebind_target",
+      "layer": "historical_metadata_audit",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Calls only the historical endpoint/premise normalizer, before any expected-verdict comparison. Acceptance preserves conditional metadata; it does not discharge premises or mint mathematical authority."
+    },
+    "GP-X63": {
+      "kind": "localization",
+      "action": "exact",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "layer": "exact_replay",
+      "limitation": "Exact cofactor replay on the declared localization; no parent-wide conclusion."
+    },
+    "GP-X64": {
+      "kind": "historical_paxis",
+      "action": "parent",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "layer": "historical_receipt_binding",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted."
+    },
+    "GP-X65": {
+      "kind": "historical_paxis",
+      "action": "name",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "layer": "historical_receipt_binding",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted."
+    },
+    "GP-X66": {
+      "kind": "historical_paxis",
+      "action": "unchanged",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "layer": "historical_receipt_binding",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted."
+    },
+    "GP-X67": {
+      "kind": "historical_paxis",
+      "action": "equation",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "layer": "historical_receipt_binding",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted."
+    },
+    "GP-X68": {
+      "kind": "historical_paxis",
+      "action": "guard",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "layer": "historical_receipt_binding",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted."
+    },
+    "GP-X69": {
+      "kind": "historical_paxis",
+      "action": "universe",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "layer": "historical_receipt_binding",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted."
+    },
+    "GP-X70": {
+      "kind": "historical_paxis",
+      "action": "chart",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "layer": "historical_receipt_binding",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted."
+    },
+    "GP-X71": {
+      "kind": "historical_paxis",
+      "action": "source",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "layer": "historical_receipt_binding",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted."
+    },
+    "GP-X72": {
+      "kind": "historical_paxis",
+      "action": "bytes",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "layer": "source_digest_guard",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted."
+    },
+    "GP-X73": {
+      "kind": "historical_review",
+      "family": "ladder",
+      "action": "retain",
+      "layer": "exact_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X74": {
+      "kind": "historical_review",
+      "family": "ladder",
+      "action": "retain",
+      "layer": "exact_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X75": {
+      "kind": "historical_review",
+      "family": "ladder",
+      "action": "bad_solution",
+      "layer": "exact_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X76": {
+      "kind": "historical_review",
+      "family": "ladder",
+      "action": "bad_cofactor",
+      "layer": "exact_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X77": {
+      "kind": "historical_review",
+      "family": "ladder",
+      "action": "missing_inverse",
+      "layer": "exact_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X78": {
+      "kind": "historical_review",
+      "family": "boundary",
+      "action": "generic",
+      "layer": "exact_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X79": {
+      "kind": "historical_review",
+      "family": "boundary",
+      "action": "discriminant",
+      "layer": "exact_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X80": {
+      "kind": "historical_review",
+      "family": "boundary",
+      "action": "missing_inverse",
+      "layer": "exact_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X81": {
+      "kind": "historical_review",
+      "family": "boundary",
+      "action": "bad_cofactor",
+      "layer": "exact_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X82": {
+      "kind": "historical_review",
+      "family": "boundary",
+      "action": "promote_digest",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority."
+    },
+    "GP-X83": {
+      "kind": "historical_review",
+      "family": "boundary",
+      "action": "source_edge",
+      "layer": "graph_binding",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X84": {
+      "kind": "historical_review",
+      "family": "chain",
+      "action": "retain",
+      "layer": "exact_replay_and_binding",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X85": {
+      "kind": "historical_review",
+      "family": "chain",
+      "action": "preflight",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority."
+    },
+    "GP-X86": {
+      "kind": "historical_review",
+      "family": "chain",
+      "action": "reorder",
+      "layer": "exact_replay_and_binding",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X87": {
+      "kind": "historical_review",
+      "family": "chain",
+      "action": "bad_unit",
+      "layer": "exact_replay_and_binding",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X88": {
+      "kind": "historical_review",
+      "family": "chain",
+      "action": "bad_value",
+      "layer": "exact_replay_and_binding",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X89": {
+      "kind": "historical_review",
+      "family": "chain",
+      "action": "drop_refusal",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority."
+    },
+    "GP-X90": {
+      "kind": "historical_review",
+      "family": "face",
+      "action": "retain",
+      "layer": "bounded_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X91": {
+      "kind": "historical_review",
+      "family": "face",
+      "action": "row",
+      "layer": "bounded_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X92": {
+      "kind": "historical_review",
+      "family": "face",
+      "action": "support",
+      "layer": "bounded_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X93": {
+      "kind": "historical_review",
+      "family": "face",
+      "action": "series",
+      "layer": "bounded_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X94": {
+      "kind": "historical_review",
+      "family": "face",
+      "action": "formula",
+      "layer": "bounded_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X95": {
+      "kind": "historical_review",
+      "family": "face",
+      "action": "output",
+      "layer": "bounded_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X96": {
+      "kind": "historical_review",
+      "family": "face",
+      "action": "budget",
+      "layer": "bounded_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X97": {
+      "kind": "historical_review",
+      "family": "bundle",
+      "action": "retain",
+      "layer": "derived_metadata_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority."
+    },
+    "GP-X98": {
+      "kind": "historical_review",
+      "family": "bundle",
+      "action": "omit_resolution",
+      "layer": "derived_metadata_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority."
+    },
+    "GP-X99": {
+      "kind": "historical_review",
+      "family": "bundle",
+      "action": "wrong_scope",
+      "layer": "derived_metadata_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority."
+    },
+    "GP-X100": {
+      "kind": "historical_review",
+      "family": "support",
+      "action": "all_fibers",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "J6:"
+      ]
+    },
+    "GP-X101": {
+      "kind": "historical_review",
+      "family": "support",
+      "action": "witness",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "J3:"
+      ]
+    },
+    "GP-X102": {
+      "kind": "historical_review",
+      "family": "closeout",
+      "action": "global",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "C8:"
+      ]
+    },
+    "GP-X103": {
+      "kind": "historical_review",
+      "family": "first_value",
+      "action": "reverse",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "S8:"
+      ]
+    },
+    "GP-X104": {
+      "kind": "historical_review",
+      "family": "first_value",
+      "action": "ratio",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "S5:"
+      ]
+    },
+    "GP-X105": {
+      "kind": "historical_review",
+      "family": "s2",
+      "action": "other_pieces",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "C"
+      ]
+    },
+    "GP-X106": {
+      "kind": "historical_review",
+      "family": "s4",
+      "action": "search_empty",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "M6:"
+      ]
+    },
+    "GP-X107": {
+      "kind": "historical_review",
+      "family": "s4",
+      "action": "cover",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "M7:"
+      ]
+    },
+    "GP-X108": {
+      "kind": "historical_review",
+      "family": "s4",
+      "action": "universe",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "M1:"
+      ]
+    },
+    "GP-X109": {
+      "kind": "historical_review",
+      "family": "s4",
+      "action": "parent",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "M3:"
+      ]
+    },
+    "GP-X110": {
+      "kind": "historical_review",
+      "family": "recurrence",
+      "action": "bilateral",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "M1:"
+      ]
+    },
+    "GP-X111": {
+      "kind": "historical_review",
+      "family": "recurrence",
+      "action": "false_annihilator",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "N7:"
+      ]
+    },
+    "GP-X112": {
+      "kind": "historical_review",
+      "family": "recurrence",
+      "action": "drop_h8",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "M1:"
+      ]
+    },
+    "GP-X113": {
+      "kind": "historical_review",
+      "family": "fiber",
+      "action": "nonlinear",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "M1:"
+      ]
+    },
+    "GP-X114": {
+      "kind": "historical_review",
+      "family": "fiber",
+      "action": "whole_base",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "M1:"
+      ]
+    },
+    "GP-X115": {
+      "kind": "historical_review",
+      "family": "fiber",
+      "action": "rescue",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+      "failure_prefixes": [
+        "M1:"
+      ]
+    },
+    "GP-X116": {
+      "kind": "historical_review",
+      "family": "first_value",
+      "action": "retain",
+      "layer": "historical_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority."
+    },
+    "GP-X117": {
+      "kind": "historical_review",
+      "family": "s4",
+      "action": "point",
+      "layer": "exact_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X118": {
+      "kind": "historical_review",
+      "family": "recurrence",
+      "action": "tail",
+      "layer": "finite_instance_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+    },
+    "GP-X119": {
+      "kind": "historical_review",
+      "family": "ring_observation",
+      "action": "nonzero_nonunit",
+      "layer": "exact_minimal_projection",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned polynomial identity and substitution routines replay a minimal mathematical example. This is not the historical campaign fixture or a new kernel admission."
+    },
+    "GP-X120": {
+      "kind": "historical_review",
+      "family": "ring_observation",
+      "action": "nonzerodivisor",
+      "layer": "exact_minimal_projection",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned polynomial identity and substitution routines replay a minimal mathematical example. This is not the historical campaign fixture or a new kernel admission."
+    },
+    "GP-X121": {
+      "kind": "historical_review",
+      "family": "affine_block",
+      "action": "incompatible",
+      "layer": "exact_minimal_projection",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned polynomial identity and substitution routines replay a minimal mathematical example. This is not the historical campaign fixture or a new kernel admission."
+    },
+    "GP-X122": {
+      "kind": "historical_review",
+      "family": "affine_block",
+      "action": "compatible",
+      "layer": "exact_minimal_projection",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned polynomial identity and substitution routines replay a minimal mathematical example. This is not the historical campaign fixture or a new kernel admission."
+    },
+    "GP-X123": {
+      "kind": "historical_review",
+      "family": "pointwise",
+      "action": "parent",
+      "layer": "exact_minimal_projection",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned polynomial identity and substitution routines replay a minimal mathematical example. This is not the historical campaign fixture or a new kernel admission."
+    },
+    "GP-X124": {
+      "kind": "historical_review",
+      "family": "cancellation",
+      "action": "cancel",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "layer": "exact_minimal_projection",
+      "limitation": "Pinned exact substitution on a minimal counterexample; no reconstruction of the campaign fixture."
+    },
+    "GP-X125": {
+      "kind": "membership",
+      "layer": "exact_replay",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness."
+    },
+    "GP-X126": {
+      "kind": "membership",
+      "layer": "exact_replay",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness."
+    },
+    "GP-X127": {
+      "kind": "current_algebra",
+      "layer": "exact_replay",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness.",
+      "action": "point"
+    },
+    "GP-X128": {
+      "kind": "current_algebra",
+      "layer": "exact_replay",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness.",
+      "action": "point"
+    },
+    "GP-X129": {
+      "kind": "localization",
+      "layer": "exact_replay",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness."
+    },
+    "GP-X130": {
+      "kind": "membership",
+      "layer": "exact_replay",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness."
+    },
+    "GP-X131": {
+      "kind": "current_algebra",
+      "layer": "authority_boundary",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness.",
+      "action": "pending"
+    },
+    "GP-X132": {
+      "kind": "membership",
+      "layer": "exact_replay",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness."
+    },
+    "GP-X133": {
+      "kind": "membership",
+      "layer": "exact_replay",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness."
+    },
+    "GP-X134": {
+      "kind": "current_algebra",
+      "layer": "exact_replay",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness.",
+      "action": "substitution"
+    },
+    "GP-X135": {
+      "kind": "current_algebra",
+      "layer": "exact_replay",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness.",
+      "action": "substitution"
+    },
+    "GP-X136": {
+      "kind": "current_algebra",
+      "layer": "exact_replay",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness.",
+      "action": "substitution"
+    },
+    "GP-X137": {
+      "kind": "current_algebra",
+      "layer": "operation_boundary",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness.",
+      "action": "removed"
+    },
+    "GP-X138": {
+      "kind": "current_algebra",
+      "layer": "producer_boundary",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness.",
+      "action": "bounded"
+    },
+    "GP-X139": {
+      "kind": "current_algebra",
+      "layer": "producer_parser",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness.",
+      "action": "parse"
+    },
+    "GP-X140": {
+      "kind": "current_algebra",
+      "layer": "producer_parser",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness.",
+      "action": "parse"
+    },
+    "GP-X141": {
+      "kind": "current_algebra",
+      "layer": "exact_replay_and_operation_boundary",
+      "limitation": "Pinned v0.37 offline replay. No live Singular execution or GP 0.50 held claim. Producer and one-sided checks do not establish completeness.",
+      "action": "completeness"
+    },
+    "GP-X142": {
+      "kind": "lifecycle",
+      "action": "fold",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X143": {
+      "kind": "lifecycle",
+      "action": "fold",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X144": {
+      "kind": "lifecycle",
+      "action": "order",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X145": {
+      "kind": "lifecycle",
+      "action": "order",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X146": {
+      "kind": "lifecycle",
+      "action": "order",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X147": {
+      "kind": "lifecycle",
+      "action": "clean",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X148": {
+      "kind": "lifecycle",
+      "action": "clean",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X149": {
+      "kind": "lifecycle",
+      "action": "absent",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X150": {
+      "kind": "lifecycle",
+      "action": "no_rule",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X151": {
+      "kind": "lifecycle",
+      "action": "no_rule",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X152": {
+      "kind": "lifecycle",
+      "action": "fold",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X153": {
+      "kind": "lifecycle",
+      "action": "fold",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X154": {
+      "kind": "lifecycle",
+      "action": "fold",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X155": {
+      "kind": "lifecycle",
+      "action": "no_rule",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X156": {
+      "kind": "lifecycle",
+      "action": "no_rule",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X157": {
+      "kind": "lifecycle",
+      "action": "no_rule",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X158": {
+      "kind": "lifecycle",
+      "action": "no_rule",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X159": {
+      "kind": "lifecycle",
+      "action": "no_rule",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X160": {
+      "kind": "lifecycle",
+      "action": "no_rule",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X161": {
+      "kind": "lifecycle",
+      "action": "successors",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X162": {
+      "kind": "lifecycle",
+      "action": "fold",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X163": {
+      "kind": "lifecycle",
+      "action": "fold",
+      "layer": "lifecycle_contract",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X164": {
+      "kind": "lifecycle",
+      "action": "receipt",
+      "layer": "provenance_binding",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X165": {
+      "kind": "lifecycle",
+      "action": "receipt",
+      "layer": "provenance_binding",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X166": {
+      "kind": "lifecycle",
+      "action": "receipt",
+      "layer": "provenance_binding",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X167": {
+      "kind": "lifecycle",
+      "action": "receipt",
+      "layer": "provenance_binding",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X168": {
+      "kind": "lifecycle",
+      "action": "receipt",
+      "layer": "provenance_binding",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X169": {
+      "kind": "lifecycle",
+      "action": "receipt",
+      "layer": "provenance_binding",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X170": {
+      "kind": "lifecycle",
+      "action": "receipt",
+      "layer": "provenance_binding",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X171": {
+      "kind": "lifecycle",
+      "action": "receipt",
+      "layer": "provenance_binding",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X172": {
+      "kind": "lifecycle",
+      "action": "receipt",
+      "layer": "provenance_binding",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X173": {
+      "kind": "lifecycle",
+      "action": "section",
+      "layer": "exact_section_and_provenance",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X174": {
+      "kind": "lifecycle",
+      "action": "section",
+      "layer": "exact_section_and_provenance",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X175": {
+      "kind": "lifecycle",
+      "action": "section",
+      "layer": "exact_section_and_provenance",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X176": {
+      "kind": "lifecycle",
+      "action": "section",
+      "layer": "exact_section_and_provenance",
+      "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+    },
+    "GP-X177": {
+      "kind": "joint_premises",
+      "layer": "conditional_premise_routes",
+      "limitation": "Legacy transport/coverage rule under declared premises; not logical entailment or GP 0.50 held authority. Partition verification is explicitly assumed for rule isolation. Whole checker and renderer also execute without an external CAS."
+    },
+    "GP-X178": {
+      "kind": "joint_premises",
+      "layer": "conditional_premise_routes",
+      "limitation": "Legacy transport/coverage rule under declared premises; not logical entailment or GP 0.50 held authority. Partition verification is explicitly assumed for rule isolation. Whole checker and renderer also execute without an external CAS."
+    },
+    "GP-X179": {
+      "kind": "joint_premises",
+      "layer": "conditional_premise_routes",
+      "limitation": "Legacy transport/coverage rule under declared premises; not logical entailment or GP 0.50 held authority. Partition verification is explicitly assumed for rule isolation. Whole checker and renderer also execute without an external CAS."
+    },
+    "GP-X180": {
+      "kind": "joint_premises",
+      "layer": "conditional_premise_routes",
+      "limitation": "Legacy transport/coverage rule under declared premises; not logical entailment or GP 0.50 held authority. Partition verification is explicitly assumed for rule isolation. Whole checker and renderer also execute without an external CAS."
+    },
+    "GP-X181": {
+      "kind": "joint_premises",
+      "layer": "conditional_premise_routes",
+      "limitation": "Legacy transport/coverage rule under declared premises; not logical entailment or GP 0.50 held authority. Partition verification is explicitly assumed for rule isolation. Whole checker and renderer also execute without an external CAS."
+    },
+    "GP-X182": {
+      "kind": "joint_premises",
+      "layer": "conditional_premise_routes",
+      "limitation": "Legacy transport/coverage rule under declared premises; not logical entailment or GP 0.50 held authority. Partition verification is explicitly assumed for rule isolation. Whole checker and renderer also execute without an external CAS."
+    },
+    "GP-X183": {
+      "kind": "joint_premises",
+      "layer": "conditional_premise_routes",
+      "limitation": "Legacy transport/coverage rule under declared premises; not logical entailment or GP 0.50 held authority. Partition verification is explicitly assumed for rule isolation. Whole checker and renderer also execute without an external CAS."
+    },
+    "GP-X184": {
+      "kind": "joint_premises",
+      "layer": "conditional_premise_routes",
+      "limitation": "Legacy transport/coverage rule under declared premises; not logical entailment or GP 0.50 held authority. Partition verification is explicitly assumed for rule isolation. Whole checker and renderer also execute without an external CAS."
+    },
+    "GP-X185": {
+      "kind": "joint_premises",
+      "layer": "conditional_premise_routes",
+      "limitation": "Legacy transport/coverage rule under declared premises; not logical entailment or GP 0.50 held authority. Partition verification is explicitly assumed for rule isolation. Whole checker and renderer also execute without an external CAS."
+    },
+    "GP-X186": {
+      "kind": "joint_premises",
+      "layer": "conditional_premise_routes",
+      "limitation": "Legacy transport/coverage rule under declared premises; not logical entailment or GP 0.50 held authority. Partition verification is explicitly assumed for rule isolation. Whole checker and renderer also execute without an external CAS."
+    },
+    "GP-X187": {
+      "kind": "provenance_review",
+      "layer": "diagnostic_or_operational_policy",
+      "limitation": "No checked mathematical premise authority. Construction taint and operational warning acceptance are separate from valid theorem entailment."
+    },
+    "GP-X188": {
+      "kind": "provenance_review",
+      "layer": "diagnostic_or_operational_policy",
+      "limitation": "No checked mathematical premise authority. Construction taint and operational warning acceptance are separate from valid theorem entailment."
+    },
+    "GP-X189": {
+      "kind": "provenance_review",
+      "layer": "diagnostic_or_operational_policy",
+      "limitation": "No checked mathematical premise authority. Construction taint and operational warning acceptance are separate from valid theorem entailment."
+    },
+    "GP-X190": {
+      "kind": "provenance_review",
+      "layer": "diagnostic_or_operational_policy",
+      "limitation": "No checked mathematical premise authority. Construction taint and operational warning acceptance are separate from valid theorem entailment."
+    },
+    "GP-X191": {
+      "kind": "provenance_review",
+      "layer": "diagnostic_or_operational_policy",
+      "limitation": "No checked mathematical premise authority. Construction taint and operational warning acceptance are separate from valid theorem entailment."
+    },
+    "GP-X192": {
+      "kind": "provenance_review",
+      "layer": "diagnostic_or_operational_policy",
+      "limitation": "No checked mathematical premise authority. Construction taint and operational warning acceptance are separate from valid theorem entailment."
+    },
+    "GP-X193": {
+      "kind": "inventory_diagnostic",
+      "layer": "declared_inventory_or_type_consistency",
+      "limitation": "No proof of model adequacy, equation independence, or held mathematical claims. Coverage acceptance is relative to declared axes and recorded uses."
+    },
+    "GP-X194": {
+      "kind": "inventory_diagnostic",
+      "layer": "declared_inventory_or_type_consistency",
+      "limitation": "No proof of model adequacy, equation independence, or held mathematical claims. Coverage acceptance is relative to declared axes and recorded uses."
+    },
+    "GP-X195": {
+      "kind": "inventory_diagnostic",
+      "layer": "declared_inventory_or_type_consistency",
+      "limitation": "No proof of model adequacy, equation independence, or held mathematical claims. Coverage acceptance is relative to declared axes and recorded uses."
+    },
+    "GP-X196": {
+      "kind": "inventory_diagnostic",
+      "layer": "declared_inventory_or_type_consistency",
+      "limitation": "No proof of model adequacy, equation independence, or held mathematical claims. Coverage acceptance is relative to declared axes and recorded uses."
+    },
+    "GP-X197": {
+      "kind": "inventory_diagnostic",
+      "layer": "declared_inventory_or_type_consistency",
+      "limitation": "No proof of model adequacy, equation independence, or held mathematical claims. Coverage acceptance is relative to declared axes and recorded uses."
+    },
+    "GP-X198": {
+      "kind": "inventory_diagnostic",
+      "layer": "declared_inventory_or_type_consistency",
+      "limitation": "No proof of model adequacy, equation independence, or held mathematical claims. Coverage acceptance is relative to declared axes and recorded uses."
+    },
+    "GP-X199": {
+      "kind": "inventory_diagnostic",
+      "layer": "declared_inventory_or_type_consistency",
+      "limitation": "No proof of model adequacy, equation independence, or held mathematical claims. Coverage acceptance is relative to declared axes and recorded uses."
+    },
+    "GP-X200": {
+      "kind": "inventory_diagnostic",
+      "layer": "declared_inventory_or_type_consistency",
+      "limitation": "No proof of model adequacy, equation independence, or held mathematical claims. Coverage acceptance is relative to declared axes and recorded uses."
+    },
+    "GP-X201": {
+      "kind": "execution_envelope",
+      "layer": "offline_execution_envelope",
+      "limitation": "Fabricated process/version responses exercise envelope control flow only. No live Singular, executable digest, graph receipt or mathematical authority is established."
+    },
+    "GP-X202": {
+      "kind": "execution_envelope",
+      "layer": "offline_execution_envelope",
+      "limitation": "Fabricated process/version responses exercise envelope control flow only. No live Singular, executable digest, graph receipt or mathematical authority is established."
+    },
+    "GP-X203": {
+      "kind": "execution_envelope",
+      "layer": "offline_execution_envelope",
+      "limitation": "Fabricated process/version responses exercise envelope control flow only. No live Singular, executable digest, graph receipt or mathematical authority is established."
+    },
+    "GP-X204": {
+      "kind": "execution_envelope",
+      "layer": "offline_execution_envelope",
+      "limitation": "Fabricated process/version responses exercise envelope control flow only. No live Singular, executable digest, graph receipt or mathematical authority is established."
+    },
+    "GP-X205": {
+      "kind": "execution_envelope",
+      "layer": "offline_execution_envelope",
+      "limitation": "Fabricated process/version responses exercise envelope control flow only. No live Singular, executable digest, graph receipt or mathematical authority is established."
+    },
+    "GP-X206": {
+      "kind": "execution_envelope",
+      "layer": "offline_execution_envelope",
+      "limitation": "Fabricated process/version responses exercise envelope control flow only. No live Singular, executable digest, graph receipt or mathematical authority is established."
+    },
+    "GP-X207": {
+      "kind": "execution_envelope",
+      "layer": "offline_execution_envelope",
+      "limitation": "Fabricated process/version responses exercise envelope control flow only. No live Singular, executable digest, graph receipt or mathematical authority is established."
+    },
+    "GP-X208": {
+      "kind": "execution_envelope",
+      "layer": "offline_execution_envelope",
+      "limitation": "Fabricated process/version responses exercise envelope control flow only. No live Singular, executable digest, graph receipt or mathematical authority is established."
+    },
+    "GP-X209": {
+      "kind": "execution_envelope",
+      "layer": "offline_execution_envelope",
+      "limitation": "Fabricated process/version responses exercise envelope control flow only. No live Singular, executable digest, graph receipt or mathematical authority is established."
+    },
+    "GP-X210": {
+      "kind": "execution_envelope",
+      "layer": "offline_execution_envelope",
+      "limitation": "Fabricated process/version responses exercise envelope control flow only. No live Singular, executable digest, graph receipt or mathematical authority is established."
+    },
+    "GP-X211": {
+      "kind": "artifact_storage",
+      "layer": "offline_artifact_integrity",
+      "limitation": "Fabricated immutable execution records and isolated F scratch storage. No process execution, graph authority or proof validity is established."
+    },
+    "GP-X212": {
+      "kind": "artifact_storage",
+      "layer": "offline_artifact_integrity",
+      "limitation": "Fabricated immutable execution records and isolated F scratch storage. No process execution, graph authority or proof validity is established."
+    },
+    "GP-X213": {
+      "kind": "artifact_storage",
+      "layer": "offline_artifact_integrity",
+      "limitation": "Fabricated immutable execution records and isolated F scratch storage. No process execution, graph authority or proof validity is established."
+    },
+    "GP-X214": {
+      "kind": "artifact_storage",
+      "layer": "offline_artifact_integrity",
+      "limitation": "Fabricated immutable execution records and isolated F scratch storage. No process execution, graph authority or proof validity is established."
+    },
+    "GP-X215": {
+      "kind": "artifact_storage",
+      "layer": "offline_artifact_integrity",
+      "limitation": "Fabricated immutable execution records and isolated F scratch storage. No process execution, graph authority or proof validity is established."
+    },
+    "GP-X216": {
+      "kind": "artifact_storage",
+      "layer": "offline_artifact_integrity",
+      "limitation": "Fabricated immutable execution records and isolated F scratch storage. No process execution, graph authority or proof validity is established."
+    },
+    "GP-X217": {
+      "kind": "artifact_storage",
+      "layer": "offline_artifact_integrity",
+      "limitation": "Fabricated immutable execution records and isolated F scratch storage. No process execution, graph authority or proof validity is established."
+    },
+    "GP-X218": {
+      "kind": "artifact_storage",
+      "layer": "offline_artifact_integrity",
+      "limitation": "Fabricated immutable execution records and isolated F scratch storage. No process execution, graph authority or proof validity is established."
+    },
+    "GP-X219": {
+      "kind": "artifact_storage",
+      "layer": "offline_artifact_integrity",
+      "limitation": "Fabricated immutable execution records and isolated F scratch storage. No process execution, graph authority or proof validity is established."
+    },
+    "GP-X220": {
+      "kind": "artifact_storage",
+      "layer": "offline_artifact_integrity",
+      "limitation": "Fabricated immutable execution records and isolated F scratch storage. No process execution, graph authority or proof validity is established."
+    },
+    "GP-X221": {
+      "kind": "artifact_storage",
+      "layer": "offline_artifact_integrity",
+      "limitation": "Fabricated immutable execution records and isolated F scratch storage. No process execution, graph authority or proof validity is established."
+    },
+    "GP-X222": {
+      "kind": "replay_boundary",
+      "layer": "exact_replay_or_artifact_audit",
+      "limitation": "Uses fabricated historical metadata and isolated graph files; exact cofactors are replayed by the frozen fold. Each case asks one boundary question. No backend process or GP 0.50 policy is established."
+    },
+    "GP-X223": {
+      "kind": "replay_boundary",
+      "layer": "exact_replay_or_artifact_audit",
+      "limitation": "Uses fabricated historical metadata and isolated graph files; exact cofactors are replayed by the frozen fold. Each case asks one boundary question. No backend process or GP 0.50 policy is established."
+    },
+    "GP-X224": {
+      "kind": "replay_boundary",
+      "layer": "exact_replay_or_artifact_audit",
+      "limitation": "Uses fabricated historical metadata and isolated graph files; exact cofactors are replayed by the frozen fold. Each case asks one boundary question. No backend process or GP 0.50 policy is established."
+    },
+    "GP-X225": {
+      "kind": "replay_boundary",
+      "layer": "exact_replay_or_artifact_audit",
+      "limitation": "Uses fabricated historical metadata and isolated graph files; exact cofactors are replayed by the frozen fold. Each case asks one boundary question. No backend process or GP 0.50 policy is established."
+    },
+    "GP-X226": {
+      "kind": "replay_boundary",
+      "layer": "exact_replay_or_artifact_audit",
+      "limitation": "Uses fabricated historical metadata and isolated graph files; exact cofactors are replayed by the frozen fold. Each case asks one boundary question. No backend process or GP 0.50 policy is established."
+    },
+    "GP-X227": {
+      "kind": "replay_boundary",
+      "layer": "exact_replay_or_artifact_audit",
+      "limitation": "Uses fabricated historical metadata and isolated graph files; exact cofactors are replayed by the frozen fold. Each case asks one boundary question. No backend process or GP 0.50 policy is established."
+    },
+    "GP-X228": {
+      "kind": "replay_boundary",
+      "layer": "exact_replay_or_artifact_audit",
+      "limitation": "Uses fabricated historical metadata and isolated graph files; exact cofactors are replayed by the frozen fold. Each case asks one boundary question. No backend process or GP 0.50 policy is established."
+    },
+    "GP-X229": {
+      "kind": "replay_boundary",
+      "layer": "exact_replay_or_artifact_audit",
+      "limitation": "Uses fabricated historical metadata and isolated graph files; exact cofactors are replayed by the frozen fold. Each case asks one boundary question. No backend process or GP 0.50 policy is established."
+    },
+    "GP-X230": {
+      "kind": "launch_boundary",
+      "layer": "offline_launch_and_recording",
+      "limitation": "Counted injected runner only. Valid recorded declaration is not verified operation semantics or theorem authority. Source existence may be rejected only at transactional graph append."
+    },
+    "GP-X231": {
+      "kind": "launch_boundary",
+      "layer": "offline_launch_and_recording",
+      "limitation": "Counted injected runner only. Valid recorded declaration is not verified operation semantics or theorem authority. Source existence may be rejected only at transactional graph append."
+    },
+    "GP-X232": {
+      "kind": "launch_boundary",
+      "layer": "offline_launch_and_recording",
+      "limitation": "Counted injected runner only. Valid recorded declaration is not verified operation semantics or theorem authority. Source existence may be rejected only at transactional graph append."
+    },
+    "GP-X233": {
+      "kind": "launch_boundary",
+      "layer": "offline_launch_and_recording",
+      "limitation": "Counted injected runner only. Valid recorded declaration is not verified operation semantics or theorem authority. Source existence may be rejected only at transactional graph append."
+    },
+    "GP-X234": {
+      "kind": "launch_boundary",
+      "layer": "offline_launch_and_recording",
+      "limitation": "Counted injected runner only. Valid recorded declaration is not verified operation semantics or theorem authority. Source existence may be rejected only at transactional graph append."
+    },
+    "GP-X235": {
+      "kind": "launch_boundary",
+      "layer": "offline_launch_and_recording",
+      "limitation": "Counted injected runner only. Valid recorded declaration is not verified operation semantics or theorem authority. Source existence may be rejected only at transactional graph append."
+    },
+    "GP-X236": {
+      "kind": "launch_boundary",
+      "layer": "offline_launch_and_recording",
+      "limitation": "Counted injected runner only. Valid recorded declaration is not verified operation semantics or theorem authority. Source existence may be rejected only at transactional graph append."
+    },
+    "GP-X237": {
+      "kind": "launch_boundary",
+      "layer": "offline_launch_and_recording",
+      "limitation": "Counted injected runner only. Valid recorded declaration is not verified operation semantics or theorem authority. Source existence may be rejected only at transactional graph append."
+    },
+    "GP-X238": {
+      "kind": "launch_boundary",
+      "layer": "offline_launch_and_recording",
+      "limitation": "Counted injected runner only. Valid recorded declaration is not verified operation semantics or theorem authority. Source existence may be rejected only at transactional graph append."
+    },
+    "GP-X239": {
+      "kind": "launch_boundary",
+      "layer": "offline_launch_and_recording",
+      "limitation": "Counted injected runner only. Valid recorded declaration is not verified operation semantics or theorem authority. Source existence may be rejected only at transactional graph append."
+    },
+    "GP-X240": {
+      "kind": "compiler_slots",
+      "layer": "program_construction",
+      "limitation": "Exact historical slot-validation regressions only. No CAS execution, full language parser proof, or mathematical authority."
+    },
+    "GP-X241": {
+      "kind": "compiler_slots",
+      "layer": "program_construction",
+      "limitation": "Exact historical slot-validation regressions only. No CAS execution, full language parser proof, or mathematical authority.",
+      "known_difference": "conservative_refusal_comment_misparsed_as_division"
+    },
+    "GP-X242": {
+      "kind": "compiler_slots",
+      "layer": "program_construction",
+      "limitation": "Exact historical slot-validation regressions only. No CAS execution, full language parser proof, or mathematical authority."
+    },
+    "GP-X243": {
+      "kind": "compiler_slots",
+      "layer": "program_construction",
+      "limitation": "Exact historical slot-validation regressions only. No CAS execution, full language parser proof, or mathematical authority."
+    },
+    "GP-X244": {
+      "kind": "compiler_slots",
+      "layer": "program_construction",
+      "limitation": "Exact historical slot-validation regressions only. No CAS execution, full language parser proof, or mathematical authority."
+    },
+    "GP-X245": {
+      "kind": "compiler_slots",
+      "layer": "program_construction",
+      "limitation": "Exact historical slot-validation regressions only. No CAS execution, full language parser proof, or mathematical authority."
+    },
+    "GP-X246": {
+      "kind": "compiler_slots",
+      "layer": "program_construction",
+      "limitation": "Exact historical slot-validation regressions only. No CAS execution, full language parser proof, or mathematical authority."
+    },
+    "GP-X247": {
+      "kind": "compiler_slots",
+      "layer": "program_construction",
+      "limitation": "Exact historical slot-validation regressions only. No CAS execution, full language parser proof, or mathematical authority."
+    },
+    "GP-X248": {
+      "kind": "compiler_slots",
+      "layer": "program_construction",
+      "limitation": "Exact historical slot-validation regressions only. No CAS execution, full language parser proof, or mathematical authority."
+    },
+    "GP-X249": {
+      "kind": "compiler_slots",
+      "layer": "program_construction",
+      "limitation": "Exact historical slot-validation regressions only. No CAS execution, full language parser proof, or mathematical authority."
+    },
+    "GP-X250": {
+      "kind": "compiler_slots",
+      "layer": "program_construction",
+      "limitation": "Exact historical slot-validation regressions only. No CAS execution, full language parser proof, or mathematical authority."
+    },
+    "GP-X251": {
+      "kind": "compiler_slots",
+      "layer": "program_construction",
+      "limitation": "Exact historical slot-validation regressions only. No CAS execution, full language parser proof, or mathematical authority."
+    },
+    "GP-X252": {
+      "kind": "compiler_slots",
+      "layer": "program_construction",
+      "limitation": "Exact historical slot-validation regressions only. No CAS execution, full language parser proof, or mathematical authority."
+    },
+    "GP-X253": {
+      "kind": "compiler_slots",
+      "layer": "program_construction",
+      "limitation": "Exact historical slot-validation regressions only. No CAS execution, full language parser proof, or mathematical authority."
+    },
+    "GP-X254": {
+      "kind": "compiler_slots",
+      "layer": "program_construction",
+      "limitation": "Exact historical slot-validation regressions only. No CAS execution, full language parser proof, or mathematical authority."
+    },
+    "GP-X255": {
+      "kind": "section_receipt",
+      "layer": "section_evidence_admission",
+      "limitation": "Actual native fold and freshness with fabricated producer execution metadata, no live CAS. Measures predecessor trusted-producer boundary, not an external attack or full transport."
+    },
+    "GP-X256": {
+      "kind": "section_receipt",
+      "layer": "section_evidence_admission",
+      "limitation": "Actual native fold and freshness with fabricated producer execution metadata, no live CAS. Measures predecessor trusted-producer boundary, not an external attack or full transport."
+    },
+    "GP-X257": {
+      "kind": "section_receipt",
+      "layer": "section_evidence_admission",
+      "limitation": "Actual native fold and freshness with fabricated producer execution metadata, no live CAS. Measures predecessor trusted-producer boundary, not an external attack or full transport.",
+      "known_difference": "section_cofactor_not_replayed_under_fresh_producer_binding"
+    },
+    "GP-X258": {
+      "kind": "output_membership",
+      "layer": "output_evidence_admission",
+      "limitation": "Actual native fold and freshness, simulated producer trace or native empty trace. No CAS or output-completeness claim."
+    },
+    "GP-X259": {
+      "kind": "output_membership",
+      "layer": "output_evidence_admission",
+      "limitation": "Actual native fold and freshness, simulated producer trace or native empty trace. No CAS or output-completeness claim."
+    },
+    "GP-X260": {
+      "kind": "output_membership",
+      "layer": "output_evidence_admission",
+      "limitation": "Actual native fold and freshness, simulated producer trace or native empty trace. No CAS or output-completeness claim.",
+      "known_difference": "output_membership_not_replayed_under_fresh_producer_binding"
+    },
+    "GP-X261": {
+      "kind": "output_membership",
+      "layer": "output_evidence_admission",
+      "limitation": "Actual native fold and freshness, simulated producer trace or native empty trace. No CAS or output-completeness claim."
+    },
+    "GP-X262": {
+      "kind": "output_membership",
+      "layer": "output_evidence_admission",
+      "limitation": "Actual native fold and freshness, simulated producer trace or native empty trace. No CAS or output-completeness claim."
+    },
+    "GP-X263": {
+      "kind": "mapped_ring",
+      "layer": "check_proof",
+      "limitation": "Exact native verifier versus synthetic positive native receipt. Shared-ring convention only; no live producer failure or CAS."
+    },
+    "GP-X264": {
+      "kind": "mapped_ring",
+      "layer": "admit_positive_receipt",
+      "limitation": "Exact native verifier versus synthetic positive native receipt. Shared-ring convention only; no live producer failure or CAS."
+    },
+    "GP-X265": {
+      "kind": "mapped_ring",
+      "layer": "check_proof",
+      "limitation": "Exact native verifier versus synthetic positive native receipt. Shared-ring convention only; no live producer failure or CAS."
+    },
+    "GP-X266": {
+      "kind": "mapped_ring",
+      "layer": "admit_positive_receipt",
+      "limitation": "Exact native verifier versus synthetic positive native receipt. Shared-ring convention only; no live producer failure or CAS.",
+      "known_difference": "mapped_ring_proof_not_replayed_at_native_admission"
+    },
+    "GP-X267": {
+      "kind": "mapped_ring",
+      "layer": "check_proof",
+      "limitation": "Exact native verifier versus synthetic positive native receipt. Shared-ring convention only; no live producer failure or CAS."
+    },
+    "GP-X268": {
+      "kind": "mapped_ring",
+      "layer": "admit_positive_receipt",
+      "limitation": "Exact native verifier versus synthetic positive native receipt. Shared-ring convention only; no live producer failure or CAS.",
+      "known_difference": "mapped_ring_proof_not_replayed_at_native_admission"
+    },
+    "GP-X269": {
+      "kind": "partition_guards",
+      "layer": "partition_verification",
+      "limitation": "Actual verifier with exact answers to bounded zero-ideal backend questions. No Singular process or persisted verdict."
+    },
+    "GP-X270": {
+      "kind": "partition_guards",
+      "layer": "partition_verification",
+      "limitation": "Actual verifier with exact answers to bounded zero-ideal backend questions. No Singular process or persisted verdict.",
+      "known_difference": "partition_branch_open_guards_omitted"
+    },
+    "GP-X271": {
+      "kind": "partition_guards",
+      "layer": "partition_verification",
+      "limitation": "Actual verifier with exact answers to bounded zero-ideal backend questions. No Singular process or persisted verdict."
+    },
+    "GP-X272": {
+      "kind": "partition_guards",
+      "layer": "partition_verification",
+      "limitation": "Actual verifier with exact answers to bounded zero-ideal backend questions. No Singular process or persisted verdict."
+    },
+    "GP-X273": {
+      "kind": "partition_embeddings",
+      "layer": "partition_verification",
+      "limitation": "Actual native verifier with exact bounded identical-ideal responses; no live CAS or persisted verdict."
+    },
+    "GP-X274": {
+      "kind": "partition_embeddings",
+      "layer": "partition_verification",
+      "limitation": "Actual native verifier with exact bounded identical-ideal responses; no live CAS or persisted verdict.",
+      "known_difference": "partition_selected_embedding_omitted"
+    },
+    "GP-X275": {
+      "kind": "universe_boundary",
+      "layer": "record_step",
+      "limitation": "Actual native fold and conditional untyped transport; readability is not a proof of point existence. No CAS."
+    },
+    "GP-X276": {
+      "kind": "universe_boundary",
+      "layer": "record_step",
+      "limitation": "Actual native fold and conditional untyped transport; readability is not a proof of point existence. No CAS."
+    },
+    "GP-X277": {
+      "kind": "universe_boundary",
+      "layer": "record_step",
+      "limitation": "Actual native fold and conditional untyped transport; readability is not a proof of point existence. No CAS."
+    },
+    "GP-X278": {
+      "kind": "universe_boundary",
+      "layer": "record_step",
+      "limitation": "Actual native fold and conditional untyped transport; readability is not a proof of point existence. No CAS."
+    },
+    "GP-X279": {
+      "kind": "universe_boundary",
+      "layer": "record_step",
+      "limitation": "Actual native fold and conditional untyped transport; readability is not a proof of point existence. No CAS."
+    },
+    "GP-X280": {
+      "kind": "universe_boundary",
+      "layer": "record_step",
+      "limitation": "Actual native fold and conditional untyped transport; readability is not a proof of point existence. No CAS."
+    },
+    "GP-X281": {
+      "kind": "universe_boundary",
+      "layer": "record_step",
+      "limitation": "Actual native fold and conditional untyped transport; readability is not a proof of point existence. No CAS."
+    },
+    "GP-X282": {
+      "kind": "universe_boundary",
+      "layer": "record_step",
+      "limitation": "Actual native fold and conditional untyped transport; readability is not a proof of point existence. No CAS."
+    },
+    "GP-X283": {
+      "kind": "universe_boundary",
+      "layer": "license_nonempty_along",
+      "limitation": "Actual native fold and conditional untyped transport; readability is not a proof of point existence. No CAS."
+    },
+    "GP-X284": {
+      "kind": "product_split",
+      "layer": "construct_from_matching_generator",
+      "limitation": "Actual pinned identity checker/constructor; no graph append, coverage verdict, CAS or interpretation theorem. Matching-generator refusal is not a claim that the ideals differ."
+    },
+    "GP-X285": {
+      "kind": "product_split",
+      "layer": "construct_from_matching_generator",
+      "limitation": "Actual pinned identity checker/constructor; no graph append, coverage verdict, CAS or interpretation theorem. Matching-generator refusal is not a claim that the ideals differ."
+    },
+    "GP-X286": {
+      "kind": "product_split",
+      "layer": "construct_from_matching_generator",
+      "limitation": "Actual pinned identity checker/constructor; no graph append, coverage verdict, CAS or interpretation theorem. Matching-generator refusal is not a claim that the ideals differ."
+    },
+    "GP-X287": {
+      "kind": "product_split",
+      "layer": "construct_from_matching_generator",
+      "limitation": "Actual pinned identity checker/constructor; no graph append, coverage verdict, CAS or interpretation theorem. Matching-generator refusal is not a claim that the ideals differ."
+    },
+    "GP-X288": {
+      "kind": "product_split",
+      "layer": "construct_from_matching_generator",
+      "limitation": "Actual pinned identity checker/constructor; no graph append, coverage verdict, CAS or interpretation theorem. Matching-generator refusal is not a claim that the ideals differ."
+    },
+    "GP-X289": {
+      "kind": "product_split",
+      "layer": "check_identity",
+      "limitation": "Actual pinned identity checker/constructor; no graph append, coverage verdict, CAS or interpretation theorem. Matching-generator refusal is not a claim that the ideals differ."
+    },
+    "GP-X290": {
+      "kind": "product_split",
+      "layer": "check_identity",
+      "limitation": "Actual pinned identity checker/constructor; no graph append, coverage verdict, CAS or interpretation theorem. Matching-generator refusal is not a claim that the ideals differ."
+    },
+    "GP-X291": {
+      "kind": "product_split",
+      "layer": "check_identity",
+      "limitation": "Actual pinned identity checker/constructor; no graph append, coverage verdict, CAS or interpretation theorem. Matching-generator refusal is not a claim that the ideals differ."
+    },
+    "GP-X292": {
+      "kind": "factor_composition",
+      "layer": "check_power_identity",
+      "limitation": "Pinned exact checker with explicit exponent-limit profile; refusal may be resource or syntax policy, not a false identity. No graph authority, CAS or model binding."
+    },
+    "GP-X293": {
+      "kind": "factor_composition",
+      "layer": "check_power_identity",
+      "limitation": "Pinned exact checker with explicit exponent-limit profile; refusal may be resource or syntax policy, not a false identity. No graph authority, CAS or model binding."
+    },
+    "GP-X294": {
+      "kind": "factor_composition",
+      "layer": "check_power_identity",
+      "limitation": "Pinned exact checker with explicit exponent-limit profile; refusal may be resource or syntax policy, not a false identity. No graph authority, CAS or model binding."
+    },
+    "GP-X295": {
+      "kind": "factor_composition",
+      "layer": "check_power_identity",
+      "limitation": "Pinned exact checker with explicit exponent-limit profile; refusal may be resource or syntax policy, not a false identity. No graph authority, CAS or model binding."
+    },
+    "GP-X296": {
+      "kind": "factor_composition",
+      "layer": "check_power_identity",
+      "limitation": "Pinned exact checker with explicit exponent-limit profile; refusal may be resource or syntax policy, not a false identity. No graph authority, CAS or model binding."
+    },
+    "GP-X297": {
+      "kind": "factor_composition",
+      "layer": "check_power_identity",
+      "limitation": "Pinned exact checker with explicit exponent-limit profile; refusal may be resource or syntax policy, not a false identity. No graph authority, CAS or model binding."
+    },
+    "GP-X298": {
+      "kind": "factor_composition",
+      "layer": "check_affine_contradiction_pattern",
+      "limitation": "Pinned exact checker with explicit exponent-limit profile; refusal may be resource or syntax policy, not a false identity. No graph authority, CAS or model binding."
+    },
+    "GP-X299": {
+      "kind": "factor_composition",
+      "layer": "check_affine_contradiction_pattern",
+      "limitation": "Pinned exact checker with explicit exponent-limit profile; refusal may be resource or syntax policy, not a false identity. No graph authority, CAS or model binding."
+    },
+    "GP-X300": {
+      "kind": "factor_composition",
+      "layer": "check_affine_contradiction_pattern",
+      "limitation": "Pinned exact checker with explicit exponent-limit profile; refusal may be resource or syntax policy, not a false identity. No graph authority, CAS or model binding."
+    },
+    "GP-X301": {
+      "kind": "factor_composition",
+      "layer": "check_affine_contradiction_pattern",
+      "limitation": "Pinned exact checker with explicit exponent-limit profile; refusal may be resource or syntax policy, not a false identity. No graph authority, CAS or model binding."
+    },
+    "GP-X302": {
+      "kind": "laurent_pipeline",
+      "layer": "canonical_pass_composition",
+      "limitation": "Both pinned passes execute independently before exact object binding. Representation refusal is not a false polynomial identity; no graph, chart or source authority."
+    },
+    "GP-X303": {
+      "kind": "laurent_pipeline",
+      "layer": "canonical_pass_composition",
+      "limitation": "Both pinned passes execute independently before exact object binding. Representation refusal is not a false polynomial identity; no graph, chart or source authority."
+    },
+    "GP-X304": {
+      "kind": "laurent_pipeline",
+      "layer": "canonical_pass_composition",
+      "limitation": "Both pinned passes execute independently before exact object binding. Representation refusal is not a false polynomial identity; no graph, chart or source authority."
+    },
+    "GP-X305": {
+      "kind": "laurent_pipeline",
+      "layer": "canonical_pass_composition",
+      "limitation": "Both pinned passes execute independently before exact object binding. Representation refusal is not a false polynomial identity; no graph, chart or source authority."
+    },
+    "GP-X306": {
+      "kind": "laurent_pipeline",
+      "layer": "canonical_pass_composition",
+      "limitation": "Both pinned passes execute independently before exact object binding. Representation refusal is not a false polynomial identity; no graph, chart or source authority."
+    },
+    "GP-X307": {
+      "kind": "laurent_pipeline",
+      "layer": "canonical_pass_composition",
+      "limitation": "Both pinned passes execute independently before exact object binding. Representation refusal is not a false polynomial identity; no graph, chart or source authority."
+    },
+    "GP-X308": {
+      "kind": "ordered_recording",
+      "layer": "native_ordered_receipt_replay",
+      "limitation": "Native exact checker plus current-metadata log fold; ordered reach only. No backend or broader field interpretation."
+    },
+    "GP-X309": {
+      "kind": "ordered_recording",
+      "layer": "native_ordered_receipt_replay",
+      "limitation": "Native exact checker plus current-metadata log fold; ordered reach only. No backend or broader field interpretation.",
+      "known_difference": "ordered_receipt_canonicalization_rejects_equivalent_model_text"
+    },
+    "GP-X310": {
+      "kind": "ordered_recording",
+      "layer": "native_ordered_receipt_replay",
+      "limitation": "Native exact checker plus current-metadata log fold; ordered reach only. No backend or broader field interpretation."
+    },
+    "GP-X311": {
+      "kind": "ordered_recording",
+      "layer": "native_ordered_receipt_replay",
+      "limitation": "Native exact checker plus current-metadata log fold; ordered reach only. No backend or broader field interpretation."
+    },
+    "GP-X312": {
+      "kind": "membership_contraction",
+      "layer": "injected_candidate_exact_replay",
+      "limitation": "Injected producer transcript and independent exact identity replay only; no live CAS or native graph admission."
+    },
+    "GP-X313": {
+      "kind": "membership_contraction",
+      "layer": "injected_candidate_exact_replay",
+      "limitation": "Injected producer transcript and independent exact identity replay only; no live CAS or native graph admission."
+    },
+    "GP-X314": {
+      "kind": "membership_contraction",
+      "layer": "injected_candidate_exact_replay",
+      "limitation": "Injected producer transcript and independent exact identity replay only; no live CAS or native graph admission."
+    },
+    "GP-X315": {
+      "kind": "membership_contraction",
+      "layer": "elimination_and_reverse_identity",
+      "limitation": "Completeness certificate plus explicit reverse membership diagnostic; no materialization, backend execution or graph admission."
+    },
+    "GP-X316": {
+      "kind": "membership_contraction",
+      "layer": "elimination_and_reverse_identity",
+      "limitation": "Completeness certificate plus explicit reverse membership diagnostic; no materialization, backend execution or graph admission."
+    },
+    "GP-X317": {
+      "kind": "membership_contraction",
+      "layer": "elimination_and_reverse_identity",
+      "limitation": "Completeness certificate plus explicit reverse membership diagnostic; no materialization, backend execution or graph admission."
+    },
+    "GP-X318": {
+      "kind": "historical_residual",
+      "layer": "finite_recurrence_instance_mutation",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical in-memory mutation and exact recurrence replay; no Lean compilation, source binding check or graph authority."
+    },
+    "GP-X319": {
+      "kind": "historical_residual",
+      "layer": "finite_quotient_exact_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical exact finite-witness replay only; no native bindings, parent exclusion, graph authority or live CAS."
+    },
+    "GP-X320": {
+      "kind": "historical_residual",
+      "layer": "finite_quotient_exact_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical exact finite-witness replay only; no native bindings, parent exclusion, graph authority or live CAS."
+    },
+    "GP-X321": {
+      "kind": "historical_residual",
+      "layer": "historical_jump_declaration_preflight",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned recurrence J2 declaration gate with intact finite sequence; no Lean compilation, source binding or graph authority."
+    },
+    "GP-X322": {
+      "kind": "historical_residual",
+      "layer": "named_first_order_fiber_witness_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned exact L-valued nonzero premise on one named first-order fiber; no native binding, nonlinear or parent exclusion, or graph authority."
+    },
+    "GP-X323": {
+      "kind": "historical_residual",
+      "layer": "named_first_order_fiber_witness_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned exact L-valued nonzero premise on one named first-order fiber; no native binding, nonlinear or parent exclusion, or graph authority."
+    },
+    "GP-X324": {
+      "kind": "historical_depth8_block",
+      "layer": "historical_necessary_block_replay",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned necessary rank-two block only; symbolic residual unexported, no graph or source equivalence."
+    },
+    "GP-X325": {
+      "kind": "historical_depth8_block",
+      "layer": "historical_native_commitment",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical adapter contract gate only; commitment/projection/ledger refusal does not establish a new mathematical counterexample or graph authority.",
+      "expected_gate": "A2"
+    },
+    "GP-X326": {
+      "kind": "historical_depth8_block",
+      "layer": "historical_native_commitment",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical adapter contract gate only; commitment/projection/ledger refusal does not establish a new mathematical counterexample or graph authority.",
+      "expected_gate": "A4"
+    },
+    "GP-X327": {
+      "kind": "historical_depth8_block",
+      "layer": "historical_projection_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical adapter contract gate only; commitment/projection/ledger refusal does not establish a new mathematical counterexample or graph authority.",
+      "expected_gate": "M1"
+    },
+    "GP-X328": {
+      "kind": "historical_depth8_block",
+      "layer": "historical_projection_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical adapter contract gate only; commitment/projection/ledger refusal does not establish a new mathematical counterexample or graph authority.",
+      "expected_gate": "M1"
+    },
+    "GP-X329": {
+      "kind": "historical_depth8_block",
+      "layer": "historical_projection_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical adapter contract gate only; commitment/projection/ledger refusal does not establish a new mathematical counterexample or graph authority.",
+      "expected_gate": "M1"
+    },
+    "GP-X330": {
+      "kind": "historical_depth8_block",
+      "layer": "historical_projection_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical adapter contract gate only; commitment/projection/ledger refusal does not establish a new mathematical counterexample or graph authority.",
+      "expected_gate": "M1"
+    },
+    "GP-X331": {
+      "kind": "historical_depth8_block",
+      "layer": "historical_localization_ledger",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical adapter contract gate only; commitment/projection/ledger refusal does not establish a new mathematical counterexample or graph authority.",
+      "expected_gate": "A11"
+    },
+    "GP-X332": {
+      "kind": "historical_residual",
+      "layer": "coefficient_field_contract",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "expected_gate": "N6",
+      "limitation": "Pinned historical contract preflight; no proof that changed underlying algebra is mathematically invalid or that parent/source authority follows."
+    },
+    "GP-X333": {
+      "kind": "historical_residual",
+      "layer": "ordered_ring_binding",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "expected_gate": "N7",
+      "limitation": "Pinned historical contract preflight; no proof that changed underlying algebra is mathematically invalid or that parent/source authority follows."
+    },
+    "GP-X334": {
+      "kind": "historical_residual",
+      "layer": "missing_middle_rationale",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "expected_gate": "A4",
+      "limitation": "Pinned historical contract preflight; no proof that changed underlying algebra is mathematically invalid or that parent/source authority follows."
+    },
+    "GP-X335": {
+      "kind": "historical_residual",
+      "layer": "finite_witness_slice_scope",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "expected_gate": "N8",
+      "limitation": "Pinned historical contract preflight; no proof that changed underlying algebra is mathematically invalid or that parent/source authority follows."
+    },
+    "GP-X336": {
+      "kind": "historical_residual",
+      "layer": "finite_witness_modulus",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "expected_gate": "W3",
+      "limitation": "Pinned joint W3 finite-witness check; the individual failed conjunct is not isolated, W5 is not reached, and no nonunit or parent claim follows."
+    },
+    "GP-X337": {
+      "kind": "structural_dispatch",
+      "layer": "operational_structural_shortcut",
+      "limitation": "Pinned structural containment shortcut with injected forbidden backend; no external CAS."
+    },
+    "GP-X338": {
+      "kind": "structural_dispatch",
+      "layer": "operational_backend_fallback",
+      "limitation": "Pinned operational fallback to injected backend stub. No native containment verdict or mathematical noncontainment; separate exact membership control only."
+    },
+    "GP-X339": {
+      "kind": "zero_regime_arithmetic",
+      "layer": "exact_zero_regime_reference_arithmetic",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Pinned historical fixture validation plus transparent unit-times-zero arithmetic. No native per-regime minimality verifier, Lean compilation, or graph effect."
+    },
+    "GP-X340": {
+      "kind": "zero_regime_arithmetic",
+      "layer": "exact_zero_regime_reference_arithmetic",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Reference arithmetic refutes blanket S-1 shift-degree minimality on zero R5/R6. No native per-regime minimality verdict; global unilateral S8 remains separate."
+    },
+    "GP-X341": {
+      "kind": "dm4_zero_chart",
+      "layer": "exact_reference_rational_zero_chart",
+      "limitation": "Local SymPy arithmetic for deleted document's displayed G1-G3 only. No native rational-lift checker, full v13 target, nonzero-chart valuation theorem, or graph authority."
+    },
+    "GP-X342": {
+      "kind": "dm4_zero_chart",
+      "layer": "exact_reference_rational_zero_chart",
+      "limitation": "Local SymPy arithmetic proves polynomial q exists for the same retained zero chart and displayed G1-G3 only; no full v13 target-lift claim."
+    },
+    "GP-X343": {
+      "kind": "receipt_partition",
+      "layer": "operational_zero_route_vs_receipt",
+      "limitation": "Native zero-step route audit and exact SOS replay are separate observations; REFUSE is the no-receipt authority boundary, not a native held-claim verdict."
+    },
+    "GP-X344": {
+      "kind": "receipt_partition",
+      "layer": "legacy_partition_ordered_R_positive",
+      "limitation": "Isolated legacy partition consumer with supplied true cover and replayed SOS branch receipts. Current epoch-1 schema rejects via_partition; no admitted held claim."
+    },
+    "GP-X345": {
+      "kind": "receipt_partition",
+      "layer": "legacy_partition_ordered_C_gap",
+      "known_difference": "legacy_partition_consumer_ignores_ordered_reach",
+      "limitation": "Legacy consumer accepts ORDERED-only branch premises over C; current epoch-1 schema rejects via_partition. Supplied cover, no native held claim."
+    },
+    "GP-X346": {
+      "kind": "receipt_partition",
+      "layer": "legacy_partition_missing_receipts_gap",
+      "known_difference": "legacy_partition_consumer_counts_unverified_names",
+      "limitation": "Legacy consumer accepts named branch certificates without receipts; current epoch-1 schema rejects via_partition. Supplied cover, no native held claim."
+    },
+    "GP-X347": {
+      "kind": "q2_exact",
+      "layer": "native_exact_cubic",
+      "limitation": "Pinned exact simple-number-field witness check; no external CAS, campaign point, chosen ordered embedding, or new checker admission."
+    },
+    "GP-X348": {
+      "kind": "q2_exact",
+      "layer": "native_exact_cubic",
+      "limitation": "Pinned exact simple-number-field witness check; no external CAS, campaign point, chosen ordered embedding, or new checker admission."
+    },
+    "GP-X349": {
+      "kind": "q2_exact",
+      "layer": "native_exact_cubic",
+      "limitation": "Pinned exact simple-number-field witness check; no external CAS, campaign point, chosen ordered embedding, or new checker admission."
+    },
+    "GP-X350": {
+      "kind": "q2_exact",
+      "layer": "native_exact_cubic",
+      "limitation": "Pinned exact simple-number-field witness check; no external CAS, campaign point, chosen ordered embedding, or new checker admission."
+    },
+    "GP-X351": {
+      "kind": "q2_exact",
+      "layer": "native_exact_selected_sign",
+      "limitation": "Pinned exact selected-real sign and independent receipt replay; shared parser and Sturm premises remain. No live CAS."
+    },
+    "GP-X352": {
+      "kind": "q2_exact",
+      "layer": "native_exact_selected_sign",
+      "limitation": "Pinned exact selected-real sign and independent receipt replay; shared parser and Sturm premises remain. No live CAS."
+    },
+    "GP-X353": {
+      "kind": "q2_exact",
+      "layer": "native_exact_selected_sign",
+      "limitation": "Pinned exact selected-real sign and independent receipt replay; shared parser and Sturm premises remain. No live CAS."
+    },
+    "GP-X354": {
+      "kind": "q2_exact",
+      "layer": "native_exact_selected_sign",
+      "limitation": "Pinned exact selected-real sign and independent receipt replay; shared parser and Sturm premises remain. No live CAS."
+    },
+    "GP-X355": {
+      "kind": "q2_exact",
+      "layer": "reference_zero_algebra",
+      "limitation": "Finite one-element reference countermodel to deleting nontriviality; Lean theorem not compiled and native rational-polynomial admission not claimed."
+    },
+    "GP-X356": {
+      "kind": "q2_exact",
+      "layer": "reference_fin4_cancellation",
+      "limitation": "Finite modular reference countermodel to deleting no-zero-divisors; Lean theorem not compiled or claimed as native runtime authority."
+    },
+    "GP-X357": {
+      "kind": "q2_exact",
+      "layer": "reference_sixes_saturation",
+      "limitation": "Exact integer reference countermodel with BOTH source containment and generator no-invention; no Lean execution or native saturation verifier verdict."
+    },
+    "GP-X358": {
+      "kind": "q3_map",
+      "layer": "reference_operation_map",
+      "limitation": "Exact reference arithmetic/predicate countermodel to pinned formal source. No Lean compilation, native GP verifier result, or new checker admission."
+    },
+    "GP-X359": {
+      "kind": "q3_map",
+      "layer": "reference_operation_map",
+      "limitation": "Exact reference arithmetic/predicate countermodel to pinned formal source. No Lean compilation, native GP verifier result, or new checker admission."
+    },
+    "GP-X360": {
+      "kind": "q3_map",
+      "layer": "reference_operation_map",
+      "limitation": "Exact reference arithmetic/predicate countermodel to pinned formal source. No Lean compilation, native GP verifier result, or new checker admission."
+    },
+    "GP-X361": {
+      "kind": "q3_map",
+      "layer": "reference_localization_ambient",
+      "limitation": "Exact reference arithmetic/predicate countermodel to pinned formal source. No Lean compilation, native GP verifier result, or new checker admission."
+    },
+    "GP-X362": {
+      "kind": "q3_map",
+      "layer": "reference_localization_ambient",
+      "limitation": "Exact reference arithmetic/predicate countermodel to pinned formal source. No Lean compilation, native GP verifier result, or new checker admission."
+    },
+    "GP-X363": {
+      "kind": "q3_map",
+      "layer": "reference_localization_ambient",
+      "limitation": "Exact reference arithmetic/predicate countermodel to pinned formal source. No Lean compilation, native GP verifier result, or new checker admission."
+    },
+    "GP-X364": {
+      "kind": "q3_map",
+      "layer": "reference_map_orientation",
+      "limitation": "Exact reference arithmetic/predicate countermodel to pinned formal source. No Lean compilation, native GP verifier result, or new checker admission."
+    },
+    "GP-X365": {
+      "kind": "q3_map",
+      "layer": "reference_map_orientation",
+      "limitation": "Exact reference arithmetic/predicate countermodel to pinned formal source. No Lean compilation, native GP verifier result, or new checker admission."
+    },
+    "GP-X366": {
+      "kind": "q3_map",
+      "layer": "reference_equivalence_containment",
+      "limitation": "Exact reference arithmetic/predicate countermodel to pinned formal source. No Lean compilation, native GP verifier result, or new checker admission."
+    },
+    "GP-X367": {
+      "kind": "q3_map",
+      "layer": "reference_equivalence_containment",
+      "limitation": "Exact reference arithmetic/predicate countermodel to pinned formal source. No Lean compilation, native GP verifier result, or new checker admission."
+    },
+    "GP-X368": {
+      "kind": "base_cover_refutation",
+      "layer": "native_partition_classifier_with_injected_geometric_test",
+      "limitation": "Native frozen partition classifier with explicitly injected geometric-test result; elementary exact point contrast is a reference argument. Literal zero-branch family is encoded as two empty-locus branches. No checked CAS arithmetic, Lean compile, or persisted verdict."
+    },
+    "GP-X369": {
+      "kind": "base_cover_refutation",
+      "layer": "native_partition_classifier_with_injected_geometric_test",
+      "limitation": "Native frozen partition classifier with explicitly injected geometric-test result; elementary exact point contrast is a reference argument. Literal zero-branch family is encoded as two empty-locus branches. No checked CAS arithmetic, Lean compile, or persisted verdict."
+    },
+    "GP-A27-heuristic": {
+      "kind": "a27_unsupported_contract",
+      "layer": "unsupported_class_group_conditional_admission",
+      "limitation": "Rule-level expectations under supplied premises only; no actual receipt/checker/tool run. Frozen v0.37 has no selected projection for class-group certification with explicit GRH assumptions. No native verdict inferred."
+    },
+    "GP-A27-drop-GRH": {
+      "kind": "a27_unsupported_contract",
+      "layer": "unsupported_class_group_conditional_admission",
+      "limitation": "Rule-level expectations under supplied premises only; no actual receipt/checker/tool run. Frozen v0.37 has no selected projection for class-group certification with explicit GRH assumptions. No native verdict inferred."
+    },
+    "GP-A27-keep-GRH": {
+      "kind": "a27_unsupported_contract",
+      "layer": "unsupported_class_group_conditional_admission",
+      "limitation": "Rule-level expectations under supplied premises only; no actual receipt/checker/tool run. Frozen v0.37 has no selected projection for class-group certification with explicit GRH assumptions. No native verdict inferred."
+    },
+    "GP-A27-partial": {
+      "kind": "a27_unsupported_contract",
+      "layer": "unsupported_class_group_conditional_admission",
+      "limitation": "Rule-level expectations under supplied premises only; no actual receipt/checker/tool run. Frozen v0.37 has no selected projection for class-group certification with explicit GRH assumptions. No native verdict inferred."
+    },
+    "GP-A27-full": {
+      "kind": "a27_unsupported_contract",
+      "layer": "unsupported_class_group_conditional_admission",
+      "limitation": "Rule-level expectations under supplied premises only; no actual receipt/checker/tool run. Frozen v0.37 has no selected projection for class-group certification with explicit GRH assumptions. No native verdict inferred."
+    },
+    "GP-A27-label": {
+      "kind": "a27_unsupported_contract",
+      "layer": "unsupported_class_group_conditional_admission",
+      "limitation": "Rule-level expectations under supplied premises only; no actual receipt/checker/tool run. Frozen v0.37 has no selected projection for class-group certification with explicit GRH assumptions. No native verdict inferred."
+    },
+    "GP-X370": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "ca4c4a6225b577a12a737841f3a0d044087d48ba47a547bc4df8789f627a5e14",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X371": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "403eb3068528e43cea031aaf40b0f7a0e16264647dd6ab64d8fc72d0c970706d",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X372": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "2fd4b78aee0c50fcf87002be7b801bbd0cb1cf1317f5cf982eafcd07b0a32775",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X373": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "826093f90577a5b8bc000e2b53064140a6ad719f421970e243cd9386dd874813",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X374": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "0f404d01883cf283356d49fb57fc7ab40632315bd5366a93c9d555d4d5e7744c",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X375": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "c63f33c5ccfd154621eded7712b2d0e002d7b9e1ccedf3816bc637595ec83db2",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X376": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "71ce30e8a1c94c140a892c31a0c69ee35238333a87c9a9a04304925e712d079f",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X377": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "c1d4cf9c3c29d8b321987fd4fe587f8b0922b56a2d291255f859dde2312fd951",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X378": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "95edbc7d911d9dbb2c65f14c15ee70d79619aadceba3d3cb3de10590a174a6c2",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X379": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "879325895238b338ad87036d9e0455ed54c24caa30d5939d48db70617e879506",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X380": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "67bee3eae3a3ba675b38c09b1f0b9685acebe9f806b3dd8645e90d5d3f0ad308",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X381": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "83a610cb07fb83c0a64832d9feb19199979b57bda83ebd10486a2fbd9e0efcc9",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X382": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "3007ef3368fe053547cad6ff35363d6b1aa1d7a0bac0a456eeefee9f5e448652",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X383": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "7fe639490cdcf284936249f81a7a898db976cbc7cce9c9a282b2974f6e12282c",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X384": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "1d40aeb8cbe4f0f14a50c53b547f2d9a5ac4ee60056d73b7fc69eb21954b2a34",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X385": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "8c3874f93b23ebf98bb4894438d715d578a648f7f35ccb35d785ba694b12bd02",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X386": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "f4b25607766e1b92af855908d6be026e7d48725ba3d4ef55ef86fe28fea6e3c2",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X387": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "c590d974d9843791713f87103c69fe93dedb7a27ccc29ca8294f4555fd18f97d",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X388": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "7f22eda80ba664f526966e4133ac3261a253972b2a80872d7f7aeef9b11a09a5",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X389": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "0589127123bd6f60dd98b4e8cfba3659b0f1046bcdd8b6251a73e40e474aacbf",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X390": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "5e8a68d338424b86dfb500e1a0812d897c0528d3e8f0d2e864d9b6b79553d581",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X391": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "36c82fc827409afd4013c869ba46bab3feca49fca6f9a068b43922ce14af2add",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X392": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "19e0349b5f2c4c401b19feec80b900935c27d94f9a249d41ea4954ce86defaff",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X393": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "f5fd96fc0e1dab577b1e362dce688a150f558a56bfc43c3653e65b20d07fbe91",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X394": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "49a69f970614083193cacbd07374e4171e767a2ab0ef1005480e92339c7adca8",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X395": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "bd6c61a0c621db56169eacab69b521f62ff16764582875ca43b4ea86156eb6e3",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X396": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "3fb81cd8b132347c09de4cb49ec1db42888db9c8e5620535130142b6ecb17017",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X397": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "6b7edb4ff9b502b1540c788cb7087e67987d6bf0a29be61da5c141f1fd6243cf",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X398": {
+      "kind": "operational_retained_observation",
+      "layer": "retained_operational_diagnostic",
+      "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+      "case_sha256": "13732d12cfb7e26ef8a24a20a57d6f484aad369eaeb613ec4002cd5e7f081568",
+      "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+    },
+    "GP-X404": {
+      "kind": "interval_admission",
+      "layer": "native_model_admission_with_direct_api_contrast",
+      "limitation": "Direct APIs replay a positive endpoint sign in both cases; native model interval admission is the observed verdict. No held mathematical claim or new standalone API contract."
+    },
+    "GP-X405": {
+      "kind": "interval_admission",
+      "layer": "native_model_admission_with_direct_api_contrast",
+      "limitation": "Direct APIs replay a positive endpoint sign in both cases; native model interval admission is the observed verdict. No held mathematical claim or new standalone API contract."
+    },
+    "GP-X399": {
+      "kind": "closure_fixture",
+      "family": "guard",
+      "layer": "frozen_declaration_or_open_premise_guard",
+      "case_sha256": "cf8583a6198d4d29c479da443df2f26e7f4e4c1b3d021623a2a6e11bddc774a7",
+      "limitation": "Exact frozen fixture replay only. Declaration/clean-step success does not prove family coverage or held authority; Cramer arithmetic grants no source equivalence or graph result."
+    },
+    "GP-X400": {
+      "kind": "closure_fixture",
+      "family": "guard",
+      "layer": "frozen_declaration_or_open_premise_guard",
+      "case_sha256": "3dee6d121b0a786e2e5e9d4cb96929fad49472996e59f061c0209cd3fa195542",
+      "limitation": "Exact frozen fixture replay only. Declaration/clean-step success does not prove family coverage or held authority; Cramer arithmetic grants no source equivalence or graph result."
+    },
+    "GP-X401": {
+      "kind": "closure_fixture",
+      "family": "guard",
+      "layer": "frozen_declaration_or_open_premise_guard",
+      "case_sha256": "a5616f38bb141c5905112556b17bf11df32cf4d1cf3b5bc854d00c35103695bf",
+      "limitation": "Exact frozen fixture replay only. Declaration/clean-step success does not prove family coverage or held authority; Cramer arithmetic grants no source equivalence or graph result."
+    },
+    "GP-X402": {
+      "kind": "closure_fixture",
+      "family": "guard",
+      "layer": "frozen_declaration_or_open_premise_guard",
+      "case_sha256": "490987e96755ceb32a5f6fb44bd0202488212ce348bc04cd1e70d37b7d1c144f",
+      "limitation": "Exact frozen fixture replay only. Declaration/clean-step success does not prove family coverage or held authority; Cramer arithmetic grants no source equivalence or graph result."
+    },
+    "GP-X403": {
+      "kind": "closure_fixture",
+      "family": "guard",
+      "layer": "frozen_declaration_or_open_premise_guard",
+      "case_sha256": "f17172a2744b2346f254402b94c5aa755fed17ad81d1227a21a7ae0c23033f52",
+      "limitation": "Exact frozen fixture replay only. Declaration/clean-step success does not prove family coverage or held authority; Cramer arithmetic grants no source equivalence or graph result."
+    },
+    "GP-X406": {
+      "kind": "closure_fixture",
+      "family": "cramer",
+      "layer": "historical_exact_cramer_arithmetic",
+      "case_sha256": "f8cbecfffb06793792f51820234f3e65ea4e466407e0a14d18411ebcc99d3972",
+      "limitation": "Exact frozen fixture replay only. Declaration/clean-step success does not prove family coverage or held authority; Cramer arithmetic grants no source equivalence or graph result.",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e"
+    },
+    "GP-X407": {
+      "kind": "closure_fixture",
+      "family": "cramer",
+      "layer": "historical_exact_cramer_arithmetic",
+      "case_sha256": "e604165a3ce143ed7ad58cd9cf00819747aa1c9b1b1a3f45a51cf2604f1f8358",
+      "limitation": "Exact frozen fixture replay only. Declaration/clean-step success does not prove family coverage or held authority; Cramer arithmetic grants no source equivalence or graph result.",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e"
+    },
+    "GP-X408": {
+      "kind": "unsupported_neutral_contract",
+      "layer": "abstract_evaluation_contract",
+      "case_sha256": "1266c015fe65d8808b2d47af0c56bf2a0924a192c7fd057f0f4f32ecf8dd52be",
+      "reason": "Frozen oracle has no projection for deriving valid-evaluation point-surjectivity from exact contraction or checking the additional lift. Source-backed neutral expectations only; no Lean compilation, arithmetic replay or native checker execution.",
+      "limitation": "Abstract conditional countermodel/contrast; positive expectation is not an executed checker control."
+    },
+    "GP-X409": {
+      "kind": "unsupported_neutral_contract",
+      "layer": "abstract_evaluation_contract",
+      "case_sha256": "bf5a957187fb9e70d12ab365ddaa45e089a925ee4ed2f7dbc87e514b0a528351",
+      "reason": "Frozen oracle has no projection for deriving valid-evaluation point-surjectivity from exact contraction or checking the additional lift. Source-backed neutral expectations only; no Lean compilation, arithmetic replay or native checker execution.",
+      "limitation": "Abstract conditional countermodel/contrast; positive expectation is not an executed checker control."
+    },
+    "GP-X410": {
+      "kind": "ordinary_point_guard_diagnostic",
+      "layer": "ordinary_point_guard_diagnostic",
+      "case_sha256": "3d7bdf110719f7d3bf9fee280a3a0b85001cfe8e0ea140816d91dabff7a1bcde",
+      "source_sha256": {
+        "grandportage/verify.py": "51ee50fd4be7e8f0f6b2cdd10f680ac7060ef8f91f1f424290a342e3c7ce9c03",
+        "tests/test_adversarial.py": "1150aa49c0596af1a9816a71f44694838e6fef17370a2fc8337b453b3d43c9f8"
+      },
+      "limitation": "Pinned point_witness decision branch exercised with the existing literal-value test helper. Native verdict remains null: no Singular execution, parser validation, native receipt or held authority."
+    },
+    "GP-X411": {
+      "kind": "ordinary_point_guard_diagnostic",
+      "layer": "ordinary_point_guard_diagnostic",
+      "case_sha256": "49fe6d55ffee4c72d8db975a8f74dfe07e5425e0793ccca28d5b98f9b24c469d",
+      "source_sha256": {
+        "grandportage/verify.py": "51ee50fd4be7e8f0f6b2cdd10f680ac7060ef8f91f1f424290a342e3c7ce9c03",
+        "tests/test_adversarial.py": "1150aa49c0596af1a9816a71f44694838e6fef17370a2fc8337b453b3d43c9f8"
+      },
+      "limitation": "Pinned point_witness decision branch exercised with the existing literal-value test helper. Native verdict remains null: no Singular execution, parser validation, native receipt or held authority."
+    },
+    "GP-X412": {
+      "kind": "ordinary_point_guard_diagnostic",
+      "layer": "ordinary_point_guard_diagnostic",
+      "case_sha256": "da84a2e84c2331357cea4a5947899db0831019eacc98e7cb92af5fd7622c3ee5",
+      "source_sha256": {
+        "grandportage/verify.py": "51ee50fd4be7e8f0f6b2cdd10f680ac7060ef8f91f1f424290a342e3c7ce9c03",
+        "tests/test_adversarial.py": "1150aa49c0596af1a9816a71f44694838e6fef17370a2fc8337b453b3d43c9f8"
+      },
+      "limitation": "Pinned point_witness decision branch exercised with the existing literal-value test helper. Native verdict remains null: no Singular execution, parser validation, native receipt or held authority."
+    },
+    "GP-X413": {
+      "kind": "unsupported_neutral_contract",
+      "layer": "profile",
+      "case_sha256": "7be68af3d7ac8da960f7bc7bddccadff965d3449ebba7b4da0ce663a4441920b",
+      "reason": "New 0.50 profile case (post-G2 handoff \u00a73.6, Fano intake signed by Will 2026-10-03); the frozen v0.37 oracle has no projection for it. Checked by the 3a profile runner.",
+      "limitation": "Formerly the reach-slice fixture GP-FANO-C1."
+    },
+    "GP-X414": {
+      "kind": "unsupported_neutral_contract",
+      "layer": "profile",
+      "case_sha256": "2c95674d7bf15547047f7b6ad7c554621f6717d0142155c2d2320f3ada093c0d",
+      "reason": "New 0.50 profile case (post-G2 handoff \u00a73.6, Fano intake signed by Will 2026-10-03); the frozen v0.37 oracle has no projection for it. Checked by the 3a profile runner.",
+      "limitation": "Formerly the reach-slice fixture GP-FANO-C1-CHAR2."
+    },
+    "GP-X415": {
+      "kind": "unsupported_neutral_contract",
+      "layer": "profile",
+      "case_sha256": "036f23524d3f170754b7557c700d5dac05512a49fb1a3d2875b378f7f15b8ee5",
+      "reason": "New 0.50 profile case (post-G2 handoff \u00a73.6, Fano intake signed by Will 2026-10-03); the frozen v0.37 oracle has no projection for it. Checked by the 3a profile runner.",
+      "limitation": "Formerly the reach-slice fixture GP-FANO-F2."
+    }
+  }
+}

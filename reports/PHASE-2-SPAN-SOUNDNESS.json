@@ -1,0 +1,47 @@
+{
+  "schema": "gp-phase2-concrete-span-soundness/v1",
+  "date": "2026-09-30",
+  "source_hashes": {
+    "phase2/lean/GP50/SpanSoundnessProofs.lean": "de333cacb65fc1a705250995b6bebc1365d6a676325df2873e60cfdb40b17906",
+    "phase2/lean/Tests/SpanSoundness.lean": "5d3b0fa022beec4ccb2b41a357f4073c702c69475c2ad63c95ec038962689f7e",
+    "phase2/lean/GP50.lean": "c05264442ee573d12ebd51779986a3b82bece6a620dcd4aa8ff61589de26c742",
+    "phase2/lean/lakefile.toml": "83236afed33679c1a4a5cb3276740c076c516570ccf4a3829a4778cc8be314ff"
+  },
+  "build": "lake build: 62 jobs passed",
+  "compiled_new_proof_controls": 12,
+  "compiled_total_proof_controls": 21,
+  "native_component_controls_unchanged": 435,
+  "independent_kernel_replay": {
+    "module": "GP50.SpanSoundnessProofs",
+    "exit_code": 0
+  },
+  "theorems": [
+    "GP50.Span.resolve_warrant_ids_nodup",
+    "GP50.Span.admission_validator_sound",
+    "GP50.Span.fold_held_formalSpan"
+  ],
+  "guarantee": "Successful actual receipt-only fold and held bit imply that a matching registered clause exists and every matching registered clause satisfies FormalSpan. Warrant ID uniqueness is derived from successful resolution. No assumed node or claim soundness remains in this concrete theorem.",
+  "allowed_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "new_erased_prop_definitions": 2,
+  "new_executable_helpers": 0,
+  "preservation": {
+    "459_case_bytes_and_expectations": true,
+    "oracle_pin_sha256": "180d920db790d5b5e318ce318b7b7e1467e6b11fd44e05e759e8b7cc7f4459db",
+    "immutable_latest_sha256": "0996858153e6f1fec40aad3fe1d71a70cff72b39972cd78937646818214be04d",
+    "runner_and_slice_adapter_bytes_unchanged": true
+  },
+  "worker_active_minutes": null,
+  "worker_time_status": "Requested actual time omitted in completion; no budget reset or invented charge.",
+  "open": [
+    "host byte/digest and fixture interpretation contracts",
+    "typed model/scope/rule statement semantics",
+    "whole-kernel heldSoundStatement",
+    "remaining real slice behaviors"
+  ],
+  "previous_checkpoint": "reports/PHASE-2-ADMISSION.json",
+  "g2_pass": false
+}

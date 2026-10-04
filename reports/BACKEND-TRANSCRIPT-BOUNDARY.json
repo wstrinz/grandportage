@@ -1,0 +1,30 @@
+{
+  "script_sha256": "1fa5b133a5ab8f205322f8249a495e8a2233c7b7647bd73abca954eed6670949",
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "observations": [
+    {
+      "control": "plain",
+      "stdout": "OK\n",
+      "retained_text_fingerprint": "sha256:a12b7cb43c9d9134b5bb1b35e9096b66775d9e92e7611d1cc92b02edd6782a87",
+      "returncode": 0
+    },
+    {
+      "control": "invalid_utf8",
+      "stdout": "OK\n",
+      "retained_text_fingerprint": "sha256:a12b7cb43c9d9134b5bb1b35e9096b66775d9e92e7611d1cc92b02edd6782a87",
+      "returncode": 0
+    },
+    {
+      "control": "fingerprint_final_newline",
+      "ordinary": true,
+      "newline": true
+    },
+    {
+      "control": "mutable_abort_reason_direct_test_adapter",
+      "artifact_fingerprint_changed": true,
+      "validator_accepts": true,
+      "scope": "Injected runner only. Native subprocess abort_reason is a string or null; no persisted bypass claimed."
+    }
+  ],
+  "interpretation": "Decoded transcript hashing is not raw-byte custody. Final-newline fingerprint acceptance is lexical validation drift, not a demonstrated accepted stored object. Frozen dataclass is shallow for untyped abort_reason; native producer does not emit mutable reasons."
+}

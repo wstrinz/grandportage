@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "GP-X84",
+  "seed": null,
+  "title": "Accept the ordered reduced chain with its exact unit witnesses",
+  "situation": "The checked solve identities and endpoint commitments agree; source-face substitution is a separate replay tier.",
+  "inputs": {
+    "ordered_steps": 23,
+    "input_values": 10,
+    "faces": 25,
+    "residuals": 2,
+    "pin": "15*t^3+1",
+    "proposal": "retain"
+  },
+  "attempted_conclusion": "Accept the ordered reduced chain with its exact unit witnesses.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The checked solve identities and endpoint commitments agree; source-face substitution is a separate replay tier."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_source_depth6_chain.py",
+      "line": 46,
+      "anchor": "def test_checked_in_chain_fast_gate_welds_both_gp_endpoints("
+    }
+  ]
+}

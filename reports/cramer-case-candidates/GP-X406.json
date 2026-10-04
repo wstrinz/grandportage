@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "id": "GP-X406",
+  "title": "Historical Cramer clearing exponent one does not clear Phi_b0_compat",
+  "scope_or_region": "REGION",
+  "situation": "Exact replay-bound historical Cramer transport only. This is neither a toy denominator example nor a source/graph claim.",
+  "inputs": {
+    "coefficient_domain": "K = QQ[t]/(15*t^3+1)",
+    "model": {
+      "name": "X_b_materialized_depth_6_7",
+      "equations": [
+        "b=0",
+        "R=0",
+        "A=0",
+        "OB=0"
+      ],
+      "guards": [
+        "c2_3",
+        "p",
+        "det5"
+      ],
+      "point_universe": "ALGEBRAIC_EXTENSIONS_OF_K"
+    },
+    "source_class": "Lambda = VD - (3/2)*c2_3*t*E321",
+    "five_column_cramer_solve": {
+      "columns": [
+        "c8_9",
+        "c7_7",
+        "c8_8",
+        "c7_6",
+        "c8_7"
+      ],
+      "denominator": "det5",
+      "form": "column_i = N_i/det5"
+    },
+    "lambda_fiber_profile": {
+      "constant_terms": 417,
+      "linear_columns": {
+        "c8_9": 29,
+        "c7_7": 12,
+        "c8_8": 11,
+        "c7_6": 3,
+        "c8_7": 3
+      },
+      "quadratic_term": "one c8_9^2 coefficient"
+    },
+    "asserted_clearing_exponent": 1,
+    "historical_power_one_check": "decoded fixture power1_numerator divided by power1_denominator has nonzero remainder",
+    "historical_binding": {
+      "history_pin": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "deleted_note_blob": "c231b42735dac46181ec92c1dabd875a2f12d4d9",
+      "fixture_path": "oracle/history/checkout/fixtures/jc_b0_compatibility/class_v1.json",
+      "fixture_sha256": "faeda936b84f5f4ba68f55eeb4cc00d34a6c5f7e6e60f7312e4e3f21f1ff0e95",
+      "adapter_path": "oracle/history/checkout/experiments/jc_h3_b0_compatibility/adapter.py",
+      "adapter_sha256": "cc8112c8f744bfdde93dac1f4203bfa0fe520464b0d3f8b8e83d02ee9b19928e",
+      "test_path": "oracle/history/checkout/tests/test_jc_h3_b0_compatibility.py",
+      "test_sha256": "bbaf7f288b7d27c667e71cec4af9af18399ffa913aeeecd179509e56bb3519ba"
+    },
+    "limits": [
+      "No generic exponent theorem.",
+      "No live/native replay, source equivalence, nonzerodivisor, rational-witness, geometry, or graph authority.",
+      "The exact full historical input is bound by the raw fixture SHA-256 rather than reproduced as a toy algebra object."
+    ]
+  },
+  "attempted_conclusion": "Claim det5^1 clears the Cramer-substituted Lambda into the committed base polynomial.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The retained power-one polynomial division has nonzero remainder; the c8_9^2 term produces an uncancelled det5 denominator after c8_9=N_0/det5."
+  },
+  "seed": null,
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_b0_compatibility/adapter.py",
+      "line": 787,
+      "anchor": "require(_udivmod(power1_numerator, power1_denominator)[1] != [K_ZERO],"
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_b0_compatibility.py",
+      "line": 73,
+      "anchor": "lambda p: p[\"definition\"].__setitem__(\"clearing_exponent\", 1),"
+    }
+  ]
+}

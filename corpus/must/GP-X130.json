@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "GP-X130",
+  "seed": null,
+  "title": "Insufficient saturation exponent",
+  "situation": "x^8*y is not equal to x^9*y; the offered identity fails independently of search limits.",
+  "inputs": {
+    "variables": [
+      "x",
+      "y"
+    ],
+    "generators": [
+      "x^9*y"
+    ],
+    "target": "x^8*y",
+    "cofactors": [
+      "1"
+    ],
+    "characteristic": 0
+  },
+  "attempted_conclusion": "Accept the displayed exponent-eight cofactor identity.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "x^8*y is not equal to x^9*y; the offered identity fails independently of search limits."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 5382,
+      "anchor": "def test_a_power_nine_saturation_witness_is_not_falsely_refuted("
+    }
+  ]
+}

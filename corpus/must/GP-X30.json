@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "id": "GP-X30",
+  "seed": null,
+  "title": "Complete expansion cannot omit overflow",
+  "situation": "Two cap-one polynomials are multiplied; supplied rows claim their coefficient expansion.",
+  "inputs": {
+    "parameter": "y",
+    "source_variables": [
+      "p",
+      "q"
+    ],
+    "coefficient_variables": [
+      "a0",
+      "a1",
+      "b0",
+      "b1"
+    ],
+    "images": {
+      "p": "a0+a1*y",
+      "q": "b0+b1*y"
+    },
+    "bounded_variables": {
+      "p": {
+        "cap": 1,
+        "coefficients": [
+          "a0",
+          "a1"
+        ]
+      },
+      "q": {
+        "cap": 1,
+        "coefficients": [
+          "b0",
+          "b1"
+        ]
+      }
+    },
+    "equations": [
+      {
+        "id": "PRODUCT",
+        "expression": "p*q",
+        "degree": 1,
+        "coverage": "complete",
+        "coefficients": {
+          "0": "a0*b0",
+          "1": "a0*b1+a1*b0"
+        }
+      }
+    ],
+    "requested_license": "polynomial_identity_iff_all_rows_zero"
+  },
+  "attempted_conclusion": "Accept the requested implication between the polynomial identity and the supplied rows.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The product can have a nonzero quadratic coefficient."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_coefficient_expansion.py",
+      "line": 69,
+      "anchor": "def test_complete_expansion_rejects_an_omitted_overflow_row("
+    }
+  ]
+}

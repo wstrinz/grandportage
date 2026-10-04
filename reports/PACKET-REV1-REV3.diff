@@ -1,0 +1,1199 @@
+--- docs/GP-0.50-REWORK-PACKET.md
++++ docs/GP-0.50-REWORK-PACKET-rev3.md
+@@ -1,6 +1,6 @@
+-# Grand Portage 0.50 — rework packet: claim / scope / warrant
+-
+-**Packet date:** 2026-09-27 · **Owner:** Will · **Audience:** local builder agent(s) and math-lane research agents
+-**Status:** ready to start Phase 0.
+-
+-**Naming.** The project stays **Grand Portage**. This packet calls the rework **GP 0.50** and the frozen predecessor **GP v0.37**. The label is deliberately pre-1.0. It is 0.50 rather than 0.5 because semver compares minor versions numerically, so 0.5.0 would sort *before* 0.37.0. Sub-components (kernel, profiles, a future pooled platform) are deliberately unnamed for now. Do not invent names for them; use plain descriptive terms.
++# Grand Portage 0.50 — rework packet, revision 3: honest carrying between worlds
++
++**Packet date:** 2026-09-28 · **Owner:** Will · **Audience:** local builder agent(s) and math-lane research agents
++**Status:** Phase 0a is in progress. This revision **supersedes revisions 1 and 2** (`GP-0.50-REWORK-PACKET.md`, `GP-0.50-REWORK-PACKET-rev2.md`) **and Addendum A** (`GP-0.50-ADDENDUM-A-REGIMES.md`, folded in since revision 2). Keep the earlier revisions alongside to diff against. §R lists what changed.
++
++**Naming.** The project stays **Grand Portage**. This packet calls the rework **GP 0.50** and the frozen predecessor **GP v0.37**. The label is deliberately pre-1.0; it is 0.50 rather than 0.5 because semver compares minor versions numerically, so 0.5.0 would sort *before* 0.37.0. Sub-components (the kernel, profiles, a future pooled platform) are deliberately unnamed for now: use plain descriptive terms and do not invent names. The term "profile" is itself under review; "domain" is the leading alternative. Use "profile" until Will decides.
+@@ -12,10 +12,11 @@
+-Read it all before doing anything. Then write `BACKBRIEF.md` (one page at most) that covers:
+-
+-- the goal, in your own words;
+-- the DECIDED items;
+-- your plan for Phase 0;
+-- anything unclear or that you think is wrong.
+-
+-**Stop there until Will approves it.** The back-brief doubles as a reader test of this packet.
+-
+-Every item in this packet is tagged:
++**If you have not yet written a back-brief,** read everything first, then write `BACKBRIEF.md` (one page at most) covering: the goal in your own words, the DECIDED items, your plan for Phase 0, and anything unclear or that you think is wrong.
++
++**If you already wrote one for an earlier revision,** write `BACKBRIEF-REV3.md` instead (half a page at most). It should cover:
++
++- what changes for work already in flight;
++- anything in 0a/0b that now needs redoing (expected answer: nothing, apart from one new corpus seed, A27; see §R);
++- your reading of the core statement (§2), the three G1 adoption decisions (§7.3), and the interoperability default (D18, §7.5).
++
++**Either way, stop there until Will approves.** The back-brief doubles as a reader test of this packet.
++
++**Tags.** Every item is tagged:
+@@ -24,4 +25,4 @@
+-- **WORKING**: the current best hypothesis. Build on it, but log evidence against it and be ready to pivot.
+-- **OPEN**: resolve it against the corpus and report back. Don't guess silently.
+-
+-**Stop and ask Will** whenever any of the following happens:
++- **WORKING**: the best current hypothesis. Build on it, log evidence against it, and be ready to pivot.
++- **OPEN**: resolve it against the corpus and report. Never guess silently.
++
++**Stop and ask Will** if any of these happen:
+@@ -30 +31 @@
+-- the kernel wants to exceed its budget (§8);
++- the kernel wants to exceed its budget (D8);
+@@ -33 +34,2 @@
+-- you find yourself building something on the not-list (§9);
++- you find yourself building something on the not-list (§12);
++- you are about to build something the adopt/imitate map (§7) says should be adopted;
+@@ -36 +38,38 @@
+-**Inputs Will supplies before Phase 0b starts:** a filled-in `SWEEP-SOURCES.md` (template in Appendix H) with local paths and access notes for every repo in the sweep.
++**Inputs Will supplies** before Phase 0b starts: a filled-in `SWEEP-SOURCES.md` (template in Appendix H).
++
++---
++
++## R. Changes
++
++### Changes in revision 3
++
++1. **Interoperability by default (new D18).** Wherever a community format or tool exists for a boundary, GP reads and writes it rather than inventing its own. Interop lives in adapters, surfaces and the binding layer, never in the kernel. Adoption still has to serve the §2 guarantee (D15); this is not amalgamation for its own sake.
++2. **§7.1 landscape updated** from a prior-art pass:
++   - **LMFDB's** source / reliability / completeness pages, and its 2026 effort to bridge LMFDB data to Lean;
++   - **Magma's** rigor tiers and **PARI's** below-GRH default bound;
++   - **Formal Conjectures** as a source of goal statements;
++   - more precise descriptions of **Trocq** and **Logipedia**;
++   - **MathKernel** as a cautionary example of scope sprawl.
++3. **Correction.** The statement-comparing reviewer belongs to **LeanMarathon**, which uses LeanArchitect's metadata format. It is not part of LeanArchitect itself. Fixed in §7.1, §7.2 and M5.
++4. **New §7.5, interop surfaces:** the formats GP should consume and produce.
++5. **0e reading list: P16–P18 added** (LMFDB reliability/completeness and the Lean-bridging effort; the Magma rigor taxonomy; Formal Conjectures). The questions for P1, P4 and P10 are sharpened.
++6. **New corpus seed A27:** PARI's default class-group bound treated as GRH-conditional or unconditional. It is the arithmetic regime's canonical silent-scope trap.
++7. **M5** uses Formal Conjectures statements as a first-choice goal source when one exists.
++8. **Phase 5** exports tailings in an LMFDB-compatible source / reliability / completeness shape.
++9. **G0 territory check** now also asks which community would want GP as a *component*.
++10. **Not-list:** no GP-specific format at a boundary where a community format exists, without a written reason; no rival-platform ambitions.
++
++### Changes in revision 2 (from revision 1)
++
++1. **New core statement** (§2). The Elm-style guarantee, and its positive twin, "earned but unclaimed" implications, are now the organizing idea. Claim/scope/warrant is the mechanism that delivers them.
++2. **Addendum A folded in.** The regime map, the positive/negative asymmetry, the checkability line and "the ladder is not the scope order" are now §3–§4. Real algebraic numbers are §8.8. Validated numerics is math lane M6.
++3. **Adopt-before-build** (§7). This revision adds a map of what to adopt from existing, expert-built work and what to imitate, plus a list of things not to bolt on. It also frames three adoption decisions for G1:
++   - warrant form;
++   - the MathEvidence checker layer;
++   - the Mathlib hierarchy as scope vocabulary.
++4. **New Phase 0 lane, 0e: a prior-art review.** It is time-boxed and ends in `PRIOR-ART.md`.
++5. **Decisions added:** D14–D17. **Decision changed:** D12 now names Mathlib alignment for statement ASTs.
++6. **Math lanes.** M2 is refocused on mapping reach to the Mathlib hierarchy. M6 (validated numerics) is added, scheduled after G5.
++7. **Gates.** G1 now includes the three adoption decisions. No other thresholds changed.
++8. **Not-list extended:** no trust ladders, no user-facing institution machinery, no general computer algebra reimplemented in Lean.
++9. **No change to Phase 0a or 0b.** The must-refuse corpus and the incident sweep are valid whatever the outcome of these decisions. They are what will *test* the core.
+@@ -42,6 +81,6 @@
+-Grand Portage (GP) v0.37.0 has a sound, small, mostly classical transport kernel. It sits inside roughly 64k lines of Python, 43 CLI subcommands, 35 checker rules and about 75k words of documentation. The domain is narrow (exact affine algebra over fields), and the core concepts were never named at the user level. Its vocabulary grew out of Jacobian-conjecture (JC) campaign incidents.
+-
+-The campaign record since JC points in a consistent direction:
+-
+-- **DK** (the (23₄) campaign) succeeded without needing GP. What mattered there was census completeness, replayed exclusions, exact witnesses, a Lean proof and independent replication.
+-- **Pigeon River** (the Andrews–Curtis challenge) had its certificates checked by an external verifier.
++GP v0.37.0 has a sound, small, mostly classical transport kernel. It is wrapped in roughly 64k lines of Python, 43 CLI subcommands, 35 checker rules and about 75k words of documentation. Its domain is narrow (exact affine algebra over fields), and its core concepts were never named at the user level; its vocabulary grew out of the Jacobian-conjecture (JC) campaign's incidents.
++
++The campaign record since then:
++
++- **DK** succeeded without GP. What mattered there was census completeness, replayed exclusions, exact witnesses, a Lean proof and independent replication.
++- **Pigeon River**'s certificates were checked by an external verifier.
+@@ -50,5 +89,7 @@
+-Every campaign reinvented a local custody layer. That custody layer is the real core. The transport table is one domain's rulebook sitting on top of it.
+-
+-This is a **full rework**, not an incremental refactor. GP has no users to protect. GP v0.37 is frozen and serves as:
+-
+-1. an **oracle**, for differential testing;
++Every campaign reinvented a custody layer, and that custody layer is the real core. The transport table is one domain's rulebook on top of it.
++
++The wider field is also moving, from several directions at once. On the engineering side: MathEvidence, MathKernel, and LeanArchitect/LeanMarathon. From mathematicians: Formal Conjectures, and the LMFDB's 2026 effort to give its data Lean-backed reasons to trust it (see §7 and Appendix G). GP 0.50 should interoperate with them by default (D18), adopt or imitate their good parts rather than rebuild them, and put its own effort into the part that still appears unoccupied.
++
++This is a **full rework**; GP has no users to protect. GP v0.37 is frozen and serves as:
++
++1. an **oracle** for differential testing;
+@@ -62,21 +103,104 @@
+-## 2. North star
+-
+-> **"Elm for vibe maths."** Stating and running a recreational or open-problem math campaign with LLM agents should be low-error to the point of being fun: constrained but not cramped.
+-
+-**The one-line job.** The system says what you are entitled to believe right now, and what it would take to be entitled to more.
+-
+-**Fixed ropes.** An admitted move plus its checker is a fixed rope: something an amateur or an agent can clip into and trust. The per-profile move library is the rope network, and each campaign that leaves behind a newly admitted move extends it.
+-
+-**Distant stretch.** Pooled campaigns work like an autobattler. Players compose moves against a shared referee (the kernel), the ledger is the replay, and tailings are published with explicit scope. Design so this stays possible, but do not build for it now.
+-
+-**What it is not:**
+-
+-- a proof assistant (Lean is);
+-- a CAS;
+-- a search engine;
+-- a publication pipeline;
+-- a confidence calculus.
+-
+----
+-
+-## 3. Decisions
++## 2. The core (WORKING: the organizing statement; the corpus is expected to push on it)
++
++### 2.1 The guarantee
++
++> **If GP says a claim holds in a world, it does. When a result can be carried to another world, GP carries it for you. When it can't, GP says exactly why.**
++
++A **world** is a class of contexts: every field of characteristic 0, ordered fields, ℝ with a selected root, finite graphs up to isomorphism, "assuming census receipt R". **Carrying** means moving a result between worlds, or between objects within a world, along a relation whose soundness is known.
++
++This is a portage in the literal sense. You carry what can be carried overland between waters, and you say plainly what has to be left behind or rebuilt on the other side. There is no clever compression: GP is honest about what transfers and automates the boring, error-prone parts.
++
++### 2.2 Elm as the model
++
++| Elm | GP |
++|---|---|
++| Runtime exception | A false claim believed, or a claim used outside its scope |
++| "No runtime exceptions" | The kernel soundness theorem: held ⇒ true throughout its scope, given admitted checkers (Appendix D) |
++| Chosen domain (browser apps) | Chosen regimes (§3) |
++| `Maybe` instead of null | `Absent` warrants: timeouts and failed searches cannot pose as answers |
++| Exhaustive `case` | A cover must be checked exhaustive before its parent claim is held |
++| Friendly compiler errors | Refusals that say what would make the claim hold |
++| Ports (the escape hatch) | `Asserted`: visible, never trusted, and never shameful |
++
++### 2.3 Two duals
++
++- **No silent overclaims.** Nothing becomes held without a warrant whose reach covers its scope.
++- **No missed implications.** GP surfaces what you have *already earned but not claimed*. Examples:
++  - "This certificate used only ring axioms, so it holds over every field, not just the ℚ you asked about."
++  - "This held NONE at n = 22 also settles these subcases."
++  - Eventually, across campaigns: "a tailing from campaign X discharges this obligation in Y."
++
++  The kernel's fixpoint computes these consequences under admitted rules. Surfaces present them without flooding the user; §6.5 covers this.
++
++### 2.4 One-line job and north star
++
++- **One-line job.** Say what you are entitled to believe right now, and what it would take to be entitled to more.
++- **North star.** "Elm for vibe maths": stating and running a recreational or open-problem campaign with LLM agents should be low-error to the point of being fun. Constrained, but not cramped.
++- **Fixed ropes.** An admitted move plus its checker is a fixed rope, something an amateur or an agent can clip into and trust. The move library is the rope network. Every campaign that leaves behind an admitted move extends it.
++- **Distant stretch.** Pooled campaigns work like an autobattler: players compose moves against a shared referee (the kernel), the ledger is the replay, and tailings are published with explicit scope. Keep this possible; do not build for it now.
++
++**GP is not** a proof assistant (Lean is), a CAS, a search engine, a publication pipeline, or a confidence calculus.
++
++---
++
++## 3. Regimes: where GP can be strong (DECIDED as framing; the characterization text is WORKING)
++
++### 3.1 The rationals are the workbench, not the subject
++
++Exact computation happens in ℚ, in finite extensions of it (such as ℚ(√17)), and in finite fields F_p. Almost no campaign's *question* is about ℚ:
++
++- configuration and matchstick realizability ask about ℝ;
++- varieties ask about ℂ;
++- census questions ask about finite objects.
++
++**GP's job is the gap between where you can compute and where the question lives.** Describe GP to users in those terms, never as "a rational-arithmetic tool".
++
++### 3.2 Positive and negative claims are asymmetric
++
++Positive claims ("here is a solution") are checkable in every regime by substitution. Negative claims ("no solution") need certificates, and *complete* certificate systems exist only in some regimes. "Complete" means a certificate always exists when the claim is true.
++
++| Regime | Negatives settled by | Complete? |
++|---|---|---|
++| Finite (census, SAT, bounded search) | Exhaustive enumeration with a completeness receipt; LRAT UNSAT proofs | Yes in principle; cost is the limit |
++| Algebraically closed fields (ℂ-like) | Nullstellensatz certificates (unit-ideal cofactors) | Yes |
++| Real closed fields (ℝ-like), polynomial problems | Positivstellensatz / SOS certificates | Yes |
++| Rational and integer points (arithmetic) | Only special certificate types (local obstructions, descent, …) | **No.** Undecidable over ℤ; open over ℚ |
++
++So GP is *nearly complete* in the first three regimes and *sound but partial* in arithmetic. In arithmetic, many true negatives will never be held. That is correct behaviour, and GP must say so.
++
++### 3.3 Honest characterization (use it in the SPEC-CORE preamble, the tutorial and the README)
++
++> **GP holds what can be re-checked, and tracks exactly how far each check reaches.**
++>
++> - **Strong:** finite combinatorics (census, SAT, isomorphism); geometry over algebraically closed fields; real algebraic geometry.
++> - **Sound but partial:** arithmetic (rational and integer points). Existence is checkable; nonexistence rarely is.
++> - **Outside for now:** floating-point results (until validated-numerics checkers exist, M6); analysis and limits; infinite combinatorics.
++
++### 3.4 The ladder is not the scope order
++
++ℤ ⊂ ℚ ⊂ ℝ ⊂ ℂ orders number systems by *which numbers exist*. Scopes are ordered by *which rules a proof relied on*: every field, ordered fields, algebraically closed fields, characteristic 0, fields where 2 ≠ 0.
++
++These orders do not align. ℚ and ℝ are both ordered, so an SOS certificate reaches both, while ℂ lies outside that scope despite sitting "above" them on the ladder. Characteristic is a separate axis: ordinary versus wraparound arithmetic.
++
++**Documentation rule:** never present the ladder as the scope picture. The correct one-liner is: *a warrant reaches every world where the rules it used are true.*
++
++---
++
++## 4. The checkability line (DECIDED)
++
++**GP's boundary is drawn by checkability, not by topic.**
++
++- Search anywhere, with any tool: CAS, SAT, numerics, LLM guesses.
++- Hold only what an admitted checker can replay.
++- Everything else stays visible as `Asserted`. It is part of the frontier, never the foundation.
++
++**Ambition grows by admitting checkers, not by widening what the kernel trusts.** The growth order below ranks by real work unlocked per unit of checker complexity:
++
++1. census (Phase 4);
++2. real algebraic numbers (§8.8);
++3. validated numerics (M6, after G5);
++4. selected arithmetic certificate types, much later and only if a campaign needs them.
++
++---
++
++## 5. Decisions
+@@ -86,19 +210,23 @@
+-| D1 | The core concept is **claim / scope / warrant**, mechanized. We accept narrower applicability in exchange for being knowable and workable. | DECIDED |
+-| D2 | **Full rework**, under the Grand Portage name, developed in a fresh private working repo through G4. GP v0.37 is frozen as oracle, fixture source and counterexample library. Knowledge is ported, not code. How GP 0.50 lands publicly (replacing the public repo's main line after a frozen tag, or a new repo) is Will's call at G5. | DECIDED |
+-| D3 | The **kernel is written in Lean 4**: executable, Mathlib-free, with soundness proved about the actual code. Pivot condition in §6 Phase 0c. | DECIDED (with pivot) |
+-| D4 | Layering: **kernel → profiles → moves and checkers → adapters → surfaces**. Boundary test and promotion rule in §4.4. | DECIDED |
+-| D5 | Shape: a **Datalog-shaped kernel** (facts and rules folded to a fixpoint over an append-only log). An **Elm-shaped runtime** handles the agent loop and views. A small declarative **campaign statement** is the user-facing surface. | DECIDED |
+-| D6 | **LCF discipline**: only admitted checkers and admitted rules mint warrants. Declarations, prose, citations and assertions are visible but never *held*. | DECIDED |
+-| D7 | A **must-refuse / must-accept corpus is built first**. Nothing in the new kernel is written before that corpus exists. | DECIDED |
+-| D8 | **Kernel budget**, split: core logic (types, fold, `held`, K1–K6, why-not query) ≤ ~500 lines; log serialization and decoding (also trusted) ≤ ~400 lines; the soundness statement plus the definitions it depends on ≤ ~80 lines; proofs uncapped. **Tripwire:** crossing 1.5× any line means stop and report; there is no quiet growth. Each admitted checker ≤ ~300 lines, or a written justification. (Calibration: HOL Light's LCF kernel is roughly 500 lines of OCaml.) | DECIDED (numbers adjustable by Will) |
+-| D9 | **Promotion rule**: a concept enters the kernel only after two profiles independently need it. | DECIDED |
+-| D10 | Profile order: a **minimal algebraic profile first** (it has the oracle), then a **census profile immediately after** (the portability test). | DECIDED |
+-| D11 | **Log discipline**: strictly append-only. Retraction and supersession are new facts. Merge is concatenation followed by a re-fold. | DECIDED |
+-| D12 | **Formula languages**: no general-purpose language invented. Each profile has a small, specified statement AST with a Lean elaboration target, and Lean is the gold standard for goal meaning. | WORKING |
+-| D13 | **Scope is context; region is statement** (see §5.1). | WORKING — the most likely pivot point |
+-
+----
+-
+-## 4. Core concepts
+-
+-### 4.1 Claim / scope / warrant
++| D1 | The core concept is **claim / scope / warrant**, mechanized to deliver the §2 guarantee. We accept narrower applicability in exchange for being knowable and workable. | DECIDED |
++| D2 | **Full rework** under the Grand Portage name, developed in a fresh private working repo through G4. GP v0.37 is frozen as oracle, fixture source and counterexample library. Knowledge is ported, not code. How GP 0.50 lands publicly is Will's call at G5. | DECIDED |
++| D3 | The **kernel is written in Lean 4**: executable, Mathlib-free, with soundness proved about the actual code. The pivot condition is in Phase 0c. | DECIDED (with pivot) |
++| D4 | Layering: **kernel → profiles → moves and checkers → adapters → surfaces**. The boundary test and promotion rule are in §6.4. | DECIDED |
++| D5 | Shape: a **Datalog-shaped kernel** (facts and rules folded to a fixpoint over an append-only log), an **Elm-shaped runtime**, and a small declarative **campaign statement** as the user-facing surface. | DECIDED |
++| D6 | **LCF discipline:** only admitted checkers and admitted rules mint warrants. Declarations, prose, citations and assertions are visible but never held. | DECIDED |
++| D7 | The **must-refuse / must-accept corpus comes first**; no kernel code is written before it. | DECIDED |
++| D8 | **Kernel budget**, split three ways: core logic (types, fold, `held`, K1–K6, why-not query) ≤ ~500 lines; log serialization and decoding (also trusted) ≤ ~400; soundness statement plus its definitions ≤ ~80; proofs uncapped. **Tripwire:** crossing 1.5× any line means stop and report; the kernel never grows quietly. Each admitted checker ≤ ~300 lines or a written justification. (For calibration, HOL Light's LCF kernel is about 500 lines of OCaml.) | DECIDED (numbers adjustable by Will) |
++| D9 | **Promotion rule:** a concept enters the kernel only after two profiles need it independently. | DECIDED |
++| D10 | Profile order: a **minimal algebraic profile first** (the oracle covers it), then a **census profile immediately after** (the portability test). | DECIDED |
++| D11 | **Log discipline:** strictly append-only; retraction and supersession are new facts; merge is concatenation plus re-fold. | DECIDED |
++| D12 | **Statement languages:** no general-purpose formula language is invented. Each profile has a small, specified statement AST with a Lean elaboration target, **aligned with Mathlib definitions wherever one exists**. Lean is the gold standard for goal meaning. | WORKING |
++| D13 | **Scope is context; region is statement** (§8.1). | WORKING (the most likely pivot point) |
++| D14 | **Checkability line** (§4): hold only what an admitted checker replays; ambition grows by admitting checkers. | DECIDED |
++| D15 | **Adopt before build.** For any component in the §7 map marked *adopt*, building our own requires a written reason in `PRIOR-ART.md` or a phase report. Adoption is never automatic either: each adoption must fit the core and the not-list. | DECIDED |
++| D16 | **Mathlib coupling stays one layer up.** The kernel never imports Mathlib. Any Mathlib-backed scope vocabulary, statement elaboration or Lean-proved warrant lives in a binding layer with pinned versions. | DECIDED |
++| D17 | **Earned-but-unclaimed implications** are computed by the kernel fixpoint and presented by surfaces. The kernel adds no rule for them; they are consequences of K2 and K3. | WORKING |
++| D18 | **Interoperability by default.** At every boundary (goal statements in, warrants in, results out), GP reads and writes existing community formats and uses existing tools, rather than inventing its own. Interop is implemented in adapters, surfaces and the binding layer, never in the kernel. Each interop target must serve a §2 guarantee piece (D15). GP aims to be a good *component* of others' efforts, not a rival platform. | DECIDED |
++
++---
++## 6. Core concepts
++
++### 6.1 Claim / scope / warrant
+@@ -109 +237 @@
+-- **scope**: the class of *contexts* across which it is claimed. Examples: every field of characteristic 0; ordered fields; ℝ with a selected embedding; "assuming census completeness receipt R"; "assuming GRH".
++- **scope**: the class of *contexts* (the world) across which it is claimed. Examples: every field of characteristic 0; ordered fields; ℝ with a selected root; "assuming census receipt R"; "assuming GRH".
+@@ -115,23 +243,24 @@
+-  - `Absent(reason)`, which covers timeouts and unfinished runs.
+-
+-The meaning of a claim is: **for every context c in ⟦scope⟧, the statement holds in c.**
+-
+-The vocabulary comes from Toulmin (1958), where claim and warrant are his terms and his "qualifier" is our scope. The mechanization comes from LCF-style kernels, proof-carrying code, provenance semirings and build systems. See Appendix G.
+-
+-### 4.2 Held
+-
+-A claim is **held** when its warrant is `Checked` or `Derived`, every input hash is current, and the warrant's reach covers the claim's scope.
+-
+-A claim that is not held is either:
+-
+-- an **obligation** (the warrant is missing or insufficient), or
+-- **history** (the warrant was stale or superseded).
+-
+-Only held claims can be premises of held claims.
+-
+-### 4.3 Kernel rules (WORKING, the complete list)
+-
+-- **K1 — Receipt.** An admitted checker validates a receipt for `(φ, S)`, the receipt's reach ⊒ S, and its inputs are fresh ⇒ `(φ, S)` is held.
+-- **K2 — Weakening.** `(φ, S)` is held and S′ ⊑ S (S′ is narrower) ⇒ `(φ, S′)` is held. This is always sound, because scope is a class of contexts quantified universally. See §5.1 for why this matters.
+-- **K3 — Admitted derivation.** An admitted rule r, with all premises held at S and r's side-checker validating ⇒ the conclusion is held at S. Case splits and covers ("the branches exhaust the region; each branch is empty ⇒ the region is empty"), statement transports (inclusion, image, equivalence) and conjunction are all instances of K3, with the relevant certificate supplied by a profile checker. There is **no separate cover rule** in the kernel.
+-- **K4 — Freshness.** A warrant binds its input hashes: statement, scope, model data, and checker id and version. Any mismatch means the claim is not held, while its history is retained.
++  - `Absent(reason)` (timeouts, unfinished runs)
++
++**Meaning:** for every context c in ⟦scope⟧, the statement holds in c.
++
++`Checked` covers both admitted external checkers and, if G1 decides so, Lean-proved theorems. A Lean theorem is simply a checker whose reach is read from the theorem's hypotheses (§7.3, decision 1).
++
++Vocabulary lineage: Toulmin (claim, warrant; his "qualifier" is our scope). Mechanization lineage: LCF kernels, proof-carrying code, provenance semirings, build systems (Appendix G).
++
++### 6.2 Held
++
++A claim is **held** when three conditions are met:
++
++- its warrant is `Checked` or `Derived`;
++- every input hash is current;
++- the warrant's reach covers the claim's scope.
++
++A claim that is not held is either an **obligation** (warrant missing or insufficient) or **history** (stale or superseded). Only held claims can serve as premises of held claims.
++
++### 6.3 Kernel rules (WORKING; the complete list)
++
++- **K1 — Receipt.** An admitted checker validates a receipt for `(φ, S)`, the receipt's reach ⊒ S, and the inputs are fresh ⇒ `(φ, S)` is held.
++- **K2 — Weakening.** `(φ, S)` held and S′ ⊑ S ⇒ `(φ, S′)` held. This is sound for every statement because scope quantifies universally over contexts (§8.1).
++- **K3 — Admitted derivation.** Admitted rule r, premises held at S, and r's side-checker validates ⇒ the conclusion is held at S. Covers, case splits, statement transports (inclusion, image, equivalence) and conjunction are all K3 instances; the certificates for them are supplied by profile checkers. There is no separate cover rule.
++- **K4 — Freshness.** A warrant binds input hashes: statement, scope, model data, and checker id and version. Any mismatch means not held, with history retained.
+@@ -139,6 +268,6 @@
+-- **K6 — Log.** The log is append-only and the fold is deterministic and total. Retraction is a fact.
+-- **Finding (not a rule).** If `(φ, S)` and a profile-declared contradiction of φ are both held at overlapping scopes, the kernel reports an **inconsistency** and halts promotion. The usual cause is an unsound checker or wrong inputs.
+-
+-Everything else lives outside the kernel: frontiers, obligations lists, explanations and tailings are derived surfaces.
+-
+-### 4.4 Layers and the boundary test
++- **K6 — Log.** The log is append-only; the fold is deterministic and total; retraction is a fact.
++- **Inconsistency (a finding, not a rule).** If `(φ, S)` and a profile-declared contradiction of φ are both held at overlapping scopes, the kernel reports an inconsistency and halts promotion. The usual causes are an unsound checker or wrong inputs.
++
++Everything else is derived surface: frontiers, obligations, explanations, tailings and earned-but-unclaimed lists.
++
++### 6.4 Layers and the boundary test
+@@ -148,117 +277,200 @@
+-| **Kernel** (Lean) | claim/scope/warrant types, `held`, K1–K6, the fold, the soundness theorem | the only global TCB | almost never |
+-| **Profiles** | statement AST, context and scope types with a decidable ⊑, claim kinds, contradiction relation, statement-level rules | soundness-critical per profile | occasionally |
+-| **Moves and checkers** | operations and the checkers that admit their output, each declaring its reach | each checker is its own small TCB, admitted individually | often; this is where growth goes |
+-| **Adapters** | CAS, SAT, nauty, agents, lanes, dispatch | untrusted: can only *submit receipts* | freely |
+-| **Surfaces** | frontier, `explain`, campaign statement UX, views, tailings export | derived; can never affect `held` | freely |
+-
+-**Boundary test.** Ask two questions: if this piece had a bug, could a false claim become held, and is it domain-independent?
+-
+-- Yes and yes → kernel.
+-- Yes and no → profile or checker.
+-- No → adapter or surface.
+-
+-**Promotion rule (D9).** A concept moves into the kernel only when two profiles independently need it. Log every promotion with its justification.
+-
+-### 4.5 Shape
+-
+-- **Kernel.** Datalog-shaped: facts (claims and receipts) plus rules (K1–K6 and admitted rules), folded to a fixpoint over the log. "What is missing for the goal?" is a why-not provenance query.
+-- **Runtime.** Elm-shaped. `update` is the pure kernel fold. Adapters are the runtime, performing *commands* (run this CAS or SAT job, dispatch this lane) whose results come back as *messages* carrying receipts. Nothing an adapter does touches the ledger except through `update`.
+-- **Campaign statement.** The analogue of Elm's `main`. It names the goal claim, the profile(s), the admitted moves and the done-condition. The kernel derives the frontier, refusals and tailings from it. See the sketch in Appendix E.
+-- **Move admission.** A new move starts untrusted: its outputs are `Asserted`, visible and weightless. Once its checker is admitted, it can mint held claims. This is the escape hatch and the extension path, and it should stay dignified, never shameful.
+-
+-### 4.6 Why the rules are what they are (orientation)
+-
+-Logic and geometry are linked by a dictionary that loses information in a controlled way:
+-
+-- **V** sends equations to their solution set.
+-- **I** sends a set to all equations vanishing on it.
+-
+-Round trips do not return exactly:
+-
+-- Going points → equations → points yields the **closure**. That is Chevalley and IMAGE_CLOSURE: a closure point need not lift.
+-- Going equations → points → equations yields the **radical**. That is the nilpotent problem: V(x²) = V(x), but x ≠ 0 in k[x]/(x²).
+-
+-The same pattern appears for **predicates along a map**, where the ∃-image and ∀-preimage are adjoint, which is where the NONEMPTY/EMPTY variance comes from. It appears again for **axioms ↔ structures**. A certificate's *reach* is the class of structures satisfying the axioms its proof used:
+-
+-- a Nullstellensatz certificate works in every field;
+-- a sum-of-squares (SOS) certificate works in ordered fields;
+-- a rational-point search result is about ℚ only.
+-
+-Those certificate systems are *complete* for algebraically closed and real closed fields respectively. There is no analogue for ℚ; Hilbert's tenth problem over ℚ is open. That is why refusals cluster at the ℚ/ℝ seam.
+-
+-The system is bookkeeping for which round-trip losses you have incurred and which claims survive them.
+-
+----
+-## 5. Working hypotheses and open questions
+-
+-### 5.1 Scope versus statement (WORKING, most likely pivot)
+-
+-**Hypothesis.** The two roles separate cleanly:
+-
+-- **Scope is context.** It is the class of structures or assumptions across which a claim is asserted: coefficient field class, point universe, characteristic, selected embedding, encoding assumptions, and conditional hypotheses such as "given census receipt R".
+-- **Region is statement.** It is *which objects* the claim is about: the ideal and variables, which n, which symmetry sector, which branch of a case split.
+-
+-**Why separate them.** Scope quantified universally over contexts makes weakening (K2) sound for *every* claim polarity. If region were part of scope, variance would depend on polarity: an existential claim widens safely while a universal one narrows safely. Weakening would then need per-kind rules, and GP's ∃/∀ table would leak back into the kernel. Under this split:
+-
+-- the transport cells that change *objects* (inclusion, image, equivalence) become K3 statement-level rules certified by relation checkers;
+-- the cells that change *context* (base extension, specialization) become reach questions under K1 and K2.
+-
+-This matches GP's own table, where BASE_EXTENSION and SPECIALIZATION behave differently from all the others.
+-
+-**Evidence to collect.** For each incident in the sweep, record whether it is a scope error or a region error, and whether the split is ever unnatural. Watch in particular for:
+-
+-- symmetry sectors;
+-- "up to isomorphism";
+-- a SAT encoding treated as a context rather than as a different statement;
+-- conditional claims.
+-
+-**Pivot trigger.** More than about three real incidents that can't be expressed under the split, or a profile that needs region-dependent weakening. If either happens, stop and report with the examples.
+-
+-### 5.2 Meaning (OPEN, named blind spot)
+-
+-Claim/scope/warrant checks *consistency*, not whether a statement means what the campaign needs. JC incidents of this kind include the "window" naming conflation and the imported γ ∈ {2,3} assumption. Working stance:
+-
+-- each profile's statement AST has a Lean elaboration target;
+-- every campaign **goal** statement is meaning-audited once, by independent re-derivation from the primary source (M5);
+-- Lean statements are the gold standard where feasible.
+-
+-The sweep must **count meaning incidents**. If meaning errors dominate costly incidents, report before building further (G0).
+-
+-### 5.3 Claim kinds (OPEN)
+-
+-The working lean is that the kernel knows only statements and a profile-supplied contradiction relation, and profiles own claim kinds:
+-
+-- the algebraic profile has EMPTY, NONEMPTY (witness or existential), PREDICATE and IDENTITY;
+-- the census profile has at least EXISTS, NONE, COUNT = k up to isomorphism, and EXHAUSTIVE.
+-
+-Promote to the kernel only under D9.
+-
+-### 5.4 Relation transport (OPEN)
+-
+-The ∃-image/∀-preimage variance (total, surjective) is domain-independent. The working lean is that it lives in the algebraic profile as K3 rules. Promote it to a kernel library if the census profile reimplements it.
+-
+-### 5.5 Checker admission and versioning (OPEN, propose a policy)
+-
+-A starting policy:
+-
+-- A checker is admitted after one of:
+-  - two independent consumers, or
+-  - one consumer plus a stated soundness argument (a Lean proof where feasible) plus adversarial controls.
+-- A checker version bump stales every warrant it minted. Re-checking is cheap because receipts are retained.
+-- Every admitted checker appears in a **TCB manifest** stating its implementation (Lean-internal, verified external such as cake_lpr, or trusted external such as nauty) and its reach.
+-
+-### 5.6 External checkers (WORKING)
+-
+-The kernel may consume receipts from **external admitted checkers**, invoked out of process. Their TCB status is recorded in the manifest and surfaced in `explain`, so the TCB stays visible rather than hidden.
+-
+-The goal is to port soundness-critical checkers into Lean over time. Search and production are never in the TCB. For example, Gröbner bases are computed externally, and only cofactor identities are replayed.
+-
+-### 5.7 Mathlib (WORKING)
+-
+-- The kernel is Mathlib-free; semantics are abstract per profile.
+-- A profile *may* later tie its semantics to Mathlib in a separate package: for example, mapping reach classes to Mathlib's algebraic hierarchy, or a certificate→Lean emitter.
+-- `MvPolynomial` is noncomputable, so the executable algebra is its own small sparse-polynomial implementation.
+-
+----
+-
+-## 6. Work plan
++| **Kernel** (Lean, Mathlib-free) | claim/scope/warrant types, `held`, K1–K6, fold, soundness theorem | the only global TCB | almost never |
++| **Binding layer** (Lean + pinned Mathlib; D16) | Mathlib-backed scope vocabulary, statement elaboration, Lean-proved warrants, if adopted at G1 | soundness-critical; reviewed as a unit | rarely |
++| **Profiles** | statement AST, context/scope types with a decidable ⊑, claim kinds, contradiction relation, statement-level rules | soundness-critical per profile | occasionally |
++| **Moves and checkers** | operations plus the checkers that admit their output, each declaring its reach | each checker is its own small TCB, admitted individually | often; this is where growth happens |
++| **Adapters** | CAS, SAT, nauty, numerics, agents, lanes, dispatch | untrusted; can only *submit receipts* | freely |
++| **Surfaces** | frontier, `explain`, campaign statement, earned-but-unclaimed, tailings export | derived; can never affect `held` | freely |
++
++**Boundary test.** Ask two questions: if this had a bug, could a false claim become held? And is it domain-independent?
++
++- yes and yes → kernel;
++- yes and no → binding layer, profile, or checker;
++- no → adapter or surface.
++
++**Promotion rule (D9).** A concept moves into the kernel only when two profiles need it independently. Log each promotion in `PROMOTIONS.md`.
++
++### 6.5 Shape
++
++- **Kernel.** Datalog-shaped: facts plus rules folded to a fixpoint over the log. "What is missing for the goal?" is a why-not provenance query. "What have I earned that I didn't claim?" is the same fixpoint read the other way.
++- **Runtime.** Elm-shaped. `update` is the pure kernel fold. Adapters perform *commands* (run this CAS or SAT job, dispatch this lane) whose results return as *messages* carrying receipts. Nothing reaches the ledger except through `update`.
++- **Campaign statement.** The analogue of Elm's `main`: goal claim, profiles, admitted moves, done-condition. The frontier, refusals, tailings and earned-but-unclaimed lists are derived from it (Appendix E).
++- **Earned-but-unclaimed (D17).** Surfaces list consequences that are held but were never claimed, subject to two rules:
++  - rank them by relevance to open obligations and the goal;
++  - cap them by default.
++
++  The failure mode to avoid is flooding. A consequence nobody asked about is noise unless it discharges something.
++- **Move admission.** A new move starts untrusted: its outputs are `Asserted`. Once its checker is admitted, it can mint held claims. This is both the escape hatch and the extension path, and it should be dignified.
++- **Obligation tagging** (surface). Each open obligation is marked either **closable in principle** (a complete certificate system exists in its regime, §3.2, so more compute could settle it) or **no complete method** (arithmetic-type negatives). This tells the user whether to spend compute or change approach.
++
++### 6.6 Why the rules are what they are (orientation)
++
++Logic and geometry are linked by a dictionary that loses information in a controlled way. V sends equations to their solution set. I sends a set to all equations vanishing on it. Round trips drift in two ways:
++
++- **points → equations → points** gives the **closure**. Polynomials cannot see holes, and a closure point need not lift (Chevalley; the IMAGE_CLOSURE refusal).
++- **equations → points → equations** gives the **radical**. Points cannot see multiplicity: V(x²) = V(x), yet x ≠ 0 in k[x]/(x²).
++
++The same shape appears for predicates along a map (∃-image and ∀-preimage are adjoint, which is where the NONEMPTY/EMPTY variance comes from) and for axioms ↔ structures. A certificate's reach is the class of structures satisfying the axioms its proof used. Nullstellensatz certificates are complete over algebraically closed fields and Positivstellensatz certificates over real closed fields; no such system exists for ℚ. The system is bookkeeping for which round-trip losses you have incurred and which claims survive them.
++
++---
++
++## 7. Adopt, imitate, don't bolt on
++
++### 7.1 Where GP sits (WORKING; 0e confirms or corrects)
++
++No existing project combines the §2 guarantee, multiple worlds, campaign-scale pre-formal state and automated carrying. Each neighbour holds a piece, and several of them were built by working mathematicians:
++
++- **LMFDB** (professional number theorists). Every section has *source*, *reliability* and *completeness* pages covering how the data was computed, which conjectures or heuristics it assumed, and which finite subset of an infinite family it covers. It distinguishes provably determined "Rational points" from merely "Known rational points". A June 2026 talk, *Bridging Lean and the LMFDB* (Roe), sets the goal of giving users reasons to trust data. It notes that there is currently no uniform standard across sections, hopes for per-page Lean downloads proving a subset of the claims, and names **completeness claims as a challenge**. This is claim/scope/warrant, wanted by mathematicians and currently done by hand. It is the most credible fellow-traveller community.
++- **Magma** has explicit rigor tiers for class-group computations: formalizable, rigorous, GRH-conditional and heuristic. Proven results are the default, and conditional ones are opt-in. **PARI** is the counter-example: by default it uses a class-group bound *below* even the GRH-proven one, which its developers call "Bach constant cheating". Scope honesty exists in computer algebra systems, but it is per function and easy to miss (corpus seed A27).
++- **Lean/Mathlib** has an Elm-grade guarantee, but only in one world at a time and only after full formalization. Its typeclass hypotheses already encode reach.
++- **MathEvidence** (2026) checks external solver results one claim at a time: narrow capability contracts, candidate binding, fail-closed behaviour, and "no witness found" never proves universality. It has no worlds and no campaign state. It is the closest neighbour for the warrant layer.
++- **MathKernel** (2026) is a multi-engine runtime with provenance. It assigns trust *levels*, capped by the weakest evidence used. It is a cautionary example: a very broad surface with minimal adoption. Imitate its evidence bundles, never its trust ladder or its scope sprawl.
++- **Logipedia/Dedukti** labels each proof with the theories, and hence the proof systems, in which it can be used, by tracking which axioms it relies on. That is reach, but over proof systems rather than number systems, and it is not operational.
++- **Trocq** (Coq) builds a hierarchy of algebraic structures on relations, so a transport step records how much structure it needs. It works with relations that are not isomorphisms and unifies several earlier proof-transfer tools. **Isabelle Transfer** and Lean's **`norm_cast`** are more everyday versions. Together they are the model for GP's relation rules.
++- **Formal Conjectures** (Google DeepMind) is a Lean library of open-problem statements: about 2,600 problems, over 1,000 of them open. It explicitly flags misformalization risk and invites fixes. Its `@[formal_proof]` attribute records where a solution lives: in the repo, elsewhere in Lean, or in another proof system.
++- **Lean blueprint / LeanArchitect** (ITP 2026) builds campaign graphs by extracting blueprint data directly from Lean, and has surfaced latent inconsistencies in existing blueprints. It covers only claims headed for full formalization. **LeanMarathon** (2026) builds on LeanArchitect's metadata format and adds a reviewer that compares the canonical statement, the prose statement and the Lean type.
++
++**GP's claimed territory** is two claims, both to be tested:
++
++1. warrants carry *where* (a scope), not *how much* (a level);
++2. campaign-level, mostly pre-formal state, with automated, honest carrying between worlds, *including completeness and cover claims*.
++
++LMFDB's own naming of completeness as the hard part suggests claim 2 is both open and wanted.
++
++If 0e finds either claim already covered, contribute to that project rather than rebuild (D15, D18). Either way, identify which communities would want GP's output as a component.
++
++### 7.2 Map
++
++| Core piece | Adopt (expert-built) | Imitate (pattern, not code) |
++|---|---|---|
++| Trust discipline | Lean's kernel | LCF: only checkers mint warrants |
++| Scope vocabulary | Mathlib's typeclass hierarchy (fields, `CharZero`, `CharP K p`, `IsAlgClosed`, ordered-field classes). *Pending G1 decision 3.* | — |
++| Algebra warrants | Mathlib tactics as checkers: `linear_combination` for ideal-membership certificates; the `polyrith` pattern (external search, Lean check). Possibly MathEvidence's checkers. *Pending G1 decision 2.* | MathEvidence's candidate binding and fail-closed policy |
++| Carrying across worlds | Mathlib transfer theorems (e.g. Lefschetz-style char 0 ↔ large-p results in its model theory); `norm_cast` for ℕ→ℤ→ℚ→ℝ | Trocq / Isabelle Transfer: relations annotated with which direction is sound |
++| Census warrants | Lean's verified LRAT checker (the one behind `bv_decide`) or cake_lpr; nauty for generation | The empty-hexagon verification: prove the encoding correct, check the UNSAT proof |
++| Exact reals | The Isabelle AFP algebraic-numbers development as a reference implementation | Polynomial plus isolating-interval receipts (§8.8) |
++| Freshness | Possibly Lake's own build hashing | "Build Systems à la Carte" traces |
++| Campaign surface | Lean blueprint / LeanArchitect conventions where compatible | The ETP's pooled implication graph |
++| Goal statements | Formal Conjectures statements, when one exists for the campaign's problem | Its misformalization-fix process |
++| Meaning audit (M5) | — | LeanMarathon's reviewer comparing canonical statement, prose statement and Lean type |
++| Relation rules (K3) | Mathlib's transfer lemmas and `norm_cast` | Trocq's hierarchy of relation structure |
++| Result export / tailings | LMFDB-style source / reliability / completeness pages as the target shape | Magma's rigor tiers as the vocabulary for conditional results (mapped to scopes, never used as a trust ladder) |
++| Earned-but-unclaimed | — | ETP-style implication closure; Datalog fixpoints |
++| Validated numerics (M6, later) | alphaCertified; verified interval libraries | — |
++
++### 7.3 Three adoption decisions for G1 (OPEN; 0e produces the evidence)
++
++1. **Warrant form.** Is a warrant (a) a Lean theorem whose typeclass hypotheses *are* its scope, (b) an admitted-checker receipt with checker-declared reach, or (c) both, with one scope language?
++   - The working lean is (c). Receipts can be upgraded to Lean theorems over time; the certificate→Lean emitter belongs here.
++   - Evidence needed: the Lean elaboration cost on corpus cases, and the share of incidents whose warrants are naturally Lean-provable versus receipt-only.
++2. **Checker layer.** For exact algebra and linear algebra, do we *adopt* MathEvidence's capability checkers, *imitate* its contract and binding discipline, or *build*?
++   - Evidence needed: licence (it is Apache-2.0); fit with our reach and scope model; Lean version compatibility (it pins an older toolchain); maturity; whether its fail-closed scope matches our corpus; and willingness to coordinate with its author.
++3. **Scope vocabulary.** Do we use Mathlib's hierarchy as the canonical names for scopes and reach, retiring GP's hand-built requirement profiles (U/O/Z, CHAR_0, ORDERED)?
++   - The working lean is yes, via the binding layer (D16).
++   - Evidence needed: M2's mapping table, and whether every corpus scope has a clean Mathlib counterpart.
++
++### 7.4 Don't bolt on
++
++- **Trust ladders** (e.g. MathKernel's formal > exact > interval > numeric > heuristic). They answer "how much should I believe this?" GP's question is "where does this hold?" A trust ladder may inform `explain` wording, but it never feeds `held`.
++- **Institution machinery** (Hets) as anything user-facing. It is fine for M1; it is hopeless as UX.
++- **CAS results inside the TCB.** Search stays external; only replay is trusted.
++- **General computer algebra reimplemented in Lean.** Replay checkers only.
++- **Anything adopted only because it is impressive.** Every adoption answers "which part of the §2 guarantee does this serve?"
++
++**Risk flag: Mathlib coupling.** Mathlib changes constantly. Pin versions in the binding layer, keep the kernel Mathlib-free (D16), and treat a Mathlib upgrade as a checker version bump. That stales warrants per K4, and re-checking should be cheap.
++
++### 7.5 Interop surfaces (WORKING; D18)
++
++The formats GP should **consume**:
++
++- Lean/Mathlib statements and theorems (via the binding layer);
++- Formal Conjectures goal statements and `@[formal_proof]` pointers;
++- LRAT / DRAT proofs;
++- MathEvidence evidence bundles, if G1 decision 2 adopts or imitates it;
++- nauty / graph6 canonical forms for census objects.
++
++The formats GP should **produce**:
++
++- Lean statements, plus proofs where a warrant is Lean-proved;
++- LRAT for census negatives;
++- tailings as LMFDB-style records with *source* (moves and checkers used), *reliability* (the scope, including conditional hypotheses such as GRH, and the TCB), and *completeness* (the cover and its receipt);
++- blueprint-compatible dependency data where it is cheap (LeanArchitect conventions).
++
++**Rule.** Interop code lives in adapters, surfaces or the binding layer. The kernel never learns a foreign format.
++
++**Rule.** A GP-specific format at a boundary where a community format exists needs a written reason in `PRIOR-ART.md`.
++
++---
++
++## 8. Working hypotheses and open questions
++
++### 8.1 Scope versus statement (WORKING; most likely pivot)
++
++- **Scope is context:** the class of structures or assumptions across which a claim is asserted. This covers coefficient field class, point universe, characteristic, selected embedding, encoding assumptions, and conditional hypotheses.
++- **Region is statement:** which objects the claim is about. This covers the ideal and variables, which n, which symmetry sector, and which branch of a case split.
++
++**Why.** Scope quantified universally makes K2 sound for every claim polarity. If region lived in scope, weakening would need per-kind variance rules, and GP's ∃/∀ table would leak into the kernel. Under the split:
++
++- object-changing transports (inclusion, image, equivalence) are K3 rules certified by relation checkers;
++- context-changing ones (base extension, specialization) are reach questions under K1 and K2.
++
++This matches GP v0.37's own table, where BASE_EXTENSION and SPECIALIZATION behave differently from every other row.
++
++If G1 decision 3 goes to Mathlib, a scope is concretely a typeclass context (for example, "K is a field of characteristic 0"), and the split becomes "hypotheses vs. conclusion", which is a natural fit.
++
++**Evidence to collect.** For each incident, record whether it is a scope error or a region error, and note unnatural cases. Watch especially for symmetry sectors, "up to isomorphism", SAT encodings, and conditional claims.
++
++**Pivot trigger.** More than about three real incidents that cannot be expressed under the split, or a profile that needs region-dependent weakening. Stop and report with examples.
++
++### 8.2 Meaning (OPEN; named blind spot)
++
++Claim/scope/warrant checks consistency, not whether a statement means what the campaign needs. JC examples: the "window" naming conflation, and the imported γ ∈ {2,3} assumption. A 2026 audit of Lean-formalized AI results makes the general point: a kernel check establishes the encoded proposition, and humans must still establish its intended meaning.
++
++Stance:
++
++- statement ASTs have Lean elaboration targets (D12);
++- every campaign goal is meaning-audited once (M5): use a Formal Conjectures statement when one exists, and imitate LeanMarathon's reviewer;
++- the sweep **counts meaning incidents** (G0).
++
++### 8.3 Claim kinds (OPEN)
++
++The working lean is that the kernel knows statements and a profile-supplied contradiction relation, and profiles own the claim kinds:
++
++- algebraic: EMPTY, NONEMPTY (witness or existential), PREDICATE, IDENTITY;
++- census: EXISTS, NONE, COUNT = k up to isomorphism, EXHAUSTIVE.
++
++Promote only under D9.
++
++### 8.4 Relation transport (OPEN)
++
++The ∃/∀ variance under a relation (total, surjective) is domain-independent. The working lean is to keep it as algebraic-profile K3 rules, imitating Trocq/Transfer's direction-annotated relations. Promote it if census reimplements it.
++
++### 8.5 Checker admission and versioning (OPEN; propose a policy)
++
++Starting policy:
++
++- **Admission** requires either two independent consumers, or one consumer plus a stated soundness argument (a Lean proof where feasible) plus adversarial controls.
++- **Version bumps** (including a Mathlib bump for binding-layer checkers) stale every warrant the checker minted.
++- **`TCB.md`** records each checker's implementation (Lean-internal, verified external such as cake_lpr, or trusted external such as nauty) and its reach.
++
++### 8.6 External checkers (WORKING)
++
++Receipts from admitted external checkers run out of process. Their TCB status is visible in the manifest and in `explain`. Over time, soundness-critical checkers are ported into Lean or replaced by adopted Lean tactics. Search and production are never in the TCB: Gröbner bases are computed externally, and only cofactor identities are replayed.
++
++### 8.7 The profile term (OPEN; Will decides)
++
++"Profile" is defensible (in standards language it means a framework specialized to a domain) but says nothing about what's inside. The leading alternative is "domain"; GP's old `coefficient_domain` field would need renaming. Use "profile" until Will decides.
++
++### 8.8 Exact reals are real algebraic numbers (WORKING; affects Phase 3 and the u(22) slice)
++
++Arbitrary reals cannot be stored exactly. What can be stored is a pair: **(a polynomial with rational coefficients, an isolating interval with rational endpoints)**. For example, √2 is "the root of x² − 2 in (1, 2)". This covers everything polynomial problems produce. It excludes π, e, analysis, and floats.
++
++The checker replays three facts:
++
++1. the polynomial has a root in the interval;
++2. the interval isolates exactly one root;
++3. the claimed equations hold at the point, checked by exact arithmetic in the number field.
++
++The selected root is part of the **statement**, not the scope (§8.1). This is Cloquet's proposed selected-real point receipt. Use the Isabelle AFP algebraic-numbers development as the reference for algorithms and pitfalls.
++
++---
++## 9. Work plan
+@@ -269 +481 @@
+-- each gate item marked PASS or FAIL with evidence;
++- each gate item marked PASS or FAIL, with evidence;
+@@ -274,14 +486,15 @@
+-### Phase 0 — Groundwork
+-
+-Four parallel lanes. Nothing in the new kernel is written until 0a and 0b are done.
+-
+-**0a. Must-refuse / must-accept corpus from GP v0.37**
+-
+-1. Extract every counterexample, trap, confession and regression from GP's tests, docs (SPEC, DESIGN, REVIEW, the review/ release notes, the lean/ theory ledger) and fixtures.
+-2. Encode each as a *minimal* case: the situation, the conclusion attempted, the expected verdict (REFUSE or ACCEPT), the reason, and a source pointer (file and line, or test name).
+-3. Write the cases in a neutral JSON schema, not GP's graph format, so they outlive both systems.
+-4. Start from the seeds in Appendix A. The target is completeness over GP's history, not a fixed count.
+-5. Include **must-accept** positive controls, so the new system can't pass by refusing everything.
+-6. Run each case against the GP v0.37 oracle and record its verdict. Disagreements between GP and the expected verdict are findings; two are already known (Appendix A, items A3 and A8).
+-
+-**0b. Campaign near-miss sweep and corpus harvest**
++### Phase 0 — Groundwork (in progress)
++
++Five lanes. Lanes 0a–0d are unchanged from revision 1; 0e is new. No kernel code is written until 0a and 0b are done.
++
++**0a. Must-refuse / must-accept corpus from GP v0.37** (unchanged)
++
++1. Extract every counterexample, trap, confession and regression from GP's tests, its docs (SPEC, DESIGN, REVIEW, the review/ release notes, the lean/ theory ledger) and its fixtures.
++2. Encode each as a *minimal* case with five fields: situation, attempted conclusion, expected verdict (REFUSE/ACCEPT), reason, and source pointer (file:line or test name).
++3. Use a neutral JSON schema, not GP's graph format, so the corpus outlives both systems.
++4. Start from the Appendix A seeds. Aim for completeness over GP's history.
++5. Include **must-accept** positive controls, so that refusing everything cannot pass.
++6. Run each case against the v0.37 oracle and record its verdict. Two disagreements are already known: A3 and A8.
++7. *(New in rev 2, optional.)* Where a case has a natural "earned-but-unclaimed" consequence (for example, a certificate whose reach is wider than the claim), note it in an `also_earned` field. These seed tests for D17.
++
++**0b. Campaign near-miss sweep and corpus harvest** (unchanged)
+@@ -290,9 +503,9 @@
+-2. Cover every repo listed in `SWEEP-SOURCES.md` (Appendix H), in its priority order. JC comes first, because the three shipped errors are there. GP's own private workspace comes second: treat the tool itself as a campaign that had incidents.
+-3. **Do not start this lane until Will has filled in `SWEEP-SOURCES.md`.** Clones are read-only. Private material stays local. `corpus/harvest/` is gitignored and classified private for any future public snapshot.
+-4. Produce `corpus/incidents/*.json` using the Appendix B schema, plus `INCIDENT-INVENTORY.md` with counts by class and campaign.
+-5. Harvest verbatim exports and receipts where they exist into `corpus/harvest/<campaign>/`, with a manifest and SHA-256 hashes.
+-6. **Never backfill or "repair" harvested data.** Recovery or migration products are labelled separately.
+-
+-**0c. Lean feasibility spike (time-boxed to one token cycle, roughly 2 agent-days)**
+-
+-1. Pin a Lean 4 toolchain and set up a Lake project.
++2. Cover every repo in `SWEEP-SOURCES.md` (Appendix H), in priority order. JC is first (the three shipped errors); GP's own private workspace is second (the tool as a campaign that had incidents).
++3. **Do not start until Will has filled in `SWEEP-SOURCES.md`.** Clones are read-only. Private material stays local. `corpus/harvest/` is gitignored and classified private for any public snapshot.
++4. Produce `corpus/incidents/*.json` (Appendix B schema) and `INCIDENT-INVENTORY.md` with counts by class, origin and campaign.
++5. Harvest verbatim exports and receipts into `corpus/harvest/<campaign>/`, with a manifest and SHA-256 hashes.
++6. **Never backfill or "repair" harvested data.** Recovery products are labelled separately.
++
++**0c. Lean feasibility spike** (time-boxed to one token cycle, roughly 2 agent-days)
++
++1. Pin a Lean 4 toolchain and create a Lake project.
+@@ -300,3 +513,3 @@
+-3. Invoke one external checker via `IO.Process` and record it in a TCB manifest.
+-4. Build one tiny computable sparse polynomial over ℚ with a cofactor-replay check.
+-5. Report build times, ergonomics, and anything painful.
++3. Invoke one external checker via `IO.Process` and record it in `TCB.md`.
++4. Implement one tiny computable sparse polynomial over ℚ with a cofactor-replay check.
++5. Report build times, ergonomics and pain points.
+@@ -304,4 +517,5 @@
+-
+-**Pivot condition for D3.** If Lean plumbing is still blocking progress after one further token cycle beyond the spike, or the fold is impractically slow on the harvested corpus, stop and propose one of two fallbacks: a Python kernel with the Lean spec and soundness proved over a model of it, or a Lean kernel with Python adapters. Will decides.
+-
+-**0d. GP v0.37 freeze housekeeping. Prepare only; do not push without Will.**
++7. *(New in rev 2.)* In a **separate** Lake package that depends on pinned Mathlib, elaborate two corpus cases as Mathlib-stated lemmas (for example, a unit-ideal emptiness over `[Field K] [CharZero K]`). Record elaboration and check times. This is evidence for G1 decisions 1 and 3; it is not a commitment to either.
++
++**Pivot for D3.** If Lean plumbing is still blocking progress after one further token cycle beyond the spike, or the fold is impractically slow on the harvested corpus, stop and propose one of two fallbacks: a Python kernel with the spec and soundness proof in Lean over a model of it, or a Lean kernel with Python adapters. Will decides.
++
++**0d. GP v0.37 freeze housekeeping** (unchanged; prepare only, do not push without Will)
+@@ -312 +526 @@
+-   - fix the SPEC.md status block, which still says graph format 7 / kernel epoch 11 / "eleven live sessions";
++   - fix the SPEC.md status block (it still says graph format 7 / kernel epoch 11 / "eleven live sessions");
+@@ -314 +528 @@
+-   - add this banner at the top of README.md, verbatim, with no timeline and no successor name:
++   - add this banner, verbatim, at the top of README.md:
+@@ -318,2 +532,12 @@
+-   - **Containment conflation.** The NOT_BY_IDEAL discharge advises establishing an edge by radical membership. That earns the point cells only, but the IDENTITY cells on NECESSARY_CONDITION/AGAINST and on RESTRICTION need ideal containment. The V(x²)→V(x) probe shows the false licence that following the advice would open.
+-   - **SPECIALIZATION conservatism mislabelled as a theorem.** A p-integral unit-ideal certificate licenses EMPTY ALONG (char 0 → char p); a p-integral witness licenses NONEMPTY ALONG.
++   - **Containment conflation.** The NOT_BY_IDEAL discharge advises establishing an edge by radical membership. That earns the point cells only; the IDENTITY cells on NECESSARY_CONDITION/AGAINST and RESTRICTION need ideal containment. The V(x²)→V(x) probe shows the false licence that following the advice would open.
++   - **SPECIALIZATION conservatism mislabelled as a theorem.** A p-integral unit-ideal certificate licenses EMPTY ALONG (char 0 → char p), and a p-integral witness licenses NONEMPTY ALONG.
++
++**0e. Prior-art review** (new; time-boxed to one token cycle; can run in parallel with 0a and 0b)
++
++1. Work through the reading list in Appendix G.2. For each item, answer its stated question with primary sources: the repos, papers and docs themselves.
++2. Produce `PRIOR-ART.md` containing:
++   - a table with one row per item: **adopt / imitate / differ / ignore**, a one-line reason, and the §2 guarantee piece it serves;
++   - a recommendation, with evidence, on each of the three G1 decisions (§7.3);
++   - a check of GP's two territory claims (§7.1): **covered / partly covered / not found**, with citations;
++   - any project whose author seems worth contacting (MathEvidence is the obvious candidate). Will makes any contact.
++3. **Never copy code** without recording its licence in `PRIOR-ART.md`.
+@@ -323,15 +547,16 @@
+-- The back-brief is approved.
+-- The 0a corpus covers GP's history, with every case source-pointed and the oracle verdicts recorded.
+-- The 0b inventory covers every listed repo, with counts by class.
+-- The 0c spike report is written.
+-- **Decision point:** report before Phase 1 if either of these holds (cost classes are defined in Appendix B):
+-  - MEANING alone is ≥ ~30% of **high-cost** incidents;
+-  - MEANING plus ADAPTER is ≥ ~40% of high-cost incidents.
+-
+-  Either would mean the core is aimed at the wrong problem. **Small-n rule:** if the inventory has fewer than ~25 incidents in total, report qualitatively instead of applying percentages.
+-
+-### Phase 1 — Core spec (mostly thinking)
+-
+-1. Write `SPEC-CORE.md`, one page: the types from §4.1, `held`, K1–K6, the inconsistency finding, the profile interface, and the scope/region decision with the evidence from 0b.
+-2. Write the Lean **soundness statement** (Appendix D sketch). It must elaborate; the proof may be `sorry` at this gate.
+-3. **Paper expressiveness scoring.** For each non-MEANING incident, can the core express the situation, and would it have refused the error? Record the results in the inventory.
++- The back-brief (or the latest BACKBRIEF-REVn) is approved.
++- The 0a corpus covers GP's history, source-pointed, with oracle verdicts recorded.
++- The 0b inventory covers every repo in `SWEEP-SOURCES.md`.
++- The 0c spike report is written, including the Mathlib elaboration timing.
++- `PRIOR-ART.md` from 0e is written.
++- **Decision point.** Report before Phase 1 if MEANING alone accounts for ≥ ~30% of **high-cost** incidents, or MEANING plus ADAPTER for ≥ ~40% (cost classes are defined in Appendix B); either result would mean the core is aimed at the wrong problem. **Small-n rule:** with fewer than ~25 incidents in total, report qualitatively instead.
++- **Territory check.** If 0e finds both §7.1 claims already covered, report before Phase 1: contributing elsewhere may beat building. In every case, `PRIOR-ART.md` names which communities would want GP's output as a component (LMFDB is the leading candidate) and what format they would need.
++
++### Phase 1 — Core spec and adoption decisions (mostly thinking)
++
++1. Write `SPEC-CORE.md`, one page:
++   - open with the §2.1 guarantee and the §3.3 characterization;
++   - then the types (§6.1), `held`, K1–K6, the inconsistency finding, the profile interface, and the scope/region decision with evidence from 0b.
++2. Write the Lean **soundness statement** (Appendix D). It must elaborate; the proof may still be `sorry` at this gate.
++3. **Decide the three G1 adoption questions** (§7.3). Write one paragraph each with evidence from 0c and 0e. Will signs off.
++4. **Paper expressiveness scoring.** For each non-MEANING incident, record whether the core can express the situation and whether it would have refused the error. Also record, where relevant, what the earned-but-unclaimed view would have surfaced.
+@@ -341 +566 @@
+-- The spec fits on one page.
++- The spec fits on one page and opens with the guarantee.
+@@ -343,2 +568,3 @@
+-- At least ~80% of non-MEANING incidents are expressible, **and** every inexpressible *high-cost* incident has a written reason. (Under the small-n rule, report the inexpressible ones qualitatively.)
+-- The scope/region split holds, or the pivot has been reported.
++- At least ~80% of non-MEANING incidents are expressible, and every inexpressible *high-cost* incident has a written reason (report qualitatively under the small-n rule).
++- The scope/region split holds, or the pivot is reported.
++- The three adoption decisions are made, evidenced, and signed off.
+@@ -348 +574,5 @@
+-1. Implement the kernel in Lean: the log fold, `held`, K1–K6, the inconsistency finding, the TCB manifest, and a why-not query ("what's missing for claim X").
++1. Implement in Lean, Mathlib-free:
++   - the log fold, `held`, K1–K6 and the inconsistency finding;
++   - `TCB.md` integration;
++   - the why-not query ("what's missing for claim X");
++   - the earned query ("what is held that no one claimed, ranked by the obligations it touches").
+@@ -350 +580 @@
+-3. Add property tests: fold determinism; merge equals concatenation plus re-fold; retraction; staleness.
++3. Write property tests for fold determinism, merge = concatenation + re-fold, retraction, and staleness.
+@@ -354 +584 @@
+-- The D8 budget holds: core logic ≤ ~500 lines, serialization and decoding ≤ ~400, soundness statement plus dependencies ≤ ~80, and no tripwire crossed.
++- The D8 budget holds: logic ≤ ~500 lines, serialization and decoding ≤ ~400, soundness statement plus dependencies ≤ ~80, and no tripwire crossed.
+@@ -356,2 +586,2 @@
+-- The property tests pass.
+-- Every kernel design choice is traced to a corpus case or an incident.
++- Property tests pass.
++- Every kernel design choice traces to a corpus case or an incident.
+@@ -361,4 +591,4 @@
+-1. Define the statement AST: ideals over named variables with ℚ coefficients, claim kinds, and a witness-point form.
+-2. Define contexts and scopes: field class (ANY_FIELD, CHAR_0, ORDERED, specific fields), point universe, characteristic. These map onto GP's reach vocabulary.
+-3. Implement checkers, all of them *replay* checkers with search kept external:
+-   - cofactor replay (membership and unit ideal);
++1. Define the statement AST: ideals over named variables with ℚ coefficients, claim kinds, and a witness-point form. Align with Mathlib definitions per D12.
++2. Define contexts and scopes: field classes, point universe, characteristic. Name them per the G1 decision 3 outcome, mapped to Mathlib classes if adopted.
++3. Build checkers. All are *replay* checkers; search stays external. **Per D15, adopt first:** Mathlib tactics or MathEvidence checkers where G1 chose them, and build only with a reason.
++   - cofactor replay (membership, unit ideal);
+@@ -368,0 +599 @@
++   - selected real algebraic points (§8.8), if the corpus or the u(22) slice needs them;
+@@ -370,2 +601,2 @@
+-4. Implement K3 rules for the object-changing relations (inclusion, image, equivalence), using the ∃/∀ variance.
+-5. Run the full 0a corpus. Differential-test against the GP oracle on GP's fixtures: JC(2), matroid, gamma_window, the DK retrodiction, and the ARR15 slices.
++4. Build K3 rules for object-changing relations (inclusion, image, equivalence), with direction annotations in the style of Trocq and Transfer.
++5. Run the full 0a corpus, including any `also_earned` expectations. Differential-test against the oracle on GP's fixtures: JC(2), matroid, gamma_window, the DK retrodiction, and the ARR15 slices.
+@@ -375,4 +606,4 @@
+-- 100% of must-refuse cases are refused and 100% of must-accept cases are accepted.
+-- Every disagreement with the oracle is triaged as a GP bug, a core bug, or an expressiveness loss.
+-- **The corpus is the spec.** If a corpus case itself turns out to be wrong, correcting its expected verdict needs Will's sign-off and a log entry in `corpus/CHANGES.md`. Never edit it quietly to make a gate pass.
+-- The kernel is unchanged since G2, apart from logged fixes.
++- 100% of must-refuse cases are refused; 100% of must-accept cases are accepted.
++- Every oracle disagreement is triaged as a GP bug, a core bug, or an expressiveness loss.
++- **The corpus is the spec.** Correcting an expected verdict needs Will's sign-off and an entry in `corpus/CHANGES.md`; never edit it quietly.
++- The kernel is unchanged since G2 apart from logged fixes.
+@@ -383 +614 @@
+-   - finite families of combinatorial objects (graphs, incidence structures, point configurations described combinatorially), with explicit size parameters;
++   - finite families of combinatorial objects (graphs, incidence structures, combinatorially described configurations) with explicit size parameters;
+@@ -386,4 +617,4 @@
+-3. Implement moves and checkers:
+-   - isomorphism and automorphism checks (a certificate is a permutation, easy to check);
+-   - forbidden-substructure exclusion (the witness is an embedding);
+-   - UNSAT via LRAT (a Lean-internal verified checker or cake_lpr);
++3. Build moves and checkers, following the §7.2 census row:
++   - isomorphism and automorphism checks (a permutation is the certificate);
++   - forbidden-substructure exclusion (an embedding is the witness);
++   - UNSAT via LRAT (Lean-internal verified checker or cake_lpr);
+@@ -391,2 +622,2 @@
+-   - **encoding correctness** as the central meaning risk (M4). Options are a small admitted encoder, a Lean-proved encoder, or cross-validation on small cases with a documented TCB;
+-   - enumeration completeness (M4; see the options there);
++   - **encoding correctness** as the central meaning risk (M4). Imitate the empty-hexagon approach: prove the encoding correct, or cross-validate on small cases with a documented TCB;
++   - enumeration completeness (M4 options);
+@@ -394,2 +625,2 @@
+-4. Build a census must-refuse set:
+-   - timeout read as UNSAT;
++4. Build a census must-refuse set covering:
++   - a timeout read as UNSAT;
+@@ -402 +633 @@
+-5. Retrodict at least one DK slice. For example, the V4 sector census counts, which were independently matched by Lu's cell counts. That is a natural two-route (+) warrant example.
++5. Retrodict at least one DK slice, such as the V4-sector census counts that Lu's cell counts matched independently. This is a natural two-route (+) warrant example.
+@@ -406,3 +637,3 @@
+-- The census profile lands with **zero kernel changes** (bug fixes excepted, and logged), or with promotions that satisfy D9 and are logged.
+-- All census must-refuse cases are refused.
+-- The DK slice retrodiction reproduces the known result.
++- The census profile lands with **zero kernel changes** (bug fixes excepted and logged) or only D9-justified, logged promotions.
++- All census traps are refused.
++- The DK slice reproduces.
+@@ -412,4 +643,12 @@
+-1. Define a minimal campaign statement format (Appendix E) and a derived frontier view.
+-2. **Tutorial campaign.** Write a fifteen-minute campaign in one profile. An agent makes a classic overclaim, gets one good refusal, fixes it, and lands a small honest result plus a tailing. Write it as the Elm-guide-style first page of the future README.
+-3. **u(22) slice.** Run a real, bounded slice of the Highway 61 campaign on the new core, combining census and realizability.
+-4. **Comparative arms.** Pick 12 incidents from the inventory, stratified by class. Run each through three arms, using separate agents per arm and recording effort (agent turns, wall time, and tokens where available):
++1. Define a minimal campaign statement format (Appendix E) plus derived views:
++   - the frontier, with obligation tagging (§6.5);
++   - the earned-but-unclaimed list (ranked and capped);
++   - a tailings export in the §7.5 LMFDB-style shape (source / reliability / completeness).
++2. **Tutorial campaign.** A fifteen-minute campaign in one profile:
++   - an agent makes a classic overclaim;
++   - it gets one good refusal, fixes it, and lands a small honest result plus a tailing;
++   - it is shown one earned-but-unclaimed consequence.
++
++   Write it as the Elm-guide-style first page of the future README, stating §3.3 plainly.
++3. **u(22) slice.** Run a real, bounded slice of the Highway 61 campaign on the new core (census + real algebraic).
++4. **Comparative arms.** Twelve incidents from the inventory, stratified by class, each run through three arms with separate agents. Record effort (agent turns, wall time, tokens where available).
+@@ -422,6 +661,6 @@
+-- A fresh agent can run the tutorial from the campaign statement alone.
+-- **The Elm test:** Will reads the u(22) ledger cold and can state what is held, open and refused in under 10 minutes.
+-- **Comparative result.** With 12 incidents this is directional, not statistical.
+-  - **Beats the notebook (c):** catches at least 2 more of the 12 at no more than 1.5× the effort, *or* the same number at no more than 0.75× the effort.
+-  - **Not dominated by Lean (b) on errors:** catches no more than 1 fewer than arm (b).
+-  - **Beats Lean (b) on workability:** better on time to first held claim, and on agent turns per resolved obligation.
++- A fresh agent runs the tutorial from the campaign statement alone.
++- **The Elm test:** Will reads the u(22) ledger cold and states what is held, open, refused and earned-but-unclaimed in under 10 minutes.
++- **Comparative results** (directional, not statistical, at n = 12):
++  - **Beats the notebook (c):** at least 2 more catches of the 12 at ≤ 1.5× the effort, *or* equal catches at ≤ 0.75× the effort.
++  - **Not dominated by Lean (b) on errors:** no more than 1 fewer catch than (b).
++  - **Beats Lean (b) on workability:** time to first held claim, and agent turns per resolved obligation.
+@@ -433,14 +672,7 @@
+-## 7. Math lanes
+-
+-These can run in parallel with the build, with research agents or deep-research passes. Each produces a short note, plus Lean where feasible, and has its own stop condition.
+-
+-- **M1 — Scope semantics.**
+-  - Formalize scope as a class of contexts with a decidable, sound ⊑.
+-  - State kernel soundness in that form.
+-  - Stress-test the scope/region split (§5.1) on algebraic, census and real-realizability examples, including conditional hypotheses.
+-  - *Stop* when either the split survives about 10 hard examples, or a counterexample is written up.
+-
+-- **M2 — Reach and requirement profiles.**
+-  - Map GP's reach vocabulary (U = nontrivial ring, O = ordered/SOS, Z = no zero divisors, CHAR_0, ORDERED, and specific fields) to classes of contexts.
+-  - Identify the corresponding Mathlib typeclasses for a future Mathlib-backed semantics package.
+-  - Record which reach facts are completeness theorems (Nullstellensatz, Positivstellensatz) and which are merely sufficient.
++## 10. Math lanes
++
++These run in parallel with the build (research agents or deep-research passes). Each produces a short note, plus Lean where feasible, and has its own stop condition.
++
++- **M1 — Scope semantics.** Formalize scope as a class of contexts with a decidable, sound ⊑, and state kernel soundness that way. Stress-test the scope/region split (§8.1) on algebraic, census, real-realizability and conditional examples. Use institution theory as a check, not as a design.
++  - *Stop* when the split survives ~10 hard examples, or a counterexample is written up.
++- **M2 — Reach in Mathlib's vocabulary** (refocused). Map GP's reach vocabulary (U = nontrivial ring, O = ordered/SOS, Z = no zero divisors, CHAR_0, ORDERED, specific fields) to Mathlib typeclasses. Record which reach facts are *completeness* theorems (Nullstellensatz, Positivstellensatz) and which are merely sufficient. Flag any GP scope with no clean Mathlib counterpart. This is the evidence for G1 decision 3.
+@@ -448 +679,0 @@
+-
+@@ -450,3 +681,3 @@
+-  - p-integral certificates and witnesses give conditional EMPTY and NONEMPTY transport from char 0 to char p. Build must-accept fixtures, including a demonstration that any ℚ-certificate of Fano emptiness must carry a 2 in a denominator.
+-  - Hensel-type lifting sends smooth F_p points to ℚ_p points, not ℚ points, which is a point-universe question.
+-  - The Lefschetz-style "empty for infinitely many p ⇒ empty over ℚ̄" is a family claim, not an edge, but it is useful context for census and matroid work.
++  - p-integral certificates and witnesses give conditional EMPTY/NONEMPTY transport from char 0 to char p. Build must-accept fixtures, including the demonstration that any ℚ-certificate of Fano emptiness needs a 2 in a denominator.
++  - Hensel-type lifting reaches ℚ_p, not ℚ.
++  - Record the Lefschetz-style family transfer as it exists in Mathlib, if it does, as an adoptable carrying rule.
+@@ -454 +684,0 @@
+-
+@@ -456,11 +686,6 @@
+-  - Soundness conditions for symmetry breaking: existence versus counts; lex-leader completeness.
+-  - Enumeration-completeness warrants. Options: a trusted generator (nauty/geng) with a TCB label; independent double enumeration agreeing on counts (the DK E5 bridge pattern); orderly-generation certificates. Rank them by trust and cost.
+-  - Encoding correctness: how a CNF is warranted to mean the combinatorial statement.
+-  - LRAT reach = "this encoding".
+-  - *Stop* at a ranked options memo that the Phase 4 builder can implement from.
+-
+-- **M5 — Meaning audit protocol.**
+-  - Design the independent re-derivation of a campaign goal statement from its primary source: blind to the campaign's own formalization, then compared against it.
+-  - Include Lean goal statements.
+-  - Pilot it on the DK goal, the Cloquet goal and the u(22) goal.
+-  - Count how many historical incidents it would have caught.
++  - Symmetry-breaking soundness: existence versus counts; lex-leader completeness.
++  - Enumeration-completeness warrants: trusted generator with a TCB label; independent double enumeration (the DK E5 pattern); orderly-generation certificates. Rank these by trust and cost.
++  - Encoding correctness (study the empty-hexagon verification).
++  - LRAT reach is "this encoding".
++  - *Stop* at a ranked memo the Phase 4 builder can implement from.
++- **M5 — Meaning audit protocol.** Design independent re-derivation of a goal statement from its primary source, blind to the campaign's own formalization and compared against it afterwards. **First check Formal Conjectures:** if it has the problem, use its statement, compare it against the campaign's goal, and report any misformalization upstream through their process. Imitate LeanMarathon's three-way comparison (canonical statement, prose statement, Lean type). Pilot it on the DK, Cloquet and u(22) goals, and count how many historical incidents it would have caught.
+@@ -468,3 +693,9 @@
+-
+----
+-## 8. Gates and kill criteria (pre-registered)
++- **M6 — Validated numerics** (new; **schedule after G5**). Interval Newton/Krawczyk and Smale's α-theory (alphaCertified) turn a float that looks like a solution into a checkable existence claim: "a real solution exists, uniquely, in this box." Such a checker is an ordinary admitted existence checker and needs no kernel change. Cautions:
++  - rounding is soundness-critical: use rational intervals, or outward rounding with a documented TCB;
++  - a box is not an exact point (use §8.8 when exactness matters);
++  - certification says nothing about nonexistence elsewhere.
++  - *Stop* at a ranked memo plus a checker spec for the Cloquet and u(22) realization moves.
++
++---
++
++## 11. Gates and kill criteria (pre-registered)
+@@ -474,12 +705,12 @@
+-| G0 | Back-brief approved; 0a corpus complete and source-pointed; 0b inventory covers all repos in `SWEEP-SOURCES.md`; 0c spike report written | Report. Re-scope before Phase 1 if MEANING ≥ ~30% of high-cost incidents, or MEANING + ADAPTER ≥ ~40%. Under ~25 incidents: qualitative report instead |
+-| G1 | One-page spec; soundness statement elaborates; ≥ ~80% of non-MEANING incidents expressible, and every inexpressible high-cost incident explained | Report the inexpressible incidents; possible pivot on §5.1 |
+-| G2 | D8 budget held (logic ≤ ~500, serialization ≤ ~400, soundness statement ≤ ~80; no 1.5× tripwire); soundness proved with no `sorry`; property tests pass | Budget overrun → move logic to a profile or stop and rethink. Never quietly grow the kernel |
+-| G3 | 100% must-refuse refused, 100% must-accept accepted; every oracle disagreement triaged; corpus corrections signed off and logged | Fix, or report an expressiveness loss |
+-| G4 | Census profile needs zero kernel changes (bug fixes excepted and logged, or D9-justified promotions); census traps refused; DK slice reproduced | A kernel change without D9 justification means the abstraction leaks: report and stop |
+-| G5 | Tutorial runs from the campaign statement; Will's cold read under 10 minutes; comparative thresholds in Phase 5 met (beats notebook, not dominated by Lean on errors, beats Lean on workability) | **Kill or rethink.** Do not add features to rescue it |
+-
+-Numbers marked "~" are Will's to adjust. Record the actual values in the phase reports.
+-
+----
+-
+-## 9. Not-list
++| G0 | Back-brief approved; 0a corpus complete and source-pointed; 0b inventory covers `SWEEP-SOURCES.md`; 0c spike report (incl. Mathlib timing); 0e `PRIOR-ART.md` | Report. Re-scope before Phase 1 if MEANING ≥ ~30% of high-cost incidents, or MEANING + ADAPTER ≥ ~40%. Under ~25 incidents, report qualitatively. If both territory claims are covered, report: contributing may beat building. Always name the candidate consumer communities |
++| G1 | One-page spec opening with the guarantee; soundness statement elaborates; ≥ ~80% of non-MEANING incidents expressible, with every inexpressible high-cost incident explained; the three adoption decisions made and signed off | Report the inexpressible incidents; possible pivot on §8.1 |
++| G2 | D8 budget held (logic ≤ ~500, serialization ≤ ~400, soundness statement ≤ ~80, no 1.5× tripwire); soundness proved with no `sorry`; property tests pass | Budget overrun → move logic to a profile or the binding layer, or stop and rethink. Never quietly grow the kernel |
++| G3 | 100% must-refuse refused and 100% must-accept accepted; oracle disagreements triaged; corpus corrections signed off and logged | Fix, or report an expressiveness loss |
++| G4 | Census profile needs zero kernel changes (bug fixes excepted and logged, or D9 promotions); census traps refused; DK slice reproduced | An unjustified kernel change means the abstraction leaks: report and stop |
++| G5 | Tutorial runs from the campaign statement; Will's cold read under 10 minutes; comparative thresholds met | **Kill or rethink.** Do not add features to rescue it |
++
++Numbers marked "~" are Will's to adjust. Record the actual values in phase reports.
++
++---
++
++## 12. Not-list
+@@ -489 +720 @@
+-- use confidence scores, probabilities or "trust levels" as authority;
++- use confidence scores, probabilities, trust levels or trust ladders as authority;
+@@ -491,2 +722,7 @@
+-- include a CAS, SAT solver, enumerator or search engine in the TCB. Search is never authoritative; only replay is;
+-- include publication, release, dossier or packet machinery in the core. These are surfaces, and only after G5;
++- put a CAS, SAT solver, enumerator or search engine in the TCB (search is never authoritative; only replay is);
++- reimplement general computer algebra in Lean (replay checkers only);
++- build a component the §7 map says to adopt, without a written reason (D15);
++- adopt anything that serves no part of the §2 guarantee;
++- import Mathlib into the kernel (D16);
++- expose institution-theoretic machinery to users;
++- include publication, release, dossier or packet machinery in the core (these are surfaces, and only after G5);
+@@ -494,10 +730,13 @@
+-- depend on Mathlib in the kernel;
+-- load checkers dynamically without admission and a TCB manifest entry;
+-- invent a general-purpose formula language. Profile ASTs are small and specified, with Lean elaboration targets;
+-- migrate old GP graphs. Fixtures are converted into the neutral corpus instead;
+-- include visualization, 3D explorers or MCP/hook enforcement before G5. The hook comes back as an adapter later;
+-- mix "we refuse this soundly", "we refuse this out of caution" and "we license this knowing better". The last must stay empty, and conservatisms are registered as data.
+-
+----
+-
+-## 10. Repo layout and conventions (proposal)
++- load checkers dynamically without admission and a `TCB.md` entry;
++- invent a general-purpose formula language;
++- migrate old GP graphs (fixtures are converted into the neutral corpus instead);
++- ship visualization, 3D explorers or MCP/hook enforcement before G5 (the hook returns later as an adapter);
++- flood users with earned-but-unclaimed consequences (rank and cap by default);
++- invent a GP-specific format at a boundary where a community format exists, without a written reason (D18);
++- aim to become a rival platform to LMFDB, Formal Conjectures, blueprints or Mathlib. GP is meant to be a component;
++- copy MathKernel-style breadth: new domains arrive as profiles through D9 and the checkability line, never by surface expansion;
++- mix "we refuse this soundly", "we refuse this out of caution" and "we license this knowing better". The last category must stay empty; conservatisms are registered as data in `KNOWN-CONSERVATISM.md`.
++
++---
++
++## 13. Repo layout and conventions (proposal)
+@@ -506,8 +745,11 @@
+-grandportage-0.50/        # private working repo through G4 (D2)
+-  BACKBRIEF.md            # Phase 0 reader test
+-  SPEC-CORE.md            # one page, Phase 1
+-  TCB.md                  # admitted checkers, implementation, reach
+-  PROMOTIONS.md           # D9 log
+-  KNOWN-CONSERVATISM.md   # refused-more-strictly-than-truth register (data)
+-  kernel/                 # Lean 4, Mathlib-free: types, fold, held, K1–K6, soundness
+-  profiles/algebraic/     # AST, contexts/scopes, checkers, K3 rules
++grandportage-0.50/          # private working repo through G4 (D2)
++  BACKBRIEF.md / BACKBRIEF-REVn.md
++  SPEC-CORE.md              # one page, Phase 1
++  PRIOR-ART.md              # 0e output
++  TCB.md                    # admitted checkers: implementation, reach, version
++  PROMOTIONS.md             # D9 log
++  KNOWN-CONSERVATISM.md     # refused-more-strictly-than-truth register (data)
++  SWEEP-SOURCES.md          # Will's sweep manifest (Appendix H)
++  kernel/                   # Lean 4, Mathlib-free: types, fold, held, K1–K6, soundness
++  binding/                  # Lean + pinned Mathlib: scope vocabulary, elaboration, Lean-proved warrants (if adopted)
++  profiles/algebraic/       # AST, contexts/scopes, checkers, K3 rules
+@@ -515,2 +757,2 @@
+-  adapters/               # CAS/SAT/nauty/agent runners: untrusted, submit receipts only
+-  surfaces/               # frontier, explain, campaign-statement tooling
++  adapters/                 # CAS/SAT/nauty/numerics/agent runners: untrusted, submit receipts only
++  surfaces/                 # frontier, explain, earned-but-unclaimed, campaign-statement tooling
+@@ -518,5 +760,4 @@
+-    must/                 # must-refuse / must-accept cases (neutral JSON)
+-    incidents/            # Appendix B records
+-    harvest/<campaign>/   # verbatim exports + manifest + SHA-256, never backfilled
+-  corpus/CHANGES.md         # signed-off corrections to expected verdicts (G3)
+-  SWEEP-SOURCES.md          # Will's sweep manifest (Appendix H)
++    must/                   # must-refuse / must-accept cases (neutral JSON)
++    incidents/              # Appendix B records
++    harvest/<campaign>/     # verbatim exports + manifest + SHA-256; never backfilled; gitignored
++    CHANGES.md              # signed-off corrections to expected verdicts
+@@ -524 +765 @@
+-  oracle/                 # pinned GP v0.37.0 checkout or submodule, read-only
++  oracle/                   # pinned GP v0.37.0 checkout or submodule, read-only
+@@ -527 +768 @@
+-Conventions:
++**Conventions**
+@@ -530,5 +771,4 @@
+-- Reports distinguish *verified here*, *reproduced from source* and *asserted*.
+-- Keep prose short. The GP docs grew by confession, so write the confession as a corpus case instead.
+-
+----
+-
++- Reports distinguish three levels: *verified here*, *reproduced from source*, and *asserted*.
++- Keep prose short. GP's docs grew by confession; write the confession as a corpus case instead.
++
++---
+@@ -566,0 +807 @@
++| A27 | Class group computed with PARI's default bound (below the GRH-proven Bach bound) | (a) Treated as unconditional; (b) treated as GRH-conditional; (c) after `bnfcertify`, or a Magma computation run with the default Proof setting | (a) and (b) REFUSE: the default bound is heuristic even under GRH. (c) ACCEPT unconditional. A GRH-proven bound would ACCEPT with scope "assuming GRH" |
+@@ -578,0 +820,6 @@
++
++**Earned-but-unclaimed seeds (optional `also_earned` field, D17):**
++
++- A1-style certificate: if the replayed certificate uses only ring axioms, a claim made only for ℚ is also earned for every field.
++- A8b: a p-integral unit-ideal certificate also earns EMPTY in characteristic p for every prime p that divides no denominator.
++- A cover whose branches are all held NONE: each branch-level NONE also settles every sub-case listed under it.
+@@ -645,0 +893,2 @@
++-- The kernel is Mathlib-free (D16). If G1 adopts Mathlib's hierarchy as scope vocabulary,
++-- the binding layer instantiates `Scope`/`mem` with typeclass contexts; the kernel doesn't know.
+@@ -648 +897 @@
+-  Scope    : Type                      -- a finitely described class of contexts
++  Scope    : Type                      -- a finitely described class of contexts (a "world")
+@@ -654 +903 @@
+-  contra   : Stmt → Stmt → Bool        -- declared contradiction (for the inconsistency finding)
++  contra   : Stmt → Stmt → Bool        -- declared contradiction (inconsistency finding)
+@@ -660 +909 @@
+-  | checked  (checker : CheckerId) (receipt : Hash) (inputs : List Hash)
++  | checked  (checker : CheckerId) (receipt : Hash) (inputs : List Hash)   -- incl. Lean-proved, if adopted
+@@ -670 +919 @@
+--- Target theorem (Phase 1: statement elaborates; Phase 2: proved):
++-- The "no runtime errors" theorem (Phase 1: statement elaborates; Phase 2: proved):
+@@ -678 +927,3 @@
+-The conceptual point to preserve: **K2 (weakening) is sound for every statement because `Means` quantifies universally over contexts.** Anything polarity-dependent belongs in a profile's statement-level rules (K3).
++The conceptual point to preserve is that **K2 (weakening) is sound for every statement, because `Means` quantifies universally over contexts.** Anything polarity-dependent belongs in a profile's statement-level rules (K3).
++
++Earned-but-unclaimed (D17) needs no extra theorem. Every earned claim is a held claim, so `held_sound` already covers it.
+@@ -688 +939 @@
+-  scope     { ℝ² }                                  -- context; nothing to vary here
++  scope     { ℝ² }                                  -- the world; nothing to vary here
+@@ -694 +945 @@
+-    realize                 -- exact coordinates in a number field; distances replayed exactly
++    realize                 -- selected real algebraic coordinates (§8.8); distances replayed exactly
+@@ -700,5 +951,6 @@
+-The kernel derives:
+-
+-- **the frontier:** which candidates are neither realized nor excluded, and which warrants are missing;
+-- **the refusals:** a timeout doesn't exclude a branch; a numeric near-realization isn't a realization; an exclusion without a completeness receipt doesn't close the cover;
+-- **the tailings:** every held NONE(branch), with its scope and warrant, is a publishable negative.
++From this statement the kernel derives four views:
++
++- **Frontier:** which candidates are neither realized nor excluded, and which warrants are missing. Each open obligation is tagged *closable in principle* here, because this is a finite regime.
++- **Refusals:** a timeout does not exclude a branch; a numeric near-realization is not a realization (until M6, and even then only existence in a box); an exclusion without a completeness receipt does not close the cover.
++- **Earned but unclaimed:** for example, "this relaxation certificate also excludes every candidate containing subgraph S, which covers 14 more branches." Ranked by how many open obligations it closes; capped by default.
++- **Tailings:** every held NONE(branch), with its scope and warrant, is a publishable negative.
+@@ -710,3 +962,5 @@
+-- **Claim**: a statement plus a scope plus a warrant.
+-- **Scope**: a class of contexts, read universally.
+-- **Region**: which objects the statement is about. It is part of the statement.
++- **World**: a class of contexts; the scope of a claim.
++- **Carry**: move a result between worlds, or between objects within a world, along a relation whose soundness is known.
++- **Claim**: statement + scope + warrant.
++- **Scope**: a world, read universally.
++- **Region**: which objects the statement is about; part of the statement.
+@@ -715 +969,2 @@
+-- **Reach**: the class of contexts in which a checker's receipt is valid. For a certificate, the models of the axioms its proof uses.
++- **Reach**: the world in which a checker's receipt is valid. For a certificate, the models of the axioms its proof uses. For a Lean theorem, its hypotheses.
++- **Earned but unclaimed**: a held consequence that no one explicitly claimed.
+@@ -717,6 +972,7 @@
+-- **Checker**: validates a move's receipt and mints the warrant; it is admitted individually.
+-- **Profile**: a domain vocabulary (statement AST, contexts and scopes, claim kinds, statement-level rules).
+-- **TCB**: the trusted computing base — kernel plus admitted checkers.
+-- **Obligation**: a claim that is not held but is needed.
+-- **Tailing**: a held negative with explicit scope, publishable.
+-- **Oracle**: the frozen GP v0.37.
++- **Checker**: validates a move's receipt and mints the warrant; admitted individually.
++- **Profile**: a domain vocabulary (statement AST, contexts/scopes, claim kinds, statement-level rules). The term is under review; the leading alternative is "domain".
++- **Binding layer**: Lean + pinned Mathlib code that ties profiles to Mathlib's vocabulary and proofs (D16).
++- **TCB**: the trusted computing base, meaning the kernel, the binding layer and the admitted checkers.
++- **Obligation**: a claim that is needed but not held. Tagged *closable in principle* or *no complete method*.
++- **Tailing**: a held negative with explicit scope, suitable for publishing.
++- **Oracle**: frozen GP v0.37.
+@@ -727 +983,3 @@
+-## Appendix G — References
++## Appendix G — References and prior-art reading list
++
++### G.1 Foundations
+@@ -734,5 +992,28 @@
+-- DRAT/LRAT proof formats, and cake_lpr (a verified LRAT/LPR checker in CakeML): census UNSAT warrants.
+-- T. Tao et al., Equational Theories Project (2024–25): a pooled, provenance-tracked implication graph with Lean as arbiter. The nearest precedent for the stretch vision.
+-- Lean blueprint (leanblueprint): a dependency-and-status graph for formalization campaigns.
+-- LMFDB reliability labels: scope labelling (proven / conditional / heuristic) in a shared mathematical database.
+-- GP v0.37: SPEC.md, DESIGN.md, REVIEW.md, lean/THEORY.md, docs/ATLAS-MAPPING-V0.md, docs/PRESERVATION-ATLAS-PROGRAM.md, docs/FOUNDATIONS-PRIOR-ART.md.
++- R. McConnell, K. Mehlhorn, S. Näher, P. Schweitzer, "Certifying Algorithms", Computer Science Review 2011: outputs with checkable witnesses.
++- J. Goguen, R. Burstall, institutions: the exact mathematical notion of "profile" (for M1 only).
++- GP v0.37 docs: SPEC.md, DESIGN.md, REVIEW.md, lean/THEORY.md, docs/ATLAS-MAPPING-V0.md, docs/PRESERVATION-ATLAS-PROGRAM.md, docs/FOUNDATIONS-PRIOR-ART.md.
++
++### G.2 Prior-art reading list for 0e (each item answers a stated question)
++
++| # | Item | Question to answer |
++|---|---|---|
++| P1 | **MathEvidence** (github.com/fraware/MathEvidence): capability contracts, candidate binding, fail-closed checkers, untrusted CAS adapters; Apache-2.0 | Can its checkers serve as GP admitted checkers? What is their exact scope? Does its pinned Lean toolchain work with ours? Does it model reach at all? Could GP warrants *be* MathEvidence bundles plus a scope field (D18)? Adopt, imitate, or differ (G1 decision 2)? |
++| P2 | **MathKernel** (github.com/Staatsgeheim/MathKernel): multi-engine runtime with per-conclusion evidence bundles and a trust ladder | What is worth imitating in its provenance design, and what exactly makes its trust ladder the wrong primitive for GP (§7.4)? |
++| P3 | **Dedukti / Logipedia**: axiom-tracking and export to proof systems supporting those axioms | How does it compute and represent "axioms used"? Is there a clean analogue for GP reach? |
++| P4 | **Trocq** (Cohen, Crance, Mahboubi, 2024) and **Isabelle Transfer/Lifting** (Huffman, Kunčar, 2013) | How does Trocq's hierarchy of relation structure line up with GP's per-relation carrying table (the total / surjective properties)? Is there a Lean analogue, or a Lean port in progress? What should GP's K3 relation rules imitate? |
++| P5 | **Lean `norm_cast`** (Lewis, Madelaine, 2020) | How does it carry facts along ℕ→ℤ→ℚ→ℝ? Is it adoptable as-is for ladder moves in the binding layer? |
++| P6 | **Mathlib certificate tactics**: `linear_combination`, the `polyrith` pattern, `bv_decide`'s LRAT checker | Which can be adopted directly as admitted checkers, and at what cost per check? |
++| P7 | **Mathlib model theory**: algebraically closed fields and Lefschetz-style transfer | Which cross-world carrying rules exist as theorems, ready to adopt (with M3)? |
++| P8 | **Empty-hexagon formal verification** (Subercaseaux, Nawrocki, Gallicchio, Codel, Carneiro, Heule, ITP 2024) | How was encoding correctness proved? What does Phase 4 imitate? |
++| P9 | **Flyspeck** (Hales et al., Forum of Math Pi 2017) | Where did bridging computation to formal proof cost most? Which lessons carry over? |
++| P10 | **Lean blueprint**; **LeanArchitect / LeanMarathon** (2026) | Which campaign-graph conventions should GP's surfaces share, so a GP campaign can emit blueprint-compatible data? How does LeanMarathon's statement reviewer work (for M5)? |
++| P11 | **Equational Theories Project** (Tao et al., 2024–25) | How was implication closure computed and presented? This is the model for earned-but-unclaimed and for pooling. |
++| P12 | **LMFDB reliability labels** | How do they word scope honestly for users? |
++| P13 | **Hets** (Mossakowski et al., 2007) | For M1 only: anything in heterogeneous specification that sharpens the scope semantics? |
++| P14 | **Isabelle AFP algebraic numbers** (Thiemann, Yamada, Joosten) | Which algorithms and pitfalls apply to §8.8 receipts? |
++| P15 | **alphaCertified** (Hauenstein, Sottile) and verified interval libraries | For M6, after G5: record only, no deep dive now. |
++| P16 | **LMFDB** source / reliability / completeness pages (lmfdb.org, per section) and Roe, *Bridging Lean and the LMFDB* (June 2026 talk and workshop) | What exact fields and wording do reliability and completeness pages use? Could GP warrants populate them uniformly? What is the state of the Lean-bridging effort, and who is working on it? This is the most likely consumer of GP output. |
++| P17 | **Magma's paper on computing class groups and unit groups** (rigor tiers: formalizable / rigorous / GRH-conditional / heuristic); PARI `bnfinit` / `bnfcertify` docs | How do the tiers map onto GP scopes and warrants? Which conditional hypotheses need first-class scope support? Confirm the A27 seed from primary sources. |
++| P18 | **Formal Conjectures** (github.com/google-deepmind/formal-conjectures; the 2026 paper) | Can its statements serve directly as GP goal statements? How do `@[formal_proof]` modes map to GP warrants? What does its misformalization-fix process teach M5? Does it cover any of Will's campaign problems? |
++
++**Stop condition for 0e:** every row has an adopt / imitate / differ / ignore verdict with a primary-source citation; the three G1 recommendations are written; and the §7.5 interop lists are confirmed or corrected. Do not start implementing anything during 0e, and do not contact anyone. Will makes all contact.
+@@ -764 +1045 @@
+-```
++```

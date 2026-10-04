@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "title": "Phase 0a zero-regime S-1 minimality extraction",
+  "source_incident": {
+    "kind": "documented overstatement",
+    "historical_deleted_blob": "9715cf9f6353e5ba528ffc88f1e84fb8d9e6622d",
+    "historical_path": "experiments/jc_h3_adjoint_recurrence/JC-COORDINATOR-DELTA.md",
+    "blob_lines": "30-43",
+    "review": "reports/PHASE-0A-SIX-DELETED-NOTES-REVIEW.json#/records/1/incidents/0"
+  },
+  "pinned_history_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+  "source_anchors": [
+    {
+      "path": "experiments/jc_h3_adjoint_recurrence/adapter.py",
+      "lines": "52-53",
+      "fact": "R5 depth 14 and open-ended R6 from 15 have no columns"
+    },
+    {
+      "path": "experiments/jc_h3_adjoint_recurrence/adapter.py",
+      "lines": "186-198",
+      "fact": "padded B_d is ZERO for d greater than 13"
+    },
+    {
+      "path": "experiments/jc_h3_adjoint_recurrence/adapter.py",
+      "lines": "257-264, 327-333",
+      "fact": "global endpoint/shift checks and exclusion of blanket per-regime S-1 minimality"
+    }
+  ],
+  "reuse_screen": {
+    "GP-X118": "existing positive control of distinct global unilateral S8 result",
+    "GP-X318": "zeroed global endpoint mutation, not a local zero-regime unit counterexample",
+    "GP-X321": "jump schedule mutation, not local minimality"
+  },
+  "cases": {
+    "GP-X339": {
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "exact_zero_regime_reference_arithmetic",
+      "route": "zero_regime_arithmetic",
+      "regimes": [
+        "R5",
+        "R6"
+      ],
+      "regime_zero_structure": "R5 and open-ended R6 have no columns or matrix entries; padded B_d is zero from 14",
+      "unit_operator_nonzero": true,
+      "unit_shift_degree": 0,
+      "unit_annihilates_each_zero_regime": true,
+      "global_control_case": "GP-X118",
+      "global_endpoint_nonzero": true,
+      "global_unilateral_S8_preserved": true,
+      "native_per_regime_minimality_verdict": null,
+      "arithmetic_authority": "reference_exact_identity_and_shift_degree",
+      "external_execution": false,
+      "reason": "The nonzero degree-zero unit acts as 1*0=0 on each identically zero regime."
+    },
+    "GP-X340": {
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "layer": "exact_zero_regime_reference_arithmetic",
+      "route": "zero_regime_arithmetic",
+      "regimes": [
+        "R5",
+        "R6"
+      ],
+      "regime_zero_structure": "R5 and open-ended R6 have no columns or matrix entries; padded B_d is zero from 14",
+      "unit_operator_nonzero": true,
+      "unit_shift_degree": 0,
+      "unit_annihilates_each_zero_regime": true,
+      "claimed_shift_degree": 1,
+      "reference_counterexample": "1 annihilates the zero sequence",
+      "global_control_case": "GP-X118",
+      "global_endpoint_nonzero": true,
+      "global_unilateral_S8_preserved": true,
+      "native_per_regime_minimality_verdict": null,
+      "arithmetic_authority": "reference_exact_identity_and_shift_degree",
+      "external_execution": false,
+      "reason": "The degree-zero unit annihilates R5 and R6, so degree-one S-1 is not minimal on either zero regime."
+    }
+  },
+  "arithmetic_argument": "On each identically zero regime, 1*B=0. The nonzero unit in QQ[S] has shift degree 0; S-1 has shift degree 1. Therefore S-1 annihilates but is not shift-degree minimal there. The conclusion is local to R5/R6.",
+  "replay": {
+    "baseline_run": "reports/oracle-runs/20260928T211311262604Z.json",
+    "new_run": "reports/oracle-runs/20260928T220044757918Z.json",
+    "summary": {
+      "AGREES": 366,
+      "DIAGNOSTIC_OBSERVED": 1,
+      "KNOWN_DIFFERENCE": 12,
+      "PENDING": 1,
+      "UNSUPPORTED": 1
+    },
+    "new_case_ids": [
+      "GP-X339",
+      "GP-X340"
+    ]
+  },
+  "preservation": {
+    "baseline_case_count": 379,
+    "all_prior_case_bytes_unchanged": true,
+    "all_prior_expected_observed_status_layer_route_unchanged": true,
+    "reason_only_ids": [
+      "GP-X236",
+      "GP-X237"
+    ],
+    "reason_change_only_ephemeral_completion_marker": true
+  },
+  "limitations": [
+    "The per-regime refusal is a transparent reference arithmetic contradiction, not a native predecessor minimality verifier or a reproduced false-held claim.",
+    "The pinned fixture validation checks the global unilateral S8 premises, but this local case does not re-prove that ideal; GP-X118 is the separate global control.",
+    "No Lean compilation, external native checker, campaign sweep, kernel authority, or graph effect."
+  ],
+  "sha256": {
+    "reports/oracle-runs/20260928T211311262604Z.json": "02a18337674b39ae1322b413d7c546a5c20763f2393fe2dcec6bc36279cf1af1",
+    "reports/oracle-runs/20260928T220044757918Z.json": "9cfc329bd086d63a470af593423daec34a822a8d9dfda332cfb0bc1d09d79be4",
+    "oracle/ROUTES.json": "826293121b7db78ff73c30bc40533c3cc624de101a5f8334a16de979df2b9c41",
+    "tools/check-corpus.py": "6d2452a26c1cb288ac1dec173cf216d82a4559340abcf33d36aa2088432f4548",
+    "tools/zero_regime_probes.py": "0c4bfb95fce47b06fccce650542116d84f972c19f39bcb431cc10c7149b979b5",
+    "corpus/must/GP-X339.json": "3653bea97b782118f886f80b0daed510a990e29bed214cafba43298ca2085205",
+    "corpus/must/GP-X340.json": "ad331791db541acd94451583c372bcd94c4cb5e16b68763a4befba1cf22e8687"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "GP-X320",
+  "seed": null,
+  "title": "False finite quotient gcd claim refuses",
+  "situation": "The same pinned residual/fiber witness keeps its quotient modulus and polynomial image but changes the reported gcd degree from zero to one. Replay the arithmetic before accepting its unit-certificate summary.",
+  "inputs": {
+    "control": "false_gcd_claim",
+    "fixture_sha256": "ce082feccd226db1bd8e0749b652ae806e896a79053a0ed7454c5a1288e686b6",
+    "quotient": "K[Z]/(r_final)",
+    "base_field": "Q[t]/(15*t^3+1)",
+    "unit_element": "Omega8",
+    "claimed_gcd_degree": 1
+  },
+  "attempted_conclusion": "Accept the changed gcd-degree statement as a checked finite-quotient unit witness.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The reported gcd degree disagrees with exact quotient arithmetic."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "line": 43,
+      "anchor": "def test_explicit_residual_pullback_and_finite_unit_replay("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_b0_free_plane/depth8_residual_adapter.py",
+      "line": 809,
+      "anchor": "omega_gcd = kpoly_gcd(omega_image, modulus)"
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_b0_free_plane/depth8_residual_adapter.py",
+      "line": 813,
+      "anchor": "== witness[\"Omega8_in_R\"] and len(omega_gcd) - 1 =="
+    }
+  ]
+}

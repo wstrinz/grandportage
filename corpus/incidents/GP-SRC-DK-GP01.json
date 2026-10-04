@@ -1,0 +1,203 @@
+{
+  "id": "GP-SRC-DK-GP01",
+  "source_row_id": "DK-GP01",
+  "campaign": "GP",
+  "related_campaign": "DK",
+  "inventory_role": "historical_tool_defect_group",
+  "origin": "tool",
+  "origin_qualification": "Primary responsibility classification is provisional; first discoverer unknown.",
+  "class": "SCOPE",
+  "secondary_classes": [
+    "BINDING"
+  ],
+  "classification_status": "proposed qualified supplement; not approved AppendixB record",
+  "scope_or_region": "SCOPE",
+  "claimed": "Point EQUIVALENCE across BASE and ALGEBRAIC_CLOSURE and selected embedding context was treated as adequate authority.",
+  "problem": "False descent was source-reported and later repaired; embedding identity was separately exposed.",
+  "composite": true,
+  "grouping_limit": "Composite source group; false-descent and selected-embedding mechanisms remain distinct, not one automatically countable unit.",
+  "sources": [
+    {
+      "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+      "lines": "473-499",
+      "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d",
+      "reading_status": "Campaign pointer/hash inherited from accepted bounded reconciliation; not newly read or independently verified this pass."
+    }
+  ],
+  "report_evidence": [
+    {
+      "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+      "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+      "pointer": "/named_row_register/0"
+    },
+    {
+      "report": "reports/PHASE-0B-GP-REUSE-PARENT-REVIEW.json",
+      "sha256": "6ed2cc1f7b9b4236c3d6e62a463c51784ef92f43a1695959be9571d584ec82d7",
+      "pointer": "/limits"
+    }
+  ],
+  "discovered_by": "unknown",
+  "cost": null,
+  "shipped": null,
+  "gp_v037_would_catch": null,
+  "core_expressible": null,
+  "core_would_refuse": null,
+  "observed_vs_attributed": {
+    "current_observation": null,
+    "historical": "Source-attributed only. Exact fixture reuse and retained diagnostic assertions do not establish literal current campaign outcomes.",
+    "current_catch_assessment": null
+  },
+  "related_occurrences": [
+    {
+      "left": "GP-SRC-DK-GP01",
+      "right": "GP-OP-58.2",
+      "match": "related_not_merged",
+      "basis": "Declared point-universe edge validation versus compact handoff omitting correctly stored scope; distinct consumer and failure."
+    },
+    {
+      "existing_owner_id": "JC-B003",
+      "relation": "related_boundary_only",
+      "reason": "C08/C20 field-relative kills over Q/splitting field and cfg23 EQUIVALENCE false descent have different models and premises. Same scope theme is insufficient for incident merging.",
+      "new_row": false
+    },
+    {
+      "existing_owner_id": "DK-B018",
+      "relation": "existing_gp_design_occurrence",
+      "reason": "Embedding RFC fixture/map authenticity repair is a separate existing design/handoff episode, explicitly not implemented GP proof. Do not merge map validation with false descent or field/model scope admission.",
+      "new_row": false
+    }
+  ],
+  "subepisodes": [
+    {
+      "id": "GP-DISP-DK-GP01/false-descent",
+      "source_disposition_id": "DK-GP01/false-descent",
+      "source_pointer": {
+        "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+        "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+        "pointer": "/dispositions/0"
+      },
+      "disposition": "related_rule_control",
+      "primary_class": "SCOPE",
+      "secondary_classes": [
+        "BINDING"
+      ],
+      "origin": "tool",
+      "summary": "Cases use Q[x]/(x^2+1) with BASE/ALGEBRAIC_CLOSURE changes; matching and both-omitted controls do not license transport. The history report retains the named accepted_cfg23_false_descent regression and fix 93770c6. This is historical-source regression retention, not exact equivalence of a portable toy case to the campaign models.",
+      "case_reuse": [
+        {
+          "id": "GP-X10",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X11",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X12",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X280",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X281",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "evidence_reports": [
+        "reports/POINT-UNIVERSE-HISTORY-REVIEW.json"
+      ],
+      "missing_behavior_or_premise": null,
+      "admission": "not commissioned by this inventory pass",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "inventory_role": "source_attributed_historical_mechanism",
+      "owner_id": "GP-SRC-DK-GP01",
+      "record_kind": "source-attributed correction/group",
+      "counting_qualification": "Nested disposition of GP-SRC-DK-GP01; zero additional owner records and no presumed independent sample."
+    },
+    {
+      "id": "GP-DISP-DK-GP01/selected-embedding",
+      "source_disposition_id": "DK-GP01/selected-embedding",
+      "source_pointer": {
+        "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+        "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+        "pointer": "/dispositions/1"
+      },
+      "disposition": "related_rule_control",
+      "primary_class": "SCOPE",
+      "secondary_classes": [
+        "BINDING"
+      ],
+      "origin": "tool",
+      "summary": "A11a changes a selected sign predicate by w -> -7-w, x -> -x; A11b transports transformed identities. The retained partition diagnostic instead contrasts positive and negative embeddings of sqrt(2) with a true ideal cover. Distinct consumers and models.",
+      "case_reuse": [
+        {
+          "id": "GP-A11a",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-A11b",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "evidence_reports": [
+        "reports/PARTITION-EMBEDDING-BOUNDARY.json"
+      ],
+      "missing_behavior_or_premise": "A literal cfg23 embedding-edge extraction would need its selected embeddings, substitutions and premise authority; neither conditional transport nor the partition verifier diagnostic binds that edge.",
+      "admission": "not commissioned by this inventory pass",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "inventory_role": "source_attributed_historical_mechanism",
+      "owner_id": "GP-SRC-DK-GP01",
+      "record_kind": "source-attributed correction/group",
+      "counting_qualification": "Nested disposition of GP-SRC-DK-GP01; zero additional owner records and no presumed independent sample."
+    }
+  ],
+  "status": "final retained source-backed record under ratified unknown policy; observation and counting limits remain explicit",
+  "primary_class": "SCOPE",
+  "primary_origin": "tool",
+  "record_kind": "source-attributed correction/group",
+  "final_disposition": "retain qualified source-attributed group record with nested subdispositions",
+  "owner_id": "GP-SRC-DK-GP01",
+  "original_pointer": {
+    "report": "reports/PHASE-0B-GP-INVENTORY-SUPPLEMENT-DRAFT.json",
+    "pointer": "/named_gp_source_groups/0",
+    "sha256": "1ea12da51790d7b0f3beb8c26586a921537b120df20a9730c8c8826344a3c55a",
+    "review_date": "2026-09-29",
+    "date_kind": "retained report review date; not incident date or source publication date"
+  },
+  "source": {
+    "repo": "$WORKSPACE",
+    "ref": "reports/PHASE-0B-GP-INVENTORY-SUPPLEMENT-DRAFT.json#/named_gp_source_groups/0",
+    "date": "2026-09-29",
+    "review_date": "2026-09-29",
+    "date_kind": "review-source date of retained report; not incident date or original primary-source date"
+  },
+  "incident_date": null,
+  "cost_note": "Incident-specific cost unestablished at this group scope. Any source-reported timing/effort remains attribution in retained subdispositions; do not convert test/search effort to work lost.",
+  "shipped_note": "Wrong-claim publication/handoff unestablished; source code release, commit or fixture existence alone is insufficient.",
+  "gp_v037_would_catch_note": "Historical failure, exact fixture reuse, present diagnostic observations and hypothetical core behavior are different evidence/version layers; no group-wide frozen catch verdict established.",
+  "counting_qualification": {
+    "record_count": 1,
+    "independent_sample": null,
+    "mathematical_incident_count": null,
+    "rule": "One source-group record organizing existing subdispositions; do not count each subdisposition, fixture, repair or repeated source as an independent incident.",
+    "source_detail": "Composite source group; false-descent and selected-embedding mechanisms remain distinct, not one automatically countable unit."
+  },
+  "notes": "Qualified retained source-attributed correction/group. Composite source group; false-descent and selected-embedding mechanisms remain distinct, not one automatically countable unit. No new source read or execution. Source dates/hashes and attribution are preserved; no independent sample or shipping authentication inferred.",
+  "parent_integration": {
+    "worker_report": "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "worker_report_sha256": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849",
+    "register": "incident/correction/group"
+  }
+}

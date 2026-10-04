@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "status": "completed_bounded_confirmed_sweep_under_ratified_unknown_policy",
+  "phase_0b_complete": true,
+  "g0_complete": false,
+  "confirmed_manifest": {
+    "path": "SWEEP-SOURCES.md",
+    "sha256": "2f2db4d139fe3132339e7fc30b0f39dc7ee3c438dff8e995d9be4d2eca4f1d34"
+  },
+  "final_dataset": {
+    "path": "corpus/incident-registers/MANIFEST.json",
+    "sha256": "e8bb858d7cc6a397c56fb76ec7dc669e3600e2142d18e73a537ec89dc6ff260f"
+  },
+  "parent_review": {
+    "path": "reports/PHASE-0B-FINAL-PARENT-REVIEW.json",
+    "sha256": "76413d901df45e52002c7e538cd0b318eb1313960cab7aad16037f953fa70a83"
+  },
+  "counts": {
+    "unit": "descriptive records, not independent incident samples",
+    "main_records": 115,
+    "incident_correction_group_records": 76,
+    "separate_main_records": 39,
+    "auxiliary_index_entries": 17,
+    "nested_gp_subdispositions": 47,
+    "child_corrections": 2,
+    "cross_occurrences_already_owned": 4,
+    "all_by_class": {
+      "SCOPE": 19,
+      "JOIN": 1,
+      "MEANING": 11,
+      "COVER": 7,
+      "ADAPTER": 34,
+      "BINDING": 29,
+      "WARRANT": 11,
+      "OTHER": 3
+    },
+    "all_by_origin": {
+      "own": 53,
+      "tool": 60,
+      "literature": 2
+    },
+    "all_by_campaign": {
+      "JC": 16,
+      "DK": 26,
+      "Cloquet": 4,
+      "ARR15": 8,
+      "Pigeon River": 14,
+      "GP": 47
+    },
+    "incident_by_class": {
+      "SCOPE": 16,
+      "JOIN": 1,
+      "MEANING": 9,
+      "COVER": 7,
+      "ADAPTER": 20,
+      "BINDING": 13,
+      "WARRANT": 8,
+      "OTHER": 2
+    },
+    "incident_by_origin": {
+      "own": 50,
+      "tool": 24,
+      "literature": 2
+    },
+    "incident_by_campaign": {
+      "JC": 16,
+      "DK": 25,
+      "Cloquet": 4,
+      "ARR15": 8,
+      "Pigeon River": 13,
+      "GP": 10
+    },
+    "separate_by_class": {
+      "BINDING": 16,
+      "OTHER": 1,
+      "ADAPTER": 14,
+      "SCOPE": 3,
+      "WARRANT": 3,
+      "MEANING": 2
+    },
+    "separate_by_origin": {
+      "tool": 36,
+      "own": 3
+    },
+    "separate_by_campaign": {
+      "DK": 1,
+      "Pigeon River": 1,
+      "GP": 37
+    },
+    "all_by_kind": {
+      "documented incident": 25,
+      "source-attributed correction/group": 51,
+      "design": 2,
+      "operational diagnostic": 33,
+      "deliberate control": 4
+    },
+    "cost_unknown_main_records": 113,
+    "shipping_unknown_main_records": 113,
+    "source_attributed_high_shipped": [
+      "JC-B003",
+      "JC-B005"
+    ],
+    "independent_incident_population": null
+  },
+  "pivot_screen": {
+    "status": "indeterminate",
+    "high_cost_denominator": null,
+    "independent_incident_denominator": null,
+    "MEANING_high_cost_percentage": null,
+    "MEANING_plus_ADAPTER_high_cost_percentage": null,
+    "thresholds": {
+      "MEANING": "approximately30% of high-cost incidents",
+      "MEANING_plus_ADAPTER": "approximately40% of high-cost incidents"
+    },
+    "reason": "Only two main records retain source-attributed high cost/shipping. Most cost fields are unknown; composites, historical controls/designs/diagnostics and leads do not define independent incident samples. Main register size is not the denominator. No pass or fail can be inferred.",
+    "qualitative_MEANING_risk": "Wrong objectives, omitted lift or encoding premises, mismatched loci/count objects, partial-incidence formulation and compiled/sign-convention labels can provide well-bound evidence about the wrong intended statement. Custody or a small core cannot discover intended meaning.",
+    "qualitative_ADAPTER_risk": "Vacuous/weak checks, variable shadowing, incomplete canonicalizers/oracles, heuristic admissibility, noncanonical comparisons and schema/custody/encoding defects can manufacture misleading receipts. Checker soundness admission, adversarial controls and adapter meaning obligations remain essential.",
+    "review_before_Phase1": true,
+    "screen_passed": false
+  },
+  "boundary": "JC(two roots),GP,DK(two roots plus3approved supplements),Cloquet,ARR15,PigeonRiver; missing named packets and optional/nonlocal sources unavailable/excluded for this pass.",
+  "read_extraction_execution": "Bounded reading/incident extraction complete; selected89verbatim custody files verified; no campaign mathematical result freshly executed in0b.",
+  "remaining_inventory_blockers": [],
+  "before_Phase1": [
+    "Explicit review of indeterminate cost-based MEANING/ADAPTER screen and qualitative risks; inventory completion is not screen passage."
+  ],
+  "next": "Agree measurable0c cap and perform feasibility work;0e complete,0d private preparation verified."
+}

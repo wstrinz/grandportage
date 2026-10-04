@@ -1,0 +1,32 @@
+{
+  "files": [
+    {
+      "path": "grandportage/evidence.py",
+      "sha256": "183fcab3b3eb79fa1eb40c30f7412030a20439af22d4596b0c2be1731e158726",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_evidence.py",
+      "sha256": "df6b0d1ce7d69190eecd9140e8af4e75857c33fd49ea87b27e553869092e76fe",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "evidence": "reports/oracle-evidence-review.xml",
+  "tests": {
+    "passed": 8
+  },
+  "findings": [
+    "EvidenceEnvelope and contract tables are descriptive; specialized schemas and replay remain responsible for authority.",
+    "Frozen dataclasses do not deep-freeze certificate_payload or nested generator objects; as_dict uses shallow copies. Treat immutability wording as a caller convention, not a custody guarantee.",
+    "AffineContext stores characteristic/domain/universe/ring/units/generators but no about or selected embedding. Its fingerprint is a projection, not complete point-context identity.",
+    "fingerprint hashes ordered syntax, not polynomial semantic equivalence. Triangular caller canonicalization is separately tested; arbitrary envelope construction does not normalize polynomials.",
+    "Evidence tests check names, table coverage, surface parity and documentation phrases. The two-consumer documentation test does not establish checker soundness or satisfy the approved admission rule."
+  ],
+  "remaining": [
+    "Trace envelope consumers before asserting any mutable-payload or context-omission authority bypass.",
+    "Continue dossier source review started through line 210; full module is not yet read.",
+    "Preserve independent soundness and adversarial-control requirements for checker admission."
+  ]
+}

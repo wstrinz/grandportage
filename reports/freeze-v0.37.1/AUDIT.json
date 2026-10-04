@@ -1,0 +1,209 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "edd4daf0dd468669ec38e619553e73cc4a036ca8b61404478f8bf7cda273d8a4",
+  "patch_sha256": "69d252096f463dead1b8b8c4e68af05e933c7e4ad16a4c3b4b84d619dcf56fb1",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "2eb600072de5d92e383ff753ccb05795df343d0c3ec9050f76be106cd9a9d64f"
+    },
+    {
+      "path": "SPEC.md",
+      "sha256": "e7c4b2c423110fc1555d4c3c751a95b936b922b29cf0b53ab3a47db952bda411"
+    },
+    {
+      "path": "review/v0.37/KNOWN-ISSUES.md",
+      "sha256": "c07bfb0364d677cb788dcb168116b847ab68707a7732fe6d69706a3596d6faba"
+    }
+  ],
+  "existing_tag": {
+    "name": "v0.37.0",
+    "object": "ead053ff209dc192bb61c10774e2fba61f449592",
+    "commit": "https://github.com/wstrinz/grandportage/blob/d81eb12/docs/OBSERVATION-AXIS-V0.md",
+    "annotation": "Grand Portage v0.37.0",
+    "freeze_annotation_present": false,
+    "modified": false
+  },
+  "checks": {
+    "verbatim_banner": true,
+    "readme_lines": 160,
+    "readme_limit": 160,
+    "mojibake_repairs": 17,
+    "status_matches_runtime_constants": true,
+    "doc_only_paths": [
+      "README.md",
+      "SPEC.md",
+      "review/v0.37/KNOWN-ISSUES.md"
+    ],
+    "isolated_git_apply_check": true,
+    "applied_bytes_match_prepared_files": true,
+    "publication_policy_classifies_patch_public": true,
+    "prepared_entry_document_private_links_absent": true,
+    "known_issues_preserve_advice_vs_authority_distinction": true,
+    "oracle_unchanged": true
+  },
+  "link_checks": [
+    {
+      "source": "README.md",
+      "target": "SPEC.md"
+    },
+    {
+      "source": "README.md",
+      "target": "review/v0.34/README.md"
+    },
+    {
+      "source": "README.md",
+      "target": "docs/WORK.md"
+    },
+    {
+      "source": "README.md",
+      "target": "QUICKSTART.md"
+    },
+    {
+      "source": "README.md",
+      "target": "QUICKSTART.md"
+    },
+    {
+      "source": "README.md",
+      "target": "SPEC.md"
+    },
+    {
+      "source": "README.md",
+      "target": "OPERATION-CONTRACTS.md"
+    },
+    {
+      "source": "README.md",
+      "target": "COMPATIBILITY.md"
+    },
+    {
+      "source": "README.md",
+      "target": "ARCHITECTURE.md"
+    },
+    {
+      "source": "README.md",
+      "target": "REVIEW.md"
+    },
+    {
+      "source": "README.md",
+      "target": "review/v0.29/README.md"
+    },
+    {
+      "source": "README.md",
+      "target": "review/v0.30/README.md"
+    },
+    {
+      "source": "README.md",
+      "target": "review/v0.31/README.md"
+    },
+    {
+      "source": "README.md",
+      "target": "review/v0.31.1/README.md"
+    },
+    {
+      "source": "README.md",
+      "target": "review/v0.31.2/README.md"
+    },
+    {
+      "source": "README.md",
+      "target": "review/v0.32/README.md"
+    },
+    {
+      "source": "README.md",
+      "target": "review/v0.33/README.md"
+    },
+    {
+      "source": "README.md",
+      "target": "review/v0.34/README.md"
+    },
+    {
+      "source": "README.md",
+      "target": "lean/README.md"
+    },
+    {
+      "source": "README.md",
+      "target": "docs/IR-V2-CORPUS-REPORT.md"
+    },
+    {
+      "source": "README.md",
+      "target": "docs/IR-V2-TYPES.md"
+    },
+    {
+      "source": "README.md",
+      "target": "docs/OBSERVATION-AXIS-V0.md"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "README.md"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "review/v0.37/README.md"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "docs/first-run/"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "review/v0.37/KNOWN-ISSUES.md"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "COMPATIBILITY.md"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "QUICKSTART.md"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "review/v0.26/README.md"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "DESIGN.md"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "REVIEW.md"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "docs/FOUNDATIONS-PRIOR-ART.md"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "docs/VISUALIZATION.md"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "docs/PORTAGE-COMMAND-V0.md"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "docs/CAMPAIGN-DOSSIER-V0.md"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "docs/CAMPAIGN-RELEASE-V0.md"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "docs/CAMPAIGN-PUBLICATION-V0.md"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "examples/"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "grandportage/field.py"
+    },
+    {
+      "source": "SPEC.md",
+      "target": "docs/ATLAS-MAPPING-V0.md"
+    }
+  ],
+  "scope": "Private preparation verified. Not applied to original/oracle; no tag changed; no public release or new test-suite run.",
+  "remaining": "User-approved public application/publication, if requested. Preserve existing v0.37.0 tag target; do not force-retag. Freeze designation is in the prepared README banner."
+}

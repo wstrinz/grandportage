@@ -1,0 +1,114 @@
+{
+  "report": "Phase0e transfer parent integration",
+  "assigned_rows": [
+    "P3",
+    "P4",
+    "P5",
+    "P7"
+  ],
+  "accepted_as": "bounded source reading and provisional reuse recommendations",
+  "global_0e_complete": false,
+  "execution": false,
+  "adoption_approved": false,
+  "worker": {
+    "report": "reports/PHASE-0E-TRANSFER-REVIEW.json",
+    "charge_minutes": 15,
+    "sha256": "ef3b5f85bae5beae40037b0e377408c120011136dbb3fbd71b18f3a936dd6e88"
+  },
+  "checks": [
+    {
+      "row": "P3",
+      "claim": "Pinned JSON compiler filters encoding modules and initializes theory=[]; displayed dependencies cannot alone stand in for a complete axiom/rewrite support certificate."
+    },
+    {
+      "row": "P4",
+      "claim": "RightTotal plus predicate implication transfers universal truth A to B; LeftTotal transfers existential truth. BiTotal plus predicate iff gives equivalence. Parent checked exact theorem signatures and their short constructive proof terms."
+    },
+    {
+      "row": "P5",
+      "claim": "Rat.cast_inj has DivisionRing and CharZero hypotheses. Nat.cast_sub is in Int/Cast/Basic with AddGroupWithOne and m<=n. mod_cast derives and compares normalized types, then composes proof equalities. No arbitrary domain widening."
+    },
+    {
+      "row": "P7",
+      "claim": "The API concerns a fixed Language.ring.Sentence entailed by ACF0, with a finite exceptional set of prime ACF theories. Completeness uses prime-or-zero and no selected-prime numeric cutoff is supplied by these signatures."
+    }
+  ],
+  "source_hashes": [
+    {
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "Mathlib/ModelTheory/Algebra/Field/IsAlgClosed.lean",
+      "bytes": 10946,
+      "sha256": "0a938f2e9387e80779c38dfb95b0875bedb6f319abb484af0dcdd05a121c483b",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/Mathlib/ModelTheory/Algebra/Field/IsAlgClosed.lean"
+    },
+    {
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "Mathlib/Logic/Relator.lean",
+      "bytes": 6305,
+      "sha256": "a0ad95b7ebb29decac456937ae17148df8c5ca381521aef822125ea772f1bf82",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/Mathlib/Logic/Relator.lean"
+    },
+    {
+      "repository": "Deducteam/Logipedia",
+      "revision": "9da47719a18e3d9995137939e789e7664c71c9e5",
+      "path": "src/json/compile.ml",
+      "bytes": 8060,
+      "sha256": "47ccbe0094dfd00e986f5073cd63642730b02676d9aee530addafab1aedd32e4",
+      "url": "https://github.com/Deducteam/Logipedia/blob/9da47719a18e3d9995137939e789e7664c71c9e5/src/json/compile.ml"
+    },
+    {
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "Mathlib/Data/Nat/Cast/Basic.lean",
+      "bytes": 6889,
+      "sha256": "935c67652a9058884e1aed30ed0592a36cda6e4a254b9eb24beb66b09bdd5259",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/Mathlib/Data/Nat/Cast/Basic.lean"
+    },
+    {
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "Mathlib/Data/Rat/Cast/CharZero.lean",
+      "bytes": 4541,
+      "sha256": "c53b1d2d9d8ec68226699c589f5104d3ddf152f8b9c0df1d59b79efb5a50cf72",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/Mathlib/Data/Rat/Cast/CharZero.lean"
+    },
+    {
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "Mathlib/Data/Int/Cast/Basic.lean",
+      "bytes": 4073,
+      "sha256": "f844c670a3e5f09565d6d3648e740f64aba02d5cf308aa0d81770ffd7499a9a2",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/Mathlib/Data/Int/Cast/Basic.lean"
+    },
+    {
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "Mathlib/Data/Int/Cast/Lemmas.lean",
+      "bytes": 11900,
+      "sha256": "aadf0092604482b7ba777fa8da63222210edc65f3ba8d4a27e461f836d49c5cf",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/Mathlib/Data/Int/Cast/Lemmas.lean"
+    },
+    {
+      "repository": "leanprover/lean4",
+      "revision": "470d5ce1400764999581fd26d5d72b00d990b0f4",
+      "path": "src/Lean/Elab/Tactic/NormCast.lean",
+      "bytes": 10675,
+      "sha256": "a5e7d3446b0ff46a38505683ee935d939a4884c3e409a5e2e96be051c5e2e708",
+      "url": "https://github.com/leanprover/lean4/blob/470d5ce1400764999581fd26d5d72b00d990b0f4/src/Lean/Elab/Tactic/NormCast.lean"
+    }
+  ],
+  "limits": [
+    "Other Trocq/Isabelle hierarchy and historical port claims remain attributed worker primary-source inspection, not independently executed qualification.",
+    "No full axiom audit, compiled theorem, effective prime bound, toolchain compatibility or importer/exporter adoption established.",
+    "Current whole-project territory and remaining eight reading rows still open."
+  ],
+  "timing": {
+    "start_utc": "2026-09-30T01:21:30Z",
+    "max_minutes": 10,
+    "charge_minutes": 4,
+    "end_utc": "2026-09-30T01:25:27.452584Z",
+    "accounting": "Conservative continuous parent review and artifact preparation, rounded up with30second serialization allowance; includes failures and tool latency."
+  }
+}

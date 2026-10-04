@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "GP-X102",
+  "seed": null,
+  "title": "Promote guarded all-J closeout to global b0 exclusion",
+  "situation": "The closed divisor retains its wall, torus, pins and terminal guard.",
+  "inputs": {
+    "contract_section": "closeout",
+    "baseline_contract": {
+      "verdict": "C710_DIVISOR_FACE_IDEAL_UNIT_ALL_J",
+      "wall": "b = 0, R = 0, Delta = 0 (S2 substituted)",
+      "cross_section": "c = 1, a = J != 0",
+      "pins": "c2_1 = c2_2 = 0",
+      "closed_leaf": "c710_divisor_exceptional_J",
+      "prior_leaf_status": "OPEN, <= 37 algebraic J",
+      "current_leaf_status": "EXCLUDED, zero J",
+      "terminal_guard": "det5 = 0",
+      "field_scope": "every characteristic-zero field extension on the declared guarded divisor",
+      "checks": 29,
+      "mutation_refusals": 8,
+      "all_j_licensed": true,
+      "source_witness_licensed": false,
+      "source_sufficiency_licensed": false,
+      "global_b0_licensed": false,
+      "sigma_kappa_nonzero_licensed": false
+    },
+    "operations": [
+      {
+        "op": "set",
+        "path": [
+          "closeout",
+          "global_b0_licensed"
+        ],
+        "value": true
+      }
+    ]
+  },
+  "attempted_conclusion": "Promote guarded all-J closeout to global b0 exclusion.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The closed divisor retains its wall, torus, pins and terminal guard."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_c710_all_j_closeout_handback.py",
+      "line": 45,
+      "anchor": "def test_scope_promotion_mutations_refuse("
+    }
+  ]
+}

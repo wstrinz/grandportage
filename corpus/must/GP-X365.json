@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "seed": null,
+  "scope_or_region": "N/A",
+  "id": "GP-X365",
+  "title": "Forward-oriented predicate substitution fails under translation",
+  "situation": "Forward point translation sends 0 to 1. Applying forward again to target coordinate 1 yields 2, so source P(x)=x=0 becomes false.",
+  "inputs": {
+    "control": "wrong_forward_rewrite",
+    "source_point": 0,
+    "target_point": 1,
+    "forward": "x+1",
+    "backward": "y-1",
+    "source_predicate": "x=0"
+  },
+  "attempted_conclusion": "Preserve source P using the forward map as target predicate substitution.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The wrong orientation evaluates P(2), losing the true source predicate P(0)."
+  },
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/MappedEquivalence.lean",
+      "line": 45,
+      "anchor": "def MappedEquivalence.rewriteAlong",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/MappedEquivalence.lean",
+      "line": 118,
+      "anchor": "def zero_one_translation : MappedEquivalence onlyZeroInt onlyOneInt where",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/MappedEquivalence.lean",
+      "line": 132,
+      "anchor": "theorem shiftDown_is_not_point_forward :",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "id": "GP-X317",
+  "seed": null,
+  "title": "Both inclusions establish exact contraction",
+  "situation": "The source ideal (x) and target ideal (x) share the retained generator. Check the elimination certificate and the reverse membership identity.",
+  "inputs": {
+    "certificate": {
+      "method": "groebner_elimination_v1",
+      "characteristic": 0,
+      "ring_vars": [
+        "y",
+        "x"
+      ],
+      "eliminated": [
+        "y"
+      ],
+      "source_generators": [
+        "x"
+      ],
+      "basis": [
+        "x"
+      ],
+      "target_generators": [
+        "x"
+      ],
+      "source_in_basis": [
+        [
+          "1"
+        ]
+      ],
+      "critical_pairs": [],
+      "retained_in_target": [
+        [
+          "1"
+        ]
+      ]
+    },
+    "reverse_cofactors": [
+      [
+        "1"
+      ]
+    ],
+    "requested_conclusion": "exact_contraction"
+  },
+  "attempted_conclusion": "Conclude that J equals I intersect Q[x] after both directions verify.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The elimination certificate and reverse exact identity both verify."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/groebner.py",
+      "line": 1051,
+      "anchor": "Success establishes the completeness inclusion"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/groebner.py",
+      "line": 1053,
+      "anchor": "additionally requires GP's independent no-invention check"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/groebner.py",
+      "line": 794,
+      "anchor": "def check_membership_identity("
+    }
+  ]
+}

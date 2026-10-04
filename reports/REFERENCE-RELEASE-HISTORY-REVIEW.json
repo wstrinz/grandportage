@@ -1,0 +1,35 @@
+{
+  "commit": "af4f6a8f6872521f4f814ab8cdb22af32a11d52c",
+  "parent": "bf15d834c28df47f5a00b01058d46204aabdd9b4",
+  "scope": "Four complete path diffs only; initial combined release output was truncated and receives no full-release reading credit.",
+  "selected_diff_sha256": "c445062e87a5844047a85c401f3e691554c9c583191c3bf7bd1f0335517b4c31",
+  "files": [
+    {
+      "path": "grandportage/reference_oracle.py",
+      "blob": "6e78192282931831d7b5007296c21d6585b7a1ca",
+      "sha256": "38d22f0d5a011240a83935b327bef9c0813795837f218fc9b327ec1a34278f4b",
+      "disposition": "Full added reference implementation read. Independent exact dictionary arithmetic, bounded steps/degree/terms, simultaneous substitution. Sparse validation is weaker than production; pinned six-control diagnostic records the boundary."
+    },
+    {
+      "path": "grandportage/groebner.py",
+      "blob": "d402fe57f3f911f3c111f4904e439e3de3afda37",
+      "sha256": "239d045e28c7ee672905dac4c9b0214661ec33d7b10d29e8038c4a8088f16ce2",
+      "disposition": "Full release diff for production checker read. Reference mismatch becomes CertificateError; ReferenceUnchecked is returned as diagnostic status without rejecting otherwise valid fast replay. Critical-pair targets are rendered by the fast engine, so this does not independently establish every elimination theorem premise."
+    },
+    {
+      "path": "tests/fixtures/reference_oracle/corpus_v1.json",
+      "blob": "cb3e2b718b6f8f21bfa5cc129ab97af68612ed05",
+      "sha256": "904cbe96b5f646c1750a132c664218111187398faf86744fc5d1c99e49d92159",
+      "disposition": "Full four-case fixture read: identity, reordered family, prime cancellation and large coefficient. Historical variable-swap label is not itself a substitution test; separate source test exercises simultaneous substitution."
+    },
+    {
+      "path": "tests/test_reference_oracle.py",
+      "blob": "7d6440604dc799925d837af11ac4853dcdc1c154",
+      "sha256": "e4376ec652b4a8549c193fa8af75babc2f42f2be9e58cbba44c8292e4d669456",
+      "disposition": "Full added test file and pinned current file read. Deterministic tests already covered by Batch 3 evidence; no redundant run. Seeded 200-case lane uses fast-generated targets and narrow expression families; live timed Singular lane remains unrun here."
+    }
+  ],
+  "remaining": "Other 32 release paths and broader semantic extraction remain; full release review is not complete.",
+  "diagnostic": "reports/REFERENCE-SPARSE-BOUNDARY.json",
+  "prior_test_evidence": "reports/oracle-batch3-tests.xml"
+}

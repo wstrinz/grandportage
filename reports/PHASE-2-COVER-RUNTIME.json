@@ -1,0 +1,170 @@
+{
+  "schema": "gp-phase2-cover-runtime-parent-integration/v1",
+  "date": "2026-09-30",
+  "source_hashes": {
+    "phase2/lean/GP50.lean": "55783316b923bdbf348bb5556e7a0441c0a2e3baa2f5a489efc057f25fb7a6ff",
+    "phase2/lean/lakefile.toml": "abd1c408c3c43bbd22b4ec6422fc17c016b88faa4276afadac06e7e1acaf3c78",
+    "phase2/lean/GP50/AdmissionProofs.lean": "7947e809e5e2978c33ae77ee86e9aab550c0e755dcefb58889695321ceaaf6f6",
+    "phase2/lean/GP50/NarrowingAdmissionProofs.lean": "29be7d7138dc436b2990dc544259351810eb7c2877438ef37e5fcb6ba52053df",
+    "phase2/lean/GP50/Cover.lean": "4112ba30d1e1d40727195fd47f8cc496c53413cfc1cf204ec10ef3ed2b711844",
+    "phase2/lean/GP50/CoverProofs.lean": "22ff82e94fc6ddd4b6b182faab4e1568b6e8365a87d9772783ca02e839844943",
+    "phase2/lean/GP50/CoveredSpan.lean": "a9eb747b7f988b29a439af4cc8f262c93779eddb1e1453aaf567e3c714533cd8",
+    "phase2/lean/GP50/CoveredDecoder.lean": "e7bc1b0c6e53d03acc5e95f155168dd86aeb3c9407c4a3996682550009dbcb58",
+    "phase2/lean/GP50/ScopedRunner.lean": "b7559047953ac217f113b81443553f02dff21081aaed672deadaca0e7390d18b",
+    "phase2/lean/GP50/CoverAdmissionProofs.lean": "c09c24fc0e91e5daa882733d13ff44c5924837eb8f616e2a3af90fc2ce7e1cd2",
+    "phase2/lean/Tests/CoverAdmission.lean": "36442759b8e02a52dcb28f5b84d68aadd214752cc54f45660a328a64eecd2fcc",
+    "phase2/lean/Tests/Cover.lean": "3687418683fcd89c016491d04db4693ac26f5c4a59d9f3fc36729b7de92616b6",
+    "phase2/lean/Tests/AdmissionProofs.lean": "85458e2214fd5b35809a6a2b5692422af8b93c04bcdca04ffc9162a6dad709a4",
+    "tests/test_phase2_cover_wire.py": "ad207f7c1f2ade74dde504e65c84ba082a4b25068e97542511b0e7db2d091976",
+    "reports/PHASE-2-SLICE.json": "8a31a3df6d165ec59b8bfde09ac1575b079effe9746946485514fce6dbe25d41"
+  },
+  "build": {
+    "jobs": 107,
+    "exit_code": 0
+  },
+  "independent_kernel_replay": {
+    "GP50.CoverProofs": 0,
+    "GP50.AdmissionProofs": 0,
+    "GP50.CoveredSpan": 0,
+    "GP50.CoverAdmissionProofs": 0
+  },
+  "new_cover_native_controls": 43,
+  "native_component_controls_cumulative": 538,
+  "new_cover_local_proof_controls": 3,
+  "new_cover_admission_proof_controls": 10,
+  "new_snapshot_membership_proof_control": 1,
+  "compiled_proof_controls_total": 65,
+  "host_tests": {
+    "total": 79,
+    "subtests": 68,
+    "new_production_cover_wire_tests": 22
+  },
+  "native_execution": {
+    "executable_sha256": "9e0e0af38223e42632a6d8e98eace2bc1a34c5b935452eee57eeadb74035e7a4",
+    "inputs": {
+      "registry": "ba4368095b3d825f11ac682059e4c8d24098401d48fcf957303ee6bf8b5056b4",
+      "events": "db27c1efa9f5f3bb648b00451477060cc3b7c46ee4ec12099118d24e1d7337ab",
+      "query": "b18de00dd03793afbea6fb583a61f7c26a6200303fcef87d6d0654c077d36f2a"
+    },
+    "output": {
+      "earned": [
+        {
+          "claim": 3,
+          "open_obligations": [
+            7,
+            8
+          ]
+        },
+        {
+          "claim": 4,
+          "open_obligations": [
+            7
+          ]
+        }
+      ],
+      "state": {
+        "current_count": 4,
+        "domain": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "held": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "live_warrants": [
+          10,
+          20,
+          30,
+          40
+        ],
+        "retracted": [],
+        "status": "OK",
+        "successors": [],
+        "supports": [
+          10,
+          20,
+          30,
+          40
+        ],
+        "warrant_count": 4
+      },
+      "why_not": [
+        {
+          "claim": 3,
+          "held": true,
+          "warrants": [
+            {
+              "id": 30,
+              "reasons": [],
+              "supported": true
+            }
+          ]
+        },
+        {
+          "claim": 4,
+          "held": true,
+          "warrants": [
+            {
+              "id": 40,
+              "reasons": [],
+              "supported": true
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "theorem": "GP50.CoveredSpan.fold_held_meaning",
+  "guarantee": "Successful actual combined receipt/cover/narrowing fold and held bit imply registration and Means for every matching clause. Actual exact replay, finite coverage, statement/binding checks and resolved premise records discharge validator contracts; warrant ID uniqueness comes from resolve. No blanket checker/rule/projection/uniqueness assumptions in the concrete theorem.",
+  "contract_correction": "ValidatorSound.rule and BaseValidatorSound.rule explicitly carry premise-record membership. requirements_truth derives it via lookup_mapM_members. This makes the concrete cover proof use the actual records resolved by runtime, rather than demanding rule soundness for arbitrary same-ID records; no runtime behavior changed.",
+  "rule_registration": "Schema3 registers unique names with exact destination and ordered premise claim lists. The derived sideReceipt string selects the registered checker; actual clauses/scopes are checked. Schema2 remains receipt/narrowing only.",
+  "semantic_boundary": "Specified univariate Rat formal-span profile with named Nat contexts. Cover soundness establishes universal truth over scope; empty scope creates no existence witness. Host wire/digest/source interpretation remains separate.",
+  "worker_active_seconds": {
+    "cover_checker": 567,
+    "concrete_cover_admission_proof": 333
+  },
+  "preservation": {
+    "fresh_legacy_replay_cases": 459,
+    "summary": {
+      "AGREES": 403,
+      "DIAGNOSTIC_OBSERVED": 4,
+      "KNOWN_DIFFERENCE": 14,
+      "UNSUPPORTED": 9,
+      "RETAINED_DIAGNOSTIC": 29
+    },
+    "prior_case_bytes_expectations_outcomes_preserved": true,
+    "immutable_artifacts_checked": 67,
+    "oracle_pin_sha256": "180d920db790d5b5e318ce318b7b7e1467e6b11fd44e05e759e8b7cc7f4459db",
+    "historical_latest_sha256": "0996858153e6f1fec40aad3fe1d71a70cff72b39972cd78937646818214be04d"
+  },
+  "existing_corpus_cases": 7,
+  "new_corpus_cases_executed": 0,
+  "budget": {
+    "counts": {
+      "logic": 584,
+      "decoder": 263,
+      "statement": 26,
+      "proof": 1229
+    },
+    "markdown_added_words": 7281,
+    "status_words": 290,
+    "targets_exceeded": [
+      "logic"
+    ],
+    "failures": []
+  },
+  "next_worker": "Eight unchanged GP-X165..GP-X172 current-provenance fixtures with actual replay and explicit source/native binding translation, separate adapter/tests/receipt; not integrated yet.",
+  "open": [
+    "faithful required cover/narrowing/earned/independent-support corpus translations",
+    "proved-overlap conflict and release freeze",
+    "full event-set order independence",
+    "all remaining kernel-tagged fixture passes"
+  ],
+  "g2_pass": false,
+  "public_push": false
+}

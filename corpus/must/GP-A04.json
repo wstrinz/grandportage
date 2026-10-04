@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "GP-A04",
+  "seed": "A4",
+  "title": "Integral conclusion with nonintegral derivation",
+  "situation": "In Z_(p)[x]/(p*x), x=0 on the generic fibre follows using 1/p.",
+  "inputs": {
+    "source_ideal": [
+      "p*x"
+    ],
+    "identity": "x=0",
+    "cofactor": "1/p",
+    "target_characteristic": "p"
+  },
+  "attempted_conclusion": "Reduce x=0 to characteristic p.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The derivation, not just the displayed conclusion, must be p-integral."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 544,
+      "anchor": "| A4 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/kernel.py",
+      "line": 1138,
+      "anchor": "if rule == _INTEGRAL_IDENTITY:"
+    }
+  ]
+}

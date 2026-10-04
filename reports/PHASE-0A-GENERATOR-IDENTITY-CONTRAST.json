@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "title": "Phase 0a finding 76.7 generator identity contrast",
+  "status": "bounded_evidence_for_parent_interpretation",
+  "finding_row": "76.7",
+  "frozen_source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "source_pins": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/cas.py",
+      "line": 348,
+      "anchor": "self.generators = list(generators) if generators is not None else None",
+      "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/cas.py",
+      "line": 396,
+      "anchor": "def execution_text(self, completion_nonce=None):",
+      "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/cas.py",
+      "line": 439,
+      "anchor": "def semantic_fingerprint(self):",
+      "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/cas.py",
+      "line": 819,
+      "anchor": "generators=getattr(program, \"generators\", None),",
+      "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/cas.py",
+      "line": 1079,
+      "anchor": "completion_nonce = secrets.token_hex(16)",
+      "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/artifacts.py",
+      "line": 195,
+      "anchor": "def note_reference(value):",
+      "sha256": "1d3da9853c59899b29a522c4646f488712f80b1efbcc93fa843f1243ee098864"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/store.py",
+      "line": 3548,
+      "anchor": "def append(events, root=\".\", graph=None):",
+      "sha256": "900da33d1b8e3ae045533b3ae8ed67317a3bc56a35861d2bcd604ae6adb7e755"
+    }
+  ],
+  "prior_evidence": [
+    "reports/PHASE-0A-BATCH-76.md#paragraph-7",
+    "reports/CAS-PROGRAM-CUSTODY.json#/observations/2",
+    "tools/audit-cas-program-custody.py"
+  ],
+  "existing_harness_sha256": "efabfadf8a210bbcacf0247d6ab8072eed944e3f80fe7bc51e3bd4ade024dfde",
+  "method": {
+    "runner": "injected callable returning success and nonce-bound GP_I[1]=x transcript",
+    "live_cas": false,
+    "roots": "two isolated F: scratch graphs with identical SRC declarations",
+    "transport": {
+      "src": "SRC",
+      "type": "IMAGE_CLOSURE",
+      "map_kind": "POLYNOMIAL",
+      "why": "bounded generator identity contrast"
+    },
+    "produces": "DST",
+    "program_inputs_held_equal": [
+      "dialect",
+      "ring",
+      "ring_vars",
+      "decls",
+      "body",
+      "outputs",
+      "characteristic",
+      "ordering"
+    ],
+    "sole_caller_input_changed": "CASProgram.generators: [x] versus [1]",
+    "source_event": {
+      "ev": "model",
+      "id": "SRC",
+      "what": "source",
+      "field": "Q",
+      "characteristic": 0,
+      "ring_vars": [
+        "x"
+      ],
+      "generators": [
+        "x"
+      ]
+    }
+  },
+  "observations": [
+    {
+      "label": "matching",
+      "caller_generators": [
+        "x"
+      ],
+      "rendered_template_text": "ring GP_R = 0,(x),dp;\nshort=0;\nideal GP_I = x;\n\"@@GP_I:\";\nGP_I;\nquit;\n",
+      "rendered_template_sha256": "d08bc1ff48e227aecbdb2f10e66acac87f2a1ca2e6cbe530625239cda94d4a06",
+      "program_semantic_fingerprint": "sha256:800729dacbb6c24406fd04906660c53d7e6691f88ce8e83380c6b54fbfdefc83",
+      "execution_semantic_input_fingerprint": "sha256:800729dacbb6c24406fd04906660c53d7e6691f88ce8e83380c6b54fbfdefc83",
+      "parsed_output": {
+        "GP_I": "GP_I[1]=x"
+      },
+      "persisted_model_event": {
+        "characteristic": 0,
+        "cite": "",
+        "desc": "same rendered program",
+        "ev": "model",
+        "generators": [
+          "x"
+        ],
+        "id": "DST",
+        "ring_vars": [
+          "x"
+        ]
+      },
+      "persisted_model_event_sha256": "2d1c0aa04858f4ae0a86947590fe8c5c549d69778ef281e7a78da78191d1c01d",
+      "loaded_model_generators": [
+        "x"
+      ],
+      "nonce_bound_program_fingerprint": "sha256:c0de7078d9f21fcaa7a66283be41e86fe92d15568bb6f34374356ef78140440c",
+      "nonce_bound_artifact_fingerprint": "sha256:81575ff4e2ac59a515f9abd902f55c4560b6314da7eed526f5e90353ad0f5f8a",
+      "nonce_bound_text_normalized": "ring GP_R = 0,(x),dp;\n\"@@GP-ID:<nonce>\";\nsystem(\"--version\");\n\"@@GP-ID-END:<nonce>\";\nshort=0;\nideal GP_I = x;\n\"@@GP_I:\";\nGP_I;\n\"@@GP-END:<nonce>\";\nquit;\n",
+      "graph_log_sha256": "45a6e9b4564c4a9d80ef006590deed4c021ab5df9974e2983b680e3b072743c0",
+      "scratch_graph": "tmp/generator-identity-ynel1gug/matching/.portage/graph.jsonl"
+    },
+    {
+      "label": "changed",
+      "caller_generators": [
+        "1"
+      ],
+      "rendered_template_text": "ring GP_R = 0,(x),dp;\nshort=0;\nideal GP_I = x;\n\"@@GP_I:\";\nGP_I;\nquit;\n",
+      "rendered_template_sha256": "d08bc1ff48e227aecbdb2f10e66acac87f2a1ca2e6cbe530625239cda94d4a06",
+      "program_semantic_fingerprint": "sha256:800729dacbb6c24406fd04906660c53d7e6691f88ce8e83380c6b54fbfdefc83",
+      "execution_semantic_input_fingerprint": "sha256:800729dacbb6c24406fd04906660c53d7e6691f88ce8e83380c6b54fbfdefc83",
+      "parsed_output": {
+        "GP_I": "GP_I[1]=x"
+      },
+      "persisted_model_event": {
+        "characteristic": 0,
+        "cite": "",
+        "desc": "same rendered program",
+        "ev": "model",
+        "generators": [
+          "1"
+        ],
+        "id": "DST",
+        "ring_vars": [
+          "x"
+        ]
+      },
+      "persisted_model_event_sha256": "9fc5730c0c07d680063d8ec2050c2ff729d24dcf0f0659eef01bd362e3b23832",
+      "loaded_model_generators": [
+        "1"
+      ],
+      "nonce_bound_program_fingerprint": "sha256:f58dfc1270a63a5784c4f99f80638ed1f25289634ca99de890c5db31253a2f0c",
+      "nonce_bound_artifact_fingerprint": "sha256:7fa0075efdec5e0ab60870120bc23c6ed714cd03e089ecffb4ec3e8ae7ef6556",
+      "nonce_bound_text_normalized": "ring GP_R = 0,(x),dp;\n\"@@GP-ID:<nonce>\";\nsystem(\"--version\");\n\"@@GP-ID-END:<nonce>\";\nshort=0;\nideal GP_I = x;\n\"@@GP_I:\";\nGP_I;\n\"@@GP-END:<nonce>\";\nquit;\n",
+      "graph_log_sha256": "7a82f3a3558a4dc5d3cf48e6de5ac221fc4de19a6e5845e40d57d962008ede9f",
+      "scratch_graph": "tmp/generator-identity-ynel1gug/changed/.portage/graph.jsonl"
+    }
+  ],
+  "comparison": {
+    "same_rendered_template": true,
+    "same_template_sha256": true,
+    "same_program_semantic_fingerprint": true,
+    "same_execution_semantic_input_fingerprint": true,
+    "same_parsed_output": true,
+    "same_nonce_normalized_invocation_text": true,
+    "persisted_model_events_differ_only_in_generators": true,
+    "persisted_generators": {
+      "matching": [
+        "x"
+      ],
+      "changed": [
+        "1"
+      ]
+    },
+    "different_graph_log_sha256": true,
+    "different_nonce_bound_program_fingerprints": true,
+    "different_artifact_fingerprints": true
+  },
+  "interpretation": "The semantic CASProgram fingerprint and execution semantic-input fingerprint identify the unchanged rendered template, yet resulting model declarations retain different caller generator metadata. The current persisted model event does distinguish the declarations. Nonce-bound execution/artifact fingerprints differ between runs for independent nonce reasons and are not evidence that the semantic input fingerprint binds generators.",
+  "limits": [
+    "Injected runner, no Singular process or mathematical verification.",
+    "The same mock output is supplied for both inputs; this isolates metadata propagation rather than testing CAS truth.",
+    "Each run creates a model declaration and provenance note, not an operation or contraction verdict or a held mathematical claim.",
+    "The changed metadata is supplied by a direct caller; no external-input path or broader attack is established.",
+    "No identity policy, checker admission, corpus expectation, or Phase 0a closure decision is selected here."
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "seed": null,
+  "inputs": {
+    "fixture_sha256": "8b9cf56ca0faad4dbeeb57593c2612ed408521df3a9d62c34bcd838e8189cd58",
+    "regimes": [
+      "R5",
+      "R6"
+    ],
+    "zero_from": 14,
+    "operator_coefficient_domain": "QQ",
+    "shift_convention": "(S B)_d = B_(d+1)",
+    "unit_operator": {
+      "0": "1"
+    },
+    "control": "unit_annihilator"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_adjoint_recurrence/adapter.py",
+      "line": 52,
+      "anchor": "(\"R5\", (14, 14), False, (2, 3, 4, 5), (), 4)"
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_adjoint_recurrence/adapter.py",
+      "line": 53,
+      "anchor": "(\"R6\", (15, 24), True, ROWS, (), 5)"
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_adjoint_recurrence/adapter.py",
+      "line": 332,
+      "anchor": "\"blanket minimality of S-1 within every regime (the zero-tail \""
+    }
+  ],
+  "id": "GP-X339",
+  "title": "Unit operator annihilates both zero-padded regimes",
+  "situation": "The pinned recurrence certificate has empty R5 at depth 14 and open-ended R6 from depth 15. On each identically zero regime, the degree-zero unit operator over QQ annihilates the sequence.",
+  "attempted_conclusion": "Accept 1 as an annihilator of R5 and R6 on their stated local domains.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "One times the zero sequence is zero in each regime; the unit has shift degree zero."
+  }
+}

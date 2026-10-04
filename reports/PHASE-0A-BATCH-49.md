@@ -1,0 +1,11 @@
+# Phase 0a — ordered SOS recording and interpretation
+
+Read field.py, both certificate-composition and epoch12-contract test files, the interpreter parity script and its ordered fixture completely. Reviewed the ordered receipt-admission and native-eligibility branches, complete typed-field transport gates and missing-model-scope diagnostic. These bounded slices do not newly claim full review of store/check/provenance. ORDERED-SOS-REVIEW.json records exact hashes and remaining work.
+
+All 31 tests pass, including persisted valid proof recording, ordered reach, composed Q transport, invalid C/F2 continuation, changed-model receipt rejection/staleness and detached/false proof controls. The count also includes family-bridge regressions. Their structural admission is not a proof of arbitrary assertion prose. Interpreter parity compares one fixture against normalized output; the tests do not run Lean or establish general interpreter equivalence.
+
+Two additional native current-metadata controls expose a conservative recording defect. For a model generator x*x+1, ordered_sos verifies the supplied exact identity and returns a canonical representation with x^2+1. Store replays that representation against the original model's generator strings and rejects the textual mismatch. The canonical x^2+1 model records and earns ORDERED reach. No false proof is admitted. Proposed repair: distinguish original-input custody from canonical arithmetic, or compare validated canonical forms consistently while retaining original fingerprints and genuinely changed-generator rejection.
+
+Typed transport requires verifier-earned reach and rejects algebraic-closure interpretation of ORDERED reach. The wholly legacy edge path bypasses this new typed gate and direct/zero-length routes need separate scope review; the passing typed controls are not a global scope proof. Phase 0 remains open.
+
+Corpus expectations, adapter bytes, pinned oracle and immutable replay remain unchanged: 348 cases and eleven classified known differences. The newly reproduced conservative recording failure is currently diagnostic and has not silently changed those counts. No campaign harvest, live CAS, Lean build or publication occurred.

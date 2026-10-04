@@ -1,0 +1,3141 @@
+{
+  "schema_version": 1,
+  "title": "Phase 0b GP reuse consolidation",
+  "workspace": "$WORKSPACE",
+  "prepared_date": "2026-09-29",
+  "status": "Bounded report-only reconciliation complete; coordinator owns admission and final coverage",
+  "scope": {
+    "named_source_rows": 18,
+    "disposed_subepisodes": 47,
+    "case_inventory_observed": 456,
+    "writes": [
+      "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.md",
+      "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json"
+    ],
+    "new_campaign_content_reads": 0,
+    "new_execution": false,
+    "shared_state_edits": false,
+    "A24": "pending; unchanged",
+    "replay_state": "untouched"
+  },
+  "classification_definitions": {
+    "exact_case_reuse": "Established assigned fixture/model/premise equivalence, with route authority limit retained; does not imply current execution or universal campaign coverage.",
+    "related_rule_control": "Actual case inputs and dispatch test a related boundary; a different model, premise, claim kind, operation or consumer prevents literal reuse.",
+    "retained_diagnostic_observation": "Existing bounded evidence or historical observation retained as such; not minted mathematical authority.",
+    "historical_defect_not_reproduced": "Source records a specific defect; the selected existing cases do not reproduce that exact implementation/lifecycle behavior.",
+    "design_backlog": "Missing semantic contract, positive capability or presentation requirement; no implemented checker or newly admitted incident inferred."
+  },
+  "stop_condition": {
+    "all_named_rows_have_specific_dispositions": true,
+    "new_work_authorized": false,
+    "parent_follow_up": "Independent review, mathematical admission and final coverage remain with coordinator. Extraction gaps below are specific future candidates, not instructions to execute."
+  },
+  "evidence_limits": [
+    "Only existing Phase 0a reports, four existing Phase 0b source reports, targeted case payloads and ROUTES were read. No campaign files or fixture content newly read.",
+    "All historical versions, fixes and campaign outcomes remain attributed to the bounded reports. No oracle/test/CAS/Lean/campaign execution, source inspection, harvesting, copying, installs, commits, external reads or delegation occurred.",
+    "Related controls cannot supply a missing campaign model or premise. Conditional-rule routes assume premises; descriptive registry coverage does not provide a checker.",
+    "The two exact reuse dispositions are DK-GP04/X399 and DK-GP06/X400. X401 is a declaration-with-debt contrast, X402/X403 are missing E5 bridge controls; none licenses a proved family conclusion.",
+    "No cost, shipping, core expressibility or current catch conclusion is synthesized. Wrong published or relied-on handoff remains unestablished; source encoding effort in DK-GP05 is preserved in its finding.",
+    "No report row is automatically a mathematical incident; hostile probes, blocked tools, legitimate derived identities and presentation observations retain their distinct categories."
+  ],
+  "counts": {
+    "related_rule_control": 15,
+    "historical_defect_not_reproduced": 12,
+    "design_backlog": 6,
+    "exact_case_reuse": 2,
+    "retained_diagnostic_observation": 12
+  },
+  "source_reports": [
+    {
+      "path": "reports/PHASE-0B-DK-BOUNDED-REVIEW.json",
+      "sha256": "1c9db66d38949da3ce2101a5ea3a67520f699b0509d90e9a7a4bb5220556c062"
+    },
+    {
+      "path": "reports/PHASE-0B-CLOQUET-BOUNDED-REVIEW.json",
+      "sha256": "5a9b18734fa53a435818a400d3d4fd1e6b5f93087a36bdf414903442c5ff733d"
+    },
+    {
+      "path": "reports/PHASE-0B-ARR15-BOUNDED-REVIEW.json",
+      "sha256": "ad715538a1d68d69d5aedb6586f773b9cbd16dfea45db4113bf4ced8394f4f48"
+    },
+    {
+      "path": "reports/PHASE-0B-PIGEON-RIVER-BOUNDED-REVIEW.json",
+      "sha256": "e41a6500c258c8b79f4f395b25af8e3aa0c8d11fc3d96ab8dc9ba959ba47c630"
+    }
+  ],
+  "named_row_register": [
+    {
+      "id": "DK-GP01",
+      "report": "reports/PHASE-0B-DK-BOUNDED-REVIEW.json",
+      "report_sha256": "1c9db66d38949da3ce2101a5ea3a67520f699b0509d90e9a7a4bb5220556c062",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "473-499",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "disposition_ids": [
+        "DK-GP01/false-descent",
+        "DK-GP01/selected-embedding"
+      ]
+    },
+    {
+      "id": "DK-GP02",
+      "report": "reports/PHASE-0B-DK-BOUNDED-REVIEW.json",
+      "report_sha256": "1c9db66d38949da3ce2101a5ea3a67520f699b0509d90e9a7a4bb5220556c062",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "680-717",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "disposition_ids": [
+        "DK-GP02/valid-format6-read",
+        "DK-GP02/malformed5-6-migrate-read"
+      ]
+    },
+    {
+      "id": "DK-GP03",
+      "report": "reports/PHASE-0B-DK-BOUNDED-REVIEW.json",
+      "report_sha256": "1c9db66d38949da3ce2101a5ea3a67520f699b0509d90e9a7a4bb5220556c062",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "434-456;916-925",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "disposition_ids": [
+        "DK-GP03/arbitrary-field-strings",
+        "DK-GP03/model-scope-omission",
+        "DK-GP03/certificate-content-compatibility",
+        "DK-GP03/retry-selection"
+      ]
+    },
+    {
+      "id": "DK-GP04",
+      "report": "reports/PHASE-0B-DK-BOUNDED-REVIEW.json",
+      "report_sha256": "1c9db66d38949da3ce2101a5ea3a67520f699b0509d90e9a7a4bb5220556c062",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/dk-retrodiction/REPORT.md",
+          "lines": "211-219;412-417",
+          "sha256": "c56fe65d9e246bd06c525e9da5c642c24fa378681525d602679cd37e88228153"
+        }
+      ],
+      "disposition_ids": [
+        "DK-GP04/D1-family-premise"
+      ]
+    },
+    {
+      "id": "DK-GP05",
+      "report": "reports/PHASE-0B-DK-BOUNDED-REVIEW.json",
+      "report_sha256": "1c9db66d38949da3ce2101a5ea3a67520f699b0509d90e9a7a4bb5220556c062",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/dk-retrodiction/REPORT.md",
+          "lines": "515-528;534-537;570-573",
+          "sha256": "c56fe65d9e246bd06c525e9da5c642c24fa378681525d602679cd37e88228153"
+        }
+      ],
+      "disposition_ids": [
+        "DK-GP05/D2-96-97-substitution"
+      ]
+    },
+    {
+      "id": "DK-GP06",
+      "report": "reports/PHASE-0B-DK-BOUNDED-REVIEW.json",
+      "report_sha256": "1c9db66d38949da3ce2101a5ea3a67520f699b0509d90e9a7a4bb5220556c062",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/dk-retrodiction/REPORT.md",
+          "lines": "322-329;412-417",
+          "sha256": "c56fe65d9e246bd06c525e9da5c642c24fa378681525d602679cd37e88228153"
+        }
+      ],
+      "disposition_ids": [
+        "DK-GP06/D3-inert-count-fields",
+        "DK-GP06/typed-count-contrast"
+      ]
+    },
+    {
+      "id": "DK-GP07",
+      "report": "reports/PHASE-0B-DK-BOUNDED-REVIEW.json",
+      "report_sha256": "1c9db66d38949da3ce2101a5ea3a67520f699b0509d90e9a7a4bb5220556c062",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/dk-retrodiction/REPORT.md",
+          "lines": "113-170",
+          "sha256": "c56fe65d9e246bd06c525e9da5c642c24fa378681525d602679cd37e88228153"
+        }
+      ],
+      "disposition_ids": [
+        "DK-GP07/X2c-order-to-C",
+        "DK-GP07/legacy-field-Q-R-C-R"
+      ]
+    },
+    {
+      "id": "DK-GP08",
+      "report": "reports/PHASE-0B-DK-BOUNDED-REVIEW.json",
+      "report_sha256": "1c9db66d38949da3ce2101a5ea3a67520f699b0509d90e9a7a4bb5220556c062",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/dk-retrodiction/REPORT.md",
+          "lines": "172-188",
+          "sha256": "c56fe65d9e246bd06c525e9da5c642c24fa378681525d602679cd37e88228153"
+        }
+      ],
+      "disposition_ids": [
+        "DK-GP08/X6-capped-search"
+      ]
+    },
+    {
+      "id": "DK-GP09",
+      "report": "reports/PHASE-0B-DK-BOUNDED-REVIEW.json",
+      "report_sha256": "1c9db66d38949da3ce2101a5ea3a67520f699b0509d90e9a7a4bb5220556c062",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/dk-retrodiction/REPORT.md",
+          "lines": "192-219;271-291;295-320",
+          "sha256": "c56fe65d9e246bd06c525e9da5c642c24fa378681525d602679cd37e88228153"
+        }
+      ],
+      "disposition_ids": [
+        "DK-GP09/X5-valid-conjugation",
+        "DK-GP09/X9-authority-not-carried",
+        "DK-GP09/E5-declared-exclusions",
+        "DK-GP09/false-total",
+        "DK-GP09/overbroad-nonEMPTY-scope",
+        "DK-GP09/X1-positive",
+        "DK-GP09/X3-positive",
+        "DK-GP09/X7-positive",
+        "DK-GP09/X10-positive"
+      ]
+    },
+    {
+      "id": "DK-GP10",
+      "report": "reports/PHASE-0B-DK-BOUNDED-REVIEW.json",
+      "report_sha256": "1c9db66d38949da3ce2101a5ea3a67520f699b0509d90e9a7a4bb5220556c062",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/dk-retrodiction/REPORT.md",
+          "lines": "475-508;549-553",
+          "sha256": "c56fe65d9e246bd06c525e9da5c642c24fa378681525d602679cd37e88228153"
+        }
+      ],
+      "disposition_ids": [
+        "DK-GP10/layer-count-adjacency"
+      ]
+    },
+    {
+      "id": "CQ-G01",
+      "report": "reports/PHASE-0B-CLOQUET-BOUNDED-REVIEW.json",
+      "report_sha256": "5a9b18734fa53a435818a400d3d4fd1e6b5f93087a36bdf414903442c5ff733d",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            61,
+            71
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            137,
+            150
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            49,
+            53
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "disposition_ids": [
+        "CQ-G01/unit-quotient-wording"
+      ]
+    },
+    {
+      "id": "CQ-G02",
+      "report": "reports/PHASE-0B-CLOQUET-BOUNDED-REVIEW.json",
+      "report_sha256": "5a9b18734fa53a435818a400d3d4fd1e6b5f93087a36bdf414903442c5ff733d",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            73,
+            78
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            152,
+            165
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            49,
+            53
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "disposition_ids": [
+        "CQ-G02/unrelated-supersession-stale-view"
+      ]
+    },
+    {
+      "id": "CQ-G03",
+      "report": "reports/PHASE-0B-CLOQUET-BOUNDED-REVIEW.json",
+      "report_sha256": "5a9b18734fa53a435818a400d3d4fd1e6b5f93087a36bdf414903442c5ff733d",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            112,
+            118
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            167,
+            173
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        }
+      ],
+      "disposition_ids": [
+        "CQ-G03/undeclared-t-parse"
+      ]
+    },
+    {
+      "id": "ARR-G09",
+      "report": "reports/PHASE-0B-ARR15-BOUNDED-REVIEW.json",
+      "report_sha256": "ad715538a1d68d69d5aedb6586f773b9cbd16dfea45db4113bf4ced8394f4f48",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            199,
+            213
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            504,
+            509
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-gp-v026-live-acceptance-r2.md",
+          "lines": [
+            14,
+            19
+          ],
+          "sha256": "555929ced4ae8bccead89ab2be6b35725a9e154aaf2c3fa38a2db8794c674931",
+          "latest_path_history": "791f962c778bb77584a1984482728bdd8169d5f9|2026-08-23T09:12:44-05:00|Accept cyclotomic summit and close post-68 intake"
+        }
+      ],
+      "disposition_ids": [
+        "ARR-G09/ordinary-guarded-point",
+        "ARR-G09/equation-free-ordinary-point"
+      ]
+    },
+    {
+      "id": "ARR-G10",
+      "report": "reports/PHASE-0B-ARR15-BOUNDED-REVIEW.json",
+      "report_sha256": "ad715538a1d68d69d5aedb6586f773b9cbd16dfea45db4113bf4ced8394f4f48",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            199,
+            213
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-gp-v026-live-acceptance-r2.md",
+          "lines": [
+            14,
+            26
+          ],
+          "sha256": "555929ced4ae8bccead89ab2be6b35725a9e154aaf2c3fa38a2db8794c674931",
+          "latest_path_history": "791f962c778bb77584a1984482728bdd8169d5f9|2026-08-23T09:12:44-05:00|Accept cyclotomic summit and close post-68 intake"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/CHECKPOINT.md",
+          "lines": [
+            134,
+            144
+          ],
+          "sha256": "8313ea3bfb2ccabfc7f01abcfe239fd5b3ca1d4caaa619947a3c324ae531bfb1",
+          "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+        }
+      ],
+      "disposition_ids": [
+        "ARR-G10/large-localized-route-crash",
+        "ARR-G10/16-64-packaging-cap"
+      ]
+    },
+    {
+      "id": "ARR-G11",
+      "report": "reports/PHASE-0B-ARR15-BOUNDED-REVIEW.json",
+      "report_sha256": "ad715538a1d68d69d5aedb6586f773b9cbd16dfea45db4113bf4ced8394f4f48",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-gp-v026-live-acceptance-r2.md",
+          "lines": [
+            8,
+            26
+          ],
+          "sha256": "555929ced4ae8bccead89ab2be6b35725a9e154aaf2c3fa38a2db8794c674931",
+          "latest_path_history": "791f962c778bb77584a1984482728bdd8169d5f9|2026-08-23T09:12:44-05:00|Accept cyclotomic summit and close post-68 intake"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/RESULTS_SO_FAR.md",
+          "lines": [
+            151,
+            157
+          ],
+          "sha256": "ee7e588c0eaa2da55ed5eb0f4cce67564f939b01ef923fc44685021508fad1bc",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/CHECKPOINT.md",
+          "lines": [
+            134,
+            144
+          ],
+          "sha256": "8313ea3bfb2ccabfc7f01abcfe239fd5b3ca1d4caaa619947a3c324ae531bfb1",
+          "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+        }
+      ],
+      "disposition_ids": [
+        "ARR-G11/nonsquare-checker-invisible"
+      ]
+    },
+    {
+      "id": "ARR-O12",
+      "report": "reports/PHASE-0B-ARR15-BOUNDED-REVIEW.json",
+      "report_sha256": "ad715538a1d68d69d5aedb6586f773b9cbd16dfea45db4113bf4ced8394f4f48",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            31,
+            70
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            149,
+            159
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            313,
+            320
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            490,
+            501
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "disposition_ids": [
+        "ARR-O12/native-cas-host",
+        "ARR-O12/e10-encoding-conflicts",
+        "ARR-O12/old-manifest-schema",
+        "ARR-O12/mac-v026-binding"
+      ]
+    },
+    {
+      "id": "PR-G14",
+      "report": "reports/PHASE-0B-PIGEON-RIVER-BOUNDED-REVIEW.json",
+      "report_sha256": "e41a6500c258c8b79f4f395b25af8e3aa0c8d11fc3d96ab8dc9ba959ba47c630",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            10,
+            224
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            227,
+            378
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            381,
+            559
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            562,
+            713
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            715,
+            832
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            835,
+            1081
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/coordination/PRG-E11-CLOSEOUT-REVIEW.md",
+          "lines": [
+            18,
+            30
+          ],
+          "sha256": "efd6e4e8cb82d12bb5f5355b6feff5181571551200c5a6b4a3f93ddddccb46c7"
+        }
+      ],
+      "disposition_ids": [
+        "PR-G14/P2-missing-certificate",
+        "PR-G14/P4-missing-certificate",
+        "PR-G14/P5-missing-certificate",
+        "PR-G14/P1-literal-normalized",
+        "PR-G14/P3-quotient-exact-distance",
+        "PR-G14/P6-bridge-without-suffix",
+        "PR-G14/P1-witness-removal",
+        "PR-G14/P3-witness-removal",
+        "PR-G14/eleven-exercises",
+        "PR-G14/baseline-zero-six"
+      ]
+    }
+  ],
+  "retained_phase0a_reports": [
+    {
+      "path": "reports/POINT-UNIVERSE-HISTORY-REVIEW.json",
+      "sha256": "19738416953fe2c8ae0289a5a48c8cf0ca22c829e19bf631c064e9b1401ba201"
+    },
+    {
+      "path": "reports/MIGRATION-CUSTODY-BOUNDARY.json",
+      "sha256": "a73aecf0dc50c08c0487e1eb5a7dc43bc548c6f885272aa204831c698127a628"
+    },
+    {
+      "path": "reports/NUMBER-FIELD-BOUNDARIES.json",
+      "sha256": "aa502db437d391edfc3405c9374671b77a4068e060480392a16a4b74d822cb37"
+    },
+    {
+      "path": "reports/PARTITION-EMBEDDING-BOUNDARY.json",
+      "sha256": "acf0e47180c4af993b0dde44f0fad5567957683ac4631525340bbe1c86ba0f84"
+    },
+    {
+      "path": "reports/PARTITION-OPEN-GUARD-BOUNDARY.json",
+      "sha256": "9798873c37154bf02dacc77fc78ea44407b7cffb137c89033d6e2a9cbdba3bcf"
+    },
+    {
+      "path": "reports/ARTIFACT-MANIFEST-BOUNDARY.json",
+      "sha256": "7fbb84e7bee855b2525a9db7de270c5e1d3603a31e6412d64dc4930d19fc9de3"
+    },
+    {
+      "path": "reports/IMPLEMENTATION-IDENTITY-BOUNDARY.json",
+      "sha256": "8dcb40e7067cbaf2800e75346a7400bc10b36941c63be121b945d9a422b1aaee"
+    },
+    {
+      "path": "reports/PHASE-0A-GUARD-EXTRACTION.json",
+      "sha256": "b8a02001bbe1f4c328a7d93c256b8dabf7262c356d4396e70219c1f8d1c8f2d3"
+    },
+    {
+      "path": "reports/AUTHORITY-SCOPE-RELEASE-HISTORY-REVIEW.json",
+      "sha256": "ee1e605f3973a1d3da38efb312603078a91c5bd7ab806de5d589dae5499aef5c"
+    }
+  ],
+  "case_payloads_read": [
+    {
+      "id": "GP-A01",
+      "path": "corpus/must/GP-A01.json",
+      "sha256": "7344ab02090d0a57ae055ae0dd21187c6ad9d06b80fb19b76cf1585f50bc1b7e",
+      "inputs": {
+        "context": "Q(sqrt(17))",
+        "target_context": "every characteristic-zero field",
+        "warrant": "field-specific obstruction"
+      },
+      "attempted_conclusion": "The model is empty over every characteristic-zero field.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "The warrant has only field-specific reach."
+      }
+    },
+    {
+      "id": "GP-A10-Q",
+      "path": "corpus/must/GP-A10-Q.json",
+      "sha256": "25e90f5cb2bcee31e14d8899d8e82f1e0d8a921cc7c68515c670ef9fd5ea46d9",
+      "inputs": {
+        "variables": [
+          "x"
+        ],
+        "generators": [
+          "x^2+1"
+        ],
+        "squares": [
+          "x"
+        ],
+        "cofactors": [
+          "-1"
+        ],
+        "target_context": "Q"
+      },
+      "attempted_conclusion": "Conclude x^2+1=0 has no points in Q.",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "The contradiction interpretation requires an ordered field; equality replay alone is insufficient."
+      }
+    },
+    {
+      "id": "GP-A10-R",
+      "path": "corpus/must/GP-A10-R.json",
+      "sha256": "d7981457ee62ff3f7da445a328072c04b5c0ad66b09b3d5af2101665764f4cd8",
+      "inputs": {
+        "variables": [
+          "x"
+        ],
+        "generators": [
+          "x^2+1"
+        ],
+        "squares": [
+          "x"
+        ],
+        "cofactors": [
+          "-1"
+        ],
+        "target_context": "R"
+      },
+      "attempted_conclusion": "Conclude x^2+1=0 has no points in R.",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "The contradiction interpretation requires an ordered field; equality replay alone is insufficient."
+      }
+    },
+    {
+      "id": "GP-A10-C",
+      "path": "corpus/must/GP-A10-C.json",
+      "sha256": "0dc4eb08bb12e4e52d0cc3dafeff73d99f16618b11bf93d1531fab19b6ffe3f3",
+      "inputs": {
+        "variables": [
+          "x"
+        ],
+        "generators": [
+          "x^2+1"
+        ],
+        "squares": [
+          "x"
+        ],
+        "cofactors": [
+          "-1"
+        ],
+        "target_context": "C"
+      },
+      "attempted_conclusion": "Conclude x^2+1=0 has no points in C.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "The contradiction interpretation requires an ordered field; equality replay alone is insufficient."
+      }
+    },
+    {
+      "id": "GP-A11a",
+      "path": "corpus/must/GP-A11a.json",
+      "sha256": "5c7ab9c4b020ae47c3bfdc4b8bb2e93d85b466512fc8509e0ed3e5c38558c5c7",
+      "inputs": {
+        "substitution": {
+          "w": "-7-w",
+          "x": "-x"
+        },
+        "predicate": "x>0"
+      },
+      "attempted_conclusion": "Copy the sign predicate unchanged.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "The selected embedding is not preserved."
+      }
+    },
+    {
+      "id": "GP-A11b",
+      "path": "corpus/must/GP-A11b.json",
+      "sha256": "d39e3cc6bb1990044a9a9cc354819c1cf1f0b262bd1508658a664bddbfd27e33",
+      "inputs": {
+        "substitution": {
+          "w": "-7-w",
+          "x": "-x"
+        },
+        "evidence": "both ring pullbacks and inverse compositions checked"
+      },
+      "attempted_conclusion": "Transport an identity with the checked substitution applied.",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "A ring isomorphism supports transformed identities."
+      }
+    },
+    {
+      "id": "GP-A13-ambient",
+      "path": "corpus/must/GP-A13-ambient.json",
+      "sha256": "d87ce328f3574714483c7dc9b952a7ba6391d207b20e68bb9646c347b283ba3e",
+      "inputs": {
+        "source_ideal": [
+          "x"
+        ],
+        "target_ideal": [],
+        "identity": "x+0=x",
+        "origin": "ambient"
+      },
+      "attempted_conclusion": "Carry the identity to the affine line.",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "Only the ambient identity is independent of the dropped equation."
+      }
+    },
+    {
+      "id": "GP-A13-derived",
+      "path": "corpus/must/GP-A13-derived.json",
+      "sha256": "808bdb2f8759c114c8bb52aae7371a3d275c074a0f2c404e379eb0fe8a100a61",
+      "inputs": {
+        "source_ideal": [
+          "x"
+        ],
+        "target_ideal": [],
+        "identity": "x=0",
+        "origin": "derived"
+      },
+      "attempted_conclusion": "Carry the identity to the affine line.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Only the ambient identity is independent of the dropped equation."
+      }
+    },
+    {
+      "id": "GP-A17",
+      "path": "corpus/must/GP-A17.json",
+      "sha256": "b7f3bf4e3244f91945f521d9b1a2d8eb244504a57166457bcc127012ee4de965",
+      "inputs": {
+        "attempt_status": "UNVERIFIED",
+        "earlier_current_warrant": false
+      },
+      "attempted_conclusion": "Treat this attempt as a current checked warrant.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "An unfinished attempt is absent evidence and remains retryable."
+      }
+    },
+    {
+      "id": "GP-A18",
+      "path": "corpus/must/GP-A18.json",
+      "sha256": "61d7e0ce789d2cc6c469f2bd29e6e1d8b28a733347f0731e79c59e8141d93817",
+      "inputs": {
+        "old_ideal": [
+          "x"
+        ],
+        "new_ideal": [
+          "x^2"
+        ],
+        "identity": "x=0"
+      },
+      "attempted_conclusion": "Keep the earlier receipt current.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "The semantic input fingerprint no longer matches."
+      }
+    },
+    {
+      "id": "GP-A25a",
+      "path": "corpus/must/GP-A25a.json",
+      "sha256": "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+      "inputs": {
+        "declarations": [
+          {
+            "id": "A",
+            "description": "normalization one"
+          },
+          {
+            "id": "A",
+            "description": "normalization two"
+          }
+        ]
+      },
+      "attempted_conclusion": "Silently merge both declarations.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "One identifier cannot silently refer to conflicting objects."
+      }
+    },
+    {
+      "id": "GP-X10",
+      "path": "corpus/must/GP-X10.json",
+      "sha256": "a01f0329a349f497b365c15dd1835283ec5bfaf0eef3055b446b20f5236447d3",
+      "inputs": {
+        "variables": [
+          "x"
+        ],
+        "generators": [
+          "x^2+1"
+        ],
+        "coefficient_domain": "Q",
+        "source_universe": "BASE",
+        "target_universe": "ALGEBRAIC_CLOSURE"
+      },
+      "attempted_conclusion": "Treat the displayed identity substitution as a point equivalence.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "A coordinate-ring identity does not provide the missing change-of-context warrant."
+      }
+    },
+    {
+      "id": "GP-X11",
+      "path": "corpus/must/GP-X11.json",
+      "sha256": "d1209221a0c7f1321bf17c92219326d67b6cb087b7efb4fd52e9aef12a5b9ed9",
+      "inputs": {
+        "variables": [
+          "x"
+        ],
+        "generators": [
+          "x^2+1"
+        ],
+        "coefficient_domain": "Q",
+        "source_universe": "ALGEBRAIC_CLOSURE",
+        "target_universe": "BASE"
+      },
+      "attempted_conclusion": "Treat the displayed identity substitution as a point equivalence.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "A coordinate-ring identity does not provide the missing change-of-context warrant."
+      }
+    },
+    {
+      "id": "GP-X12",
+      "path": "corpus/must/GP-X12.json",
+      "sha256": "a879d13391494a5a367fa66294a4abf6911aefedebd87236141783dc2d5eedb9",
+      "inputs": {
+        "variables": [
+          "x"
+        ],
+        "generators": [
+          "x^2+1"
+        ],
+        "coefficient_domain": "Q",
+        "source_universe": "ALGEBRAIC_CLOSURE",
+        "target_universe": null
+      },
+      "attempted_conclusion": "Treat the displayed identity substitution as a point equivalence.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "A coordinate-ring identity does not provide the missing change-of-context warrant."
+      }
+    },
+    {
+      "id": "GP-X13",
+      "path": "corpus/must/GP-X13.json",
+      "sha256": "e519a0002aa516e0e969a28ff78ff9a5fff9ef611f6858b5d6e8eab4488778d4",
+      "inputs": {
+        "coefficient_domain": null,
+        "point_universe": null,
+        "claimed_field": "R"
+      },
+      "attempted_conclusion": "Conclude field-relative geometric emptiness from the combinatorial certificate.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "No binding connects the combinatorial objects to the claimed field-valued points."
+      }
+    },
+    {
+      "id": "GP-X14",
+      "path": "corpus/must/GP-X14.json",
+      "sha256": "8fb9507f532fded8e382eb118d0788a574a8ca86f6b1e735133c66d647b98fff",
+      "inputs": {
+        "coefficient_domain": "Q",
+        "point_universe": null,
+        "claimed_field": "Q"
+      },
+      "attempted_conclusion": "Conclude field-relative geometric emptiness from the combinatorial certificate.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "No binding connects the combinatorial objects to the claimed field-valued points."
+      }
+    },
+    {
+      "id": "GP-X45",
+      "path": "corpus/must/GP-X45.json",
+      "sha256": "28a347f67fb44db7b0760539bdf4ddb10833f6953021849d262a8bcd24a4ef4e",
+      "inputs": {
+        "variables": [
+          "x"
+        ],
+        "generators": [
+          "x^2+1"
+        ],
+        "guards": [
+          "x"
+        ],
+        "point_universe": "ALGEBRAIC_CLOSURE",
+        "field_polynomial": "a^2+1",
+        "coordinate": "a",
+        "proposed_change": null
+      },
+      "attempted_conclusion": "Keep the native witness receipt active after the proposed change.",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "The exact point, open model and checker identity remain bound."
+      }
+    },
+    {
+      "id": "GP-X46",
+      "path": "corpus/must/GP-X46.json",
+      "sha256": "ab4baefa595b71af4f0267559d99e26e1617cbfb6f04399ceb839da7e2bb9994",
+      "inputs": {
+        "variables": [
+          "x"
+        ],
+        "generators": [
+          "x^2+1"
+        ],
+        "guards": [
+          "x"
+        ],
+        "point_universe": "ALGEBRAIC_CLOSURE",
+        "field_polynomial": "a^2+1",
+        "coordinate": "a",
+        "proposed_change": {
+          "open_conditions": [
+            "x^2+1"
+          ]
+        }
+      },
+      "attempted_conclusion": "Keep the native witness receipt active after the proposed change.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "The old point fails the new guard and its old input binding is stale."
+      }
+    },
+    {
+      "id": "GP-X96",
+      "path": "corpus/must/GP-X96.json",
+      "sha256": "443d26f0cd945dba6938ff1b31ce102151c7abae7b20c7120975d77131720ccc",
+      "inputs": {
+        "source_rows": 5,
+        "depths": [
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "faces": 25,
+        "proposal": "budget"
+      },
+      "attempted_conclusion": "Grant an extraction result after exhausting its work budget.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "An unfinished computation yields no checked extraction result, not a mathematical refutation."
+      }
+    },
+    {
+      "id": "GP-X106",
+      "path": "corpus/must/GP-X106.json",
+      "sha256": "dfcfabd88041f35aabc55121e3c567a771f801497ec3cc4e4ee1aae6bbb3d390",
+      "inputs": {
+        "contract_section": "projection",
+        "baseline_contract": {
+          "closed_piece": {
+            "claim": "NONEMPTY",
+            "equations": [
+              "C",
+              "C2"
+            ],
+            "id": "S4_C_ZERO__C2_ZERO",
+            "relation": "CLOSED_RESTRICTION",
+            "status": "VERIFIED_EXACT_K_POINT"
+          },
+          "coefficient_domain": "K = QQ[t]/(15*t^3 + 1)",
+          "cover": {
+            "branches": [
+              "S4_C_ZERO__C2_ZERO",
+              "S4_C_ZERO__C2_NONZERO"
+            ],
+            "graph_effect": "NONE",
+            "kind": "ZERO_NONZERO_CONSTRUCTIBLE_COVER",
+            "status": "VERIFIED_STRUCTURAL_DICHOTOMY",
+            "union_claim": null
+          },
+          "graph_effect": "NONE",
+          "guards": {
+            "c3_5": "-3/2",
+            "c3_5_nonzero": true,
+            "no_coordinate_inverted": true
+          },
+          "open_piece": {
+            "claim": null,
+            "equations": [
+              "C"
+            ],
+            "id": "S4_C_ZERO__C2_NONZERO",
+            "open_conditions": [
+              "C2"
+            ],
+            "relation": "PRINCIPAL_OPEN_RESTRICTION",
+            "search_evidence": {
+              "authority": "BOUNDED_PROVENANCE_ONLY",
+              "graph_effect": "NONE",
+              "inconclusive": 0,
+              "provably_non_square_discriminant": 24,
+              "seeds": 24,
+              "squares_found": 0
+            },
+            "status": "OPEN"
+          },
+          "parent": {
+            "equations": [
+              "C"
+            ],
+            "id": "S4_C_ZERO",
+            "sort": "NECESSARY_BOUNDARY_MODEL",
+            "status": "NONEMPTY_WITNESSED_ON_C2_ZERO_PIECE"
+          },
+          "point_universe": "BASE",
+          "refusals": [
+            "source-image sufficiency",
+            "actual-source membership",
+            "q-chart membership",
+            "p-chart membership",
+            "H3 promotion",
+            "(75,125) verdict change",
+            "new source depth",
+            "S2 and the other S4 branches",
+            "Groebner basis / primary decomposition / singular-locus computation",
+            "any claim that this point is a source point, or that C = 0 is irreducible, or anything about the dimension of C = 0",
+            "off-locus emptiness",
+            "all K-points lie on C2 = 0",
+            "24-seed search promoted to a theorem",
+            "claim about the union beyond its structural cover"
+          ]
+        },
+        "operations": [
+          {
+            "op": "set",
+            "path": [
+              "projection",
+              "open_piece",
+              "search_evidence",
+              "authority"
+            ],
+            "value": "REFUTATION"
+          }
+        ]
+      },
+      "attempted_conclusion": "Promote an unsuccessful 24-seed search to refutation.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Failure to find squares in a bounded search is not off-locus emptiness."
+      }
+    },
+    {
+      "id": "GP-X142",
+      "path": "corpus/must/GP-X142.json",
+      "sha256": "ae102b68cdc590d868863c0e0a25bc0758e9df5f9d34e6abc9979fba240bbb5d",
+      "inputs": {
+        "vocabulary": "lifecycle-scenario/v1",
+        "objects": {
+          "object-1": {
+            "category": "context",
+            "name": "M",
+            "properties": {
+              "description": "model"
+            }
+          }
+        },
+        "history": [
+          {
+            "object": "object-1"
+          },
+          {
+            "object": "object-1"
+          }
+        ],
+        "question": {}
+      },
+      "attempted_conclusion": "Merge an identical shared declaration.",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "An identical redeclaration is idempotent."
+      }
+    },
+    {
+      "id": "GP-X143",
+      "path": "corpus/must/GP-X143.json",
+      "sha256": "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+      "inputs": {
+        "vocabulary": "lifecycle-scenario/v1",
+        "objects": {
+          "object-1": {
+            "category": "context",
+            "name": "M",
+            "properties": {
+              "description": "model"
+            }
+          },
+          "object-2": {
+            "category": "context",
+            "name": "M",
+            "properties": {
+              "description": "different"
+            }
+          }
+        },
+        "history": [
+          {
+            "object": "object-1"
+          },
+          {
+            "object": "object-2"
+          }
+        ],
+        "question": {}
+      },
+      "attempted_conclusion": "Merge conflicting descriptions under one identifier.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "A shared identifier cannot silently blend conflicting declarations."
+      }
+    },
+    {
+      "id": "GP-X160",
+      "path": "corpus/must/GP-X160.json",
+      "sha256": "b79be0fabef9acba5f6f8c39fd32aa32bb035349006d315e59e871cd52e41178",
+      "inputs": {
+        "vocabulary": "lifecycle-scenario/v1",
+        "objects": {
+          "object-1": {
+            "category": "context",
+            "name": "M",
+            "properties": {
+              "description": "m"
+            }
+          },
+          "object-2": {
+            "category": "context",
+            "name": "N",
+            "properties": {
+              "description": "n"
+            }
+          },
+          "object-3": {
+            "category": "assertion",
+            "name": "C",
+            "properties": {
+              "context": "M",
+              "statement_class": "universal_property",
+              "statement": "P"
+            }
+          },
+          "object-4": {
+            "category": "context",
+            "name": "M2",
+            "properties": {
+              "description": "m"
+            }
+          }
+        },
+        "history": [
+          {
+            "object": "object-1"
+          },
+          {
+            "object": "object-2"
+          },
+          {
+            "object": "object-3"
+          },
+          {
+            "object": "object-4",
+            "replacement": {
+              "prior": "M",
+              "change": "restatement"
+            }
+          }
+        ],
+        "question": {
+          "concerns": [
+            "retired_context_dependency"
+          ]
+        }
+      },
+      "attempted_conclusion": "Treat a claim at a superseded model as current without repointing.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Model replacement does not automatically repoint consumers."
+      }
+    },
+    {
+      "id": "GP-X165",
+      "path": "corpus/must/GP-X165.json",
+      "sha256": "cc7064567c8a8b1261ff55fac5c2964d95ac1cb35dc8437d015a35515e1b307f",
+      "inputs": {
+        "mutation": {
+          "verifier": "verify.old_identity"
+        }
+      },
+      "attempted_conclusion": "Use the current positive projected identity result.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Only matching provenance can project current identity authority; stale history must not overwrite a current result."
+      }
+    },
+    {
+      "id": "GP-X166",
+      "path": "corpus/must/GP-X166.json",
+      "sha256": "ed324144a08d379424adc5c4149640ca059845b751eaf1baa6607d4481f0f7ae",
+      "inputs": {
+        "mutation": {
+          "verifier_version": 999
+        }
+      },
+      "attempted_conclusion": "Use the current positive projected identity result.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Only matching provenance can project current identity authority; stale history must not overwrite a current result."
+      }
+    },
+    {
+      "id": "GP-X170",
+      "path": "corpus/must/GP-X170.json",
+      "sha256": "9a68993c464519b4c626ecab1f8b5dd1d3931488e494799e29770d6d9fa38968",
+      "inputs": {
+        "legacy": true
+      },
+      "attempted_conclusion": "Use the current positive projected identity result.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Only matching provenance can project current identity authority; stale history must not overwrite a current result."
+      }
+    },
+    {
+      "id": "GP-X218",
+      "path": "corpus/must/GP-X218.json",
+      "sha256": "42e1344a2a675b8db38292ea9fb7ef99a6cbf02bef45aefd5aa2bc4f5a3472f8",
+      "inputs": {
+        "storage_action": "wrong_protocol",
+        "output": "answer one\n",
+        "evidence_origin": "fabricated_offline_record"
+      },
+      "attempted_conclusion": "Accept the requested storage or reference operation as preserving the recorded execution evidence.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Stored backend protocol disagrees with the manifest"
+      }
+    },
+    {
+      "id": "GP-X349",
+      "path": "corpus/must/GP-X349.json",
+      "sha256": "4dc6e85690ee4353a983978c500aa3e4d4348649eec6c1d6bedb19649d935c19",
+      "inputs": {
+        "control": "vanishing_guard",
+        "field": {
+          "base": "Q",
+          "symbol": "a",
+          "minimal_polynomial": "a^3-2"
+        },
+        "model": {
+          "characteristic": 0,
+          "coefficient_domain": "Q",
+          "point_universe": "ALGEBRAIC_CLOSURE",
+          "ring_vars": [
+            "x"
+          ],
+          "generators": [
+            "x^3-2"
+          ],
+          "open_conditions": [
+            "x^3-2"
+          ]
+        },
+        "coordinate": "a"
+      },
+      "attempted_conclusion": "Accept the displayed cubic witness as a valid point.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "The candidate root satisfies the equation but its required open guard vanishes."
+      }
+    },
+    {
+      "id": "GP-X370",
+      "path": "corpus/must/GP-X370.json",
+      "sha256": "ca4c4a6225b577a12a737841f3a0d044087d48ba47a547bc4df8789f627a5e14",
+      "inputs": {
+        "incident_row": "53.2",
+        "vector": {
+          "operation": "migrate_kernel_epoch",
+          "source_format": 8,
+          "source_kernel_epoch": 11,
+          "source_implementation_identity": "missing",
+          "controls": [
+            "format 6 missing identity",
+            "valid format 8 epoch 11 header"
+          ],
+          "mode": "dry_run"
+        },
+        "retained_evidence_refs": [
+          "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/0",
+          "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/1",
+          "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/2"
+        ],
+        "observation_layer": "retained_bounded_diagnostic"
+      },
+      "attempted_conclusion": "Treat rewritten migration output as validating the original source identity.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "The operational inference is unsupported by the bounded control: Malformed source header should refuse under its recorded epoch before replacement."
+      }
+    },
+    {
+      "id": "GP-X371",
+      "path": "corpus/must/GP-X371.json",
+      "sha256": "403eb3068528e43cea031aaf40b0f7a0e16264647dd6ab64d8fc72d0c970706d",
+      "inputs": {
+        "incident_row": "54.3",
+        "vector": {
+          "operation": "validate_meta_for_read",
+          "source_commit": 42,
+          "other_metadata": "current valid fixture",
+          "contrast": "string source_commit"
+        },
+        "retained_evidence_refs": [
+          "reports/IMPLEMENTATION-IDENTITY-BOUNDARY.json#/controls/2"
+        ],
+        "observation_layer": "retained_bounded_diagnostic"
+      },
+      "attempted_conclusion": "Infer that numeric source_commit receives the documented structured GraphError response.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "The operational inference is unsupported by the bounded control: Malformed field must fail through GraphError, while valid string commit validates."
+      }
+    },
+    {
+      "id": "GP-X399",
+      "path": "corpus/must/GP-X399.json",
+      "sha256": "cf8583a6198d4d29c479da443df2f26e7f4e4c1b3d021623a2a6e11bddc774a7",
+      "inputs": {
+        "fixture": "fixtures/D1-inference-on-family-claim/input.json",
+        "fixture_lf_sha256": "023ae70cb544e795fa78710a629886d4f25e0193b50f41c4df30938ebd97e591",
+        "fixture_manifest_source_commit": "b876fe4ed5c8963a0e8c19e18c829821c0686654",
+        "family": {
+          "id": "F",
+          "count": 2,
+          "enumeration": "C-COUNT"
+        },
+        "claim": {
+          "id": "C-COUNT",
+          "kind": "PREDICATE",
+          "family": "F",
+          "asserts_count": 2
+        },
+        "inference": {
+          "id": "INF",
+          "premises": [
+            "C-COUNT"
+          ],
+          "concludes_kind": "PREDICATE"
+        },
+        "missing_premise": "A checked family_bridge from an exhibited proved member to a model-level premise."
+      },
+      "attempted_conclusion": "Use the family PREDICATE claim directly to derive a model conclusion.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "The frozen guard rejects a family premise at the DISCHARGE family gate; no checked bridge is supplied."
+      }
+    },
+    {
+      "id": "GP-X400",
+      "path": "corpus/must/GP-X400.json",
+      "sha256": "3dee6d121b0a786e2e5e9d4cb96929fad49472996e59f061c0209cd3fa195542",
+      "inputs": {
+        "fixture": "fixtures/D3-inert-disposition/before.json",
+        "fixture_lf_sha256": "7be21751fd5243e0e9736337a47c3e521bdae26c5ccfea772fcdf6cd27387723",
+        "fixture_manifest_source_commit": "b876fe4ed5c8963a0e8c19e18c829821c0686654",
+        "family": {
+          "id": "F",
+          "count": 42,
+          "enumeration": "C-COUNT"
+        },
+        "claim": {
+          "id": "C-SPLIT",
+          "kind": "PREDICATE",
+          "family": "F",
+          "splits": "F",
+          "groups": [
+            {
+              "id": "G-DONE",
+              "settles": 1,
+              "verdict": "settled"
+            }
+          ]
+        },
+        "count_only_fields": [
+          "splits",
+          "groups",
+          "method",
+          "proves",
+          "why"
+        ]
+      },
+      "attempted_conclusion": "Accept the PREDICATE declaration as a family coverage disposition.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "COUNT disposition fields on PREDICATE are rejected before any coverage conclusion."
+      }
+    },
+    {
+      "id": "GP-X401",
+      "path": "corpus/must/GP-X401.json",
+      "sha256": "a5616f38bb141c5905112556b17bf11df32cf4d1cf3b5bc854d00c35103695bf",
+      "inputs": {
+        "fixture": "fixtures/D3-inert-disposition/after.json",
+        "fixture_lf_sha256": "4c45f1d6a945a51da173ec1b70ab13cba314409b51ba833aa95b745482149f35",
+        "fixture_manifest_source_commit": "b876fe4ed5c8963a0e8c19e18c829821c0686654",
+        "family": {
+          "id": "F",
+          "count": 42,
+          "enumeration": "C-COUNT"
+        },
+        "claim": {
+          "id": "C-SPLIT",
+          "kind": "COUNT",
+          "family": "F",
+          "splits": "F",
+          "groups": [
+            {
+              "id": "G-DONE",
+              "settles": 1,
+              "verdict": "settled"
+            }
+          ]
+        },
+        "unsettled_remainder": 41,
+        "required_observation": "Checker retains FAMILY:C-SPLIT.",
+        "observation_layer": "frozen_declaration_acceptance_with_checker_debt",
+        "does_not_license": [
+          "family coverage",
+          "a proved family bridge",
+          "a model-level conclusion"
+        ]
+      },
+      "attempted_conclusion": "Accept the typed declaration only; do not infer complete family coverage or a held family conclusion.",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "The frozen loader accepts the COUNT declaration, while the checker emits FAMILY:C-SPLIT for the 41-member coverage debt."
+      }
+    },
+    {
+      "id": "GP-X402",
+      "path": "corpus/must/GP-X402.json",
+      "sha256": "490987e96755ceb32a5f6fb44bd0202488212ce348bc04cd1e70d37b7d1c144f",
+      "inputs": {
+        "fixture": "transports/X8-X10.json",
+        "fixture_lf_sha256": "b1009142a6cad512e9d6f87fdeaeadc507081c3481aaadf026fd7eea0d9fded1",
+        "fixture_manifest_source_commit": "b876fe4ed5c8963a0e8c19e18c829821c0686654",
+        "model": "M-23-4-REAL",
+        "available_premise": "CL-E3B",
+        "missing_premise": "E5: the 5,395-action census is complete for faithful V4 actions in the stated world",
+        "attempt": "INF-X8: turn exactly two census members into exactly two configurations in the world",
+        "observation_layer": "frozen_transport_refusal",
+        "limited_contrast": "INF-X9 is clean only because the fixture supplies CL-E5-DECLARED at its declared, unproved authority; it is not a completeness receipt or positive for this case."
+      },
+      "attempted_conclusion": "Conclude the V4-symmetric real configurations are exactly E1 and E2 without the E5 completeness premise.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "The transport checker retains INF-X8 as refused because a count in a census is not a world conclusion without E5 completeness."
+      }
+    },
+    {
+      "id": "GP-X403",
+      "path": "corpus/must/GP-X403.json",
+      "sha256": "f17172a2744b2346f254402b94c5aa755fed17ad81d1227a21a7ae0c23033f52",
+      "inputs": {
+        "fixture": "transports/X8-X10.json",
+        "fixture_lf_sha256": "b1009142a6cad512e9d6f87fdeaeadc507081c3481aaadf026fd7eea0d9fded1",
+        "fixture_manifest_source_commit": "b876fe4ed5c8963a0e8c19e18c829821c0686654",
+        "model": "M-23-4-REAL",
+        "available_premises": [
+          "CL-E5A",
+          "CL-E5B",
+          "CL-E5C"
+        ],
+        "missing_premise": "E5-gap: actual-source membership and parent-cover/generative bridge for all fence-valid types",
+        "attempt": "INF-X10: turn E5a-c into E5",
+        "observation_layer": "frozen_transport_refusal",
+        "does_not_license": [
+          "actual-source membership",
+          "parent coverage",
+          "E5 completeness",
+          "a positive transport conclusion"
+        ]
+      },
+      "attempted_conclusion": "Treat the E5a-c structural subclaims as the E5 actual-source and parent-cover conclusion.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "The transport checker retains INF-X10 as refused until the E5-gap source/parent-cover premise is supplied."
+      }
+    },
+    {
+      "id": "GP-A26",
+      "path": "corpus/must/GP-A26.json",
+      "sha256": "32ee1d0bb8fa8bb6c5222312652709942a195eec905a7f5a3f8ad241311de6af",
+      "inputs": {
+        "certificate_name": "VIBES",
+        "target_context": "Q",
+        "receipt": null
+      },
+      "attempted_conclusion": "Grant emptiness reach from the label.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "A label is not an admitted checked receipt."
+      }
+    },
+    {
+      "id": "GP-X229",
+      "path": "corpus/must/GP-X229.json",
+      "sha256": "3f3685e1ed902923312b9089569f97f7ae1d16c5e41636c4de7f36a555b2ccb8",
+      "inputs": {
+        "model": {
+          "field": "Q",
+          "variables": [
+            "x"
+          ],
+          "equations": [
+            "x"
+          ]
+        },
+        "identity": {
+          "left": "x^2",
+          "right": "0"
+        },
+        "cofactors": null,
+        "local_backend": "matching",
+        "historical_identity": "unavailable",
+        "raw_artifact": "present",
+        "question": "historical_authority"
+      },
+      "attempted_conclusion": "Accept historical execution metadata without a replayable certificate as current authority.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Readable unidentified historical execution is not current authority"
+      }
+    },
+    {
+      "id": "GP-X345",
+      "path": "corpus/must/GP-X345.json",
+      "sha256": "a8e062fe3e7c16bc91a1daf3544c14a74c6eba4223e6d2d8578e8e79873d9bf7",
+      "inputs": {
+        "control": "legacy_partition_ordered_receipts",
+        "source_equations": [
+          "x^2+1"
+        ],
+        "branches": [
+          "B1",
+          "B2"
+        ],
+        "identical_loci_cover": true,
+        "cover_projection_supplied": true,
+        "ordered_sos": {
+          "squares": [
+            "x"
+          ],
+          "cofactors": [
+            "-1"
+          ],
+          "certificate": "ORDERED_SOS_CERT"
+        },
+        "field": "C",
+        "branch_receipts_recorded": true
+      },
+      "attempted_conclusion": "Infer parent EMPTY over C from ordered-only branch receipts and the supplied true cover.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "ORDERED reach is inapplicable to C; the legacy consumer acceptance is not earned complex emptiness."
+      }
+    },
+    {
+      "id": "GP-X346",
+      "path": "corpus/must/GP-X346.json",
+      "sha256": "05b54c2ad41771bd33c6f7d4e5b6f6992609ec08dc7386b5ad70655c26545e7b",
+      "inputs": {
+        "control": "legacy_partition_ordered_receipts",
+        "source_equations": [
+          "x^2+1"
+        ],
+        "branches": [
+          "B1",
+          "B2"
+        ],
+        "identical_loci_cover": true,
+        "cover_projection_supplied": true,
+        "ordered_sos": {
+          "squares": [
+            "x"
+          ],
+          "cofactors": [
+            "-1"
+          ],
+          "certificate": "ORDERED_SOS_CERT"
+        },
+        "field": "R",
+        "branch_receipts_recorded": false
+      },
+      "attempted_conclusion": "Infer parent EMPTY over R from a true cover and branch certificate names without checked receipts.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "A true cover cannot replace missing current branch emptiness receipts."
+      }
+    },
+    {
+      "id": "GP-X280",
+      "path": "corpus/must/GP-X280.json",
+      "sha256": "66a89f11fbc06e6b30ea0e185da3437f69dfcbd06ecbcf10e47b153c934319a7",
+      "inputs": {
+        "variables": [
+          "x"
+        ],
+        "equations": [
+          "x^2+1"
+        ],
+        "source_universe": "ALGEBRAIC_CLOSURE",
+        "target_universe": "ALGEBRAIC_CLOSURE",
+        "relation": "EQUIVALENCE",
+        "question": "record_step",
+        "debt_reason": null
+      },
+      "attempted_conclusion": "Record the supplied step or license nonemptiness along it, as specified by question.",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "Matching explicit universes remain recordable"
+      }
+    },
+    {
+      "id": "GP-X281",
+      "path": "corpus/must/GP-X281.json",
+      "sha256": "88c2446d9bd8354439bceee5deb14ce2021cabf575ae58bd94db506affb4018b",
+      "inputs": {
+        "variables": [
+          "x"
+        ],
+        "equations": [
+          "x^2+1"
+        ],
+        "source_universe": null,
+        "target_universe": null,
+        "relation": "EQUIVALENCE",
+        "question": "record_step",
+        "debt_reason": null
+      },
+      "attempted_conclusion": "Record the supplied step or license nonemptiness along it, as specified by question.",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "Both-omitted legacy context remains readable"
+      }
+    },
+    {
+      "id": "GP-X65",
+      "path": "corpus/must/GP-X65.json",
+      "sha256": "64a3d188feba3c23337c590efc67f4f950af984f0674041f7a67b120daf20cbe",
+      "inputs": {
+        "variables": [
+          "p",
+          "t",
+          "c9_11",
+          "I4"
+        ],
+        "generators": [
+          "15*t^3+1",
+          "10*c9_11*t + 15*p*t**2",
+          "5*c9_11**2 + 10*c9_11*p*t + 5*p**2*t**2"
+        ],
+        "guards": [
+          "p",
+          "t"
+        ],
+        "denominator_powers": [
+          0,
+          0
+        ],
+        "numerator": "1",
+        "cofactors": [
+          "0",
+          "-2/5*t*c9_11-1/5*p*t^2",
+          "4/5*t^2"
+        ],
+        "localization_powers": [
+          2,
+          4
+        ],
+        "membership_target": "p^2*t^4",
+        "coefficient_field": "Q",
+        "point_universe": "ALGEBRAIC_CLOSURE",
+        "chart": "p"
+      },
+      "attempted_conclusion": "The certificate name establishes local emptiness without a checked verdict.",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "No current checked verdict is attached to the named certificate."
+      }
+    }
+  ],
+  "route_snapshot": {
+    "path": "oracle/ROUTES.json",
+    "sha256": "2804045ca48bfcd1d8f34f7dad52c423222d02160e71ddcafa478de0e709cfe4",
+    "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+    "routes": {
+      "GP-X10": {
+        "kind": "point_universe",
+        "layer": "graph_validation",
+        "limitation": "Checks the declared relation boundary; no ring-isomorphism or held-claim assertion."
+      },
+      "GP-X11": {
+        "kind": "point_universe",
+        "layer": "graph_validation",
+        "limitation": "Checks the declared relation boundary; no ring-isomorphism or held-claim assertion."
+      },
+      "GP-X12": {
+        "kind": "point_universe",
+        "layer": "graph_validation",
+        "limitation": "Checks the declared relation boundary; no ring-isomorphism or held-claim assertion."
+      },
+      "GP-X280": {
+        "kind": "universe_boundary",
+        "layer": "record_step",
+        "limitation": "Actual native fold and conditional untyped transport; readability is not a proof of point existence. No CAS."
+      },
+      "GP-X281": {
+        "kind": "universe_boundary",
+        "layer": "record_step",
+        "limitation": "Actual native fold and conditional untyped transport; readability is not a proof of point existence. No CAS."
+      },
+      "GP-A11a": {
+        "kind": "transport",
+        "layer": "conditional_rule",
+        "arguments": {
+          "etype": "EQUIVALENCE",
+          "direction": "ALONG",
+          "kind": "PREDICATE",
+          "selected_embedding_identity": false
+        },
+        "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+      },
+      "GP-A11b": {
+        "kind": "transport",
+        "layer": "conditional_rule",
+        "arguments": {
+          "etype": "EQUIVALENCE",
+          "direction": "ALONG",
+          "kind": "IDENTITY",
+          "ring_iso": true
+        },
+        "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+      },
+      "GP-X370": {
+        "kind": "operational_retained_observation",
+        "layer": "retained_operational_diagnostic",
+        "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+        "case_sha256": "ca4c4a6225b577a12a737841f3a0d044087d48ba47a547bc4df8789f627a5e14",
+        "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+      },
+      "GP-X371": {
+        "kind": "operational_retained_observation",
+        "layer": "retained_operational_diagnostic",
+        "manifest_sha256": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad",
+        "case_sha256": "403eb3068528e43cea031aaf40b0f7a0e16264647dd6ab64d8fc72d0c970706d",
+        "limitation": "Verifies retained incident evidence bindings only; no fresh operational execution, native verdict, mathematical checker admission or agreement."
+      },
+      "GP-A01": {
+        "kind": "transport",
+        "layer": "conditional_rule",
+        "arguments": {
+          "etype": "BASE_EXTENSION",
+          "direction": "ALONG",
+          "kind": "EMPTY",
+          "scope": "Q(sqrt 17)",
+          "certificate": "NONSQUARE_CLASS"
+        },
+        "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+      },
+      "GP-A26": {
+        "kind": "unknown_certificate",
+        "layer": "declaration_validation"
+      },
+      "GP-X13": {
+        "kind": "empty_anchor",
+        "layer": "graph_diagnostic",
+        "limitation": "Audits the missing model anchor; does not run or admit the combinatorial checker."
+      },
+      "GP-X14": {
+        "kind": "empty_anchor",
+        "layer": "graph_diagnostic",
+        "limitation": "Audits the missing model anchor; does not run or admit the combinatorial checker."
+      },
+      "GP-A17": {
+        "kind": "unverified_attempt",
+        "layer": "graph_authority",
+        "limitation": "Constructed UNVERIFIED event; no backend timeout is simulated. Receipt wrappers are not positive authority."
+      },
+      "GP-X399": {
+        "kind": "closure_fixture",
+        "family": "guard",
+        "layer": "frozen_declaration_or_open_premise_guard",
+        "case_sha256": "cf8583a6198d4d29c479da443df2f26e7f4e4c1b3d021623a2a6e11bddc774a7",
+        "limitation": "Exact frozen fixture replay only. Declaration/clean-step success does not prove family coverage or held authority; Cramer arithmetic grants no source equivalence or graph result."
+      },
+      "GP-X400": {
+        "kind": "closure_fixture",
+        "family": "guard",
+        "layer": "frozen_declaration_or_open_premise_guard",
+        "case_sha256": "3dee6d121b0a786e2e5e9d4cb96929fad49472996e59f061c0209cd3fa195542",
+        "limitation": "Exact frozen fixture replay only. Declaration/clean-step success does not prove family coverage or held authority; Cramer arithmetic grants no source equivalence or graph result."
+      },
+      "GP-X401": {
+        "kind": "closure_fixture",
+        "family": "guard",
+        "layer": "frozen_declaration_or_open_premise_guard",
+        "case_sha256": "a5616f38bb141c5905112556b17bf11df32cf4d1cf3b5bc854d00c35103695bf",
+        "limitation": "Exact frozen fixture replay only. Declaration/clean-step success does not prove family coverage or held authority; Cramer arithmetic grants no source equivalence or graph result."
+      },
+      "GP-A10-Q": {
+        "kind": "sos",
+        "layer": "receipt_and_reach",
+        "target": "Q"
+      },
+      "GP-A10-R": {
+        "kind": "sos",
+        "layer": "receipt_and_reach",
+        "target": "R"
+      },
+      "GP-A10-C": {
+        "kind": "sos",
+        "layer": "receipt_and_reach",
+        "target": "C"
+      },
+      "GP-X345": {
+        "kind": "receipt_partition",
+        "layer": "legacy_partition_ordered_C_gap",
+        "known_difference": "legacy_partition_consumer_ignores_ordered_reach",
+        "limitation": "Legacy consumer accepts ORDERED-only branch premises over C; current epoch-1 schema rejects via_partition. Supplied cover, no native held claim."
+      },
+      "GP-X96": {
+        "kind": "historical_review",
+        "family": "face",
+        "action": "budget",
+        "layer": "bounded_replay",
+        "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. The exact checked object and the source-binding limits are recorded separately."
+      },
+      "GP-X106": {
+        "kind": "historical_review",
+        "family": "s4",
+        "action": "search_empty",
+        "layer": "historical_contract",
+        "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "limitation": "Pinned historical GP adapter on v0.37 runtime. No companion bindings or backend execution. This is a frozen scope/metadata contract, not theorem replay or new mathematical authority.",
+        "failure_prefixes": [
+          "M6:"
+        ]
+      },
+      "GP-X402": {
+        "kind": "closure_fixture",
+        "family": "guard",
+        "layer": "frozen_declaration_or_open_premise_guard",
+        "case_sha256": "490987e96755ceb32a5f6fb44bd0202488212ce348bc04cd1e70d37b7d1c144f",
+        "limitation": "Exact frozen fixture replay only. Declaration/clean-step success does not prove family coverage or held authority; Cramer arithmetic grants no source equivalence or graph result."
+      },
+      "GP-X403": {
+        "kind": "closure_fixture",
+        "family": "guard",
+        "layer": "frozen_declaration_or_open_premise_guard",
+        "case_sha256": "f17172a2744b2346f254402b94c5aa755fed17ad81d1227a21a7ae0c23033f52",
+        "limitation": "Exact frozen fixture replay only. Declaration/clean-step success does not prove family coverage or held authority; Cramer arithmetic grants no source equivalence or graph result."
+      },
+      "GP-A13-ambient": {
+        "kind": "transport",
+        "layer": "conditional_rule",
+        "arguments": {
+          "etype": "NECESSARY_CONDITION",
+          "direction": "ALONG",
+          "kind": "IDENTITY",
+          "map_kind": "POLYNOMIAL",
+          "identity_origin": "AMBIENT"
+        },
+        "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+      },
+      "GP-A13-derived": {
+        "kind": "transport",
+        "layer": "conditional_rule",
+        "arguments": {
+          "etype": "NECESSARY_CONDITION",
+          "direction": "ALONG",
+          "kind": "IDENTITY",
+          "map_kind": "POLYNOMIAL",
+          "identity_origin": "DERIVED"
+        },
+        "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant."
+      },
+      "GP-A18": {
+        "kind": "stale_input",
+        "layer": "graph_authority",
+        "limitation": "Uses the oracle's pinned regression helper to construct a receipt; tests binding, not backend execution."
+      },
+      "GP-X160": {
+        "kind": "lifecycle",
+        "action": "no_rule",
+        "layer": "lifecycle_contract",
+        "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+      },
+      "GP-X45": {
+        "kind": "native_witness_binding",
+        "action": "unchanged",
+        "layer": "native_receipt_binding",
+        "limitation": "Pinned native exact witness replay plus graph-fold currentness. No fabricated backend trace; these are minimal binding controls, not a replay of the deleted p-axis fixture."
+      },
+      "GP-X46": {
+        "kind": "native_witness_binding",
+        "action": "model",
+        "layer": "native_receipt_binding",
+        "limitation": "Pinned native exact witness replay plus graph-fold currentness. No fabricated backend trace; these are minimal binding controls, not a replay of the deleted p-axis fixture."
+      },
+      "GP-X349": {
+        "kind": "q2_exact",
+        "layer": "native_exact_cubic",
+        "limitation": "Pinned exact simple-number-field witness check; no external CAS, campaign point, chosen ordered embedding, or new checker admission."
+      },
+      "GP-X229": {
+        "kind": "replay_boundary",
+        "layer": "exact_replay_or_artifact_audit",
+        "limitation": "Uses fabricated historical metadata and isolated graph files; exact cofactors are replayed by the frozen fold. Each case asks one boundary question. No backend process or GP 0.50 policy is established."
+      },
+      "GP-A25a": {
+        "kind": "redeclaration",
+        "layer": "graph_validation",
+        "conflict": true
+      },
+      "GP-X143": {
+        "kind": "lifecycle",
+        "action": "fold",
+        "layer": "lifecycle_contract",
+        "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+      },
+      "GP-X142": {
+        "kind": "lifecycle",
+        "action": "fold",
+        "layer": "lifecycle_contract",
+        "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+      },
+      "GP-X218": {
+        "kind": "artifact_storage",
+        "layer": "offline_artifact_integrity",
+        "limitation": "Fabricated immutable execution records and isolated F scratch storage. No process execution, graph authority or proof validity is established."
+      },
+      "GP-X170": {
+        "kind": "lifecycle",
+        "action": "receipt",
+        "layer": "provenance_binding",
+        "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+      },
+      "GP-X165": {
+        "kind": "lifecycle",
+        "action": "receipt",
+        "layer": "provenance_binding",
+        "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+      },
+      "GP-X166": {
+        "kind": "lifecycle",
+        "action": "receipt",
+        "layer": "provenance_binding",
+        "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+      },
+      "GP-X65": {
+        "kind": "historical_paxis",
+        "action": "name",
+        "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "layer": "historical_receipt_binding",
+        "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted."
+      },
+      "GP-X346": {
+        "kind": "receipt_partition",
+        "layer": "legacy_partition_missing_receipts_gap",
+        "known_difference": "legacy_partition_consumer_counts_unverified_names",
+        "limitation": "Legacy consumer accepts named branch certificates without receipts; current epoch-1 schema rejects via_partition. Supplied cover, no native held claim."
+      }
+    }
+  },
+  "dispositions": [
+    {
+      "id": "DK-GP01/false-descent",
+      "parent_id": "DK-GP01",
+      "subepisode": "false-descent",
+      "disposition": "related_rule_control",
+      "case_reuse": [
+        {
+          "id": "GP-X10",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X11",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X12",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X280",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X281",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [
+        "reports/POINT-UNIVERSE-HISTORY-REVIEW.json"
+      ],
+      "finding": "Cases use Q[x]/(x^2+1) with BASE/ALGEBRAIC_CLOSURE changes; matching and both-omitted controls do not license transport. The history report retains the named accepted_cfg23_false_descent regression and fix 93770c6. This is historical-source regression retention, not exact equivalence of a portable toy case to the campaign models.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP01/selected-embedding",
+      "parent_id": "DK-GP01",
+      "subepisode": "selected-embedding",
+      "disposition": "related_rule_control",
+      "case_reuse": [
+        {
+          "id": "GP-A11a",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-A11b",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [
+        "reports/PARTITION-EMBEDDING-BOUNDARY.json"
+      ],
+      "finding": "A11a changes a selected sign predicate by w -> -7-w, x -> -x; A11b transports transformed identities. The retained partition diagnostic instead contrasts positive and negative embeddings of sqrt(2) with a true ideal cover. Distinct consumers and models.",
+      "concrete_extraction_gap": "A literal cfg23 embedding-edge extraction would need its selected embeddings, substitutions and premise authority; neither conditional transport nor the partition verifier diagnostic binds that edge.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP02/valid-format6-read",
+      "parent_id": "DK-GP02",
+      "subepisode": "valid-format6-read",
+      "disposition": "historical_defect_not_reproduced",
+      "case_reuse": [
+        {
+          "id": "GP-X370",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X371",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [
+        "reports/MIGRATION-CUSTODY-BOUNDARY.json",
+        "reports/IMPLEMENTATION-IDENTITY-BOUNDARY.json"
+      ],
+      "finding": "The source reports a valid format6 implementation header rejected by read. X370 concerns migration of format8/epoch11 missing identity with format6 controls; X371 concerns numeric source_commit. Neither repeats the valid-header rejection.",
+      "concrete_extraction_gap": "Retain a valid format6 header and its read operation at the recorded implementation, contrasted with a genuinely malformed header; the exact valid-read regression is absent from these payloads.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP02/malformed5-6-migrate-read",
+      "parent_id": "DK-GP02",
+      "subepisode": "malformed5-6-migrate-read",
+      "disposition": "historical_defect_not_reproduced",
+      "case_reuse": [
+        {
+          "id": "GP-X370",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [
+        "reports/MIGRATION-CUSTODY-BOUNDARY.json"
+      ],
+      "finding": "Historical migration accepted malformed5/6 later refused by read. The retained diagnostic independently records a migration branch skipping source-header validation for a current-format old-epoch control, plus missing-identity format8 refusal. Related branch seam; not the literal historical5/6 pair.",
+      "concrete_extraction_gap": "The same malformed format5/6 bytes must be fed to both migrate and read under their recorded epoch, with a valid contrast; X370 does not contain that paired historical contract.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP03/arbitrary-field-strings",
+      "parent_id": "DK-GP03",
+      "subepisode": "arbitrary-field-strings",
+      "disposition": "historical_defect_not_reproduced",
+      "case_reuse": [
+        {
+          "id": "GP-A01",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-A26",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "Field-relative transport A01 assumes a named scope and NONSQUARE_CLASS; A26 rejects VIBES certificate names. Neither validates an arbitrary field string. Source-stated repair remains historical.",
+      "concrete_extraction_gap": "Extract field-string admission with invalid and valid field values, independent of certificate-name rejection.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP03/model-scope-omission",
+      "parent_id": "DK-GP03",
+      "subepisode": "model-scope-omission",
+      "disposition": "related_rule_control",
+      "case_reuse": [
+        {
+          "id": "GP-X13",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X14",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "These cases omit point-universe/model typing for combinatorial emptiness and diagnose the missing anchor. Their routes do not execute the combinatorial checker. They cover the missing-binding rule, not proof that the historical scope repair has been replayed.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP03/certificate-content-compatibility",
+      "parent_id": "DK-GP03",
+      "subepisode": "certificate-content-compatibility",
+      "disposition": "design_backlog",
+      "case_reuse": [
+        {
+          "id": "GP-X13",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X14",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [
+        "reports/AUTHORITY-SCOPE-RELEASE-HISTORY-REVIEW.json"
+      ],
+      "finding": "Source leaves combinatorial/orientability certificate-content compatibility open. Missing-model anchor diagnostics and descriptive authority registry provide no semantic compatibility verifier.",
+      "concrete_extraction_gap": "A typed model with a syntactically admitted but semantically incompatible orientability/combinatorial certificate needs a checker-owned contract and positive compatible contrast; no such executed/admitted checker is established here.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP03/retry-selection",
+      "parent_id": "DK-GP03",
+      "subepisode": "retry-selection",
+      "disposition": "historical_defect_not_reproduced",
+      "case_reuse": [
+        {
+          "id": "GP-A17",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "A17 constructs UNVERIFIED without current warrant and refuses authority; no backend timeout is simulated. It does not select retry work.",
+      "concrete_extraction_gap": "A retryable-looking record and selection filters/eligibility must be preserved together to distinguish rightful no-work from an erroneous omission.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP04/D1-family-premise",
+      "parent_id": "DK-GP04",
+      "subepisode": "D1-family-premise",
+      "disposition": "exact_case_reuse",
+      "case_reuse": [
+        {
+          "id": "GP-X399",
+          "equivalence": "exact assigned fixture/model/premise behavior"
+        }
+      ],
+      "retained_reports": [
+        "reports/PHASE-0A-GUARD-EXTRACTION.json"
+      ],
+      "finding": "Preserve established exact reuse: D1 family PREDICATE inference without checked model-level family_bridge. Fixture LF SHA256 023ae70cb544e795fa78710a629886d4f25e0193b50f41c4df30938ebd97e591. Frozen guard refusal avoids the historical KeyError:model; it does not prove the family conclusion.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP05/D2-96-97-substitution",
+      "parent_id": "DK-GP05",
+      "subepisode": "D2-96-97-substitution",
+      "disposition": "historical_defect_not_reproduced",
+      "case_reuse": [
+        {
+          "id": "GP-A17",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "Source reports96-variable success and97-variable failure; E1 has138 variables and remains ASSERTED-WITNESS:untested. A17 supplies absence-of-authority only, not substitution encoder scaling. Roughly most of an hour encoding is source-attributed effort, not measured total loss.",
+      "concrete_extraction_gap": "Retain96/97-variable substitution inputs and encoder outcome, separately from138-variable E1 point checking. No payload here repeats that threshold.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP06/D3-inert-count-fields",
+      "parent_id": "DK-GP06",
+      "subepisode": "D3-inert-count-fields",
+      "disposition": "exact_case_reuse",
+      "case_reuse": [
+        {
+          "id": "GP-X400",
+          "equivalence": "exact assigned fixture/model/premise behavior"
+        }
+      ],
+      "retained_reports": [
+        "reports/PHASE-0A-GUARD-EXTRACTION.json"
+      ],
+      "finding": "Preserve established exact reuse of D3 PREDICATE carrying COUNT-only fields. Before fixture LF SHA256 7be21751fd5243e0e9736337a47c3e521bdae26c5ccfea772fcdf6cd27387723. Three actual first encodings remain one recorded inert-field mechanism; unrelated bad arithmetic probes are not added to it.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP06/typed-count-contrast",
+      "parent_id": "DK-GP06",
+      "subepisode": "typed-count-contrast",
+      "disposition": "related_rule_control",
+      "case_reuse": [
+        {
+          "id": "GP-X401",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [
+        "reports/PHASE-0A-GUARD-EXTRACTION.json"
+      ],
+      "finding": "The same after fixture accepts the COUNT declaration while FAMILY:C-SPLIT retains41 of42 members unsettled. This contrasts D3; declaration success is not earned family coverage.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP07/X2c-order-to-C",
+      "parent_id": "DK-GP07",
+      "subepisode": "X2c-order-to-C",
+      "disposition": "related_rule_control",
+      "case_reuse": [
+        {
+          "id": "GP-A10-Q",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-A10-R",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-A10-C",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X345",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "A10 replays x^2+1 SOS reach in Q/R/C; X345 is a different legacy partition consumer with supplied true cover and branch receipts. Neither repeats X2c's base_changes:true transport. Campaign prose did not ship the hostile conclusion.",
+      "concrete_extraction_gap": "Preserve the actual order-evidence transport with base_changes:true and target C; compare Q/R reach under identical transport premises.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP07/legacy-field-Q-R-C-R",
+      "parent_id": "DK-GP07",
+      "subepisode": "legacy-field-Q-R-C-R",
+      "disposition": "related_rule_control",
+      "case_reuse": [
+        {
+          "id": "GP-A01",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "A01 refuses field-specific emptiness promoted to every characteristic-zero field; it is not the historical Q->R positive and C->R invalid pair. Source corrected the blanket unencodability headline.",
+      "concrete_extraction_gap": "The paired legacy Q->R and C->R field transports need their distinct maps and field-scope premises; a universal-target refusal is not equivalent.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP08/X6-capped-search",
+      "parent_id": "DK-GP08",
+      "subepisode": "X6-capped-search",
+      "disposition": "related_rule_control",
+      "case_reuse": [
+        {
+          "id": "GP-A17",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X96",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X106",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "UNVERIFIED, exhausted extraction budget and a24-seed unsuccessful square search provide separate negative authority controls. None supplies the literal NOT_REACHED capped-search EMPTY consumer that historically licensed exclusion.",
+      "concrete_extraction_gap": "Preserve NOT_REACHED status at the EMPTY consumer, with a genuinely completed exclusion contrast; refusal of unfinished generic evidence alone misses this status-to-authority path.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP09/X5-valid-conjugation",
+      "parent_id": "DK-GP09",
+      "subepisode": "X5-valid-conjugation",
+      "disposition": "design_backlog",
+      "case_reuse": [
+        {
+          "id": "GP-A11a",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-A11b",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "Selected sign preservation and transformed identity transport do not test algebraic nonvanishing along valid conjugation. Source records overrefusal/encodability, not a wrong theorem.",
+      "concrete_extraction_gap": "A positive transformed algebraic-nonvanishing predicate under a checked conjugation and inverse map is missing; sign-predicate refusal must remain separate.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP09/X9-authority-not-carried",
+      "parent_id": "DK-GP09",
+      "subepisode": "X9-authority-not-carried",
+      "disposition": "retained_diagnostic_observation",
+      "case_reuse": [
+        {
+          "id": "GP-A17",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X401",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X402",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [
+        "reports/PHASE-0A-GUARD-EXTRACTION.json"
+      ],
+      "finding": "Historical X9 authority limitation is retained. Guard report explicitly says INF-X9 is clean only with CL-E5-DECLARED at unproved authority; it is not an E5 completeness receipt. No exact historical X9 event identity is inferred from the label.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP09/E5-declared-exclusions",
+      "parent_id": "DK-GP09",
+      "subepisode": "E5-declared-exclusions",
+      "disposition": "related_rule_control",
+      "case_reuse": [
+        {
+          "id": "GP-X402",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X403",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [
+        "reports/PHASE-0A-GUARD-EXTRACTION.json"
+      ],
+      "finding": "X402 retains missing E5 world completeness; X403 retains missing actual-source/parent-cover bridge. These are pinned transport fixtures. They cannot discover omitted or falsely declared EXCLUSIONS in arbitrary input, and do not establish all campaign uses share their premises.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP09/false-total",
+      "parent_id": "DK-GP09",
+      "subepisode": "false-total",
+      "disposition": "related_rule_control",
+      "case_reuse": [
+        {
+          "id": "GP-X400",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X401",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "Rejecting COUNT fields on PREDICATE and keeping a41-member remainder is related to truthful family coverage. Neither reproduces the source false-total probe or proves an asserted total arithmetically.",
+      "concrete_extraction_gap": "Preserve a typed COUNT with the source false total, explicit groups and arithmetic/coverage premises, plus corrected total contrast.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP09/overbroad-nonEMPTY-scope",
+      "parent_id": "DK-GP09",
+      "subepisode": "overbroad-nonEMPTY-scope",
+      "disposition": "related_rule_control",
+      "case_reuse": [
+        {
+          "id": "GP-A01",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X10",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X11",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "Field-specific EMPTY and point-universe edge rules are related scope controls. They do not reproduce the recorded nonEMPTY claim-kind scope probe.",
+      "concrete_extraction_gap": "Preserve the nonEMPTY claim kind and broad target scope with the same evidence; substituting an EMPTY or record-step case loses the relevant dispatch behavior.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP09/X1-positive",
+      "parent_id": "DK-GP09",
+      "subepisode": "X1-positive",
+      "disposition": "retained_diagnostic_observation",
+      "case_reuse": [],
+      "retained_reports": [],
+      "finding": "Source-reported X1 positive control retained without new execution. Probe names alone do not identify equivalent models, premises or authority. No exact portable case mapping asserted.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP09/X3-positive",
+      "parent_id": "DK-GP09",
+      "subepisode": "X3-positive",
+      "disposition": "retained_diagnostic_observation",
+      "case_reuse": [],
+      "retained_reports": [],
+      "finding": "Source-reported X3 positive control retained without new execution. Probe names alone do not identify equivalent models, premises or authority. No exact portable case mapping asserted.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP09/X7-positive",
+      "parent_id": "DK-GP09",
+      "subepisode": "X7-positive",
+      "disposition": "retained_diagnostic_observation",
+      "case_reuse": [],
+      "retained_reports": [],
+      "finding": "Source-reported X7 positive control retained without new execution. Probe names alone do not identify equivalent models, premises or authority. No exact portable case mapping asserted.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP09/X10-positive",
+      "parent_id": "DK-GP09",
+      "subepisode": "X10-positive",
+      "disposition": "retained_diagnostic_observation",
+      "case_reuse": [
+        {
+          "id": "GP-X403",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "Source-reported X10 positive control retained without new execution. Probe names alone do not identify equivalent models, premises or authority. GP-X403's INF-X10 is a refused E5 bridge fixture and must not be relabeled as this source positive.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "DK-GP10/layer-count-adjacency",
+      "parent_id": "DK-GP10",
+      "subepisode": "layer-count-adjacency",
+      "disposition": "design_backlog",
+      "case_reuse": [],
+      "retained_reports": [],
+      "finding": "5393 per-action exclusions,2realized,0unresolved and8open quotient templates concern distinct layers and certificate retention.4413/980 partitions provenance, not mathematical kind. Adjacent presentation is not proof of contradictory tables.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "CQ-G01/unit-quotient-wording",
+      "parent_id": "CQ-G01",
+      "subepisode": "unit-quotient-wording",
+      "disposition": "retained_diagnostic_observation",
+      "case_reuse": [
+        {
+          "id": "GP-A13-ambient",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-A13-derived",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "At a unit ideal the zero quotient makes every polynomial vanish; VERIFIED_DERIVED is legitimate, and ambient anchoring was REFUTED. A13 concerns dropping x from ideal(x), not unit-quotient arithmetic or CLI wording. Same observation is not a false algebraic acceptance.",
+      "concrete_extraction_gap": "If a presentation diagnostic is desired, preserve the already-unit ideal, hostile cofactor and paired derived/ambient verdict messages; this is wording/interpretation coverage, not a new wrong-math case.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "CQ-G02/unrelated-supersession-stale-view",
+      "parent_id": "CQ-G02",
+      "subepisode": "unrelated-supersession-stale-view",
+      "disposition": "historical_defect_not_reproduced",
+      "case_reuse": [
+        {
+          "id": "GP-A18",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X160",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "A18 stales evidence after ideal change; X160 prevents automatic repointing at a replaced model. Neither adds unrelated claim supersession after a live stale finding and then compares default/history views. Source says history/footer expose it, so not silent deletion.",
+      "concrete_extraction_gap": "Preserve ordered events: stale anchor, unrelated claim supersession, CLI reload, then both default and --history outputs with footer. Literal visibility sequence is absent.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "CQ-G03/undeclared-t-parse",
+      "parent_id": "CQ-G03",
+      "subepisode": "undeclared-t-parse",
+      "disposition": "retained_diagnostic_observation",
+      "case_reuse": [],
+      "retained_reports": [],
+      "finding": "Same M7 witness attempt as CQ-P08. Raw Singular parse error yields UNVERIFIED, never false VERIFIED. Diagnostic-quality backlog: identify undeclared t before backend parsing. No new mathematical case or execution warranted by this observation.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-G09/ordinary-guarded-point",
+      "parent_id": "ARR-G09",
+      "subepisode": "ordinary-guarded-point",
+      "disposition": "historical_defect_not_reproduced",
+      "case_reuse": [
+        {
+          "id": "GP-X45",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X46",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X349",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [
+        "reports/NUMBER-FIELD-BOUNDARIES.json",
+        "reports/PARTITION-OPEN-GUARD-BOUNDARY.json"
+      ],
+      "finding": "Number-field point replay and receipt staleness enforce guards for their own consumers; partition D(x) cover verification is a different consumer. Source reports ordinary-point guard omission and later0.26 acceptance; no frozen ordinary verifier replay here.",
+      "concrete_extraction_gap": "Ordinary rational point satisfying equations but violating an open condition, alongside a valid guarded point, must reach the ordinary-point verifier itself.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-G09/equation-free-ordinary-point",
+      "parent_id": "ARR-G09",
+      "subepisode": "equation-free-ordinary-point",
+      "disposition": "historical_defect_not_reproduced",
+      "case_reuse": [
+        {
+          "id": "GP-X349",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [
+        "reports/PARTITION-OPEN-GUARD-BOUNDARY.json"
+      ],
+      "finding": "X349 has nonempty generators x^3-2; zero-ideal partition diagnostic checks branch coverage, not point membership. Neither repeats an ordinary point at generators=[].",
+      "concrete_extraction_gap": "At generators=[], evaluate a vanishing open guard on an ordinary point with a nonvanishing contrast; preserve the early/empty-equations path.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-G10/large-localized-route-crash",
+      "parent_id": "ARR-G10",
+      "subepisode": "large-localized-route-crash",
+      "disposition": "historical_defect_not_reproduced",
+      "case_reuse": [
+        {
+          "id": "GP-A17",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X96",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "Small controls worked before a realistic localized-unit-ideal route crashed. No false EMPTY follows from a crash. Generic unfinished/budget controls do not exercise this localized producer.",
+      "concrete_extraction_gap": "Retain realistic localized input and failing route/trace with successful small contrast; sizes and mechanism cannot be reconstructed from summaries alone.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-G10/16-64-packaging-cap",
+      "parent_id": "ARR-G10",
+      "subepisode": "16-64-packaging-cap",
+      "disposition": "historical_defect_not_reproduced",
+      "case_reuse": [],
+      "retained_reports": [],
+      "finding": "r2 search accepts up to64 guards but MAX_GUARDS16 packaging prevents success above16. This is distinct from the earlier localized route crash.",
+      "concrete_extraction_gap": "Preserve search-to-certificate packaging at16 and17 guards and a supported64-guard input, binding search success to packaging refusal. No selected case encodes this boundary.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-G11/nonsquare-checker-invisible",
+      "parent_id": "ARR-G11",
+      "subepisode": "nonsquare-checker-invisible",
+      "disposition": "historical_defect_not_reproduced",
+      "case_reuse": [
+        {
+          "id": "GP-A01",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-A26",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [
+        "reports/AUTHORITY-SCOPE-RELEASE-HISTORY-REVIEW.json"
+      ],
+      "finding": "A01 assumes NONSQUARE_CLASS conditional scope; A26 rejects an unknown certificate name. Neither tests a stored admitted NONSQUARE_CLASS invisible to all lifecycle paths. Descriptive registry is not semantic replay. Eight passes and ninth predeclared refutation concern qualified product acceptance, not nonsquare mathematics refuted.",
+      "concrete_extraction_gap": "Store/admit a NONSQUARE_CLASS record and trace verifier/checker/debt/authority paths; a recognized but unverified kind differs from VIBES and from an assumed transport premise.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-O12/native-cas-host",
+      "parent_id": "ARR-O12",
+      "subepisode": "native-cas-host",
+      "disposition": "retained_diagnostic_observation",
+      "case_reuse": [
+        {
+          "id": "GP-A17",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X229",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "Windows/WSL Betti-table block is environmental. X229 separates readable historical metadata from current replay authority; A17 denies unfinished authority. Neither calibrates native Windows/WSL CAS. Preserve BLOCKED as operational status.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-O12/e10-encoding-conflicts",
+      "parent_id": "ARR-O12",
+      "subepisode": "e10-encoding-conflicts",
+      "disposition": "related_rule_control",
+      "case_reuse": [
+        {
+          "id": "GP-A25a",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X143",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X142",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "Conflicting descriptions under one identifier must refuse; identical redeclaration is a positive contrast. These payloads model one shared ID, not four independent E10 lowering conflicts or equivalence of their encodings.",
+      "concrete_extraction_gap": "Literal E10 reconciliation would require both encodings and all four conflicting semantic IDs; summary counts alone cannot identify equivalent objects. Generic merge refusal already has controls.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-O12/old-manifest-schema",
+      "parent_id": "ARR-O12",
+      "subepisode": "old-manifest-schema",
+      "disposition": "related_rule_control",
+      "case_reuse": [
+        {
+          "id": "GP-X218",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X170",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [
+        "reports/ARTIFACT-MANIFEST-BOUNDARY.json"
+      ],
+      "finding": "Offline fabricated manifest mutations distinguish graph readability from malformed backend-v2 evidence decode. X218 tests stored protocol mismatch; X170 keeps legacy evidence inactive. Neither is the actual45 old manifests, and no mathematical refutation follows.",
+      "concrete_extraction_gap": "If literal historical migration coverage is required, retain one representative old schema manifest with its graph-read and evidence-decode results, plus valid schema contrast; all45 need not become duplicate cases.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-O12/mac-v026-binding",
+      "parent_id": "ARR-O12",
+      "subepisode": "mac-v026-binding",
+      "disposition": "historical_defect_not_reproduced",
+      "case_reuse": [
+        {
+          "id": "GP-X165",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X166",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X229",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X371",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [
+        "reports/IMPLEMENTATION-IDENTITY-BOUNDARY.json"
+      ],
+      "finding": "Source says Mac0.26 acceptance initially resolved0.25 before synchronization. Version provenance and cached git metadata controls are related; cached source identity is not loaded code identity. No current executable binding checked.",
+      "concrete_extraction_gap": "Preserve interpreter/import path and actually loaded0.25 implementation versus advertised0.26 acceptance, then synchronized binding. Numeric source_commit and stale receipt version do not repeat deployment resolution.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "PR-G14/P2-missing-certificate",
+      "parent_id": "PR-G14",
+      "subepisode": "P2-missing-certificate",
+      "disposition": "related_rule_control",
+      "case_reuse": [
+        {
+          "id": "GP-A26",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X65",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X346",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "P2 EMPTY refusal is structural missing-certificate refusal. Unknown name, p-axis named-certificate-without-verdict and legacy partition branch-name controls are related authority gates, not an AC model or authentic-side license. runtime_licensed=false on the authentic side too.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "PR-G14/P4-missing-certificate",
+      "parent_id": "PR-G14",
+      "subepisode": "P4-missing-certificate",
+      "disposition": "related_rule_control",
+      "case_reuse": [
+        {
+          "id": "GP-A26",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X65",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X346",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "P4 EMPTY refusal is structural missing-certificate refusal. Unknown name, p-axis named-certificate-without-verdict and legacy partition branch-name controls are related authority gates, not an AC model or authentic-side license. runtime_licensed=false on the authentic side too.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "PR-G14/P5-missing-certificate",
+      "parent_id": "PR-G14",
+      "subepisode": "P5-missing-certificate",
+      "disposition": "related_rule_control",
+      "case_reuse": [
+        {
+          "id": "GP-A26",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X65",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X346",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "P5 EMPTY refusal is structural missing-certificate refusal. Unknown name, p-axis named-certificate-without-verdict and legacy partition branch-name controls are related authority gates, not an AC model or authentic-side license. runtime_licensed=false on the authentic side too.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "PR-G14/P1-literal-normalized",
+      "parent_id": "PR-G14",
+      "subepisode": "P1-literal-normalized",
+      "disposition": "design_backlog",
+      "case_reuse": [],
+      "retained_reports": [],
+      "finding": "Both literal/normalized presentation sides have adapter gaps; doubts are by hand. Producer ACCEPT_AUTHENTIC labels confer no runtime license.",
+      "concrete_extraction_gap": "An AC adapter would need literal/normalized presentation equivalence and authentic authority, with the overclaim's missing premise identified; no existing polynomial case supplies this domain contract.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "PR-G14/P3-quotient-exact-distance",
+      "parent_id": "PR-G14",
+      "subepisode": "P3-quotient-exact-distance",
+      "disposition": "design_backlog",
+      "case_reuse": [],
+      "retained_reports": [],
+      "finding": "Both quotient/exact-distance sides have adapter gaps, with by-hand doubt. A quotient lower bound cannot be promoted to exact distance merely by bookkeeping.",
+      "concrete_extraction_gap": "A domain adapter must bind quotient relation and lower bound separately from exact-distance upper-bound/attainment witness; authentic-side license is currently absent.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "PR-G14/P6-bridge-without-suffix",
+      "parent_id": "PR-G14",
+      "subepisode": "P6-bridge-without-suffix",
+      "disposition": "design_backlog",
+      "case_reuse": [
+        {
+          "id": "GP-A17",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "retained_reports": [],
+      "finding": "Both bridge-without-suffix sides have adapter gaps; source counts differ slightly. P6 also has generic ASSERTED-WITNESS debt and by-hand doubt. A17's UNVERIFIED authority gate is not an AC bridge checker.",
+      "concrete_extraction_gap": "An AC bridge adapter must bind the bridge and complete suffix/path witness to the asserted endpoint; generic witness debt supplies no bridge semantics.",
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "PR-G14/P1-witness-removal",
+      "parent_id": "PR-G14",
+      "subepisode": "P1-witness-removal",
+      "disposition": "retained_diagnostic_observation",
+      "case_reuse": [],
+      "retained_reports": [],
+      "finding": "P1 witness-removal declaration refused because a live replacement already exists. Authentic runtime license was false before and after. This is no observed revocation of a licensed authentic conclusion.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "PR-G14/P3-witness-removal",
+      "parent_id": "PR-G14",
+      "subepisode": "P3-witness-removal",
+      "disposition": "retained_diagnostic_observation",
+      "case_reuse": [],
+      "retained_reports": [],
+      "finding": "P3 witness-removal declaration refused because a live replacement already exists. Authentic runtime license was false before and after. This is no observed revocation of a licensed authentic conclusion.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "PR-G14/eleven-exercises",
+      "parent_id": "PR-G14",
+      "subepisode": "eleven-exercises",
+      "disposition": "retained_diagnostic_observation",
+      "case_reuse": [],
+      "retained_reports": [],
+      "finding": "Eleven exercises summarize unchanged false runtime licenses across the assay. They add no successful semantic catch or licensed withdrawal and must not become eleven mathematical incidents.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "PR-G14/baseline-zero-six",
+      "parent_id": "PR-G14",
+      "subepisode": "baseline-zero-six",
+      "disposition": "retained_diagnostic_observation",
+      "case_reuse": [],
+      "retained_reports": [],
+      "finding": "Baseline0/6 is source closeout reporting only; raw plain-baseline body was outside the prior bounded read. No competent AC checker comparison, superiority or cost conclusion follows.",
+      "concrete_extraction_gap": null,
+      "current_execution": "none; report/case/route reconciliation only",
+      "mathematical_incident_admission": "not decided; coordinator owns admission",
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    }
+  ]
+}

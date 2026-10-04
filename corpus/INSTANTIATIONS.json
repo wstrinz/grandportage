@@ -1,0 +1,2325 @@
+{
+  "schema": "gp-instantiation/v1",
+  "policy": "G3a review §7 (ruling 6): minimal instances of schematic cases, keyed by case id and the FNV-1a of the case bytes; case bytes and expectations are unchanged; REFUSE fixtures make the attempted conclusion false. Signed in corpus/CHANGES.md.",
+  "fixtures": [
+    {
+      "id": "GP-A11b",
+      "case_path": "corpus/must/GP-A11b.json",
+      "case_fnv1a": "278014003976938479",
+      "note": "review §7: T = (w, x; x^2-w-1), h = x^4-(w+1)^2 with cofactor x^2+w+1, carried by phi = (w -> -7-w, x -> -x) to S = (x^2+w+6). The R3 IN_IDEAL row; the embedding part is 3b.",
+      "inputs": {
+        "claims": [
+          {
+            "key": 1,
+            "variables": [
+              "w",
+              "x"
+            ],
+            "equations": [
+              "x^2-w-1"
+            ],
+            "kind": "IN_IDEAL",
+            "target": "x^4-(w+1)^2",
+            "certificate": {
+              "type": "ideal",
+              "cofactors": [
+                "x^2+w+1"
+              ],
+              "m": 1,
+              "k": 0
+            }
+          },
+          {
+            "key": 2,
+            "variables": [
+              "w",
+              "x"
+            ],
+            "equations": [
+              "x^2+w+6"
+            ],
+            "kind": "IN_IDEAL",
+            "target": "x^4-(w+6)^2",
+            "premises": [
+              1
+            ],
+            "rule": {
+              "type": "map",
+              "map": {
+                "w": "-7-w",
+                "x": "-x"
+              },
+              "eq_certificates": [
+                {
+                  "cofactors": [
+                    "1"
+                  ],
+                  "m": 1,
+                  "k": 0
+                }
+              ],
+              "guard_certificates": []
+            }
+          }
+        ],
+        "requested": [
+          2
+        ]
+      }
+    },
+    {
+      "id": "GP-A12",
+      "case_path": "corpus/must/GP-A12.json",
+      "case_fnv1a": "8062772420037759038",
+      "note": "review §7: (x) vs (x^2) under the identity map, with an m = 2 (point-level) certificate. The attempted IN_IDEAL(x) on (x^2) is false.",
+      "inputs": {
+        "claims": [
+          {
+            "key": 1,
+            "variables": [
+              "x"
+            ],
+            "equations": [
+              "x"
+            ],
+            "kind": "IN_IDEAL",
+            "target": "x",
+            "certificate": {
+              "type": "ideal",
+              "cofactors": [
+                "1"
+              ],
+              "m": 1,
+              "k": 0
+            }
+          },
+          {
+            "key": 2,
+            "variables": [
+              "x"
+            ],
+            "equations": [
+              "x^2"
+            ],
+            "kind": "IN_IDEAL",
+            "target": "x",
+            "premises": [
+              1
+            ],
+            "rule": {
+              "type": "inclusion",
+              "eq_certificates": [
+                {
+                  "cofactors": [
+                    "1"
+                  ],
+                  "m": 2,
+                  "k": 0
+                }
+              ],
+              "guard_certificates": []
+            }
+          }
+        ],
+        "requested": [
+          2
+        ]
+      }
+    },
+    {
+      "id": "GP-A23",
+      "case_path": "corpus/must/GP-A23.json",
+      "case_fnv1a": "6747573500051472129",
+      "note": "review §7: the chart (x; guard x) is EMPTY by 1*x = x^1. The attempted EMPTY on the parent (x) is false at x = 0; the split on x lacks its closed branch.",
+      "inputs": {
+        "claims": [
+          {
+            "key": 1,
+            "variables": [
+              "x"
+            ],
+            "equations": [
+              "x"
+            ],
+            "nonzero": [
+              "x"
+            ],
+            "kind": "EMPTY",
+            "certificate": {
+              "type": "ideal",
+              "cofactors": [
+                "1"
+              ],
+              "m": 0,
+              "k": 1
+            }
+          },
+          {
+            "key": 2,
+            "variables": [
+              "x"
+            ],
+            "equations": [
+              "x"
+            ],
+            "kind": "EMPTY",
+            "premises": [
+              1
+            ],
+            "rule": {
+              "type": "split",
+              "on": "x"
+            }
+          }
+        ],
+        "requested": [
+          2
+        ]
+      }
+    },
+    {
+      "id": "GP-C02",
+      "case_path": "corpus/must/GP-C02.json",
+      "case_fnv1a": "13392614956355170707",
+      "note": "review §7: L = (x, y; {x, x-1}) is EMPTY by the integral certificate x - (x-1) = 1; inclusion into T = (x, y; {x, x-1, y}) gives EMPTY in every field (an earned widening).",
+      "inputs": {
+        "claims": [
+          {
+            "key": 1,
+            "variables": [
+              "x",
+              "y"
+            ],
+            "equations": [
+              "x",
+              "x-1"
+            ],
+            "kind": "EMPTY",
+            "certificate": {
+              "type": "ideal",
+              "cofactors": [
+                "1",
+                "-1"
+              ],
+              "m": 0,
+              "k": 0
+            }
+          },
+          {
+            "key": 2,
+            "variables": [
+              "x",
+              "y"
+            ],
+            "equations": [
+              "x",
+              "x-1",
+              "y"
+            ],
+            "kind": "EMPTY",
+            "premises": [
+              1
+            ],
+            "rule": {
+              "type": "inclusion",
+              "guard_certificates": [],
+              "eq_certificates": [
+                {
+                  "cofactors": [
+                    "1",
+                    "0",
+                    "0"
+                  ],
+                  "m": 1,
+                  "k": 0
+                },
+                {
+                  "cofactors": [
+                    "0",
+                    "1",
+                    "0"
+                  ],
+                  "m": 1,
+                  "k": 0
+                }
+              ]
+            }
+          }
+        ],
+        "requested": [
+          2
+        ]
+      }
+    },
+    {
+      "id": "GP-X59",
+      "case_path": "corpus/must/GP-X59.json",
+      "case_fnv1a": "2952564612782857304",
+      "note": "review §7: VANISHES_ON(y) holds on (x, y; {x, y}). The attempt on the relaxation (x) is false at (0, 1): its obligation VANISHES_ON(y) on (x) has no certificate.",
+      "inputs": {
+        "claims": [
+          {
+            "key": 1,
+            "variables": [
+              "x",
+              "y"
+            ],
+            "equations": [
+              "x",
+              "y"
+            ],
+            "kind": "VANISHES_ON",
+            "target": "y",
+            "certificate": {
+              "type": "ideal",
+              "cofactors": [
+                "0",
+                "1"
+              ],
+              "m": 1,
+              "k": 0
+            }
+          },
+          {
+            "key": 2,
+            "variables": [
+              "x",
+              "y"
+            ],
+            "equations": [
+              "x"
+            ],
+            "kind": "VANISHES_ON",
+            "target": "y",
+            "premises": [
+              1
+            ],
+            "rule": {
+              "type": "inclusion",
+              "guard_certificates": [],
+              "eq_certificates": [
+                {
+                  "cofactors": [
+                    "1"
+                  ],
+                  "m": 1,
+                  "k": 0
+                },
+                {
+                  "cofactors": [
+                    "1"
+                  ],
+                  "m": 1,
+                  "k": 0
+                }
+              ]
+            }
+          }
+        ],
+        "requested": [
+          2
+        ]
+      }
+    },
+    {
+      "id": "GP-X49",
+      "case_path": "corpus/must/GP-X49.json",
+      "case_fnv1a": "18138849496660415519",
+      "note": "Will 2026-10-03: X49's inputs are X45's; its distinguishing fact (an unrecognized verifier version) is stated only in its title and sources. The fixture states it as a proposed change.",
+      "inputs": {
+        "variables": [
+          "x"
+        ],
+        "generators": [
+          "x^2+1"
+        ],
+        "guards": [
+          "x"
+        ],
+        "point_universe": "ALGEBRAIC_CLOSURE",
+        "field_polynomial": "a^2+1",
+        "coordinate": "a",
+        "proposed_change": {
+          "verifier_version": "gp-witness/v0"
+        }
+      }
+    },
+    {
+      "id": "GP-X121",
+      "case_path": "corpus/must/GP-X121.json",
+      "case_fnv1a": "650990280020588966",
+      "note": "Explicit surface: the inputs' unit certificate (1*x + 0*y - 1*(x-1) = 1) holds EMPTY; the attempted existence claim is filed and refuted by contra.",
+      "inputs": {
+        "claims": [
+          {
+            "key": 1,
+            "variables": [
+              "x",
+              "y"
+            ],
+            "equations": [
+              "x",
+              "y",
+              "x-1"
+            ],
+            "kind": "EMPTY",
+            "certificate": {
+              "type": "ideal",
+              "cofactors": [
+                "1",
+                "0",
+                "-1"
+              ],
+              "m": 0,
+              "k": 0
+            }
+          },
+          {
+            "key": 2,
+            "variables": [
+              "x",
+              "y"
+            ],
+            "equations": [
+              "x",
+              "y",
+              "x-1"
+            ],
+            "kind": "NONEMPTY"
+          }
+        ],
+        "requested": [
+          2
+        ]
+      }
+    },
+    {
+      "id": "GP-X51",
+      "case_path": "corpus/must/GP-X51.json",
+      "case_fnv1a": "17286556183715119152",
+      "note": "X59's shape: the actual-source locus (x, y; {x, y}) is tighter than the relaxed (x, y; {x}); NONEMPTY at (0, 0) moves tight to loose (ALONG).",
+      "inputs": {
+        "claims": [
+          {
+            "key": 1,
+            "variables": [
+              "x",
+              "y"
+            ],
+            "equations": [
+              "x",
+              "y"
+            ],
+            "kind": "NONEMPTY",
+            "certificate": {
+              "type": "point",
+              "point": {
+                "x": "0",
+                "y": "0"
+              }
+            }
+          },
+          {
+            "key": 2,
+            "variables": [
+              "x",
+              "y"
+            ],
+            "equations": [
+              "x"
+            ],
+            "kind": "NONEMPTY",
+            "premises": [
+              1
+            ],
+            "rule": {
+              "type": "inclusion",
+              "eq_certificates": [
+                {
+                  "cofactors": [
+                    "1",
+                    "0"
+                  ],
+                  "m": 1,
+                  "k": 0
+                }
+              ],
+              "guard_certificates": []
+            }
+          }
+        ],
+        "requested": [
+          2
+        ]
+      }
+    },
+    {
+      "id": "GP-X52",
+      "case_path": "corpus/must/GP-X52.json",
+      "case_fnv1a": "7153708450743971924",
+      "note": "X59's shape: the relaxed locus (x, y; {x}) has the point (0, 1); the attempt carries NONEMPTY against the direction table to an actual-source locus (x, y; {x, y, y-1}) that is empty, so the conclusion is false.",
+      "inputs": {
+        "claims": [
+          {
+            "key": 1,
+            "variables": [
+              "x",
+              "y"
+            ],
+            "equations": [
+              "x"
+            ],
+            "kind": "NONEMPTY",
+            "certificate": {
+              "type": "point",
+              "point": {
+                "x": "0",
+                "y": "1"
+              }
+            }
+          },
+          {
+            "key": 2,
+            "variables": [
+              "x",
+              "y"
+            ],
+            "equations": [
+              "x",
+              "y",
+              "y-1"
+            ],
+            "kind": "NONEMPTY",
+            "premises": [
+              1
+            ],
+            "rule": {
+              "type": "inclusion",
+              "guard_certificates": [],
+              "eq_certificates": [
+                {
+                  "cofactors": [
+                    "1"
+                  ],
+                  "m": 1,
+                  "k": 0
+                },
+                {
+                  "cofactors": [
+                    "1"
+                  ],
+                  "m": 1,
+                  "k": 0
+                },
+                {
+                  "cofactors": [
+                    "1"
+                  ],
+                  "m": 1,
+                  "k": 0
+                }
+              ]
+            }
+          }
+        ],
+        "requested": [
+          2
+        ]
+      }
+    },
+    {
+      "id": "GP-A22",
+      "case_path": "corpus/must/GP-A22.json",
+      "case_fnv1a": "2541344356494800322",
+      "note": "Explicit surface: the source equations with the retained zeros, the selection (dm2 = 1, d2 = y), the cap dm4 = 0 and the parameter y as a guard. EMPTY by y = 2/3*E2 + d0*dm1^2 - dm3*dm3 - d2*(dm2+1)*(dm2-1) - (d2-y) - 2*dm2*dm4; the attempted lift is refuted by contra.",
+      "inputs": {
+        "claims": [
+          {
+            "key": 1,
+            "variables": [
+              "d0",
+              "d1",
+              "d2",
+              "dm1",
+              "dm2",
+              "dm3",
+              "dm4",
+              "Phi",
+              "y"
+            ],
+            "equations": [
+              "3/2*d1*dm1^2+3*d2*dm1*dm2+3*dm1*dm4+3*dm2*dm3",
+              "-3/2*d0*dm1^2+3/2*d2*dm2^2+3*dm2*dm4+3/2*dm3^2",
+              "-3*d0*dm1*dm2-3/2*d1*dm2^2-1/2*dm1^3+3*dm3*dm4",
+              "Phi-3*d0*dm1*dm4-3*d0*dm2*dm3-3*d1*dm2*dm4-3/2*d1*dm3^2-3*d2*dm3*dm4-3/2*dm1^2*dm3-3/2*dm1*dm2^2",
+              "d0",
+              "d1",
+              "dm1",
+              "dm3",
+              "Phi",
+              "dm2-1",
+              "d2-y",
+              "dm4"
+            ],
+            "nonzero": [
+              "y"
+            ],
+            "kind": "EMPTY",
+            "certificate": {
+              "type": "ideal",
+              "cofactors": [
+                "0",
+                "2/3",
+                "0",
+                "0",
+                "dm1^2",
+                "0",
+                "0",
+                "-dm3",
+                "0",
+                "-d2*(dm2+1)",
+                "-1",
+                "-2*dm2"
+              ],
+              "m": 0,
+              "k": 1
+            }
+          },
+          {
+            "key": 2,
+            "variables": [
+              "d0",
+              "d1",
+              "d2",
+              "dm1",
+              "dm2",
+              "dm3",
+              "dm4",
+              "Phi",
+              "y"
+            ],
+            "equations": [
+              "3/2*d1*dm1^2+3*d2*dm1*dm2+3*dm1*dm4+3*dm2*dm3",
+              "-3/2*d0*dm1^2+3/2*d2*dm2^2+3*dm2*dm4+3/2*dm3^2",
+              "-3*d0*dm1*dm2-3/2*d1*dm2^2-1/2*dm1^3+3*dm3*dm4",
+              "Phi-3*d0*dm1*dm4-3*d0*dm2*dm3-3*d1*dm2*dm4-3/2*d1*dm3^2-3*d2*dm3*dm4-3/2*dm1^2*dm3-3/2*dm1*dm2^2",
+              "d0",
+              "d1",
+              "dm1",
+              "dm3",
+              "Phi",
+              "dm2-1",
+              "d2-y",
+              "dm4"
+            ],
+            "nonzero": [
+              "y"
+            ],
+            "kind": "NONEMPTY"
+          }
+        ],
+        "requested": [
+          2
+        ]
+      }
+    },
+    {
+      "id": "GP-X73",
+      "case_path": "corpus/must/GP-X73.json",
+      "case_fnv1a": "10593532451558136673",
+      "note": "Compiled by the v0.37 ladder adapter (experiments/jc_h3_source_ladder/authority_adapter.py) from the case's chain: source/target models, maps and mapped_ring_iso_v1 certificate as an iso bundle.",
+      "inputs": {
+        "source": {
+          "variables": [
+            "t",
+            "c2_3",
+            "c3_5",
+            "c4_5",
+            "c5_7",
+            "c8_12",
+            "I4",
+            "c6_9",
+            "c9_14",
+            "I1",
+            "Im1",
+            "a2",
+            "r",
+            "GP_INV_t"
+          ],
+          "equations": [
+            "(-5)*t^2*c3_5+(2)*t^2*I4",
+            "(5)*t^2*c3_5^2+(-4)*t^2*c3_5*I4+(-5)*t^2*c6_9",
+            "(15)*t^2*c2_3+(10)*t*c3_5*c6_9+(4)*t*I4*c6_9+(10)*t*c9_14+(2)*t*a2",
+            "(-10)*t^2*c2_3*c3_5+(4)*t^2*c2_3*I4+(-5)*t^2*c5_7+(-10)*t*c3_5^2*c6_9+(-10)*t*c3_5*c9_14+(-2)*t*c3_5*a2+(4)*t*I4*c9_14+(4/5)*t*I4*a2+(-5)*t*c6_9^2+t*I1",
+            "(5)*t^2*c2_3^2+(-5)*t^2*c4_5+(8)*t*c2_3*I4*c6_9+(10)*t*c2_3*c9_14+(2)*t*c2_3*a2+(-10)*t*c3_5^2*c5_7+(-10)*t*c3_5*c8_12+(-10)*t*c5_7*c6_9+(4)*t*c8_12*I4+(5)*c3_5^2*c6_9^2+(4)*c3_5*I4*c6_9^2+(10)*c3_5*c6_9*c9_14+(2)*c3_5*c6_9*a2+(4)*I4*c6_9*c9_14+(4/5)*I4*c6_9*a2+(-5/3)*c6_9^3+c6_9*I1+(5)*c9_14^2+(2)*c9_14*a2+Im1+(1/5)*a2^2",
+            "I4+c6_9+c9_14+I1+Im1+r",
+            "t*GP_INV_t-1"
+          ]
+        },
+        "target": {
+          "variables": [
+            "t",
+            "c2_3",
+            "c3_5",
+            "c4_5",
+            "c5_7",
+            "c8_12",
+            "I4",
+            "c6_9",
+            "c9_14",
+            "I1",
+            "Im1",
+            "a2",
+            "r",
+            "GP_INV_t"
+          ],
+          "equations": [
+            "I4",
+            "c6_9",
+            "c9_14",
+            "I1",
+            "Im1",
+            "(-5/4)*t^2*c2_3^2+(5)*t^2*c4_5+(-3/2)*t*c2_3+(5)*t*c3_5^2*c5_7+(5)*t*c5_7+(-5/3)*c3_5^6+(-5)*c3_5^4+(2)*c3_5^3-c3_5^2+(5/2)*c3_5+(-1/5)*a2+r",
+            "t*GP_INV_t-1"
+          ]
+        },
+        "point_forward": {
+          "t": "t",
+          "c2_3": "c2_3",
+          "c3_5": "c3_5",
+          "c4_5": "c4_5",
+          "c5_7": "c5_7",
+          "c8_12": "c8_12",
+          "I4": "(-5/2)*c3_5+I4",
+          "c6_9": "c3_5^2+c6_9",
+          "c9_14": "(3/2)*t*c2_3+(-2)*c3_5^3+c9_14+(1/5)*a2",
+          "I1": "(-5)*t*c5_7+(5)*c3_5^4+I1",
+          "Im1": "(5/4)*t^2*c2_3^2+(-5)*t^2*c4_5+(-5)*t*c3_5^2*c5_7+(5/3)*c3_5^6+Im1",
+          "a2": "a2",
+          "r": "r",
+          "GP_INV_t": "GP_INV_t"
+        },
+        "point_inverse": {
+          "t": "t",
+          "c2_3": "c2_3",
+          "c3_5": "c3_5",
+          "c4_5": "c4_5",
+          "c5_7": "c5_7",
+          "c8_12": "c8_12",
+          "I4": "(5/2)*c3_5+I4",
+          "c6_9": "-c3_5^2+c6_9",
+          "c9_14": "(-3/2)*t*c2_3+(2)*c3_5^3+c9_14+(-1/5)*a2",
+          "I1": "(5)*t*c5_7+(-5)*c3_5^4+I1",
+          "Im1": "(-5/4)*t^2*c2_3^2+(5)*t^2*c4_5+(5)*t*c3_5^2*c5_7+(-5/3)*c3_5^6+Im1",
+          "a2": "a2",
+          "r": "r",
+          "GP_INV_t": "GP_INV_t"
+        },
+        "target_pullback_rows": [
+          [
+            "(1/2)*GP_INV_t^2",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "(5/2)*t*c3_5*GP_INV_t-t*I4*GP_INV_t+(5/2)*c3_5-I4"
+          ],
+          [
+            "(-2/5)*t^2*c3_5*GP_INV_t^4",
+            "(-1/5)*GP_INV_t^2",
+            "0",
+            "0",
+            "0",
+            "0",
+            "(-2)*t^3*c3_5^2*GP_INV_t^3+(4/5)*t^3*c3_5*I4*GP_INV_t^3+(-2)*t^2*c3_5^2*GP_INV_t^2+(4/5)*t^2*c3_5*I4*GP_INV_t^2-t*c3_5^2*GP_INV_t-t*c6_9*GP_INV_t-c3_5^2-c6_9"
+          ],
+          [
+            "(4/5)*t^3*c3_5^2*GP_INV_t^5+(-1/5)*t*c6_9*GP_INV_t^3",
+            "(2/5)*t*c3_5*GP_INV_t^3",
+            "(1/10)*GP_INV_t",
+            "0",
+            "0",
+            "0",
+            "(4)*t^4*c3_5^3*GP_INV_t^4+(-8/5)*t^4*c3_5^2*I4*GP_INV_t^4+(4)*t^3*c3_5^3*GP_INV_t^3+(-8/5)*t^3*c3_5^2*I4*GP_INV_t^3+(2)*t^2*c3_5^3*GP_INV_t^2+t^2*c3_5*c6_9*GP_INV_t^2+(2/5)*t^2*I4*c6_9*GP_INV_t^2+(-3/2)*t*c2_3+(2)*t*c3_5^3*GP_INV_t+t*c3_5*c6_9*GP_INV_t+(2/5)*t*I4*c6_9*GP_INV_t+(2)*c3_5^3-c9_14+(-1/5)*a2"
+          ],
+          [
+            "(-2)*t^3*c3_5^3*GP_INV_t^5+(-2)*t^3*c3_5*c6_9*GP_INV_t^5+(-2)*t^2*c2_3*GP_INV_t^3+(-2)*t*c9_14*GP_INV_t^3+(-2/5)*t*a2*GP_INV_t^3",
+            "-t*c3_5^2*GP_INV_t^3-t*c6_9*GP_INV_t^3",
+            "0",
+            "GP_INV_t",
+            "0",
+            "0",
+            "(-10)*t^4*c3_5^4*GP_INV_t^4+(4)*t^4*c3_5^3*I4*GP_INV_t^4+(-10)*t^4*c3_5^2*c6_9*GP_INV_t^4+(4)*t^4*c3_5*I4*c6_9*GP_INV_t^4+(-10)*t^3*c2_3*c3_5*GP_INV_t^2+(4)*t^3*c2_3*I4*GP_INV_t^2+(-10)*t^3*c3_5^4*GP_INV_t^3+(4)*t^3*c3_5^3*I4*GP_INV_t^3+(-10)*t^3*c3_5^2*c6_9*GP_INV_t^3+(4)*t^3*c3_5*I4*c6_9*GP_INV_t^3+(-10)*t^2*c2_3*c3_5*GP_INV_t+(4)*t^2*c2_3*I4*GP_INV_t+(-5)*t^2*c3_5^4*GP_INV_t^2+(-10)*t^2*c3_5^2*c6_9*GP_INV_t^2+(-10)*t^2*c3_5*c9_14*GP_INV_t^2+(-2)*t^2*c3_5*a2*GP_INV_t^2+(4)*t^2*I4*c9_14*GP_INV_t^2+(4/5)*t^2*I4*a2*GP_INV_t^2+(-5)*t^2*c6_9^2*GP_INV_t^2+(-5)*t*c3_5^4*GP_INV_t+(-10)*t*c3_5^2*c6_9*GP_INV_t+(-10)*t*c3_5*c9_14*GP_INV_t+(-2)*t*c3_5*a2*GP_INV_t+(5)*t*c5_7+(4)*t*I4*c9_14*GP_INV_t+(4/5)*t*I4*a2*GP_INV_t+(-5)*t*c6_9^2*GP_INV_t+(-5)*c3_5^4-I1"
+          ],
+          [
+            "(-2)*t^4*c2_3*c3_5^2*GP_INV_t^5+(8)*t^3*c2_3*c3_5^2*GP_INV_t^4+(6)*t^3*c3_5^5*GP_INV_t^5+(-2)*t^3*c3_5^3*c6_9*GP_INV_t^5+(-4)*t^3*c3_5^2*c9_14*GP_INV_t^5+(-4/5)*t^3*c3_5^2*a2*GP_INV_t^5+(-4)*t^3*c3_5*c5_7*GP_INV_t^4+(-2)*t^2*c2_3*c3_5^2*GP_INV_t^3+(1/2)*t^2*c2_3*c6_9*GP_INV_t^3+(-20/3)*t^2*c3_5^5*GP_INV_t^4+(20/3)*t^2*c3_5^3*c6_9*GP_INV_t^4+(8)*t^2*c3_5^2*c9_14*GP_INV_t^4+(8/5)*t^2*c3_5^2*a2*GP_INV_t^4+(-2/3)*t^2*c3_5*c6_9^2*GP_INV_t^4+(2/5)*t^2*c3_5*I1*GP_INV_t^4+(-4)*t*c2_3*c6_9*GP_INV_t^2+(-2)*t*c3_5^3*c6_9*GP_INV_t^3+(-2)*t*c3_5^2*c9_14*GP_INV_t^3+(-2/5)*t*c3_5^2*a2*GP_INV_t^3+(-2)*t*c8_12*GP_INV_t^2+t*c6_9*c9_14*GP_INV_t^3+(1/5)*t*c6_9*a2*GP_INV_t^3+(-2)*c3_5*c6_9^2*GP_INV_t^2+(-2)*c6_9*c9_14*GP_INV_t^2+(-2/5)*c6_9*a2*GP_INV_t^2",
+            "-t^2*c2_3*c3_5*GP_INV_t^3+(4)*t*c2_3*c3_5*GP_INV_t^2+(3)*t*c3_5^4*GP_INV_t^3-t*c3_5^2*c6_9*GP_INV_t^3+(-2)*t*c3_5*c9_14*GP_INV_t^3+(-2/5)*t*c3_5*a2*GP_INV_t^3+(-2)*t*c5_7*GP_INV_t^2+(-10/3)*c3_5^4*GP_INV_t^2+(10/3)*c3_5^2*c6_9*GP_INV_t^2+(4)*c3_5*c9_14*GP_INV_t^2+(4/5)*c3_5*a2*GP_INV_t^2+(-1/3)*c6_9^2*GP_INV_t^2+(1/5)*I1*GP_INV_t^2",
+            "(-1/4)*t*c2_3*GP_INV_t+c3_5^3*GP_INV_t+(-1/2)*c9_14*GP_INV_t+(-1/10)*a2*GP_INV_t",
+            "c3_5^2*GP_INV_t",
+            "1",
+            "0",
+            "(-10)*t^5*c2_3*c3_5^3*GP_INV_t^4+(4)*t^5*c2_3*c3_5^2*I4*GP_INV_t^4+(30)*t^4*c2_3*c3_5^3*GP_INV_t^3+(-12)*t^4*c2_3*c3_5^2*I4*GP_INV_t^3+(30)*t^4*c3_5^6*GP_INV_t^4+(-12)*t^4*c3_5^5*I4*GP_INV_t^4+(-10)*t^4*c3_5^4*c6_9*GP_INV_t^4+(4)*t^4*c3_5^3*I4*c6_9*GP_INV_t^4+(-20)*t^4*c3_5^3*c9_14*GP_INV_t^4+(-4)*t^4*c3_5^3*a2*GP_INV_t^4+(-20)*t^4*c3_5^2*c5_7*GP_INV_t^3+(8)*t^4*c3_5^2*I4*c9_14*GP_INV_t^4+(8/5)*t^4*c3_5^2*I4*a2*GP_INV_t^4+(8)*t^4*c3_5*c5_7*I4*GP_INV_t^3+(25)*t^3*c2_3*c3_5^3*GP_INV_t^2+(-12)*t^3*c2_3*c3_5^2*I4*GP_INV_t^2+(-5/2)*t^3*c2_3*c3_5*c6_9*GP_INV_t^2-t^3*c2_3*I4*c6_9*GP_INV_t^2+(-10/3)*t^3*c3_5^6*GP_INV_t^3+(4/3)*t^3*c3_5^5*I4*GP_INV_t^3+(70/3)*t^3*c3_5^4*c6_9*GP_INV_t^3+(-28/3)*t^3*c3_5^3*I4*c6_9*GP_INV_t^3+(20)*t^3*c3_5^3*c9_14*GP_INV_t^3+(4)*t^3*c3_5^3*a2*GP_INV_t^3+(-20)*t^3*c3_5^2*c5_7*GP_INV_t^2+(-8)*t^3*c3_5^2*I4*c9_14*GP_INV_t^3+(-8/5)*t^3*c3_5^2*I4*a2*GP_INV_t^3+(-10/3)*t^3*c3_5^2*c6_9^2*GP_INV_t^3+(2)*t^3*c3_5^2*I1*GP_INV_t^3+(8)*t^3*c3_5*c5_7*I4*GP_INV_t^2+(4/3)*t^3*c3_5*I4*c6_9^2*GP_INV_t^3+(-4/5)*t^3*c3_5*I4*I1*GP_INV_t^3+(15/4)*t^2*c2_3^2+(5)*t^2*c2_3*c3_5^3*GP_INV_t+(4)*t^2*c2_3*c3_5^2*I4*GP_INV_t+(-5/2)*t^2*c2_3*c3_5*c6_9*GP_INV_t+(7)*t^2*c2_3*I4*c6_9*GP_INV_t+(-55/3)*t^2*c3_5^6*GP_INV_t^2+(40/3)*t^2*c3_5^5*I4*GP_INV_t^2+(100/3)*t^2*c3_5^4*c6_9*GP_INV_t^2+(-28/3)*t^2*c3_5^3*I4*c6_9*GP_INV_t^2+(20)*t^2*c3_5^3*c9_14*GP_INV_t^2+(4)*t^2*c3_5^3*a2*GP_INV_t^2+(-10)*t^2*c3_5^2*c5_7*GP_INV_t+(-12)*t^2*c3_5^2*I4*c9_14*GP_INV_t^2+(-12/5)*t^2*c3_5^2*I4*a2*GP_INV_t^2+(-25/3)*t^2*c3_5^2*c6_9^2*GP_INV_t^2+(2)*t^2*c3_5^2*I1*GP_INV_t^2+(-10)*t^2*c3_5*c8_12*GP_INV_t+(4/3)*t^2*c3_5*I4*c6_9^2*GP_INV_t^2+(-4/5)*t^2*c3_5*I4*I1*GP_INV_t^2+(-5)*t^2*c3_5*c6_9*c9_14*GP_INV_t^2-t^2*c3_5*c6_9*a2*GP_INV_t^2+(-10)*t^2*c5_7*c6_9*GP_INV_t+(4)*t^2*c8_12*I4*GP_INV_t+(-2)*t^2*I4*c6_9*c9_14*GP_INV_t^2+(-2/5)*t^2*I4*c6_9*a2*GP_INV_t^2+(8)*t*c2_3*I4*c6_9+(10)*t*c2_3*c9_14+(2)*t*c2_3*a2+(-5/3)*t*c3_5^6*GP_INV_t+(4)*t*c3_5^3*I4*c6_9*GP_INV_t+(-5)*t*c3_5^2*c5_7+(4)*t*c3_5^2*I4*c9_14*GP_INV_t+(4/5)*t*c3_5^2*I4*a2*GP_INV_t+t*c3_5^2*I1*GP_INV_t+(-10)*t*c3_5*c8_12+(4)*t*c3_5*I4*c6_9^2*GP_INV_t+(5)*t*c3_5*c6_9*c9_14*GP_INV_t+t*c3_5*c6_9*a2*GP_INV_t+(-10)*t*c5_7*c6_9+(4)*t*c8_12*I4+(2)*t*I4*c6_9*c9_14*GP_INV_t+(2/5)*t*I4*c6_9*a2*GP_INV_t+(-5/3)*t*c6_9^3*GP_INV_t+t*c6_9*I1*GP_INV_t+(-5/3)*c3_5^6+(5)*c3_5^2*c6_9^2+(4)*c3_5*I4*c6_9^2+(10)*c3_5*c6_9*c9_14+(2)*c3_5*c6_9*a2+(4)*I4*c6_9*c9_14+(4/5)*I4*c6_9*a2+(-5/3)*c6_9^3+c6_9*I1+(5)*c9_14^2+(2)*c9_14*a2+(1/5)*a2^2"
+          ],
+          [
+            "(2)*t^4*c2_3*c3_5^2*GP_INV_t^5+(-8)*t^3*c2_3*c3_5^2*GP_INV_t^4+(-6)*t^3*c3_5^5*GP_INV_t^5+(2)*t^3*c3_5^3*c6_9*GP_INV_t^5+(2)*t^3*c3_5^3*GP_INV_t^5+(4)*t^3*c3_5^2*c9_14*GP_INV_t^5+(4/5)*t^3*c3_5^2*a2*GP_INV_t^5+(-4/5)*t^3*c3_5^2*GP_INV_t^5+(4)*t^3*c3_5*c5_7*GP_INV_t^4+(2)*t^3*c3_5*c6_9*GP_INV_t^5+(2)*t^2*c2_3*c3_5^2*GP_INV_t^3+(-1/2)*t^2*c2_3*c6_9*GP_INV_t^3+(2)*t^2*c2_3*GP_INV_t^3+(20/3)*t^2*c3_5^5*GP_INV_t^4+(-20/3)*t^2*c3_5^3*c6_9*GP_INV_t^4+(-8)*t^2*c3_5^2*c9_14*GP_INV_t^4+(-8/5)*t^2*c3_5^2*a2*GP_INV_t^4+(2/3)*t^2*c3_5*c6_9^2*GP_INV_t^4+(-2/5)*t^2*c3_5*I1*GP_INV_t^4+(2/5)*t^2*c3_5*GP_INV_t^4+(4)*t*c2_3*c6_9*GP_INV_t^2+(2)*t*c3_5^3*c6_9*GP_INV_t^3+(2)*t*c3_5^2*c9_14*GP_INV_t^3+(2/5)*t*c3_5^2*a2*GP_INV_t^3+(2)*t*c8_12*GP_INV_t^2-t*c6_9*c9_14*GP_INV_t^3+(-1/5)*t*c6_9*a2*GP_INV_t^3+(1/5)*t*c6_9*GP_INV_t^3+(2)*t*c9_14*GP_INV_t^3+(2/5)*t*a2*GP_INV_t^3+(2)*c3_5*c6_9^2*GP_INV_t^2+(2)*c6_9*c9_14*GP_INV_t^2+(2/5)*c6_9*a2*GP_INV_t^2+(-1/2)*GP_INV_t^2",
+            "t^2*c2_3*c3_5*GP_INV_t^3+(-4)*t*c2_3*c3_5*GP_INV_t^2+(-3)*t*c3_5^4*GP_INV_t^3+t*c3_5^2*c6_9*GP_INV_t^3+t*c3_5^2*GP_INV_t^3+(2)*t*c3_5*c9_14*GP_INV_t^3+(2/5)*t*c3_5*a2*GP_INV_t^3+(-2/5)*t*c3_5*GP_INV_t^3+(2)*t*c5_7*GP_INV_t^2+t*c6_9*GP_INV_t^3+(10/3)*c3_5^4*GP_INV_t^2+(-10/3)*c3_5^2*c6_9*GP_INV_t^2+(-4)*c3_5*c9_14*GP_INV_t^2+(-4/5)*c3_5*a2*GP_INV_t^2+(1/3)*c6_9^2*GP_INV_t^2+(-1/5)*I1*GP_INV_t^2+(1/5)*GP_INV_t^2",
+            "(1/4)*t*c2_3*GP_INV_t-c3_5^3*GP_INV_t+(1/2)*c9_14*GP_INV_t+(1/10)*a2*GP_INV_t+(-1/10)*GP_INV_t",
+            "-c3_5^2*GP_INV_t-GP_INV_t",
+            "-1",
+            "1",
+            "(10)*t^5*c2_3*c3_5^3*GP_INV_t^4+(-4)*t^5*c2_3*c3_5^2*I4*GP_INV_t^4+(-30)*t^4*c2_3*c3_5^3*GP_INV_t^3+(12)*t^4*c2_3*c3_5^2*I4*GP_INV_t^3+(-30)*t^4*c3_5^6*GP_INV_t^4+(12)*t^4*c3_5^5*I4*GP_INV_t^4+(10)*t^4*c3_5^4*c6_9*GP_INV_t^4+(10)*t^4*c3_5^4*GP_INV_t^4+(-4)*t^4*c3_5^3*I4*c6_9*GP_INV_t^4+(-4)*t^4*c3_5^3*I4*GP_INV_t^4+(20)*t^4*c3_5^3*c9_14*GP_INV_t^4+(4)*t^4*c3_5^3*a2*GP_INV_t^4+(-4)*t^4*c3_5^3*GP_INV_t^4+(20)*t^4*c3_5^2*c5_7*GP_INV_t^3+(-8)*t^4*c3_5^2*I4*c9_14*GP_INV_t^4+(-8/5)*t^4*c3_5^2*I4*a2*GP_INV_t^4+(8/5)*t^4*c3_5^2*I4*GP_INV_t^4+(10)*t^4*c3_5^2*c6_9*GP_INV_t^4+(-8)*t^4*c3_5*c5_7*I4*GP_INV_t^3+(-4)*t^4*c3_5*I4*c6_9*GP_INV_t^4+(-25)*t^3*c2_3*c3_5^3*GP_INV_t^2+(12)*t^3*c2_3*c3_5^2*I4*GP_INV_t^2+(5/2)*t^3*c2_3*c3_5*c6_9*GP_INV_t^2+(10)*t^3*c2_3*c3_5*GP_INV_t^2+t^3*c2_3*I4*c6_9*GP_INV_t^2+(-4)*t^3*c2_3*I4*GP_INV_t^2+(10/3)*t^3*c3_5^6*GP_INV_t^3+(-4/3)*t^3*c3_5^5*I4*GP_INV_t^3+(-70/3)*t^3*c3_5^4*c6_9*GP_INV_t^3+(10)*t^3*c3_5^4*GP_INV_t^3+(28/3)*t^3*c3_5^3*I4*c6_9*GP_INV_t^3+(-4)*t^3*c3_5^3*I4*GP_INV_t^3+(-20)*t^3*c3_5^3*c9_14*GP_INV_t^3+(-4)*t^3*c3_5^3*a2*GP_INV_t^3+(-4)*t^3*c3_5^3*GP_INV_t^3+(20)*t^3*c3_5^2*c5_7*GP_INV_t^2+(8)*t^3*c3_5^2*I4*c9_14*GP_INV_t^3+(8/5)*t^3*c3_5^2*I4*a2*GP_INV_t^3+(8/5)*t^3*c3_5^2*I4*GP_INV_t^3+(10/3)*t^3*c3_5^2*c6_9^2*GP_INV_t^3+(10)*t^3*c3_5^2*c6_9*GP_INV_t^3+(-2)*t^3*c3_5^2*I1*GP_INV_t^3+(2)*t^3*c3_5^2*GP_INV_t^3+(-8)*t^3*c3_5*c5_7*I4*GP_INV_t^2+(-4/3)*t^3*c3_5*I4*c6_9^2*GP_INV_t^3+(-4)*t^3*c3_5*I4*c6_9*GP_INV_t^3+(4/5)*t^3*c3_5*I4*I1*GP_INV_t^3+(-4/5)*t^3*c3_5*I4*GP_INV_t^3+(-15/4)*t^2*c2_3^2+(-5)*t^2*c2_3*c3_5^3*GP_INV_t+(-4)*t^2*c2_3*c3_5^2*I4*GP_INV_t+(5/2)*t^2*c2_3*c3_5*c6_9*GP_INV_t+(10)*t^2*c2_3*c3_5*GP_INV_t+(-7)*t^2*c2_3*I4*c6_9*GP_INV_t+(-4)*t^2*c2_3*I4*GP_INV_t+(55/3)*t^2*c3_5^6*GP_INV_t^2+(-40/3)*t^2*c3_5^5*I4*GP_INV_t^2+(-100/3)*t^2*c3_5^4*c6_9*GP_INV_t^2+(5)*t^2*c3_5^4*GP_INV_t^2+(28/3)*t^2*c3_5^3*I4*c6_9*GP_INV_t^2+(-20)*t^2*c3_5^3*c9_14*GP_INV_t^2+(-4)*t^2*c3_5^3*a2*GP_INV_t^2+(-2)*t^2*c3_5^3*GP_INV_t^2+(10)*t^2*c3_5^2*c5_7*GP_INV_t+(12)*t^2*c3_5^2*I4*c9_14*GP_INV_t^2+(12/5)*t^2*c3_5^2*I4*a2*GP_INV_t^2+(25/3)*t^2*c3_5^2*c6_9^2*GP_INV_t^2+(10)*t^2*c3_5^2*c6_9*GP_INV_t^2+(-2)*t^2*c3_5^2*I1*GP_INV_t^2+(2)*t^2*c3_5^2*GP_INV_t^2+(10)*t^2*c3_5*c8_12*GP_INV_t+(-4/3)*t^2*c3_5*I4*c6_9^2*GP_INV_t^2+(4/5)*t^2*c3_5*I4*I1*GP_INV_t^2+(-4/5)*t^2*c3_5*I4*GP_INV_t^2+(5)*t^2*c3_5*c6_9*c9_14*GP_INV_t^2+t^2*c3_5*c6_9*a2*GP_INV_t^2-t^2*c3_5*c6_9*GP_INV_t^2+(10)*t^2*c3_5*c9_14*GP_INV_t^2+(2)*t^2*c3_5*a2*GP_INV_t^2+(10)*t^2*c5_7*c6_9*GP_INV_t+(-4)*t^2*c8_12*I4*GP_INV_t+(2)*t^2*I4*c6_9*c9_14*GP_INV_t^2+(2/5)*t^2*I4*c6_9*a2*GP_INV_t^2+(-2/5)*t^2*I4*c6_9*GP_INV_t^2+(-4)*t^2*I4*c9_14*GP_INV_t^2+(-4/5)*t^2*I4*a2*GP_INV_t^2+(5)*t^2*c6_9^2*GP_INV_t^2+(-8)*t*c2_3*I4*c6_9+(-10)*t*c2_3*c9_14+(-2)*t*c2_3*a2+(3/2)*t*c2_3+(5/3)*t*c3_5^6*GP_INV_t+(5)*t*c3_5^4*GP_INV_t+(-4)*t*c3_5^3*I4*c6_9*GP_INV_t+(-2)*t*c3_5^3*GP_INV_t+(5)*t*c3_5^2*c5_7+(-4)*t*c3_5^2*I4*c9_14*GP_INV_t+(-4/5)*t*c3_5^2*I4*a2*GP_INV_t+(10)*t*c3_5^2*c6_9*GP_INV_t-t*c3_5^2*I1*GP_INV_t+t*c3_5^2*GP_INV_t+(10)*t*c3_5*c8_12+(-4)*t*c3_5*I4*c6_9^2*GP_INV_t+(-5)*t*c3_5*c6_9*c9_14*GP_INV_t-t*c3_5*c6_9*a2*GP_INV_t-t*c3_5*c6_9*GP_INV_t+(10)*t*c3_5*c9_14*GP_INV_t+(2)*t*c3_5*a2*GP_INV_t+(-5/2)*t*c3_5*GP_INV_t+(10)*t*c5_7*c6_9+(-5)*t*c5_7+(-4)*t*c8_12*I4+(-2)*t*I4*c6_9*c9_14*GP_INV_t+(-2/5)*t*I4*c6_9*a2*GP_INV_t+(-2/5)*t*I4*c6_9*GP_INV_t+(-4)*t*I4*c9_14*GP_INV_t+(-4/5)*t*I4*a2*GP_INV_t+t*I4*GP_INV_t+(5/3)*t*c6_9^3*GP_INV_t+(5)*t*c6_9^2*GP_INV_t-t*c6_9*I1*GP_INV_t+t*c6_9*GP_INV_t+(5/3)*c3_5^6+(5)*c3_5^4+(-2)*c3_5^3+(-5)*c3_5^2*c6_9^2+c3_5^2+(-4)*c3_5*I4*c6_9^2+(-10)*c3_5*c6_9*c9_14+(-2)*c3_5*c6_9*a2+(-5/2)*c3_5+(-4)*I4*c6_9*c9_14+(-4/5)*I4*c6_9*a2+I4+(5/3)*c6_9^3-c6_9*I1+c6_9+(-5)*c9_14^2+(-2)*c9_14*a2+c9_14+I1+(-1/5)*a2^2+(1/5)*a2"
+          ],
+          [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "1"
+          ]
+        ],
+        "source_pullback_rows": [
+          [
+            "(2)*t^2",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-4)*t^2*c3_5",
+            "(-5)*t^2",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-4)*t*c3_5^2+(4)*t*c6_9",
+            "(20)*t*c3_5",
+            "(10)*t",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-2)*t^2*c2_3+(8)*t*c3_5^3+(4)*t*c9_14",
+            "(-5)*t*c6_9",
+            "0",
+            "t",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-2)*t*c2_3*c3_5^2+(2)*t*c2_3*c6_9+(4)*t*c8_12+(-4)*c3_5^5+(-4)*c3_5^2*c9_14+(4)*c3_5*c6_9^2+(4)*c6_9*c9_14",
+            "(-10)*t*c2_3*c3_5+(-5)*t*c5_7+(20)*c3_5^2*c6_9+(20)*c3_5*c9_14+(-5/3)*c6_9^2+I1",
+            "(-5)*t*c2_3+(5)*c9_14",
+            "-c3_5^2",
+            "1",
+            "0",
+            "0"
+          ],
+          [
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "0"
+          ],
+          [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "1"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "GP-X74",
+      "case_path": "corpus/must/GP-X74.json",
+      "case_fnv1a": "3353612862288952404",
+      "note": "Compiled by the v0.37 ladder adapter (experiments/jc_h3_source_ladder/authority_adapter.py) from the case's chain: source/target models, maps and mapped_ring_iso_v1 certificate as an iso bundle. The normalization 15t^3+1 inverts t; no inverse coordinate.",
+      "inputs": {
+        "source": {
+          "variables": [
+            "t",
+            "c2_2",
+            "c2_3",
+            "c3_4",
+            "c3_5",
+            "c4_4",
+            "c4_5",
+            "c5_6",
+            "c5_7",
+            "c6_8",
+            "c7_10",
+            "c8_12",
+            "c9_13",
+            "r"
+          ],
+          "equations": [
+            "(15)*t^3+1",
+            "(-5)*t^2*c3_4+(5)*t*c2_3^2*c3_5^2+(-10)*t*c2_3*c3_5*c5_7+(-5)*t*c2_3*c8_12",
+            "(-5)*t^2*c6_8+(5)*t*c2_3*c3_5^2*c5_7+(-10)*t*c3_5*c5_7^2+(-5)*t*c5_7*c8_12",
+            "(15)*t^2*c2_2+(5)*t*c2_3^2*c5_7+(10)*t*c2_3*c3_5*c4_5+(15)*t*c2_3*c7_10+(-10)*t*c3_4*c3_5^2+(20)*t*c3_5*c6_8+(15)*t*c4_5*c5_7+(10)*t*c9_13+(5)*c2_3^2*c3_5^4+(-20)*c2_3*c3_5^3*c5_7+(-10)*c2_3*c3_5^2*c8_12+(20)*c3_5^2*c5_7^2+(20)*c3_5*c5_7*c8_12+(5)*c8_12^2",
+            "(5)*t^2*c2_3*c3_4+(-5)*t^2*c5_6+(-5)*t*c2_3^3*c3_5^2+(10)*t*c2_3^2*c3_5*c5_7+(5)*t*c2_3^2*c8_12+(10)*t*c2_3*c3_5^2*c4_5+(-5/2)*t*c2_3*c5_7^2+(-20)*t*c3_5*c4_5*c5_7+(-10)*t*c4_5*c8_12+(-5)*t*c5_7*c7_10",
+            "(-5)*t^2*c2_2*c2_3+(-5)*t^2*c4_4+(-5)*t*c2_3^2*c7_10+(15)*t*c2_3*c3_4*c3_5^2+(-10)*t*c2_3*c3_5*c6_8+(-15)*t*c2_3*c4_5*c5_7+(-5)*t*c2_3*c9_13+(-20)*t*c3_4*c3_5*c5_7+(-10)*t*c3_4*c8_12+(-10)*t*c3_5*c4_5^2+(-10)*t*c4_5*c7_10+(-5)*t*c5_7*c6_8+(-5)*c2_3^3*c3_5^4+(20)*c2_3^2*c3_5^3*c5_7+(10)*c2_3^2*c3_5^2*c8_12+(-15)*c2_3*c3_5^2*c5_7^2+(-20)*c2_3*c3_5*c5_7*c8_12+(-5)*c2_3*c8_12^2+(-20/3)*c3_5*c5_7^3+(-5)*c5_7^2*c8_12",
+            "c3_4+c4_4+c5_6+c6_8+c9_13+r"
+          ]
+        },
+        "target": {
+          "variables": [
+            "t",
+            "c2_2",
+            "c2_3",
+            "c3_4",
+            "c3_5",
+            "c4_4",
+            "c4_5",
+            "c5_6",
+            "c5_7",
+            "c6_8",
+            "c7_10",
+            "c8_12",
+            "c9_13",
+            "r"
+          ],
+          "equations": [
+            "(15)*t^3+1",
+            "c3_4",
+            "c6_8",
+            "c9_13",
+            "c5_6",
+            "c4_4",
+            "(-15/2)*t^2*c2_3^3*c5_7+(-15/2)*t^2*c2_3^2*c3_5^4+(-15)*t^2*c2_3^2*c3_5^2+(-15)*t^2*c2_3^2*c3_5*c4_5+(-15/2)*t^2*c2_3^2*c7_10+(30)*t^2*c2_3*c3_5^3*c5_7+(-30)*t^2*c2_3*c3_5^2*c4_5+(-15)*t^2*c2_3*c3_5^2*c5_7+(30)*t^2*c2_3*c3_5*c5_7+(45/2)*t^2*c2_3*c4_5*c5_7+(15/2)*t^2*c2_3*c5_7^2+(15)*t^2*c2_3*c8_12+(-30)*t^2*c3_5^2*c5_7^2+(30)*t^2*c3_5*c4_5^2+(60)*t^2*c3_5*c4_5*c5_7+(30)*t^2*c3_5*c5_7^2+(30)*t^2*c4_5*c7_10+(30)*t^2*c4_5*c8_12+(15)*t^2*c5_7*c7_10+(15)*t^2*c5_7*c8_12+(15/2)*t^2*c8_12^2+(-3/2)*t*c2_2+(-45/2)*t*c2_3^3*c3_5^4+(90)*t*c2_3^2*c3_5^3*c5_7+(45)*t*c2_3^2*c3_5^2*c8_12+(-90)*t*c2_3*c3_5^2*c5_7^2+(-90)*t*c2_3*c3_5*c5_7*c8_12+(-45/2)*t*c2_3*c8_12^2+(-10)*t*c3_5*c5_7^3+(1/2)*c2_2*c2_3+(-1/2)*c2_3^2*c5_7-c2_3*c3_5*c4_5+(-3/2)*c2_3*c7_10+(-3/2)*c4_5*c5_7+r"
+          ]
+        },
+        "point_forward": {
+          "t": "t",
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_4": "(15)*t^2*c2_3^2*c3_5^2+(-30)*t^2*c2_3*c3_5*c5_7+(-15)*t^2*c2_3*c8_12+c3_4",
+          "c3_5": "c3_5",
+          "c4_4": "(15/2)*t^2*c2_3^3*c5_7+(15)*t^2*c2_3^2*c3_5*c4_5+(15/2)*t^2*c2_3^2*c7_10+(-45/2)*t^2*c2_3*c4_5*c5_7+(-30)*t^2*c3_5*c4_5^2+(-30)*t^2*c4_5*c7_10+(45/2)*t*c2_3^3*c3_5^4+(-90)*t*c2_3^2*c3_5^3*c5_7+(-45)*t*c2_3^2*c3_5^2*c8_12+(90)*t*c2_3*c3_5^2*c5_7^2+(90)*t*c2_3*c3_5*c5_7*c8_12+(45/2)*t*c2_3*c8_12^2+(10)*t*c3_5*c5_7^3+(-1/2)*c2_2*c2_3+c4_4",
+          "c4_5": "c4_5",
+          "c5_6": "(30)*t^2*c2_3*c3_5^2*c4_5+(-15/2)*t^2*c2_3*c5_7^2+(-60)*t^2*c3_5*c4_5*c5_7+(-30)*t^2*c4_5*c8_12+(-15)*t^2*c5_7*c7_10+c5_6",
+          "c5_7": "c5_7",
+          "c6_8": "(15)*t^2*c2_3*c3_5^2*c5_7+(-30)*t^2*c3_5*c5_7^2+(-15)*t^2*c5_7*c8_12+c6_8",
+          "c7_10": "c7_10",
+          "c8_12": "c8_12",
+          "c9_13": "(15/2)*t^2*c2_3^2*c3_5^4+(-30)*t^2*c2_3*c3_5^3*c5_7+(30)*t^2*c3_5^2*c5_7^2+(-15/2)*t^2*c8_12^2+(3/2)*t*c2_2+(1/2)*c2_3^2*c5_7+c2_3*c3_5*c4_5+(3/2)*c2_3*c7_10+(3/2)*c4_5*c5_7+c9_13",
+          "r": "r"
+        },
+        "point_inverse": {
+          "t": "t",
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_4": "(-15)*t^2*c2_3^2*c3_5^2+(30)*t^2*c2_3*c3_5*c5_7+(15)*t^2*c2_3*c8_12+c3_4",
+          "c3_5": "c3_5",
+          "c4_4": "(-15/2)*t^2*c2_3^3*c5_7+(-15)*t^2*c2_3^2*c3_5*c4_5+(-15/2)*t^2*c2_3^2*c7_10+(45/2)*t^2*c2_3*c4_5*c5_7+(30)*t^2*c3_5*c4_5^2+(30)*t^2*c4_5*c7_10+(-45/2)*t*c2_3^3*c3_5^4+(90)*t*c2_3^2*c3_5^3*c5_7+(45)*t*c2_3^2*c3_5^2*c8_12+(-90)*t*c2_3*c3_5^2*c5_7^2+(-90)*t*c2_3*c3_5*c5_7*c8_12+(-45/2)*t*c2_3*c8_12^2+(-10)*t*c3_5*c5_7^3+(1/2)*c2_2*c2_3+c4_4",
+          "c4_5": "c4_5",
+          "c5_6": "(-30)*t^2*c2_3*c3_5^2*c4_5+(15/2)*t^2*c2_3*c5_7^2+(60)*t^2*c3_5*c4_5*c5_7+(30)*t^2*c4_5*c8_12+(15)*t^2*c5_7*c7_10+c5_6",
+          "c5_7": "c5_7",
+          "c6_8": "(-15)*t^2*c2_3*c3_5^2*c5_7+(30)*t^2*c3_5*c5_7^2+(15)*t^2*c5_7*c8_12+c6_8",
+          "c7_10": "c7_10",
+          "c8_12": "c8_12",
+          "c9_13": "(-15/2)*t^2*c2_3^2*c3_5^4+(30)*t^2*c2_3*c3_5^3*c5_7+(-30)*t^2*c3_5^2*c5_7^2+(15/2)*t^2*c8_12^2+(-3/2)*t*c2_2+(-1/2)*c2_3^2*c5_7-c2_3*c3_5*c4_5+(-3/2)*c2_3*c7_10+(-3/2)*c4_5*c5_7+c9_13",
+          "r": "r"
+        },
+        "target_pullback_rows": [
+          [
+            "1",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-15)*t^3*c3_4+(15)*t^2*c2_3^2*c3_5^2+(-30)*t^2*c2_3*c3_5*c5_7+(-15)*t^2*c2_3*c8_12+c3_4",
+            "(-45)*t^4",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-15)*t^3*c6_8+(15)*t^2*c2_3*c3_5^2*c5_7+(-30)*t^2*c3_5*c5_7^2+(-15)*t^2*c5_7*c8_12+c6_8",
+            "0",
+            "(-45)*t^4",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(225)*t^6*c3_4*c3_5^2+(-450)*t^6*c3_5*c6_8+(-225)*t^5*c2_3^2*c3_5^4+(900)*t^5*c2_3*c3_5^3*c5_7+(225)*t^5*c2_3*c3_5^2*c8_12+(-900)*t^5*c3_5^2*c5_7^2+(-450)*t^5*c3_5*c5_7*c8_12+(-15)*t^3*c3_4*c3_5^2+(30)*t^3*c3_5*c6_8+(15)*t^2*c2_3^2*c3_5^4+(-60)*t^2*c2_3*c3_5^3*c5_7+(-15)*t^2*c2_3*c3_5^2*c8_12+(60)*t^2*c3_5^2*c5_7^2+(30)*t^2*c3_5*c5_7*c8_12+(3/2)*t*c2_2+(1/2)*c2_3^2*c5_7+c2_3*c3_5*c4_5+(3/2)*c2_3*c7_10+(3/2)*c4_5*c5_7+c9_13",
+            "(675)*t^7*c3_5^2",
+            "(-1350)*t^7*c3_5",
+            "(-3/2)*t^2",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-3375)*t^9*c2_3*c3_4+(3375)*t^8*c2_3^3*c3_5^2+(-6750)*t^8*c2_3^2*c3_5*c5_7+(-3375)*t^8*c2_3^2*c8_12+(225)*t^6*c2_3*c3_4+(-225)*t^5*c2_3^3*c3_5^2+(450)*t^5*c2_3^2*c3_5*c5_7+(225)*t^5*c2_3^2*c8_12+(-15)*t^3*c5_6+(30)*t^2*c2_3*c3_5^2*c4_5+(-15/2)*t^2*c2_3*c5_7^2+(-60)*t^2*c3_5*c4_5*c5_7+(-30)*t^2*c4_5*c8_12+(-15)*t^2*c5_7*c7_10+c5_6",
+            "(-10125)*t^10*c2_3",
+            "0",
+            "0",
+            "(-45)*t^4",
+            "0",
+            "0"
+          ],
+          [
+            "(-50625)*t^11*c2_3*c3_4*c3_5^2+(101250)*t^11*c2_3*c3_5*c6_8+(50625)*t^10*c2_3^3*c3_5^4+(-202500)*t^10*c2_3^2*c3_5^3*c5_7+(-50625)*t^10*c2_3^2*c3_5^2*c8_12+(202500)*t^10*c2_3*c3_5^2*c5_7^2+(101250)*t^10*c2_3*c3_5*c5_7*c8_12+(-6750)*t^8*c2_3*c3_4*c3_5^2+(13500)*t^8*c3_4*c3_5*c5_7+(6750)*t^8*c3_4*c8_12+(3375)*t^8*c5_7*c6_8+(6750)*t^7*c2_3^3*c3_5^4+(-27000)*t^7*c2_3^2*c3_5^3*c5_7+(-13500)*t^7*c2_3^2*c3_5^2*c8_12+(23625)*t^7*c2_3*c3_5^2*c5_7^2+(27000)*t^7*c2_3*c3_5*c5_7*c8_12+(6750)*t^7*c2_3*c8_12^2+(6750)*t^7*c3_5*c5_7^3+(3375)*t^7*c5_7^2*c8_12+(-675/2)*t^6*c2_2*c2_3+(-225/2)*t^5*c2_3^3*c5_7+(-225)*t^5*c2_3^2*c3_5*c4_5+(-675/2)*t^5*c2_3^2*c7_10+(675)*t^5*c2_3*c3_4*c3_5^2+(-450)*t^5*c2_3*c3_5*c6_8+(-675/2)*t^5*c2_3*c4_5*c5_7+(-225)*t^5*c2_3*c9_13+(-900)*t^5*c3_4*c3_5*c5_7+(-450)*t^5*c3_4*c8_12+(-225)*t^5*c5_7*c6_8+(-1125/2)*t^4*c2_3^3*c3_5^4+(2250)*t^4*c2_3^2*c3_5^3*c5_7+(1125)*t^4*c2_3^2*c3_5^2*c8_12+(-2025)*t^4*c2_3*c3_5^2*c5_7^2+(-2250)*t^4*c2_3*c3_5*c5_7*c8_12+(-1125/2)*t^4*c2_3*c8_12^2+(-450)*t^4*c3_5*c5_7^3+(-225)*t^4*c5_7^2*c8_12+(15/2)*t^3*c2_2*c2_3+(-15)*t^3*c4_4+(15/2)*t^2*c2_3^3*c5_7+(15)*t^2*c2_3^2*c3_5*c4_5+(15/2)*t^2*c2_3^2*c7_10+(-45/2)*t^2*c2_3*c4_5*c5_7+(-30)*t^2*c3_5*c4_5^2+(-30)*t^2*c4_5*c7_10+(45/2)*t*c2_3^3*c3_5^4+(-90)*t*c2_3^2*c3_5^3*c5_7+(-45)*t*c2_3^2*c3_5^2*c8_12+(90)*t*c2_3*c3_5^2*c5_7^2+(90)*t*c2_3*c3_5*c5_7*c8_12+(45/2)*t*c2_3*c8_12^2+(10)*t*c3_5*c5_7^3+(-1/2)*c2_2*c2_3+c4_4",
+            "(-151875)*t^12*c2_3*c3_5^2+(-30375)*t^9*c2_3*c3_5^2+(40500)*t^9*c3_5*c5_7+(20250)*t^9*c8_12",
+            "(303750)*t^12*c2_3*c3_5+(20250)*t^9*c2_3*c3_5+(10125)*t^9*c5_7",
+            "(675/2)*t^7*c2_3",
+            "0",
+            "(-45)*t^4",
+            "0"
+          ],
+          [
+            "(50625)*t^11*c2_3*c3_4*c3_5^2+(-101250)*t^11*c2_3*c3_5*c6_8+(-50625)*t^10*c2_3^3*c3_5^4+(202500)*t^10*c2_3^2*c3_5^3*c5_7+(50625)*t^10*c2_3^2*c3_5^2*c8_12+(-202500)*t^10*c2_3*c3_5^2*c5_7^2+(-101250)*t^10*c2_3*c3_5*c5_7*c8_12+(3375)*t^9*c2_3*c3_4+(-3375)*t^8*c2_3^3*c3_5^2+(6750)*t^8*c2_3^2*c3_5*c5_7+(3375)*t^8*c2_3^2*c8_12+(6750)*t^8*c2_3*c3_4*c3_5^2+(-13500)*t^8*c3_4*c3_5*c5_7+(-6750)*t^8*c3_4*c8_12+(-3375)*t^8*c5_7*c6_8+(-6750)*t^7*c2_3^3*c3_5^4+(27000)*t^7*c2_3^2*c3_5^3*c5_7+(13500)*t^7*c2_3^2*c3_5^2*c8_12+(-23625)*t^7*c2_3*c3_5^2*c5_7^2+(-27000)*t^7*c2_3*c3_5*c5_7*c8_12+(-6750)*t^7*c2_3*c8_12^2+(-6750)*t^7*c3_5*c5_7^3+(-3375)*t^7*c5_7^2*c8_12+(675/2)*t^6*c2_2*c2_3+(-225)*t^6*c2_3*c3_4+(-225)*t^6*c3_4*c3_5^2+(450)*t^6*c3_5*c6_8+(225)*t^5*c2_3^3*c3_5^2+(225/2)*t^5*c2_3^3*c5_7+(225)*t^5*c2_3^2*c3_5^4+(225)*t^5*c2_3^2*c3_5*c4_5+(-450)*t^5*c2_3^2*c3_5*c5_7+(675/2)*t^5*c2_3^2*c7_10+(-225)*t^5*c2_3^2*c8_12+(-675)*t^5*c2_3*c3_4*c3_5^2+(-900)*t^5*c2_3*c3_5^3*c5_7+(-225)*t^5*c2_3*c3_5^2*c8_12+(450)*t^5*c2_3*c3_5*c6_8+(675/2)*t^5*c2_3*c4_5*c5_7+(225)*t^5*c2_3*c9_13+(900)*t^5*c3_4*c3_5*c5_7+(450)*t^5*c3_4*c8_12+(900)*t^5*c3_5^2*c5_7^2+(450)*t^5*c3_5*c5_7*c8_12+(225)*t^5*c5_7*c6_8+(1125/2)*t^4*c2_3^3*c3_5^4+(-2250)*t^4*c2_3^2*c3_5^3*c5_7+(-1125)*t^4*c2_3^2*c3_5^2*c8_12+(2025)*t^4*c2_3*c3_5^2*c5_7^2+(2250)*t^4*c2_3*c3_5*c5_7*c8_12+(1125/2)*t^4*c2_3*c8_12^2+(450)*t^4*c3_5*c5_7^3+(225)*t^4*c5_7^2*c8_12+(-15/2)*t^3*c2_2*c2_3+(15)*t^3*c3_4*c3_5^2+(15)*t^3*c3_4+(-30)*t^3*c3_5*c6_8+(15)*t^3*c4_4+(15)*t^3*c5_6+(15)*t^3*c6_8+(-15/2)*t^2*c2_3^3*c5_7+(-15)*t^2*c2_3^2*c3_5^4+(-15)*t^2*c2_3^2*c3_5^2+(-15)*t^2*c2_3^2*c3_5*c4_5+(-15/2)*t^2*c2_3^2*c7_10+(60)*t^2*c2_3*c3_5^3*c5_7+(-30)*t^2*c2_3*c3_5^2*c4_5+(-15)*t^2*c2_3*c3_5^2*c5_7+(15)*t^2*c2_3*c3_5^2*c8_12+(30)*t^2*c2_3*c3_5*c5_7+(45/2)*t^2*c2_3*c4_5*c5_7+(15/2)*t^2*c2_3*c5_7^2+(15)*t^2*c2_3*c8_12+(-60)*t^2*c3_5^2*c5_7^2+(30)*t^2*c3_5*c4_5^2+(60)*t^2*c3_5*c4_5*c5_7+(30)*t^2*c3_5*c5_7^2+(-30)*t^2*c3_5*c5_7*c8_12+(30)*t^2*c4_5*c7_10+(30)*t^2*c4_5*c8_12+(15)*t^2*c5_7*c7_10+(15)*t^2*c5_7*c8_12+(-3/2)*t*c2_2+(-45/2)*t*c2_3^3*c3_5^4+(90)*t*c2_3^2*c3_5^3*c5_7+(45)*t*c2_3^2*c3_5^2*c8_12+(-90)*t*c2_3*c3_5^2*c5_7^2+(-90)*t*c2_3*c3_5*c5_7*c8_12+(-45/2)*t*c2_3*c8_12^2+(-10)*t*c3_5*c5_7^3+(1/2)*c2_2*c2_3+(-1/2)*c2_3^2*c5_7-c2_3*c3_5*c4_5+(-3/2)*c2_3*c7_10-c3_4-c4_4+(-3/2)*c4_5*c5_7-c5_6-c6_8-c9_13",
+            "(151875)*t^12*c2_3*c3_5^2+(10125)*t^10*c2_3+(30375)*t^9*c2_3*c3_5^2+(-40500)*t^9*c3_5*c5_7+(-20250)*t^9*c8_12+(-675)*t^7*c3_5^2+(45)*t^4",
+            "(-303750)*t^12*c2_3*c3_5+(-20250)*t^9*c2_3*c3_5+(-10125)*t^9*c5_7+(1350)*t^7*c3_5+(45)*t^4",
+            "(-675/2)*t^7*c2_3+(3/2)*t^2",
+            "(45)*t^4",
+            "(45)*t^4",
+            "1"
+          ]
+        ],
+        "source_pullback_rows": [
+          [
+            "1",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(5)*t*c2_3^2*c3_5^2+(-10)*t*c2_3*c3_5*c5_7+(-5)*t*c2_3*c8_12",
+            "(-5)*t^2",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(5)*t*c2_3*c3_5^2*c5_7+(-10)*t*c3_5*c5_7^2+(-5)*t*c5_7*c8_12",
+            "0",
+            "(-5)*t^2",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(5)*c2_3^2*c3_5^4+(-20)*c2_3*c3_5^3*c5_7+(-10)*c2_3*c3_5^2*c8_12+(20)*c3_5^2*c5_7^2+(20)*c3_5*c5_7*c8_12+(5)*c8_12^2",
+            "(-10)*t*c3_5^2",
+            "(20)*t*c3_5",
+            "(10)*t",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-5)*t*c2_3^3*c3_5^2+(10)*t*c2_3^2*c3_5*c5_7+(5)*t*c2_3^2*c8_12+(10)*t*c2_3*c3_5^2*c4_5+(-5/2)*t*c2_3*c5_7^2+(-20)*t*c3_5*c4_5*c5_7+(-10)*t*c4_5*c8_12+(-5)*t*c5_7*c7_10",
+            "(5)*t^2*c2_3",
+            "0",
+            "0",
+            "(-5)*t^2",
+            "0",
+            "0"
+          ],
+          [
+            "(5/2)*t*c2_3^3*c5_7+(5)*t*c2_3^2*c3_5*c4_5+(5/2)*t*c2_3^2*c7_10+(-15/2)*t*c2_3*c4_5*c5_7+(-10)*t*c3_5*c4_5^2+(-10)*t*c4_5*c7_10+(-5)*c2_3^3*c3_5^4+(20)*c2_3^2*c3_5^3*c5_7+(10)*c2_3^2*c3_5^2*c8_12+(-15)*c2_3*c3_5^2*c5_7^2+(-20)*c2_3*c3_5*c5_7*c8_12+(-5)*c2_3*c8_12^2+(-20/3)*c3_5*c5_7^3+(-5)*c5_7^2*c8_12",
+            "(15)*t*c2_3*c3_5^2+(-20)*t*c3_5*c5_7+(-10)*t*c8_12",
+            "(-10)*t*c2_3*c3_5+(-5)*t*c5_7",
+            "(-5)*t*c2_3",
+            "0",
+            "(-5)*t^2",
+            "0"
+          ],
+          [
+            "0",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "GP-X75",
+      "case_path": "corpus/must/GP-X75.json",
+      "case_fnv1a": "2717716772968439552",
+      "note": "Compiled by the v0.37 ladder adapter (experiments/jc_h3_source_ladder/authority_adapter.py) from the case's chain: source/target models, maps and mapped_ring_iso_v1 certificate as an iso bundle. Mutation as data (test_compiler_replays_chain_before_emitting_graph_events): step 2's solution is 0, so the pivot's translation is the identity; the resulting map does not carry the ideals.",
+      "inputs": {
+        "source": {
+          "variables": [
+            "t",
+            "c2_3",
+            "c3_5",
+            "c4_5",
+            "c5_7",
+            "c8_12",
+            "I4",
+            "c6_9",
+            "c9_14",
+            "I1",
+            "Im1",
+            "a2",
+            "r",
+            "GP_INV_t"
+          ],
+          "equations": [
+            "(-5)*t^2*c3_5+(2)*t^2*I4",
+            "(5)*t^2*c3_5^2+(-4)*t^2*c3_5*I4+(-5)*t^2*c6_9",
+            "(15)*t^2*c2_3+(10)*t*c3_5*c6_9+(4)*t*I4*c6_9+(10)*t*c9_14+(2)*t*a2",
+            "(-10)*t^2*c2_3*c3_5+(4)*t^2*c2_3*I4+(-5)*t^2*c5_7+(-10)*t*c3_5^2*c6_9+(-10)*t*c3_5*c9_14+(-2)*t*c3_5*a2+(4)*t*I4*c9_14+(4/5)*t*I4*a2+(-5)*t*c6_9^2+t*I1",
+            "(5)*t^2*c2_3^2+(-5)*t^2*c4_5+(8)*t*c2_3*I4*c6_9+(10)*t*c2_3*c9_14+(2)*t*c2_3*a2+(-10)*t*c3_5^2*c5_7+(-10)*t*c3_5*c8_12+(-10)*t*c5_7*c6_9+(4)*t*c8_12*I4+(5)*c3_5^2*c6_9^2+(4)*c3_5*I4*c6_9^2+(10)*c3_5*c6_9*c9_14+(2)*c3_5*c6_9*a2+(4)*I4*c6_9*c9_14+(4/5)*I4*c6_9*a2+(-5/3)*c6_9^3+c6_9*I1+(5)*c9_14^2+(2)*c9_14*a2+Im1+(1/5)*a2^2",
+            "I4+c6_9+c9_14+I1+Im1+r",
+            "t*GP_INV_t-1"
+          ]
+        },
+        "target": {
+          "variables": [
+            "t",
+            "c2_3",
+            "c3_5",
+            "c4_5",
+            "c5_7",
+            "c8_12",
+            "I4",
+            "c6_9",
+            "c9_14",
+            "I1",
+            "Im1",
+            "a2",
+            "r",
+            "GP_INV_t"
+          ],
+          "equations": [
+            "I4",
+            "c6_9",
+            "c9_14",
+            "I1",
+            "Im1",
+            "(-5/4)*t^2*c2_3^2+(5)*t^2*c4_5+(-3/2)*t*c2_3+(5)*t*c3_5^2*c5_7+(5)*t*c5_7+(-5/3)*c3_5^6+(-5)*c3_5^4+(2)*c3_5^3-c3_5^2+(5/2)*c3_5+(-1/5)*a2+r",
+            "t*GP_INV_t-1"
+          ]
+        },
+        "point_forward": {
+          "t": "t",
+          "c2_3": "c2_3",
+          "c3_5": "c3_5",
+          "c4_5": "c4_5",
+          "c5_7": "c5_7",
+          "c8_12": "c8_12",
+          "I4": "(-5/2)*c3_5+I4",
+          "c6_9": "c3_5^2+c6_9",
+          "c9_14": "c9_14",
+          "I1": "(-5)*t*c5_7+(5)*c3_5^4+I1",
+          "Im1": "(5/4)*t^2*c2_3^2+(-5)*t^2*c4_5+(-5)*t*c3_5^2*c5_7+(5/3)*c3_5^6+Im1",
+          "a2": "a2",
+          "r": "r",
+          "GP_INV_t": "GP_INV_t"
+        },
+        "point_inverse": {
+          "t": "t",
+          "c2_3": "c2_3",
+          "c3_5": "c3_5",
+          "c4_5": "c4_5",
+          "c5_7": "c5_7",
+          "c8_12": "c8_12",
+          "I4": "(5/2)*c3_5+I4",
+          "c6_9": "-c3_5^2+c6_9",
+          "c9_14": "c9_14",
+          "I1": "(5)*t*c5_7+(-5)*c3_5^4+I1",
+          "Im1": "(-5/4)*t^2*c2_3^2+(5)*t^2*c4_5+(5)*t*c3_5^2*c5_7+(-5/3)*c3_5^6+Im1",
+          "a2": "a2",
+          "r": "r",
+          "GP_INV_t": "GP_INV_t"
+        },
+        "target_pullback_rows": [
+          [
+            "(1/2)*GP_INV_t^2",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "(5/2)*t*c3_5*GP_INV_t-t*I4*GP_INV_t+(5/2)*c3_5-I4"
+          ],
+          [
+            "(-2/5)*t^2*c3_5*GP_INV_t^4",
+            "(-1/5)*GP_INV_t^2",
+            "0",
+            "0",
+            "0",
+            "0",
+            "(-2)*t^3*c3_5^2*GP_INV_t^3+(4/5)*t^3*c3_5*I4*GP_INV_t^3+(-2)*t^2*c3_5^2*GP_INV_t^2+(4/5)*t^2*c3_5*I4*GP_INV_t^2-t*c3_5^2*GP_INV_t-t*c6_9*GP_INV_t-c3_5^2-c6_9"
+          ],
+          [
+            "(4/5)*t^3*c3_5^2*GP_INV_t^5+(-1/5)*t*c6_9*GP_INV_t^3",
+            "(2/5)*t*c3_5*GP_INV_t^3",
+            "(1/10)*GP_INV_t",
+            "0",
+            "0",
+            "0",
+            "(4)*t^4*c3_5^3*GP_INV_t^4+(-8/5)*t^4*c3_5^2*I4*GP_INV_t^4+(4)*t^3*c3_5^3*GP_INV_t^3+(-8/5)*t^3*c3_5^2*I4*GP_INV_t^3+(2)*t^2*c3_5^3*GP_INV_t^2+t^2*c3_5*c6_9*GP_INV_t^2+(2/5)*t^2*I4*c6_9*GP_INV_t^2+(-3/2)*t*c2_3+(2)*t*c3_5^3*GP_INV_t+t*c3_5*c6_9*GP_INV_t+(2/5)*t*I4*c6_9*GP_INV_t+(2)*c3_5^3-c9_14+(-1/5)*a2"
+          ],
+          [
+            "(-2)*t^3*c3_5^3*GP_INV_t^5+(-2)*t^3*c3_5*c6_9*GP_INV_t^5+(-2)*t^2*c2_3*GP_INV_t^3+(-2)*t*c9_14*GP_INV_t^3+(-2/5)*t*a2*GP_INV_t^3",
+            "-t*c3_5^2*GP_INV_t^3-t*c6_9*GP_INV_t^3",
+            "0",
+            "GP_INV_t",
+            "0",
+            "0",
+            "(-10)*t^4*c3_5^4*GP_INV_t^4+(4)*t^4*c3_5^3*I4*GP_INV_t^4+(-10)*t^4*c3_5^2*c6_9*GP_INV_t^4+(4)*t^4*c3_5*I4*c6_9*GP_INV_t^4+(-10)*t^3*c2_3*c3_5*GP_INV_t^2+(4)*t^3*c2_3*I4*GP_INV_t^2+(-10)*t^3*c3_5^4*GP_INV_t^3+(4)*t^3*c3_5^3*I4*GP_INV_t^3+(-10)*t^3*c3_5^2*c6_9*GP_INV_t^3+(4)*t^3*c3_5*I4*c6_9*GP_INV_t^3+(-10)*t^2*c2_3*c3_5*GP_INV_t+(4)*t^2*c2_3*I4*GP_INV_t+(-5)*t^2*c3_5^4*GP_INV_t^2+(-10)*t^2*c3_5^2*c6_9*GP_INV_t^2+(-10)*t^2*c3_5*c9_14*GP_INV_t^2+(-2)*t^2*c3_5*a2*GP_INV_t^2+(4)*t^2*I4*c9_14*GP_INV_t^2+(4/5)*t^2*I4*a2*GP_INV_t^2+(-5)*t^2*c6_9^2*GP_INV_t^2+(-5)*t*c3_5^4*GP_INV_t+(-10)*t*c3_5^2*c6_9*GP_INV_t+(-10)*t*c3_5*c9_14*GP_INV_t+(-2)*t*c3_5*a2*GP_INV_t+(5)*t*c5_7+(4)*t*I4*c9_14*GP_INV_t+(4/5)*t*I4*a2*GP_INV_t+(-5)*t*c6_9^2*GP_INV_t+(-5)*c3_5^4-I1"
+          ],
+          [
+            "(-2)*t^4*c2_3*c3_5^2*GP_INV_t^5+(8)*t^3*c2_3*c3_5^2*GP_INV_t^4+(6)*t^3*c3_5^5*GP_INV_t^5+(-2)*t^3*c3_5^3*c6_9*GP_INV_t^5+(-4)*t^3*c3_5^2*c9_14*GP_INV_t^5+(-4/5)*t^3*c3_5^2*a2*GP_INV_t^5+(-4)*t^3*c3_5*c5_7*GP_INV_t^4+(-2)*t^2*c2_3*c3_5^2*GP_INV_t^3+(1/2)*t^2*c2_3*c6_9*GP_INV_t^3+(-20/3)*t^2*c3_5^5*GP_INV_t^4+(20/3)*t^2*c3_5^3*c6_9*GP_INV_t^4+(8)*t^2*c3_5^2*c9_14*GP_INV_t^4+(8/5)*t^2*c3_5^2*a2*GP_INV_t^4+(-2/3)*t^2*c3_5*c6_9^2*GP_INV_t^4+(2/5)*t^2*c3_5*I1*GP_INV_t^4+(-4)*t*c2_3*c6_9*GP_INV_t^2+(-2)*t*c3_5^3*c6_9*GP_INV_t^3+(-2)*t*c3_5^2*c9_14*GP_INV_t^3+(-2/5)*t*c3_5^2*a2*GP_INV_t^3+(-2)*t*c8_12*GP_INV_t^2+t*c6_9*c9_14*GP_INV_t^3+(1/5)*t*c6_9*a2*GP_INV_t^3+(-2)*c3_5*c6_9^2*GP_INV_t^2+(-2)*c6_9*c9_14*GP_INV_t^2+(-2/5)*c6_9*a2*GP_INV_t^2",
+            "-t^2*c2_3*c3_5*GP_INV_t^3+(4)*t*c2_3*c3_5*GP_INV_t^2+(3)*t*c3_5^4*GP_INV_t^3-t*c3_5^2*c6_9*GP_INV_t^3+(-2)*t*c3_5*c9_14*GP_INV_t^3+(-2/5)*t*c3_5*a2*GP_INV_t^3+(-2)*t*c5_7*GP_INV_t^2+(-10/3)*c3_5^4*GP_INV_t^2+(10/3)*c3_5^2*c6_9*GP_INV_t^2+(4)*c3_5*c9_14*GP_INV_t^2+(4/5)*c3_5*a2*GP_INV_t^2+(-1/3)*c6_9^2*GP_INV_t^2+(1/5)*I1*GP_INV_t^2",
+            "(-1/4)*t*c2_3*GP_INV_t+c3_5^3*GP_INV_t+(-1/2)*c9_14*GP_INV_t+(-1/10)*a2*GP_INV_t",
+            "c3_5^2*GP_INV_t",
+            "1",
+            "0",
+            "(-10)*t^5*c2_3*c3_5^3*GP_INV_t^4+(4)*t^5*c2_3*c3_5^2*I4*GP_INV_t^4+(30)*t^4*c2_3*c3_5^3*GP_INV_t^3+(-12)*t^4*c2_3*c3_5^2*I4*GP_INV_t^3+(30)*t^4*c3_5^6*GP_INV_t^4+(-12)*t^4*c3_5^5*I4*GP_INV_t^4+(-10)*t^4*c3_5^4*c6_9*GP_INV_t^4+(4)*t^4*c3_5^3*I4*c6_9*GP_INV_t^4+(-20)*t^4*c3_5^3*c9_14*GP_INV_t^4+(-4)*t^4*c3_5^3*a2*GP_INV_t^4+(-20)*t^4*c3_5^2*c5_7*GP_INV_t^3+(8)*t^4*c3_5^2*I4*c9_14*GP_INV_t^4+(8/5)*t^4*c3_5^2*I4*a2*GP_INV_t^4+(8)*t^4*c3_5*c5_7*I4*GP_INV_t^3+(25)*t^3*c2_3*c3_5^3*GP_INV_t^2+(-12)*t^3*c2_3*c3_5^2*I4*GP_INV_t^2+(-5/2)*t^3*c2_3*c3_5*c6_9*GP_INV_t^2-t^3*c2_3*I4*c6_9*GP_INV_t^2+(-10/3)*t^3*c3_5^6*GP_INV_t^3+(4/3)*t^3*c3_5^5*I4*GP_INV_t^3+(70/3)*t^3*c3_5^4*c6_9*GP_INV_t^3+(-28/3)*t^3*c3_5^3*I4*c6_9*GP_INV_t^3+(20)*t^3*c3_5^3*c9_14*GP_INV_t^3+(4)*t^3*c3_5^3*a2*GP_INV_t^3+(-20)*t^3*c3_5^2*c5_7*GP_INV_t^2+(-8)*t^3*c3_5^2*I4*c9_14*GP_INV_t^3+(-8/5)*t^3*c3_5^2*I4*a2*GP_INV_t^3+(-10/3)*t^3*c3_5^2*c6_9^2*GP_INV_t^3+(2)*t^3*c3_5^2*I1*GP_INV_t^3+(8)*t^3*c3_5*c5_7*I4*GP_INV_t^2+(4/3)*t^3*c3_5*I4*c6_9^2*GP_INV_t^3+(-4/5)*t^3*c3_5*I4*I1*GP_INV_t^3+(15/4)*t^2*c2_3^2+(5)*t^2*c2_3*c3_5^3*GP_INV_t+(4)*t^2*c2_3*c3_5^2*I4*GP_INV_t+(-5/2)*t^2*c2_3*c3_5*c6_9*GP_INV_t+(7)*t^2*c2_3*I4*c6_9*GP_INV_t+(-55/3)*t^2*c3_5^6*GP_INV_t^2+(40/3)*t^2*c3_5^5*I4*GP_INV_t^2+(100/3)*t^2*c3_5^4*c6_9*GP_INV_t^2+(-28/3)*t^2*c3_5^3*I4*c6_9*GP_INV_t^2+(20)*t^2*c3_5^3*c9_14*GP_INV_t^2+(4)*t^2*c3_5^3*a2*GP_INV_t^2+(-10)*t^2*c3_5^2*c5_7*GP_INV_t+(-12)*t^2*c3_5^2*I4*c9_14*GP_INV_t^2+(-12/5)*t^2*c3_5^2*I4*a2*GP_INV_t^2+(-25/3)*t^2*c3_5^2*c6_9^2*GP_INV_t^2+(2)*t^2*c3_5^2*I1*GP_INV_t^2+(-10)*t^2*c3_5*c8_12*GP_INV_t+(4/3)*t^2*c3_5*I4*c6_9^2*GP_INV_t^2+(-4/5)*t^2*c3_5*I4*I1*GP_INV_t^2+(-5)*t^2*c3_5*c6_9*c9_14*GP_INV_t^2-t^2*c3_5*c6_9*a2*GP_INV_t^2+(-10)*t^2*c5_7*c6_9*GP_INV_t+(4)*t^2*c8_12*I4*GP_INV_t+(-2)*t^2*I4*c6_9*c9_14*GP_INV_t^2+(-2/5)*t^2*I4*c6_9*a2*GP_INV_t^2+(8)*t*c2_3*I4*c6_9+(10)*t*c2_3*c9_14+(2)*t*c2_3*a2+(-5/3)*t*c3_5^6*GP_INV_t+(4)*t*c3_5^3*I4*c6_9*GP_INV_t+(-5)*t*c3_5^2*c5_7+(4)*t*c3_5^2*I4*c9_14*GP_INV_t+(4/5)*t*c3_5^2*I4*a2*GP_INV_t+t*c3_5^2*I1*GP_INV_t+(-10)*t*c3_5*c8_12+(4)*t*c3_5*I4*c6_9^2*GP_INV_t+(5)*t*c3_5*c6_9*c9_14*GP_INV_t+t*c3_5*c6_9*a2*GP_INV_t+(-10)*t*c5_7*c6_9+(4)*t*c8_12*I4+(2)*t*I4*c6_9*c9_14*GP_INV_t+(2/5)*t*I4*c6_9*a2*GP_INV_t+(-5/3)*t*c6_9^3*GP_INV_t+t*c6_9*I1*GP_INV_t+(-5/3)*c3_5^6+(5)*c3_5^2*c6_9^2+(4)*c3_5*I4*c6_9^2+(10)*c3_5*c6_9*c9_14+(2)*c3_5*c6_9*a2+(4)*I4*c6_9*c9_14+(4/5)*I4*c6_9*a2+(-5/3)*c6_9^3+c6_9*I1+(5)*c9_14^2+(2)*c9_14*a2+(1/5)*a2^2"
+          ],
+          [
+            "(2)*t^4*c2_3*c3_5^2*GP_INV_t^5+(-8)*t^3*c2_3*c3_5^2*GP_INV_t^4+(-6)*t^3*c3_5^5*GP_INV_t^5+(2)*t^3*c3_5^3*c6_9*GP_INV_t^5+(2)*t^3*c3_5^3*GP_INV_t^5+(4)*t^3*c3_5^2*c9_14*GP_INV_t^5+(4/5)*t^3*c3_5^2*a2*GP_INV_t^5+(-4/5)*t^3*c3_5^2*GP_INV_t^5+(4)*t^3*c3_5*c5_7*GP_INV_t^4+(2)*t^3*c3_5*c6_9*GP_INV_t^5+(2)*t^2*c2_3*c3_5^2*GP_INV_t^3+(-1/2)*t^2*c2_3*c6_9*GP_INV_t^3+(2)*t^2*c2_3*GP_INV_t^3+(20/3)*t^2*c3_5^5*GP_INV_t^4+(-20/3)*t^2*c3_5^3*c6_9*GP_INV_t^4+(-8)*t^2*c3_5^2*c9_14*GP_INV_t^4+(-8/5)*t^2*c3_5^2*a2*GP_INV_t^4+(2/3)*t^2*c3_5*c6_9^2*GP_INV_t^4+(-2/5)*t^2*c3_5*I1*GP_INV_t^4+(2/5)*t^2*c3_5*GP_INV_t^4+(4)*t*c2_3*c6_9*GP_INV_t^2+(2)*t*c3_5^3*c6_9*GP_INV_t^3+(2)*t*c3_5^2*c9_14*GP_INV_t^3+(2/5)*t*c3_5^2*a2*GP_INV_t^3+(2)*t*c8_12*GP_INV_t^2-t*c6_9*c9_14*GP_INV_t^3+(-1/5)*t*c6_9*a2*GP_INV_t^3+(1/5)*t*c6_9*GP_INV_t^3+(2)*t*c9_14*GP_INV_t^3+(2/5)*t*a2*GP_INV_t^3+(2)*c3_5*c6_9^2*GP_INV_t^2+(2)*c6_9*c9_14*GP_INV_t^2+(2/5)*c6_9*a2*GP_INV_t^2+(-1/2)*GP_INV_t^2",
+            "t^2*c2_3*c3_5*GP_INV_t^3+(-4)*t*c2_3*c3_5*GP_INV_t^2+(-3)*t*c3_5^4*GP_INV_t^3+t*c3_5^2*c6_9*GP_INV_t^3+t*c3_5^2*GP_INV_t^3+(2)*t*c3_5*c9_14*GP_INV_t^3+(2/5)*t*c3_5*a2*GP_INV_t^3+(-2/5)*t*c3_5*GP_INV_t^3+(2)*t*c5_7*GP_INV_t^2+t*c6_9*GP_INV_t^3+(10/3)*c3_5^4*GP_INV_t^2+(-10/3)*c3_5^2*c6_9*GP_INV_t^2+(-4)*c3_5*c9_14*GP_INV_t^2+(-4/5)*c3_5*a2*GP_INV_t^2+(1/3)*c6_9^2*GP_INV_t^2+(-1/5)*I1*GP_INV_t^2+(1/5)*GP_INV_t^2",
+            "(1/4)*t*c2_3*GP_INV_t-c3_5^3*GP_INV_t+(1/2)*c9_14*GP_INV_t+(1/10)*a2*GP_INV_t+(-1/10)*GP_INV_t",
+            "-c3_5^2*GP_INV_t-GP_INV_t",
+            "-1",
+            "1",
+            "(10)*t^5*c2_3*c3_5^3*GP_INV_t^4+(-4)*t^5*c2_3*c3_5^2*I4*GP_INV_t^4+(-30)*t^4*c2_3*c3_5^3*GP_INV_t^3+(12)*t^4*c2_3*c3_5^2*I4*GP_INV_t^3+(-30)*t^4*c3_5^6*GP_INV_t^4+(12)*t^4*c3_5^5*I4*GP_INV_t^4+(10)*t^4*c3_5^4*c6_9*GP_INV_t^4+(10)*t^4*c3_5^4*GP_INV_t^4+(-4)*t^4*c3_5^3*I4*c6_9*GP_INV_t^4+(-4)*t^4*c3_5^3*I4*GP_INV_t^4+(20)*t^4*c3_5^3*c9_14*GP_INV_t^4+(4)*t^4*c3_5^3*a2*GP_INV_t^4+(-4)*t^4*c3_5^3*GP_INV_t^4+(20)*t^4*c3_5^2*c5_7*GP_INV_t^3+(-8)*t^4*c3_5^2*I4*c9_14*GP_INV_t^4+(-8/5)*t^4*c3_5^2*I4*a2*GP_INV_t^4+(8/5)*t^4*c3_5^2*I4*GP_INV_t^4+(10)*t^4*c3_5^2*c6_9*GP_INV_t^4+(-8)*t^4*c3_5*c5_7*I4*GP_INV_t^3+(-4)*t^4*c3_5*I4*c6_9*GP_INV_t^4+(-25)*t^3*c2_3*c3_5^3*GP_INV_t^2+(12)*t^3*c2_3*c3_5^2*I4*GP_INV_t^2+(5/2)*t^3*c2_3*c3_5*c6_9*GP_INV_t^2+(10)*t^3*c2_3*c3_5*GP_INV_t^2+t^3*c2_3*I4*c6_9*GP_INV_t^2+(-4)*t^3*c2_3*I4*GP_INV_t^2+(10/3)*t^3*c3_5^6*GP_INV_t^3+(-4/3)*t^3*c3_5^5*I4*GP_INV_t^3+(-70/3)*t^3*c3_5^4*c6_9*GP_INV_t^3+(10)*t^3*c3_5^4*GP_INV_t^3+(28/3)*t^3*c3_5^3*I4*c6_9*GP_INV_t^3+(-4)*t^3*c3_5^3*I4*GP_INV_t^3+(-20)*t^3*c3_5^3*c9_14*GP_INV_t^3+(-4)*t^3*c3_5^3*a2*GP_INV_t^3+(-4)*t^3*c3_5^3*GP_INV_t^3+(20)*t^3*c3_5^2*c5_7*GP_INV_t^2+(8)*t^3*c3_5^2*I4*c9_14*GP_INV_t^3+(8/5)*t^3*c3_5^2*I4*a2*GP_INV_t^3+(8/5)*t^3*c3_5^2*I4*GP_INV_t^3+(10/3)*t^3*c3_5^2*c6_9^2*GP_INV_t^3+(10)*t^3*c3_5^2*c6_9*GP_INV_t^3+(-2)*t^3*c3_5^2*I1*GP_INV_t^3+(2)*t^3*c3_5^2*GP_INV_t^3+(-8)*t^3*c3_5*c5_7*I4*GP_INV_t^2+(-4/3)*t^3*c3_5*I4*c6_9^2*GP_INV_t^3+(-4)*t^3*c3_5*I4*c6_9*GP_INV_t^3+(4/5)*t^3*c3_5*I4*I1*GP_INV_t^3+(-4/5)*t^3*c3_5*I4*GP_INV_t^3+(-15/4)*t^2*c2_3^2+(-5)*t^2*c2_3*c3_5^3*GP_INV_t+(-4)*t^2*c2_3*c3_5^2*I4*GP_INV_t+(5/2)*t^2*c2_3*c3_5*c6_9*GP_INV_t+(10)*t^2*c2_3*c3_5*GP_INV_t+(-7)*t^2*c2_3*I4*c6_9*GP_INV_t+(-4)*t^2*c2_3*I4*GP_INV_t+(55/3)*t^2*c3_5^6*GP_INV_t^2+(-40/3)*t^2*c3_5^5*I4*GP_INV_t^2+(-100/3)*t^2*c3_5^4*c6_9*GP_INV_t^2+(5)*t^2*c3_5^4*GP_INV_t^2+(28/3)*t^2*c3_5^3*I4*c6_9*GP_INV_t^2+(-20)*t^2*c3_5^3*c9_14*GP_INV_t^2+(-4)*t^2*c3_5^3*a2*GP_INV_t^2+(-2)*t^2*c3_5^3*GP_INV_t^2+(10)*t^2*c3_5^2*c5_7*GP_INV_t+(12)*t^2*c3_5^2*I4*c9_14*GP_INV_t^2+(12/5)*t^2*c3_5^2*I4*a2*GP_INV_t^2+(25/3)*t^2*c3_5^2*c6_9^2*GP_INV_t^2+(10)*t^2*c3_5^2*c6_9*GP_INV_t^2+(-2)*t^2*c3_5^2*I1*GP_INV_t^2+(2)*t^2*c3_5^2*GP_INV_t^2+(10)*t^2*c3_5*c8_12*GP_INV_t+(-4/3)*t^2*c3_5*I4*c6_9^2*GP_INV_t^2+(4/5)*t^2*c3_5*I4*I1*GP_INV_t^2+(-4/5)*t^2*c3_5*I4*GP_INV_t^2+(5)*t^2*c3_5*c6_9*c9_14*GP_INV_t^2+t^2*c3_5*c6_9*a2*GP_INV_t^2-t^2*c3_5*c6_9*GP_INV_t^2+(10)*t^2*c3_5*c9_14*GP_INV_t^2+(2)*t^2*c3_5*a2*GP_INV_t^2+(10)*t^2*c5_7*c6_9*GP_INV_t+(-4)*t^2*c8_12*I4*GP_INV_t+(2)*t^2*I4*c6_9*c9_14*GP_INV_t^2+(2/5)*t^2*I4*c6_9*a2*GP_INV_t^2+(-2/5)*t^2*I4*c6_9*GP_INV_t^2+(-4)*t^2*I4*c9_14*GP_INV_t^2+(-4/5)*t^2*I4*a2*GP_INV_t^2+(5)*t^2*c6_9^2*GP_INV_t^2+(-8)*t*c2_3*I4*c6_9+(-10)*t*c2_3*c9_14+(-2)*t*c2_3*a2+(3/2)*t*c2_3+(5/3)*t*c3_5^6*GP_INV_t+(5)*t*c3_5^4*GP_INV_t+(-4)*t*c3_5^3*I4*c6_9*GP_INV_t+(-2)*t*c3_5^3*GP_INV_t+(5)*t*c3_5^2*c5_7+(-4)*t*c3_5^2*I4*c9_14*GP_INV_t+(-4/5)*t*c3_5^2*I4*a2*GP_INV_t+(10)*t*c3_5^2*c6_9*GP_INV_t-t*c3_5^2*I1*GP_INV_t+t*c3_5^2*GP_INV_t+(10)*t*c3_5*c8_12+(-4)*t*c3_5*I4*c6_9^2*GP_INV_t+(-5)*t*c3_5*c6_9*c9_14*GP_INV_t-t*c3_5*c6_9*a2*GP_INV_t-t*c3_5*c6_9*GP_INV_t+(10)*t*c3_5*c9_14*GP_INV_t+(2)*t*c3_5*a2*GP_INV_t+(-5/2)*t*c3_5*GP_INV_t+(10)*t*c5_7*c6_9+(-5)*t*c5_7+(-4)*t*c8_12*I4+(-2)*t*I4*c6_9*c9_14*GP_INV_t+(-2/5)*t*I4*c6_9*a2*GP_INV_t+(-2/5)*t*I4*c6_9*GP_INV_t+(-4)*t*I4*c9_14*GP_INV_t+(-4/5)*t*I4*a2*GP_INV_t+t*I4*GP_INV_t+(5/3)*t*c6_9^3*GP_INV_t+(5)*t*c6_9^2*GP_INV_t-t*c6_9*I1*GP_INV_t+t*c6_9*GP_INV_t+(5/3)*c3_5^6+(5)*c3_5^4+(-2)*c3_5^3+(-5)*c3_5^2*c6_9^2+c3_5^2+(-4)*c3_5*I4*c6_9^2+(-10)*c3_5*c6_9*c9_14+(-2)*c3_5*c6_9*a2+(-5/2)*c3_5+(-4)*I4*c6_9*c9_14+(-4/5)*I4*c6_9*a2+I4+(5/3)*c6_9^3-c6_9*I1+c6_9+(-5)*c9_14^2+(-2)*c9_14*a2+c9_14+I1+(-1/5)*a2^2+(1/5)*a2"
+          ],
+          [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "1"
+          ]
+        ],
+        "source_pullback_rows": [
+          [
+            "(2)*t^2",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-4)*t^2*c3_5",
+            "(-5)*t^2",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-4)*t*c3_5^2+(4)*t*c6_9",
+            "(20)*t*c3_5",
+            "(10)*t",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-2)*t^2*c2_3+(8)*t*c3_5^3+(4)*t*c9_14",
+            "(-5)*t*c6_9",
+            "0",
+            "t",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-2)*t*c2_3*c3_5^2+(2)*t*c2_3*c6_9+(4)*t*c8_12+(-4)*c3_5^5+(-4)*c3_5^2*c9_14+(4)*c3_5*c6_9^2+(4)*c6_9*c9_14",
+            "(-10)*t*c2_3*c3_5+(-5)*t*c5_7+(20)*c3_5^2*c6_9+(20)*c3_5*c9_14+(-5/3)*c6_9^2+I1",
+            "(-5)*t*c2_3+(5)*c9_14",
+            "-c3_5^2",
+            "1",
+            "0",
+            "0"
+          ],
+          [
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "0"
+          ],
+          [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "1"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "GP-X76",
+      "case_path": "corpus/must/GP-X76.json",
+      "case_fnv1a": "8691039549434313910",
+      "note": "Compiled by the v0.37 ladder adapter (experiments/jc_h3_source_ladder/authority_adapter.py) from the case's chain: source/target models, maps and mapped_ring_iso_v1 certificate as an iso bundle. Mutation as data (test_mutated_exact_certificate_is_unverified_not_a_refutation): forward cofactor [1][0] is 0. The attempted conclusion (the isomorphism) is true; the case's lesson is that corrupt evidence is unverified, not refuted, so this REFUSE fixture is the stated exception to 'make the conclusion false'.",
+      "inputs": {
+        "source": {
+          "variables": [
+            "t",
+            "c2_2",
+            "c2_3",
+            "c3_4",
+            "c3_5",
+            "c4_4",
+            "c4_5",
+            "c5_6",
+            "c5_7",
+            "c6_8",
+            "c7_10",
+            "c8_12",
+            "c9_13",
+            "r"
+          ],
+          "equations": [
+            "(15)*t^3+1",
+            "(-5)*t^2*c3_4+(5)*t*c2_3^2*c3_5^2+(-10)*t*c2_3*c3_5*c5_7+(-5)*t*c2_3*c8_12",
+            "(-5)*t^2*c6_8+(5)*t*c2_3*c3_5^2*c5_7+(-10)*t*c3_5*c5_7^2+(-5)*t*c5_7*c8_12",
+            "(15)*t^2*c2_2+(5)*t*c2_3^2*c5_7+(10)*t*c2_3*c3_5*c4_5+(15)*t*c2_3*c7_10+(-10)*t*c3_4*c3_5^2+(20)*t*c3_5*c6_8+(15)*t*c4_5*c5_7+(10)*t*c9_13+(5)*c2_3^2*c3_5^4+(-20)*c2_3*c3_5^3*c5_7+(-10)*c2_3*c3_5^2*c8_12+(20)*c3_5^2*c5_7^2+(20)*c3_5*c5_7*c8_12+(5)*c8_12^2",
+            "(5)*t^2*c2_3*c3_4+(-5)*t^2*c5_6+(-5)*t*c2_3^3*c3_5^2+(10)*t*c2_3^2*c3_5*c5_7+(5)*t*c2_3^2*c8_12+(10)*t*c2_3*c3_5^2*c4_5+(-5/2)*t*c2_3*c5_7^2+(-20)*t*c3_5*c4_5*c5_7+(-10)*t*c4_5*c8_12+(-5)*t*c5_7*c7_10",
+            "(-5)*t^2*c2_2*c2_3+(-5)*t^2*c4_4+(-5)*t*c2_3^2*c7_10+(15)*t*c2_3*c3_4*c3_5^2+(-10)*t*c2_3*c3_5*c6_8+(-15)*t*c2_3*c4_5*c5_7+(-5)*t*c2_3*c9_13+(-20)*t*c3_4*c3_5*c5_7+(-10)*t*c3_4*c8_12+(-10)*t*c3_5*c4_5^2+(-10)*t*c4_5*c7_10+(-5)*t*c5_7*c6_8+(-5)*c2_3^3*c3_5^4+(20)*c2_3^2*c3_5^3*c5_7+(10)*c2_3^2*c3_5^2*c8_12+(-15)*c2_3*c3_5^2*c5_7^2+(-20)*c2_3*c3_5*c5_7*c8_12+(-5)*c2_3*c8_12^2+(-20/3)*c3_5*c5_7^3+(-5)*c5_7^2*c8_12",
+            "c3_4+c4_4+c5_6+c6_8+c9_13+r"
+          ]
+        },
+        "target": {
+          "variables": [
+            "t",
+            "c2_2",
+            "c2_3",
+            "c3_4",
+            "c3_5",
+            "c4_4",
+            "c4_5",
+            "c5_6",
+            "c5_7",
+            "c6_8",
+            "c7_10",
+            "c8_12",
+            "c9_13",
+            "r"
+          ],
+          "equations": [
+            "(15)*t^3+1",
+            "c3_4",
+            "c6_8",
+            "c9_13",
+            "c5_6",
+            "c4_4",
+            "(-15/2)*t^2*c2_3^3*c5_7+(-15/2)*t^2*c2_3^2*c3_5^4+(-15)*t^2*c2_3^2*c3_5^2+(-15)*t^2*c2_3^2*c3_5*c4_5+(-15/2)*t^2*c2_3^2*c7_10+(30)*t^2*c2_3*c3_5^3*c5_7+(-30)*t^2*c2_3*c3_5^2*c4_5+(-15)*t^2*c2_3*c3_5^2*c5_7+(30)*t^2*c2_3*c3_5*c5_7+(45/2)*t^2*c2_3*c4_5*c5_7+(15/2)*t^2*c2_3*c5_7^2+(15)*t^2*c2_3*c8_12+(-30)*t^2*c3_5^2*c5_7^2+(30)*t^2*c3_5*c4_5^2+(60)*t^2*c3_5*c4_5*c5_7+(30)*t^2*c3_5*c5_7^2+(30)*t^2*c4_5*c7_10+(30)*t^2*c4_5*c8_12+(15)*t^2*c5_7*c7_10+(15)*t^2*c5_7*c8_12+(15/2)*t^2*c8_12^2+(-3/2)*t*c2_2+(-45/2)*t*c2_3^3*c3_5^4+(90)*t*c2_3^2*c3_5^3*c5_7+(45)*t*c2_3^2*c3_5^2*c8_12+(-90)*t*c2_3*c3_5^2*c5_7^2+(-90)*t*c2_3*c3_5*c5_7*c8_12+(-45/2)*t*c2_3*c8_12^2+(-10)*t*c3_5*c5_7^3+(1/2)*c2_2*c2_3+(-1/2)*c2_3^2*c5_7-c2_3*c3_5*c4_5+(-3/2)*c2_3*c7_10+(-3/2)*c4_5*c5_7+r"
+          ]
+        },
+        "point_forward": {
+          "t": "t",
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_4": "(15)*t^2*c2_3^2*c3_5^2+(-30)*t^2*c2_3*c3_5*c5_7+(-15)*t^2*c2_3*c8_12+c3_4",
+          "c3_5": "c3_5",
+          "c4_4": "(15/2)*t^2*c2_3^3*c5_7+(15)*t^2*c2_3^2*c3_5*c4_5+(15/2)*t^2*c2_3^2*c7_10+(-45/2)*t^2*c2_3*c4_5*c5_7+(-30)*t^2*c3_5*c4_5^2+(-30)*t^2*c4_5*c7_10+(45/2)*t*c2_3^3*c3_5^4+(-90)*t*c2_3^2*c3_5^3*c5_7+(-45)*t*c2_3^2*c3_5^2*c8_12+(90)*t*c2_3*c3_5^2*c5_7^2+(90)*t*c2_3*c3_5*c5_7*c8_12+(45/2)*t*c2_3*c8_12^2+(10)*t*c3_5*c5_7^3+(-1/2)*c2_2*c2_3+c4_4",
+          "c4_5": "c4_5",
+          "c5_6": "(30)*t^2*c2_3*c3_5^2*c4_5+(-15/2)*t^2*c2_3*c5_7^2+(-60)*t^2*c3_5*c4_5*c5_7+(-30)*t^2*c4_5*c8_12+(-15)*t^2*c5_7*c7_10+c5_6",
+          "c5_7": "c5_7",
+          "c6_8": "(15)*t^2*c2_3*c3_5^2*c5_7+(-30)*t^2*c3_5*c5_7^2+(-15)*t^2*c5_7*c8_12+c6_8",
+          "c7_10": "c7_10",
+          "c8_12": "c8_12",
+          "c9_13": "(15/2)*t^2*c2_3^2*c3_5^4+(-30)*t^2*c2_3*c3_5^3*c5_7+(30)*t^2*c3_5^2*c5_7^2+(-15/2)*t^2*c8_12^2+(3/2)*t*c2_2+(1/2)*c2_3^2*c5_7+c2_3*c3_5*c4_5+(3/2)*c2_3*c7_10+(3/2)*c4_5*c5_7+c9_13",
+          "r": "r"
+        },
+        "point_inverse": {
+          "t": "t",
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_4": "(-15)*t^2*c2_3^2*c3_5^2+(30)*t^2*c2_3*c3_5*c5_7+(15)*t^2*c2_3*c8_12+c3_4",
+          "c3_5": "c3_5",
+          "c4_4": "(-15/2)*t^2*c2_3^3*c5_7+(-15)*t^2*c2_3^2*c3_5*c4_5+(-15/2)*t^2*c2_3^2*c7_10+(45/2)*t^2*c2_3*c4_5*c5_7+(30)*t^2*c3_5*c4_5^2+(30)*t^2*c4_5*c7_10+(-45/2)*t*c2_3^3*c3_5^4+(90)*t*c2_3^2*c3_5^3*c5_7+(45)*t*c2_3^2*c3_5^2*c8_12+(-90)*t*c2_3*c3_5^2*c5_7^2+(-90)*t*c2_3*c3_5*c5_7*c8_12+(-45/2)*t*c2_3*c8_12^2+(-10)*t*c3_5*c5_7^3+(1/2)*c2_2*c2_3+c4_4",
+          "c4_5": "c4_5",
+          "c5_6": "(-30)*t^2*c2_3*c3_5^2*c4_5+(15/2)*t^2*c2_3*c5_7^2+(60)*t^2*c3_5*c4_5*c5_7+(30)*t^2*c4_5*c8_12+(15)*t^2*c5_7*c7_10+c5_6",
+          "c5_7": "c5_7",
+          "c6_8": "(-15)*t^2*c2_3*c3_5^2*c5_7+(30)*t^2*c3_5*c5_7^2+(15)*t^2*c5_7*c8_12+c6_8",
+          "c7_10": "c7_10",
+          "c8_12": "c8_12",
+          "c9_13": "(-15/2)*t^2*c2_3^2*c3_5^4+(30)*t^2*c2_3*c3_5^3*c5_7+(-30)*t^2*c3_5^2*c5_7^2+(15/2)*t^2*c8_12^2+(-3/2)*t*c2_2+(-1/2)*c2_3^2*c5_7-c2_3*c3_5*c4_5+(-3/2)*c2_3*c7_10+(-3/2)*c4_5*c5_7+c9_13",
+          "r": "r"
+        },
+        "target_pullback_rows": [
+          [
+            "1",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "(-45)*t^4",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-15)*t^3*c6_8+(15)*t^2*c2_3*c3_5^2*c5_7+(-30)*t^2*c3_5*c5_7^2+(-15)*t^2*c5_7*c8_12+c6_8",
+            "0",
+            "(-45)*t^4",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(225)*t^6*c3_4*c3_5^2+(-450)*t^6*c3_5*c6_8+(-225)*t^5*c2_3^2*c3_5^4+(900)*t^5*c2_3*c3_5^3*c5_7+(225)*t^5*c2_3*c3_5^2*c8_12+(-900)*t^5*c3_5^2*c5_7^2+(-450)*t^5*c3_5*c5_7*c8_12+(-15)*t^3*c3_4*c3_5^2+(30)*t^3*c3_5*c6_8+(15)*t^2*c2_3^2*c3_5^4+(-60)*t^2*c2_3*c3_5^3*c5_7+(-15)*t^2*c2_3*c3_5^2*c8_12+(60)*t^2*c3_5^2*c5_7^2+(30)*t^2*c3_5*c5_7*c8_12+(3/2)*t*c2_2+(1/2)*c2_3^2*c5_7+c2_3*c3_5*c4_5+(3/2)*c2_3*c7_10+(3/2)*c4_5*c5_7+c9_13",
+            "(675)*t^7*c3_5^2",
+            "(-1350)*t^7*c3_5",
+            "(-3/2)*t^2",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-3375)*t^9*c2_3*c3_4+(3375)*t^8*c2_3^3*c3_5^2+(-6750)*t^8*c2_3^2*c3_5*c5_7+(-3375)*t^8*c2_3^2*c8_12+(225)*t^6*c2_3*c3_4+(-225)*t^5*c2_3^3*c3_5^2+(450)*t^5*c2_3^2*c3_5*c5_7+(225)*t^5*c2_3^2*c8_12+(-15)*t^3*c5_6+(30)*t^2*c2_3*c3_5^2*c4_5+(-15/2)*t^2*c2_3*c5_7^2+(-60)*t^2*c3_5*c4_5*c5_7+(-30)*t^2*c4_5*c8_12+(-15)*t^2*c5_7*c7_10+c5_6",
+            "(-10125)*t^10*c2_3",
+            "0",
+            "0",
+            "(-45)*t^4",
+            "0",
+            "0"
+          ],
+          [
+            "(-50625)*t^11*c2_3*c3_4*c3_5^2+(101250)*t^11*c2_3*c3_5*c6_8+(50625)*t^10*c2_3^3*c3_5^4+(-202500)*t^10*c2_3^2*c3_5^3*c5_7+(-50625)*t^10*c2_3^2*c3_5^2*c8_12+(202500)*t^10*c2_3*c3_5^2*c5_7^2+(101250)*t^10*c2_3*c3_5*c5_7*c8_12+(-6750)*t^8*c2_3*c3_4*c3_5^2+(13500)*t^8*c3_4*c3_5*c5_7+(6750)*t^8*c3_4*c8_12+(3375)*t^8*c5_7*c6_8+(6750)*t^7*c2_3^3*c3_5^4+(-27000)*t^7*c2_3^2*c3_5^3*c5_7+(-13500)*t^7*c2_3^2*c3_5^2*c8_12+(23625)*t^7*c2_3*c3_5^2*c5_7^2+(27000)*t^7*c2_3*c3_5*c5_7*c8_12+(6750)*t^7*c2_3*c8_12^2+(6750)*t^7*c3_5*c5_7^3+(3375)*t^7*c5_7^2*c8_12+(-675/2)*t^6*c2_2*c2_3+(-225/2)*t^5*c2_3^3*c5_7+(-225)*t^5*c2_3^2*c3_5*c4_5+(-675/2)*t^5*c2_3^2*c7_10+(675)*t^5*c2_3*c3_4*c3_5^2+(-450)*t^5*c2_3*c3_5*c6_8+(-675/2)*t^5*c2_3*c4_5*c5_7+(-225)*t^5*c2_3*c9_13+(-900)*t^5*c3_4*c3_5*c5_7+(-450)*t^5*c3_4*c8_12+(-225)*t^5*c5_7*c6_8+(-1125/2)*t^4*c2_3^3*c3_5^4+(2250)*t^4*c2_3^2*c3_5^3*c5_7+(1125)*t^4*c2_3^2*c3_5^2*c8_12+(-2025)*t^4*c2_3*c3_5^2*c5_7^2+(-2250)*t^4*c2_3*c3_5*c5_7*c8_12+(-1125/2)*t^4*c2_3*c8_12^2+(-450)*t^4*c3_5*c5_7^3+(-225)*t^4*c5_7^2*c8_12+(15/2)*t^3*c2_2*c2_3+(-15)*t^3*c4_4+(15/2)*t^2*c2_3^3*c5_7+(15)*t^2*c2_3^2*c3_5*c4_5+(15/2)*t^2*c2_3^2*c7_10+(-45/2)*t^2*c2_3*c4_5*c5_7+(-30)*t^2*c3_5*c4_5^2+(-30)*t^2*c4_5*c7_10+(45/2)*t*c2_3^3*c3_5^4+(-90)*t*c2_3^2*c3_5^3*c5_7+(-45)*t*c2_3^2*c3_5^2*c8_12+(90)*t*c2_3*c3_5^2*c5_7^2+(90)*t*c2_3*c3_5*c5_7*c8_12+(45/2)*t*c2_3*c8_12^2+(10)*t*c3_5*c5_7^3+(-1/2)*c2_2*c2_3+c4_4",
+            "(-151875)*t^12*c2_3*c3_5^2+(-30375)*t^9*c2_3*c3_5^2+(40500)*t^9*c3_5*c5_7+(20250)*t^9*c8_12",
+            "(303750)*t^12*c2_3*c3_5+(20250)*t^9*c2_3*c3_5+(10125)*t^9*c5_7",
+            "(675/2)*t^7*c2_3",
+            "0",
+            "(-45)*t^4",
+            "0"
+          ],
+          [
+            "(50625)*t^11*c2_3*c3_4*c3_5^2+(-101250)*t^11*c2_3*c3_5*c6_8+(-50625)*t^10*c2_3^3*c3_5^4+(202500)*t^10*c2_3^2*c3_5^3*c5_7+(50625)*t^10*c2_3^2*c3_5^2*c8_12+(-202500)*t^10*c2_3*c3_5^2*c5_7^2+(-101250)*t^10*c2_3*c3_5*c5_7*c8_12+(3375)*t^9*c2_3*c3_4+(-3375)*t^8*c2_3^3*c3_5^2+(6750)*t^8*c2_3^2*c3_5*c5_7+(3375)*t^8*c2_3^2*c8_12+(6750)*t^8*c2_3*c3_4*c3_5^2+(-13500)*t^8*c3_4*c3_5*c5_7+(-6750)*t^8*c3_4*c8_12+(-3375)*t^8*c5_7*c6_8+(-6750)*t^7*c2_3^3*c3_5^4+(27000)*t^7*c2_3^2*c3_5^3*c5_7+(13500)*t^7*c2_3^2*c3_5^2*c8_12+(-23625)*t^7*c2_3*c3_5^2*c5_7^2+(-27000)*t^7*c2_3*c3_5*c5_7*c8_12+(-6750)*t^7*c2_3*c8_12^2+(-6750)*t^7*c3_5*c5_7^3+(-3375)*t^7*c5_7^2*c8_12+(675/2)*t^6*c2_2*c2_3+(-225)*t^6*c2_3*c3_4+(-225)*t^6*c3_4*c3_5^2+(450)*t^6*c3_5*c6_8+(225)*t^5*c2_3^3*c3_5^2+(225/2)*t^5*c2_3^3*c5_7+(225)*t^5*c2_3^2*c3_5^4+(225)*t^5*c2_3^2*c3_5*c4_5+(-450)*t^5*c2_3^2*c3_5*c5_7+(675/2)*t^5*c2_3^2*c7_10+(-225)*t^5*c2_3^2*c8_12+(-675)*t^5*c2_3*c3_4*c3_5^2+(-900)*t^5*c2_3*c3_5^3*c5_7+(-225)*t^5*c2_3*c3_5^2*c8_12+(450)*t^5*c2_3*c3_5*c6_8+(675/2)*t^5*c2_3*c4_5*c5_7+(225)*t^5*c2_3*c9_13+(900)*t^5*c3_4*c3_5*c5_7+(450)*t^5*c3_4*c8_12+(900)*t^5*c3_5^2*c5_7^2+(450)*t^5*c3_5*c5_7*c8_12+(225)*t^5*c5_7*c6_8+(1125/2)*t^4*c2_3^3*c3_5^4+(-2250)*t^4*c2_3^2*c3_5^3*c5_7+(-1125)*t^4*c2_3^2*c3_5^2*c8_12+(2025)*t^4*c2_3*c3_5^2*c5_7^2+(2250)*t^4*c2_3*c3_5*c5_7*c8_12+(1125/2)*t^4*c2_3*c8_12^2+(450)*t^4*c3_5*c5_7^3+(225)*t^4*c5_7^2*c8_12+(-15/2)*t^3*c2_2*c2_3+(15)*t^3*c3_4*c3_5^2+(15)*t^3*c3_4+(-30)*t^3*c3_5*c6_8+(15)*t^3*c4_4+(15)*t^3*c5_6+(15)*t^3*c6_8+(-15/2)*t^2*c2_3^3*c5_7+(-15)*t^2*c2_3^2*c3_5^4+(-15)*t^2*c2_3^2*c3_5^2+(-15)*t^2*c2_3^2*c3_5*c4_5+(-15/2)*t^2*c2_3^2*c7_10+(60)*t^2*c2_3*c3_5^3*c5_7+(-30)*t^2*c2_3*c3_5^2*c4_5+(-15)*t^2*c2_3*c3_5^2*c5_7+(15)*t^2*c2_3*c3_5^2*c8_12+(30)*t^2*c2_3*c3_5*c5_7+(45/2)*t^2*c2_3*c4_5*c5_7+(15/2)*t^2*c2_3*c5_7^2+(15)*t^2*c2_3*c8_12+(-60)*t^2*c3_5^2*c5_7^2+(30)*t^2*c3_5*c4_5^2+(60)*t^2*c3_5*c4_5*c5_7+(30)*t^2*c3_5*c5_7^2+(-30)*t^2*c3_5*c5_7*c8_12+(30)*t^2*c4_5*c7_10+(30)*t^2*c4_5*c8_12+(15)*t^2*c5_7*c7_10+(15)*t^2*c5_7*c8_12+(-3/2)*t*c2_2+(-45/2)*t*c2_3^3*c3_5^4+(90)*t*c2_3^2*c3_5^3*c5_7+(45)*t*c2_3^2*c3_5^2*c8_12+(-90)*t*c2_3*c3_5^2*c5_7^2+(-90)*t*c2_3*c3_5*c5_7*c8_12+(-45/2)*t*c2_3*c8_12^2+(-10)*t*c3_5*c5_7^3+(1/2)*c2_2*c2_3+(-1/2)*c2_3^2*c5_7-c2_3*c3_5*c4_5+(-3/2)*c2_3*c7_10-c3_4-c4_4+(-3/2)*c4_5*c5_7-c5_6-c6_8-c9_13",
+            "(151875)*t^12*c2_3*c3_5^2+(10125)*t^10*c2_3+(30375)*t^9*c2_3*c3_5^2+(-40500)*t^9*c3_5*c5_7+(-20250)*t^9*c8_12+(-675)*t^7*c3_5^2+(45)*t^4",
+            "(-303750)*t^12*c2_3*c3_5+(-20250)*t^9*c2_3*c3_5+(-10125)*t^9*c5_7+(1350)*t^7*c3_5+(45)*t^4",
+            "(-675/2)*t^7*c2_3+(3/2)*t^2",
+            "(45)*t^4",
+            "(45)*t^4",
+            "1"
+          ]
+        ],
+        "source_pullback_rows": [
+          [
+            "1",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(5)*t*c2_3^2*c3_5^2+(-10)*t*c2_3*c3_5*c5_7+(-5)*t*c2_3*c8_12",
+            "(-5)*t^2",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(5)*t*c2_3*c3_5^2*c5_7+(-10)*t*c3_5*c5_7^2+(-5)*t*c5_7*c8_12",
+            "0",
+            "(-5)*t^2",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(5)*c2_3^2*c3_5^4+(-20)*c2_3*c3_5^3*c5_7+(-10)*c2_3*c3_5^2*c8_12+(20)*c3_5^2*c5_7^2+(20)*c3_5*c5_7*c8_12+(5)*c8_12^2",
+            "(-10)*t*c3_5^2",
+            "(20)*t*c3_5",
+            "(10)*t",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-5)*t*c2_3^3*c3_5^2+(10)*t*c2_3^2*c3_5*c5_7+(5)*t*c2_3^2*c8_12+(10)*t*c2_3*c3_5^2*c4_5+(-5/2)*t*c2_3*c5_7^2+(-20)*t*c3_5*c4_5*c5_7+(-10)*t*c4_5*c8_12+(-5)*t*c5_7*c7_10",
+            "(5)*t^2*c2_3",
+            "0",
+            "0",
+            "(-5)*t^2",
+            "0",
+            "0"
+          ],
+          [
+            "(5/2)*t*c2_3^3*c5_7+(5)*t*c2_3^2*c3_5*c4_5+(5/2)*t*c2_3^2*c7_10+(-15/2)*t*c2_3*c4_5*c5_7+(-10)*t*c3_5*c4_5^2+(-10)*t*c4_5*c7_10+(-5)*c2_3^3*c3_5^4+(20)*c2_3^2*c3_5^3*c5_7+(10)*c2_3^2*c3_5^2*c8_12+(-15)*c2_3*c3_5^2*c5_7^2+(-20)*c2_3*c3_5*c5_7*c8_12+(-5)*c2_3*c8_12^2+(-20/3)*c3_5*c5_7^3+(-5)*c5_7^2*c8_12",
+            "(15)*t*c2_3*c3_5^2+(-20)*t*c3_5*c5_7+(-10)*t*c8_12",
+            "(-10)*t*c2_3*c3_5+(-5)*t*c5_7",
+            "(-5)*t*c2_3",
+            "0",
+            "(-5)*t^2",
+            "0"
+          ],
+          [
+            "0",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "GP-X77",
+      "case_path": "corpus/must/GP-X77.json",
+      "case_fnv1a": "6363329411648861152",
+      "note": "Compiled by the v0.37 ladder adapter (experiments/jc_h3_source_ladder/authority_adapter.py) from the case's chain: source/target models, maps and mapped_ring_iso_v1 certificate as an iso bundle. Mutation as data (test_real_singular_refuses_chain_when_inverse_equation_is_removed): the source loses t*GP_INV_t-1, and the map is not an isomorphism.",
+      "inputs": {
+        "source": {
+          "variables": [
+            "t",
+            "c2_3",
+            "c3_5",
+            "c4_5",
+            "c5_7",
+            "c8_12",
+            "I4",
+            "c6_9",
+            "c9_14",
+            "I1",
+            "Im1",
+            "a2",
+            "r",
+            "GP_INV_t"
+          ],
+          "equations": [
+            "(-5)*t^2*c3_5+(2)*t^2*I4",
+            "(5)*t^2*c3_5^2+(-4)*t^2*c3_5*I4+(-5)*t^2*c6_9",
+            "(15)*t^2*c2_3+(10)*t*c3_5*c6_9+(4)*t*I4*c6_9+(10)*t*c9_14+(2)*t*a2",
+            "(-10)*t^2*c2_3*c3_5+(4)*t^2*c2_3*I4+(-5)*t^2*c5_7+(-10)*t*c3_5^2*c6_9+(-10)*t*c3_5*c9_14+(-2)*t*c3_5*a2+(4)*t*I4*c9_14+(4/5)*t*I4*a2+(-5)*t*c6_9^2+t*I1",
+            "(5)*t^2*c2_3^2+(-5)*t^2*c4_5+(8)*t*c2_3*I4*c6_9+(10)*t*c2_3*c9_14+(2)*t*c2_3*a2+(-10)*t*c3_5^2*c5_7+(-10)*t*c3_5*c8_12+(-10)*t*c5_7*c6_9+(4)*t*c8_12*I4+(5)*c3_5^2*c6_9^2+(4)*c3_5*I4*c6_9^2+(10)*c3_5*c6_9*c9_14+(2)*c3_5*c6_9*a2+(4)*I4*c6_9*c9_14+(4/5)*I4*c6_9*a2+(-5/3)*c6_9^3+c6_9*I1+(5)*c9_14^2+(2)*c9_14*a2+Im1+(1/5)*a2^2",
+            "I4+c6_9+c9_14+I1+Im1+r"
+          ]
+        },
+        "target": {
+          "variables": [
+            "t",
+            "c2_3",
+            "c3_5",
+            "c4_5",
+            "c5_7",
+            "c8_12",
+            "I4",
+            "c6_9",
+            "c9_14",
+            "I1",
+            "Im1",
+            "a2",
+            "r",
+            "GP_INV_t"
+          ],
+          "equations": [
+            "I4",
+            "c6_9",
+            "c9_14",
+            "I1",
+            "Im1",
+            "(-5/4)*t^2*c2_3^2+(5)*t^2*c4_5+(-3/2)*t*c2_3+(5)*t*c3_5^2*c5_7+(5)*t*c5_7+(-5/3)*c3_5^6+(-5)*c3_5^4+(2)*c3_5^3-c3_5^2+(5/2)*c3_5+(-1/5)*a2+r",
+            "t*GP_INV_t-1"
+          ]
+        },
+        "point_forward": {
+          "t": "t",
+          "c2_3": "c2_3",
+          "c3_5": "c3_5",
+          "c4_5": "c4_5",
+          "c5_7": "c5_7",
+          "c8_12": "c8_12",
+          "I4": "(-5/2)*c3_5+I4",
+          "c6_9": "c3_5^2+c6_9",
+          "c9_14": "(3/2)*t*c2_3+(-2)*c3_5^3+c9_14+(1/5)*a2",
+          "I1": "(-5)*t*c5_7+(5)*c3_5^4+I1",
+          "Im1": "(5/4)*t^2*c2_3^2+(-5)*t^2*c4_5+(-5)*t*c3_5^2*c5_7+(5/3)*c3_5^6+Im1",
+          "a2": "a2",
+          "r": "r",
+          "GP_INV_t": "GP_INV_t"
+        },
+        "point_inverse": {
+          "t": "t",
+          "c2_3": "c2_3",
+          "c3_5": "c3_5",
+          "c4_5": "c4_5",
+          "c5_7": "c5_7",
+          "c8_12": "c8_12",
+          "I4": "(5/2)*c3_5+I4",
+          "c6_9": "-c3_5^2+c6_9",
+          "c9_14": "(-3/2)*t*c2_3+(2)*c3_5^3+c9_14+(-1/5)*a2",
+          "I1": "(5)*t*c5_7+(-5)*c3_5^4+I1",
+          "Im1": "(-5/4)*t^2*c2_3^2+(5)*t^2*c4_5+(5)*t*c3_5^2*c5_7+(-5/3)*c3_5^6+Im1",
+          "a2": "a2",
+          "r": "r",
+          "GP_INV_t": "GP_INV_t"
+        },
+        "target_pullback_rows": [
+          [
+            "(1/2)*GP_INV_t^2",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-2/5)*t^2*c3_5*GP_INV_t^4",
+            "(-1/5)*GP_INV_t^2",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(4/5)*t^3*c3_5^2*GP_INV_t^5+(-1/5)*t*c6_9*GP_INV_t^3",
+            "(2/5)*t*c3_5*GP_INV_t^3",
+            "(1/10)*GP_INV_t",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-2)*t^3*c3_5^3*GP_INV_t^5+(-2)*t^3*c3_5*c6_9*GP_INV_t^5+(-2)*t^2*c2_3*GP_INV_t^3+(-2)*t*c9_14*GP_INV_t^3+(-2/5)*t*a2*GP_INV_t^3",
+            "-t*c3_5^2*GP_INV_t^3-t*c6_9*GP_INV_t^3",
+            "0",
+            "GP_INV_t",
+            "0",
+            "0"
+          ],
+          [
+            "(-2)*t^4*c2_3*c3_5^2*GP_INV_t^5+(8)*t^3*c2_3*c3_5^2*GP_INV_t^4+(6)*t^3*c3_5^5*GP_INV_t^5+(-2)*t^3*c3_5^3*c6_9*GP_INV_t^5+(-4)*t^3*c3_5^2*c9_14*GP_INV_t^5+(-4/5)*t^3*c3_5^2*a2*GP_INV_t^5+(-4)*t^3*c3_5*c5_7*GP_INV_t^4+(-2)*t^2*c2_3*c3_5^2*GP_INV_t^3+(1/2)*t^2*c2_3*c6_9*GP_INV_t^3+(-20/3)*t^2*c3_5^5*GP_INV_t^4+(20/3)*t^2*c3_5^3*c6_9*GP_INV_t^4+(8)*t^2*c3_5^2*c9_14*GP_INV_t^4+(8/5)*t^2*c3_5^2*a2*GP_INV_t^4+(-2/3)*t^2*c3_5*c6_9^2*GP_INV_t^4+(2/5)*t^2*c3_5*I1*GP_INV_t^4+(-4)*t*c2_3*c6_9*GP_INV_t^2+(-2)*t*c3_5^3*c6_9*GP_INV_t^3+(-2)*t*c3_5^2*c9_14*GP_INV_t^3+(-2/5)*t*c3_5^2*a2*GP_INV_t^3+(-2)*t*c8_12*GP_INV_t^2+t*c6_9*c9_14*GP_INV_t^3+(1/5)*t*c6_9*a2*GP_INV_t^3+(-2)*c3_5*c6_9^2*GP_INV_t^2+(-2)*c6_9*c9_14*GP_INV_t^2+(-2/5)*c6_9*a2*GP_INV_t^2",
+            "-t^2*c2_3*c3_5*GP_INV_t^3+(4)*t*c2_3*c3_5*GP_INV_t^2+(3)*t*c3_5^4*GP_INV_t^3-t*c3_5^2*c6_9*GP_INV_t^3+(-2)*t*c3_5*c9_14*GP_INV_t^3+(-2/5)*t*c3_5*a2*GP_INV_t^3+(-2)*t*c5_7*GP_INV_t^2+(-10/3)*c3_5^4*GP_INV_t^2+(10/3)*c3_5^2*c6_9*GP_INV_t^2+(4)*c3_5*c9_14*GP_INV_t^2+(4/5)*c3_5*a2*GP_INV_t^2+(-1/3)*c6_9^2*GP_INV_t^2+(1/5)*I1*GP_INV_t^2",
+            "(-1/4)*t*c2_3*GP_INV_t+c3_5^3*GP_INV_t+(-1/2)*c9_14*GP_INV_t+(-1/10)*a2*GP_INV_t",
+            "c3_5^2*GP_INV_t",
+            "1",
+            "0"
+          ],
+          [
+            "(2)*t^4*c2_3*c3_5^2*GP_INV_t^5+(-8)*t^3*c2_3*c3_5^2*GP_INV_t^4+(-6)*t^3*c3_5^5*GP_INV_t^5+(2)*t^3*c3_5^3*c6_9*GP_INV_t^5+(2)*t^3*c3_5^3*GP_INV_t^5+(4)*t^3*c3_5^2*c9_14*GP_INV_t^5+(4/5)*t^3*c3_5^2*a2*GP_INV_t^5+(-4/5)*t^3*c3_5^2*GP_INV_t^5+(4)*t^3*c3_5*c5_7*GP_INV_t^4+(2)*t^3*c3_5*c6_9*GP_INV_t^5+(2)*t^2*c2_3*c3_5^2*GP_INV_t^3+(-1/2)*t^2*c2_3*c6_9*GP_INV_t^3+(2)*t^2*c2_3*GP_INV_t^3+(20/3)*t^2*c3_5^5*GP_INV_t^4+(-20/3)*t^2*c3_5^3*c6_9*GP_INV_t^4+(-8)*t^2*c3_5^2*c9_14*GP_INV_t^4+(-8/5)*t^2*c3_5^2*a2*GP_INV_t^4+(2/3)*t^2*c3_5*c6_9^2*GP_INV_t^4+(-2/5)*t^2*c3_5*I1*GP_INV_t^4+(2/5)*t^2*c3_5*GP_INV_t^4+(4)*t*c2_3*c6_9*GP_INV_t^2+(2)*t*c3_5^3*c6_9*GP_INV_t^3+(2)*t*c3_5^2*c9_14*GP_INV_t^3+(2/5)*t*c3_5^2*a2*GP_INV_t^3+(2)*t*c8_12*GP_INV_t^2-t*c6_9*c9_14*GP_INV_t^3+(-1/5)*t*c6_9*a2*GP_INV_t^3+(1/5)*t*c6_9*GP_INV_t^3+(2)*t*c9_14*GP_INV_t^3+(2/5)*t*a2*GP_INV_t^3+(2)*c3_5*c6_9^2*GP_INV_t^2+(2)*c6_9*c9_14*GP_INV_t^2+(2/5)*c6_9*a2*GP_INV_t^2+(-1/2)*GP_INV_t^2",
+            "t^2*c2_3*c3_5*GP_INV_t^3+(-4)*t*c2_3*c3_5*GP_INV_t^2+(-3)*t*c3_5^4*GP_INV_t^3+t*c3_5^2*c6_9*GP_INV_t^3+t*c3_5^2*GP_INV_t^3+(2)*t*c3_5*c9_14*GP_INV_t^3+(2/5)*t*c3_5*a2*GP_INV_t^3+(-2/5)*t*c3_5*GP_INV_t^3+(2)*t*c5_7*GP_INV_t^2+t*c6_9*GP_INV_t^3+(10/3)*c3_5^4*GP_INV_t^2+(-10/3)*c3_5^2*c6_9*GP_INV_t^2+(-4)*c3_5*c9_14*GP_INV_t^2+(-4/5)*c3_5*a2*GP_INV_t^2+(1/3)*c6_9^2*GP_INV_t^2+(-1/5)*I1*GP_INV_t^2+(1/5)*GP_INV_t^2",
+            "(1/4)*t*c2_3*GP_INV_t-c3_5^3*GP_INV_t+(1/2)*c9_14*GP_INV_t+(1/10)*a2*GP_INV_t+(-1/10)*GP_INV_t",
+            "-c3_5^2*GP_INV_t-GP_INV_t",
+            "-1",
+            "1"
+          ],
+          [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        ],
+        "source_pullback_rows": [
+          [
+            "(2)*t^2",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-4)*t^2*c3_5",
+            "(-5)*t^2",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-4)*t*c3_5^2+(4)*t*c6_9",
+            "(20)*t*c3_5",
+            "(10)*t",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-2)*t^2*c2_3+(8)*t*c3_5^3+(4)*t*c9_14",
+            "(-5)*t*c6_9",
+            "0",
+            "t",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "(-2)*t*c2_3*c3_5^2+(2)*t*c2_3*c6_9+(4)*t*c8_12+(-4)*c3_5^5+(-4)*c3_5^2*c9_14+(4)*c3_5*c6_9^2+(4)*c6_9*c9_14",
+            "(-10)*t*c2_3*c3_5+(-5)*t*c5_7+(20)*c3_5^2*c6_9+(20)*c3_5*c9_14+(-5/3)*c6_9^2+I1",
+            "(-5)*t*c2_3+(5)*c9_14",
+            "-c3_5^2",
+            "1",
+            "0",
+            "0"
+          ],
+          [
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "0"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "GP-X78",
+      "case_path": "corpus/must/GP-X78.json",
+      "case_fnv1a": "3578590208792572903",
+      "note": "Compiled by the v0.37 depth-6 adapter from fixtures/jc_source_depth6/boundary_v1.json. Minimal: generators 1-2 (3262 and 6125 terms) do not involve c7_5, the only coordinate the maps move, and carry identity rows, so they are omitted. Generic edge: alpha is inverted by GP_INV_alpha and c7_5 is translated by GP_INV_alpha*GP_BETA.",
+      "inputs": {
+        "source": {
+          "variables": [
+            "GP_BETA",
+            "c2_1",
+            "c2_2",
+            "c2_3",
+            "c3_5",
+            "c4_5",
+            "c5_7",
+            "c7_10",
+            "c7_5",
+            "c7_6",
+            "c7_7",
+            "c7_8",
+            "c7_9",
+            "c8_10",
+            "c8_11",
+            "c8_12",
+            "c8_7",
+            "c8_8",
+            "c8_9",
+            "p",
+            "t",
+            "GP_INV_alpha"
+          ],
+          "equations": [
+            "(15)*t^3+1",
+            "GP_BETA+(5/2)*c2_3^2*c7_5*t+(-10)*c4_5*c7_5*t",
+            "(5/2)*c2_3^2*t*GP_INV_alpha+(-10)*c4_5*t*GP_INV_alpha-1"
+          ]
+        },
+        "target": {
+          "variables": [
+            "GP_BETA",
+            "c2_1",
+            "c2_2",
+            "c2_3",
+            "c3_5",
+            "c4_5",
+            "c5_7",
+            "c7_10",
+            "c7_5",
+            "c7_6",
+            "c7_7",
+            "c7_8",
+            "c7_9",
+            "c8_10",
+            "c8_11",
+            "c8_12",
+            "c8_7",
+            "c8_8",
+            "c8_9",
+            "p",
+            "t",
+            "GP_INV_alpha"
+          ],
+          "equations": [
+            "(15)*t^3+1",
+            "c7_5",
+            "(5/2)*c2_3^2*t*GP_INV_alpha+(-10)*c4_5*t*GP_INV_alpha-1"
+          ]
+        },
+        "point_forward": {
+          "GP_BETA": "GP_BETA",
+          "c2_1": "c2_1",
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_5": "c3_5",
+          "c4_5": "c4_5",
+          "c5_7": "c5_7",
+          "c7_10": "c7_10",
+          "c7_5": "c7_5+GP_INV_alpha*GP_BETA",
+          "c7_6": "c7_6",
+          "c7_7": "c7_7",
+          "c7_8": "c7_8",
+          "c7_9": "c7_9",
+          "c8_10": "c8_10",
+          "c8_11": "c8_11",
+          "c8_12": "c8_12",
+          "c8_7": "c8_7",
+          "c8_8": "c8_8",
+          "c8_9": "c8_9",
+          "p": "p",
+          "t": "t",
+          "GP_INV_alpha": "GP_INV_alpha"
+        },
+        "point_inverse": {
+          "GP_BETA": "GP_BETA",
+          "c2_1": "c2_1",
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_5": "c3_5",
+          "c4_5": "c4_5",
+          "c5_7": "c5_7",
+          "c7_10": "c7_10",
+          "c7_5": "c7_5-GP_INV_alpha*GP_BETA",
+          "c7_6": "c7_6",
+          "c7_7": "c7_7",
+          "c7_8": "c7_8",
+          "c7_9": "c7_9",
+          "c8_10": "c8_10",
+          "c8_11": "c8_11",
+          "c8_12": "c8_12",
+          "c8_7": "c8_7",
+          "c8_8": "c8_8",
+          "c8_9": "c8_9",
+          "p": "p",
+          "t": "t",
+          "GP_INV_alpha": "GP_INV_alpha"
+        },
+        "target_pullback_rows": [
+          [
+            "1",
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "GP_INV_alpha",
+            "-c7_5"
+          ],
+          [
+            "0",
+            "0",
+            "1"
+          ]
+        ],
+        "source_pullback_rows": [
+          [
+            "1",
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "5/2*t*(c2_3^2-4*c4_5)",
+            "-GP_BETA"
+          ],
+          [
+            "0",
+            "0",
+            "1"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "GP-X79",
+      "case_path": "corpus/must/GP-X79.json",
+      "case_fnv1a": "12533013207662999328",
+      "note": "Compiled by the v0.37 depth-6 adapter from fixtures/jc_source_depth6/boundary_v1.json. Minimal: generators 1-2 (3262 and 6125 terms) do not involve c7_5, the only coordinate the maps move, and carry identity rows, so they are omitted. Discriminant edge: alpha vanishes, the affine row becomes GP_BETA = 0 and c7_5 stays free.",
+      "inputs": {
+        "source": {
+          "variables": [
+            "GP_BETA",
+            "c2_1",
+            "c2_2",
+            "c2_3",
+            "c3_5",
+            "c4_5",
+            "c5_7",
+            "c7_10",
+            "c7_5",
+            "c7_6",
+            "c7_7",
+            "c7_8",
+            "c7_9",
+            "c8_10",
+            "c8_11",
+            "c8_12",
+            "c8_7",
+            "c8_8",
+            "c8_9",
+            "p",
+            "t"
+          ],
+          "equations": [
+            "(15)*t^3+1",
+            "c2_3^2+(-4)*c4_5",
+            "GP_BETA+(5/2)*c2_3^2*c7_5*t+(-10)*c4_5*c7_5*t"
+          ]
+        },
+        "target": {
+          "variables": [
+            "GP_BETA",
+            "c2_1",
+            "c2_2",
+            "c2_3",
+            "c3_5",
+            "c4_5",
+            "c5_7",
+            "c7_10",
+            "c7_5",
+            "c7_6",
+            "c7_7",
+            "c7_8",
+            "c7_9",
+            "c8_10",
+            "c8_11",
+            "c8_12",
+            "c8_7",
+            "c8_8",
+            "c8_9",
+            "p",
+            "t"
+          ],
+          "equations": [
+            "(15)*t^3+1",
+            "c2_3^2+(-4)*c4_5",
+            "GP_BETA"
+          ]
+        },
+        "point_forward": {
+          "GP_BETA": "GP_BETA",
+          "c2_1": "c2_1",
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_5": "c3_5",
+          "c4_5": "c4_5",
+          "c5_7": "c5_7",
+          "c7_10": "c7_10",
+          "c7_5": "c7_5",
+          "c7_6": "c7_6",
+          "c7_7": "c7_7",
+          "c7_8": "c7_8",
+          "c7_9": "c7_9",
+          "c8_10": "c8_10",
+          "c8_11": "c8_11",
+          "c8_12": "c8_12",
+          "c8_7": "c8_7",
+          "c8_8": "c8_8",
+          "c8_9": "c8_9",
+          "p": "p",
+          "t": "t"
+        },
+        "point_inverse": {
+          "GP_BETA": "GP_BETA",
+          "c2_1": "c2_1",
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_5": "c3_5",
+          "c4_5": "c4_5",
+          "c5_7": "c5_7",
+          "c7_10": "c7_10",
+          "c7_5": "c7_5",
+          "c7_6": "c7_6",
+          "c7_7": "c7_7",
+          "c7_8": "c7_8",
+          "c7_9": "c7_9",
+          "c8_10": "c8_10",
+          "c8_11": "c8_11",
+          "c8_12": "c8_12",
+          "c8_7": "c8_7",
+          "c8_8": "c8_8",
+          "c8_9": "c8_9",
+          "p": "p",
+          "t": "t"
+        },
+        "target_pullback_rows": [
+          [
+            "1",
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "1",
+            "0"
+          ],
+          [
+            "0",
+            "-5/2*t*c7_5",
+            "1"
+          ]
+        ],
+        "source_pullback_rows": [
+          [
+            "1",
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "1",
+            "0"
+          ],
+          [
+            "0",
+            "5/2*t*c7_5",
+            "1"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "GP-X80",
+      "case_path": "corpus/must/GP-X80.json",
+      "case_fnv1a": "197565152867049174",
+      "note": "Compiled by the v0.37 depth-6 adapter from fixtures/jc_source_depth6/boundary_v1.json. Minimal: generators 1-2 (3262 and 6125 terms) do not involve c7_5, the only coordinate the maps move, and carry identity rows, so they are omitted. Mutation as data (test_generic_certificate_needs_the_alpha_inverse_equation): the source loses the alpha-inverse equation.",
+      "inputs": {
+        "source": {
+          "variables": [
+            "GP_BETA",
+            "c2_1",
+            "c2_2",
+            "c2_3",
+            "c3_5",
+            "c4_5",
+            "c5_7",
+            "c7_10",
+            "c7_5",
+            "c7_6",
+            "c7_7",
+            "c7_8",
+            "c7_9",
+            "c8_10",
+            "c8_11",
+            "c8_12",
+            "c8_7",
+            "c8_8",
+            "c8_9",
+            "p",
+            "t",
+            "GP_INV_alpha"
+          ],
+          "equations": [
+            "(15)*t^3+1",
+            "GP_BETA+(5/2)*c2_3^2*c7_5*t+(-10)*c4_5*c7_5*t"
+          ]
+        },
+        "target": {
+          "variables": [
+            "GP_BETA",
+            "c2_1",
+            "c2_2",
+            "c2_3",
+            "c3_5",
+            "c4_5",
+            "c5_7",
+            "c7_10",
+            "c7_5",
+            "c7_6",
+            "c7_7",
+            "c7_8",
+            "c7_9",
+            "c8_10",
+            "c8_11",
+            "c8_12",
+            "c8_7",
+            "c8_8",
+            "c8_9",
+            "p",
+            "t",
+            "GP_INV_alpha"
+          ],
+          "equations": [
+            "(15)*t^3+1",
+            "c7_5",
+            "(5/2)*c2_3^2*t*GP_INV_alpha+(-10)*c4_5*t*GP_INV_alpha-1"
+          ]
+        },
+        "point_forward": {
+          "GP_BETA": "GP_BETA",
+          "c2_1": "c2_1",
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_5": "c3_5",
+          "c4_5": "c4_5",
+          "c5_7": "c5_7",
+          "c7_10": "c7_10",
+          "c7_5": "c7_5+GP_INV_alpha*GP_BETA",
+          "c7_6": "c7_6",
+          "c7_7": "c7_7",
+          "c7_8": "c7_8",
+          "c7_9": "c7_9",
+          "c8_10": "c8_10",
+          "c8_11": "c8_11",
+          "c8_12": "c8_12",
+          "c8_7": "c8_7",
+          "c8_8": "c8_8",
+          "c8_9": "c8_9",
+          "p": "p",
+          "t": "t",
+          "GP_INV_alpha": "GP_INV_alpha"
+        },
+        "point_inverse": {
+          "GP_BETA": "GP_BETA",
+          "c2_1": "c2_1",
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_5": "c3_5",
+          "c4_5": "c4_5",
+          "c5_7": "c5_7",
+          "c7_10": "c7_10",
+          "c7_5": "c7_5-GP_INV_alpha*GP_BETA",
+          "c7_6": "c7_6",
+          "c7_7": "c7_7",
+          "c7_8": "c7_8",
+          "c7_9": "c7_9",
+          "c8_10": "c8_10",
+          "c8_11": "c8_11",
+          "c8_12": "c8_12",
+          "c8_7": "c8_7",
+          "c8_8": "c8_8",
+          "c8_9": "c8_9",
+          "p": "p",
+          "t": "t",
+          "GP_INV_alpha": "GP_INV_alpha"
+        },
+        "target_pullback_rows": [
+          [
+            "1",
+            "0"
+          ],
+          [
+            "0",
+            "GP_INV_alpha"
+          ],
+          [
+            "0",
+            "0"
+          ]
+        ],
+        "source_pullback_rows": [
+          [
+            "1",
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "5/2*t*(c2_3^2-4*c4_5)",
+            "-GP_BETA"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "GP-X81",
+      "case_path": "corpus/must/GP-X81.json",
+      "case_fnv1a": "16769534872562040613",
+      "note": "Compiled by the v0.37 depth-6 adapter from fixtures/jc_source_depth6/boundary_v1.json. Minimal: generators 1-2 (3262 and 6125 terms) do not involve c7_5, the only coordinate the maps move, and carry identity rows, so they are omitted. Mutation as data (test_mutated_generic_cofactor_is_unverified_not_refuted): forward cofactor [1][1] is GP_INV_alpha+1. The attempted conclusion (the isomorphism) is true; the case's lesson is that corrupt evidence is unverified, not refuted, so this REFUSE fixture is the stated exception to 'make the conclusion false'.",
+      "inputs": {
+        "source": {
+          "variables": [
+            "GP_BETA",
+            "c2_1",
+            "c2_2",
+            "c2_3",
+            "c3_5",
+            "c4_5",
+            "c5_7",
+            "c7_10",
+            "c7_5",
+            "c7_6",
+            "c7_7",
+            "c7_8",
+            "c7_9",
+            "c8_10",
+            "c8_11",
+            "c8_12",
+            "c8_7",
+            "c8_8",
+            "c8_9",
+            "p",
+            "t",
+            "GP_INV_alpha"
+          ],
+          "equations": [
+            "(15)*t^3+1",
+            "GP_BETA+(5/2)*c2_3^2*c7_5*t+(-10)*c4_5*c7_5*t",
+            "(5/2)*c2_3^2*t*GP_INV_alpha+(-10)*c4_5*t*GP_INV_alpha-1"
+          ]
+        },
+        "target": {
+          "variables": [
+            "GP_BETA",
+            "c2_1",
+            "c2_2",
+            "c2_3",
+            "c3_5",
+            "c4_5",
+            "c5_7",
+            "c7_10",
+            "c7_5",
+            "c7_6",
+            "c7_7",
+            "c7_8",
+            "c7_9",
+            "c8_10",
+            "c8_11",
+            "c8_12",
+            "c8_7",
+            "c8_8",
+            "c8_9",
+            "p",
+            "t",
+            "GP_INV_alpha"
+          ],
+          "equations": [
+            "(15)*t^3+1",
+            "c7_5",
+            "(5/2)*c2_3^2*t*GP_INV_alpha+(-10)*c4_5*t*GP_INV_alpha-1"
+          ]
+        },
+        "point_forward": {
+          "GP_BETA": "GP_BETA",
+          "c2_1": "c2_1",
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_5": "c3_5",
+          "c4_5": "c4_5",
+          "c5_7": "c5_7",
+          "c7_10": "c7_10",
+          "c7_5": "c7_5+GP_INV_alpha*GP_BETA",
+          "c7_6": "c7_6",
+          "c7_7": "c7_7",
+          "c7_8": "c7_8",
+          "c7_9": "c7_9",
+          "c8_10": "c8_10",
+          "c8_11": "c8_11",
+          "c8_12": "c8_12",
+          "c8_7": "c8_7",
+          "c8_8": "c8_8",
+          "c8_9": "c8_9",
+          "p": "p",
+          "t": "t",
+          "GP_INV_alpha": "GP_INV_alpha"
+        },
+        "point_inverse": {
+          "GP_BETA": "GP_BETA",
+          "c2_1": "c2_1",
+          "c2_2": "c2_2",
+          "c2_3": "c2_3",
+          "c3_5": "c3_5",
+          "c4_5": "c4_5",
+          "c5_7": "c5_7",
+          "c7_10": "c7_10",
+          "c7_5": "c7_5-GP_INV_alpha*GP_BETA",
+          "c7_6": "c7_6",
+          "c7_7": "c7_7",
+          "c7_8": "c7_8",
+          "c7_9": "c7_9",
+          "c8_10": "c8_10",
+          "c8_11": "c8_11",
+          "c8_12": "c8_12",
+          "c8_7": "c8_7",
+          "c8_8": "c8_8",
+          "c8_9": "c8_9",
+          "p": "p",
+          "t": "t",
+          "GP_INV_alpha": "GP_INV_alpha"
+        },
+        "target_pullback_rows": [
+          [
+            "1",
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "GP_INV_alpha+1",
+            "-c7_5"
+          ],
+          [
+            "0",
+            "0",
+            "1"
+          ]
+        ],
+        "source_pullback_rows": [
+          [
+            "1",
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "5/2*t*(c2_3^2-4*c4_5)",
+            "-GP_BETA"
+          ],
+          [
+            "0",
+            "0",
+            "1"
+          ]
+        ]
+      }
+    }
+  ]
+}

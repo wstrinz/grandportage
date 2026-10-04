@@ -1,0 +1,23 @@
+Binding.lean:28:40: warning: Try `simp at h` instead of `simpa using h`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+Binding.lean:58:4: warning: Try `simp at hc` instead of `simpa using hc`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+Binding.integral_unit_identity.{u_1} {R : Type u_1} [Ring R] (x : R) : 1 = 2 * x + (1 - 2 * x)
+Binding.integral_system_empty.{u_1} {R : Type u_1} [Ring R] [Nontrivial R] : ¬IntegralSystemSolvable R
+Binding.gp_a08b_F3 : ¬IntegralSystemSolvable (ZMod 3)
+Binding.denominator_eight_not_unit.{u_1} {R : Type u_1} [Ring R] [Nontrivial R] [CharP R 2] : ¬IsUnit 8
+Binding.gp_a05_no_coefficient.{u_1} {R : Type u_1} [Ring R] [Nontrivial R] [CharP R 2] : ¬∃ c, 8 * c = 3
+Binding.gp_a05_no_rat_ring_hom.{u_1} {R : Type u_1} [Ring R] [Nontrivial R] [CharP R 2] : ¬Nonempty (ℚ →+* R)
+'Binding.trivial_ring_has_point' depends on axioms: [propext, Quot.sound]
+'Binding.char_three_coefficient_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Binding.integral_unit_identity' depends on axioms: [propext]
+'Binding.integral_system_empty' depends on axioms: [propext]
+'Binding.gp_a08b_F3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Binding.denominator_eight_zero' depends on axioms: [propext]
+'Binding.denominator_eight_not_unit' depends on axioms: [propext]
+'Binding.gp_a05_no_coefficient' depends on axioms: [propext]
+'Binding.gp_a05_F2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Binding.gp_a05_no_rat_ring_hom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Binding.totalized_division_is_zero' depends on axioms: [propext, Classical.choice, Quot.sound]

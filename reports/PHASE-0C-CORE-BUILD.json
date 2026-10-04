@@ -1,0 +1,37 @@
+[
+  {
+    "label": "clean-generated-build",
+    "seconds": 0.7287774999858811,
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "clean-package-build",
+    "seconds": 43.098040500015486,
+    "exit": 0,
+    "stdout": "\u2714 [2/13] Built Spike.Poly (15s)\n\u2139 [3/13] Built Spike.Lrat (15s)\ninfo: Spike/Lrat.lean:11:0: 'Std.Tactic.BVDecide.LRAT.check_sound' depends on axioms: [propext, Classical.choice, Quot.sound]\ninfo: Spike/Lrat.lean:12:0: 'Spike.Lrat.nativeCheck' depends on axioms: [propext,\n Classical.choice,\n Quot.sound,\n nativeCheck._native.native_decide.ax_1_1]\ninfo: Spike/Lrat.lean:13:0: 'Spike.Lrat.nativeUnsat' depends on axioms: [propext,\n Classical.choice,\n Quot.sound,\n nativeCheck._native.native_decide.ax_1_1]\n\u2139 [4/13] Built Spike (16s)\ninfo: Spike.lean:98:0: 'Spike.checked_equality' depends on axioms: [propext]\n\u2714 [5/13] Built Spike:c.o (19s)\n\u2714 [6/13] Built Spike.Poly:c.o (20s)\n\u2714 [7/13] Built Spike.Lrat:c.o (20s)\n\u2714 [8/13] Built Main (19s)\n\u2714 [9/13] Built Main:c.o (359ms)\n\u2714 [10/13] Built CheckerMain (21s)\n\u2714 [11/13] Built CheckerMain:c.o (935ms)\n\u2714 [12/13] Built gp_spike:exe (5.2s)\n\u2714 [13/13] Built gp_check_spike:exe (4.7s)\nBuild completed successfully (13 jobs).\n",
+    "stderr": ""
+  },
+  {
+    "label": "warm-no-change",
+    "seconds": 0.6802536000031978,
+    "exit": 0,
+    "stdout": "\u2139 [2/13] Replayed Spike\ninfo: Spike.lean:98:0: 'Spike.checked_equality' depends on axioms: [propext]\n\u2139 [8/13] Replayed Spike.Lrat\ninfo: Spike/Lrat.lean:11:0: 'Std.Tactic.BVDecide.LRAT.check_sound' depends on axioms: [propext, Classical.choice, Quot.sound]\ninfo: Spike/Lrat.lean:12:0: 'Spike.Lrat.nativeCheck' depends on axioms: [propext,\n Classical.choice,\n Quot.sound,\n nativeCheck._native.native_decide.ax_1_1]\ninfo: Spike/Lrat.lean:13:0: 'Spike.Lrat.nativeUnsat' depends on axioms: [propext,\n Classical.choice,\n Quot.sound,\n nativeCheck._native.native_decide.ax_1_1]\nBuild completed successfully (13 jobs).\n",
+    "stderr": ""
+  },
+  {
+    "label": "kernel-replay-toy",
+    "seconds": 25.860393500013743,
+    "exit": 0,
+    "stdout": "replaying Spike\nreplaying Spike.Poly\nreplaying Spike.Lrat\n",
+    "stderr": ""
+  },
+  {
+    "label": "kernel-replay-LRAT-native",
+    "seconds": 28.072841099987272,
+    "exit": 0,
+    "stdout": "replaying Spike.Lrat\n",
+    "stderr": ""
+  }
+]

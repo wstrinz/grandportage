@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "GP-X400",
+  "seed": null,
+  "title": "A family disposition cannot be declared as PREDICATE with COUNT-only fields",
+  "situation": "A 42-member family declares a PREDICATE claim carrying splits, groups, method, proves, and why fields that describe a COUNT disposition.",
+  "inputs": {
+    "fixture": "fixtures/D3-inert-disposition/before.json",
+    "fixture_lf_sha256": "7be21751fd5243e0e9736337a47c3e521bdae26c5ccfea772fcdf6cd27387723",
+    "fixture_manifest_source_commit": "b876fe4ed5c8963a0e8c19e18c829821c0686654",
+    "family": {"id": "F", "count": 42, "enumeration": "C-COUNT"},
+    "claim": {"id": "C-SPLIT", "kind": "PREDICATE", "family": "F", "splits": "F", "groups": [{"id": "G-DONE", "settles": 1, "verdict": "settled"}]},
+    "count_only_fields": ["splits", "groups", "method", "proves", "why"]
+  },
+  "attempted_conclusion": "Accept the PREDICATE declaration as a family coverage disposition.",
+  "expected": {"verdict": "REFUSE", "reason": "COUNT disposition fields on PREDICATE are rejected before any coverage conclusion."},
+  "scope_or_region": "N/A",
+  "sources": [
+    {"repository": "gp-v037", "commit": "ac4155787207e2847d248cffed7be871d5dcd577", "path": "tests/test_guard_release.py", "line": 49, "anchor": "def test_inert_disposition_is_refused_but_count_control_keeps_coverage_debt("}
+  ]
+}

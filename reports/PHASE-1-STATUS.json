@@ -1,0 +1,43 @@
+{
+  "status": "G1_closed_by_Will_documented_coverage_exception_Phase2_authorized",
+  "phase0_commit": "685c790",
+  "phase1_initial_commit": "96cec15",
+  "spec": "SPEC-CORE.md",
+  "soundness_goal": "phase1/lean/SoundnessStatement.lean",
+  "scope": "Phase1 reviewed; Will ratified the three design directions and coverage exception on 2026-09-30. Phase2 implementation authorized, component/checker admission remains separate.",
+  "evidence": "reports/PHASE-1-ELABORATION.json",
+  "parent_review": "reports/PHASE-1-PAPER-PARENT-REVIEW.md",
+  "paper_expression": {
+    "true": 52,
+    "false": 8,
+    "unknown": 7,
+    "denominator": 67,
+    "percentage": 77.61194029850746,
+    "strict_80_minimum": 54,
+    "gate_pass": false,
+    "strict_numeric_pass": false
+  },
+  "remaining": [],
+  "heartbeat": "PAUSED; no user restart requested",
+  "G1_complete": true,
+  "recommendations": [
+    "reports/PHASE-1-ADOPTION-PROPOSAL.md",
+    "reports/PHASE-1-SCOPE-MAP.md",
+    "reports/PHASE-1-CONTRACT-CHECKLIST.md"
+  ],
+  "current_human_status": "STATUS.md",
+  "authority": "docs/GP-0.50-PHASE-2-HANDOFF.md",
+  "coverage_exception_accepted": true,
+  "worker_phase1_snapshot": {
+    "thread_id": "01a0eeca-572e-7202-a708-c730d410b901",
+    "host": "local",
+    "status": "idle",
+    "active_minutes": 30,
+    "breakdown": [
+      15,
+      15
+    ],
+    "reserved": 0,
+    "additional_pass_commissioned": false
+  }
+}

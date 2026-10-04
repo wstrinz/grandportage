@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "GP-X137",
+  "seed": null,
+  "title": "Elimination output retains a removed coordinate",
+  "situation": "A polynomial naming y is not in the retained coordinate ring.",
+  "inputs": {
+    "built_generators": [
+      "y"
+    ],
+    "eliminated": [
+      "y"
+    ]
+  },
+  "attempted_conclusion": "Accept y as a generator of the retained x-coordinate elimination ideal.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A polynomial naming y is not in the retained coordinate ring."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 5428,
+      "anchor": "def test_an_elimination_naming_an_eliminated_variable_is_caught("
+    }
+  ]
+}

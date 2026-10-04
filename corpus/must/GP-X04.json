@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "GP-X04",
+  "seed": null,
+  "title": "An open branch blocks cover closure",
+  "situation": "The partition is exhaustive but one branch has no emptiness warrant.",
+  "inputs": {
+    "checked_exhaustive_cover": true,
+    "all_branches_empty": false
+  },
+  "attempted_conclusion": "Conclude the parent is empty.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Every covered branch still needs a warrant."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/kernel.py",
+      "line": 1252,
+      "anchor": "def transport_over_partition("
+    }
+  ]
+}

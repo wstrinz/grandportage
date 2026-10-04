@@ -1,0 +1,165 @@
+{
+  "controls": [
+    {
+      "id": "valid",
+      "input": {
+        "schema": "coefficient_expansion_v1",
+        "characteristic": 0,
+        "parameter": "y",
+        "coefficient_variables": [
+          "a"
+        ],
+        "source_variables": [
+          "p"
+        ],
+        "images": {
+          "p": "a"
+        },
+        "bounded_variables": {},
+        "equations": [
+          {
+            "id": "eq",
+            "expression": "p",
+            "degree": 0,
+            "coverage": "complete",
+            "coefficients": {
+              "0": "a"
+            }
+          }
+        ]
+      },
+      "direct": {
+        "outcome": "accepted",
+        "verdict": "VERIFIED_COEFFICIENT_EXPANSION"
+      },
+      "cli": {
+        "outcome": 0,
+        "stdout": "VERIFIED_COEFFICIENT_EXPANSION\n    1 polynomial equation(s), 1 scalar coordinate(s)\n    authority: polynomial identity iff every recorded coefficient row vanishes\n    spec sha256: a57d4a21ff26c26bfcdf52dffab6893345898b58abd8aa4736ec295d26fa5b1f\n",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "invalid_string",
+      "input": {
+        "schema": "coefficient_expansion_v1",
+        "characteristic": 0,
+        "parameter": "y",
+        "coefficient_variables": [
+          "a"
+        ],
+        "source_variables": [
+          "p"
+        ],
+        "images": {
+          "p": "a"
+        },
+        "bounded_variables": {},
+        "equations": [
+          {
+            "id": "eq",
+            "expression": "p",
+            "degree": 0,
+            "coverage": "unknown",
+            "coefficients": {
+              "0": "a"
+            }
+          }
+        ]
+      },
+      "direct": {
+        "outcome": "CoefficientExpansionError",
+        "message": "equation 0 coverage must be complete or selected"
+      },
+      "cli": {
+        "outcome": 2,
+        "stdout": "",
+        "stderr": "COEFFICIENT EXPANSION FAILED\n  equation 0 coverage must be complete or selected\n"
+      }
+    },
+    {
+      "id": "list_coverage",
+      "input": {
+        "schema": "coefficient_expansion_v1",
+        "characteristic": 0,
+        "parameter": "y",
+        "coefficient_variables": [
+          "a"
+        ],
+        "source_variables": [
+          "p"
+        ],
+        "images": {
+          "p": "a"
+        },
+        "bounded_variables": {},
+        "equations": [
+          {
+            "id": "eq",
+            "expression": "p",
+            "degree": 0,
+            "coverage": [],
+            "coefficients": {
+              "0": "a"
+            }
+          }
+        ]
+      },
+      "direct": {
+        "outcome": "TypeError",
+        "message": "unhashable type: 'list'"
+      },
+      "cli": {
+        "outcome": "TypeError",
+        "message": "unhashable type: 'list'",
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "unicode_digit_key",
+      "input": {
+        "schema": "coefficient_expansion_v1",
+        "characteristic": 0,
+        "parameter": "y",
+        "coefficient_variables": [
+          "a"
+        ],
+        "source_variables": [
+          "p"
+        ],
+        "images": {
+          "p": "a"
+        },
+        "bounded_variables": {},
+        "equations": [
+          {
+            "id": "eq",
+            "expression": "p",
+            "degree": 0,
+            "coverage": "complete",
+            "coefficients": {
+              "\u00b2": "a"
+            }
+          }
+        ]
+      },
+      "direct": {
+        "outcome": "ValueError",
+        "message": "invalid literal for int() with base 10: '\u00b2'"
+      },
+      "cli": {
+        "outcome": 2,
+        "stdout": "",
+        "stderr": "COEFFICIENT EXPANSION FAILED\n  invalid literal for int() with base 10: '\u00b2'\n"
+      }
+    }
+  ],
+  "finding": "A list-valued coverage raises uncaught TypeError through CLI. Superscript digit passes str.isdigit but int conversion raises ValueError; CLI catches it, direct domain exception contract differs. Invalid string yields normal refusal and valid control accepts. No malformed input produced authority.",
+  "proposed_fix": "Validate coverage as a string before membership. Validate ASCII canonical row keys before conversion and normalize validation errors to CoefficientExpansionError; retain CLI and direct boundary controls.",
+  "scope": "Bounded local JSON files under disposable F scratch; no graph write, CAS or campaign.",
+  "source_hashes": {
+    "oracle/checkout/grandportage/coefficient_expansion.py": "c5d5389d6fbfa5bc8d64ccae48aeef5828442b3b6c913e20fc1de59b815bb98e",
+    "oracle/checkout/grandportage/cli.py": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308"
+  },
+  "script_sha256": "605279d3123dad72cd56c6206ecc5ac74567bf98c9f01401f627bf12ef0c1b39"
+}

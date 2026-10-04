@@ -1,0 +1,43 @@
+{
+  "date": "2026-09-30",
+  "status": "WIP_review_checkpoint_ready_for_confirmed_private_shadow",
+  "branch": "codex/phase-0",
+  "prior_checkpoint": "2f6101a",
+  "phase0_complete": true,
+  "G0_ratified": true,
+  "G1_complete": false,
+  "Phase2_authorized": false,
+  "package_or_checker_adoption": false,
+  "checks": [
+    {
+      "check": "corpus_source_pin_validation",
+      "status": "fulfilled",
+      "exit_code": 0,
+      "output": "warning: unable to access '$HOME/.config/git/ignore': Permission denied\nValidated 459 cases, source anchors and pinned oracle identity.\r\n"
+    },
+    {
+      "check": "incident_inventory_private_custody_validation",
+      "status": "fulfilled",
+      "exit_code": 0,
+      "output": "warning: unable to access '$HOME/.config/git/ignore': Permission denied\n{\"status\": \"passed\", \"incident_correction_group_records\": 76, \"separate_main_records\": 39, \"all_main_records\": 115, \"unique_original_pointers\": 115, \"nested_gp_subdispositions\": 47, \"auxiliary_index_entries\": 17, \"private_files_hash_size_ignore_checked\": 89, \"pivot_screen\": \"indeterminate\", \"fresh_campaign_execution\": false}\r\n"
+    },
+    {
+      "check": "publish_tree_history_boundary_and_review_links",
+      "status": "fulfilled",
+      "exit_code": 0,
+      "output": "{\"tracked_paths\": 1434, \"excluded_private_paths_in_current_tree\": 0, \"excluded_private_paths_in_reachable_history\": 0, \"review_links_exist\": 27}\r\n"
+    }
+  ],
+  "scope": "Documentation publication checkpoint; no fresh oracle/campaign execution, case changes or source harvest publication.",
+  "private_boundary": "corpus/harvest, oracle/checkout, virtual environment, scratch, dependency/build caches remain excluded from tracked tree and reachable Git history.",
+  "review": "REVIEW.md",
+  "remote": {
+    "url": "https://github.com/wstrinz/grand-portage-workspace.git",
+    "visibility": "private",
+    "visibility_verified": true,
+    "push_permission_verified": true,
+    "branch": "codex/phase-0",
+    "existing_default_branch": "master",
+    "existing_default_sha": "ac4155787207e2847d248cffed7be871d5dcd577"
+  }
+}

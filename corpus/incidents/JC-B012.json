@@ -1,0 +1,135 @@
+{
+  "id": "JC-B012",
+  "campaign": "JC",
+  "origin": "own",
+  "class": "SCOPE",
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "path": "$DEV/math-stuff/d2_plane_72_108/AT_LE9_AUDIT.md",
+      "lines": "35-68",
+      "sha256": "c4be3c3d4272ac32d504e8f2c962b7bdb0eb5662799613541fe95ccd290c176d"
+    }
+  ],
+  "claimed": "slice_phi_yplace transferred unshifted divisibility/cascade bounds into shifted chart as a proof of a_t<=9.",
+  "problem": "Audit records genuine-polynomial control violating shifted bound; this leg not established as written, while unshifted syzygy leg remains.",
+  "discovered_by": "unknown",
+  "cost": null,
+  "shipped": null,
+  "gp_v037_would_catch": null,
+  "core_expressible": null,
+  "core_would_refuse": null,
+  "notes": "Includes B013 common-input evidence-grade subfinding; conclusion a_t<=9 not refuted. Common inputs alone are not a general criterion against independent proofs. Explicit chart and direction/premise contracts could refuse transfer; GP cannot derive missing divisibility or discover a falsely encoded chart.",
+  "subfindings": [
+    "JC-B013 WARRANT subfinding, same episode"
+  ],
+  "status": "final retained source-backed record under ratified unknown policy; observation and counting limits remain explicit",
+  "primary_class": "SCOPE",
+  "primary_origin": "own",
+  "record_kind": "documented incident",
+  "final_disposition": "retain qualified source-backed Appendix B candidate",
+  "owner_id": "JC-B012",
+  "original_pointer": {
+    "report": "reports/PHASE-0B-INVENTORY-DRAFT.json",
+    "pointer": "/rows/14",
+    "sha256": "ab1a7c4728bf5ff36129df136adb9c2f612181662ef29ee23358323d866a8ab2",
+    "review_date": "2026-09-29",
+    "date_kind": "retained report review date; not incident date or source publication date"
+  },
+  "source": {
+    "repo": "$WORKSPACE",
+    "ref": "reports/PHASE-0B-INVENTORY-DRAFT.json#/rows/14",
+    "date": "2026-09-29",
+    "review_date": "2026-09-29",
+    "date_kind": "review-source date of retained report; not incident date or original primary-source date"
+  },
+  "incident_date": null,
+  "source_date_qualification": "No incident date invented; original source dates/history metadata remain unchanged in sources.",
+  "cost_note": "Source evidence does not establish incident-specific work lost/cost class.",
+  "shipped_note": "Source evidence does not establish publication or handoff of a wrong claim; unknown is neither false nor n/a.",
+  "gp_v037_would_catch_note": "No supported frozen-GP catch verdict for this episode. Conditional design/reuse commentary in notes is not a yes/no/partial assessment; no fresh campaign replay.",
+  "counting_qualification": {
+    "record_count": 1,
+    "independent_sample": null,
+    "mathematical_incident_count": null,
+    "rule": "Count this owner record once. Repeated summaries, witnesses, consumers and children do not add independent samples.",
+    "source_detail": "Includes B013 common-input evidence-grade subfinding; conclusion a_t<=9 not refuted. Common inputs alone are not a general criterion against independent proofs. Explicit chart and direction/premise contracts could refuse transfer; GP cannot derive missing divisibility or discover a falsely encoded chart."
+  },
+  "classification_qualification": "Proposed primary class and origin retained from accepted inventory; uncertainty and secondary dimensions remain in evidence. Not a statistically adjudicated incident population.",
+  "parent_adjudications": [
+    {
+      "decision": "accept source-supported extraction with unknowns",
+      "qualifications": "Includes B013 common-input evidence-grade subfinding; conclusion a_t<=9 not refuted. Common inputs alone are not a general criterion against independent proofs.",
+      "source": {
+        "path": "$DEV/math-stuff/d2_plane_72_108/AT_LE9_AUDIT.md",
+        "lines": "35-68",
+        "sha256": "c4be3c3d4272ac32d504e8f2c962b7bdb0eb5662799613541fe95ccd290c176d"
+      },
+      "pointer": {
+        "report": "reports/PHASE-0B-JC-PARENT-ADJUDICATION.json",
+        "pointer": "/dispositions/11",
+        "sha256": "83ef1d579eb45ba0cf1ec934902678545beab0fbc5cb4c5355b1a750b3ca912e",
+        "review_date": "2026-09-29",
+        "date_kind": "retained report review date; not incident date or source publication date"
+      }
+    }
+  ],
+  "linked_cross_occurrence": null,
+  "children": [
+    {
+      "id": "JC-B013",
+      "owner_id": "JC-B012",
+      "record_kind": "source-attributed correction/group",
+      "primary_class": "WARRANT",
+      "primary_origin": "own",
+      "original_pointer": {
+        "report": "reports/PHASE-0B-JC-PARENT-ADJUDICATION.json",
+        "pointer": "/dispositions/12",
+        "sha256": "83ef1d579eb45ba0cf1ec934902678545beab0fbc5cb4c5355b1a750b3ca912e",
+        "review_date": "2026-09-29",
+        "date_kind": "retained report review date; not incident date or source publication date"
+      },
+      "sources": [
+        {
+          "path": "$DEV/math-stuff/d2_plane_72_108/AT_LE9_AUDIT.md",
+          "lines": "35-44",
+          "sha256": "c4be3c3d4272ac32d504e8f2c962b7bdb0eb5662799613541fe95ccd290c176d"
+        }
+      ],
+      "parent_adjudications": [
+        {
+          "decision": "group subfinding under B012",
+          "qualifications": "Retain as WARRANT subfinding of B012; no additional episode count.",
+          "source": {
+            "path": "$DEV/math-stuff/d2_plane_72_108/AT_LE9_AUDIT.md",
+            "lines": "35-44",
+            "sha256": "c4be3c3d4272ac32d504e8f2c962b7bdb0eb5662799613541fe95ccd290c176d"
+          },
+          "pointer": {
+            "report": "reports/PHASE-0B-JC-PARENT-ADJUDICATION.json",
+            "pointer": "/dispositions/12",
+            "sha256": "83ef1d579eb45ba0cf1ec934902678545beab0fbc5cb4c5355b1a750b3ca912e",
+            "review_date": "2026-09-29",
+            "date_kind": "retained report review date; not incident date or source publication date"
+          }
+        }
+      ],
+      "disposition": "Retain existing child premise/evidence-grade correction under named owner; no additional record or independent sample.",
+      "claimed": "Shared-input calculations were called independent evidence.",
+      "problem": "Retained audit qualifies the independent-evidence grade within B012; common inputs alone do not generally refute independence.",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "unknown_field_qualification": "Child-specific cost, wrong-claim handoff and frozen catch not established; core scoring deferred.",
+      "record_count": 0
+    }
+  ],
+  "evidence_level": "retained source-backed report; no new source read, execution, or authentication",
+  "parent_integration": {
+    "worker_report": "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "worker_report_sha256": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849",
+    "register": "incident/correction/group"
+  }
+}

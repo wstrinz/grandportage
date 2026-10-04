@@ -1,0 +1,321 @@
+{
+  "schema_version": 1,
+  "title": "Phase 0a Q3 operation-map and localization countermodels",
+  "status": "proposed_for_parent_adjudication",
+  "finding_row_count": 5,
+  "case_count": 10,
+  "rows": [
+    {
+      "finding_rows": [
+        "79.8",
+        "82.4"
+      ],
+      "mechanism": "operation-preserving map direction",
+      "cases": [
+        "GP-X358",
+        "GP-X359",
+        "GP-X360"
+      ],
+      "proposed_disposition": "one shared extracted family for both rows",
+      "source": "lean/GrandPortage/ExpressionTransport.lean:9-83",
+      "near_cases": [
+        "GP-A10-C",
+        "GP-X07"
+      ],
+      "distinction": "Ordered reach and image-closure controls do not test source EMPTY promoted through a non-surjective operation map. The pinned integer-to-Gaussian theorem supplies the same counterexample for both rows.",
+      "premises": "OperationMap preserves zero, one, add, multiply and negation; injectivity, surjectivity and ordering are not assumed.",
+      "attempted_invalid_conclusion": "Source EMPTY implies target EMPTY.",
+      "positive_controls": "Root transport forward and target EMPTY pullback are permitted."
+    },
+    {
+      "finding_rows": [
+        "85.5"
+      ],
+      "mechanism": "localized versus ambient ideal membership",
+      "cases": [
+        "GP-X361",
+        "GP-X362",
+        "GP-X363"
+      ],
+      "proposed_disposition": "distinct extracted boundary",
+      "source": "lean/GrandPortage/Localization.lean:38-97",
+      "near_cases": [
+        "GP-X17",
+        "GP-X18",
+        "GP-A23",
+        "GP-X357"
+      ],
+      "distinction": "Prior localized identities concern the declared open, A23 concerns open versus parent EMPTY, and X357 tests saturation output exactness. Here the attempted conclusion is ambient ideal membership from local membership.",
+      "premises": "SatMem I f g has a permitted power multiplier m with m*g in I.",
+      "attempted_invalid_conclusion": "SatMem I f g implies I g without a separate ambient membership proof.",
+      "positive_controls": "The multiplier certifies local membership; a direct cofactor certifies ambient membership for 6."
+    },
+    {
+      "finding_rows": [
+        "85.7a"
+      ],
+      "mechanism": "map orientation in predicate rewrite",
+      "cases": [
+        "GP-X364",
+        "GP-X365"
+      ],
+      "proposed_disposition": "distinct extracted boundary",
+      "source": "lean/GrandPortage/MappedEquivalence.lean:45-133",
+      "near_cases": [
+        "GP-A11b",
+        "GP-X20"
+      ],
+      "distinction": "Identity maps do not expose the orientation error. Translation 0 to 1 makes backward substitution P(y-1) true and wrong forward substitution P(y+1) false.",
+      "premises": "A mapped equivalence has ambient left and right inverses and maps solutions both ways.",
+      "attempted_invalid_conclusion": "A source predicate may be rewritten in target coordinates by the forward point map.",
+      "positive_controls": "The backward predicate rewrite preserves the source predicate at the transported point."
+    },
+    {
+      "finding_rows": [
+        "85.7b"
+      ],
+      "mechanism": "mapped equivalence versus literal containment",
+      "cases": [
+        "GP-X366",
+        "GP-X367"
+      ],
+      "proposed_disposition": "distinct extracted boundary",
+      "source": "lean/GrandPortage/MappedEquivalence.lean:17-169",
+      "near_cases": [
+        "GP-A12",
+        "GP-X20"
+      ],
+      "distinction": "A12 concerns an attempted ring-isomorphism inference, while X20 is an identity map. The two-point swap satisfies mapped equivalence but neither literal subset relation.",
+      "premises": "Forward and backward maps are ambient inverses and carry solutions in both directions.",
+      "attempted_invalid_conclusion": "The source solution set is literally a subset of the target solution set.",
+      "positive_controls": "The identity map has separately verified literal inclusion."
+    }
+  ],
+  "case_observations": [
+    {
+      "id": "GP-X358",
+      "case_sha256": "b705ae514dc03831e30a0aadb60d2180b912167acf7b6d9970adfd1f10afe469",
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "reference_operation_map",
+      "route": "q3_map",
+      "reason": "Integer root 1 maps to Gaussian root (1,0).",
+      "reference_evidence": {
+        "source_value": 0,
+        "target_value": [
+          0,
+          0
+        ]
+      },
+      "native_lean_verdict": null,
+      "external_execution": false
+    },
+    {
+      "id": "GP-X359",
+      "case_sha256": "96878a4a47dcb4f107e7e6e0a26633bc004d7e27090d567ecfab948c34b5404e",
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "reference_operation_map",
+      "route": "q3_map",
+      "reason": "Target EMPTY for constant 1 pulls back to source EMPTY.",
+      "reference_evidence": {
+        "target_constant": [
+          1,
+          0
+        ],
+        "source_constant": 1
+      },
+      "native_lean_verdict": null,
+      "external_execution": false
+    },
+    {
+      "id": "GP-X360",
+      "case_sha256": "9a71ff1846a187871f85de6bb3d55ec10705aa62448ca9f3cb12c7f3c233cfd4",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "layer": "reference_operation_map",
+      "route": "q3_map",
+      "reason": "Source EMPTY does not travel forward: i*i+1=0 in Zi.",
+      "reference_evidence": {
+        "source_empty_argument": "n*n+1 >= 1 for every integer n",
+        "gaussian_square": [
+          -1,
+          0
+        ],
+        "target_value": [
+          0,
+          0
+        ],
+        "map_surjective": false
+      },
+      "native_lean_verdict": null,
+      "external_execution": false
+    },
+    {
+      "id": "GP-X361",
+      "case_sha256": "cfe0327155c48abee158711d328b7d52af6163534f003c20d0bc7c7f96f3663d",
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "reference_localization_ambient",
+      "route": "q3_map",
+      "reason": "Multiplier 2 sends 3 to 6 in the source ideal.",
+      "reference_evidence": {
+        "multiplier_product": 6,
+        "localized_member": true,
+        "ambient_member": false
+      },
+      "native_lean_verdict": null,
+      "external_execution": false
+    },
+    {
+      "id": "GP-X362",
+      "case_sha256": "9e4cb8ac3eb6d013562a4862dcd2ffe76f833cea27cf6db9b7ea13802f1c5986",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "layer": "reference_localization_ambient",
+      "route": "q3_map",
+      "reason": "3 is locally zero at 2 but 3 is not in ambient (6).",
+      "reference_evidence": {
+        "localized_member": true,
+        "ambient_member": false
+      },
+      "native_lean_verdict": null,
+      "external_execution": false
+    },
+    {
+      "id": "GP-X363",
+      "case_sha256": "0027c5a04bd1f1a44ce0bc3dd125737e38e1f2c4502689b4b35cbc2960b813d4",
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "reference_localization_ambient",
+      "route": "q3_map",
+      "reason": "Separate source-ideal witness 6=6*1 proves ambient membership.",
+      "reference_evidence": {
+        "ambient_member": true,
+        "source_ideal_cofactor": 1
+      },
+      "native_lean_verdict": null,
+      "external_execution": false
+    },
+    {
+      "id": "GP-X364",
+      "case_sha256": "22a5b83e510e3ec7832e44486db0f0d8cdd1e931e9a6c53742e19badf801a1f7",
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "reference_map_orientation",
+      "route": "q3_map",
+      "reason": "P(backward(1)) is P(0), matching the source predicate.",
+      "reference_evidence": {
+        "source_predicate": true,
+        "rewritten_predicate": true
+      },
+      "native_lean_verdict": null,
+      "external_execution": false
+    },
+    {
+      "id": "GP-X365",
+      "case_sha256": "124df905aa4d2ceef10329c56bd5a51daf1263f825be105dfcf3c3e1653b3153",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "layer": "reference_map_orientation",
+      "route": "q3_map",
+      "reason": "P(forward(1)) is P(2), so forward-oriented substitution loses P(0).",
+      "reference_evidence": {
+        "source_predicate": true,
+        "wrong_rewritten_predicate": false
+      },
+      "native_lean_verdict": null,
+      "external_execution": false
+    },
+    {
+      "id": "GP-X366",
+      "case_sha256": "1d0b3fea6b528d59d99c56282ac7863199ccdb88d9c662e19d3a11846f756072",
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "reference_equivalence_containment",
+      "route": "q3_map",
+      "reason": "Identity mapped equivalence also has literal inclusion.",
+      "reference_evidence": {
+        "mapped_equivalence": true,
+        "literal_containment": true
+      },
+      "native_lean_verdict": null,
+      "external_execution": false
+    },
+    {
+      "id": "GP-X367",
+      "case_sha256": "d1d0b3d9d659b2076f57f291d9a1db518b62a3a52cd0b3318c49e87d100d5ebb",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "layer": "reference_equivalence_containment",
+      "route": "q3_map",
+      "reason": "Swap gives mapped equivalence but neither literal containment.",
+      "reference_evidence": {
+        "mapped_equivalence": true,
+        "literal_containment": false,
+        "reverse_literal_containment": false
+      },
+      "native_lean_verdict": null,
+      "external_execution": false
+    }
+  ],
+  "replay": {
+    "baseline_path": "reports/oracle-runs/20260929T012356934782Z.json",
+    "new_path": "reports/oracle-runs/20260929T013956101499Z.json",
+    "baseline_case_count": 398,
+    "new_case_count": 408,
+    "new_summary": {
+      "AGREES": 391,
+      "DIAGNOSTIC_OBSERVED": 1,
+      "KNOWN_DIFFERENCE": 14,
+      "PENDING": 1,
+      "UNSUPPORTED": 1
+    },
+    "all_new_agree": true
+  },
+  "preservation": {
+    "prior_case_count": 398,
+    "fields_compared": [
+      "case_sha256",
+      "expected",
+      "observed_verdict",
+      "status",
+      "layer",
+      "route"
+    ],
+    "changed_prior_records": []
+  },
+  "limits": [
+    "Reference arithmetic and finite predicate checks only. No Lean recompilation or native GP v0.37 operation-map verifier was run.",
+    "The operation map theorem is source-grounded; the reference probe checks concrete sample arithmetic, not universal operation-map laws.",
+    "MappedEquivalence has global inverse laws stronger than runtime inverse identities modulo ideals. No runtime ring-isomorphism checker admission is inferred.",
+    "The Q3 batch is a bounded incident extraction for parent review, not a general formal soundness certification or a new profile policy."
+  ],
+  "sha256": {
+    "q3_probe": "a2043c4ee68073daf423c5c2b1ad047284fa03dd9927049c7f6b7ef324e01dda",
+    "routes": "14ef9eac55570e9bafb1246e77609dc67b388043eebd7259b07bd307a8d027d7",
+    "runner": "e2da449bb1f9bf6947c854d6a010fd43ca247de5991941d8e1cc65e25d699b76",
+    "baseline_run": "b24859836e54daffe5095c4203b4266875ef2fa1bd571de0db723b971e746b05",
+    "new_run": "28c4fa3a2c6389cd0ca9322a39cc2980f3d08509e94110087ea833d9228bb12c",
+    "GP-X358": "b705ae514dc03831e30a0aadb60d2180b912167acf7b6d9970adfd1f10afe469",
+    "GP-X359": "96878a4a47dcb4f107e7e6e0a26633bc004d7e27090d567ecfab948c34b5404e",
+    "GP-X360": "9a71ff1846a187871f85de6bb3d55ec10705aa62448ca9f3cb12c7f3c233cfd4",
+    "GP-X361": "cfe0327155c48abee158711d328b7d52af6163534f003c20d0bc7c7f96f3663d",
+    "GP-X362": "9e4cb8ac3eb6d013562a4862dcd2ffe76f833cea27cf6db9b7ea13802f1c5986",
+    "GP-X363": "0027c5a04bd1f1a44ce0bc3dd125737e38e1f2c4502689b4b35cbc2960b813d4",
+    "GP-X364": "22a5b83e510e3ec7832e44486db0f0d8cdd1e931e9a6c53742e19badf801a1f7",
+    "GP-X365": "124df905aa4d2ceef10329c56bd5a51daf1263f825be105dfcf3c3e1653b3153",
+    "GP-X366": "1d0b3fea6b528d59d99c56282ac7863199ccdb88d9c662e19d3a11846f756072",
+    "GP-X367": "d1d0b3d9d659b2076f57f291d9a1db518b62a3a52cd0b3318c49e87d100d5ebb"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "GP-X288",
+  "seed": null,
+  "title": "False product identity cannot construct branches",
+  "situation": "Exact product equality and branch construction are distinct operations. The construction request uses a matching parent generator and supplies no ideal-membership witness.",
+  "inputs": {
+    "variables": [
+      "x",
+      "y",
+      "z"
+    ],
+    "characteristic": 0,
+    "declared_units": [
+      "z"
+    ],
+    "identity": {
+      "equation": "x*y+1",
+      "scalar": "1",
+      "left": "x",
+      "right": "y"
+    },
+    "parent_equations": [
+      "x*y+1"
+    ],
+    "open_guards": [
+      "z"
+    ],
+    "question": "construct_from_matching_generator"
+  },
+  "attempted_conclusion": "Construct proposed branches under the normalized matching-generator contract, preserving open guards; do not grant coverage authority.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "False product identity cannot construct branches"
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/operations.py",
+      "line": 473,
+      "anchor": "def product_split("
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "id": "GP-X256",
+  "seed": null,
+  "title": "Altered section proof cannot retain its previous input binding",
+  "situation": "A section receipt must bind the current inputs and prove that every substituted source equation belongs to the target ideal. Producer identity cannot replace exact arithmetic.",
+  "inputs": {
+    "source": {
+      "field": "Q",
+      "variables": [
+        "y",
+        "x"
+      ],
+      "equations": [
+        "y*x-1",
+        "y^2-x"
+      ]
+    },
+    "target": {
+      "field": "Q",
+      "variables": [
+        "x"
+      ],
+      "equations": [
+        "x^3-1"
+      ]
+    },
+    "eliminated": [
+      "y"
+    ],
+    "section": {
+      "y": "x^2"
+    },
+    "proof_rows": [
+      {
+        "equation": "y*x-1",
+        "substitution_result": "x^3-1",
+        "cofactors": [
+          "0"
+        ]
+      },
+      {
+        "equation": "y^2-x",
+        "substitution_result": "x^4-x",
+        "cofactors": [
+          "x"
+        ]
+      }
+    ],
+    "previously_bound_rows": [
+      {
+        "equation": "y*x-1",
+        "substitution_result": "x^3-1",
+        "cofactors": [
+          "1"
+        ]
+      },
+      {
+        "equation": "y^2-x",
+        "substitution_result": "x^4-x",
+        "cofactors": [
+          "x"
+        ]
+      }
+    ]
+  },
+  "attempted_conclusion": "Admit the supplied section receipt as checked evidence for the stated source-to-target section.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Altered section proof cannot retain its previous input binding"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/store.py",
+      "line": 707,
+      "anchor": "    def _apply_verdict(self, ev, where):"
+    }
+  ]
+}

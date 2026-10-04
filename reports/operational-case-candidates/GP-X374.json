@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "GP-X374",
+  "seed": null,
+  "title": "Operational 55.3: health request commit boundary",
+  "situation": "Mocked CAS health probe returns unexpected parsed basis [1] rather than the expected two-generator basis.",
+  "inputs": {
+    "incident_row": "55.3",
+    "vector": {
+      "probe": "mocked CAS health",
+      "parsed_basis": [
+        "1"
+      ],
+      "expected_basis_size": 2,
+      "consumer": "cmd_doctor"
+    },
+    "retained_evidence_refs": [
+      "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/2",
+      "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/3"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Doctor reports healthy on the text-only health response.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Unexpected arithmetic should produce failed health and nonzero doctor status."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/mcp.py",
+      "line": 823,
+      "anchor": "def h_cas_health(args, root):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+ "schema": "gp-phase2-batch-integration/v1",
+ "date": "2026-10-01",
+ "parent_base_commit": "6bbe637a6250cc9309b410a0847777751c4c4a00",
+ "author": "GPC directly (single-chat operation)",
+ "previous_integration": "PHASE-2-SECTION-INTEGRATION.json",
+ "review": {
+  "semantics": "Emptiness/nonemptiness fact at a named context; only identity transport or a separately supplied direct target warrant supports the target.",
+  "countermodels": [
+   "context_change_not_transported",
+   "debt_record_not_transport"
+  ],
+  "scope": "No field arithmetic, reduction mod p or point-universe theory certified."
+ },
+ "verdicts": {
+  "GP-A01": "REFUSE",
+  "GP-A08a": "REFUSE",
+  "GP-X283": "REFUSE",
+  "GP-X14": "REFUSE"
+ },
+ "controls": {
+  "A01_same_context_use": "ACCEPT",
+  "A01_same_context_withheld_source": "REFUSE",
+  "A08a_direct_target_certificate": "ACCEPT",
+  "A08a_reverse_characteristic": "REFUSE",
+  "X283_record_step_only": "ACCEPT",
+  "X283_reverse_universe": "REFUSE",
+  "X14_anchored_point_universe": "ACCEPT",
+  "X14_mismatched_point_universe": "REFUSE",
+  "X283_typed_relation_unsupported": "MALFORMED",
+  "A01_unknown_warrant": "MALFORMED",
+  "X14_extra_input_field": "MALFORMED"
+ },
+ "counts": {
+  "previous_corpus_passes": 59,
+  "new_corpus_passes": 4,
+  "corpus_passes": 63,
+  "kernel_tagged_total": 79,
+  "remaining_kernel_cases": 16,
+  "new_corpus_cases": 0,
+  "fresh_corpus_folds": 16,
+  "separate_controls": 11,
+  "new_host_tests": 12,
+  "new_host_subtests": 40,
+  "fresh_prior_regression_tests": 229,
+  "fresh_prior_regression_subtests": 678,
+  "unchanged_retained_tests": 72,
+  "unchanged_retained_subtests": 179,
+  "total_current_test_coverage": 313,
+  "total_current_subtest_coverage": 897,
+  "new_audited_proof_declarations": 10
+ },
+ "validation": {
+  "new_suite": "12 passed, 40 subtests passed in 188.42s",
+  "prior_suite": "229 passed, 678 subtests passed in 164.21s (0:02:44)",
+  "retained_suites": "Earlier phase-2 suites are byte-identical to the parent commit; not re-executed.",
+  "build": {
+   "harness_sha256": "d959cdbee2da97cd0a99a7fe91adae1637540c6d165ed2d409c7b8a45cc8abe2",
+   "olean_sha256": "75181e8bf282c9644fb608bede664d24af16b3627f8eb9e04118bb3bbf8f85e3",
+   "axioms": [
+    "Quot.sound",
+    "propext"
+   ],
+   "compile_exit_code": 0,
+   "checker_exit_code": 0,
+   "kernel_checked": true,
+   "axiom_declarations": [
+    "source_given",
+    "direct_given",
+    "identity_transport_sound",
+    "debt_is_only_a_record",
+    "actual_base_sound",
+    "actual_validator_sound",
+    "actual_fold_held_sound",
+    "held_target_fact",
+    "context_change_not_transported",
+    "debt_record_not_transport"
+   ]
+  },
+  "legacy_preservation": {
+   "case_count": 459,
+   "summary": {
+    "AGREES": 403,
+    "DIAGNOSTIC_OBSERVED": 4,
+    "KNOWN_DIFFERENCE": 14,
+    "UNSUPPORTED": 9,
+    "RETAINED_DIAGNOSTIC": 29
+   },
+   "protected_count": 67,
+   "receipt_sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f"
+  }
+ },
+ "source_hashes": {
+  "STATUS.md": "fbea97a4837367a241d121c30f2dda5b4b86745d03ab7297f6442fc9c829ee52",
+  "TCB.md": "c381b35fcfa489fa90adbe5f70251480780dbf4d8a662d33a352ceafacfb7eb0",
+  "tools/run-phase2-slice.py": "e9aa50335c1593e6fb4fd902a171761f39e7b6f469ae88ed877349be4b8e44b4",
+  "reports/PHASE-2-SLICE.json": "81d2b1852f9f13a9ea844b52775d9c94da614956daa2946aaf3f3c889517dcae",
+  "reports/PHASE-2-SLICE.md": "5c39ccafea71499a7b8a1d5f3163c0190a3e62d2bd34e56b7007cb8c03f52605",
+  "reports/PHASE-2-CONTEXT-REACH.json": "acc7472a22ecf6cd7707828b2f474ac8199e59deab220817880a63868d07c947"
+ },
+ "remaining_queue": {
+  "supplied-premise-authority": [
+   "GP-A14",
+   "GP-X04",
+   "GP-X09",
+   "GP-X229",
+   "GP-X399",
+   "GP-X402",
+   "GP-X403",
+   "GP-X65"
+  ],
+  "native-event-lifecycle": [
+   "GP-X149",
+   "GP-X150",
+   "GP-X151",
+   "GP-X156",
+   "GP-X157",
+   "GP-X160",
+   "GP-X162",
+   "GP-X163"
+  ]
+ },
+ "g2_pass": false,
+ "public_push": false
+}

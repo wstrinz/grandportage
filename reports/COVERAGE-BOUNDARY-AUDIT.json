@@ -1,0 +1,77 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "e9d2ef34b5d52f81aee487d7ef8df662ad0b116ad2e699209d5e5e6e86adef45",
+  "adapter_sha256": "46da80ceaf93122527795bd2a2ed8a45b0675ed3d856998f4ae351ec8c3dbbde",
+  "case_sha256": "7c5e562d49d59f7c5caca6c9dab17fd71cbe19b4a935a799cfea904e2495bacb",
+  "scope": "Diagnostic deletion controls, not approval to remove coverage obligations or proof of model completeness.",
+  "records": [
+    {
+      "asserted_dimensions": [
+        "order"
+      ],
+      "observation": {
+        "observed_verdict": "REFUSE",
+        "reason": "Only recorded-index coverage on asserted axes; no proof that represented constraints are sufficient.",
+        "gaps": {
+          "order": [
+            "-4",
+            "0",
+            "1",
+            "2"
+          ]
+        },
+        "findings": [
+          {
+            "rule": "COVERAGE",
+            "id": "COVERAGE:context:order",
+            "severity": "UNSOUND_PREMISE",
+            "subject": "context",
+            "detail": "model context asserts coverage on axis 'order' but declares nothing at -4, 0, 1, 2.\n  declared: -1, -2, -3, -5\n  touches there: coefficient family\n  reads there   : required nonnegative slices\n  Where nothing is declared the relaxation is UNBOUNDED: the model constrains literally nothing at those indices.",
+            "discharge": "Declare a component on axis order at -4, 0, 1, 2, or state positively that the model imposes nothing there and accept that conclusions read at those indices are unbounded.  Look first at what the model already imposes and reads there -- the missing condition is usually visible in the divisor of a gauge the model uses but does not constrain.",
+            "fingerprint": "d549bebca99c9914",
+            "lifecycle": "CURRENT"
+          }
+        ],
+        "external_execution": false
+      }
+    },
+    {
+      "asserted_dimensions": [
+        "place"
+      ],
+      "observation": {
+        "observed_verdict": "REFUSE",
+        "reason": "Only recorded-index coverage on asserted axes; no proof that represented constraints are sufficient.",
+        "gaps": {
+          "place": [
+            "t"
+          ]
+        },
+        "findings": [
+          {
+            "rule": "COVERAGE",
+            "id": "COVERAGE:context:place",
+            "severity": "UNSOUND_PREMISE",
+            "subject": "context",
+            "detail": "model context asserts coverage on axis 'place' but declares nothing at t.\n  declared: y, infinity\n  touches there: coordinate change\n  reads there   : (none)\n  Where nothing is declared the relaxation is UNBOUNDED: the model constrains literally nothing at those indices.",
+            "discharge": "Declare a component on axis place at t, or state positively that the model imposes nothing there and accept that conclusions read at those indices are unbounded.  Look first at what the model already imposes and reads there -- the missing condition is usually visible in the divisor of a gauge the model uses but does not constrain.",
+            "fingerprint": "81fbbb1ae96d6de3",
+            "lifecycle": "CURRENT"
+          }
+        ],
+        "external_execution": false
+      }
+    },
+    {
+      "asserted_dimensions": [],
+      "observation": {
+        "observed_verdict": "ACCEPT",
+        "reason": "Only recorded-index coverage on asserted axes; no proof that represented constraints are sufficient.",
+        "gaps": {},
+        "findings": [],
+        "external_execution": false
+      }
+    }
+  ],
+  "limitation": "Only listed dimensions are checked. Declaring an index does not encode or verify strength of its equations. No finding is not evidence of adequate modelling."
+}

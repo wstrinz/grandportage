@@ -1,0 +1,500 @@
+{
+  "schema_version": 1,
+  "phase": "0c",
+  "worker": "mathlib-binding",
+  "status": "bounded-spike-complete",
+  "date": "2026-09-30",
+  "workspace": "$WORKSPACE",
+  "production_adoption": false,
+  "shared_gate_completion_claimed": false,
+  "budget": {
+    "reservation_minutes": 90,
+    "active_minutes_charged": 50,
+    "first_recorded_start_utc": "2026-09-30T11:23:14Z",
+    "unattended_wait_minutes": 0,
+    "conservative_delivery_allowance_end_utc": "2026-09-30T12:13:14Z",
+    "final_ring_baseline_utc": "2026-09-30T11:48:28Z",
+    "unused_reservation_minutes": 40,
+    "ledger_edited": false
+  },
+  "toolchain": {
+    "lean": "4.32.1",
+    "commit": "f054605aea4b840552cca2e725580bffd1e1b704",
+    "existing_C_read_only": true,
+    "lake": "5.0.0-src+f054605"
+  },
+  "mathlib": {
+    "revision": "520045ab14e26149ee970e2e617ca04b09bde5d6",
+    "primary_license_toolchain_lake_manifest_inspected": true,
+    "primary_toolchain": "leanprover/lean4:v4.32.1",
+    "license": "Apache-2.0"
+  },
+  "obligations": [
+    {
+      "generators": [
+        "2*x",
+        "1-2*x"
+      ],
+      "case": "GP-A08b",
+      "conclusion": "empty common-zero system",
+      "disposition": "ACCEPT",
+      "manual_binding": true,
+      "cofactors": [
+        "1",
+        "1"
+      ],
+      "assumptions": [
+        "Ring R",
+        "Nontrivial R for emptiness"
+      ],
+      "identity": "1=2*x+(1-2*x)",
+      "domain": "ZMod 3"
+    },
+    {
+      "formula": "d2=h2-(3/8)*h1^2",
+      "case": "GP-A05",
+      "disposition": "REFUSE",
+      "manual_binding": true,
+      "assumptions": [
+        "Ring R",
+        "Nontrivial R",
+        "CharP R 2"
+      ],
+      "conclusions": [
+        "8=0",
+        "not IsUnit 8",
+        "no c with 8*c=3",
+        "no unital Q ring hom",
+        "totalized division is zero"
+      ],
+      "qualification": "Unqualified rational coefficient reduction only; not all evaluations or integral rewrites",
+      "domain": "ZMod 2"
+    }
+  ],
+  "axiom_audit": {
+    "native_axioms": false,
+    "propext_only": [
+      "integral_unit_identity",
+      "integral_system_empty",
+      "denominator_eight_zero",
+      "denominator_eight_not_unit",
+      "gp_a05_no_coefficient"
+    ],
+    "propext_choice_quot": [
+      "gp_a08b_F3",
+      "gp_a05_F2",
+      "gp_a05_no_rat_ring_hom",
+      "totalized_division_is_zero",
+      "char_three_coefficient_exists"
+    ],
+    "final_reports": 11,
+    "sorryAx": false,
+    "propext_quot": [
+      "trivial_ring_has_point"
+    ],
+    "explicit_user_axioms": false
+  },
+  "setup": {
+    "source_cold_measured": false,
+    "cache_executable_jobs": 26,
+    "precompiled_files": 1171,
+    "cache_field_fetch_seconds": 26.2474184,
+    "lake_update_seconds": 86.5504597,
+    "cache_fetch_seconds": 142.8273896
+  },
+  "measurements": [
+    {
+      "label": "clean-package-build",
+      "command": "lake build Binding",
+      "started_utc": "2026-09-30T11:47:49.7520951Z",
+      "ended_utc": "2026-09-30T11:48:28.9341864Z",
+      "elapsed_seconds": 39.1768782,
+      "exit_code": 0
+    },
+    {
+      "label": "warm-noop-build",
+      "command": "lake build Binding",
+      "started_utc": "2026-09-30T11:48:28.9844459Z",
+      "ended_utc": "2026-09-30T11:48:43.6042821Z",
+      "elapsed_seconds": 14.6170463,
+      "exit_code": 0
+    },
+    {
+      "label": "warm-elaboration-1",
+      "command": "lake env lean Binding.lean",
+      "started_utc": "2026-09-30T11:48:43.6343188Z",
+      "ended_utc": "2026-09-30T11:49:22.5468519Z",
+      "elapsed_seconds": 38.9124195,
+      "exit_code": 0
+    },
+    {
+      "label": "warm-elaboration-2",
+      "command": "lake env lean Binding.lean",
+      "started_utc": "2026-09-30T11:49:22.5497741Z",
+      "ended_utc": "2026-09-30T11:50:01.3552913Z",
+      "elapsed_seconds": 38.8053758,
+      "exit_code": 0
+    },
+    {
+      "label": "warm-elaboration-3",
+      "command": "lake env lean Binding.lean",
+      "started_utc": "2026-09-30T11:50:01.3580966Z",
+      "ended_utc": "2026-09-30T11:51:51.6237413Z",
+      "elapsed_seconds": 110.2655091,
+      "exit_code": 0
+    }
+  ],
+  "case_measurements": [
+    {
+      "label": "case-A08-elaboration",
+      "command": "lake env lean A08Timing.lean -o .lake/build/lib/lean/A08Timing.olean",
+      "started_utc": "2026-09-30T11:54:43.7665348Z",
+      "elapsed_seconds": 39.2723318,
+      "exit_code": 0
+    },
+    {
+      "label": "case-A08-kernel-replay",
+      "command": "lake env leanchecker -v A08Timing",
+      "started_utc": "2026-09-30T11:55:23.043428Z",
+      "elapsed_seconds": 93.0597038,
+      "exit_code": 0
+    },
+    {
+      "label": "case-A05-elaboration",
+      "command": "lake env lean A05Timing.lean -o .lake/build/lib/lean/A05Timing.olean",
+      "started_utc": "2026-09-30T11:56:56.1087742Z",
+      "elapsed_seconds": 49.7084397,
+      "exit_code": 0
+    },
+    {
+      "label": "case-A05-kernel-replay",
+      "command": "lake env leanchecker -v A05Timing",
+      "started_utc": "2026-09-30T11:57:45.8173845Z",
+      "elapsed_seconds": 148.5809114,
+      "exit_code": 0
+    }
+  ],
+  "kernel_replay": {
+    "command": "lake env leanchecker -v Binding",
+    "exit_code": 0,
+    "elapsed_seconds": 118.7292381,
+    "recheck_scope": "new module declarations replayed into imported environment, not fresh replay of imported Mathlib"
+  },
+  "validation": {
+    "status": "passed",
+    "corpus_hashes_unchanged": true,
+    "dependency_heads_match": true,
+    "final_axiom_reports": 11,
+    "sorry_or_native_axiom": false,
+    "final_measurement_exit_codes": "all zero",
+    "shared_corpus_git_diff": []
+  },
+  "provenance": {
+    "dependencies": [
+      {
+        "name": "mathlib",
+        "url": "https://github.com/leanprover-community/mathlib4.git",
+        "locked_revision": "520045ab14e26149ee970e2e617ca04b09bde5d6",
+        "actual_head": "520045ab14e26149ee970e2e617ca04b09bde5d6",
+        "matches": true
+      },
+      {
+        "name": "plausible",
+        "url": "https://github.com/leanprover-community/plausible",
+        "locked_revision": "e12c1910fe855cbfc38803cd4e55543906d5fa62",
+        "actual_head": "e12c1910fe855cbfc38803cd4e55543906d5fa62",
+        "matches": true
+      },
+      {
+        "name": "LeanSearchClient",
+        "url": "https://github.com/leanprover-community/LeanSearchClient",
+        "locked_revision": "c5d5b8fe6e5158def25cd28eb94e4141ad97c843",
+        "actual_head": "c5d5b8fe6e5158def25cd28eb94e4141ad97c843",
+        "matches": true
+      },
+      {
+        "name": "importGraph",
+        "url": "https://github.com/leanprover-community/import-graph",
+        "locked_revision": "7e9612bf0b9ee66db3cb5b9988a35afc706f5a12",
+        "actual_head": "7e9612bf0b9ee66db3cb5b9988a35afc706f5a12",
+        "matches": true
+      },
+      {
+        "name": "proofwidgets",
+        "url": "https://github.com/leanprover-community/ProofWidgets4",
+        "locked_revision": "6e311e2a844da9b2cc3971187df2fe0066947b93",
+        "actual_head": "6e311e2a844da9b2cc3971187df2fe0066947b93",
+        "matches": true
+      },
+      {
+        "name": "aesop",
+        "url": "https://github.com/leanprover-community/aesop",
+        "locked_revision": "a7dbf0c63b694e47f425f3dcddbc0e178bb432d3",
+        "actual_head": "a7dbf0c63b694e47f425f3dcddbc0e178bb432d3",
+        "matches": true
+      },
+      {
+        "name": "Qq",
+        "url": "https://github.com/leanprover-community/quote4",
+        "locked_revision": "38d591e778f100aec9762bb582f9c7f55f50e9dc",
+        "actual_head": "38d591e778f100aec9762bb582f9c7f55f50e9dc",
+        "matches": true
+      },
+      {
+        "name": "batteries",
+        "url": "https://github.com/leanprover-community/batteries",
+        "locked_revision": "023ce7d62a0531e22a5331e20b587817a80d49ff",
+        "actual_head": "023ce7d62a0531e22a5331e20b587817a80d49ff",
+        "matches": true
+      },
+      {
+        "name": "Cli",
+        "url": "https://github.com/leanprover/lean4-cli",
+        "locked_revision": "88679d088c9720c27ebdf2ba4dafe17341747f94",
+        "actual_head": "88679d088c9720c27ebdf2ba4dafe17341747f94",
+        "matches": true
+      }
+    ],
+    "files": [
+      {
+        "path": "README.md",
+        "sha256": "21433c36f3a807d73e1a72860555faf3540e5159ef2afc6c5e22f91999e322fa"
+      },
+      {
+        "path": "Binding.lean",
+        "sha256": "e7e274628ed2580b904cd9ca3ac54eedf03a3957b9c7b0f5be757951500167d5"
+      },
+      {
+        "path": "A08Timing.lean",
+        "sha256": "2451b568a59a827b948861cda1e09590383645cfb17317851adceac5d1bc431b"
+      },
+      {
+        "path": "A05Timing.lean",
+        "sha256": "614f1ca608470a4086e6f435a7b28fefef0c11d8d66ae114628468bf35bdde50"
+      },
+      {
+        "path": "lakefile.toml",
+        "sha256": "7e8274ca23d01d5ed35b5325b874c4862905d6916bcb75f60af02981160598b4"
+      },
+      {
+        "path": "lean-toolchain",
+        "sha256": "97402b00d0468725baf4a753bf630ad69d0c588df2a7f5a849429b7926dfe000"
+      },
+      {
+        "path": "lake-manifest.json",
+        "sha256": "a130c116f6c6e9111bb2a3d4befe73896fce3e4d3debd5ee512e9ec028462cf8"
+      },
+      {
+        "path": "environment.ps1",
+        "sha256": "265bc0d1a1eec2d2c87ca875c64564f193575fc47f4d95d3831e00149afc8fc5"
+      },
+      {
+        "path": "Measure.ps1",
+        "sha256": "0b3d26f67a645f49b8a451f6fa30389a1038a0dd3763f80837a3d46ffded9ccf"
+      },
+      {
+        "path": "MeasureCases.ps1",
+        "sha256": "47daf6fb7f20869a711147d7e114533102d048feaeaad1f5ee9cd091f23209e1"
+      },
+      {
+        "path": "RecordProvenance.ps1",
+        "sha256": "0a457d8922ea5220cd01a39b645b3040a427696b4dd58985844262d09a84003a"
+      },
+      {
+        "path": "Validate.ps1",
+        "sha256": "c3903ac52205108b9fcf693a496ca56dddd6c3b1b48eaf2ba7ccbb641b1f73a7"
+      },
+      {
+        "path": ".lake/packages/mathlib/LICENSE",
+        "sha256": "e03ba41d7fab20700769fe4118bab50d800cb74f990353a05d2f5fff1c228363"
+      },
+      {
+        "path": ".lake/packages/mathlib/lean-toolchain",
+        "sha256": "97402b00d0468725baf4a753bf630ad69d0c588df2a7f5a849429b7926dfe000"
+      },
+      {
+        "path": ".lake/packages/mathlib/lake-manifest.json",
+        "sha256": "d1954b5db1c9323fd8d1980290308c6fd2d48083295d4e0f950dd23727147ea2"
+      },
+      {
+        "path": ".lake/packages/mathlib/Mathlib/Algebra/Ring/Defs.lean",
+        "sha256": "c8d9cd6549fdad5e523f4058464444ccc5d1f9bbb6fe765ff6e28c065122d169"
+      },
+      {
+        "path": ".lake/packages/mathlib/Mathlib/Logic/Nontrivial/Defs.lean",
+        "sha256": "2b19063e181d1f0e379ae641e4cf67a16841c7ebe39ad6d86b2a066047bb1af9"
+      },
+      {
+        "path": ".lake/packages/mathlib/Mathlib/Algebra/CharP/Defs.lean",
+        "sha256": "b86a42c54b9a084b87a4cfec946d7315f757cf7451eed311946360363786caa4"
+      },
+      {
+        "path": ".lake/packages/mathlib/Mathlib/Data/ZMod/Defs.lean",
+        "sha256": "f6b554d558cc76786a8e702dfad91dd065cb4c996b4f46f1e1057f4775d6eea8"
+      },
+      {
+        "path": ".lake/packages/mathlib/Mathlib/Algebra/Field/ZMod.lean",
+        "sha256": "914009b69014a30a109fe7e443b370abbad60ce9c520b3f7f713379c8b383557"
+      },
+      {
+        "path": ".lake/build/lib/lean/Binding.olean",
+        "sha256": "744c48c69680012896db1d2d705946dab621c40c78aaca7b50cb2976d0cd81a3"
+      },
+      {
+        "path": ".lake/build/lib/lean/A08Timing.olean",
+        "sha256": "dbf100186aca872b79e8d908d8ef65604da8c2c8fa0a5444ac8bffc73a702289"
+      },
+      {
+        "path": ".lake/build/lib/lean/A05Timing.olean",
+        "sha256": "c3d9813f61b6d6276aae8d9e848821331e15cc2ae87223cd3e2d2c0db95a0522"
+      },
+      {
+        "path": "$ELAN_HOME/toolchains/leanprover--lean4---v4.32.1/bin/lean.exe",
+        "sha256": "c3f02a2b739078d1237af9feefd27ec85b943b56870234b42bc0111d6699d54d"
+      },
+      {
+        "path": "$ELAN_HOME/toolchains/leanprover--lean4---v4.32.1/bin/lake.exe",
+        "sha256": "9274b0e4370ef69517f5ad70e2997f6190996d3a1174b295beec8e77b82bbb3c"
+      },
+      {
+        "path": "$ELAN_HOME/toolchains/leanprover--lean4---v4.32.1/bin/leanchecker.exe",
+        "sha256": "c0d4c83407947c26023f10e611e45eda1edbec358140e4217f1edda9aef35265"
+      },
+      {
+        "path": "$ELAN_HOME/toolchains/leanprover--lean4---v4.32.1/src/lean/LeanChecker.lean",
+        "sha256": "eb5dee411837629f09c5c18d63cc833d30335a46048bc586642742e90aa65d5f"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/cache-field-get.log",
+        "sha256": "1d14ffd8ecdd08a43df668024c58385639f0a128fb69433d1ad006d4a0eee93e"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/cache-field-timing.json",
+        "sha256": "7e00f4079b0061aa69e3a0f6b13673cd00184650c0d0f8cd009dc650121aeef1"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/cache-get-timing.json",
+        "sha256": "b45ef08283d4423be7f87771289cb483f0782e82c091a16822990859d5138eac"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/cache-get.log",
+        "sha256": "a810d9979123ff2946995945e8dc64db8fd1082de80668f2f22693f4985213fd"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/case-A05-elaboration.log",
+        "sha256": "bc8148459df59b24b0406268a1efefec15cc3c4a847cbf87e8cd8246d4fb97d5"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/case-A05-kernel.log",
+        "sha256": "63d03c8395096ce24591a8bcc2c017ad4bff30286966a01231b7a1a87762eea8"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/case-A08-elaboration.log",
+        "sha256": "6a1a44a33d4b9bf428ee3c8ed74737964dabc034b44fc9dabc9f4cc1d4379001"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/case-A08-kernel.log",
+        "sha256": "e5183e9f7a8cc27165de131d810fd84e7059a259305484d362099dc9a14d12d3"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/case-measurements.json",
+        "sha256": "9dd1f4f38d944b492b0145911170335aa6ff17a45906263bd994747f02f36bfc"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/clean-package-build.log",
+        "sha256": "8aef2b2b2c072a63f636ea67fbc2a8a855101b82945b8d46180130bb05e8e3c7"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/failed-clean-package-build.log",
+        "sha256": "0d27655eb5eb749982ed7db50ff6316a0221b8817ce89c2c6e67b3f555f5cd2b"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/failed-finite-reduction-build.log",
+        "sha256": "13e8a2a194cfb0bbe867b52ecd914df91f9b371cd8b42017777a0de5d872e873"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/failed-finite-reduction-timing.json",
+        "sha256": "f262e00c06f8e0d239fb78f88861b438f0b2e1ca32e66fe4040bf9aecacfba65"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/failed-measurements.json",
+        "sha256": "8c6f9b3d5e41ffdfef26569ce14d832b4268f657bbe28ef5e92b3aac0b8e9aaf"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/initial-elaboration-timing.json",
+        "sha256": "55e514a3c68e9a95478d2db051d18c6eba45be3186f393fa95a2b91c9e69c384"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/initial-elaboration.log",
+        "sha256": "2ec892fd69eb75afbec388804603123fb72c5cd012f48430ef3de7511e9e8a1f"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/kernel-replay-timing.json",
+        "sha256": "485d3dfefd70dcd7bfc384a82a3d25468935c73d5ef75698c33adb12f3db96c6"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/kernel-replay.log",
+        "sha256": "e796e7da0614c00c85a974c933fcc96b4e3a85980228eab198e84bf3c18c540c"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/lake-update-timing.json",
+        "sha256": "f7921b456ad9f8cf579eee35c3187eb6a3bf23b9232fc2e028faded0ab82b62e"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/lake-update.log",
+        "sha256": "a1c3c833add40ce1eafc20eab496f41165464aece6a61cf6c099d843e8de9f1a"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/measurements.json",
+        "sha256": "8061ab220fca5621708a106acbf8fbe01d9a245ae2572c363490d8cee7b77fca"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/repaired-elaboration-timing.json",
+        "sha256": "2002b8b29ef3f8451362afabc5ce58d972f1a3c651ea1068774ed5d37d6dcef8"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/repaired-elaboration.log",
+        "sha256": "249ce6cc4ce708cdf04929f9e920f7586b284eb53946e28b9ad10459863d1929"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/warm-elaboration-1.log",
+        "sha256": "8d64f17ad106fb76f2fbc038cc77b9dc8d0048532d20285e42d89826a40667ef"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/warm-elaboration-2.log",
+        "sha256": "8d64f17ad106fb76f2fbc038cc77b9dc8d0048532d20285e42d89826a40667ef"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/warm-elaboration-3.log",
+        "sha256": "8d64f17ad106fb76f2fbc038cc77b9dc8d0048532d20285e42d89826a40667ef"
+      },
+      {
+        "path": "spikes/mathlib-binding/logs/warm-noop-build.log",
+        "sha256": "103613dc9a219fd81182f598db2f867b8fd2b64500e92a2c59277c1e1dae18b7"
+      }
+    ],
+    "corpus_after": [
+      {
+        "id": "GP-A08b",
+        "path": "../../corpus/must/GP-A08b.json",
+        "sha256": "6a390a0fbd25371e8aca0cf64fb69d892c694cb0a142a21787d4c179abf745bd"
+      },
+      {
+        "id": "GP-A05",
+        "path": "../../corpus/must/GP-A05.json",
+        "sha256": "469b5e4060a64295eaaa170e8957d282404d6fc68445408e9255a430fa6170a4"
+      }
+    ],
+    "corpus_git_diff": []
+  },
+  "limitations": [
+    "Private manual binding, not parser/scope checker/production admission",
+    "Dependency source-cold build not measured",
+    "Clean package retains dependency/cache artifacts",
+    "Warm no-op is not elaboration",
+    "Same-kernel replay imports precompiled environment; not independent verifier or fresh import proof replay",
+    "Uncontrolled contention and timing variance",
+    "Failed/CommRing preliminary logs excluded",
+    "No shared gate or adoption claim"
+  ]
+}

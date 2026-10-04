@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "GP-X330",
+  "seed": null,
+  "title": "Necessary block is not source-fiber equivalence",
+  "situation": "The checked block states a necessary depth-eight extension condition, with sufficiency and source equivalence still open.",
+  "inputs": {
+    "control": "source_equivalence",
+    "fixture_sha256": "7c26a7fdcfd12321997beb259f73388db654b3aff1cfbb83f30ccfa11017b82c",
+    "mutation": {
+      "op": "set",
+      "path": [
+        "projection",
+        "semantic_layer"
+      ],
+      "original": "NECESSARY_DEPTH8_EXTENSION_BLOCK",
+      "value": "EQUIVALENT_ACTUAL_SOURCE_FIBER"
+    }
+  },
+  "attempted_conclusion": "Promote the necessary block to equivalence with the actual-source fiber.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The changed semantic layer exceeds the pinned necessary-block projection."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "line": 87,
+      "anchor": "def test_arithmetic_and_scope_mutations_refuse("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_b0_free_plane/depth8_adapter.py",
+      "line": 467,
+      "anchor": "require(fixture[\"projection\"] == _expected_projection(), \"M1\","
+    }
+  ]
+}

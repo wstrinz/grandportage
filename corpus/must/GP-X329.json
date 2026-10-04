@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "GP-X329",
+  "seed": null,
+  "title": "Unexported residual is not an algebra object",
+  "situation": "The necessary block derives a symbolic compatibility expression but has not exported the residual polynomial r8. Its projection status alone is changed.",
+  "inputs": {
+    "control": "residual_export",
+    "fixture_sha256": "7c26a7fdcfd12321997beb259f73388db654b3aff1cfbb83f30ccfa11017b82c",
+    "mutation": {
+      "op": "set",
+      "path": [
+        "projection",
+        "checked_block",
+        "residual_status"
+      ],
+      "original": "NOT_EXPORTED",
+      "value": "EXPORTED"
+    }
+  },
+  "attempted_conclusion": "Treat r8 as an available exported algebra object from the existing receipt.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The projection cannot mark an unexported residual as available."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "line": 87,
+      "anchor": "def test_arithmetic_and_scope_mutations_refuse("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_b0_free_plane/depth8_adapter.py",
+      "line": 467,
+      "anchor": "require(fixture[\"projection\"] == _expected_projection(), \"M1\","
+    }
+  ]
+}

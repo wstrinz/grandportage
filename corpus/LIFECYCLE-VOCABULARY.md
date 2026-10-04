@@ -1,0 +1,15 @@
+# Portable lifecycle scenario vocabulary
+
+`lifecycle-scenario/v1` describes candidate objects, their introduction/replacement history and the question being tested. It is test data, not an executable claim kernel or a claim that declarations constitute evidence. Its meaning is independent of GP event spelling. `tools/lifecycle_inputs.py` is the explicit adapter to the frozen oracle.
+
+Objects are named contexts, assertions, relations or arguments. Catalog handles distinguish two candidate descriptions of the same named object, so conflicting redeclarations remain expressible. Contexts name the setting; assertions state properties there; relations connect source and target contexts; arguments cite a premise and a route. Relation classes distinguish forgetting equations, restricting to a subset and an unspecified relation. These are bounded corpus concepts, not proposals for kernel promotion.
+
+History introduces catalog objects in order. A replacement additionally names the prior object and characterizes the change: annotation only, restatement, relation reclassification, argument retraction or relation withdrawal. A withdrawal object is a lifecycle record and does not establish a new relation. Missing and self references, conflicting replacements and closed cycles remain representable because they are the negative cases under test; the oracle decides their observations.
+
+A transport route uses a named relation and forward/reverse orientation. An optional branch comparison specifies a common prefix and two branch histories. Questions name an object, successor set, collection or concern: unresolved relation, competing relations, retired route dependency or retired context dependency. The enclosing case supplies the attempted conclusion, fixed expected answer and source anchors. A question with no extra selector asks the enclosing fold/branch question.
+
+The adapter accepts only the documented object categories, property vocabulary, lifecycle changes and concerns; unknown fields, values and catalog references raise errors rather than disappearing. This is a bounded adapter grammar. It does not infer that an assertion is true, that a declared relation is proved, or that a clean legacy argument is a 0.50 held claim.
+
+GP-X142 through GP-X163 were migrated from legacy event-shaped inputs. Original oracle inputs, original case digests and fixed expected verdicts are retained in `oracle/LIFECYCLE-INPUT-BASELINE.json`. The migration audit checks exact reconstruction, preservation of expectations and four mutations. Current cases are authoritative; the archived encoding is only an audit fixture and is not an alternate corpus. Every immutable earlier replay remains available with its original case hashes.
+
+The scan of all 217 inputs now finds no embedded GP event objects. This structural result does not alone establish semantic neutrality of all other corpus families; source references and deliberately old-system observations can still mention GP terminology.

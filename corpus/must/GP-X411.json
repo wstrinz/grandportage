@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "GP-X411",
+  "seed": null,
+  "title": "An equation-free model still requires its open guard",
+  "situation": "An offered ordinary rational point at an exact open model. Equations must vanish and every nonzero guard must remain nonzero.",
+  "inputs": {
+    "coefficient_domain": "Q",
+    "point_universe": "rational points",
+    "variables": [
+      "x"
+    ],
+    "equations": [],
+    "nonzero_guards": [
+      "x"
+    ],
+    "point": {
+      "x": "0"
+    }
+  },
+  "attempted_conclusion": "Accept the offered point as a witness at this exact open model.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "There are no equations, but the required guard x is zero. Refuse this offered point; equation-free does not mean guard-free."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 4509,
+      "anchor": "def test_equation_free_open_locus_still_checks_its_guard():"
+    }
+  ]
+}

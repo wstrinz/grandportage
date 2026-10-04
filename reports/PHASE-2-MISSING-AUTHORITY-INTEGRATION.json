@@ -1,0 +1,286 @@
+{
+  "schema": "gp-phase2-missing-authority-integration/v1",
+  "date": "2026-10-01",
+  "parent_base_commit": "e0bb7271d015043e2e6140d4d22fd978019c529d",
+  "source_hashes": {
+    "STATUS.md": "317cf07c01e688dbe1457076d49fd54124bfa65b02958f71b3c2c51e78e68c63",
+    "reports/PHASE-2-SLICE.md": "74552955df724cf8a05bd2bdf902e5a1e819ecfae921a42c4b1ede586699512a",
+    "reports/PHASE-2-SLICE.json": "ca7128d01c6c53566bdd11f2d087712025df2b72e6c46f41815ff86bf3b6becd",
+    "reports/PHASE-2-MISSING-AUTHORITY.json": "de1a48e72af3676ae105a7fc151ad7412bb7792b5e8cef4e855a2d1de13d673f",
+    "tools/run-phase2-missing-authority.py": "8c7254eb135fa478509ab19bce43d267786b98b960c43d6b974082d4ab8236e8",
+    "tests/test_phase2_missing_authority.py": "a2068707e9325bf922400a7ffbc409e8e53319ba8cbef6c3450c5c7ee70631c0",
+    "tools/run-phase2-slice.py": "f8f4b0687e330a0952075b1afedd16fd57f00939b483d4fcfa78b3e0bde9a07f",
+    "reports/PHASE-2-PROVENANCE-SLICE.json": "3394f84121f50b49323ce9392e71d1fd37f1b6894f9d862129fa8d88bd8587bc",
+    "reports/PHASE-2-CHECKED-LIFECYCLE-SUPPLEMENT.json": "fe9d34cffa7cf9992f8362e895a86b3c061679804fae569f5137efafb29a66df"
+  },
+  "worker_original_hashes": {
+    "tools/run-phase2-missing-authority.py": "274e99aae1a86025d5561743ece3326f37f8b66c59e2b008b2919f6dacc8103c",
+    "tests/test_phase2_missing_authority.py": "d0321fa5b92ba99529ab50a48b80ee04028482f572f665363df37d95da39cd2c",
+    "reports/PHASE-2-MISSING-AUTHORITY.json": "c10d19d9430f3bcc1181b20da148e5eceaeab108b99a6630974720276ab617a6"
+  },
+  "worker_active_seconds": 798,
+  "parent_review": {
+    "named_source_anchors_checked": true,
+    "A15": "Disjoint-variable prose cite contains no admitted connecting rule. Complete literal fixture stays inert; no fabricated premises.",
+    "A26": "VIBES/Q label and absent receipt grant no emptiness authority. Actual unknown VIBES receipt attempt also refuses in the native test.",
+    "X82": "Historical source identity matches the distinct manifest commit, SHA-256 and Git blob. DIGEST_COMMITMENTS_ONLY intermediate records contain no polynomial derivation; literal equation/alpha/pin strings stay bound but uninterpreted.",
+    "authority": "Complete K5 missing-authority contracts, not general mathematical/parser tests or underlying truth certification. Empty registered source authority and citations supply no held claims.",
+    "control": "Actual X164 Rat replay accepts separately. Borrowed receipt name, claim-only/warrant-only rebinding and registered receipt without matching clause refuse. No new corpus pass from controls.",
+    "all_four_orders_equal": true,
+    "prior_35_complete_execution_records_equal": true
+  },
+  "integration_changes": "Normalize completed worker sources to LF, add EXECUTED/full-contract fields after review, integrate exactly three cases and refresh shared-adapter hashes only in earlier reports. No production Lean changes.",
+  "counts": {
+    "previous_corpus_passes": 35,
+    "new_corpus_passes": 3,
+    "corpus_passes": 38,
+    "kernel_tagged_total": 79,
+    "remaining_kernel_cases": 41,
+    "new_corpus_cases": 0,
+    "original_checked_folds": 12,
+    "original_custody_folds": 12,
+    "separate_contrasts": 13,
+    "contrast_checked_folds": 52,
+    "contrast_custody_folds": 52,
+    "host_tests": 229,
+    "host_subtests": 678,
+    "existing_native_components": 553,
+    "compiled_proof_controls": 83
+  },
+  "validation": {
+    "independent_worker_tests": "18 passed, 61 subtests passed",
+    "full_relevant_regression": "229 passed, 678 subtests passed",
+    "native_aggregate": "38 distinct unchanged fixtures; early slice complete; G2 false",
+    "legacy_receipt": "tmp/phase2-missing-authority-legacy-preservation.json",
+    "legacy_receipt_sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f",
+    "legacy_case_count": 459,
+    "legacy_summary": {
+      "AGREES": 403,
+      "DIAGNOSTIC_OBSERVED": 4,
+      "KNOWN_DIFFERENCE": 14,
+      "UNSUPPORTED": 9,
+      "RETAINED_DIAGNOSTIC": 29
+    },
+    "protected_artifacts": 67,
+    "budget": {
+      "baseline": "a95fcee6f24f1f63b41fd56681319053727488b3",
+      "counts": {
+        "logic": 636,
+        "decoder": 263,
+        "statement": 26,
+        "proof": 1668
+      },
+      "modules": [
+        {
+          "path": "phase2\\lean\\GP50\\AdmissionProofs.lean",
+          "category": "proof",
+          "lines": 179
+        },
+        {
+          "path": "phase2\\lean\\GP50\\BoundReplay.lean",
+          "category": "logic",
+          "lines": 37
+        },
+        {
+          "path": "phase2\\lean\\GP50\\BoundReplayProofs.lean",
+          "category": "proof",
+          "lines": 131
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Closure.lean",
+          "category": "logic",
+          "lines": 23
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ClosureCompleteness.lean",
+          "category": "proof",
+          "lines": 129
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ClosureOrderProofs.lean",
+          "category": "proof",
+          "lines": 56
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ClosureProofs.lean",
+          "category": "proof",
+          "lines": 44
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Conflict.lean",
+          "category": "logic",
+          "lines": 39
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ConflictProofs.lean",
+          "category": "proof",
+          "lines": 32
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ConflictSoundnessProofs.lean",
+          "category": "proof",
+          "lines": 66
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Cover.lean",
+          "category": "logic",
+          "lines": 26
+        },
+        {
+          "path": "phase2\\lean\\GP50\\CoverAdmissionProofs.lean",
+          "category": "proof",
+          "lines": 110
+        },
+        {
+          "path": "phase2\\lean\\GP50\\CoveredDecoder.lean",
+          "category": "decoder",
+          "lines": 20
+        },
+        {
+          "path": "phase2\\lean\\GP50\\CoveredSpan.lean",
+          "category": "logic",
+          "lines": 28
+        },
+        {
+          "path": "phase2\\lean\\GP50\\CoverProofs.lean",
+          "category": "proof",
+          "lines": 30
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Decoder.lean",
+          "category": "decoder",
+          "lines": 156
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Entry.lean",
+          "category": "logic",
+          "lines": 7
+        },
+        {
+          "path": "phase2\\lean\\GP50\\EventOrderProofs.lean",
+          "category": "proof",
+          "lines": 341
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Events.lean",
+          "category": "logic",
+          "lines": 109
+        },
+        {
+          "path": "phase2\\lean\\GP50\\LifecycleRunner.lean",
+          "category": "logic",
+          "lines": 64
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Narrowing.lean",
+          "category": "logic",
+          "lines": 23
+        },
+        {
+          "path": "phase2\\lean\\GP50\\NarrowingAdmissionProofs.lean",
+          "category": "proof",
+          "lines": 121
+        },
+        {
+          "path": "phase2\\lean\\GP50\\NarrowingProofs.lean",
+          "category": "proof",
+          "lines": 15
+        },
+        {
+          "path": "phase2\\lean\\GP50\\PolyStub.lean",
+          "category": "logic",
+          "lines": 27
+        },
+        {
+          "path": "phase2\\lean\\GP50\\PolyStubProofs.lean",
+          "category": "proof",
+          "lines": 113
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Presentation.lean",
+          "category": "logic",
+          "lines": 24
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Queries.lean",
+          "category": "logic",
+          "lines": 58
+        },
+        {
+          "path": "phase2\\lean\\GP50\\QueryDecoder.lean",
+          "category": "decoder",
+          "lines": 19
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Runner.lean",
+          "category": "logic",
+          "lines": 26
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Runtime.lean",
+          "category": "logic",
+          "lines": 59
+        },
+        {
+          "path": "phase2\\lean\\GP50\\RuntimeProofs.lean",
+          "category": "proof",
+          "lines": 43
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ScopedDecoder.lean",
+          "category": "decoder",
+          "lines": 20
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ScopedRunner.lean",
+          "category": "logic",
+          "lines": 50
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ScopedSpan.lean",
+          "category": "logic",
+          "lines": 36
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ScopedSpanProofs.lean",
+          "category": "proof",
+          "lines": 71
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Semantics.lean",
+          "category": "statement",
+          "lines": 26
+        },
+        {
+          "path": "phase2\\lean\\GP50\\SpanDecoder.lean",
+          "category": "decoder",
+          "lines": 48
+        },
+        {
+          "path": "phase2\\lean\\GP50\\SpanSoundnessProofs.lean",
+          "category": "proof",
+          "lines": 187
+        }
+      ],
+      "markdown_added_words": 7967,
+      "markdown_target": 10000,
+      "markdown_tripwire": 15000,
+      "status_words": 264,
+      "targets_exceeded": [
+        "logic"
+      ],
+      "failures": []
+    },
+    "slice_words": 499
+  },
+  "next_worker": {
+    "thread": "01a0eeca-572e-7202-a708-c730d410b901",
+    "cases": [
+      "GP-X179",
+      "GP-X180"
+    ],
+    "boundary": "Separate conditional named-witness harness; actual K2 universal restriction and fold. No point lift from inclusion, no production adoption. At most 40 active minutes."
+  },
+  "g2_pass": false,
+  "public_push": false
+}

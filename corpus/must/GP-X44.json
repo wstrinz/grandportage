@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X44",
+  "seed": null,
+  "title": "A changed frozen fixture must fail its outer digest check",
+  "situation": "An exact reduced-row binding is conditional on normalized-root inputs; the original-pair to normalized-root map remains unmaterialized.",
+  "inputs": {
+    "source_pair_materialized": false,
+    "source_map_materialized": false,
+    "proposed_value": "changed boundary text"
+  },
+  "attempted_conclusion": "Accept changed fixture bytes under the original content binding.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A frozen receipt cannot silently accept changed bytes."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+      "line": 256,
+      "anchor": "\"frozen seam fixture digest changed\""
+    }
+  ]
+}

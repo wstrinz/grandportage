@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "GP-X197",
+  "seed": null,
+  "title": "An inventory with no recorded uses has no detected gap",
+  "situation": "No recorded uses require components. Omitting real uses would be a modelling omission, not evidence that real obligations disappeared.",
+  "inputs": {
+    "scenario": "coverage_inventory",
+    "asserted_dimensions": [
+      "place",
+      "order"
+    ],
+    "represented_indices": {
+      "place": [
+        "y",
+        "infinity"
+      ],
+      "order": [
+        "-1",
+        "-2",
+        "-3",
+        "-5"
+      ]
+    },
+    "construction_uses": [],
+    "conclusion_uses": []
+  },
+  "attempted_conclusion": "The recorded uses are covered by the declared index inventory on all asserted dimensions.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "No recorded uses require components. Omitting real uses would be a modelling omission, not evidence that real obligations disappeared."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_mutations.py",
+      "line": 114,
+      "anchor": "def test_mut_emptying_the_gauge_and_read_lists_silences_it_the_other_way("
+    }
+  ]
+}

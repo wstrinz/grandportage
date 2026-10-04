@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "GP-X92",
+  "seed": null,
+  "title": "Reuse face extraction after changing a root support",
+  "situation": "The finite root-support contract is part of the extraction context.",
+  "inputs": {
+    "source_rows": 5,
+    "depths": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "faces": 25,
+    "proposal": "support"
+  },
+  "attempted_conclusion": "Reuse face extraction after changing a root support.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The finite root-support contract is part of the extraction context."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_source_depth6_face_extraction.py",
+      "line": 101,
+      "anchor": "def test_root_support_mutation_is_rejected_after_resigning("
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "GP-X289",
+  "seed": null,
+  "title": "Constant-unit binary product identity verifies",
+  "situation": "Exact product equality and branch construction are distinct operations. The construction request uses a matching parent generator and supplies no ideal-membership witness.",
+  "inputs": {
+    "variables": [
+      "x",
+      "y",
+      "z"
+    ],
+    "characteristic": 0,
+    "declared_units": [
+      "z"
+    ],
+    "identity": {
+      "equation": "x*y",
+      "scalar": "1",
+      "left": "x",
+      "right": "y"
+    },
+    "parent_equations": [
+      "x*y"
+    ],
+    "open_guards": [
+      "z"
+    ],
+    "question": "check_identity"
+  },
+  "attempted_conclusion": "Verify the supplied product identity only.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Constant-unit binary product identity verifies"
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/product_split.py",
+      "line": 49,
+      "anchor": "def verify(spec):"
+    }
+  ]
+}

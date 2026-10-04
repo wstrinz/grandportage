@@ -1,0 +1,55 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "docs/ATLAS-MAPPING-V0.md",
+      "sha256": "96cc75b6bd67b40e1572d15cc5defd798b6c8ee4a56b5e0374c316a0be22cbd0",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "docs/ATLAS-WORK.md",
+      "sha256": "4895a3df507f2b0b7683ff3b194656b4b396f5ad2c4fb76d31c386da628f54bc",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "docs/PRESERVATION-ATLAS-PROGRAM.md",
+      "sha256": "975d8c121f7e2b6103f610674a5da30efc74e0fff400e967401401a1b2193c5a",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "scripts/check_atlas_parity.py",
+      "sha256": "04be670566ecebb6b3674cd7d47f16735717ab4537863f931e949941abef137e",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_atlas.py",
+      "sha256": "5b8708f451c4c0b461207a6ebbae8ab432fa612f7174120b1a3371ed3d560d09",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "tests": {
+    "passed": 7,
+    "report": "reports/oracle-atlas-review.xml",
+    "lean_invoked": false
+  },
+  "findings": [
+    "The mapping contains 42 point and 14 coordinate-ring cells, with context/evidence gates and multi-premise forms outside the simple table. Complete inventory equality with current pinned kernel.TRANSPORT passes; this is table correspondence, not semantic soundness of consumers.",
+    "Seven offline tests pass. Positive parser input is generated from Python expected_rows, with five malformed/missing/duplicate/changed/extra mutations. These prove bounded parser discrimination and table drift detection, not newly observed Lean agreement.",
+    "Actual parity main would launch lake env lean with a 120-second timeout and compare 90 reach plus 49 concrete-extension decisions. It was read but not executed; malformed field inputs, primality, freshness and graph semantics remain outside its bounded scope.",
+    "The mapping explicitly distinguishes sufficient conditions, conservative refusals and missing correspondence. IMAGE_CLOSURE along EMPTY remains a completeness opportunity requiring geometric closure and point interpretation; exact contraction alone is not enough. Existing corpus known differences retain their fixed expectations.",
+    "Preservation polarity is a closure construction relative to an already interpreted finite relation. It does not prove unknown transport cells or equality of all semantics for operations with matching profiles. Incomparable sufficient premise sets must remain alternatives.",
+    "Four judgments remain distinct: meaning, preservation, evidence and binding. Equality transport, contradiction interpretation and custody of a chosen witness cannot substitute for one another. A missing licence is not a counterexample.",
+    "Historical work records separate interrupted runs, later isolated passes and successful identity probes. The 791.73-second materializer observation is evidence against inferring deadlock from silent output, not a new timing measurement. Later identification must not rehabilitate earlier unattested executions.",
+    "Research packages E/F and portions of composition/requirements remain historical future work. Embedded old authorization to commit/push applies to that historical work, not this private rework. External literature correspondences and historical CI/build results were not independently verified here."
+  ],
+  "remaining": [
+    "Read formal atlas and requirement-catalog implementations and their controls where not yet covered.",
+    "Map uncovered semantic alternatives to neutral cases; inventory parity alone cannot discharge gate hypotheses.",
+    "Keep historical external scholarship and runtime validation claims separate from current evidence."
+  ]
+}

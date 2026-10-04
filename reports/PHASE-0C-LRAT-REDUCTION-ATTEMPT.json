@@ -1,0 +1,20 @@
+{
+  "status": "failed_experiment_not_theorem_authority",
+  "lean_version": "4.32.1",
+  "lean_commit": "f054605aea4b840552cca2e725580bffd1e1b704",
+  "attempt_source_sha256": "563939bb522957a885c91b3ee495f7a9f40aa7fb07ac5c92e04de215c5f3a9bb",
+  "attempt_source": "module\npublic import Std.Tactic.BVDecide.LRAT.Checker\nimport all Std.Tactic.BVDecide.LRAT.Checker\npublic import Std.Tactic.BVDecide.LRAT.Parser\nimport all Std.Tactic.BVDecide.LRAT.Internal.CompactLRATChecker\nimport all Std.Tactic.BVDecide.LRAT.Internal.Convert\nimport all Std.Tactic.BVDecide.LRAT.Internal.Formula.Implementation\nimport all Std.Tactic.BVDecide.LRAT.Internal.Formula.Instance\nimport all Std.Tactic.BVDecide.LRAT.Internal.Actions\n@[expose] public section\nopen Std.Sat Std.Tactic.BVDecide\nnamespace Spike.Lrat\ndef cnf : CNF Nat := \u27e8#[[(0,true)], [(0,false)]]\u27e9\ndef satCnf : CNF Nat := \u27e8#[[(0,true)]]\u27e9\ndef certificate : Array LRAT.IntAction := #[.addEmpty 3 #[1,2]]\ntheorem kernelCheck : LRAT.check certificate cnf = true := by decide +kernel\ntheorem typedUnsat : cnf.Unsat := LRAT.check_sound certificate cnf kernelCheck\ntheorem nativeCheck : LRAT.check certificate cnf = true := by native_decide\n#print axioms kernelCheck\n#print axioms typedUnsat\n#print axioms nativeCheck\ndef parseAndCheck (proof : String) (f : CNF Nat) : Except String Bool := do\n  let acts \u2190 LRAT.parseLRATProof proof.toUTF8\n  return LRAT.check acts f\nend Spike.Lrat\n\n\n\n\n\n",
+  "routes_attempted": [
+    "plain decide",
+    "decide +kernel",
+    "module public import plus import all Checker and five internal modules"
+  ],
+  "diagnostic": "LRAT.check certificate cnf = true: Decidable instance did not reduce to isTrue or isFalse; stuck at match LRAT.check certificate cnf,true. Failed elaboration axiom outputs include sorryAx and are not authority. Final successful native route is separately audited.",
+  "limits": "Bounded failed route does not establish no pure-kernel checker route exists; no alternate checker implemented.",
+  "additional_equation_attempt": "simp using compact checker recursion equations reduces to Formula.performRupAdd(...).snd=true, where decide +kernel still fails. No theorem admitted.",
+  "definition_observation": "Printed installed compactLratChecker.go is tagged irreducible; body visible under import-all; equation simplification makes finite progress.",
+  "additional_sources": {
+    "spikes\\lean-core\\tmp\\KernelAttempt2.lean": "import Spike.Lrat\nopen Std.Sat Std.Tactic.BVDecide\nopen LRAT.Internal\nexample : LRAT.check Spike.Lrat.certificate Spike.Lrat.cnf = true := by\n  simp [LRAT.check, Spike.Lrat.certificate, Spike.Lrat.cnf, compactLratChecker, compactLratChecker.go]\n",
+    "spikes\\lean-core\\tmp\\KernelAttempt3.lean": "import Spike.Lrat\nopen Std.Sat Std.Tactic.BVDecide\nopen LRAT.Internal\nexample : LRAT.check Spike.Lrat.certificate Spike.Lrat.cnf = true := by\n  simp [LRAT.check, Spike.Lrat.certificate, Spike.Lrat.cnf, compactLratChecker,\n    compactLratChecker.go, intActionToDefaultClauseAction]\n  decide +kernel\n"
+  }
+}

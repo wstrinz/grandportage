@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X99",
+  "seed": null,
+  "title": "Declare agreement between incompatible exact scopes",
+  "situation": "Matching labels cannot substitute for exact scope agreement.",
+  "inputs": {
+    "receipts": 7,
+    "proposal": "wrong_scope",
+    "proposed_scope": "JC.H3.B0.NOT_THE_SCOPE"
+  },
+  "attempted_conclusion": "Declare agreement between incompatible exact scopes.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Matching labels cannot substitute for exact scope agreement."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_current_frontier_bundle.py",
+      "line": 69,
+      "anchor": "def test_current_bundle_refuses_false_scope_agreement("
+    }
+  ]
+}

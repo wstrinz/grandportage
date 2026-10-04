@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "GP-X91",
+  "seed": null,
+  "title": "Accept a changed source row after recomputing its own digest",
+  "situation": "Updating the row commitment does not make its extracted faces match the downstream commitments.",
+  "inputs": {
+    "source_rows": 5,
+    "depths": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "faces": 25,
+    "proposal": "row"
+  },
+  "attempted_conclusion": "Accept a changed source row after recomputing its own digest.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Updating the row commitment does not make its extracted faces match the downstream commitments."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_source_depth6_face_extraction.py",
+      "line": 88,
+      "anchor": "def test_resigned_source_row_mutation_breaks_face_weld("
+    }
+  ]
+}

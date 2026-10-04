@@ -1,0 +1,94 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "5b02f7c02add7dd9eb746c3fdea3fc7f9a97d8313c4d6a497c4452be6bde5ea7",
+  "sources": {
+    "grandportage/verify.py": "51ee50fd4be7e8f0f6b2cdd10f680ac7060ef8f91f1f424290a342e3c7ce9c03",
+    "grandportage/store.py": "900da33d1b8e3ae045533b3ae8ed67317a3bc56a35861d2bcd604ae6adb7e755",
+    "grandportage/cas.py": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+  },
+  "controls": [
+    {
+      "guarded": false,
+      "verdict": "VERIFIED",
+      "reason": "every point of M lies on one of B1, B2 -- intersection of two zero ideals is zero. The case analysis is COMPLETE, and that is now a computed fact rather than a declared one.",
+      "backend_calls": [
+        {
+          "operation": "membership",
+          "ring": [
+            "x"
+          ],
+          "target": "1",
+          "generators": []
+        },
+        {
+          "operation": "partition_cover",
+          "ring": [
+            "x"
+          ],
+          "parent": [],
+          "branches": [
+            [],
+            []
+          ]
+        }
+      ],
+      "witness": {
+        "x": 0,
+        "parent_member": true,
+        "branch_membership": [
+          true,
+          true
+        ]
+      },
+      "branch_guards": [
+        [],
+        []
+      ]
+    },
+    {
+      "guarded": true,
+      "verdict": "VERIFIED",
+      "reason": "every point of M lies on one of B1, B2 -- intersection of two zero ideals is zero. The case analysis is COMPLETE, and that is now a computed fact rather than a declared one.",
+      "backend_calls": [
+        {
+          "operation": "membership",
+          "ring": [
+            "x"
+          ],
+          "target": "1",
+          "generators": []
+        },
+        {
+          "operation": "partition_cover",
+          "ring": [
+            "x"
+          ],
+          "parent": [],
+          "branches": [
+            [],
+            []
+          ]
+        }
+      ],
+      "witness": {
+        "x": 0,
+        "parent_member": true,
+        "branch_membership": [
+          false,
+          false
+        ]
+      },
+      "branch_guards": [
+        [
+          "x"
+        ],
+        [
+          "x"
+        ]
+      ]
+    }
+  ],
+  "scope": "Native graph validation and actual partition verifier with an exact zero-ideal backend stub; no CAS or persisted verdict. Stub asserts every argument and gives mathematically exact answers to the ideal-only queries.",
+  "finding": "Both open branches D(x) miss x=0 in parent A1, but omitted guards yield the same VERIFIED response as closed branches. Unlike synthesized verdict controls, the verifier itself returns the overstrong coverage result on the supplied backend answers.",
+  "proposal": "Refuse guarded branches until coverage includes constructible/open conditions or a checked localization-aware certificate; retain closed cover positive control."
+}

@@ -1,0 +1,127 @@
+{
+  "schema": "gp-phase2-partition-integration/v1",
+  "date": "2026-10-01",
+  "parent_base_commit": "c3bec2f39f96d2db0d959cb1761d60809c567dac",
+  "source_hashes": {
+    "phase2/lean/Tests/ConditionalPartition.lean": "7c8da69d72059cee97f5c3e1cb263ccb5d41ce2396ac6f185f5b73a6bfb2b433",
+    "phase2/lean/lakefile.toml": "5af9ad860a99cbc4dbc876185279abbbe914b55da20a2e0b8dda1c144a308cbb",
+    "tools/run-phase2-conditional-partition-slice.py": "0da3d278b014ca93fccc84d5df7ecc504691d5de5b693ef6c8796d47262568b3",
+    "tests/test_phase2_conditional_partition.py": "b7155eae95880d38358f955eae82861e987bcea004e42d0b166aeae1a069d401",
+    "tools/run-phase2-slice.py": "21501736e2edb299a77e0c83967e50d25f974c350616aebbac502c221dcb64cf",
+    "reports/PHASE-2-CONDITIONAL-PARTITION-SLICE.json": "b863b97bf82efd583baa3c4cb6b92f08afd73205099c157c0e1b9571a73df149",
+    "reports/PHASE-2-SLICE.json": "4199a0745e73f9e725c20c4172d1d94b946bf7a51206ce56a0dd5be7016d06e6",
+    "reports/PHASE-2-PROVENANCE-SLICE.json": "6275555ce06487219cdccbc87fba96956258c44f8a994ab8da08e28d2961a9be"
+  },
+  "worker_original_hashes": {
+    "harness": "8bf4ec1c7fbf86fcd4d93f6f30e1caf49beb8a044bf085f5b331e27a80b8fce1",
+    "adapter": "e0ebb7887ba40914bdf0a0bbce28270dd410d46c0be7e9d8b7c6ab0a80d6df1c",
+    "tests": "0948cd888df947086859e7306efd8d5619977b67098348df1e66e55367888cee",
+    "report": "4594e9c6921034f8d102a3e073e29be366791110095803339c3ecc5c68ff8e7d"
+  },
+  "worker_active_seconds": 972,
+  "integration_changes": "Normalize completed files to LF; register the test-only executable in the main pinned Lean package; move adapter runner default from ignored temporary build to that executable; aggregate the three fixtures. Production GP50 sources unchanged.",
+  "corpus": {
+    "previous_passes": 20,
+    "new_passes": 3,
+    "total_passes": 23,
+    "kernel_tagged_total": 79,
+    "cases": [
+      "GP-X183",
+      "GP-X184",
+      "GP-X186"
+    ],
+    "native_folds": 9,
+    "g2_pass": false
+  },
+  "parent_review": {
+    "pinned_named_functions": {
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "file_sha256": "1150aa49c0596af1a9816a71f44694838e6fef17370a2fc8337b453b3d43c9f8",
+      "pin_file_sha256": "180d920db790d5b5e318ce318b7b7e1467e6b11fd44e05e759e8b7cc7f4459db",
+      "functions": {
+        "GP-X183": {
+          "line": 3149,
+          "anchor": "def test_a_partition_reports_when_it_FAILS_not_only_when_it_succeeds(",
+          "function_sha256": "8d738d24be0a9a30a1950b9c8c1e0bcd9a1cf59a8ea28c24a907f00b3d0b5d6e"
+        },
+        "GP-X184": {
+          "line": 1348,
+          "anchor": "def test_a_case_split_is_licensed_by_the_partition_not_by_an_edge(",
+          "function_sha256": "e2809e14df601bfb091bbf59755a7b90848de6e817250aa7ff773b8f60dd6930"
+        },
+        "GP-X186": {
+          "line": 1372,
+          "anchor": "def test_a_case_split_without_exhaustiveness_is_refused(",
+          "function_sha256": "cd44119f7a05636fdf00b2896c5df40227c2f07b8e1d2703000d0d69af4a6901"
+        }
+      },
+      "boundary": "Execute the literal fixture abstraction and its stated conditional conclusion; no predecessor graph reconstruction or renderer claim."
+    },
+    "literal_contexts": [
+      "parent",
+      "left",
+      "right"
+    ],
+    "semantics": "Arbitrary point type and parent/left/right predicates, with explicit branch emptiness and parent-subset-of-union hypotheses. Exhaustiveness alone never entails parent emptiness.",
+    "X183": "Right-premise record is physically absent; no fabricated failed receipt. Countermodel proof shows supplied hypotheses do not imply parent emptiness.",
+    "X184": "Exact registered left/right/coverage records and dependencies conditionally close parent emptiness.",
+    "X186": "Coverage remains held; target depends only on left/right and is refused despite semantic entailment under all hypotheses. No inferred dependency replaces the source argument.",
+    "actual_validator_and_arbitrary_fold_sound": true,
+    "binding_boundary": "Exact named statement/model fields and host SHA-256 source digest; byte fidelity is a host obligation.",
+    "production_profile_adoption": false,
+    "underlying_algebraic_truth_certified": false
+  },
+  "validation": {
+    "full_lean_build_jobs": 125,
+    "independent_leanchecker": [
+      "Tests.ConditionalPartition"
+    ],
+    "axioms": [
+      "propext",
+      "Quot.sound"
+    ],
+    "host_tests": 133,
+    "host_subtests": 302,
+    "new_host_tests": 15,
+    "final_budget_tests": 5,
+    "new_proof_controls": 2,
+    "cumulative_proof_controls": 80,
+    "native_component_controls_unchanged": 553,
+    "complete_snapshots_bindings_dependencies_checked": true,
+    "order_and_duplicate_controls_pass": true,
+    "report_links_and_hashes": "PASS",
+    "production_sources_unchanged": true
+  },
+  "preservation": {
+    "fresh_receipt_sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f",
+    "case_count": 459,
+    "summary": {
+      "AGREES": 403,
+      "DIAGNOSTIC_OBSERVED": 4,
+      "KNOWN_DIFFERENCE": 14,
+      "UNSUPPORTED": 9,
+      "RETAINED_DIAGNOSTIC": 29
+    },
+    "protected_artifacts": 67,
+    "all_bytes_expectations_outcomes_unchanged": true
+  },
+  "budget": {
+    "counts": {
+      "logic": 636,
+      "decoder": 263,
+      "statement": 26,
+      "proof": 1602
+    },
+    "markdown_added_words": 7787,
+    "status_words": 268,
+    "failures": []
+  },
+  "next": {
+    "GPB": [
+      "GP-X177",
+      "GP-X178"
+    ],
+    "GPC": "Review conditional route scope/object contracts; then advance bounded lifecycle fixtures. Independent checked support/retraction, failed retry, earned and real conflict requirements remain separate from analogous component controls."
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X41",
+  "seed": null,
+  "title": "Deleting a refusal does not earn the excluded theorem",
+  "situation": "An exact reduced-row binding is conditional on normalized-root inputs; the original-pair to normalized-root map remains unmaterialized.",
+  "inputs": {
+    "source_pair_materialized": false,
+    "source_map_materialized": false,
+    "proposed_value": "H3 promotion"
+  },
+  "attempted_conclusion": "Remove the explicit H3 refusal while retaining the conditional report.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The report does not establish the stronger theorem; erasing its boundary cannot create a warrant."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_original_pair_seam.py",
+      "line": 130,
+      "anchor": "def test_dropping_an_authority_refusal_is_rejected("
+    }
+  ]
+}

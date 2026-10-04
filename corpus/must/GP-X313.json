@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "GP-X313",
+  "seed": null,
+  "title": "Missing matrix row is not checked membership",
+  "situation": "An injected producer transcript omits the first indexed cofactor, although the reduction stage reports zero. Check the resulting candidate identity.",
+  "inputs": {
+    "ring_vars": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "generators": [
+      "x",
+      "y"
+    ],
+    "matrix_rows": [
+      "GP_M[2,1]=0"
+    ]
+  },
+  "attempted_conclusion": "Treat the positive producer candidate as checked membership of x in (x,y).",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The producer pads the missing row with zero and the candidate fails exact expansion."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/cas.py",
+      "line": 1879,
+      "anchor": "hit = [r for r in rows if r.replace(\" \", \"\").startswith(want)]"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/groebner.py",
+      "line": 794,
+      "anchor": "def check_membership_identity("
+    }
+  ]
+}

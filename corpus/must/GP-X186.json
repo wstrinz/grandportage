@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "id": "GP-X186",
+  "seed": null,
+  "title": "Branch emptiness without the required exhaustive premise",
+  "situation": "The case split requires its completeness premise in the argument even when the partition itself has the assumed verification status.",
+  "inputs": {
+    "contexts": [
+      "parent",
+      "left",
+      "right"
+    ],
+    "premises": [
+      {
+        "context": "left",
+        "statement_class": "empty",
+        "statement": "left branch is empty"
+      },
+      {
+        "context": "right",
+        "statement_class": "empty",
+        "statement": "right branch is empty"
+      }
+    ],
+    "conclusion_class": "empty",
+    "conclusion_text": "the parent is empty",
+    "cover": {
+      "parent": "parent",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "include_exhaustiveness_premise": false,
+      "verification_assumption": "exhaustive"
+    }
+  },
+  "attempted_conclusion": "Accept the stated conditional premise-route or cover-composition step.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The case split requires its completeness premise in the argument even when the partition itself has the assumed verification status."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 1372,
+      "anchor": "def test_a_case_split_without_exhaustiveness_is_refused("
+    }
+  ]
+}

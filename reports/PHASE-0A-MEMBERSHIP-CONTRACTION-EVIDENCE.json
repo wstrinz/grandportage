@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "scope": "Two authorized offline extraction families; no live CAS, materialization, graph admission, campaign or Lean execution.",
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "baseline_run": "reports/oracle-runs/20260928T145035306827Z.json",
+  "baseline_run_sha256": "f48f049437a5b8452e9208a121887de21e89cb8403d11d6183ed2f8f1a73cdfd",
+  "replay_run": "reports/oracle-runs/20260928T192507564841Z.json",
+  "replay_run_sha256": "d9e6cec9f57ee5de06a14c8a5489770dcf4ba0fafd6e03925dd1da634f94ba69",
+  "runner_sha256": "a73e3a771e70512214eb46e82704760f022490ca6c40e668cc0ae5232299e282",
+  "adapter_sha256": "4bf7f29845dfe517e0ebae5b30216c6f782f237173c68cdb79a81f00c5162437",
+  "routes_sha256": "26552d83f7f61be8b23b3c4e15ac012d95e1910c1d1a783b33940a7aee6cac1a",
+  "old_case_count": 352,
+  "new_case_count": 358,
+  "old_case_bytes_unchanged": true,
+  "old_case_expectations_observations_statuses_unchanged": true,
+  "old_diagnostic_reason_completion_markers_regenerated": [
+    "GP-X236",
+    "GP-X237"
+  ],
+  "new_summary": {
+    "AGREES": 343,
+    "DIAGNOSTIC_OBSERVED": 1,
+    "KNOWN_DIFFERENCE": 12,
+    "PENDING": 1,
+    "UNSUPPORTED": 1
+  },
+  "new_cases": [
+    {
+      "id": "GP-X312",
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "case_sha256": "9248957154fd894f04b72c4717391f29a79385bb485af0590b61f8d744229244",
+      "observation": {
+        "reason": "Candidate identity verifies by exact expansion.",
+        "producer_is_member": true,
+        "candidate_cofactors": [
+          "1",
+          "0"
+        ],
+        "attached_candidate_certificate": true,
+        "exact_checker_accepts": true,
+        "can_record_verdicts": false,
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X313",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "4ca34497cd72b1681adedf158100b93648e59de410aa2ef15af5184ae8bc81bb",
+      "observation": {
+        "reason": "membership cofactors expand to the wrong polynomial: -x",
+        "producer_is_member": true,
+        "candidate_cofactors": [
+          "0",
+          "0"
+        ],
+        "attached_candidate_certificate": true,
+        "exact_checker_accepts": false,
+        "can_record_verdicts": false,
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X314",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "3ce6202a09508362b01d05d5519078272ce3f8cb970edd2932967df16de679b5",
+      "observation": {
+        "reason": "membership cofactors expand to the wrong polynomial: -x",
+        "producer_is_member": true,
+        "candidate_cofactors": [
+          "0",
+          "0"
+        ],
+        "attached_candidate_certificate": true,
+        "exact_checker_accepts": false,
+        "can_record_verdicts": false,
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X315",
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "case_sha256": "84888fd94f7eceb9b33b7776e1c5e0d28067ea03caf1cadc12c16240c3f17049",
+      "observation": {
+        "reason": "Requested inclusion verifies.",
+        "requested_conclusion": "completeness_inclusion",
+        "forward_inclusion_accepted": true,
+        "reverse_membership": [
+          {
+            "target": "1",
+            "accepts": false,
+            "error": "membership cofactors expand to the wrong polynomial: -1"
+          }
+        ],
+        "external_execution": false,
+        "graph_admission": false
+      }
+    },
+    {
+      "id": "GP-X316",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "3d3369911e86aaf1c59e509bb472e234d77a0a285806d4051b2ec0d4c2089742",
+      "observation": {
+        "reason": "membership cofactors expand to the wrong polynomial: -1",
+        "requested_conclusion": "exact_contraction",
+        "forward_inclusion_accepted": true,
+        "reverse_membership": [
+          {
+            "target": "1",
+            "accepts": false,
+            "error": "membership cofactors expand to the wrong polynomial: -1"
+          }
+        ],
+        "external_execution": false,
+        "graph_admission": false
+      }
+    },
+    {
+      "id": "GP-X317",
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "case_sha256": "c37dddc6d6babf4457f0c14cfd7959ea3b357d8412686c36e3551e5107c82b60",
+      "observation": {
+        "reason": "Both exact inclusions verify.",
+        "requested_conclusion": "exact_contraction",
+        "forward_inclusion_accepted": true,
+        "reverse_membership": [
+          {
+            "target": "x",
+            "accepts": true,
+            "checked": {
+              "target": "x",
+              "generator_count": 1,
+              "reference_oracle": "REFERENCE_CHECKED"
+            }
+          }
+        ],
+        "external_execution": false,
+        "graph_admission": false
+      }
+    }
+  ],
+  "related_existing_cases": {
+    "candidate_matrix_rows": [
+      "GP-X258",
+      "GP-X260"
+    ],
+    "one_way_contraction": [
+      "GP-X141"
+    ],
+    "kind_without_receipt_correction": [
+      "GP-X65"
+    ]
+  }
+}

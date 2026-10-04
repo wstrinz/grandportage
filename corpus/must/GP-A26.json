@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "GP-A26",
+  "seed": "A26",
+  "title": "Unknown certificate names grant no scope",
+  "situation": "An author labels an emptiness claim with an unknown certificate name.",
+  "inputs": {
+    "certificate_name": "VIBES",
+    "target_context": "Q",
+    "receipt": null
+  },
+  "attempted_conclusion": "Grant emptiness reach from the label.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A label is not an admitted checked receipt."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 566,
+      "anchor": "| A26 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_kernel.py",
+      "line": 211,
+      "anchor": "def test_unknown_certificate_is_refused("
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "809d409e6d1ae359daa6da4c6e5c0cc9aaa5ffe4bce7cb529f32933f72bc9db6",
+  "scope": "Four direct synthetic derived-view controls; no graph input, campaign harvest or proof admission.",
+  "controls": [
+    {
+      "name": "unrecognized non-open status defaults closed",
+      "observation": {
+        "id": "A",
+        "scope_id": "scope.exact",
+        "state": "CLOSED",
+        "status": "FAILED"
+      }
+    },
+    {
+      "name": "explicit open state preserves failed obligation",
+      "observation": {
+        "id": "A",
+        "scope_id": "scope.exact",
+        "state": "OPEN",
+        "status": "FAILED"
+      }
+    },
+    {
+      "name": "historical fingerprint excludes overlays",
+      "same_history_fingerprint": true,
+      "before_open": [
+        "A"
+      ],
+      "after_open": [],
+      "scope": "historical identity by design, not full observation identity"
+    },
+    {
+      "name": "only literal DISCHARGED propagates",
+      "verified_source_remaining": [
+        "A"
+      ],
+      "discharged_source_remaining": [],
+      "scope": "explicit status vocabulary, neither status checked by a mathematical verifier"
+    }
+  ]
+}

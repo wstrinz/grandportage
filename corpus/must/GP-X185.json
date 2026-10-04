@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "id": "GP-X185",
+  "seed": null,
+  "title": "An open branch slot contributes no cover support",
+  "situation": "Naming the required empty branch is not a proof of it; the whole reporting path must name the open branch.",
+  "inputs": {
+    "contexts": [
+      "parent",
+      "left",
+      "right"
+    ],
+    "premises": [
+      {
+        "context": "left",
+        "statement_class": "empty",
+        "statement": "left branch is empty"
+      },
+      {
+        "context": "right",
+        "statement_class": "empty",
+        "missing_reason": "the right case is unsettled"
+      }
+    ],
+    "conclusion_class": "empty",
+    "conclusion_text": "the parent is empty",
+    "cover": {
+      "parent": "parent",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "include_exhaustiveness_premise": true,
+      "verification_assumption": "exhaustive"
+    }
+  },
+  "attempted_conclusion": "Accept the stated conditional premise-route or cover-composition step.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Naming the required empty branch is not a proof of it; the whole reporting path must name the open branch."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 3174,
+      "anchor": "def test_an_open_slot_inside_a_partition_names_the_unsettled_branch("
+    }
+  ]
+}

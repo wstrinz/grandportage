@@ -1,0 +1,50 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "d0b951e6f9cab582b247c7bf5ee1ba3a8eb4e971cc42168fec308766b9dd609f",
+  "records": [
+    {
+      "mode": "matching",
+      "report": {
+        "status": "CONFORMING",
+        "authority": "DESCRIPTIVE_ONLY",
+        "graph_effect": "NONE",
+        "schema": "neutral_assay_v1",
+        "source_binding_count": 1,
+        "mutation_controls": [
+          "source_digest",
+          "cofactor_sign"
+        ]
+      }
+    },
+    {
+      "mode": "incorrect_cofactor_self_report",
+      "report": {
+        "status": "CONFORMING",
+        "authority": "DESCRIPTIVE_ONLY",
+        "graph_effect": "NONE",
+        "schema": "neutral_assay_v1",
+        "source_binding_count": 1,
+        "mutation_controls": [
+          "source_digest",
+          "cofactor_sign"
+        ]
+      }
+    },
+    {
+      "mode": "declared_effect_self_report",
+      "report": {
+        "status": "CONFORMING",
+        "authority": "DESCRIPTIVE_ONLY",
+        "graph_effect": "LOCAL_EMPTY",
+        "schema": "neutral_assay_v1",
+        "source_binding_count": 1,
+        "mutation_controls": [
+          "source_digest",
+          "cofactor_sign"
+        ]
+      }
+    }
+  ],
+  "scope": "Diagnostic structural-harness controls. No graph event, source file mutation or external adapter execution.",
+  "finding": "Conformance trusts adapter replay and declared effect, and lists mutation names without running mutations. A wrong certificate can self-report verified and remain DESCRIPTIVE_ONLY; this is not evidence of a held false claim."
+}

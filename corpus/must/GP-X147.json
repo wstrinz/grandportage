@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "id": "GP-X147",
+  "seed": null,
+  "title": "Use a retracted inference as live support",
+  "situation": "Retraction retains history and removes the inference from clean live support.",
+  "inputs": {
+    "vocabulary": "lifecycle-scenario/v1",
+    "objects": {
+      "object-1": {
+        "category": "context",
+        "name": "M",
+        "properties": {
+          "description": "m"
+        }
+      },
+      "object-2": {
+        "category": "context",
+        "name": "N",
+        "properties": {
+          "description": "n"
+        }
+      },
+      "object-3": {
+        "category": "assertion",
+        "name": "C",
+        "properties": {
+          "context": "M",
+          "statement_class": "universal_property",
+          "statement": "P"
+        }
+      },
+      "object-4": {
+        "category": "argument",
+        "name": "I",
+        "properties": {
+          "premise": "C",
+          "transport_route": [],
+          "conclusion_class": "universal_property",
+          "conclusion": "P at M"
+        }
+      },
+      "object-5": {
+        "category": "argument",
+        "name": "R-I",
+        "properties": {
+          "justification": "argument withdrawn"
+        }
+      }
+    },
+    "history": [
+      {
+        "object": "object-1"
+      },
+      {
+        "object": "object-2"
+      },
+      {
+        "object": "object-3"
+      },
+      {
+        "object": "object-4"
+      },
+      {
+        "object": "object-5",
+        "replacement": {
+          "prior": "I",
+          "change": "argument_retraction"
+        }
+      }
+    ],
+    "question": {
+      "object": "I"
+    }
+  },
+  "attempted_conclusion": "Use a retracted inference as live support.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Retraction retains history and removes the inference from clean live support."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_supersession_noise.py",
+      "line": 92,
+      "anchor": "def test_minimal_inference_retract_is_not_a_live_successor("
+    }
+  ]
+}

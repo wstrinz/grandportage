@@ -1,0 +1,26 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "478db555530143c18815267e4effbdd9227415e42820812f662b88bb77d19d29",
+  "scope": "Pinned GP-owned fixture copied to private scratch; no external campaign harvest, verifier execution or graph authority.",
+  "controls": [
+    {
+      "name": "existing attempt input rebound after packet statement change",
+      "old_packet_fingerprint": "sha256:dd3dfb5ebe2b770e92ee46e735170726107bfd82771955c2ff0ddc084a022a93",
+      "new_packet_fingerprint": "sha256:547f603c03b0f850e42eb2ce88480158932bd865cd04eac84cf4705b5ae32d84",
+      "outcome": "ACCEPTED_ARTIFACT",
+      "scope": "Manifest digest bindings explicitly refreshed; no prior_ledger requested; does not bypass file hash checks"
+    },
+    {
+      "name": "old ledger over changed packet with same ID",
+      "overlay_packet_fingerprint": "sha256:547f603c03b0f850e42eb2ce88480158932bd865cd04eac84cf4705b5ae32d84",
+      "ledger_attempt_fingerprint": "sha256:dd3dfb5ebe2b770e92ee46e735170726107bfd82771955c2ff0ddc084a022a93",
+      "outcome": "ACCEPTED_ARTIFACT",
+      "scope": "Direct overlay API accepts mismatching content identities; ordinary CLI rebuilds ledger against current packet"
+    },
+    {
+      "name": "explicit prior ledger blocks rebinding",
+      "result": "REFUSED",
+      "reason": "prior attempt changed or disappeared: MATROID.ATTEMPT.BASE_EXTENSION.001"
+    }
+  ]
+}

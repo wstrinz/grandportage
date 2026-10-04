@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "scope": "Pinned historical depth-eight block adapter contract only; no companion campaign, native bindings, live CAS, Lean compilation, graph admission or source-equivalence proof.",
+  "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+  "baseline_run": "reports/oracle-runs/20260928T200343664378Z.json",
+  "baseline_run_sha256": "0f192b9a9e89c956d0bf45c1862fcee9f34af3ea73171750387930afb6868403",
+  "replay_run": "reports/oracle-runs/20260928T201826560097Z.json",
+  "replay_run_sha256": "fe9c1bbef8978ef482bca815e334bc5eb1dcdba6e17bcd59900d2a6d384f9f86",
+  "runner_sha256": "eff85d6ee2526f81a5f59fbe8d129f78670293bc15ae3bdfef19cc2b83a85a5a",
+  "adapter_sha256": "5df378e8a3f58b13d235f9512212a14fa0521e04d0978b45e5675956c2252780",
+  "routes_sha256": "f77f701b4fd20478390bcef191bdd12242ac83e734f7c1ce7b7da77a107391aa",
+  "historical_fixture_sha256": "7c26a7fdcfd12321997beb259f73388db654b3aff1cfbb83f30ccfa11017b82c",
+  "old_case_count": 364,
+  "new_case_count": 372,
+  "old_case_bytes_unchanged": true,
+  "old_case_expectations_observations_statuses_routes_layers_unchanged": true,
+  "old_diagnostic_completion_markers_regenerated": [
+    "GP-X236",
+    "GP-X237"
+  ],
+  "new_summary": {
+    "AGREES": 357,
+    "DIAGNOSTIC_OBSERVED": 1,
+    "KNOWN_DIFFERENCE": 12,
+    "PENDING": 1,
+    "UNSUPPORTED": 1
+  },
+  "eight_parameter_disposition": {
+    "A2_raw_coefficient": "GP-X325",
+    "A4_transported_block": "GP-X326",
+    "M1_graph_effect": "GP-X327",
+    "M1_D7_transport": "GP-X328",
+    "M1_residual_export": "GP-X329",
+    "M1_source_equivalence": "GP-X330",
+    "M1_first_open_obligation": "GP-X37 (existing)",
+    "A11_never_inverted_R": "GP-X331",
+    "positive_necessary_block": "GP-X324"
+  },
+  "new_cases": [
+    {
+      "id": "GP-X324",
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "case_sha256": "b7df02bb8abe283e0e7b71de7e29af1b894b97aad1415cc43a55b58ea10a2f96",
+      "observation": {
+        "reason": "Pinned necessary rank-two block and symbolic compatibility replayed.",
+        "checked_instance": {
+          "raw_coefficients": 9,
+          "transported_shape": [
+            3,
+            2
+          ],
+          "rank": 2,
+          "unit_minor": "-(25/8)*c2_3^5*c3_5*t",
+          "left_syzygy": [
+            "c2_3",
+            "0",
+            "2"
+          ],
+          "symbolic_compatibility": "Psi8=c2_3*r8_1+2*r8_3",
+          "residual_exported": false
+        },
+        "raw_report_verdict": "VERIFIED_RANK2_NECESSARY_AFFINE_BLOCK",
+        "residual_status": "NOT_EXPORTED",
+        "graph_effect": "NONE",
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X325",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "8d39117bf5d10a8409c7f85cfa52e0b6c064a3b7dcb6fdd856b9f6d06c920c57",
+      "observation": {
+        "reason": "A2: raw coefficient does not match native commitment",
+        "baseline_checked_instance": {
+          "raw_coefficients": 9,
+          "transported_shape": [
+            3,
+            2
+          ],
+          "rank": 2,
+          "unit_minor": "-(25/8)*c2_3^5*c3_5*t",
+          "left_syzygy": [
+            "c2_3",
+            "0",
+            "2"
+          ],
+          "symbolic_compatibility": "Psi8=c2_3*r8_1+2*r8_3",
+          "residual_exported": false
+        },
+        "control": "raw_coefficient",
+        "rejection_gate": "A2",
+        "outer_fixture_digest_rejection": false,
+        "mathematical_invalidity_established": false,
+        "graph_effect": "NONE",
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X326",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "009b36fc287ec333696472d079312e66797c61ee579cb20b9b76ce98e12eea14",
+      "observation": {
+        "reason": "A4: transported block does not match native commitment",
+        "baseline_checked_instance": {
+          "raw_coefficients": 9,
+          "transported_shape": [
+            3,
+            2
+          ],
+          "rank": 2,
+          "unit_minor": "-(25/8)*c2_3^5*c3_5*t",
+          "left_syzygy": [
+            "c2_3",
+            "0",
+            "2"
+          ],
+          "symbolic_compatibility": "Psi8=c2_3*r8_1+2*r8_3",
+          "residual_exported": false
+        },
+        "control": "transported_block",
+        "rejection_gate": "A4",
+        "outer_fixture_digest_rejection": false,
+        "mathematical_invalidity_established": false,
+        "graph_effect": "NONE",
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X327",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "d649814a09a45903ba144a3a0f5dc094a5c79c34634fe1851504eb409d778886",
+      "observation": {
+        "reason": "M1: transport, residual, authority, or graph scope changed",
+        "baseline_checked_instance": {
+          "raw_coefficients": 9,
+          "transported_shape": [
+            3,
+            2
+          ],
+          "rank": 2,
+          "unit_minor": "-(25/8)*c2_3^5*c3_5*t",
+          "left_syzygy": [
+            "c2_3",
+            "0",
+            "2"
+          ],
+          "symbolic_compatibility": "Psi8=c2_3*r8_1+2*r8_3",
+          "residual_exported": false
+        },
+        "control": "graph_effect",
+        "rejection_gate": "M1",
+        "outer_fixture_digest_rejection": false,
+        "mathematical_invalidity_established": false,
+        "graph_effect": "NONE",
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X328",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "bd9dfe8c988f66f462ee78800568702ccc9f1ec50016b3c97a3c4fec0d527820",
+      "observation": {
+        "reason": "M1: transport, residual, authority, or graph scope changed",
+        "baseline_checked_instance": {
+          "raw_coefficients": 9,
+          "transported_shape": [
+            3,
+            2
+          ],
+          "rank": 2,
+          "unit_minor": "-(25/8)*c2_3^5*c3_5*t",
+          "left_syzygy": [
+            "c2_3",
+            "0",
+            "2"
+          ],
+          "symbolic_compatibility": "Psi8=c2_3*r8_1+2*r8_3",
+          "residual_exported": false
+        },
+        "control": "derivative_transport",
+        "rejection_gate": "M1",
+        "outer_fixture_digest_rejection": false,
+        "mathematical_invalidity_established": false,
+        "graph_effect": "NONE",
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X329",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "23826135241806dc2ddf43b7dd94b407662567e9cb08cd9192e708088141d96e",
+      "observation": {
+        "reason": "M1: transport, residual, authority, or graph scope changed",
+        "baseline_checked_instance": {
+          "raw_coefficients": 9,
+          "transported_shape": [
+            3,
+            2
+          ],
+          "rank": 2,
+          "unit_minor": "-(25/8)*c2_3^5*c3_5*t",
+          "left_syzygy": [
+            "c2_3",
+            "0",
+            "2"
+          ],
+          "symbolic_compatibility": "Psi8=c2_3*r8_1+2*r8_3",
+          "residual_exported": false
+        },
+        "control": "residual_export",
+        "rejection_gate": "M1",
+        "outer_fixture_digest_rejection": false,
+        "mathematical_invalidity_established": false,
+        "graph_effect": "NONE",
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X330",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "3f5faae58101704e407dc6664343a5c05d21d9f6e0c4c7c77294479c6b6af843",
+      "observation": {
+        "reason": "M1: transport, residual, authority, or graph scope changed",
+        "baseline_checked_instance": {
+          "raw_coefficients": 9,
+          "transported_shape": [
+            3,
+            2
+          ],
+          "rank": 2,
+          "unit_minor": "-(25/8)*c2_3^5*c3_5*t",
+          "left_syzygy": [
+            "c2_3",
+            "0",
+            "2"
+          ],
+          "symbolic_compatibility": "Psi8=c2_3*r8_1+2*r8_3",
+          "residual_exported": false
+        },
+        "control": "source_equivalence",
+        "rejection_gate": "M1",
+        "outer_fixture_digest_rejection": false,
+        "mathematical_invalidity_established": false,
+        "graph_effect": "NONE",
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X331",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "9214da134e814516a5165ef8bb83565211fd89b279b1e1936685d0e93d72d18e",
+      "observation": {
+        "reason": "A11: unit audit or never-inverted boundary changed",
+        "baseline_checked_instance": {
+          "raw_coefficients": 9,
+          "transported_shape": [
+            3,
+            2
+          ],
+          "rank": 2,
+          "unit_minor": "-(25/8)*c2_3^5*c3_5*t",
+          "left_syzygy": [
+            "c2_3",
+            "0",
+            "2"
+          ],
+          "symbolic_compatibility": "Psi8=c2_3*r8_1+2*r8_3",
+          "residual_exported": false
+        },
+        "control": "no_inversion_ledger",
+        "rejection_gate": "A11",
+        "outer_fixture_digest_rejection": false,
+        "mathematical_invalidity_established": false,
+        "graph_effect": "NONE",
+        "external_execution": false
+      }
+    }
+  ]
+}

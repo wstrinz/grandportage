@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "GP-X229",
+  "seed": null,
+  "title": "Readable unidentified historical execution is not current authority",
+  "situation": "Separate replayable polynomial evidence from the availability and identity of its historical producer.",
+  "inputs": {
+    "model": {
+      "field": "Q",
+      "variables": [
+        "x"
+      ],
+      "equations": [
+        "x"
+      ]
+    },
+    "identity": {
+      "left": "x^2",
+      "right": "0"
+    },
+    "cofactors": null,
+    "local_backend": "matching",
+    "historical_identity": "unavailable",
+    "raw_artifact": "present",
+    "question": "historical_authority"
+  },
+  "attempted_conclusion": "Accept historical execution metadata without a replayable certificate as current authority.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Readable unidentified historical execution is not current authority"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_artifacts.py",
+      "line": 254,
+      "anchor": "def test_unavailable_historical_backend_is_readable_but_not_authority("
+    }
+  ]
+}

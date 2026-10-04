@@ -1,0 +1,65 @@
+{
+  "commit": "f2b7c49e59d382ba182e90aee057c3441911d183",
+  "parent": "72a87417cedef95f245c8626921f559dad66fe7d",
+  "full_diff_read": true,
+  "diff_sha256": "6b9f4252bd7638457bfa41823b6c58a959946eb354c35b438e3b2595dc13df1d",
+  "files": [
+    {
+      "path": "HANDOFF.md",
+      "blob": "be6cfae1cb1a221034721128592dcfc13d868b12",
+      "sha256": "6dca7b7a5ab5a55b13aefa7d2f89ee017bdc2e2bc3ef8c67684fdac2f126e81b",
+      "disposition": "Historical test-count update only, not current verification evidence."
+    },
+    {
+      "path": "README.md",
+      "blob": "b3f129d5ddeb99421e56a5a278c9ba36d020b16c",
+      "sha256": "82775febb6d5a51c49f22b8f14b5387f99c5a9a18b5b53cbd1562726c83259f5",
+      "disposition": "Historical test-count update only, not current verification evidence."
+    },
+    {
+      "path": "REVIEW.md",
+      "blob": "163f782bf4458f6e86837d42a3950706bdda7cd6",
+      "sha256": "2cbc364cbb1c7e9a9ff997e2bdc29e5d4a2adc055c15f107f9fcbd930fe0687d",
+      "disposition": "Historical test-count update only, not current verification evidence."
+    },
+    {
+      "path": "TESTPLAN.md",
+      "blob": "e56abfde27b98e573ff4110057f61a2e541ff703",
+      "sha256": "9be926d4313dbc054ae6b9c41db91ae64e6164e91de471fa6493184d0a4e5dae",
+      "disposition": "Historical test-count update only, not current verification evidence."
+    },
+    {
+      "path": "grandportage/operations.py",
+      "blob": "a4799f04ab6939970dc00afab45c4734e93774ff",
+      "sha256": "75183006ceaad93bb77c68dfe7532b6eca36e91e95dfc375cfa50cf686ee98fe",
+      "disposition": "Empty ideal renders as zero; saturation replaced by library-free elimination of 1-t*f. Historical emission tests were live, not rerun here."
+    },
+    {
+      "path": "grandportage/store.py",
+      "blob": "66a3531e3534fe3939398dd76f77d77d7a0aead2",
+      "sha256": "8ffd23bb82eb3ef9cc3c1698c86623785b46a1aa73137b316e6887aeb881b687",
+      "disposition": "First explicit characteristic predicate admitted nonnegative integers, despite prime wording; separate predicate audit records 1/4 gap."
+    },
+    {
+      "path": "grandportage/verify.py",
+      "blob": "b4dab9bff2d1d44c8441299dffabe70104382054",
+      "sha256": "d1fcaa2e7e1e7e20b2da64128286b2be3986d8f99abe3c8415f2afd2d2701b47",
+      "disposition": "Characteristic threaded into eight call sites and endpoint mismatch checks added; historical missing characteristic still defaulted to zero."
+    },
+    {
+      "path": "tests/test_boundary.py",
+      "blob": "b6fab61172de5ec4504aa88f38cfed392362001a",
+      "sha256": "b3847bfc289c5bb3726098ff0be1cb2d2bbdac59f51c7d19183bcff12a9177d6",
+      "disposition": "Three added live tests cover F23 false emptiness, characteristic-two true containment, saturation and zero-ideal constructor execution. Existing offline corpus slices cover narrower outcomes."
+    }
+  ],
+  "related_evidence": [
+    "reports/CHARACTERISTIC-PREDICATE-HISTORY.json",
+    "reports/CONSTRUCTOR-EMISSION-AUDIT.json"
+  ],
+  "limits": [
+    "Historical 720-pass claim not rerun.",
+    "No live Singular or companion campaign execution.",
+    "Earlier exact arithmetic and emission evidence remains bounded by its recorded scope."
+  ]
+}

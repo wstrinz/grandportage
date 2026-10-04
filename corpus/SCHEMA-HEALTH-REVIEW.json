@@ -1,0 +1,61 @@
+{
+  "files": [
+    {
+      "path": "grandportage/cli.py",
+      "sha256": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308",
+      "full_text_read": false,
+      "complete_definitions": [
+        {
+          "name": "native_schema_document",
+          "start": 2125,
+          "end": 2200
+        },
+        {
+          "name": "cmd_schema",
+          "start": 2203,
+          "end": 2206
+        },
+        {
+          "name": "cmd_doctor",
+          "start": 2209,
+          "end": 2263
+        }
+      ],
+      "semantic_status": "partial"
+    },
+    {
+      "path": "grandportage/mcp.py",
+      "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb",
+      "full_text_read": false,
+      "complete_definitions": [
+        {
+          "name": "_event_schema",
+          "start": 232,
+          "end": 350
+        },
+        {
+          "name": "h_cas_health",
+          "start": 823,
+          "end": 863
+        },
+        {
+          "name": "h_portage_schema",
+          "start": 955,
+          "end": 958
+        }
+      ],
+      "semantic_status": "partial"
+    }
+  ],
+  "diagnostic": "reports/SCHEMA-HEALTH-BOUNDARY.json",
+  "findings": [
+    "Authoring JSON schema and native shape validation differ on licensing boolean types and sparse tombstone requirements.",
+    "Unexpected health answer is returned as normal text, so doctor reports healthy and zero exit despite the warning.",
+    "Doctor health is not mathematical proof authority; graph absence is separately reported and does not itself make status fail."
+  ],
+  "remaining": [
+    "Complete MCP and CLI source review; only listed definitions fully read here.",
+    "Broader schema/runtime parity and health transcript correctness remain unproved.",
+    "Extract distinct interface contracts without confusing diagnostic status with mathematical corpus verdicts."
+  ]
+}

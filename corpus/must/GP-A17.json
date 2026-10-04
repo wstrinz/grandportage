@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "GP-A17",
+  "seed": "A17",
+  "title": "Unfinished attempt mints no authority",
+  "situation": "The only verification attempt timed out or returned UNVERIFIED.",
+  "inputs": {
+    "attempt_status": "UNVERIFIED",
+    "earlier_current_warrant": false
+  },
+  "attempted_conclusion": "Treat this attempt as a current checked warrant.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "An unfinished attempt is absent evidence and remains retryable."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 557,
+      "anchor": "| A17 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 4359,
+      "anchor": "def test_unavailable_then_available_backend_retries_a_genuinely_unverified_witness("
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_verdict_provenance.py",
+      "line": 63,
+      "anchor": "def _verdict("
+    }
+  ]
+}

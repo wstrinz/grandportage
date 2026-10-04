@@ -1,0 +1,49 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "a5307f8130f2cdaf23a939fac800fa810290f68ea1f75391d757da18fca933cd",
+  "observations": [
+    {
+      "control": "valid",
+      "producer": {
+        "is_member": true,
+        "cofactors": [
+          "1",
+          "0"
+        ],
+        "reduced": "0"
+      },
+      "exact_checker_accepts": true,
+      "attached_certificate": true,
+      "can_record": false
+    },
+    {
+      "control": "missing_first",
+      "producer": {
+        "is_member": true,
+        "cofactors": [
+          "0",
+          "0"
+        ],
+        "reduced": "0"
+      },
+      "exact_checker_accepts": false,
+      "attached_certificate": true,
+      "can_record": false
+    },
+    {
+      "control": "duplicate_first",
+      "producer": {
+        "is_member": true,
+        "cofactors": [
+          "0",
+          "0"
+        ],
+        "reduced": "0"
+      },
+      "exact_checker_accepts": false,
+      "attached_certificate": true,
+      "can_record": false
+    }
+  ],
+  "scope": "Injected backend answers test producer parsing. Missing/duplicate rows yield incorrect candidate certificates; exact replay refuses. No native graph admission or live Singular failure claimed."
+}

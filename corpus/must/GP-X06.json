@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X06",
+  "seed": null,
+  "title": "A lifted expressible predicate need not be closed",
+  "situation": "Every target point has a checked lift and the predicate factors through the target.",
+  "inputs": {
+    "checked_point_surjective": true,
+    "target_expressible": true,
+    "closed": false
+  },
+  "attempted_conclusion": "Transport the predicate to the target.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Checked lifting plus target expressibility supplies the rule's premises."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/kernel.py",
+      "line": 1185,
+      "anchor": "if point_surjective and target_expressible:"
+    }
+  ]
+}

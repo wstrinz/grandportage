@@ -1,0 +1,1075 @@
+{
+  "schema": "legacy-lifecycle-inputs/v1",
+  "purpose": "Pre-migration oracle inputs, not the neutral corpus. Expected verdicts preserved for equivalence audit.",
+  "cases": {
+    "GP-X142": {
+      "original_case_sha256": "583a0912520252b141c91920c343abb07ea0f48f9c31cb3102385cef3d3eb27c",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "model"
+          },
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "model"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "An identical redeclaration is idempotent."
+      }
+    },
+    "GP-X143": {
+      "original_case_sha256": "af6a3fc309a0eff98c3f27a58974a294db9d493160f68b7c9a40e0e8717cec2f",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "model"
+          },
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "different"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "A shared identifier cannot silently blend conflicting declarations."
+      }
+    },
+    "GP-X144": {
+      "original_case_sha256": "e336cfb71c2661b77a12810d8ef8931ef06f2e43b8f80821a30ece6ce340771f",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "m"
+          },
+          {
+            "ev": "model",
+            "id": "N",
+            "desc": "n"
+          },
+          {
+            "ev": "claim",
+            "id": "C",
+            "model": "M",
+            "kind": "PREDICATE",
+            "statement": "P"
+          },
+          {
+            "ev": "claim",
+            "id": "C2",
+            "model": "M",
+            "kind": "PREDICATE",
+            "statement": "P",
+            "cite": "better citation",
+            "supersedes": "C",
+            "discharge_kind": "AMEND"
+          }
+        ],
+        "prefix": [
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "m"
+          },
+          {
+            "ev": "model",
+            "id": "N",
+            "desc": "n"
+          }
+        ],
+        "old": [
+          {
+            "ev": "claim",
+            "id": "C",
+            "model": "M",
+            "kind": "PREDICATE",
+            "statement": "P"
+          }
+        ],
+        "new": [
+          {
+            "ev": "claim",
+            "id": "C2",
+            "model": "M",
+            "kind": "PREDICATE",
+            "statement": "P",
+            "cite": "better citation",
+            "supersedes": "C",
+            "discharge_kind": "AMEND"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "Supersession is resolved after the full fold, so both orders retain the same records and successor links."
+      }
+    },
+    "GP-X145": {
+      "original_case_sha256": "f3dffbc0a60c1b8d6072673538f2eff8cfb92259788254cf34f4ef05f9c87b41",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "m"
+          },
+          {
+            "ev": "model",
+            "id": "N",
+            "desc": "n"
+          },
+          {
+            "ev": "edge",
+            "id": "E",
+            "src": "M",
+            "dst": "N",
+            "type": "NECESSARY_CONDITION",
+            "why": "drops equations"
+          },
+          {
+            "ev": "edge",
+            "id": "E2",
+            "src": "M",
+            "dst": "N",
+            "type": "NECESSARY_CONDITION",
+            "why": "drops equations",
+            "supersedes": "E",
+            "discharge_kind": "RETYPE"
+          }
+        ],
+        "prefix": [
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "m"
+          },
+          {
+            "ev": "model",
+            "id": "N",
+            "desc": "n"
+          }
+        ],
+        "old": [
+          {
+            "ev": "edge",
+            "id": "E",
+            "src": "M",
+            "dst": "N",
+            "type": "NECESSARY_CONDITION",
+            "why": "drops equations"
+          }
+        ],
+        "new": [
+          {
+            "ev": "edge",
+            "id": "E2",
+            "src": "M",
+            "dst": "N",
+            "type": "NECESSARY_CONDITION",
+            "why": "drops equations",
+            "supersedes": "E",
+            "discharge_kind": "RETYPE"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "Supersession is resolved after the full fold, so both orders retain the same records and successor links."
+      }
+    },
+    "GP-X146": {
+      "original_case_sha256": "6a1b785e6a8379fe6b3b83afb08e4b8f6addc95fc363bc1607152ced6d75ab93",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "m"
+          },
+          {
+            "ev": "model",
+            "id": "N",
+            "desc": "n"
+          },
+          {
+            "ev": "claim",
+            "id": "C",
+            "model": "M",
+            "kind": "PREDICATE",
+            "statement": "P"
+          },
+          {
+            "ev": "inference",
+            "id": "I",
+            "claim": "C",
+            "path": [],
+            "concludes_kind": "PREDICATE",
+            "asserted": "P at M"
+          },
+          {
+            "ev": "inference",
+            "id": "I2",
+            "claim": "C",
+            "path": [],
+            "concludes_kind": "PREDICATE",
+            "asserted": "P restated",
+            "supersedes": "I",
+            "discharge_kind": "RESTATE"
+          }
+        ],
+        "prefix": [
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "m"
+          },
+          {
+            "ev": "model",
+            "id": "N",
+            "desc": "n"
+          },
+          {
+            "ev": "claim",
+            "id": "C",
+            "model": "M",
+            "kind": "PREDICATE",
+            "statement": "P"
+          }
+        ],
+        "old": [
+          {
+            "ev": "inference",
+            "id": "I",
+            "claim": "C",
+            "path": [],
+            "concludes_kind": "PREDICATE",
+            "asserted": "P at M"
+          }
+        ],
+        "new": [
+          {
+            "ev": "inference",
+            "id": "I2",
+            "claim": "C",
+            "path": [],
+            "concludes_kind": "PREDICATE",
+            "asserted": "P restated",
+            "supersedes": "I",
+            "discharge_kind": "RESTATE"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "Supersession is resolved after the full fold, so both orders retain the same records and successor links."
+      }
+    },
+    "GP-X147": {
+      "original_case_sha256": "14a366f2177561f214e609fd7ecf9529f882cbcfd023d4026b45aad9aff491bf",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "m"
+          },
+          {
+            "ev": "model",
+            "id": "N",
+            "desc": "n"
+          },
+          {
+            "ev": "claim",
+            "id": "C",
+            "model": "M",
+            "kind": "PREDICATE",
+            "statement": "P"
+          },
+          {
+            "ev": "inference",
+            "id": "I",
+            "claim": "C",
+            "path": [],
+            "concludes_kind": "PREDICATE",
+            "asserted": "P at M"
+          },
+          {
+            "ev": "inference",
+            "id": "R-I",
+            "supersedes": "I",
+            "discharge_kind": "RETRACT",
+            "why": "argument withdrawn"
+          }
+        ],
+        "query_id": "I"
+      },
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Retraction retains history and removes the inference from clean live support."
+      }
+    },
+    "GP-X148": {
+      "original_case_sha256": "f1918c0dbd6fdd6c582d97b4805c9c5ed272bab8c435d3606d026f0bc47ace70",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "m"
+          },
+          {
+            "ev": "model",
+            "id": "N",
+            "desc": "n"
+          },
+          {
+            "ev": "claim",
+            "id": "C",
+            "model": "M",
+            "kind": "PREDICATE",
+            "statement": "P"
+          },
+          {
+            "ev": "inference",
+            "id": "I",
+            "claim": "C",
+            "path": [],
+            "concludes_kind": "PREDICATE",
+            "asserted": "P at M"
+          },
+          {
+            "ev": "inference",
+            "id": "I2",
+            "claim": "C",
+            "path": [],
+            "concludes_kind": "PREDICATE",
+            "asserted": "P at M"
+          },
+          {
+            "ev": "inference",
+            "id": "R-I",
+            "supersedes": "I",
+            "discharge_kind": "RETRACT",
+            "why": "argument withdrawn"
+          }
+        ],
+        "query_id": "I2"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "The separate inference has no dependency on I. This tests lifecycle isolation, not independent checked warrants."
+      }
+    },
+    "GP-X149": {
+      "original_case_sha256": "d840d5eeb435b76ddeae7c78053f5b21a325c480a7fb6b4dd9349a445e7f8acf",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "IV",
+            "desc": "the interval-valued system"
+          },
+          {
+            "ev": "model",
+            "id": "PD",
+            "desc": "the positive-definite locus"
+          },
+          {
+            "ev": "edge",
+            "id": "E-IV-PD",
+            "src": "IV",
+            "dst": "PD",
+            "type": "UNTYPED",
+            "why": "the step is not yet characterised",
+            "map_kind": "IDENTITY_MAP",
+            "debt_why": "nobody has derived what this inclusion loses"
+          },
+          {
+            "ev": "edge",
+            "id": "W-E",
+            "supersedes": "E-IV-PD",
+            "discharge_kind": "WITHDRAW",
+            "why": "not an edge"
+          }
+        ],
+        "query_id": "W-E",
+        "registry": "edges"
+      },
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "A tombstone records withdrawal without minting an edge."
+      }
+    },
+    "GP-X150": {
+      "original_case_sha256": "9fd1b4316a47c211e51295b11c3b1181d21cab06f98c1f50dd4bc1b1173cb853",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "IV",
+            "desc": "the interval-valued system"
+          },
+          {
+            "ev": "model",
+            "id": "PD",
+            "desc": "the positive-definite locus"
+          },
+          {
+            "ev": "edge",
+            "id": "E-IV-PD",
+            "src": "IV",
+            "dst": "PD",
+            "type": "UNTYPED",
+            "why": "the step is not yet characterised",
+            "map_kind": "IDENTITY_MAP",
+            "debt_why": "nobody has derived what this inclusion loses"
+          },
+          {
+            "ev": "claim",
+            "id": "C-PD",
+            "model": "PD",
+            "kind": "PREDICATE",
+            "statement": "the bound holds on PD"
+          },
+          {
+            "ev": "inference",
+            "id": "I",
+            "claim": "C-PD",
+            "path": [
+              [
+                "E-IV-PD",
+                "AGAINST"
+              ]
+            ],
+            "concludes_kind": "PREDICATE",
+            "asserted": "so the bound holds on IV as well"
+          },
+          {
+            "ev": "edge",
+            "id": "W-E",
+            "supersedes": "E-IV-PD",
+            "discharge_kind": "WITHDRAW",
+            "why": "not an edge"
+          }
+        ],
+        "rules": [
+          "STALE-PATH"
+        ]
+      },
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Withdrawal does not hide live traffic over the withdrawn relation."
+      }
+    },
+    "GP-X151": {
+      "original_case_sha256": "4bc1898dd63aa029e2880e5860d0dfc77754ab5350edb4dc5121d02b36b2ca5d",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "IV",
+            "desc": "the interval-valued system"
+          },
+          {
+            "ev": "model",
+            "id": "PD",
+            "desc": "the positive-definite locus"
+          },
+          {
+            "ev": "edge",
+            "id": "E-IV-PD",
+            "src": "IV",
+            "dst": "PD",
+            "type": "UNTYPED",
+            "why": "the step is not yet characterised",
+            "map_kind": "IDENTITY_MAP",
+            "debt_why": "nobody has derived what this inclusion loses"
+          },
+          {
+            "ev": "claim",
+            "id": "C-PD",
+            "model": "PD",
+            "kind": "PREDICATE",
+            "statement": "the bound holds on PD"
+          },
+          {
+            "ev": "inference",
+            "id": "I",
+            "claim": "C-PD",
+            "path": [
+              [
+                "E-IV-PD",
+                "AGAINST"
+              ]
+            ],
+            "concludes_kind": "PREDICATE",
+            "asserted": "so the bound holds on IV as well"
+          },
+          {
+            "ev": "edge",
+            "id": "W-E",
+            "supersedes": "E-IV-PD",
+            "discharge_kind": "WITHDRAW",
+            "why": "not an edge"
+          },
+          {
+            "ev": "inference",
+            "id": "R-I",
+            "supersedes": "I",
+            "discharge_kind": "RETRACT",
+            "why": "argument withdrawn"
+          }
+        ],
+        "rules": [
+          "STALE-PATH"
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "Neither the edge nor its only rider remains live; their history stays visible."
+      }
+    },
+    "GP-X152": {
+      "original_case_sha256": "88d8feeffb8b59dfad0131bfb6ef084b37bf13a14d299b101830518e0b9a9948",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "IV",
+            "desc": "the interval-valued system"
+          },
+          {
+            "ev": "model",
+            "id": "PD",
+            "desc": "the positive-definite locus"
+          },
+          {
+            "ev": "edge",
+            "id": "E-IV-PD",
+            "src": "IV",
+            "dst": "PD",
+            "type": "UNTYPED",
+            "why": "the step is not yet characterised",
+            "map_kind": "IDENTITY_MAP",
+            "debt_why": "nobody has derived what this inclusion loses"
+          },
+          {
+            "ev": "edge",
+            "id": "E-IV-PD-RESTRICT",
+            "src": "IV",
+            "dst": "PD",
+            "type": "RESTRICTION",
+            "why": "the cut-out subset, same coordinates",
+            "map_kind": "IDENTITY_MAP",
+            "supersedes": "E-IV-PD",
+            "discharge_kind": "RETYPE"
+          },
+          {
+            "ev": "edge",
+            "id": "W-E",
+            "supersedes": "E-IV-PD",
+            "discharge_kind": "WITHDRAW",
+            "why": "not an edge"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Nothing-replaces-it and live replacement cannot both describe one target."
+      }
+    },
+    "GP-X153": {
+      "original_case_sha256": "57f6c2ea5b1edad0a168bb6dcf20e7f0420154d642b1a50d5b421dfdc0a96323",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "IV",
+            "desc": "the interval-valued system"
+          },
+          {
+            "ev": "model",
+            "id": "PD",
+            "desc": "the positive-definite locus"
+          },
+          {
+            "ev": "edge",
+            "id": "E-IV-PD-RESTRICT",
+            "src": "IV",
+            "dst": "PD",
+            "type": "RESTRICTION",
+            "why": "the cut-out subset, same coordinates",
+            "map_kind": "IDENTITY_MAP",
+            "supersedes": "E-IV-PD-RESTRICT",
+            "discharge_kind": "RETYPE"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "A record cannot be its own successor."
+      }
+    },
+    "GP-X154": {
+      "original_case_sha256": "a92e34bac0be1a1fb88d95e6a55f7498a29bd289712f47f8b6aa29bc991aea84",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "IV",
+            "desc": "the interval-valued system"
+          },
+          {
+            "ev": "model",
+            "id": "PD",
+            "desc": "the positive-definite locus"
+          },
+          {
+            "ev": "edge",
+            "id": "E-IV-PD-RESTRICT",
+            "src": "IV",
+            "dst": "PD",
+            "type": "RESTRICTION",
+            "why": "the cut-out subset, same coordinates",
+            "map_kind": "IDENTITY_MAP",
+            "supersedes": "GHOST",
+            "discharge_kind": "RETYPE"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "A supersession reference must resolve to a record of the same kind."
+      }
+    },
+    "GP-X155": {
+      "original_case_sha256": "5e4795c0a269a1c381ba2570eda1b66aae7b628986f2705fd3b366b17466ef50",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "IV",
+            "desc": "the interval-valued system"
+          },
+          {
+            "ev": "model",
+            "id": "PD",
+            "desc": "the positive-definite locus"
+          },
+          {
+            "ev": "edge",
+            "id": "EA",
+            "src": "IV",
+            "dst": "PD",
+            "type": "UNTYPED",
+            "why": "the step is not yet characterised",
+            "map_kind": "IDENTITY_MAP",
+            "debt_why": "nobody has derived what this inclusion loses",
+            "supersedes": "EB",
+            "discharge_kind": "RETYPE"
+          },
+          {
+            "ev": "edge",
+            "id": "EB",
+            "src": "IV",
+            "dst": "PD",
+            "type": "UNTYPED",
+            "why": "the step is not yet characterised",
+            "map_kind": "IDENTITY_MAP",
+            "debt_why": "nobody has derived what this inclusion loses",
+            "supersedes": "EA",
+            "discharge_kind": "RETYPE"
+          }
+        ],
+        "rules": [
+          "UNTYPED-EDGE"
+        ]
+      },
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "A closed cycle has no live successor and retires neither defect."
+      }
+    },
+    "GP-X156": {
+      "original_case_sha256": "0d90563bf9c02ceca3e52c151b95e8cef3eabb0191a9774c960228cfd2515f1e",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "IV",
+            "desc": "the interval-valued system"
+          },
+          {
+            "ev": "model",
+            "id": "PD",
+            "desc": "the positive-definite locus"
+          },
+          {
+            "ev": "edge",
+            "id": "E-IV-PD",
+            "src": "IV",
+            "dst": "PD",
+            "type": "UNTYPED",
+            "why": "the step is not yet characterised",
+            "map_kind": "IDENTITY_MAP",
+            "debt_why": "nobody has derived what this inclusion loses"
+          },
+          {
+            "ev": "edge",
+            "id": "E-IV-PD-RESTRICT",
+            "src": "IV",
+            "dst": "PD",
+            "type": "RESTRICTION",
+            "why": "the cut-out subset, same coordinates",
+            "map_kind": "IDENTITY_MAP",
+            "supersedes": "E-IV-PD",
+            "discharge_kind": "RETYPE"
+          }
+        ],
+        "rules": [
+          "UNTYPED-EDGE"
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "A live typed successor resolves the original untyped-edge debt; this does not prove the declared relation."
+      }
+    },
+    "GP-X157": {
+      "original_case_sha256": "78d359749fb46de01e284b35e62eb90d0ee45f7222807f029a80b1b856832930",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "IV",
+            "desc": "the interval-valued system"
+          },
+          {
+            "ev": "model",
+            "id": "PD",
+            "desc": "the positive-definite locus"
+          },
+          {
+            "ev": "edge",
+            "id": "E-IV-PD",
+            "src": "IV",
+            "dst": "PD",
+            "type": "UNTYPED",
+            "why": "the step is not yet characterised",
+            "map_kind": "IDENTITY_MAP",
+            "debt_why": "nobody has derived what this inclusion loses"
+          },
+          {
+            "ev": "edge",
+            "id": "E2",
+            "src": "IV",
+            "dst": "PD",
+            "type": "UNTYPED",
+            "why": "the step is not yet characterised",
+            "map_kind": "IDENTITY_MAP",
+            "debt_why": "nobody has derived what this inclusion loses",
+            "supersedes": "E-IV-PD",
+            "discharge_kind": "RETYPE"
+          }
+        ],
+        "rules": [
+          "UNTYPED-EDGE"
+        ]
+      },
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "The replacement is audited independently and still has the same defect."
+      }
+    },
+    "GP-X158": {
+      "original_case_sha256": "5365edb7cba0e62641375db194caca7896894e728a43302394b6254631a921c5",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "IV",
+            "desc": "the interval-valued system"
+          },
+          {
+            "ev": "model",
+            "id": "PD",
+            "desc": "the positive-definite locus"
+          },
+          {
+            "ev": "edge",
+            "id": "E-IV-PD",
+            "src": "IV",
+            "dst": "PD",
+            "type": "UNTYPED",
+            "why": "the step is not yet characterised",
+            "map_kind": "IDENTITY_MAP",
+            "debt_why": "nobody has derived what this inclusion loses"
+          },
+          {
+            "ev": "edge",
+            "id": "E-IV-PD-RESTRICT",
+            "src": "IV",
+            "dst": "PD",
+            "type": "RESTRICTION",
+            "why": "the cut-out subset, same coordinates",
+            "map_kind": "IDENTITY_MAP",
+            "supersedes": "E-IV-PD",
+            "discharge_kind": "RETYPE"
+          },
+          {
+            "ev": "edge",
+            "id": "E3",
+            "src": "IV",
+            "dst": "PD",
+            "type": "RESTRICTION",
+            "why": "the cut-out subset, same coordinates",
+            "map_kind": "IDENTITY_MAP",
+            "supersedes": "E-IV-PD-RESTRICT",
+            "discharge_kind": "RETYPE"
+          }
+        ],
+        "rules": [
+          "PARALLEL-EDGE"
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "A finite chain has one live head and does not create competing parallel declarations."
+      }
+    },
+    "GP-X159": {
+      "original_case_sha256": "3825c879c4d01eb13795d7956459bb8089baf357791df31e79644e437b22a9b7",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "IV",
+            "desc": "the interval-valued system"
+          },
+          {
+            "ev": "model",
+            "id": "PD",
+            "desc": "the positive-definite locus"
+          },
+          {
+            "ev": "edge",
+            "id": "E-IV-PD",
+            "src": "IV",
+            "dst": "PD",
+            "type": "UNTYPED",
+            "why": "the step is not yet characterised",
+            "map_kind": "IDENTITY_MAP",
+            "debt_why": "nobody has derived what this inclusion loses"
+          },
+          {
+            "ev": "edge",
+            "id": "E-IV-PD-RESTRICT",
+            "src": "IV",
+            "dst": "PD",
+            "type": "RESTRICTION",
+            "why": "the cut-out subset, same coordinates",
+            "map_kind": "IDENTITY_MAP",
+            "supersedes": "E-IV-PD",
+            "discharge_kind": "RETYPE"
+          },
+          {
+            "ev": "edge",
+            "id": "EXTRA",
+            "src": "IV",
+            "dst": "PD",
+            "type": "RESTRICTION",
+            "why": "the cut-out subset, same coordinates",
+            "map_kind": "IDENTITY_MAP",
+            "supersedes": null,
+            "discharge_kind": "RETYPE"
+          }
+        ],
+        "rules": [
+          "PARALLEL-EDGE"
+        ]
+      },
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Replacing one edge does not resolve another independent parallel declaration."
+      }
+    },
+    "GP-X160": {
+      "original_case_sha256": "463d7d115e7d674c259b8b50cf507fa6a437b7ac833972e9823978bca817c794",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "m"
+          },
+          {
+            "ev": "model",
+            "id": "N",
+            "desc": "n"
+          },
+          {
+            "ev": "claim",
+            "id": "C",
+            "model": "M",
+            "kind": "PREDICATE",
+            "statement": "P"
+          },
+          {
+            "ev": "model",
+            "id": "M2",
+            "desc": "m",
+            "supersedes": "M",
+            "discharge_kind": "RESTATE"
+          }
+        ],
+        "rules": [
+          "STALE-MODEL"
+        ]
+      },
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Model replacement does not automatically repoint consumers."
+      }
+    },
+    "GP-X161": {
+      "original_case_sha256": "28161af2e2dcd73c2882085d9911d536b66f280fed875bf6e74a298b4042c9db",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "m"
+          },
+          {
+            "ev": "model",
+            "id": "N",
+            "desc": "n"
+          },
+          {
+            "ev": "claim",
+            "id": "C",
+            "model": "M",
+            "kind": "PREDICATE",
+            "statement": "P"
+          },
+          {
+            "ev": "claim",
+            "id": "C2",
+            "model": "M",
+            "kind": "PREDICATE",
+            "statement": "P",
+            "supersedes": "C",
+            "discharge_kind": "RESTATE"
+          },
+          {
+            "ev": "claim",
+            "id": "C3",
+            "model": "M",
+            "kind": "PREDICATE",
+            "statement": "P",
+            "supersedes": "C",
+            "discharge_kind": "RESTATE"
+          }
+        ],
+        "query_id": "C",
+        "successors": [
+          "C2",
+          "C3"
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "One old claim may have several successors; none may be silently overwritten."
+      }
+    },
+    "GP-X162": {
+      "original_case_sha256": "d1398a8403b45bd36e9f9cb247180c69e690a56ae0621845e76720d55a9e4f35",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "m"
+          },
+          {
+            "ev": "model",
+            "id": "N",
+            "desc": "n"
+          },
+          {
+            "ev": "claim",
+            "id": "C",
+            "model": "M",
+            "kind": "IDENTITY",
+            "statement": "x=y",
+            "identity_origin": "DERIVED"
+          },
+          {
+            "ev": "claim",
+            "id": "C2",
+            "model": "M",
+            "kind": "IDENTITY",
+            "statement": "x=y",
+            "identity_origin": "DERIVED",
+            "coefficients_in_base": true,
+            "supersedes": "C",
+            "discharge_kind": "AMEND"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Adding coefficients_in_base changes licensing and requires relicense review."
+      }
+    },
+    "GP-X163": {
+      "original_case_sha256": "a29c299538621c3d24fc3291698ca8616934cbed85d1db160d62cb2f8f0f836d",
+      "inputs": {
+        "records": [
+          {
+            "ev": "model",
+            "id": "M",
+            "desc": "m"
+          },
+          {
+            "ev": "model",
+            "id": "N",
+            "desc": "n"
+          },
+          {
+            "ev": "claim",
+            "id": "C",
+            "model": "M",
+            "kind": "PREDICATE",
+            "statement": "P"
+          },
+          {
+            "ev": "claim",
+            "id": "C2",
+            "model": "M",
+            "kind": "PREDICATE",
+            "statement": "P",
+            "cite": "better citation",
+            "supersedes": "C",
+            "discharge_kind": "AMEND"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "A citation-only amendment changes no transport-determining field."
+      }
+    }
+  }
+}

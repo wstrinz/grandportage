@@ -1,0 +1,146 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "8d64b0de4174f15e03480b4a2d5ea49a35409ac8c8ae6db3d43b175804a248e7",
+  "layer": "constructor_emission_only",
+  "external_execution": false,
+  "limitation": "Text inspection does not establish Singular execution or mathematical completeness. Original live constructor regressions remain unrun.",
+  "results": [
+    {
+      "kind": "SaturateClosure",
+      "program": "ring GP_R = 0,(GP_T,x,y),dp;\nshort=0;\nideal GP_I = x*y,1-GP_T*(x);\nideal GP_E = eliminate(GP_I,GP_T);\nideal GP_OUT = std(GP_E);\n\"@@GP_OUT:\";\nGP_OUT;\nquit;\n",
+      "checks": {
+        "no_empty_ideal_declaration": true,
+        "no_unavailable_sat_call": true,
+        "no_library_load": true,
+        "rabinowitsch_elimination": true
+      },
+      "events": [
+        {
+          "ev": "model",
+          "id": "SAT",
+          "what": "the Zariski closure of the part of M where x does not vanish",
+          "ring_vars": [
+            "x",
+            "y"
+          ],
+          "characteristic": 0,
+          "saturated_at": "x",
+          "ideal_pending": "the saturation M : x^oo, which is what this operation's program computes"
+        },
+        {
+          "ev": "edge",
+          "id": "E-SAT",
+          "src": "SAT",
+          "dst": "M",
+          "type": "NECESSARY_CONDITION",
+          "map_kind": "POLYNOMIAL",
+          "why": "I : f^oo contains I, so the saturated model is cut by more equations; returning to the ambient model drops them  Saturating at x removes the components lying inside V(x).",
+          "built_by_operation": "SaturateClosure"
+        }
+      ]
+    },
+    {
+      "kind": "Localize",
+      "program": "ring GP_R = 0,(a,b),dp;\nshort=0;\nideal GP_I = 0;\nideal GP_S = std(GP_I);\n\"@@GP_S:\";\nGP_S;\nquit;\n",
+      "checks": {
+        "no_empty_ideal_declaration": true,
+        "no_unavailable_sat_call": true,
+        "no_library_load": true
+      },
+      "events": [
+        {
+          "ev": "model",
+          "id": "OPEN",
+          "what": "the open locus of M where a does not vanish -- the same equations, restricted to the points where a is invertible",
+          "ring_vars": [
+            "a",
+            "b"
+          ],
+          "generators": [],
+          "characteristic": 0,
+          "open_conditions": [
+            "a"
+          ]
+        },
+        {
+          "ev": "edge",
+          "id": "E-OPEN",
+          "src": "OPEN",
+          "dst": "M",
+          "type": "RESTRICTION",
+          "map_kind": "IDENTITY_MAP",
+          "why": "the open locus D(f) is cut out by the same ideal together with a condition on points, so returning to the ambient model drops the inequality f != 0 and no equation  The dropped condition is a != 0.",
+          "built_by_operation": "Localize"
+        }
+      ]
+    },
+    {
+      "kind": "SaturateClosure",
+      "program": "ring GP_R = 0,(GP_T,a,b),dp;\nshort=0;\nideal GP_I = 1-GP_T*(a);\nideal GP_E = eliminate(GP_I,GP_T);\nideal GP_OUT = std(GP_E);\n\"@@GP_OUT:\";\nGP_OUT;\nquit;\n",
+      "checks": {
+        "no_empty_ideal_declaration": true,
+        "no_unavailable_sat_call": true,
+        "no_library_load": true,
+        "rabinowitsch_elimination": true
+      },
+      "events": [
+        {
+          "ev": "model",
+          "id": "SAT0",
+          "what": "the Zariski closure of the part of M where a does not vanish",
+          "ring_vars": [
+            "a",
+            "b"
+          ],
+          "characteristic": 0,
+          "saturated_at": "a",
+          "ideal_pending": "the saturation M : a^oo, which is what this operation's program computes"
+        },
+        {
+          "ev": "edge",
+          "id": "E-SAT0",
+          "src": "SAT0",
+          "dst": "M",
+          "type": "NECESSARY_CONDITION",
+          "map_kind": "POLYNOMIAL",
+          "why": "I : f^oo contains I, so the saturated model is cut by more equations; returning to the ambient model drops them  Saturating at a removes the components lying inside V(a).",
+          "built_by_operation": "SaturateClosure"
+        }
+      ]
+    },
+    {
+      "kind": "Eliminate",
+      "program": "ring GP_R = 0,(a,b),dp;\nshort=0;\nideal GP_I = 0;\nideal GP_E = eliminate(GP_I,b);\nideal GP_OUT = std(GP_E);\n\"@@GP_OUT:\";\nGP_OUT;\nquit;\n",
+      "checks": {
+        "no_empty_ideal_declaration": true,
+        "no_unavailable_sat_call": true,
+        "no_library_load": true
+      },
+      "events": [
+        {
+          "ev": "model",
+          "id": "ELIM0",
+          "what": "the Zariski closure of the image of M after eliminating b",
+          "ring_vars": [
+            "a"
+          ],
+          "characteristic": 0,
+          "eliminated": [
+            "b"
+          ],
+          "ideal_pending": "the elimination ideal of M after removing b, which is what this operation's program computes"
+        },
+        {
+          "ev": "edge",
+          "id": "E-ELIM0",
+          "src": "M",
+          "dst": "ELIM0",
+          "type": "IMAGE_CLOSURE",
+          "map_kind": "POLYNOMIAL",
+          "why": "exact elimination contracts the source ideal to the retained-coordinate ring; a polynomial section additionally supplies target-point lifts, while a pure Groebner certificate supplies only ideal equality  Eliminated: b.",
+          "built_by_operation": "Eliminate"
+        }
+      ]
+    }
+  ]
+}

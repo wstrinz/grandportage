@@ -1,0 +1,111 @@
+{
+  "controls": [
+    {
+      "id": "equal_ideal",
+      "accepted": true,
+      "checked": {
+        "method": "groebner_elimination_v1",
+        "characteristic": 0,
+        "ring_vars": [
+          "y",
+          "x"
+        ],
+        "eliminated": [
+          "y"
+        ],
+        "retained_ring_vars": [
+          "x"
+        ],
+        "source_generator_count": 1,
+        "basis_count": 1,
+        "critical_pair_count": 0,
+        "retained_basis": [
+          "x"
+        ],
+        "target_generator_count": 1,
+        "reference_oracle": "REFERENCE_CHECKED"
+      }
+    },
+    {
+      "id": "strict_upper_ideal",
+      "accepted": true,
+      "checked": {
+        "method": "groebner_elimination_v1",
+        "characteristic": 0,
+        "ring_vars": [
+          "y",
+          "x"
+        ],
+        "eliminated": [
+          "y"
+        ],
+        "retained_ring_vars": [
+          "x"
+        ],
+        "source_generator_count": 1,
+        "basis_count": 1,
+        "critical_pair_count": 0,
+        "retained_basis": [
+          "1"
+        ],
+        "target_generator_count": 1,
+        "reference_oracle": "REFERENCE_CHECKED"
+      }
+    },
+    {
+      "id": "strict_upper_has_no_reverse_identity",
+      "accepted": false,
+      "message": "membership cofactors expand to the wrong polynomial: -1"
+    },
+    {
+      "id": "acyclic_shared_rows",
+      "accepted": false,
+      "message": "certificate contains a cycle"
+    },
+    {
+      "id": "shared_rows_after_json_roundtrip",
+      "accepted": true,
+      "checked": {
+        "method": "groebner_elimination_v1",
+        "characteristic": 0,
+        "ring_vars": [
+          "y",
+          "x"
+        ],
+        "eliminated": [
+          "y"
+        ],
+        "retained_ring_vars": [
+          "x"
+        ],
+        "source_generator_count": 1,
+        "basis_count": 1,
+        "critical_pair_count": 0,
+        "retained_basis": [
+          "x"
+        ],
+        "target_generator_count": 1,
+        "reference_oracle": "REFERENCE_CHECKED"
+      }
+    },
+    {
+      "id": "actual_cycle",
+      "accepted": false,
+      "message": "certificate contains a cycle"
+    },
+    {
+      "id": "native_negative_power_object",
+      "accepted": false,
+      "message": "certificate must contain only JSON-shaped values"
+    }
+  ],
+  "source_sha256": "239d045e28c7ee672905dac4c9b0214661ec33d7b10d29e8038c4a8088f16ce2",
+  "script_sha256": "385803e6838d7717d433f194acf31507e704e387abf4384c3f768733063ede1f",
+  "findings": [
+    "Elimination accepts a strict upper ideal as intended: it proves only I intersect S subset J. At x=0, 1 is nonzero, independently excluding reverse ideal membership.",
+    "Global seen-object tracking rejects acyclic sharing as a cycle; ordinary serialized JSON with duplicated rows succeeds.",
+    "Certificate preflight rejects native Polynomial objects before arithmetic; the prior internal negative-exponent control does not enter this interface."
+  ],
+  "proposed_fix": "Document inclusion direction and retain separate no-invention evidence. Either declare tree-only native inputs or use active-ancestor cycle detection while charging repeated occurrences to the resource budget. Preserve rejection of non-JSON objects.",
+  "scope": "Seven bounded offline controls; no CAS, campaign read, graph mutation or frozen-source edit. No false mathematical acceptance established."
+}

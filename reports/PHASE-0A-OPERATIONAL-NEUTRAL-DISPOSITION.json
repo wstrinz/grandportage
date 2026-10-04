@@ -1,0 +1,1256 @@
+{
+  "schema_version": 1,
+  "title": "Phase 0a operational neutral-coverage disposition",
+  "status": "proposal_for_parent_adjudication",
+  "inputs": [
+    "reports/PHASE-0A-OPERATIONAL-INCIDENT-REGISTER.json",
+    "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json",
+    "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json"
+  ],
+  "counts": {
+    "incident_rows": 29,
+    "mechanism_groups": 11,
+    "existing_exact_neutral_case_rows": 0,
+    "retained_record_schema_conversion_rows": 27,
+    "specific_missing_control_rows": 2
+  },
+  "grouped_conversion_plan": [
+    {
+      "key": "source_format_schema",
+      "incident_ids": [
+        "53.2",
+        "54.3",
+        "55.2a",
+        "55.2b"
+      ],
+      "schema_conversion_ids": [
+        "53.2",
+        "54.3",
+        "55.2a",
+        "55.2b"
+      ],
+      "specific_gap_ids": [],
+      "conversion_unit": "One bounded group-level transcription from the cited retained records; distinct row controls remain separate."
+    },
+    {
+      "key": "health_request_commit",
+      "incident_ids": [
+        "55.3",
+        "56.2",
+        "56.3"
+      ],
+      "schema_conversion_ids": [
+        "55.3",
+        "56.2",
+        "56.3"
+      ],
+      "specific_gap_ids": [],
+      "conversion_unit": "One bounded group-level transcription from the cited retained records; distinct row controls remain separate."
+    },
+    {
+      "key": "handoff_api_contract",
+      "incident_ids": [
+        "58.2",
+        "58.3a"
+      ],
+      "schema_conversion_ids": [
+        "58.2"
+      ],
+      "specific_gap_ids": [
+        "58.3a"
+      ],
+      "conversion_unit": "One bounded group-level transcription from the cited retained records; distinct row controls remain separate."
+    },
+    {
+      "key": "digest_filesystem_custody",
+      "incident_ids": [
+        "61.3",
+        "63.2",
+        "63.3",
+        "63.4",
+        "65.4",
+        "69.3"
+      ],
+      "schema_conversion_ids": [
+        "61.3",
+        "63.2",
+        "63.3",
+        "63.4",
+        "65.4",
+        "69.3"
+      ],
+      "specific_gap_ids": [],
+      "conversion_unit": "One bounded group-level transcription from the cited retained records; distinct row controls remain separate."
+    },
+    {
+      "key": "packet_attempt_binding",
+      "incident_ids": [
+        "64.3b"
+      ],
+      "schema_conversion_ids": [
+        "64.3b"
+      ],
+      "specific_gap_ids": [],
+      "conversion_unit": "One bounded group-level transcription from the cited retained records; distinct row controls remain separate."
+    },
+    {
+      "key": "frontier_count_status",
+      "incident_ids": [
+        "65.3a",
+        "65.3b",
+        "66.2"
+      ],
+      "schema_conversion_ids": [
+        "65.3a",
+        "65.3b",
+        "66.2"
+      ],
+      "specific_gap_ids": [],
+      "conversion_unit": "One bounded group-level transcription from the cited retained records; distinct row controls remain separate."
+    },
+    {
+      "key": "corpus_reporting",
+      "incident_ids": [
+        "69.2"
+      ],
+      "schema_conversion_ids": [
+        "69.2"
+      ],
+      "specific_gap_ids": [],
+      "conversion_unit": "One bounded group-level transcription from the cited retained records; distinct row controls remain separate."
+    },
+    {
+      "key": "transcript_postvalidation",
+      "incident_ids": [
+        "74.3",
+        "74.5",
+        "76.2"
+      ],
+      "schema_conversion_ids": [
+        "74.3",
+        "74.5",
+        "76.2"
+      ],
+      "specific_gap_ids": [],
+      "conversion_unit": "One bounded group-level transcription from the cited retained records; distinct row controls remain separate."
+    },
+    {
+      "key": "lexical_validation",
+      "incident_ids": [
+        "74.4",
+        "76.8b"
+      ],
+      "schema_conversion_ids": [
+        "74.4"
+      ],
+      "specific_gap_ids": [
+        "76.8b"
+      ],
+      "conversion_unit": "One bounded group-level transcription from the cited retained records; distinct row controls remain separate."
+    },
+    {
+      "key": "cas_declaration_identity",
+      "incident_ids": [
+        "76.3",
+        "76.7"
+      ],
+      "schema_conversion_ids": [
+        "76.3",
+        "76.7"
+      ],
+      "specific_gap_ids": [],
+      "conversion_unit": "One bounded group-level transcription from the cited retained records; distinct row controls remain separate."
+    },
+    {
+      "key": "hook_error_reporting",
+      "incident_ids": [
+        "77.3",
+        "77.4"
+      ],
+      "schema_conversion_ids": [
+        "77.3",
+        "77.4"
+      ],
+      "specific_gap_ids": [],
+      "conversion_unit": "One bounded group-level transcription from the cited retained records; distinct row controls remain separate."
+    }
+  ],
+  "rows": [
+    {
+      "id": "53.2",
+      "mechanism_group": "source_format_schema",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X167"
+      ],
+      "near_case_distinction": "GP-X167 rejects another kernel epoch in current evidence; it does not validate a migration source header under its old epoch before rewriting it.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/12",
+      "concrete_input": "Format 8/epoch 11 migration source header missing implementation identity; format 6 missing and valid epoch 11 headers are controls.",
+      "attempted_operational_conclusion": "Treat rewritten migration output as validating the original source identity.",
+      "expected_contract": "Malformed source header should refuse under its recorded epoch before replacement.",
+      "observed_behavior": "Dry run accepts the epoch 11 missing-identity header; format 6 missing identity refuses.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/migration.py",
+        "line": 130,
+        "sha256": "a3e18bafa29af7b3ba4f5b7c3dee609009eacbacd3849179494f6a1dada3a4da"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-53.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/0",
+        "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/1",
+        "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/2"
+      ],
+      "recorded_positive_controls": [
+        "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/2"
+      ],
+      "distinguishing_comparison": "Format-6 missing identity refuses, format-8/epoch-11 missing identity passes dry run, valid epoch-11 header passes; source bytes stay fixed.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "54.3",
+      "mechanism_group": "source_format_schema",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X169"
+      ],
+      "near_case_distinction": "No existing case asks that malformed source_commit yield the documented GraphError instead of raw TypeError; GP-X169 concerns semantic-input binding, not input-error totality.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/17",
+      "concrete_input": "Numeric source_commit in otherwise current metadata.",
+      "attempted_operational_conclusion": "Return the documented structured GraphError for malformed metadata.",
+      "expected_contract": "Malformed field must fail through GraphError, while valid string commit validates.",
+      "observed_behavior": "Regex matching raises raw TypeError; malformed metadata is not accepted.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/format.py",
+        "line": 314,
+        "sha256": "9d7ad6885285b2e55de9bbf6dea62d428d1f68a3b7180728a1651365c82c171e"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-54.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/IMPLEMENTATION-IDENTITY-BOUNDARY.json#/controls/2"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "Numeric source_commit raises TypeError outside GraphError; valid-string positive is requested but not needed to distinguish this malformed-input error shape.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "55.2a",
+      "mechanism_group": "source_format_schema",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X295"
+      ],
+      "near_case_distinction": "GP-X295 refuses a boolean in an exponent slot; it does not compare exported integral schema with native boolean validation.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/21",
+      "concrete_input": "Exported authoring JSON has integral as string false.",
+      "attempted_operational_conclusion": "Treat exported schema validation as matching native Boolean integral validation.",
+      "expected_contract": "A published schema and native shape validator should agree on field type.",
+      "observed_behavior": "Schema accepts the string; native validator refuses it.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cli.py",
+        "line": 2125,
+        "sha256": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-55.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/0"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "The same string integral=false passes exported schema and fails native Boolean shape validation.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "55.2b",
+      "mechanism_group": "source_format_schema",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X149"
+      ],
+      "near_case_distinction": "GP-X149 concerns using a withdrawal tombstone as an edge; it does not test contradictory exported authoring schema versus native sparse-retraction shape.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/22",
+      "concrete_input": "Sparse inference retraction without asserted field.",
+      "attempted_operational_conclusion": "Treat exported authoring schema and native event shape as one contract.",
+      "expected_contract": "The two validators should agree after schema policy is stated.",
+      "observed_behavior": "Native shape accepts; exported authoring schema refuses.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/mcp.py",
+        "line": 232,
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-55.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/1"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "The same sparse retraction passes native shape and fails the exported authoring schema; this paired validator disagreement is the incident.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": "Whether the exported authoring schema promises all native sparse retractions or is explicitly a narrower approximation.",
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "55.3",
+      "mechanism_group": "health_request_commit",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X222"
+      ],
+      "near_case_distinction": "No corpus case asks doctor to report a mocked unexpected CAS answer as unhealthy. Proof-verdict cases do not cover health-report propagation.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/23",
+      "concrete_input": "Mocked CAS health probe returns unexpected parsed basis [1] rather than the expected two-generator basis.",
+      "attempted_operational_conclusion": "Doctor reports healthy on the text-only health response.",
+      "expected_contract": "Unexpected arithmetic should produce failed health and nonzero doctor status.",
+      "observed_behavior": "Text warns, but no isError; doctor reports healthy true and exits zero.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/mcp.py",
+        "line": 823,
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-55.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/2",
+        "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/3"
+      ],
+      "recorded_positive_controls": [
+        "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/2"
+      ],
+      "distinguishing_comparison": "Expected mocked two-generator basis yields healthy true; unexpected one-generator basis warns but also yields healthy true and exit zero.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "56.2",
+      "mechanism_group": "health_request_commit",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X215"
+      ],
+      "near_case_distinction": "No corpus case tests a valid JSON array interrupting a request stream; canonical JSON storage GP-X215 is a different boundary.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/26",
+      "concrete_input": "Syntactically valid JSON array request followed by a ping, contrasted with malformed syntax followed by ping.",
+      "attempted_operational_conclusion": "Serve should contain one malformed message and process the next.",
+      "expected_contract": "Wrong request shape should get a structured error without ending the serve invocation.",
+      "observed_behavior": "Array reaches request.get and raises AttributeError before the handler guard; no next response.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/mcp.py",
+        "line": 1438,
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-56.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/0",
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/1"
+      ],
+      "recorded_positive_controls": [
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/0"
+      ],
+      "distinguishing_comparison": "Malformed JSON syntax returns parse error then ping succeeds; valid JSON array raises AttributeError before next ping.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "56.3",
+      "mechanism_group": "health_request_commit",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-C03"
+      ],
+      "near_case_distinction": "No existing case distinguishes a durably appended declaration from a later response-rendering error and retry ambiguity.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/27",
+      "concrete_input": "Valid model append followed by injected C.run reporting exception; valid save and pre-append invalid event are controls.",
+      "attempted_operational_conclusion": "Interpret an error response as an uncommitted action safe to retry.",
+      "expected_contract": "Response should expose durable commit status separately from post-commit render error.",
+      "observed_behavior": "Graph bytes contain the model, while dispatch returns isError traceback and ambiguous retry status.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/mcp.py",
+        "line": 1359,
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-56.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/2",
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/3",
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/4"
+      ],
+      "recorded_positive_controls": [
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/2",
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/3"
+      ],
+      "distinguishing_comparison": "Valid append succeeds, pre-append invalid event preserves bytes, and post-append injected render error returns isError after durable model save.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": "What durable commit status and retry semantics the response should expose after post-commit rendering failure.",
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "58.2",
+      "mechanism_group": "handoff_api_contract",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X10",
+        "GP-X11",
+        "GP-X12"
+      ],
+      "near_case_distinction": "GP-X10-12 refuse mathematical equivalence across point universes. They do not test identical compact handoff text for distinct stored contexts.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/36",
+      "concrete_input": "Two synthetic Q models with x^2+1 and point universes BASE and ALGEBRAIC_CLOSURE.",
+      "attempted_operational_conclusion": "Use compact handoff text as sufficient model context.",
+      "expected_contract": "Different point universes should be distinguishable in a handoff.",
+      "observed_behavior": "Rendered text is identical although stored point scopes differ.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/mcp.py",
+        "line": 1187,
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-58.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/MCP-HANDOFF-CONTEXT-BOUNDARY.json#/controls/0",
+        "reports/MCP-HANDOFF-CONTEXT-BOUNDARY.json#/controls/1"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "BASE and ALGEBRAIC_CLOSURE models retain different stored point scopes but identical compact handoff text.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "58.3a",
+      "mechanism_group": "handoff_api_contract",
+      "disposition": "specific_missing_control",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X193"
+      ],
+      "near_case_distinction": "The advertised floor argument is ignored by h_portage_check; a concrete two-floor request should show identical behavior before adopting expected enforcement.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/37",
+      "concrete_input": "Advertised portage_check floor argument and a fixed graph; specific paired floor values/results are not retained.",
+      "attempted_operational_conclusion": "Assume supplied floor changes h_portage_check behavior.",
+      "expected_contract": "An advertised floor should be consulted or the description narrowed.",
+      "observed_behavior": "Reviewed handler does not consult floor; no paired dynamic request is retained.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/mcp.py",
+        "line": 923,
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-58.md#paragraph-3",
+      "reproduction_evidence": [],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "Missing paired same-graph requests with distinct valid floor values and a finding whose severity lies between those floors.",
+      "missing_field_or_control": "No retained paired dynamic result for the advertised floor argument.",
+      "smallest_action": "On one fixed graph containing a DEBT finding, compare otherwise identical portage_check requests with floor DEBT and UNSOUND_CONCLUSION; retain both responses. The source reading already shows floor is not consulted.",
+      "policy_choice_separate": "Whether the advertised floor is enforced or the tool description narrowed.",
+      "observation_layer": "source_and_report_only",
+      "new_execution_required_for_evidence": true,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "61.3",
+      "mechanism_group": "digest_filesystem_custody",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X44"
+      ],
+      "near_case_distinction": "GP-X44 rejects changed fixture bytes; this diagnostic uses unchanged logical fixture bytes with inconsistent advertised LF normalization between checkout and pinned audit.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/55",
+      "concrete_input": "Isolated Git repository with CRLF committed fixture and declared sha256-lf-normalized digest.",
+      "attempted_operational_conclusion": "Treat checkout and pinned-ref audits as the same normalized-byte contract.",
+      "expected_contract": "LF and CRLF audit paths should compute the same declared normalized digest.",
+      "observed_behavior": "Checkout is CURRENT_CLEAN; pinned HEAD is STALE with two digest mismatches.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/dossier.py",
+        "line": 500,
+        "sha256": "6b81486e77377d76971059b2cb3789803152945af4e938de2013ee5f0f527e11"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-61.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/DOSSIER-BOUNDARIES-AUDIT.json#/controls/2",
+        "reports/DOSSIER-BOUNDARIES-AUDIT.json#/controls/3"
+      ],
+      "recorded_positive_controls": [
+        "reports/DOSSIER-BOUNDARIES-AUDIT.json#/controls/2"
+      ],
+      "distinguishing_comparison": "The same committed CRLF fixture is CURRENT_CLEAN in checkout mode and STALE in pinned-ref mode despite a shared LF-normalized digest label.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "63.2",
+      "mechanism_group": "digest_filesystem_custody",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-A25b"
+      ],
+      "near_case_distinction": "GP-A25b lacks a checked alias between mathematical objects; this is a Windows filesystem alias that overwrites a protected source input.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/67",
+      "concrete_input": "Case-variant Windows alias of protected mixed-case source used as forced derived-output path.",
+      "attempted_operational_conclusion": "Allow output because abspath strings differ.",
+      "expected_contract": "Protected source bytes should remain unchanged for both spellings.",
+      "observed_behavior": "Alias passes and replaces protected input; identical spelling refuses.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cli.py",
+        "line": 2558,
+        "sha256": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-63.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/3",
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/5"
+      ],
+      "recorded_positive_controls": [
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/3"
+      ],
+      "distinguishing_comparison": "Identical protected path refuses while a Windows case alias with force replaces protected input bytes.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "63.3",
+      "mechanism_group": "digest_filesystem_custody",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X220"
+      ],
+      "near_case_distinction": "No existing case tests deletion of a preexisting PID temporary file after exclusive-open failure.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/68",
+      "concrete_input": "Preexisting output.PID.tmp placed before an exclusive temporary open.",
+      "attempted_operational_conclusion": "Cleanup may remove the temporary path after failed creation.",
+      "expected_contract": "A file not created by this invocation should remain untouched.",
+      "observed_behavior": "Exclusive open raises FileExistsError and finally deletes the preexisting file.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cli.py",
+        "line": 2558,
+        "sha256": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-63.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/2",
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/4"
+      ],
+      "recorded_positive_controls": [
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/2"
+      ],
+      "distinguishing_comparison": "A preexisting output.PID.tmp triggers FileExistsError and is nevertheless removed by cleanup; normal output refusal is a separate retained control.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "63.4",
+      "mechanism_group": "digest_filesystem_custody",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X71",
+        "GP-X72"
+      ],
+      "near_case_distinction": "GP-X71/72 stale evidence after changed source bytes, but not an archive that succeeds with bytes differing from its own bound digest due to copy-time mutation.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/69",
+      "concrete_input": "Deterministic injected write changes proof.txt after digest check but before release copyfile.",
+      "attempted_operational_conclusion": "Treat materialized archive bytes as bound by the checked source digest.",
+      "expected_contract": "Archived bytes must match the bound digest or the operation should refuse.",
+      "observed_behavior": "Materialization succeeds with archived digest different from bound digest and checksum entry.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/release.py",
+        "line": 803,
+        "sha256": "65c3cead208858bf26cd9441288c14c1c473ac35d27640ad7561c9809a11cd9c"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-63.md#paragraph-4",
+      "reproduction_evidence": [
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/0"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "Injected source change between digest check and copy yields successful archive whose digest differs from the bound digest.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "65.4",
+      "mechanism_group": "digest_filesystem_custody",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X213",
+        "GP-X214"
+      ],
+      "near_case_distinction": "No existing case tests CLI emission overwriting a bound manifest or receipt. Artifact addressing GP-X213/214 does not protect command output aliases.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/85",
+      "concrete_input": "CLI --emit-review output names its own bound manifest or receipt; separate-path output is the control.",
+      "attempted_operational_conclusion": "Allow emitting review to a protected input path.",
+      "expected_contract": "Bound source input bytes must remain unchanged.",
+      "observed_behavior": "Actual CLI overwrites either selected bound input and exits zero.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/frontier_bundle.py",
+        "line": 360,
+        "sha256": "acb4d823eaee9d39d1494374cb20d6153763ab2689a898bb537d56fe2ff71103"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-65.md#paragraph-4",
+      "reproduction_evidence": [
+        "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/3",
+        "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/4"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "Actual --emit-review overwrites a bound manifest and, separately, a bound receipt; a separate-path positive is not recorded.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "69.3",
+      "mechanism_group": "digest_filesystem_custody",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X306"
+      ],
+      "near_case_distinction": "GP-X306 rejects duplicate canonical export binding, not overwriting a verbatim source file named export-manifest.json during packaging.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/107",
+      "concrete_input": "Export source already contains export-manifest.json in its verbatim payload namespace.",
+      "attempted_operational_conclusion": "Treat successful export as byte-preserving retention.",
+      "expected_contract": "Reserved-name collision should refuse before mutation or preserve source bytes under a distinct metadata name.",
+      "observed_behavior": "Export returns success, overwrites copied file, and validator later reports SHA mismatch.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "scripts/corpus_check.py",
+        "line": 66,
+        "sha256": "fed263a3f2b933e7d371b1dbe83c7f42e80379ea42e305fd107dfbe951b33f89"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-69.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/2"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "A source export-manifest.json is copied then overwritten by generated metadata; export succeeds and validation reports its SHA mismatch.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "64.3b",
+      "mechanism_group": "packet_attempt_binding",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X40"
+      ],
+      "near_case_distinction": "Direct overlay combines old ledger and changed packet set by ID without content fingerprint. GP-X40 changes row binding, not packet/attempt overlay identity.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/75",
+      "concrete_input": "Old ledger and changed proposition under the same packet ID with refreshed manifest hashes.",
+      "attempted_operational_conclusion": "Overlay old ledger onto new packet by matching ID alone.",
+      "expected_contract": "Overlay should bind packet content identity; matching packet or explicit prior-ledger mismatch controls differ.",
+      "observed_behavior": "Direct overlay accepts changed content; explicit prior ledger refuses changed attempt fingerprint.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/campaign.py",
+        "line": 585,
+        "sha256": "aa7143280c0869a28761942ec3faf9f0c7da4d872b017dd7fffeb6716eb3cdf4"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-64.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/0",
+        "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/1",
+        "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/2"
+      ],
+      "recorded_positive_controls": [
+        "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/2"
+      ],
+      "distinguishing_comparison": "Old ledger plus changed same-ID packet is accepted by direct overlay, while explicit prior-ledger binding refuses the changed attempt fingerprint.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "65.3a",
+      "mechanism_group": "frontier_count_status",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X97",
+        "GP-X98"
+      ],
+      "near_case_distinction": "No case attempts to reconcile per-receipt and aggregate open counts after duplicate open_items; frontier overlap GP-X97-99 is a different contract.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/82",
+      "concrete_input": "Duplicate open_items in one receipt.",
+      "attempted_operational_conclusion": "Treat per-receipt open_count and aggregate unique count as consistent.",
+      "expected_contract": "Duplicate list entries should be rejected or deduplicated consistently.",
+      "observed_behavior": "Receipt reports 2 open while aggregate reports 1.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/frontier_bundle.py",
+        "line": 166,
+        "sha256": "acb4d823eaee9d39d1494374cb20d6153763ab2689a898bb537d56fe2ff71103"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-65.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/0"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "Duplicate open_items yields per-receipt open_count 2 and unique aggregate count 1.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "65.3b",
+      "mechanism_group": "frontier_count_status",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X143"
+      ],
+      "near_case_distinction": "No current case exercises final-newline acceptance by this stable-ID validator. Group with 74.4 and 76.8b only as a parameterized strict-identifier family.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/83",
+      "concrete_input": "Stable semantic ID A followed by terminal newline.",
+      "attempted_operational_conclusion": "Treat a regex match as full valid ID validation.",
+      "expected_contract": "Valid A may pass; terminal newline should fail the lexical contract.",
+      "observed_behavior": "ID A newline is accepted.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/frontier_bundle.py",
+        "line": 37,
+        "sha256": "acb4d823eaee9d39d1494374cb20d6153763ab2689a898bb537d56fe2ff71103"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-65.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/1"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "Stable semantic ID with terminal newline is accepted by the retained validator control.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "66.2",
+      "mechanism_group": "frontier_count_status",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X98"
+      ],
+      "near_case_distinction": "No corpus case classifies an unknown frontier status FAILED as CLOSED; GP-X98 concerns overlap resolution rather than status meaning.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/89",
+      "concrete_input": "Item status FAILED with frontier_state absent; explicit OPEN is control.",
+      "attempted_operational_conclusion": "Default an unknown status to CLOSED.",
+      "expected_contract": "Unknown status must not silently close an obligation; exact refuse/open policy remains undecided.",
+      "observed_behavior": "Observation becomes CLOSED, while explicit OPEN remains OPEN.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/frontier.py",
+        "line": 290,
+        "sha256": "04bde7fe30865018c6ed461f793a446756c7d8a0901c820e16bd47484079d5ae"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-66.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/FRONTIER-PROJECTION-BOUNDARIES.json#/controls/0",
+        "reports/FRONTIER-PROJECTION-BOUNDARIES.json#/controls/1"
+      ],
+      "recorded_positive_controls": [
+        "reports/FRONTIER-PROJECTION-BOUNDARIES.json#/controls/1"
+      ],
+      "distinguishing_comparison": "Unknown FAILED status becomes CLOSED by default, whereas explicit frontier_state OPEN remains OPEN.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": "Whether an unknown status refuses input or leaves an obligation open; silent CLOSED is the observed defect.",
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "69.2",
+      "mechanism_group": "corpus_reporting",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X72"
+      ],
+      "near_case_distinction": "No case tests native-load failure before corpus-report creation; source-binding cases refuse authority, not per-campaign operational reporting.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/106",
+      "concrete_input": "Retained synthetic READY intake fixture whose graph has kernel_epoch null.",
+      "attempted_operational_conclusion": "Treat retention READY as a native-load and report-ready result.",
+      "expected_contract": "Native load refusal should be reported per campaign without promoting authority.",
+      "observed_behavior": "GraphError occurs before corpus-report.json exists; READY remains retention-only.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "scripts/project_ir_corpus.py",
+        "line": 129,
+        "sha256": "195b65281c8f80596ccc085cedde42b58cc8e0ce4a433cfd82c90203b5bd5616"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-69.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/0",
+        "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/1"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "Retention READY accepts a synthetic graph; native load raises GraphError before corpus-report.json is written.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "74.3",
+      "mechanism_group": "transcript_postvalidation",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X213",
+        "GP-X214"
+      ],
+      "near_case_distinction": "GP-X213/214 bind changed stored output bytes; here two distinct raw stdout byte sequences are decoded with errors ignored into identical retained text and hash.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/137",
+      "concrete_input": "Two bounded Python subprocesses emit raw OK newline and O ff K newline byte strings.",
+      "attempted_operational_conclusion": "Use decoded stdout text hash as distinct raw-output identity.",
+      "expected_contract": "Distinct raw streams must remain distinguishable or decoding should refuse.",
+      "observed_behavior": "errors=ignore reduces both to OK newline and the same retained text digest.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cas.py",
+        "line": 963,
+        "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-74.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/0",
+        "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/1"
+      ],
+      "recorded_positive_controls": [
+        "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/0"
+      ],
+      "distinguishing_comparison": "Two actual subprocess raw stdout byte streams differ but decode to the same text and text digest under errors=ignore.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "74.5",
+      "mechanism_group": "transcript_postvalidation",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X213",
+        "GP-X214"
+      ],
+      "near_case_distinction": "Artifact integrity GP-X213/214 concerns stored bytes; this direct-API object accepts a mutable abort_reason reference changing its digest after construction.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/139",
+      "concrete_input": "Direct injected-runner artifact with mutable abort_reason object.",
+      "attempted_operational_conclusion": "Treat frozen ExecutionArtifact as immutable after validation.",
+      "expected_contract": "Digest should stay stable after construction or mutable metadata should refuse.",
+      "observed_behavior": "Mutating referenced reason changes fingerprint while validator accepts.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/backend.py",
+        "line": 132,
+        "sha256": "8a2cbb4c617e2e76b4a346bb0cabfaf583e7ebfe150207e4889eaf593e4dd03f"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-74.md#paragraph-5",
+      "reproduction_evidence": [
+        "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/3"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "Direct injected mutable abort_reason changes artifact fingerprint after construction while validator still accepts.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "76.2",
+      "mechanism_group": "transcript_postvalidation",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X242",
+        "GP-X249"
+      ],
+      "near_case_distinction": "GP-X242 and X249 reject shadowing supplied at construction; this direct caller mutates an already validated CASProgram body and executes shadowing text. The post-validation mutability is distinct.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/156",
+      "concrete_input": "Validated CASProgram body later mutated to a shadowing statement before injected execution.",
+      "attempted_operational_conclusion": "Trust constructor validation as non-bypassable for the executed body.",
+      "expected_contract": "Executed body must be snapshot-bound or revalidated after mutation.",
+      "observed_behavior": "Injected runner receives shadowing statement and mock complete transcript parses.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cas.py",
+        "line": 329,
+        "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-76.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/CAS-PROGRAM-CUSTODY.json#/observations/0",
+        "reports/CAS-PROGRAM-CUSTODY.json#/observations/1"
+      ],
+      "recorded_positive_controls": [
+        "reports/CAS-PROGRAM-CUSTODY.json#/observations/0"
+      ],
+      "distinguishing_comparison": "Constructor rejects a shadowing statement, but mutation after validation reaches injected runner and mock transcript parsing.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "74.4",
+      "mechanism_group": "lexical_validation",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X215"
+      ],
+      "near_case_distinction": "No existing case targets final-newline lexical acceptance by the execution fingerprint validator. Share parameterized mechanism with 65.3b and 76.8b.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/138",
+      "concrete_input": "64-hex execution fingerprint with terminal newline.",
+      "attempted_operational_conclusion": "Treat regex dollar match as full lexical validation.",
+      "expected_contract": "Bare digest should pass; trailing newline should fail.",
+      "observed_behavior": "valid_fingerprint accepts the newline-bearing string.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/backend.py",
+        "line": 48,
+        "sha256": "8a2cbb4c617e2e76b4a346bb0cabfaf583e7ebfe150207e4889eaf593e4dd03f"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-74.md#paragraph-4",
+      "reproduction_evidence": [
+        "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/2"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "Bare 64-hex digest and terminal-newline variant both pass valid_fingerprint in the retained observation.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "76.8b",
+      "mechanism_group": "lexical_validation",
+      "disposition": "specific_missing_control",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X143"
+      ],
+      "near_case_distinction": "No existing case targets the identifier regex final-newline lexical contract. Share a parameterized candidate with 65.3b and 74.4; confirm exact validator input.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/163",
+      "concrete_input": "CAS identifier string with terminal newline, inferred from dollar-anchored validator source.",
+      "attempted_operational_conclusion": "Treat anchored regex match as full identifier validation.",
+      "expected_contract": "Bare identifier should pass; newline suffix should fail.",
+      "observed_behavior": "Source-level dollar-anchored identifier matcher permits a terminal newline by regex semantics; no direct frozen validator call is retained.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cas.py",
+        "line": 183,
+        "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-76.md#paragraph-8",
+      "reproduction_evidence": [],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "Missing direct assert_is_identifier comparison for bare x and x followed by terminal newline; source regex behavior alone is retained.",
+      "missing_field_or_control": "No retained direct identifier-validator result for the terminal-newline input.",
+      "smallest_action": "Call frozen assert_is_identifier with SINGULAR and name x, then x plus one terminal newline, holding the field slot fixed; retain accept/refuse outcomes. No CAS process is needed.",
+      "policy_choice_separate": null,
+      "observation_layer": "source_and_report_only",
+      "new_execution_required_for_evidence": true,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "76.3",
+      "mechanism_group": "cas_declaration_identity",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X02"
+      ],
+      "near_case_distinction": "GP-X02 refuses a certificate bound to different model equations. Here run_cas declares caller generators different from parsed output without an operation verdict; provenance contract differs.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/157",
+      "concrete_input": "Injected CAS result declares GP_I[1]=x but caller metadata supplies generators [1].",
+      "attempted_operational_conclusion": "Use resulting model declaration as parsed-output generator provenance.",
+      "expected_contract": "Resulting model generators should match parsed output or record the caller distinction.",
+      "observed_behavior": "Stored model generators are caller [1], not parsed x; no operation verdict is created.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cas.py",
+        "line": 735,
+        "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-76.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/CAS-PROGRAM-CUSTODY.json#/observations/2"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "Parsed output GP_I[1]=x is paired with caller generators [1]; resulting model stores [1], not parsed x.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": "Whether caller/output generator mismatch is refused or represented with distinct provenance.",
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "76.7",
+      "mechanism_group": "cas_declaration_identity",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X242",
+        "GP-X252"
+      ],
+      "near_case_distinction": "Compiler-slot GP-X242-254 protect rendered program text; they do not bind caller generator metadata used for the resulting model declaration in the execution semantic fingerprint.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/161",
+      "concrete_input": "Program semantic fingerprint excludes caller generators that populate resulting model declaration.",
+      "attempted_operational_conclusion": "Use program fingerprint as complete model-declaration identity.",
+      "expected_contract": "Changed declaration generators should change bound identity or be explicitly distinguished.",
+      "observed_behavior": "Accepted injected contrast: identical rendered CAS template and semantic-input fingerprint, but persisted DST generators differ ([x] versus [1]); nonce-bound artifact identities vary independently.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cas.py",
+        "line": 439,
+        "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-76.md#paragraph-7",
+      "reproduction_evidence": [
+        "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/observations/0",
+        "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/observations/1"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "Accepted contrast holds rendered template and parsed GP_I[1]=x fixed, changes caller generators [x] to [1], and observes equal semantic-input fingerprint but distinct persisted model generators.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the accepted contrast report into neutral case schema at its injected persistence layer; no further reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "accepted_injected_persistence_contrast",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "77.3",
+      "mechanism_group": "hook_error_reporting",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X190",
+        "GP-X191"
+      ],
+      "near_case_distinction": "No case tests malformed array baseline or hook payload escaping structured refusal; work warning GP-X190-192 concerns meaning-bound acceptance.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/168",
+      "concrete_input": "Baseline or hook payload is a valid JSON array instead of an object.",
+      "attempted_operational_conclusion": "Expect structured refusal inside the hook guard.",
+      "expected_contract": "Malformed shape should block in a structured response and preserve next-event processing.",
+      "observed_behavior": "Both array inputs raise raw AttributeError; host behavior after error was not tested.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/hook.py",
+        "line": 84,
+        "sha256": "679f181223aa7796c94c1c4248d74c698afe990817bad615fe1b1696a5a4c9aa"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-77.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/HOOK-BOUNDARY-AUDIT.json#/observations/0",
+        "reports/HOOK-BOUNDARY-AUDIT.json#/observations/1"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "Valid JSON array baseline and hook payload each escape as AttributeError; valid-object processing is not separately retained in this audit.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    },
+    {
+      "id": "77.4",
+      "mechanism_group": "hook_error_reporting",
+      "disposition": "retained_record_schema_conversion",
+      "existing_exact_neutral_cases": [],
+      "screened_near_cases_not_equivalent": [
+        "GP-X190"
+      ],
+      "near_case_distinction": "GP-X190 reopens a reviewed warning after its semantic meaning changes. Here exit remains blocking but a changed graph-error explanation is mislabeled unchanged by ID-only repeat suppression.",
+      "queue_pointer": "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json#/finding_obligations/rows/169",
+      "concrete_input": "Two different malformed graph JSON strings on successive hook evaluations.",
+      "attempted_operational_conclusion": "Treat repeat suppression by finding ID as unchanged explanation.",
+      "expected_contract": "Changed decoder error should report changed cause while still blocking.",
+      "observed_behavior": "Second call says still refused, unchanged although evaluate messages differ; exit 2 remains blocking.",
+      "frozen_source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/hook.py",
+        "line": 355,
+        "sha256": "679f181223aa7796c94c1c4248d74c698afe990817bad615fe1b1696a5a4c9aa"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-77.md#paragraph-4",
+      "reproduction_evidence": [
+        "reports/HOOK-BOUNDARY-AUDIT.json#/observations/2"
+      ],
+      "recorded_positive_controls": [],
+      "distinguishing_comparison": "Two distinct malformed graph JSON errors have different evaluation text, but repeat suppression labels the second unchanged while exit remains blocking.",
+      "missing_field_or_control": null,
+      "smallest_action": "Convert the retained input, attempted conclusion, expected contract, source pin and observed layer to neutral case schema; cite existing audit bytes, with no fresh reproduction.",
+      "policy_choice_separate": null,
+      "observation_layer": "retained_bounded_observation",
+      "new_execution_required_for_evidence": false,
+      "authority_limit": "Operational observation; no mathematical held-claim verdict inferred."
+    }
+  ],
+  "short_true_gap_list": [
+    {
+      "id": "58.3a",
+      "missing": "No retained paired dynamic result for the advertised floor argument.",
+      "smallest_action": "On one fixed graph containing a DEBT finding, compare otherwise identical portage_check requests with floor DEBT and UNSOUND_CONCLUSION; retain both responses. The source reading already shows floor is not consulted."
+    },
+    {
+      "id": "76.8b",
+      "missing": "No retained direct identifier-validator result for the terminal-newline input.",
+      "smallest_action": "Call frozen assert_is_identifier with SINGULAR and name x, then x plus one terminal newline, holding the field slot fixed; retain accept/refuse outcomes. No CAS process is needed."
+    }
+  ],
+  "policy_choices_for_parent": [
+    {
+      "id": "55.2b",
+      "choice": "Whether the exported authoring schema promises all native sparse retractions or is explicitly a narrower approximation."
+    },
+    {
+      "id": "56.3",
+      "choice": "What durable commit status and retry semantics the response should expose after post-commit rendering failure."
+    },
+    {
+      "id": "58.3a",
+      "choice": "Whether the advertised floor is enforced or the tool description narrowed."
+    },
+    {
+      "id": "66.2",
+      "choice": "Whether an unknown status refuses input or leaves an obligation open; silent CLOSED is the observed defect."
+    },
+    {
+      "id": "76.3",
+      "choice": "Whether caller/output generator mismatch is refused or represented with distinct provenance."
+    }
+  ],
+  "limits": [
+    "No existing screened case has the same operational attempted conclusion; near cases remain useful contrasts, not exact reuse.",
+    "Retained reports may provide neutral input and observation evidence without being strict corpus-schema cases. This report proposes conversion; it does not claim completion of that gate.",
+    "Prior controls are selected for the recorded mechanism; absent positive controls are stated and not silently invented.",
+    "The accepted 76.7 contrast supersedes the earlier register label contrast_missing; no new execution is requested for that row.",
+    "Operational failures are not automatically mathematical authority failures. No policy, remedy, expectation, or checker admission is selected.",
+    "No cases, adapters, replays, source sweep, or commits were made."
+  ]
+}

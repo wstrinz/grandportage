@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "id": "GP-X114",
+  "seed": null,
+  "title": "Exclude every base point from one empty named fiber",
+  "situation": "The report covers all free fiber values over one base point, not all base points.",
+  "inputs": {
+    "contract_section": "projection",
+    "baseline_contract": {
+      "base_scope": {
+        "galois_conjugate": "NOT_REPLAYED",
+        "other_base_points": "OPEN",
+        "parent": "12-dimensional nine-relation survivor locus",
+        "selected": "one exact landed L-valued base witness"
+      },
+      "checked_premises": [
+        "combined operator has rank 4 at the landed witness",
+        "c7_4 is solved and is not an independent rescue direction",
+        "Omega_comb is independent of c8_5 on the named fiber",
+        "Omega_comb is exactly nonzero in L at the landed witness"
+      ],
+      "coefficient_domain": "K = QQ[t]/(15*t^3+1)",
+      "does_not_license": [
+        "nonlinear nonextension without a separately checked sound linearization bridge",
+        "the Galois-conjugate witness",
+        "any other base direction or the full nine-relation locus",
+        "component emptiness",
+        "actual-source membership or exclusion",
+        "source sufficiency",
+        "H3",
+        "a (75,125) verdict change",
+        "depth-9 additive-pair authority",
+        "graph claim authority"
+      ],
+      "fiber_scope": {
+        "compatible_first_order_fiber": "EMPTY",
+        "coordinate": "c8_5",
+        "dependent_coordinate": "c7_4",
+        "dependent_status": "SOLVED_AFFINELY_FROM_ZERO_BLOCK",
+        "quantifier": "ALL_VALUES_IN_L"
+      },
+      "graph_effect": "NONE",
+      "instance_id": "jc_h3_depth8_landed_L_witness_c8_5_fiber",
+      "lean_backing": {
+        "first_order": "fiberEmpty_of_base_obstruction",
+        "nonlinear_bridge_not_instantiated": "nonlinearFiberEmpty_of_sound_linearization"
+      },
+      "licenses": [
+        "no compatible first-order depth-8 point exists anywhere along the free c8_5 fiber over the one landed L-valued base witness",
+        "the c7_4 rescue is unavailable on that exact fiber"
+      ],
+      "outstanding_premises": [
+        "P1..P5",
+        "S2",
+        "15*t^3+1=0",
+        "c5_7 != 0",
+        "H8"
+      ],
+      "point_universe": "L = K[y]/(y^2-d)",
+      "semantic_layer": "FIRST_ORDER_DEPTH8_COMPATIBILITY"
+    },
+    "operations": [
+      {
+        "op": "set",
+        "path": [
+          "projection",
+          "base_scope",
+          "other_base_points"
+        ],
+        "value": "EMPTY"
+      }
+    ]
+  },
+  "attempted_conclusion": "Exclude every base point from one empty named fiber.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The report covers all free fiber values over one base point, not all base points."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_depth8_fiber.py",
+      "line": 61,
+      "anchor": "def test_scope_widening_mutations_are_refused("
+    }
+  ]
+}

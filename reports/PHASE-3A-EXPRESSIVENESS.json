@@ -1,0 +1,2352 @@
+{
+  "schema": "gp-3a-expressiveness/v2",
+  "source": "corpus/GATE-OWNERS.json, reports/PHASE-3A-SAFETY.json",
+  "outcomes_by_owner": {
+    "3a": {
+      "agree": 105
+    },
+    "3b": {
+      "loss": 50,
+      "agree": 1
+    },
+    "admission-control": {
+      "loss": 2
+    },
+    "campaign-op": {
+      "loss": 80
+    },
+    "census": {
+      "loss": 4
+    }
+  },
+  "convergence": {
+    "accepting_rows": 46,
+    "held_requested_claims": 234,
+    "held_by_kind": {
+      "NONEMPTY": 8,
+      "EMPTY": 5,
+      "IN_IDEAL": 214,
+      "NOT_IN_IDEAL": 4,
+      "COVER": 3
+    },
+    "held_by_support": {
+      "receipt": 227,
+      "rule bridge": 2,
+      "rule R3": 3,
+      "rule R2": 2
+    },
+    "rows_with_widening": 71,
+    "rows_with_theorem_warrants": [
+      "GP-A08b",
+      "GP-C01",
+      "GP-X125",
+      "GP-X64",
+      "GP-X413",
+      "GP-A23",
+      "GP-C02",
+      "GP-X121"
+    ],
+    "binder_refused": null
+  },
+  "cases": [
+    {
+      "id": "GP-A02",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A03a",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A03b",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A04[p=3]",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (outside reach)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A05",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (ill-formed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A06",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A07a",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A07b",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A08b",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A08c",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A09",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "elaboration"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A10-C",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A10-Q",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A10-R",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A11a",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A11b",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A12",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A13-ambient",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A13-derived",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A20b",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A21",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A22",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "refuted (contra with held claim 1)"
+      ],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A23",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-A24",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-C01",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-C02",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X01",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X02",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X03",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X05",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X06",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X07",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X08",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X10",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X11",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X117",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X118",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X119",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X12",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "elaboration"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X120",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X121",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "refuted (contra with held claim 1)"
+      ],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X122",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X123",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X124",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "refuted (contra with held claim 2)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X125",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X126",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (outside reach)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X127",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X128",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "refuted (contra with held claim 1)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X129",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X13",
+      "owner": "census",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X130",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X132",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X133",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X134",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "elaboration"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X135",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X136",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X137",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "elaboration"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X138",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "no certificate (a bounded search is not evidence)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X141",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X15",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X16",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X17",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X18",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X19",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X20",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X21",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X22",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X222",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X223",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X224",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X225",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X228",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X23",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X24",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "elaboration"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X25",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X255",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X256",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X257",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X258",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X259",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X26",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X260",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X261",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X262",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X263",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X264",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X265",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X266",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X267",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X268",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X269",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X27",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X270",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "unsupported"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X271",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X272",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X273",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X274",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X275",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X276",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X277",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X278",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X279",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X28",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X280",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X284",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X285",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X286",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X287",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X288",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X289",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X29",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X290",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X291",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X292",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X293",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X296",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X297",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X298",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X299",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X30",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X300",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X301",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X308",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X309",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X31",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X310",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X311",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X312",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X313",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X314",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X315",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X316",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X317",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X318",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X319",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X32",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X320",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X321",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X322",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X323",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X324",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X325",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X326",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X327",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X328",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X33",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X330",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X331",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X332",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X333",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X334",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X335",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X336",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X339",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X34",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X340",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X341",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X342",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X343",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X345",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X347",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X348",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X349",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X350",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X351",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X352",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X353",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X354",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X355",
+      "owner": "admission-control",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X356",
+      "owner": "admission-control",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X357",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X358",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X359",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X360",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X361",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X362",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X363",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X364",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X365",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X366",
+      "owner": "census",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X367",
+      "owner": "census",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X368",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X369",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X401",
+      "owner": "census",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X404",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X405",
+      "owner": "3b",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X406",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X407",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X408",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X409",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X410",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X411",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X412",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X45",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X46",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X47",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X48",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X49",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "custody (stale binding)",
+        "rule refused"
+      ],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X50",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X51",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X52",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X53",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X54",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X55",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X56",
+      "owner": "3b",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X57",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X58",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X59",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X63",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X64",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "rule refused"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X66",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X67",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "custody (stale binding)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X68",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "custody (stale binding)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X69",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "custody (stale binding)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X70",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "custody (stale binding)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X71",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "custody (stale binding)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X73",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X74",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X75",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X76",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X77",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X78",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X79",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X80",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X81",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (replay failed)"
+      ],
+      "instantiated": true,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X83",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X84",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X85",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X86",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X87",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X88",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X89",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X90",
+      "owner": "campaign-op",
+      "expected": "ACCEPT",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X91",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X92",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X93",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X94",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X95",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X96",
+      "owner": "campaign-op",
+      "expected": "REFUSE",
+      "observed": "EXPRESSIVENESS_LOSS",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X413",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X414",
+      "owner": "3a",
+      "expected": "REFUSE",
+      "observed": "REFUSE",
+      "mechanism": [
+        "checker (outside reach)"
+      ],
+      "instantiated": false,
+      "field_strengthened": null
+    },
+    {
+      "id": "GP-X415",
+      "owner": "3a",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "mechanism": [],
+      "instantiated": false,
+      "field_strengthened": null
+    }
+  ]
+}

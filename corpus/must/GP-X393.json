@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "GP-X393",
+  "seed": null,
+  "title": "Operational 74.4: lexical validation boundary",
+  "situation": "64-hex execution fingerprint with terminal newline.",
+  "inputs": {
+    "incident_row": "74.4",
+    "vector": {
+      "valid_fingerprint": "64 hexadecimal digits",
+      "candidate_fingerprint": "64 hexadecimal digits plus terminal newline"
+    },
+    "retained_evidence_refs": [
+      "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/2"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Treat regex dollar match as full lexical validation.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Bare digest should pass; trailing newline should fail."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/backend.py",
+      "line": 48,
+      "anchor": "def valid_fingerprint(value):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

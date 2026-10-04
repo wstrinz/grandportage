@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "GP-X312",
+  "seed": null,
+  "title": "Complete matrix rows support exact membership",
+  "situation": "An injected producer transcript gives one indexed cofactor for each generator. Check the candidate identity before treating membership as established.",
+  "inputs": {
+    "ring_vars": [
+      "x",
+      "y"
+    ],
+    "target": "x",
+    "generators": [
+      "x",
+      "y"
+    ],
+    "matrix_rows": [
+      "GP_M[1,1]=1",
+      "GP_M[2,1]=0"
+    ]
+  },
+  "attempted_conclusion": "Accept membership of x in (x,y) after exact cofactor expansion.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The complete candidate expands exactly to x."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/cas.py",
+      "line": 1879,
+      "anchor": "hit = [r for r in rows if r.replace(\" \", \"\").startswith(want)]"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/groebner.py",
+      "line": 794,
+      "anchor": "def check_membership_identity("
+    }
+  ]
+}

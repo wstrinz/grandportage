@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "GP-X56",
+  "seed": null,
+  "title": "Rational-root exclusion does not cover characteristic-zero extensions",
+  "situation": "Only base-change-stable certificates may carry emptiness to the larger field.",
+  "inputs": {
+    "source_object": "Rational-root obstruction over QQ",
+    "target_object": "Obstruction after arbitrary characteristic-zero extension",
+    "information_lost": [
+      "field-relative rational-root exclusions"
+    ],
+    "source_context": "QQ",
+    "claim": "EMPTY",
+    "direction": "ALONG",
+    "supplied_lift_warrant": null
+  },
+  "attempted_conclusion": "Carry a rational-root exclusion to arbitrary characteristic-zero field extensions.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A field-relative exclusion lacks a base-change-stable certificate."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_formalization_transport.py",
+      "line": 141,
+      "anchor": "def test_field_relative_obstruction_cannot_be_relabelled_scheme_scoped("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "fixtures/jc_formalization_transport/v0.json",
+      "line": 577,
+      "anchor": "\"id\": \"JC.ASSAY.E.FIELD_WIDENING\""
+    }
+  ]
+}

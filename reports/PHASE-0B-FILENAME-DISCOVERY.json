@@ -1,0 +1,17 @@
+{
+  "authorization": "User approved filename discovery under $DEV; content reading of newly found sources not yet approved.",
+  "method": "rg --files; hidden and ignored paths included in second pass; no content read or archive opened.",
+  "candidate_paths": [
+    "$DEV/math-research/tmp/configuration-23-4-v1.2.0-notes.md",
+    "$DEV/math-research/tmp/configuration-23-4-v1.2.0-zenodo.zip",
+    "$DEV/math-research/tmp/configuration-23-4-v1.1.0-zenodo.zip"
+  ],
+  "not_located": [
+    "gpcqread.md",
+    "cqscouting.md",
+    "UD22-PACKET.md",
+    "identifiable DK T1 report"
+  ],
+  "limits": "22 inaccessible-path diagnostics in final filename pass; not a global absence proof. Matching unrelated compiled ud22 substrings discarded.",
+  "next": "User confirmation of candidate sources, unavailable items, and optional/nonlocal scope remains pending. Full sweep has not started."
+}

@@ -1,0 +1,30 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "84a0f9744f2219931d1a40767422b4e099cd8b2fc0dc442e34eda5c83a7520a7",
+  "test_source_sha256": "18b729a0a61f19a72bb8c9a599f33e2f38eb8d221f0620f50ca2b80adf4c41ab",
+  "records": [
+    {
+      "shape": "relative",
+      "detected": [
+        "cas"
+      ],
+      "source_executed": false
+    },
+    {
+      "shape": "absolute",
+      "detected": [],
+      "source_executed": false
+    },
+    {
+      "shape": "dynamic",
+      "detected": [],
+      "source_executed": false
+    }
+  ],
+  "prepared_readme": {
+    "sha256": "2eb600072de5d92e383ff753ccb05795df343d0c3ec9050f76be106cd9a9d64f",
+    "lines": 160,
+    "actual_frozen_test_passed": true
+  },
+  "scope": "Static helper sensitivity only; absolute/dynamic samples are parsed but never imported. Passing architecture tests are not a whole-program noninterference proof."
+}

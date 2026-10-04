@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "GP-X404",
+  "seed": null,
+  "title": "Selected sign receipt versus reversed interval admission",
+  "situation": "The selected endpoint is w=2 for w-2=0. Direct producer and receipt replay return positive sign even before native model validation.",
+  "inputs": {
+    "generator": "w-2",
+    "interval": [
+      "2",
+      "1"
+    ],
+    "expression": "w",
+    "claimed_sign": 1
+  },
+  "attempted_conclusion": "Admit the selected real model using the supplied interval after successful direct sign receipt replay.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Native interval admission requires lo < hi independently of direct sign receipt success."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/ordered.py",
+      "line": 188,
+      "anchor": "def selected_real_sign(model, expression, max_refinements=256):"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/ordered_receipt.py",
+      "line": 238,
+      "anchor": "def verify(model, expression, receipt):"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/store.py",
+      "line": 182,
+      "anchor": "_require(lo < hi,"
+    }
+  ]
+}

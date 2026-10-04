@@ -1,0 +1,178 @@
+{
+  "schema": "gp-phase2-scoped-runtime-parent-integration/v1",
+  "date": "2026-09-30",
+  "source_hashes": {
+    "phase2/lean/GP50.lean": "654b3fed94c9bdd721a48dcec36d7a0657fb4a4911bce2491de6d9ea20f826f5",
+    "phase2/lean/lakefile.toml": "ea9010ca7a7e2deb752e356bcd4a3bbd660614499484a523577628e4cefae4c1",
+    "phase2/lean/GP50/Queries.lean": "fb6309a917955801d0eaa839506fcf020f1ea7d423cfb5ee23bd9ebf98b0bde2",
+    "phase2/lean/Tests/Queries.lean": "50da77b04ea48b21860ad9471c1fff0418a3d29f66508e591fb1678e524b3883",
+    "phase2/lean/GP50/NarrowingAdmissionProofs.lean": "d03dab26d6aea90867b8235ef8e8f588f5b36bef117b99440459df65f61a4f19",
+    "phase2/lean/Tests/NarrowingAdmission.lean": "50416217a842e06108f82889809b7da41e789f0ae6472aaadb48c9528a1eddd2",
+    "phase2/lean/GP50/ScopedSpan.lean": "01140faf9ffeb76d718460527105a5b0ecfaca5efede8aa8c142619996911446",
+    "phase2/lean/GP50/ScopedSpanProofs.lean": "a40ca47146ad158282f3550bd7ce96ceb40350b35e07c974d021303f326366f3",
+    "phase2/lean/Tests/ScopedSpanSoundness.lean": "0775cfae18698ce6513a47d78545cc76471f893df7f4edf8dffb4643d87904bd",
+    "phase2/lean/GP50/ScopedDecoder.lean": "f4df7532c640e84a0c44b26188039a9fbf56352b4eeb26be40aa4688b58e5bf3",
+    "phase2/lean/GP50/ScopedRunner.lean": "f4f310b31254fbf1d9478d876b9dfdc113c399f182eac1b4244310f1e388f5bd",
+    "phase2/lean/GP50/QueryDecoder.lean": "ab22232569ec6d0cf915d33e21a1388dc76f3a984256a8873d8ff8a5f9139b64",
+    "phase2/lean/GP50/Presentation.lean": "2beb9f045e9d189b7f2fe8da1e826aabc1bb1cfa06cf63fad7de75e869c5bde8",
+    "phase2/lean/GP50/Runner.lean": "da9d8101c5e4355e2a402c5976eaa912c9abb7aa82ef4c5c681ef86c4680b1d1",
+    "tests/test_phase2_scoped_wire.py": "c2fc9c18b5526aadbd958a2fa8f7e31317ce6c00a8fd7c5b4242eb39deaa2ce4",
+    "tests/test_phase2_native_boundary.py": "2894b05ead1fb56b309619cb3d5cef0b67fbd0221d8485d801bb76eea1fc477e",
+    "tools/run-phase2-slice.py": "8dd604eb941351e582db88ccd70c72ad098be564389e12cc89227c0914bc7fd1",
+    "reports/PHASE-2-SLICE.json": "8a31a3df6d165ec59b8bfde09ac1575b079effe9746946485514fce6dbe25d41"
+  },
+  "build": {
+    "command": "lake build",
+    "jobs": 94,
+    "exit_code": 0
+  },
+  "independent_kernel_replay": {
+    "GP50.Queries": 0,
+    "GP50.NarrowingAdmissionProofs": 0,
+    "GP50.ScopedSpan": 0,
+    "GP50.ScopedRunner": 0,
+    "GP50.ScopedSpanProofs": 0
+  },
+  "native_component_controls": 495,
+  "new_query_native_controls": 46,
+  "compiled_proof_controls": 51,
+  "new_narrowing_proof_controls": 19,
+  "new_scoped_span_proof_controls": 11,
+  "python_tests": {
+    "total": 57,
+    "subtests": 68,
+    "scoped_wire": 23,
+    "receipt_wire": 16,
+    "lifecycle": 13,
+    "budget": 5
+  },
+  "theorems": [
+    "GP50.Semantic.fold_held_meaning",
+    "GP50.ScopedSpan.fold_held_meaning",
+    "GP50.ScopedSpan.fold_held_row_meaning"
+  ],
+  "guarantee": "Successful actual ScopedSpan receipt-plus-narrowing fold and held bit imply registration and Means for every matching registered row. Receipt truth and key/ID uniqueness are derived from the implementation; no blanket checker/projection/uniqueness hypotheses remain in the concrete theorem.",
+  "allowed_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "semantics": "Selected object plus actual univariate rational polynomial data; finite named Nat contexts; Holds is formal coefficient-span identity independent of context. Empty scope is vacuous, not an existence witness. Host source interpretation and byte/digest fidelity remain separate.",
+  "query_contract": "The same constructed admission is used for fold and why-not. Caller claimed keys, open IDs and links only select/rank held-but-unclaimed diagnostics; no effect on held authority.",
+  "native_runner_sha256": "7a9806ecb1a379e14fd487ac598f4868f10c275088335a580ac8b255246b359f",
+  "receipt_runner_sha256": "b132a3c6161859fcee2ee98ae9c5bb99f385ff8e416a2249325bc49b363a284b",
+  "native_component_observation": {
+    "native_output": {
+      "earned": [
+        {
+          "claim": 2,
+          "open_obligations": [
+            7
+          ]
+        }
+      ],
+      "state": {
+        "current_count": 2,
+        "domain": [
+          1,
+          2
+        ],
+        "held": [
+          1,
+          2
+        ],
+        "live_warrants": [
+          10,
+          11
+        ],
+        "retracted": [],
+        "status": "OK",
+        "successors": [],
+        "supports": [
+          10,
+          11
+        ],
+        "warrant_count": 2
+      },
+      "why_not": [
+        {
+          "claim": 2,
+          "held": true,
+          "warrants": [
+            {
+              "id": 11,
+              "reasons": [],
+              "supported": true
+            }
+          ]
+        },
+        {
+          "claim": 99,
+          "held": false,
+          "warrants": []
+        }
+      ]
+    },
+    "native_inputs": {
+      "registry_sha256": "1210b189f4611ed6caf8702bac5a8efa16c50a4c94dcf4547942efc3fc2afa0a",
+      "events_sha256": "6e1c242cc552e72898c290448a48b7c1d275cd37425fd058a8552ae8723d0d3d",
+      "query_sha256": "5bbf57296c4561dc7b7ac5c00278e819e278dd218b5aa9ffa77fd81624a57fc3"
+    }
+  },
+  "worker_active_seconds": {
+    "queries": 453,
+    "narrowing_admission": 383,
+    "scoped_span_soundness": 673
+  },
+  "executed_corpus": {
+    "count": 7,
+    "receipt_cases": 4,
+    "receipt_accepting_contrasts": 3,
+    "operational_cases": 3,
+    "branch_folds": 6,
+    "positive_checker_case": "GP-X164",
+    "all_fixture_bytes_preserved": true
+  },
+  "preservation": {
+    "fresh_legacy_case_count": 459,
+    "summary": {
+      "AGREES": 403,
+      "DIAGNOSTIC_OBSERVED": 4,
+      "KNOWN_DIFFERENCE": 14,
+      "UNSUPPORTED": 9,
+      "RETAINED_DIAGNOSTIC": 29
+    },
+    "prior_case_bytes_expectations_outcomes": true,
+    "immutable_artifacts_checked": 67,
+    "oracle_pin_sha256": "180d920db790d5b5e318ce318b7b7e1467e6b11fd44e05e759e8b7cc7f4459db",
+    "historical_latest_sha256": "0996858153e6f1fec40aad3fe1d71a70cff72b39972cd78937646818214be04d",
+    "handoff_sha256": "f0022699a7b3f22b8c264bb098584583d998e950836a4f2ea737034474c56198"
+  },
+  "budget_at_integrated_checkpoint": {
+    "logic": 524,
+    "decoder": 243,
+    "statement": 26,
+    "proof": 1061,
+    "logic_target": 500,
+    "logic_stop": 750,
+    "targets_exceeded": [
+      "logic"
+    ],
+    "tripwire_crossed": false,
+    "markdown_added_words": 7101,
+    "status_words": 270,
+    "unintegrated_cover_worker_files_excluded_from_source_counts": true
+  },
+  "remaining": [
+    "checked cover rule integration and real fixture",
+    "independent checked support/retraction and failed retry real fixtures",
+    "real K2/earned fixtures",
+    "proved-overlap conflict and release freeze",
+    "whole-kernel statement with admitted rules",
+    "full event-set order independence",
+    "all remaining kernel-tagged cases"
+  ],
+  "next_worker": "Finite typed cover checker, local soundness proof and tests; separate unintegrated outputs, no real corpus pass claimed.",
+  "g2_pass": false,
+  "public_push": false
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "status": "qualified reconciliation accepted; extraction/coverage not complete",
+  "worker_report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+  "independently_verified_input_hashes": 56,
+  "named_rows": 18,
+  "subepisode_dispositions": 47,
+  "exact_reuse": [
+    "DK-GP04/D1-family-premise",
+    "DK-GP06/D3-inert-count-fields"
+  ],
+  "classification_counts": {
+    "related_rule_control": 15,
+    "historical_defect_not_reproduced": 12,
+    "design_backlog": 6,
+    "exact_case_reuse": 2,
+    "retained_diagnostic_observation": 12
+  },
+  "parent_overlay": [
+    {
+      "id": "DK-GP05/D2-96-97-substitution",
+      "decision": "retain historical REPORTfailure and effort; do not infer frozen regression from fixture name",
+      "evidence": [
+        "reports/PHASE-0A-GUARD-SNAPSHOT-PARENT-NOTES.json",
+        "$DEV/math-research/campaigns/dk-retrodiction/REPORT.md:515-528;570-573"
+      ],
+      "reason": "Retained live test source asserts ok for both pass-96vars and fail-97vars; the historical failure needs its recorded version. No new current threshold refusal is established."
+    },
+    {
+      "id": "PR-G14/witness-removals",
+      "decision": "use parent raw receipt check for full accounting",
+      "reason": "Five removal attempts:three declarations succeed without a prior license;two refuse because live replacements exist. None demonstrates earned-license revocation."
+    }
+  ],
+  "newly_commissioned": [
+    "ARR-G09 ordinary/equation-free ordinary-point guard candidate design only, at most3payloads; no execution/admission/shared edits"
+  ],
+  "uncommissioned": "Other literal historical/model/reporting/control suggestions remain proposed;47entries and26concrete-gap strings do not imply47or26new cases. Exact scope equivalence and concrete missing premises drive necessity, not fixture resemblance or desire for a native verdict.",
+  "limits": [
+    "Report/case/route hash checks do not prove historical defects reproduced or checker soundness.",
+    "GP-only historical incidents must be included explicitly in eventual inventory; no duplicate mathematical campaign count.",
+    "No new kernel/checker implementation, campaign replay, predecessor repair, expanded source audit or Phase0closure."
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "0de1f5e7cf5677158b84594c89a8677b5de807a3edd7d5ffe6dcb15d6bf2dd90",
+  "scope": "Five exact offline controls. Reversed interval acceptance is direct API only and is blocked by native model validation.",
+  "controls": [
+    {
+      "name": "repeated interior root",
+      "sign": 1,
+      "producer_and_checker_agree": true
+    },
+    {
+      "name": "zero at repeated root",
+      "sign": 0,
+      "producer_and_checker_agree": true
+    },
+    {
+      "name": "repeated endpoint root",
+      "sign": 1,
+      "producer_and_checker_agree": true
+    },
+    {
+      "name": "reversed endpoint interval",
+      "sign": 1,
+      "producer_and_checker_agree": true
+    },
+    {
+      "name": "native reversed interval control",
+      "result": "REFUSED",
+      "reason": "ordered-v0.29:2: model 'M' embedding interval must satisfy lo < hi"
+    }
+  ]
+}

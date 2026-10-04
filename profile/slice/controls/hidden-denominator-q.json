@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "CTRL-HIDDEN-DENOMINATOR-Q",
+  "title": "Contrast: the same certificate in characteristic 0",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "generators": [
+      "3"
+    ],
+    "cofactors": [
+      "x/3 + (1-x)/3"
+    ],
+    "characteristic": 0
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Over Q the identity (1/3)*3 = 1 holds; reach excludes 3."
+  },
+  "control": "adversarial admission control (post-G2 \u00a73.3); not a corpus case"
+}

@@ -1,0 +1,1010 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="24" skipped="0" tests="271" time="237.534" timestamp="2026-09-27T19:29:48.870063-05:00" hostname="DESKTOP-I0P7IC0"><testcase classname="oracle.history.checkout.tests.test_current_frontier_bundle" name="test_current_bundle_has_one_explicit_research_boundary" time="0.007" /><testcase classname="oracle.history.checkout.tests.test_current_frontier_bundle" name="test_current_bundle_refuses_implicit_last_writer_wins" time="0.010" /><testcase classname="oracle.history.checkout.tests.test_current_frontier_bundle" name="test_current_bundle_refuses_false_scope_agreement" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_current_frontier_bundle" name="test_current_checked_review_receipt_regenerates_exactly" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_current_frontier_bundle" name="test_support_seam_supersessions_preserve_the_named_remainders" time="0.004" /><testcase classname="oracle.history.checkout.tests.test_f2_75_125_publication_audit" name="test_audit_distinguishes_math_consistency_from_release_debt" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_f2_75_125_publication_audit" name="test_audit_can_report_positive_custody_evidence_without_promoting_it" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_f2_75_125_publication_audit" name="test_partial_formalization_package_fails_closed" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_f2_75_125_publication_audit" name="test_formalization_declaration_and_scope_drift_fails_closed" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_f2_75_125_publication_audit" name="test_formalization_flags_broad_tactic_import_as_replay_debt" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_f2_75_125_publication_audit" name="test_manifest_formal_replay_layers_are_audited_together" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_f2_75_125_publication_audit" name="test_export_scan_prunes_build_and_vcs_trees" time="0.008" /><testcase classname="oracle.history.checkout.tests.test_f2_75_125_publication_audit" name="test_git_object_source_audit_ignores_live_worktree_drift" time="0.002"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">tmp_path = WindowsPath('tmp/pytest-history7/test_git_object_source_audit_i0')
+
+    def test_git_object_source_audit_ignores_live_worktree_drift(tmp_path):
+        repo = tmp_path / "source"
+        repo.mkdir()
+    
+        def git(*args):
+            subprocess.run(["git", "-C", str(repo), *args], check=True,
+                           capture_output=True, text=True)
+    
+&gt;       git("init")
+
+oracle\history\checkout\tests\test_f2_75_125_publication_audit.py:226: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\tests\test_f2_75_125_publication_audit.py:223: in git
+    subprocess.run(["git", "-C", str(repo), *args], check=True,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_f2_75_125_publication_audit" name="test_source_observation_finding_distinguishes_ref_from_worktree" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_f2_75_125_publication_dossier" name="test_final_f2_publication_state_fits_the_existing_dossier_schema" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_f2_75_125_publication_dossier" name="test_final_f2_profile_names_match_the_publication_policy_split" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_jc_c710_all_j_closeout_handback" name="test_exact_all_j_closeout_replaces_only_finite_remainder" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_c710_all_j_closeout_handback" name="test_scope_promotion_mutations_refuse[source_witness_licensed]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_c710_all_j_closeout_handback" name="test_scope_promotion_mutations_refuse[source_sufficiency_licensed]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_c710_all_j_closeout_handback" name="test_scope_promotion_mutations_refuse[global_b0_licensed]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_c710_all_j_closeout_handback" name="test_scope_promotion_mutations_refuse[sigma_kappa_nonzero_licensed]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_c710_all_j_closeout_handback" name="test_missing_all_j_license_refuses" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_c710_all_j_closeout_handback" name="test_checked_review_receipt_regenerates_exactly" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_formalization_transport" name="test_current_ledger_is_derived_and_exercises_every_adversarial_case" time="0.006" /><testcase classname="oracle.history.checkout.tests.test_jc_formalization_transport" name="test_actual_provenance_forgets_forward_but_cannot_be_recovered" time="0.007" /><testcase classname="oracle.history.checkout.tests.test_jc_formalization_transport" name="test_degree_five_credit_is_visible_as_a_real_expressibility_gap" time="0.006" /><testcase classname="oracle.history.checkout.tests.test_jc_formalization_transport" name="test_non_affine_lifts_and_slice_reversal_fail_closed" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_formalization_transport" name="test_untyped_edge_remains_an_honest_refusal_not_a_transport_license" time="0.006" /><testcase classname="oracle.history.checkout.tests.test_jc_formalization_transport" name="test_block_one_binding_retains_every_formal_premise" time="0.006" /><testcase classname="oracle.history.checkout.tests.test_jc_formalization_transport" name="test_omitting_a_formal_premise_is_refused" time="0.006" /><testcase classname="oracle.history.checkout.tests.test_jc_formalization_transport" name="test_authority_cannot_be_rebound_to_different_semantic_endpoints" time="0.006" /><testcase classname="oracle.history.checkout.tests.test_jc_formalization_transport" name="test_retyping_forgetting_as_equivalence_exposes_the_reverse_widening" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_formalization_transport" name="test_field_relative_obstruction_cannot_be_relabelled_scheme_scoped" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_formalization_transport" name="test_lossy_edges_must_name_their_information_loss" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_formalization_transport" name="test_output_is_deterministic_and_input_order_independent" time="0.007" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_corrected_unilateral_annihilator_is_lean_backed_and_scoped" time="0.007" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;0]" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;1]" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;2]" time="0.006" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;3]" time="0.006" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;4]" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;5]" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;6]" time="0.006" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;7]" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_original_false_annihilator_statement_is_refused" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_changed_jump_schedule_is_refused" time="0.007" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_zeroing_depth13_endpoint_refuses_minimal_shift_claim" time="0.008" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_default_replay_does_not_execute_native_checker" time="0.009" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_native_replay_requires_current_corrected_summary" time="0.007" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_report_write_is_atomic_and_refuses_overwrite" time="0.016" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_adjoint_recurrence" name="test_lean_shadow_exposes_the_generic_cutoff_characterization" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_compatibility" name="test_exact_affine_and_quotient_replay_classifies_phi_narrowly" time="42.818" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_compatibility" name="test_report_keeps_ring_class_separate_from_graph_and_geometry" time="0.000" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_compatibility" name="test_scope_and_direction_mutations_refuse_before_expensive_replay[&lt;lambda&gt;0]" time="0.050" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_compatibility" name="test_scope_and_direction_mutations_refuse_before_expensive_replay[&lt;lambda&gt;1]" time="0.051" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_compatibility" name="test_scope_and_direction_mutations_refuse_before_expensive_replay[&lt;lambda&gt;2]" time="0.049" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_compatibility" name="test_scope_and_direction_mutations_refuse_before_expensive_replay[&lt;lambda&gt;3]" time="0.062" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_compatibility" name="test_scope_and_direction_mutations_refuse_before_expensive_replay[&lt;lambda&gt;4]" time="0.050" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_compatibility" name="test_scope_and_direction_mutations_refuse_before_expensive_replay[&lt;lambda&gt;5]" time="0.050" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_compatibility" name="test_scope_and_direction_mutations_refuse_before_expensive_replay[&lt;lambda&gt;6]" time="0.050" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_compatibility" name="test_scope_and_direction_mutations_refuse_before_expensive_replay[&lt;lambda&gt;7]" time="0.049" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_compatibility" name="test_changed_native_binding_refuses_before_replay" time="0.052" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_compatibility" name="test_changed_witness_polynomial_refuses_by_frozen_artifact_digest" time="0.116" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_compatibility" name="test_lean_theorems_state_only_nonzero_and_nonunit_authority" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_free_plane" name="test_rank_two_block_and_symbolic_compatibility_replay" time="0.038" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_free_plane" name="test_report_stops_at_necessary_block_with_no_graph_effect" time="0.000" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_free_plane" name="test_arithmetic_and_scope_mutations_refuse[_change_raw-A2]" time="0.030" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_free_plane" name="test_arithmetic_and_scope_mutations_refuse[_change_block-A4]" time="0.032" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_free_plane" name="test_arithmetic_and_scope_mutations_refuse[&lt;lambda&gt;-M1_0]" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_free_plane" name="test_arithmetic_and_scope_mutations_refuse[&lt;lambda&gt;-M1_1]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_free_plane" name="test_arithmetic_and_scope_mutations_refuse[&lt;lambda&gt;-M1_2]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_free_plane" name="test_arithmetic_and_scope_mutations_refuse[&lt;lambda&gt;-M1_3]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_free_plane" name="test_arithmetic_and_scope_mutations_refuse[&lt;lambda&gt;-M1_4]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_free_plane" name="test_arithmetic_and_scope_mutations_refuse[&lt;lambda&gt;-A11]" time="0.039" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_free_plane" name="test_changed_previous_gp_prerequisite_refuses" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_free_plane" name="test_changed_native_binding_refuses" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_free_plane" name="test_changed_fixture_refuses_by_digest" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_free_plane" name="test_lean_contract_keeps_compatibility_distinct_from_solution" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_residual" name="test_explicit_residual_pullback_and_finite_unit_replay" time="9.217" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_residual" name="test_report_excludes_only_the_frozen_witness" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_residual" name="test_scope_pin_order_digest_middle_and_slice_mutations_refuse[&lt;lambda&gt;-M1]" time="0.244" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_residual" name="test_scope_pin_order_digest_middle_and_slice_mutations_refuse[&lt;lambda&gt;-N6]" time="0.232" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_residual" name="test_scope_pin_order_digest_middle_and_slice_mutations_refuse[&lt;lambda&gt;-N7]" time="0.222" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_residual" name="test_scope_pin_order_digest_middle_and_slice_mutations_refuse[&lt;lambda&gt;-N4]" time="0.222" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_residual" name="test_scope_pin_order_digest_middle_and_slice_mutations_refuse[&lt;lambda&gt;-A4]" time="0.319" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_residual" name="test_scope_pin_order_digest_middle_and_slice_mutations_refuse[&lt;lambda&gt;-N8]" time="0.238" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_residual" name="test_changed_syzygy_body_refuses" time="0.256" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_residual" name="test_exceptional_factor_cancellation_mutation_refuses" time="3.907" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_residual" name="test_changed_finite_algebra_modulus_refuses" time="6.399" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_residual" name="test_changed_fixture_refuses_by_digest" time="0.488" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_depth8_residual" name="test_lean_contract_keeps_finite_witness_exclusion_pointwise" time="0.006" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_free_plane" name="test_complete_factor_ledger_and_affine_round_trip" time="0.026" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_free_plane" name="test_report_has_no_graph_or_research_promotion" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_free_plane" name="test_scope_and_arithmetic_mutations_refuse[&lt;lambda&gt;-M3_0]" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_free_plane" name="test_scope_and_arithmetic_mutations_refuse[&lt;lambda&gt;-M3_1]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_free_plane" name="test_scope_and_arithmetic_mutations_refuse[&lt;lambda&gt;-M3_2]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_free_plane" name="test_scope_and_arithmetic_mutations_refuse[&lt;lambda&gt;-M3_3]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_free_plane" name="test_scope_and_arithmetic_mutations_refuse[&lt;lambda&gt;-M3_4]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_free_plane" name="test_scope_and_arithmetic_mutations_refuse[_change_vd_c85-A3]" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_free_plane" name="test_scope_and_arithmetic_mutations_refuse[_change_pivot_sign-A3]" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_free_plane" name="test_changed_native_binding_refuses" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_free_plane" name="test_changed_fixture_refuses_by_digest" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_b0_free_plane" name="test_lean_backstop_names_pivot_independence" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_frontier" name="test_all_five_depth6_statuses_remain_open_and_domain_specific" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_frontier" name="test_r6_premises_are_stable_ids_and_q_relocation_stays_separate" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_frontier" name="test_parent_source_seam_has_distinct_scope_and_no_promotion" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_frontier" name="test_ledger_mutation_refuses_before_compilation" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_frontier" name="test_checked_in_depth6_frontier_receipt_exactly_regenerates" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_frontier" name="test_depth6_and_h8_are_independent_consumers_of_one_schema" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_replay_all" name="test_fast_gate_replays_welds_and_names_terminal_open_authority" time="3.561" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_replay_all" name="test_gate_refuses_silent_original_source_promotion" time="0.045" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_replay_all" name="test_full_gate_checks_graph_authorities_in_semantic_order" time="0.048" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_replay_all" name="test_report_write_is_atomic_and_refuses_unrequested_overwrite" time="0.050" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_replay_all" name="test_native_replay_preserves_the_open_seam" time="0.049" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_replay_all" name="test_checked_in_review_ledgers_preserve_mode_and_authority_boundary" time="0.045" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_replay_all" name="test_v1_migration_refuses_to_invent_the_typed_r1_r7_frontier" time="0.048" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_replay_all" name="test_checked_in_v2_ledgers_preserve_seam_and_full_authority_tiers" time="0.047" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_replay_all" name="test_coordinator_consumer_ledger_matches_the_frozen_seam_authority" time="0.049" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_replay_all" name="test_preflight_has_no_chain_decode_and_no_mathematical_verdict" time="1.298" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_replay_all" name="test_default_gate_is_the_explicit_seam_tier" time="0.000" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth6_replay_all" name="test_interrupted_gate_leaves_completed_stage_journal" time="0.053" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth8_fiber" name="test_entire_named_first_order_fiber_is_scoped_and_lean_backed" time="0.004" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth8_fiber" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;0]" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth8_fiber" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;1]" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth8_fiber" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;2]" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth8_fiber" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;3]" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth8_fiber" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;4]" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth8_fiber" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;5]" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth8_fiber" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;6]" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth8_fiber" name="test_scope_widening_mutations_are_refused[&lt;lambda&gt;7]" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth8_fiber" name="test_zeroed_omega_comb_is_refused" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth8_fiber" name="test_authorizing_depth9_pair_is_refused" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth8_fiber" name="test_default_replay_does_not_execute_native_checker" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth8_fiber" name="test_native_replay_requires_current_summary" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_depth8_fiber" name="test_lean_shadow_keeps_first_order_and_nonlinear_bridge_separate" time="0.000" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_frontier" name="test_h8_discharge_updates_downstream_without_rewriting_history" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_frontier" name="test_h8_scope_does_not_discharge_residual_source_or_h3_work" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_frontier" name="test_c79_family_is_closed_but_pin_ablation_and_b0_are_open" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_frontier" name="test_pin_ablation_names_ranked_scope_defect_and_cost" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_frontier" name="test_fixture_mutation_is_refused_before_projection" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_frontier" name="test_projection_is_stable_and_native_binding_is_opt_in" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_frontier" name="test_checked_in_review_receipt_is_exactly_regenerated" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_s4_scope" name="test_frozen_scope_verifies_one_piece_and_keeps_other_open" time="0.489" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_s4_scope" name="test_authority_widening_mutations_are_refused[&lt;lambda&gt;-M5_0]" time="0.007" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_s4_scope" name="test_authority_widening_mutations_are_refused[&lt;lambda&gt;-M5_1]" time="0.008" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_s4_scope" name="test_authority_widening_mutations_are_refused[&lt;lambda&gt;-M6]" time="0.007" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_s4_scope" name="test_authority_widening_mutations_are_refused[&lt;lambda&gt;-M7_0]" time="0.008" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_s4_scope" name="test_authority_widening_mutations_are_refused[&lt;lambda&gt;-M7_1]" time="0.007" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_s4_scope" name="test_authority_widening_mutations_are_refused[&lt;lambda&gt;-M1]" time="0.007" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_s4_scope" name="test_authority_widening_mutations_are_refused[&lt;lambda&gt;-M2]" time="0.008" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_s4_scope" name="test_authority_widening_mutations_are_refused[&lt;lambda&gt;-M8]" time="0.007" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_s4_scope" name="test_authority_widening_mutations_are_refused[&lt;lambda&gt;-M4]" time="0.006" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_s4_scope" name="test_authority_widening_mutations_are_refused[&lt;lambda&gt;-M3]" time="0.007" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_s4_scope" name="test_sparse_body_mutation_is_refused" time="0.019" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_s4_scope" name="test_frozen_digest_is_a_checked_boundary" time="0.010" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_s4_scope" name="test_default_replay_never_executes_native_producer" time="0.490" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_s4_scope" name="test_report_write_is_atomic_and_refuses_overwrite" time="0.487" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_status_block" name="test_projection_keeps_supported_and_unsupported_authority_distinct" time="3.715" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_status_block" name="test_exact_delimited_replacement_reaches_a_fixed_point" time="0.053" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_status_block" name="test_missing_delimiters_are_a_diagnosed_noop" time="0.070" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_status_block" name="test_unbalanced_duplicate_or_reversed_delimiters_refuse[prefix &lt;!-- GP-STATUS-BLOCK:BEGIN schema=gp-status-block/v1 --&gt; only]" time="0.052" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_status_block" name="test_unbalanced_duplicate_or_reversed_delimiters_refuse[&lt;!-- GP-STATUS-BLOCK:BEGIN schema=gp-status-block/v1 --&gt; x &lt;!-- GP-STATUS-BLOCK:BEGIN schema=gp-status-block/v1 --&gt; y &lt;!-- GP-STATUS-BLOCK:END --&gt;]" time="0.048" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_status_block" name="test_unbalanced_duplicate_or_reversed_delimiters_refuse[&lt;!-- GP-STATUS-BLOCK:END --&gt; before &lt;!-- GP-STATUS-BLOCK:BEGIN schema=gp-status-block/v1 --&gt;]" time="0.050" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_status_block" name="test_v1_review_ledger_is_visibly_lossy_after_migration" time="0.047" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_status_block" name="test_empty_open_frontier_is_refused" time="0.049" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_wall_ob_open" name="test_frozen_polynomials_compile_to_existing_localized_unit_identity" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_wall_ob_open" name="test_checked_in_authority_fixture_is_exact_adapter_output" time="0.027" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_wall_ob_open" name="test_graph_verdict_mints_only_local_empty_on_exact_consequence_model" time="0.003"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">def test_graph_verdict_mints_only_local_empty_on_exact_consequence_model():
+        module = MODULE
+&gt;       graph, event = _verified_graph(module)
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_h3_wall_ob_open.py:102: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\tests\test_jc_h3_wall_ob_open.py:65: in _verified_graph
+    graph = module.graph_from_frozen(frozen, raw)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\history\checkout\experiments\jc_h3_wall_ob_open\adapter.py:318: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_h3_wall_ob_open" name="test_certificate_name_without_current_verdict_has_no_authority" time="0.001"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">def test_certificate_name_without_current_verdict_has_no_authority():
+        module, frozen, raw = MODULE, FROZEN, FROZEN_BYTES
+&gt;       graph = module.graph_from_frozen(frozen, raw)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_h3_wall_ob_open.py:114: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\experiments\jc_h3_wall_ob_open\adapter.py:318: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_h3_wall_ob_open" name="test_removing_ob_guard_stales_old_authority" time="0.004"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">def test_removing_ob_guard_stales_old_authority():
+        module, frozen, raw = MODULE, FROZEN, FROZEN_BYTES
+&gt;       _original, event = _verified_graph(module)
+                           ^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_h3_wall_ob_open.py:120: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\tests\test_jc_h3_wall_ob_open.py:65: in _verified_graph
+    graph = module.graph_from_frozen(frozen, raw)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\history\checkout\experiments\jc_h3_wall_ob_open\adapter.py:318: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_h3_wall_ob_open" name="test_scope_refuses_parent_component_source_and_h3_promotion" time="0.000" /><testcase classname="oracle.history.checkout.tests.test_jc_h3_wall_ob_open" name="test_default_validation_does_not_import_native_producer" time="1.566" /><testcase classname="oracle.history.checkout.tests.test_jc_original_pair_seam" name="test_conditional_seam_welds_native_rows_without_graph_authority" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_jc_original_pair_seam" name="test_promoting_the_missing_source_map_is_rejected" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_original_pair_seam" name="test_claiming_an_exact_serialized_pair_is_rejected" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_original_pair_seam" name="test_promoting_strict_original_source_authority_is_rejected" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_original_pair_seam" name="test_changed_native_row_commitment_breaks_the_gp_weld" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_original_pair_seam" name="test_moving_the_t_pin_into_row_derivation_is_rejected" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_original_pair_seam" name="test_dropping_an_authority_refusal_is_rejected" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_original_pair_seam" name="test_changing_the_native_commit_binding_is_rejected" time="0.002" /><testcase classname="oracle.history.checkout.tests.test_jc_p_axis_authority" name="test_show_renders_localized_proof_envelope" time="0.001"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000002B81E09E9F0&gt;
+capsys = &lt;_pytest.capture.CaptureFixture object at 0x000002B81E09DA00&gt;
+
+    def test_show_renders_localized_proof_envelope(monkeypatch, capsys):
+&gt;       graph, _event = _verified_graph()
+                        ^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:76: in _verified_graph
+    graph = ADAPTER.graph_from_frozen(frozen, raw)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\history\checkout\experiments\jc_h3_p_axis\adapter.py:291: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_p_axis_authority" name="test_frozen_native_slice_has_the_expected_parent_binding" time="0.000" /><testcase classname="oracle.history.checkout.tests.test_jc_p_axis_authority" name="test_checked_in_authority_fixture_is_exact_adapter_output" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_p_axis_authority" name="test_factor_affine_receipt_and_authority_model_use_the_same_equations" time="0.004" /><testcase classname="oracle.history.checkout.tests.test_jc_p_axis_authority" name="test_factor_proof_compiles_to_existing_localized_unit_certificate" time="0.004" /><testcase classname="oracle.history.checkout.tests.test_jc_p_axis_authority" name="test_graph_verdict_mints_only_local_empty_authority" time="0.001"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">def test_graph_verdict_mints_only_local_empty_authority():
+&gt;       graph, event = _verified_graph()
+                       ^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:155: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:76: in _verified_graph
+    graph = ADAPTER.graph_from_frozen(frozen, raw)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\history\checkout\experiments\jc_h3_p_axis\adapter.py:291: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_p_axis_authority" name="test_certificate_name_without_verdict_grants_no_authority" time="0.001"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">def test_certificate_name_without_verdict_grants_no_authority():
+        frozen, raw = _frozen()
+&gt;       graph = ADAPTER.graph_from_frozen(frozen, raw)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\experiments\jc_h3_p_axis\adapter.py:291: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_p_axis_authority" name="test_equation_or_guard_mutation_refuses_old_authority[updates0]" time="0.001"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">updates = {'generators': ['15*t^3+1', '10*t*c9_11+14*p*t^2', '5*c9_11^2+10*c9_11*p*t+5*p^2*t^2']}
+
+    @pytest.mark.parametrize("updates", [
+        {"generators": [
+            "15*t^3+1",
+            "10*t*c9_11+14*p*t^2",
+            "5*c9_11^2+10*c9_11*p*t+5*p^2*t^2",
+        ]},
+        {"open_conditions": ["p"]},
+    ])
+    def test_equation_or_guard_mutation_refuses_old_authority(updates):
+&gt;       _original, event = _verified_graph()
+                           ^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:191: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:76: in _verified_graph
+    graph = ADAPTER.graph_from_frozen(frozen, raw)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\history\checkout\experiments\jc_h3_p_axis\adapter.py:291: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_p_axis_authority" name="test_equation_or_guard_mutation_refuses_old_authority[updates1]" time="0.001"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">updates = {'open_conditions': ['p']}
+
+    @pytest.mark.parametrize("updates", [
+        {"generators": [
+            "15*t^3+1",
+            "10*t*c9_11+14*p*t^2",
+            "5*c9_11^2+10*c9_11*p*t+5*p^2*t^2",
+        ]},
+        {"open_conditions": ["p"]},
+    ])
+    def test_equation_or_guard_mutation_refuses_old_authority(updates):
+&gt;       _original, event = _verified_graph()
+                           ^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:191: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:76: in _verified_graph
+    graph = ADAPTER.graph_from_frozen(frozen, raw)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\history\checkout\experiments\jc_h3_p_axis\adapter.py:291: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_p_axis_authority" name="test_scope_or_source_binding_mutation_stales_old_authority[updates0]" time="0.001"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">updates = {'point_universe': 'BASE'}
+
+    @pytest.mark.parametrize("updates", [
+        {"point_universe": S.BASE_POINT_UNIVERSE},
+        {"chart": "q"},
+        {"cite": "sha256:" + "0" * 64},
+    ])
+    def test_scope_or_source_binding_mutation_stales_old_authority(updates):
+&gt;       _original, event = _verified_graph()
+                           ^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:207: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:76: in _verified_graph
+    graph = ADAPTER.graph_from_frozen(frozen, raw)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\history\checkout\experiments\jc_h3_p_axis\adapter.py:291: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_p_axis_authority" name="test_scope_or_source_binding_mutation_stales_old_authority[updates1]" time="0.001"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">updates = {'chart': 'q'}
+
+    @pytest.mark.parametrize("updates", [
+        {"point_universe": S.BASE_POINT_UNIVERSE},
+        {"chart": "q"},
+        {"cite": "sha256:" + "0" * 64},
+    ])
+    def test_scope_or_source_binding_mutation_stales_old_authority(updates):
+&gt;       _original, event = _verified_graph()
+                           ^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:207: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:76: in _verified_graph
+    graph = ADAPTER.graph_from_frozen(frozen, raw)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\history\checkout\experiments\jc_h3_p_axis\adapter.py:291: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_p_axis_authority" name="test_scope_or_source_binding_mutation_stales_old_authority[updates2]" time="0.001"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">updates = {'cite': 'sha256:0000000000000000000000000000000000000000000000000000000000000000'}
+
+    @pytest.mark.parametrize("updates", [
+        {"point_universe": S.BASE_POINT_UNIVERSE},
+        {"chart": "q"},
+        {"cite": "sha256:" + "0" * 64},
+    ])
+    def test_scope_or_source_binding_mutation_stales_old_authority(updates):
+&gt;       _original, event = _verified_graph()
+                           ^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:207: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:76: in _verified_graph
+    graph = ADAPTER.graph_from_frozen(frozen, raw)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\history\checkout\experiments\jc_h3_p_axis\adapter.py:291: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_p_axis_authority" name="test_verifier_input_fingerprint_contains_the_frozen_source_digest" time="0.001"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">def test_verifier_input_fingerprint_contains_the_frozen_source_digest():
+        frozen, raw = _frozen()
+&gt;       graph = ADAPTER.graph_from_frozen(frozen, raw)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_p_axis_authority.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\experiments\jc_h3_p_axis\adapter.py:291: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_p_axis_authority" name="test_adapter_refuses_any_change_to_the_native_parent_bytes" time="0.000" /><testcase classname="oracle.history.checkout.tests.test_jc_p_axis_authority" name="test_frozen_model_does_not_claim_full_chart_source_or_h3_authority" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_r1_r7_seam_adapter" name="test_frozen_adapter_reports_the_exact_corrected_open_frontier" time="0.004" /><testcase classname="oracle.history.checkout.tests.test_jc_r1_r7_seam_adapter" name="test_mandatory_authority_mutations_are_independently_refused[mutate_r6_closed-M1]" time="0.004" /><testcase classname="oracle.history.checkout.tests.test_jc_r1_r7_seam_adapter" name="test_mandatory_authority_mutations_are_independently_refused[mutate_q_forced-M2]" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_r1_r7_seam_adapter" name="test_mandatory_authority_mutations_are_independently_refused[mutate_point_every_gauge-M3]" time="0.004" /><testcase classname="oracle.history.checkout.tests.test_jc_r1_r7_seam_adapter" name="test_mandatory_authority_mutations_are_independently_refused[mutate_drop_branch_premise-M4]" time="0.004" /><testcase classname="oracle.history.checkout.tests.test_jc_r1_r7_seam_adapter" name="test_mandatory_authority_mutations_are_independently_refused[mutate_r7_proved-M5]" time="0.004" /><testcase classname="oracle.history.checkout.tests.test_jc_r1_r7_seam_adapter" name="test_mandatory_authority_mutations_are_independently_refused[mutate_r5_unconditional-M6]" time="0.006" /><testcase classname="oracle.history.checkout.tests.test_jc_r1_r7_seam_adapter" name="test_mandatory_authority_mutations_are_independently_refused[mutate_graph_effect-M7]" time="0.004" /><testcase classname="oracle.history.checkout.tests.test_jc_r1_r7_seam_adapter" name="test_mandatory_authority_mutations_are_independently_refused[mutate_binding-M8]" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_r1_r7_seam_adapter" name="test_mandatory_authority_mutations_are_independently_refused[mutate_parent_closed-M9]" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_r1_r7_seam_adapter" name="test_mandatory_authority_mutations_are_independently_refused[mutate_drop_gap5-M10]" time="0.004" /><testcase classname="oracle.history.checkout.tests.test_jc_r1_r7_seam_adapter" name="test_lf_normalized_binding_check_fails_closed_on_a_tampered_copy" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_r1_r7_seam_adapter" name="test_normal_verification_never_executes_a_native_checker" time="0.004" /><testcase classname="oracle.history.checkout.tests.test_jc_r1_r7_seam_adapter" name="test_fixture_digest_is_a_separate_fail_closed_boundary" time="0.006" /><testcase classname="oracle.history.checkout.tests.test_jc_s2_lowjet_guard_peel_handback" name="test_s2_only_closeout_is_closed" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_s2_lowjet_guard_peel_handback" name="test_scope_promotions_refuse[source_sufficiency_licensed]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_s2_lowjet_guard_peel_handback" name="test_scope_promotions_refuse[global_b0_licensed]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_s2_lowjet_guard_peel_handback" name="test_scope_promotions_refuse[s1_s3_s4_licensed]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_s2_lowjet_guard_peel_handback" name="test_scope_promotions_refuse[h3_licensed]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_s2_lowjet_guard_peel_handback" name="test_scope_promotions_refuse[verdict_75125_licensed]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_s2_lowjet_guard_peel_handback" name="test_review_receipt_regenerates" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_authority" name="test_checked_in_boundary_projection_is_canonical_and_scope_honest" time="0.336" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_authority" name="test_native_sparse_coefficient_mutation_breaks_roundtrip_digest" time="0.313" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_authority" name="test_intermediate_rung_commitment_is_not_promoted_to_polynomial_proof" time="0.036" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_authority" name="test_exact_generic_and_discriminant_equivalences_verify_without_cas" time="0.030"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">def test_exact_generic_and_discriminant_equivalences_verify_without_cas():
+&gt;       graph = ADAPTER.graph_from_frozen(_frozen())
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_source_depth6_authority.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\experiments\jc_h3_source_depth6\adapter.py:606: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_authority" name="test_show_summarizes_sparse_ideal_generators" time="0.041"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000002B823412090&gt;
+capsys = &lt;_pytest.capture.CaptureFixture object at 0x000002B823411E80&gt;
+
+    def test_show_summarizes_sparse_ideal_generators(monkeypatch, capsys):
+&gt;       graph = ADAPTER.graph_from_frozen(_frozen())
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_source_depth6_authority.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\experiments\jc_h3_source_depth6\adapter.py:606: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_authority" name="test_boundary_model_has_no_silent_actual_source_or_cover_edge" time="0.028"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">def test_boundary_model_has_no_silent_actual_source_or_cover_edge():
+&gt;       graph = ADAPTER.graph_from_frozen(_frozen())
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_source_depth6_authority.py:104: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\experiments\jc_h3_source_depth6\adapter.py:606: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_authority" name="test_generic_certificate_needs_the_alpha_inverse_equation" time="1.204"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">def test_generic_certificate_needs_the_alpha_inverse_equation():
+        events = ADAPTER.graph_events(_frozen())
+        source = next(event for event in events
+                      if event.get("id") == ADAPTER.GENERIC_MODEL)
+        source["generators"].pop()
+&gt;       graph = _graph_from_events(events)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_source_depth6_authority.py:121: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\tests\test_jc_source_depth6_authority.py:38: in _graph_from_events
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_authority" name="test_mutated_generic_cofactor_is_unverified_not_refuted" time="1.220"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">def test_mutated_generic_cofactor_is_unverified_not_refuted():
+        events = ADAPTER.graph_events(_frozen())
+        edge = next(event for event in events
+                    if event.get("id") == ADAPTER.GENERIC_EDGE)
+        edge["ring_iso_certificate"]["forward_cofactors"][3][3] = (
+            "GP_INV_alpha+1")
+&gt;       graph = _graph_from_events(events)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_source_depth6_authority.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\tests\test_jc_source_depth6_authority.py:38: in _graph_from_events
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_authority" name="test_discriminant_target_keeps_beta_relation_and_free_c7_5" time="0.025"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">def test_discriminant_target_keeps_beta_relation_and_free_c7_5():
+&gt;       graph = ADAPTER.graph_from_frozen(_frozen())
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_source_depth6_authority.py:142: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\experiments\jc_h3_source_depth6\adapter.py:606: in graph_from_frozen
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_chain" name="test_checked_in_chain_fast_gate_welds_both_gp_endpoints" time="2.427" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_chain" name="test_preflight_checks_bindings_without_any_sparse_decode" time="1.206" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_chain" name="test_reordered_steps_are_rejected_after_resigning" time="3.569" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_chain" name="test_mutated_unit_witness_is_rejected_after_resigning" time="3.575" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_chain" name="test_mutated_solved_value_is_rejected_after_resigning" time="3.046" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_chain" name="test_dropped_scope_refusal_is_rejected_after_resigning" time="2.761" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_chain" name="test_full_exact_face_replay" time="104.319" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_face_extraction" name="test_fast_face_extraction_welds_all_landed_faces_without_graph_effect" time="1.358" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_face_extraction" name="test_full_source_formula_replay_rederives_all_five_rows" time="0.006"><failure message="jc_source_depth6_face_extraction_adapter.FaceExtractionError: full source replay requires SymPy">def _derive_source_rows():
+        """Rebuild the five reduced rows from the defining E-system formulas."""
+        try:
+&gt;           import sympy as sp
+E           ModuleNotFoundError: No module named 'sympy'
+
+oracle\history\checkout\experiments\jc_h3_source_depth6\face_extraction_adapter.py:316: ModuleNotFoundError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.mark.exhaustive
+    def test_full_source_formula_replay_rederives_all_five_rows():
+&gt;       report = ADAPTER.verify_fixture(full_source_replay=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_source_depth6_face_extraction.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\experiments\jc_h3_source_depth6\face_extraction_adapter.py:577: in verify_fixture
+    derived = _derive_source_rows()
+              ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _derive_source_rows():
+        """Rebuild the five reduced rows from the defining E-system formulas."""
+        try:
+            import sympy as sp
+        except ImportError as exc:  # pragma: no cover - optional slow audit
+&gt;           raise FaceExtractionError("full source replay requires SymPy") from exc
+E           jc_source_depth6_face_extraction_adapter.FaceExtractionError: full source replay requires SymPy
+
+oracle\history\checkout\experiments\jc_h3_source_depth6\face_extraction_adapter.py:318: FaceExtractionError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_face_extraction" name="test_source_row_coefficient_mutation_breaks_its_digest" time="0.007" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_face_extraction" name="test_resigned_source_row_mutation_breaks_face_weld" time="1.093" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_face_extraction" name="test_root_support_mutation_is_rejected_after_resigning" time="0.007" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_face_extraction" name="test_coordinate_series_mutation_is_rejected_after_resigning" time="0.006" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_face_extraction" name="test_formula_mutation_is_rejected_after_resigning" time="0.006" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_face_extraction" name="test_output_face_mutation_is_rejected_after_resigning" time="0.682" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_face_extraction" name="test_dropped_authority_refusal_is_rejected_after_resigning" time="0.007" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_face_extraction" name="test_sparse_work_budget_fails_closed" time="0.003" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_full_template" name="test_complete_template_has_the_measured_finite_boundary" time="17.624" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_full_template" name="test_complete_template_earns_selected_face_containment" time="0.988" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_full_template" name="test_mutated_selected_face_loses_structural_authority" time="0.757" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_full_template" name="test_authority_still_refuses_reverse_lift_and_h3" time="0.000" /><testcase classname="oracle.history.checkout.tests.test_jc_source_depth6_full_template" name="test_show_summarizes_the_large_generator_bundle" time="0.765" /><testcase classname="oracle.history.checkout.tests.test_jc_source_ladder_authority" name="test_chain_compiles_to_exact_algebraized_localization_models" time="1.571"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">def test_chain_compiles_to_exact_algebraized_localization_models():
+&gt;       graph, compiled = ADAPTER.graph_from_spec(_specification())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_source_ladder_authority.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\experiments\jc_h3_source_ladder\authority_adapter.py:441: in graph_from_spec
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_source_ladder_authority" name="test_compiler_replays_chain_before_emitting_graph_events" time="0.034" /><testcase classname="oracle.history.checkout.tests.test_jc_source_ladder_authority" name="test_inverse_coordinate_collision_fails_closed" time="0.005" /><testcase classname="oracle.history.checkout.tests.test_jc_source_ladder_authority" name="test_normalization_bearing_second_face_compiles_with_exact_context" time="1.827"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">def test_normalization_bearing_second_face_compiles_with_exact_context():
+&gt;       graph, compiled = ADAPTER.graph_from_spec(_second_specification())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_source_ladder_authority.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\experiments\jc_h3_source_ladder\authority_adapter.py:441: in graph_from_spec
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_source_ladder_authority" name="test_exact_certificate_verifies_normalization_bearing_second_face" time="1.846"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">def test_exact_certificate_verifies_normalization_bearing_second_face():
+&gt;       graph, compiled = ADAPTER.graph_from_spec(_second_specification())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_source_ladder_authority.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\experiments\jc_h3_source_ladder\authority_adapter.py:441: in graph_from_spec
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_source_ladder_authority" name="test_mutated_exact_certificate_is_unverified_not_a_refutation" time="1.743"><failure message="TypeError: expected str, bytes or os.PathLike object, not NoneType">def test_mutated_exact_certificate_is_unverified_not_a_refutation():
+&gt;       graph, compiled = ADAPTER.graph_from_spec(_second_specification())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+oracle\history\checkout\tests\test_jc_source_ladder_authority.py:105: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+oracle\history\checkout\experiments\jc_h3_source_ladder\authority_adapter.py:441: in graph_from_spec
+    graph.apply(F.meta_event())
+                ^^^^^^^^^^^^^^
+oracle\checkout\grandportage\format.py:41: in meta_event
+    "implementation": I.implementation_identity(
+oracle\checkout\grandportage\identity.py:48: in implementation_identity
+    commit, dirty = source_identity()
+                    ^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:39: in source_identity
+    root = source_root()
+           ^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:32: in source_root
+    top = _git(candidate, "rev-parse", "--show-toplevel")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+oracle\checkout\grandportage\identity.py:16: in _git
+    completed = subprocess.run(
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:550: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1028: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/subprocess.py:1536: in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+tools\run-historical-review.py:42: in guard
+    executable=os.fsdecode(args[0]).replace('\\','/').split('/')[-1].lower()
+               ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = None
+
+&gt;   ???
+E   TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+&lt;frozen os&gt;:859: TypeError</failure></testcase><testcase classname="oracle.history.checkout.tests.test_jc_source_support_handback" name="test_r7_prime_and_r6_are_premise_free_while_r7_stays_open" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_support_handback" name="test_no_overlay_is_needed_for_r7_prime_or_r6" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_support_handback" name="test_r7_overlay_does_not_control_r7_prime_or_r6" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_support_handback" name="test_unrelated_overlay_cannot_promote_value_seam" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_support_handback" name="test_reintroducing_r7_prime_as_an_r6_premise_refuses" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_support_handback" name="test_generic_j_does_not_close_full_chart" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_support_handback" name="test_generic_to_all_fibres_mutation_refuses" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_support_handback" name="test_exceptional_zero_to_source_witness_mutation_refuses" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_support_handback" name="test_checked_review_receipt_regenerates_exactly" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_target_first_value_handback" name="test_parent_is_split_not_falsely_closed" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_target_first_value_handback" name="test_promotion_mutations_refuse[reverse_lift_licensed]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_target_first_value_handback" name="test_promotion_mutations_refuse[source_sufficiency_licensed]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_target_first_value_handback" name="test_promotion_mutations_refuse[pair_existence_licensed]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_target_first_value_handback" name="test_promotion_mutations_refuse[r5_licensed]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_target_first_value_handback" name="test_promotion_mutations_refuse[r7_licensed]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_target_first_value_handback" name="test_promotion_mutations_refuse[h3_licensed]" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_target_first_value_handback" name="test_ratio_mutation_refuses" time="0.001" /><testcase classname="oracle.history.checkout.tests.test_jc_source_target_first_value_handback" name="test_checked_review_receipt_regenerates_exactly" time="0.001" /></testsuite></testsuites>

@@ -1,0 +1,427 @@
+{
+  "schema_version": 1,
+  "title": "Phase 0a operational missing-positive-control review",
+  "status": "parent_review_only",
+  "scope": {
+    "candidate_count": 15,
+    "source_manifest": "reports/PHASE-0A-OPERATIONAL-CASE-CONVERSION.json",
+    "no_new_execution": true,
+    "no_candidate_edits": true
+  },
+  "counts_by_disposition": {
+    "shared_test_sufficient_for_incident": 7,
+    "finite_control_only_if_admitting_exact_validator_pair": 1,
+    "policy_decision_first": 1,
+    "retained_pair_sufficient": 2,
+    "finite_control_conditional_on_reporting_policy": 1,
+    "shared_retained_contrast_sufficient_for_incident": 1,
+    "shared_retained_harness_sufficient_for_incident": 1,
+    "incident_contrast_complete_without_separate_positive": 1
+  },
+  "principle": "A retained operational incident can be documented from its bounded counterexample without inventing a second observation. A successful contrast matters when it tests an asserted route contract or distinguishes the failure mechanism; frozen test assertions are cited as source evidence, not claimed as fresh runs.",
+  "rows": [
+    {
+      "id": "GP-X371",
+      "status": "shared_test_sufficient_for_incident",
+      "evidence": [
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/IMPLEMENTATION-IDENTITY-BOUNDARY.json#/controls/2",
+          "supports": "numeric commit raises raw TypeError"
+        },
+        {
+          "layer": "frozen_test_assertion_not_rerun",
+          "ref": "oracle/checkout/tests/test_format_epoch.py#L27-L46",
+          "supports": "current initialized metadata with string implementation identity loads and preserves that identity"
+        },
+        {
+          "layer": "frozen_test_assertion_not_rerun",
+          "ref": "oracle/checkout/tests/test_format_epoch.py#L605-L611",
+          "supports": "valid historical string implementation identity validates and is preserved"
+        }
+      ],
+      "assessment": "Valid string metadata has a frozen successful path. The numeric-field diagnostic itself is retained. A new valid-string execution would not change the candidate claim.",
+      "minimum_offline_control": null,
+      "decision_needed": null,
+      "incident_row": "54.3",
+      "prior_positive_request": "Valid string source_commit validates; malformed numeric value returns a structured refusal.",
+      "candidate_path": "reports/operational-case-candidates/GP-X371.json"
+    },
+    {
+      "id": "GP-X372",
+      "status": "finite_control_only_if_admitting_exact_validator_pair",
+      "evidence": [
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/0",
+          "supports": "string integral passes exported schema but native shape refuses"
+        },
+        {
+          "layer": "frozen_test_assertion_not_rerun",
+          "ref": "oracle/checkout/tests/test_adversarial.py#L3901-L3911",
+          "supports": "a typed Boolean integral claim participates in a native graph check"
+        },
+        {
+          "layer": "retained_harness_source_not_rerun",
+          "ref": "tools/audit-schema-health.py#L8-L12",
+          "supports": "retained harness exercised only the string mismatch across both validators"
+        }
+      ],
+      "assessment": "The mismatch is complete for incident documentation. No retained control applies the same typed-Boolean claim to both exported schema and native validator. The native graph assertion is a partial shared control.",
+      "minimum_offline_control": {
+        "when": "only if parent wants an admitted two-sided validator route",
+        "vector": "Use the same minimal claim event as the retained string control, replacing integral with JSON boolean false; call the exported event schema and native validate_native_event once each offline. Record both outcomes; do not alter a graph."
+      },
+      "decision_needed": null,
+      "incident_row": "55.2a",
+      "prior_positive_request": "Boolean integral native/exported acceptance and string integral refusal agree.",
+      "candidate_path": "reports/operational-case-candidates/GP-X372.json"
+    },
+    {
+      "id": "GP-X373",
+      "status": "policy_decision_first",
+      "evidence": [
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/1",
+          "supports": "same sparse inference retraction passes native shape and fails exported schema"
+        },
+        {
+          "layer": "frozen_test_assertion_not_rerun",
+          "ref": "oracle/checkout/tests/test_format_epoch.py#L70-L91",
+          "supports": "sparse inference retraction folds successfully under native format"
+        }
+      ],
+      "assessment": "The current two-validator contrast is the incident. There cannot be a successful same-input agreement for this sparse tombstone under the present exported schema. A repair test depends on whether the schema is a complete native contract or a narrower authoring contract.",
+      "minimum_offline_control": null,
+      "decision_needed": "Choose whether the exported schema must admit native sparse retractions or explicitly remain a narrower authoring schema before requiring an agreement control.",
+      "incident_row": "55.2b",
+      "prior_positive_request": "Sparse tombstone authoring/export and native shape agree after intended schema policy is stated.",
+      "candidate_path": "reports/operational-case-candidates/GP-X373.json"
+    },
+    {
+      "id": "GP-X377",
+      "status": "retained_pair_sufficient",
+      "evidence": [
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/MCP-HANDOFF-CONTEXT-BOUNDARY.json#/controls/0",
+          "supports": "valid BASE model renders compact handoff"
+        },
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/MCP-HANDOFF-CONTEXT-BOUNDARY.json#/controls/1",
+          "supports": "valid ALGEBRAIC_CLOSURE model renders the same compact handoff"
+        }
+      ],
+      "assessment": "Each side is a successful handoff rendering. The point-scope values differ while rendered text matches. A third positive case adds no mechanism distinction.",
+      "minimum_offline_control": null,
+      "decision_needed": null,
+      "incident_row": "58.2",
+      "prior_positive_request": "Q BASE and Q ALGEBRAIC_CLOSURE compact handoffs identify their different point universes.",
+      "candidate_path": "reports/operational-case-candidates/GP-X377.json"
+    },
+    {
+      "id": "GP-X382",
+      "status": "shared_test_sufficient_for_incident",
+      "evidence": [
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/0",
+          "supports": "injected post-check source change creates archive with mismatched digest"
+        },
+        {
+          "layer": "frozen_test_assertion_not_rerun",
+          "ref": "oracle/checkout/tests/test_release.py#L48-L76",
+          "supports": "clean synthetic release materializes files and SHA256SUMS"
+        },
+        {
+          "layer": "frozen_test_assertion_not_rerun",
+          "ref": "oracle/checkout/tests/test_release.py#L99-L114",
+          "supports": "source change after planning but before materialization refuses"
+        }
+      ],
+      "assessment": "The frozen success and earlier-change refusal cover the ordinary path; the retained injection isolates the later check-to-copy window. Exact archive-byte equality is not separately asserted in the success test, so do not describe that test as a proof of the failing window.",
+      "minimum_offline_control": null,
+      "decision_needed": null,
+      "incident_row": "63.4",
+      "prior_positive_request": "Unchanged source copy matches manifest digest; injected source change refuses or rebinds archived digest.",
+      "candidate_path": "reports/operational-case-candidates/GP-X382.json"
+    },
+    {
+      "id": "GP-X383",
+      "status": "shared_test_sufficient_for_incident",
+      "evidence": [
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/3",
+          "supports": "emit-review overwrites protected manifest input"
+        },
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/4",
+          "supports": "emit-review overwrites protected receipt input"
+        },
+        {
+          "layer": "frozen_test_assertion_not_rerun",
+          "ref": "oracle/checkout/tests/test_frontier_bundle.py#L185-L200",
+          "supports": "emit-review to separate review.json succeeds and output matches derived receipt"
+        }
+      ],
+      "assessment": "The separate-path CLI success is a genuine shared operational control. That frozen test does not record before/after hashes of bound inputs; the overwrite incident is supported by the retained controls themselves.",
+      "minimum_offline_control": null,
+      "decision_needed": null,
+      "incident_row": "65.4",
+      "prior_positive_request": "Review emission to a separate path succeeds and bound inputs retain their hashes.",
+      "candidate_path": "reports/operational-case-candidates/GP-X383.json"
+    },
+    {
+      "id": "GP-X384",
+      "status": "shared_test_sufficient_for_incident",
+      "evidence": [
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/2",
+          "supports": "source reserved-name collision returns success but copied source payload is overwritten"
+        },
+        {
+          "layer": "frozen_test_assertion_not_rerun",
+          "ref": "oracle/checkout/tests/test_corpus_check.py#L10-L19",
+          "supports": "ordinary export without the reserved-name collision is byte exact and validates READY"
+        }
+      ],
+      "assessment": "The no-collision frozen test supplies the requested successful export contrast. READY here is structural retention, not native graph authority.",
+      "minimum_offline_control": null,
+      "decision_needed": null,
+      "incident_row": "69.3",
+      "prior_positive_request": "No reserved source name exports unchanged; collision refuses before output mutation.",
+      "candidate_path": "reports/operational-case-candidates/GP-X384.json"
+    },
+    {
+      "id": "GP-X386",
+      "status": "shared_test_sufficient_for_incident",
+      "evidence": [
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/0",
+          "supports": "duplicate receipt open list gives receipt count 2 and aggregate unique count 1"
+        },
+        {
+          "layer": "frozen_test_assertion_not_rerun",
+          "ref": "oracle/checkout/tests/test_frontier_bundle.py#L67-L80",
+          "supports": "single unique open item builds with aggregate open_items [A]"
+        },
+        {
+          "layer": "frozen_test_assertion_not_rerun",
+          "ref": "oracle/checkout/tests/test_frontier_bundle.py#L237-L245",
+          "supports": "a mismatching receipt open_items list is refused"
+        }
+      ],
+      "assessment": "The unique-item success is already represented in frozen tests; duplicate-list mismatch is retained. No new control is needed for the incident.",
+      "minimum_offline_control": null,
+      "decision_needed": null,
+      "incident_row": "65.3a",
+      "prior_positive_request": "Unique open_items maintains matching per-receipt and aggregate counts.",
+      "candidate_path": "reports/operational-case-candidates/GP-X386.json"
+    },
+    {
+      "id": "GP-X387",
+      "status": "shared_test_sufficient_for_incident",
+      "evidence": [
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/1",
+          "supports": "terminal-newline stable ID is accepted"
+        },
+        {
+          "layer": "frozen_test_assertion_not_rerun",
+          "ref": "oracle/checkout/tests/test_frontier.py#L121-L130",
+          "supports": "bare stable ID A participates in a successful frontier build"
+        }
+      ],
+      "assessment": "Bare A has a frozen successful build, and the retained control records acceptance of A with a terminal newline. A separate direct bare-ID call is unnecessary for incident documentation.",
+      "minimum_offline_control": null,
+      "decision_needed": null,
+      "incident_row": "65.3b",
+      "prior_positive_request": "Valid stable ID accepted; terminal newline rejected.",
+      "candidate_path": "reports/operational-case-candidates/GP-X387.json"
+    },
+    {
+      "id": "GP-X389",
+      "status": "finite_control_conditional_on_reporting_policy",
+      "evidence": [
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/0",
+          "supports": "structural intake marks unloadable synthetic graph READY"
+        },
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/1",
+          "supports": "native load raises GraphError and no report is written"
+        },
+        {
+          "layer": "frozen_test_assertion_not_rerun",
+          "ref": "oracle/checkout/tests/test_corpus_check.py#L10-L19",
+          "supports": "ordinary export validates READY, but its synthetic header does not establish native load or reporter success"
+        }
+      ],
+      "assessment": "The READY-versus-native-load distinction is fully documented. No cited retained control demonstrates that a valid native graph produces this reporter output. The candidate reason also asks for a per-campaign load-error report, which is a reporting contract choice.",
+      "minimum_offline_control": {
+        "when": "if parent keeps a per-campaign report guarantee in the candidate contract",
+        "vector": "In an isolated offline reporter root, provide one native-loadable graph and the existing malformed kernel_epoch-null campaign; invoke the reporter once and record the valid campaign report, malformed campaign error entry, output file, and overall status. No corpus admission."
+      },
+      "decision_needed": "Decide whether the contract requires a per-campaign error report after native load refusal, or only refuses to equate structural READY with native report readiness.",
+      "incident_row": "69.2",
+      "prior_positive_request": "Valid native graph produces a report; malformed graph yields a per-campaign load error.",
+      "candidate_path": "reports/operational-case-candidates/GP-X389.json"
+    },
+    {
+      "id": "GP-X391",
+      "status": "shared_test_sufficient_for_incident",
+      "evidence": [
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/3",
+          "supports": "direct injected mutable abort_reason changes artifact fingerprint after construction"
+        },
+        {
+          "layer": "frozen_test_assertion_not_rerun",
+          "ref": "oracle/checkout/tests/test_artifacts.py#L21-L70",
+          "supports": "artifact with native-shape null abort_reason has stable fingerprint and round-trips"
+        },
+        {
+          "layer": "frozen_test_assertion_not_rerun",
+          "ref": "oracle/checkout/tests/test_backend.py#L98-L132",
+          "supports": "injected normal backend execution snapshots artifact fields and fingerprints"
+        }
+      ],
+      "assessment": "Stable null abort_reason is covered by a frozen successful artifact path. The mutable-object case is limited to the direct injected adapter; no persisted-object bypass is claimed.",
+      "minimum_offline_control": null,
+      "decision_needed": null,
+      "incident_row": "74.5",
+      "prior_positive_request": "Native string/null abort_reason remains stable; direct mutable object is copied/refused.",
+      "candidate_path": "reports/operational-case-candidates/GP-X391.json"
+    },
+    {
+      "id": "GP-X393",
+      "status": "retained_pair_sufficient",
+      "evidence": [
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/2",
+          "supports": "the same retained record explicitly has ordinary=true and newline=true for valid_fingerprint"
+        }
+      ],
+      "assessment": "This row was marked not_retained only because the positive result is co-located with the negative result. Bare 64-hex acceptance is already recorded exactly.",
+      "minimum_offline_control": null,
+      "decision_needed": null,
+      "incident_row": "74.4",
+      "prior_positive_request": "Valid 64-hex digest accepted and trailing newline rejected.",
+      "candidate_path": "reports/operational-case-candidates/GP-X393.json"
+    },
+    {
+      "id": "GP-X395",
+      "status": "shared_retained_contrast_sufficient_for_incident",
+      "evidence": [
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/CAS-PROGRAM-CUSTODY.json#/observations/2",
+          "supports": "parsed x with caller [1] persists caller [1] in model declaration"
+        },
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/observations/0",
+          "supports": "matching caller [x] and parsed x persists [x]"
+        },
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/observations/1",
+          "supports": "changed caller [1] with same parsed x persists [1]"
+        }
+      ],
+      "assessment": "The previously accepted generator contrast supplies the exact matching positive side. It remains injected-runner metadata persistence, not a proof or CAS truth verdict.",
+      "minimum_offline_control": null,
+      "decision_needed": "For repair or checker admission, choose whether mismatch must refuse or may persist with explicit caller-versus-output provenance; the current candidate can refuse the stronger parsed-output-origin claim without choosing.",
+      "incident_row": "76.3",
+      "prior_positive_request": "Matching caller/output generators bind declaration; mismatch refuses or records explicit provenance difference.",
+      "candidate_path": "reports/operational-case-candidates/GP-X395.json"
+    },
+    {
+      "id": "GP-X397",
+      "status": "shared_retained_harness_sufficient_for_incident",
+      "evidence": [
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/HOOK-BOUNDARY-AUDIT.json#/observations/0",
+          "supports": "array baseline raises raw AttributeError"
+        },
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/HOOK-BOUNDARY-AUDIT.json#/observations/1",
+          "supports": "array hook payload raises raw AttributeError"
+        },
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/HOOK-BOUNDARY-AUDIT.json#/observations/2",
+          "supports": "after replacing baseline with object, valid object hook payload reaches normal blocking path"
+        },
+        {
+          "layer": "retained_harness_source_not_rerun",
+          "ref": "tools/audit-hook-boundaries.py#L14-L25",
+          "supports": "harness replaces baseline with {}, then sends object payload through H.main and records blocking exit"
+        }
+      ],
+      "assessment": "The same retained harness contains the successful object-shape parsing side, although it is embedded in the malformed-graph block control. The raw array exceptions show the structured-response gap. Host handling after an uncaught hook exception was not tested.",
+      "minimum_offline_control": null,
+      "decision_needed": "Decide whether candidate wording includes next host event survival. That would require a separate host-protocol observation; the current direct-call evidence supports only the structured-response shape defect.",
+      "incident_row": "77.3",
+      "prior_positive_request": "Valid object payloads continue processing; array payloads return structured refusal and next event survives.",
+      "candidate_path": "reports/operational-case-candidates/GP-X397.json"
+    },
+    {
+      "id": "GP-X398",
+      "status": "incident_contrast_complete_without_separate_positive",
+      "evidence": [
+        {
+          "layer": "retained_report_observation",
+          "ref": "reports/HOOK-BOUNDARY-AUDIT.json#/observations/2",
+          "supports": "two distinct decoder errors give distinct evaluate messages, while second hook message says unchanged and blocking remains true"
+        }
+      ],
+      "assessment": "The two-error retained pair is the relevant contrast and keeps the blocking exit. A same-error repetition would document intended suppression but is not needed to establish that different causes are hidden.",
+      "minimum_offline_control": null,
+      "decision_needed": null,
+      "incident_row": "77.4",
+      "prior_positive_request": "Same graph error reports unchanged; different decoder errors report changed while exit remains blocking.",
+      "candidate_path": "reports/operational-case-candidates/GP-X398.json"
+    }
+  ],
+  "decisions_for_parent": [
+    {
+      "candidate_id": "GP-X373",
+      "question": "Is exported event schema complete for native sparse retractions or intentionally narrower authoring guidance?"
+    },
+    {
+      "candidate_id": "GP-X389",
+      "question": "Does the reporter contract require a per-campaign error record on native load refusal, or only refusal to promote structural READY?"
+    },
+    {
+      "candidate_id": "GP-X395",
+      "question": "If repairing generator provenance, should mismatch refuse or persist with explicitly distinct caller/output provenance?"
+    },
+    {
+      "candidate_id": "GP-X397",
+      "question": "Should the candidate promise host next-event survival, or only a structured direct-hook refusal?"
+    }
+  ],
+  "unrun_finite_controls": [
+    "GP-X372 typed-Boolean same-event validator pair if exact route admitted",
+    "GP-X389 valid native graph plus malformed campaign reporter pair if per-campaign report contract selected"
+  ],
+  "limits": [
+    "No new controls were executed.",
+    "Frozen test assertions were inspected but not re-run; they are not fresh oracle verdicts.",
+    "No live CAS, campaign contents, corpus routing, replay, decisions, trackers, or candidate files were changed."
+  ]
+}

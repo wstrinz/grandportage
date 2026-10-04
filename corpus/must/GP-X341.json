@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "seed": null,
+  "inputs": {
+    "coefficient_ring": "Q[y]",
+    "fraction_field": "Q(y)",
+    "parameter": "y",
+    "displayed_equations": [
+      "G1",
+      "G2",
+      "G3"
+    ],
+    "retained": {
+      "a": "0",
+      "b": "0",
+      "c": "0",
+      "d0": "0",
+      "d1": "0",
+      "d2": "0"
+    },
+    "source_document": {
+      "path": "docs/JC-DM4-POLYNOMIAL-LIFT.md",
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "git_blob": "36e9e90cecee7209ef1098ca8f79118c02381bb6",
+      "sha256": "b7674294174236b795081138306e3c7a086271047808e105d952f93a44f668d1"
+    },
+    "control": "universal_counterexample",
+    "q": "1/y"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json",
+      "line": 97,
+      "anchor": "\"id\": \"deleted-dm4-universal-versus-existential\""
+    },
+    {
+      "repository": "rework-packet",
+      "path": "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json",
+      "line": 111,
+      "anchor": "\"calculation\": \"Every displayed G1/G2/G3 term contains a, b or c and is zero."
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "lean/GrandPortage/JCDm4Valuation.lean",
+      "line": 17,
+      "anchor": "theorem must still derive the balances using a genuine valuation and handle"
+    }
+  ],
+  "id": "GP-X341",
+  "title": "Rational zero-chart solution refutes universal polynomiality",
+  "situation": "On the all-zero retained chart, the displayed G1-G3 equations vanish for q=1/y in Q(y), even though q is not in Q[y]. This targets the literal universal statement in the deleted audit, only for its three displayed equations.",
+  "attempted_conclusion": "Conclude that every rational q satisfying displayed G1-G3 with polynomial retained coordinates is polynomial.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "q=1/y solves all three equations on the zero chart and has a nonconstant reduced denominator."
+  }
+}

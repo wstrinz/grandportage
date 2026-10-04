@@ -1,0 +1,56 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "4ba864eacaf90924493dd9e1e28e54580ac0e58395f3aeea0cacf537dee2d215",
+  "sources": {
+    "grandportage/store.py": "900da33d1b8e3ae045533b3ae8ed67317a3bc56a35861d2bcd604ae6adb7e755",
+    "grandportage/provenance.py": "79440d816d0217e6cd9297a0b81d742ed83984007355c21013839df8c3a7828a",
+    "tests/test_contracts.py": "259c7696bca8b9a38b27b7a13d16cdec9fb7ba05a89faa3be91740deca60c3f1",
+    "tests/test_artifacts.py": "1b78dc5d7c7212f4dac39d989bde1ca4fa92734c6aba222ae8cd89d35611cb3b"
+  },
+  "controls": [
+    {
+      "control": "valid",
+      "current": true,
+      "reason": "current",
+      "active": "VERIFIED_SECTION",
+      "cofactor_identity_valid": true,
+      "first_row": {
+        "source_generator": "y*x-1",
+        "substituted": "x^3-1",
+        "cofactors": [
+          "1"
+        ]
+      }
+    },
+    {
+      "control": "tampered_old_fingerprint",
+      "current": false,
+      "reason": "verifier input fingerprint does not match",
+      "active": null,
+      "cofactor_identity_valid": false,
+      "first_row": {
+        "source_generator": "y*x-1",
+        "substituted": "x^3-1",
+        "cofactors": [
+          "0"
+        ]
+      }
+    },
+    {
+      "control": "invalid_reissued_by_producer",
+      "current": true,
+      "reason": "current",
+      "active": "VERIFIED_SECTION",
+      "cofactor_identity_valid": false,
+      "first_row": {
+        "source_generator": "y*x-1",
+        "substituted": "x^3-1",
+        "cofactors": [
+          "0"
+        ]
+      }
+    }
+  ],
+  "execution": "Fabricated test execution descriptor; no Singular run, no binary probe, no persisted graph. Actual current_verdict and Graph.apply used without patching freshness.",
+  "conclusion": "Existing fingerprint rejects ordinary proof tampering. Reissuing an invalid cofactor row with freshly computed producer metadata remains current because section fold checks binding/shape, not cofactor arithmetic. This demonstrates the retained trusted-producer boundary, not unauthenticated control of a genuine producer. Replay-only 0.50 must independently check section substitution and ideal identities."
+}

@@ -1,0 +1,759 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "status": "bounded ARR15 intake integrated;0b not complete",
+  "worker_report": "reports/PHASE-0B-ARR15-BOUNDED-REVIEW.json",
+  "source_hashes_verified": 11,
+  "source_head": "619744193411d40a0f37f01b76e4f0c9bf96c86a",
+  "private_harvest_files": 12,
+  "dispositions": [
+    {
+      "id": "ARR-C01",
+      "dedup_key": "triage-64-chart",
+      "decision": "accept recorded correction as two premise failures in one triage episode; selected incidence equations/guards are not full matroid realization and proper ideal over Q is not a Q-point",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-22-n15-realization-triage.md",
+          "lines": [
+            46,
+            68
+          ],
+          "sha256": "b3526e4af20b5da2729740719911f56bfff52b7ae5d37e341db0b8ff72359a79",
+          "latest_path_history": "b78dbc257e0c7c19eba89abea72b94db88a26bfe|2026-08-22T15:59:12-05:00|Accept GP v0.25 and prepare full realization wave"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            135,
+            141
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "source_detail": "Concrete own-campaign near miss with recovery. Source records a stronger inbound report; actual downstream reliance unknown. The 64 cases form one flawed formulation episode, not 64 incidents.",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-C02",
+      "dedup_key": "triage-64-chart",
+      "decision": "accept recorded correction as two premise failures in one triage episode; selected incidence equations/guards are not full matroid realization and proper ideal over Q is not a Q-point",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-22-n15-realization-triage.md",
+          "lines": [
+            53,
+            65
+          ],
+          "sha256": "b3526e4af20b5da2729740719911f56bfff52b7ae5d37e341db0b8ff72359a79",
+          "latest_path_history": "b78dbc257e0c7c19eba89abea72b94db88a26bfe|2026-08-22T15:59:12-05:00|Accept GP v0.25 and prepare full realization wave"
+        }
+      ],
+      "source_detail": "Separate error dimension within one triage episode; do not add an independent incident count.",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-C03",
+      "dedup_key": "m13-1-column5",
+      "decision": "retain attributed accepted-receipt source transcription correction; primary TeX/database/determinant outputs not independently checked",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-22-m13-1-source-discrepancy.md",
+          "lines": [
+            22,
+            49
+          ],
+          "sha256": "62bcb6ce703435ac3299b939d61aa848f6cee6fae78152f02f102454254910b4",
+          "latest_path_history": "b78dbc257e0c7c19eba89abea72b94db88a26bfe|2026-08-22T15:59:12-05:00|Accept GP v0.25 and prepare full realization wave"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            114,
+            147
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "source_detail": "One mismatch-to-forensics-to-correction episode. Worker did not read TeX, PDF, database or determinant output; published arXiv error is attributed to the accepted receipt, not independently established here.",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-C04",
+      "dedup_key": "calibration-source-names",
+      "decision": "retain bounded terminology/source/theorem-application or novelty correction; no global literature/theorem verification or wrong public census inferred",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            430,
+            450
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "source_detail": "Attribution correction grounded only in summary, no new theorem or independent primary verification. M12 and M13 confusions are distinguished subitems, not counted as proved mathematical failures.",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-C05",
+      "dedup_key": "prop52-versus-divisional",
+      "decision": "retain bounded terminology/source/theorem-application or novelty correction; no global literature/theorem verification or wrong public census inferred",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            247,
+            257
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/RESULTS_SO_FAR.md",
+          "lines": [
+            27,
+            31
+          ],
+          "sha256": "ee7e588c0eaa2da55ed5eb0f4cce67564f939b01ef923fc44685021508fad1bc",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/RESULTS_SO_FAR.md",
+          "lines": [
+            175,
+            186
+          ],
+          "sha256": "ee7e588c0eaa2da55ed5eb0f4cce67564f939b01ef923fc44685021508fad1bc",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-22-n15-realization-triage.md",
+          "lines": [
+            30,
+            44
+          ],
+          "sha256": "b3526e4af20b5da2729740719911f56bfff52b7ae5d37e341db0b8ff72359a79",
+          "latest_path_history": "b78dbc257e0c7c19eba89abea72b94db88a26bfe|2026-08-22T15:59:12-05:00|Accept GP v0.25 and prepare full realization wave"
+        }
+      ],
+      "source_detail": "Recorded corrective warning, not evidence of a wrong public census. Different predicates must remain distinct; no audit of Abe or Proposition5.2 conducted.",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-C06",
+      "dedup_key": "idx001-classical",
+      "decision": "retain bounded terminology/source/theorem-application or novelty correction; no global literature/theorem verification or wrong public census inferred",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            378,
+            400
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/RESULTS_SO_FAR.md",
+          "lines": [
+            117,
+            138
+          ],
+          "sha256": "ee7e588c0eaa2da55ed5eb0f4cce67564f939b01ef923fc44685021508fad1bc",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/RESULTS.md",
+          "lines": [
+            63,
+            79
+          ],
+          "sha256": "55b0ce7699dd8e6bfc21e870a8deec16b7b818a38670dbd86d19af6d3a1bff55",
+          "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/CHECKPOINT.md",
+          "lines": [
+            61,
+            70
+          ],
+          "sha256": "8313ea3bfb2ccabfc7f01abcfe239fd5b3ca1d4caaa619947a3c324ae531bfb1",
+          "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+        }
+      ],
+      "source_detail": "Preventive novelty correction; no source shows the wrong new-arrangement claim publicly shipped. Cuntz absence and bounded search cannot prove global novelty.",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-C07",
+      "dedup_key": "bresciani-framing",
+      "decision": "retain bounded terminology/source/theorem-application or novelty correction; no global literature/theorem verification or wrong public census inferred",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-publication-readiness-closeout.md",
+          "lines": [
+            31,
+            35
+          ],
+          "sha256": "d001f6a941c3d64f9262dfece1d8db6dfdb01f07826df690540db66af975a0c6",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-publication-readiness-closeout.md",
+          "lines": [
+            81,
+            94
+          ],
+          "sha256": "d001f6a941c3d64f9262dfece1d8db6dfdb01f07826df690540db66af975a0c6",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            402,
+            409
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "source_detail": "Concrete framing near miss, not refutation of the direct gap or of Bresciani's theorem. Original primary text not read by worker.",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-O08",
+      "dedup_key": "publication-packet-digest",
+      "decision": "accept recorded packet hash mismatch as custody failure; failing literal trial and passing regression wrapper are distinct; no fresh trial execution",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/CHECKPOINT.md",
+          "lines": [
+            86,
+            96
+          ],
+          "sha256": "8313ea3bfb2ccabfc7f01abcfe239fd5b3ca1d4caaa619947a3c324ae531bfb1",
+          "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-publication-readiness-closeout.md",
+          "lines": [
+            69,
+            77
+          ],
+          "sha256": "d001f6a941c3d64f9262dfece1d8db6dfdb01f07826df690540db66af975a0c6",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/REPRODUCIBILITY.md",
+          "lines": [
+            25,
+            27
+          ],
+          "sha256": "31b1522dc743b6627f9fa15db25a532a0e593a01e6780e0a4d4d3664fca9d347",
+          "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+        }
+      ],
+      "source_detail": "Concrete packet identity defect; failing literal trial and passing wrapper assertion are different observations, neither rerun here.",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-G09",
+      "dedup_key": "open-locus-assay",
+      "decision": "retain historical GP implementation/debt observation with source-version limits; no current0.37 result or false ARR15 theorem inferred; exact corpus family reconciliation remains final GP consolidation",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            199,
+            213
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            504,
+            509
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-gp-v026-live-acceptance-r2.md",
+          "lines": [
+            14,
+            19
+          ],
+          "sha256": "555929ced4ae8bccead89ab2be6b35725a9e154aaf2c3fa38a2db8794c674931",
+          "latest_path_history": "791f962c778bb77584a1984482728bdd8169d5f9|2026-08-23T09:12:44-05:00|Accept cyclotomic summit and close post-68 intake"
+        }
+      ],
+      "source_detail": "Hostile probes discovered a literal historical implementation defect; not an actual ARR15 theorem falsely accepted. Recovery report is attributed, not frozen0.37 verification.",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-G10",
+      "dedup_key": "guard-scale-route",
+      "decision": "retain historical GP implementation/debt observation with source-version limits; no current0.37 result or false ARR15 theorem inferred; exact corpus family reconciliation remains final GP consolidation",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            199,
+            213
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-gp-v026-live-acceptance-r2.md",
+          "lines": [
+            14,
+            26
+          ],
+          "sha256": "555929ced4ae8bccead89ab2be6b35725a9e154aaf2c3fa38a2db8794c674931",
+          "latest_path_history": "791f962c778bb77584a1984482728bdd8169d5f9|2026-08-23T09:12:44-05:00|Accept cyclotomic summit and close post-68 intake"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/CHECKPOINT.md",
+          "lines": [
+            134,
+            144
+          ],
+          "sha256": "8313ea3bfb2ccabfc7f01abcfe239fd5b3ca1d4caaa619947a3c324ae531bfb1",
+          "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+        }
+      ],
+      "source_detail": "Two related but not proven-identical failure mechanisms; do not deduplicate as one bug or count each repeated summary. No mathematical false EMPTY inferred from crash/cap.",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-G11",
+      "dedup_key": "nonsquare-checker-debt",
+      "decision": "retain historical GP implementation/debt observation with source-version limits; no current0.37 result or false ARR15 theorem inferred; exact corpus family reconciliation remains final GP consolidation",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-gp-v026-live-acceptance-r2.md",
+          "lines": [
+            8,
+            26
+          ],
+          "sha256": "555929ced4ae8bccead89ab2be6b35725a9e154aaf2c3fa38a2db8794c674931",
+          "latest_path_history": "791f962c778bb77584a1984482728bdd8169d5f9|2026-08-23T09:12:44-05:00|Accept cyclotomic summit and close post-68 intake"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/RESULTS_SO_FAR.md",
+          "lines": [
+            151,
+            157
+          ],
+          "sha256": "ee7e588c0eaa2da55ed5eb0f4cce67564f939b01ef923fc44685021508fad1bc",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/CHECKPOINT.md",
+          "lines": [
+            134,
+            144
+          ],
+          "sha256": "8313ea3bfb2ccabfc7f01abcfe239fd5b3ca1d4caaa619947a3c324ae531bfb1",
+          "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+        }
+      ],
+      "source_detail": "Product acceptance with qualified extended-row refutation, not mathematical nonsquare result refuted. Final implementation debt remains source-recorded; no current code inspected.",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-O12",
+      "dedup_key": "environment-custody-friction",
+      "decision": "retain four operational subepisodes separately; environment/binding/schema conflicts are not mathematical contradictions",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            31,
+            70
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            149,
+            159
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            313,
+            320
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            490,
+            501
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "source_detail": "Grouped operational dispositions with distinct subepisode keys: native-cas-host, e10-encoding-conflicts, old-manifest-schema, mac-v026-binding. Do not merge them into one incident count or invent wrong theorem shipping.",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    },
+    {
+      "id": "ARR-T13",
+      "dedup_key": "all18-singular-highgen",
+      "decision": "retain summary-attributed unreliable backend outputs; ten rejected outputs are not ten independently verified mathematical mistakes",
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            215,
+            225
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            495,
+            499
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "source_detail": "Source-reported tool-output issue, not ten verified mathematical mistakes or proof of current Singular defect. No output/log/code examined here.",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null
+    }
+  ],
+  "independent_semantic_checks": [
+    {
+      "claim": "Proper Q-ideal implies Q-rational point",
+      "counterexample": "The proper ideal(x²+1) in Q[x] has no Q-rational point, but has points after extension. This verifies the scope distinction, not the64campaign computations."
+    },
+    {
+      "claim": "Partial incidence constraints imply exact determinant pattern",
+      "check": "Full realization requires nonvanishing for every designated basis. Selected guards admit extra dependence unless an additional proof makes them sufficient; the accepted triage explicitly says such a proof is absent."
+    },
+    {
+      "claim": "Proposition disposition and divisional split are the same predicate",
+      "check": "Both totals sum13082, but9591+3473+18 and13064+18 partition different predicates; equal totals cannot identify the classifications."
+    }
+  ],
+  "dedup_limit": "C01/C02 share the64-case triage; M13 correction/forensics/retained negative are one episode; G10 two scale mechanisms not assumed identical; O12 four distinct operational subepisodes.13rows are not13independent wrong claims.",
+  "worker_scope_and_custody_context": {
+    "evidence_policy_source": {
+      "path": "$DEV/math-research/campaigns/arr15/EVIDENCE_POLICY.md",
+      "lines": [
+        3,
+        47
+      ],
+      "sha256": "956f6ceda6e0799f5d18923c3e558fed8726e87157cfd22e61faa3c682208003",
+      "latest_path_history": "dc85f0309fc8cd738d7ff008a93547ed2351a515|2026-08-22T07:52:57-05:00|Establish ARR15 calibration campaign"
+    },
+    "authority_classes": [
+      "RECONNAISSANCE decides=[]",
+      "EXACT_COMPUTATION limited to checked proposition",
+      "INDEPENDENT_REPLAY second implementation/backend",
+      "PROOF human-auditable hypotheses plus primary citations/exact certificates"
+    ],
+    "receipt_fields": "task/lane; exact Git base/changed paths; SUPPORTED/REFUTED/INCONCLUSIVE/BLOCKED; proposition; source/primary status; commands/versions/seeds/characteristic/coefficient domain; artifact hashes or deterministic generation; negatives/obligations; decides.",
+    "promotion": "Inbox has no claim authority; accepted custody note must bind source, proposition, limitations and replay. Git-authoritative mathematics is not automatically GP-authoritative; extension-field/FREE/NONFREE conclusions may be graph-effectNONE notes.",
+    "formats": "Markdown result cards/accepted receipts; JSON manifests/ledgers/certificates and JSONL row exports; deterministic artifact scripts/logs; append-only GP JSONL and artifact digests; external CAS versus compact replay versus bounded Lean implication layer.",
+    "scope": "Specified bounded173-seed extension universe; characteristic zero only unless explicit; partial incidence versus full determinant-pattern open; coefficient field versus point field; pointwise/module profile versus universal freeness; fine labeled realization versus automorphism quotient.",
+    "result_cards": {
+      "path": "$DEV/math-research/campaigns/arr15/RESULTS.md",
+      "lines": [
+        1,
+        104
+      ],
+      "sha256": "55b0ce7699dd8e6bfc21e870a8deec16b7b818a38670dbd86d19af6d3a1bff55",
+      "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+    },
+    "reproducibility": {
+      "path": "$DEV/math-research/campaigns/arr15/REPRODUCIBILITY.md",
+      "lines": [
+        3,
+        62
+      ],
+      "sha256": "31b1522dc743b6627f9fa15db25a532a0e593a01e6780e0a4d4d3664fca9d347",
+      "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+    },
+    "graph_history_limit": "FRONTIER reports successive graphs364/397/416/418/447/452 events and associated historical hashes; r2 uses448-event input. This pass does not normalize them into one current head, inspect GP ledger or recompute prefix/file hashes.",
+    "harvest_candidates": [
+      {
+        "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-22-m13-1-source-discrepancy.md",
+        "status": "accepted correction receipt fully read; raw/hash/history in sources"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-22-n15-realization-triage.md",
+        "status": "accepted scope-correction receipt fully read; artifact hash list retained as source report"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-gp-v026-live-acceptance-r2.md",
+        "status": "accepted GP receipt fully read; binds base/lane/build and points to detailed artifacts"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-publication-readiness-closeout.md",
+        "status": "accepted closeout receipt fully read; external source/checker SHA retained as reported values"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/arr15/artifacts/publication-positioning/cold-trial/ledger.json",
+        "status": "existing filename located; content/hash not read; cold-trial disposition from accepted receipt"
+      }
+    ],
+    "harvest_count": 5,
+    "harvest_executed": false
+  },
+  "current_harvest_manifest": "reports/PHASE-0B-ARR15-HARVEST-MANIFEST.json",
+  "no_distinct_incident_dispositions": [
+    {
+      "item": "Bounded classification / coarse keys / obstruction cover",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            96,
+            112
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/RESULTS.md",
+          "lines": [
+            6,
+            41
+          ],
+          "sha256": "55b0ce7699dd8e6bfc21e870a8deec16b7b818a38670dbd86d19af6d3a1bff55",
+          "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+        }
+      ],
+      "disposition": "924 coarse keys explicitly non-certified before exact13082 class certification; bounded173-seed universe retained. No all-n15 census claim or computational failure newly identified."
+    },
+    {
+      "item": "Rational realizations, universal Fitting and cyclotomic geometry",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/RESULTS_SO_FAR.md",
+          "lines": [
+            47,
+            144
+          ],
+          "sha256": "ee7e588c0eaa2da55ed5eb0f4cce67564f939b01ef923fc44685021508fad1bc",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/RESULTS.md",
+          "lines": [
+            43,
+            104
+          ],
+          "sha256": "55b0ce7699dd8e6bfc21e870a8deec16b7b818a38670dbd86d19af6d3a1bff55",
+          "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+        }
+      ],
+      "disposition": "Historical accepted positive results with field/chart/module hypotheses. No new proof audit, algebraic decomposition, Lean run or theorem certification undertaken."
+    },
+    {
+      "item": "Q(sqrt5) refutation contrasted with Q(zeta10) witness",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            291,
+            312
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/RESULTS_SO_FAR.md",
+          "lines": [
+            76,
+            104
+          ],
+          "sha256": "ee7e588c0eaa2da55ed5eb0f4cce67564f939b01ef923fc44685021508fad1bc",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "disposition": "Field-specific failed candidate is an honest mathematical negative result, not false characteristic-zero emptiness. Quartic witness and Galois/torus geometry are reported later positive contrast."
+    },
+    {
+      "item": "M11 reduced fiber versus nilpotent thickening",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            75,
+            94
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            452,
+            466
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "disposition": "Source reports Fitt0=(4), reduced(2) and GP graph-effectNONE inability to represent arithmetic scheme/narrowing; expressibility limit rather than proved false accepted theorem."
+    },
+    {
+      "item": "M12/E10 module variation controls",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            31,
+            53
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            443,
+            450
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/EVIDENCE_POLICY.md",
+          "lines": [
+            33,
+            47
+          ],
+          "sha256": "956f6ceda6e0799f5d18923c3e558fed8726e87157cfd22e61faa3c682208003",
+          "latest_path_history": "dc85f0309fc8cd738d7ff008a93547ed2351a515|2026-08-22T07:52:57-05:00|Establish ARR15 calibration campaign"
+        }
+      ],
+      "disposition": "Calibration and module-profile variation do not imply freeness variation. No deliberate probe outcome or error episode beyond summarized source/custody corrections is invented."
+    },
+    {
+      "item": "Cuntz supplement / novelty",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-publication-readiness-closeout.md",
+          "lines": [
+            18,
+            30
+          ],
+          "sha256": "d001f6a941c3d64f9262dfece1d8db6dfdb01f07826df690540db66af975a0c6",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-publication-readiness-closeout.md",
+          "lines": [
+            40,
+            67
+          ],
+          "sha256": "d001f6a941c3d64f9262dfece1d8db6dfdb01f07826df690540db66af975a0c6",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-publication-readiness-closeout.md",
+          "lines": [
+            79,
+            85
+          ],
+          "sha256": "d001f6a941c3d64f9262dfece1d8db6dfdb01f07826df690540db66af975a0c6",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "disposition": "Source reports zero overlap against1318 entries and two qualified incidence candidates; no supplement/code read by worker. Absence from one database is not global novelty; exponent-formula primary location remains a source-reported limit."
+    },
+    {
+      "item": "Capped vectors and deferred work",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/CHECKPOINT.md",
+          "lines": [
+            98,
+            116
+          ],
+          "sha256": "8313ea3bfb2ccabfc7f01abcfe239fd5b3ca1d4caaa619947a3c324ae531bfb1",
+          "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/RESULTS_SO_FAR.md",
+          "lines": [
+            146,
+            171
+          ],
+          "sha256": "ee7e588c0eaa2da55ed5eb0f4cce67564f939b01ef923fc44685021508fad1bc",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "disposition": "Honest unresolved work: four(6,8) vectors, all(7,7), positive characteristic, n16 and broader module stratification. Not incidents and not commissioned next work."
+    }
+  ],
+  "remaining": [
+    "GP historical family reconciliation/final descriptive campaign inventory",
+    "Pigeon River bounded review running; no optional literature/backend audit commissioned"
+  ],
+  "limits": [
+    "No source/campaign/CAS/GP/Lean execution or graph-prefix recomputation.",
+    "Unknown costs/shipping/core-catch retained; publication-preparation status is insufficient proof of actual wrong shipping.",
+    "No global novelty or independent verification of attributed arXiv matrix error."
+  ]
+}

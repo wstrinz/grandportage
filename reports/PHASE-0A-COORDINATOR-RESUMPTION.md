@@ -1,0 +1,13 @@
+# Coordinator resumption — 2026-09-29
+
+The new worker is GPT-6.1 Sol Medium, chat 01a0eeca-572e-7202-a708-c730d410b901. It owns a finite three-summary JC incident review in separate reports. The coordinator retains mathematical interpretation, integration and completion judgments. The previous worker assignment is complete.
+
+Accepted the four bounded deleted-document dispositions and OperationContract successor mappings with their recorded limits. All 48 referenced cases exist; twelve important payloads were checked directly. Historical process/build/host claims remain source statements. This accepts the finite extraction dispositions, not proof of the historical campaign or blanket predecessor soundness.
+
+Independently checked the pinned OperationContract raw SHA-256 and read the exact-contraction countermodel and positive contrast. The candidate design correctly separates exact ideal contraction from validity of point lifts. X07 and X360 cannot supply the combined premise. The proposed refusal and all-valid contrast still need neutral admission with honest unsupported observations or an explicitly labeled reference observation; no Lean/native verdict has been produced.
+
+A24 now has a concrete authorized source: match4/fixtures/gp-miniatures/M5.json and fixtures/scouting/k222_collapsed.py, corroborated by cq-scouting.md section5 and lanes/G/RESULTS.md. Parent independently used exact Fraction arithmetic in Q[s]/(s^2-3): all twelve cross-class squared lengths are1; every same-class separation is0, so the injectivity guard vanishes. No campaign script was executed. Historical M5 records plain witness VERIFIED and guarded witness NOT_A_POINT; these are retained observations, not a fresh frozen-oracle result.
+
+The packet seed's logical direction needs clarification. If G is the guarded solution set and U the unguarded one, G is a subset of U. A valid emptiness proof for U therefore proves emptiness of G. Omission of guards alone is not a reason to refuse that inference. The concrete source-supported misuse is promoting the collapsed U witness to an injective realization in G. Recommend clarifying A24 to that attempted conclusion while retaining REFUSE and preserving the original bytes and replay history as audit evidence. This requires user approval of the fixed seed interpretation; no case has been changed.
+
+All454 cases, routes and immutable replay files are untouched. Phase0a remains open for the contraction candidate, A24 decision and final neutrality/exception closeout. Phase0b continues independently; no new general audit is commissioned.

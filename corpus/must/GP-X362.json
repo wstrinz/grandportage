@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "seed": null,
+  "scope_or_region": "N/A",
+  "id": "GP-X362",
+  "title": "Localized membership alone cannot return to ambient membership",
+  "situation": "For I=(6), guard 2 and element 3, 2*3=6 lies in I, while 3 does not.",
+  "inputs": {
+    "control": "ambient_return",
+    "ambient": "Z",
+    "ideal_generator": 6,
+    "guard": 2,
+    "element": 3,
+    "multiplier": 2
+  },
+  "attempted_conclusion": "Infer ambient membership of 3 from localized membership alone.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The local witness does not prove 3 belongs to ambient (6)."
+  },
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/Localization.lean",
+      "line": 82,
+      "anchor": "theorem three_satMem_sixes : SatMem sixes 2 3 :=",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/Localization.lean",
+      "line": 86,
+      "anchor": "theorem three_not_mem_sixes : ¬ sixes 3 := by",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/Localization.lean",
+      "line": 95,
+      "anchor": "theorem satMem_not_mem :",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

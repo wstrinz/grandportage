@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "GP-X96",
+  "seed": null,
+  "title": "Grant an extraction result after exhausting its work budget",
+  "situation": "An unfinished computation yields no checked extraction result, not a mathematical refutation.",
+  "inputs": {
+    "source_rows": 5,
+    "depths": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "faces": 25,
+    "proposal": "budget"
+  },
+  "attempted_conclusion": "Grant an extraction result after exhausting its work budget.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "An unfinished computation yields no checked extraction result, not a mathematical refutation."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_source_depth6_face_extraction.py",
+      "line": 153,
+      "anchor": "def test_sparse_work_budget_fails_closed("
+    }
+  ]
+}

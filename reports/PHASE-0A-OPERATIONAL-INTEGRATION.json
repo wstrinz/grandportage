@@ -1,0 +1,57 @@
+{
+  "status": "integrated",
+  "cases_added": 29,
+  "case_ids": [
+    "GP-X370",
+    "GP-X371",
+    "GP-X372",
+    "GP-X373",
+    "GP-X374",
+    "GP-X375",
+    "GP-X376",
+    "GP-X377",
+    "GP-X378",
+    "GP-X379",
+    "GP-X380",
+    "GP-X381",
+    "GP-X382",
+    "GP-X383",
+    "GP-X384",
+    "GP-X385",
+    "GP-X386",
+    "GP-X387",
+    "GP-X388",
+    "GP-X389",
+    "GP-X390",
+    "GP-X391",
+    "GP-X392",
+    "GP-X393",
+    "GP-X394",
+    "GP-X395",
+    "GP-X396",
+    "GP-X397",
+    "GP-X398"
+  ],
+  "total_cases": 445,
+  "expected_counts": {
+    "ACCEPT": 133,
+    "REFUSE": 312
+  },
+  "replay": "reports/oracle-runs/20260929T133350769908Z.json",
+  "summary": {
+    "AGREES": 393,
+    "DIAGNOSTIC_OBSERVED": 1,
+    "KNOWN_DIFFERENCE": 14,
+    "PENDING": 1,
+    "UNSUPPORTED": 7,
+    "RETAINED_DIAGNOSTIC": 29
+  },
+  "preservation": {
+    "prior_cases": 416,
+    "prior_case_bytes_unchanged": true,
+    "prior_expected_observed_status_route_layer_unchanged": true,
+    "prior_immutable_replay_files_unchanged": 58
+  },
+  "validation": "Four adapter tests passed independently. Runner integration rejects changed case values, case-byte binding and manifest binding. All445 schemas/source pins validated; full replay has no ERROR or REVIEW_REQUIRED.",
+  "limits": "29 added observations are retained diagnostic binding checks, not fresh operational execution or native verdicts. A24 pending; X53 and six A27 unsupported. No Phase0a closure asserted."
+}

@@ -1,0 +1,42 @@
+{
+  "files": [
+    {
+      "path": "grandportage/identity.py",
+      "sha256": "0658f232411eccc8cd94e2c9ea479a7c7de531f0e59b15d49f151da3c51587f6",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_identity_surface.py",
+      "sha256": "174f93c487c744f7091c28fdf16a86dae52e3ee9515e5c7e0d4c8458f476fc40",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_inband_identity.py",
+      "sha256": "cbab4d51cfd162f8d0ea2336c56b69464dbf37a85b69bfb5c7f90eea9e4af5c7",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "evidence": [
+    "reports/IMPLEMENTATION-IDENTITY-BOUNDARY.json",
+    "reports/oracle-identity-review.xml"
+  ],
+  "tests": {
+    "passed": 12,
+    "live_deselected": 1
+  },
+  "findings": [
+    "Implementation source identity caches Git commit/status per process; shared CLI/MCP/graph presentation equality is consistency, not executable attestation.",
+    "Unknown Git information remains unknown in machine and text presentation.",
+    "Numeric source_commit produces raw TypeError in format validation; no acceptance demonstrated.",
+    "In-band tests inject version-bearing transcripts and compare nonce/identity; they do not execute or authenticate a real backend binary.",
+    "Doctor test replaces health and version probes; MCP root-isolation tests create synthetic local roots and check declarations land separately."
+  ],
+  "remaining": [
+    "Review full diagnostic/schema surface implementation, rather than infer it from passing surface tests.",
+    "General backend identity authenticity and runtime artifact binding remain distinct from implementation metadata.",
+    "Disposition stronger source identity requirements without silently adopting an attestation policy."
+  ]
+}

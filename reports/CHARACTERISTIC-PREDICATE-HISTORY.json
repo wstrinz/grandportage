@@ -1,0 +1,59 @@
+{
+  "commit": "f2b7c49e59d382ba182e90aee057c3441911d183",
+  "historical_source_sha256": "8ffd23bb82eb3ef9cc3c1698c86623785b46a1aa73137b316e6887aeb881b687",
+  "current_source_sha256": "900da33d1b8e3ae045533b3ae8ed67317a3bc56a35861d2bcd604ae6adb7e755",
+  "script_sha256": "ccf1362854cb06e1128c6103d413099e459e019fe1d80d72f1c4ef5d89e3935f",
+  "predicate": "isinstance(ch, int) and (not isinstance(ch, bool)) and (ch >= 0)",
+  "controls": [
+    {
+      "value": -1,
+      "type": "int",
+      "historical_predicate": false,
+      "current_predicate": false
+    },
+    {
+      "value": false,
+      "type": "bool",
+      "historical_predicate": false,
+      "current_predicate": false
+    },
+    {
+      "value": 0,
+      "type": "int",
+      "historical_predicate": true,
+      "current_predicate": true
+    },
+    {
+      "value": 1,
+      "type": "int",
+      "historical_predicate": true,
+      "current_predicate": false
+    },
+    {
+      "value": 2,
+      "type": "int",
+      "historical_predicate": true,
+      "current_predicate": true
+    },
+    {
+      "value": 4,
+      "type": "int",
+      "historical_predicate": true,
+      "current_predicate": false
+    },
+    {
+      "value": 23,
+      "type": "int",
+      "historical_predicate": true,
+      "current_predicate": true
+    },
+    {
+      "value": "23",
+      "type": "str",
+      "historical_predicate": false,
+      "current_predicate": false
+    }
+  ],
+  "scope": "Only the exact extracted historical Boolean predicate is evaluated; no old module, verifier, CAS or campaign executes.",
+  "finding": "Historical diagnostic claimed prime characteristic but admitted 1 and composite 4; pinned validator refuses both. Historical None bypass and default-to-zero sites are read-only observations, not executed here."
+}

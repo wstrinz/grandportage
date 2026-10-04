@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "GP-X20",
+  "seed": null,
+  "title": "Mapped ring isomorphism with valid pullback evidence",
+  "situation": "Both quotient rings are Q[x]/(x); the forward and inverse maps send x to x.",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "generators": [
+      "x"
+    ],
+    "forward": {
+      "x": "x"
+    },
+    "inverse": {
+      "x": "x"
+    },
+    "forward_cofactors": [
+      [
+        "1"
+      ]
+    ],
+    "inverse_cofactors": [
+      [
+        "1"
+      ]
+    ]
+  },
+  "attempted_conclusion": "Accept the supplied ring-isomorphism certificate.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Both ideal pullbacks and compositions must replay; the claimed forward cofactor 1 does."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_verdict_provenance.py",
+      "line": 218,
+      "anchor": "def test_exact_ring_iso_certificate_allows_a_verifier_native_empty_trace("
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/verify.py",
+      "line": 505,
+      "anchor": "def _check_mapped_ring_iso_certificate("
+    }
+  ]
+}

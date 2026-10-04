@@ -1,0 +1,362 @@
+{
+  "schema_version": 1,
+  "scope": "Gate screen of residual rows 6, 11, 16 (seven parameters), 20, and 21 from fixed 42-row deleted-test mapping",
+  "source_pin": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+  "method": "Static read of frozen historical tests and validator call order; compare the first reached gate to current neutral case premises and expected mechanisms. No validator, campaign, oracle, or corpus execution. Same-fixture replay is not inferred from mechanism reuse.",
+  "summary": {
+    "historical_rows_screened": 5,
+    "individual_mutations_screened": 11,
+    "binding_or_literal_scope_gate_mutations": 11,
+    "independently_replayed_arithmetic_residuals": 0,
+    "smallest_genuine_neutral_residuals": [],
+    "qualification": "The original source tests remain fixture-specific regression evidence. No new neutral case is justified by these five rows on this gate screen; this does not assert full historical fixture replay or decide the parent closure."
+  },
+  "gate_reviews": [
+    {
+      "review_index": 6,
+      "historical_assertion": "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/6",
+      "mutation": "gp_prerequisite.sha256 -> 64 zeroes",
+      "reached_gate": "C1: prior-GP record must equal the literal fixture/sha256/required_result tuple and the previous fixture bytes must match their expected hash",
+      "gate_kind": "prior-dependency binding equality",
+      "existing_principle_cases": [
+        "GP-X71",
+        "GP-X72",
+        "GP-X324"
+      ],
+      "reuse_reason": "GP-X71 rejects a changed cited digest; GP-X72 rejects changed native parent bytes. GP-X324 supplies the unchanged necessary-block baseline. The historical mutation changes only a digest string in a prior-GP dependency record.",
+      "coverage_limit": "This is a previous-GP prerequisite, not the p-axis source binding in the small cases. The C1 short circuit does not revalidate the previous adapter or test affine round-trip on the altered record.",
+      "code_anchors": [
+        {
+          "path": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_free_plane.py",
+          "lines": "94-98",
+          "role": "historical mutation"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/depth8_adapter.py",
+          "lines": "264-275",
+          "role": "C1 literal record and byte hash; C2 downstream previous-adapter check"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/depth8_adapter.py",
+          "lines": "456-471",
+          "role": "validation order: projection, C1, native, arithmetic"
+        }
+      ],
+      "genuine_neutral_residual": null
+    },
+    {
+      "review_index": 11,
+      "historical_assertion": "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/11",
+      "mutation": "psi8_certificate.r8_1.sparse.terms[0][1] -> -449",
+      "reached_gate": "A1: parsed residual lengths and sparse digests must equal the unchanged certificate commitments",
+      "gate_kind": "sparse-body digest binding",
+      "existing_principle_cases": [
+        "GP-X325",
+        "GP-X40"
+      ],
+      "reuse_reason": "GP-X325 changes an actual checked coefficient while retaining its native commitment; GP-X40 states that an old row commitment cannot bind changed content. The changed valid coefficient reaches the residual sparse-body digest mismatch.",
+      "coverage_limit": "The small cases do not replay r8_1 or the 552/704/709-term syzygy. This historical mutation stops at A1 before the A2 identity Psi8=c2_3*r8_1+2*r8_3 is checked.",
+      "code_anchors": [
+        {
+          "path": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+          "lines": "96-100",
+          "role": "historical mutation"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/depth8_residual_adapter.py",
+          "lines": "587-604",
+          "role": "A1 digest/length before A2/A3 algebra"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/depth8_residual_adapter.py",
+          "lines": "832-851",
+          "role": "validator call order"
+        }
+      ],
+      "genuine_neutral_residual": null
+    },
+    {
+      "review_index": 16,
+      "historical_assertion": "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/16",
+      "mutation": "projection.graph_effect NONE -> NONEMPTY",
+      "reached_gate": "M3: entire projection must equal _expected_projection()",
+      "gate_kind": "fixed projection/scope equality",
+      "existing_principle_cases": [
+        "GP-X327"
+      ],
+      "reuse_reason": "GP-X327 changes graph_effect on another necessary-block projection and rejects graph promotion without authority.",
+      "coverage_limit": "Different fixture and label value; no independent graph check follows the M3 mismatch.",
+      "code_anchors": [
+        {
+          "path": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+          "lines": "72-73",
+          "role": "parameter 1"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/adapter.py",
+          "lines": "129-173",
+          "role": "expected graph effect and scope"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/adapter.py",
+          "lines": "362-376",
+          "role": "M3 before native/arithmetic"
+        }
+      ],
+      "genuine_neutral_residual": null
+    },
+    {
+      "review_index": 16,
+      "historical_assertion": "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/16",
+      "mutation": "c7_4_affine_pivot.role DETERMINATION_NOT_COMPATIBILITY -> NINTH_COMPATIBILITY_EQUATION",
+      "reached_gate": "M3: entire projection must equal _expected_projection()",
+      "gate_kind": "fixed projection/role equality",
+      "existing_principle_cases": [
+        "GP-X327",
+        "GP-X115"
+      ],
+      "reuse_reason": "GP-X327 shows the fixed projection cannot be relabelled while reusing its checked receipt. GP-X115 is contextual evidence that a solved coordinate has a constrained role, but it changes the role in the opposite direction; no current case tests a false ninth equation itself.",
+      "coverage_limit": "The NINTH_COMPATIBILITY_EQUATION label is a semantic distinction not directly represented by those cases. This historical test stops at literal M3 projection inequality and does not count or replay a ninth equation.",
+      "code_anchors": [
+        {
+          "path": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+          "lines": "74-75",
+          "role": "parameter 2"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/adapter.py",
+          "lines": "140-159",
+          "role": "pivot role and eight downstream equations"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/adapter.py",
+          "lines": "362-376",
+          "role": "M3 gate"
+        }
+      ],
+      "genuine_neutral_residual": null
+    },
+    {
+      "review_index": 16,
+      "historical_assertion": "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/16",
+      "mutation": "remove c5_7=0 from projection.model.equations",
+      "reached_gate": "M3: entire projection must equal _expected_projection()",
+      "gate_kind": "fixed model-equation binding",
+      "existing_principle_cases": [
+        "GP-X67",
+        "GP-X124"
+      ],
+      "reuse_reason": "GP-X67 refuses reuse of a receipt after its equations change; GP-X124 shows an exceptional factor cannot be cancelled without invertibility. The source model requires c5_7=0 for its bounded factor ledger.",
+      "coverage_limit": "No check is made that the claimed factorization is actually false on the widened model; the deletion stops at M3.",
+      "code_anchors": [
+        {
+          "path": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+          "lines": "76",
+          "role": "parameter 3"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/adapter.py",
+          "lines": "129-159",
+          "role": "model equations and factor scope"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/adapter.py",
+          "lines": "362-376",
+          "role": "M3 gate"
+        }
+      ],
+      "genuine_neutral_residual": null
+    },
+    {
+      "review_index": 16,
+      "historical_assertion": "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/16",
+      "mutation": "remove Delta=0 from projection.model.equations",
+      "reached_gate": "M3: entire projection must equal _expected_projection()",
+      "gate_kind": "fixed model-equation binding",
+      "existing_principle_cases": [
+        "GP-X67",
+        "GP-X124"
+      ],
+      "reuse_reason": "GP-X67 covers stale receipt after equation change; GP-X124 covers attempted cancellation of a nonunit exceptional factor. The source explicitly refuses ambient freeness before imposing Delta=0.",
+      "coverage_limit": "No arithmetic replay on the widened model follows the M3 mismatch; this is the same equation-binding gate as the c5_7 deletion with a distinct source premise.",
+      "code_anchors": [
+        {
+          "path": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+          "lines": "77",
+          "role": "parameter 4"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/adapter.py",
+          "lines": "129-166",
+          "role": "Delta equation and ambient refusal"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/adapter.py",
+          "lines": "362-376",
+          "role": "M3 gate"
+        }
+      ],
+      "genuine_neutral_residual": null
+    },
+    {
+      "review_index": 16,
+      "historical_assertion": "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/16",
+      "mutation": "projection.first_open_obligation -> CLOSED",
+      "reached_gate": "M3: entire projection must equal _expected_projection()",
+      "gate_kind": "fixed open-obligation/status equality",
+      "existing_principle_cases": [
+        "GP-X37",
+        "GP-X329"
+      ],
+      "reuse_reason": "GP-X37 refuses to turn a completion label into a missing proof; GP-X329 refuses marking an unexported residual available by relabeling status. The historical edit is likewise a declaration-only closure.",
+      "coverage_limit": "Neither case checks the six named depth-eight coefficients; the M3 gate does not discharge that obligation.",
+      "code_anchors": [
+        {
+          "path": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+          "lines": "78",
+          "role": "parameter 5"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/adapter.py",
+          "lines": "169-171",
+          "role": "six-coefficient open obligation"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/adapter.py",
+          "lines": "362-376",
+          "role": "M3 gate"
+        }
+      ],
+      "genuine_neutral_residual": null
+    },
+    {
+      "review_index": 16,
+      "historical_assertion": "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/16",
+      "mutation": "columns.VD.c8_5 first coefficient -> 14",
+      "reached_gate": "A3: hashes of all four live native coefficient bodies must equal unchanged certificate hashes",
+      "gate_kind": "coefficient-body/native-commitment binding",
+      "existing_principle_cases": [
+        "GP-X325",
+        "GP-X40"
+      ],
+      "reuse_reason": "GP-X325 changes a raw coefficient while retaining its native commitment; GP-X40 captures stale row commitment. The historical edit changes a valid sparse coefficient and is refused at A3.",
+      "coverage_limit": "The later A6 pure-b generator equality and S2 substitution checks are not reached; this assertion does not independently establish an arithmetic counterexample.",
+      "code_anchors": [
+        {
+          "path": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+          "lines": "64-65,79",
+          "role": "parameter 6"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/adapter.py",
+          "lines": "279-320",
+          "role": "A3 hash before A6 generator equality"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/adapter.py",
+          "lines": "362-376",
+          "role": "arithmetic call after scope/native"
+        }
+      ],
+      "genuine_neutral_residual": null
+    },
+    {
+      "review_index": 16,
+      "historical_assertion": "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/16",
+      "mutation": "columns.d7rung:row1/c9_7.c7_4 first coefficient -> 3/2",
+      "reached_gate": "A3: hashes of all four live native coefficient bodies must equal unchanged certificate hashes",
+      "gate_kind": "coefficient-body/native-commitment binding",
+      "existing_principle_cases": [
+        "GP-X325",
+        "GP-X40"
+      ],
+      "reuse_reason": "GP-X325 changes a raw coefficient under a fixed native commitment; the pivot-sign edit reaches the same A3 commitment failure.",
+      "coverage_limit": "The later A7 signed pivot identity and A10 affine round-trip are not reached. GP-X328 changes projection transport text rather than this native coefficient, so it is not an exact match.",
+      "code_anchors": [
+        {
+          "path": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+          "lines": "68-69,80",
+          "role": "parameter 7"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/adapter.py",
+          "lines": "279-320",
+          "role": "A3 hash before A7 pivot equality"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/adapter.py",
+          "lines": "340-350",
+          "role": "later affine round-trip"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_b0_free_plane/adapter.py",
+          "lines": "362-376",
+          "role": "validation order"
+        }
+      ],
+      "genuine_neutral_residual": null
+    },
+    {
+      "review_index": 20,
+      "historical_assertion": "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/20",
+      "mutation": "native_certificate.verdict.depth9_additive_pair_authorized false -> true",
+      "reached_gate": "N7: entire scoped native verdict must equal the pinned literal with depth9_additive_pair_authorized=false",
+      "gate_kind": "fixed verdict/authority field equality",
+      "existing_principle_cases": [
+        "GP-X113",
+        "GP-X65"
+      ],
+      "reuse_reason": "GP-X113 refuses a higher-order nonlinear inference from a first-order fiber exclusion without a checked bridge; GP-X65 refuses authority from a certificate declaration alone. Flipping this flag asserts an unsupported stronger result, and N7 only checks the pinned verdict object.",
+      "coverage_limit": "Neither case tests a depth-nine additive pair on this exact fiber. The N7 mismatch occurs before N8 omega_comb nonzero and any additional witness checks; the test does not replay a depth-nine obstruction.",
+      "code_anchors": [
+        {
+          "path": "oracle/history/checkout/tests/test_jc_h3_depth8_fiber.py",
+          "lines": "78-84",
+          "role": "historical mutation"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_depth8_fiber/adapter.py",
+          "lines": "148-165",
+          "role": "N7 full verdict equality before N8"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_depth8_fiber/adapter.py",
+          "lines": "263-276",
+          "role": "validator call order"
+        }
+      ],
+      "genuine_neutral_residual": null
+    },
+    {
+      "review_index": 21,
+      "historical_assertion": "reports/PHASE-0A-DELETED-MAPPING-REVIEW.json#/reviews/21",
+      "mutation": "polynomials.C.terms[0][1] -> 2",
+      "reached_gate": "P9: sparse digest of C must equal the unchanged native reconstructed fitting-condition digest",
+      "gate_kind": "sparse-body/native-receipt binding",
+      "existing_principle_cases": [
+        "GP-X325",
+        "GP-X40"
+      ],
+      "reuse_reason": "GP-X325 changes a checked coefficient under fixed native commitment; GP-X40 captures stale content commitment. The S4 edit changes C but retains the native fitting-condition digest.",
+      "coverage_limit": "The source mutation is not a witness counterexample. P9 precedes P10/P11 leading-slice checks and W1-W4 exact K-point evaluation, so those arithmetic conclusions are not reached.",
+      "code_anchors": [
+        {
+          "path": "oracle/history/checkout/tests/test_jc_h3_s4_scope.py",
+          "lines": "72-78",
+          "role": "historical mutation"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_s4_scope/adapter.py",
+          "lines": "80-86",
+          "role": "sparse digest definition"
+        },
+        {
+          "path": "oracle/history/checkout/experiments/jc_h3_s4_scope/adapter.py",
+          "lines": "362-413",
+          "role": "P9 before term/slice/point arithmetic"
+        }
+      ],
+      "genuine_neutral_residual": null
+    }
+  ]
+}

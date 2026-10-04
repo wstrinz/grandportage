@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "GP-X305",
+  "seed": null,
+  "title": "Missing intermediate binding refuses composition",
+  "situation": "A finite Laurent input a/y is shifted into a polynomial export. Both individual arithmetic passes are valid; composition must bind their intermediate under the stated representation contract.",
+  "inputs": {
+    "binding_contract": "same_canonical_export",
+    "characteristic": 0,
+    "parameter": "y",
+    "coefficient_variables": [
+      "a"
+    ],
+    "laurent_terms": {
+      "-1": "a"
+    },
+    "exports": [
+      {
+        "name": "cleared",
+        "shift": 1
+      }
+    ],
+    "downstream_image": {
+      "terms": [
+        {
+          "coefficient": "1",
+          "powers": [
+            [
+              "a",
+              1
+            ]
+          ]
+        }
+      ]
+    },
+    "degree": 0,
+    "coefficient_rows": {
+      "0": "a"
+    },
+    "image_bindings": []
+  },
+  "attempted_conclusion": "Compose the two passes using the same canonical export object for every downstream image; no source, chart or graph authority is requested.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Missing intermediate binding refuses composition"
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/laurent_coefficient_pipeline.py",
+      "line": 37,
+      "anchor": "def verify(spec):"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "script_sha256": "416455d00b439d01561d5780334fae3b101007404eecf895e6b2ca7db682fec0",
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "historical_manifest_sha256": "2ca0a95db90819ac44928ecd8564cc0ddcfbcdb63c897c921355447106545d2c",
+  "scope": "Diagnostic calibration, not a false held-claim reproduction and not a change to any corpus expectation.",
+  "records": [
+    {
+      "mutation": "retype_forgetting",
+      "watched_assay": "JC.ASSAY.A.REVERSE_REALIZATION",
+      "direct_conditional_result": "LICENSED",
+      "historical_regression_failure": "ASY8: JC.ASSAY.A.REVERSE_REALIZATION expected REFUSED but current semantics returned LICENSED: licensed by EQUIVALENCE/AGAINST/NONEMPTY",
+      "in_memory_test_label_edits": [
+        {
+          "assay": "JC.ASSAY.A.REVERSE_REALIZATION",
+          "before": "REFUSED",
+          "after": "LICENSED"
+        },
+        {
+          "assay": "JC.ASSAY.H.ROWZERO_SCOPE_WIDENING",
+          "before": "REFUSED",
+          "after": "LICENSED"
+        }
+      ],
+      "after_matching_labels": {
+        "compiled": true,
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE"
+      }
+    },
+    {
+      "mutation": "relabel_scope",
+      "watched_assay": "JC.ASSAY.E.FIELD_WIDENING",
+      "direct_conditional_result": "LICENSED",
+      "historical_regression_failure": "ASY8: JC.ASSAY.E.FIELD_WIDENING expected REFUSED but current semantics returned LICENSED: licensed: the emptiness is certificate-backed (None), so it base-changes",
+      "in_memory_test_label_edits": [
+        {
+          "assay": "JC.ASSAY.E.FIELD_WIDENING",
+          "before": "REFUSED",
+          "after": "LICENSED"
+        }
+      ],
+      "after_matching_labels": {
+        "compiled": true,
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE"
+      }
+    }
+  ]
+}

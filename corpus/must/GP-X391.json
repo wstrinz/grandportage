@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "GP-X391",
+  "seed": null,
+  "title": "Operational 74.5: transcript postvalidation boundary",
+  "situation": "Direct injected-runner artifact with mutable abort_reason object.",
+  "inputs": {
+    "incident_row": "74.5",
+    "vector": {
+      "artifact": "ExecutionArtifact",
+      "abort_reason": "mutable object",
+      "mutation_timing": "after validation and construction",
+      "comparison": "artifact fingerprint before and after"
+    },
+    "retained_evidence_refs": [
+      "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/3"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Treat frozen ExecutionArtifact as immutable after validation.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Digest should stay stable after construction or mutable metadata should refuse."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/backend.py",
+      "line": 132,
+      "anchor": "abort_reason: object",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

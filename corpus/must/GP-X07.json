@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X07",
+  "seed": null,
+  "title": "Exact contraction does not supply geometric closure",
+  "situation": "The ideal contraction is exact but no base-relative geometric image-closure receipt exists.",
+  "inputs": {
+    "exact_contraction": true,
+    "geometric_closure": false,
+    "closed_predicate": true
+  },
+  "attempted_conclusion": "Transport the closed predicate solely from exact contraction.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Coordinate-ring contraction and geometric closure have distinct authority."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_kernel.py",
+      "line": 295,
+      "anchor": "def test_image_forward_transport_needs_exact_output_authority("
+    }
+  ]
+}

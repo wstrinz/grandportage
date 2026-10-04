@@ -1,0 +1,62 @@
+{
+  "files": [
+    {
+      "path": "grandportage/laurent_lowering.py",
+      "sha256": "c8de5a1d6cdd820f16dd138189b751721f28d4def27955ec5e6a951b0fe004d5",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "grandportage/laurent_coefficient_pipeline.py",
+      "sha256": "c61f6f7381b37e032641edd64128a0655eff6a4e457e35988765c2aa2fb2e4e4",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_laurent_lowering.py",
+      "sha256": "55392ef58cabb9b6c850c48b93a08af2b5730b43a6befe576320eaa468d71433",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "test_functions": [
+        "test_rows78_depressed_chart_receipts_verify_exactly",
+        "test_export_is_directly_consumable_by_coefficient_expansion",
+        "test_export_refuses_an_incomplete_negative_power_clearing",
+        "test_pipeline_binds_both_verified_passes",
+        "test_pipeline_rejects_a_self_consistent_but_edited_intermediate",
+        "test_pipeline_requires_total_bindings",
+        "test_covered_chart_zero_rhs_is_rejected_for_symbolic_G",
+        "test_row8_coefficient_mutation_is_rejected",
+        "test_derivative_handles_negative_exponents_and_constant_term",
+        "test_declared_monomial_shift_clears_negative_support",
+        "test_forward_references_and_unknown_fields_are_refused",
+        "test_non_string_operation_and_equality_references_fail_closed",
+        "test_laurent_exponents_must_be_canonical_integers"
+      ]
+    }
+  ],
+  "tests": {
+    "report": "reports/oracle-laurent-review.xml",
+    "sha256": "bb94bb3850b267fc86b45fa02239f3d526474dfe00783dd43fe1b846f32b9878",
+    "passed": 15
+  },
+  "diagnostic": "reports/LAURENT-PIPELINE-BOUNDARY.json",
+  "findings": [
+    "Pipeline binds every coefficient source image to a distinct verified export; unused verified exports are permitted.",
+    "Binding uses exact canonical object equality, not polynomial equivalence; equivalent infix input is individually valid but fails composition.",
+    "Finite Laurent equalities and monomial-cleared export do not establish source derivation, chart equivalence, antiderivative existence or graph authority.",
+    "Limits constrain inputs/nodes/support/exponents and polynomial arithmetic; exhaustive resource/error-shape analysis remains open."
+  ],
+  "remaining": [
+    "Selected canonical-binding controls extracted in GP-X302\u2013307; complete validation/budget/dependency and interpretation coverage still open.",
+    "Complete coefficient-expansion and arithmetic dependency review and validation/budget dispositions.",
+    "Retain semantic premises and narrow export license; reflexive equality alone is not source validation."
+  ],
+  "corpus_cases": [
+    "GP-X302",
+    "GP-X303",
+    "GP-X304",
+    "GP-X305",
+    "GP-X306",
+    "GP-X307"
+  ]
+}

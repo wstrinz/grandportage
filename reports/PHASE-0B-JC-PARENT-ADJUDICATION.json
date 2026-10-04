@@ -1,0 +1,279 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "status": "parent extraction dispositions; JC/0b not complete",
+  "worker_report": "reports/PHASE-0B-JC-BOUNDED-REVIEW.json",
+  "source_hashes_independently_checked": 13,
+  "parent_primary_reads": [
+    "FIELD_SCOPE_AUDIT.md1-104",
+    "WHETSTONE_DAG.md1-52",
+    "AT_LE9_AUDIT.md1-72",
+    "GAUGE_LEAK.md1-93",
+    "MODELLING_GAPS.md67-119;144-165",
+    "PASSPORT_75_125_REPAIR.md162-186;246-280",
+    "whetstone_dag.py828-869",
+    "F2_TOWER.md122-155",
+    "full Git message60ed3b9"
+  ],
+  "dispositions": [
+    {
+      "proposal_id": "JC-B001",
+      "decision": "accept source-supported extraction with unknowns",
+      "episode": "JC-B001",
+      "class": "MEANING",
+      "origin": "own",
+      "source": {
+        "path": "$DEV/math-stuff/d2_plane_72_108/GAUGE_LEAK.md",
+        "lines": "10-31;35-62;68-90",
+        "sha256": "e6b932757a9f82b7e59a5af60f856fc5668f321e31fb03ba29e11bfa32d80d8a"
+      },
+      "cost": null,
+      "shipped": null,
+      "qualifications": "One omitted lift/place incident, three witnesses; MEANING versus COVER provisional."
+    },
+    {
+      "proposal_id": "JC-B002",
+      "decision": "accept source-supported extraction with unknowns",
+      "episode": "JC-B002",
+      "class": "COVER",
+      "origin": "own",
+      "source": {
+        "path": "$DEV/math-stuff/whetstone/MODELLING_GAPS.md",
+        "lines": "72-79;97-113;399-409;435-447",
+        "sha256": "155804b33a822dcf2d4ae4e2b274f718d01d0ccd1bc740c4aea0147740609dfe"
+      },
+      "cost": null,
+      "shipped": null,
+      "qualifications": "Distinct ORDER half-line omission from B001 PLACE/lift omission; no statistical independence claim or duplicate witness count."
+    },
+    {
+      "proposal_id": "JC-B003",
+      "decision": "accept source-supported extraction with unknowns",
+      "episode": "JC-B003",
+      "class": "SCOPE",
+      "origin": "own",
+      "source": {
+        "path": "$DEV/math-stuff/d2_plane_72_108/FIELD_SCOPE_AUDIT.md",
+        "lines": "12-47;76-100",
+        "sha256": "7f1ec681a0a3f61a837ecacc433873bfb9d5e28afb371adc2d61c1254835e605"
+      },
+      "cost": "high",
+      "shipped": true,
+      "qualifications": "Shipping and high cost source-reported; public release artifact not inspected."
+    },
+    {
+      "proposal_id": "JC-B004",
+      "decision": "accept source-supported extraction with unknowns",
+      "episode": "JC-B004",
+      "class": "ADAPTER",
+      "origin": "own",
+      "source": {
+        "path": "$DEV/math-stuff/d2_plane_72_108/PASSPORT_75_125_REPAIR.md",
+        "lines": "248-278;381-382",
+        "sha256": "4bde9e54296c02bad2fda8417c55a5b89085482dffbe49acf80cc399cd8633d1"
+      },
+      "cost": null,
+      "shipped": null,
+      "qualifications": "Accept reported criterion defect; corrected graded search and modular quotient-rank certification not audited."
+    },
+    {
+      "proposal_id": "JC-B005",
+      "decision": "accept source-supported extraction with unknowns",
+      "episode": "JC-B005",
+      "class": "BINDING",
+      "origin": "own",
+      "source": {
+        "path": "$DEV/math-stuff/d2_plane_72_108/F2_TOWER.md",
+        "lines": "305-312",
+        "sha256": "624b38c92fea86b74e875d77a074f583623e0d12d207787503bc644723ac10b9"
+      },
+      "cost": "high",
+      "shipped": true,
+      "qualifications": "Operational recommendation error; shipping/high cost source-reported in exact history narrative, external handoff artifact not inspected."
+    },
+    {
+      "proposal_id": "JC-B006",
+      "decision": "accept source-supported extraction with unknowns",
+      "episode": "JC-B006",
+      "class": "MEANING",
+      "origin": "own",
+      "source": {
+        "path": "$DEV/math-stuff/d2_plane_72_108/F2_TOWER.md",
+        "lines": "123-154",
+        "sha256": "624b38c92fea86b74e875d77a074f583623e0d12d207787503bc644723ac10b9"
+      },
+      "cost": null,
+      "shipped": null,
+      "qualifications": "Retain reported incident and unknowns; no fresh campaign/checker execution."
+    },
+    {
+      "proposal_id": "JC-B007",
+      "decision": "accept source-supported extraction with unknowns",
+      "episode": "JC-B007",
+      "class": "ADAPTER",
+      "origin": "own",
+      "source": {
+        "path": "$DEV/math-stuff/d2_plane_72_108/PASSPORT_75_125_REPAIR.md",
+        "lines": "164-185",
+        "sha256": "4bde9e54296c02bad2fda8417c55a5b89085482dffbe49acf80cc399cd8633d1"
+      },
+      "cost": null,
+      "shipped": null,
+      "qualifications": "Retain reported incident and unknowns; no fresh campaign/checker execution."
+    },
+    {
+      "proposal_id": "JC-B008",
+      "decision": "accept source-supported extraction with unknowns",
+      "episode": "JC-B008",
+      "class": "ADAPTER",
+      "origin": "own",
+      "source": {
+        "path": "$DEV/math-stuff/whetstone/MODELLING_GAPS.md",
+        "lines": "146-162",
+        "sha256": "155804b33a822dcf2d4ae4e2b274f718d01d0ccd1bc740c4aea0147740609dfe"
+      },
+      "cost": null,
+      "shipped": null,
+      "qualifications": "Retain reported incident and unknowns; no fresh campaign/checker execution."
+    },
+    {
+      "proposal_id": "JC-B009",
+      "decision": "accept source-supported extraction with unknowns",
+      "episode": "JC-B009",
+      "class": "ADAPTER",
+      "origin": "own",
+      "source": {
+        "path": "$DEV/math-stuff/whetstone/MODELLING_GAPS.md",
+        "lines": "146-162",
+        "sha256": "155804b33a822dcf2d4ae4e2b274f718d01d0ccd1bc740c4aea0147740609dfe"
+      },
+      "cost": null,
+      "shipped": null,
+      "qualifications": "Retain reported incident and unknowns; no fresh campaign/checker execution."
+    },
+    {
+      "proposal_id": "JC-B010",
+      "decision": "accept source-supported extraction with unknowns",
+      "episode": "JC-B010",
+      "class": "ADAPTER",
+      "origin": "own",
+      "source": {
+        "path": "$DEV/math-stuff/whetstone/whetstone_dag.py",
+        "lines": "851-865",
+        "sha256": "627749285c45566edddd05b01ae1f44c2488b29564b1ea98cc663099aad4992c"
+      },
+      "cost": null,
+      "shipped": null,
+      "qualifications": "Retain reported incident and unknowns; no fresh campaign/checker execution."
+    },
+    {
+      "proposal_id": "JC-B011",
+      "decision": "accept source-supported extraction with unknowns",
+      "episode": "JC-B011",
+      "class": "ADAPTER",
+      "origin": "tool",
+      "source": {
+        "path": "$DEV/math-stuff/whetstone/whetstone_dag.py",
+        "lines": "836-842",
+        "sha256": "627749285c45566edddd05b01ae1f44c2488b29564b1ea98cc663099aad4992c"
+      },
+      "cost": null,
+      "shipped": null,
+      "qualifications": "Recorded shadowing defect; own versus tool origin provisional without original command responsibility. Months of persistence is not work lost."
+    },
+    {
+      "proposal_id": "JC-B012",
+      "decision": "accept source-supported extraction with unknowns",
+      "episode": "JC-B012",
+      "class": "SCOPE",
+      "origin": "own",
+      "source": {
+        "path": "$DEV/math-stuff/d2_plane_72_108/AT_LE9_AUDIT.md",
+        "lines": "35-68",
+        "sha256": "c4be3c3d4272ac32d504e8f2c962b7bdb0eb5662799613541fe95ccd290c176d"
+      },
+      "cost": null,
+      "shipped": null,
+      "qualifications": "Includes B013 common-input evidence-grade subfinding; conclusion a_t<=9 not refuted. Common inputs alone are not a general criterion against independent proofs."
+    },
+    {
+      "proposal_id": "JC-B013",
+      "decision": "group subfinding under B012",
+      "episode": "JC-B012",
+      "class": "WARRANT",
+      "origin": "own",
+      "source": {
+        "path": "$DEV/math-stuff/d2_plane_72_108/AT_LE9_AUDIT.md",
+        "lines": "35-44",
+        "sha256": "c4be3c3d4272ac32d504e8f2c962b7bdb0eb5662799613541fe95ccd290c176d"
+      },
+      "cost": null,
+      "shipped": null,
+      "qualifications": "Retain as WARRANT subfinding of B012; no additional episode count."
+    },
+    {
+      "proposal_id": "JC-B014",
+      "decision": "accept source-supported extraction with unknowns",
+      "episode": "JC-B014",
+      "class": "BINDING",
+      "origin": "own",
+      "source": {
+        "path": "$DEV/math-stuff/d2_plane_72_108/FIELD_SCOPE_AUDIT.md",
+        "lines": "49-74",
+        "sha256": "7f1ec681a0a3f61a837ecacc433873bfb9d5e28afb371adc2d61c1254835e605"
+      },
+      "cost": null,
+      "shipped": null,
+      "qualifications": "Retain reported incident and unknowns; no fresh campaign/checker execution."
+    }
+  ],
+  "existing_candidates": "C001-C003 retained, additional occurrences grouped by worker; repair claims not freshly validated",
+  "episode_accounting": {
+    "worker_findings": 14,
+    "worker_episode_groups": 13,
+    "existing_candidate_episodes": 3,
+    "total_source_supported_groups": 16,
+    "operational_recommendation_groups": 1,
+    "other_groups": 15,
+    "class_counts_provisional": {
+      "MEANING": 2,
+      "COVER": 1,
+      "SCOPE": 4,
+      "ADAPTER": 6,
+      "BINDING": 2,
+      "JOIN": 1
+    },
+    "limit": "descriptive episodes, not independent samples or complete AppendixB records; B001 class/B011 origin provisional; unknown cost/shipping explicit"
+  },
+  "harvest": {
+    "new_files": 13,
+    "total_files": 20,
+    "new_receipt_ledger_exports": 4,
+    "manifest": "reports/PHASE-0B-JC-HARVEST-MANIFEST.json",
+    "checks": "all new copies raw hash verified; no overwrite"
+  },
+  "mathematical_review_limits": [
+    "Pure-other syzygy need not carry Phi: columns(1,0),(0,1),(0,1) have a syzygy supported only on the latter two. Small logic check, not repaired graded-search validation.",
+    "Naive modular quotient-independence needs additional rank premises: other column[p] and distinguished[1] are independent modulo others after reduction mod p but dependent over Q. No finding that actual checker is wrong or new soundness audit commissioned."
+  ],
+  "custody_summary": {
+    "formats": [
+      "campaign-ledger-input/v0",
+      "gp-jc-s4-constructible-scope/v1",
+      "gp-frontier-current-review/v1",
+      "diagnostic JSONL stage journal"
+    ],
+    "checks": "stored JSON parsed; all6 journal rows parsed; S4/current-frontier and all journal rows graph_effect NONE",
+    "trust_boundary": "scope/model/version/digest bindings and open branches visible; stored VERIFIED/PASS remains source-reported; no fresh execution or soundness claim"
+  },
+  "finite_remaining": [
+    "GP0b reuse of accepted0a evidence",
+    "JC recurrence occurrence link and final campaign dispositions/custody summary",
+    "source-supported incident fields and explicit unknown treatment at final closeout",
+    "DK worker running; other confirmed campaigns pending"
+  ],
+  "corpus_cases": 454,
+  "case_route_replay_changes": 0,
+  "worker": "Sol6.1 Medium01a0eeca-572e-7202-a708-c730d410b901 owns DK-BOUNDED-REVIEW reports only",
+  "a24": "prior clarification question unanswered; no dependent edits"
+}

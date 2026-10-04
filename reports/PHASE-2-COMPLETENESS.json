@@ -1,0 +1,82 @@
+{
+  "schema": "gp-phase2-completeness-review/v1",
+  "date": "2026-09-30",
+  "supersedes_completeness_status_in": "reports/PHASE-2-FOUNDATION.json",
+  "source_hashes": {
+    "phase2/lean/GP50/Closure.lean": "623d2368841f8278a007129faac79d498c1010523e9552a1dd2d3fa0201f5403",
+    "phase2/lean/GP50/ClosureProofs.lean": "f8ec36075d52f1bf31d6b4c68f8064ec1d745deaba1c30dac121e3d3195af987",
+    "phase2/lean/GP50/ClosureCompleteness.lean": "ea54208380fde0498b4d8a28211ea8c1a080c198c40a66826f5857e38515a993",
+    "phase2/lean/Tests/ClosureCompleteness.lean": "007d879effc3cefcf425d1b3bdc962ba00376402f2f1be08b7bb127c32bf4fa0",
+    "phase2/lean/GP50.lean": "2be8460b6c79e66804b2cac00339bc2c257012d04a5060b80a97e2dd7e27ccb0",
+    "phase2/lean/lakefile.toml": "39b31badbe0e1a1a6095c850c44eac22194ce31ae49a5af896f16c0e5cc965d6",
+    "tools/check-phase2-budget.py": "fac9895ad3700bf2b817e204e52d0a53347898c3cd19073837b0135408532ddf",
+    "tests/test_phase2_budget.py": "3493e7c691688161b2606443645cc98682ea7ad83ef1f03ea67f20f5e39e4f28",
+    "phase2/lean/GP50/ClosureOrderProofs.lean": "3d4f3173d069eb360f864616e2ac3593e3b567bf92a80c486d5054af8d00c158",
+    "phase2/lean/Tests/ClosureOrder.lean": "a7d927775f24888893edd54d660f14f28a8cbd13141b5a5b8aae01d04ff86959"
+  },
+  "theorems": [
+    "GP50.closure_closed",
+    "GP50.closure_complete",
+    "GP50.closure_mem_iff_reachable"
+  ],
+  "assumptions": "All finite SupportNode lists, including repeated IDs; no uniqueness or supplied fixed-point assumption. Semantic soundness remains relative to node contracts.",
+  "iteration_bound": "nodes.length; every unfinished round grows supported declaration positions",
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "build": "lake build: 25 jobs passed",
+  "native_completeness_controls": 16,
+  "finite_graphs_checked": 13122,
+  "tight_chain_control": {
+    "nodes": 512,
+    "terminal_reached_at_round": 512,
+    "terminal_absent_at_round": 511
+  },
+  "total_native_component_controls": 65,
+  "metadata_tests": 16,
+  "budget_guard_tests": 4,
+  "independent_kernel_check": {
+    "command": "lake -d phase2/lean env leanchecker -v GP50.ClosureCompleteness",
+    "exit_code": 0
+  },
+  "preservation": {
+    "case_bytes_and_expectations": 459,
+    "oracle_pin_and_latest_results": true,
+    "verbatim_handoff": true
+  },
+  "worker_active_minutes": 15,
+  "g2_corpus_execution": false,
+  "remaining": [
+    "actual checked-evidence node builder and held pipeline",
+    "decoder and algebraic stub",
+    "ten-case corpus slice and all kernel-tagged cases",
+    "whole-kernel heldSoundStatement",
+    "event resolver/full held order independence"
+  ],
+  "graph_order": {
+    "theorems": [
+      "GP50.closure_mem_iff_of_node_mem_iff",
+      "GP50.closure_mem_iff_of_perm"
+    ],
+    "assumptions": "Equal membership of complete SupportNode declarations, not merely equal IDs; list lengths and duplicate counts may differ.",
+    "native_controls": 14,
+    "graphs": 1024,
+    "transformations": 3072,
+    "independent_kernel_check": {
+      "command": "lake -d phase2/lean env leanchecker -v GP50.ClosureOrderProofs",
+      "exit_code": 0
+    },
+    "worker_active_minutes": 5,
+    "event_or_full_held_order_independence": false
+  },
+  "source_budget": {
+    "logic": 132,
+    "decoder": 0,
+    "statement": 0,
+    "proof": 229,
+    "markdown_added_words": 6113,
+    "tripwires_crossed": false
+  }
+}

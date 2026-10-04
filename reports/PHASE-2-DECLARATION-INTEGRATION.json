@@ -1,0 +1,105 @@
+{
+  "schema": "gp-phase2-declaration-integration/v1",
+  "date": "2026-09-30",
+  "parent_base_commit": "b4ce5a500a94761e127aee9b7f4c736ae13ea8c6",
+  "source_hashes": {
+    "tools/run-phase2-declaration-slice.py": "a1343f59f03c60e57bd6aa3bd973ed64edcc1d7b50a51ae685332613c363787d",
+    "tests/test_phase2_declaration_slice.py": "598c3814d31315d9e36c283ed321f2f00633ffc9dfc955918b721e3b23d6793f",
+    "tools/run-phase2-slice.py": "a70817b355c12c38c5ef63f77cc708f376910dc44abb2259a7bbcab9f913005d",
+    "reports/PHASE-2-DECLARATION-SLICE.json": "669a1e5e86feb501c36f3bb233ee761837aedca210896bce790c82ac8d71bfd1",
+    "reports/PHASE-2-SLICE.json": "447bdd19f0a785617a1f78a14388653d043b62f16f4bab342c3e319ed109ed99",
+    "reports/PHASE-2-PROVENANCE-SLICE.json": "f3570f0006d530acc1b54a28836adda916bb97f6c5d1f9b31bedbf1f906ced9c"
+  },
+  "worker_original_hashes": {
+    "adapter": "03bbd0c03a46e3031cb8c90c071a257ccaeecab63118b36ca5b47c96026e685c",
+    "tests": "378e64a6de5bfc1405d3ae2b615f393a013fd50eeaf1ef75ac90915944e155de",
+    "report": "2cbb5ab9053fcd2d0cdc44a04e5429e92b16f29f8975a4aacf4a1b33c48e7517"
+  },
+  "worker_active_seconds": 542,
+  "integration_changes": "Normalize completed adapter/test files to LF; aggregate the three independently reviewed declaration fixtures; refresh dependent source/report hashes. Production Lean sources unchanged.",
+  "corpus": {
+    "previous_passes": 17,
+    "new_passes": 3,
+    "total_passes": 20,
+    "kernel_tagged_total": 79,
+    "cases": [
+      "GP-A25a",
+      "GP-C03",
+      "GP-X143"
+    ],
+    "native_original_folds": 12,
+    "separate_repaired_control_folds": 16,
+    "g2_pass": false
+  },
+  "parent_review": {
+    "pinned_named_functions": {
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_store.py",
+      "file_sha256": "053be6bd1294920d8ecacfb750a626849069104ecc89c9c1492604c7af2e5c4e",
+      "pin_file_sha256": "180d920db790d5b5e318ce318b7b7e1467e6b11fd44e05e759e8b7cc7f4459db",
+      "functions": {
+        "identical": {
+          "line": 36,
+          "anchor": "def test_identical_redeclaration_is_idempotent(",
+          "function_sha256": "e3c879f25859f930c04030b2d93756013850946c24e4f5312dd3a9f8a47ada5e"
+        },
+        "conflicting": {
+          "line": 43,
+          "anchor": "def test_conflicting_redeclaration_is_a_hard_error(",
+          "function_sha256": "c6fc4ad3ee50fd33264bf52c49fc1c83e9de373812d7fcc72d086b95fce3f225"
+        }
+      },
+      "boundary": "Replay the unchanged fixture declarations, not a reconstruction of predecessor MODEL_A/MODEL_B or EDGE_AB."
+    },
+    "literal_identifiers_descriptions_categories_preserved": true,
+    "same_identifier_same_native_record_id": true,
+    "native_collision_diagnostic_required": "conflicting warrant contents: 1",
+    "idempotence_requires_complete_single_record": true,
+    "all_four_orders_identical": true,
+    "host_collision_prefilter": false,
+    "mathematical_authority_admitted": false,
+    "scope": "Complete collision/idempotence contracts only; occurrence keys/order are provenance. No current bindings or held mathematical claims."
+  },
+  "validation": {
+    "host_tests": 118,
+    "host_subtests": 214,
+    "added_host_tests": 16,
+    "final_budget_tests": 5,
+    "native_component_controls_unchanged": 553,
+    "proof_controls_unchanged": 78,
+    "report_links_and_source_hashes": "PASS",
+    "production_sources_unchanged": true
+  },
+  "preservation": {
+    "fresh_receipt_sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f",
+    "case_count": 459,
+    "summary": {
+      "AGREES": 403,
+      "DIAGNOSTIC_OBSERVED": 4,
+      "KNOWN_DIFFERENCE": 14,
+      "UNSUPPORTED": 9,
+      "RETAINED_DIAGNOSTIC": 29
+    },
+    "protected_artifacts": 67,
+    "all_bytes_expectations_outcomes_unchanged": true
+  },
+  "budget": {
+    "counts": {
+      "logic": 636,
+      "decoder": 263,
+      "statement": 26,
+      "proof": 1602
+    },
+    "markdown_added_words": 7730,
+    "status_words": 277,
+    "failures": []
+  },
+  "next": {
+    "GPB": [
+      "GP-X183",
+      "GP-X184",
+      "GP-X186"
+    ],
+    "GPC": "Review the bounded conditional partition harness and its exact hypotheses/dependencies; integrate only verified results."
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "GP-A11a",
+  "seed": "A11",
+  "title": "Selected embedding predicates do not survive conjugation",
+  "situation": "A nontrivial automorphism changes the selected real root.",
+  "inputs": {
+    "substitution": {
+      "w": "-7-w",
+      "x": "-x"
+    },
+    "predicate": "x>0"
+  },
+  "attempted_conclusion": "Copy the sign predicate unchanged.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The selected embedding is not preserved."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 551,
+      "anchor": "| A11 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_kernel.py",
+      "line": 80,
+      "anchor": "def test_equivalence_preserves_points_without_conflating_selected_images("
+    }
+  ]
+}

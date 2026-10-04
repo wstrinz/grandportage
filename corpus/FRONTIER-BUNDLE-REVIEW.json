@@ -1,0 +1,68 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "grandportage/frontier_bundle.py",
+      "sha256": "acb4d823eaee9d39d1494374cb20d6153763ab2689a898bb537d56fe2ff71103",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_frontier_bundle.py",
+      "sha256": "8f58a147e73ae3e5cee3dc2d032d0ed654040550cb6dfa60a84bc95d77ecedf0",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_synthetic_frontier_bundle.py",
+      "sha256": "b49c51b1c1533fc4d114bb39688b607dc98bd69cddd4053aecbf50150fa559db",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "fixtures/frontier/synthetic/bundle.json",
+      "sha256": "24f05a8cb260a479920ad61ee4af285e8cb486a00cf39b54355ecbd23eb56770",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "fixtures/frontier/synthetic/planning.json",
+      "sha256": "f2ef5dffd643b2da8d59abf49b1a6687427eebbf8b592fd65bb29c5176a57cf3",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "fixtures/frontier/synthetic/execution.json",
+      "sha256": "057f9c1a9c2ce8564c1b26bbe9779c63f379800981f79eaf2dd30b9dd7398da1",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "caller_slices": [
+    "grandportage/cli.py:cmd_frontier_bundle"
+  ],
+  "tests": {
+    "passed": 15,
+    "report": "reports/oracle-frontier-bundle-review.xml"
+  },
+  "diagnostics": "reports/FRONTIER-BUNDLE-BOUNDARIES.json",
+  "findings": [
+    "Receipt bytes are LF-normalized hash-bound; duplicate normalized paths/content refuse. Input fingerprints are syntax-checked assertions, not recomputed against original mathematical inputs.",
+    "Every repeated item requires exactly one explicit resolution. AGREE_OPEN requires same scope/status and all-open observations; SUPERSEDE requires old-open/current-closed, matching status/replacement list and existing replacements. These are declared receipt consistency conditions, not proof checking.",
+    "Single-receipt replacement references skip the existence validation applied to resolutions. The synthetic control accepts an absent replacement.",
+    "Duplicate open_items pass set equality while record open_count uses list length. Aggregate unique item count stays correct.",
+    "Stable ID regex uses match with a dollar anchor and accepts final newline; use fullmatch for consistent IDs.",
+    "CLI --emit-review can overwrite its input manifest or bound receipt without a protection check. Unique mkstemp avoids the earlier shared writer temp-name ownership problem, but does not prevent input replacement.",
+    "Compact review receipt retains aggregate history/counts but omits item observations; it is not itself an accepted frontier/v1 receipt and is not independently sufficient to recompute the full report fingerprint."
+  ],
+  "proposed_repairs": [
+    "Protect manifest and bound source identities before emission, with canonical filesystem alias handling; use explicit existing-output replacement policy.",
+    "Reject duplicate open_items and validate member types before set conversion; derive counts from normalized observations.",
+    "Use fullmatch for stable IDs.",
+    "Apply replacement existence policy consistently to lone and overlapping observations; do not infer mathematical coverage from replacement references."
+  ],
+  "remaining": [
+    "Semantic overlap beyond equality of IDs/scope labels is not implemented or validated; retain as an open 0.50 design question.",
+    "Replacement cycles and concurrent read/write boundaries remain untested; no broader snapshot guarantee claimed."
+  ]
+}

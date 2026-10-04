@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "id": "GP-X152",
+  "seed": null,
+  "title": "Combine withdrawal with a live replacement",
+  "situation": "Nothing-replaces-it and live replacement cannot both describe one target.",
+  "inputs": {
+    "vocabulary": "lifecycle-scenario/v1",
+    "objects": {
+      "object-1": {
+        "category": "context",
+        "name": "IV",
+        "properties": {
+          "description": "the interval-valued system"
+        }
+      },
+      "object-2": {
+        "category": "context",
+        "name": "PD",
+        "properties": {
+          "description": "the positive-definite locus"
+        }
+      },
+      "object-3": {
+        "category": "relation",
+        "name": "E-IV-PD",
+        "properties": {
+          "source_context": "IV",
+          "target_context": "PD",
+          "relation_class": "unspecified",
+          "justification": "the step is not yet characterised",
+          "coordinate_action": "unchanged",
+          "unresolved_reason": "nobody has derived what this inclusion loses"
+        }
+      },
+      "object-4": {
+        "category": "relation",
+        "name": "E-IV-PD-RESTRICT",
+        "properties": {
+          "source_context": "IV",
+          "target_context": "PD",
+          "relation_class": "subset_restriction",
+          "justification": "the cut-out subset, same coordinates",
+          "coordinate_action": "unchanged"
+        }
+      },
+      "object-5": {
+        "category": "relation",
+        "name": "W-E",
+        "properties": {
+          "justification": "not an edge"
+        }
+      }
+    },
+    "history": [
+      {
+        "object": "object-1"
+      },
+      {
+        "object": "object-2"
+      },
+      {
+        "object": "object-3"
+      },
+      {
+        "object": "object-4",
+        "replacement": {
+          "prior": "E-IV-PD",
+          "change": "relation_reclassification"
+        }
+      },
+      {
+        "object": "object-5",
+        "replacement": {
+          "prior": "E-IV-PD",
+          "change": "relation_withdrawal"
+        }
+      }
+    ],
+    "question": {}
+  },
+  "attempted_conclusion": "Combine withdrawal with a live replacement.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Nothing-replaces-it and live replacement cannot both describe one target."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_supersession_noise.py",
+      "line": 167,
+      "anchor": "def test_tombstone_and_live_successor_are_mutually_exclusive("
+    }
+  ]
+}

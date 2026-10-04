@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "GP-X370",
+  "seed": null,
+  "title": "Operational 53.2: source format schema boundary",
+  "situation": "Format 8/epoch 11 migration source header missing implementation identity; format 6 missing and valid epoch 11 headers are controls.",
+  "inputs": {
+    "incident_row": "53.2",
+    "vector": {
+      "operation": "migrate_kernel_epoch",
+      "source_format": 8,
+      "source_kernel_epoch": 11,
+      "source_implementation_identity": "missing",
+      "controls": [
+        "format 6 missing identity",
+        "valid format 8 epoch 11 header"
+      ],
+      "mode": "dry_run"
+    },
+    "retained_evidence_refs": [
+      "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/0",
+      "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/1",
+      "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/2"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Treat rewritten migration output as validating the original source identity.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Malformed source header should refuse under its recorded epoch before replacement."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/migration.py",
+      "line": 130,
+      "anchor": "def migrate_kernel_epoch(paths, dry_run=False, output=None):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

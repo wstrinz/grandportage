@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "GP-A13-derived",
+  "seed": "A13",
+  "title": "Relaxation of an derived identity",
+  "situation": "Drop the equation x=0, passing from its zero locus to the affine line.",
+  "inputs": {
+    "source_ideal": [
+      "x"
+    ],
+    "target_ideal": [],
+    "identity": "x=0",
+    "origin": "derived"
+  },
+  "attempted_conclusion": "Carry the identity to the affine line.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Only the ambient identity is independent of the dropped equation."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 553,
+      "anchor": "| A13 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_kernel.py",
+      "line": 244,
+      "anchor": "def test_identity_transport_turns_on_the_map_AND_where_the_identity_CAME_FROM("
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "GP-X337",
+  "seed": null,
+  "title": "Literal selected generator uses structural containment",
+  "situation": "In one rational polynomial ring, the selected generator occurs verbatim among the source generators. A forbidden backend stub reveals whether the verifier searches instead of using the structural shortcut.",
+  "inputs": {
+    "ring_vars": [
+      "x"
+    ],
+    "characteristic": 0,
+    "source_generators": [
+      {
+        "schema": "sparse_polynomial_v1",
+        "terms": [
+          {
+            "coefficient": "1",
+            "powers": [
+              [
+                "x",
+                1
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "relation": "NECESSARY_CONDITION",
+    "map_kind": "IDENTITY",
+    "backend_policy": "raise_on_dispatch",
+    "selected_generators": [
+      {
+        "schema": "sparse_polynomial_v1",
+        "terms": [
+          {
+            "coefficient": "1",
+            "powers": [
+              [
+                "x",
+                1
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "requested_observation": "structural_shortcut"
+  },
+  "attempted_conclusion": "Observe structural eligibility and a VERIFIED containment result without invoking the backend.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The exact selected generator is a valid literal subset, so unit-cofactor inclusion verifies without backend search."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_source_depth6_full_template.py",
+      "line": 53,
+      "anchor": "def test_complete_template_earns_selected_face_containment("
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/provenance.py",
+      "line": 318,
+      "anchor": "def _eligible_structural_containment(graph, eid):"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/verify.py",
+      "line": 217,
+      "anchor": "if all(generator in src_gens for generator in dst_gens):"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "GP-X394",
+  "seed": null,
+  "title": "Operational 76.8b: lexical validation boundary",
+  "situation": "Direct SINGULAR identifier validation compares bare x with x followed by a terminal newline; both calls return True.",
+  "inputs": {
+    "incident_row": "76.8b",
+    "vector": {
+      "dialect": "SINGULAR",
+      "field": "ring variable",
+      "identifiers": [
+        "x",
+        "x\n"
+      ],
+      "difference": "terminal newline",
+      "call": "assert_is_identifier"
+    },
+    "retained_evidence_refs": [],
+    "observation_layer": "offline_direct_bounded_control",
+    "bounded_control_ref": "reports/PHASE-0A-OPERATIONAL-CASE-CONVERSION.json#/new_bounded_controls/76.8b"
+  },
+  "attempted_conclusion": "Infer that the CAS identifier validator rejects a terminal newline.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Bare identifier should pass; newline suffix should fail."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/cas.py",
+      "line": 183,
+      "anchor": "def assert_is_identifier(dialect, name, field):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/cas.py",
+      "line": 83,
+      "anchor": "\"identifier\": re.compile(r\"^[A-Za-z][A-Za-z0-9_]*$\"),",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

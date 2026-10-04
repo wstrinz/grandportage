@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "id": "GP-X270",
+  "seed": null,
+  "title": "Two punctured branches miss the origin",
+  "situation": "A cover concerns the declared loci, including nonvanishing conditions, rather than their closed ideal varieties alone.",
+  "inputs": {
+    "parent": {
+      "field": "Q",
+      "variables": [
+        "x"
+      ],
+      "equations": [],
+      "nonzero": []
+    },
+    "branches": [
+      {
+        "field": "Q",
+        "variables": [
+          "x"
+        ],
+        "equations": [],
+        "nonzero": [
+          "x"
+        ]
+      },
+      {
+        "field": "Q",
+        "variables": [
+          "x"
+        ],
+        "equations": [],
+        "nonzero": [
+          "x"
+        ]
+      }
+    ]
+  },
+  "attempted_conclusion": "Every point of the parent lies in at least one declared branch.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Two punctured branches miss the origin"
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/verify.py",
+      "line": 1516,
+      "anchor": "def partition_exhaustiveness(graph, pid, timeout=300, _runner=None, _backend=None):"
+    }
+  ]
+}

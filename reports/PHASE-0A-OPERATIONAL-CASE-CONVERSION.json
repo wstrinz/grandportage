@@ -1,0 +1,1003 @@
+{
+  "schema_version": 1,
+  "title": "Phase 0a operational case candidate conversion",
+  "status": "parent_review_candidate_not_admitted",
+  "frozen_source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "case_schema": "corpus/case.schema.json",
+  "count": {
+    "incidents": 29,
+    "candidate_files": 29,
+    "retained_prior_observations": 27,
+    "new_bounded_controls": 2,
+    "mechanism_groups": 11
+  },
+  "candidate_id_range": "GP-X370..GP-X398",
+  "candidates": [
+    {
+      "incident_row": "53.2",
+      "candidate_id": "GP-X370",
+      "candidate_path": "reports/operational-case-candidates/GP-X370.json",
+      "mechanism_group": "source_format_schema",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Dry run accepts the epoch 11 missing-identity header; format 6 missing identity refuses.",
+      "evidence_refs": [
+        "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/0",
+        "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/1",
+        "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/2"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-53.md#paragraph-2",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/migration.py",
+        "line": 130,
+        "anchor": "def migrate_kernel_epoch(paths, dry_run=False, output=None):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "a3e18bafa29af7b3ba4f5b7c3dee609009eacbacd3849179494f6a1dada3a4da"
+      },
+      "positive_control": {
+        "status": "recorded",
+        "refs": [
+          "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/2"
+        ],
+        "prior_requested": "Historical format-6 missing identity refuses; valid format-8/epoch-11 source header succeeds.",
+        "limit": null
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "54.3",
+      "candidate_id": "GP-X371",
+      "candidate_path": "reports/operational-case-candidates/GP-X371.json",
+      "mechanism_group": "source_format_schema",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Regex matching raises raw TypeError; malformed metadata is not accepted.",
+      "evidence_refs": [
+        "reports/IMPLEMENTATION-IDENTITY-BOUNDARY.json#/controls/2"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-54.md#paragraph-3",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/format.py",
+        "line": 314,
+        "anchor": "commit = implementation[\"source_commit\"]",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "9d7ad6885285b2e55de9bbf6dea62d428d1f68a3b7180728a1651365c82c171e"
+      },
+      "positive_control": {
+        "status": "not_retained",
+        "refs": [],
+        "prior_requested": "Valid string source_commit validates; malformed numeric value returns a structured refusal.",
+        "limit": "The retained record has no separate positive control; candidate does not infer or synthesize one."
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "55.2a",
+      "candidate_id": "GP-X372",
+      "candidate_path": "reports/operational-case-candidates/GP-X372.json",
+      "mechanism_group": "source_format_schema",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Schema accepts the string; native validator refuses it.",
+      "evidence_refs": [
+        "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/0"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-55.md#paragraph-2",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/cli.py",
+        "line": 2125,
+        "anchor": "def native_schema_document():",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308"
+      },
+      "positive_control": {
+        "status": "not_retained",
+        "refs": [],
+        "prior_requested": "Boolean integral native/exported acceptance and string integral refusal agree.",
+        "limit": "The retained record has no separate positive control; candidate does not infer or synthesize one."
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "55.2b",
+      "candidate_id": "GP-X373",
+      "candidate_path": "reports/operational-case-candidates/GP-X373.json",
+      "mechanism_group": "source_format_schema",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Native shape accepts; exported authoring schema refuses.",
+      "evidence_refs": [
+        "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/1"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-55.md#paragraph-2",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/mcp.py",
+        "line": 232,
+        "anchor": "def _event_schema(kind):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "positive_control": {
+        "status": "not_retained",
+        "refs": [],
+        "prior_requested": "Sparse tombstone authoring/export and native shape agree after intended schema policy is stated.",
+        "limit": "The retained record has no separate positive control; candidate does not infer or synthesize one."
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "55.3",
+      "candidate_id": "GP-X374",
+      "candidate_path": "reports/operational-case-candidates/GP-X374.json",
+      "mechanism_group": "health_request_commit",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Text warns, but no isError; doctor reports healthy true and exits zero.",
+      "evidence_refs": [
+        "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/2",
+        "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/3"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-55.md#paragraph-3",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/mcp.py",
+        "line": 823,
+        "anchor": "def h_cas_health(args, root):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "positive_control": {
+        "status": "recorded",
+        "refs": [
+          "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/2"
+        ],
+        "prior_requested": "Expected and unexpected parsed CAS bases yield distinct health flags and doctor exit codes.",
+        "limit": null
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "56.2",
+      "candidate_id": "GP-X375",
+      "candidate_path": "reports/operational-case-candidates/GP-X375.json",
+      "mechanism_group": "health_request_commit",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Array reaches request.get and raises AttributeError before the handler guard; no next response.",
+      "evidence_refs": [
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/0",
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/1"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-56.md#paragraph-2",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/mcp.py",
+        "line": 1438,
+        "anchor": "def serve(stdin=None, stdout=None, root=None):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "positive_control": {
+        "status": "recorded",
+        "refs": [
+          "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/0"
+        ],
+        "prior_requested": "Malformed syntax error response is followed by successful ping; array request should be contained likewise.",
+        "limit": null
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "56.3",
+      "candidate_id": "GP-X376",
+      "candidate_path": "reports/operational-case-candidates/GP-X376.json",
+      "mechanism_group": "health_request_commit",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Graph bytes contain the model, while dispatch returns isError traceback and ambiguous retry status.",
+      "evidence_refs": [
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/2",
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/3",
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/4"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-56.md#paragraph-3",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/mcp.py",
+        "line": 1359,
+        "anchor": "def dispatch(request, root=ROOT):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "positive_control": {
+        "status": "recorded",
+        "refs": [
+          "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/2",
+          "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/3"
+        ],
+        "prior_requested": "Successful append response and pre-append failure preserve distinct durable commit status.",
+        "limit": null
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "58.2",
+      "candidate_id": "GP-X377",
+      "candidate_path": "reports/operational-case-candidates/GP-X377.json",
+      "mechanism_group": "handoff_api_contract",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Rendered text is identical although stored point scopes differ.",
+      "evidence_refs": [
+        "reports/MCP-HANDOFF-CONTEXT-BOUNDARY.json#/controls/0",
+        "reports/MCP-HANDOFF-CONTEXT-BOUNDARY.json#/controls/1"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-58.md#paragraph-2",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/mcp.py",
+        "line": 1187,
+        "anchor": "\"about=%s\" % m[\"about\"] if m.get(\"about\") else None,",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "positive_control": {
+        "status": "not_retained",
+        "refs": [],
+        "prior_requested": "Q BASE and Q ALGEBRAIC_CLOSURE compact handoffs identify their different point universes.",
+        "limit": "The retained record has no separate positive control; candidate does not infer or synthesize one."
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "58.3a",
+      "candidate_id": "GP-X378",
+      "candidate_path": "reports/operational-case-candidates/GP-X378.json",
+      "mechanism_group": "handoff_api_contract",
+      "observation_layer": "offline_direct_bounded_control",
+      "observed_behavior": {
+        "layer": "offline_direct_bounded_control",
+        "method": "one scratch graph; direct h_portage_check calls with floor DEBT and UNSOUND_CONCLUSION",
+        "graph_sha256_before": "a2da8ba7a7f9f4e3f22b2c08094715e46044a8898ee1bd67ab25bdb1311c87c9",
+        "graph_sha256_after": "a2da8ba7a7f9f4e3f22b2c08094715e46044a8898ee1bd67ab25bdb1311c87c9",
+        "response_text_both": "DEBT  UNTYPED-EDGE:E\n    edge E (A -> B) has no declared relaxation type.\n      debt: needs classification\n      inferences crossing it: (none yet)\n    -> DISCHARGE: Name the relaxation.  What does this step LOSE?  Nothing -> EQUIVALENCE (and you must be able to exhibit the converse).  Equations -> NECESSARY_CONDITION.  A larger coefficient field -> BASE_EXTENSION.  An elimination or a projection -> IMAGE_CLOSURE.  A change of characteristic -> SPECIALIZATION.  Until it is named, no conclusion crosses this edge.\n\nclean inferences (0): -",
+        "responses_equal": true,
+        "graph_unchanged": true,
+        "scratch_graph": "tmp/op-floor-0338nmm5/.portage/graph.jsonl",
+        "positive_control": "floor DEBT legitimately displays the DEBT finding; both accepted request values were handled"
+      },
+      "evidence_refs": [],
+      "batch_evidence": "reports/PHASE-0A-BATCH-58.md#paragraph-3",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/mcp.py",
+        "line": 923,
+        "anchor": "def h_portage_check(args, root):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "positive_control": {
+        "status": "recorded",
+        "refs": [
+          "reports/PHASE-0A-OPERATIONAL-CASE-CONVERSION.json#/new_bounded_controls/58.3a"
+        ],
+        "prior_requested": "Two requests differing only in floor produce distinguishable behavior if floor is advertised.\n",
+        "limit": null
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": [],
+      "gap_resolution": "bounded control recorded in this manifest"
+    },
+    {
+      "incident_row": "61.3",
+      "candidate_id": "GP-X379",
+      "candidate_path": "reports/operational-case-candidates/GP-X379.json",
+      "mechanism_group": "digest_filesystem_custody",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Checkout is CURRENT_CLEAN; pinned HEAD is STALE with two digest mismatches.",
+      "evidence_refs": [
+        "reports/DOSSIER-BOUNDARIES-AUDIT.json#/controls/2",
+        "reports/DOSSIER-BOUNDARIES-AUDIT.json#/controls/3"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-61.md#paragraph-3",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/dossier.py",
+        "line": 500,
+        "anchor": "def _audit_source(source, artifacts, source_root, source_ref=None):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "6b81486e77377d76971059b2cb3789803152945af4e938de2013ee5f0f527e11"
+      },
+      "positive_control": {
+        "status": "recorded",
+        "refs": [
+          "reports/DOSSIER-BOUNDARIES-AUDIT.json#/controls/2"
+        ],
+        "prior_requested": "LF and CRLF checkout and pinned-ref audits compute the same declared normalized digest.",
+        "limit": null
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "63.2",
+      "candidate_id": "GP-X380",
+      "candidate_path": "reports/operational-case-candidates/GP-X380.json",
+      "mechanism_group": "digest_filesystem_custody",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Alias passes and replaces protected input; identical spelling refuses.",
+      "evidence_refs": [
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/3",
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/5"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-63.md#paragraph-2",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/cli.py",
+        "line": 2558,
+        "anchor": "def _write_named_derived_output(args, content, protected=()):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308"
+      },
+      "positive_control": {
+        "status": "recorded",
+        "refs": [
+          "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/3"
+        ],
+        "prior_requested": "Identical spelling and case/alias spelling both protect input bytes.",
+        "limit": null
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "63.3",
+      "candidate_id": "GP-X381",
+      "candidate_path": "reports/operational-case-candidates/GP-X381.json",
+      "mechanism_group": "digest_filesystem_custody",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Exclusive open raises FileExistsError and finally deletes the preexisting file.",
+      "evidence_refs": [
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/2",
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/4"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-63.md#paragraph-3",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/cli.py",
+        "line": 2558,
+        "anchor": "def _write_named_derived_output(args, content, protected=()):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308"
+      },
+      "positive_control": {
+        "status": "recorded",
+        "refs": [
+          "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/2"
+        ],
+        "prior_requested": "Ordinary exclusive temporary creation succeeds; preexisting file remains untouched on failure.",
+        "limit": null
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "63.4",
+      "candidate_id": "GP-X382",
+      "candidate_path": "reports/operational-case-candidates/GP-X382.json",
+      "mechanism_group": "digest_filesystem_custody",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Materialization succeeds with archived digest different from bound digest and checksum entry.",
+      "evidence_refs": [
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/0"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-63.md#paragraph-4",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/release.py",
+        "line": 803,
+        "anchor": "def _materialize(release, source_root, output_dir, *, replay_only):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "65c3cead208858bf26cd9441288c14c1c473ac35d27640ad7561c9809a11cd9c"
+      },
+      "positive_control": {
+        "status": "not_retained",
+        "refs": [],
+        "prior_requested": "Unchanged source copy matches manifest digest; injected source change refuses or rebinds archived digest.",
+        "limit": "The retained record has no separate positive control; candidate does not infer or synthesize one."
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "65.4",
+      "candidate_id": "GP-X383",
+      "candidate_path": "reports/operational-case-candidates/GP-X383.json",
+      "mechanism_group": "digest_filesystem_custody",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Actual CLI overwrites either selected bound input and exits zero.",
+      "evidence_refs": [
+        "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/3",
+        "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/4"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-65.md#paragraph-4",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/frontier_bundle.py",
+        "line": 360,
+        "anchor": "def emit_review_receipt(report, path):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "acb4d823eaee9d39d1494374cb20d6153763ab2689a898bb537d56fe2ff71103"
+      },
+      "positive_control": {
+        "status": "not_retained",
+        "refs": [],
+        "prior_requested": "Review emission to a separate path succeeds and bound inputs retain their hashes.",
+        "limit": "The retained record has no separate positive control; candidate does not infer or synthesize one."
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "69.3",
+      "candidate_id": "GP-X384",
+      "candidate_path": "reports/operational-case-candidates/GP-X384.json",
+      "mechanism_group": "digest_filesystem_custody",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Export returns success, overwrites copied file, and validator later reports SHA mismatch.",
+      "evidence_refs": [
+        "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/2"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-69.md#paragraph-3",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "scripts/corpus_check.py",
+        "line": 66,
+        "anchor": "(destination / \"export-manifest.json\").write_text(json.dumps(manifest, indent=2)+\"\\n\", encoding=\"utf-8\")",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "fed263a3f2b933e7d371b1dbe83c7f42e80379ea42e305fd107dfbe951b33f89"
+      },
+      "positive_control": {
+        "status": "not_retained",
+        "refs": [],
+        "prior_requested": "No reserved source name exports unchanged; collision refuses before output mutation.",
+        "limit": "The retained record has no separate positive control; candidate does not infer or synthesize one."
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "64.3b",
+      "candidate_id": "GP-X385",
+      "candidate_path": "reports/operational-case-candidates/GP-X385.json",
+      "mechanism_group": "packet_attempt_binding",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Direct overlay accepts changed content; explicit prior ledger refuses changed attempt fingerprint.",
+      "evidence_refs": [
+        "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/0",
+        "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/1",
+        "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/2"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-64.md#paragraph-3",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/campaign.py",
+        "line": 585,
+        "anchor": "def build_overlay(packet_set, ledger):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "aa7143280c0869a28761942ec3faf9f0c7da4d872b017dd7fffeb6716eb3cdf4"
+      },
+      "positive_control": {
+        "status": "recorded",
+        "refs": [
+          "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/2"
+        ],
+        "prior_requested": "Overlay with matching packet fingerprints succeeds; changed proposition under the old ledger refuses.\n",
+        "limit": null
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "65.3a",
+      "candidate_id": "GP-X386",
+      "candidate_path": "reports/operational-case-candidates/GP-X386.json",
+      "mechanism_group": "frontier_count_status",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Receipt reports 2 open while aggregate reports 1.",
+      "evidence_refs": [
+        "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/0"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-65.md#paragraph-3",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/frontier_bundle.py",
+        "line": 166,
+        "anchor": "declared_open = document.get(\"open_items\")",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "acb4d823eaee9d39d1494374cb20d6153763ab2689a898bb537d56fe2ff71103"
+      },
+      "positive_control": {
+        "status": "not_retained",
+        "refs": [],
+        "prior_requested": "Unique open_items maintains matching per-receipt and aggregate counts.",
+        "limit": "The retained record has no separate positive control; candidate does not infer or synthesize one."
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "65.3b",
+      "candidate_id": "GP-X387",
+      "candidate_path": "reports/operational-case-candidates/GP-X387.json",
+      "mechanism_group": "frontier_count_status",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "ID A newline is accepted.",
+      "evidence_refs": [
+        "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/1"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-65.md#paragraph-3",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/frontier_bundle.py",
+        "line": 37,
+        "anchor": "def _stable_id(value, label):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "acb4d823eaee9d39d1494374cb20d6153763ab2689a898bb537d56fe2ff71103"
+      },
+      "positive_control": {
+        "status": "not_retained",
+        "refs": [],
+        "prior_requested": "Valid stable ID accepted; terminal newline rejected.",
+        "limit": "The retained record has no separate positive control; candidate does not infer or synthesize one."
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "66.2",
+      "candidate_id": "GP-X388",
+      "candidate_path": "reports/operational-case-candidates/GP-X388.json",
+      "mechanism_group": "frontier_count_status",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Observation becomes CLOSED, while explicit OPEN remains OPEN.",
+      "evidence_refs": [
+        "reports/FRONTIER-PROJECTION-BOUNDARIES.json#/controls/0",
+        "reports/FRONTIER-PROJECTION-BOUNDARIES.json#/controls/1"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-66.md#paragraph-2",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/frontier.py",
+        "line": 290,
+        "anchor": "if (item.get(\"frontier_state\") == \"OPEN\"",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "04bde7fe30865018c6ed461f793a446756c7d8a0901c820e16bd47484079d5ae"
+      },
+      "positive_control": {
+        "status": "recorded",
+        "refs": [
+          "reports/FRONTIER-PROJECTION-BOUNDARIES.json#/controls/1"
+        ],
+        "prior_requested": "Explicit OPEN remains open; known CLOSED status closes; unknown FAILED does not silently close.",
+        "limit": null
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "69.2",
+      "candidate_id": "GP-X389",
+      "candidate_path": "reports/operational-case-candidates/GP-X389.json",
+      "mechanism_group": "corpus_reporting",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "GraphError occurs before corpus-report.json exists; READY remains retention-only.",
+      "evidence_refs": [
+        "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/0",
+        "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/1"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-69.md#paragraph-2",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "scripts/project_ir_corpus.py",
+        "line": 129,
+        "anchor": "graph=S.load(str(Path(corpus_root)/campaign/\"graph.jsonl\"))",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "195b65281c8f80596ccc085cedde42b58cc8e0ce4a433cfd82c90203b5bd5616"
+      },
+      "positive_control": {
+        "status": "not_retained",
+        "refs": [],
+        "prior_requested": "Valid native graph produces a report; malformed graph yields a per-campaign load error.",
+        "limit": "The retained record has no separate positive control; candidate does not infer or synthesize one."
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "74.3",
+      "candidate_id": "GP-X390",
+      "candidate_path": "reports/operational-case-candidates/GP-X390.json",
+      "mechanism_group": "transcript_postvalidation",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "errors=ignore reduces both to OK newline and the same retained text digest.",
+      "evidence_refs": [
+        "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/0",
+        "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/1"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-74.md#paragraph-3",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/cas.py",
+        "line": 963,
+        "anchor": "stdout = bytes(buffers[\"stdout\"]).decode(\"utf-8\", errors=\"ignore\")",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "positive_control": {
+        "status": "recorded",
+        "refs": [
+          "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/0"
+        ],
+        "prior_requested": "Valid UTF-8 transcript retains bytes; distinct invalid byte streams cannot share retained evidence identity.",
+        "limit": null
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "74.5",
+      "candidate_id": "GP-X391",
+      "candidate_path": "reports/operational-case-candidates/GP-X391.json",
+      "mechanism_group": "transcript_postvalidation",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Mutating referenced reason changes fingerprint while validator accepts.",
+      "evidence_refs": [
+        "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/3"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-74.md#paragraph-5",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/backend.py",
+        "line": 132,
+        "anchor": "abort_reason: object",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "8a2cbb4c617e2e76b4a346bb0cabfaf583e7ebfe150207e4889eaf593e4dd03f"
+      },
+      "positive_control": {
+        "status": "not_retained",
+        "refs": [],
+        "prior_requested": "Native string/null abort_reason remains stable; direct mutable object is copied/refused.",
+        "limit": "The retained record has no separate positive control; candidate does not infer or synthesize one."
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "76.2",
+      "candidate_id": "GP-X392",
+      "candidate_path": "reports/operational-case-candidates/GP-X392.json",
+      "mechanism_group": "transcript_postvalidation",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Injected runner receives shadowing statement and mock complete transcript parses.",
+      "evidence_refs": [
+        "reports/CAS-PROGRAM-CUSTODY.json#/observations/0",
+        "reports/CAS-PROGRAM-CUSTODY.json#/observations/1"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-76.md#paragraph-2",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/cas.py",
+        "line": 329,
+        "anchor": "class CASProgram(object):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "positive_control": {
+        "status": "recorded",
+        "refs": [
+          "reports/CAS-PROGRAM-CUSTODY.json#/observations/0"
+        ],
+        "prior_requested": "Unchanged validated body executes; post-validation shadowing mutation must be refused or snapshotted.",
+        "limit": null
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "74.4",
+      "candidate_id": "GP-X393",
+      "candidate_path": "reports/operational-case-candidates/GP-X393.json",
+      "mechanism_group": "lexical_validation",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "valid_fingerprint accepts the newline-bearing string.",
+      "evidence_refs": [
+        "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/2"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-74.md#paragraph-4",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/backend.py",
+        "line": 48,
+        "anchor": "def valid_fingerprint(value):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "8a2cbb4c617e2e76b4a346bb0cabfaf583e7ebfe150207e4889eaf593e4dd03f"
+      },
+      "positive_control": {
+        "status": "not_retained",
+        "refs": [],
+        "prior_requested": "Valid 64-hex digest accepted and trailing newline rejected.",
+        "limit": "The retained record has no separate positive control; candidate does not infer or synthesize one."
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "76.8b",
+      "candidate_id": "GP-X394",
+      "candidate_path": "reports/operational-case-candidates/GP-X394.json",
+      "mechanism_group": "lexical_validation",
+      "observation_layer": "offline_direct_bounded_control",
+      "observed_behavior": {
+        "layer": "offline_direct_bounded_control",
+        "method": "direct cas.assert_is_identifier(cas.SINGULAR, value, ring variable)",
+        "results": [
+          {
+            "value": "x",
+            "accepted": true,
+            "result": true
+          },
+          {
+            "value": "x\n",
+            "accepted": true,
+            "result": true
+          }
+        ],
+        "positive_control": "bare x accepted"
+      },
+      "evidence_refs": [],
+      "batch_evidence": "reports/PHASE-0A-BATCH-76.md#paragraph-8",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/cas.py",
+        "line": 183,
+        "anchor": "def assert_is_identifier(dialect, name, field):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "positive_control": {
+        "status": "recorded",
+        "refs": [
+          "reports/PHASE-0A-OPERATIONAL-CASE-CONVERSION.json#/new_bounded_controls/76.8b"
+        ],
+        "prior_requested": "Valid identifier is accepted; identical spelling plus terminal newline is refused.\n",
+        "limit": null
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": [],
+      "gap_resolution": "bounded control recorded in this manifest"
+    },
+    {
+      "incident_row": "76.3",
+      "candidate_id": "GP-X395",
+      "candidate_path": "reports/operational-case-candidates/GP-X395.json",
+      "mechanism_group": "cas_declaration_identity",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Stored model generators are caller [1], not parsed x; no operation verdict is created.",
+      "evidence_refs": [
+        "reports/CAS-PROGRAM-CUSTODY.json#/observations/2"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-76.md#paragraph-3",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/cas.py",
+        "line": 735,
+        "anchor": "def run_cas(program, *, edge, produces, describes, root=\".\", timeout=300,",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "positive_control": {
+        "status": "not_retained",
+        "refs": [],
+        "prior_requested": "Matching caller/output generators bind declaration; mismatch refuses or records explicit provenance difference.",
+        "limit": "The retained record has no separate positive control; candidate does not infer or synthesize one."
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "76.7",
+      "candidate_id": "GP-X396",
+      "candidate_path": "reports/operational-case-candidates/GP-X396.json",
+      "mechanism_group": "cas_declaration_identity",
+      "observation_layer": "accepted_injected_persistence_contrast",
+      "observed_behavior": "The semantic CASProgram fingerprint and execution semantic-input fingerprint identify the unchanged rendered template, yet resulting model declarations retain different caller generator metadata. The current persisted model event does distinguish the declarations. Nonce-bound execution/artifact fingerprints differ between runs for independent nonce reasons and are not evidence that the semantic input fingerprint binds generators.",
+      "evidence_refs": [
+        "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/method",
+        "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/observations/0",
+        "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/observations/1",
+        "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/comparison"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-76.md#paragraph-7",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/cas.py",
+        "line": 439,
+        "anchor": "def semantic_fingerprint(self):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "positive_control": {
+        "status": "recorded",
+        "refs": [
+          "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/observations/0"
+        ],
+        "prior_requested": "Same program with changed model generators yields distinguishable declaration identity.",
+        "limit": null
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": [],
+      "gap_resolution": "accepted injected-runner contrast at reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json"
+    },
+    {
+      "incident_row": "77.3",
+      "candidate_id": "GP-X397",
+      "candidate_path": "reports/operational-case-candidates/GP-X397.json",
+      "mechanism_group": "hook_error_reporting",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Both array inputs raise raw AttributeError; host behavior after error was not tested.",
+      "evidence_refs": [
+        "reports/HOOK-BOUNDARY-AUDIT.json#/observations/0",
+        "reports/HOOK-BOUNDARY-AUDIT.json#/observations/1"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-77.md#paragraph-3",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/hook.py",
+        "line": 84,
+        "anchor": "def read_baseline(root=\".\"):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "679f181223aa7796c94c1c4248d74c698afe990817bad615fe1b1696a5a4c9aa"
+      },
+      "positive_control": {
+        "status": "not_retained",
+        "refs": [],
+        "prior_requested": "Valid object payloads continue processing; array payloads return structured refusal and next event survives.",
+        "limit": "The retained record has no separate positive control; candidate does not infer or synthesize one."
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    },
+    {
+      "incident_row": "77.4",
+      "candidate_id": "GP-X398",
+      "candidate_path": "reports/operational-case-candidates/GP-X398.json",
+      "mechanism_group": "hook_error_reporting",
+      "observation_layer": "retained_bounded_diagnostic",
+      "observed_behavior": "Second call says still refused, unchanged although evaluate messages differ; exit 2 remains blocking.",
+      "evidence_refs": [
+        "reports/HOOK-BOUNDARY-AUDIT.json#/observations/2"
+      ],
+      "batch_evidence": "reports/PHASE-0A-BATCH-77.md#paragraph-4",
+      "source_pin": {
+        "repository": "gp-v037",
+        "path": "grandportage/hook.py",
+        "line": 355,
+        "anchor": "block, message = evaluate(root)",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "sha256": "679f181223aa7796c94c1c4248d74c698afe990817bad615fe1b1696a5a4c9aa"
+      },
+      "positive_control": {
+        "status": "not_retained",
+        "refs": [],
+        "prior_requested": "Same graph error reports unchanged; different decoder errors report changed while exit remains blocking.",
+        "limit": "The retained record has no separate positive control; candidate does not infer or synthesize one."
+      },
+      "policy_status": "candidate_refuses_overclaim_only",
+      "prior_limits": []
+    }
+  ],
+  "new_bounded_controls": {
+    "58.3a": {
+      "layer": "offline_direct_bounded_control",
+      "method": "one scratch graph; direct h_portage_check calls with floor DEBT and UNSOUND_CONCLUSION",
+      "graph_sha256_before": "a2da8ba7a7f9f4e3f22b2c08094715e46044a8898ee1bd67ab25bdb1311c87c9",
+      "graph_sha256_after": "a2da8ba7a7f9f4e3f22b2c08094715e46044a8898ee1bd67ab25bdb1311c87c9",
+      "response_text_both": "DEBT  UNTYPED-EDGE:E\n    edge E (A -> B) has no declared relaxation type.\n      debt: needs classification\n      inferences crossing it: (none yet)\n    -> DISCHARGE: Name the relaxation.  What does this step LOSE?  Nothing -> EQUIVALENCE (and you must be able to exhibit the converse).  Equations -> NECESSARY_CONDITION.  A larger coefficient field -> BASE_EXTENSION.  An elimination or a projection -> IMAGE_CLOSURE.  A change of characteristic -> SPECIALIZATION.  Until it is named, no conclusion crosses this edge.\n\nclean inferences (0): -",
+      "responses_equal": true,
+      "graph_unchanged": true,
+      "scratch_graph": "tmp/op-floor-0338nmm5/.portage/graph.jsonl",
+      "positive_control": "floor DEBT legitimately displays the DEBT finding; both accepted request values were handled"
+    },
+    "76.8b": {
+      "layer": "offline_direct_bounded_control",
+      "method": "direct cas.assert_is_identifier(cas.SINGULAR, value, ring variable)",
+      "results": [
+        {
+          "value": "x",
+          "accepted": true,
+          "result": true
+        },
+        {
+          "value": "x\n",
+          "accepted": true,
+          "result": true
+        }
+      ],
+      "positive_control": "bare x accepted"
+    }
+  },
+  "policy_alternatives_preserved": [
+    {
+      "ids": [
+        "55.2b"
+      ],
+      "boundary": "Whether the exported authoring schema should accept sparse retractions or be labeled a narrower approximation."
+    },
+    {
+      "ids": [
+        "66.2"
+      ],
+      "boundary": "Whether an unknown status refuses or remains open; the observed silent CLOSED state is the incident."
+    },
+    {
+      "ids": [
+        "56.3"
+      ],
+      "boundary": "The retry protocol after a durable append and response-rendering failure."
+    },
+    {
+      "ids": [
+        "76.3"
+      ],
+      "boundary": "Whether a caller/output generator mismatch refuses or is explicitly represented as distinct provenance."
+    }
+  ],
+  "observation_route_proposal": {
+    "route_kind": "retained_observation_only",
+    "input": "candidate ID plus immutable cited report controls and frozen source pins",
+    "check": "Resolve each cited report pointer, require its recorded file SHA-256 and frozen source pin to match, then compare the retained diagnostic to the attempted conclusion. For the two new controls, use the bounded-control record in this manifest at an admitted content revision.",
+    "output": {
+      "observation_layer": "retained_diagnostic",
+      "native_oracle_verdict": null,
+      "diagnostic_status": "OBSERVED or EVIDENCE_STALE",
+      "admission_status": "requires parent decision"
+    },
+    "rule": "This route may report a diagnostic counterexample but must not emit a fresh native ACCEPT/REFUSE or replace native oracle replay."
+  },
+  "limits": [
+    "All 29 expected REFUSE fields target the stated operational overclaim, not a mathematical verdict.",
+    "27 earlier report controls were transcribed as references; no prior incident was re-executed.",
+    "The 76.7 accepted injected-runner contrast is referenced without a new run.",
+    "For 55.2b, 56.3, 66.2, and 76.3, a repair policy remains open; these candidates refuse only the observed overclaim.",
+    "Candidates are outside corpus/must and are not routed, replayed, or admitted."
+  ],
+  "validation": {
+    "candidate_schema": "29/29 valid Draft 2020-12",
+    "source_pins": "29/29 primary SHA-256 and all candidate line anchors verified against frozen checkout",
+    "evidence_pointers": "all resolved",
+    "positive_controls_recorded_rows": 14,
+    "positive_controls_not_retained_rows": 15
+  },
+  "retained_evidence_file_sha256": {
+    "reports/BACKEND-TRANSCRIPT-BOUNDARY.json": "67c62aa081705686dd2a52400b834c8cd42c35321e01dc6219549ab01ac9161c",
+    "reports/CAS-PROGRAM-CUSTODY.json": "48066692fdd7df7b6b128d5f5aca26b03441f3dccea072d7bfda4d9f131d31e6",
+    "reports/CORPUS-INTAKE-BOUNDARIES.json": "beaac8f643eab4e0a9a0a4a81cf92f362a3f1102a998752c2be010718bea94bb",
+    "reports/DOSSIER-BOUNDARIES-AUDIT.json": "1e5ddda5f4bbfbdf6b60be0ea2a58009481d072302275c8f1c1be9e5b868ea93",
+    "reports/FRONTIER-BUNDLE-BOUNDARIES.json": "064f437fe37f2721c0386676e4daea305c0563f3a4aeb6fc07d56d976c85f36f",
+    "reports/FRONTIER-PROJECTION-BOUNDARIES.json": "229dbd424a60b8bb4cbe79dc125e47eb1bdf8fbb8f14d853a9cde2e4829f7b02",
+    "reports/HOOK-BOUNDARY-AUDIT.json": "a17469ccc412422b96121535167b4b9428155503d177fbdf642f86b906778c34",
+    "reports/IMPLEMENTATION-IDENTITY-BOUNDARY.json": "8dcb40e7067cbaf2800e75346a7400bc10b36941c63be121b945d9a422b1aaee",
+    "reports/MATERIALIZATION-BOUNDARY-AUDIT.json": "7dba85e62dae570a81622bbcdadee68a672bf5183df246599368a011ad3a97de",
+    "reports/MCP-HANDOFF-CONTEXT-BOUNDARY.json": "cf17908f7d49257c0190605534f80f22fcf6b15f0ecdc15c5359fcdfddf8cbe3",
+    "reports/MCP-REQUEST-COMMIT-BOUNDARY.json": "06a91c234253688af679fc7cbc7ba25d409f0b2effe81092bb2d9eaf146432fa",
+    "reports/MIGRATION-CUSTODY-BOUNDARY.json": "a73aecf0dc50c08c0487e1eb5a7dc43bc548c6f885272aa204831c698127a628",
+    "reports/PACKET-ATTEMPT-BINDING-AUDIT.json": "def6d942d6342ee483ff73d5c2042521ffe70fb64ea4e91dd62a04368b94f9d1",
+    "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json": "515f8759fc6d8122e4496fa7a76d023233c02b0d73b0e7a281c99d481de0b4c0",
+    "reports/SCHEMA-HEALTH-BOUNDARY.json": "0a6b9a3f6d3db563ae6069ec4222095a444d9c08da4826506608e5de9263e776"
+  }
+}

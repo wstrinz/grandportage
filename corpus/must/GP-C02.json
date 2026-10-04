@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "GP-C02",
+  "seed": null,
+  "title": "Emptiness pulls back along inclusion",
+  "situation": "A checked inclusion maps a source into an empty target.",
+  "inputs": {
+    "relation": "checked inclusion",
+    "target_empty": true
+  },
+  "attempted_conclusion": "Conclude the source is empty.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Any source point would give a target point."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_kernel.py",
+      "line": 137,
+      "anchor": "def test_base_extension_reverses_the_asymmetry("
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "GP-X03",
+  "seed": null,
+  "title": "An empty source has empty image closure",
+  "situation": "The source is proved empty and the target is its exact image closure.",
+  "inputs": {
+    "source_empty": true,
+    "target_relation": "exact image closure"
+  },
+  "attempted_conclusion": "Conclude the target is empty.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The closure of the empty image is empty."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/discharge.py",
+      "line": 434,
+      "anchor": "\"truth\": \"sound -- the closure of the empty set is empty\""
+    }
+  ]
+}

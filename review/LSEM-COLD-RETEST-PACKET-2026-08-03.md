@@ -4,7 +4,7 @@
 
 **Grand Portage reference:** `eeb7e81`
 
-**Campaign root:** `C:\Users\wstri\dev\portage-depot\campaigns\lsem-census`
+**Campaign root:** `$DEV/portage-depot/campaigns/lsem-census`
 
 ## Cold-context rule
 
@@ -58,23 +58,23 @@ surface assay.
 Use the original campaign graph only as the immutable migration source:
 
 ```text
-C:\Users\wstri\dev\portage-depot\campaigns\lsem-census\.portage\graph.jsonl
+$DEV/portage-depot/campaigns/lsem-census/.portage/graph.jsonl
 ```
 
 Before migration, record its SHA-256. Create this side-by-side target:
 
 ```text
-C:\Users\wstri\dev\portage-depot\campaigns\lsem-census\.portage\graph.l3-retest.jsonl
+$DEV/portage-depot/campaigns/lsem-census/.portage/graph.l3-retest.jsonl
 ```
 
 Use Grand Portage migration rather than copying or rewriting the source. The
 intended command shape is:
 
 ```powershell
-gport --root C:\Users\wstri\dev\portage-depot\campaigns\lsem-census `
-  --graph C:\Users\wstri\dev\portage-depot\campaigns\lsem-census\.portage\graph.jsonl `
+gport --root $DEV/portage-depot/campaigns/lsem-census `
+  --graph $DEV/portage-depot/campaigns/lsem-census/.portage/graph.jsonl `
   migrate --to-epoch1 `
-  --epoch1-output C:\Users\wstri\dev\portage-depot\campaigns\lsem-census\.portage\graph.l3-retest.jsonl
+  --epoch1-output $DEV/portage-depot/campaigns/lsem-census/.portage/graph.l3-retest.jsonl
 ```
 
 If the target or its migration audit already exists, do not overwrite it.
@@ -122,7 +122,7 @@ epoch-1 event to the original unversioned graph.
 Write the result to:
 
 ```text
-C:\Users\wstri\dev\portage-depot\campaigns\lsem-census\L3-RETEST-RETURN.md
+$DEV/portage-depot/campaigns/lsem-census/L3-RETEST-RETURN.md
 ```
 
 Include:

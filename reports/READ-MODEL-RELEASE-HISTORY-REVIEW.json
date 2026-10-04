@@ -1,0 +1,67 @@
+{
+  "commit": "af4f6a8f6872521f4f814ab8cdb22af32a11d52c",
+  "selected_diff_sha256": "c0ad1864965a4a208217f3b94c78d23a593b1e5397597fe70665bf9e5227146b",
+  "scope": "Eight complete path diffs; combined with Batch 35, twelve of thirty-six release path diffs read. Full release review remains incomplete.",
+  "files": [
+    {
+      "path": "grandportage/projection.py",
+      "blob": "92d4dc542fe97112c3fc65d930d37b7c84e442a5",
+      "sha256": "dae009815c1502e4f07e4bae13013a51bcbaa7cf9e7ad46e50abd4fab40a1885",
+      "disposition": "Full path diff read: streaming source hash, first/last commitments, invalid JSON count and compact-byte limit. Pinned routine read; actual CLI representation exceeds checked compact bound in diagnostic."
+    },
+    {
+      "path": "scripts/compact_review_projection.py",
+      "blob": "d87711924e974c852dfe3deca40f037536602afd",
+      "sha256": "0846b1013b3941be01f21a211a06e242a013fcdc1324d94d672f38e2a1b2505e",
+      "disposition": "Full added CLI read and pinned current CLI read; existence check followed by ordinary write is not atomic exclusive publication. No race reproduction claimed. Output uses pretty JSON; actual size mismatch reproduced."
+    },
+    {
+      "path": "tests/test_compact_review_projection.py",
+      "blob": "9e44d63b57fca385d65dc131f7d8cc3a792d2ce4",
+      "sha256": "782ea087f17ee148341199b33372535588ee581c4838372f7cdbc194e40c5677",
+      "disposition": "Full added test read and full pinned three-test file read. Three pinned tests pass: digest/mutation, first/last selection, CLI output parent. None covers actual emitted 1 MB threshold."
+    },
+    {
+      "path": "scripts/public_snapshot.py",
+      "blob": "59a3f13913fbe45ac600b4f522a805a993dd461b",
+      "sha256": "92bb275a6398db2477159b0f69eeea1312e1a0959ef7bf5ca3a93a1152ad2616",
+      "disposition": "Full path diff read; pinned classification helpers through classify_paths read. Campaign detection uses lexical names and allowlist prefixes; no claim of content secrecy or whole exporter review."
+    },
+    {
+      "path": "public-snapshot-v1.json",
+      "blob": "068578319d3e3152c6a7cb83517c98c9ce777907",
+      "sha256": "7afcc88ba43886e931a48e39536903f9b669165fd6a193613f18fb3e0776d78e",
+      "disposition": "Full path diff and pinned manifest read. Historical broad allowlists are historical custody decisions, not permission to access or move campaign sources."
+    },
+    {
+      "path": "tests/test_public_snapshot.py",
+      "blob": "b0c240cbbaface8cf262177bbaeb27061fa7ac3b",
+      "sha256": "ea7975534bced28ffa0b40f5e260332f8dd35124388752812470f761c3d1d60e",
+      "disposition": "Full path diff read: new ARR15 root refusal under public prefix. Broader pinned test file only partly read; no complete snapshot test-suite claim."
+    },
+    {
+      "path": "docs/V0.27-READ-MODEL-LATTICE.md",
+      "blob": "2f774740d4b7a3dacd3bbe34bdae713e3a4b8ca4",
+      "sha256": "df387ecaa11c1ccec2ec2b80847852834da66b6529a41e179698c20536b40c53",
+      "disposition": "Full added document read. Seven derived surfaces retain no graph authority; proposed common substrate is a recommendation, not implemented equivalence. Claimed artifact size has CLI counterexample."
+    },
+    {
+      "path": "docs/V0.27-JC-EXTRACTION-INVENTORY.md",
+      "blob": "458b53c78e674f16f6171f1e32a12a776aa4d3a3",
+      "sha256": "759523fe4213bed7549d323c9e07cf77f230c235c363926b1ceeace346ae0fc6",
+      "disposition": "Full added document read. Historical destination approval remains historical; no move performed. Gamma answer-key requirement prohibits post-hoc retrodiction relabeling. Relocation lessons are preserved as requirements, not evidence of completed campaign sweep."
+    }
+  ],
+  "diagnostic": "reports/READ-MODEL-CUSTODY-BOUNDARY.json",
+  "tests": {
+    "report": "reports/oracle-read-model-review.xml",
+    "sha256": "7812ceba6a0b49e2d228ec15b9bee8eb41435089dcbe156e9e3bedaf760009ad",
+    "passed": 3
+  },
+  "initial_size_probe": {
+    "records": 5000,
+    "compact_bytes": 634359,
+    "actual_cli_bytes": 964445,
+    "result": "Both below limit; initial threshold assertion failed. Increased synthetic record count to 5500, leaving production implementation unchanged."
+  }
+}

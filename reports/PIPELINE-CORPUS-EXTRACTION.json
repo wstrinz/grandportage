@@ -1,0 +1,26 @@
+{
+  "new_cases": [
+    "GP-X302",
+    "GP-X303",
+    "GP-X304",
+    "GP-X305",
+    "GP-X306",
+    "GP-X307"
+  ],
+  "prior_cases_verified": 342,
+  "prior_case_bytes": "Matched HEAD before additions; all prior case hashes and expected/observed/status fields unchanged in replay.",
+  "replay": "reports/oracle-runs/20260928T142458952693Z.json",
+  "summary": {
+    "AGREES": 334,
+    "DIAGNOSTIC_OBSERVED": 1,
+    "KNOWN_DIFFERENCE": 11,
+    "PENDING": 1,
+    "UNSUPPORTED": 1
+  },
+  "expected_counts": {
+    "REFUSE": 242,
+    "ACCEPT": 106
+  },
+  "adapter_sha256": "5213a826173c04ae79a44ee55fe6bf97901108eab7d72a70d4abc8b8c4835fad",
+  "scope": "Canonical export binding only; all six individual pass pairs verify before composition. No model/source/chart authority."
+}

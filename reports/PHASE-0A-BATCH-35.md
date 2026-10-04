@@ -1,0 +1,11 @@
+# Phase 0a — reference-checker release slice
+
+Read four complete path diffs from v0.27 release af4f6a8: reference_oracle.py, groebner.py, its retained four-case fixture, and test_reference_oracle.py. Also read the complete pinned reference implementation and test file. The initial whole-release output was truncated; no full-release credit is claimed. The other 32 paths remain for later review. Selected diff and source hashes are retained in REFERENCE-RELEASE-HISTORY-REVIEW.json.
+
+The independent engine checks exact cofactor expansion with deliberately small arithmetic budgets. A declined reference check becomes REFERENCE_UNCHECKED while successful fast replay can still accept. This is an explicit audit limitation, not mathematical refusal. Elimination checks also reuse fast-rendered critical-pair targets, so independent row expansion does not independently establish all elimination premises. The 200-case seeded lane covers narrow fast-generated polynomial families; its passing result is not a soundness argument. Relevant deterministic source tests already passed in Batch 3; they were not redundantly rerun. No live Singular lane ran here.
+
+Six new pinned direct-function controls pass. The reference engine accepts duplicate x powers by overwriting the earlier exponent, and accepts noncanonical rational coefficient text, a numeric coefficient and a zero term. The production checker rejects all four before reference checking. Canonical x^2 accepts through both; the false identity x=x^2 refuses through both. This is a standalone reference input-validation gap, not an end-to-end false licence. REFERENCE-SPARSE-BOUNDARY.json preserves exact inputs, outcomes, messages and hashes.
+
+Proposed repair for consideration: specify each checker's accepted input language and independently enforce canonical coefficient and monomial rules, including duplicate powers and zero terms. Keep valid-input and false-identity controls. No legacy source, new kernel, expected verdict, or replay adapter changed.
+
+Corpus remains 324 cases; the previous hash-bound full replay remains current. Source coverage remains 57 partial / 311 unreviewed, with no fully semantic review claims. Phase 0 continues; manifest and Lean prerequisites are unchanged.

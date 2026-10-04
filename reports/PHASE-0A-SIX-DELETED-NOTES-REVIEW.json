@@ -1,0 +1,408 @@
+{
+  "scope": "Exactly six GP-owned deleted historical documents specified by the coordinator.",
+  "method": "Full pinned-blob reads were compared to exact existing neutral payloads and established review records. Requests and generated/document metadata were not promoted to incidents or authority.",
+  "validation": {
+    "expected_sources": 6,
+    "unique_paths": 6,
+    "all_full_text_read": true
+  },
+  "counts": {
+    "source_dispositions": {
+      "same_candidate_boundary_caveat; no independent incident": 1,
+      "shared_candidate_confession_with_related_recurrence_controls": 1,
+      "partially_covered; exact nonzero/nonunit boundary covered, exponent threshold unmapped": 1,
+      "covered_nonzero_nonunit_boundary; explicit research obligation retained": 1,
+      "covered_by_existing_depth8_cases": 1,
+      "historical_request_metadata_not_incident": 1
+    },
+    "recorded_incident_or_boundary_items": 8,
+    "unresolved_obligations": 3
+  },
+  "records": [
+    {
+      "path": "experiments/jc_h3_adjoint_recurrence/README.md",
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "deleted_blob": "d128209c92ddbc71511d9a10550782fef284e406",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 2517,
+        "line_count": 61,
+        "full_text_read": true
+      },
+      "reading_extent": "Complete bounded blob read directly with read-only predecessor git cat-file; no referenced campaign paths were opened.",
+      "source_disposition": "same_candidate_boundary_caveat; no independent incident",
+      "what_the_document_records": "The README records the corrected unilateral finite-instance result, its source assumptions, and a graph-effect-NONE boundary. Its caveat that a padded zero regime admits the unit annihilator is a guard against the wording defect made explicit in the coordinator delta; it does not itself claim a regression or counterexample.",
+      "incidents": [
+        {
+          "kind": "boundary_caveat_only",
+          "blob_lines": "34-37",
+          "attempted_conclusion": "Treat S-1 as minimal in every padded regime.",
+          "premises": "R5 at depth 14 and R6 from depth 15 are identically zero.",
+          "failure_mechanism": "On an identically zero regime the unit operator annihilates, so blanket per-regime minimality is false.",
+          "case_mappings": [
+            {
+              "case_ids": [
+                "GP-X118"
+              ],
+              "status": "related_positive_control",
+              "reason": "X118 exactly accepts the full unilateral tail/nonzero-endpoint instance, but does not assert per-regime minimality."
+            },
+            {
+              "case_ids": [
+                "GP-X318",
+                "GP-X321"
+              ],
+              "status": "related_mutation_controls",
+              "reason": "They refuse a zeroed global endpoint and altered jump declaration; neither reaches the zero-regime unit-versus-S-1 minimality assertion."
+            }
+          ],
+          "unresolved_obligation": null,
+          "candidate_incident_id": "ADJOINT-ZERO-PADDED-REGIME-MINIMALITY",
+          "source_role": "boundary caveat; same candidate as the coordinator delta, not an independent incident",
+          "positive_control": "For R5/R6 alone, the unit is an annihilator. Separately, GP-X118 accepts the global S^8 statement from the nonzero depth-13 endpoint; this caveat does not alter that global result."
+        }
+      ],
+      "source_and_review_pointers": [
+        "$DEV/grand-portage git cat-file blob d128209c92ddbc71511d9a10550782fef284e406",
+        "pinned blob lines 12-37, 44-61",
+        "corpus/must/GP-X118.json",
+        "corpus/must/GP-X318.json",
+        "corpus/must/GP-X321.json",
+        "corpus/history/DELETED-TEST-REVIEW.json#/sources/5",
+        "corpus/history/DELETED-TEST-REVIEW.json (complete text review of the named retained source tests)",
+        "reports/HISTORICAL-REVIEW-RESULTS.json (historical test observations; not rerun here)",
+        "reports/ORACLE-RESULTS.json (current neutral-case observations)"
+      ]
+    },
+    {
+      "path": "experiments/jc_h3_adjoint_recurrence/JC-COORDINATOR-DELTA.md",
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "deleted_blob": "9715cf9f6353e5ba528ffc88f1e84fb8d9e6622d",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 2217,
+        "line_count": 50,
+        "full_text_read": true
+      },
+      "reading_extent": "Complete bounded blob read directly with read-only predecessor git cat-file; no referenced campaign paths were opened.",
+      "source_disposition": "shared_candidate_confession_with_related_recurrence_controls",
+      "what_the_document_records": "This delta expressly confesses a false prose minimality statement: R5/R6 are zero and hence admit the unit annihilator. It also carefully preserves the different global unilateral ideal (S^8), which is not challenged by that confession.",
+      "incidents": [
+        {
+          "kind": "documented_overstatement",
+          "blob_lines": "30-43",
+          "attempted_conclusion": "Describe S-1 as the minimal annihilator in each of the six padded regimes.",
+          "premises": "The declared padded sequence has R5=d14 and R6=d>=15 identically zero.",
+          "failure_mechanism": "The unit operator annihilates a zero sequence, defeating minimality of S-1 on those regimes; the global sequence still has the stated S^8 ideal because its earlier endpoint is nonzero.",
+          "case_mappings": [
+            {
+              "case_ids": [
+                "GP-X118"
+              ],
+              "status": "partial",
+              "reason": "Same global unilateral tail/nonzero-endpoint conclusion, but no zero-subregime minimality proposition."
+            },
+            {
+              "case_ids": [
+                "GP-X318"
+              ],
+              "status": "partial",
+              "reason": "Shows why a zeroed last global endpoint invalidates eighth-shift minimality, not why a separately zero padded regime admits the unit."
+            },
+            {
+              "case_ids": [
+                "GP-X110",
+                "GP-X111",
+                "GP-X112",
+                "GP-X321"
+              ],
+              "status": "context_only",
+              "reason": "They preserve unilateral-domain, constant-term, premise, and jump-schedule boundaries; they do not state this minimality defect."
+            }
+          ],
+          "unresolved_obligation": "Paired neutral controls: refuse zero-regime S-1 minimality by exhibiting the unit annihilator; accept the global S^8 claim when B_13 remains nonzero on the stated unilateral domain.",
+          "candidate_incident_id": "ADJOINT-ZERO-PADDED-REGIME-MINIMALITY",
+          "source_role": "explicit confession and proposed prose repair for the shared candidate incident",
+          "positive_control": "For R5/R6 alone, the unit is an annihilator. The separate global unilateral S^8 result remains conditioned on B_13 != 0 and d>=6."
+        }
+      ],
+      "source_and_review_pointers": [
+        "$DEV/grand-portage git cat-file blob 9715cf9f6353e5ba528ffc88f1e84fb8d9e6622d",
+        "pinned blob lines 10-28, 30-43",
+        "corpus/must/GP-X118.json",
+        "corpus/must/GP-X318.json",
+        "corpus/must/GP-X321.json",
+        "corpus/history/DELETED-TEST-REVIEW.json#/sources/5",
+        "corpus/history/DELETED-TEST-REVIEW.json (complete text review of the named retained source tests)",
+        "reports/HISTORICAL-REVIEW-RESULTS.json (historical test observations; not rerun here)",
+        "reports/ORACLE-RESULTS.json (current neutral-case observations)"
+      ]
+    },
+    {
+      "path": "experiments/jc_h3_b0_compatibility/README.md",
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "deleted_blob": "c231b42735dac46181ec92c1dabd875a2f12d4d9",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 2294,
+        "line_count": 59,
+        "full_text_read": true
+      },
+      "reading_extent": "Complete bounded blob read directly with read-only predecessor git cat-file; no referenced campaign paths were opened.",
+      "source_disposition": "partially_covered; exact nonzero/nonunit boundary covered, exponent threshold unmapped",
+      "what_the_document_records": "The README records exact Cramer and quotient observations whose stated conclusion is nonzero and nonunit only. It expressly declines nonzerodivisor, rational-witness, geometry, source, and graph conclusions. It also records a concrete arithmetic threshold: clearing exponent two suffices and exponent one does not.",
+      "incidents": [
+        {
+          "kind": "refusal_of_nonzerodivisor_promotion",
+          "blob_lines": "12-20",
+          "attempted_conclusion": "Promote a nonzero/nonunit quotient-class observation to nonzerodivisor authority.",
+          "premises": "One quotient observes Phi nonzero and a guarded degree-14 quotient sends Phi to zero.",
+          "failure_mechanism": "Nonzero and nonunit do not rule out a nonzero annihilator; the observations establish neither componentwise regularity nor nonzerodivisor status.",
+          "case_mappings": [
+            {
+              "case_ids": [
+                "GP-X119",
+                "GP-X120"
+              ],
+              "status": "covered_as_neutral_mechanism",
+              "reason": "X119 accepts nonzero-and-nonunit; X120 gives the counterexample/refusal from a nonzero annihilator. The retained review already labels this a mechanism analogue, not identical fixture replay."
+            }
+          ],
+          "unresolved_obligation": null
+        },
+        {
+          "kind": "bounded_clearing_exponent_negative_control",
+          "blob_lines": "8-13",
+          "attempted_conclusion": "Use clearing exponent one for the committed Cramer transport.",
+          "premises": "The document reports exact replay that exponent two is sufficient and exponent one is not.",
+          "failure_mechanism": "The lower exponent does not clear the required denominators/transport at the stated fixture; no generic exponent rule follows.",
+          "case_mappings": [],
+          "unresolved_obligation": "No neutral payload currently isolates this exact exponent-one-versus-two Cramer threshold. Do not substitute generic nonunit or digest cases."
+        }
+      ],
+      "source_and_review_pointers": [
+        "$DEV/grand-portage git cat-file blob c231b42735dac46181ec92c1dabd875a2f12d4d9",
+        "pinned blob lines 5-25, 38-59",
+        "corpus/must/GP-X119.json",
+        "corpus/must/GP-X120.json",
+        "corpus/history/DELETED-TEST-REVIEW.json#/sources/6/tests/0",
+        "corpus/history/DELETED-TEST-REVIEW.json (complete text review of the named retained source tests)",
+        "reports/HISTORICAL-REVIEW-RESULTS.json (historical test observations; not rerun here)",
+        "reports/ORACLE-RESULTS.json (current neutral-case observations)"
+      ]
+    },
+    {
+      "path": "experiments/jc_h3_b0_compatibility/JC-COORDINATOR-DELTA.md",
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "deleted_blob": "1c4031d814955ef76a6a6ed54e191721e66df6d3",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 1443,
+        "line_count": 36,
+        "full_text_read": true
+      },
+      "reading_extent": "Complete bounded blob read directly with read-only predecessor git cat-file; no referenced campaign paths were opened.",
+      "source_disposition": "covered_nonzero_nonunit_boundary; explicit research obligation retained",
+      "what_the_document_records": "The coordinator delta rejects a misleading native enum whose name suggests nonzerodivisor authority. It makes no assertion that Phi is regular on components and names component/primary-decomposition evidence as the first open research obligation.",
+      "incidents": [
+        {
+          "kind": "misleading_label_refusal",
+          "blob_lines": "8-24",
+          "attempted_conclusion": "Shorten the checked result to GENERIC_NONZERO_DIVISOR and read it as nonzerodivisor authority on every component.",
+          "premises": "A digest-bound Cramer transport, a quadratic nonvanishing observation, and a degree-14 guarded zero observation establish only nonzero and nonunit.",
+          "failure_mechanism": "The label would add componentwise regularity not supplied by either quotient observation.",
+          "case_mappings": [
+            {
+              "case_ids": [
+                "GP-X119",
+                "GP-X120"
+              ],
+              "status": "covered_as_neutral_mechanism",
+              "reason": "The exact retained review maps the narrow Phi classification to these cases; their minimal algebra is deliberately not the historical fixture."
+            }
+          ],
+          "unresolved_obligation": "Whether Z(Phi_b0_compat) contains a component of X_b remains an explicitly named research question requiring component or primary-decomposition evidence. It is not a failed existing case or authority claim."
+        }
+      ],
+      "source_and_review_pointers": [
+        "$DEV/grand-portage git cat-file blob 1c4031d814955ef76a6a6ed54e191721e66df6d3",
+        "pinned blob lines 6-26",
+        "corpus/must/GP-X119.json",
+        "corpus/must/GP-X120.json",
+        "corpus/history/DELETED-TEST-REVIEW.json#/sources/6",
+        "corpus/history/DELETED-TEST-REVIEW.json (complete text review of the named retained source tests)",
+        "reports/HISTORICAL-REVIEW-RESULTS.json (historical test observations; not rerun here)",
+        "reports/ORACLE-RESULTS.json (current neutral-case observations)"
+      ]
+    },
+    {
+      "path": "experiments/jc_h3_b0_free_plane/DEPTH8-README.md",
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "deleted_blob": "75f155b924bcef6e0ae5458d30431e17851531a0",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 2677,
+        "line_count": 53,
+        "full_text_read": true
+      },
+      "reading_extent": "Complete bounded blob read directly with read-only predecessor git cat-file; no referenced campaign paths were opened.",
+      "source_disposition": "covered_by_existing_depth8_cases",
+      "what_the_document_records": "The README distinguishes a checked necessary rank-two block from source equivalence and from an exported residual. Its residual follow-on establishes only a unit in one frozen degree-14 quotient and explicitly limits the result to exclusion of that finite compatible witness.",
+      "incidents": [
+        {
+          "kind": "necessary_block_not_source_authority",
+          "blob_lines": "12-22",
+          "attempted_conclusion": "Treat the transported rank-two necessary block as a graph, point-inclusion, exported-residual, or actual-source-fiber assertion.",
+          "premises": "Raw coefficient commitments, D7 transport, rank-two block, minors and one symbolic compatibility are checked; chain-rule semantics are consumed frozen semantics.",
+          "failure_mechanism": "A necessary extension condition neither supplies a residual algebra object nor proves sufficiency/source equivalence or a graph consequence.",
+          "case_mappings": [
+            {
+              "case_ids": [
+                "GP-X324",
+                "GP-X327",
+                "GP-X329",
+                "GP-X330"
+              ],
+              "status": "direct_existing_family",
+              "reason": "The exact depth-eight cases respectively accept the bounded block and refuse graph-effect promotion, residual-export relabelling, and actual-source-equivalence promotion."
+            }
+          ],
+          "unresolved_obligation": null
+        },
+        {
+          "kind": "finite_witness_not_component_exclusion",
+          "blob_lines": "24-32",
+          "attempted_conclusion": "Promote Omega8 being a unit in K[Z]/(r_final) to component-wide emptiness, off-slice zero-locus resolution, complete-fiber/source equivalence, or depth-nine authority.",
+          "premises": "Exact quotient arithmetic proves the named Omega8 is a unit at the frozen degree-14 witness.",
+          "failure_mechanism": "A finite quotient witness is pointwise; it does not cover the component or establish an inverse transport to source semantics.",
+          "case_mappings": [
+            {
+              "case_ids": [
+                "GP-X319",
+                "GP-X320"
+              ],
+              "status": "direct_finite_quotient_replay",
+              "reason": "They accept the exact gcd-degree-zero unit witness and refuse a false gcd summary."
+            },
+            {
+              "case_ids": [
+                "GP-X123"
+              ],
+              "status": "mechanism_analogue",
+              "reason": "It refuses promotion from a local/fiber exclusion to the parent, but is not the same finite quotient fixture."
+            }
+          ],
+          "unresolved_obligation": null
+        }
+      ],
+      "source_and_review_pointers": [
+        "$DEV/grand-portage git cat-file blob 75f155b924bcef6e0ae5458d30431e17851531a0",
+        "pinned blob lines 5-32",
+        "corpus/must/GP-X319.json",
+        "corpus/must/GP-X320.json",
+        "corpus/must/GP-X324.json",
+        "corpus/must/GP-X327.json",
+        "corpus/must/GP-X329.json",
+        "corpus/must/GP-X330.json",
+        "reports/PHASE-0A-DEPTH8-BLOCK-EVIDENCE.json",
+        "corpus/history/DELETED-TEST-REVIEW.json (complete text review of the named retained source tests)",
+        "reports/HISTORICAL-REVIEW-RESULTS.json (historical test observations; not rerun here)",
+        "reports/ORACLE-RESULTS.json (current neutral-case observations)"
+      ]
+    },
+    {
+      "path": "experiments/jc_h3_b0_free_plane/DEPTH8-SIX-COEFFICIENT-COORDINATOR-PACKET.md",
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "deleted_blob": "0fe77533ca0795f5095c1cbfdb6dda68b9112eed",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 3170,
+        "line_count": 100,
+        "full_text_read": true
+      },
+      "reading_extent": "Complete bounded blob read directly with read-only predecessor git cat-file; no referenced campaign paths were opened.",
+      "source_disposition": "historical_request_metadata_not_incident",
+      "what_the_document_records": "This is a fulfilled coordinator request, not a result, test, or authorization. Its requested coefficient fields and mandatory refusals define the desired custody surface. It records no observed counterexample, regression, or verified authority by itself.",
+      "incidents": [
+        {
+          "kind": "mandatory_refusal_requirements_not_observed_incidents",
+          "blob_lines": "59-100",
+          "attempted_conclusion": "Infer authority, a unit/nonzerodivisor, a compatibility equation, component coverage, source sufficiency, or a verdict change from a requested coefficient receipt or from an unmaterialized source object.",
+          "premises": "The packet requires raw/restricted bodies, ring and digest bindings, exact zero or factorization, and directs AUTHORITY_OBJECT_MISSING when an authority-bearing object is absent.",
+          "failure_mechanism": "The prose is a request for future custody and explicitly withholds all listed promotions; historical requests are data and do not authorize a new claim or source access.",
+          "case_mappings": [
+            {
+              "case_ids": [
+                "GP-X324",
+                "GP-X327",
+                "GP-X329",
+                "GP-X330"
+              ],
+              "status": "later_result_controls",
+              "reason": "Later depth-eight cases cover the necessary-block boundary, graph-effect, unexported residual, and source-equivalence promotions. They do not make this request an observed incident."
+            },
+            {
+              "case_ids": [
+                "GP-X331"
+              ],
+              "status": "related_no_inversion_control",
+              "reason": "It refuses removing R from a checked no-inversion ledger without a unit witness; it is narrower than the packet's general prohibition."
+            }
+          ],
+          "unresolved_obligation": null
+        }
+      ],
+      "source_and_review_pointers": [
+        "$DEV/grand-portage git cat-file blob 0fe77533ca0795f5095c1cbfdb6dda68b9112eed",
+        "pinned blob lines 15-57, 59-100",
+        "corpus/must/GP-X324.json",
+        "corpus/must/GP-X327.json",
+        "corpus/must/GP-X329.json",
+        "corpus/must/GP-X330.json",
+        "corpus/must/GP-X331.json",
+        "reports/PHASE-0A-CLOSURE-DECISIONS.json:8-39",
+        "corpus/history/DELETED-TEST-REVIEW.json (complete text review of the named retained source tests)",
+        "reports/HISTORICAL-REVIEW-RESULTS.json (historical test observations; not rerun here)",
+        "reports/ORACLE-RESULTS.json (current neutral-case observations)"
+      ]
+    }
+  ],
+  "unresolved_obligations": [
+    {
+      "candidate_incident_id": "ADJOINT-ZERO-PADDED-REGIME-MINIMALITY",
+      "sources": [
+        "experiments/jc_h3_adjoint_recurrence/README.md",
+        "experiments/jc_h3_adjoint_recurrence/JC-COORDINATOR-DELTA.md"
+      ],
+      "obligation": "Paired neutral controls: refuse zero-regime S-1 minimality by exhibiting the unit annihilator; accept the global S^8 claim when B_13 remains nonzero on the stated unilateral domain."
+    },
+    {
+      "path": "experiments/jc_h3_b0_compatibility/README.md",
+      "obligation": "No neutral payload currently isolates this exact exponent-one-versus-two Cramer threshold. Do not substitute generic nonunit or digest cases."
+    },
+    {
+      "path": "experiments/jc_h3_b0_compatibility/JC-COORDINATOR-DELTA.md",
+      "obligation": "Whether Z(Phi_b0_compat) contains a component of X_b remains an explicitly named research question requiring component or primary-decomposition evidence. It is not a failed existing case or authority claim."
+    }
+  ],
+  "shared_candidate_incidents": [
+    {
+      "id": "ADJOINT-ZERO-PADDED-REGIME-MINIMALITY",
+      "source_records": [
+        "experiments/jc_h3_adjoint_recurrence/README.md",
+        "experiments/jc_h3_adjoint_recurrence/JC-COORDINATOR-DELTA.md"
+      ],
+      "attempted_conclusion": "Call S-1 minimal in every padded regime.",
+      "premises": "The padded R5 (d=14) and R6 (d>=15) regimes are identically zero.",
+      "failure_mechanism": "The unit operator is an annihilator of each zero padded regime. This is a positive fact about those separate regimes only; it neither changes nor refutes the global unilateral S^8 result, whose distinct premises include B_13 != 0 on d>=6.",
+      "case_status": "unresolved_narrow_wording_mechanism",
+      "related_cases": [
+        "GP-X118",
+        "GP-X318",
+        "GP-X321"
+      ],
+      "unresolved_obligation": "Paired neutral controls: refuse zero-regime S-1 minimality by exhibiting the unit annihilator; accept the global S^8 claim when B_13 remains nonzero on the stated unilateral domain."
+    }
+  ],
+  "pointer_convention": "Strings beginning with # are RFC 6901 JSON Pointers with numeric indices for arrays. Other source_and_review_pointers are descriptive stable file/line or Git-object locations, not machine JSON Pointers."
+}

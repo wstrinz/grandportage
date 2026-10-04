@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "id": "GP-X112",
+  "seed": null,
+  "title": "Drop H8 from the recurrence report premises",
+  "situation": "The checked finite instance does not discharge that source premise.",
+  "inputs": {
+    "contract_section": "projection",
+    "baseline_contract": {
+      "claims": {
+        "S7": {
+          "status": "REFUTED_BY_B13_AT_D6"
+        },
+        "constant_coefficient_annihilator_ideal": {
+          "lean_theorem": "annihilatesFrom_iff_coefficients_below_gap_zero",
+          "status": "VERIFIED_LEAN_BACKED_FROM_CHECKED_PREMISES",
+          "value": "(S^8)"
+        },
+        "nonzero_constant_term_annihilator": {
+          "status": "REFUTED"
+        },
+        "polynomial_coefficient_annihilator": {
+          "minimality_scope": "S_DEGREE_ONE_ONLY",
+          "operator": "(d-7)*(d-9)*(d-11)*(d-13)*(S-1)",
+          "status": "VERIFIED_ON_PADDED_SEQUENCE"
+        },
+        "pure_forward_truncation": {
+          "operator": "S^8",
+          "status": "VERIFIED"
+        },
+        "reversible_backward_recurrence": {
+          "status": "REFUTED"
+        }
+      },
+      "domain": {
+        "kind": "UNILATERAL",
+        "start": 6
+      },
+      "graph_effect": "NONE",
+      "instance_id": "jc_h3_adjoint_fresh_operator",
+      "operator_coefficient_domain": "QQ",
+      "operator_representation": "finite coefficient sequences canonically padded to width >= 8",
+      "outside_adapter": [
+        "cokernel-basis correctness",
+        "depth-8 straggler and determinant identities",
+        "additive compatibility values Omega_8 or Omega_9",
+        "minimality among higher-S-degree polynomial-coefficient operators",
+        "blanket minimality of S-1 within every regime (the zero-tail regimes admit the unit annihilator)"
+      ],
+      "premises": {
+        "checked_by_adapter": [
+          "padded B_d is zero for every d >= 14",
+          "padded B_13 is nonzero",
+          "operator jumps occur exactly at d=7,9,11,13",
+          "entries are exact sparse QQ-polynomials, so nonzero QQ scalars act faithfully"
+        ],
+        "native_assumptions_not_discharged": [
+          "P1..P5",
+          "S2",
+          "15*t^3+1=0",
+          "H8 for depths >=8"
+        ]
+      },
+      "refusals": [
+        "H8 discharge",
+        "source-image sufficiency",
+        "actual-source membership",
+        "geometric component exclusion",
+        "H3 promotion",
+        "(75,125) verdict change",
+        "graph claim or transport authority"
+      ],
+      "sequence_value_module": "padded 5x2 sparse polynomial matrices with faithful QQ scaling",
+      "shift_convention": "(S B)_d = B_(d+1)"
+    },
+    "operations": [
+      {
+        "op": "remove",
+        "path": [
+          "projection",
+          "premises",
+          "native_assumptions_not_discharged"
+        ],
+        "value": "H8 for depths >=8"
+      }
+    ]
+  },
+  "attempted_conclusion": "Drop H8 from the recurrence report premises.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The checked finite instance does not discharge that source premise."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_adjoint_recurrence.py",
+      "line": 67,
+      "anchor": "def test_scope_widening_mutations_are_refused("
+    }
+  ]
+}

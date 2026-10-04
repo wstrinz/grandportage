@@ -1,0 +1,1950 @@
+{
+  "schema": "gp-phase2-declaration-slice/v1",
+  "case_count": 3,
+  "corpus_native_executions": 12,
+  "repaired_control_executions": 16,
+  "complete_ten_case_slice": false,
+  "g2_pass": false,
+  "source_contract": {
+    "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+    "path": "tests/test_store.py",
+    "file_sha256": "053be6bd1294920d8ecacfb750a626849069104ecc89c9c1492604c7af2e5c4e",
+    "pin_file_sha256": "85220bebac5cec09103926f5ff25e8d54ed9dda3cc338c1a9e7499c08d56f4a7",
+    "functions": {
+      "identical": {
+        "line": 36,
+        "anchor": "def test_identical_redeclaration_is_idempotent(",
+        "function_sha256": "e3c879f25859f930c04030b2d93756013850946c24e4f5312dd3a9f8a47ada5e"
+      },
+      "conflicting": {
+        "line": 43,
+        "anchor": "def test_conflicting_redeclaration_is_a_hard_error(",
+        "function_sha256": "c6fc4ad3ee50fd33264bf52c49fc1c83e9de373812d7fcc72d086b95fce3f225"
+      }
+    },
+    "boundary": "Replay the unchanged fixture declarations, not a reconstruction of predecessor MODEL_A/MODEL_B or EDGE_AB."
+  },
+  "registry_sha256": {
+    "layer_tags": "046b353edf02f2e6972d00c2ee4fe974cb3bef1fc7062cede0d36ec4c1c83838",
+    "routes": "cce1e91123d58b6c3a452cd911b129a21e6d4fad3e9042b1d0ff43e73e6e7750",
+    "pin": "85220bebac5cec09103926f5ff25e8d54ed9dda3cc338c1a9e7499c08d56f4a7"
+  },
+  "runner_path": "phase2/lean/.lake/build/bin/gp_lifecycle_runner.exe",
+  "runner_sha256": "4affc188563f818aad3c798a4b49b0ccd25438c12a16cfd9283d9789f1128ab3",
+  "runner_source_sha256": "612c1ec3a7a42dda2f44953be7c2f2f42065b817a4253b691132823eb4e86121",
+  "kernel_source_sha256": {
+    "phase2\\lean\\GP50\\Events.lean": "1e3d7497baaff4015d4706bccef0a62bdbf99d92ae64d7e2069907a221d091f3",
+    "phase2\\lean\\GP50\\Runtime.lean": "f4c52eee8deaa575a0baa52e92fffb8c436eab9a281834ba1f0897f5af8626c3",
+    "phase2\\lean\\GP50\\Decoder.lean": "de8460f9839582d8df489266fe2e8306d327257520fb562262a995a337e0ea51",
+    "phase2\\lean\\GP50\\Closure.lean": "623d2368841f8278a007129faac79d498c1010523e9552a1dd2d3fa0201f5403"
+  },
+  "adapter_sha256": "2a9af5c9d7ada8e76b1a4630eaa29a482474ea1ddf9257f3d551a142bd8dfc8f",
+  "test_source_sha256": "598c3814d31315d9e36c283ed321f2f00633ffc9dfc955918b721e3b23d6793f",
+  "cases": [
+    {
+      "id": "GP-A25a",
+      "source_sha256": "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "One identifier cannot silently refer to conflicting objects."
+      },
+      "sources": [
+        {
+          "repository": "rework-packet",
+          "path": "docs/GP-0.50-REWORK-PACKET.md",
+          "line": 565,
+          "anchor": "| A25 |"
+        },
+        {
+          "repository": "gp-v037",
+          "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+          "path": "tests/test_store.py",
+          "line": 43,
+          "anchor": "def test_conflicting_redeclaration_is_a_hard_error("
+        }
+      ],
+      "layer_entry": {
+        "id": "GP-A25a",
+        "path": "corpus/must/GP-A25a.json",
+        "sha256": "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+        "primary_layer": "kernel",
+        "candidate_layers": [
+          "kernel"
+        ],
+        "g2_kernel_eligible": true,
+        "status": "resolved",
+        "rationale": "The full fixture assumes mathematical premises or supplies only declaration/claim data; registered rule, exact context, dependency and scope obligations decide authority.",
+        "review_group": "supplied-premise-authority",
+        "full_contract_required": true,
+        "secondary_layers": [],
+        "secondary_duties": [],
+        "evidence_pointers": [
+          "/title",
+          "/inputs",
+          "/attempted_conclusion",
+          "/expected/reason"
+        ]
+      },
+      "legacy_route": {
+        "kind": "redeclaration",
+        "layer": "graph_validation",
+        "conflict": true
+      },
+      "executed": true,
+      "observed": "REFUSE",
+      "full_fixture_contract": true,
+      "literal_inputs": {
+        "declarations": [
+          {
+            "id": "A",
+            "description": "normalization one"
+          },
+          {
+            "id": "A",
+            "description": "normalization two"
+          }
+        ]
+      },
+      "literal_declarations": [
+        {
+          "identifier": "A",
+          "description": "normalization one"
+        },
+        {
+          "identifier": "A",
+          "description": "normalization two"
+        }
+      ],
+      "native_identity_records": [
+        {
+          "id": 1,
+          "claim": 1,
+          "version": 1,
+          "binding": {
+            "statementHash": "874684d659e62891e406c8ae132d3732f765c74f3995d82be0b92f72792d71ad",
+            "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+            "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+            "inputHashes": [
+              "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+              "6d49eaa31ad5eeacce384bbd21b1471933a3875a1994e33b1820964607f31b70"
+            ],
+            "authority": "gp50-inert-declaration-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          },
+          "evidence": {
+            "kind": "citation",
+            "text": "{\"declaration\":{\"description\":\"normalization one\",\"identifier\":\"A\"},\"fixture\":\"GP-A25a\"}"
+          }
+        },
+        {
+          "id": 1,
+          "claim": 1,
+          "version": 1,
+          "binding": {
+            "statementHash": "57e4b3233f22f7c696afa56d71e9095dc3a6fb6c4999b28b56455044c0349fc4",
+            "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+            "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+            "inputHashes": [
+              "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+              "69c73bd46169bc614d2396224b8a2b209c2688bbd62ac09949b0c6c7e1a0453b"
+            ],
+            "authority": "gp50-inert-declaration-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          },
+          "evidence": {
+            "kind": "citation",
+            "text": "{\"declaration\":{\"description\":\"normalization two\",\"identifier\":\"A\"},\"fixture\":\"GP-A25a\"}"
+          }
+        }
+      ],
+      "native_input_sha256": {
+        "forward": "1460ee8bff3fb37dc63726c7a0cfe091ad61f5358e59be995cdbb9732930685b",
+        "reverse": "b82ff055e294cdd11cc3a6f664fdcb66a07ba5c66c9f0e36e8814795a4c1addc",
+        "forward_duplicates": "06b7258358180ec2a64d483ebe998f57c20a65a31bf016b13c71acb7c14a6878",
+        "reverse_duplicates": "64bb5880e5643e3bde7f20fa63c8d4151373a1790a481e3724b846436c88da38"
+      },
+      "native_results": {
+        "forward": {
+          "error": "conflicting warrant contents: 1",
+          "status": "MALFORMED"
+        },
+        "reverse": {
+          "error": "conflicting warrant contents: 1",
+          "status": "MALFORMED"
+        },
+        "forward_duplicates": {
+          "error": "conflicting warrant contents: 1",
+          "status": "MALFORMED"
+        },
+        "reverse_duplicates": {
+          "error": "conflicting warrant contents: 1",
+          "status": "MALFORMED"
+        }
+      },
+      "both_orders_and_duplicates_equal": true,
+      "mathematical_authority_admitted": false
+    },
+    {
+      "id": "GP-C03",
+      "source_sha256": "d81d7dcead2a1e42fba49d4a2017c2b2257a468bb6c99c344667bc442f0a8b16",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "Identical redeclaration need not create a conflict."
+      },
+      "sources": [
+        {
+          "repository": "gp-v037",
+          "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+          "path": "tests/test_store.py",
+          "line": 36,
+          "anchor": "def test_identical_redeclaration_is_idempotent("
+        }
+      ],
+      "layer_entry": {
+        "id": "GP-C03",
+        "path": "corpus/must/GP-C03.json",
+        "sha256": "d81d7dcead2a1e42fba49d4a2017c2b2257a468bb6c99c344667bc442f0a8b16",
+        "primary_layer": "kernel",
+        "candidate_layers": [
+          "kernel"
+        ],
+        "g2_kernel_eligible": true,
+        "status": "resolved",
+        "rationale": "The full fixture assumes mathematical premises or supplies only declaration/claim data; registered rule, exact context, dependency and scope obligations decide authority.",
+        "review_group": "supplied-premise-authority",
+        "full_contract_required": true,
+        "secondary_layers": [],
+        "secondary_duties": [],
+        "evidence_pointers": [
+          "/title",
+          "/inputs",
+          "/attempted_conclusion",
+          "/expected/reason"
+        ]
+      },
+      "legacy_route": {
+        "kind": "redeclaration",
+        "layer": "graph_validation",
+        "conflict": false
+      },
+      "executed": true,
+      "observed": "ACCEPT",
+      "full_fixture_contract": true,
+      "literal_inputs": {
+        "id": "A",
+        "description": "same normalization",
+        "repetitions": 2
+      },
+      "literal_declarations": [
+        {
+          "identifier": "A",
+          "description": "same normalization"
+        },
+        {
+          "identifier": "A",
+          "description": "same normalization"
+        }
+      ],
+      "native_identity_records": [
+        {
+          "id": 1,
+          "claim": 1,
+          "version": 1,
+          "binding": {
+            "statementHash": "0c55095de6b6957092db82fd706a70289de8215edc7b9aaaba05e530066418ab",
+            "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+            "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+            "inputHashes": [
+              "d81d7dcead2a1e42fba49d4a2017c2b2257a468bb6c99c344667bc442f0a8b16",
+              "005759280c97f3d50bb79ab645e6b0c6c989d9f3b30bebb8c5175acd5519c097"
+            ],
+            "authority": "gp50-inert-declaration-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          },
+          "evidence": {
+            "kind": "citation",
+            "text": "{\"declaration\":{\"description\":\"same normalization\",\"identifier\":\"A\"},\"fixture\":\"GP-C03\"}"
+          }
+        },
+        {
+          "id": 1,
+          "claim": 1,
+          "version": 1,
+          "binding": {
+            "statementHash": "0c55095de6b6957092db82fd706a70289de8215edc7b9aaaba05e530066418ab",
+            "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+            "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+            "inputHashes": [
+              "d81d7dcead2a1e42fba49d4a2017c2b2257a468bb6c99c344667bc442f0a8b16",
+              "005759280c97f3d50bb79ab645e6b0c6c989d9f3b30bebb8c5175acd5519c097"
+            ],
+            "authority": "gp50-inert-declaration-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          },
+          "evidence": {
+            "kind": "citation",
+            "text": "{\"declaration\":{\"description\":\"same normalization\",\"identifier\":\"A\"},\"fixture\":\"GP-C03\"}"
+          }
+        }
+      ],
+      "native_input_sha256": {
+        "forward": "7b5aa4139f7b88bf48d1fd641c08f8999f200ec4b6285e449b26bec3a8cd3f86",
+        "reverse": "7b5aa4139f7b88bf48d1fd641c08f8999f200ec4b6285e449b26bec3a8cd3f86",
+        "forward_duplicates": "4988b67f13d1a6073a5ddfed648213a90f5bccb2910bae4c090b88eec0fe3a19",
+        "reverse_duplicates": "4988b67f13d1a6073a5ddfed648213a90f5bccb2910bae4c090b88eec0fe3a19"
+      },
+      "native_results": {
+        "forward": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "d81d7dcead2a1e42fba49d4a2017c2b2257a468bb6c99c344667bc442f0a8b16",
+                    "005759280c97f3d50bb79ab645e6b0c6c989d9f3b30bebb8c5175acd5519c097"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "0c55095de6b6957092db82fd706a70289de8215edc7b9aaaba05e530066418ab"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"same normalization\",\"identifier\":\"A\"},\"fixture\":\"GP-C03\"}"
+                },
+                "id": 1,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "reverse": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "d81d7dcead2a1e42fba49d4a2017c2b2257a468bb6c99c344667bc442f0a8b16",
+                    "005759280c97f3d50bb79ab645e6b0c6c989d9f3b30bebb8c5175acd5519c097"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "0c55095de6b6957092db82fd706a70289de8215edc7b9aaaba05e530066418ab"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"same normalization\",\"identifier\":\"A\"},\"fixture\":\"GP-C03\"}"
+                },
+                "id": 1,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "forward_duplicates": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "d81d7dcead2a1e42fba49d4a2017c2b2257a468bb6c99c344667bc442f0a8b16",
+                    "005759280c97f3d50bb79ab645e6b0c6c989d9f3b30bebb8c5175acd5519c097"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "0c55095de6b6957092db82fd706a70289de8215edc7b9aaaba05e530066418ab"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"same normalization\",\"identifier\":\"A\"},\"fixture\":\"GP-C03\"}"
+                },
+                "id": 1,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "reverse_duplicates": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "d81d7dcead2a1e42fba49d4a2017c2b2257a468bb6c99c344667bc442f0a8b16",
+                    "005759280c97f3d50bb79ab645e6b0c6c989d9f3b30bebb8c5175acd5519c097"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "0c55095de6b6957092db82fd706a70289de8215edc7b9aaaba05e530066418ab"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"same normalization\",\"identifier\":\"A\"},\"fixture\":\"GP-C03\"}"
+                },
+                "id": 1,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        }
+      },
+      "both_orders_and_duplicates_equal": true,
+      "mathematical_authority_admitted": false
+    },
+    {
+      "id": "GP-X143",
+      "source_sha256": "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "A shared identifier cannot silently blend conflicting declarations."
+      },
+      "sources": [
+        {
+          "repository": "gp-v037",
+          "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+          "path": "tests/test_store.py",
+          "line": 43,
+          "anchor": "def test_conflicting_redeclaration_is_a_hard_error("
+        }
+      ],
+      "layer_entry": {
+        "id": "GP-X143",
+        "path": "corpus/must/GP-X143.json",
+        "sha256": "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+        "primary_layer": "kernel",
+        "candidate_layers": [
+          "kernel"
+        ],
+        "g2_kernel_eligible": true,
+        "status": "resolved",
+        "rationale": "The complete fixture tests typed event declarations, independent checked support, targeted retraction/supersession and current snapshot provenance.",
+        "review_group": "native-event-lifecycle",
+        "full_contract_required": true,
+        "secondary_layers": [],
+        "secondary_duties": [],
+        "evidence_pointers": [
+          "/title",
+          "/inputs",
+          "/attempted_conclusion",
+          "/expected/reason"
+        ]
+      },
+      "legacy_route": {
+        "kind": "lifecycle",
+        "action": "fold",
+        "layer": "lifecycle_contract",
+        "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+      },
+      "executed": true,
+      "observed": "REFUSE",
+      "full_fixture_contract": true,
+      "literal_inputs": {
+        "vocabulary": "lifecycle-scenario/v1",
+        "objects": {
+          "object-1": {
+            "category": "context",
+            "name": "M",
+            "properties": {
+              "description": "model"
+            }
+          },
+          "object-2": {
+            "category": "context",
+            "name": "M",
+            "properties": {
+              "description": "different"
+            }
+          }
+        },
+        "history": [
+          {
+            "object": "object-1"
+          },
+          {
+            "object": "object-2"
+          }
+        ],
+        "question": {}
+      },
+      "literal_declarations": [
+        {
+          "identifier": "M",
+          "category": "context",
+          "name": "M",
+          "properties": {
+            "description": "model"
+          }
+        },
+        {
+          "identifier": "M",
+          "category": "context",
+          "name": "M",
+          "properties": {
+            "description": "different"
+          }
+        }
+      ],
+      "native_identity_records": [
+        {
+          "id": 1,
+          "claim": 1,
+          "version": 1,
+          "binding": {
+            "statementHash": "9a30f36197b089c0b5a91eaaf0fd202673051c953a57970a98555a495962060b",
+            "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+            "modelHash": "739217c076c234564e7e89500c0dcaa239e900ae85d2d39fdabcf65444db5805",
+            "inputHashes": [
+              "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+              "9fe1e4c8fe1ecd825db11bd46bb515be3bf4f3139828694fee4f65f4a3520f92"
+            ],
+            "authority": "gp50-inert-declaration-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          },
+          "evidence": {
+            "kind": "citation",
+            "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M\",\"name\":\"M\",\"properties\":{\"description\":\"model\"}},\"fixture\":\"GP-X143\"}"
+          }
+        },
+        {
+          "id": 1,
+          "claim": 1,
+          "version": 1,
+          "binding": {
+            "statementHash": "ddc344b81c634f06276a6f7284e6815cf37d9dc9d2bc777b45ef302c34471606",
+            "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+            "modelHash": "739217c076c234564e7e89500c0dcaa239e900ae85d2d39fdabcf65444db5805",
+            "inputHashes": [
+              "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+              "296530e21348f77b95424d88560ef56dd2c8dcbc6963569f742da7f93c69f59d"
+            ],
+            "authority": "gp50-inert-declaration-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          },
+          "evidence": {
+            "kind": "citation",
+            "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M\",\"name\":\"M\",\"properties\":{\"description\":\"different\"}},\"fixture\":\"GP-X143\"}"
+          }
+        }
+      ],
+      "native_input_sha256": {
+        "forward": "260f26b4b1c6b95b06b866413eb26af368e4fdeb3000e237fe77921ff46423b2",
+        "reverse": "389236bfd6c72a48faa1123b5ba7ff1ce2fbcead9ba9cc1822c32a12480f8c0c",
+        "forward_duplicates": "13f7d8aa54f5405b091cf58b8980a50291a781c6d9fc1dbb9e40d19cea8a5df6",
+        "reverse_duplicates": "82a3612ea1a0c587cea3ec06960b7df824c403a65239c5563615948113b0ca42"
+      },
+      "native_results": {
+        "forward": {
+          "error": "conflicting warrant contents: 1",
+          "status": "MALFORMED"
+        },
+        "reverse": {
+          "error": "conflicting warrant contents: 1",
+          "status": "MALFORMED"
+        },
+        "forward_duplicates": {
+          "error": "conflicting warrant contents: 1",
+          "status": "MALFORMED"
+        },
+        "reverse_duplicates": {
+          "error": "conflicting warrant contents: 1",
+          "status": "MALFORMED"
+        }
+      },
+      "both_orders_and_duplicates_equal": true,
+      "mathematical_authority_admitted": false
+    }
+  ],
+  "controls": [
+    {
+      "source_case": "GP-A25a",
+      "repair": "equal_contents",
+      "corpus_case": false,
+      "repair_inputs": {
+        "declarations": [
+          {
+            "id": "A",
+            "description": "normalization one"
+          },
+          {
+            "id": "A",
+            "description": "normalization one"
+          }
+        ]
+      },
+      "literal_declarations": [
+        {
+          "identifier": "A",
+          "description": "normalization one"
+        },
+        {
+          "identifier": "A",
+          "description": "normalization one"
+        }
+      ],
+      "native_identity_records": [
+        {
+          "id": 1,
+          "claim": 1,
+          "version": 1,
+          "binding": {
+            "statementHash": "874684d659e62891e406c8ae132d3732f765c74f3995d82be0b92f72792d71ad",
+            "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+            "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+            "inputHashes": [
+              "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+              "6d49eaa31ad5eeacce384bbd21b1471933a3875a1994e33b1820964607f31b70"
+            ],
+            "authority": "gp50-inert-declaration-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          },
+          "evidence": {
+            "kind": "citation",
+            "text": "{\"declaration\":{\"description\":\"normalization one\",\"identifier\":\"A\"},\"fixture\":\"GP-A25a\"}"
+          }
+        },
+        {
+          "id": 1,
+          "claim": 1,
+          "version": 1,
+          "binding": {
+            "statementHash": "874684d659e62891e406c8ae132d3732f765c74f3995d82be0b92f72792d71ad",
+            "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+            "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+            "inputHashes": [
+              "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+              "6d49eaa31ad5eeacce384bbd21b1471933a3875a1994e33b1820964607f31b70"
+            ],
+            "authority": "gp50-inert-declaration-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          },
+          "evidence": {
+            "kind": "citation",
+            "text": "{\"declaration\":{\"description\":\"normalization one\",\"identifier\":\"A\"},\"fixture\":\"GP-A25a\"}"
+          }
+        }
+      ],
+      "native_input_sha256": {
+        "forward": "54fa6432a04f4de6c99d45840f9685759cb041578b1a01c144994b196f3bb17b",
+        "reverse": "54fa6432a04f4de6c99d45840f9685759cb041578b1a01c144994b196f3bb17b",
+        "forward_duplicates": "f011d404947e5095802190040ffdf1e7e746d613fbaf0e83b17ddd387c2b6004",
+        "reverse_duplicates": "f011d404947e5095802190040ffdf1e7e746d613fbaf0e83b17ddd387c2b6004"
+      },
+      "native_results": {
+        "forward": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+                    "6d49eaa31ad5eeacce384bbd21b1471933a3875a1994e33b1820964607f31b70"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "874684d659e62891e406c8ae132d3732f765c74f3995d82be0b92f72792d71ad"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"normalization one\",\"identifier\":\"A\"},\"fixture\":\"GP-A25a\"}"
+                },
+                "id": 1,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "reverse": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+                    "6d49eaa31ad5eeacce384bbd21b1471933a3875a1994e33b1820964607f31b70"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "874684d659e62891e406c8ae132d3732f765c74f3995d82be0b92f72792d71ad"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"normalization one\",\"identifier\":\"A\"},\"fixture\":\"GP-A25a\"}"
+                },
+                "id": 1,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "forward_duplicates": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+                    "6d49eaa31ad5eeacce384bbd21b1471933a3875a1994e33b1820964607f31b70"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "874684d659e62891e406c8ae132d3732f765c74f3995d82be0b92f72792d71ad"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"normalization one\",\"identifier\":\"A\"},\"fixture\":\"GP-A25a\"}"
+                },
+                "id": 1,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "reverse_duplicates": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+                    "6d49eaa31ad5eeacce384bbd21b1471933a3875a1994e33b1820964607f31b70"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "874684d659e62891e406c8ae132d3732f765c74f3995d82be0b92f72792d71ad"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"normalization one\",\"identifier\":\"A\"},\"fixture\":\"GP-A25a\"}"
+                },
+                "id": 1,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        }
+      },
+      "retained_record_count": 1
+    },
+    {
+      "source_case": "GP-A25a",
+      "repair": "distinct_identifiers",
+      "corpus_case": false,
+      "repair_inputs": {
+        "declarations": [
+          {
+            "id": "A",
+            "description": "normalization one"
+          },
+          {
+            "id": "A-distinct",
+            "description": "normalization two"
+          }
+        ]
+      },
+      "literal_declarations": [
+        {
+          "identifier": "A",
+          "description": "normalization one"
+        },
+        {
+          "identifier": "A-distinct",
+          "description": "normalization two"
+        }
+      ],
+      "native_identity_records": [
+        {
+          "id": 1,
+          "claim": 1,
+          "version": 1,
+          "binding": {
+            "statementHash": "874684d659e62891e406c8ae132d3732f765c74f3995d82be0b92f72792d71ad",
+            "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+            "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+            "inputHashes": [
+              "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+              "6d49eaa31ad5eeacce384bbd21b1471933a3875a1994e33b1820964607f31b70"
+            ],
+            "authority": "gp50-inert-declaration-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          },
+          "evidence": {
+            "kind": "citation",
+            "text": "{\"declaration\":{\"description\":\"normalization one\",\"identifier\":\"A\"},\"fixture\":\"GP-A25a\"}"
+          }
+        },
+        {
+          "id": 2,
+          "claim": 2,
+          "version": 1,
+          "binding": {
+            "statementHash": "a1c9f7870d7eff4525c5d0b34b3b58954e15300d6254f64c46baeb9d6fd1cf8e",
+            "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+            "modelHash": "8c41c8f4d7f1ef44455d125784a80d7a2cb06227f0f1dfbe47bc49c1d9cec333",
+            "inputHashes": [
+              "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+              "94aec5400a98ae2b698cb57682ea0b963226efb1ce003fcf0fd1d6c2977a2fa9"
+            ],
+            "authority": "gp50-inert-declaration-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          },
+          "evidence": {
+            "kind": "citation",
+            "text": "{\"declaration\":{\"description\":\"normalization two\",\"identifier\":\"A-distinct\"},\"fixture\":\"GP-A25a\"}"
+          }
+        }
+      ],
+      "native_input_sha256": {
+        "forward": "13e6eb4d9484456bf857658a3c8a1b6365757bc9224e426a83890e08771ed76f",
+        "reverse": "073105edc2369554e19969bdaa933b7e348a76f3770e17b6c4eb7fddd1499508",
+        "forward_duplicates": "9cc3039a75ad50dcb5976f403bfde1ce1a14a798f3decb7b97a1e1e4552d6926",
+        "reverse_duplicates": "a5c1f43058b3cd7bacdbd6375e684170c06fe546b68ea00f74b1075bf02cbb0f"
+      },
+      "native_results": {
+        "forward": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            },
+            {
+              "claim": 2,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1,
+              2
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+                    "6d49eaa31ad5eeacce384bbd21b1471933a3875a1994e33b1820964607f31b70"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "874684d659e62891e406c8ae132d3732f765c74f3995d82be0b92f72792d71ad"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"normalization one\",\"identifier\":\"A\"},\"fixture\":\"GP-A25a\"}"
+                },
+                "id": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+                    "94aec5400a98ae2b698cb57682ea0b963226efb1ce003fcf0fd1d6c2977a2fa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "8c41c8f4d7f1ef44455d125784a80d7a2cb06227f0f1dfbe47bc49c1d9cec333",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "a1c9f7870d7eff4525c5d0b34b3b58954e15300d6254f64c46baeb9d6fd1cf8e"
+                },
+                "claim": 2,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"normalization two\",\"identifier\":\"A-distinct\"},\"fixture\":\"GP-A25a\"}"
+                },
+                "id": 2,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "reverse": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            },
+            {
+              "claim": 2,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1,
+              2
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+                    "6d49eaa31ad5eeacce384bbd21b1471933a3875a1994e33b1820964607f31b70"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "874684d659e62891e406c8ae132d3732f765c74f3995d82be0b92f72792d71ad"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"normalization one\",\"identifier\":\"A\"},\"fixture\":\"GP-A25a\"}"
+                },
+                "id": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+                    "94aec5400a98ae2b698cb57682ea0b963226efb1ce003fcf0fd1d6c2977a2fa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "8c41c8f4d7f1ef44455d125784a80d7a2cb06227f0f1dfbe47bc49c1d9cec333",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "a1c9f7870d7eff4525c5d0b34b3b58954e15300d6254f64c46baeb9d6fd1cf8e"
+                },
+                "claim": 2,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"normalization two\",\"identifier\":\"A-distinct\"},\"fixture\":\"GP-A25a\"}"
+                },
+                "id": 2,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "forward_duplicates": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            },
+            {
+              "claim": 2,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1,
+              2
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+                    "6d49eaa31ad5eeacce384bbd21b1471933a3875a1994e33b1820964607f31b70"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "874684d659e62891e406c8ae132d3732f765c74f3995d82be0b92f72792d71ad"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"normalization one\",\"identifier\":\"A\"},\"fixture\":\"GP-A25a\"}"
+                },
+                "id": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+                    "94aec5400a98ae2b698cb57682ea0b963226efb1ce003fcf0fd1d6c2977a2fa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "8c41c8f4d7f1ef44455d125784a80d7a2cb06227f0f1dfbe47bc49c1d9cec333",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "a1c9f7870d7eff4525c5d0b34b3b58954e15300d6254f64c46baeb9d6fd1cf8e"
+                },
+                "claim": 2,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"normalization two\",\"identifier\":\"A-distinct\"},\"fixture\":\"GP-A25a\"}"
+                },
+                "id": 2,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "reverse_duplicates": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            },
+            {
+              "claim": 2,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1,
+              2
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+                    "6d49eaa31ad5eeacce384bbd21b1471933a3875a1994e33b1820964607f31b70"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "1e2e7669de5ce263d860965509f66c825d5b0124ed2d8ff1aacbef738d9bb0f3",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "874684d659e62891e406c8ae132d3732f765c74f3995d82be0b92f72792d71ad"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"normalization one\",\"identifier\":\"A\"},\"fixture\":\"GP-A25a\"}"
+                },
+                "id": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+                    "94aec5400a98ae2b698cb57682ea0b963226efb1ce003fcf0fd1d6c2977a2fa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "8c41c8f4d7f1ef44455d125784a80d7a2cb06227f0f1dfbe47bc49c1d9cec333",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "a1c9f7870d7eff4525c5d0b34b3b58954e15300d6254f64c46baeb9d6fd1cf8e"
+                },
+                "claim": 2,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"description\":\"normalization two\",\"identifier\":\"A-distinct\"},\"fixture\":\"GP-A25a\"}"
+                },
+                "id": 2,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        }
+      },
+      "retained_record_count": 2
+    },
+    {
+      "source_case": "GP-X143",
+      "repair": "equal_contents",
+      "corpus_case": false,
+      "repair_inputs": {
+        "vocabulary": "lifecycle-scenario/v1",
+        "objects": {
+          "object-1": {
+            "category": "context",
+            "name": "M",
+            "properties": {
+              "description": "model"
+            }
+          },
+          "object-2": {
+            "category": "context",
+            "name": "M",
+            "properties": {
+              "description": "model"
+            }
+          }
+        },
+        "history": [
+          {
+            "object": "object-1"
+          },
+          {
+            "object": "object-2"
+          }
+        ],
+        "question": {}
+      },
+      "literal_declarations": [
+        {
+          "identifier": "M",
+          "category": "context",
+          "name": "M",
+          "properties": {
+            "description": "model"
+          }
+        },
+        {
+          "identifier": "M",
+          "category": "context",
+          "name": "M",
+          "properties": {
+            "description": "model"
+          }
+        }
+      ],
+      "native_identity_records": [
+        {
+          "id": 1,
+          "claim": 1,
+          "version": 1,
+          "binding": {
+            "statementHash": "9a30f36197b089c0b5a91eaaf0fd202673051c953a57970a98555a495962060b",
+            "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+            "modelHash": "739217c076c234564e7e89500c0dcaa239e900ae85d2d39fdabcf65444db5805",
+            "inputHashes": [
+              "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+              "9fe1e4c8fe1ecd825db11bd46bb515be3bf4f3139828694fee4f65f4a3520f92"
+            ],
+            "authority": "gp50-inert-declaration-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          },
+          "evidence": {
+            "kind": "citation",
+            "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M\",\"name\":\"M\",\"properties\":{\"description\":\"model\"}},\"fixture\":\"GP-X143\"}"
+          }
+        },
+        {
+          "id": 1,
+          "claim": 1,
+          "version": 1,
+          "binding": {
+            "statementHash": "9a30f36197b089c0b5a91eaaf0fd202673051c953a57970a98555a495962060b",
+            "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+            "modelHash": "739217c076c234564e7e89500c0dcaa239e900ae85d2d39fdabcf65444db5805",
+            "inputHashes": [
+              "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+              "9fe1e4c8fe1ecd825db11bd46bb515be3bf4f3139828694fee4f65f4a3520f92"
+            ],
+            "authority": "gp50-inert-declaration-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          },
+          "evidence": {
+            "kind": "citation",
+            "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M\",\"name\":\"M\",\"properties\":{\"description\":\"model\"}},\"fixture\":\"GP-X143\"}"
+          }
+        }
+      ],
+      "native_input_sha256": {
+        "forward": "fd0206854d65447ec7409252a9872f59f44ce46d0f6e4e4859760c4e92ffabb1",
+        "reverse": "fd0206854d65447ec7409252a9872f59f44ce46d0f6e4e4859760c4e92ffabb1",
+        "forward_duplicates": "fce3a9086409e1c177571e79ad491a79fd2196a6291812da990997e5ee55b4d9",
+        "reverse_duplicates": "fce3a9086409e1c177571e79ad491a79fd2196a6291812da990997e5ee55b4d9"
+      },
+      "native_results": {
+        "forward": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+                    "9fe1e4c8fe1ecd825db11bd46bb515be3bf4f3139828694fee4f65f4a3520f92"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "739217c076c234564e7e89500c0dcaa239e900ae85d2d39fdabcf65444db5805",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "9a30f36197b089c0b5a91eaaf0fd202673051c953a57970a98555a495962060b"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M\",\"name\":\"M\",\"properties\":{\"description\":\"model\"}},\"fixture\":\"GP-X143\"}"
+                },
+                "id": 1,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "reverse": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+                    "9fe1e4c8fe1ecd825db11bd46bb515be3bf4f3139828694fee4f65f4a3520f92"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "739217c076c234564e7e89500c0dcaa239e900ae85d2d39fdabcf65444db5805",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "9a30f36197b089c0b5a91eaaf0fd202673051c953a57970a98555a495962060b"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M\",\"name\":\"M\",\"properties\":{\"description\":\"model\"}},\"fixture\":\"GP-X143\"}"
+                },
+                "id": 1,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "forward_duplicates": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+                    "9fe1e4c8fe1ecd825db11bd46bb515be3bf4f3139828694fee4f65f4a3520f92"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "739217c076c234564e7e89500c0dcaa239e900ae85d2d39fdabcf65444db5805",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "9a30f36197b089c0b5a91eaaf0fd202673051c953a57970a98555a495962060b"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M\",\"name\":\"M\",\"properties\":{\"description\":\"model\"}},\"fixture\":\"GP-X143\"}"
+                },
+                "id": 1,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "reverse_duplicates": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+                    "9fe1e4c8fe1ecd825db11bd46bb515be3bf4f3139828694fee4f65f4a3520f92"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "739217c076c234564e7e89500c0dcaa239e900ae85d2d39fdabcf65444db5805",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "9a30f36197b089c0b5a91eaaf0fd202673051c953a57970a98555a495962060b"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M\",\"name\":\"M\",\"properties\":{\"description\":\"model\"}},\"fixture\":\"GP-X143\"}"
+                },
+                "id": 1,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        }
+      },
+      "retained_record_count": 1
+    },
+    {
+      "source_case": "GP-X143",
+      "repair": "distinct_identifiers",
+      "corpus_case": false,
+      "repair_inputs": {
+        "vocabulary": "lifecycle-scenario/v1",
+        "objects": {
+          "object-1": {
+            "category": "context",
+            "name": "M",
+            "properties": {
+              "description": "model"
+            }
+          },
+          "object-2": {
+            "category": "context",
+            "name": "M-distinct",
+            "properties": {
+              "description": "different"
+            }
+          }
+        },
+        "history": [
+          {
+            "object": "object-1"
+          },
+          {
+            "object": "object-2"
+          }
+        ],
+        "question": {}
+      },
+      "literal_declarations": [
+        {
+          "identifier": "M",
+          "category": "context",
+          "name": "M",
+          "properties": {
+            "description": "model"
+          }
+        },
+        {
+          "identifier": "M-distinct",
+          "category": "context",
+          "name": "M-distinct",
+          "properties": {
+            "description": "different"
+          }
+        }
+      ],
+      "native_identity_records": [
+        {
+          "id": 1,
+          "claim": 1,
+          "version": 1,
+          "binding": {
+            "statementHash": "9a30f36197b089c0b5a91eaaf0fd202673051c953a57970a98555a495962060b",
+            "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+            "modelHash": "739217c076c234564e7e89500c0dcaa239e900ae85d2d39fdabcf65444db5805",
+            "inputHashes": [
+              "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+              "9fe1e4c8fe1ecd825db11bd46bb515be3bf4f3139828694fee4f65f4a3520f92"
+            ],
+            "authority": "gp50-inert-declaration-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          },
+          "evidence": {
+            "kind": "citation",
+            "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M\",\"name\":\"M\",\"properties\":{\"description\":\"model\"}},\"fixture\":\"GP-X143\"}"
+          }
+        },
+        {
+          "id": 2,
+          "claim": 2,
+          "version": 1,
+          "binding": {
+            "statementHash": "5eda40649e84e30b83ec40e0c33229011cfe9571fc240eb0691ab207e0b0c627",
+            "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+            "modelHash": "c621b8f3381f6f7ab4dfb6188a059f62bc0042b215ff89a850287085718f3d71",
+            "inputHashes": [
+              "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+              "62f657d40fb76173b718c05287350dece2e33aad3ebe4ad808ce62a1f68bc4b4"
+            ],
+            "authority": "gp50-inert-declaration-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          },
+          "evidence": {
+            "kind": "citation",
+            "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M-distinct\",\"name\":\"M-distinct\",\"properties\":{\"description\":\"different\"}},\"fixture\":\"GP-X143\"}"
+          }
+        }
+      ],
+      "native_input_sha256": {
+        "forward": "50d0491c3633a073a8d13084853819653ab85c1186bf4ac21ffa4bc8ab6c869d",
+        "reverse": "b2e37aa078f05f2df6513773072e0eb6ff08ea3b0fec99cd66c8fde2c0a89aa7",
+        "forward_duplicates": "97f0d1bb0ff0e50efe3afdff41a750f7c0ddd6ab574ce11f52160bb2bc9b2b63",
+        "reverse_duplicates": "2078b622f6a1bc41501e2563ba644e7c0996ce96018628e81795c54afe298e5f"
+      },
+      "native_results": {
+        "forward": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            },
+            {
+              "claim": 2,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1,
+              2
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+                    "9fe1e4c8fe1ecd825db11bd46bb515be3bf4f3139828694fee4f65f4a3520f92"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "739217c076c234564e7e89500c0dcaa239e900ae85d2d39fdabcf65444db5805",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "9a30f36197b089c0b5a91eaaf0fd202673051c953a57970a98555a495962060b"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M\",\"name\":\"M\",\"properties\":{\"description\":\"model\"}},\"fixture\":\"GP-X143\"}"
+                },
+                "id": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+                    "62f657d40fb76173b718c05287350dece2e33aad3ebe4ad808ce62a1f68bc4b4"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "c621b8f3381f6f7ab4dfb6188a059f62bc0042b215ff89a850287085718f3d71",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "5eda40649e84e30b83ec40e0c33229011cfe9571fc240eb0691ab207e0b0c627"
+                },
+                "claim": 2,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M-distinct\",\"name\":\"M-distinct\",\"properties\":{\"description\":\"different\"}},\"fixture\":\"GP-X143\"}"
+                },
+                "id": 2,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "reverse": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            },
+            {
+              "claim": 2,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1,
+              2
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+                    "9fe1e4c8fe1ecd825db11bd46bb515be3bf4f3139828694fee4f65f4a3520f92"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "739217c076c234564e7e89500c0dcaa239e900ae85d2d39fdabcf65444db5805",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "9a30f36197b089c0b5a91eaaf0fd202673051c953a57970a98555a495962060b"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M\",\"name\":\"M\",\"properties\":{\"description\":\"model\"}},\"fixture\":\"GP-X143\"}"
+                },
+                "id": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+                    "62f657d40fb76173b718c05287350dece2e33aad3ebe4ad808ce62a1f68bc4b4"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "c621b8f3381f6f7ab4dfb6188a059f62bc0042b215ff89a850287085718f3d71",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "5eda40649e84e30b83ec40e0c33229011cfe9571fc240eb0691ab207e0b0c627"
+                },
+                "claim": 2,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M-distinct\",\"name\":\"M-distinct\",\"properties\":{\"description\":\"different\"}},\"fixture\":\"GP-X143\"}"
+                },
+                "id": 2,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "forward_duplicates": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            },
+            {
+              "claim": 2,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1,
+              2
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+                    "9fe1e4c8fe1ecd825db11bd46bb515be3bf4f3139828694fee4f65f4a3520f92"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "739217c076c234564e7e89500c0dcaa239e900ae85d2d39fdabcf65444db5805",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "9a30f36197b089c0b5a91eaaf0fd202673051c953a57970a98555a495962060b"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M\",\"name\":\"M\",\"properties\":{\"description\":\"model\"}},\"fixture\":\"GP-X143\"}"
+                },
+                "id": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+                    "62f657d40fb76173b718c05287350dece2e33aad3ebe4ad808ce62a1f68bc4b4"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "c621b8f3381f6f7ab4dfb6188a059f62bc0042b215ff89a850287085718f3d71",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "5eda40649e84e30b83ec40e0c33229011cfe9571fc240eb0691ab207e0b0c627"
+                },
+                "claim": 2,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M-distinct\",\"name\":\"M-distinct\",\"properties\":{\"description\":\"different\"}},\"fixture\":\"GP-X143\"}"
+                },
+                "id": 2,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "reverse_duplicates": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            },
+            {
+              "claim": 2,
+              "held": false
+            }
+          ],
+          "live_warrants": [],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [],
+            "domain": [
+              1,
+              2
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+                    "9fe1e4c8fe1ecd825db11bd46bb515be3bf4f3139828694fee4f65f4a3520f92"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "739217c076c234564e7e89500c0dcaa239e900ae85d2d39fdabcf65444db5805",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "9a30f36197b089c0b5a91eaaf0fd202673051c953a57970a98555a495962060b"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M\",\"name\":\"M\",\"properties\":{\"description\":\"model\"}},\"fixture\":\"GP-X143\"}"
+                },
+                "id": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-declaration-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "316c7ad6376c90b0ed974620fe6434a13e6d1fc8d49a5538b92a1598b5deb5c8",
+                    "62f657d40fb76173b718c05287350dece2e33aad3ebe4ad808ce62a1f68bc4b4"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "c621b8f3381f6f7ab4dfb6188a059f62bc0042b215ff89a850287085718f3d71",
+                  "scopeHash": "10d002c0b2fabf2ec616e6781b63f36af7e9788793356fec916fa1f0f223d824",
+                  "statementHash": "5eda40649e84e30b83ec40e0c33229011cfe9571fc240eb0691ab207e0b0c627"
+                },
+                "claim": 2,
+                "evidence": {
+                  "kind": "citation",
+                  "text": "{\"declaration\":{\"category\":\"context\",\"identifier\":\"M-distinct\",\"name\":\"M-distinct\",\"properties\":{\"description\":\"different\"}},\"fixture\":\"GP-X143\"}"
+                },
+                "id": 2,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        }
+      },
+      "retained_record_count": 2
+    }
+  ],
+  "binding_boundary": "Host canonical JSON/SHA-256 binds literal declarations. Same identifier maps to same native warrant ID. Occurrence keys/order are provenance, not declaration content.",
+  "verdict_boundary": "Complete declaration collision/idempotence fixture contracts only. Literal payloads remain inert citations; no current binding, evidence checker, mathematical claim authority, or Rat replacement is introduced."
+}

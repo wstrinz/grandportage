@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "GP-A20b",
+  "seed": "A20",
+  "title": "Constant-denominator restatement is supported",
+  "situation": "The identity (T^2+2)/2=T^2/2+1 uses only scalar denominators.",
+  "inputs": {
+    "variables": [
+      "T"
+    ],
+    "lhs": "(T^2+2)/2",
+    "rhs": "T^2/2+1"
+  },
+  "attempted_conclusion": "Accept the exact ambient identity.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The supported polynomial expressions are exactly equal."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 560,
+      "anchor": "| A20 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_scalar_division.py",
+      "line": 87,
+      "anchor": "def test_native_constant_denominator_control_and_true_polynomial_restatement("
+    }
+  ]
+}

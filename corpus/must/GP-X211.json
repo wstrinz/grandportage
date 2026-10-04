@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X211",
+  "seed": null,
+  "title": "Identical execution records roundtrip and deduplicate",
+  "situation": "Identical execution records roundtrip and deduplicate. This is an execution-storage integrity obligation, not a mathematical proof.",
+  "inputs": {
+    "storage_action": "roundtrip_deduplicate",
+    "output": "answer one\n",
+    "evidence_origin": "fabricated_offline_record"
+  },
+  "attempted_conclusion": "Accept the requested storage or reference operation as preserving the recorded execution evidence.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Identical execution records roundtrip and deduplicate"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_artifacts.py",
+      "line": 62,
+      "anchor": "def test_complete_execution_round_trips_and_deduplicates("
+    }
+  ]
+}

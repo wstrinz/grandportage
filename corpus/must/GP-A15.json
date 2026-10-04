@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "GP-A15",
+  "seed": "A15",
+  "title": "Prose does not connect independent computations",
+  "situation": "Two computations with disjoint variables are joined only by a sentence.",
+  "inputs": {
+    "connecting_rule": null,
+    "shared_variables": []
+  },
+  "attempted_conclusion": "Hold the joined conclusion.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "No admitted connecting rule is supplied."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 555,
+      "anchor": "| A15 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "SPEC.md",
+      "line": 548,
+      "anchor": "GI-BRIDGE"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "fixtures/gamma_window/graph.jsonl",
+      "line": 25,
+      "anchor": "\"id\": \"GI-BRIDGE\""
+    }
+  ]
+}

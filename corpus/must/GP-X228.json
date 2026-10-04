@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "GP-X228",
+  "seed": null,
+  "title": "Self-contained exact identity remains replayable without raw artifact",
+  "situation": "Separate replayable polynomial evidence from the availability and identity of its historical producer.",
+  "inputs": {
+    "model": {
+      "field": "Q",
+      "variables": [
+        "x"
+      ],
+      "equations": [
+        "x"
+      ]
+    },
+    "identity": {
+      "left": "x^2",
+      "right": "0"
+    },
+    "cofactors": [
+      "x"
+    ],
+    "local_backend": "matching",
+    "historical_identity": "identified",
+    "raw_artifact": "absent",
+    "question": "exact_identity_current"
+  },
+  "attempted_conclusion": "Accept x^2=0 modulo the ideal (x) from the supplied cofactor identity.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Self-contained exact identity remains replayable without raw artifact"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_artifacts.py",
+      "line": 192,
+      "anchor": "def test_exact_identity_receipt_survives_local_backend_state("
+    }
+  ]
+}

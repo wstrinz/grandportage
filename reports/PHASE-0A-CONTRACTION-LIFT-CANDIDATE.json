@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "task": "Smallest neutral candidate for OperationContract exact-contraction/no-valid-evaluation-lift residual",
+  "source": {
+    "repository_checkout": "$DEV/grand-portage",
+    "pin": "ac4155787207e2847d248cffed7be871d5dcd577",
+    "path": "lean/GrandPortage/OperationContract.lean",
+    "git_blob": "c805f85ff1288553f855daf072695578afebde2d",
+    "sha256": "7c9afad6ba96f38f352554b778d2e9e01a1cb37f540a477da12e8f2042838196",
+    "lines_total": 829,
+    "read_method": "git show at the pinned commit; read-only predecessor checkout",
+    "anchors": [
+      {
+        "lines": "182-185",
+        "fact": "EliminationSemantics is the pointwise equality J g iff I (embedding g)."
+      },
+      {
+        "lines": "322-341",
+        "fact": "AffinePoint requires a valid evaluation and vanishing on the ideal; EliminationPointSurjective asks every target point for a source lift with retained coordinates equal."
+      },
+      {
+        "lines": "343-349",
+        "fact": "Polynomial section requires precompose_valid and retract_embedding in addition to ideal evidence."
+      },
+      {
+        "lines": "711-716",
+        "fact": "incompleteEliminationParams has identity embedding; its name comes from the earlier source-(2)/target-(0) example, but theorem 778 instantiates zeroI at both endpoints."
+      },
+      {
+        "lines": "767-795",
+        "fact": "noValidEvaluation is always False, anyValidEvaluation always True; exact contraction holds for zeroI/zeroI and a target point forces an impossible source valid witness."
+      },
+      {
+        "lines": "799-812",
+        "fact": "With anyValidEvaluation at both ends, the identity point map has point-surjectivity; this is the positive contrast inside the adjacent theorem."
+      }
+    ]
+  },
+  "candidate": {
+    "candidate_key": "exact-contraction-without-valid-evaluation-lift",
+    "status": "design_only_not_admitted",
+    "layer": "neutral_conditional_rule",
+    "negative": {
+      "model": {
+        "source_ring": "Int",
+        "target_ring": "Int",
+        "embedding": "identity",
+        "source_ideal": "zeroI",
+        "target_ideal": "zeroI",
+        "evaluation_codomain": "Unit",
+        "source_valid_evaluation_predicate": "False for every evaluation",
+        "target_valid_evaluation_predicate": "True for every evaluation",
+        "target_point": "constant Unit evaluation, valid and vanishing on zeroI"
+      },
+      "checked_premise": "For every g, target zeroI(g) iff source zeroI(identity(g)); exact contraction is true.",
+      "attempted_conclusion": "Infer EliminationPointSurjective from exact contraction alone.",
+      "expected_verdict": "REFUSE",
+      "countercheck": "The target point exists, but any source AffinePoint would require a proof of the always-False source valid-evaluation predicate."
+    },
+    "positive_contrast": {
+      "model_change": "Keep rings, identity embedding, zero ideals, Unit codomain, and target point; set source_valid_evaluation_predicate=True.",
+      "expected_verdict": "ACCEPT for point-surjectivity under the additional checked valid-evaluation lift.",
+      "witness": "Use the same evaluation as the target; identity embedding preserves every retained coordinate.",
+      "source_anchor": "OperationContract.lean:799-812, first conjunct of point_surjectivity_needs_retained_expressibility",
+      "limit": "The remaining conjuncts in that theorem concern predicate expressibility and are separate from this contrast."
+    },
+    "minimum_case_set": "One negative REFUSE control plus a positive contrast is the minimum reviewable design; neither has been admitted as a case or given a GP-X identifier."
+  },
+  "case_comparison": [
+    {
+      "case": "GP-X07",
+      "route": "transport / conditional_rule",
+      "has": "exact_contraction=true",
+      "lacks": "valid-evaluation predicates, target point, and attempted point-surjectivity conclusion",
+      "actual_attempt": "Transport a closed predicate solely from exact contraction; the refusal is geometric closure, not a lift inference."
+    },
+    {
+      "case": "GP-X360",
+      "route": "q3_map / reference_operation_map",
+      "has": "Concrete integer-to-Gaussian target root i absent over integers; operation preservation alone cannot move source EMPTY forward.",
+      "lacks": "an asserted or checked exact ideal contraction premise, and the abstract noValidEvaluation/anyValidEvaluation pair",
+      "actual_attempt": "Infer target EMPTY from source EMPTY under the operation map."
+    },
+    {
+      "case": "GP-X05/GP-X06",
+      "route": "transport / conditional_rule",
+      "has": "point_surjective supplied true; target expressibility toggled",
+      "lacks": "derivation of point_surjective from exact_contraction or a valid-evaluation lift",
+      "actual_attempt": "Transport a predicate under a supplied lifting premise."
+    }
+  ],
+  "observation_route": {
+    "existing_route_fit": false,
+    "observed_verdict": null,
+    "current_observation_status": "UNSUPPORTED",
+    "checks": [
+      {
+        "path": "oracle/ROUTES.json",
+        "detail": "X07 transport supplies exact_contraction but no point-surjectivity derivation; X05/X06 supply point_surjective as an assumption; X360 q3_map is a fixed Z-to-Z[i] reference example."
+      },
+      {
+        "path": "tools/check-corpus.py:118-135",
+        "detail": "transport routes call pinned kernel.transport with supplied route arguments; they do not construct or test AffinePoint objects."
+      },
+      {
+        "path": "oracle/checkout/grandportage/kernel.py:975-982,1184-1207",
+        "detail": "kernel.transport accepts exact_contraction and point_surjective as independent plain inputs; the predicate branch consumes point_surjective, not derives it."
+      },
+      {
+        "path": "tools/q3_map_probes.py:12-51",
+        "detail": "q3_map operation probe recognizes only fixed root_forward, empty_pullback, and empty_forward controls; none checks exact contraction or validEvaluation."
+      }
+    ],
+    "possible_future_route": "A new explicitly labeled reference_abstract_evaluation probe could check this finite logical model: identity ideal equality, constructed valid target point, absent source valid evaluation, and the positive all-valid contrast. It would be a reference countermodel only, not a Lean compilation or legacy runtime verifier observation. No such route exists or was implemented in this task.",
+    "admission_constraint": "If admitted before an appropriate observation route exists, preserve REFUSE as a neutral expectation and record observed verdict null / UNSUPPORTED; do not use transport(point_surjective=false) as claimed observation of the implication."
+  },
+  "limitations": [
+    "No Lean run, case admission, adapter or route edits, oracle execution, tracker edit, or commit.",
+    "The source theorem is an abstract logical countermodel. It does not construct a hyperbola or establish arbitrary point-lift failure for a standard algebraic elimination instance.",
+    "The historical definition name incompleteEliminationParams does not make theorem 778 an incomplete-ideal example: the theorem instantiates zeroI for both I and J."
+  ]
+}

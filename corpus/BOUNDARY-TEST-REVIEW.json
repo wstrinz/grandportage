@@ -1,0 +1,396 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "path": "tests/test_boundary.py",
+  "sha256": "64ab66da2ae7e9c2be5c4dd8fda370953ef55bc8fe4acc258aaa8150f0898dcf",
+  "full_text_read": true,
+  "semantic_status": "partial",
+  "functions": [
+    {
+      "name": "test_omitting_the_transport_is_a_TypeError_from_argument_binding",
+      "line": 70,
+      "end_line": 79,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_no_subprocess_is_spawned_when_the_declaration_is_missing",
+      "line": 82,
+      "end_line": 92,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_untyped_is_a_legal_declaration_but_silence_is_not",
+      "line": 95,
+      "end_line": 105,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_an_unknown_type_names_the_five_options",
+      "line": 108,
+      "end_line": 117,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_a_transport_with_no_why_is_refused",
+      "line": 120,
+      "end_line": 122,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_historical_shadowing_defect_is_caught",
+      "line": 129,
+      "end_line": 139,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_illegal_identifier_defect_is_caught",
+      "line": 142,
+      "end_line": 146,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_reserved_words_and_duplicates_are_caught",
+      "line": 149,
+      "end_line": 153,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_assert_DISCRIMINATES_rather_than_refusing_everything",
+      "line": 156,
+      "end_line": 163,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_there_is_no_string_path_to_a_solver",
+      "line": 166,
+      "end_line": 169,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_check_and_the_text_derive_from_the_same_pairs",
+      "line": 172,
+      "end_line": 177,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_an_error_line_refuses_a_verdict_even_at_exit_zero",
+      "line": 184,
+      "end_line": 191,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_a_missing_or_doubled_marker_refuses_a_verdict",
+      "line": 194,
+      "end_line": 199,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_abort_codes_are_never_a_verdict",
+      "line": 203,
+      "end_line": 207,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_a_successful_run_records_a_typed_edge",
+      "line": 214,
+      "end_line": 227,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_a_cas_record_preserves_nonzero_characteristic",
+      "line": 230,
+      "end_line": 236,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_recording_a_step_whose_source_does_not_exist_is_refused",
+      "line": 239,
+      "end_line": 246,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_ideal_is_unit_returns_evidence_not_a_verdict",
+      "line": 249,
+      "end_line": 261,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_full_loop_compute_record_conclude_refuse",
+      "line": 274,
+      "end_line": 311,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_same_step_is_ALLOWED_with_a_base_changing_certificate",
+      "line": 314,
+      "end_line": 331,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_a_missing_graph_does_not_block",
+      "line": 334,
+      "end_line": 339,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_a_malformed_graph_DOES_block",
+      "line": 342,
+      "end_line": 348,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_baseline_suppresses_known_findings_but_not_new_ones",
+      "line": 351,
+      "end_line": 369,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_hook_reads_cwd_from_its_stdin_payload",
+      "line": 372,
+      "end_line": 375,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_live_singular_both_directions",
+      "line": 448,
+      "end_line": 466,
+      "status": "live_unexecuted",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_health_probe_reaches_the_cas_and_writes_nothing",
+      "line": 470,
+      "end_line": 480,
+      "status": "live_unexecuted",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_live_run_emits_a_program_using_the_defects_own_variable_name",
+      "line": 484,
+      "end_line": 489,
+      "status": "live_unexecuted",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_first_run_hint_appears_only_when_no_baseline_exists",
+      "line": 492,
+      "end_line": 508,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_a_baseline_that_exists_suppresses_the_hint",
+      "line": 511,
+      "end_line": 522,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_gp_accept_records_a_reason_PER_FINDING",
+      "line": 525,
+      "end_line": 538,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_gp_accept_can_take_one_finding_at_a_time",
+      "line": 541,
+      "end_line": 551,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_accept_only_ADDS_and_never_destroys_the_existing_baseline",
+      "line": 554,
+      "end_line": 577,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_accepting_one_finding_keeps_the_other_reasons_intact",
+      "line": 580,
+      "end_line": 590,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_removing_an_acceptance_must_be_an_EXPLICIT_act",
+      "line": 593,
+      "end_line": 610,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_a_legacy_list_baseline_still_loads",
+      "line": 613,
+      "end_line": 623,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_accept_rejects_an_unknown_finding_id",
+      "line": 626,
+      "end_line": 632,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_hook_does_not_block_read_only_tools",
+      "line": 635,
+      "end_line": 658,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_an_identical_block_is_not_reprinted_in_full",
+      "line": 661,
+      "end_line": 685,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_untyped_discharge_offers_BOTH_moves",
+      "line": 688,
+      "end_line": 699,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_a_unit_ideal_certificate_is_checkable_by_expansion",
+      "line": 703,
+      "end_line": 733,
+      "status": "live_unexecuted",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_a_declared_certificate_that_is_false_is_caught",
+      "line": 737,
+      "end_line": 760,
+      "status": "live_unexecuted",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_expansion_catches_cofactors_that_do_not_expand",
+      "line": 764,
+      "end_line": 779,
+      "status": "live_unexecuted",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_ring_iso_is_checkable_and_radicalisation_is_caught",
+      "line": 783,
+      "end_line": 822,
+      "status": "live_unexecuted",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_ring_iso_checks_both_inverse_compositions",
+      "line": 825,
+      "end_line": 853,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_w10_involution_is_verified_as_a_mapped_equivalence",
+      "line": 857,
+      "end_line": 879,
+      "status": "live_unexecuted",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_ring_iso_forward_is_the_point_forward_map_not_its_pullback",
+      "line": 882,
+      "end_line": 906,
+      "status": "live_unexecuted",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_a_substitution_is_simultaneous",
+      "line": 912,
+      "end_line": 932,
+      "status": "live_unexecuted",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_verifier_reads_the_model_characteristic",
+      "line": 936,
+      "end_line": 964,
+      "status": "live_unexecuted",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_a_true_containment_in_characteristic_two_is_not_refused",
+      "line": 968,
+      "end_line": 990,
+      "status": "live_unexecuted",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_saturation_constructor_can_actually_run",
+      "line": 994,
+      "end_line": 1021,
+      "status": "live_unexecuted",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_the_cli_and_the_hook_agree_where_the_campaign_is",
+      "line": 1024,
+      "end_line": 1048,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    },
+    {
+      "name": "test_init_does_not_walk_up",
+      "line": 1051,
+      "end_line": 1067,
+      "status": "offline_regression_passed",
+      "remaining": "Portable extraction and broader consumer semantics are not established by this test alone."
+    }
+  ],
+  "tests": {
+    "this_batch_passed": 25,
+    "prior_complementary_passed": 17,
+    "total_offline_instances_passed": 42,
+    "live_unexecuted": 13,
+    "reports": [
+      "reports/oracle-boundary-complete-review.xml",
+      "reports/oracle-hook-review.xml"
+    ]
+  },
+  "findings": [
+    "Full test_boundary.py text reading is now complete across Batches 76-78. This batch runs the complementary 25 offline instances; Batch 77 ran 17. Together 42 offline instances pass, with 13 live tests explicitly unexecuted.",
+    "Constructor/recording controls use injected complete transcripts. They verify argument guards, parse/error handling, declaration persistence and no model after abort, not correctness of the mocked mathematical output.",
+    "The full-loop field-relative emptiness test uses a synthetic BASE_EXTENSION edge whose endpoint models do not actually encode a field extension. It intentionally isolates the kernel transport cell; it is not evidence of concrete extension construction.",
+    "The positive UNIT_IDEAL_CERT base-change test declares a certificate kind without exhibiting a receipt. Its lack of hook findings tests transport classification, not earned leaf authority. The distinction matches the zero-path and explanation findings in Batches 51 and 67.",
+    "The offline right-inverse regression injects substitution strings and checks the verifier considers both compositions. Actual non-involution orientation, simultaneous substitution, nonreduced ideals and characteristic-sensitive live execution remain among excluded tests.",
+    "Live tests specify useful complementary controls: correct and incorrect unit certificates, characteristic-23 non-unit ideal, characteristic-two containment, mapped involution and translation orientation, and saturation/zero-ideal constructors. Earlier portable corpus controls cover selected mathematical questions but do not stand in for these unexecuted live paths.",
+    "The lazy availability probe is read as historical test harness code, not executed. It accepts either zero return code or a Singular banner and therefore is a reachability heuristic, not proof the specific mathematical backend operation works."
+  ],
+  "remaining": [
+    "Distinct portable extraction mapping and full historical incident dispositions.",
+    "Live backend execution remains unverified; no absence claim inferred from deselection."
+  ]
+}

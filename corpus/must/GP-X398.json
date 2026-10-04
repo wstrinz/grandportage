@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "GP-X398",
+  "seed": null,
+  "title": "Operational 77.4: hook error reporting boundary",
+  "situation": "Two different malformed graph JSON strings on successive hook evaluations.",
+  "inputs": {
+    "incident_row": "77.4",
+    "vector": {
+      "graph_inputs": [
+        "first malformed JSON text",
+        "different malformed JSON text"
+      ],
+      "sequence": "successive hook evaluations",
+      "comparison": [
+        "evaluation messages",
+        "main repeat message",
+        "exit code"
+      ]
+    },
+    "retained_evidence_refs": [
+      "reports/HOOK-BOUNDARY-AUDIT.json#/observations/2"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Treat repeat suppression by finding ID as unchanged explanation.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Changed decoder error should report changed cause while still blocking."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/hook.py",
+      "line": 355,
+      "anchor": "block, message = evaluate(root)",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

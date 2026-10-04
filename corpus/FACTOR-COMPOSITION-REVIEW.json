@@ -1,0 +1,93 @@
+{
+  "files": [
+    {
+      "path": "grandportage/factor_power.py",
+      "sha256": "8323a089ce32117c552e689c65b86eed50e72ad820e6affc7291af078e519699",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "grandportage/factor_power_contradiction.py",
+      "sha256": "4ccd7bcb680bf193132946b263b2bf6502da7e4fe557e16fba7fdc0ba06dd8cd",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_factor_power.py",
+      "sha256": "06707115a5b8aabbca158b6c8832e71e8e179dd8830d01e88f94cdf1c08aa617",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "test_functions": [
+        "test_synthetic_factor_receipts_verify",
+        "test_report_preserves_semantic_debt_and_refuses_point_authority",
+        "test_wrong_factor_identity_is_rejected",
+        "test_exponent_must_be_bounded_and_strictly_positive",
+        "test_scalar_must_be_a_declared_unit_monomial",
+        "test_duplicate_ids_and_unknown_fields_fail_closed",
+        "test_cli_states_the_authority_boundary",
+        "test_cli_rejects_a_false_receipt"
+      ]
+    },
+    {
+      "path": "tests/test_factor_power_contradiction.py",
+      "sha256": "53ea8d4d139a8395051e89c634a6558cb5c6dee98596fc25b7862feb21d1b2cc",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "test_functions": [
+        "test_composition_binds_the_checked_in_factor_fixture_exactly",
+        "test_synthetic_contradiction_pattern_verifies_exactly",
+        "test_composition_preserves_model_and_semantic_debt",
+        "test_selected_factor_receipt_must_exist",
+        "test_pivot_solution_must_solve_a_monic_affine_base",
+        "test_pivot_solution_cannot_be_self_referential",
+        "test_consequence_residual_is_recomputed",
+        "test_consequence_must_reduce_to_one_declared_unit_monomial",
+        "test_false_nested_factor_receipt_fails_before_composition",
+        "test_unknown_fields_fail_closed",
+        "test_cli_states_compositional_authority_boundary",
+        "test_cli_rejects_false_composition"
+      ]
+    },
+    {
+      "path": "fixtures/algebraic_contracts/factor_power_v1.json",
+      "sha256": "3759b9250bb7ac2af36a21a0ac1c6f459edd1c4d34d56c1d5c6015a18dbd662e",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "fixtures/algebraic_contracts/factor_power_affine_contradiction_v1.json",
+      "sha256": "ca723ee3221d73eb8ee11388372534878265a681847166b1e23a48c7ef8e5227",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "tests": {
+    "report": "reports/oracle-factor-review.xml",
+    "sha256": "482446d40228855e80bef255729eb1de7e710a21e71ab0a2ca59fab4cbdfdca3",
+    "passed": 26
+  },
+  "diagnostic": "reports/FACTOR-COMPOSITION-BOUNDARY.json",
+  "findings": [
+    "Unit-monomial syntax is checked in the declared polynomial ring; actual target units are not inferred.",
+    "Composition requires exact monic pivot, excludes pivot from its solution and recomputes the second-equation residual.",
+    "Returned open obligations explicitly retain same-model vanishing and domain/unit interpretation; no model binding or emptiness authority.",
+    "Exponent 64 succeeds in neutral control; 65 is refused as resource policy. Domain-valued interpretation suffices for vanishing-power inference but is stronger than absence of nonzero nilpotents. No weaker 0.50 rule adopted."
+  ],
+  "remaining": [
+    "Selected neutral identity/composition controls extracted in GP-X292\u2013301; remaining validation/budget/dependency and semantic premise dispositions still open.",
+    "Complete validation/budget and dependency review; tests and source reading do not constitute checker soundness proof.",
+    "Keep semantic countermodels distinct from admitted graph records."
+  ],
+  "corpus_cases": [
+    "GP-X292",
+    "GP-X293",
+    "GP-X294",
+    "GP-X295",
+    "GP-X296",
+    "GP-X297",
+    "GP-X298",
+    "GP-X299",
+    "GP-X300",
+    "GP-X301"
+  ]
+}

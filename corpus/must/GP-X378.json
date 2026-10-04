@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "id": "GP-X378",
+  "seed": null,
+  "title": "Operational 58.3a: handoff api contract boundary",
+  "situation": "On one unchanged scratch graph with an untyped edge E, direct portage_check calls request floor DEBT and UNSOUND_CONCLUSION; both return the same DEBT finding.",
+  "inputs": {
+    "incident_row": "58.3a",
+    "vector": {
+      "operation": "h_portage_check",
+      "graph_events": [
+        {
+          "ev": "model",
+          "id": "A",
+          "what": "a"
+        },
+        {
+          "ev": "model",
+          "id": "B",
+          "what": "b"
+        },
+        {
+          "ev": "edge",
+          "id": "E",
+          "src": "A",
+          "dst": "B",
+          "type": "UNTYPED",
+          "map_kind": "IDENTITY_MAP",
+          "why": "relation unknown",
+          "debt_why": "needs classification"
+        }
+      ],
+      "requests": [
+        {
+          "floor": "DEBT"
+        },
+        {
+          "floor": "UNSOUND_CONCLUSION"
+        }
+      ],
+      "same_graph": true
+    },
+    "retained_evidence_refs": [],
+    "observation_layer": "offline_direct_bounded_control",
+    "bounded_control_ref": "reports/PHASE-0A-OPERATIONAL-CASE-CONVERSION.json#/new_bounded_controls/58.3a"
+  },
+  "attempted_conclusion": "Infer that requesting a higher portage_check floor suppresses the DEBT finding.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: An advertised floor should be consulted or the description narrowed."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/mcp.py",
+      "line": 923,
+      "anchor": "def h_portage_check(args, root):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/mcp.py",
+      "line": 580,
+      "anchor": "\"floor\": {\"type\": \"string\", \"enum\": list(C.SEVERITY_ORDER),",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

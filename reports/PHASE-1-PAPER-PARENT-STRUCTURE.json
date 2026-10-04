@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "input_hashes": 11,
+  "main_source_hashes": 76,
+  "main_owners": 115,
+  "eligible_judgments": 104,
+  "original_evidence_fields_equal": true,
+  "evidence_pointers_resolve": true,
+  "primary_counts": [
+    19,
+    11,
+    37
+  ],
+  "supplemental_counts": [
+    6,
+    13,
+    18
+  ],
+  "identical_E_R_rows": 104,
+  "known_high_cost": [
+    "JC-B003",
+    "JC-B005"
+  ],
+  "no_source_case_or_replay_writes": true,
+  "report": "reports/PHASE-1-PAPER-EXPRESSIVENESS.json",
+  "authority": "Independent parent structural checks; semantic scoring remains under review.",
+  "rubric_issue": "All104 original E/R pairs identical; expression must be assessed separately from refusal and implemented checker availability."
+}

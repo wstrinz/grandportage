@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "GP-X190",
+  "seed": null,
+  "title": "Retyping a relation reopens its warning despite stable finding identity",
+  "situation": "A stable finding id is insufficient when its meaning changes; the original review reason must remain visible.",
+  "inputs": {
+    "scenario": "reviewed_warning",
+    "reviewed_relation": "unspecified",
+    "current_relation": "equations_forgotten",
+    "review_record": "meaning_bound",
+    "review_reason": "carried deliberately"
+  },
+  "attempted_conclusion": "Allow work to proceed under the recorded warning-review policy.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A stable finding id is insufficient when its meaning changes; the original review reason must remain visible."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 613,
+      "anchor": "def test_an_acceptance_does_not_survive_the_finding_changing_meaning("
+    }
+  ]
+}

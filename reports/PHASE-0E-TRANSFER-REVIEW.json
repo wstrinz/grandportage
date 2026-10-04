@@ -1,0 +1,523 @@
+{
+  "report": "PHASE-0E-TRANSFER-REVIEW",
+  "status": "bounded_provisional_reading_only",
+  "assigned_rows": [
+    "P3",
+    "P4",
+    "P5",
+    "P7"
+  ],
+  "workspace": "$WORKSPACE",
+  "gate_effect": {
+    "phase_0e_complete": false,
+    "G0_complete": false,
+    "G1_adoptions_approved": false
+  },
+  "authorization": "Assigned transfer slice; only the two report files may be written. No source imports/execution, prototype, install, delegation, contact, campaign reads or shared tracker edits.",
+  "timing": {
+    "start_utc": "2026-09-30T01:01:09Z",
+    "source_reading_end_utc": "2026-09-30T01:10:35Z",
+    "review_end_utc": "2026-09-30T01:15:01Z",
+    "hard_cap_minutes": 25,
+    "charge_basis": "Whole uninterrupted elapsed assignment interval including local reads, primary fetches, failures, tool latency, analysis, drafting and verification; ceiling after an additional 60-second finalization allowance.",
+    "charged_minutes": 15,
+    "prior_completed_minutes": 26,
+    "reserved_slice_minutes": 25,
+    "unreserved_minutes_at_start": 69,
+    "authorized_total_minutes": 120,
+    "total_completed_after_slice": 41,
+    "elapsed_seconds_at_finalize": 832,
+    "finalization_allowance_seconds": 60,
+    "remaining_total_after_slice": 79
+  },
+  "pins": {
+    "Logipedia": {
+      "sha": "9da47719a18e3d9995137939e789e7664c71c9e5",
+      "commit_utc": "2024-11-11T10:38:12Z"
+    },
+    "Trocq": {
+      "sha": "a36529e66dfd3d255c51506943dbdac77adbee56",
+      "commit_utc": "2026-07-01T00:19:43Z"
+    },
+    "Mathlib": {
+      "sha": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "commit_utc": "2026-09-29T23:49:11Z"
+    },
+    "Isabelle_mirror": {
+      "sha": "ba26878dc68fce466a51121aa6b0d0c3893084d9",
+      "commit_utc": "2026-09-28T13:56:27Z",
+      "qualification": "Development mirror, not a tested released distribution"
+    },
+    "Lean_toolchain": {
+      "tag": "v4.35.0-rc3",
+      "sha": "470d5ce1400764999581fd26d5d72b00d990b0f4",
+      "commit_utc": "2026-09-24T17:35:24Z",
+      "qualification": "Resolved from inspected Mathlib lean-toolchain; not GP's chosen/validated future pin"
+    }
+  },
+  "local_authority": {
+    "files": [
+      "AGENTS.md",
+      "BACKBRIEF.md",
+      "BACKBRIEF-REV3.md",
+      "DECISIONS.md",
+      "docs/GP-0.50-REWORK-PACKET-rev3.md",
+      "reports/PACKET-REV3-REVIEW.md",
+      "reports/PHASE-0-COMPLETION-TRACKER.json"
+    ],
+    "budget_observed": "26 minutes already completed; 25 reserved for this worker; 69 unreserved; parent no concurrent reading commissioned.",
+    "binding_constraints": [
+      "Replay-only authority; every admitted checker needs soundness argument and adversarial controls.",
+      "Mathlib coupling stays outside the kernel in a pinned binding layer.",
+      "K2 narrows scope; wider earned reach needs sound receipt/rule admission.",
+      "All three G1 choices stay open pending evidence and user sign-off.",
+      "No novelty, complete territory review or Phase 0 completion conclusion from four rows."
+    ]
+  },
+  "rows": [
+    {
+      "id": "P3",
+      "topic": "Dedukti / Logipedia: proof dependencies versus semantic reach",
+      "proposal": "imitate",
+      "guarantee_piece": "No silent overclaims; evidence-backed wider reach only after interpretation and admission.",
+      "answer": "The paper studies logical formalisms encoded by declarations and rewrite rules in Dedukti's lambda-Pi calculus modulo theory. It identifies proof fragments that avoid dependent arrow/implication and proof-to-term pi, allowing partial translation from Matita to HOL. This is more than a flat list of mathematical axioms. At the pinned Logipedia implementation, JSON deps are documented as direct item dependencies, not transitive closure. compile.ml excludes encoding modules from those deps and writes theory=[] for declarations, definitions and rewrite-rule items. deps.ml calls Dedukti Api.Dep for item dependencies and offers optional transitive closure for module dependencies. The inspected code does not establish a completed per-proof axiom-support certificate.",
+      "source_paths": [
+        "docs/export/apropos.md",
+        "src/json/json_types.ml",
+        "src/json/compile.ml",
+        "src/core/deps.ml"
+      ],
+      "limitations": [
+        "A dependency graph is syntactic support evidence; it does not prove a GP predicate in every structure satisfying a named scope.",
+        "Dedukti computation/rewrite rules and encoding adequacy must be included in any logical-support interpretation; JSON's filtered deps cannot be treated as a standalone logical dependency closure.",
+        "Export docs require translation into STTfa first; only HOL-to-STTfa is documented as fully automated. Matita translation is described as partial/planned; other logics have no concrete plan in that document.",
+        "Historical exports to Lean are not evidence of compatibility with current Lean 4 or this GP workspace."
+      ],
+      "proposal_detail": "Imitate proof-specific support accounting, pinned theories and explicit translation restrictions. Differ from converting a displayed theory/axiom list directly into semantic reach. No Dedukti importer or exporter is adopted in this slice.",
+      "unknowns": [
+        "Complete axiom/rule dependency accounting and adequacy proofs for a GP-targeted encoding.",
+        "Current end-to-end exporter compatibility, replay contract, licensing for any future copied component and integration cost."
+      ],
+      "adoption_approved": false
+    },
+    {
+      "id": "P4",
+      "topic": "Trocq; Isabelle Transfer/Lifting; Lean analogue",
+      "proposal": "adopt / imitate / differ (provisional by component)",
+      "guarantee_piece": "Sound object-changing carrying; explain missing coverage, predicate preservation and direction.",
+      "answer": "Trocq uses a product hierarchy of structure on R and its converse: Map0 no data, Map1 a function, Map2a function-graph inclusion in R, Map2b inclusion of R in the function graph, Map3 both, Map4 additional coherence. These are constructive structures, not a trust score or a synonym for two total/surjective flags. Map1_forall uses a related comap for the domain and a forward map for the codomain; stronger displayed function transfer constructions require Funext. The paper distinguishes goal replacement from the implication that justifies it. Isabelle Transfer separates left_total, right_total and bi_total; equality transfer also needs bi_unique. Lifting's Quotient records Abs(Rep a)=a, valid representatives, the domain of the raw relation and its correspondence to abstract equality; Quotient_left_total additionally requires reflexivity of the raw relation.",
+      "lean_analogue": {
+        "source_path": "Mathlib/Logic/Relator.lean",
+        "namespace": "Relator",
+        "available": [
+          "LiftFun",
+          "RightTotal.rel_forall",
+          "LeftTotal.rel_exists",
+          "BiTotal.rel_forall",
+          "BiTotal.rel_exists"
+        ],
+        "status": "Concrete theorem analogue exists at the pinned Mathlib revision; no compile or GP binding test performed.",
+        "port_status": "No current working Lean Trocq port was evidenced by the bounded repo/paper/search inspection. A 2024 primary author excerpt describes an unready partial 2023 transfer prototype; this neither proves a current absence nor establishes a maintained port."
+      },
+      "direction_convention": "R : A -> B -> Prop and forall a b, R a b -> (P a -> Q b); all directions below refer to warranted conclusions, not tactic-goal replacement.",
+      "direction_table": [
+        {
+          "claim": "exists A P -> exists B Q",
+          "required": "LeftTotal R plus predicate implication"
+        },
+        {
+          "claim": "forall A P -> forall B Q",
+          "required": "RightTotal R plus predicate implication"
+        },
+        {
+          "claim": "reverse implications",
+          "required": "Converse relation and reversed predicate implication; coverage sides swap"
+        },
+        {
+          "claim": "forall/exists equivalence",
+          "required": "BiTotal R plus predicate iff"
+        }
+      ],
+      "limitations": [
+        "A total function's graph is left-total. Surjectivity supplies right-total. Neither supplies predicate preservation automatically.",
+        "For negative existence claims, use a proved reflection direction/contrapositive; do not reverse an existence implication.",
+        "Restriction to Domainp/image is different from a theorem over the entire raw or target domain.",
+        "Trocq README calls the project a Coq-Elpi prototype, supports Rocq/Coq 9.0 and 9.1 and says it is not packaged in Opam/Nix. Its higher structures and any univalence/Funext assumptions cannot be silently transported into Lean."
+      ],
+      "proposal_detail": "Propose adopting the existing Lean Relator lemmas through the pinned binding layer, imitating Trocq's separate structural obligations and Isabelle's domain restrictions. Differ from making all relation properties universal kernel facts. Keep algebra-profile rules under section 8.4 and D9; no promotion or imported code now.",
+      "unknowns": [
+        "Current maintained Lean port, if any; not resolved by this bounded search.",
+        "Which corpus relations require uniqueness, quotient respectfulness, dependent codomain structure or restricted-domain formulations.",
+        "Pinned GP compatibility and elaboration cost remain for separately authorized 0c/G1."
+      ],
+      "adoption_approved": false
+    },
+    {
+      "id": "P5",
+      "topic": "Lean norm_cast: precise cast rules and limits",
+      "proposal": "adopt narrowly (provisional)",
+      "guarantee_piece": "Preserve statement meaning when moving cast expressions; refuse unsupported domain widening.",
+      "answer": "The inspected Mathlib pin specifies leanprover/lean4:v4.35.0-rc3, resolved to Lean commit 470d5ce1400764999581fd26d5d72b00d990b0f4. Current norm_cast implementation is in Lean core, not the attempted Mathlib/Tactic/NormCast.lean path. Its attribute classifies equality/iff lemmas by coercion occurrence into elim/move/squash; the tactic composes proof-producing simplifications and checks the normalized source and target types for mod_cast. It operates using the registered lemmas and available hypotheses, rather than validating arbitrary ladder transfer.",
+      "exact_rules": [
+        {
+          "name": "Nat.cast_mul",
+          "hypotheses": "[NonAssocSemiring alpha]",
+          "statement": "cast(m*n) = cast(m)*cast(n)"
+        },
+        {
+          "name": "Nat.cast_inj",
+          "hypotheses": "[AddMonoidWithOne R] [CharZero R]",
+          "statement": "(m:R)=(n:R) iff m=n"
+        },
+        {
+          "name": "Int.cast_inj",
+          "hypotheses": "[AddGroupWithOne alpha] [CharZero alpha]",
+          "statement": "(m:alpha)=(n:alpha) iff m=n"
+        },
+        {
+          "name": "Rat.cast_inj; cast_add; cast_sub; cast_mul; cast_inv; cast_div",
+          "hypotheses": "[DivisionRing alpha] [CharZero alpha]",
+          "statement": "Rational equality reflection and the displayed rational operation-preservation laws"
+        },
+        {
+          "name": "Rat.cast_le; Rat.cast_lt",
+          "hypotheses": "[Field K] [LinearOrder K] [IsStrictOrderedRing K]",
+          "statement": "Comparisons between cast rational values iff their comparisons in Q"
+        },
+        {
+          "name": "Nat.cast_sub",
+          "hypotheses": "[AddGroupWithOne R] and h:m<=n",
+          "statement": "cast(n-m : N) = cast(n)-cast(m)"
+        }
+      ],
+      "limitations": [
+        "Nat subtraction is truncated; its subtraction law has an inequality premise.",
+        "Integer division and natural division are not field division; do not substitute them through casts without the corresponding divisibility/side conditions.",
+        "Equality reflection in finite characteristic is not furnished by the CharZero lemmas.",
+        "Cast inv/div laws use Lean's totalized inverse/division; a GP syntax for partial division would need its own denominator binding/guard.",
+        "Pointwise comparisons or equality of cast source values do not quantify over all elements of a larger codomain. A cast witness may establish existence with all constraints preserved, but nonexistence over Q does not imply nonexistence over R.",
+        "CharZero and CharP R 0 are not interchangeable for arbitrary semirings, as the inspected definition documentation explicitly warns."
+      ],
+      "proposal_detail": "Propose using norm_cast/mod_cast and individual exact cast lemmas as existing proof tools in the binding layer, with lemma identity, typeclass instances, side conditions and statement mapping retained. Do not call this a generic scope-ladder rule or an admitted GP checker merely because the tactic exists.",
+      "unknowns": [
+        "Whether each proposed corpus AST elaboration preserves the theorem's statement and implicit hypotheses.",
+        "Actual GP toolchain compatibility, elaboration costs and theorem-axiom audit; no Lean installation, build or test run."
+      ],
+      "adoption_approved": false
+    },
+    {
+      "id": "P7",
+      "topic": "Mathlib ACF / Lefschetz: fixed-sentence family transfer",
+      "proposal": "adopt narrowly (provisional)",
+      "guarantee_piece": "Earned cross-world consequences within a precisely specified model class; explain insufficient specialization evidence.",
+      "answer": "The pinned IsAlgClosed.lean defines FirstOrder.Language.Theory.ACF p over Language.ring. ACF_isComplete requires p prime or p=0. finite_ACF_prime_not_realize_of_ACF_zero_realize takes a ring sentence phi and ACF 0 models phi, and proves finiteness of prime characteristics whose ACF theory does not model phi. Two equivalence theorems identify ACF 0 modeling a fixed sentence with infinitely many prime characteristics modeling it, or with all but finitely many doing so. A concrete algebraically closed field uses Field K, CharP K p, IsAlgClosed K and CompatibleRing K with a ring-language structure (the source recommends compatibleRingOfRing K).",
+      "theorems": [
+        {
+          "name": "FirstOrder.Field.ACF_isComplete",
+          "hypotheses": "p.Prime or p=0",
+          "conclusion": "(Theory.ACF p).IsComplete"
+        },
+        {
+          "name": "FirstOrder.Field.finite_ACF_prime_not_realize_of_ACF_zero_realize",
+          "hypotheses": "phi:Language.ring.Sentence; Theory.ACF 0 models phi",
+          "conclusion": "Set.Finite {p:Nat.Primes | not Theory.ACF p models phi}"
+        },
+        {
+          "name": "FirstOrder.Field.ACF_zero_realize_iff_infinite_ACF_prime_realize",
+          "hypotheses": "phi:Language.ring.Sentence",
+          "conclusion": "Theory.ACF 0 models phi iff Set.Infinite {p:Nat.Primes | Theory.ACF p models phi}"
+        },
+        {
+          "name": "FirstOrder.Field.ACF_zero_realize_iff_finite_ACF_prime_not_realize",
+          "hypotheses": "phi:Language.ring.Sentence",
+          "conclusion": "Theory.ACF 0 models phi iff the complement of {p:Nat.Primes | Theory.ACF p models phi} is finite"
+        }
+      ],
+      "limitations": [
+        "Quantifies over algebraically closed models, not finite fields F_p themselves, rational fields, ordered fields or arbitrary Lean propositions.",
+        "Sentence has no free parameters. Rational coefficients, chosen roots/embeddings and model constants must be encoded and their meaning/denominator conditions audited, rather than carried as unbound external parameters.",
+        "The finite exceptional set depends on the fixed sentence; this is not one uniform cutoff for every statement.",
+        "The proof uses compactness and Classical.choice. The inspected API gives no computed exceptional-prime list or numerical bound for a selected prime.",
+        "One or finitely many favorable characteristic-p examples do not establish infinitely many theory entailments. No chosen-prime transfer follows merely from calling p large.",
+        "Completeness establishes agreement on ring sentences among models of a fixed ACF theory; it is not agreement for arbitrary formulas with independently chosen parameters."
+      ],
+      "proposal_detail": "Propose reusing these specific theorems in a pinned model-theory binding for M3 when the profile statement is proved to match the ring sentence and required entailment. For a particular characteristic p, require additional evidence that p is outside an explicit justified exception set (or a separate direct proof). Differ from treating it as a generic large-p certificate specialization rule.",
+      "unknowns": [
+        "Corpus-relevant first-order encodings, parameter/denominator handling and an effective bound or exception certificate for concrete-prime use.",
+        "Actual theorem elaboration/axiom auditing, compatibility and timing remain unexecuted future work."
+      ],
+      "adoption_approved": false
+    }
+  ],
+  "sources": [
+    {
+      "kind": "pinned_primary_source",
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "Mathlib/ModelTheory/Algebra/Field/IsAlgClosed.lean",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/Mathlib/ModelTheory/Algebra/Field/IsAlgClosed.lean",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "Mathlib/Data/Nat/Cast/Basic.lean",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/Mathlib/Data/Nat/Cast/Basic.lean",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "Mathlib/Data/Int/Cast/Basic.lean",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/Mathlib/Data/Int/Cast/Basic.lean",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "Mathlib/Data/Rat/Cast/CharZero.lean",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/Mathlib/Data/Rat/Cast/CharZero.lean",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "Mathlib/Data/Rat/Cast/Order.lean",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/Mathlib/Data/Rat/Cast/Order.lean",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "lean-toolchain",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/lean-toolchain",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "isabelle-prover/mirror-isabelle",
+      "revision": "ba26878dc68fce466a51121aa6b0d0c3893084d9",
+      "path": "src/HOL/Transfer.thy",
+      "url": "https://github.com/isabelle-prover/mirror-isabelle/blob/ba26878dc68fce466a51121aa6b0d0c3893084d9/src/HOL/Transfer.thy",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "Deducteam/Logipedia",
+      "revision": "9da47719a18e3d9995137939e789e7664c71c9e5",
+      "path": "src/json/compile.ml",
+      "url": "https://github.com/Deducteam/Logipedia/blob/9da47719a18e3d9995137939e789e7664c71c9e5/src/json/compile.ml",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "Deducteam/Logipedia",
+      "revision": "9da47719a18e3d9995137939e789e7664c71c9e5",
+      "path": "src/json/json_types.ml",
+      "url": "https://github.com/Deducteam/Logipedia/blob/9da47719a18e3d9995137939e789e7664c71c9e5/src/json/json_types.ml",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "Deducteam/Logipedia",
+      "revision": "9da47719a18e3d9995137939e789e7664c71c9e5",
+      "path": "src/json/compile.mli",
+      "url": "https://github.com/Deducteam/Logipedia/blob/9da47719a18e3d9995137939e789e7664c71c9e5/src/json/compile.mli",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "isabelle-prover/mirror-isabelle",
+      "revision": "ba26878dc68fce466a51121aa6b0d0c3893084d9",
+      "path": "src/HOL/Lifting.thy",
+      "url": "https://github.com/isabelle-prover/mirror-isabelle/blob/ba26878dc68fce466a51121aa6b0d0c3893084d9/src/HOL/Lifting.thy",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "MathlibTest/Tactic/NormCast.lean",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/MathlibTest/Tactic/NormCast.lean",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "Mathlib/Logic/Relator.lean",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/Mathlib/Logic/Relator.lean",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "leanprover/lean4",
+      "revision": "470d5ce1400764999581fd26d5d72b00d990b0f4",
+      "path": "src/Lean/Elab/Tactic/NormCast.lean",
+      "url": "https://github.com/leanprover/lean4/blob/470d5ce1400764999581fd26d5d72b00d990b0f4/src/Lean/Elab/Tactic/NormCast.lean",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "Deducteam/Logipedia",
+      "revision": "9da47719a18e3d9995137939e789e7664c71c9e5",
+      "path": "src/core/deps.ml",
+      "url": "https://github.com/Deducteam/Logipedia/blob/9da47719a18e3d9995137939e789e7664c71c9e5/src/core/deps.ml",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "rocq-community/trocq",
+      "revision": "a36529e66dfd3d255c51506943dbdac77adbee56",
+      "path": "README.md",
+      "url": "https://github.com/rocq-community/trocq/blob/a36529e66dfd3d255c51506943dbdac77adbee56/README.md",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "rocq-community/trocq",
+      "revision": "a36529e66dfd3d255c51506943dbdac77adbee56",
+      "path": "std/Param_forall.v",
+      "url": "https://github.com/rocq-community/trocq/blob/a36529e66dfd3d255c51506943dbdac77adbee56/std/Param_forall.v",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "rocq-community/trocq",
+      "revision": "a36529e66dfd3d255c51506943dbdac77adbee56",
+      "path": "std/Hierarchy.v",
+      "url": "https://github.com/rocq-community/trocq/blob/a36529e66dfd3d255c51506943dbdac77adbee56/std/Hierarchy.v",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "leanprover/lean4",
+      "revision": "470d5ce1400764999581fd26d5d72b00d990b0f4",
+      "path": "src/Lean/Meta/Tactic/NormCast.lean",
+      "url": "https://github.com/leanprover/lean4/blob/470d5ce1400764999581fd26d5d72b00d990b0f4/src/Lean/Meta/Tactic/NormCast.lean",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "Mathlib/Data/Int/Cast/Lemmas.lean",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/Mathlib/Data/Int/Cast/Lemmas.lean",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "leanprover-community/mathlib4",
+      "revision": "58554a33d40f0f4c33fd0256dfecbc5b706480a3",
+      "path": "Mathlib/Algebra/CharZero/Defs.lean",
+      "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/Mathlib/Algebra/CharZero/Defs.lean",
+      "observation": "Static text inspection; not imported, built or executed."
+    },
+    {
+      "kind": "pinned_primary_source",
+      "repository": "Deducteam/Logipedia",
+      "revision": "9da47719a18e3d9995137939e789e7664c71c9e5",
+      "path": "docs/export/apropos.md",
+      "url": "https://github.com/Deducteam/Logipedia/blob/9da47719a18e3d9995137939e789e7664c71c9e5/docs/export/apropos.md",
+      "observation": "Static export-route documentation."
+    },
+    {
+      "kind": "paper",
+      "url": "https://arxiv.org/html/2305.00064v1",
+      "locator": "Logical frameworks; Reverse mathematics; Empirical results",
+      "observation": "Research claims and historical demonstration, not current compatibility."
+    },
+    {
+      "kind": "paper",
+      "url": "https://arxiv.org/html/2310.14022v2",
+      "locator": "Sections 2.1, 3.2, Definition 5, Remark 2",
+      "observation": "Relation hierarchy and proof-goal direction."
+    },
+    {
+      "kind": "paper_metadata",
+      "url": "https://arxiv.org/abs/2001.10594",
+      "observation": "Original norm_cast paper; current behavior grounded in Lean source."
+    },
+    {
+      "kind": "official_documentation",
+      "url": "https://www.isabelle.in.tum.de/library/HOL/HOL/Lifting.html",
+      "observation": "Cross-check; detailed conclusions use pinned mirror source."
+    },
+    {
+      "kind": "primary_author_statement_search_excerpt",
+      "url": "https://leanprover-community.github.io/archive/stream/217875-Is-there-code-for-X%3F/topic/Equivalences.20preserve.20properties.html",
+      "date": "2024-05-30",
+      "observation": "Kim Morrison describes a partial 2023 transfer prototype as not ready and not in Mathlib; historical evidence only. Full-page fetch failed; search excerpt inspected."
+    }
+  ],
+  "failed_fetches": [
+    {
+      "target": "Mathlib/Tactic/NormCast.lean",
+      "result": "Response status code does not indicate success: 404 (Not Found).",
+      "consequence": "Failed path excluded from evidence; latency charged."
+    },
+    {
+      "target": "src/deps.ml",
+      "result": "Response status code does not indicate success: 404 (Not Found).",
+      "consequence": "Failed path excluded from evidence; latency charged."
+    },
+    {
+      "target": "Mathlib/Data/Nat/Cast/CharZero.lean",
+      "result": "Response status code does not indicate success: 404 (Not Found).",
+      "consequence": "Failed path excluded from evidence; latency charged."
+    },
+    {
+      "target": "Mathlib/Data/Int/Cast/CharZero.lean",
+      "result": "Response status code does not indicate success: 404 (Not Found).",
+      "consequence": "Failed path excluded from evidence; latency charged."
+    },
+    {
+      "target": "src/exporter.mli",
+      "result": "404 in an earlier in-memory fetch; stale prior variable output followed the failure.",
+      "consequence": "Do not attribute the stale export.ml text to exporter.mli; neither is used as an axiom-tracker certificate."
+    },
+    {
+      "target": "reports/PHASE-0E-TIME-TRACKER.md; reports/PACKET-REVIEW.md",
+      "result": "Incorrect local filenames; read failed.",
+      "consequence": "Recovered through exact AGENTS paths and PHASE-0-COMPLETION-TRACKER.json. No missing-project-content inference."
+    },
+    {
+      "target": "Earlier web cache misses (including guessed Trocq v3 and Isabelle paper/docs URLs)",
+      "result": "Cache miss/internal errors.",
+      "consequence": "Primary pinned text recovered in memory where available; failed cached pages not treated as absence."
+    },
+    {
+      "target": "Full-page Lean community author archive; Isabelle author PDF huffman-kuncar-itp2012.pdf",
+      "result": "web internal error; search excerpt available.",
+      "consequence": "Author archive used only as dated primary excerpt; PDF not used for detailed theorem claims."
+    },
+    {
+      "target": "First batched report-write command",
+      "result": "Process creation failed: Windows command line too long; no process started.",
+      "consequence": "Retried with smaller per-file chunks; tool latency included in charge."
+    }
+  ],
+  "verification": {
+    "source_execution": false,
+    "Lean_compilation": false,
+    "Isabelle_execution": false,
+    "Rocq_execution": false,
+    "GP_test_runs": false,
+    "source_download_files": false,
+    "installations": false,
+    "shared_files_changed": false,
+    "report_json_validation": "In-memory assigned-row, gate, non-execution and source-reference checks passed; on-disk parse and consistency check follows."
+  },
+  "parent_integration_notes": [
+    "Replace the broad P3 axiom-label assertion with proof-fragment/encoding analysis plus actual direct-dependency implementation limits.",
+    "P4 has an existing Mathlib Relator analogue; current maintained Trocq port remains unknown, not absent.",
+    "P5 adoption is for theorem-backed cast simplification, not domain widening.",
+    "P7 exists with exact first-order ACF restrictions and no numerical cutoff in the inspected API.",
+    "Reconcile actual charge into the shared tracker; this worker does not modify it."
+  ]
+}

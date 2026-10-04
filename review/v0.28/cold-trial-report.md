@@ -30,7 +30,7 @@ The remaining five source bindings matched.
 
 The exact failure matrix is retained in
 `cold-trial-failure-matrix.md` (raw SHA-256
-`ffb05ef7e2f1c4d8561aa75c27a8b270028db879600df7d7875e7467835e8432`).
+`a5860138e638a7526e0e0da9ffd16aa30c851a82b814c3a23034f16940c1fc9c`).
 
 ## Tool findings
 

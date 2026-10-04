@@ -1,0 +1,52 @@
+{
+  "schema": "gp-phase2-foundation-review/v1",
+  "date": "2026-09-30",
+  "source_hashes": {
+    "phase2/lean/GP50/Events.lean": "1e3d7497baaff4015d4706bccef0a62bdbf99d92ae64d7e2069907a221d091f3",
+    "phase2/lean/GP50/Closure.lean": "623d2368841f8278a007129faac79d498c1010523e9552a1dd2d3fa0201f5403",
+    "phase2/lean/GP50/ClosureProofs.lean": "f8ec36075d52f1bf31d6b4c68f8064ec1d745deaba1c30dac121e3d3195af987",
+    "phase2/lean/Tests/Events.lean": "c56fcac0d5f949930199deacdb9641ec646480a33ad2f9285367ff7c13a9c844",
+    "phase2/lean/Tests/Closure.lean": "893ddce6cb221cc0340c35c040757d77558c256b9771789f1cbdf46156989b88",
+    "corpus/LAYER-TAGS.json": "aff18aba0d92f0e43d89e75d7b19a63a4876bbd812fa1a18dc9f6dc0114ac752",
+    "tools/tag-corpus-layers.py": "b66e6f7856fe4f1f3c0ac9e9bb601086c90bfad0d5225b97be773ebb4705efb3",
+    "tools/check-layer-tags.py": "aba26c3e1184de0e3d1b686300aacf2de635eeb400c4cee1260feeb732540db0",
+    "tests/test_layer_tags.py": "fe15d8f8ab9f383455f9808c2709ab851c3081a64d34101d3e0e4b2915fe902d"
+  },
+  "build": "lake -d phase2/lean build: passed",
+  "native_event_controls": 22,
+  "native_closure_controls": 13,
+  "metadata_tests": 16,
+  "layer_counts": {
+    "kernel": 79,
+    "profile": 239,
+    "adapter": 94,
+    "surface": 17,
+    "host": 30
+  },
+  "unresolved_layer_count": 0,
+  "case_count_preserved": 459,
+  "oracle_pin_and_latest_results_preserved": true,
+  "independent_kernel_check": {
+    "command": "lake -d phase2/lean env leanchecker -v GP50.ClosureProofs",
+    "exit_code": 0
+  },
+  "proved": [
+    "closure_reachable",
+    "closure_sound under support-node semantic contracts"
+  ],
+  "axioms": [
+    "propext",
+    "Quot.sound"
+  ],
+  "not_yet_proved": [
+    "unconditional closure completeness",
+    "whole-kernel heldSoundStatement",
+    "general event-set order independence"
+  ],
+  "executed_corpus_slice": false,
+  "worker_metadata_active_minutes": {
+    "initial": 15,
+    "refinement": 23
+  },
+  "worker_current_assignment": "finite support closure completeness, 45 active-minute cap, separate proof/test files"
+}

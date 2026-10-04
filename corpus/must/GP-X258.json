@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "GP-X258",
+  "seed": null,
+  "title": "Valid output membership receipt is admissible",
+  "situation": "Every recorded output equation requires checked membership in the source ideal; empty output makes only this local obligation vacuous.",
+  "inputs": {
+    "source": {
+      "field": "Q",
+      "variables": [
+        "y",
+        "x"
+      ],
+      "equations": [
+        "x"
+      ]
+    },
+    "output": {
+      "field": "Q",
+      "variables": [
+        "x"
+      ],
+      "equations": [
+        "x"
+      ]
+    },
+    "eliminated": [
+      "y"
+    ],
+    "membership_rows": [
+      {
+        "equation": "x",
+        "cofactors": [
+          "1"
+        ]
+      }
+    ],
+    "previously_bound_rows": null,
+    "execution_evidence": "producer_trace"
+  },
+  "attempted_conclusion": "Admit the submitted output membership evidence, without inferring output completeness.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Valid output membership receipt is admissible"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/store.py",
+      "line": 707,
+      "anchor": "    def _apply_verdict(self, ev, where):"
+    }
+  ]
+}

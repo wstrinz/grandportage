@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "GP-X379",
+  "seed": null,
+  "title": "Operational 61.3: digest filesystem custody boundary",
+  "situation": "Isolated Git repository with CRLF committed fixture and declared sha256-lf-normalized digest.",
+  "inputs": {
+    "incident_row": "61.3",
+    "vector": {
+      "repository": "isolated Git fixture",
+      "committed_line_endings": "CRLF",
+      "declared_digest_mode": "sha256-lf-normalized",
+      "audit_modes": [
+        "checkout",
+        "pinned ref"
+      ]
+    },
+    "retained_evidence_refs": [
+      "reports/DOSSIER-BOUNDARIES-AUDIT.json#/controls/2",
+      "reports/DOSSIER-BOUNDARIES-AUDIT.json#/controls/3"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Treat checkout and pinned-ref audits as the same normalized-byte contract.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: LF and CRLF audit paths should compute the same declared normalized digest."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/dossier.py",
+      "line": 500,
+      "anchor": "def _audit_source(source, artifacts, source_root, source_ref=None):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

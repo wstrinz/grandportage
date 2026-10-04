@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "GP-X356",
+  "seed": null,
+  "title": "Fin4 blocks cancellation without no-zero-divisors",
+  "situation": "In Fin4, c=g=2 are nonzero but c*g=0. The retained derivation and equation hold, so cancellation requires a separate no-zero-divisors premise.",
+  "inputs": {
+    "control": "fin4_cancellation",
+    "modulus": 4,
+    "c": 2,
+    "g": 2,
+    "equation": "c*g=0",
+    "coefficient_nonzero": true,
+    "deleted_premise": "no_zero_divisors"
+  },
+  "attempted_conclusion": "Infer g=0 from c*g=0 and c nonzero without no-zero-divisors.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Two times two is zero modulo four while both factors remain nonzero."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/CancellationInterpreter.lean",
+      "line": 12,
+      "anchor": "theorem cancellation (laws : Laws o) (domain : NoZeroDivisors o)",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/CancellationInterpreter.lean",
+      "line": 45,
+      "anchor": "theorem cancellation_deletion_countermodel :",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

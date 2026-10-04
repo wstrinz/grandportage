@@ -1,0 +1,32 @@
+{
+  "status": "parent_review_overrides_proposed_coverage",
+  "historical_pin": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+  "input": "reports/PHASE-0A-PARTIAL-MAPPING-ADJUDICATION.json",
+  "records": [
+    {
+      "test": "test_arithmetic_and_scope_mutations_refuse",
+      "source": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "lines": "73-91",
+      "reason": "Eight parametrized mutations reach A2/A4/M1/A11. Removing R from never_inverted records prohibited cancellation semantics; X68 deleting an open guard stales a receipt is not by itself an exact mapping. Require per-parameter mapping, especially D7 transport text and residual-status promotion."
+    },
+    {
+      "test": "test_scope_pin_order_digest_middle_and_slice_mutations_refuse",
+      "source": "tests/test_jc_h3_b0_depth8_residual.py",
+      "lines": "75-93",
+      "reason": "Six distinct mutations reach M1/N6/N7/N4/A4/N8. Ring variable order, unexplained middle object and witness slice are not established as duplicates merely by listing X304 canonical binding or X65 missing receipt. Split each parameter and identify actual contract."
+    },
+    {
+      "test": "test_changed_finite_algebra_modulus_refuses",
+      "source": "tests/test_jc_h3_b0_depth8_residual.py",
+      "lines": "111-115",
+      "reason": "Changed r_final polynomial reaches W3 or W5, not the stale receipt gate. Current Sol unit-quotient extraction may cover some assertions but must be compared explicitly."
+    },
+    {
+      "test": "test_mutated_selected_face_loses_structural_authority",
+      "source": "tests/test_jc_source_depth6_full_template.py",
+      "lines": "64-77",
+      "reason": "Mutation removes structural eligibility and invokes a backend stub which raises must remain structural. X225 wrong-cofactor exact refusal does not reproduce this observed eligibility/fallback boundary. Separate abstract containment refusal from operational dispatch behavior."
+    }
+  ],
+  "effect": "These four covered proposals are reopened for assertion-level mapping. Other proposed covered rows are not automatically certified by this spot check. No existing case expectation or gate changed."
+}

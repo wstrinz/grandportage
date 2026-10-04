@@ -1,0 +1,11 @@
+# Phase 0a — elimination inclusion and preflight boundaries
+
+Completed the full text read of groebner.py (substitution, guarded rational substitution, membership, producer reduction helpers, preflight and elimination) and tests/test_groebner.py. Semantic review remains partial. All 43 offline tests pass; one live Singular test is deselected. Seven additional bounded controls are recorded in ELIMINATION-PREFLIGHT-BOUNDARY.json.
+
+The elimination certificate deliberately proves only I intersect S subset J: source generators belong to the supplied basis ideal; critical-pair reductions prove that basis is Groebner; retained basis elements belong to J. It does not require that basis ideal be contained in I. A source ideal (x), basis (1), target (1) is therefore accepted correctly for this inclusion. At x=0, 1 is nonzero, ruling out the reverse membership independently. Exact contraction still requires separate no-invention evidence; acceptance here is not a false licence.
+
+Preflight rejects a genuinely cyclic object and a native Polynomial with a negative exponent before arithmetic. Thus the preceding internal-object diagnostic does not cross this elimination-certificate boundary. An acyclic shared row list is also rejected as a cycle, while its ordinary JSON serialization/deserialization succeeds. This is a native API representation restriction, not a serialized proof bypass. Proposed repair: declare tree-only native inputs or detect active-ancestor cycles while charging repeated occurrences against the budget.
+
+Substitution parses every image, even when support avoids changed coordinates. Cross-ring and guarded substitution parse the source with a separate budget from target arithmetic; no whole-request bound is inferred. Guard nonzero as a polynomial does not itself prove nonvanishing on a model. Membership checks do not call the full certificate preflight; caller-specific input boundaries remain to review. Generated exponent/encoding closure remains unresolved from Batch 46.
+
+Corpus, expectations, adapters and latest replay remain unchanged: 348 cases, 334 agreements, eleven known differences, one diagnostic, one pending and one unsupported. No campaign harvest, live CAS, frozen-source modification or Lean spike occurred. The source manifest still blocks only the campaign lane; Phase 0 remains active.

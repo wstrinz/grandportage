@@ -1,2 +1,11 @@
-* text=auto eol=lf
+# Preserve exact bytes: 0.50 corpus and replay records are SHA-256 bound,
+# so no line-ending normalization applies anywhere in the merged tree.
+* -text whitespace=trailing-space,space-before-tab,cr-at-eol
+# Leading context spaces on blank lines are required unified-diff syntax.
+*.patch -whitespace
+
+# Preserve raw pytest failure diagnostics byte-for-byte.
+reports/oracle-*.xml -whitespace
+
+# v0.37 frozen retrodiction fixtures keep their exact whitespace.
 tests/fixtures/dk_retrodiction/** -whitespace

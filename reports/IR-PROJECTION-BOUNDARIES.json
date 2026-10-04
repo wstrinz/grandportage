@@ -1,0 +1,29 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "423f5f56e948c06f6fd71571cb6170a671bb2b5d8b8c62c0075f4bd0ca8cd700",
+  "scope": "Four offline projection controls; actual SOS recording for state control, no live CAS or Lean.",
+  "controls": [
+    {
+      "name": "loaded authority map omitted from state fingerprint",
+      "same_state_fingerprint": true,
+      "before_current": true,
+      "after_current": false,
+      "scope": "Direct loaded-state map mutation, not a persisted event or hash collision"
+    },
+    {
+      "name": "rational characteristic zero",
+      "result": "GAP",
+      "reason": "rational_expression_adapter"
+    },
+    {
+      "name": "rational syntax in characteristic three",
+      "equals_integer_two": true,
+      "scope": "Existing parser reduces coefficients modulo three; target context must retain characteristic"
+    },
+    {
+      "name": "polynomial versus point-function equality",
+      "distinct_encodings": true,
+      "scope": "No reduction by finite-field point identities"
+    }
+  ]
+}

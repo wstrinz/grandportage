@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X39",
+  "seed": null,
+  "title": "A downstream specialization cannot enter an upstream derivation",
+  "situation": "An exact reduced-row binding is conditional on normalized-root inputs; the original-pair to normalized-root map remains unmaterialized.",
+  "inputs": {
+    "source_pair_materialized": false,
+    "source_map_materialized": false,
+    "proposed_value": true
+  },
+  "attempted_conclusion": "Use the downstream pin 15*t^3+1=0 as part of the reduced-row derivation.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The pin belongs to a later specialization and was not a premise of the row derivation."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_original_pair_seam.py",
+      "line": 118,
+      "anchor": "def test_moving_the_t_pin_into_row_derivation_is_rejected("
+    }
+  ]
+}

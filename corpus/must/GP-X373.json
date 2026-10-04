@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "GP-X373",
+  "seed": null,
+  "title": "Operational 55.2b: source format schema boundary",
+  "situation": "Sparse inference retraction without asserted field.",
+  "inputs": {
+    "incident_row": "55.2b",
+    "vector": {
+      "event_kind": "retract",
+      "target_kind": "inference",
+      "asserted_field": "absent",
+      "validators": [
+        "exported authoring JSON schema",
+        "native event shape"
+      ]
+    },
+    "retained_evidence_refs": [
+      "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/1"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Treat exported authoring schema and native event shape as one contract.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The same sparse retraction passes native event-shape validation and fails the exported authoring schema. Their contracts are therefore not interchangeable. Whether to widen the schema is a later repair decision."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/mcp.py",
+      "line": 232,
+      "anchor": "def _event_schema(kind):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

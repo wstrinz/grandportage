@@ -1,0 +1,563 @@
+{
+  "schema_version": 1,
+  "status": "proposed_narrow_closure_triage_pending_parent_adjudication",
+  "scope": "Existing Phase 0a evidence only. No source sweep, no automatic case extraction, no ledger/expectation/gate changes, and no Q3 duplication.",
+  "inputs": [
+    "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json",
+    "reports/PHASE-0A-FINDING-ADJUDICATION.json",
+    "reports/PHASE-0A-EXISTING-24-REUSE-REVIEW.json",
+    "reports/PHASE-0A-CLOSURE-DECISIONS.json",
+    "DECISIONS.md amendment 2026-09-29"
+  ],
+  "user_decisions": [
+    "Approved narrow closure triage: retain concrete counterexamples, documented regressions, distinct missing premises, necessary positive controls, and documented operational regressions.",
+    "Group repeated incidents and metadata/status/corrected-report records; defer only wording-only, policy-ambiguous, or hypothetical weakness unless needed to interpret an existing incident.",
+    "Parent reports Q3 approved through case 408; these rows await the imminent parent decision record and are intentionally not duplicated.",
+    "This report proposes dispositions only; parent retains adjudication and no corpus action follows automatically."
+  ],
+  "parent_decisions_applied": [
+    "Nine finding obligations are parent-adjudicated extracted: 51.3, 52.2a, 52.2b, 70.2, 71.2a, 73.3, 75.3, 81.5, 82.5.",
+    "OperationContract saturation stronger-premise countermodel is parent-adjudicated through GP-X357; do not reuse GP-X141 as exact coverage.",
+    "Point-surjectivity retained-expressibility is covered at conditional-rule layer by GP-X05/GP-X06.",
+    "Correction applied: absence of a false-held mathematical verdict does not demote a concrete recorded operational-contract regression."
+  ],
+  "necessary_gaps": [
+    {
+      "key": "N2-derived-identity-across-lost-equation",
+      "obligation_ids": [
+        "83.2c"
+      ],
+      "protects_against": "Carrying x=0 derived only from source ideal (x) to ambient target ideal (0), where x=1 falsifies it.",
+      "corpus_insufficiency": "GP-A13-ambient is positive only because the identity is already ambient; it has the opposite premise.",
+      "smallest_action": "One REFUSE/ACCEPT pair: source (x), ambient (0), DERIVED x=0 with witness x=1 must refuse; retain GP-A13-ambient as the positive ambient identity control."
+    },
+    {
+      "key": "N3-filesystem-custody",
+      "obligation_ids": [
+        "63.2",
+        "63.3",
+        "63.4",
+        "65.4",
+        "69.3"
+      ],
+      "protects_against": "Mutation or deletion of protected inputs, and release/package artifacts whose retained bytes do not match the bound digest.",
+      "corpus_insufficiency": "GP-X44, GP-X71/72, and GP-X213/214 cover changed fixtures or stored bytes, not aliases, foreign temporary ownership, copy-time changes, or protected output names.",
+      "smallest_action": "One bounded parameterized custody harness with separate alias, foreign-temp, copy-digest, bound-output, and reserved-name parameters; every parameter must leave the protected source unchanged and either refuse or retain a verified digest."
+    },
+    {
+      "key": "N4-postvalidation-identity",
+      "obligation_ids": [
+        "74.3",
+        "74.5",
+        "76.2"
+      ],
+      "protects_against": "A validated execution record changing meaning after validation through lossy decoding, mutable abort metadata, or CAS-program-body mutation.",
+      "corpus_insufficiency": "GP-X213/214 bind stored output bytes and GP-X242/X249 reject construction-time shadowing; none preserve identity through these three post-validation transitions.",
+      "smallest_action": "One bounded harness with three distinct controls, each preserving its own gate: raw-byte identity, immutable abort reason, and immutable/revalidated CAS body before execution."
+    }
+  ],
+  "disposition_groups": [
+    {
+      "name": "parent_adjudicated_extractions",
+      "proposed_disposition": "retain_as_parent_decided",
+      "obligation_ids": [
+        "51.3",
+        "52.2a",
+        "52.2b",
+        "70.2",
+        "71.2a",
+        "73.3",
+        "75.3",
+        "81.5",
+        "82.5"
+      ],
+      "obligation_count": 9,
+      "basis": "Closure decisions supply the relevant extracted cases and controls; this triage does not reopen them."
+    },
+    {
+      "name": "supported_exact_reuse",
+      "proposed_disposition": "retain_as_supported_reuse_pending_parent_closeout",
+      "obligation_ids": [
+        "51.2",
+        "59.2a",
+        "72.2",
+        "75.6b",
+        "76.4",
+        "77.2",
+        "78.2",
+        "80.5",
+        "82.3",
+        "82.8",
+        "83.2a",
+        "83.2b",
+        "83.2d",
+        "83.4",
+        "84.8",
+        "84.10"
+      ],
+      "obligation_count": 16,
+      "basis": "The prior 24-review found exact payload/route/mechanism reuse. Reuse is evidence, not an independent parent closure decision."
+    },
+    {
+      "name": "existing_reuse_known_difference_output_membership",
+      "proposed_disposition": "retain_documented_regression_for_parent_decision",
+      "obligation_ids": [
+        "73.4",
+        "73.5",
+        "75.2"
+      ],
+      "obligation_count": 3,
+      "basis": "All rely on GP-X260: the exact false-membership payload exists but expected REFUSE observed ACCEPT."
+    },
+    {
+      "name": "existing_reuse_known_difference_cover_semantics",
+      "proposed_disposition": "retain_documented_regression_for_parent_decision",
+      "obligation_ids": [
+        "75.7",
+        "84.9"
+      ],
+      "obligation_count": 2,
+      "basis": "The exact guard/embedding payloads exist, but GP-X270 and GP-X274 expected REFUSE observed ACCEPT."
+    },
+    {
+      "name": "existing_reuse_diagnostic_only",
+      "proposed_disposition": "retain_as_diagnostic_limit_for_parent_decision",
+      "obligation_ids": [
+        "83.7",
+        "85.3"
+      ],
+      "obligation_count": 2,
+      "basis": "GP-A03a matches the nilpotent/radical mechanism but is DIAGNOSTIC_OBSERVED, not an executable refusal."
+    },
+    {
+      "name": "necessary_transport_control",
+      "proposed_disposition": "propose_one_minimal_control_pair",
+      "obligation_ids": [
+        "83.2c"
+      ],
+      "obligation_count": 1,
+      "basis": "The only cited case GP-A13-ambient has the opposite, already-ambient premise."
+    },
+    {
+      "name": "necessary_filesystem_custody_controls",
+      "proposed_disposition": "propose_one_parameterized_custody_harness",
+      "obligation_ids": [
+        "63.2",
+        "63.3",
+        "63.4",
+        "65.4",
+        "69.3"
+      ],
+      "obligation_count": 5,
+      "basis": "These are documented path/copy preservation mechanisms; later work must keep alias overwrite, foreign-temp deletion, copy digest, bound-output overwrite, and reserved-name overwrite as separate parameters."
+    },
+    {
+      "name": "necessary_postvalidation_identity_controls",
+      "proposed_disposition": "propose_three_separate_controls_in_one_bounded_harness",
+      "obligation_ids": [
+        "74.3",
+        "74.5",
+        "76.2"
+      ],
+      "obligation_count": 3,
+      "basis": "Distinct observed failures share the post-validation identity boundary: lossy stdout decoding, mutable abort metadata, and a mutated already-validated CAS program."
+    },
+    {
+      "name": "direct_api_contract_decision",
+      "proposed_disposition": "retain_direct_divergence_without_automatic_case",
+      "obligation_ids": [
+        "71.2b"
+      ],
+      "obligation_count": 1,
+      "basis": "Standalone accepts reversed endpoints while the native model refuses; a supported-API decision is required before a fixed corpus expectation."
+    },
+    {
+      "name": "q3_pending_parent_review",
+      "proposed_disposition": "await_imminent_parent_q3_decisions",
+      "obligation_ids": [
+        "79.8",
+        "82.4",
+        "85.5",
+        "85.7a",
+        "85.7b"
+      ],
+      "obligation_count": 5,
+      "basis": "Parent reports Q3 approved through case 408. These five rows await the parent decision record and are not duplicated here."
+    },
+    {
+      "name": "defer_interpretation_holds",
+      "proposed_disposition": "defer_to_contract_or_policy",
+      "obligation_ids": [
+        "59.2b",
+        "59.4",
+        "63.5",
+        "65.2",
+        "65.3c",
+        "66.4a",
+        "68.2",
+        "75.6a",
+        "76.5",
+        "76.8a",
+        "83.5",
+        "83.8"
+      ],
+      "obligation_count": 12,
+      "basis": "These rows lack a fixed public contract, a concrete failed input, or a runtime attempted conclusion."
+    },
+    {
+      "name": "operation_contract_reading_resolved_successor_review",
+      "proposed_disposition": "no_new_action_in_this_triage",
+      "obligation_ids": [
+        "85.8"
+      ],
+      "obligation_count": 1,
+      "basis": "The close reading is complete; its mapped conditional rule and stronger-premise countermodel have parent decisions. Do not duplicate Q3 work here."
+    },
+    {
+      "name": "metadata_status_and_corrected_report_nonincidents",
+      "proposed_disposition": "grouped_nonincident_pending_parent_closeout",
+      "obligation_ids": [
+        "51.1",
+        "51.5",
+        "52.1",
+        "52.3",
+        "52.4",
+        "52.5",
+        "53.1",
+        "53.3",
+        "53.4",
+        "54.1",
+        "54.2",
+        "54.4",
+        "54.5",
+        "55.1",
+        "55.4",
+        "56.1",
+        "56.4",
+        "56.5",
+        "57.1",
+        "57.2",
+        "57.3",
+        "57.4",
+        "57.5",
+        "58.1",
+        "58.3c",
+        "58.4",
+        "58.5",
+        "59.1",
+        "59.3",
+        "59.5",
+        "60.1",
+        "60.2",
+        "60.3",
+        "60.4",
+        "60.5",
+        "61.1",
+        "61.2",
+        "61.4",
+        "61.5",
+        "61.6",
+        "61.7",
+        "62.1",
+        "62.2",
+        "62.3",
+        "62.4",
+        "62.5",
+        "62.6",
+        "63.1",
+        "63.6",
+        "64.1",
+        "64.2",
+        "64.3a",
+        "64.3c",
+        "64.4",
+        "64.5",
+        "64.6",
+        "65.1",
+        "65.5",
+        "65.6",
+        "66.1",
+        "66.3",
+        "66.4b",
+        "66.4c",
+        "66.5",
+        "67.1",
+        "67.2",
+        "67.3",
+        "67.4",
+        "67.5",
+        "68.1",
+        "68.3",
+        "68.4",
+        "68.5",
+        "69.1",
+        "69.4",
+        "69.5",
+        "70.1",
+        "70.3",
+        "70.4",
+        "70.5",
+        "71.1",
+        "71.3",
+        "71.4",
+        "71.5",
+        "72.1",
+        "72.3",
+        "72.4",
+        "72.5",
+        "73.1",
+        "73.2",
+        "73.6",
+        "73.7",
+        "73.8",
+        "73.9",
+        "74.1",
+        "74.2",
+        "74.6",
+        "74.7",
+        "74.8",
+        "74.9",
+        "75.1",
+        "75.4",
+        "75.5",
+        "75.8",
+        "75.9",
+        "75.10",
+        "76.1",
+        "76.6",
+        "76.8c",
+        "76.9",
+        "77.1",
+        "77.5",
+        "77.6",
+        "77.7",
+        "77.8",
+        "77.9",
+        "78.1",
+        "78.3",
+        "78.5",
+        "78.6",
+        "78.7",
+        "78.8",
+        "79.1",
+        "79.2",
+        "79.3",
+        "79.4",
+        "79.5",
+        "79.6",
+        "79.7",
+        "79.9",
+        "79.10",
+        "79.11",
+        "80.1",
+        "80.2",
+        "80.3",
+        "80.4",
+        "80.6",
+        "80.7",
+        "80.8",
+        "80.9",
+        "80.10",
+        "81.1",
+        "81.2",
+        "81.3",
+        "81.4",
+        "81.6",
+        "81.7",
+        "81.8",
+        "81.9",
+        "82.1",
+        "82.2",
+        "82.6",
+        "82.7",
+        "82.9",
+        "83.1",
+        "83.3",
+        "83.6",
+        "83.9",
+        "83.10",
+        "83.11",
+        "84.1",
+        "84.2",
+        "84.3",
+        "84.4",
+        "84.5",
+        "84.6",
+        "84.7",
+        "84.11",
+        "85.1",
+        "85.2",
+        "85.4",
+        "85.6",
+        "85.7c",
+        "85.9"
+      ],
+      "obligation_count": 174,
+      "basis": "These 174 rows record reading extent, corrections, status/metadata, hypotheses, or successful containment without a separate attempted false conclusion."
+    },
+    {
+      "name": "receipt_kind_reuse_with_specific_generic_transport_limit",
+      "proposed_disposition": "retain_existing_q1_mechanism_reuse_no_new_control",
+      "obligation_ids": [
+        "58.3b",
+        "78.4"
+      ],
+      "obligation_count": 2,
+      "basis": "Q1 maps known LOCALIZED_UNIT_IDEAL_CERT without a current verdict to GP-X65 (REFUSE) and with one to GP-X66 (positive). GP-C01 separately covers replay-backed conditional base extension. The only residual is specific: retained generic UNIT_IDEAL_CERT hook classification has no receipt and no findings; generic transport classification and localized native handling are not identical. This is not a reason to recreate the known-kind/no-receipt control."
+    },
+    {
+      "name": "documented_interface_and_operational_contract_incidents",
+      "proposed_disposition": "retain_as_concrete_operational_incidents_for_parent_disposition",
+      "obligation_ids": [
+        "54.3",
+        "55.2a",
+        "55.2b",
+        "55.3",
+        "56.2",
+        "56.3",
+        "58.2",
+        "58.3a",
+        "66.2",
+        "69.2",
+        "77.3",
+        "77.4"
+      ],
+      "obligation_count": 12,
+      "basis": "Recorded behaviors violate an implemented or advertised operational boundary: raw TypeError instead of GraphError; exported/runtime schema disagreement; unexpected CAS reported healthy; JSON arrays terminate MCP/hook handling; a committed declaration followed by a rendering error has ambiguous retry state; distinct handoff contexts render identically; advertised floor is ignored; unknown FAILED defaults CLOSED; native-load refusal leaves no report; and changed decoder explanations are suppressed as unchanged. These remain incidents even though none asserts a mathematical false-held verdict."
+    },
+    {
+      "name": "documented_custody_identity_and_lexical_incidents",
+      "proposed_disposition": "retain_as_concrete_operational_incidents_for_parent_disposition",
+      "obligation_ids": [
+        "53.2",
+        "61.3",
+        "64.3b",
+        "65.3a",
+        "65.3b",
+        "74.4",
+        "76.3",
+        "76.7",
+        "76.8b"
+      ],
+      "obligation_count": 9,
+      "basis": "Recorded behaviors break an operational identity contract: migration validates a generated replacement header rather than its old-epoch source header; checkout/pinned LF normalization differs; direct overlay accepts old ledger against changed packet content; duplicate open items inflate a receipt count; three stable-ID/fingerprint validators accept a terminal newline; run_cas records caller generators rather than parsed output; and the semantic fingerprint omits generators used in the declared model. The generator-fingerprint omission remains conservatively open as a documented binding boundary, because the batch supplies no changed-generator persistence contrast."
+    },
+    {
+      "name": "wording_only_nonincident",
+      "proposed_disposition": "defer_as_explanation_repair",
+      "obligation_ids": [
+        "51.4"
+      ],
+      "obligation_count": 1,
+      "basis": "The typed R success explanation says generic base change although the actual gate is ORDERED reach. R/C verdict behavior is already covered by A10-R/C; the batch records no contradictory result or missing operational state."
+    }
+  ],
+  "reconciliation": {
+    "finding_obligation_total": 258,
+    "historical_baseline_counts": {
+      "no_distinct_incident": 174,
+      "existing_case": 24,
+      "new_case_candidate": 47,
+      "unresolved_interpretation": 13
+    },
+    "current_state_counts": {
+      "parent_adjudicated_extracted": 9,
+      "proposed_reuse_unadjudicated": 24,
+      "candidate_unextracted": 38,
+      "interpretation_pending": 12,
+      "reading_resolved_successor_mapping_open": 1,
+      "proposed_nonincident_unadjudicated": 174
+    },
+    "grouped_id_count": 258,
+    "distinct_grouped_id_count": 258,
+    "duplicate_ids": [],
+    "unassigned_ids": [],
+    "unexpected_ids": [],
+    "reconciled": true
+  },
+  "limits": [
+    "A proposed nonincident/reuse group is not a closure decision.",
+    "KNOWN_DIFFERENCE and DIAGNOSTIC_OBSERVED records remain evidence but do not become executable refusal coverage.",
+    "Grouped operational incidents are not treated as equivalent: their per-ID recorded contract failures are retained in operational_reassessment.",
+    "The generic UNIT_IDEAL_CERT residual is a transport-classification question, not a missing known-kind/no-receipt case."
+  ],
+  "operational_reassessment": {
+    "scope": [
+      "51.4",
+      "53.2",
+      "54.3",
+      "55.2a",
+      "55.2b",
+      "55.3",
+      "56.2",
+      "56.3",
+      "58.2",
+      "58.3a",
+      "61.3",
+      "64.3b",
+      "65.3a",
+      "65.3b",
+      "66.2",
+      "69.2",
+      "74.4",
+      "76.3",
+      "76.7",
+      "76.8b",
+      "77.3",
+      "77.4"
+    ],
+    "concrete_incident_ids": [
+      "53.2",
+      "54.3",
+      "55.2a",
+      "55.2b",
+      "55.3",
+      "56.2",
+      "56.3",
+      "58.2",
+      "58.3a",
+      "61.3",
+      "64.3b",
+      "65.3a",
+      "65.3b",
+      "66.2",
+      "69.2",
+      "74.4",
+      "76.3",
+      "76.7",
+      "76.8b",
+      "77.3",
+      "77.4"
+    ],
+    "wording_only_ids": [
+      "51.4"
+    ],
+    "conservative_open_ids": [
+      "76.7"
+    ],
+    "rule": "A recorded failure of an implemented/advertised operational boundary remains an incident. Lack of a mathematical authority verdict is not a deferral reason. A conservative open item retains the incident while withholding a precise control where the existing evidence lacks the necessary contrast.",
+    "concrete_evidence": {
+      "53.2": "Format-8/epoch-11 migration validates the generated replacement header, not the source header under its recorded epoch.",
+      "54.3": "Numeric source_commit escapes the documented GraphError boundary as TypeError.",
+      "55.2a": "Exported integral schema accepts false while runtime requires a Boolean.",
+      "55.2b": "Exported authoring schema and native sparse-retraction shape disagree.",
+      "55.3": "Unexpected parsed CAS answer yields doctor healthy=true and exit zero.",
+      "56.2": "Valid JSON array reaches request.get, throws AttributeError, and ends the serve invocation.",
+      "56.3": "A durable append followed by response-rendering error leaves retry/commit status ambiguous.",
+      "58.2": "Q BASE and Q ALGEBRAIC_CLOSURE handoffs render identical text despite different stored point universes.",
+      "58.3a": "Advertised floor argument is not consulted by h_portage_check.",
+      "61.3": "Checkout and pinned audits disagree on LF normalization of the same CRLF fixture.",
+      "64.3b": "Direct old-ledger/new-packet overlay accepts changed packet content under the same ID.",
+      "65.3a": "Duplicate open_items inflate per-receipt count while aggregate count is unique.",
+      "65.3b": "Stable-ID regex accepts a terminal newline.",
+      "66.2": "Unknown FAILED status defaults to CLOSED when frontier_state is absent.",
+      "69.2": "Native graph load refusal occurs before corpus-report creation, leaving no per-campaign load record.",
+      "74.4": "Execution fingerprint validator accepts a terminal newline.",
+      "76.3": "run_cas persists caller generators rather than parsed output generators.",
+      "76.7": "Program semantic fingerprint omits generators used in the resulting model declaration; retained as an open binding boundary pending a changed-generator contrast.",
+      "76.8b": "Identifier validator accepts a terminal newline.",
+      "77.3": "Baseline/hook JSON arrays raise AttributeError outside the structured-refusal guard.",
+      "77.4": "A changed decoder explanation is labeled unchanged because repeat suppression keys only on finding ID."
+    }
+  }
+}

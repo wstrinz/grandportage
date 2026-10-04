@@ -1,0 +1,123 @@
+{
+  "schema": "gp-phase2-event-order-conditional-integration/v1",
+  "date": "2026-09-30",
+  "parent_base_commit": "2fd5eac",
+  "designators": {
+    "GPC": "Coordinator",
+    "GPB": "Builder 01a0eeca-572e-7202-a708-c730d410b901"
+  },
+  "source_hashes": {
+    "phase2/lean/GP50/EventOrderProofs.lean": "a883d2e705ba29b4654bfd42f0ffa663a8c7f2e9efdde3fd9d80fab83067867b",
+    "phase2/lean/Tests/EventOrderProofs.lean": "57f58dcd9e38d6f98ae2219c7c3a5967a674726174edaaef43296c42de01f2ce",
+    "phase2/lean/GP50/ConflictProofs.lean": "6d4cc8734ff7d5e48511cd1a168e4fc3214064aa9eeb941ca319b3eef2f16018",
+    "phase2/lean/Tests/Conflict.lean": "eaedfa0ff68a90745faa758d964e7a4efcd115ed1f8e6096c46dcedcfe913d03",
+    "phase2/lean/Tests/ConditionalCover.lean": "fe955ffe5598c3bfdca406fb0166de79eb19b203115d10a33a92fcaa5a8a7f7e",
+    "tools/run-phase2-conditional-cover-slice.py": "d1c595098ef8c69411ec03a20179642eeea38669d9d8e5b06c7bb5441e5db294",
+    "tests/test_phase2_conditional_cover.py": "eb45bf5d63377cc0909d104b1c4263d1a84f7935cdcc58db056002d112782bb5",
+    "tools/run-phase2-slice.py": "c7afb8dc020a05bf938658420b1243b3ae0609c27404a34bf41961a9d38decb9",
+    "reports/PHASE-2-SLICE.json": "924c77208e77de32b4817ba2391ae0a7b87d43c32e1b91b3f3a9d12329842db3",
+    "reports/PHASE-2-CONDITIONAL-COVER-SLICE.json": "dec205eb4e96799fa95ebf3e034292954b6988a9e1b0328b3189a225041075d3"
+  },
+  "order_proof": {
+    "full_event_set_equality": true,
+    "admissions": "Arbitrary fixed Admission",
+    "outputs": "Exact resolve/fold equality, successful snapshots and malformed diagnostic strings",
+    "premise": "Only equal membership of full typed Event values",
+    "corollaries": [
+      "Permutation",
+      "Duplicate event",
+      "Release review including held state/findings"
+    ],
+    "original_builder_hashes": {
+      "module": "86c6dc296ee16e568bc0901c046340f210fcd1d9800bd97be2441a1780e4ae4b",
+      "controls": "5ec10a8d2e76d002f0838b3088b0a77a56d234e810ee0aeb80671855049c6edb"
+    },
+    "normalization": "Completed GPB files normalized to LF/trailing newline before parent build",
+    "builder_active_seconds": 1634,
+    "assigned_cap_seconds": 1500,
+    "overrun_seconds": 134,
+    "maintenance": "Proof assembly names generated resolve matchers; resolver edits must recompile the proof."
+  },
+  "conditional_harness": {
+    "approved_by": "Direct Will answer: Use the explicit conditional harness",
+    "cases": [
+      "GP-A16-missing",
+      "GP-A16-covered"
+    ],
+    "new_corpus_passes": 2,
+    "corpus_total": 17,
+    "literal_conclusion": "The parent is empty",
+    "hypotheses": [
+      "All listed branches are empty",
+      "Checked exhaustive cover, only when supplied"
+    ],
+    "meaning": "Every point type and arbitrary parent/branch predicates satisfying precisely the given hypotheses",
+    "soundness": "Actual bound admission, exact premise-warrant records, actual arbitrary-event fold; uniqueness derived from resolve",
+    "proofs": [
+      "ConditionalCover.actual_validator_sound",
+      "ConditionalCover.actual_fold_held_sound"
+    ],
+    "axioms": [
+      "propext",
+      "Quot.sound"
+    ],
+    "underlying_algebraic_truth_certified": false,
+    "production_profile_adoption": false,
+    "test_only_harness_lines": 155
+  },
+  "validation": {
+    "build_jobs": 122,
+    "independent_leanchecker": [
+      "GP50.EventOrderProofs",
+      "Tests.EventOrderProofs",
+      "GP50.ConflictProofs",
+      "Tests.Conflict",
+      "Tests.ConditionalCover"
+    ],
+    "host_tests": 102,
+    "host_subtests": 125,
+    "final_digest_binding_tests": 11,
+    "new_proof_controls": 11,
+    "cumulative_proof_controls": 78,
+    "native_component_controls": 553,
+    "new_conflict_control_replay": 15,
+    "order_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "preservation": {
+    "fresh_receipt_sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f",
+    "case_count": 459,
+    "summary": {
+      "AGREES": 403,
+      "DIAGNOSTIC_OBSERVED": 4,
+      "KNOWN_DIFFERENCE": 14,
+      "UNSUPPORTED": 9,
+      "RETAINED_DIAGNOSTIC": 29
+    },
+    "protected_artifacts": 67,
+    "all_bytes_expectations_outcomes_unchanged": true
+  },
+  "budget": {
+    "counts": {
+      "logic": 636,
+      "decoder": 263,
+      "statement": 26,
+      "proof": 1602
+    },
+    "markdown_added_words": 7672,
+    "status_words": 258,
+    "failures": []
+  },
+  "next": {
+    "GPB": [
+      "GP-A25a",
+      "GP-C03",
+      "GP-X143"
+    ],
+    "GPC": "Extend reviewed conditional harness to finite named route/branch fixtures"
+  },
+  "g2_pass": false
+}

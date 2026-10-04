@@ -1,0 +1,42 @@
+[
+  {
+    "label": "clean-package-build",
+    "command": "lake build Binding",
+    "started_utc": "2026-09-30T11:47:49.7520951Z",
+    "ended_utc": "2026-09-30T11:48:28.9341864Z",
+    "elapsed_seconds": 39.1768782,
+    "exit_code": 0
+  },
+  {
+    "label": "warm-noop-build",
+    "command": "lake build Binding",
+    "started_utc": "2026-09-30T11:48:28.9844459Z",
+    "ended_utc": "2026-09-30T11:48:43.6042821Z",
+    "elapsed_seconds": 14.6170463,
+    "exit_code": 0
+  },
+  {
+    "label": "warm-elaboration-1",
+    "command": "lake env lean Binding.lean",
+    "started_utc": "2026-09-30T11:48:43.6343188Z",
+    "ended_utc": "2026-09-30T11:49:22.5468519Z",
+    "elapsed_seconds": 38.9124195,
+    "exit_code": 0
+  },
+  {
+    "label": "warm-elaboration-2",
+    "command": "lake env lean Binding.lean",
+    "started_utc": "2026-09-30T11:49:22.5497741Z",
+    "ended_utc": "2026-09-30T11:50:01.3552913Z",
+    "elapsed_seconds": 38.8053758,
+    "exit_code": 0
+  },
+  {
+    "label": "warm-elaboration-3",
+    "command": "lake env lean Binding.lean",
+    "started_utc": "2026-09-30T11:50:01.3580966Z",
+    "ended_utc": "2026-09-30T11:51:51.6237413Z",
+    "elapsed_seconds": 110.2655091,
+    "exit_code": 0
+  }
+]

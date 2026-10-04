@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "status": "focused_offline_frozen_guard_probe",
+  "oracle_checkout": "oracle/checkout",
+  "fixture_manifest_source_commit": "b876fe4ed5c8963a0e8c19e18c829821c0686654",
+  "fixture_hashes": {
+    "fixtures/D1-inference-on-family-claim/input.json": {
+      "expected_lf_sha256": "023ae70cb544e795fa78710a629886d4f25e0193b50f41c4df30938ebd97e591",
+      "observed_lf_sha256": "023ae70cb544e795fa78710a629886d4f25e0193b50f41c4df30938ebd97e591",
+      "matches": true
+    },
+    "fixtures/D3-inert-disposition/before.json": {
+      "expected_lf_sha256": "7be21751fd5243e0e9736337a47c3e521bdae26c5ccfea772fcdf6cd27387723",
+      "observed_lf_sha256": "7be21751fd5243e0e9736337a47c3e521bdae26c5ccfea772fcdf6cd27387723",
+      "matches": true
+    },
+    "fixtures/D3-inert-disposition/after.json": {
+      "expected_lf_sha256": "4c45f1d6a945a51da173ec1b70ab13cba314409b51ba833aa95b745482149f35",
+      "observed_lf_sha256": "4c45f1d6a945a51da173ec1b70ab13cba314409b51ba833aa95b745482149f35",
+      "matches": true
+    },
+    "transports/X8-X10.json": {
+      "expected_lf_sha256": "b1009142a6cad512e9d6f87fdeaeadc507081c3481aaadf026fd7eea0d9fded1",
+      "observed_lf_sha256": "b1009142a6cad512e9d6f87fdeaeadc507081c3481aaadf026fd7eea0d9fded1",
+      "matches": true
+    }
+  },
+  "candidate_validation": [
+    {
+      "file": "reports\\guard-case-candidates\\GP-X399.json",
+      "id_matches_filename": true,
+      "schema_version": 1,
+      "schema_valid": true,
+      "schema_errors": [],
+      "expected_verdict": "REFUSE",
+      "expected_verdict_matches": true,
+      "source_paths_exist_in_pinned_checkout": true,
+      "source_anchors_match_declared_lines": true,
+      "source_identity_matches_corpus_pin": true
+    },
+    {
+      "file": "reports\\guard-case-candidates\\GP-X400.json",
+      "id_matches_filename": true,
+      "schema_version": 1,
+      "schema_valid": true,
+      "schema_errors": [],
+      "expected_verdict": "REFUSE",
+      "expected_verdict_matches": true,
+      "source_paths_exist_in_pinned_checkout": true,
+      "source_anchors_match_declared_lines": true,
+      "source_identity_matches_corpus_pin": true
+    },
+    {
+      "file": "reports\\guard-case-candidates\\GP-X401.json",
+      "id_matches_filename": true,
+      "schema_version": 1,
+      "schema_valid": true,
+      "schema_errors": [],
+      "expected_verdict": "ACCEPT",
+      "expected_verdict_matches": true,
+      "source_paths_exist_in_pinned_checkout": true,
+      "source_anchors_match_declared_lines": true,
+      "source_identity_matches_corpus_pin": true
+    },
+    {
+      "file": "reports\\guard-case-candidates\\GP-X402.json",
+      "id_matches_filename": true,
+      "schema_version": 1,
+      "schema_valid": true,
+      "schema_errors": [],
+      "expected_verdict": "REFUSE",
+      "expected_verdict_matches": true,
+      "source_paths_exist_in_pinned_checkout": true,
+      "source_anchors_match_declared_lines": true,
+      "source_identity_matches_corpus_pin": true
+    },
+    {
+      "file": "reports\\guard-case-candidates\\GP-X403.json",
+      "id_matches_filename": true,
+      "schema_version": 1,
+      "schema_valid": true,
+      "schema_errors": [],
+      "expected_verdict": "REFUSE",
+      "expected_verdict_matches": true,
+      "source_paths_exist_in_pinned_checkout": true,
+      "source_anchors_match_declared_lines": true,
+      "source_identity_matches_corpus_pin": true
+    }
+  ],
+  "controls": [
+    {
+      "case": "GP-X399",
+      "fixture": "fixtures/D1-inference-on-family-claim/input.json",
+      "outcome": "REFUSE",
+      "error_type": "GraphError",
+      "error": "inference 'INF' premise 0 cites PREDICATE claim 'C-COUNT' at family 'F' without an explicit family_bridge. DISCHARGE: retain the family claim and its enumeration debt, then declare a checked family_bridge to one exhibited proved member, or keep the required model claim as an open slot.",
+      "markers": [
+        "DISCHARGE",
+        "family"
+      ],
+      "markers_present": true
+    },
+    {
+      "case": "GP-X400",
+      "fixture": "fixtures/D3-inert-disposition/before.json",
+      "outcome": "REFUSE",
+      "error_type": "GraphError",
+      "error": "claim 'C-SPLIT' has kind PREDICATE but carries COUNT-only field(s) splits, groups, method, proves. DISCHARGE: use a family COUNT disposition, or remove these fields and keep the narrower claim. Disposition fields cannot be silently ignored.",
+      "markers": [
+        "PREDICATE",
+        "COUNT"
+      ],
+      "markers_present": true
+    },
+    {
+      "case": "GP-X401",
+      "fixture": "fixtures/D3-inert-disposition/after.json",
+      "outcome": "ACCEPT_DECLARATION_WITH_DEBT",
+      "finding_ids": [
+        "FAMILY:C-SPLIT"
+      ],
+      "retains_family_c_split": true
+    },
+    {
+      "case": "GP-X402",
+      "fixture": "transports/X8-X10.json",
+      "outcome": "REFUSE",
+      "subject": "INF-X8",
+      "present": true,
+      "validation_gate": "explicit required_kind open-premise slot reported by C.R_TRANSPORT",
+      "missing_why": "X8 cites E4 (exactly 2 of the 5,395 actions realizable) and E3b and stops. E5 -- that the 5,395-action census is COMPLETE -- is not among the premises and is not in this graph as a settled claim. Without it, 'exactly 2 of the census' does not become 'exactly 2 in the world'. E4 itself is a COUNT claim at a family and cannot be cited as a premise at all in GP 0.31.2 (defects/D1).",
+      "discharge": "SUPPLY THE MISSING CLAIM, or stop asserting the conclusion.  This is not a transport refusal and there is no edge to retype: the argument declares a premise it does not have, and says so on purpose.\n  The slot names the KIND and the MODEL it needs. Establish exactly that and record it, and this argument becomes checkable in the ordinary way.\n  If it cannot be established, that is the finding -- and the slot is how it stays visible. Do not close it by writing the claim as though it held; a graph that states a falsehood is worse than one that states a gap. Withdraw the conclusion instead, or weaken it to something the premises you DO have will carry.",
+      "missing_premise_marker": true
+    },
+    {
+      "case": "GP-X403",
+      "fixture": "transports/X8-X10.json",
+      "outcome": "REFUSE",
+      "subject": "INF-X10",
+      "present": true,
+      "validation_gate": "explicit required_kind open-premise slot reported by C.R_TRANSPORT",
+      "missing_why": "E5-gap, the generative bridge: that every fence-valid type produced by E5a-c is present in the frozen 5,299-pin corpus. E5-argument.md section 5 declines to certify it and names the missing same-method n=22 census retrodiction. This is the SOLE open obligation under E5.",
+      "discharge": "SUPPLY THE MISSING CLAIM, or stop asserting the conclusion.  This is not a transport refusal and there is no edge to retype: the argument declares a premise it does not have, and says so on purpose.\n  The slot names the KIND and the MODEL it needs. Establish exactly that and record it, and this argument becomes checkable in the ordinary way.\n  If it cannot be established, that is the finding -- and the slot is how it stays visible. Do not close it by writing the claim as though it held; a graph that states a falsehood is worse than one that states a gap. Withdraw the conclusion instead, or weaken it to something the premises you DO have will carry.",
+      "missing_premise_marker": true
+    }
+  ],
+  "limited_contrast": {
+    "clean_inferences": [
+      "INF-X9"
+    ],
+    "meaning": "INF-X9 is a clean inference in this frozen graph only; it carries the declared, unproved E5 premise and is not a family-bridge or source/parent-cover positive."
+  },
+  "execution_limits": [
+    "Offline Python loader/checker fold only.",
+    "No CAS invocation.",
+    "No oracle checkout writes.",
+    "D3 declaration acceptance remains distinct from FAMILY:C-SPLIT debt."
+  ],
+  "passed": true
+}

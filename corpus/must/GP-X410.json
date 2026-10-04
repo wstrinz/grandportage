@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "GP-X410",
+  "seed": null,
+  "title": "Vanishing equations do not excuse a vanishing open guard",
+  "situation": "An offered ordinary rational point at an exact open model. Equations must vanish and every nonzero guard must remain nonzero.",
+  "inputs": {
+    "coefficient_domain": "Q",
+    "point_universe": "rational points",
+    "variables": [
+      "x",
+      "y"
+    ],
+    "equations": [
+      "y"
+    ],
+    "nonzero_guards": [
+      "x"
+    ],
+    "point": {
+      "x": "0",
+      "y": "0"
+    }
+  },
+  "attempted_conclusion": "Accept the offered point as a witness at this exact open model.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The equation y=0 holds, but the required guard x is zero. Refuse this offered point; this does not establish that the model is empty."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 4493,
+      "anchor": "def test_open_locus_witness_checks_equations_and_nonvanishing_guards():"
+    }
+  ]
+}

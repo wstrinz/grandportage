@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X166",
+  "seed": null,
+  "title": "Reject an old verifier version",
+  "situation": "Only matching provenance can project current identity authority; stale history must not overwrite a current result.",
+  "inputs": {
+    "mutation": {
+      "verifier_version": 999
+    }
+  },
+  "attempted_conclusion": "Use the current positive projected identity result.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Only matching provenance can project current identity authority; stale history must not overwrite a current result."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_verdict_provenance.py",
+      "line": 508,
+      "anchor": "def test_mismatched_verifier_kernel_or_backend_is_stale("
+    }
+  ]
+}

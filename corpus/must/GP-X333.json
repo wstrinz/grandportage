@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "GP-X333",
+  "seed": null,
+  "title": "Reversed coefficient-ring variable order breaks receipt binding",
+  "situation": "The pullback certificate reverses its canonical ring-variable order while the Psi8 certificate retains the original ordered coordinates.",
+  "inputs": {
+    "control": "ring_order",
+    "fixture_sha256": "ce082feccd226db1bd8e0749b652ae806e896a79053a0ed7454c5a1288e686b6",
+    "mutation": {
+      "op": "reverse",
+      "path": [
+        "pullback_certificate",
+        "ring",
+        "ring_variable_order"
+      ]
+    }
+  },
+  "attempted_conclusion": "Reuse the same cross-certificate pullback under the reversed ring-variable order.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The pullback and Psi8 ordered coordinate packs no longer agree."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "line": 88,
+      "anchor": "def test_scope_pin_order_digest_middle_and_slice_mutations_refuse("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_b0_free_plane/depth8_residual_adapter.py",
+      "line": 574,
+      "anchor": "psi[\"ring_variable_order\"], \"N7\","
+    }
+  ]
+}

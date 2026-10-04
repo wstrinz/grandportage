@@ -1,0 +1,1417 @@
+{
+  "schema": "gp-gate-owners/v1",
+  "policy": "post-G2 §1.11 and §3.7. Nullstellensatz regime → 3a; ordered/SOS, number field, selected root/embedding and section → 3b; census → census; named campaign operations → campaign-op. Ambiguous cases carry a proposed owner and stay pending until Will rules (external review first). Case bytes and expectations are unchanged. Rule (2026-10-03): 0.50 checks, never constructs. Owner admission-control marks deleted-premise countermodels of admission theorems.",
+  "source": "corpus/LAYER-TAGS.json (primary_layer = profile)",
+  "case_count": 242,
+  "counts": {
+    "3a": 105,
+    "3b": 51,
+    "campaign-op": 80,
+    "census": 4,
+    "admission-control": 2
+  },
+  "cases": [
+    {
+      "id": "GP-A02",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport"
+    },
+    {
+      "id": "GP-A03a",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport"
+    },
+    {
+      "id": "GP-A03b",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport"
+    },
+    {
+      "id": "GP-A04",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport"
+    },
+    {
+      "id": "GP-A05",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport"
+    },
+    {
+      "id": "GP-A06",
+      "owner": "3a",
+      "proposed_owner": "3b",
+      "basis": "regional predicate vs whole system: R2 against the direction table",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 try-as-3a pass (review ruling 1)"
+    },
+    {
+      "id": "GP-A07a",
+      "owner": "3b",
+      "basis": "field-class flags, SOS reach, selected embeddings"
+    },
+    {
+      "id": "GP-A07b",
+      "owner": "3b",
+      "basis": "field-class flags, SOS reach, selected embeddings"
+    },
+    {
+      "id": "GP-A08b",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport"
+    },
+    {
+      "id": "GP-A08c",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport"
+    },
+    {
+      "id": "GP-A09",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport"
+    },
+    {
+      "id": "GP-A10-C",
+      "owner": "3b",
+      "basis": "field-class flags, SOS reach, selected embeddings"
+    },
+    {
+      "id": "GP-A10-Q",
+      "owner": "3b",
+      "basis": "field-class flags, SOS reach, selected embeddings"
+    },
+    {
+      "id": "GP-A10-R",
+      "owner": "3b",
+      "basis": "field-class flags, SOS reach, selected embeddings"
+    },
+    {
+      "id": "GP-A11a",
+      "owner": "3b",
+      "basis": "field-class flags, SOS reach, selected embeddings"
+    },
+    {
+      "id": "GP-A11b",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport",
+      "fixture": "corpus/INSTANTIATIONS.json (review ruling 6, signed 2026-10-03)"
+    },
+    {
+      "id": "GP-A12",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport",
+      "fixture": "corpus/INSTANTIATIONS.json (review ruling 6, signed 2026-10-03)"
+    },
+    {
+      "id": "GP-A13-ambient",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport"
+    },
+    {
+      "id": "GP-A13-derived",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport"
+    },
+    {
+      "id": "GP-A20b",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport"
+    },
+    {
+      "id": "GP-A21",
+      "owner": "campaign-op",
+      "basis": "Laurent lowering"
+    },
+    {
+      "id": "GP-A22",
+      "owner": "3a",
+      "proposed_owner": "campaign-op",
+      "basis": "fixture on the explicit surface: EMPTY of the capped system by the supplied obligation cofactors; the data is concrete but the key set is one case",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass",
+      "fixture": "corpus/INSTANTIATIONS.json (signed 2026-10-03)"
+    },
+    {
+      "id": "GP-A23",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport",
+      "fixture": "corpus/INSTANTIATIONS.json (review ruling 6, signed 2026-10-03)"
+    },
+    {
+      "id": "GP-A24",
+      "owner": "3a",
+      "basis": "geometric nonemptiness via an R3 map from Q[s]/(s^2-3) (review ruling 2)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-C01",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport"
+    },
+    {
+      "id": "GP-C02",
+      "owner": "3a",
+      "basis": "base language: signature, reach, ideal vs locus, K2/K3 transport",
+      "fixture": "corpus/INSTANTIATIONS.json (review ruling 6, signed 2026-10-03)"
+    },
+    {
+      "id": "GP-X01",
+      "owner": "3b",
+      "basis": "SOS, extension-valued witnesses, selected signs, closure vs base field"
+    },
+    {
+      "id": "GP-X02",
+      "owner": "3b",
+      "basis": "SOS, extension-valued witnesses, selected signs, closure vs base field"
+    },
+    {
+      "id": "GP-X03",
+      "owner": "campaign-op",
+      "basis": "needs an image-closure relation certificate (review ruling 6)",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X05",
+      "owner": "campaign-op",
+      "proposed_owner": "3a",
+      "basis": "boolean premise flags only; 0.50 enforces rule premises structurally",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass"
+    },
+    {
+      "id": "GP-X06",
+      "owner": "campaign-op",
+      "proposed_owner": "3a",
+      "basis": "boolean premise flags only; 0.50 enforces rule premises structurally",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass"
+    },
+    {
+      "id": "GP-X07",
+      "owner": "campaign-op",
+      "proposed_owner": "3a",
+      "basis": "boolean premise flags only; 0.50 enforces rule premises structurally",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass"
+    },
+    {
+      "id": "GP-X08",
+      "owner": "3a",
+      "basis": "ideal identities, localization, polynomial-map pullback (C3/C4)"
+    },
+    {
+      "id": "GP-X10",
+      "owner": "3a",
+      "proposed_owner": "3b",
+      "basis": "point universes as kinds (BASE = NONEMPTY, closure = NOT_IN_IDEAL(1)) along the identity map",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 try-as-3a pass (review ruling 1)"
+    },
+    {
+      "id": "GP-X11",
+      "owner": "3a",
+      "proposed_owner": "3b",
+      "basis": "point universes as kinds (BASE = NONEMPTY, closure = NOT_IN_IDEAL(1)) along the identity map",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 try-as-3a pass (review ruling 1)"
+    },
+    {
+      "id": "GP-X117",
+      "owner": "campaign-op",
+      "proposed_owner": "3b",
+      "basis": "equations given by name only (C, C2); a projection contract of a campaign artifact",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass"
+    },
+    {
+      "id": "GP-X118",
+      "owner": "campaign-op",
+      "basis": "recurrence and jump schedules"
+    },
+    {
+      "id": "GP-X119",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination",
+      "pending": "non-membership, non-unit or completeness claim; proposed witness-refuted NOT_IN_IDEAL kind"
+    },
+    {
+      "id": "GP-X12",
+      "owner": "3a",
+      "proposed_owner": "3b",
+      "basis": "point universes: a missing universe is an incomplete map",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 try-as-3a pass (review ruling 1)"
+    },
+    {
+      "id": "GP-X120",
+      "owner": "campaign-op",
+      "basis": "non-zerodivisor kind deferred until a consumer exists (review ruling 6)",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X121",
+      "owner": "3a",
+      "proposed_owner": "campaign-op",
+      "basis": "fixture: the attempted existence claim is not in the inputs; add \"attempt\": \"nonempty\" (X128 shape), so the supplied unit certificate refutes it by contra",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass",
+      "fixture": "corpus/INSTANTIATIONS.json (signed 2026-10-03)"
+    },
+    {
+      "id": "GP-X122",
+      "owner": "3a",
+      "proposed_owner": "campaign-op",
+      "basis": "displayed rational point (C2)",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 try-as-3a pass (review ruling 1)"
+    },
+    {
+      "id": "GP-X123",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination"
+    },
+    {
+      "id": "GP-X124",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination"
+    },
+    {
+      "id": "GP-X125",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination"
+    },
+    {
+      "id": "GP-X126",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination"
+    },
+    {
+      "id": "GP-X127",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination"
+    },
+    {
+      "id": "GP-X128",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination"
+    },
+    {
+      "id": "GP-X129",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination"
+    },
+    {
+      "id": "GP-X13",
+      "owner": "census",
+      "basis": "binding a combinatorial certificate to field points, carry kind 2 (review ruling 6)",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X130",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination"
+    },
+    {
+      "id": "GP-X132",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination"
+    },
+    {
+      "id": "GP-X133",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination"
+    },
+    {
+      "id": "GP-X134",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination"
+    },
+    {
+      "id": "GP-X135",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination"
+    },
+    {
+      "id": "GP-X136",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination"
+    },
+    {
+      "id": "GP-X137",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination"
+    },
+    {
+      "id": "GP-X138",
+      "owner": "3a",
+      "basis": "unit/saturation certificates, substitution, elimination",
+      "resolved": "typed non-evidence: a bounded search with no admission path (review ruling 6)"
+    },
+    {
+      "id": "GP-X141",
+      "owner": "campaign-op",
+      "basis": "completeness contract of a generator-producing operation (review ruling 6)",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X15",
+      "owner": "3a",
+      "basis": "ideal identities, localization, polynomial-map pullback (C3/C4)"
+    },
+    {
+      "id": "GP-X16",
+      "owner": "3a",
+      "basis": "ideal identities, localization, polynomial-map pullback (C3/C4)"
+    },
+    {
+      "id": "GP-X17",
+      "owner": "3a",
+      "basis": "ideal identities, localization, polynomial-map pullback (C3/C4)"
+    },
+    {
+      "id": "GP-X18",
+      "owner": "3a",
+      "basis": "ideal identities, localization, polynomial-map pullback (C3/C4)"
+    },
+    {
+      "id": "GP-X19",
+      "owner": "3a",
+      "basis": "ideal identities, localization, polynomial-map pullback (C3/C4)"
+    },
+    {
+      "id": "GP-X20",
+      "owner": "3a",
+      "basis": "ideal identities, localization, polynomial-map pullback (C3/C4)"
+    },
+    {
+      "id": "GP-X21",
+      "owner": "3a",
+      "basis": "ideal identities, localization, polynomial-map pullback (C3/C4)"
+    },
+    {
+      "id": "GP-X22",
+      "owner": "3a",
+      "basis": "geometric nonemptiness via an R3 map from Q[a]/(a^2+1) (review ruling 2)",
+      "provisional_from": "3b",
+      "ruling": "2026-10-03 (Will, on the 3a.1 step-4 report)"
+    },
+    {
+      "id": "GP-X222",
+      "owner": "3a",
+      "basis": "C1/C3 cofactor replay and its custody"
+    },
+    {
+      "id": "GP-X223",
+      "owner": "3a",
+      "basis": "C1/C3 cofactor replay and its custody"
+    },
+    {
+      "id": "GP-X224",
+      "owner": "3a",
+      "basis": "C1/C3 cofactor replay and its custody"
+    },
+    {
+      "id": "GP-X225",
+      "owner": "3a",
+      "basis": "C1/C3 cofactor replay and its custody"
+    },
+    {
+      "id": "GP-X228",
+      "owner": "3a",
+      "basis": "C1/C3 cofactor replay and its custody"
+    },
+    {
+      "id": "GP-X23",
+      "owner": "3a",
+      "basis": "geometric nonemptiness via an R3 map from Q[a]/(a^2+1) (review ruling 2)",
+      "provisional_from": "3b",
+      "ruling": "2026-10-03 (Will, on the 3a.1 step-4 report)"
+    },
+    {
+      "id": "GP-X24",
+      "owner": "3a",
+      "basis": "geometric nonemptiness via an R3 map from Q[a]/(a^2+1) (review ruling 2)",
+      "provisional_from": "3b",
+      "ruling": "2026-10-03 (Will, on the 3a.1 step-4 report)"
+    },
+    {
+      "id": "GP-X25",
+      "owner": "campaign-op",
+      "basis": "dm4 caps"
+    },
+    {
+      "id": "GP-X255",
+      "owner": "3b",
+      "basis": "section receipts and selected-root covers"
+    },
+    {
+      "id": "GP-X256",
+      "owner": "3b",
+      "basis": "section receipts and selected-root covers"
+    },
+    {
+      "id": "GP-X257",
+      "owner": "3b",
+      "basis": "section receipts and selected-root covers"
+    },
+    {
+      "id": "GP-X258",
+      "owner": "3b",
+      "basis": "section receipts and selected-root covers"
+    },
+    {
+      "id": "GP-X259",
+      "owner": "3b",
+      "basis": "section receipts and selected-root covers"
+    },
+    {
+      "id": "GP-X26",
+      "owner": "campaign-op",
+      "basis": "dm4 caps"
+    },
+    {
+      "id": "GP-X260",
+      "owner": "3b",
+      "basis": "section receipts and selected-root covers"
+    },
+    {
+      "id": "GP-X261",
+      "owner": "3b",
+      "basis": "section receipts and selected-root covers"
+    },
+    {
+      "id": "GP-X262",
+      "owner": "3b",
+      "basis": "section receipts and selected-root covers"
+    },
+    {
+      "id": "GP-X263",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities"
+    },
+    {
+      "id": "GP-X264",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities"
+    },
+    {
+      "id": "GP-X265",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities"
+    },
+    {
+      "id": "GP-X266",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities"
+    },
+    {
+      "id": "GP-X267",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities"
+    },
+    {
+      "id": "GP-X268",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities"
+    },
+    {
+      "id": "GP-X269",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities",
+      "pending": "object cover claim; proposed COVER statement kind"
+    },
+    {
+      "id": "GP-X27",
+      "owner": "campaign-op",
+      "basis": "coefficient-row packing"
+    },
+    {
+      "id": "GP-X270",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities",
+      "pending": "object cover claim; proposed COVER statement kind"
+    },
+    {
+      "id": "GP-X271",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities",
+      "pending": "object cover claim; proposed COVER statement kind"
+    },
+    {
+      "id": "GP-X272",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities",
+      "pending": "object cover claim; proposed COVER statement kind"
+    },
+    {
+      "id": "GP-X273",
+      "owner": "3b",
+      "basis": "section receipts and selected-root covers"
+    },
+    {
+      "id": "GP-X274",
+      "owner": "3b",
+      "basis": "section receipts and selected-root covers"
+    },
+    {
+      "id": "GP-X275",
+      "owner": "3b",
+      "basis": "point universe BASE vs ALGEBRAIC_CLOSURE (field-class flag) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X276",
+      "owner": "3b",
+      "basis": "point universe BASE vs ALGEBRAIC_CLOSURE (field-class flag) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X277",
+      "owner": "3b",
+      "basis": "point universe BASE vs ALGEBRAIC_CLOSURE (field-class flag) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X278",
+      "owner": "3b",
+      "basis": "point universe BASE vs ALGEBRAIC_CLOSURE (field-class flag) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X279",
+      "owner": "3b",
+      "basis": "point universe BASE vs ALGEBRAIC_CLOSURE (field-class flag) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X28",
+      "owner": "campaign-op",
+      "basis": "coefficient-row packing"
+    },
+    {
+      "id": "GP-X280",
+      "owner": "3b",
+      "basis": "point universe BASE vs ALGEBRAIC_CLOSURE (field-class flag) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X284",
+      "owner": "campaign-op",
+      "basis": "v0.37 tool operation contract (branch construction, declared units, affine pattern) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X285",
+      "owner": "campaign-op",
+      "basis": "v0.37 tool operation contract (branch construction, declared units, affine pattern) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X286",
+      "owner": "campaign-op",
+      "basis": "v0.37 tool operation contract (branch construction, declared units, affine pattern) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X287",
+      "owner": "campaign-op",
+      "basis": "v0.37 tool operation contract (branch construction, declared units, affine pattern) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X288",
+      "owner": "campaign-op",
+      "basis": "v0.37 tool operation contract (branch construction, declared units, affine pattern) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X289",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities"
+    },
+    {
+      "id": "GP-X29",
+      "owner": "campaign-op",
+      "basis": "coefficient-row packing"
+    },
+    {
+      "id": "GP-X290",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities"
+    },
+    {
+      "id": "GP-X291",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities"
+    },
+    {
+      "id": "GP-X292",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities"
+    },
+    {
+      "id": "GP-X293",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities"
+    },
+    {
+      "id": "GP-X296",
+      "owner": "3a",
+      "basis": "polynomial-map certificates, structural-split covers, K3 direction tables, factor identities"
+    },
+    {
+      "id": "GP-X297",
+      "owner": "campaign-op",
+      "basis": "v0.37 tool operation contract (branch construction, declared units, affine pattern) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X298",
+      "owner": "campaign-op",
+      "basis": "v0.37 tool operation contract (branch construction, declared units, affine pattern) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X299",
+      "owner": "campaign-op",
+      "basis": "v0.37 tool operation contract (branch construction, declared units, affine pattern) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X30",
+      "owner": "campaign-op",
+      "basis": "coefficient-row packing"
+    },
+    {
+      "id": "GP-X300",
+      "owner": "campaign-op",
+      "basis": "v0.37 tool operation contract (branch construction, declared units, affine pattern) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X301",
+      "owner": "campaign-op",
+      "basis": "v0.37 tool operation contract (branch construction, declared units, affine pattern) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X308",
+      "owner": "3b",
+      "basis": "ordered proofs, number-field points, selected roots, closure covers"
+    },
+    {
+      "id": "GP-X309",
+      "owner": "3b",
+      "basis": "ordered proofs, number-field points, selected roots, closure covers"
+    },
+    {
+      "id": "GP-X31",
+      "owner": "campaign-op",
+      "basis": "coefficient-row packing"
+    },
+    {
+      "id": "GP-X310",
+      "owner": "3b",
+      "basis": "ordered proofs, number-field points, selected roots, closure covers"
+    },
+    {
+      "id": "GP-X311",
+      "owner": "3b",
+      "basis": "ordered proofs, number-field points, selected roots, closure covers"
+    },
+    {
+      "id": "GP-X312",
+      "owner": "campaign-op",
+      "basis": "matrix rows, named fibers, rank-two necessary blocks"
+    },
+    {
+      "id": "GP-X313",
+      "owner": "campaign-op",
+      "basis": "matrix rows, named fibers, rank-two necessary blocks"
+    },
+    {
+      "id": "GP-X314",
+      "owner": "campaign-op",
+      "basis": "matrix rows, named fibers, rank-two necessary blocks"
+    },
+    {
+      "id": "GP-X315",
+      "owner": "campaign-op",
+      "proposed_owner": "3a",
+      "basis": "elimination completeness and ideal equality (as X03, X141)",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass"
+    },
+    {
+      "id": "GP-X316",
+      "owner": "campaign-op",
+      "proposed_owner": "3a",
+      "basis": "elimination completeness and ideal equality (as X03, X141)",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass"
+    },
+    {
+      "id": "GP-X317",
+      "owner": "campaign-op",
+      "proposed_owner": "3a",
+      "basis": "elimination completeness and ideal equality (as X03, X141)",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass"
+    },
+    {
+      "id": "GP-X318",
+      "owner": "campaign-op",
+      "basis": "recurrence and jump schedules"
+    },
+    {
+      "id": "GP-X319",
+      "owner": "3b",
+      "basis": "pinned fixture over the number field Q[t]/(15t^3+1) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X32",
+      "owner": "campaign-op",
+      "basis": "coefficient-row packing"
+    },
+    {
+      "id": "GP-X320",
+      "owner": "3b",
+      "basis": "pinned fixture over the number field Q[t]/(15t^3+1) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X321",
+      "owner": "campaign-op",
+      "basis": "recurrence and jump schedules"
+    },
+    {
+      "id": "GP-X322",
+      "owner": "campaign-op",
+      "basis": "matrix rows, named fibers, rank-two necessary blocks"
+    },
+    {
+      "id": "GP-X323",
+      "owner": "campaign-op",
+      "basis": "matrix rows, named fibers, rank-two necessary blocks"
+    },
+    {
+      "id": "GP-X324",
+      "owner": "campaign-op",
+      "basis": "matrix rows, named fibers, rank-two necessary blocks"
+    },
+    {
+      "id": "GP-X325",
+      "owner": "campaign-op",
+      "basis": "matrix rows, named fibers, rank-two necessary blocks"
+    },
+    {
+      "id": "GP-X326",
+      "owner": "campaign-op",
+      "basis": "matrix rows, named fibers, rank-two necessary blocks"
+    },
+    {
+      "id": "GP-X327",
+      "owner": "campaign-op",
+      "basis": "matrix rows, named fibers, rank-two necessary blocks"
+    },
+    {
+      "id": "GP-X328",
+      "owner": "campaign-op",
+      "basis": "matrix rows, named fibers, rank-two necessary blocks"
+    },
+    {
+      "id": "GP-X33",
+      "owner": "campaign-op",
+      "basis": "coefficient-row packing"
+    },
+    {
+      "id": "GP-X330",
+      "owner": "campaign-op",
+      "basis": "matrix rows, named fibers, rank-two necessary blocks"
+    },
+    {
+      "id": "GP-X331",
+      "owner": "campaign-op",
+      "proposed_owner": "campaign-op",
+      "basis": "a mutation of an external artifact named by hash",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass"
+    },
+    {
+      "id": "GP-X332",
+      "owner": "3b",
+      "basis": "pinned fixture over the number field Q[t]/(15t^3+1) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X333",
+      "owner": "3b",
+      "basis": "pinned fixture over the number field Q[t]/(15t^3+1) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X334",
+      "owner": "3b",
+      "basis": "pinned fixture over the number field Q[t]/(15t^3+1) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X335",
+      "owner": "3b",
+      "basis": "pinned fixture over the number field Q[t]/(15t^3+1) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X336",
+      "owner": "3b",
+      "basis": "pinned fixture over the number field Q[t]/(15t^3+1) (provisional reassignment 2026-10-03, pending review)",
+      "provisional_from": "3a"
+    },
+    {
+      "id": "GP-X339",
+      "owner": "campaign-op",
+      "basis": "recurrence and jump schedules"
+    },
+    {
+      "id": "GP-X34",
+      "owner": "campaign-op",
+      "basis": "coefficient-row packing"
+    },
+    {
+      "id": "GP-X340",
+      "owner": "campaign-op",
+      "basis": "recurrence and jump schedules"
+    },
+    {
+      "id": "GP-X341",
+      "owner": "campaign-op",
+      "proposed_owner": "campaign-op",
+      "basis": "equations by name only (G1-G3) over Q(y); a document audit",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass"
+    },
+    {
+      "id": "GP-X342",
+      "owner": "campaign-op",
+      "proposed_owner": "campaign-op",
+      "basis": "equations by name only (G1-G3) over Q(y); a document audit",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass"
+    },
+    {
+      "id": "GP-X343",
+      "owner": "3b",
+      "proposed_owner": "3a",
+      "basis": "R EMPTY by an ordered SOS certificate",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass"
+    },
+    {
+      "id": "GP-X345",
+      "owner": "3b",
+      "basis": "ordered proofs, number-field points, selected roots, closure covers"
+    },
+    {
+      "id": "GP-X347",
+      "owner": "3b",
+      "basis": "ordered proofs, number-field points, selected roots, closure covers"
+    },
+    {
+      "id": "GP-X348",
+      "owner": "3b",
+      "basis": "ordered proofs, number-field points, selected roots, closure covers"
+    },
+    {
+      "id": "GP-X349",
+      "owner": "3b",
+      "basis": "ordered proofs, number-field points, selected roots, closure covers"
+    },
+    {
+      "id": "GP-X350",
+      "owner": "3b",
+      "basis": "ordered proofs, number-field points, selected roots, closure covers"
+    },
+    {
+      "id": "GP-X351",
+      "owner": "3b",
+      "basis": "ordered proofs, number-field points, selected roots, closure covers"
+    },
+    {
+      "id": "GP-X352",
+      "owner": "3b",
+      "basis": "ordered proofs, number-field points, selected roots, closure covers"
+    },
+    {
+      "id": "GP-X353",
+      "owner": "3b",
+      "basis": "ordered proofs, number-field points, selected roots, closure covers"
+    },
+    {
+      "id": "GP-X354",
+      "owner": "3b",
+      "basis": "ordered proofs, number-field points, selected roots, closure covers"
+    },
+    {
+      "id": "GP-X355",
+      "owner": "admission-control",
+      "basis": "deleted 1!=0 premise countermodel; admission control on C1 soundness (review ruling 3)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X356",
+      "owner": "admission-control",
+      "basis": "deleted no-zero-divisor premise countermodel; admission control on rule soundness (review ruling 3)",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X357",
+      "owner": "campaign-op",
+      "basis": "ring-context operation-map or ideal regression (review ruling 3)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X358",
+      "owner": "campaign-op",
+      "basis": "ring-context operation-map or ideal regression (review ruling 3)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X359",
+      "owner": "campaign-op",
+      "basis": "ring-context operation-map or ideal regression (review ruling 3)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X360",
+      "owner": "campaign-op",
+      "basis": "ring-context operation-map or ideal regression (review ruling 3)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X361",
+      "owner": "campaign-op",
+      "basis": "ring-context operation-map or ideal regression (review ruling 3)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X362",
+      "owner": "campaign-op",
+      "basis": "ring-context operation-map or ideal regression (review ruling 3)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X363",
+      "owner": "campaign-op",
+      "basis": "ring-context operation-map or ideal regression (review ruling 3)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X364",
+      "owner": "3a",
+      "basis": "finite-quotient units, receipt binding, operation maps (R3), localized membership"
+    },
+    {
+      "id": "GP-X365",
+      "owner": "3a",
+      "basis": "finite-quotient units, receipt binding, operation maps (R3), localized membership"
+    },
+    {
+      "id": "GP-X366",
+      "owner": "census",
+      "basis": "finite carrier with maps (review ruling 3)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X367",
+      "owner": "census",
+      "basis": "finite carrier with maps (review ruling 3)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X368",
+      "owner": "3b",
+      "basis": "ordered proofs, number-field points, selected roots, closure covers"
+    },
+    {
+      "id": "GP-X369",
+      "owner": "3b",
+      "basis": "ordered proofs, number-field points, selected roots, closure covers"
+    },
+    {
+      "id": "GP-X401",
+      "owner": "census",
+      "basis": "typed COUNT disposition and family coverage debt"
+    },
+    {
+      "id": "GP-X404",
+      "owner": "3b",
+      "basis": "SOS, extension-valued witnesses, selected signs, closure vs base field"
+    },
+    {
+      "id": "GP-X405",
+      "owner": "3b",
+      "basis": "SOS, extension-valued witnesses, selected signs, closure vs base field"
+    },
+    {
+      "id": "GP-X406",
+      "owner": "campaign-op",
+      "basis": "Cramer clearing"
+    },
+    {
+      "id": "GP-X407",
+      "owner": "campaign-op",
+      "basis": "Cramer clearing"
+    },
+    {
+      "id": "GP-X408",
+      "owner": "campaign-op",
+      "proposed_owner": "3a",
+      "basis": "abstract validity predicates over Z rather than field semantics (the review expected 3a)",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass"
+    },
+    {
+      "id": "GP-X409",
+      "owner": "campaign-op",
+      "proposed_owner": "3a",
+      "basis": "abstract validity predicates over Z rather than field semantics (the review expected 3a)",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass"
+    },
+    {
+      "id": "GP-X410",
+      "owner": "3a",
+      "basis": "C2 witnesses and open guards"
+    },
+    {
+      "id": "GP-X411",
+      "owner": "3a",
+      "basis": "C2 witnesses and open guards"
+    },
+    {
+      "id": "GP-X412",
+      "owner": "3a",
+      "basis": "C2 witnesses and open guards"
+    },
+    {
+      "id": "GP-X45",
+      "owner": "3a",
+      "basis": "geometric nonemptiness via an R3 map from Q[a]/(a^2+1) (review ruling 2)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X46",
+      "owner": "3a",
+      "basis": "geometric nonemptiness via an R3 map from Q[a]/(a^2+1) (review ruling 2)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X47",
+      "owner": "3a",
+      "basis": "geometric nonemptiness via an R3 map from Q[a]/(a^2+1) (review ruling 2)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X48",
+      "owner": "3b",
+      "basis": "SOS, extension-valued witnesses, selected signs, closure vs base field"
+    },
+    {
+      "id": "GP-X49",
+      "owner": "3a",
+      "basis": "geometric nonemptiness via an R3 map from Q[a]/(a^2+1) (review ruling 2)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03",
+      "fixture": "corpus/INSTANTIATIONS.json (Will, 2026-10-03)"
+    },
+    {
+      "id": "GP-X50",
+      "owner": "3a",
+      "basis": "geometric nonemptiness via an R3 map from Q[a]/(a^2+1) (review ruling 2)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X51",
+      "owner": "3a",
+      "proposed_owner": "3a",
+      "basis": "fixture in X59's shape: NONEMPTY moves tight to loose (ALONG)",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass",
+      "fixture": "corpus/INSTANTIATIONS.json (signed 2026-10-03)"
+    },
+    {
+      "id": "GP-X52",
+      "owner": "3a",
+      "proposed_owner": "3a",
+      "basis": "fixture in X59's shape: NONEMPTY against the direction table (AGAINST)",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass",
+      "fixture": "corpus/INSTANTIATIONS.json (signed 2026-10-03)"
+    },
+    {
+      "id": "GP-X53",
+      "owner": "campaign-op",
+      "proposed_owner": "campaign-op",
+      "basis": "dimension credit has no kind and no consumer",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass"
+    },
+    {
+      "id": "GP-X54",
+      "owner": "campaign-op",
+      "basis": "campaign lifts, transfer towers, frozen boundaries"
+    },
+    {
+      "id": "GP-X55",
+      "owner": "campaign-op",
+      "basis": "campaign lifts, transfer towers, frozen boundaries"
+    },
+    {
+      "id": "GP-X56",
+      "owner": "3b",
+      "basis": "SOS, extension-valued witnesses, selected signs, closure vs base field"
+    },
+    {
+      "id": "GP-X57",
+      "owner": "campaign-op",
+      "basis": "campaign lifts, transfer towers, frozen boundaries"
+    },
+    {
+      "id": "GP-X58",
+      "owner": "campaign-op",
+      "basis": "campaign lifts, transfer towers, frozen boundaries"
+    },
+    {
+      "id": "GP-X59",
+      "owner": "3a",
+      "basis": "C2/C1 receipts, staleness, relaxation, localized emptiness",
+      "fixture": "corpus/INSTANTIATIONS.json (review ruling 6, signed 2026-10-03)"
+    },
+    {
+      "id": "GP-X63",
+      "owner": "3a",
+      "basis": "C2/C1 receipts, staleness, relaxation, localized emptiness"
+    },
+    {
+      "id": "GP-X64",
+      "owner": "3a",
+      "basis": "C2/C1 receipts, staleness, relaxation, localized emptiness"
+    },
+    {
+      "id": "GP-X66",
+      "owner": "3a",
+      "basis": "C2/C1 receipts, staleness, relaxation, localized emptiness"
+    },
+    {
+      "id": "GP-X67",
+      "owner": "3a",
+      "basis": "C2/C1 receipts, staleness, relaxation, localized emptiness"
+    },
+    {
+      "id": "GP-X68",
+      "owner": "3a",
+      "basis": "C2/C1 receipts, staleness, relaxation, localized emptiness"
+    },
+    {
+      "id": "GP-X69",
+      "owner": "3a",
+      "basis": "custody under a point-universe change (review ruling 1)",
+      "provisional_from": "3a",
+      "ruling": "2026-10-03"
+    },
+    {
+      "id": "GP-X70",
+      "owner": "3a",
+      "basis": "C2/C1 receipts, staleness, relaxation, localized emptiness"
+    },
+    {
+      "id": "GP-X71",
+      "owner": "3a",
+      "basis": "C2/C1 receipts, staleness, relaxation, localized emptiness"
+    },
+    {
+      "id": "GP-X73",
+      "owner": "3a",
+      "proposed_owner": "campaign-op",
+      "basis": "fixture: the triangular chain as mutual R2 IN_IDEAL inclusions with guard t (data present)",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass",
+      "fixture": "corpus/INSTANTIATIONS.json (signed 2026-10-03)"
+    },
+    {
+      "id": "GP-X74",
+      "owner": "3a",
+      "proposed_owner": "campaign-op",
+      "basis": "fixture: as X73, t inverted by the normalization 15t^3+1",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass",
+      "fixture": "corpus/INSTANTIATIONS.json (signed 2026-10-03)"
+    },
+    {
+      "id": "GP-X75",
+      "owner": "3a",
+      "proposed_owner": "campaign-op",
+      "basis": "fixture with the mutated data: inputs equal X73's and the mutation is only a label",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass",
+      "fixture": "corpus/INSTANTIATIONS.json (signed 2026-10-03)"
+    },
+    {
+      "id": "GP-X76",
+      "owner": "3a",
+      "proposed_owner": "campaign-op",
+      "basis": "fixture with the mutated data: inputs equal X74's and the mutation is only a label",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass",
+      "fixture": "corpus/INSTANTIATIONS.json (signed 2026-10-03)"
+    },
+    {
+      "id": "GP-X77",
+      "owner": "3a",
+      "proposed_owner": "campaign-op",
+      "basis": "fixture with the mutated data: inputs equal X73's and the mutation is only a label",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass",
+      "fixture": "corpus/INSTANTIATIONS.json (signed 2026-10-03)"
+    },
+    {
+      "id": "GP-X78",
+      "owner": "3a",
+      "proposed_owner": "campaign-op",
+      "basis": "fixture: beta and the certificate are absent from the inputs",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass",
+      "fixture": "corpus/INSTANTIATIONS.json (signed 2026-10-03)"
+    },
+    {
+      "id": "GP-X79",
+      "owner": "3a",
+      "proposed_owner": "campaign-op",
+      "basis": "fixture: beta and the certificate are absent from the inputs",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass",
+      "fixture": "corpus/INSTANTIATIONS.json (signed 2026-10-03)"
+    },
+    {
+      "id": "GP-X80",
+      "owner": "3a",
+      "proposed_owner": "campaign-op",
+      "basis": "fixture: beta, the certificate and the mutation are absent from the inputs",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass",
+      "fixture": "corpus/INSTANTIATIONS.json (signed 2026-10-03)"
+    },
+    {
+      "id": "GP-X81",
+      "owner": "3a",
+      "proposed_owner": "campaign-op",
+      "basis": "fixture: beta, the certificate and the mutation are absent from the inputs",
+      "provisional_from": "ambiguous",
+      "ruling": "2026-10-03 Will, residue of the try-as-3a pass",
+      "fixture": "corpus/INSTANTIATIONS.json (signed 2026-10-03)"
+    },
+    {
+      "id": "GP-X83",
+      "owner": "campaign-op",
+      "basis": "campaign lifts, transfer towers, frozen boundaries"
+    },
+    {
+      "id": "GP-X84",
+      "owner": "campaign-op",
+      "basis": "triangular chains"
+    },
+    {
+      "id": "GP-X85",
+      "owner": "campaign-op",
+      "basis": "triangular chains"
+    },
+    {
+      "id": "GP-X86",
+      "owner": "campaign-op",
+      "basis": "triangular chains"
+    },
+    {
+      "id": "GP-X87",
+      "owner": "campaign-op",
+      "basis": "triangular chains"
+    },
+    {
+      "id": "GP-X88",
+      "owner": "campaign-op",
+      "basis": "triangular chains"
+    },
+    {
+      "id": "GP-X89",
+      "owner": "campaign-op",
+      "basis": "triangular chains"
+    },
+    {
+      "id": "GP-X90",
+      "owner": "campaign-op",
+      "basis": "graded face extraction"
+    },
+    {
+      "id": "GP-X91",
+      "owner": "campaign-op",
+      "basis": "graded face extraction"
+    },
+    {
+      "id": "GP-X92",
+      "owner": "campaign-op",
+      "basis": "graded face extraction"
+    },
+    {
+      "id": "GP-X93",
+      "owner": "campaign-op",
+      "basis": "graded face extraction"
+    },
+    {
+      "id": "GP-X94",
+      "owner": "campaign-op",
+      "basis": "graded face extraction"
+    },
+    {
+      "id": "GP-X95",
+      "owner": "campaign-op",
+      "basis": "graded face extraction"
+    },
+    {
+      "id": "GP-X96",
+      "owner": "campaign-op",
+      "basis": "graded face extraction"
+    },
+    {
+      "id": "GP-X413",
+      "owner": "3a",
+      "basis": "Fano reach demonstration (post-G2 §3.6; formerly GP-FANO-C1)",
+      "ruling": "2026-10-03 Fano intake signed (review ruling 7)"
+    },
+    {
+      "id": "GP-X414",
+      "owner": "3a",
+      "basis": "Fano reach demonstration (post-G2 §3.6; formerly GP-FANO-C1-CHAR2)",
+      "ruling": "2026-10-03 Fano intake signed (review ruling 7)"
+    },
+    {
+      "id": "GP-X415",
+      "owner": "3a",
+      "basis": "Fano reach demonstration (post-G2 §3.6; formerly GP-FANO-F2)",
+      "ruling": "2026-10-03 Fano intake signed (review ruling 7)"
+    }
+  ]
+}

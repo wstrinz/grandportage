@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "GP-X396",
+  "seed": null,
+  "title": "Operational 76.7: cas declaration identity boundary",
+  "situation": "The same rendered and parsed injected CAS program is persisted twice, changing only caller generators from [x] to [1]; the two semantic program fingerprints match while persisted model generators differ.",
+  "inputs": {
+    "incident_row": "76.7",
+    "vector": {
+      "rendered_program": "ring GP_R = 0,(x),dp; ideal GP_I = x;",
+      "parsed_output": {
+        "GP_I": "GP_I[1]=x"
+      },
+      "caller_generators_pair": [
+        [
+          "x"
+        ],
+        [
+          "1"
+        ]
+      ],
+      "constant_inputs": [
+        "dialect",
+        "ring",
+        "ring_vars",
+        "decls",
+        "body",
+        "outputs",
+        "characteristic",
+        "ordering"
+      ],
+      "runner": "injected"
+    },
+    "retained_evidence_refs": [
+      "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/method",
+      "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/observations/0",
+      "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/observations/1",
+      "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/comparison"
+    ],
+    "observation_layer": "accepted_injected_persistence_contrast"
+  },
+  "attempted_conclusion": "Use program fingerprint as complete model-declaration identity.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Changed declaration generators should change bound identity or be explicitly distinguished."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/cas.py",
+      "line": 439,
+      "anchor": "def semantic_fingerprint(self):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/cas.py",
+      "line": 819,
+      "anchor": "generators=getattr(program, \"generators\", None),",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

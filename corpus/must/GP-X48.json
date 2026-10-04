@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "GP-X48",
+  "seed": null,
+  "title": "A closure witness does not become a base-field witness",
+  "situation": "An exactly checked Q(i)-valued point x=a satisfies x^2+1=0 and x!=0 over the algebraic closure of Q.",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "generators": [
+      "x^2+1"
+    ],
+    "guards": [
+      "x"
+    ],
+    "point_universe": "ALGEBRAIC_CLOSURE",
+    "field_polynomial": "a^2+1",
+    "coordinate": "a",
+    "proposed_change": {
+      "point_universe": "BASE"
+    }
+  },
+  "attempted_conclusion": "Keep the native witness receipt active after the proposed change.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The receipt was checked for the algebraic-closure point universe, not Q-valued points."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_number_field_witness.py",
+      "line": 177,
+      "anchor": "def test_extension_receipt_tampering_is_rejected_on_fold("
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/provenance.py",
+      "line": 180,
+      "anchor": "def input_payload("
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "GP-A19",
+  "seed": "A19",
+  "title": "CAS declaration must not shadow a ring variable",
+  "situation": "A CAS program declares a polynomial named g0 while g0 is a ring variable.",
+  "inputs": {
+    "variables": [
+      "x",
+      "g0"
+    ],
+    "declaration": {
+      "name": "g0",
+      "type": "polynomial",
+      "expression": "x"
+    }
+  },
+  "attempted_conclusion": "Execute the program and consume its verdict.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The variable shadowing changes the mathematical input."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 559,
+      "anchor": "| A19 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_boundary.py",
+      "line": 129,
+      "anchor": "def test_the_historical_shadowing_defect_is_caught("
+    }
+  ]
+}

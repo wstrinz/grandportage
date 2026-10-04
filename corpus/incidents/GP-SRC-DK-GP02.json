@@ -1,0 +1,176 @@
+{
+  "id": "GP-SRC-DK-GP02",
+  "source_row_id": "DK-GP02",
+  "campaign": "GP",
+  "related_campaign": "DK",
+  "inventory_role": "historical_custody_defect_group",
+  "origin": "tool",
+  "origin_qualification": "Primary responsibility classification is provisional; first discoverer unknown.",
+  "class": "BINDING",
+  "secondary_classes": [
+    "ADAPTER"
+  ],
+  "classification_status": "proposed qualified supplement; not approved AppendixB record",
+  "scope_or_region": "N/A",
+  "claimed": "Read and migration should enforce the same closed historical header contract.",
+  "problem": "Valid format6 read rejection and malformed5/6 migration acceptance/read rejection are distinct historical defects.",
+  "composite": true,
+  "grouping_limit": "Two nonidentical mechanisms; do not count repeated summaries or merge with current-format migration.",
+  "sources": [
+    {
+      "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+      "lines": "680-717",
+      "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d",
+      "reading_status": "Campaign pointer/hash inherited from accepted bounded reconciliation; not newly read or independently verified this pass."
+    }
+  ],
+  "report_evidence": [
+    {
+      "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+      "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+      "pointer": "/named_row_register/1"
+    },
+    {
+      "report": "reports/PHASE-0B-GP-REUSE-PARENT-REVIEW.json",
+      "sha256": "6ed2cc1f7b9b4236c3d6e62a463c51784ef92f43a1695959be9571d584ec82d7",
+      "pointer": "/limits"
+    }
+  ],
+  "discovered_by": "unknown",
+  "cost": null,
+  "shipped": null,
+  "gp_v037_would_catch": null,
+  "core_expressible": null,
+  "core_would_refuse": null,
+  "observed_vs_attributed": {
+    "current_observation": null,
+    "historical": "Source-attributed only. Exact fixture reuse and retained diagnostic assertions do not establish literal current campaign outcomes.",
+    "current_catch_assessment": null
+  },
+  "related_occurrences": [
+    {
+      "left": "GP-SRC-DK-GP02",
+      "right": "GP-OP-53.2",
+      "match": "related_not_merged",
+      "basis": "Historical format5/6 read/migration pair versus retained format8 epoch11 missing-identity migration; same custody seam, different inputs/operation premises."
+    }
+  ],
+  "subepisodes": [
+    {
+      "id": "GP-DISP-DK-GP02/valid-format6-read",
+      "source_disposition_id": "DK-GP02/valid-format6-read",
+      "source_pointer": {
+        "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+        "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+        "pointer": "/dispositions/2"
+      },
+      "disposition": "historical_defect_not_reproduced",
+      "primary_class": "BINDING",
+      "secondary_classes": [
+        "ADAPTER"
+      ],
+      "origin": "tool",
+      "summary": "The source reports a valid format6 implementation header rejected by read. X370 concerns migration of format8/epoch11 missing identity with format6 controls; X371 concerns numeric source_commit. Neither repeats the valid-header rejection.",
+      "case_reuse": [
+        {
+          "id": "GP-X370",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X371",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "evidence_reports": [
+        "reports/MIGRATION-CUSTODY-BOUNDARY.json",
+        "reports/IMPLEMENTATION-IDENTITY-BOUNDARY.json"
+      ],
+      "missing_behavior_or_premise": "Retain a valid format6 header and its read operation at the recorded implementation, contrasted with a genuinely malformed header; the exact valid-read regression is absent from these payloads.",
+      "admission": "not commissioned by this inventory pass",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "inventory_role": "source_attributed_historical_mechanism",
+      "owner_id": "GP-SRC-DK-GP02",
+      "record_kind": "source-attributed correction/group",
+      "counting_qualification": "Nested disposition of GP-SRC-DK-GP02; zero additional owner records and no presumed independent sample."
+    },
+    {
+      "id": "GP-DISP-DK-GP02/malformed5-6-migrate-read",
+      "source_disposition_id": "DK-GP02/malformed5-6-migrate-read",
+      "source_pointer": {
+        "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+        "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+        "pointer": "/dispositions/3"
+      },
+      "disposition": "historical_defect_not_reproduced",
+      "primary_class": "BINDING",
+      "secondary_classes": [
+        "ADAPTER"
+      ],
+      "origin": "tool",
+      "summary": "Historical migration accepted malformed5/6 later refused by read. The retained diagnostic independently records a migration branch skipping source-header validation for a current-format old-epoch control, plus missing-identity format8 refusal. Related branch seam; not the literal historical5/6 pair.",
+      "case_reuse": [
+        {
+          "id": "GP-X370",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "evidence_reports": [
+        "reports/MIGRATION-CUSTODY-BOUNDARY.json"
+      ],
+      "missing_behavior_or_premise": "The same malformed format5/6 bytes must be fed to both migrate and read under their recorded epoch, with a valid contrast; X370 does not contain that paired historical contract.",
+      "admission": "not commissioned by this inventory pass",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "inventory_role": "source_attributed_historical_mechanism",
+      "owner_id": "GP-SRC-DK-GP02",
+      "record_kind": "source-attributed correction/group",
+      "counting_qualification": "Nested disposition of GP-SRC-DK-GP02; zero additional owner records and no presumed independent sample."
+    }
+  ],
+  "status": "final retained source-backed record under ratified unknown policy; observation and counting limits remain explicit",
+  "primary_class": "BINDING",
+  "primary_origin": "tool",
+  "record_kind": "source-attributed correction/group",
+  "final_disposition": "retain qualified source-attributed group record with nested subdispositions",
+  "owner_id": "GP-SRC-DK-GP02",
+  "original_pointer": {
+    "report": "reports/PHASE-0B-GP-INVENTORY-SUPPLEMENT-DRAFT.json",
+    "pointer": "/named_gp_source_groups/1",
+    "sha256": "1ea12da51790d7b0f3beb8c26586a921537b120df20a9730c8c8826344a3c55a",
+    "review_date": "2026-09-29",
+    "date_kind": "retained report review date; not incident date or source publication date"
+  },
+  "source": {
+    "repo": "$WORKSPACE",
+    "ref": "reports/PHASE-0B-GP-INVENTORY-SUPPLEMENT-DRAFT.json#/named_gp_source_groups/1",
+    "date": "2026-09-29",
+    "review_date": "2026-09-29",
+    "date_kind": "review-source date of retained report; not incident date or original primary-source date"
+  },
+  "incident_date": null,
+  "cost_note": "Incident-specific cost unestablished at this group scope. Any source-reported timing/effort remains attribution in retained subdispositions; do not convert test/search effort to work lost.",
+  "shipped_note": "Wrong-claim publication/handoff unestablished; source code release, commit or fixture existence alone is insufficient.",
+  "gp_v037_would_catch_note": "Historical failure, exact fixture reuse, present diagnostic observations and hypothetical core behavior are different evidence/version layers; no group-wide frozen catch verdict established.",
+  "counting_qualification": {
+    "record_count": 1,
+    "independent_sample": null,
+    "mathematical_incident_count": null,
+    "rule": "One source-group record organizing existing subdispositions; do not count each subdisposition, fixture, repair or repeated source as an independent incident.",
+    "source_detail": "Two nonidentical mechanisms; do not count repeated summaries or merge with current-format migration."
+  },
+  "notes": "Qualified retained source-attributed correction/group. Two nonidentical mechanisms; do not count repeated summaries or merge with current-format migration. No new source read or execution. Source dates/hashes and attribution are preserved; no independent sample or shipping authentication inferred.",
+  "parent_integration": {
+    "worker_report": "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "worker_report_sha256": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849",
+    "register": "incident/correction/group"
+  }
+}

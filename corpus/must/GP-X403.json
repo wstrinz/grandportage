@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "GP-X403",
+  "seed": null,
+  "title": "E5 subclaims cannot establish the actual-source or parent-cover bridge",
+  "situation": "INF-X10 supplies E5a, E5b, and E5c but leaves the E5-gap as an explicit required PREDICATE premise: every fence-valid type must be represented in the frozen corpus by the actual source and parent-cover bridge.",
+  "inputs": {
+    "fixture": "transports/X8-X10.json",
+    "fixture_lf_sha256": "b1009142a6cad512e9d6f87fdeaeadc507081c3481aaadf026fd7eea0d9fded1",
+    "fixture_manifest_source_commit": "b876fe4ed5c8963a0e8c19e18c829821c0686654",
+    "model": "M-23-4-REAL",
+    "available_premises": ["CL-E5A", "CL-E5B", "CL-E5C"],
+    "missing_premise": "E5-gap: actual-source membership and parent-cover/generative bridge for all fence-valid types",
+    "attempt": "INF-X10: turn E5a-c into E5",
+    "observation_layer": "frozen_transport_refusal",
+    "does_not_license": ["actual-source membership", "parent coverage", "E5 completeness", "a positive transport conclusion"]
+  },
+  "attempted_conclusion": "Treat the E5a-c structural subclaims as the E5 actual-source and parent-cover conclusion.",
+  "expected": {"verdict": "REFUSE", "reason": "The transport checker retains INF-X10 as refused until the E5-gap source/parent-cover premise is supplied."},
+  "scope_or_region": "BOTH",
+  "sources": [
+    {"repository": "gp-v037", "commit": "ac4155787207e2847d248cffed7be871d5dcd577", "path": "tests/test_guard_release.py", "line": 75, "anchor": "def test_ledger_and_open_slots_keep_their_original_obligations("}
+  ]
+}

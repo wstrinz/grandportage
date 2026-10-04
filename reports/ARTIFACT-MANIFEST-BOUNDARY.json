@@ -1,0 +1,39 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "c7e2b13cc2efc86c390cdd0e2de4b2965d62abebde5bc20b3ef9504aa143eff6",
+  "scope": "Diagnostic composition boundary using fabricated records; no mathematical graph authority.",
+  "records": [
+    {
+      "mode": "matching",
+      "artifact_projection_problems": [],
+      "manifest_decoded": true,
+      "graph_audit": {
+        "problems": [],
+        "legacy_unverifiable": []
+      }
+    },
+    {
+      "mode": "wrong_trace_digest",
+      "artifact_projection_problems": [],
+      "manifest_decoded": false,
+      "graph_audit": {
+        "problems": [
+          "receipt: backend v2 manifest is malformed"
+        ],
+        "legacy_unverifiable": []
+      }
+    },
+    {
+      "mode": "unknown_field",
+      "artifact_projection_problems": [],
+      "manifest_decoded": false,
+      "graph_audit": {
+        "problems": [
+          "receipt: backend v2 manifest is malformed"
+        ],
+        "legacy_unverifiable": []
+      }
+    }
+  ],
+  "finding": "An empty low-level artifact projection audit is not full manifest admission. The graph audit independently rejects malformed whole manifests."
+}

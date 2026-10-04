@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "seed": null,
+  "scope_or_region": "N/A",
+  "id": "GP-X358",
+  "title": "Operation map carries a source root forward",
+  "situation": "The inclusion Z to Z[i] preserves zero, one, addition, multiplication and negation. The integer point 1 solves x-1=0 and maps to Gaussian (1,0).",
+  "inputs": {
+    "control": "root_forward",
+    "map": "Z_to_Zi_inclusion",
+    "polynomial": "x-1",
+    "source_point": 1
+  },
+  "attempted_conclusion": "Transport this root along the operation-preserving map.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The mapped Gaussian point remains a root."
+  },
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/ExpressionTransport.lean",
+      "line": 9,
+      "anchor": "structure OperationMap {A : Type u} {B : Type v}",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/ExpressionTransport.lean",
+      "line": 40,
+      "anchor": "theorem holds_transport (h : OperationMap source target) (c : Certificate)",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/ExpressionTransport.lean",
+      "line": 64,
+      "anchor": "def integerToGaussian : OperationMap integers gaussian where",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

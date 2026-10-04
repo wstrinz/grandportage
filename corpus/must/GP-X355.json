@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "GP-X355",
+  "seed": null,
+  "title": "Unit identity needs a nontrivial target",
+  "situation": "The restricted unit expression x+(1-x)=1 and both equations x=0, 1-x=0 hold at the unique point of a one-element zero algebra because 1=0 there. Removing nontriviality invalidates the emptiness conclusion.",
+  "inputs": {
+    "control": "zero_algebra_unit",
+    "carrier_size": 1,
+    "zero": 0,
+    "one": 0,
+    "equations": [
+      "x",
+      "1-x"
+    ],
+    "cofactors": [
+      "1",
+      "1"
+    ],
+    "point": {
+      "x": 0
+    },
+    "deleted_premise": "one_ne_zero"
+  },
+  "attempted_conclusion": "Infer no point solely from the unit derivation and vanishing generators without nontriviality.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The zero algebra satisfies the unit derivation and equations at a point while 1=0."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/UnitInterpreter.lean",
+      "line": 32,
+      "anchor": "theorem unit_certificate_empty (laws : Laws o)",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/UnitInterpreter.lean",
+      "line": 73,
+      "anchor": "theorem nontriviality_deletion_countermodel :",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

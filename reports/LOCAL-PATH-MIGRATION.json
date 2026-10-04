@@ -1,0 +1,1648 @@
+{
+  "schema": "gp-local-path-migration/v1",
+  "rules": "Rewrite absolute local machine paths to portable forms and re-bind the SHA-256s that bound them.\n\nusage: python tools/neutralize-local-paths.py [--dry-run] [--receipt reports/LOCAL-PATH-MIGRATION.json]\n\nPath tokens (any separator style, including JSON-escaped backslashes) are rewritten by root:\n  <drive>:/repos/grandportage-0.50/X   -> X            (the workspace itself; bare root -> $WORKSPACE)\n  <drive>:/repos/OTHER/X               -> $REPOS/OTHER/X\n  <drive>:/Users/<user>/dev/X          -> $DEV/X       (predecessor and campaign repositories)\n  <drive>:/Users/<user>/.elan/X        -> $ELAN_HOME/X\n  <drive>:/Users/<user>/AppData/X      -> $APPDATA/X\n  <drive>:/Users/<user>/X, /c/Users/<user>/X -> $HOME/X",
+  "rewritten": [
+    "AGENTS.md",
+    "BACKBRIEF.md",
+    "DECISIONS.md",
+    "SWEEP-SOURCES.md",
+    "binding/environment.sh",
+    "corpus/SOURCE-INVENTORY.json",
+    "corpus/incident-registers/SEPARATE.json",
+    "corpus/incidents/ARR-C01.json",
+    "corpus/incidents/ARR-C03.json",
+    "corpus/incidents/ARR-C04.json",
+    "corpus/incidents/ARR-C05.json",
+    "corpus/incidents/ARR-C06.json",
+    "corpus/incidents/ARR-C07.json",
+    "corpus/incidents/ARR-O08.json",
+    "corpus/incidents/ARR-T13.json",
+    "corpus/incidents/CQ-C01.json",
+    "corpus/incidents/CQ-C02.json",
+    "corpus/incidents/CQ-C03.json",
+    "corpus/incidents/CQ-C04.json",
+    "corpus/incidents/DK-B001.json",
+    "corpus/incidents/DK-B002.json",
+    "corpus/incidents/DK-B003.json",
+    "corpus/incidents/DK-B004.json",
+    "corpus/incidents/DK-B005.json",
+    "corpus/incidents/DK-B006.json",
+    "corpus/incidents/DK-B007.json",
+    "corpus/incidents/DK-B008.json",
+    "corpus/incidents/DK-B009.json",
+    "corpus/incidents/DK-B010.json",
+    "corpus/incidents/DK-B011.json",
+    "corpus/incidents/DK-B012.json",
+    "corpus/incidents/DK-B013.json",
+    "corpus/incidents/DK-B014.json",
+    "corpus/incidents/DK-B015.json",
+    "corpus/incidents/DK-B019.json",
+    "corpus/incidents/DK-B020.json",
+    "corpus/incidents/DK-B021.json",
+    "corpus/incidents/DK-B022.json",
+    "corpus/incidents/DK-B023.json",
+    "corpus/incidents/DK-B024.json",
+    "corpus/incidents/DK-B025.json",
+    "corpus/incidents/DK-B026.json",
+    "corpus/incidents/DK-B027.json",
+    "corpus/incidents/DK-B028.json",
+    "corpus/incidents/GP-SRC-ARR-G09.json",
+    "corpus/incidents/GP-SRC-ARR-G10.json",
+    "corpus/incidents/GP-SRC-ARR-G11.json",
+    "corpus/incidents/GP-SRC-CQ-G02.json",
+    "corpus/incidents/GP-SRC-DK-GP01.json",
+    "corpus/incidents/GP-SRC-DK-GP02.json",
+    "corpus/incidents/GP-SRC-DK-GP03.json",
+    "corpus/incidents/GP-SRC-DK-GP04.json",
+    "corpus/incidents/GP-SRC-DK-GP05.json",
+    "corpus/incidents/GP-SRC-DK-GP06.json",
+    "corpus/incidents/JC-B001.json",
+    "corpus/incidents/JC-B002.json",
+    "corpus/incidents/JC-B003.json",
+    "corpus/incidents/JC-B004.json",
+    "corpus/incidents/JC-B005.json",
+    "corpus/incidents/JC-B006.json",
+    "corpus/incidents/JC-B007.json",
+    "corpus/incidents/JC-B008.json",
+    "corpus/incidents/JC-B009.json",
+    "corpus/incidents/JC-B010.json",
+    "corpus/incidents/JC-B011.json",
+    "corpus/incidents/JC-B012.json",
+    "corpus/incidents/JC-B014.json",
+    "corpus/incidents/JC-C001.json",
+    "corpus/incidents/JC-C002.json",
+    "corpus/incidents/JC-C003.json",
+    "corpus/incidents/PR-C04.json",
+    "corpus/incidents/PR-C05.json",
+    "corpus/incidents/PR-C08.json",
+    "corpus/incidents/PR-C10.json",
+    "corpus/incidents/PR-C11.json",
+    "corpus/incidents/PR-C12.json",
+    "corpus/incidents/PR-C13.json",
+    "corpus/incidents/PR-O01.json",
+    "corpus/incidents/PR-T06.json",
+    "corpus/incidents/PR-T07.json",
+    "corpus/incidents/PR-T09.json",
+    "corpus/incidents/PR-T15.json",
+    "corpus/incidents/PR-T16.json",
+    "docs/BACKBRIEF-REVIEW-ORIGINAL.md",
+    "docs/PACKET-PROVENANCE.md",
+    "oracle/PIN.json",
+    "oracle/history/PIN.json",
+    "oracle/history/README.md",
+    "phase2/lean/README.md",
+    "reports/ALPHA-STAGING.md",
+    "reports/CORPUS-INTAKE-BOUNDARIES.json",
+    "reports/DOSSIER-BOUNDARIES-AUDIT.json",
+    "reports/HOOK-BOUNDARY-AUDIT.json",
+    "reports/MCP-REQUEST-COMMIT-BOUNDARY.json",
+    "reports/MIGRATION-CUSTODY-BOUNDARY.json",
+    "reports/ORACLE-RESULTS.json",
+    "reports/PACKET-REV3-REVIEW.md",
+    "reports/PHASE-0-HEARTBEAT-HANDOFF.md",
+    "reports/PHASE-0A-CLOSEOUT-CONCORDANCE.json",
+    "reports/PHASE-0A-CONTRACTION-LIFT-CANDIDATE.json",
+    "reports/PHASE-0A-CONTRACTION-LIFT-CANDIDATE.md",
+    "reports/PHASE-0A-COORDINATOR-RESUMPTION.json",
+    "reports/PHASE-0A-CRAMER-PROVENANCE-REVIEW.json",
+    "reports/PHASE-0A-DELETED-IR-SNAPSHOT-REVIEW.json",
+    "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json",
+    "reports/PHASE-0A-GUARD-EXTRACTION.json",
+    "reports/PHASE-0A-OPERATIONAL-CASE-CONVERSION.json",
+    "reports/PHASE-0A-ORDINARY-POINT-GUARD-CANDIDATE.json",
+    "reports/PHASE-0A-SIX-DELETED-NOTES-REVIEW.json",
+    "reports/PHASE-0B-ARR15-BOUNDED-REVIEW.json",
+    "reports/PHASE-0B-ARR15-BOUNDED-REVIEW.md",
+    "reports/PHASE-0B-ARR15-HARVEST-MANIFEST.json",
+    "reports/PHASE-0B-ARR15-PARENT-INTAKE.json",
+    "reports/PHASE-0B-CLOQUET-BOUNDED-REVIEW.json",
+    "reports/PHASE-0B-CLOQUET-BOUNDED-REVIEW.md",
+    "reports/PHASE-0B-CLOQUET-HARVEST-MANIFEST.json",
+    "reports/PHASE-0B-CLOQUET-PARENT-INTAKE.json",
+    "reports/PHASE-0B-DK-BOUNDED-REVIEW.json",
+    "reports/PHASE-0B-DK-BOUNDED-REVIEW.md",
+    "reports/PHASE-0B-DK-HARVEST-MANIFEST.json",
+    "reports/PHASE-0B-DK-PARENT-INTAKE.json",
+    "reports/PHASE-0B-FILENAME-DISCOVERY.json",
+    "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "reports/PHASE-0B-GP-INVENTORY-SUPPLEMENT-DRAFT.json",
+    "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+    "reports/PHASE-0B-GP-REUSE-PARENT-REVIEW.json",
+    "reports/PHASE-0B-INVENTORY-DRAFT.json",
+    "reports/PHASE-0B-JC-BOUNDED-REVIEW.json",
+    "reports/PHASE-0B-JC-BOUNDED-REVIEW.md",
+    "reports/PHASE-0B-JC-HARVEST-MANIFEST.json",
+    "reports/PHASE-0B-JC-INCIDENT-CANDIDATES.json",
+    "reports/PHASE-0B-JC-PARENT-ADJUDICATION.json",
+    "reports/PHASE-0B-PIGEON-RIVER-BOUNDED-REVIEW.json",
+    "reports/PHASE-0B-PIGEON-RIVER-BOUNDED-REVIEW.md",
+    "reports/PHASE-0B-PIGEON-RIVER-HARVEST-MANIFEST.json",
+    "reports/PHASE-0B-PIGEON-RIVER-PARENT-INTAKE.json",
+    "reports/PHASE-0B-SOURCE-INVENTORY.json",
+    "reports/PHASE-0C-MATHLIB-WORKER.json",
+    "reports/PHASE-0E-CERTIFICATE-CAMPAIGN-REVIEW.json",
+    "reports/PHASE-0E-TRANSFER-REVIEW.json",
+    "reports/PHASE-1-PAPER-EXPRESSION-CLARIFICATION.json",
+    "reports/PHASE-1-PAPER-EXPRESSION-CLARIFICATION.md",
+    "reports/PHASE-1-PAPER-EXPRESSIVENESS.json",
+    "reports/PHASE-1-PAPER-EXPRESSIVENESS.md",
+    "reports/PHASE-2-CHECKED-LIFECYCLE-SUPPLEMENT.json",
+    "reports/PHASE-2-CHECKED-SUPPLEMENT-INTEGRATION.json",
+    "reports/PHASE-2-CONDITIONAL-ADMISSION-SCOPE.json",
+    "reports/PHASE-2-CONDITIONAL-PARTITION-SLICE.json",
+    "reports/PHASE-2-CONDITIONAL-POINT-ROUTES.json",
+    "reports/PHASE-2-CONDITIONAL-ROUTES-SLICE.json",
+    "reports/PHASE-2-CONDITIONAL-THEOREM-TRANSPORT.json",
+    "reports/PHASE-2-CONTEXT-REACH.json",
+    "reports/PHASE-2-COVERAGE-INTEGRATION.json",
+    "reports/PHASE-2-DECLARATION-SLICE.json",
+    "reports/PHASE-2-GPC-HANDOFF.md",
+    "reports/PHASE-2-LIFECYCLE-CONCERNS.json",
+    "reports/PHASE-2-LIFECYCLE-PROPERTIES.json",
+    "reports/PHASE-2-LIFECYCLE-SLICE.json",
+    "reports/PHASE-2-MISSING-AUTHORITY.json",
+    "reports/PHASE-2-OPEN-PREMISE-GUARD.json",
+    "reports/PHASE-2-POINT-ROUTES-INTEGRATION.json",
+    "reports/PHASE-2-RECORDED-USE-COVERAGE.json",
+    "reports/PHASE-2-RESIDUAL-SUCCESSORS.json",
+    "reports/PHASE-2-RETRACTION-SLICE.json",
+    "reports/PHASE-2-RULE-SHAPE.json",
+    "reports/PHASE-2-SECTION-PROVENANCE.json",
+    "reports/PHASE-2-SUPERSESSION-GUARDS.json",
+    "reports/PHASE-2-SUPERSESSION-INTEGRATION.json",
+    "reports/PHASE-2-UNREPLAYED-EVIDENCE.json",
+    "reports/PUBLIC-INTEGRATION-PLAN.md",
+    "reports/WIP-REVIEW-CHECKPOINT.json",
+    "reports/oracle-batch7-tests.xml",
+    "reports/oracle-runs/20260927T192111745197Z.json",
+    "reports/oracle-runs/20260927T192654796297Z.json",
+    "reports/oracle-runs/20260927T193016111927Z.json",
+    "reports/oracle-runs/20260927T193353644389Z.json",
+    "reports/oracle-runs/20260927T194509549557Z.json",
+    "reports/oracle-runs/20260927T194819571013Z.json",
+    "reports/oracle-runs/20260927T214417724167Z.json",
+    "reports/oracle-runs/20260927T214549948506Z.json",
+    "reports/oracle-runs/20260927T215349506181Z.json",
+    "reports/oracle-runs/20260927T215641366343Z.json",
+    "reports/oracle-runs/20260927T225826893160Z.json",
+    "reports/oracle-runs/20260927T230038467746Z.json",
+    "reports/oracle-runs/20260928T000929174653Z.json",
+    "reports/oracle-runs/20260928T001144487626Z.json",
+    "reports/oracle-runs/20260928T003859621953Z.json",
+    "reports/oracle-runs/20260928T004141103253Z.json",
+    "reports/oracle-runs/20260928T004357969892Z.json",
+    "reports/oracle-runs/20260928T005746066504Z.json",
+    "reports/oracle-runs/20260928T005914421900Z.json",
+    "reports/oracle-runs/20260928T010106460983Z.json",
+    "reports/oracle-runs/20260928T013137438765Z.json",
+    "reports/oracle-runs/20260928T013344497973Z.json",
+    "reports/oracle-runs/20260928T120430319687Z.json",
+    "reports/oracle-runs/20260928T120949993499Z.json",
+    "reports/oracle-runs/20260928T122501685787Z.json",
+    "reports/oracle-runs/20260928T123029629655Z.json",
+    "reports/oracle-runs/20260928T123914599021Z.json",
+    "reports/oracle-runs/20260928T124035734115Z.json",
+    "reports/oracle-runs/20260928T124442499612Z.json",
+    "reports/oracle-runs/20260928T124904916539Z.json",
+    "reports/oracle-runs/20260928T125417944786Z.json",
+    "reports/oracle-runs/20260928T125827407747Z.json",
+    "reports/oracle-runs/20260928T125957587639Z.json",
+    "reports/oracle-runs/20260928T132445125437Z.json",
+    "reports/oracle-runs/20260928T133004542562Z.json",
+    "reports/oracle-runs/20260928T133501391433Z.json",
+    "reports/oracle-runs/20260928T134033509436Z.json",
+    "reports/oracle-runs/20260928T134501652085Z.json",
+    "reports/oracle-runs/20260928T134911304414Z.json",
+    "reports/oracle-runs/20260928T135027538659Z.json",
+    "reports/oracle-runs/20260928T141329008590Z.json",
+    "reports/oracle-runs/20260928T141913475576Z.json",
+    "reports/oracle-runs/20260928T142458952693Z.json",
+    "reports/oracle-runs/20260928T145035306827Z.json",
+    "reports/oracle-runs/20260928T192507564841Z.json",
+    "reports/oracle-runs/20260928T195529039969Z.json",
+    "reports/oracle-runs/20260928T200343664378Z.json",
+    "reports/oracle-runs/20260928T201826560097Z.json",
+    "reports/oracle-runs/20260928T203130963441Z.json",
+    "reports/oracle-runs/20260928T211311262604Z.json",
+    "reports/oracle-runs/20260928T220044757918Z.json",
+    "reports/oracle-runs/20260928T224802105393Z.json",
+    "reports/oracle-runs/20260929T003257767801Z.json",
+    "reports/oracle-runs/20260929T012356934782Z.json",
+    "reports/oracle-runs/20260929T013607582479Z.json",
+    "reports/oracle-runs/20260929T013956101499Z.json",
+    "reports/oracle-runs/20260929T120626698944Z.json",
+    "reports/oracle-runs/20260929T121944186483Z.json",
+    "reports/oracle-runs/20260929T133350769908Z.json",
+    "reports/oracle-runs/20260929T150216350486Z.json",
+    "reports/oracle-runs/20260929T222739838981Z.json",
+    "reports/oracle-runs/20260929T223158210969Z.json",
+    "reports/oracle-runs/20260930T000850355521Z.json",
+    "reports/oracle-runs/20260930T021113009291Z.json",
+    "spikes/lean-core/README.md",
+    "spikes/mathlib-binding/Measure.ps1",
+    "spikes/mathlib-binding/MeasureCases.ps1",
+    "spikes/mathlib-binding/README.md",
+    "spikes/mathlib-binding/RecordProvenance.ps1",
+    "spikes/mathlib-binding/Validate.ps1",
+    "spikes/mathlib-binding/environment.ps1",
+    "spikes/mathlib-binding/logs/failed-clean-package-build.log",
+    "spikes/mathlib-binding/logs/failed-finite-reduction-build.log",
+    "spikes/mathlib-binding/logs/provenance.json",
+    "tools/inventory-oracle.ps1"
+  ],
+  "rebound": [
+    "corpus/incident-registers/MANIFEST.json",
+    "corpus/incident-registers/SEPARATE.json",
+    "corpus/incidents/ARR-C01.json",
+    "corpus/incidents/ARR-C03.json",
+    "corpus/incidents/ARR-C04.json",
+    "corpus/incidents/ARR-C05.json",
+    "corpus/incidents/ARR-C06.json",
+    "corpus/incidents/ARR-C07.json",
+    "corpus/incidents/ARR-O08.json",
+    "corpus/incidents/ARR-T13.json",
+    "corpus/incidents/CQ-C01.json",
+    "corpus/incidents/CQ-C02.json",
+    "corpus/incidents/CQ-C03.json",
+    "corpus/incidents/CQ-C04.json",
+    "corpus/incidents/DK-B001.json",
+    "corpus/incidents/DK-B002.json",
+    "corpus/incidents/DK-B003.json",
+    "corpus/incidents/DK-B004.json",
+    "corpus/incidents/DK-B005.json",
+    "corpus/incidents/DK-B006.json",
+    "corpus/incidents/DK-B007.json",
+    "corpus/incidents/DK-B008.json",
+    "corpus/incidents/DK-B009.json",
+    "corpus/incidents/DK-B010.json",
+    "corpus/incidents/DK-B011.json",
+    "corpus/incidents/DK-B012.json",
+    "corpus/incidents/DK-B013.json",
+    "corpus/incidents/DK-B014.json",
+    "corpus/incidents/DK-B015.json",
+    "corpus/incidents/DK-B019.json",
+    "corpus/incidents/DK-B020.json",
+    "corpus/incidents/DK-B021.json",
+    "corpus/incidents/DK-B022.json",
+    "corpus/incidents/DK-B023.json",
+    "corpus/incidents/DK-B024.json",
+    "corpus/incidents/DK-B025.json",
+    "corpus/incidents/DK-B026.json",
+    "corpus/incidents/DK-B027.json",
+    "corpus/incidents/DK-B028.json",
+    "corpus/incidents/GP-SRC-ARR-G09.json",
+    "corpus/incidents/GP-SRC-ARR-G10.json",
+    "corpus/incidents/GP-SRC-ARR-G11.json",
+    "corpus/incidents/GP-SRC-CQ-G02.json",
+    "corpus/incidents/GP-SRC-DK-GP01.json",
+    "corpus/incidents/GP-SRC-DK-GP02.json",
+    "corpus/incidents/GP-SRC-DK-GP03.json",
+    "corpus/incidents/GP-SRC-DK-GP04.json",
+    "corpus/incidents/GP-SRC-DK-GP05.json",
+    "corpus/incidents/GP-SRC-DK-GP06.json",
+    "corpus/incidents/JC-B001.json",
+    "corpus/incidents/JC-B002.json",
+    "corpus/incidents/JC-B003.json",
+    "corpus/incidents/JC-B004.json",
+    "corpus/incidents/JC-B005.json",
+    "corpus/incidents/JC-B006.json",
+    "corpus/incidents/JC-B007.json",
+    "corpus/incidents/JC-B008.json",
+    "corpus/incidents/JC-B009.json",
+    "corpus/incidents/JC-B010.json",
+    "corpus/incidents/JC-B011.json",
+    "corpus/incidents/JC-B012.json",
+    "corpus/incidents/JC-B014.json",
+    "corpus/incidents/JC-C001.json",
+    "corpus/incidents/JC-C002.json",
+    "corpus/incidents/JC-C003.json",
+    "corpus/incidents/PR-C04.json",
+    "corpus/incidents/PR-C05.json",
+    "corpus/incidents/PR-C08.json",
+    "corpus/incidents/PR-C10.json",
+    "corpus/incidents/PR-C11.json",
+    "corpus/incidents/PR-C12.json",
+    "corpus/incidents/PR-C13.json",
+    "corpus/incidents/PR-O01.json",
+    "corpus/incidents/PR-T06.json",
+    "corpus/incidents/PR-T07.json",
+    "corpus/incidents/PR-T09.json",
+    "corpus/incidents/PR-T15.json",
+    "corpus/incidents/PR-T16.json",
+    "oracle/ROUTES.json",
+    "reports/A24-CORRECTION-AUDIT/BASELINE.json",
+    "reports/FORMALIZATION-LABEL-AUDIT.json",
+    "reports/HISTORICAL-COLLISION-AUDIT.json",
+    "reports/HISTORICAL-REVIEW-RESULTS.json",
+    "reports/ORACLE-RESULTS.json",
+    "reports/PHASE-0A-A24-INTEGRATION.json",
+    "reports/PHASE-0A-BASE-COVER-REFUTATION.json",
+    "reports/PHASE-0A-CLOSEOUT-CONCORDANCE.json",
+    "reports/PHASE-0A-CLOSEOUT-PARENT-REVIEW.json",
+    "reports/PHASE-0A-COMPLETION.json",
+    "reports/PHASE-0A-CONTRACTION-LIFT-INTEGRATION.json",
+    "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json",
+    "reports/PHASE-0A-DEPTH8-BLOCK-EVIDENCE.json",
+    "reports/PHASE-0A-DM4-POLYNOMIAL-LIFT-EVIDENCE.json",
+    "reports/PHASE-0A-HISTORICAL-RESIDUAL-EVIDENCE.json",
+    "reports/PHASE-0A-JUMP-NONZERO-EVIDENCE.json",
+    "reports/PHASE-0A-MEMBERSHIP-CONTRACTION-EVIDENCE.json",
+    "reports/PHASE-0A-OPERATIONAL-ADAPTER-VALIDATION.md",
+    "reports/PHASE-0A-OPERATIONAL-CASE-CONVERSION.json",
+    "reports/PHASE-0A-OPERATIONAL-EVIDENCE-BINDINGS.json",
+    "reports/PHASE-0A-ORDINARY-POINT-GUARD-CANDIDATE.json",
+    "reports/PHASE-0A-ORDINARY-POINT-GUARD-INTEGRATION.json",
+    "reports/PHASE-0A-Q1-RECEIPT-PARTITION-EVIDENCE.json",
+    "reports/PHASE-0A-Q2-EXACT-COUNTERMODELS-EVIDENCE.json",
+    "reports/PHASE-0A-Q3-MAP-LOCALIZATION-EVIDENCE.json",
+    "reports/PHASE-0A-RESIDUAL-CONTRACT-EVIDENCE.json",
+    "reports/PHASE-0A-STRUCTURAL-DISPATCH-EVIDENCE.json",
+    "reports/PHASE-0A-ZERO-REGIME-MINIMALITY-EVIDENCE.json",
+    "reports/PHASE-0B-CLOQUET-BOUNDED-REVIEW.json",
+    "reports/PHASE-0B-COMPLETION.json",
+    "reports/PHASE-0B-FINAL-HARVEST-CHECK.json",
+    "reports/PHASE-0B-FINAL-PARENT-REVIEW.json",
+    "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.md",
+    "reports/PHASE-0B-GP-INVENTORY-PARENT-REVIEW.json",
+    "reports/PHASE-0B-GP-INVENTORY-SUPPLEMENT-DRAFT.json",
+    "reports/PHASE-0B-GP-INVENTORY-SUPPLEMENT-DRAFT.md",
+    "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+    "reports/PHASE-0C-COMPLETION.json",
+    "reports/PHASE-0C-CORE-VALIDATION.json",
+    "reports/PHASE-0C-MATHLIB-PARENT-REVIEW.json",
+    "reports/PHASE-0C-MATHLIB-WORKER.json",
+    "reports/PHASE-0E-FINAL-PARENT-REVIEW.json",
+    "reports/PHASE-0E-P1-P2-P17-REVIEW.json",
+    "reports/PHASE-0E-P12-P16-P18-REVIEW.json",
+    "reports/PHASE-0E-TRANSFER-PARENT-REVIEW.json",
+    "reports/PHASE-1-PAPER-EXPRESSION-CLARIFICATION.json",
+    "reports/PHASE-1-PAPER-EXPRESSION-CLARIFICATION.md",
+    "reports/PHASE-1-PAPER-EXPRESSIVENESS.json",
+    "reports/PHASE-2-ADMISSION.json",
+    "reports/PHASE-2-BASELINE.json",
+    "reports/PHASE-2-CHECKED-LIFECYCLE-SUPPLEMENT.json",
+    "reports/PHASE-2-CONDITIONAL-ADMISSION-SCOPE.json",
+    "reports/PHASE-2-CONDITIONAL-PARTITION-SLICE.json",
+    "reports/PHASE-2-CONDITIONAL-POINT-ROUTES.json",
+    "reports/PHASE-2-CONDITIONAL-ROUTES-SLICE.json",
+    "reports/PHASE-2-CONDITIONAL-THEOREM-TRANSPORT.json",
+    "reports/PHASE-2-CONTEXT-REACH.json",
+    "reports/PHASE-2-COVER-RUNTIME.json",
+    "reports/PHASE-2-DECLARATION-INTEGRATION.json",
+    "reports/PHASE-2-DECLARATION-SLICE.json",
+    "reports/PHASE-2-LIFECYCLE-CONCERNS.json",
+    "reports/PHASE-2-MISSING-AUTHORITY.json",
+    "reports/PHASE-2-OPEN-PREMISE-GUARD.json",
+    "reports/PHASE-2-PARTITION-INTEGRATION.json",
+    "reports/PHASE-2-RECORDED-USE-COVERAGE.json",
+    "reports/PHASE-2-RESIDUAL-SUCCESSORS.json",
+    "reports/PHASE-2-RETRACTION-INTEGRATION.json",
+    "reports/PHASE-2-RETRACTION-SLICE.json",
+    "reports/PHASE-2-ROUTES-INTEGRATION.json",
+    "reports/PHASE-2-RULE-SHAPE.json",
+    "reports/PHASE-2-SCOPED-RUNTIME.json",
+    "reports/PHASE-2-SECTION-PROVENANCE.json",
+    "reports/PHASE-2-SLICE.json",
+    "reports/PHASE-2-SPAN-SOUNDNESS.json",
+    "reports/PHASE-2-SUPERSESSION-GUARDS.json",
+    "reports/PHASE-2-UNREPLAYED-EVIDENCE.json",
+    "reports/oracle-runs/20260928T003859621953Z.json",
+    "reports/oracle-runs/20260928T004141103253Z.json",
+    "reports/oracle-runs/20260928T004357969892Z.json",
+    "reports/oracle-runs/20260928T005746066504Z.json",
+    "reports/oracle-runs/20260928T005914421900Z.json",
+    "reports/oracle-runs/20260928T010106460983Z.json",
+    "reports/oracle-runs/20260928T013137438765Z.json",
+    "reports/oracle-runs/20260928T013344497973Z.json",
+    "reports/oracle-runs/20260928T120430319687Z.json",
+    "reports/oracle-runs/20260928T120949993499Z.json",
+    "reports/oracle-runs/20260928T122501685787Z.json",
+    "reports/oracle-runs/20260928T123029629655Z.json",
+    "reports/oracle-runs/20260928T123914599021Z.json",
+    "reports/oracle-runs/20260928T124035734115Z.json",
+    "reports/oracle-runs/20260928T124442499612Z.json",
+    "reports/oracle-runs/20260928T124904916539Z.json",
+    "reports/oracle-runs/20260928T125417944786Z.json",
+    "reports/oracle-runs/20260928T125827407747Z.json",
+    "reports/oracle-runs/20260928T125957587639Z.json",
+    "reports/oracle-runs/20260928T132445125437Z.json",
+    "reports/oracle-runs/20260928T133004542562Z.json",
+    "reports/oracle-runs/20260928T133501391433Z.json",
+    "reports/oracle-runs/20260928T134033509436Z.json",
+    "reports/oracle-runs/20260928T134501652085Z.json",
+    "reports/oracle-runs/20260928T134911304414Z.json",
+    "reports/oracle-runs/20260928T135027538659Z.json",
+    "reports/oracle-runs/20260928T141329008590Z.json",
+    "reports/oracle-runs/20260928T141913475576Z.json",
+    "reports/oracle-runs/20260928T142458952693Z.json",
+    "reports/oracle-runs/20260928T145035306827Z.json",
+    "reports/oracle-runs/20260928T192507564841Z.json",
+    "reports/oracle-runs/20260928T195529039969Z.json",
+    "reports/oracle-runs/20260928T200343664378Z.json",
+    "reports/oracle-runs/20260928T201826560097Z.json",
+    "reports/oracle-runs/20260928T203130963441Z.json",
+    "reports/oracle-runs/20260928T211311262604Z.json",
+    "reports/oracle-runs/20260928T220044757918Z.json",
+    "reports/oracle-runs/20260928T224802105393Z.json",
+    "reports/oracle-runs/20260929T003257767801Z.json",
+    "reports/oracle-runs/20260929T012356934782Z.json",
+    "reports/oracle-runs/20260929T013607582479Z.json",
+    "reports/oracle-runs/20260929T013956101499Z.json",
+    "reports/oracle-runs/20260929T120626698944Z.json",
+    "reports/oracle-runs/20260929T121944186483Z.json",
+    "reports/oracle-runs/20260929T133350769908Z.json",
+    "reports/oracle-runs/20260929T150216350486Z.json",
+    "reports/oracle-runs/20260929T222739838981Z.json",
+    "reports/oracle-runs/20260929T223158210969Z.json",
+    "reports/oracle-runs/20260930T000850355521Z.json",
+    "reports/oracle-runs/20260930T021113009291Z.json",
+    "spikes/mathlib-binding/logs/provenance.json"
+  ],
+  "digests": {
+    "AGENTS.md": {
+      "old": "5c757e1a3d9f771c4e0d8513d3ad7c3dfb58178edeb9d66334d24945d324cbfa",
+      "new": "614283e6e338acec0aa237da5d357e12ca23ae485c2b5d1a4054049a2556debf"
+    },
+    "BACKBRIEF.md": {
+      "old": "d2c49847c671aef5d9bdc39d5593bf4aa7ba61719441cae8c4b345ee3d0249ad",
+      "new": "4ec0bf5dac62d134e6a235ccb82e579955b67221c7fa1e89f0c1c43aeab2126b"
+    },
+    "DECISIONS.md": {
+      "old": "4d1318567b39b83203935bec7b082673f8423c5b1d21d15743fc8ceaef048bd6",
+      "new": "f8c8adb19a84e56515aa8ae91cb46619a0f5bb5878114cea1e69ba8742e666f0"
+    },
+    "SWEEP-SOURCES.md": {
+      "old": "a5737f89706d44fa4090b3b59eb6699390e7249f2acd807e3dc5a7edbf3151a2",
+      "new": "2f2db4d139fe3132339e7fc30b0f39dc7ee3c438dff8e995d9be4d2eca4f1d34"
+    },
+    "binding/environment.sh": {
+      "old": "d20f79a18b3a67dca4ec45641b6391907864a6d5c2ccbf304ad723e09ea2509f",
+      "new": "6dbe22b8fb4de6ec57c8db3d4039591b29d5f6fd7f7ade964c573d1a3c8e0725"
+    },
+    "corpus/SOURCE-INVENTORY.json": {
+      "old": "4df1c1c62258b4a9880083c66834743e91063f41c329550e7e82816f04487982",
+      "new": "ead45cd1b610897dc33c2d42c02a585e00e3e7d64104ab2848fc9afc8b0c2875"
+    },
+    "corpus/incident-registers/MANIFEST.json": {
+      "old": "4712b949f9a403e445cb255c6a2d94f7e97fbc52d3303aea8c843b0d352ad331",
+      "new": "e8bb858d7cc6a397c56fb76ec7dc669e3600e2142d18e73a537ec89dc6ff260f"
+    },
+    "corpus/incident-registers/SEPARATE.json": {
+      "old": "64fd05055e53d4fd2ffde77fe3ba4cbfcb0aad21072f57e8e947a78e8f18dc6e",
+      "new": "e57512e82e163651f2f1a2ebdb0e27d69020d4dca38c333c928c2e5a1bf7952f"
+    },
+    "corpus/incidents/ARR-C01.json": {
+      "old": "4d752309991ea970067ab5eb29cfc55bcc4553c7398e27a39bb70c4f51106246",
+      "new": "fa48b14dd651d0075d067ac51d544df5cb060a95f05caa9cee33917eacabce7d"
+    },
+    "corpus/incidents/ARR-C03.json": {
+      "old": "71eb46191be374f87504c484d478cb61873cc956eaf318f399a7da800e140659",
+      "new": "d6198d54217e3521f98b935dbdf8c2291f66e9d1446fc4b5651ae325b246224c"
+    },
+    "corpus/incidents/ARR-C04.json": {
+      "old": "dcfaec356736b71992d352f764c5ac736b8310a067462260610e6c0ef6d9efb0",
+      "new": "f6e80134b9d0c56540a79ed7a07538740d745de8cb77fec3c5ec1ecf3b683511"
+    },
+    "corpus/incidents/ARR-C05.json": {
+      "old": "92cc1a4756c515546ccfd48550096f1886520e548414197cab3341875d4cd7d5",
+      "new": "6b1b3bade2e550b1b4820e632fb6254a247f41171470230188d1256f2a353bf6"
+    },
+    "corpus/incidents/ARR-C06.json": {
+      "old": "7ceedba88c8c1095983858d96f06f09bd6fe323a8beac736b3190fb5b3d0c1ba",
+      "new": "b56c10cf91400a66082580cfb9ac0be86e19d97cc340d77a4bc2159b7432c10d"
+    },
+    "corpus/incidents/ARR-C07.json": {
+      "old": "9b6cbb11c593fcdef137b1d747da91d3ae0fea1acf213c6617b3c50ea352e038",
+      "new": "cdfdbb641affa4cbe0004712f47ef64c4618f2629af36744f142540cb02dc21f"
+    },
+    "corpus/incidents/ARR-O08.json": {
+      "old": "fea1fa54063bb0a5fcb648ad310ef71723d733b20449096adfd42df3133dbd73",
+      "new": "c2baa6caf8037e99b9a9440d03edee10eff5222ee82d53ac851254fdaafc7835"
+    },
+    "corpus/incidents/ARR-T13.json": {
+      "old": "18a64988e61b6994dbd32822deb97d52755e06e0e958f2693f1b349153b642ed",
+      "new": "5caeba1ccdd162931755871ef07ee3e710fcc8fd701f658692f27aafca5e7b80"
+    },
+    "corpus/incidents/CQ-C01.json": {
+      "old": "8f0e8c363b37b58f2eb8cf52023cff4fbfef41936093823cbbba5a480e8a70e6",
+      "new": "a3f8982c1a1892e344ef1fc653e1bfc13ac428fb9cbadc0f89eb595eb7f076ff"
+    },
+    "corpus/incidents/CQ-C02.json": {
+      "old": "7429cec2fcc6b03cf18bcf99448cf02d679b6160116dd1b4f434892ad88faa45",
+      "new": "0818eacf811e4df423755c5b7730bef91db6a36acc675ed85770413a298fcae1"
+    },
+    "corpus/incidents/CQ-C03.json": {
+      "old": "31684dfc71081ba1e297f9e0dc87fa9c188aed23f3af01b52f3a29e36ddfec8e",
+      "new": "924bb32c6b471449d3b30c80a28869756cb5b01fd4e15a1fb16e2466663aff79"
+    },
+    "corpus/incidents/CQ-C04.json": {
+      "old": "a04d919c4518eb323ffc416194a3cedd9e77f6bef56ad0dd9e80ac7dd1872b37",
+      "new": "dc87ef631dcff58aefb1db18c549a1907ba5c87c4d236972495f8bb5587a814a"
+    },
+    "corpus/incidents/DK-B001.json": {
+      "old": "8275e3de819d9ed4074c622591120130b4ec5a56c7b9100983d09caf1697926b",
+      "new": "19d58ce28842ac78824729abc49a70ae0d78f8df62721549005caf14a5a241b6"
+    },
+    "corpus/incidents/DK-B002.json": {
+      "old": "ff5212d9d4b3f85dec5e9a366c1eb563ecea9cb55d1064d46091aa04da06ebb5",
+      "new": "e5cc5318f743ed3c9dd82dadd40308f9948204eac1ac974d39cc3d4b9878d7c5"
+    },
+    "corpus/incidents/DK-B003.json": {
+      "old": "4b1cf88f0c74667ee68e87ca85875a97fecce6d8460f0287323b30da649fd8a0",
+      "new": "589981e6cc1303222dbffb7c2b8748b576144ad53b844ca4d48033956e67353e"
+    },
+    "corpus/incidents/DK-B004.json": {
+      "old": "201b50eec7153db465d4049a7760d4d7b13cedd2c002f2c36f0fec487a420a6c",
+      "new": "ccd0da5315ec4572aaf708f5665e973bd86013a7ac3c1a8d022e7e18809c6f1b"
+    },
+    "corpus/incidents/DK-B005.json": {
+      "old": "6390b3bcbd84765b49b1ba9e4c7009165317ead7b1ba77d0313ca167bbb51369",
+      "new": "62074c18393b1f24d80f96715c0908bbf2401e57bde9e96f6d07751133da1759"
+    },
+    "corpus/incidents/DK-B006.json": {
+      "old": "10ac929f1fc969a007704dfb261423d2a1da10c012deb84aec248f4977be9589",
+      "new": "1a364b8a66306ec99f01f1975edac0b590c287ce8eb765e4836f6568c73bfd17"
+    },
+    "corpus/incidents/DK-B007.json": {
+      "old": "1afa586302397a4b061333ce2aa8dba97f7caf2f7cb820fbc26cef3ebf1f1f24",
+      "new": "d76dd14d424522eb37465952226e0901b8831b1979c67d70c1b495e70379a0d9"
+    },
+    "corpus/incidents/DK-B008.json": {
+      "old": "5dd9a2ecda1de8766d7d77ddf157dcb61bd7690686080adab4db13e0ed0d1e5f",
+      "new": "ef28b8e0c129e4e44e516c2ac43bb25896f3db3581a0e86893411e4ab8bac884"
+    },
+    "corpus/incidents/DK-B009.json": {
+      "old": "ea12b65a8967374e6043db983d8a2a9f19162afc5abf784922ff5b267e4cc0c2",
+      "new": "b94a171503c2f575a3ac2bed033dd7c6a500ba595f9d8f2a74ed3cbd53c8931a"
+    },
+    "corpus/incidents/DK-B010.json": {
+      "old": "22c5c0566dd090ab5558dee23635f00ad7f6969ffa96bfabf38612595977adcc",
+      "new": "70e05f3e29a2505cecf4999c5ad2adee9fd355e897d5134092903fc348ac435e"
+    },
+    "corpus/incidents/DK-B011.json": {
+      "old": "c8a00f40c5ac71bad1b015f5aa5ae1f18605b286e1a0389f6bf2fcfbf6b65563",
+      "new": "fdb773644f55437e32b71fc89f9daac260ab5bd2e0ba3d001144078a211598a7"
+    },
+    "corpus/incidents/DK-B012.json": {
+      "old": "819f158af9f929ba3040a9aeb3e28871c4a7a6d28d8a072cd72c491efdab7bf9",
+      "new": "8d89f302c113dae263e9657e903988d2778c0f1fc5d5b7d2a4139aaa905f22a6"
+    },
+    "corpus/incidents/DK-B013.json": {
+      "old": "a066838c60e8f9d8821f5f99f584240666f5b7ccf354d78a6c03f87d9f8e5204",
+      "new": "442aed9463bb82f94e04c0ba0c422c7ecad890678240237c8dd257f9ec59382a"
+    },
+    "corpus/incidents/DK-B014.json": {
+      "old": "ccebead48acb19cf2cbcc35e4c9d9c739fcf1dc8299e9931e2d85107fa4f3d90",
+      "new": "364dd163f1d6e0feb99545a8b4608d09cb49d65f249af423157177db68641195"
+    },
+    "corpus/incidents/DK-B015.json": {
+      "old": "38c407d1bd273569e45ac91f20dcb92b87a6840e946c35ec470143fbc9b36400",
+      "new": "6264b2ad8f2696acbfe5ea235d924e633b4c49e291d7f97a77f7787051d329cf"
+    },
+    "corpus/incidents/DK-B019.json": {
+      "old": "42a1f31516bcf62fdcaa6ad04d980a5de1f0538da84d98a9e3f234559c8c920d",
+      "new": "2c7deb06b1d312daeb1e8b933ffc9534866082c8a985871e278b6f0848a8c641"
+    },
+    "corpus/incidents/DK-B020.json": {
+      "old": "87728fce638b7133fafd6b799b5c4ff1309b50d94b9df865691847877004fd6d",
+      "new": "cb885896d90017d03065830edba1fe86df21843c2aad762bbc0e210125daea3a"
+    },
+    "corpus/incidents/DK-B021.json": {
+      "old": "ee0b7a84631047af508224415105bfdb1f51833f517f4ab3892eeb5763aad2da",
+      "new": "b5e373951ed8f311bbfd0b034d538b97d312d6482b79648b76114693a4b9ab33"
+    },
+    "corpus/incidents/DK-B022.json": {
+      "old": "95f8b8746752184ca6c5dc6669395b700b80482f7519442ac9bf93f323141f67",
+      "new": "4f103d9d257cf7b9ddbbbf70650f53b0d8ccd12137c8d86704124d82f3d1cd91"
+    },
+    "corpus/incidents/DK-B023.json": {
+      "old": "8a296559ee7335f4d2f52726bcac7194b1d6c682db5d80e457f7b7e0b45273a7",
+      "new": "9bd0262e936b331504cc0698623d69e1d647018b94c1cc6d5361c416ed35698f"
+    },
+    "corpus/incidents/DK-B024.json": {
+      "old": "e106fb2dcbdbca1d1ab62e631764c0d32361500bcc6fece4a21016dd657b5071",
+      "new": "2a508d1382a7878464bea587834809a30bbccf6af4cff23f94c3df41a127ae3c"
+    },
+    "corpus/incidents/DK-B025.json": {
+      "old": "1ad98e1706f68b4d714db298d0ce16ab113851fb9d64b2d31d47b07c7a21d6e4",
+      "new": "129a54d5cb53cebe60d296df5ee31e7ee665c64cd5415146ca9255f20c1b69e6"
+    },
+    "corpus/incidents/DK-B026.json": {
+      "old": "4d11780df73dc01b1dc9f645e54ae71b7747a6878b6c481bf6338f608a10d793",
+      "new": "755d2ee209be4195edc5ae6edcbc9ae80a0a368b017fa2941cea9f6a385cb1ec"
+    },
+    "corpus/incidents/DK-B027.json": {
+      "old": "f50b6ec8c6a4dace5992740ad4e9a858f431abff6f87b9e3ab045294ed29e002",
+      "new": "60c531303b7a403412d136edfa94494fc07cdbf9f98534030d8961a0ba05a518"
+    },
+    "corpus/incidents/DK-B028.json": {
+      "old": "2f7ba3f1d5b428a2fa29ace080407aca464bec360c326c06897099a9fc66a46d",
+      "new": "9b2bb757964c760227527c45543e457cd402a351c970353162e4df362ce4b759"
+    },
+    "corpus/incidents/GP-SRC-ARR-G09.json": {
+      "old": "3f834db5e114bba0cf60697c000cdfbea6cba249c6eb5e587612dfb8806b675d",
+      "new": "5229303e10b23dd573e2493754ef64a0137f1a70c23fc5232a6911d99ce3bca8"
+    },
+    "corpus/incidents/GP-SRC-ARR-G10.json": {
+      "old": "adc4df5fd9a183047a229d980d2a14be9131ce9846d8f40504cf8f75673eb8b1",
+      "new": "67f37946bc4129401ea701e6e0cff0269b0854f5c443ce825b18289b9afba0de"
+    },
+    "corpus/incidents/GP-SRC-ARR-G11.json": {
+      "old": "4f5b0cdcdc3c5b24141189e387c2c25a854add0f00280bb1807c0df05e328ef2",
+      "new": "7834512ac16fe9ff84b8c299d7459848f256be09e0dac2c8f8a56c5cc38eddae"
+    },
+    "corpus/incidents/GP-SRC-CQ-G02.json": {
+      "old": "9cd4e19e3083d2a567ea1a64cc7742f9495a7d85e9c354970569415bf80e01af",
+      "new": "a47830302ba1e43147755f8d7edada5081b5bf3042664900344fb83794d3d419"
+    },
+    "corpus/incidents/GP-SRC-DK-GP01.json": {
+      "old": "04d07ace4ff89c6218f2012e72666a0fad32162294d48e6f51957345a5ab85a9",
+      "new": "22cfec107c8f7c209db12fcdf3310a599ef426d91806a29d538a1306817fabe8"
+    },
+    "corpus/incidents/GP-SRC-DK-GP02.json": {
+      "old": "63be6b28cba2b44d990d451992954ab2241b817c11670be83ccaa01e6151e2c0",
+      "new": "48ca1704c709053555b5efc3681a9cc9325b6733c69d16cee45081c63cb3e02b"
+    },
+    "corpus/incidents/GP-SRC-DK-GP03.json": {
+      "old": "5a3347abf9e6548446cb8f2b533c15e3e0ebe3d0616dbd67e10ed89cb21cbc1f",
+      "new": "f0f8ad3c92867899591464a18693547de67c5fb9e270d2e8cbf9431d228cc1ff"
+    },
+    "corpus/incidents/GP-SRC-DK-GP04.json": {
+      "old": "2e35d9e09c97f6b0f59cf8791b5e690a9cd2e875f395db1426ceb542e6ce26dc",
+      "new": "64f9ec3dc9a8b79bc76e4eba6215f872c1627d77a2f5e2afaf71073f18ac7d41"
+    },
+    "corpus/incidents/GP-SRC-DK-GP05.json": {
+      "old": "f1354108749842ca395a73254a9c55c4046674c0c9e20e5ef437ed0d21f756a1",
+      "new": "e92cd93b0942a31619916afa478afa5d6710ad10f1e1a68406c280c14e67c096"
+    },
+    "corpus/incidents/GP-SRC-DK-GP06.json": {
+      "old": "0d9db604665e3a6cbddee2008d2c7ba11e63355b6015ca39cc30e8c30e213508",
+      "new": "25b0abad2c776045af9f71ebf4b178f520ce69731a16529152d33c8cd83eb65c"
+    },
+    "corpus/incidents/JC-B001.json": {
+      "old": "af9d8672d1a8525af86450642457b49d753568d5c09d1335b2109f99a02eb6a5",
+      "new": "6890e3e05434ae8211e9effdc2f90bcd812164adae67644b9e02af8a324408fd"
+    },
+    "corpus/incidents/JC-B002.json": {
+      "old": "ea6ddeda0c8c73f41b6b907df7788d889c7771a5bf670483a6c2b6fe00276d6c",
+      "new": "1816a12322257267302d2db7a283d60020c0c74c2e111aba28dba3f599dd8182"
+    },
+    "corpus/incidents/JC-B003.json": {
+      "old": "c85265562f46d2b916529e721589dbb2a230050aacdb84c6710e6c0c5f197d56",
+      "new": "c64acf7fea07a518878de64ad05f660b445307c95558cf71c56b958413358461"
+    },
+    "corpus/incidents/JC-B004.json": {
+      "old": "91ae2d89581dfd5b2c5273313733259d109ce118eb71003137b9e1be74048030",
+      "new": "ba76651c7d682ebebeb99d8bd60bcc0c13b4d13a7ba29a3c8c7b5bbbe48ee5f2"
+    },
+    "corpus/incidents/JC-B005.json": {
+      "old": "d988d20c7798fdd734677758d79be2f05b212da26a7324158c8a6b96696cb543",
+      "new": "d2dcfa8c7df209bc67b33b6c5be527c13f3ea541c5d6149c7c822b061486b5e0"
+    },
+    "corpus/incidents/JC-B006.json": {
+      "old": "e691a9c64d61de510cbde7f3cefb7d86c2f24d97648e249074d22b5bc6e9e670",
+      "new": "5c3ec19b2eaf9bd2bf2a4918234dc65c25013d6f8ef19c48d185eafe17ec1073"
+    },
+    "corpus/incidents/JC-B007.json": {
+      "old": "ee04497953d1c7a54673b6e5a1d0af0970d9d214e0ac6e654cfab76090fba94e",
+      "new": "fdfa636db4d25754367c6c1613136a2692bc677181b5fb59ac72153854dd38bc"
+    },
+    "corpus/incidents/JC-B008.json": {
+      "old": "4697125ceca5e4ca23b5ce65e0e01ae69ca15b50a7bf3ab0c0be36029363d3b0",
+      "new": "f40eb51e90e04b5ebda08eae72b3eabd7ca76f43b6e13097b15cffb906dbcf49"
+    },
+    "corpus/incidents/JC-B009.json": {
+      "old": "8f4961dacb2456626e8dc7b572c554225e3a9757bbcddbabf5a2b720425b2cca",
+      "new": "698518d513b9a2ab4d0a2b125a77ca1740e4b0b762bcbdcc538a9a5d49f4b15e"
+    },
+    "corpus/incidents/JC-B010.json": {
+      "old": "293cacaa29c6f18f4e8fed5f9cdb3577ae06c5bdda48b954bec0a95179b0dd05",
+      "new": "85830d30fbd1ffb8736ab8a979a1219bac96e9d1b9d22c25f2d89e2077e90d0c"
+    },
+    "corpus/incidents/JC-B011.json": {
+      "old": "d81465f04f6592e503c41f90d02dc4983cc0253050990f723d88f6de10e904ab",
+      "new": "c3f46c153db2511c86ab18d236627f49b9c20b1d41fcc664ce7af9c6cf44c969"
+    },
+    "corpus/incidents/JC-B012.json": {
+      "old": "8a005c2a575b14080a778773cb2f348058d698a757da0cd5948528d49e7729f0",
+      "new": "28b1dee6fe2bfafeb343b6c73856f685fc100c33633db96e1f883cd8598dada2"
+    },
+    "corpus/incidents/JC-B014.json": {
+      "old": "bf9bc320fa50313dc106d3cecc9f452f4ff583cb875e1ab5f66c749a378e64ed",
+      "new": "33b86987b8a351cfba2ac10172b8f12cbcb979ffc64abade871a63f11c2bcbc0"
+    },
+    "corpus/incidents/JC-C001.json": {
+      "old": "d74ca3514171d195308c2230da7ad37380ce08a7af5472e1ee8c2a7f18cdf814",
+      "new": "97047fea6e8ae31fef714b4adfbb6a341f21e2456bc8c8c9953c599480688d4e"
+    },
+    "corpus/incidents/JC-C002.json": {
+      "old": "369e4fb2b6d4bf5c5aeb26f1f13e1e31f66a4b7400e75cdf09ca8a28aa67fc71",
+      "new": "8ec9c4444bb81fcd8d18d1ce4f538425f01296f233e1e6d04e5b523e8bc254c7"
+    },
+    "corpus/incidents/JC-C003.json": {
+      "old": "8a017ee3e74534bdf6c9d555ffb5fd1df5f7da02b273a9abe1593d7276b1d9d5",
+      "new": "d0f5e06e324d2ba0d0df9373c2e1d13001035269e903c339b2f9c4cc0b2d49a8"
+    },
+    "corpus/incidents/PR-C04.json": {
+      "old": "b23493cc2663e2a51c214211e93634229b47e44c653fa7a26989d55df8eb59eb",
+      "new": "f2db992515f1615fca62b90e9a9136a1ba608a25818f92930954755721982743"
+    },
+    "corpus/incidents/PR-C05.json": {
+      "old": "c516e1a8308602ba330915af264af035d557d50896dcee6bac5ed8dad6ff4cf4",
+      "new": "08e05a8cb5a8d53fc351b85675be2ef076a266ba1afdedec2949199c3f063b3f"
+    },
+    "corpus/incidents/PR-C08.json": {
+      "old": "0d5de2d99b134f328a3ecd5ca0c5cc0260588842c3f94c136fdd89335f0c89df",
+      "new": "e1fbcb7ef11718c55b0a75ce9dc2fdc4e014582968c17b59ac98ca32b6f9c6a8"
+    },
+    "corpus/incidents/PR-C10.json": {
+      "old": "32e8b75f5a2e5d593e0fd5bab38e590c7e64929aa1087dcc23a8484f4b0677b3",
+      "new": "e7b7508481be5c92a6952d194417076e3b5197d2ffb61b72fc00ccfd6c1c1959"
+    },
+    "corpus/incidents/PR-C11.json": {
+      "old": "07e0d984e3843e50a88c469ead02ab5c52db39a69675e63b3b37b955e85e2c1f",
+      "new": "5233ac37d2ff06adcaafaed12ad1f6574103dadcb3f7ac86b8034e79bdea7954"
+    },
+    "corpus/incidents/PR-C12.json": {
+      "old": "22e6ecff2bff64585be03be408c5e3665dd6e592acf1410d387664f8ccaa892b",
+      "new": "32f1eb8b63efbd069e0f196f511905e0723240bab038c7b85883d6d3aac0906a"
+    },
+    "corpus/incidents/PR-C13.json": {
+      "old": "123269d5af364e6d0bd8bfcca64da37de9e390007b49ba97343b402f1944d27d",
+      "new": "970297f383604baf4efd46b99ae460c3f2a8164360428095fdcbeaaca3c07653"
+    },
+    "corpus/incidents/PR-O01.json": {
+      "old": "19c94aa225d425485bb23b3d4c319be6e6400fc6b5ea5fe9f9c4e77a71b6b133",
+      "new": "f1bf38ac4a43525c2c3748834564dccec301fd83fb9b8456b736098e695e5ce5"
+    },
+    "corpus/incidents/PR-T06.json": {
+      "old": "95dced4dd38ec4864dc24007f995be9fe6b7e6d290f69baf8f49d66d9f981279",
+      "new": "ca1e3db3f4247b00036b3415045d3114980d009ae9076cc4d9da7df7819c8551"
+    },
+    "corpus/incidents/PR-T07.json": {
+      "old": "d47b8189f3e8efa7fb338b29fd429c801c8ce3b3efcb54748cf0dd6db0690a63",
+      "new": "d15a76252b21e7222ff5bbc777aa0908c60e8480ce75e5f0f07c13eb817d16c3"
+    },
+    "corpus/incidents/PR-T09.json": {
+      "old": "a38d3f061117a859e5969a001bf750db517e289a2e1b802808c795655cbc299f",
+      "new": "5cb4b01589408d6507bfee2a33ca78cfeb78f0098b8dff7b0cbfe6d8361dd8bf"
+    },
+    "corpus/incidents/PR-T15.json": {
+      "old": "6d36e61abe5e14ac616023b26ebea52e68d189a14aab5bec1d32fda75bcdea95",
+      "new": "54034f6772d3d9a66da3e626014af0bdbb3fe68c4dea29aa913295f9971b2163"
+    },
+    "corpus/incidents/PR-T16.json": {
+      "old": "79ba9b38cab68c0e0ea144a06a50e5eb9c7c3ee0df46bbfb012de655027b07bd",
+      "new": "b766fd3ca6d091bf875998916c295d38487b33bf99f777568377aff7b1b324a3"
+    },
+    "docs/BACKBRIEF-REVIEW-ORIGINAL.md": {
+      "old": "dfcb5490d52fb1d2574031c5efd73dc421e9fee241b03b42ac7690d5d9e438ad",
+      "new": "fad948fc60af7f87709ebcb508179a0b0d2e279820e6ba03bebbaa0d93262ed5"
+    },
+    "docs/PACKET-PROVENANCE.md": {
+      "old": "d08a979de8a41fa633cb7ddd03d584156b9cb1b810e37b92f4df4d69bec96629",
+      "new": "bdaf8630de018e53f9dbbb090f1ac04723050677c4f22d87780f17be3c6c834d"
+    },
+    "oracle/PIN.json": {
+      "old": "9bb807c3034e045927dfc277f9ac268317ae2fdf7c07fd77c1643749794ee11f",
+      "new": "180d920db790d5b5e318ce318b7b7e1467e6b11fd44e05e759e8b7cc7f4459db"
+    },
+    "oracle/ROUTES.json": {
+      "old": "5e66d807591f8f9dc5e6eda0de2dfbed6364fbcdba50d0d3d2da9f384c9f5648",
+      "new": "cce1e91123d58b6c3a452cd911b129a21e6d4fad3e9042b1d0ff43e73e6e7750"
+    },
+    "oracle/history/PIN.json": {
+      "old": "4f1c64b8aaa28da4032f9e407dac929083b5436aedf122fba2d98a37c296633a",
+      "new": "2ca0a95db90819ac44928ecd8564cc0ddcfbcdb63c897c921355447106545d2c"
+    },
+    "oracle/history/README.md": {
+      "old": "80caf4ac584a82371e64accc73596628944621e5490da1eae7455d668c0d4ec5",
+      "new": "84522dca527c4eded1e9d65908a5def6b0da13a0e781ae68a42278d2e3384f52"
+    },
+    "phase2/lean/README.md": {
+      "old": "f6cef115b7b56ecaa561eddb7399143c823bb0ae743aaa2fa107ebb24ad08e1a",
+      "new": "823fe1c1781d06c388e3f82aa4c7f2b78f965b15f38f63603d447adaa5673c18"
+    },
+    "reports/A24-CORRECTION-AUDIT/BASELINE.json": {
+      "old": "72b132e3cf49856b7c6289a97bbcdba7db9a1cba5c219f05d214a3ae8ee4c423",
+      "new": "37045f87376583bf5fce282feba0c1f03648f69aea223528631e196d90d09471"
+    },
+    "reports/ALPHA-STAGING.md": {
+      "old": "7699cec8737bf8d4239a8c0f00848360063b644c9c65c1e16511ed620bd102c1",
+      "new": "f600e4f4409e6a517c1d9e59a56e97df3e72dc22cba6c71036c99ed23c321fb0"
+    },
+    "reports/CORPUS-INTAKE-BOUNDARIES.json": {
+      "old": "20e591a71b8a6e67993b8c9fcb02d83f71a12c842b796373bfe17b7ed3345aba",
+      "new": "beaac8f643eab4e0a9a0a4a81cf92f362a3f1102a998752c2be010718bea94bb"
+    },
+    "reports/DOSSIER-BOUNDARIES-AUDIT.json": {
+      "old": "c721cb8a3105da7216dfdbb714d40208980e3081cc360fe3883edc350c57d285",
+      "new": "1e5ddda5f4bbfbdf6b60be0ea2a58009481d072302275c8f1c1be9e5b868ea93"
+    },
+    "reports/FORMALIZATION-LABEL-AUDIT.json": {
+      "old": "01cfedaa34447f0097d4829e2aee5a79260c5b23e0fc1947f020e10cabd9dc76",
+      "new": "eec7fc74c0b37cee90c2e87d4cc8c2e310de63236315fccda56f15dfb8969ea9"
+    },
+    "reports/HISTORICAL-COLLISION-AUDIT.json": {
+      "old": "f849ef4b7a52a873fb1c6e474e120005f1ff5365e2e3bc4736da8c7e61b9f448",
+      "new": "bc1d6b29db6fb744f8b3329875b0c854f56f49b72167b8f8a1131a332b44d0ea"
+    },
+    "reports/HISTORICAL-REVIEW-RESULTS.json": {
+      "old": "8451aa83ca69434e874a3a85e55fc04cf9b7afdbc1baebd1768ac85a562c6a27",
+      "new": "7fff2b942b6117ac3a5f1d5f1443cc1c533d4763d2a410f0c3b30c2fe280c990"
+    },
+    "reports/HOOK-BOUNDARY-AUDIT.json": {
+      "old": "322cc83425ecc4f71ea6b1b7110af2a104dad26fecc96287f6493ce15ba5fa71",
+      "new": "a17469ccc412422b96121535167b4b9428155503d177fbdf642f86b906778c34"
+    },
+    "reports/MCP-REQUEST-COMMIT-BOUNDARY.json": {
+      "old": "c68c8a5cb7cad9c0543a26fe69601d070e046701af4944d85aac119168194bb5",
+      "new": "06a91c234253688af679fc7cbc7ba25d409f0b2effe81092bb2d9eaf146432fa"
+    },
+    "reports/MIGRATION-CUSTODY-BOUNDARY.json": {
+      "old": "81944f36c19d6f9b0f182d04e9645926e5cda4ce50e2684e1afb09c629f3222f",
+      "new": "a73aecf0dc50c08c0487e1eb5a7dc43bc548c6f885272aa204831c698127a628"
+    },
+    "reports/ORACLE-RESULTS.json": {
+      "old": "77321d0f86e5160ef0f78f13498092061718a7b829256548cc430b1d19f302df",
+      "new": "0996858153e6f1fec40aad3fe1d71a70cff72b39972cd78937646818214be04d"
+    },
+    "reports/PACKET-REV3-REVIEW.md": {
+      "old": "a4a5e61c43455a6c10595bd50103df1c866643e7dd0aaa3fc40065360df06dd4",
+      "new": "e8c6b9d96b8305438561b83c70526d20dc7082a289f2d0bb1c376f2f86b97640"
+    },
+    "reports/PHASE-0-HEARTBEAT-HANDOFF.md": {
+      "old": "708ca9d4c2d73e3b0150ad7b75f30b03c5c582ce4200fadcdda353b254ea7792",
+      "new": "1a652bdf86a8527e08c0607d1a7bfa75e901ecd1a2caa3be30c644eb1047c09d"
+    },
+    "reports/PHASE-0A-A24-INTEGRATION.json": {
+      "old": "421d88982ad1534272d0b355f74169ad65f43dfbba636e7f84e1f39808307079",
+      "new": "73cce79484e84a7e2bb5bcfd00c675cbce00bcf3f5b6b7fbe8320dec542a2693"
+    },
+    "reports/PHASE-0A-BASE-COVER-REFUTATION.json": {
+      "old": "ee3490bb66be1bb14e6ed1c3ffb2dd105e17fb79168238f5c854e6e0da27dd08",
+      "new": "599a2f07c6ba9307e4faaf15c8e075229f1601edb9cbf48c93897d77cb8983ea"
+    },
+    "reports/PHASE-0A-CLOSEOUT-CONCORDANCE.json": {
+      "old": "b22508eeadaa1e4056086c19bfafecbec533430523e2e47ca89ce4185e944206",
+      "new": "5972d37d4019a782b9bcf17fb373baaf084692b8728897f5ddabdf1a7156dbaf"
+    },
+    "reports/PHASE-0A-CLOSEOUT-PARENT-REVIEW.json": {
+      "old": "bac53f76359c7623d4c95552d6425a79bdd5acba868a33e76e51cc3141cb91d3",
+      "new": "4019b3bd56044bf374c13cec6801ea1e9519673fe130eaa8a8e9b409bb78b0a5"
+    },
+    "reports/PHASE-0A-COMPLETION.json": {
+      "old": "03fe06fd0ee6baf9e8972a7f25a6ed6a42dced67b37b1e1185df5bac3c8b5abb",
+      "new": "c4d04af2d6e480b1192c4cdaef266a253917b56ffd90c3da4f7949eabca71ae6"
+    },
+    "reports/PHASE-0A-CONTRACTION-LIFT-CANDIDATE.json": {
+      "old": "67e5ec24c5f8acaaf8a9904502035f7fdf5d3e11577bfd9a16387508699791c1",
+      "new": "c9ae43ec6c33638b4e85b5a8f5f2535d84bbd6a675e5dc1666613a6030ea3af1"
+    },
+    "reports/PHASE-0A-CONTRACTION-LIFT-CANDIDATE.md": {
+      "old": "12743f16585785021684690a993180f0715805801e01b979d744f392d01c58fc",
+      "new": "1629576d475e2eb2a8a5929b035169a529b291252cfb72792e1f8fcc7a75577c"
+    },
+    "reports/PHASE-0A-CONTRACTION-LIFT-INTEGRATION.json": {
+      "old": "8279efce9ad136b4e4a1485080ba8baf556c122fc4a3406965ed97d9392e456f",
+      "new": "2f2f2367bb680596fb267e3148044efb3f855eac30fbf9d6668d26c6779ad097"
+    },
+    "reports/PHASE-0A-COORDINATOR-RESUMPTION.json": {
+      "old": "b3be15e9d50fdf2f9158d719c1b49fafb80623cf780ebe1491cfb14fe2c337bf",
+      "new": "7b9364e365d67e100c3401b4d29218116c7d56be83226dd6895dcb5775532758"
+    },
+    "reports/PHASE-0A-CRAMER-PROVENANCE-REVIEW.json": {
+      "old": "a1997b93858243a8fbd78ed1481be0ede7a79d06d0e25fa70895ca95b8eec6d9",
+      "new": "9114e1d6932430d59b896ba1ab2d8c95bd1f7e6af64a3d53f9e953cad14bdb03"
+    },
+    "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json": {
+      "old": "53a64dd79abd8cc2fbbcb8b5fd38da375e4b43a64bec6d9ec49303fe3f159e5d",
+      "new": "de985b34c80895facf40524506f7d44c4ba805bda6f4fa394884ac7dfa663f52"
+    },
+    "reports/PHASE-0A-DELETED-IR-SNAPSHOT-REVIEW.json": {
+      "old": "cceff295affe037a4a2be495d41586b6827640a3dc7dd42c2eb909860303a54a",
+      "new": "84f4472fe301c8ce5301ee2c02984657c5f3572834d5df963ff4e835a2f34372"
+    },
+    "reports/PHASE-0A-DEPTH8-BLOCK-EVIDENCE.json": {
+      "old": "c9a259e6b797a51fb98bfaec3f8b6261bb8c13926979678294a475c9a304b054",
+      "new": "576b67d3ea8dc50ef83c5a4d8e96f293e1532bbe9ba92845d023eab720b85b24"
+    },
+    "reports/PHASE-0A-DM4-POLYNOMIAL-LIFT-EVIDENCE.json": {
+      "old": "fe2cedb7df493f5c17af6bc9615dc2c95e6b693338bde1070f7c3f997af4bdf2",
+      "new": "b171574d6373a017579bd1a1bca3a2237203e49e2bf23bc61369a567e0f802c9"
+    },
+    "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json": {
+      "old": "87153f4b218c8cffbacf3d2edb56066b1d23501be6fdd3b47ce73d4f049d3782",
+      "new": "515f8759fc6d8122e4496fa7a76d023233c02b0d73b0e7a281c99d481de0b4c0"
+    },
+    "reports/PHASE-0A-GUARD-EXTRACTION.json": {
+      "old": "fd32a75e15c7cccdc45fc8e994e64701b6a03b96f322d286c295d6fe2f1770dc",
+      "new": "b8a02001bbe1f4c328a7d93c256b8dabf7262c356d4396e70219c1f8d1c8f2d3"
+    },
+    "reports/PHASE-0A-HISTORICAL-RESIDUAL-EVIDENCE.json": {
+      "old": "9b16ad596114c2a9db7ee5a536d059c573b4b18f6940d8c88c619e848c2c7a70",
+      "new": "4a9b1dc08e418b97644243292c091b470559b5df29922c658ff0cb24071e2168"
+    },
+    "reports/PHASE-0A-JUMP-NONZERO-EVIDENCE.json": {
+      "old": "58cdbfa197fffdccfcd68e68135060430e21a21b810a6a0e57d9f9a8930934aa",
+      "new": "95ae3bd4719933d23b58f85672b874acfc427bd35c953e622b45ee2f5b97cebb"
+    },
+    "reports/PHASE-0A-MEMBERSHIP-CONTRACTION-EVIDENCE.json": {
+      "old": "eb8910ad8fab954e517a85a3637af018957f514e5dfadf7329605bca802c45ce",
+      "new": "3ca5d1a5d6fd2972919060429873d7d1091f1e9dbb09604af5ff3e520cfe6fb2"
+    },
+    "reports/PHASE-0A-OPERATIONAL-ADAPTER-VALIDATION.md": {
+      "old": "39d7a1abaab81604255f025e8248ffa63dd65b15559a19f9332caa403c69725a",
+      "new": "ede623cb0f364223c403d4816787759e044479f04a9559e1f45c7dcadbd6d288"
+    },
+    "reports/PHASE-0A-OPERATIONAL-CASE-CONVERSION.json": {
+      "old": "456db2f53d29fd476b5581bb5636f97038fd4e159ed0ae0fa8524d9332642660",
+      "new": "725ac2c87af65abba6b2c680c393acd58df4dc6689e824501e02214589b92b9e"
+    },
+    "reports/PHASE-0A-OPERATIONAL-EVIDENCE-BINDINGS.json": {
+      "old": "b8f4802d1caea0b870dd910cea9536ff550de31856e56688acdc235919896fe7",
+      "new": "b262813e6331971cd5bcddc2a100e7958f9940c364c0184932938cf3a176ccad"
+    },
+    "reports/PHASE-0A-ORDINARY-POINT-GUARD-CANDIDATE.json": {
+      "old": "fad6b4d7a6d94fc1758d27d447a0168b162bb863ad7f8a736f1bf6ea32e724f7",
+      "new": "02582a58d9dc6c9fca1d6dcabdf17028d96cb720472de6e688830a465617c1de"
+    },
+    "reports/PHASE-0A-ORDINARY-POINT-GUARD-INTEGRATION.json": {
+      "old": "1abe7db6b0d0ed7c16fb181bcc4bd4a4c0c39d3d3b1e7423fb5e9d1023273478",
+      "new": "7f21e9a2f96e337c6279e18603fb38035fff1f5722f5d3b35c9dad48f6f8ddd6"
+    },
+    "reports/PHASE-0A-Q1-RECEIPT-PARTITION-EVIDENCE.json": {
+      "old": "24c67ff79cfe89cd406322c0df24d861cca4b5132a9bc93f7f2e585f9cd9bd1a",
+      "new": "5e4f8a3826c7bb8c9c3406231e990b8b5d96c1f2887329cb0b7754e29927c16e"
+    },
+    "reports/PHASE-0A-Q2-EXACT-COUNTERMODELS-EVIDENCE.json": {
+      "old": "6d42e9c0d8161cc6a7c1cfd0607717e51c3d6141c4ef2aa931c20e8203f5bd60",
+      "new": "d103b567ec407f7c8ac1ea6e17ef6d6aec04400ca556bf81ba0a355b439cd1c3"
+    },
+    "reports/PHASE-0A-Q3-MAP-LOCALIZATION-EVIDENCE.json": {
+      "old": "f1dc84c934f52e2d98d1b5429e961896b0737c6a369c9ea48bd089f9754e056c",
+      "new": "b145430b22075cf05211e21d2416c8f58f88ed7047f17cd171cb9c8b09bbfa16"
+    },
+    "reports/PHASE-0A-RESIDUAL-CONTRACT-EVIDENCE.json": {
+      "old": "cf6a1acf161a7c1afe4e0943ebadb9c8719a4e1c2eaab9d9a3cc53e1ebe68abe",
+      "new": "e2f7fd0af428d585ef1211f675efe8f567d30abf72fb1bd92569d9bd9b6d90fe"
+    },
+    "reports/PHASE-0A-SIX-DELETED-NOTES-REVIEW.json": {
+      "old": "8d53dd063872e36c4ec21861629561ba0575b44ad8ebb5f1723efc0751baacd7",
+      "new": "c815843507aec82acb209945b8376fae05651163b320530e3ab14e0ba89d1406"
+    },
+    "reports/PHASE-0A-STRUCTURAL-DISPATCH-EVIDENCE.json": {
+      "old": "17cefdd66a1fac1ff321cbbf42d45a66c7c2f6bfb0b499e5d13275746629a2d0",
+      "new": "3f54a7ca3bbcf21f77aaba81fe5f84f77c87f942391b4574d67fc4347f64dc8c"
+    },
+    "reports/PHASE-0A-ZERO-REGIME-MINIMALITY-EVIDENCE.json": {
+      "old": "24950786d0c2b2e62429891c9d9fd8675bca7abb1ed7890d422dd8b4984af2bb",
+      "new": "e90b7213bed5a4d8f84b0e5422dc22f8412280ca1d7cc43462e1ea3518ef0083"
+    },
+    "reports/PHASE-0B-ARR15-BOUNDED-REVIEW.json": {
+      "old": "93b08c237be8449e6892eebb05c39f499878ba9760cf3e6cbe29155db930fe66",
+      "new": "ad715538a1d68d69d5aedb6586f773b9cbd16dfea45db4113bf4ced8394f4f48"
+    },
+    "reports/PHASE-0B-ARR15-BOUNDED-REVIEW.md": {
+      "old": "179a594928c1967fa082156dbf52f8ce3b6401cb0debb0cc98fd58c4b771c904",
+      "new": "35eadc0c559a54cb30c88ee02c75f4c1b045763b51a5bbe8b6329f6771356fdc"
+    },
+    "reports/PHASE-0B-ARR15-HARVEST-MANIFEST.json": {
+      "old": "2b2d191e16e3935c5391da383f4088b7bd6f6b456aa57f032b3b13fe4674b48e",
+      "new": "df332a364fbb0609eb8cbad99b228fe6dd932d40421d812fb37bb5707447f7c1"
+    },
+    "reports/PHASE-0B-ARR15-PARENT-INTAKE.json": {
+      "old": "bfec81762d273a6023a2d4c4684ca9a76318224f0df504e4db0fd52565a5134f",
+      "new": "b0f5939999ceecf8ad1b62f268c73245cc103bfabea4e5299204d22f1ea21df8"
+    },
+    "reports/PHASE-0B-CLOQUET-BOUNDED-REVIEW.json": {
+      "old": "f649692f6f86d7cd40ca5b6b20f420a7c3cc7b5a9a4a43c2815fbde4a9d2c6f6",
+      "new": "5a9b18734fa53a435818a400d3d4fd1e6b5f93087a36bdf414903442c5ff733d"
+    },
+    "reports/PHASE-0B-CLOQUET-BOUNDED-REVIEW.md": {
+      "old": "eb43202c23cbaaec576a0b9040ffd9a30c88073048690c24d949d3d6a4f63e1a",
+      "new": "5055f9631f0b97ecbeedacd5cf77a778f399ac825c491aabb41839b108701f6b"
+    },
+    "reports/PHASE-0B-CLOQUET-HARVEST-MANIFEST.json": {
+      "old": "69622a12e6519f41e39756c6d0a92540e51a17b72eb0059f817bf12571abb2cc",
+      "new": "bc4aadf6f21888c8c1833f10ffaa2af19d3a80e5277447c31be874cd92890305"
+    },
+    "reports/PHASE-0B-CLOQUET-PARENT-INTAKE.json": {
+      "old": "2b729e13a6841b29f56f3cff165e287188ed9d4de24355c7076cba862d4af57c",
+      "new": "c4933f1e0d357603d81e0221edf2a78b5d51943f4b1e6db95720fbdd0375847d"
+    },
+    "reports/PHASE-0B-COMPLETION.json": {
+      "old": "ad455a3960fb12a489d661c0b767ddd68ffd2ddf2b29731b6c87f3fd7edb44bb",
+      "new": "e47fc7178d6a6316423af5b4b553bc7c02c4520e1c9325c9425b0775ed5456ee"
+    },
+    "reports/PHASE-0B-DK-BOUNDED-REVIEW.json": {
+      "old": "ea28b23d8ddd6926c50b8798dbb2e954ed49d49868979bb4153a6f4e3de29576",
+      "new": "1c9db66d38949da3ce2101a5ea3a67520f699b0509d90e9a7a4bb5220556c062"
+    },
+    "reports/PHASE-0B-DK-BOUNDED-REVIEW.md": {
+      "old": "e3ee7ef47662c36e2007e951ef573918cee7ee14fc86a55a264ba8898aea3831",
+      "new": "4e4984c9839628343756c45724a483e91df8a3450019154b7e1cb53f0d2cf734"
+    },
+    "reports/PHASE-0B-DK-HARVEST-MANIFEST.json": {
+      "old": "67c5a5f81c7749413c06bfd19c240aef9268165d20598af58aecc4a534c8a99c",
+      "new": "be4f35b8020eaebb63d87901730f7a63e4518fb3daf6a4d05e31c1abd3932a14"
+    },
+    "reports/PHASE-0B-DK-PARENT-INTAKE.json": {
+      "old": "e453b2e932a95a7a6cf1b7ab91282cbf7958f8ed6fdfdb879ca507f1f04bc67d",
+      "new": "17c06b0a3f80acf6296d6465253b8a9c1fef99ace2cf34824313a5a397abfc2f"
+    },
+    "reports/PHASE-0B-FILENAME-DISCOVERY.json": {
+      "old": "2a4d7ac8e4b8c6025635cfec2eccf6ed3ca8e3501fab9510e6fc84e7959858f6",
+      "new": "404555f12b401de2cd924f75ecbf240cf258b94115aa7067de58b0b8f8c7e846"
+    },
+    "reports/PHASE-0B-FINAL-HARVEST-CHECK.json": {
+      "old": "a528f1a9074e039c91823225cb442b45e5f887e2f643adc077e772f2e483c1bf",
+      "new": "cda6e1f7d6f582dcbccdc883cc1d0f4002d96cf543358cbfc3f48dc6c58e1663"
+    },
+    "reports/PHASE-0B-FINAL-PARENT-REVIEW.json": {
+      "old": "8ef1197d25cf6d4ab09a29fc507e58c694fb8ca258b191469842531fd91bc23d",
+      "new": "76413d901df45e52002c7e538cd0b318eb1313960cab7aad16037f953fa70a83"
+    },
+    "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json": {
+      "old": "a459ad20306086f1a8a765c974253a4d8692325739a245741e83c161c7e36c0d",
+      "new": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849"
+    },
+    "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.md": {
+      "old": "7f42225a399673eb85debc2bd45029c936b2bd57a581479a49f9dd43074aae5f",
+      "new": "8e1bcbccd2c960217d3a7389e584a74c147a587bb7a29c2989c2f08fb6a1626a"
+    },
+    "reports/PHASE-0B-GP-INVENTORY-PARENT-REVIEW.json": {
+      "old": "17ae110ab80894fb09784c9189f55a98ef66754a6beb260b009eb3de022cc9de",
+      "new": "958965a00a1d92f239dfb84f985b247a53e3ada38a66ab09ba12cc80fdc455a6"
+    },
+    "reports/PHASE-0B-GP-INVENTORY-SUPPLEMENT-DRAFT.json": {
+      "old": "5108e91ab42501419cc92e574495ebe19a8ac38c3e8f6a5abc94639a865e0bb0",
+      "new": "1ea12da51790d7b0f3beb8c26586a921537b120df20a9730c8c8826344a3c55a"
+    },
+    "reports/PHASE-0B-GP-INVENTORY-SUPPLEMENT-DRAFT.md": {
+      "old": "d36e9f6676b5eb5e8d5c019bea1c481c90eeb3c5491028587b362d747ca9274a",
+      "new": "42fd7c0d0f5e428b142b11287776c9b7ff1d9873c2fecdf65aca75dcea4dbc1e"
+    },
+    "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json": {
+      "old": "7ebbfa70f6d29ef29d93af9ddd6afec3032b55e33e1c33cd640eabc5e4e7ca69",
+      "new": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8"
+    },
+    "reports/PHASE-0B-GP-REUSE-PARENT-REVIEW.json": {
+      "old": "612ef2f46ba54f67abd47e226c26b0d0fe591afbd6692ea5906cfbff21c5c1cf",
+      "new": "6ed2cc1f7b9b4236c3d6e62a463c51784ef92f43a1695959be9571d584ec82d7"
+    },
+    "reports/PHASE-0B-INVENTORY-DRAFT.json": {
+      "old": "adb5aad2ff9a75802300bd3dbbb79cb28e6b66008a36959878925aee11c696f0",
+      "new": "ab1a7c4728bf5ff36129df136adb9c2f612181662ef29ee23358323d866a8ab2"
+    },
+    "reports/PHASE-0B-JC-BOUNDED-REVIEW.json": {
+      "old": "ed21a01d9e9ac86e1d7f9deaaf13a6ed8331a4f74c1b783f120e11c42edb0a61",
+      "new": "1fd021c3f4576e7bd0f4c81b6677801fc48f745c5ebb5ad5f5f61d7990b63e33"
+    },
+    "reports/PHASE-0B-JC-BOUNDED-REVIEW.md": {
+      "old": "fc57c4a870e3da98980341142c4be5c17a87f1e1901b46309ee3abecdf8c2d20",
+      "new": "96c5e879b747082c27871a32fb8d855bc028c61c850e5ad629b0f03b3db6436c"
+    },
+    "reports/PHASE-0B-JC-HARVEST-MANIFEST.json": {
+      "old": "7eaa0a0288064417a29b95819e340b72a8b1340de5894f2e562026833ffad2a0",
+      "new": "600731aa50e7cbc2f275b42b2257fea8e04fd57daed1524d1761298d95ccbf4b"
+    },
+    "reports/PHASE-0B-JC-INCIDENT-CANDIDATES.json": {
+      "old": "4e5d091b8c5e827f550a93a918dbe79deeb2412e60e4f36a1339f4f42aa9842f",
+      "new": "a5a813368a30907855a9c0d2b9dc77cd26a9564506038a21b139566cfd3cd85d"
+    },
+    "reports/PHASE-0B-JC-PARENT-ADJUDICATION.json": {
+      "old": "6b949509c3660671b79886bf2b9ea33c9007b19ddcd47743f78b3b5ea65e4736",
+      "new": "83ef1d579eb45ba0cf1ec934902678545beab0fbc5cb4c5355b1a750b3ca912e"
+    },
+    "reports/PHASE-0B-PIGEON-RIVER-BOUNDED-REVIEW.json": {
+      "old": "40fba861a3887277bc14962e94ca55567a60bd5ad339afb765a4e6181020239d",
+      "new": "e41a6500c258c8b79f4f395b25af8e3aa0c8d11fc3d96ab8dc9ba959ba47c630"
+    },
+    "reports/PHASE-0B-PIGEON-RIVER-BOUNDED-REVIEW.md": {
+      "old": "41e2415d44a661a4d0c43add0b205a6d52c72506e3b15573bf2f96a00aadc837",
+      "new": "241e676c0c0cc041cdc5ae59b4841eb641855c41e6dd8f4e7b0d1801abad80a5"
+    },
+    "reports/PHASE-0B-PIGEON-RIVER-HARVEST-MANIFEST.json": {
+      "old": "9b7cd3ee603be05c19b2b7e3ea071b37ffce8c59fb654c043f692a2c3d5e18b0",
+      "new": "3afeee7cc520115cb841b2d93b088e62555f0de6d3e81efa76aaaa5b97ac1e5c"
+    },
+    "reports/PHASE-0B-PIGEON-RIVER-PARENT-INTAKE.json": {
+      "old": "7caa351bb5c7b4897affa48c4a45637b1db86b97adc570a7e74b9bb9ccc58e1a",
+      "new": "fda1430feb9c8900c7a239f168d1cd1f132e9796ee51ab68746dff7dc6ff85dc"
+    },
+    "reports/PHASE-0B-SOURCE-INVENTORY.json": {
+      "old": "d90ec1919b44a27c5f023f05bb3acb487a58d609ed9fcd409bba495031158089",
+      "new": "2d46c546d067d80fee5c545729f11cb3de0a1ef50da3702b00f663ed57a7916f"
+    },
+    "reports/PHASE-0C-COMPLETION.json": {
+      "old": "876fc0856f0a8099401b3dc9d306d8d3c6b95eea6cd03813ed632e9d25d850ce",
+      "new": "ae344b001c280650bc8b039365a8c547565138e67ca5ca3330504b9e0f725f22"
+    },
+    "reports/PHASE-0C-CORE-VALIDATION.json": {
+      "old": "40a9a2d7ba8c559c9b599ddaf5c26903129e804a847478120f49bbf4810f8276",
+      "new": "1ba4cc141f5516ea7530aecf61f51433a19be1131797b8991f7bbf41d57ac31d"
+    },
+    "reports/PHASE-0C-MATHLIB-PARENT-REVIEW.json": {
+      "old": "89a3084668d8bd8825030f7c845356fef075967be7b104d5acce5fd4e971eb0b",
+      "new": "292cbcc31ea874e505cc983fc7540b6075bc9eac678e44d181a173c300cf7ee5"
+    },
+    "reports/PHASE-0C-MATHLIB-WORKER.json": {
+      "old": "36b3aa98bd61bdbb8f0387e9f7be75ac52608fafdf563ad5db8b2951f3f91a14",
+      "new": "237cb590d8409aa9a678d17c8cbc93e3abeaaea31696c4ea32f24c2df16f065e"
+    },
+    "reports/PHASE-0E-CERTIFICATE-CAMPAIGN-REVIEW.json": {
+      "old": "d99f5e66d1326e8ee91b80b5879ffb813c7cd7a061cfbd142400ff785f2bbb9c",
+      "new": "2d45369edc4932a61d61f882c5df36fd6b233be109fd8b01ed63606edeba0c83"
+    },
+    "reports/PHASE-0E-FINAL-PARENT-REVIEW.json": {
+      "old": "7508b469acd945f57258b9443efbbab9a888dcd3e6c23f78ef663c4e6b898c6a",
+      "new": "f4d71c6c8d05e4b5495f0deb56d8ce7ad82026a2d7e20397978697978ee5fd2c"
+    },
+    "reports/PHASE-0E-P1-P2-P17-REVIEW.json": {
+      "old": "805458e620ead99cfe3ef023908392d509dd14ff3c61aa73bfc4fcbfbb6f8d48",
+      "new": "7eda5077c9d6244c070c110ad4208eb0681c0ffcda3f61ea7a60d2998f0db55a"
+    },
+    "reports/PHASE-0E-P12-P16-P18-REVIEW.json": {
+      "old": "f7950ed49a71c8165a5a5db12c2b07e3ddf6fa0faad88f209033ce2e771ca0f1",
+      "new": "9757180040d132ff0e1046084552908af4dc432e00aa10f6d8f375b26af0e022"
+    },
+    "reports/PHASE-0E-TRANSFER-PARENT-REVIEW.json": {
+      "old": "7c28c069be912b2a6b9446d81396b0682c730eb6d635693eafb47b9ff0b80335",
+      "new": "884b6d6c7a73616e819fbb56c1b74063ad2678cf8fe750c3369b3106fe5b685f"
+    },
+    "reports/PHASE-0E-TRANSFER-REVIEW.json": {
+      "old": "483a6c9bf2538d0afc6791bf17d2c87b0488cc3ad0555b6d3b8d1dbcfb1418be",
+      "new": "ef3b5f85bae5beae40037b0e377408c120011136dbb3fbd71b18f3a936dd6e88"
+    },
+    "reports/PHASE-1-PAPER-EXPRESSION-CLARIFICATION.json": {
+      "old": "cf8c248cab414a55d57af2b7bdc1f2981255da2b497b7b37c9c77a36f358b231",
+      "new": "7b347c3a6f60364eb72efed0b02915f54a6a53e87bf37bfd915399dbd0524811"
+    },
+    "reports/PHASE-1-PAPER-EXPRESSION-CLARIFICATION.md": {
+      "old": "681dc8a3c215be2f5457cc1f868c8d2d9b51c727ee71ab0455f4e8ad9edbc796",
+      "new": "13292dbc7c37e12c71747f0a20c006c3dfb2f1b5fc5983ec0087df777da14b9a"
+    },
+    "reports/PHASE-1-PAPER-EXPRESSIVENESS.json": {
+      "old": "5654e694dfd4c84bb77f8d903f2fe501678743afa08714bbe5c73055d8583f92",
+      "new": "1885afa5a8461bd98e0e6ce0970b69c4946720af1ee5f23d73df5c083efa9f47"
+    },
+    "reports/PHASE-1-PAPER-EXPRESSIVENESS.md": {
+      "old": "d8da3bfeb0a3108ef135858326f64d6b8919e02ac1394b83023997937dd07612",
+      "new": "b8e89924cfdd37045dcb527cab81488c612cf956ba2d7f20bf1d5c1db6d5f3d1"
+    },
+    "reports/PHASE-2-ADMISSION.json": {
+      "old": "6083a67be481fb72542e04e615b1987b1693fe75fb0fa8eaa777023a4c358f5f",
+      "new": "a2065639af0456c8c477161f9757ea33b83c7169d1d9c87739c3bd3559f6e1db"
+    },
+    "reports/PHASE-2-BASELINE.json": {
+      "old": "49eb8148d87fee918e311fa51694e353a297d03e4431fb4d4b45105a0a8c42f9",
+      "new": "5e7f8b32338a845ccef9015f62ecc5da750681a33cb945d2ef4d3763380a3bb9"
+    },
+    "reports/PHASE-2-CHECKED-LIFECYCLE-SUPPLEMENT.json": {
+      "old": "037e4bef317b258fd960fcc06e9416cc8a558cd9bb8fe46455ba23557859a522",
+      "new": "d346b5252bb762947b000a1b63c7e16b1e37393520c483e1f1e5ae39e1a8eb83"
+    },
+    "reports/PHASE-2-CHECKED-SUPPLEMENT-INTEGRATION.json": {
+      "old": "811d379172645067ba9d612a633314447e3ce0277dd21718918c5982af687c69",
+      "new": "c550fca46bc32182fe1b581e550617b47b99fccd58e9073b8d7efa6cd66a1892"
+    },
+    "reports/PHASE-2-CONDITIONAL-ADMISSION-SCOPE.json": {
+      "old": "bc5a510f23c631cc618adfb89da5f23c249a15cb023c65e63fbd15251920eaa8",
+      "new": "457f817c1819d2fdaae48b822ae98215321749950594e678cc7180ab0060b4c2"
+    },
+    "reports/PHASE-2-CONDITIONAL-PARTITION-SLICE.json": {
+      "old": "17eb5a55ec647a23b5c39b418fbade61ebd6bee60cb59bde3a7cd688595e5ee8",
+      "new": "51b41d0e5afb0ad989e6d0eb6989fc07ef0f75aaedb2d9fa14f2f27daf7a7456"
+    },
+    "reports/PHASE-2-CONDITIONAL-POINT-ROUTES.json": {
+      "old": "fc29f0c053463218708c87c8943e4555e4dbc70ba9a3a1d1b7d951017db67df8",
+      "new": "044cf5464205c2028082345fbfacb8912b8800b721cf5a95dde45f54c04bb1e6"
+    },
+    "reports/PHASE-2-CONDITIONAL-ROUTES-SLICE.json": {
+      "old": "588cc05829b16ed390b0e8fb5a51cd6bfbca25df7ec3249ca715cddbf0bfeba5",
+      "new": "4e8e9ba6815bfb98c9c2bcb6fa4d3317cb1b744d4ad92f96bdb1aa6e54290dec"
+    },
+    "reports/PHASE-2-CONDITIONAL-THEOREM-TRANSPORT.json": {
+      "old": "b4143d9a7d56f5202092078cb9a75d14eb85c58fa9cd2bcfbc84bda617fd8067",
+      "new": "73fe68b9ca5227f9eb314165de569a89e0c70560c2229363493d910bc2cbed08"
+    },
+    "reports/PHASE-2-CONTEXT-REACH.json": {
+      "old": "e240b2335fb07541525c3ec00165480ce2e92e632fd6e0fa7f6b32c562d096f1",
+      "new": "b2d2d6e45b91920324698d3eb07f3b9f7ad18001e4486d0cecdc9760e9904a4d"
+    },
+    "reports/PHASE-2-COVER-RUNTIME.json": {
+      "old": "cfccc43a6d9057e733a8b28b49a046a9ae657c80dfb85add75ece599a887e124",
+      "new": "94ea45a0e9a7c17e80b537be9551a8d48ae40ba9061844bd800c568442badedd"
+    },
+    "reports/PHASE-2-COVERAGE-INTEGRATION.json": {
+      "old": "3261fe5c915503f1ae58866e92ee519d79588e2c6e0c81145792f330e1ed64b7",
+      "new": "d5f7140ce489e7ec9856322b262faddb9f317fc566dbfc7207d3b391d59c3465"
+    },
+    "reports/PHASE-2-DECLARATION-INTEGRATION.json": {
+      "old": "725152efa41207c446e4639c1c86ddd9833210d70daa62592511449ee6abb33a",
+      "new": "501acfdff02b5261a4b1d4cb85ff974967af1cdcd9ad74e2d1e3944d1ac79d67"
+    },
+    "reports/PHASE-2-DECLARATION-SLICE.json": {
+      "old": "5e3eee85f901af828ae119b44351257d9931f0b2d667417a1372139f54cf9255",
+      "new": "d0127d1bca8f347a7d7e598a924f33231369011fc6c80c1d0d50874b6e59120b"
+    },
+    "reports/PHASE-2-GPC-HANDOFF.md": {
+      "old": "ac364fcd5b3c8bcaa88767561bac89017c7673305a76dcc4eb1b361288f9b1de",
+      "new": "63596ee7544b4e0a4995d4c6fbd58970ec15f6a0537a718220bfdf70d5b1360c"
+    },
+    "reports/PHASE-2-LIFECYCLE-CONCERNS.json": {
+      "old": "223c53cd97bdc871863ca3d54351203f3968d881e7b50eced9b96e0d776fdbd5",
+      "new": "f4bbef7b5f6ba94d2f373317d2396d7af3dc55bf32b443d239df1d96fa2fda83"
+    },
+    "reports/PHASE-2-LIFECYCLE-PROPERTIES.json": {
+      "old": "33c4917b0edb3c1f156f9375f32c8333f87452bd6e3856e19e473567c76a4c4b",
+      "new": "7a693414b31750103a1dc106eb8edf5a5ad5a629baccad4e5dc6755e17821e0c"
+    },
+    "reports/PHASE-2-LIFECYCLE-SLICE.json": {
+      "old": "ceafaffb749a30dad1fc8f5d707b97ded4b98658b0ed25489f4a851d99f1efa8",
+      "new": "2e8e6a4f944848f210bd7f9d6d190e7e3ff4377a937d455b455ca8074b608e81"
+    },
+    "reports/PHASE-2-MISSING-AUTHORITY.json": {
+      "old": "c06af599025346eff9c877c26736cec21d8a446dc85b0ce8cf267c2593c20b63",
+      "new": "71f30f036eac30738242f64ee21c70676496a4ce2fe633b0a6ef6dfe96a8e057"
+    },
+    "reports/PHASE-2-OPEN-PREMISE-GUARD.json": {
+      "old": "17fbda7b509cfe9ab4bbe7179a0b1602685ff76b6f148edc02992bbf295f77d4",
+      "new": "71fbcbb4779259f5142444972d5fd254adaba73f4baa59e75bbd67cc7529513a"
+    },
+    "reports/PHASE-2-PARTITION-INTEGRATION.json": {
+      "old": "016ba00c00605bab25f8e159e12bf39108db7ec86ed05164229c50178783cb8a",
+      "new": "ace1eb116590fcb420d8923c12d893ff7edd7fb45a6e042af3b5a18fac19ec88"
+    },
+    "reports/PHASE-2-POINT-ROUTES-INTEGRATION.json": {
+      "old": "670124e394b184fd6bdad97266845c3fcf644b934471ce9bf7f69c42dd8f519d",
+      "new": "9e1f15f8952a77a637d928f9e86daf64a6d1bba5b68a214beb09e3718cdff298"
+    },
+    "reports/PHASE-2-RECORDED-USE-COVERAGE.json": {
+      "old": "e2eaf09e4f380aee351f439ac20bb0cd83e34bfbdbaca0b2cfba829efce08306",
+      "new": "ae45a448255aed91322af11b39a4a3920b56993057171bfa1ad2d396408777c6"
+    },
+    "reports/PHASE-2-RESIDUAL-SUCCESSORS.json": {
+      "old": "57e1723f9a8bd40d7e31b8db1fc38b6a78bb7d8745ed620cf2fe98d9d041fd08",
+      "new": "999e5ba0232ec7900b4b3d9e0af7c996e8966717891e7f9fdcbaf9d90ae41967"
+    },
+    "reports/PHASE-2-RETRACTION-INTEGRATION.json": {
+      "old": "8b8dd095e75c598ba046d65de040c03c84c72f7b732267f947f97bbbc70c9263",
+      "new": "3da33be8f9e57ff1f354b23ce123ba0ccacb46a63fc0f19093652abedb18d42e"
+    },
+    "reports/PHASE-2-RETRACTION-SLICE.json": {
+      "old": "ff896eddb095d88faf5ec935bf82f20e2b6d561687dc196793755ea8ed9b8250",
+      "new": "c2faf2e0bcaed5e6885339adb3db9d9e3add0fc46ea3be29d16633d35db21799"
+    },
+    "reports/PHASE-2-ROUTES-INTEGRATION.json": {
+      "old": "2f8a448b9461a93fee72378365bbbfe870839c4c3d159a308f057e45990b810c",
+      "new": "e1fd13724e1420e8271e471ff9e78e37e828ae778088b4f39baee74f5e747dad"
+    },
+    "reports/PHASE-2-RULE-SHAPE.json": {
+      "old": "8fd8216888967cdc897b91294995b3f82b3181dd8badf30a2859ca07384c671e",
+      "new": "3d76b27124aa465d9efd348814b884608f46ea270ae519e11b11b054dbdf14dd"
+    },
+    "reports/PHASE-2-SCOPED-RUNTIME.json": {
+      "old": "f02f715fe477d5588c26813204e19382ba7ae0bdc63097bd767e6aefd9272526",
+      "new": "1c72477985a5f96195015daa2f99a976658d162954646b9b79abb0db445172a5"
+    },
+    "reports/PHASE-2-SECTION-PROVENANCE.json": {
+      "old": "825a826c94793b54516118a184b712403af8de2bc1f927fe32498ddc0cdb415a",
+      "new": "192bb8354838394a2a1e86325eacd90fef97a1f806050ea13094cb69e3447c6a"
+    },
+    "reports/PHASE-2-SLICE.json": {
+      "old": "d94aaf998afd6e0fe31654ee68f41a792cf7bedf418f35e31a7baeec42fba780",
+      "new": "3e78199cb1f744ea09543f5f412824cf1e582a25377bf8ffc47bfe9e172f61fb"
+    },
+    "reports/PHASE-2-SPAN-SOUNDNESS.json": {
+      "old": "608d8491481a8b3c8f33ffdef7985bf050de7e16b4f4458c772b6f146562695a",
+      "new": "11e1503712502be59df617d6bd5f2facda291935e4c3438a42e774fe5e62891b"
+    },
+    "reports/PHASE-2-SUPERSESSION-GUARDS.json": {
+      "old": "faa1009795e9a019dec4745efdba8afab375e84599512fa180dc3b577d67fd96",
+      "new": "f528906c5df944ed8b5cb4c6ce46f08fba37ddf499ffbf98d0d66811883490d3"
+    },
+    "reports/PHASE-2-SUPERSESSION-INTEGRATION.json": {
+      "old": "8631360d1b6e95dcb5d73074b930aa6a1954d18f69e5a22b197277405d8a77ea",
+      "new": "b98975f80a45c8c504c6946c6669c25086d9ff62733d622e4508e19a4a9cab25"
+    },
+    "reports/PHASE-2-UNREPLAYED-EVIDENCE.json": {
+      "old": "810326f9429d179c84c4fed5c3556b590561a20285a9cd76ddd0269fb70597bf",
+      "new": "bdaad9f36de48ea78210646fad2d26354e39d8178f80dcc445bd054846906526"
+    },
+    "reports/PUBLIC-INTEGRATION-PLAN.md": {
+      "old": "583c224f798a25ff351f6caf27052275cf44c9c8d72ac219a550dfa91a24a302",
+      "new": "ac6b965d4a6989b6ed5b8009a8eb6ea7f565a44c2107b584476ec69fe55775b1"
+    },
+    "reports/WIP-REVIEW-CHECKPOINT.json": {
+      "old": "62ad9e33fa6c7d146bab45a658f9c5941b1ec1fb3b46ec2f376fc3a8a788e3c2",
+      "new": "00fdf60913d79a5f285b9a0d9e611ba4104324aa597b5f39f70a01b5fd1d7454"
+    },
+    "reports/oracle-batch7-tests.xml": {
+      "old": "1921d39e0f4054b4d375370c3bb4dcaccc2488990c5fa03d60fde8bceaec7f99",
+      "new": "3fd10e6ea734a8816ac0e056c37287633a549a99802a1675f88843fce2e11873"
+    },
+    "reports/oracle-runs/20260927T192111745197Z.json": {
+      "old": "0b52e27f669596d3d40392b44cb54daa072fbc04fd9af9f24c053f494d90ead8",
+      "new": "cdcf41a910fcc8ec6f375de1726bdac6ee75bd5ee3b09fbfe2fb6c377bc43299"
+    },
+    "reports/oracle-runs/20260927T192654796297Z.json": {
+      "old": "7b4a37b3d33203674ebed687f7bbb3dc285c2ba0c1d15655d296289843f307e7",
+      "new": "c9668277b964b9214b41001f844ce085d9d409227a8de9acd12a8b506b85f736"
+    },
+    "reports/oracle-runs/20260927T193016111927Z.json": {
+      "old": "788888dee78e2c5427cf6e4a66ccdb17515bfb4081e9fcce9c13e6f90c43d654",
+      "new": "b65fb5a8ec83347b9f1cc368a9c888bc65e27031e1ac360ce8f68aace1c36d81"
+    },
+    "reports/oracle-runs/20260927T193353644389Z.json": {
+      "old": "1815a9ffe5dabe3f272a071da514555056d0397b431cae2b6ad105b6f5184869",
+      "new": "14c2369ab2404ad0f143619acc0b9192ea0df053758b385e10e64c2bbc0e4c6c"
+    },
+    "reports/oracle-runs/20260927T194509549557Z.json": {
+      "old": "740e553391ed9f51137a5dfe5e9bc582fa445bc62c55ac1553e361a80edaa3ab",
+      "new": "ef004cde77fe6b39adf1ef137219aed8033b10736faa132257d8ec6a50abb418"
+    },
+    "reports/oracle-runs/20260927T194819571013Z.json": {
+      "old": "752a1a3bc9cd2eca2cb2062c62f82cc61654db4d0aa8052b5f3d04335bd9dcff",
+      "new": "5c90d65e1c83de811c42b2b5b6ef5fa23fee4d59c432edcd4eb3a5dd1fef45e2"
+    },
+    "reports/oracle-runs/20260927T214417724167Z.json": {
+      "old": "19b0ab758dd7e2b5f3f6222ac28c97ba019ac15c89436d2a1e26ece312d7a854",
+      "new": "509c8cd97317e81763ebe5f312ff8b4068494f3287b2632d2014e9fad6103690"
+    },
+    "reports/oracle-runs/20260927T214549948506Z.json": {
+      "old": "1c267a33c1f86be7cf53e9e45080f59c0caf5435248f800585669e93a41daf9a",
+      "new": "8c862acde844caa44fee442a84e57c1fdd74e354ae50e334f30fff69183a60e4"
+    },
+    "reports/oracle-runs/20260927T215349506181Z.json": {
+      "old": "33d2dadf19f9ec8a6b64553f78cd931f4574ef6bb9fb2cca981164a4cc523c21",
+      "new": "5d2b713346b136cfacec3613bd1468c362cb372c38171ae81bb5a602800463a1"
+    },
+    "reports/oracle-runs/20260927T215641366343Z.json": {
+      "old": "17560bb969553dd2203d35b0b9f7d0c2d958fd91ca0e2700f2fb385f620f92dc",
+      "new": "cd8e76da3409e731c78b3c8e194e2e0e859f7d2891d015e861e8b48b4103a1df"
+    },
+    "reports/oracle-runs/20260927T225826893160Z.json": {
+      "old": "571627a3293955844a716b3d95b526d0e4136d98f4abebf0dc58f8ac8c098520",
+      "new": "fd817ee4dbab155911241850d4b1b31fdcec69bd5ada5f8c863131cc8a53549e"
+    },
+    "reports/oracle-runs/20260927T230038467746Z.json": {
+      "old": "0d6e7b9e19032c24ab3549391d3573d0a51c74f7257e5657e8ffee57fe677351",
+      "new": "e6f72941d9064049bacee8f7aff6caff128d46419705a66dac48a74e83ab62c6"
+    },
+    "reports/oracle-runs/20260928T000929174653Z.json": {
+      "old": "ce46e9e8542d8124885820a1acc16935d61c7bfa14735600bc1e1755ec14f8a7",
+      "new": "b306d5f500ac8793daf7ada1dfc5eb608a7c55bddfd01a02af3ac99fbdf63546"
+    },
+    "reports/oracle-runs/20260928T001144487626Z.json": {
+      "old": "f90ba72bb4d179fd4cda15720ac9b74b01deffa3acf1c795ca8eec635a20a34c",
+      "new": "6fa22ec6dcf1d99bfb9b9b0d0bed84d4b93f8d43667dcb27c0a329b98c9ebd46"
+    },
+    "reports/oracle-runs/20260928T003859621953Z.json": {
+      "old": "ce6957bc5f4e056e6a77ca27b01f3fdb6c1bfe2cdad172daf1b5c6032b196e82",
+      "new": "1051752c3227f644b739491446bee85683c5c27312046b70a74d120b75b08ec3"
+    },
+    "reports/oracle-runs/20260928T004141103253Z.json": {
+      "old": "0bbe5333a40128a14c64116ced940dcf72893f9507e4a7e554e03638b2a1dfa4",
+      "new": "13845e980ee2191a6e39b5a20a9a1f2c9f5caadfbe678fddda1889ef3c31086d"
+    },
+    "reports/oracle-runs/20260928T004357969892Z.json": {
+      "old": "03065321de8ae019225fd3bb910f9977a0de603bf72c1c6531e93b60017b2902",
+      "new": "620d8f2b81651b04eb4565b87791062b4a3bf0d4224a346b76941c8fd64d5d58"
+    },
+    "reports/oracle-runs/20260928T005746066504Z.json": {
+      "old": "d4a4aa2f85a3c05d403b139f6d093579c0b6dfb2ab186b0af50989685f81dc72",
+      "new": "b58d694afa7e6d92b562eb92f54222dde960fb9f665fd5613d42e958a46a37ea"
+    },
+    "reports/oracle-runs/20260928T005914421900Z.json": {
+      "old": "6893afbb482a8751c6655be622c774b150df07e99eb7383f99b2d2323cf01c39",
+      "new": "83431fd0f95cc0529faf2c149a5c6274fed16752fc528ec6356cb7edcc23c146"
+    },
+    "reports/oracle-runs/20260928T010106460983Z.json": {
+      "old": "5baefff58b72f6901f39aef2200e31ef91d8714a1e37468869ce26bb52bd8ceb",
+      "new": "29f85264686a59ef72a372059af5639eacb3bf46216343cbc24a284166cb20aa"
+    },
+    "reports/oracle-runs/20260928T013137438765Z.json": {
+      "old": "c9e04353d21b1f09bd83b07e1c0db062c8cd2d5f543cd279e5bb07748d09a32a",
+      "new": "4a91279d82902dc27f142df59e2428376a5ee084123951174a38667ea92f77f5"
+    },
+    "reports/oracle-runs/20260928T013344497973Z.json": {
+      "old": "509419dab92028836947ed4e7c935d31faaef4006ae1cd707758b5ee67250d53",
+      "new": "ef9eca90f1fbd22e0f1f02669880fda5ad2c337aba3192c5623d0ae86fc67478"
+    },
+    "reports/oracle-runs/20260928T120430319687Z.json": {
+      "old": "96edcb1eb65164c4aef1425058fb2c44cad419575f5fe66fcb5faf954d4f42d2",
+      "new": "dd54afbf381c7aa8215f33696456008b5f4ff89213e858854961793cdfadd45a"
+    },
+    "reports/oracle-runs/20260928T120949993499Z.json": {
+      "old": "cfd623ba3b4f55ece6cffc8313389cf9d07ed72023bd06701d2f6ad61ab8d6be",
+      "new": "5327c7196633b3d958b35236b74365b917f70039ac42506a176007ce26fb358a"
+    },
+    "reports/oracle-runs/20260928T122501685787Z.json": {
+      "old": "44f00718d6680b526d99d395ddf98161568d73c54c855725c3996dc98c8782da",
+      "new": "fa9d77b6c16ec0f65cf73be3371fbeb20aeedfb8ab849fad503b90957a0fd6b1"
+    },
+    "reports/oracle-runs/20260928T123029629655Z.json": {
+      "old": "70b95788a98041f9e6727faa598ca674b5d7b6ce930e972c78989a3a5b7be184",
+      "new": "420463aaab82f4941963e183f967f4f4156aea0138397c3b0fc69be917a58b1a"
+    },
+    "reports/oracle-runs/20260928T123914599021Z.json": {
+      "old": "3e738f1161296269f0e84f5809031cab4d9f988a8196020542c5aa184b911803",
+      "new": "2ee884f314cdc8d71cfaab3bf3566a223f703b66193c2d44115d2ce08cc77d68"
+    },
+    "reports/oracle-runs/20260928T124035734115Z.json": {
+      "old": "9d88021c24e69174f99148ef5936ea791928ece19395a95a42af03dc099f8d04",
+      "new": "ecef1b269051ce3dd320e4d1b8bed047cc3372cbd740912b30aab73c983681a6"
+    },
+    "reports/oracle-runs/20260928T124442499612Z.json": {
+      "old": "f8151b9bc99af5f09d36db59c6659b359a9b8d3d8072e8e3c2ecd7a6bcb1dc38",
+      "new": "06a74b2ea8d9f3d0b90705a904bcfa7c48380d036d10eb1b02ed79b0a3804811"
+    },
+    "reports/oracle-runs/20260928T124904916539Z.json": {
+      "old": "c5a393e851bfd5f7149dc2a0aaf232e9216d7354947b8534cec885a4a869887e",
+      "new": "e6cec7157b7f5412c05d3624d956c57f8172ad79389c1f22d8531837d91ae8e9"
+    },
+    "reports/oracle-runs/20260928T125417944786Z.json": {
+      "old": "e0f2a4ed9df67e30816e9c03c6ca1dc7ce16a98ceea5f2114d92f491a9458efb",
+      "new": "acf9ccb3e5bcabac9da7e02fd61c8d4dc692abbfce5d3c71d08732e6299c40f3"
+    },
+    "reports/oracle-runs/20260928T125827407747Z.json": {
+      "old": "fbf805a79c81ecf209cdd3fecf051e9762ffcccf707dcdb1fb069451e5534fd5",
+      "new": "d5c32c59fa13d44840a136ae74a75da1d45b3c1ec366207ef1f22ef190afa189"
+    },
+    "reports/oracle-runs/20260928T125957587639Z.json": {
+      "old": "b85254535744b1c77a4fb767cca1e1cfa066f1c3b512bd185bbbb7b0c6e348ec",
+      "new": "a0863ae83a03e2f70cd2e222330395b99bf2d4642d234c78885c14ef1389976d"
+    },
+    "reports/oracle-runs/20260928T132445125437Z.json": {
+      "old": "cb63c634eb6e73658569ede9c472c90d417821195118ae8700ce8c9dbaaa4666",
+      "new": "ce61d8f0652a2f35aa9a52c6bd75d0bdb39243f4d8007b604ddebb01c347db8f"
+    },
+    "reports/oracle-runs/20260928T133004542562Z.json": {
+      "old": "4ac15a95c0ba06f957f0718f3bc96c33f211ce9dba654b435b1546d443a1b172",
+      "new": "80a7c56400ad4ab466c2453d5c2b7c6eecd71d07109715934fed9c9dc6e67d9f"
+    },
+    "reports/oracle-runs/20260928T133501391433Z.json": {
+      "old": "55665546eb645885e619de0b3478b695a28ec8e3c5337fec2ed9274e93251dac",
+      "new": "ad39e9181fb77760183dedba9521def4dde68598f72bcc1903357b1459bb9230"
+    },
+    "reports/oracle-runs/20260928T134033509436Z.json": {
+      "old": "d1371ff68b0c0f5ef3e41a7798e04ed5464a304d2f3241ad9ae2ac8f03208c84",
+      "new": "eb667e1516e6ec67685c7fd73feb1633217087775f5876131a008b9f168f6781"
+    },
+    "reports/oracle-runs/20260928T134501652085Z.json": {
+      "old": "bb3fe7566281c9c074ad4f114a2ed6ac260ce5f9c8413cc4e21107eed82f1630",
+      "new": "be15b7117833d8027899361b4f52e58342cbb57d511e6ff4bb64f96b7bb073a2"
+    },
+    "reports/oracle-runs/20260928T134911304414Z.json": {
+      "old": "896408a56133fc9989bb3b849ae75e2137bf9331f59e55ec87392726888ea246",
+      "new": "e59972ff40983143e5210a5ff04ca7a7c4524f430f13313656d9bddff047baf6"
+    },
+    "reports/oracle-runs/20260928T135027538659Z.json": {
+      "old": "6c558c7c355c3629f173875ba56aa96b5d4604264897586201dc64a439c15093",
+      "new": "b67aa3e231b167d0bce7be5e5b1fa9117976ba09fa4e6f5fb73bab77a239275b"
+    },
+    "reports/oracle-runs/20260928T141329008590Z.json": {
+      "old": "194a7ac9765ceb24f1d635ede140517d463b54e383c471261fa46b66a529aaa6",
+      "new": "22708b1846b242607168323fb129cb71f7c88a4a1bcd72d6295ffd3cbc5dcc45"
+    },
+    "reports/oracle-runs/20260928T141913475576Z.json": {
+      "old": "c07f6aaad78bb7c8bff4d6bfc55fa29d437c106236f8ac2c23b55c3cb0d7b7c3",
+      "new": "bb20543bcf19b3efccb29b9ef86b99b5d329ea9b92165df1575b35bad22cc228"
+    },
+    "reports/oracle-runs/20260928T142458952693Z.json": {
+      "old": "c53022f2574d22514c64fc124fc6205a02f9fd0279093e598728dbe70ef6dea3",
+      "new": "611e53398e4015dcebe92635a0472fcb6c0328350a9e7e9d4bdae22181800022"
+    },
+    "reports/oracle-runs/20260928T145035306827Z.json": {
+      "old": "4a40d1567f53f45a052006117965d0e15b361b84e23cf9821472ffedf6b3e13b",
+      "new": "f48f049437a5b8452e9208a121887de21e89cb8403d11d6183ed2f8f1a73cdfd"
+    },
+    "reports/oracle-runs/20260928T192507564841Z.json": {
+      "old": "f76b13132c767fbfc65397e681e81d48c9b0d919dbc130a7a07508e6a11df54d",
+      "new": "d9e6cec9f57ee5de06a14c8a5489770dcf4ba0fafd6e03925dd1da634f94ba69"
+    },
+    "reports/oracle-runs/20260928T195529039969Z.json": {
+      "old": "fcc53ebf42259ca8e11b6f21b421f1a75d0689281277131d680d73ca533fc6d2",
+      "new": "b73197949b3545e48361a2c5101cf64d3bea07ce97823a4a1bd1e5640dd16d70"
+    },
+    "reports/oracle-runs/20260928T200343664378Z.json": {
+      "old": "78c21365ab827d008cf1358eb7f5236894d384d4969558f31c19de623c104520",
+      "new": "0f192b9a9e89c956d0bf45c1862fcee9f34af3ea73171750387930afb6868403"
+    },
+    "reports/oracle-runs/20260928T201826560097Z.json": {
+      "old": "4059d402f630db779653e1ef96e5e62b1b0103b8a2dd72d6b055a485559f5a13",
+      "new": "fe9c1bbef8978ef482bca815e334bc5eb1dcdba6e17bcd59900d2a6d384f9f86"
+    },
+    "reports/oracle-runs/20260928T203130963441Z.json": {
+      "old": "6098c771eca8d31bd10136e076362540a85d6d5ebb802737d0126f7c0ace58d7",
+      "new": "1018b58dd2da15b21aa4558ad6aea512a6c8f6c8efa31c983a233b6aa3c9deeb"
+    },
+    "reports/oracle-runs/20260928T211311262604Z.json": {
+      "old": "32f96c898277030075779d09d3ec7644b8f3ad2c7eb5036413ff189f806af85b",
+      "new": "02a18337674b39ae1322b413d7c546a5c20763f2393fe2dcec6bc36279cf1af1"
+    },
+    "reports/oracle-runs/20260928T220044757918Z.json": {
+      "old": "428184e63176cab9cfa911bbb4dc9686d281c6b84ed04af6e0bb8af4374b9bf9",
+      "new": "9cfc329bd086d63a470af593423daec34a822a8d9dfda332cfb0bc1d09d79be4"
+    },
+    "reports/oracle-runs/20260928T224802105393Z.json": {
+      "old": "e70d6176f214fdc9d1bba3ee41345c483824cbdd21c499fa9ff7aabf31f0ef23",
+      "new": "c0a28dd6b4885a5928068a656a5273f29d10ac6f3bb5d4b380e4c20724cd46c7"
+    },
+    "reports/oracle-runs/20260929T003257767801Z.json": {
+      "old": "9bd87748d0943d05c4ed399ed00bfe9ed8efc8214fc4fe698629baaf6f5bcec4",
+      "new": "5a0c3d59c02dd06505415b5b571251e676d06ef76b291302deaacedce48bfe86"
+    },
+    "reports/oracle-runs/20260929T012356934782Z.json": {
+      "old": "095f69903041743da2914581963e4c2154f67c81a198c534a1dbdaba6cbcc93b",
+      "new": "b24859836e54daffe5095c4203b4266875ef2fa1bd571de0db723b971e746b05"
+    },
+    "reports/oracle-runs/20260929T013607582479Z.json": {
+      "old": "159a753e555d15769013dde07382121e3668d5a729f3dc77e0a0ca8c8c19ac41",
+      "new": "dd2bc4688257435f3c87a6e932be56cd771e95a9264fb2f2c812bee35b4b5404"
+    },
+    "reports/oracle-runs/20260929T013956101499Z.json": {
+      "old": "6a16930a6f99deb597b66b7b100cc6b9877fc7f6e937ad1545a568799c24d22b",
+      "new": "28c4fa3a2c6389cd0ca9322a39cc2980f3d08509e94110087ea833d9228bb12c"
+    },
+    "reports/oracle-runs/20260929T120626698944Z.json": {
+      "old": "888b9232821d874d20d6493e4ab7b8d5e08a25c75d55f7020ba32902edfded24",
+      "new": "99a3db17375a6835d125cb8cc4167cf5a14df8ef3771e00550f7611b1ae55437"
+    },
+    "reports/oracle-runs/20260929T121944186483Z.json": {
+      "old": "12a3bfb445bda825c9f6cd6fa7f64822dff7a34fcae21927631220d98d99ed15",
+      "new": "d6d80f5bc54b820676f360988667830151d7cb900c5f410b7a7b4a036984ecdb"
+    },
+    "reports/oracle-runs/20260929T133350769908Z.json": {
+      "old": "c6edc4cdf15ceab87a13e3aae32222da98eafa096048effa67955e50b1ba70e5",
+      "new": "74fb0ae6f723c67758687dcf03abce38016887f30d08259003882e810e2dd14b"
+    },
+    "reports/oracle-runs/20260929T150216350486Z.json": {
+      "old": "aef1402d758511b7eadf5ad2f8a2f8950ec07c9231e76762a2b5778b04f93a4e",
+      "new": "14728e09214934e194e23f68a485236f00e758c34fac7a560bc4d8c0bff85528"
+    },
+    "reports/oracle-runs/20260929T222739838981Z.json": {
+      "old": "48691aecc0173d6055ba2dc95004ca136dfac952c9f634445bd02c467c40edc1",
+      "new": "b4299b011ccf2e2b5609f3b738b925aa8f5c9e1733d57795fa7aa5d5e59efb88"
+    },
+    "reports/oracle-runs/20260929T223158210969Z.json": {
+      "old": "acb8ef9b370718e5f306ce1470604a52bebdfe2ed909024089e05705eedea47a",
+      "new": "767890d97762dae1edf617aba87cd5380ea74c240d1d7283231a2b05807c893d"
+    },
+    "reports/oracle-runs/20260930T000850355521Z.json": {
+      "old": "3f1beef35d7fa604971cc8087e0e44aca38ce48489e8f42cc9b31825ac4f8ab0",
+      "new": "ff24154e8cac12fdb3e2bbefe9cab3bafd0bbebb2d5e38976e1c85bfcb90a81d"
+    },
+    "reports/oracle-runs/20260930T021113009291Z.json": {
+      "old": "77321d0f86e5160ef0f78f13498092061718a7b829256548cc430b1d19f302df",
+      "new": "0996858153e6f1fec40aad3fe1d71a70cff72b39972cd78937646818214be04d"
+    },
+    "spikes/lean-core/README.md": {
+      "old": "1c754ae75bfd058eef3c58238b8dceb1b1a619c27495d9198c56cf79f1742a33",
+      "new": "7c45d349bea8dc1687de60dc58235694bd172230d6c7767633695087f079a6e7"
+    },
+    "spikes/mathlib-binding/Measure.ps1": {
+      "old": "ec0cc43ac377c5b56907b89d9a16fb6414187e7c84a2d1fcdc977486ce11d375",
+      "new": "0b3d26f67a645f49b8a451f6fa30389a1038a0dd3763f80837a3d46ffded9ccf"
+    },
+    "spikes/mathlib-binding/MeasureCases.ps1": {
+      "old": "94ccfb3303781e67d37941798f31ef8cabebedbd259d9252481b63cadd0000cc",
+      "new": "47daf6fb7f20869a711147d7e114533102d048feaeaad1f5ee9cd091f23209e1"
+    },
+    "spikes/mathlib-binding/README.md": {
+      "old": "e216aba5f94a4e50e6c84758ba6f99ffcbf3256aef00ea9d3ab41870ec2609d2",
+      "new": "21433c36f3a807d73e1a72860555faf3540e5159ef2afc6c5e22f91999e322fa"
+    },
+    "spikes/mathlib-binding/RecordProvenance.ps1": {
+      "old": "feb12b69a76543eee2a1df0f3019981d21b66306c4ae3b09199a61dcd2b3ead0",
+      "new": "0a457d8922ea5220cd01a39b645b3040a427696b4dd58985844262d09a84003a"
+    },
+    "spikes/mathlib-binding/Validate.ps1": {
+      "old": "1fd543ce13320731811752ad736162597c4a42e823c2011506df1f7f556cd8b0",
+      "new": "c3903ac52205108b9fcf693a496ca56dddd6c3b1b48eaf2ba7ccbb641b1f73a7"
+    },
+    "spikes/mathlib-binding/environment.ps1": {
+      "old": "944195a9c5f9d97261e76edb2112b2d1e68ef4526ffba58ee8855951ea45827f",
+      "new": "265bc0d1a1eec2d2c87ca875c64564f193575fc47f4d95d3831e00149afc8fc5"
+    },
+    "spikes/mathlib-binding/logs/failed-clean-package-build.log": {
+      "old": "4b5694d7dd36d867d806278cd8423651abd695fdc93e1d9c0219cfda66245269",
+      "new": "0d27655eb5eb749982ed7db50ff6316a0221b8817ce89c2c6e67b3f555f5cd2b"
+    },
+    "spikes/mathlib-binding/logs/failed-finite-reduction-build.log": {
+      "old": "7a129190026080585391242b1a6ab40f037e7f6672b963793dba67dd8a0fd2c8",
+      "new": "13e8a2a194cfb0bbe867b52ecd914df91f9b371cd8b42017777a0de5d872e873"
+    },
+    "spikes/mathlib-binding/logs/provenance.json": {
+      "old": "d80311957e1b01a734582720a93bcd3d0757aa0b173504b4bf5593110bd4fcc7",
+      "new": "82c6d6ad5faf521c4c94a40c8c604cf0f1554157a95a8e96d30f2d91e8d5d4cb"
+    },
+    "tools/inventory-oracle.ps1": {
+      "old": "8541bd70bb69de2b377e7d8089edb2eb2d94de61c71490ff140e04ea19e2ef91",
+      "new": "1ab1a8715c67be2e2a43be21bf9430d7c5f465aacd467d5a1a420bce5fc72f38"
+    }
+  }
+}

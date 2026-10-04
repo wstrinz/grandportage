@@ -11,7 +11,7 @@ import subprocess
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MANIFEST = "public-snapshot-v1.json"
+DEFAULT_MANIFEST = "public-snapshot-v2.json"
 SCHEMA = "grand-portage-public-snapshot/v1"
 RECEIPT_SCHEMA = "grand-portage-public-snapshot-receipt/v1"
 RECEIPT_PATH = "PUBLIC-SNAPSHOT-RECEIPT.json"

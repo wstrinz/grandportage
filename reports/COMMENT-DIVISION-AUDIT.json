@@ -1,0 +1,36 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "87adf667b279415142da13f90db076311f0dad5473ab89d45f09e53d34492060",
+  "source_sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453",
+  "records": [
+    {
+      "control": "assignment",
+      "statement_guard_accepted": true,
+      "program_constructed": true,
+      "error": null
+    },
+    {
+      "control": "comment_only",
+      "statement_guard_accepted": true,
+      "program_constructed": false,
+      "error": "unsupported division: divisors must be nonzero scalar coefficients; nonconstant divisors require an explicit checked rational-function interpretation. A denominator guard does not make polynomial quotient sound. No CAS was run. (invalid syntax (<unknown>, line 1))"
+    },
+    {
+      "control": "comment_and_assignment",
+      "statement_guard_accepted": true,
+      "program_constructed": false,
+      "error": "unsupported division: divisors must be nonzero scalar coefficients; nonconstant divisors require an explicit checked rational-function interpretation. A denominator guard does not make polynomial quotient sound. No CAS was run. (invalid syntax (<unknown>, line 1))"
+    },
+    {
+      "control": "nonconstant_division",
+      "statement_guard_accepted": true,
+      "program_constructed": false,
+      "error": "unsupported division: divisors must be nonzero scalar coefficients; nonconstant divisors require an explicit checked rational-function interpretation. A denominator guard does not make polynomial quotient sound. No CAS was run. (unknown variable 'x'; expected one of )"
+    }
+  ],
+  "finding": "Harmless Singular // comments are accepted by the statement guard but rejected when the subsequent scalar-division guard parses raw comments as Python expressions.",
+  "classification": "conservative refusal, no false authority",
+  "proposal": "Use a shared lexer or typed syntax representation so comments and strings are distinguished from arithmetic before division validation. Preserve division and identifier controls; naive stripping is not a general parser proof.",
+  "changed_expected_verdicts": false,
+  "external_execution": false
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "seed": null,
+  "scope_or_region": "N/A",
+  "id": "GP-X366",
+  "title": "Identity equivalence permits literal inclusion",
+  "situation": "On the two-point carrier, identity maps the singleton {a} to itself in both directions.",
+  "inputs": {
+    "control": "identity_inclusion",
+    "carrier": [
+      "a",
+      "b"
+    ],
+    "source_points": [
+      "a"
+    ],
+    "target_points": [
+      "a"
+    ],
+    "forward": {
+      "a": "a",
+      "b": "b"
+    },
+    "backward": {
+      "a": "a",
+      "b": "b"
+    }
+  },
+  "attempted_conclusion": "Accept literal containment after checking it on this identity example.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The mapped equivalence and the independently checked literal inclusion both hold."
+  },
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/MappedEquivalence.lean",
+      "line": 17,
+      "anchor": "def MapsTo {A : Type u} {B : Type v}",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/MappedEquivalence.lean",
+      "line": 22,
+      "anchor": "structure MappedEquivalence {A : Type u} {B : Type v}",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

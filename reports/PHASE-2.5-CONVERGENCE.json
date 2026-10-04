@@ -1,0 +1,135 @@
+{
+  "schema": "gp-convergence/v1",
+  "gate": "G2.5",
+  "source": "reports/PHASE-2-SLICE.json",
+  "held_claims": 23,
+  "lean_theorem_fraction": {
+    "mathematical_statements": 0,
+    "held": 23,
+    "note": "All held claims are over stub or harness profiles with synthetic statements; each has a kernel-checked Means theorem, but none states mathematics. The meaningful fraction starts at 3a."
+  },
+  "tag_counts": {
+    "REACH": 1,
+    "CUSTODY": 13,
+    "COVERAGE": 7,
+    "EARNED": 0,
+    "NONE": 2
+  },
+  "claims": [
+    {
+      "id": "GP-A16-covered",
+      "tag": "COVERAGE",
+      "basis": "exhaustive cover checked before branches combine"
+    },
+    {
+      "id": "GP-A27-full",
+      "tag": "COVERAGE",
+      "basis": "admitted-check premises tracked for the full result"
+    },
+    {
+      "id": "GP-A27-keep-GRH",
+      "tag": "COVERAGE",
+      "basis": "GRH premise kept in scope"
+    },
+    {
+      "id": "GP-C03",
+      "tag": "NONE",
+      "basis": "identical redeclaration is idempotent"
+    },
+    {
+      "id": "GP-X142",
+      "tag": "NONE",
+      "basis": "identical redeclaration is idempotent"
+    },
+    {
+      "id": "GP-X144",
+      "tag": "CUSTODY",
+      "basis": "supersession resolved after the full fold"
+    },
+    {
+      "id": "GP-X145",
+      "tag": "CUSTODY",
+      "basis": "supersession resolved after the full fold"
+    },
+    {
+      "id": "GP-X146",
+      "tag": "CUSTODY",
+      "basis": "supersession resolved after the full fold"
+    },
+    {
+      "id": "GP-X148",
+      "tag": "CUSTODY",
+      "basis": "retraction of I leaves an independent inference live"
+    },
+    {
+      "id": "GP-X151",
+      "tag": "CUSTODY",
+      "basis": "withdrawn edge and rider stay visible, not live"
+    },
+    {
+      "id": "GP-X156",
+      "tag": "CUSTODY",
+      "basis": "typed successor discharges untyped-edge debt"
+    },
+    {
+      "id": "GP-X158",
+      "tag": "CUSTODY",
+      "basis": "supersession chain keeps one live head"
+    },
+    {
+      "id": "GP-X161",
+      "tag": "CUSTODY",
+      "basis": "several successors, none overwritten"
+    },
+    {
+      "id": "GP-X163",
+      "tag": "CUSTODY",
+      "basis": "citation-only amendment computed as non-transporting"
+    },
+    {
+      "id": "GP-X164",
+      "tag": "CUSTODY",
+      "basis": "provenance decides which identity record is current"
+    },
+    {
+      "id": "GP-X171",
+      "tag": "CUSTODY",
+      "basis": "provenance decides which identity record is current"
+    },
+    {
+      "id": "GP-X172",
+      "tag": "CUSTODY",
+      "basis": "provenance decides which identity record is current"
+    },
+    {
+      "id": "GP-X173",
+      "tag": "CUSTODY",
+      "basis": "rejected proposal leaves earlier certificate in force"
+    },
+    {
+      "id": "GP-X177",
+      "tag": "REACH",
+      "basis": "reverse routes restricted to the same context"
+    },
+    {
+      "id": "GP-X184",
+      "tag": "COVERAGE",
+      "basis": "both branch premises and the cover obligation tracked"
+    },
+    {
+      "id": "GP-X196",
+      "tag": "COVERAGE",
+      "basis": "recorded-use inventory complete"
+    },
+    {
+      "id": "GP-X197",
+      "tag": "COVERAGE",
+      "basis": "empty use inventory recorded as such"
+    },
+    {
+      "id": "GP-X60",
+      "tag": "COVERAGE",
+      "basis": "remainder, slice and gauge premises preserved"
+    }
+  ]
+}

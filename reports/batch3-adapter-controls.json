@@ -1,0 +1,55 @@
+[
+  {
+    "probe": "corrupt bounded witness",
+    "result": {
+      "observed_verdict": "REFUSE",
+      "reason": "The supplied source point fails an equation.",
+      "residuals": [
+        "0",
+        "3",
+        "0",
+        "0"
+      ]
+    }
+  },
+  {
+    "probe": "lower cap of otherwise valid source witness",
+    "result": {
+      "observed_verdict": "REFUSE",
+      "reason": "Exact source substitution and polynomial degree caps checked.",
+      "residuals": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "degrees": {
+        "d0": -1,
+        "d1": -1,
+        "d2": 0,
+        "dm1": -1,
+        "dm2": 1,
+        "dm3": -1,
+        "dm4": 1,
+        "Phi": -1
+      },
+      "caps": {
+        "d0": 1,
+        "d1": 1,
+        "d2": 1,
+        "dm1": 1,
+        "dm2": 1,
+        "dm3": 1,
+        "dm4": 0,
+        "Phi": 1
+      }
+    }
+  },
+  {
+    "probe": "fabricated obstruction row",
+    "result": {
+      "status": "INVALID_EVIDENCE",
+      "reason": "equation 1 coefficient 1 is wrong: expected 0, computed 3/2"
+    }
+  }
+]

@@ -1,0 +1,92 @@
+{
+  "schema": "gp-3a-kernel-reexec/v1",
+  "authority": "post-G2 \u00a73.7 step 3",
+  "source": "profile/slice/kernel-reexec.json",
+  "summary": "All 14 kernel cases are schematic fixtures; none is expressible as concrete 3a profile inputs. Their properties remain Phase 2 kernel-tested, with the listed proved profile analogues.",
+  "cases": [
+    {
+      "id": "GP-X177",
+      "status": "inexpressible",
+      "reason": "abstract named contexts and prose universal properties; no polynomial data",
+      "profile_analogue": "R2 inclusion direction table (r2_sound): universal properties move loose->tight only with a C4 inclusion"
+    },
+    {
+      "id": "GP-X178",
+      "status": "inexpressible",
+      "reason": "abstract named contexts and prose universal properties; no polynomial data",
+      "profile_analogue": "R2 inclusion direction table (r2_sound): universal properties move loose->tight only with a C4 inclusion"
+    },
+    {
+      "id": "GP-X179",
+      "status": "inexpressible",
+      "reason": "abstract named contexts and prose universal properties; no polynomial data",
+      "profile_analogue": "R2 inclusion direction table (r2_sound): universal properties move loose->tight only with a C4 inclusion"
+    },
+    {
+      "id": "GP-X180",
+      "status": "inexpressible",
+      "reason": "abstract named contexts and prose universal properties; no polynomial data",
+      "profile_analogue": "R2 inclusion direction table (r2_sound): universal properties move loose->tight only with a C4 inclusion"
+    },
+    {
+      "id": "GP-X181",
+      "status": "inexpressible",
+      "reason": "abstract named contexts and prose universal properties; no polynomial data",
+      "profile_analogue": "R2 inclusion direction table (r2_sound): universal properties move loose->tight only with a C4 inclusion"
+    },
+    {
+      "id": "GP-X182",
+      "status": "inexpressible",
+      "reason": "abstract named contexts and prose universal properties; no polynomial data",
+      "profile_analogue": "R2 inclusion direction table (r2_sound): universal properties move loose->tight only with a C4 inclusion"
+    },
+    {
+      "id": "GP-X183",
+      "status": "inexpressible",
+      "reason": "abstract branch contexts and prose emptiness; no polynomial data",
+      "profile_analogue": "R4 structural split (r4_sound) needs both branches; COVER kind (reach_cover_sound) for explicit covers"
+    },
+    {
+      "id": "GP-X184",
+      "status": "inexpressible",
+      "reason": "abstract branch contexts and prose emptiness; no polynomial data",
+      "profile_analogue": "R4 structural split (r4_sound) needs both branches; COVER kind (reach_cover_sound) for explicit covers"
+    },
+    {
+      "id": "GP-X185",
+      "status": "inexpressible",
+      "reason": "abstract branch contexts and prose emptiness; no polynomial data",
+      "profile_analogue": "R4 structural split (r4_sound) needs both branches; COVER kind (reach_cover_sound) for explicit covers"
+    },
+    {
+      "id": "GP-X186",
+      "status": "inexpressible",
+      "reason": "abstract branch contexts and prose emptiness; no polynomial data",
+      "profile_analogue": "R4 structural split (r4_sound) needs both branches; COVER kind (reach_cover_sound) for explicit covers"
+    },
+    {
+      "id": "GP-A01",
+      "status": "inexpressible",
+      "reason": "field-specific obstruction over Q(sqrt 17); number field (3b)",
+      "profile_analogue": "a scope can only be widened to a certificate's computed reach (reach_sound)"
+    },
+    {
+      "id": "GP-A08a",
+      "status": "inexpressible",
+      "reason": "characteristic change with no system or certificate data",
+      "profile_analogue": "F_p and Q reach are computed per certificate; no transport between characteristics exists"
+    },
+    {
+      "id": "GP-X14",
+      "status": "inexpressible",
+      "reason": "no point universe or polynomial data",
+      "profile_analogue": "every 3a statement is typed by its variables and field contexts (Holds over FieldCtx)"
+    },
+    {
+      "id": "GP-X283",
+      "status": "inexpressible",
+      "reason": "BASE vs ALGEBRAIC_CLOSURE point universes (3b field-class flag)",
+      "profile_analogue": "no untyped context change exists in the 3a profile"
+    }
+  ]
+}

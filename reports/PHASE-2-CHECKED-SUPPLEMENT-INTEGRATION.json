@@ -1,0 +1,118 @@
+{
+  "schema": "gp-phase2-checked-supplement-integration/v1",
+  "date": "2026-10-01",
+  "parent_base_commit": "550e226829310b18c4ef5564aba8f7f2065878d8",
+  "source_hashes": {
+    "tools/run-phase2-checked-lifecycle-supplement.py": "f7cfd9a171b4006e683381f474521a512ce8d3c89289e53fbecf9de328f50327",
+    "tests/test_phase2_checked_lifecycle_supplement.py": "68b6f7ed84c1e7aecc4788b85198da29552892e406fea24d77596cc0f0683d6b",
+    "tools/run-phase2-slice.py": "689c1d2dd9bf4c646ad78eaedf94ee82196667b431af7725284a921aeeb311f0",
+    "reports/PHASE-2-CHECKED-LIFECYCLE-SUPPLEMENT.json": "4ea325304cc93e734a21f83de3549c86b4de1f80132e6c77bf587631418f6d2c",
+    "reports/PHASE-2-SLICE.json": "3abf4f83d917a15dcb4a3a79d714916e31740cb0aca8c6b1addaeffc45bc9e9c",
+    "reports/PHASE-2-PROVENANCE-SLICE.json": "b8cc0e6a9f9b2a4832831cfe02580db12fcef4927b6c516c70b85ecc60ea0cb6",
+    "STATUS.md": "0d64e74bd6e94da23d8e24923977f86c56e86234c24a4b5571cee39a83a42b20",
+    "reports/PHASE-2-SLICE.md": "082d76262a181fab26d5c155ce64965ed307521319bf612a7ed0fa205b3bca9b"
+  },
+  "worker_original_hashes": {
+    "tools/run-phase2-checked-lifecycle-supplement.py": "b27a5aaf042ccfc0681149bdfdfc42e1e417562f25baaae2987116efdb114510",
+    "tests/test_phase2_checked_lifecycle_supplement.py": "91ada0864e7fc2b3839a6b67fa8e15a368c066e53319d4b57bd1f4bd29190562",
+    "reports/PHASE-2-CHECKED-LIFECYCLE-SUPPLEMENT.json": "9eff0c0eae05b2aa614919a13a04debd42f76372fb7028d83b5d04d488ca5c48"
+  },
+  "worker_active_seconds": 626,
+  "integration_changes": "Normalize completed adapter/tests to LF. Integrate supplemental scenario counts and exact accepted query/lifecycle contracts without adding corpus cases. Refresh shared-adapter hash in provenance report; its executions are unchanged. Production Lean and executables unchanged.",
+  "parent_review": {
+    "source_contract": {
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_verdict_provenance.py",
+      "file_sha256": "0768ed5bd2b671ba57127b708dfd877970740cae40587631ae5fcd7c0e2ad7bd",
+      "functions": {
+        "_identity_graph": {
+          "line": 20,
+          "sha256": "a7d0cc520a641339ff991761d79df2ff0fe81d210ba165576db3e03f63fdaba2"
+        },
+        "_verdict": {
+          "line": 63,
+          "sha256": "a7566018e681cbbb8f08e64034bb5361fb7748823ab2ebcdc66e0ba5ec1d360f"
+        },
+        "test_fresh_epoch1_verdict_is_active": {
+          "line": 69,
+          "sha256": "44d383b5dc757a48431c28874cf26e0bc52d614838750533f25fce381e0a2ff9"
+        }
+      },
+      "boundary": "Pinned M:(x), C:x=0 selected identities; native exact Rat replay replaces fabricated predecessor backend metadata. No predecessor execution is claimed."
+    },
+    "authority": "Existing native exact Rat cofactor replay checks x=1*x separately for each uniquely registered receipt. No verified flag, synthetic admission, installed checker or new production profile.",
+    "independent_support": "Different receipt names and warrant IDs independently validate. Retraction 10 leaves support 11 and held claim 1; retracting both leaves neither. Invalid cofactor on either receipt preserves only the valid neighbor.",
+    "failed_retry": "Failed/timeout attempt warrants remain custody-live but supply no support; prior checked receipt survives reversal/duplication. Attempt-only controls remain unheld.",
+    "earned": "Handoff defines earned as held but unclaimed. The native query returns held X164 when absent from caller claimed list and omits it when claimed; obligation metadata ranks output without changing state. This uses direct checked receipt closure, not a new K3-derived theorem.",
+    "snapshot_boundary": "Checked runners expose state summaries. The lifecycle runner exposes complete resolved snapshots from the identical event-file bytes under refuseAll; it supplies custody comparison only, never checked support.",
+    "scope_boundary": "Scoped runner's object M and finite named context [0] are reproduction plumbing for earned queries, not fields, geometric scopes or new profiles. X164 statement/model/input/version bindings are unchanged.",
+    "all_28_prior_complete_execution_records_equal": true,
+    "all_4_orders_equal": true,
+    "adversarial_controls": "Invalid cofactors, seven binding fields/version, unknown receipt name, conflicting warrant ID, failed-only/timeout-only, unsupported claimed metadata, unknown wire fields and damaged complete custody/held/support/query outputs."
+  },
+  "counts": {
+    "distinct_corpus_passes": 28,
+    "kernel_tagged_total": 79,
+    "new_corpus_cases": 0,
+    "new_corpus_passes": 0,
+    "supplemental_scenarios": 13,
+    "supplemental_checked_folds": 52,
+    "supplemental_custody_folds": 52,
+    "native_component_controls_unchanged": 553,
+    "compiled_proof_controls_unchanged": 81,
+    "host_tests": 179,
+    "host_subtests": 449,
+    "new_host_tests": 18,
+    "new_host_subtests": 68
+  },
+  "legacy_preservation": {
+    "receipt": "tmp/phase2-checked-supplement-legacy-preservation.json",
+    "sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f",
+    "case_count": 459,
+    "summary": {
+      "AGREES": 403,
+      "DIAGNOSTIC_OBSERVED": 4,
+      "KNOWN_DIFFERENCE": 14,
+      "UNSUPPORTED": 9,
+      "RETAINED_DIAGNOSTIC": 29
+    },
+    "protected_artifact_count": 67,
+    "bytes_expectations_outcomes_unchanged": true
+  },
+  "budget": {
+    "counts": {
+      "logic": 636,
+      "decoder": 263,
+      "statement": 26,
+      "proof": 1602
+    },
+    "markdown_added_words": 7865,
+    "status_words": 262,
+    "failures": []
+  },
+  "slice_words": 499,
+  "remaining_slice_behaviors": [
+    "proved-overlap conflict"
+  ],
+  "conflict_boundary": "Existing generic theorem confirmed_conflict_excludes_joint_truth prevents jointly true contradictory claims at inhabited overlap. Positive alarm controls simulate compromised admission; the positive-only Rat stub has no contradictory constructor. No real conflict pass claimed or gate relaxed.",
+  "g2_pass": false,
+  "next_worker": {
+    "designator": "GPB",
+    "thread_id": "01a0eeca-572e-7202-a708-c730d410b901",
+    "cases": [
+      "GP-X152",
+      "GP-X153",
+      "GP-X154",
+      "GP-X155",
+      "GP-X158"
+    ],
+    "active_minutes_cap": 30,
+    "outputs": [
+      "tools/run-phase2-supersession-guards.py",
+      "tests/test_phase2_supersession_guards.py",
+      "reports/PHASE-2-SUPERSESSION-GUARDS.json"
+    ],
+    "boundary": "Native existing resolver and complete custody only; incomplete full fixture contracts remain unexecuted. No production/shared edits or commits."
+  },
+  "publication": "Local commit only; no push. Heartbeats paused."
+}

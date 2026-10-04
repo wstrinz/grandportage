@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "id": "GP-X321",
+  "seed": null,
+  "title": "Changed declared jump schedule refuses recurrence certificate",
+  "situation": "A pinned unilateral recurrence has its checked zero tail, nonzero depth-13 endpoint, and unchanged matrix sequence. Its declared nonzero jump indices replace 9 with 8 while the annihilator claim is retained.",
+  "inputs": {
+    "control": "changed_jump_schedule",
+    "fixture_sha256": "8b9cf56ca0faad4dbeeb57593c2612ed408521df3a9d62c34bcd838e8189cd58",
+    "baseline_jump_depths": [
+      7,
+      9,
+      11,
+      13
+    ],
+    "proposed_jump_depths": [
+      7,
+      8,
+      11,
+      13
+    ],
+    "domain_start": 6,
+    "zero_from": 14,
+    "endpoint_depth": 13
+  },
+  "attempted_conclusion": "Accept the recurrence certificate with the changed declared jump set.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The declared nonzero jump indices no longer match the pinned recurrence schedule."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_adjoint_recurrence.py",
+      "line": 86,
+      "anchor": "def test_changed_jump_schedule_is_refused():"
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_adjoint_recurrence/adapter.py",
+      "line": 239,
+      "anchor": "require(jumps.get(\"nonzero_at\") == list(JUMP_DEPTHS) and"
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_adjoint_recurrence/adapter.py",
+      "line": 241,
+      "anchor": "\"J2\", \"declared jump set or depth-9 correction changed\")"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "GP-X327",
+  "seed": null,
+  "title": "Necessary block cannot mint point inclusion",
+  "situation": "The exact block report has graph effect NONE. Its projection alone is relabelled as point inclusion.",
+  "inputs": {
+    "control": "graph_effect",
+    "fixture_sha256": "7c26a7fdcfd12321997beb259f73388db654b3aff1cfbb83f30ccfa11017b82c",
+    "mutation": {
+      "op": "set",
+      "path": [
+        "projection",
+        "graph_effect"
+      ],
+      "original": "NONE",
+      "value": "POINT_INCLUSION"
+    }
+  },
+  "attempted_conclusion": "Treat the necessary block receipt as a point-inclusion graph claim.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The projection exceeds the historical necessary-block graph boundary."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "line": 87,
+      "anchor": "def test_arithmetic_and_scope_mutations_refuse("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_b0_free_plane/depth8_adapter.py",
+      "line": 467,
+      "anchor": "require(fixture[\"projection\"] == _expected_projection(), \"M1\","
+    }
+  ]
+}

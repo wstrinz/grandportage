@@ -1,0 +1,45 @@
+{
+  "schema": "gp-phase2-poly-stub-review/v1",
+  "date": "2026-09-30",
+  "source_hashes": {
+    "phase2/lean/GP50/PolyStub.lean": "0402ce3056121162d2834f46a6eb58ec90ac5d22f3fd577ff1878d6f9dc19b9f",
+    "phase2/lean/GP50/PolyStubProofs.lean": "d793e18b94f3e903ccce432b4c9a2c2248013a8e4f6f005bf2a38f085d4ca849",
+    "phase2/lean/Tests/PolyStub.lean": "7f5aefee756fcc17a6d3ff9edbcab9520bf212deee773f718f1d50b52e3e6cf0",
+    "phase2/lean/GP50.lean": "6a9af8206a168ff39929dda9094caef9117353de530683b209c824c3713baa4f",
+    "phase2/lean/lakefile.toml": "6ddf8c58bea69c0e10eadde21195b2b92b72f5860e49323d095918f5257c6cd8"
+  },
+  "build": "lake build: 45 jobs passed",
+  "native_controls": 40,
+  "sparse_polynomial_records_checked": 273,
+  "total_component_controls": 375,
+  "theorems": [
+    "GP50.PolyStub.coefficient_zero_above_bound",
+    "GP50.PolyStub.equal_sound",
+    "GP50.PolyStub.replay_sound",
+    "GP50.PolyStub.replay_coefficient_sum"
+  ],
+  "guarantee": "Successful replay implies matching generator/cofactor lengths and exact equality, at every exponent, between target coefficients and the summed implemented cofactor products.",
+  "independent_kernel_replay": {
+    "command": "lake -d phase2/lean env leanchecker -v GP50.PolyStubProofs",
+    "exit_code": 0
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "source_lines": {
+    "production": 27,
+    "proof_only": 113
+  },
+  "scope": "univariate rational formal polynomial-span identity",
+  "not_admitted_or_proved": [
+    "wire binding and checker admission",
+    "multivariate profile",
+    "geometric emptiness or point-universe reach",
+    "whole-kernel heldSoundStatement",
+    "G2 corpus pass"
+  ],
+  "worker_active_minutes": 16,
+  "previous_review": "reports/PHASE-2-RUNTIME.json"
+}

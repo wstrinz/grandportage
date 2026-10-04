@@ -1,0 +1,68 @@
+{
+  "id": "JC-C002",
+  "campaign": "JC",
+  "origin": "own",
+  "class": "SCOPE",
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repo": "$DEV/math-stuff",
+      "ref": "d2_plane_72_108/PASSPORT_75_125_REPAIR.md:11-63",
+      "date": "2026-07-26",
+      "harvest_sha256": "4bde9e54296c02bad2fda8417c55a5b89085482dffbe49acf80cc399cd8633d1",
+      "related_history_commit": "2adb92af93871490c924486a942835ab65e42127"
+    }
+  ],
+  "claimed": "A final-chain-corner dictionary was used at (5,20) outside its required retraction shape.",
+  "problem": "The dictionary supplied exponent 5 instead of 4; checking existence of some exponent hides the failed guard for the actual chart exponent.",
+  "discovered_by": "unknown",
+  "cost": null,
+  "shipped": null,
+  "gp_v037_would_catch": null,
+  "core_expressible": null,
+  "core_would_refuse": null,
+  "notes": "Independent elementary check: ceil(20/5)=4 and 4*(5-1)=16, not20; choosing5 only satisfies a different existential guard. This checks the stated guard mismatch, not the chart theorem. GP catch assessment is conditional: explicit scope/guard/bridge requirements could prevent promotion, but GP cannot discover the missing premise or correct interpretation automatically; no campaign replay was run.",
+  "subfindings": [],
+  "status": "final retained source-backed record under ratified unknown policy; observation and counting limits remain explicit",
+  "primary_class": "SCOPE",
+  "primary_origin": "own",
+  "record_kind": "documented incident",
+  "final_disposition": "retain qualified source-backed Appendix B candidate",
+  "owner_id": "JC-C002",
+  "original_pointer": {
+    "report": "reports/PHASE-0B-INVENTORY-DRAFT.json",
+    "pointer": "/rows/1",
+    "sha256": "ab1a7c4728bf5ff36129df136adb9c2f612181662ef29ee23358323d866a8ab2",
+    "review_date": "2026-09-29",
+    "date_kind": "retained report review date; not incident date or source publication date"
+  },
+  "source": {
+    "repo": "$WORKSPACE",
+    "ref": "reports/PHASE-0B-INVENTORY-DRAFT.json#/rows/1",
+    "date": "2026-09-29",
+    "review_date": "2026-09-29",
+    "date_kind": "review-source date of retained report; not incident date or original primary-source date"
+  },
+  "incident_date": null,
+  "source_date_qualification": "No incident date invented; original source dates/history metadata remain unchanged in sources.",
+  "cost_note": "Source evidence does not establish incident-specific work lost/cost class.",
+  "shipped_note": "Source evidence does not establish publication or handoff of a wrong claim; unknown is neither false nor n/a.",
+  "gp_v037_would_catch_note": "No supported frozen-GP catch verdict for this episode. Conditional design/reuse commentary in notes is not a yes/no/partial assessment; no fresh campaign replay.",
+  "counting_qualification": {
+    "record_count": 1,
+    "independent_sample": null,
+    "mathematical_incident_count": null,
+    "rule": "Count this owner record once. Repeated summaries, witnesses, consumers and children do not add independent samples.",
+    "source_detail": "Independent elementary check: ceil(20/5)=4 and 4*(5-1)=16, not20; choosing5 only satisfies a different existential guard. This checks the stated guard mismatch, not the chart theorem. GP catch assessment is conditional: explicit scope/guard/bridge requirements could prevent promotion, but GP cannot discover the missing premise or correct interpretation automatically; no campaign replay was run."
+  },
+  "classification_qualification": "Proposed primary class and origin retained from accepted inventory; uncertainty and secondary dimensions remain in evidence. Not a statistically adjudicated incident population.",
+  "parent_adjudications": [],
+  "linked_cross_occurrence": null,
+  "children": [],
+  "evidence_level": "retained source-backed report; no new source read, execution, or authentication",
+  "parent_integration": {
+    "worker_report": "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "worker_report_sha256": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849",
+    "register": "incident/correction/group"
+  }
+}

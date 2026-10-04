@@ -1,0 +1,182 @@
+{
+  "controls": [
+    {
+      "id": "canonical",
+      "generator": {
+        "schema": "sparse_polynomial_v1",
+        "terms": [
+          {
+            "coefficient": "1",
+            "powers": [
+              [
+                "x",
+                2
+              ]
+            ]
+          }
+        ]
+      },
+      "target": "x^2",
+      "reference": {
+        "accepted": true,
+        "result": "REFERENCE_CHECKED"
+      },
+      "production": {
+        "accepted": true,
+        "result": {
+          "target": "x^2",
+          "generator_count": 1,
+          "reference_oracle": "REFERENCE_CHECKED"
+        }
+      }
+    },
+    {
+      "id": "duplicate_power",
+      "generator": {
+        "schema": "sparse_polynomial_v1",
+        "terms": [
+          {
+            "coefficient": "1",
+            "powers": [
+              [
+                "x",
+                1
+              ],
+              [
+                "x",
+                2
+              ]
+            ]
+          }
+        ]
+      },
+      "target": "x^2",
+      "reference": {
+        "accepted": true,
+        "result": "REFERENCE_CHECKED"
+      },
+      "production": {
+        "accepted": false,
+        "exception": "CertificateError",
+        "message": "sparse term 0 powers are not in ring-variable order"
+      }
+    },
+    {
+      "id": "noncanonical_coefficient",
+      "generator": {
+        "schema": "sparse_polynomial_v1",
+        "terms": [
+          {
+            "coefficient": "2/2",
+            "powers": [
+              [
+                "x",
+                2
+              ]
+            ]
+          }
+        ]
+      },
+      "target": "x^2",
+      "reference": {
+        "accepted": true,
+        "result": "REFERENCE_CHECKED"
+      },
+      "production": {
+        "accepted": false,
+        "exception": "CertificateError",
+        "message": "sparse term 0 coefficient is not nonzero canonical form"
+      }
+    },
+    {
+      "id": "numeric_coefficient",
+      "generator": {
+        "schema": "sparse_polynomial_v1",
+        "terms": [
+          {
+            "coefficient": 1,
+            "powers": [
+              [
+                "x",
+                2
+              ]
+            ]
+          }
+        ]
+      },
+      "target": "x^2",
+      "reference": {
+        "accepted": true,
+        "result": "REFERENCE_CHECKED"
+      },
+      "production": {
+        "accepted": false,
+        "exception": "CertificateError",
+        "message": "sparse term 0 coefficient must be a canonical string"
+      }
+    },
+    {
+      "id": "zero_term",
+      "generator": {
+        "schema": "sparse_polynomial_v1",
+        "terms": [
+          {
+            "coefficient": "0",
+            "powers": [
+              [
+                "x",
+                2
+              ]
+            ]
+          }
+        ]
+      },
+      "target": "0",
+      "reference": {
+        "accepted": true,
+        "result": "REFERENCE_CHECKED"
+      },
+      "production": {
+        "accepted": false,
+        "exception": "CertificateError",
+        "message": "sparse term 0 coefficient is not nonzero canonical form"
+      }
+    },
+    {
+      "id": "wrong_identity",
+      "generator": {
+        "schema": "sparse_polynomial_v1",
+        "terms": [
+          {
+            "coefficient": "1",
+            "powers": [
+              [
+                "x",
+                2
+              ]
+            ]
+          }
+        ]
+      },
+      "target": "x",
+      "reference": {
+        "accepted": false,
+        "exception": "ReferenceMismatch",
+        "message": "reference cofactor expansion disagrees"
+      },
+      "production": {
+        "accepted": false,
+        "exception": "CertificateError",
+        "message": "membership cofactors expand to the wrong polynomial: x^2-x"
+      }
+    }
+  ],
+  "source_hashes": {
+    "oracle/checkout/grandportage/reference_oracle.py": "38d22f0d5a011240a83935b327bef9c0813795837f218fc9b327ec1a34278f4b",
+    "oracle/checkout/grandportage/groebner.py": "239d045e28c7ee672905dac4c9b0214661ec33d7b10d29e8038c4a8088f16ce2"
+  },
+  "script_sha256": "eaf13798cf220c157fe6590e4c370089944a4a5b5dfa94afb812fb424b992622",
+  "finding": "Reference accepts four malformed/noncanonical sparse representations that production refuses first. Duplicate x powers overwrite rather than accumulate. This is a standalone reference-validation gap, not a production false licence.",
+  "proposed_fix": "Give every checker an explicit input language and validate duplicate factors, canonical coefficients and zero terms independently before arithmetic; retain a valid control and false-identity refusal.",
+  "scope": "Pinned direct functions, exact Q arithmetic, no graph events, CAS, historical execution or campaign access."
+}

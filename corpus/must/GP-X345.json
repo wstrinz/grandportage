@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "seed": null,
+  "inputs": {
+    "control": "legacy_partition_ordered_receipts",
+    "source_equations": [
+      "x^2+1"
+    ],
+    "branches": [
+      "B1",
+      "B2"
+    ],
+    "identical_loci_cover": true,
+    "cover_projection_supplied": true,
+    "ordered_sos": {
+      "squares": [
+        "x"
+      ],
+      "cofactors": [
+        "-1"
+      ],
+      "certificate": "ORDERED_SOS_CERT"
+    },
+    "field": "C",
+    "branch_receipts_recorded": true
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/check.py",
+      "line": 240,
+      "anchor": "if inf.get(\"via_partition\"):"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/check.py",
+      "line": 252,
+      "anchor": "carried = {"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/format.py",
+      "line": 206,
+      "anchor": "\"%s: epoch-1 %s event has unknown field%s %s. Native schemas are \""
+    },
+    {
+      "repository": "rework-packet",
+      "path": "reports/PHASE-0A-BATCH-52.md",
+      "line": 5,
+      "anchor": "Four legacy Graph API controls isolate this consumer"
+    }
+  ],
+  "id": "GP-X345",
+  "title": "Ordered branch receipts cannot establish complex parent emptiness",
+  "situation": "Both branch SOS identities replay as ordered certificates, but x^2+1 has roots in C. The legacy partition consumer ignores the C reach limit and accepts the parent composition; current epoch-1 schema rejects via_partition.",
+  "attempted_conclusion": "Infer parent EMPTY over C from ordered-only branch receipts and the supplied true cover.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "ORDERED reach is inapplicable to C; the legacy consumer acceptance is not earned complex emptiness."
+  }
+}

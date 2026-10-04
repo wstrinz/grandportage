@@ -1,0 +1,171 @@
+{
+  "commit": "af4f6a8f6872521f4f814ab8cdb22af32a11d52c",
+  "selected_diff_sha256": "ca3605efb08777f5f58bae24618053851f910b49ee0266b96f26e442f51176b8",
+  "files": [
+    {
+      "path": "grandportage/authority_registry.py",
+      "blob": "c43989bdb2569b402944600da7c7fae5f8e32e99",
+      "sha256": "2e5a208f7bc061ace373ceeb387e3ae23930f58274dbc4319fe0a1d559ca022a",
+      "disposition": "Descriptive dataclass registry enumerates verifier effects, authority ceilings and schema classifications. transport_rows reads the kernel table itself; equality is consistency, not an independent theorem."
+    },
+    {
+      "path": "grandportage/adapter_conformance.py",
+      "blob": "1e032af6756194303315263692d59f058ea08391",
+      "sha256": "8d865fdcff53a48698096a8a7ae26450026e242a4fa30d838331b5b66b919fba",
+      "disposition": "Structural contract, canonical digest syntax, repeat-report equality and self-reported verification only. Mutation names are not executed. Existing Batch 15 diagnostic already demonstrates false cofactor conformance without graph authority."
+    },
+    {
+      "path": "grandportage/cli.py",
+      "blob": "3491a8e7452835bb20fd1d3bf72859c31a505cfd",
+      "sha256": "ba4becd84ded18cc044bee10923619bbd49de21e9132e580c7122512485721fd",
+      "disposition": "Table now reads the descriptive registry; evidence prints declarations/classifications. Display consolidation supplies no new checker or mathematical authority."
+    },
+    {
+      "path": "grandportage/evidence.py",
+      "blob": "73dc07a27b73d80734f317ebe24f7d5e475fe750",
+      "sha256": "183fcab3b3eb79fa1eb40c30f7412030a20439af22d4596b0c2be1731e158726",
+      "disposition": "manifest delegates to registry via local import; descriptive API expands. No proof replay is introduced by this change."
+    },
+    {
+      "path": "tests/test_authority_registry.py",
+      "blob": "c9d440856169088458b3c9d1a2988fcec00e87b3",
+      "sha256": "5626595199ffe84c8cd55197143d6c7241f098c311ae1f9983a8347661d82d0a",
+      "disposition": "Command-set, schema-set, table and output checks are drift guards. Completeness of names and nonempty descriptions does not prove semantics."
+    },
+    {
+      "path": "tests/test_adapter_conformance.py",
+      "blob": "2911746efcabd91efb084fe100fca2ed456f0e7a",
+      "sha256": "ae92f1f51eeba248248480d2f7b87d6e26806687fda7cf729324cd7e1d9abe1e",
+      "disposition": "Four structural test instances use a self-equality replay stub. No adversarial mathematical checker execution occurs in that stub."
+    },
+    {
+      "path": "tests/test_jc_p_axis_authority.py",
+      "blob": "f2be86e36cb062ddcdd25d1744c96c07fe0d77b6",
+      "sha256": "95a57f713b55424ed48bf6c539cff6dabde9ae909ec6af195f2494a768e07811",
+      "disposition": "One expected report field adds REFERENCE_CHECKED. No campaign read or execution claimed; prior deleted-test review retains this path disposition."
+    },
+    {
+      "path": "lean/GrandPortage.lean",
+      "blob": "f4b55e918e480b0b2918e831d6f5d5c891ada80d",
+      "sha256": "f58bd373b961b098fba2c883d176c4944b21af2a88840f62c413ce5b5e836dec",
+      "disposition": "Adds CertificateScope import; no build executed in this review."
+    },
+    {
+      "path": "lean/GrandPortage/CertificateScope.lean",
+      "blob": "10b9d757c8f2112b7631bc4d33e38214097f5a58",
+      "sha256": "8a8274681e384cdb488dce0b62e996a5e9d7bb2e2222868e718832de1e93b52c",
+      "disposition": "Full added source read. Maximality is relative to the defined two-level order and externally supplied StabilityDecision. unstable stores Not StableUnder, not an executable witness. Generic congrArg preserves equality under any map but does not establish ring homomorphism laws or polynomial/model interpretation. Empty-to-Unit negative-witness countermodel is abstract, not a concrete field-extension theorem. Bool examples instantiate only their toy validity predicates."
+    },
+    {
+      "path": "lean/README.md",
+      "blob": "d913ccb259373144343cc6348a8f25164d67c3d1",
+      "sha256": "6a0dfe871f0f47065265f80237b1b2b4728fed2c1bb4e254a14aabd953e3b786",
+      "disposition": "New text accurately labels a future admission shape, not authority over the Python registry. Theory ledger remains extractive documentation."
+    },
+    {
+      "path": "lean/THEORY.md",
+      "blob": "f226e569d7cd9c4bca002430e0646090032983bc",
+      "sha256": "c9d21c52ba939cb614551545905fdebd841893038c32d15b65870a6b7bb07858",
+      "disposition": "Full initial ledger read. Concrete builtin stability, row preservation, expressibility and foreign-domain generalization remain explicit questions; none is settled by this release."
+    },
+    {
+      "path": "ADAPTER-CONTRACT.md",
+      "blob": "59d1fdab364f580b5334fec88073d4202e87477c",
+      "sha256": "b9b6b2224169ade57a6a1a0a521ac45ee1dbc860f6534e4056661181e73f4709",
+      "disposition": "Full added contract read. Descriptive-only conformance and adapter-owned mutation execution match earlier diagnostics. No campaign move/read authorized."
+    },
+    {
+      "path": "CURRENT.md",
+      "blob": "1d7ebe291ca24dbfd4320cbab48383fcd11296b0",
+      "sha256": "795b40f01570c11b02bba29c1f1c6038eb88db8933b7878a592d74c74ebe4318",
+      "disposition": "Historical version/check count and release-packet pointer update. Collected count is not a freshly executed test result."
+    },
+    {
+      "path": "HANDOFF.md",
+      "blob": "71b4efe9e790fe026860a15ebb1999d74bec38a2",
+      "sha256": "682812a7abcb39a32e2ae3d1530d148a679fce65e424e07987afbcd9cf0ac6de",
+      "disposition": "Historical count-only updates; unmarked version remains 0.26.0 while release is 0.27.0. Proposed documentation fix is canonical version substitution or explicit historical labeling. No runtime impact."
+    },
+    {
+      "path": "QUICKSTART.md",
+      "blob": "657e1c52013dff188f2debf421d05e29b368326e",
+      "sha256": "8a058d04b144b109b75581acb90d33775bbbf5921cc74b43e8901cb7dfe1f45c",
+      "disposition": "Default test command now allows live-CAS environmental skips; GP_REQUIRE_LIVE requests no such skip. No real CAS probe or live gate run here."
+    },
+    {
+      "path": "REVIEW.md",
+      "blob": "b86c1469575dc92b822e3a89c5614e8dc07b6647",
+      "sha256": "d4c7bbc68bf89b8f97ca95e5ab79db409e7182cabb5e7570689628af374a3d80",
+      "disposition": "Historical version/check-count spans updated only; no new semantic proof."
+    },
+    {
+      "path": "TESTPLAN.md",
+      "blob": "df0d996dbe759bacc4c47495a58e7dd01cd990dc",
+      "sha256": "4ef7a86b3c4f7c9de6dd77b85f3f6f2c2e379c9af8526b1d40358d343896697f",
+      "disposition": "Historical suite-count update only; no new execution evidence."
+    },
+    {
+      "path": "grandportage/__init__.py",
+      "blob": "95a449635aa4b0b65976867b4ebcee3a09156443",
+      "sha256": "a9a7b296d2f1c575916e36994597fa16dc373fff085ddb3da98ff01c97b5b757",
+      "disposition": "Package version update only."
+    },
+    {
+      "path": "pyproject.toml",
+      "blob": "fe417cfe1a0e21b39e865aee7b2ca579eb91f3b6",
+      "sha256": "d4eb32000480c65d7927ac2dfb2210760a08fefc60d3138f9ea29cb9a3aba57a",
+      "disposition": "Package version and reference_fuzz marker added; marker description does not establish differential coverage."
+    },
+    {
+      "path": "tests/conftest.py",
+      "blob": "e356f79cf24850300eb39d5548fed49db93fbbd5",
+      "sha256": "35cd0332c6e9bb216fda99b90c70382ae4899b6b4e7eaf5ecee506385ad1c35a",
+      "disposition": "New collection-time unavailable-CAS skip, bypassed by GP_REQUIRE_LIVE=1; separate missing-companion skip still applies. Requirement of live does not imply all companion tests ran."
+    },
+    {
+      "path": "tests/test_adversarial.py",
+      "blob": "7ccdb9e0b81fd34f1e40b388af65ebcaafd6e1b3",
+      "sha256": "e95568e539ad3591a840427c994cb8f833ae03454286cefd4da84577e6dcc1ce",
+      "disposition": "README link exact-path source moves to snapshot manifest; transport table test moves to SPEC. Neither proves all link forms or semantic rows independently."
+    },
+    {
+      "path": "tests/test_architecture.py",
+      "blob": "7ae080f1421f0ce75843dc629a3ce7742f1eefc1",
+      "sha256": "ac9a8de337b6b4d1e0cc20f7844c14d1177064d7df8a4adeca01cdbb692a7149",
+      "disposition": "Adds reference/registry zones, bounded README and keyword gates plus mocked CAS collection checks. Relative-import-only discovery limit already diagnosed in Batch 18."
+    }
+  ],
+  "cumulative_path_diffs_read": 34,
+  "total_release_paths": 36,
+  "remaining_full_path_diffs": [
+    "README.md",
+    "SPEC.md"
+  ],
+  "prior_test_evidence": [
+    {
+      "path": "reports/oracle-authority-review.xml",
+      "sha256": "de4a37f8f21cc9b1a5be4ec4ca6dd7e5c7ac589963a0a4187c8b4fbc8d520346",
+      "tests": 31,
+      "failures": 0,
+      "errors": 0,
+      "scope": "Existing pinned-source evidence, not rerun historical release suite."
+    },
+    {
+      "path": "reports/oracle-architecture.xml",
+      "sha256": "69a57232da9f13f0dcc5b10a1c668f62b240ef9f893c477365e26226f1cccb13",
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "scope": "Existing pinned-source evidence, not rerun historical release suite."
+    },
+    {
+      "path": "reports/oracle-adapter-conformance.xml",
+      "sha256": "259c607f2dc5b08b50466db4d05e942f93239d3f8a0c1e2907e773bee5832184",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "scope": "Existing pinned-source evidence, not rerun historical release suite."
+    }
+  ],
+  "limitations": "No Lean compilation, theorem axiom audit, live CAS or companion campaign execution. Historical full release still not fully read; semantic extraction remains partial."
+}

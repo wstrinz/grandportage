@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "GP-X207",
+  "seed": null,
+  "title": "completion envelope: absent completion",
+  "situation": "The output must end with exactly one completion token belonging to this invocation, with no later transcript data.",
+  "inputs": {
+    "boundary": "completion",
+    "variation": "absent_completion",
+    "request": {
+      "coefficient_field": "Q",
+      "variables": [
+        "x"
+      ],
+      "ideal_generators": [
+        "x"
+      ],
+      "operation": "basis"
+    },
+    "evidence_origin": "fabricated_offline_control"
+  },
+  "attempted_conclusion": "Accept this execution envelope as belonging to the requested invocation; no theorem authority is asserted.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The output must end with exactly one completion token belonging to this invocation, with no later transcript data."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_backend.py",
+      "line": 162,
+      "anchor": "def test_transcript_envelope_refuses_partial_stale_or_concatenated_output("
+    }
+  ]
+}

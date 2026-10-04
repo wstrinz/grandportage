@@ -1,0 +1,27 @@
+{
+  "controls": [
+    {
+      "point_universe": "BASE",
+      "point_scope": [
+        "Q",
+        "Q",
+        "BASE"
+      ],
+      "rendered": "MODEL M                about=Q coeff=Q zeros of x^2+1"
+    },
+    {
+      "point_universe": "ALGEBRAIC_CLOSURE",
+      "point_scope": [
+        "Q",
+        "Q",
+        "ALGEBRAIC_CLOSURE"
+      ],
+      "rendered": "MODEL M                about=Q coeff=Q zeros of x^2+1"
+    }
+  ],
+  "script_sha256": "d84538aea9007fc91c095ad132367db03082662711110fdc039afdeb70891ab7",
+  "source_sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb",
+  "finding": "The handoff text is identical for a Q BASE model and its algebraic-closure point interpretation. V(x^2+1) has no rational point but has algebraic-closure points. Stored context stays distinct; only the compact rendering omits it.",
+  "proposed_fix": "Include point universe and selected embedding/context in model handoff rows, or explicitly label the view incomplete and provide a structured full context. Do not infer semantic equality from matching rendered text.",
+  "scope": "Two synthetic graph roots, no backend or authority mutation beyond ordinary model declarations."
+}

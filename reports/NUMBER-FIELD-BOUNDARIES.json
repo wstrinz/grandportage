@@ -1,0 +1,99 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "93702aed280a78c23873ce954337bb857a21a7a976e6fbf57caef307df799711",
+  "scope": "Four exact native arithmetic controls, no CAS or campaign data.",
+  "controls": [
+    {
+      "name": "irreducible cubic point",
+      "is_point": true,
+      "receipt": {
+        "method": "simple_number_field_v1",
+        "field": {
+          "base": "Q",
+          "symbol": "a",
+          "minimal_polynomial": "a^3-2",
+          "modulus_coefficients": [
+            "-2",
+            "0",
+            "0",
+            "1"
+          ],
+          "degree": 3
+        },
+        "coordinates": {
+          "x": [
+            "0",
+            "1"
+          ]
+        },
+        "equations": [
+          {
+            "expression": "x^3-2",
+            "value": []
+          }
+        ],
+        "guards": [
+          {
+            "expression": "x",
+            "value": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "invertible algebraic denominator",
+      "is_point": true,
+      "receipt": {
+        "method": "simple_number_field_v1",
+        "field": {
+          "base": "Q",
+          "symbol": "a",
+          "minimal_polynomial": "a^3-2",
+          "modulus_coefficients": [
+            "-2",
+            "0",
+            "0",
+            "1"
+          ],
+          "degree": 3
+        },
+        "coordinates": {
+          "x": [
+            "0",
+            "0",
+            "1/2"
+          ]
+        },
+        "equations": [
+          {
+            "expression": "2*x^3-1",
+            "value": []
+          }
+        ],
+        "guards": [
+          {
+            "expression": "x",
+            "value": [
+              "0",
+              "0",
+              "1/2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "vanishing guard",
+      "is_point": false,
+      "reason": "open guard x^3-2 vanishes"
+    },
+    {
+      "name": "reducible cubic",
+      "result": "UNVERIFIABLE_FIELD",
+      "reason": "the declared minimal polynomial is reducible over Q"
+    }
+  ]
+}

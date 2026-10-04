@@ -1,0 +1,94 @@
+{
+  "definition": "Complete indicated file reading and selected constructor review; neutral direct diagnostics precede corpus extraction.",
+  "files": [
+    {
+      "path": "grandportage/product_split.py",
+      "sha256": "1fa81ef864d3bcbcc56fe87d23ab17ba5e3e61dcd2bd6385616e5408f69a0aa1",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_product_split.py",
+      "sha256": "9d92638bc6e3091ff1ed42a27b8655087bd3e7708a880a079bcf138d04208467",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "test_functions": [
+        "test_synthetic_product_splits_verify",
+        "test_product_identity_does_not_mint_branches_or_coverage",
+        "test_changed_equation_is_rejected",
+        "test_scalar_must_be_one_declared_unit_monomial",
+        "test_factors_must_be_nonzero",
+        "test_identical_factors_are_not_a_binary_split",
+        "test_duplicate_ids_and_unknown_fields_fail_closed",
+        "test_cli_states_product_only_authority",
+        "test_cli_rejects_false_split"
+      ]
+    },
+    {
+      "path": "tests/test_product_partition.py",
+      "sha256": "181c23ab7ded80bccdecb6caf0ea0fe2deb31cee89ba7e4bb3cc7819a3a74145",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "test_functions": [
+        "test_partition_contract_is_nary_not_an_operation_contract",
+        "test_partition_contract_is_immutable_audit_data",
+        "test_synthetic_product_receipt_mints_two_branch_models_and_one_partition",
+        "test_branch_edges_run_from_each_tighter_branch_to_parent",
+        "test_partition_binds_the_exact_receipt_fingerprint",
+        "test_emitted_events_form_a_valid_graph_partition",
+        "test_existing_exhaustiveness_verifier_consumes_the_emitted_partition",
+        "test_synthetic_product_partition_verifies_against_real_backend",
+        "test_variable_unit_receipt_remains_evidence_but_cannot_mint_cover",
+        "test_nonliteral_parent_membership_is_not_invented",
+        "test_receipt_ring_and_characteristic_must_match_parent",
+        "test_receipt_id_and_branch_ids_fail_closed",
+        "test_false_product_receipt_fails_before_any_events_are_minted",
+        "test_cli_construct_product_split_dry_run_uses_source_algebra",
+        "test_cli_construct_product_split_declare_persists_valid_partition",
+        "test_cli_product_split_reports_missing_inputs_and_files",
+        "test_cli_product_split_preserves_localization_refusal"
+      ]
+    },
+    {
+      "path": "fixtures/algebraic_contracts/product_split_v1.json",
+      "sha256": "cea7a37fe5453eabf9b051053f7d0a452b45e2af4edfeb5e271f973d2ae80b62",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "grandportage/operations.py",
+      "sha256": "8b7465a3d2e2ebf0f72447c563e9c7edb0ff37c6556f2f89d0aa260f87fdd2b3",
+      "full_text_read": false,
+      "reviewed_definition": "product_split",
+      "semantic_status": "partial"
+    }
+  ],
+  "tests": {
+    "report": "reports/oracle-product-review.xml",
+    "sha256": "252039cb61cdcaadf1288c19e263bb7ba32aad4b041e190d422fe70d4f0b9388",
+    "passed": 28,
+    "live_deselected": 1
+  },
+  "diagnostic": "reports/PRODUCT-SPLIT-BOUNDARY.json",
+  "findings": [
+    "Identity replay alone leaves vanishing, no-zero-divisors and unit interpretation premises open.",
+    "Constructor matches normalized parent polynomials rather than raw syntax; equivalent ideal membership is deliberately insufficient.",
+    "Open guards are copied and no verdict event is emitted. General partition omissions remain separate known findings.",
+    "Injected backend in retained test asserts emitted ideals and returns cover; it does not prove a live backend or all guarded/selected-locus covers."
+  ],
+  "remaining": [
+    "Premise-deletion countermodels remain diagnostic pending a suitable fixed-expectation claim route; identity and matching-generator construction controls extracted in GP-X284\u2013291.",
+    "Disposition complete validation/budget boundary matrix and dependencies before marking semantic review complete.",
+    "Live product-partition regression remains unrun."
+  ],
+  "corpus_cases": [
+    "GP-X284",
+    "GP-X285",
+    "GP-X286",
+    "GP-X287",
+    "GP-X288",
+    "GP-X289",
+    "GP-X290",
+    "GP-X291"
+  ]
+}

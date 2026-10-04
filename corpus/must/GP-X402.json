@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "GP-X402",
+  "seed": null,
+  "title": "Census cardinality cannot reach the world without E5 completeness",
+  "situation": "INF-X8 has the E3b model claim but leaves E5 census completeness as an explicit required PREDICATE premise; the retained comment also records that E4 is a family COUNT and cannot be a model premise.",
+  "inputs": {
+    "fixture": "transports/X8-X10.json",
+    "fixture_lf_sha256": "b1009142a6cad512e9d6f87fdeaeadc507081c3481aaadf026fd7eea0d9fded1",
+    "fixture_manifest_source_commit": "b876fe4ed5c8963a0e8c19e18c829821c0686654",
+    "model": "M-23-4-REAL",
+    "available_premise": "CL-E3B",
+    "missing_premise": "E5: the 5,395-action census is complete for faithful V4 actions in the stated world",
+    "attempt": "INF-X8: turn exactly two census members into exactly two configurations in the world",
+    "observation_layer": "frozen_transport_refusal",
+    "limited_contrast": "INF-X9 is clean only because the fixture supplies CL-E5-DECLARED at its declared, unproved authority; it is not a completeness receipt or positive for this case."
+  },
+  "attempted_conclusion": "Conclude the V4-symmetric real configurations are exactly E1 and E2 without the E5 completeness premise.",
+  "expected": {"verdict": "REFUSE", "reason": "The transport checker retains INF-X8 as refused because a count in a census is not a world conclusion without E5 completeness."},
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {"repository": "gp-v037", "commit": "ac4155787207e2847d248cffed7be871d5dcd577", "path": "tests/test_guard_release.py", "line": 75, "anchor": "def test_ledger_and_open_slots_keep_their_original_obligations("}
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "GP-A07b",
+  "seed": "A7",
+  "title": "Closure witness versus existential nonemptiness",
+  "situation": "The projection of x*y=1 has closure A^1; x=0 lies only in the closure.",
+  "inputs": {
+    "equations": [
+      "x*y-1"
+    ],
+    "projection": [
+      "x"
+    ],
+    "reading": "existential",
+    "point": null
+  },
+  "attempted_conclusion": "Infer nonemptiness of the image.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "A nonempty closure implies a nonempty image, but does not lift every selected point."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 547,
+      "anchor": "| A7 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/kernel.py",
+      "line": 1046,
+      "anchor": "if rule == _EXISTENTIAL:"
+    }
+  ]
+}

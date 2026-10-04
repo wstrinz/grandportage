@@ -1,0 +1,235 @@
+{
+  "status": "targeted_native_projection_passed",
+  "observation": {
+    "observed_verdict": "REFUSE",
+    "reason": "the extension-valued coordinates do not define a point of M: open guard ((a1x-a2x)^2+(a1y-a2y)^2)*((b1x-b2x)^2+(b1y-b2y)^2)*((c1x-c2x)^2+(c1y-c2y)^2) vanishes",
+    "raw_verdict": "NOT_A_POINT",
+    "receipt": {
+      "method": "simple_number_field_v1",
+      "field": {
+        "base": "Q",
+        "symbol": "s",
+        "minimal_polynomial": "s^2-3",
+        "modulus_coefficients": [
+          "-3",
+          "0",
+          "1"
+        ],
+        "degree": 2
+      },
+      "coordinates": {
+        "a1x": [],
+        "a1y": [],
+        "a2x": [],
+        "a2y": [],
+        "b1x": [
+          "1"
+        ],
+        "b1y": [],
+        "b2x": [
+          "1"
+        ],
+        "b2y": [],
+        "c1x": [
+          "1/2"
+        ],
+        "c1y": [
+          "0",
+          "1/2"
+        ],
+        "c2x": [
+          "1/2"
+        ],
+        "c2y": [
+          "0",
+          "1/2"
+        ]
+      },
+      "equations": [
+        {
+          "expression": "(a1x-b1x)^2+(a1y-b1y)^2-1",
+          "value": []
+        },
+        {
+          "expression": "(a1x-b2x)^2+(a1y-b2y)^2-1",
+          "value": []
+        },
+        {
+          "expression": "(a2x-b1x)^2+(a2y-b1y)^2-1",
+          "value": []
+        },
+        {
+          "expression": "(a2x-b2x)^2+(a2y-b2y)^2-1",
+          "value": []
+        },
+        {
+          "expression": "(a1x-c1x)^2+(a1y-c1y)^2-1",
+          "value": []
+        },
+        {
+          "expression": "(a1x-c2x)^2+(a1y-c2y)^2-1",
+          "value": []
+        },
+        {
+          "expression": "(a2x-c1x)^2+(a2y-c1y)^2-1",
+          "value": []
+        },
+        {
+          "expression": "(a2x-c2x)^2+(a2y-c2y)^2-1",
+          "value": []
+        },
+        {
+          "expression": "(b1x-c1x)^2+(b1y-c1y)^2-1",
+          "value": []
+        },
+        {
+          "expression": "(b1x-c2x)^2+(b1y-c2y)^2-1",
+          "value": []
+        },
+        {
+          "expression": "(b2x-c1x)^2+(b2y-c1y)^2-1",
+          "value": []
+        },
+        {
+          "expression": "(b2x-c2x)^2+(b2y-c2y)^2-1",
+          "value": []
+        }
+      ],
+      "guards": [
+        {
+          "expression": "((a1x-a2x)^2+(a1y-a2y)^2)*((b1x-b2x)^2+(b1y-b2y)^2)*((c1x-c2x)^2+(c1y-c2y)^2)",
+          "value": []
+        }
+      ]
+    },
+    "positive_control": {
+      "observed_verdict": "ACCEPT",
+      "raw_verdict": "VERIFIED",
+      "reason": "the structured point evaluates every equation to zero and every open guard to a nonzero element of the checked simple number field",
+      "receipt": {
+        "method": "simple_number_field_v1",
+        "field": {
+          "base": "Q",
+          "symbol": "s",
+          "minimal_polynomial": "s^2-3",
+          "modulus_coefficients": [
+            "-3",
+            "0",
+            "1"
+          ],
+          "degree": 2
+        },
+        "coordinates": {
+          "a1x": [],
+          "a1y": [],
+          "a2x": [],
+          "a2y": [],
+          "b1x": [
+            "1"
+          ],
+          "b1y": [],
+          "b2x": [
+            "1"
+          ],
+          "b2y": [],
+          "c1x": [
+            "1/2"
+          ],
+          "c1y": [
+            "0",
+            "1/2"
+          ],
+          "c2x": [
+            "1/2"
+          ],
+          "c2y": [
+            "0",
+            "1/2"
+          ]
+        },
+        "equations": [
+          {
+            "expression": "(a1x-b1x)^2+(a1y-b1y)^2-1",
+            "value": []
+          },
+          {
+            "expression": "(a1x-b2x)^2+(a1y-b2y)^2-1",
+            "value": []
+          },
+          {
+            "expression": "(a2x-b1x)^2+(a2y-b1y)^2-1",
+            "value": []
+          },
+          {
+            "expression": "(a2x-b2x)^2+(a2y-b2y)^2-1",
+            "value": []
+          },
+          {
+            "expression": "(a1x-c1x)^2+(a1y-c1y)^2-1",
+            "value": []
+          },
+          {
+            "expression": "(a1x-c2x)^2+(a1y-c2y)^2-1",
+            "value": []
+          },
+          {
+            "expression": "(a2x-c1x)^2+(a2y-c1y)^2-1",
+            "value": []
+          },
+          {
+            "expression": "(a2x-c2x)^2+(a2y-c2y)^2-1",
+            "value": []
+          },
+          {
+            "expression": "(b1x-c1x)^2+(b1y-c1y)^2-1",
+            "value": []
+          },
+          {
+            "expression": "(b1x-c2x)^2+(b1y-c2y)^2-1",
+            "value": []
+          },
+          {
+            "expression": "(b2x-c1x)^2+(b2y-c1y)^2-1",
+            "value": []
+          },
+          {
+            "expression": "(b2x-c2x)^2+(b2y-c2y)^2-1",
+            "value": []
+          }
+        ],
+        "guards": []
+      }
+    },
+    "production_function_called": "grandportage.verify.point_witness",
+    "native_arithmetic_checker": "grandportage.number_field.check_extension_witness",
+    "singular_executed": false,
+    "campaign_executed": false,
+    "held_authority_established": false,
+    "limitation": "Exact extension-valued point substitution over an ALGEBRAIC_CLOSURE model. No selected real embedding or global nonexistence proof; no persisted verdict/admission event."
+  },
+  "independent_fraction_check": {
+    "cross_class_edges": 12,
+    "squared_lengths": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "same_class_separations": [
+      0,
+      0,
+      0
+    ],
+    "no_campaign_import_or_execution": true
+  },
+  "mutated_payload_refused": true,
+  "native_projection_is_not_global_emptiness_or_new_checker_admission": true
+}

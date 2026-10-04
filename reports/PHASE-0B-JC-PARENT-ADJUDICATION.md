@@ -1,0 +1,11 @@
+# JC bounded parent adjudication
+
+The worker completed normally. Parent verified all13 referenced raw source hashes and independently read important incident anchors and the stale-prose handoff commit. Accept fourteen findings as13 episode groups: B013 is a WARRANT subfinding of B012; B001 is one incident with three witnesses. B002 records a distinct missing-order obligation from B001 missing lift/place conditions; shared consequences do not establish statistical independence. Including C001-C003 gives16 descriptive episode groups, one an operational recommendation. These are not16 independent samples or completed AppendixB records.
+
+Keep unknown cost/shipping values. B003 publication and B005 relied-on handoff are explicitly source-reported, supported by the primary summary and Git narrative read here; external release/recipient artifacts were not inspected. High-cost proposals follow the approved shipping criterion. B001 MEANING/COVER and B011 own/tool origin remain provisional; no class-percentage headline is warranted.
+
+B004 criterion defect is distinct from C002 chart constants. Pure syzygies among other columns need not involve Phi. The corrected graded search was not executed or audited. Generic modular independence wording must distinguish full-column independence from independence modulo another span: other column[p] and distinguished[1] show why naive relative reduction needs further rank premises. This is a repair-verification limit, not a finding against the actual checker or authority for a general soundness audit.
+
+Preserved13 additional private verbatim files: six incident sources, three companion summaries and four stored receipt/ledger exports. JC harvest now has20 files. All new copy hashes match; no overwrite. Stored S4/current-frontier and all six stage-journal rows report graph effect NONE; ledger schema is campaign-ledger-input/v0. These are stored evidence artifacts, with no fresh pass/status replay. See PHASE-0B-JC-HARVEST-MANIFEST.json.
+
+Worker now owns bounded DK summaries, approved notes and ZIP member indexes in separate reports only. Parent retains GP reuse, final JC/campaign dispositions and integration. Optional JC leads were not commissioned. A24 clarification remains pending; all454 cases/routes/immutable replays unchanged. JC and Phase0b are not declared complete.

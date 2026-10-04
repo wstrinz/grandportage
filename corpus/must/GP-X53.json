@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "GP-X53",
+  "seed": null,
+  "title": "Candidate codomain size is not lower-dimensional credit",
+  "situation": "The true object is a conditional injection into a codomain; GP has no dimension-credit claim kind.",
+  "inputs": {
+    "source_object": "Actual degree-five torsion layer",
+    "target_object": "Candidate degree-five codomain",
+    "information_lost": [
+      "no reverse realization",
+      "no lower-bound or ClosureLedger credit"
+    ],
+    "source_context": "QQ",
+    "claim": "DIMENSION_LOWER_CREDIT",
+    "direction": "AGAINST",
+    "supplied_lift_warrant": null
+  },
+  "attempted_conclusion": "Award lower-bound credit to the actual degree-five layer solely from the dimension of a candidate codomain.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A candidate target dimension supplies neither the missing injection nor a lower bound on the actual layer."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_formalization_transport.py",
+      "line": 61,
+      "anchor": "def test_degree_five_credit_is_visible_as_a_real_expressibility_gap("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "fixtures/jc_formalization_transport/v0.json",
+      "line": 547,
+      "anchor": "\"id\": \"JC.ASSAY.B.CODOMAIN_CREDIT\""
+    }
+  ]
+}

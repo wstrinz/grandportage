@@ -1,0 +1,206 @@
+{
+  "sources": [
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "docs/JC-DM4-POLYNOMIAL-LIFT.md",
+      "deleted_blob": "36e9e90cecee7209ef1098ca8f79118c02381bb6",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed",
+      "sha256": "b7674294174236b795081138306e3c7a086271047808e105d952f93a44f668d1",
+      "lines": 96,
+      "full_text_read": true,
+      "extraction_status": "pending_specific_dispositions",
+      "anchors": [
+        {
+          "line": 8,
+          "text": "> Over `Q[y]`, any rational-function `dm4` satisfying the three source"
+        },
+        {
+          "line": 14,
+          "text": "say that the lift respects any declared degree cap; v14 proves that it need"
+        },
+        {
+          "line": 71,
+          "text": "`gamma > 2*beta`. That was not the right conclusion; the unique-minimum"
+        },
+        {
+          "line": 81,
+          "text": "- If `a=b=0`, `G2` gives `c=0`; choose `q=0` when constructing a lift."
+        }
+      ]
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "JC-H3-LOCALIZATION-COORDINATOR-PACKET.md",
+      "deleted_blob": "3474734284423656a0c47cfbe7bc323a4eeddf22",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed",
+      "sha256": "be2ef72758e61c9e59e011dce6535106302a24f8aae2dd7c4fd5d1f9725aa6df",
+      "lines": 126,
+      "full_text_read": true,
+      "extraction_status": "pending_specific_dispositions",
+      "anchors": [
+        {
+          "line": 72,
+          "text": "claimed. For the local solve identity, the singleton list containing that exact"
+        },
+        {
+          "line": 80,
+          "text": "content. The current elimination loop discards that receipt object. This is"
+        },
+        {
+          "line": 90,
+          "text": "Do not describe the normalized polynomial as ambient-identical to the original"
+        },
+        {
+          "line": 106,
+          "text": "4. Treat adapter refusal as an interface or evidence obligation, not as a"
+        }
+      ]
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "JC-COORDINATOR-NEXT-PACKET.md",
+      "deleted_blob": "8e43710b45cbce695813df66ebc2b6df732cf618",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed",
+      "sha256": "bc759e3cfee98ef0af45faa7a1e34ea26ee907c10e145b763ef63863b5ebdbd9",
+      "lines": 224,
+      "full_text_read": true,
+      "extraction_status": "candidate_existing_mappings_pending_payload_review"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "JC-LEAD-AGENT-PACKET.md",
+      "deleted_blob": "8ed520ec32e0524020b4fbb7edf32e7eef72a0c9",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed",
+      "sha256": "e87fd910bdd0dfa73c9d880b962f4038b1b3b2637112367571636254a41244e8",
+      "lines": 182,
+      "full_text_read": true,
+      "extraction_status": "candidate_existing_mappings_pending_payload_review"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "docs/JC-CLOSEOUT-AND-GP-ROADMAP.md",
+      "deleted_blob": "b882b1204501eedca7ef763c202f0f81fa81eec0",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed",
+      "sha256": "5bc380cb0fa1a02429b21edbbfb02e0ee146581b8b8257a92dce1569b8e8a162",
+      "lines": 298,
+      "full_text_read": true,
+      "extraction_status": "candidate_existing_mappings_pending_payload_review"
+    }
+  ],
+  "findings": [
+    {
+      "id": "deleted-dm4-universal-versus-existential",
+      "status": "concrete_counterexample_candidate_pending_case_reuse_review",
+      "evidence": "docs/JC-DM4-POLYNOMIAL-LIFT.md opening conjecture and zero charts",
+      "inputs": {
+        "coefficient_ring": "Q[y]",
+        "fraction_field": "Q(y)",
+        "a": "0",
+        "b": "0",
+        "c": "0",
+        "d0": "0",
+        "d1": "0",
+        "d2": "0",
+        "q": "1/y"
+      },
+      "calculation": "Every displayed G1/G2/G3 term contains a, b or c and is zero. q=1/y is not in Q[y]. Choosing q=0 supplies a polynomial solution with the same retained coordinates, but does not make the original arbitrary q polynomial.",
+      "limit": "Refutes the literal opening universal statement for the displayed three equations. Does not refute existence of a polynomial lift, full v13 target lift claims, a nonzero-chart theorem, compiled Lean theorem or runtime admission. No Lean run or external campaign read.",
+      "next": "Compare existing degree/lift cases and inspect GP-owned JCDm4Valuation theorem interface before extraction. Preserve distinction between unique/arbitrary lift and existence.",
+      "existing_case_screen": {
+        "cases": [
+          "GP-A22",
+          "GP-X25",
+          "GP-X26"
+        ],
+        "result": "Full payloads read. These compare degree caps and displayed polynomial witnesses; none tests an arbitrary rational solution on the all-zero retained chart. Universal polynomiality versus existence remains a distinct candidate."
+      }
+    },
+    {
+      "id": "deleted-localization-local-versus-chain",
+      "status": "existing_case_mapping_needed",
+      "evidence": "JC-H3-LOCALIZATION-COORDINATOR-PACKET.md",
+      "summary": "Local solve from supplied post-substitution polynomial is distinct from authenticity of full substitution/normalization chain, source membership and H3 promotion. Exact equation text is needed; equation identifier alone is insufficient. Unit removal is localized, not ambient identity.",
+      "candidate_cases": [
+        "GP-X17",
+        "GP-X18",
+        "GP-X19",
+        "GP-X63",
+        "GP-X73",
+        "GP-X87"
+      ],
+      "next": "Check actual payloads before claiming equivalence; report does not close this source."
+    },
+    {
+      "id": "deleted-dm4-prior-proof-spine",
+      "status": "recorded_confession_requires_disposition",
+      "summary": "The audit withdraws an informal gamma > 2*beta conclusion in favor of a unique-minimum valuation argument. This is a recorded proof correction; do not count it as a newly executed theorem or assume already extracted.",
+      "bounded_integer_control": {
+        "alpha": 2,
+        "beta": 1,
+        "gamma": 0,
+        "delta": -1,
+        "g1_balance": true,
+        "g2_balance": true,
+        "old_gamma_greater_than_twice_beta": false,
+        "corrected_unique_minimum_inequalities": true,
+        "limit": "Checks one integer instance of the supplied balances. Does not construct polynomial solutions to all G1-G3; not a counterexample to the corrected theorem or an assertion of its general proof."
+      }
+    },
+    {
+      "id": "deleted-coordinator-normalization-and-seam",
+      "status": "existing_case_mapping_needed",
+      "source": "JC-COORDINATOR-NEXT-PACKET.md",
+      "summary": "Normalization a=c=1 only covers J=a*c^(-3)=1, not arbitrary J fibers. Generic exclusion does not settle exceptional roots; eliminant zeros do not establish source witnesses. Partial coefficient maps do not establish reverse lifting or complete b=0 closure. Matching support does not establish coefficient occurrence. Historical row-count repair is said to preserve output and requires freshness update only if bound digest changes.",
+      "candidate_cases": [
+        "GP-X100",
+        "GP-X101",
+        "GP-X102",
+        "GP-X103",
+        "GP-X104",
+        "GP-X105"
+      ],
+      "limit": "Read GP-owned packet only; historical requests and referenced campaign claims not executed or treated as current authorization."
+    },
+    {
+      "id": "deleted-lead-operation-boundaries",
+      "status": "existing_case_mapping_needed",
+      "source": "JC-LEAD-AGENT-PACKET.md",
+      "summary": "Recorded three-versus-seventeen-generator contraction refusal, separate finite point-lift cover, and dm4=-y/2 versus degree-cap-zero trap. Complete coefficient expansion differs from selected rows; mapped equivalence differs from literal containment; timed-out backend supplies no authority. Active host hook enforcement requires an actual host check and cannot be inferred from source tests.",
+      "candidate_cases": [
+        "GP-X07",
+        "GP-X27",
+        "GP-X28",
+        "GP-X32"
+      ],
+      "limit": "Historical live/build and campaign assertions are source statements, not fresh execution. No onboarding/install/hook instruction followed."
+    },
+    {
+      "id": "deleted-closeout-evidence-grades",
+      "status": "existing_review_mapping_needed",
+      "source": "docs/JC-CLOSEOUT-AND-GP-ROADMAP.md",
+      "summary": "Planning dossier is explicitly derived with no graph authority. Readiness claims depend on authored profile/cards, unlike executed mathematical proof. The broad stale-source/readiness and atomic-materialization prose must retain B61/B63 qualifications. Historical six computational replays, Lean build and archival lane claims are not freshly verified. A terminated packaged lane and later clean-checkout success are distinct executions.",
+      "existing_review_candidates": [
+        "corpus/DOSSIER-REVIEW.json",
+        "corpus/RELEASE-PUBLICATION-REVIEW.json",
+        "reports/PHASE-0A-BATCH-61.md",
+        "reports/PHASE-0A-BATCH-62.md",
+        "reports/PHASE-0A-BATCH-63.md"
+      ],
+      "limit": "No external JC source read, publication executed, or historical instructions adopted."
+    }
+  ],
+  "authority": "Source review and elementary symbolic counterexample only; no new corpus expectations or oracle outcomes.",
+  "formal_crosscheck": {
+    "path": "lean/GrandPortage/JCDm4Valuation.lean",
+    "pin": "ac4155787207e2847d248cffed7be871d5dcd577",
+    "sha256": "83ca20df2c60c19f5bc7694b64e9d69ea33033b4d9e0f259c7d4af4236244655",
+    "full_text_read": true,
+    "finding": "The theorem proves integer inequalities from nonnegative alpha/beta/gamma, negative delta, and two supplied balances. The file explicitly defers the genuine valuation connection and zero charts. The zero-chart counterexample to the prose universal statement does not contradict this theorem.",
+    "execution": "No Lean compilation."
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "GP-X409",
+  "seed": null,
+  "title": "Valid evaluation lift supports point-surjectivity",
+  "situation": "Abstract conditional point semantics over identity-related integer rings with zero ideals; admissible evaluations are an additional premise. This is not a standard algebraic-point elimination theorem.",
+  "inputs": {
+    "source_ring": "Int",
+    "target_ring": "Int",
+    "embedding": "identity",
+    "source_ideal": "zero ideal",
+    "target_ideal": "zero ideal",
+    "exact_contraction": {
+      "formula": "For every g, g = 0 iff identity(g) = 0",
+      "justification": "identity embedding and the same zero ideal at both endpoints"
+    },
+    "evaluation_codomain": "Unit",
+    "target_valid_evaluation_predicate": "always True",
+    "source_valid_evaluation_predicate": "always True",
+    "target_evaluation": "constant Unit evaluation",
+    "ideal_vanishing": "Every value equals the distinguished Unit zero",
+    "valid_evaluation_lift": {
+      "construction": "Reuse each target evaluation as the source evaluation",
+      "validity": "Both evaluation predicates are always True",
+      "retained_coordinate_equality": "identity embedding gives equality for every integer"
+    }
+  },
+  "attempted_conclusion": "Every valid target point has a valid source lift with equal retained coordinates, using the supplied valid evaluation lift.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The identity lift preserves all coordinates and ideal vanishing; both validity predicates hold. This conditional expectation does not assert an executed checker admission."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "lean/GrandPortage/OperationContract.lean",
+      "line": 799,
+      "anchor": "theorem point_surjectivity_needs_retained_expressibility :"
+    }
+  ]
+}

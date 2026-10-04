@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "GP-A16-covered",
+  "seed": "A16",
+  "title": "Case cover covered",
+  "situation": "Every listed branch is empty; the parent conclusion depends on an exhaustive cover.",
+  "inputs": {
+    "all_listed_branches_empty": true,
+    "checked_exhaustive_cover": true
+  },
+  "attempted_conclusion": "Conclude the parent is empty.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "All branches must be settled and the cover must be checked exhaustive."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 556,
+      "anchor": "| A16 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/kernel.py",
+      "line": 1252,
+      "anchor": "def transport_over_partition("
+    }
+  ]
+}

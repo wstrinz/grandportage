@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "seed": null,
+  "inputs": {
+    "control": "legacy_partition_ordered_receipts",
+    "source_equations": [
+      "x^2+1"
+    ],
+    "branches": [
+      "B1",
+      "B2"
+    ],
+    "identical_loci_cover": true,
+    "cover_projection_supplied": true,
+    "ordered_sos": {
+      "squares": [
+        "x"
+      ],
+      "cofactors": [
+        "-1"
+      ],
+      "certificate": "ORDERED_SOS_CERT"
+    },
+    "field": "R",
+    "branch_receipts_recorded": true
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/check.py",
+      "line": 240,
+      "anchor": "if inf.get(\"via_partition\"):"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/check.py",
+      "line": 252,
+      "anchor": "carried = {"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/format.py",
+      "line": 206,
+      "anchor": "\"%s: epoch-1 %s event has unknown field%s %s. Native schemas are \""
+    },
+    {
+      "repository": "rework-packet",
+      "path": "reports/PHASE-0A-BATCH-52.md",
+      "line": 5,
+      "anchor": "Four legacy Graph API controls isolate this consumer"
+    }
+  ],
+  "id": "GP-X344",
+  "title": "Ordered branch receipts with a true cover pass the legacy partition audit",
+  "situation": "The two identical branches cover the parent and exact ordered SOS receipts establish their R emptiness; the isolated legacy consumer accepts the composition.",
+  "attempted_conclusion": "Observe the isolated legacy partition consumer accept R parent EMPTY with the supplied true cover and replayed ordered branch receipts.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The ordered interpretation is applicable in R and the true cover includes both branches."
+  }
+}

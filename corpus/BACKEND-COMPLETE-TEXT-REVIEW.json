@@ -1,0 +1,45 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "grandportage/backend.py",
+      "sha256": "8a2cbb4c617e2e76b4a346bb0cabfaf583e7ebfe150207e4889eaf593e4dd03f",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_backend.py",
+      "sha256": "99faee8eb7f47e3a39a5fda6e94c553bcf988744d2a7eceb8080291b57cc9650",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "slices": [
+    "grandportage/cas.py:836-1285 process execution, identity, SingularBackend"
+  ],
+  "tests": {
+    "passed": 28,
+    "deselected_live": 8,
+    "report": "reports/oracle-backend-complete-review.xml"
+  },
+  "diagnostics": "reports/BACKEND-TRANSCRIPT-BOUNDARY.json",
+  "findings": [
+    "Artifacts snapshot program text, nonce, decoded stdout/stderr and canonical parsed/certificate JSON. Mutating ordinary compatibility fields does not change the retained text. Validation checks text hashes and optional exact program, but semantic fingerprint syntax alone does not prove request meaning or mathematical truth.",
+    "Two actual bounded Python subprocesses emitting different byte strings, OK newline and O ff K newline, both retain OK newline and the same stdout text digest because errors=ignore drops invalid UTF-8. This is lossy transcript custody, not a cryptographic collision or reproduced proof admission.",
+    "valid_fingerprint accepts a final newline because regex match with dollar permits it. No stored-object or authority bypass established; use fullmatch for the advertised lexical contract.",
+    "ExecutionArtifact frozen dataclass retains arbitrary abort_reason by reference. A direct injected-runner mutable reason changes the artifact digest after construction while validate_execution_artifact accepts it. Native subprocess produces only strings/null, so this is a direct-API envelope defect, not a demonstrated native attack.",
+    "Subprocess stdout/stderr are byte-capped before decoding. WSL uses an inner timeout and Windows taskkill is best-effort; thread joins and pipe closing occur after process wait. Descendant-held pipes and whole-tree races remain unverified. Version probing separately uses capture_output without these byte caps.",
+    "In-band identity is bound to a fresh nonce and compared with the cached early probe; failed executions retain their identity and cannot be rehabilitated by a later probe. Banner equality is not executable-byte attestation.",
+    "Injected/subclass backends cannot normally record positive authority. The section persistence test overrides this gate, so its eight mocked artifacts establish persistence plumbing only. Eight live mathematical/backend integration tests were read but excluded."
+  ],
+  "proposed_fixes": [
+    "Retain raw bytes with explicit encoding or refuse invalid UTF-8; label decoded-text digests accurately.",
+    "Validate closed primitive artifact field types at construction and use fullmatch for fingerprints.",
+    "Bound version-probe output and specify total timeout/process-tree containment separately from mathematical validity."
+  ],
+  "remaining": [
+    "Full CAS operation/parser source disposition and remaining launch tests.",
+    "Actual live backend and descendant-pipe/process-tree custody remain unverified.",
+    "Portable extraction of uncovered distinct controls remains pending."
+  ]
+}

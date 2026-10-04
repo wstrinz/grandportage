@@ -1,0 +1,73 @@
+{
+  "schema": "gp-reach-slice-manifest/v1",
+  "cases": [
+    {
+      "path": "corpus/must/GP-A08b.json"
+    },
+    {
+      "path": "corpus/must/GP-A08c.json"
+    },
+    {
+      "path": "corpus/must/GP-A05.json"
+    },
+    {
+      "path": "corpus/must/GP-A04.json",
+      "parameters": {
+        "p": 3
+      },
+      "label": "GP-A04[p=3]"
+    },
+    {
+      "path": "corpus/must/GP-A04.json",
+      "parameters": {
+        "p": 5
+      },
+      "label": "GP-A04[p=5]"
+    },
+    {
+      "path": "corpus/must/GP-X125.json"
+    },
+    {
+      "path": "corpus/must/GP-X126.json"
+    },
+    {
+      "path": "corpus/must/GP-X15.json"
+    },
+    {
+      "path": "corpus/must/GP-X16.json"
+    },
+    {
+      "path": "corpus/must/GP-X413.json",
+      "label": "GP-FANO-C1"
+    },
+    {
+      "path": "corpus/must/GP-X414.json",
+      "label": "GP-FANO-C1-CHAR2"
+    },
+    {
+      "path": "corpus/must/GP-X415.json",
+      "label": "GP-FANO-F2"
+    },
+    {
+      "path": "profile/slice/controls/fp-witness-in-char0.json"
+    },
+    {
+      "path": "profile/slice/controls/guard-vanishes-f3.json"
+    },
+    {
+      "path": "profile/slice/controls/guard-vanishes-q.json"
+    },
+    {
+      "path": "profile/slice/controls/hidden-denominator-q.json"
+    },
+    {
+      "path": "profile/slice/controls/hidden-denominator.json"
+    },
+    {
+      "path": "profile/slice/controls/swapped-generator.json"
+    },
+    {
+      "path": "profile/slice/controls/wrong-cofactor.json"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schema": "gp-phase2-interrupted-checkpoint/v1",
+  "date": "2026-10-01",
+  "verified_base_commit": "d8ac02a",
+  "verified_corpus_count": 46,
+  "target_after_pending_integration": 52,
+  "surviving_receipt_harness_sha256": "78f7331ae22874231fa803b470e43ca8557c4014c5b3dc29754e98e39e0d2d70",
+  "current_harness_sha256": "cdcc1d177827ede90d4bfcad227248570a5b79323bc098fb0c00b0e8aa676636",
+  "receipt_is_current": false,
+  "build_imports_still_match": true,
+  "fresh_test_exit_unconfirmed": true,
+  "prior_regression_exit_unconfirmed": true,
+  "fresh_legacy_replay_unconfirmed": true,
+  "worker_original_hashes": {
+    "phase2/lean/Tests/ConditionalAdmissionScope.lean": "78f7331ae22874231fa803b470e43ca8557c4014c5b3dc29754e98e39e0d2d70",
+    "tools/run-phase2-conditional-admission-scope.py": "4452a1ea9d6e879d06d9462ac89aedc094029614011299d96c760514b4c7955e",
+    "tests/test_phase2_conditional_admission_scope.py": "1ef900a4956b4b0c7a0dcd876f01c07841167f364a9328f627780e2c49a82e88",
+    "reports/PHASE-2-CONDITIONAL-ADMISSION-SCOPE.json": "42c97bece756fc1c9c3f83628c939535b534c665ae8a412f09848c57d2622c9d"
+  },
+  "files": {
+    "tools/run-phase2-slice.py": "3c46558a80931c04bc25bd898d5355e4be93e4c7842efdd10a8fd90e747898ca",
+    "reports/PHASE-2-PROVENANCE-SLICE.json": "bd35719a35a04cbb0ebc30a6291f2937ad10dbb57b2b442197942477e0578180",
+    "reports/PHASE-2-CHECKED-LIFECYCLE-SUPPLEMENT.json": "ca6b8e14e08cc089106c521531811a559b0fa45d2b431b09ba8a88d874bb52a2",
+    "reports/PHASE-2-MISSING-AUTHORITY.json": "32bfe86da2a514ba538c104a6dc705c12c2119f7d93a6d07df99aec82867564a",
+    "phase2/lean/Tests/ConditionalAdmissionScope.lean": "cdcc1d177827ede90d4bfcad227248570a5b79323bc098fb0c00b0e8aa676636",
+    "tools/run-phase2-conditional-admission-scope.py": "15f039403073fb35b3aaa372d3b8214af5a25bbdfeeaed6744aeb2061fbc1da1",
+    "tests/test_phase2_conditional_admission_scope.py": "f0962abce423189f188a367f7904555c44f0f64aa728b261755b08433b586587",
+    "reports/PHASE-2-CONDITIONAL-ADMISSION-SCOPE.json": "42c97bece756fc1c9c3f83628c939535b534c665ae8a412f09848c57d2622c9d",
+    "tmp/phase2-conditional-admission-scope/tests.report.json": "625456d6b9ddc5a8b6441327100d0bd31a8897dab29a6946a9b2ab8cd66aa5d2",
+    "tmp/phase2-admission-prior-aggregate.json": "0dbaab754e940e7504a9f1ec2eb2d649fc98ba455141cbf7ca692d86737091fb",
+    "tmp/phase2-admission-source-isolation.json": "c084f0954ae2654e6aad55db095e89b3416952fcbf7ab7d3d63b887a4ca1fcb6",
+    "tmp/phase2-admission-worker-original-hashes.json": "b1ce398ffaa1b8ea5293bcb9d947a4e940a13bb35ef8fb308994d04ff2004ed3"
+  },
+  "g2_pass": false,
+  "public_push": false
+}

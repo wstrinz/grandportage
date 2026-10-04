@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "GP-A08c",
+  "seed": "A8",
+  "title": "Integral rational witness specializes",
+  "situation": "x=1/2 satisfies 2*x-1=0 and its denominator is invertible modulo 3.",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "generators": [
+      "2*x-1"
+    ],
+    "point": {
+      "x": "1/2"
+    },
+    "target_characteristic": 3,
+    "reduced_point": {
+      "x": "2"
+    }
+  },
+  "attempted_conclusion": "Conclude the reduced system is nonempty over F_3.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The reduced witness satisfies 2*2-1=0 modulo 3."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 548,
+      "anchor": "| A8 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_kernel.py",
+      "line": 153,
+      "anchor": "def test_specialization_is_maximally_lossy("
+    }
+  ]
+}

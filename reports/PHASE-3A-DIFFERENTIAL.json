@@ -1,0 +1,194 @@
+{
+  "schema": "gp-3a-differential/v1",
+  "authority": "post-G2 §3.8",
+  "oracle": "v0.37.0 ac41557 (oracle/checkout)",
+  "fixtures": [
+    "fixtures/matroid",
+    "fixtures/jc2"
+  ],
+  "summary": "No disagreements. The Fano contrast executes and agrees; other inferences are consistent by the proved R2/R3 direction tables but carry no polynomial data to execute; the rest need 3b field classes or number fields, combinatorial certificates, or campaign operations. A char-0 claim in 3a covers every char-0 field, so the base-field-only ML8 claims are not statable in 3a at all (3b).",
+  "counts": {
+    "inexpressible-3b": 8,
+    "consistent-by-rule": 6,
+    "inexpressible-other": 6,
+    "executed-agrees": 1,
+    "inexpressible-campaign": 4
+  },
+  "inferences": [
+    {
+      "id": "IM-FANO-CONTRAST",
+      "fixture": "matroid",
+      "oracle": "clean",
+      "triage": "executed-agrees",
+      "note": "GP-FANO-C1: computed reach char 0 and every prime but 2 contains C (reports/PHASE-3A-SLICE.json)"
+    },
+    {
+      "id": "IM-FANO-NO-SAT",
+      "fixture": "matroid",
+      "oracle": "clean",
+      "triage": "consistent-by-rule",
+      "note": "EMPTY moves loose->tight (R2): the unsaturated system's unit certificate empties the saturated one"
+    },
+    {
+      "id": "IM-MACLANE",
+      "fixture": "matroid",
+      "oracle": "clean",
+      "triage": "inexpressible-other",
+      "note": "finite orientation exhaustion is a combinatorial certificate (census-style, Phase 4)"
+    },
+    {
+      "id": "IM-ML8-ASCEND",
+      "fixture": "matroid",
+      "oracle": "clean",
+      "triage": "inexpressible-3b",
+      "note": "NONEMPTY over Q(sqrt -3) needs a number-field witness"
+    },
+    {
+      "id": "IM-ML8-BASE-EXT",
+      "fixture": "matroid",
+      "oracle": "finding",
+      "triage": "inexpressible-3b",
+      "note": "claim over R by a square-class certificate; 3a scopes cannot separate R from C (field class, 3b)"
+    },
+    {
+      "id": "IM-ML8-DESCENT",
+      "fixture": "matroid",
+      "oracle": "finding",
+      "triage": "inexpressible-3b",
+      "note": "the NONEMPTY premise over C needs a number-field witness (3b)"
+    },
+    {
+      "id": "IM-ML8-Q-BASE-EXT",
+      "fixture": "matroid",
+      "oracle": "finding",
+      "triage": "inexpressible-3b",
+      "note": "a base-field-only EMPTY over Q is unstatable in 3a: a char-0 EMPTY claim covers every char-0 field, and no C1 certificate exists since ML8 is realizable over Q(sqrt -3)"
+    },
+    {
+      "id": "IM-ML8-UP",
+      "fixture": "matroid",
+      "oracle": "clean",
+      "triage": "inexpressible-3b",
+      "note": "frame-normalized realization over C needs a number-field witness"
+    },
+    {
+      "id": "IM-NF-SKIP-SAT",
+      "fixture": "matroid",
+      "oracle": "finding",
+      "triage": "consistent-by-rule",
+      "note": "NONEMPTY moves tight->loose only (R2); the AGAINST step loose->tight is refused; models carry no polynomial data to execute"
+    },
+    {
+      "id": "IM-ORIENT-TO-REAL",
+      "fixture": "matroid",
+      "oracle": "finding",
+      "triage": "inexpressible-other",
+      "note": "combinatorial oriented-matroid model, no field"
+    },
+    {
+      "id": "IM-U35-CLOSURE",
+      "fixture": "matroid",
+      "oracle": "finding",
+      "triage": "consistent-by-rule",
+      "note": "3a has no image-closure relation; R3 never licenses NONEMPTY back from a closure"
+    },
+    {
+      "id": "IM-U35-RANK",
+      "fixture": "matroid",
+      "oracle": "clean",
+      "triage": "inexpressible-other",
+      "note": "PREDICATE claim along an image closure; no 3a kind"
+    },
+    {
+      "id": "INF-A10-SURV",
+      "fixture": "jc2",
+      "oracle": "finding",
+      "triage": "consistent-by-rule",
+      "note": "3a has no image-closure relation; NONEMPTY is never licensed back from a closure"
+    },
+    {
+      "id": "INF-C08-CURRENT",
+      "fixture": "jc2",
+      "oracle": "clean",
+      "triage": "inexpressible-3b",
+      "note": "square-class certificate over Q(sqrt 17)"
+    },
+    {
+      "id": "INF-C08-HIST",
+      "fixture": "jc2",
+      "oracle": "finding",
+      "triage": "inexpressible-3b",
+      "note": "square-class certificate over Q(sqrt 17)"
+    },
+    {
+      "id": "INF-C20-HIST",
+      "fixture": "jc2",
+      "oracle": "finding",
+      "triage": "inexpressible-3b",
+      "note": "square-class certificate over Q(sqrt 17)"
+    },
+    {
+      "id": "INF-G4-MONO",
+      "fixture": "jc2",
+      "oracle": "clean",
+      "triage": "inexpressible-campaign",
+      "note": "nonzero-resultant certificate (campaign-op)"
+    },
+    {
+      "id": "INF-KSYZ",
+      "fixture": "jc2",
+      "oracle": "clean",
+      "triage": "consistent-by-rule",
+      "note": "EMPTY along an equivalence (R2 both ways); certificate data not in the fixture"
+    },
+    {
+      "id": "INF-KSYZ-REV",
+      "fixture": "jc2",
+      "oracle": "clean",
+      "triage": "inexpressible-other",
+      "note": "IDENTITY claim; campaign syzygy data"
+    },
+    {
+      "id": "INF-POSSLICE",
+      "fixture": "jc2",
+      "oracle": "clean",
+      "triage": "inexpressible-campaign",
+      "note": "nonzero-resultant certificate on an ordered slice (3b/campaign-op)"
+    },
+    {
+      "id": "INF-R9",
+      "fixture": "jc2",
+      "oracle": "clean",
+      "triage": "inexpressible-campaign",
+      "note": "NONEMPTY by a campaign witness with no polynomial data"
+    },
+    {
+      "id": "INF-SLICEPHI",
+      "fixture": "jc2",
+      "oracle": "finding",
+      "triage": "inexpressible-other",
+      "note": "PREDICATE along a necessary condition; no 3a kind"
+    },
+    {
+      "id": "INF-SLICEPHI-KILL",
+      "fixture": "jc2",
+      "oracle": "clean",
+      "triage": "consistent-by-rule",
+      "note": "EMPTY moves loose->tight (R2); unit certificate data not in the fixture"
+    },
+    {
+      "id": "INF-SYZCOLL",
+      "fixture": "jc2",
+      "oracle": "clean",
+      "triage": "inexpressible-campaign",
+      "note": "exact valuation collision certificate (campaign-op)"
+    },
+    {
+      "id": "INF-SYZCOLL-DICT",
+      "fixture": "jc2",
+      "oracle": "clean",
+      "triage": "inexpressible-other",
+      "note": "IDENTITY claim on a relaxation; campaign syzygy data"
+    }
+  ]
+}

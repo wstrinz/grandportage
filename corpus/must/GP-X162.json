@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "id": "GP-X162",
+  "seed": null,
+  "title": "Hide a licensing change inside AMEND",
+  "situation": "Adding coefficients_in_base changes licensing and requires relicense review.",
+  "inputs": {
+    "vocabulary": "lifecycle-scenario/v1",
+    "objects": {
+      "object-1": {
+        "category": "context",
+        "name": "M",
+        "properties": {
+          "description": "m"
+        }
+      },
+      "object-2": {
+        "category": "context",
+        "name": "N",
+        "properties": {
+          "description": "n"
+        }
+      },
+      "object-3": {
+        "category": "assertion",
+        "name": "C",
+        "properties": {
+          "context": "M",
+          "statement_class": "polynomial_identity",
+          "statement": "x=y",
+          "identity_basis": "context_equations"
+        }
+      },
+      "object-4": {
+        "category": "assertion",
+        "name": "C2",
+        "properties": {
+          "context": "M",
+          "statement_class": "polynomial_identity",
+          "statement": "x=y",
+          "identity_basis": "context_equations",
+          "coefficients_from_base": true
+        }
+      }
+    },
+    "history": [
+      {
+        "object": "object-1"
+      },
+      {
+        "object": "object-2"
+      },
+      {
+        "object": "object-3"
+      },
+      {
+        "object": "object-4",
+        "replacement": {
+          "prior": "C",
+          "change": "annotation_only"
+        }
+      }
+    ],
+    "question": {}
+  },
+  "attempted_conclusion": "Hide a licensing change inside AMEND.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Adding coefficients_in_base changes licensing and requires relicense review."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 1697,
+      "anchor": "def test_amend_is_computed_not_declared("
+    }
+  ]
+}

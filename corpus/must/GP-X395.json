@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "GP-X395",
+  "seed": null,
+  "title": "Operational 76.3: cas declaration identity boundary",
+  "situation": "Injected CAS result declares GP_I[1]=x but caller metadata supplies generators [1].",
+  "inputs": {
+    "incident_row": "76.3",
+    "vector": {
+      "runner": "injected",
+      "parsed_output": {
+        "GP_I": "GP_I[1]=x"
+      },
+      "caller_generators": [
+        "1"
+      ],
+      "resulting_model": "declaration only"
+    },
+    "retained_evidence_refs": [
+      "reports/CAS-PROGRAM-CUSTODY.json#/observations/2"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Use resulting model declaration as parsed-output generator provenance.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The injected result parses generator x while the persisted declaration uses caller generator 1. That declaration alone does not establish parsed-output provenance; refusal versus explicit provenance separation remains a repair choice."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/cas.py",
+      "line": 735,
+      "anchor": "def run_cas(program, *, edge, produces, describes, root=\".\", timeout=300,",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "controls": [
+    {
+      "id": "invalid_json",
+      "exception": null,
+      "responses": [
+        {
+          "jsonrpc": "2.0",
+          "id": null,
+          "error": {
+            "code": -32700,
+            "message": "parse error"
+          }
+        },
+        {
+          "jsonrpc": "2.0",
+          "id": 2,
+          "result": {}
+        }
+      ]
+    },
+    {
+      "id": "json_array",
+      "exception": "'list' object has no attribute 'get'",
+      "responses": []
+    },
+    {
+      "id": "valid",
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "recorded 1 model in tmp/mcp-boundary-g6prcayg/.portage/graph.jsonl/n/nno findings: every recorded conclusion is licensed by the transport it rests on."
+            }
+          ]
+        }
+      },
+      "graph_changed": true,
+      "model_present": true
+    },
+    {
+      "id": "invalid",
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "GraphError: <new>:1: epoch-1 model event has unknown field `unknown`. Native schemas are closed; fix the spelling or add the field to the format.\n\ngraph unchanged: tmp/mcp-boundary-g6prcayg/.portage/graph.jsonl/nroot provenance: input=absolute; resolved GP_ROOT=tmp/mcp-boundary-g6prcayg; server cwd=$WORKSPACE"
+            }
+          ],
+          "isError": true
+        }
+      },
+      "graph_changed": false,
+      "model_present": false
+    },
+    {
+      "id": "post_commit_failure",
+      "response": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "unhandled error:\nTraceback (most recent call last):\n  File \"oracle/checkout/grandportage/mcp.py/", line 1414, in dispatch\n    return _ok(rid, handler(args, call_root))\n                    ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"oracle/checkout/grandportage/mcp.py/", line 918, in h_portage_declare\n    findings = C.run(S.load(S.graph_path(root)), accepted)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/unittest/mock.py/", line 1139, in __call__\n    return self._mock_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/unittest/mock.py/", line 1143, in _mock_call\n    return self._execute_mock_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/unittest/mock.py/", line 1198, in _execute_mock_call\n    raise effect\nRuntimeError: synthetic report failure\n"
+            }
+          ],
+          "isError": true
+        }
+      },
+      "graph_changed": true,
+      "model_present": true
+    }
+  ],
+  "script_sha256": "3a165192ee712f2283dd0e88c24e44245049c05718c7304ceac0790052134287",
+  "source_sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb",
+  "findings": [
+    "Invalid JSON syntax yields an error then the next ping is served; valid JSON array reaches dispatch.get and raises AttributeError before subsequent lines are handled.",
+    "Malformed event refuses without graph changes; a simulated reporting failure after successful append returns isError despite durable model addition. Tool error alone does not imply no mutation."
+  ],
+  "proposed_fix": "Validate request/params/arguments shapes before dispatch and contain per-message errors so later input can continue. Return explicit commit status and graph receipt when post-append reporting fails; preserve pre-commit refusal semantics.",
+  "scope": "Two in-memory stream controls and three temporary graph declarations. Reporting failure is injected, not an observed production incident. No campaign graph, CAS or oracle modification."
+}

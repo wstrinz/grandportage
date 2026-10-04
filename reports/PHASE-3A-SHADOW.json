@@ -1,0 +1,131 @@
+{
+  "schema": "gp-shadow-slice/v1",
+  "toolchain": "leanprover/lean4:v4.34.0-rc2",
+  "mathlib": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+  "autogeneralization": "07ed6f917b2cc8b0c29ef6dcb852e8beb9fbd2d1",
+  "axioms": {
+    "a08b": [
+      "propext",
+      "Quot.sound"
+    ],
+    "a08c": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "x125": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "x126_refusal": [
+      "propext",
+      "Quot.sound"
+    ],
+    "x15": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "a04_reach": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "a04_refusal": [
+      "propext",
+      "Quot.sound"
+    ],
+    "a05_junk": [
+      "propext",
+      "Quot.sound"
+    ],
+    "fano_c1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "fano_f2": [
+      "propext",
+      "Quot.sound"
+    ]
+  },
+  "timing_seconds": {
+    "baseline_import_s": 18.8,
+    "A08b": {
+      "total_s": 19.4,
+      "above_baseline_s": 0.6
+    },
+    "A08c": {
+      "total_s": 21.3,
+      "above_baseline_s": 2.5
+    },
+    "X125": {
+      "total_s": 20.9,
+      "above_baseline_s": 2.1
+    },
+    "X15": {
+      "total_s": 23.0,
+      "above_baseline_s": 4.2
+    },
+    "A04A05": {
+      "total_s": 20.0,
+      "above_baseline_s": 1.1
+    },
+    "FanoC1": {
+      "total_s": 23.5,
+      "above_baseline_s": 4.6
+    },
+    "FanoF2": {
+      "total_s": 24.5,
+      "above_baseline_s": 5.7
+    },
+    "autogeneralize": {
+      "with_commands_s": 46.1,
+      "without_commands_s": 20.5,
+      "four_commands_s": 25.5
+    }
+  },
+  "a4_budget_seconds": 30,
+  "autogeneralize": {
+    "a08b_char3": {
+      "result": "[CharP K 3] removed",
+      "gp_widening": "every field",
+      "agrees": true
+    },
+    "a08c_char3": {
+      "result": "no generalization",
+      "gp_widening": "char 0 and every prime except 2",
+      "agrees": false
+    },
+    "x125_char0": {
+      "result": "[Field K] -> [CommRing K]; [CharZero K] kept",
+      "gp_widening": "every characteristic except 2, 23",
+      "agrees": false
+    },
+    "fano_c1_char0": {
+      "result": "[CharZero K] -> [NeZero 2]; [Field K] -> [CommRing K]",
+      "gp_widening": "every characteristic except 2",
+      "agrees": true
+    }
+  },
+  "convergence": {
+    "held": [
+      "GP-A08b",
+      "GP-A08c",
+      "GP-X125",
+      "GP-X15",
+      "GP-FANO-C1",
+      "GP-FANO-F2"
+    ],
+    "lean_theorem_within_budget": 6,
+    "tags": {
+      "GP-A08b": "EARNED",
+      "GP-A08c": "EARNED",
+      "GP-X125": "EARNED",
+      "GP-FANO-C1": "EARNED",
+      "GP-X15": "NONE",
+      "GP-FANO-F2": "NONE"
+    }
+  }
+}

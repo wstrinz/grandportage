@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "GP-A18",
+  "seed": "A18",
+  "title": "Changing the ideal stales its evidence",
+  "situation": "An identity receipt for the ideal (x) is applied to the changed ideal (x^2).",
+  "inputs": {
+    "old_ideal": [
+      "x"
+    ],
+    "new_ideal": [
+      "x^2"
+    ],
+    "identity": "x=0"
+  },
+  "attempted_conclusion": "Keep the earlier receipt current.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The semantic input fingerprint no longer matches."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 558,
+      "anchor": "| A18 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_verdict_provenance.py",
+      "line": 488,
+      "anchor": "def test_verdict_for_different_semantic_input_is_stale("
+    }
+  ]
+}

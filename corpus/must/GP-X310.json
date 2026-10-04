@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "GP-X310",
+  "seed": null,
+  "title": "False ordered cofactor refuses",
+  "situation": "An exact rational sum-of-squares identity is supplied for a declared polynomial model. Record only ordered-field emptiness after checking its equation binding and arithmetic.",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "model_equations": [
+      "x^2+1"
+    ],
+    "evidence_equations": [
+      "x^2+1"
+    ],
+    "squares": [
+      "x"
+    ],
+    "multipliers": [
+      "1"
+    ]
+  },
+  "attempted_conclusion": "Record ordered-field emptiness from the supplied identity -1 = sum of squares + sum multiplier times equation. Equivalent polynomial spelling must not invalidate correct, model-bound evidence.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "False ordered cofactor refuses"
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/ordered_sos.py",
+      "line": 14,
+      "anchor": "def verify(model, certificate):"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/store.py",
+      "line": 1194,
+      "anchor": "replay = OSOS.verify(model, rep)"
+    }
+  ]
+}

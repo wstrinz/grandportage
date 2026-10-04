@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X05",
+  "seed": null,
+  "title": "Point-surjectivity alone does not type a predicate",
+  "situation": "Every target point lifts, but the predicate has no target-coordinate expression.",
+  "inputs": {
+    "checked_point_surjective": true,
+    "target_expressible": false,
+    "closed": false
+  },
+  "attempted_conclusion": "Transport the predicate to the target.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The statement itself must be expressible in the target coordinates."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/kernel.py",
+      "line": 1185,
+      "anchor": "if point_surjective and target_expressible:"
+    }
+  ]
+}

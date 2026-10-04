@@ -1,0 +1,7 @@
+{
+  "supersedes": "Batch 61 interpretation of source-directory synthetic verifier failure",
+  "raw_observation_preserved": "reports/DOSSIER-BOUNDARIES-AUDIT.json",
+  "finding": "The script is intended for the materialized archive layout declared by fixtures/release/synthetic/release.json. Actual archived replay passes in test_release.py. Source-directory FileNotFoundError does not establish a broken package.",
+  "action": "Withdraw proposal to change verifier paths to its source directory, which would break the intended archive. Keep CRLF digest inconsistency finding.",
+  "evidence": "reports/oracle-release-publication-review.xml"
+}

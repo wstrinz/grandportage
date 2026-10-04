@@ -1,0 +1,161 @@
+{
+  "id": "PR-O01",
+  "campaign": "Pigeon River",
+  "origin": "own",
+  "class": "BINDING",
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/PRC-ERRATUM.md",
+      "lines": [
+        3,
+        17
+      ],
+      "sha256": "b05c3144ad0d35642a95512b0aaace66a2b7893452a18b18f2357942e961b158"
+    },
+    {
+      "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-11-CLOSEOUT.md",
+      "lines": [
+        36,
+        44
+      ],
+      "sha256": "916af9c821dfa20a169e2c21ce606cf111efd3533c9ed783009ad39f29d96e96"
+    }
+  ],
+  "claimed": "Manifest names executable checks; summary is byte deterministic; ten withdrawal exercises ran.",
+  "problem": "Two named scripts did not exist, real shear replay was understated; wall time in stored summary contradicted determinism and made hash table stale; actual receipt has eleven withdrawals.",
+  "discovered_by": "unknown",
+  "cost": null,
+  "shipped": null,
+  "gp_v037_would_catch": null,
+  "core_expressible": null,
+  "core_would_refuse": null,
+  "notes": "Three defect dimensions in one packaging intake. No mathematical outcome altered. This worker did not read original script or hash-table bytes or rerun package. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+  "subfindings": [],
+  "status": "final retained source-backed record under ratified unknown policy; observation and counting limits remain explicit",
+  "primary_class": "BINDING",
+  "primary_origin": "own",
+  "record_kind": "source-attributed correction/group",
+  "final_disposition": "retain qualified source-backed Appendix B candidate",
+  "owner_id": "PR-O01",
+  "original_pointer": {
+    "report": "reports/PHASE-0B-INVENTORY-DRAFT.json",
+    "pointer": "/rows/54",
+    "sha256": "ab1a7c4728bf5ff36129df136adb9c2f612181662ef29ee23358323d866a8ab2",
+    "review_date": "2026-09-29",
+    "date_kind": "retained report review date; not incident date or source publication date"
+  },
+  "source": {
+    "repo": "$WORKSPACE",
+    "ref": "reports/PHASE-0B-INVENTORY-DRAFT.json#/rows/54",
+    "date": "2026-09-29",
+    "review_date": "2026-09-29",
+    "date_kind": "review-source date of retained report; not incident date or original primary-source date"
+  },
+  "incident_date": null,
+  "source_date_qualification": "No incident date invented; original source dates/history metadata remain unchanged in sources.",
+  "cost_note": "Source evidence does not establish incident-specific work lost/cost class.",
+  "shipped_note": "Source evidence does not establish publication or handoff of a wrong claim; unknown is neither false nor n/a.",
+  "gp_v037_would_catch_note": "No supported frozen-GP catch verdict for this episode. Conditional design/reuse commentary in notes is not a yes/no/partial assessment; no fresh campaign replay.",
+  "counting_qualification": {
+    "record_count": 1,
+    "independent_sample": null,
+    "mathematical_incident_count": null,
+    "rule": "Count this owner record once. Repeated summaries, witnesses, consumers and children do not add independent samples.",
+    "source_detail": "Three defect dimensions in one packaging intake. No mathematical outcome altered. This worker did not read original script or hash-table bytes or rerun package. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional."
+  },
+  "classification_qualification": "Proposed primary class and origin retained from accepted inventory; uncertainty and secondary dimensions remain in evidence. Not a statistically adjudicated incident population.",
+  "parent_adjudications": [
+    {
+      "decision": "accept qualified recorded correction/defect for descriptive inventory; preserve subepisodes, summary/primary-source limitations and unknown metadata",
+      "qualifications": "Three defect dimensions in one packaging intake. No mathematical outcome altered. This worker did not read original script or hash-table bytes or rerun package.",
+      "source": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/PRC-ERRATUM.md",
+          "lines": [
+            3,
+            17
+          ],
+          "sha256": "b05c3144ad0d35642a95512b0aaace66a2b7893452a18b18f2357942e961b158"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-11-CLOSEOUT.md",
+          "lines": [
+            36,
+            44
+          ],
+          "sha256": "916af9c821dfa20a169e2c21ce606cf111efd3533c9ed783009ad39f29d96e96"
+        }
+      ],
+      "pointer": {
+        "report": "reports/PHASE-0B-PIGEON-RIVER-PARENT-INTAKE.json",
+        "pointer": "/dispositions/0",
+        "sha256": "fda1430feb9c8900c7a239f168d1cd1f132e9796ee51ab68746dff7dc6ff85dc",
+        "review_date": "2026-09-29",
+        "date_kind": "retained report review date; not incident date or source publication date"
+      }
+    }
+  ],
+  "linked_cross_occurrence": {
+    "id": "PR-O01",
+    "campaign": "Pigeon River",
+    "origin": "own",
+    "class": "BINDING",
+    "scope_or_region": "N/A",
+    "sources": [
+      {
+        "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/PRC-ERRATUM.md",
+        "lines": [
+          3,
+          17
+        ],
+        "sha256": "b05c3144ad0d35642a95512b0aaace66a2b7893452a18b18f2357942e961b158"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-11-CLOSEOUT.md",
+        "lines": [
+          36,
+          44
+        ],
+        "sha256": "916af9c821dfa20a169e2c21ce606cf111efd3533c9ed783009ad39f29d96e96"
+      }
+    ],
+    "claimed": "Manifest names executable checks; summary is byte deterministic; ten withdrawal exercises ran.",
+    "problem": "Two named scripts did not exist, real shear replay was understated; wall time in stored summary contradicted determinism and made hash table stale; actual receipt has eleven withdrawals.",
+    "discovered_by": "unknown",
+    "cost": null,
+    "shipped": null,
+    "gp_v037_would_catch": null,
+    "core_expressible": null,
+    "core_would_refuse": null,
+    "notes": "Three defect dimensions in one packaging intake. No mathematical outcome altered. This worker did not read original script or hash-table bytes or rerun package. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+    "subfindings": [],
+    "status": "qualified draft; not an approved AppendixB record or independent statistical unit",
+    "inventory_role": "existing_campaign_owned_gp_cross_occurrence",
+    "owner_id": "PR-O01",
+    "new_inventory_row": false,
+    "secondary_classes": [
+      "ADAPTER",
+      "OTHER"
+    ],
+    "class_qualification": "Retain existing draft provisional class/origin; do not re-adjudicate it.",
+    "related_gp_ids": [
+      "GP-SRC-PR-G14"
+    ],
+    "related_occurrence_limit": "Same e11 GP intake context, but missing scripts/deterministic summary/stale hashes are packaging claims. Eleven exercises is repeated assay bookkeeping; no semantic-catch incident is added.",
+    "source_pointer": {
+      "report": "reports/PHASE-0B-INVENTORY-DRAFT.json",
+      "sha256": "ab1a7c4728bf5ff36129df136adb9c2f612181662ef29ee23358323d866a8ab2",
+      "pointer": "/rows/54"
+    },
+    "observed_vs_attributed": "Existing source-attributed campaign draft only; no new campaign/source content or execution.",
+    "current_gp_catch": null
+  },
+  "children": [],
+  "evidence_level": "retained source-backed report; no new source read, execution, or authentication",
+  "parent_integration": {
+    "worker_report": "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "worker_report_sha256": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849",
+    "register": "incident/correction/group"
+  }
+}

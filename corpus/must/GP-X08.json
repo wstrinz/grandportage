@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "GP-X08",
+  "seed": null,
+  "title": "A derived identity survives a retained equation",
+  "situation": "Relax V(x,y) to V(x); the identity x=0 follows from an equation the target retains.",
+  "inputs": {
+    "variables": [
+      "x",
+      "y"
+    ],
+    "source_ideal": [
+      "x",
+      "y"
+    ],
+    "target_ideal": [
+      "x"
+    ],
+    "identity_difference": "x",
+    "target_cofactors": [
+      "1"
+    ]
+  },
+  "attempted_conclusion": "Hold x=0 at the relaxed target using a replayed target membership certificate.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The difference lies in the target ideal, even though its source origin is derived."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/discharge.py",
+      "line": 452,
+      "anchor": "\"AMBIENT is SUFFICIENT but not NECESSARY."
+    }
+  ]
+}

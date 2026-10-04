@@ -1,0 +1,72 @@
+{
+  "status": "bounded_assertion_level_review",
+  "scope": {
+    "historical_pin": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+    "inputs": [
+      "reports/PHASE-0A-MAPPING-PARENT-OVERRIDES.json",
+      "reports/PHASE-0A-CLOSURE-PROPOSAL.md",
+      "oracle/history/checkout/tests/test_jc_h3_b0_depth8_free_plane.py",
+      "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+      "oracle/history/checkout/tests/test_jc_source_depth6_full_template.py"
+    ],
+    "limits": "Four named tests only. No corpus, adapter, oracle, ledger, or expectation was changed."
+  },
+  "gate_findings": [
+    {
+      "test": "test_arithmetic_and_scope_mutations_refuse",
+      "source": "tests/test_jc_h3_b0_depth8_free_plane.py:73-91",
+      "adapter": "experiments/jc_h3_b0_free_plane/depth8_adapter.py",
+      "parameters": [
+        {"mutation": "raw_columns.E[2,19].c8_5[0][1] = -4", "actual_gate": "A2: SHA-256 of every raw native coefficient must equal native_certificate.coefficients_sha256", "intended_contract": "A changed native raw coefficient cannot retain the checked block receipt.", "candidate": null, "oracle_layer": "historical_adapter_arithmetic_commitment", "result": "unmatched", "reason": "GP-X75 changes an affine solution, not a native coefficient commitment."},
+        {"mutation": "transported_block[0][1][0][1] = -4", "actual_gate": "A4: SHA-256 of the transported 3x2 block must equal native_certificate.block_sha256", "intended_contract": "The transported matrix is the committed object, not a replaceable same-topic block.", "candidate": null, "oracle_layer": "historical_adapter_arithmetic_commitment", "result": "unmatched", "reason": "No existing case binds a changed matrix to its native block digest."},
+        {"mutation": "projection.graph_effect = POINT_INCLUSION", "actual_gate": "M1: complete equality with _expected_projection", "intended_contract": "Necessary affine-block evidence with graph_effect NONE cannot mint point inclusion.", "candidate": "GP-X121", "candidate_payload": "corpus/must/GP-X121.json", "oracle_layer": "exact_minimal_projection", "result": "candidate_not_equivalent", "reason": "X121 refuses affine existence from incompatible right sides; it does not test an authority-label promotion from a checked necessary block."},
+        {"mutation": "projection.transport.D7 = d/dc7_4+(3/2)*c2_3*d/dc9_7", "actual_gate": "M1: complete equality with _expected_projection", "intended_contract": "The forced pivot-absorbed D7 transport, including sign and held coordinates, is part of the receipt.", "candidate": "GP-X304", "candidate_payload": "corpus/must/GP-X304.json", "oracle_layer": "canonical_pass_composition", "result": "candidate_not_equivalent", "reason": "X304 binds a Laurent intermediate export; it does not replay a derivative transport or its forced sign."},
+        {"mutation": "projection.checked_block.residual_status = EXPORTED", "actual_gate": "M1: complete equality with _expected_projection", "intended_contract": "An unexported r8 residual cannot be represented as an available algebra object.", "candidate": "GP-X65", "candidate_payload": "corpus/must/GP-X65.json", "oracle_layer": "historical_receipt_binding", "result": "candidate_not_equivalent", "reason": "X65 denies authority to a named certificate lacking a verdict; it does not distinguish an absent intermediate polynomial from an exported one."},
+        {"mutation": "projection.semantic_layer = EQUIVALENT_ACTUAL_SOURCE_FIBER", "actual_gate": "M1: complete equality with _expected_projection", "intended_contract": "A necessary extension block is not equivalent to the complete depth-eight or actual-source fiber.", "candidate": "GP-X41", "candidate_payload": "corpus/must/GP-X41.json", "oracle_layer": "historical_contract", "result": "candidate_not_equivalent", "reason": "X41 prevents deletion of an H3 refusal; it is not a direct necessary-versus-equivalent-fiber assertion."},
+        {"mutation": "projection.first_open_obligation = CLOSED", "actual_gate": "M1: complete equality with _expected_projection", "intended_contract": "A stated missing residual export remains open until new checked evidence supplies it.", "candidate": "GP-X37", "candidate_payload": "corpus/must/GP-X37.json", "oracle_layer": "historical_contract", "result": "logically_equivalent", "reason": "Both refuse an asserted completion label as a substitute for the specifically missing checked artifact; fixture and missing-artifact names are incidental."},
+        {"mutation": "remove R from native_certificate.localization_ledger.never_inverted", "actual_gate": "A11: exact inverted, derived-unit, and never-inverted ledger", "intended_contract": "The receipt preserves the prohibition against treating R as invertible; deleting its ledger entry cannot erase that boundary.", "candidate": "GP-X124", "candidate_payload": "corpus/must/GP-X124.json", "oracle_layer": "exact_minimal_projection", "result": "candidate_not_equivalent", "reason": "X124 refutes an actual exceptional-factor cancellation. This mutation only deletes the no-inversion ledger entry; GP-X68 is still less relevant because it removes an open guard, not this prohibited factor."}
+      ]
+    },
+    {
+      "test": "test_scope_pin_order_digest_middle_and_slice_mutations_refuse",
+      "source": "tests/test_jc_h3_b0_depth8_residual.py:75-93",
+      "adapter": "experiments/jc_h3_b0_free_plane/depth8_residual_adapter.py",
+      "parameters": [
+        {"mutation": "projection.graph_effect = LOCAL_EMPTY", "actual_gate": "M1: complete equality with _expected_projection", "intended_contract": "Exclusion of the named finite witness is not local/component emptiness.", "candidate": "GP-X123", "candidate_payload": "corpus/must/GP-X123.json", "oracle_layer": "exact_minimal_projection", "result": "logically_equivalent", "reason": "Both distinguish exclusion of one bounded fiber/witness from a stronger parent-wide emptiness claim."},
+        {"mutation": "psi8_certificate.field = K = QQ[t]/(15*t**3 - 1)", "actual_gate": "N6: exact agreement of Psi, pullback, and module coefficient field with the pinned field", "intended_contract": "The scalar, substitution, and finite witness are tied to this field/pin.", "candidate": "GP-X69", "candidate_payload": "corpus/must/GP-X69.json", "oracle_layer": "historical_receipt_binding", "result": "candidate_not_equivalent", "reason": "X69 changes point universe. A changed defining polynomial changes the coefficient algebra itself, so the two mechanisms must remain separate."},
+        {"mutation": "reverse pullback_certificate.ring.ring_variable_order", "actual_gate": "N7: exact ordered coordinate packs and equality of pullback and Psi ring order", "intended_contract": "The canonical ring-coordinate order is part of the serialization and cross-certificate binding.", "candidate": "GP-X304", "candidate_payload": "corpus/must/GP-X304.json", "oracle_layer": "canonical_pass_composition", "result": "candidate_not_equivalent", "reason": "X304 binds a named intermediate export; it does not establish equality of a coefficient-ring variable order across certificates."},
+        {"mutation": "replace source_digests.f2_h3_esystem_seam.py by zeros", "actual_gate": "N4: every nested native binding/source digest agrees with fixture.source_bindings", "intended_contract": "A nested receipt cannot retain currency after its source digest changes.", "candidate": "GP-X71", "candidate_payload": "corpus/must/GP-X71.json", "oracle_layer": "historical_receipt_binding", "result": "logically_equivalent", "reason": "Both reject reuse when the source fingerprint bound into the receipt changes."},
+        {"mutation": "psi8_certificate.r8_2 = NOT BUILT -- unexplained", "actual_gate": "A4: r8_2 must remain explicitly NOT BUILT with the middle-coordinate-zero rationale and row-3 nonzero weight", "intended_contract": "The missing middle residual has a stated algebraic reason; an unexplained placeholder cannot stand in for that reason.", "candidate": "GP-X65", "candidate_payload": "corpus/must/GP-X65.json", "oracle_layer": "historical_receipt_binding", "result": "candidate_not_equivalent", "reason": "A missing checked verdict on a named certificate is different from losing the justification for a deliberately absent intermediate object."},
+        {"mutation": "witness.slice.c2_1 = 1", "actual_gate": "N8: exact slice, source-representability/refusal boundary, and component-wide refusal", "intended_contract": "The finite witness result applies only to the stated codimension-seven slice.", "candidate": "GP-X67", "candidate_payload": "corpus/must/GP-X67.json", "oracle_layer": "historical_receipt_binding", "result": "candidate_not_equivalent", "reason": "Changing an equation fingerprint is a generic receipt-currency control; it does not test the region-changing finite-witness slice."}
+      ]
+    },
+    {
+      "test": "test_changed_finite_algebra_modulus_refuses",
+      "source": "tests/test_jc_h3_b0_depth8_residual.py:111-115",
+      "adapter": "experiments/jc_h3_b0_free_plane/depth8_residual_adapter.py",
+      "parameters": [
+        {"mutation": "pullback_certificate.witness.r_final[0] = 1", "actual_gate": "W3 first: modulus degree, squarefreeness, uniform chain degree, and three sliced equations; W5 also protects Omega8 image degree, exact image, gcd/unit claim, and denominator unit", "intended_contract": "The finite algebra K[Z]/(r_final) and the unit witness are bound together; modifying r_final cannot retain the witness.", "candidate": "GP-X319 and GP-X320", "candidate_payload": "corpus/must/GP-X319.json; corpus/must/GP-X320.json", "oracle_layer": "historical_adapter_finite_quotient", "result": "candidate_not_equivalent", "reason": "X319 accepts the unmodified quotient and X320 rejects a false reported gcd degree. Neither mutates r_final nor checks W3's degree/squarefree/equation obligations, so this is not merely a stale-receipt or wrong-cofactor case."}
+      ]
+    },
+    {
+      "test": "test_mutated_selected_face_loses_structural_authority",
+      "source": "tests/test_jc_source_depth6_full_template.py:64-77",
+      "adapter": "experiments/jc_h3_source_depth6/full_template_campaign.py; grandportage/provenance.py; grandportage/verify.py",
+      "parameters": [
+        {"mutation": "selected.generators[0].terms[0].coefficient = 999", "actual_gate": "P._eligible_structural_containment returns false because every target generator must occur verbatim among source generators in the same declared ring and characteristic, after parse validation", "intended_contract": "Exact selected-face inclusion earns the structural shortcut only while the selected generator bundle is literally included in the source bundle.", "candidate": "GP-X225", "candidate_payload": "corpus/must/GP-X225.json", "oracle_layer": "exact_replay_or_artifact_audit", "result": "candidate_not_equivalent", "reason": "A wrong cofactor invalidates an identity proof. It does not test the eligibility predicate for literal generator inclusion."},
+        {"mutation": "invoke V.containment on that ineligible graph with _NoBackend", "actual_gate": "V.containment uses exact generator inclusion before backend dispatch; after inclusion fails it invokes classify_identity, and the supplied backend raises the asserted must-remain-structural error", "intended_contract": "Loss of structural eligibility must trigger the operational fallback rather than falsely return VERIFIED from the shortcut.", "candidate": null, "oracle_layer": "historical_operational_dispatch", "result": "unmatched", "reason": "No existing case observes the structural-eligibility-to-backend-dispatch boundary. GP-X225 and GP-X28 only concern arithmetic/refusal authority."}
+      ]
+    }
+  ],
+  "summary": {
+    "parameter_assertions_accounted_for": 17,
+    "logically_equivalent_existing_cases": ["GP-X37", "GP-X71", "GP-X123"],
+    "candidate_but_not_equivalent": ["GP-X65", "GP-X67", "GP-X68", "GP-X69", "GP-X121", "GP-X124", "GP-X225", "GP-X304", "GP-X319", "GP-X320"],
+    "recommended_extraction_controls": [
+      "One parameterized depth-eight affine-block adapter-contract control: native raw/block commitments, forced D7 transport, residual NOT_EXPORTED status, necessary-only authority fields, and never-inverted R ledger.",
+      "One parameterized depth-eight residual-witness binding control: field polynomial, ring order, justified missing r8_2, source digest, witness slice, and changed r_final with W3/W5 replay obligations.",
+      "One selected-face structural-dispatch control: mutate a target generator, require structural eligibility false, and require containment to reach the supplied backend rather than return the structural VERIFIED shortcut."
+    ],
+    "decision_note": "This is evidence for the parent’s final mapping decision. It does not certify the four prior covered dispositions."
+  }
+}

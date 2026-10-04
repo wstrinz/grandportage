@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "GP-X354",
+  "seed": null,
+  "title": "False selected-root sign receipt is rejected",
+  "situation": "A selected real root is fixed by a rational interval. Exact producer and independent receipt replay check the sign, including repeated-root and common-factor behavior.",
+  "inputs": {
+    "control": "tampered_sign",
+    "generator": "(w^2-2)^2",
+    "interval": [
+      "1",
+      "2"
+    ],
+    "expression": "w",
+    "claimed_sign": -1,
+    "field": "Q",
+    "point_universe": "REAL_CLOSURE"
+  },
+  "attempted_conclusion": "Accept the claimed selected-root sign or receipt.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The exact positive receipt does not replay after its sign is changed to negative."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/ordered.py",
+      "line": 188,
+      "anchor": "def selected_real_sign(model, expression, max_refinements=256):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/ordered_receipt.py",
+      "line": 238,
+      "anchor": "def verify(model, expression, receipt):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "rework-packet",
+      "path": "reports/PHASE-0A-BATCH-71.md",
+      "line": 5,
+      "anchor": "Five added controls verify repeated interior roots"
+    }
+  ]
+}

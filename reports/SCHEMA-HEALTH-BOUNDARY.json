@@ -1,0 +1,54 @@
+{
+  "controls": [
+    {
+      "id": "schema_truthy_flag",
+      "json_schema_accepts": true,
+      "native_refusal": "control: epoch-1 claim 'C' `integral` must be true or false, not 'false'"
+    },
+    {
+      "id": "schema_tombstone",
+      "native_shape_accepts": true,
+      "json_schema_refusal": "'asserted' is a required property"
+    },
+    {
+      "id": "health_correct",
+      "health_response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "CAS reachable via synthetic-cas\nprobe ideal (x-1, y-2) -> 2 generator(s):\n    y-2\n    x-1\nanswer is correct.\nNOTHING was written to the graph."
+          }
+        ]
+      },
+      "doctor_exit": 0,
+      "doctor_healthy": true,
+      "graph_exists": false
+    },
+    {
+      "id": "health_unexpected",
+      "health_response": {
+        "content": [
+          {
+            "type": "text",
+            "text": "CAS reachable via synthetic-cas\nprobe ideal (x-1, y-2) -> 1 generator(s):\n    1\nUNEXPECTED answer -- the CAS ran but did not return the known basis. Do not trust verdicts from it until this is understood.\nNOTHING was written to the graph."
+          }
+        ]
+      },
+      "doctor_exit": 0,
+      "doctor_healthy": true,
+      "graph_exists": false
+    }
+  ],
+  "script_sha256": "41d8e999dbc9caf795792323b83ab50e890b44004a4cbc49bc773ed650dd404b",
+  "source_sha256": {
+    "grandportage/cli.py": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308",
+    "grandportage/mcp.py": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb",
+    "grandportage/format.py": "9d7ad6885285b2e55de9bbf6dea62d428d1f68a3b7180728a1651365c82c171e"
+  },
+  "findings": [
+    "Published event schema is an authoring approximation: string licensing flag passes schema but native shape refuses; sparse lifecycle tombstone passes native shape but schema requires asserted.",
+    "Unexpected parsed health basis returns normal text without isError. Doctor derives healthy solely from isError and exits zero even though text warns not to trust verdicts."
+  ],
+  "proposed_fix": "Encode licensing booleans and sparse tombstone alternatives consistently in exported schema, or state its narrower advisory contract. Return structured failed health on unexpected arithmetic output and propagate it to doctor status. Health never substitutes for certificate replay.",
+  "scope": "Mocked CAS execution and parser outputs isolate classification; no real backend behavior or false proof authority claimed. Missing graph is reported explicitly and is not treated as a doctor error by current policy."
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X09",
+  "seed": null,
+  "title": "Relabeling a universal premise cannot manufacture existence",
+  "situation": "A pure transport step has only a universal-predicate premise and no admitted rule producing existence.",
+  "inputs": {
+    "premise_kind": "universal predicate",
+    "conclusion_kind": "existence",
+    "extra_rule": null
+  },
+  "attempted_conclusion": "Obtain an existential conclusion by changing the recorded claim kind.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Pure transport does not turn a universal property into an existence warrant."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/kernel.py",
+      "line": 1595,
+      "anchor": "def check_conclusion_kind("
+    }
+  ]
+}

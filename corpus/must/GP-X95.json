@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "GP-X95",
+  "seed": null,
+  "title": "Accept an extracted face under an unrelated output digest",
+  "situation": "The exact extracted output must match its declared commitment.",
+  "inputs": {
+    "source_rows": 5,
+    "depths": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "faces": 25,
+    "proposal": "output"
+  },
+  "attempted_conclusion": "Accept an extracted face under an unrelated output digest.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The exact extracted output must match its declared commitment."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_source_depth6_face_extraction.py",
+      "line": 132,
+      "anchor": "def test_output_face_mutation_is_rejected_after_resigning("
+    }
+  ]
+}

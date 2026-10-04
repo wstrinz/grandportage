@@ -1,0 +1,521 @@
+{
+  "controls": [
+    {
+      "id": "bound",
+      "input": {
+        "schema": "laurent_coefficient_pipeline_v1",
+        "laurent": {
+          "schema": "laurent_lowering_v1",
+          "characteristic": 0,
+          "series_variable": "y",
+          "coefficient_variables": [
+            "a"
+          ],
+          "inputs": {
+            "F": {
+              "-1": "a"
+            }
+          },
+          "program": [],
+          "equalities": [
+            {
+              "id": "self",
+              "left": "F",
+              "right": "F"
+            }
+          ],
+          "exports": [
+            {
+              "id": "cleared",
+              "node": "F",
+              "shift": 1
+            }
+          ]
+        },
+        "coefficient_expansion": {
+          "schema": "coefficient_expansion_v1",
+          "characteristic": 0,
+          "parameter": "y",
+          "coefficient_variables": [
+            "a"
+          ],
+          "source_variables": [
+            "s"
+          ],
+          "images": {
+            "s": {
+              "schema": "sparse_polynomial_v1",
+              "terms": [
+                {
+                  "coefficient": "1",
+                  "powers": [
+                    [
+                      "a",
+                      1
+                    ]
+                  ]
+                }
+              ]
+            }
+          },
+          "bounded_variables": {},
+          "equations": [
+            {
+              "id": "eq",
+              "expression": "s",
+              "degree": 0,
+              "coverage": "complete",
+              "coefficients": {
+                "0": "a"
+              }
+            }
+          ]
+        },
+        "bindings": [
+          {
+            "export": "cleared",
+            "image": "s"
+          }
+        ]
+      },
+      "individual_passes_verified": true,
+      "pipeline_accepted": true,
+      "observation": {
+        "verdict": "VERIFIED_LAURENT_COEFFICIENT_PIPELINE",
+        "licenses": [
+          "bound_laurent_to_coefficient_pipeline",
+          "polynomial_identity_iff_all_rows_zero"
+        ],
+        "authority_boundary": "exact pass composition only; no source derivation, chart validity, claim transport, or graph authority"
+      }
+    },
+    {
+      "id": "self_consistent_changed_intermediate",
+      "input": {
+        "schema": "laurent_coefficient_pipeline_v1",
+        "laurent": {
+          "schema": "laurent_lowering_v1",
+          "characteristic": 0,
+          "series_variable": "y",
+          "coefficient_variables": [
+            "a"
+          ],
+          "inputs": {
+            "F": {
+              "-1": "a"
+            }
+          },
+          "program": [],
+          "equalities": [
+            {
+              "id": "self",
+              "left": "F",
+              "right": "F"
+            }
+          ],
+          "exports": [
+            {
+              "id": "cleared",
+              "node": "F",
+              "shift": 1
+            }
+          ]
+        },
+        "coefficient_expansion": {
+          "schema": "coefficient_expansion_v1",
+          "characteristic": 0,
+          "parameter": "y",
+          "coefficient_variables": [
+            "a"
+          ],
+          "source_variables": [
+            "s"
+          ],
+          "images": {
+            "s": {
+              "schema": "sparse_polynomial_v1",
+              "terms": [
+                {
+                  "coefficient": "2",
+                  "powers": [
+                    [
+                      "a",
+                      1
+                    ]
+                  ]
+                }
+              ]
+            }
+          },
+          "bounded_variables": {},
+          "equations": [
+            {
+              "id": "eq",
+              "expression": "s",
+              "degree": 0,
+              "coverage": "complete",
+              "coefficients": {
+                "0": "2*a"
+              }
+            }
+          ]
+        },
+        "bindings": [
+          {
+            "export": "cleared",
+            "image": "s"
+          }
+        ]
+      },
+      "individual_passes_verified": true,
+      "pipeline_accepted": false,
+      "observation": {
+        "exception": "LaurentCoefficientPipelineError",
+        "message": "binding 0 downstream image differs from the named Laurent export"
+      }
+    },
+    {
+      "id": "equivalent_infix_intermediate",
+      "input": {
+        "schema": "laurent_coefficient_pipeline_v1",
+        "laurent": {
+          "schema": "laurent_lowering_v1",
+          "characteristic": 0,
+          "series_variable": "y",
+          "coefficient_variables": [
+            "a"
+          ],
+          "inputs": {
+            "F": {
+              "-1": "a"
+            }
+          },
+          "program": [],
+          "equalities": [
+            {
+              "id": "self",
+              "left": "F",
+              "right": "F"
+            }
+          ],
+          "exports": [
+            {
+              "id": "cleared",
+              "node": "F",
+              "shift": 1
+            }
+          ]
+        },
+        "coefficient_expansion": {
+          "schema": "coefficient_expansion_v1",
+          "characteristic": 0,
+          "parameter": "y",
+          "coefficient_variables": [
+            "a"
+          ],
+          "source_variables": [
+            "s"
+          ],
+          "images": {
+            "s": "a"
+          },
+          "bounded_variables": {},
+          "equations": [
+            {
+              "id": "eq",
+              "expression": "s",
+              "degree": 0,
+              "coverage": "complete",
+              "coefficients": {
+                "0": "a"
+              }
+            }
+          ]
+        },
+        "bindings": [
+          {
+            "export": "cleared",
+            "image": "s"
+          }
+        ]
+      },
+      "individual_passes_verified": true,
+      "pipeline_accepted": false,
+      "observation": {
+        "exception": "LaurentCoefficientPipelineError",
+        "message": "binding 0 downstream image differs from the named Laurent export"
+      }
+    },
+    {
+      "id": "missing_bindings",
+      "input": {
+        "schema": "laurent_coefficient_pipeline_v1",
+        "laurent": {
+          "schema": "laurent_lowering_v1",
+          "characteristic": 0,
+          "series_variable": "y",
+          "coefficient_variables": [
+            "a"
+          ],
+          "inputs": {
+            "F": {
+              "-1": "a"
+            }
+          },
+          "program": [],
+          "equalities": [
+            {
+              "id": "self",
+              "left": "F",
+              "right": "F"
+            }
+          ],
+          "exports": [
+            {
+              "id": "cleared",
+              "node": "F",
+              "shift": 1
+            }
+          ]
+        },
+        "coefficient_expansion": {
+          "schema": "coefficient_expansion_v1",
+          "characteristic": 0,
+          "parameter": "y",
+          "coefficient_variables": [
+            "a"
+          ],
+          "source_variables": [
+            "s"
+          ],
+          "images": {
+            "s": {
+              "schema": "sparse_polynomial_v1",
+              "terms": [
+                {
+                  "coefficient": "1",
+                  "powers": [
+                    [
+                      "a",
+                      1
+                    ]
+                  ]
+                }
+              ]
+            }
+          },
+          "bounded_variables": {},
+          "equations": [
+            {
+              "id": "eq",
+              "expression": "s",
+              "degree": 0,
+              "coverage": "complete",
+              "coefficients": {
+                "0": "a"
+              }
+            }
+          ]
+        },
+        "bindings": []
+      },
+      "individual_passes_verified": true,
+      "pipeline_accepted": false,
+      "observation": {
+        "exception": "LaurentCoefficientPipelineError",
+        "message": "bindings must be a nonempty list"
+      }
+    },
+    {
+      "id": "duplicate_binding",
+      "input": {
+        "schema": "laurent_coefficient_pipeline_v1",
+        "laurent": {
+          "schema": "laurent_lowering_v1",
+          "characteristic": 0,
+          "series_variable": "y",
+          "coefficient_variables": [
+            "a"
+          ],
+          "inputs": {
+            "F": {
+              "-1": "a"
+            }
+          },
+          "program": [],
+          "equalities": [
+            {
+              "id": "self",
+              "left": "F",
+              "right": "F"
+            }
+          ],
+          "exports": [
+            {
+              "id": "cleared",
+              "node": "F",
+              "shift": 1
+            }
+          ]
+        },
+        "coefficient_expansion": {
+          "schema": "coefficient_expansion_v1",
+          "characteristic": 0,
+          "parameter": "y",
+          "coefficient_variables": [
+            "a"
+          ],
+          "source_variables": [
+            "s"
+          ],
+          "images": {
+            "s": {
+              "schema": "sparse_polynomial_v1",
+              "terms": [
+                {
+                  "coefficient": "1",
+                  "powers": [
+                    [
+                      "a",
+                      1
+                    ]
+                  ]
+                }
+              ]
+            }
+          },
+          "bounded_variables": {},
+          "equations": [
+            {
+              "id": "eq",
+              "expression": "s",
+              "degree": 0,
+              "coverage": "complete",
+              "coefficients": {
+                "0": "a"
+              }
+            }
+          ]
+        },
+        "bindings": [
+          {
+            "export": "cleared",
+            "image": "s"
+          },
+          {
+            "export": "cleared",
+            "image": "s"
+          }
+        ]
+      },
+      "individual_passes_verified": true,
+      "pipeline_accepted": false,
+      "observation": {
+        "exception": "LaurentCoefficientPipelineError",
+        "message": "a Laurent export cannot be bound twice"
+      }
+    },
+    {
+      "id": "unused_verified_export",
+      "input": {
+        "schema": "laurent_coefficient_pipeline_v1",
+        "laurent": {
+          "schema": "laurent_lowering_v1",
+          "characteristic": 0,
+          "series_variable": "y",
+          "coefficient_variables": [
+            "a"
+          ],
+          "inputs": {
+            "F": {
+              "-1": "a"
+            }
+          },
+          "program": [],
+          "equalities": [
+            {
+              "id": "self",
+              "left": "F",
+              "right": "F"
+            }
+          ],
+          "exports": [
+            {
+              "id": "cleared",
+              "node": "F",
+              "shift": 1
+            },
+            {
+              "id": "extra",
+              "node": "F",
+              "shift": 1
+            }
+          ]
+        },
+        "coefficient_expansion": {
+          "schema": "coefficient_expansion_v1",
+          "characteristic": 0,
+          "parameter": "y",
+          "coefficient_variables": [
+            "a"
+          ],
+          "source_variables": [
+            "s"
+          ],
+          "images": {
+            "s": {
+              "schema": "sparse_polynomial_v1",
+              "terms": [
+                {
+                  "coefficient": "1",
+                  "powers": [
+                    [
+                      "a",
+                      1
+                    ]
+                  ]
+                }
+              ]
+            }
+          },
+          "bounded_variables": {},
+          "equations": [
+            {
+              "id": "eq",
+              "expression": "s",
+              "degree": 0,
+              "coverage": "complete",
+              "coefficients": {
+                "0": "a"
+              }
+            }
+          ]
+        },
+        "bindings": [
+          {
+            "export": "cleared",
+            "image": "s"
+          }
+        ]
+      },
+      "individual_passes_verified": true,
+      "pipeline_accepted": true,
+      "observation": {
+        "verdict": "VERIFIED_LAURENT_COEFFICIENT_PIPELINE",
+        "licenses": [
+          "bound_laurent_to_coefficient_pipeline",
+          "polynomial_identity_iff_all_rows_zero"
+        ],
+        "authority_boundary": "exact pass composition only; no source derivation, chart validity, claim transport, or graph authority"
+      }
+    }
+  ],
+  "scope": "Pinned exact compiler validators; finite Laurent input a/y shifted to a. Reflexive equality checks no source derivation; no chart validity or model authority claimed. No CAS, campaign or graph mutation.",
+  "finding": "Both passes can verify independently while composition refuses an edited or merely differently represented intermediate. Total bindings concern downstream images; unused verified exports are allowed.",
+  "source_hashes": {
+    "oracle/checkout/grandportage/laurent_lowering.py": "c8de5a1d6cdd820f16dd138189b751721f28d4def27955ec5e6a951b0fe004d5",
+    "oracle/checkout/grandportage/laurent_coefficient_pipeline.py": "c61f6f7381b37e032641edd64128a0655eff6a4e457e35988765c2aa2fb2e4e4",
+    "oracle/checkout/grandportage/coefficient_expansion.py": "c5d5389d6fbfa5bc8d64ccae48aeef5828442b3b6c913e20fc1de59b815bb98e"
+  },
+  "script_sha256": "fc5acbc395ddc375407db6896df0dd5dbd06f726a5e096fa56eb68e352a75931"
+}

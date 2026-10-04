@@ -1,0 +1,42 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "633b13c7f4005a4542cbcb23cd13b18f724ca61f7af800484364bb5401538ca6",
+  "scope": "Synthetic private diagnostics, no production input changed; no mathematical admission tested.",
+  "controls": [
+    {
+      "name": "injected source change after digest before copy",
+      "archive_created": true,
+      "expected_digest": "c107518bc5cd0067a8bf325a10f7cf796c9d44daa81cf89f25ede4f19552a6a1",
+      "archived_digest": "1ab774a29c8a39b30f0474f784fdc70a0c1f1fc580e3d4f559608f73b96d4652",
+      "scope": "deterministic copy-boundary injection; Git cleanliness mocked; not an observed external race"
+    },
+    {
+      "name": "mutated internal plan retains readiness and fingerprint",
+      "archive_created": true,
+      "license": "EXCLUDE",
+      "scope": "direct API caller modification only; normal CLI rebuilds plan"
+    },
+    {
+      "name": "existing output without force",
+      "exit_code": 2,
+      "original_preserved": true
+    },
+    {
+      "name": "identical protected path with force",
+      "exit_code": 2,
+      "original_preserved": true
+    },
+    {
+      "name": "preexisting PID temporary file",
+      "exception": "FileExistsError",
+      "preexisting_temp_deleted": true,
+      "target_created": false
+    },
+    {
+      "name": "case-alias protected input on Windows",
+      "exit_code": 0,
+      "protected_input_replaced": true,
+      "scope": "same-file spelling on this case-insensitive filesystem; scratch data only"
+    }
+  ]
+}

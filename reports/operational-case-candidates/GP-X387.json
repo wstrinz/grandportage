@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "GP-X387",
+  "seed": null,
+  "title": "Operational 65.3b: frontier count status boundary",
+  "situation": "Stable semantic ID A followed by terminal newline.",
+  "inputs": {
+    "incident_row": "65.3b",
+    "vector": {
+      "valid_id": "A",
+      "candidate_id": "A\n",
+      "difference": "terminal newline"
+    },
+    "retained_evidence_refs": [
+      "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/1"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Treat a regex match as full valid ID validation.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Valid A may pass; terminal newline should fail the lexical contract."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/frontier_bundle.py",
+      "line": 37,
+      "anchor": "def _stable_id(value, label):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "OPERATION-CONTRACTS.md",
+      "sha256": "504532a554b7419c7be734c4c1cd7cc75ded4a8099334731a217741c26177091"
+    },
+    {
+      "path": "grandportage/contracts.py",
+      "sha256": "5553157f3851360ac31c176aa07c941885d23881b8b34584d19b038bd4172347"
+    },
+    {
+      "path": "tests/test_contracts.py",
+      "sha256": "259c7696bca8b9a38b27b7a13d16cdec9fb7ba05a89faa3be91740deca60c3f1"
+    },
+    {
+      "path": "grandportage/format.py",
+      "sha256": "9d7ad6885285b2e55de9bbf6dea62d428d1f68a3b7180728a1651365c82c171e"
+    }
+  ],
+  "tests": {
+    "report": "reports/oracle-contracts-review.xml",
+    "passed": 30
+  },
+  "limits": [
+    "Injected backends and direct effective-field mutation are conditional unit controls, not persisted binder or live CAS verification.",
+    "No Lean compilation or new kernel implementation performed.",
+    "No campaign repositories read."
+  ],
+  "documentation_drift": {
+    "header_format": 3,
+    "header_epoch": 10,
+    "pinned_format": 8,
+    "pinned_epoch": 12
+  }
+}

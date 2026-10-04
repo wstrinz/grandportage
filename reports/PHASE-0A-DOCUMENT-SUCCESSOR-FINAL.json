@@ -1,0 +1,349 @@
+{
+  "schema_version": 1,
+  "scope": "Four remaining deleted-document findings 1,3,4,5 plus OperationContract 85.8 successor; finding 2 DM4 proof spine excluded by parent disposition",
+  "method": "Compare recorded pinned-source summaries/anchors, current case payload inputs/conclusions, and completed OperationContract close read. The deleted document blobs and Lean source are absent from this checkout object store, so source detail beyond the retained review is not independently re-read here. No campaign, execution, case, or shared tracker edits.",
+  "source_evidence_limit": "Deleted Git blob ids in PHASE-0A-DELETED-DOCUMENT-REVIEW are unavailable to local git cat-file; use the prior full-text review as source evidence, not as a fresh read of the original text. OperationContract close read reports complete 226-829 coverage but its source is likewise unavailable locally.",
+  "deleted_documents": [
+    {
+      "review_finding_index": 1,
+      "id": "deleted-localization-local-versus-chain",
+      "source": "JC-H3-LOCALIZATION-COORDINATOR-PACKET.md",
+      "pinned_blob": "3474734284423656a0c47cfbe7bc323a4eeddf22",
+      "group_disposition": "bounded_normative_reuse_with_source_only_process_note",
+      "claims": [
+        {
+          "claim": "A local post-substitution equation solve requires the exact polynomial and a checked identity, not an equation identifier alone.",
+          "disposition": "bounded_normative_reuse",
+          "case_ids": [
+            "GP-X17",
+            "GP-X18",
+            "GP-X19",
+            "GP-X312",
+            "GP-X313",
+            "GP-X314"
+          ],
+          "mechanism_match": "X17 accepts an explicit localized guard multiple, while X18/X19 reject wrong powers or cofactors; X312-X314 require a complete exact cofactor expansion rather than trusting a producer label.",
+          "limit": "These are small local equations and transcript checks, not the historical post-substitution singleton or full normalization chain.",
+          "evidence": [
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/sources/1/anchors/0",
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/findings/1"
+          ]
+        },
+        {
+          "claim": "Local solve and removal of a localized unit do not certify full substitution, source membership, ambient equality, or H3.",
+          "disposition": "bounded_normative_reuse",
+          "case_ids": [
+            "GP-X63",
+            "GP-X73",
+            "GP-X36",
+            "GP-X43",
+            "GP-X362"
+          ],
+          "mechanism_match": "X63 proves a unit only after named inversions; X73 requires explicit inverse translations for an ordered chain; X36/X43 retain the missing original-source map; X362 refuses returning localized membership to the ambient ideal.",
+          "limit": "No case asserts the whole historical chain. The source note that an elimination loop discarded a receipt object is process/repair evidence, not an executed false mathematical conclusion.",
+          "evidence": [
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/sources/1/anchors/1",
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/sources/1/anchors/2",
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/findings/1"
+          ]
+        }
+      ]
+    },
+    {
+      "review_finding_index": 3,
+      "id": "deleted-coordinator-normalization-and-seam",
+      "source": "JC-COORDINATOR-NEXT-PACKET.md",
+      "pinned_blob": "8e43710b45cbce695813df66ebc2b6df732cf618",
+      "group_disposition": "bounded_contract_reuse",
+      "claims": [
+        {
+          "claim": "The normalization a=c=1 selects J=1 and cannot settle every invariant-J fiber; generic exclusion leaves exceptional roots undecided.",
+          "disposition": "bounded_contract_reuse",
+          "case_ids": [
+            "GP-X100",
+            "GP-X102",
+            "GP-X105"
+          ],
+          "mechanism_match": "X100 refuses generic-J to exceptional/all-J promotion; X102 keeps the guarded divisor separate from global b=0; X105 keeps S2 separate from other pieces.",
+          "limit": "The cases carry later pinned contract fields, not a replay of this historical normalization choice.",
+          "evidence": [
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/findings/3"
+          ]
+        },
+        {
+          "claim": "An exceptional eliminant zero is not an original-source witness.",
+          "disposition": "exact_contract_reuse",
+          "case_ids": [
+            "GP-X101"
+          ],
+          "mechanism_match": "X101 explicitly changes exceptional_fiber_semantics to SOURCE_WITNESS and refuses that promotion.",
+          "limit": "No exceptional root is asserted to exist as a source point.",
+          "evidence": [
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/findings/3"
+          ]
+        },
+        {
+          "claim": "Partial forward coefficient values do not supply the missing reverse lift or complete b=0 closure; a changed ratio loses its binding.",
+          "disposition": "exact_contract_reuse",
+          "case_ids": [
+            "GP-X103",
+            "GP-X104"
+          ],
+          "mechanism_match": "X103 refuses original-pair recovery from the partial seam; X104 changes a bound coefficient ratio and refuses continued use.",
+          "limit": "The cases do not reconstruct an original pair or complete every remaining coefficient.",
+          "evidence": [
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/findings/3"
+          ]
+        },
+        {
+          "claim": "Matching finite support does not by itself prove a coefficient occurs with the required value; a row-count repair with unchanged output is a freshness matter only if a bound digest changes.",
+          "disposition": "bounded_normative_or_process_note",
+          "case_ids": [
+            "GP-X31",
+            "GP-X90",
+            "GP-X92",
+            "GP-X40"
+          ],
+          "mechanism_match": "X31 rejects an invented coefficient row, X90 checks exact sparse face products under declared support, X92 rejects changed support reuse, and X40 rejects a changed row commitment.",
+          "limit": "No case replays the historical row-count repair or proves its asserted output preservation; that statement remains source/process evidence.",
+          "evidence": [
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/findings/3"
+          ]
+        }
+      ]
+    },
+    {
+      "review_finding_index": 4,
+      "id": "deleted-lead-operation-boundaries",
+      "source": "JC-LEAD-AGENT-PACKET.md",
+      "pinned_blob": "8ed520ec32e0524020b4fbb7edf32e7eef72a0c9",
+      "group_disposition": "bounded_normative_reuse_with_host_check_limit",
+      "claims": [
+        {
+          "claim": "Generator counts alone cannot establish contraction; no-invention and completeness are separate directions.",
+          "disposition": "bounded_normative_reuse",
+          "case_ids": [
+            "GP-X141",
+            "GP-X315",
+            "GP-X316",
+            "GP-X317"
+          ],
+          "mechanism_match": "X141 refuses completeness from a one-sided check; X315-X317 distinguish forward inclusion, failed reverse inclusion, and both directions.",
+          "limit": "The historical three-versus-seventeen generator data are not the x/1 case fixture; no numerical generator-count inference is claimed.",
+          "evidence": [
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/findings/4"
+          ]
+        },
+        {
+          "claim": "A finite point-lift cover is separate from ideal contraction and predicate transport needs target expressibility.",
+          "disposition": "bounded_normative_reuse",
+          "case_ids": [
+            "GP-X07",
+            "GP-X05",
+            "GP-X06",
+            "GP-X360"
+          ],
+          "mechanism_match": "X07 separates exact contraction from a geometric closure claim; X05/X06 isolate expressibility with checked point lifting; X360 refuses forward emptiness under a non-surjective operation map.",
+          "limit": "These cases do not prove the historical finite cover or the abstract OperationContract noValidEvaluation countermodel.",
+          "evidence": [
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/findings/4"
+          ]
+        },
+        {
+          "claim": "The displayed dm4=-y/2 is degree one and cannot satisfy a degree-cap-zero requirement; complete coefficient rows matter.",
+          "disposition": "bounded_normative_reuse",
+          "case_ids": [
+            "GP-X25",
+            "GP-X26",
+            "GP-X27",
+            "GP-X28",
+            "GP-X32"
+          ],
+          "mechanism_match": "X26 accepts the exact -y/2 witness under cap one; X25 gives a different constant witness under cap zero. X27/X28 separate complete from selected coefficient rows, and X32 requires enough scalar coordinates for a cap.",
+          "limit": "No existing case places -y/2 under cap zero and refuses it directly; the recorded distinction is an elementary degree check, not a separate source-lift theorem.",
+          "evidence": [
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/findings/4"
+          ]
+        },
+        {
+          "claim": "Mapped equivalence is not literal containment; timeout cannot supply proof authority.",
+          "disposition": "bounded_normative_reuse",
+          "case_ids": [
+            "GP-X366",
+            "GP-X367",
+            "GP-X313"
+          ],
+          "mechanism_match": "X366 checks literal inclusion on identity; X367 refutes literal inclusion under a two-point swap despite mapped equivalence. X313 shows a positive producer status with incomplete evidence cannot establish membership.",
+          "limit": "X313 is a missing-transcript analogue, not a timed-out backend test. No timed-out result is promoted by the deleted packet finding.",
+          "evidence": [
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/findings/4"
+          ]
+        },
+        {
+          "claim": "Installed host hook enforcement requires an actual host observation.",
+          "disposition": "source_only_operational_limit",
+          "case_ids": [
+            "GP-X397",
+            "GP-X398"
+          ],
+          "mechanism_match": "X397/X398 are bounded direct hook-error observations with explicit absence of installed-host evidence.",
+          "limit": "The source packet gives an instruction/expectation; it does not establish active host enforcement. No new host run was made.",
+          "evidence": [
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/findings/4"
+          ]
+        }
+      ]
+    },
+    {
+      "review_finding_index": 5,
+      "id": "deleted-closeout-evidence-grades",
+      "source": "docs/JC-CLOSEOUT-AND-GP-ROADMAP.md",
+      "pinned_blob": "b882b1204501eedca7ef763c202f0f81fa81eec0",
+      "group_disposition": "planning_and_evidence_grade_reuse_no_distinct_neutral_incident",
+      "claims": [
+        {
+          "claim": "The planning dossier is derived material with no graph or mathematical proof authority; readiness depends on authored profile and selected evidence.",
+          "disposition": "bounded_review_reuse",
+          "case_ids": [],
+          "mechanism_match": "DOSSIER-REVIEW records READY as profile-criteria evaluation and replay PASS as metadata; RELEASE-PUBLICATION-REVIEW records release_covered as selected evidence rather than executed proof.",
+          "limit": "The deleted roadmap is a historical plan, not a current execution receipt or an asserted new graph event.",
+          "evidence": [
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/findings/5",
+            "corpus/DOSSIER-REVIEW.json#/findings",
+            "corpus/RELEASE-PUBLICATION-REVIEW.json#/findings"
+          ]
+        },
+        {
+          "claim": "Stale-source and materialization claims retain the B61/B63 qualifications.",
+          "disposition": "bounded_operational_reuse",
+          "case_ids": [
+            "GP-X379",
+            "GP-X382"
+          ],
+          "mechanism_match": "X379 retains the CRLF/normalized-digest discrepancy; X382 retains the copy-time source-change gap. The dossier can be READY without SOURCE_FRESH if its authored profile omits that criterion, while release has its own CURRENT_CLEAN gate.",
+          "limit": "Atomic rename is not a source snapshot guarantee. These bounded controls do not exhaust concurrency or direct-API plan mutation.",
+          "evidence": [
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/findings/5",
+            "corpus/DOSSIER-REVIEW.json#/findings",
+            "corpus/RELEASE-PUBLICATION-REVIEW.json#/findings"
+          ]
+        },
+        {
+          "claim": "Historical computational, Lean, archival, terminated-lane, and later clean-checkout statements remain separate source claims.",
+          "disposition": "source_only_historical_execution_limit",
+          "case_ids": [],
+          "mechanism_match": "The review records six computational replays, Lean build, and archival lane claims without fresh verification; a terminated packaged lane cannot be merged with a later clean-checkout success.",
+          "limit": "No campaign or archived execution was read or rerun for this document disposition.",
+          "evidence": [
+            "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/findings/5"
+          ]
+        }
+      ]
+    }
+  ],
+  "operation_contract_successor": {
+    "key": "85.8-successor",
+    "source": "lean/GrandPortage/OperationContract.lean",
+    "pin": "ac4155787207e2847d248cffed7be871d5dcd577",
+    "source_read_evidence": "reports/PHASE-0A-OPERATION-CONTRACT-CLOSE-READ.json",
+    "disposition": "bounded_successor_mapping_with_one_distinct_residual",
+    "layers": [
+      {
+        "claim": "Finite no-invention and source containment do not imply exact saturation or operation completeness.",
+        "disposition": "exact_source_model_reuse",
+        "case_ids": [
+          "GP-X357"
+        ],
+        "mechanism_match": "X357 uses the source/recorded ideal (6) in Z, guard 2, both local checks true, and missing 3 with 2*3=6, exactly the source line-664 saturation countermodel.",
+        "limit": "No Lean theorem is executed by the case.",
+        "evidence": "reports/PHASE-0A-OPERATION-CONTRACT-CLOSE-READ.json#/findings/3"
+      },
+      {
+        "claim": "Exact localized/saturated membership does not transport an identity back to the ambient ideal.",
+        "disposition": "exact_countermodel_reuse",
+        "case_ids": [
+          "GP-X361",
+          "GP-X362",
+          "GP-X363"
+        ],
+        "mechanism_match": "X361 accepts 3 with multiplier 2 in (6) after localization, X362 refuses ambient 3 in (6), and X363 accepts ambient 6 only with a direct source-ideal cofactor.",
+        "limit": "This is the line-672 local-to-ambient direction, not completeness.",
+        "evidence": "reports/PHASE-0A-OPERATION-COUNTERMODEL-MAPPINGS.json#/families/0"
+      },
+      {
+        "claim": "Empty target generator list has vacuous no-invention but need not contain the source contraction.",
+        "disposition": "bounded_normative_reuse",
+        "case_ids": [
+          "GP-X262",
+          "GP-X141",
+          "GP-X357",
+          "GP-X315",
+          "GP-X316",
+          "GP-X317"
+        ],
+        "mechanism_match": "X262 accepts only empty-output no-invention; X141 refuses completeness from empty one-sided evidence; X357 shows even both local saturation checks leave a missing element; X315-X317 make the two contraction inclusions explicit.",
+        "limit": "No single case replays the Lean identity-embedding source (2), target (0) strict-lower example; X315/X316 use the opposite strict-upper direction. The missing premise is still completeness and is represented at the rule level.",
+        "evidence": "reports/PHASE-0A-OPERATION-COUNTERMODEL-MAPPINGS.json#/families/1"
+      },
+      {
+        "claim": "Operation preservation transports roots forward and target emptiness back, but not source emptiness forward without a point lift.",
+        "disposition": "bounded_operation_map_reuse",
+        "case_ids": [
+          "GP-X358",
+          "GP-X359",
+          "GP-X360"
+        ],
+        "mechanism_match": "X358 accepts forward root transport, X359 accepts EMPTY pullback, and X360 exhibits Gaussian i as the target root missed by the integer source.",
+        "limit": "The map is a concrete Z-to-Z[i] operation map. Its payload does not assert exact ideal contraction.",
+        "evidence": "reports/PHASE-0A-OPERATION-CONTRACT-CLOSE-READ.json#/findings/0"
+      },
+      {
+        "claim": "Exact contraction alone does not imply point-surjectivity when valid target evaluation lacks a source lift.",
+        "disposition": "distinct_missing_premise",
+        "case_ids": [
+          "GP-X07",
+          "GP-X360"
+        ],
+        "mechanism_match": "X07 has exact contraction but asks geometric closure, not point-surjectivity. X360 shows a missing point lift but does not assert exact contraction. Their premises cannot be combined into one existing case assertion.",
+        "limit": "The source line-778 abstract countermodel has exact contraction between zero ideals, noValidEvaluation on source and anyValidEvaluation on target. Smallest residual is one bounded REFUSE case at the conditional-rule layer with exactly those predicates and a target point; do not replace it with a geometric hyperbola or infer a Lean execution.",
+        "evidence": "reports/PHASE-0A-OPERATION-CONTRACT-CLOSE-READ.json#/findings/5"
+      },
+      {
+        "claim": "Point-surjectivity plus unrelated predicates does not transport the source predicate without target expressibility.",
+        "disposition": "exact_conditional_rule_reuse",
+        "case_ids": [
+          "GP-X05",
+          "GP-X06"
+        ],
+        "mechanism_match": "X05 refuses transport with checked surjectivity and target_expressible=false; X06 accepts with expressibility=true and closed=false. The True/False predicate values in line 799 are an incidental witness of the same missing premise.",
+        "limit": "This is conditional-rule coverage, not a replay of the Lean abstract evaluation model.",
+        "evidence": "reports/PHASE-0A-CLOSURE-DECISIONS.json#/decisions/7"
+      },
+      {
+        "claim": "Predicate orientation and literal containment remain separate from mapped equivalence.",
+        "disposition": "bounded_normative_reuse",
+        "case_ids": [
+          "GP-X364",
+          "GP-X365",
+          "GP-X366",
+          "GP-X367"
+        ],
+        "mechanism_match": "X364/X365 distinguish inverse/backward predicate rewrite from erroneous forward substitution; X366/X367 distinguish mapped equivalence from literal source-to-target containment.",
+        "limit": "These are finite reference models, not the complete OperationContract formalization.",
+        "evidence": "reports/PHASE-0A-CLOSURE-DECISIONS.json#/decisions/18"
+      }
+    ]
+  },
+  "concrete_residuals": [
+    {
+      "source": "OperationContract.lean:778",
+      "premise": "exact contraction with noValidEvaluation source and anyValidEvaluation target",
+      "attempted_conclusion": "infer point-surjectivity without a checked valid-evaluation lift",
+      "minimum_control": "one abstract conditional-rule REFUSE case; source and target zero ideals under identity embedding, exact contraction true, target valid evaluation exists, source valid evaluation absent",
+      "not_equivalent_to": [
+        "GP-X07 asks closure, not point-surjectivity",
+        "GP-X360 lacks an exact-contraction premise"
+      ]
+    }
+  ]
+}

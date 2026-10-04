@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "GP-X280",
+  "seed": null,
+  "title": "Matching explicit universes remain recordable",
+  "situation": "A coordinate-ring relation does not identify different point universes. Recording an unanswered step must remain distinct from licensing transport.",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "equations": [
+      "x^2+1"
+    ],
+    "source_universe": "ALGEBRAIC_CLOSURE",
+    "target_universe": "ALGEBRAIC_CLOSURE",
+    "relation": "EQUIVALENCE",
+    "question": "record_step",
+    "debt_reason": null
+  },
+  "attempted_conclusion": "Record the supplied step or license nonemptiness along it, as specified by question.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Matching explicit universes remain recordable"
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 5123,
+      "anchor": "def test_equivalence_with_matching_point_universes_still_folds("
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "GP-X140",
+  "seed": null,
+  "title": "Explicit zero component parses",
+  "situation": "A missing second component body is incomplete data; an explicit zero entry represents the zero ideal.",
+  "inputs": {
+    "stdout": "@@GP_L:\n[1]:\n_[1]=0\n"
+  },
+  "attempted_conclusion": "Accept the producer text as a complete list of ideal components.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "A missing second component body is incomplete data; an explicit zero entry represents the zero ideal."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_backend.py",
+      "line": 401,
+      "anchor": "def test_truncated_facstd_component_is_not_an_empty_ideal("
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "replay": "20260928T125417944786Z",
+  "adapter_sha256": "e90697c6f59359e744ef524338882fda49ca241fa4b1ca6dfcbe7394238ca553",
+  "observations": [
+    {
+      "id": "GP-X230",
+      "observed_verdict": "REFUSE",
+      "runner_calls": 0,
+      "graph_bytes_unchanged": true,
+      "created_model": false,
+      "note_kinds": [],
+      "artifact_files": 0
+    },
+    {
+      "id": "GP-X231",
+      "observed_verdict": "REFUSE",
+      "runner_calls": 0,
+      "graph_bytes_unchanged": true,
+      "created_model": false,
+      "note_kinds": [],
+      "artifact_files": 0
+    },
+    {
+      "id": "GP-X232",
+      "observed_verdict": "REFUSE",
+      "runner_calls": 0,
+      "graph_bytes_unchanged": true,
+      "created_model": false,
+      "note_kinds": [],
+      "artifact_files": 0
+    },
+    {
+      "id": "GP-X233",
+      "observed_verdict": "ACCEPT",
+      "runner_calls": 1,
+      "graph_bytes_unchanged": false,
+      "created_model": true,
+      "note_kinds": [
+        "cas-execution"
+      ],
+      "artifact_files": 1
+    },
+    {
+      "id": "GP-X234",
+      "observed_verdict": "ACCEPT",
+      "runner_calls": 1,
+      "graph_bytes_unchanged": false,
+      "created_model": true,
+      "note_kinds": [
+        "cas-execution"
+      ],
+      "artifact_files": 1
+    },
+    {
+      "id": "GP-X235",
+      "observed_verdict": "REFUSE",
+      "runner_calls": 0,
+      "graph_bytes_unchanged": true,
+      "created_model": false,
+      "note_kinds": [],
+      "artifact_files": 0
+    },
+    {
+      "id": "GP-X236",
+      "observed_verdict": "REFUSE",
+      "runner_calls": 1,
+      "graph_bytes_unchanged": true,
+      "created_model": false,
+      "note_kinds": [],
+      "artifact_files": 0
+    },
+    {
+      "id": "GP-X237",
+      "observed_verdict": "REFUSE",
+      "runner_calls": 1,
+      "graph_bytes_unchanged": true,
+      "created_model": false,
+      "note_kinds": [],
+      "artifact_files": 0
+    },
+    {
+      "id": "GP-X238",
+      "observed_verdict": "REFUSE",
+      "runner_calls": 1,
+      "graph_bytes_unchanged": false,
+      "created_model": false,
+      "note_kinds": [
+        "cas-abort"
+      ],
+      "artifact_files": 1
+    },
+    {
+      "id": "GP-X239",
+      "observed_verdict": "REFUSE",
+      "runner_calls": 1,
+      "graph_bytes_unchanged": true,
+      "created_model": false,
+      "note_kinds": [],
+      "artifact_files": 1
+    }
+  ],
+  "finding": "Missing source is rejected at transactional append after the injected runner and artifact persistence. No invalid graph state lands, but execution and an unreferenced raw artifact occur.",
+  "proposal": "Preflight source and target graph references before expensive work while retaining transactional revalidation at append. Model concurrent changes explicitly; do not treat preflight as a proof or replacement for final validation."
+}

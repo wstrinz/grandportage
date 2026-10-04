@@ -1,0 +1,71 @@
+{
+  "files": [
+    {
+      "path": "grandportage/field.py",
+      "sha256": "13900a47b2d08c9e703e7ffdae725812c0d93d862fc6a7b33616dbedd10ff42d",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_certificate_composition.py",
+      "sha256": "663c30e473bdbc76a3d0374e9d4531502d38c81f2290e37ca82fc377771e8b7c",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_epoch12_contract.py",
+      "sha256": "0558f814e3deeefbde90a8202f4d3a65e4128456ecaf5649e905dd5dd0bc6df9",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "scripts/check_interpreter_parity.py",
+      "sha256": "fb7b7dfc9c3299fe4a6c736bbdd98477b439f6b6cd5a619cc0cbac9ab2a770d8",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/fixtures/atlas/ordered_certificate.json",
+      "sha256": "80e1f320d6b8b9ed8d631d4da9e5a53d405bac55314cca59ebd4e38e594c3191",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "source_slices": [
+    "store.py ordered SOS receipt admission branch: exact replay, canonical equality and ORDERED projection",
+    "provenance.py _allows_empty_structural_trace: native SOS eligibility",
+    "check.py _field_transport_decision and _apply_field_gate: typed endpoint reach and point-universe gate",
+    "check.py check_field_empty_model_scope: diagnostic for absent model context"
+  ],
+  "evidence": [
+    "reports/oracle-ordered-review.xml",
+    "reports/ORDERED-SOS-RECORDING-BOUNDARY.json",
+    "reports/ORDERED-PATH-BOUNDARY.json",
+    "reports/PARTITION-ORDERED-PREMISE-BOUNDARY.json",
+    "reports/oracle-partition-consumer-review.xml"
+  ],
+  "tests": {
+    "passed": 31,
+    "scope": "Complete certificate composition and epoch12 contract files; includes family bridge controls, not solely SOS."
+  },
+  "findings": [
+    "Persisted valid SOS receipt earns ORDERED reach; composed route to Q succeeds, continuation to C/F2 refuses and changed model receipt stales.",
+    "Native eligibility alone does not mint proof authority: fold admission replays SOS and requires canonical representation.",
+    "Verifier normalization of x*x+1 to x^2+1 prevents recording against the original model text; positive canonical control records.",
+    "Parity compare binds one concrete fixture and rejects a different valid certificate. This is not general Python/Lean interpreter equivalence; no Lean executable was run.",
+    "Family bridge tests establish structural prerequisites and premise-order behavior, not logical entailment of arbitrary assertion prose.",
+    "Six real graph controls compare zero and one-step audits before/after native replay: zero routes return true with empty trace independently of receipt; typed R requires current reach, typed C refuses, untyped-about BASE_EXTENSION refuses at R scope.",
+    "Typed R success trace uses generic base-change wording even though the field gate grants only ordered interpretation. Clarify explanations to preserve this distinction.",
+    "Legacy partition consumer counts ordered-only branch premises for C and counts unreplayed declarations when a true cover projection is supplied. Current epoch-1 schema rejects via_partition, so this is not an end-to-end native-log bypass."
+  ],
+  "remaining": [
+    "Disposition legacy partition scope gap with native schema exclusion, and extract any distinct neutral conditional-composition requirement; other legacy edge kinds remain.",
+    "General implementation soundness and complete semantic disposition remain open."
+  ],
+  "extracted_cases": [
+    "GP-X308",
+    "GP-X309",
+    "GP-X310",
+    "GP-X311"
+  ]
+}

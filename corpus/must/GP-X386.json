@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "GP-X386",
+  "seed": null,
+  "title": "Operational 65.3a: frontier count status boundary",
+  "situation": "Duplicate open_items in one receipt.",
+  "inputs": {
+    "incident_row": "65.3a",
+    "vector": {
+      "receipt_open_items": [
+        "A",
+        "A"
+      ],
+      "counts": [
+        "receipt open_count",
+        "aggregate unique count"
+      ]
+    },
+    "retained_evidence_refs": [
+      "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/0"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Treat per-receipt open_count and aggregate unique count as consistent.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Duplicate list entries should be rejected or deduplicated consistently."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/frontier_bundle.py",
+      "line": 166,
+      "anchor": "declared_open = document.get(\"open_items\")",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "GP-X01",
+  "seed": null,
+  "title": "SOS refuses wrong cofactor",
+  "situation": "An ordered certificate is corrupted or bound to another model.",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "model_generators": [
+      "x^2+1"
+    ],
+    "certificate_generators": [
+      "x^2+1"
+    ],
+    "cofactors": [
+      "1"
+    ],
+    "squares": [
+      "x"
+    ]
+  },
+  "attempted_conclusion": "Use the certificate for emptiness over Q.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Exact replay and input binding are both required."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_epoch12_contract.py",
+      "line": 135,
+      "anchor": "def test_false_or_detached_ordered_certificates_refuse("
+    }
+  ]
+}

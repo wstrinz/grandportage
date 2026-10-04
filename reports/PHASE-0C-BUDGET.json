@@ -1,0 +1,27 @@
+{
+  "status": "completed_deliverables_under_cap",
+  "started_utc": "2026-09-30T11:19:00Z",
+  "authorized_active_minutes": 360,
+  "authorized_unattended_wait_minutes": 120,
+  "completed_active_minutes": 110,
+  "completed_unattended_wait_minutes": 0,
+  "checkpoint_at_active_minutes": 180,
+  "charges": [
+    {
+      "owner": "coordinator",
+      "minutes": 60,
+      "accounting": "Conservative elapsed-window charge from11:19UTC through12:19UTC, including setup/tool/debugging, worker integration, reports and final save allowance. All monitored tool waits included; no unattended category used."
+    },
+    {
+      "owner": "worker",
+      "minutes": 50,
+      "report": "reports/PHASE-0C-MATHLIB-WORKER.json",
+      "accounting": "Worker conservative elapsed/setup/tool/monitored waits/delivery charge."
+    }
+  ],
+  "reservations": [],
+  "extension_policy": "User open to promising extensions; record explicit measured extension before exceeding current cap.",
+  "checkpoint": "Completed below180minute checkpoint and360minute cap; no extension required.",
+  "setup_stop": "Both usable baselines within60active-minute stop; first parent baseline within15minutes.",
+  "closed_utc": "2026-09-30T12:19:00Z"
+}

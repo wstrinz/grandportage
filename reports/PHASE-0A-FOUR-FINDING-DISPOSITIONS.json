@@ -1,0 +1,56 @@
+{
+  "status": "parent_adjudicated",
+  "rows": [
+    {
+      "row": "51.4",
+      "status": "wording_repair_deferred_no_new_case",
+      "cases": [
+        "GP-A10-R",
+        "GP-A10-C"
+      ],
+      "evidence": [
+        "reports/PHASE-0A-BATCH-51.md"
+      ],
+      "reason": "Successful R trace uses generic base-change wording, but C remains refused. Existing R/C cases preserve the verdict boundary; no distinct consequential authority claim was observed."
+    },
+    {
+      "row": "58.3b",
+      "status": "bounded_mechanism_reuse",
+      "cases": [
+        "GP-X65",
+        "GP-X66"
+      ],
+      "evidence": [
+        "reports/PHASE-0A-Q1-RECEIPT-PARTITION-EVIDENCE.json#/rows/3"
+      ],
+      "reason": "Advice that attaching a certificate kind earns scope is not a checked receipt. X65/X66 cover absence/currentness of actual receipt authority. This is normative mechanism reuse, not exact MCP wording replay or generic UNIT_IDEAL_CERT equivalence."
+    },
+    {
+      "row": "78.4",
+      "status": "bounded_mechanism_reuse",
+      "cases": [
+        "GP-X65",
+        "GP-X66",
+        "GP-C01"
+      ],
+      "evidence": [
+        "reports/PHASE-0A-Q1-RECEIPT-PARTITION-EVIDENCE.json#/rows/4",
+        "reports/PHASE-0A-BATCH-78.md"
+      ],
+      "reason": "Retained hook test classifies transport under a declared known kind; it is not earned leaf authority. X65/X66 protect the known-name/current-receipt distinction; C01 provides exact-unit-identity base-extension control. Localized and generic certificate handlers are not claimed identical."
+    },
+    {
+      "row": "71.2b",
+      "status": "paired_native_admission_extraction_pending_full_replay",
+      "cases": [
+        "GP-X404",
+        "GP-X405"
+      ],
+      "evidence": [
+        "reports/ORDERED-RECEIPT-BOUNDARIES.json#/controls/3",
+        "reports/ORDERED-RECEIPT-BOUNDARIES.json#/controls/4"
+      ],
+      "reason": "Exact endpoint w=2 gives sign+1 through both direct APIs for ordered/reversed bounds. Native model admission accepts(2,3), refuses(2,1). This tests an existing native contract without selecting a new standalone checker contract or claiming false arithmetic."
+    }
+  ]
+}

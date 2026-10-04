@@ -1,0 +1,60 @@
+{
+  "controls": [
+    {
+      "id": "infix_text",
+      "direct_verdict": "VERIFIED_LOCALIZATION_MEMBERSHIP",
+      "exit_code": 0,
+      "type_error": null,
+      "stdout": "VERIFIED_LOCALIZATION_MEMBERSHIP\n    guards: x\n    expression numerator: 1\n    authority: identity in the declared localization only; no ambient identity or point transport\n    spec sha256: 81479c720c0a869ee40ce3ca98a6950a1d2717d9985938ffdd380835ce91105d\n",
+      "stderr": ""
+    },
+    {
+      "id": "infix_json",
+      "direct_verdict": "VERIFIED_LOCALIZATION_MEMBERSHIP",
+      "exit_code": 0,
+      "type_error": null,
+      "stdout": "{\n  \"checked\": {\n    \"generator_count\": 1,\n    \"reference_oracle\": \"REFERENCE_CHECKED\",\n    \"target\": \"x\"\n  },\n  \"licenses\": [\n    \"identity_in_declared_localization_only\"\n  ],\n  \"normalized\": {\n    \"certificate\": {\n      \"cofactors\": [\n        \"1\"\n      ],\n      \"localization_powers\": [\n        1\n      ],\n      \"membership_target\": \"x\"\n    },\n    \"characteristic\": 0,\n    \"expression\": {\n      \"denominator_powers\": [\n        0\n      ],\n      \"numerator\": \"1\"\n    },\n    \"generators\": [\n      \"x\"\n    ],\n    \"guards\": [\n      \"x\"\n    ],\n    \"ring_vars\": [\n      \"x\"\n    ],\n    \"schema\": \"localization_membership_v1\"\n  },\n  \"schema\": \"localization_membership_v1\",\n  \"spec_fingerprint\": \"81479c720c0a869ee40ce3ca98a6950a1d2717d9985938ffdd380835ce91105d\",\n  \"verdict\": \"VERIFIED_LOCALIZATION_MEMBERSHIP\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "id": "sparse_text",
+      "direct_verdict": "VERIFIED_LOCALIZATION_MEMBERSHIP",
+      "exit_code": null,
+      "type_error": "sequence item 0: expected str instance, dict found",
+      "stdout": "VERIFIED_LOCALIZATION_MEMBERSHIP\n",
+      "stderr": ""
+    },
+    {
+      "id": "sparse_json",
+      "direct_verdict": "VERIFIED_LOCALIZATION_MEMBERSHIP",
+      "exit_code": 0,
+      "type_error": null,
+      "stdout": "{\n  \"checked\": {\n    \"generator_count\": 1,\n    \"reference_oracle\": \"REFERENCE_CHECKED\",\n    \"target\": \"x\"\n  },\n  \"licenses\": [\n    \"identity_in_declared_localization_only\"\n  ],\n  \"normalized\": {\n    \"certificate\": {\n      \"cofactors\": [\n        \"1\"\n      ],\n      \"localization_powers\": [\n        1\n      ],\n      \"membership_target\": \"x\"\n    },\n    \"characteristic\": 0,\n    \"expression\": {\n      \"denominator_powers\": [\n        0\n      ],\n      \"numerator\": \"1\"\n    },\n    \"generators\": [\n      \"x\"\n    ],\n    \"guards\": [\n      {\n        \"schema\": \"sparse_polynomial_v1\",\n        \"terms\": [\n          {\n            \"coefficient\": \"1\",\n            \"powers\": [\n              [\n                \"x\",\n                1\n              ]\n            ]\n          }\n        ]\n      }\n    ],\n    \"ring_vars\": [\n      \"x\"\n    ],\n    \"schema\": \"localization_membership_v1\"\n  },\n  \"schema\": \"localization_membership_v1\",\n  \"spec_fingerprint\": \"1e3ec6268b2bd3d4cc5c0b88d551d87d1203d260e82f31cc1a699b24a33106a2\",\n  \"verdict\": \"VERIFIED_LOCALIZATION_MEMBERSHIP\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "id": "duplicate_infix",
+      "accepted": false,
+      "message": "guards must remain distinct after exact normalization"
+    },
+    {
+      "id": "duplicate_mixed",
+      "accepted": true,
+      "message": null
+    }
+  ],
+  "script_sha256": "19d9510a7a09f1c106b9466e554f14880846b07c68af88c9938943fe8283b11d",
+  "source_sha256": {
+    "grandportage/localization.py": "3ce9420869dc687b8aa623cfaa3caf55b80af8aca0c6eb0fbafe2eccd73bd9ac",
+    "grandportage/cli.py": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308"
+  },
+  "findings": [
+    "A valid sparse guard passes direct verification and JSON CLI output; default text output prints a verified header then raises uncaught TypeError in string join.",
+    "Equivalent infix guards are rejected as duplicates; an infix/sparse pair representing the same polynomial is accepted because uniqueness keys retain representation kind. Repeated inversion does not invalidate this identity."
+  ],
+  "proposed_fixes": [
+    "Render guard values using the polynomial formatter (or a format-aware serializer) before joining; ensure successful verification has a complete output path.",
+    "Use representation-independent canonical polynomial keys for guard uniqueness, or explicitly revise the uniqueness contract; do not silently change expectations."
+  ],
+  "scope": "Six tiny controls, no CAS or campaign data. Rendering crash and uniqueness-contract gap, not false mathematical acceptance or a normal REFUSE result."
+}

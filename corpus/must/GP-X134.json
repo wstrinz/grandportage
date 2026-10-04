@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "GP-X134",
+  "seed": null,
+  "title": "Simultaneous substitution control 134",
+  "situation": "Every variable needs an image; the swap acts simultaneously, giving y^2+x.",
+  "inputs": {
+    "variables": [
+      "x",
+      "y"
+    ],
+    "expression": "x^2+y",
+    "images": {
+      "x": "y"
+    },
+    "proposed": "y^2+x"
+  },
+  "attempted_conclusion": "Accept the proposed result of the coordinate substitution.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Every variable needs an image; the swap acts simultaneously, giving y^2+x."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_boundary.py",
+      "line": 912,
+      "anchor": "def test_a_substitution_is_simultaneous("
+    }
+  ]
+}

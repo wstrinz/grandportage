@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X236",
+  "seed": null,
+  "title": "Computation recording: typed, structured, reported_error",
+  "situation": "A computation must declare its relation and complete without execution errors before recording a produced model.",
+  "inputs": {
+    "declaration": "typed",
+    "request_form": "structured",
+    "process_outcome": "reported_error"
+  },
+  "attempted_conclusion": "Accept the attempted computation as a completed operation and record its output model. No mathematical claim is inferred.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Computation recording: typed, structured, reported_error"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_boundary.py",
+      "line": 184,
+      "anchor": "def test_an_error_line_refuses_a_verdict_even_at_exit_zero("
+    }
+  ]
+}

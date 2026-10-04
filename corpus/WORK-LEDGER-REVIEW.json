@@ -1,0 +1,139 @@
+{
+  "files": [
+    {
+      "path": "grandportage/work.py",
+      "sha256": "4af7fde10b1b83dadef0528d8699eeca154c684a2789985fb99136eddae90eac",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "definitions": [
+        {
+          "name": "WorkError",
+          "start": 17,
+          "end": 18
+        },
+        {
+          "name": "path_for",
+          "start": 21,
+          "end": 24
+        },
+        {
+          "name": "_require",
+          "start": 27,
+          "end": 29
+        },
+        {
+          "name": "_text",
+          "start": 32,
+          "end": 34
+        },
+        {
+          "name": "fold",
+          "start": 37,
+          "end": 77
+        },
+        {
+          "name": "read",
+          "start": 80,
+          "end": 87
+        },
+        {
+          "name": "unresolved",
+          "start": 90,
+          "end": 95
+        },
+        {
+          "name": "append",
+          "start": 98,
+          "end": 130
+        },
+        {
+          "name": "resolution",
+          "start": 133,
+          "end": 135
+        }
+      ]
+    },
+    {
+      "path": "tests/test_work_accounting.py",
+      "sha256": "53d8f496a5a648638324d1d41876105797a6db19c616b928c62fad8479f1c2e4",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "definitions": [
+        {
+          "name": "record",
+          "start": 10,
+          "end": 13
+        },
+        {
+          "name": "prepare",
+          "start": 16,
+          "end": 20
+        },
+        {
+          "name": "test_work_is_visible_under_its_family_and_does_not_change_graph",
+          "start": 23,
+          "end": 39
+        },
+        {
+          "name": "test_bad_work_is_refused_transactionally",
+          "start": 46,
+          "end": 52
+        },
+        {
+          "name": "test_unchecked_mode_keeps_open_premises_but_never_reports_clean",
+          "start": 55,
+          "end": 68
+        },
+        {
+          "name": "test_accounting_does_not_run_transport_checks",
+          "start": 71,
+          "end": 75
+        },
+        {
+          "name": "test_work_duplicate_and_unknown_resolution_leave_log_unchanged",
+          "start": 78,
+          "end": 86
+        },
+        {
+          "name": "test_mcp_reports_operational_work_and_unchecked_state",
+          "start": 89,
+          "end": 96
+        },
+        {
+          "name": "test_custom_graph_work_logs_do_not_mix",
+          "start": 99,
+          "end": 105
+        },
+        {
+          "name": "test_malformed_or_locked_work_log_is_not_silently_ignored",
+          "start": 108,
+          "end": 115
+        },
+        {
+          "name": "test_append_preserves_valid_log_without_final_newline",
+          "start": 118,
+          "end": 127
+        }
+      ]
+    }
+  ],
+  "additional_read": "Complete cli.cmd_work and cmd_check unresolved-log loading/error branch.",
+  "evidence": "reports/oracle-work-review.xml",
+  "tests": {
+    "passed": 13,
+    "scope": "Complete work accounting file; temporary graph/log writes, no external backend."
+  },
+  "findings": [
+    "Operational resolution removes an item from unresolved work, never establishes a mathematical claim. Graph bytes remain unchanged in the source test.",
+    "Closed record shapes, UTC timestamps, finite nonnegative budget metadata and existing family IDs are checked. New writes require a live family in the supplied graph snapshot.",
+    "Work lock serializes writers to that log, not graph changes. A stale caller graph is not refreshed under that lock; no cross-log transaction or concurrent-race proof follows.",
+    "Each work log folds independently before unresolved results are combined; resolutions cannot reference an attempt in a different log. This is operational merge behavior, not graph concatenation semantics.",
+    "Budget numbers are metadata, not enforced resource limits. A nonblank resolution rationale does not prove retry success.",
+    "Missing log is empty; malformed log is surfaced; final-newline repair and duplicate/resolution rejection are covered."
+  ],
+  "remaining": [
+    "Disposition operational merge/identity policy separately from mathematical warrant semantics.",
+    "Crash and concurrent graph/work behavior remain untested; current controls do not prove cross-file atomicity.",
+    "Complete broader check/CLI integration review; work ledger tests are not whole-hook enforcement evidence."
+  ]
+}

@@ -1,8 +1,8 @@
 name: test
 
+# Minimized: runs only on demand and for pull requests, not on every push.
 on:
-  push:
-    branches: [master]
+  workflow_dispatch:
   pull_request:
 
 permissions:
@@ -41,7 +41,45 @@ jobs:
       - name: Rebuild fixture projection reports
         run: python scripts/project_ir_corpus.py --output tmp/ir-fixture-reports
       - name: Test deterministic non-live surface
-        run: python -m pytest -q -m "not live and not replay and not exhaustive"
+        # The 0.50 suite runs in the gp50 job.
+        run: python -m pytest -q -m "not live and not replay and not exhaustive" --ignore-glob="tests/test_phase2_*.py" --ignore-glob="tests/test_gp50_*.py" --ignore=tests/test_layer_tags.py
+
+  gp50:
+    # GP 0.50: the Lean kernel, the 3a profile and its Mathlib soundness binding, then the 0.50 suite.
+    timeout-minutes: 180
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"  # requirements-dev.txt pins need Python >= 3.11
+      - name: Install elan (each package's lean-toolchain selects Lean)
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Install Python dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[test]" && python -m pip install -r requirements-dev.txt
+      - name: Materialize the pinned v0.37 oracle
+        # The harnesses accept oracle/checkout at oracle/PIN.json's `commit` or its byte-equivalent
+        # public tag (post-G3a decision 2). The workspace history contains the pinned commit;
+        # elsewhere the public v0.37.0 tag is cloned.
+        run: |
+          read PIN TAG REPO < <(python -c 'import json;p=json.load(open("oracle/PIN.json",encoding="utf-8-sig"));print(p["commit"],p["public_tag"],p["public_repository"])' | tr -d '\r')
+          if git cat-file -e "$PIN^{commit}" 2>/dev/null; then
+            git worktree add --detach oracle/checkout "$PIN"
+          else
+            git clone --quiet --depth 1 --branch "$TAG" "$REPO" oracle/checkout
+          fi
+      - name: Build the kernel and the 3a profile
+        run: |
+          (cd phase2/lean && lake build)
+          (cd profile && lake build)
+      - name: Build the soundness binding
+        run: cd binding && lake exe cache get && lake build GPBinding
+      - name: Run the 0.50 suite
+        run: python -m pytest -q tests/test_phase2_*.py tests/test_gp50_*.py tests/test_layer_tags.py
 
   witness-boundary:
     timeout-minutes: 20
@@ -64,7 +102,7 @@ jobs:
       - name: Replay frozen witness boundaries and scaling controls
         run: python -m pytest -v tests/test_guard_release.py -m live --junitxml=witness-boundary.xml
       - name: Run full native regression lane
-        run: python -m pytest -v -m live
+        run: python -m pytest -v -m live --ignore-glob="tests/test_phase2_*.py" --ignore-glob="tests/test_gp50_*.py" --ignore=tests/test_layer_tags.py
       - name: Capture separate declaration, verification and check results
         run: python scripts/replay_guard_fixtures.py --live --output guard-replay.json
       - uses: actions/upload-artifact@v4

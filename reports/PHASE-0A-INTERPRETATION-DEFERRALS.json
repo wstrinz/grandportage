@@ -1,0 +1,92 @@
+{
+  "status": "parent_narrowed_deferral",
+  "authority": "DECISIONS.md 2026-09-29 closure-effort correction",
+  "source_sha256": "6ac8effce869052794c9ec77ff9f6bd3c4ceba282b4dbcf16fffe9c68a6c4633",
+  "rows": [
+    {
+      "id": "59.2b",
+      "status": "deferred_contract_or_unreproduced_interpretation",
+      "evidence_record": "reports/PHASE-0A-BATCH-59.md#paragraph-2",
+      "reason": "Numeric budget fields are accepted but not execution limits. Whether they promise enforcement is an operational contract question; no exceeded-run diagnostic is given.",
+      "preserved_recorded_text": "Work records are operational attempts with TIMEOUT/CAP/BUDGET reasons, not graph claims. Resolving one records a rationale and removes it from the unresolved list; it neither proves a retry succeeded nor creates mathematical authority. The graph bytes stay unchanged in the source regression. Budget values are validated finite nonnegative numbers but do not enforce execution limits."
+    },
+    {
+      "id": "59.4",
+      "status": "deferred_contract_or_unreproduced_interpretation",
+      "evidence_record": "reports/PHASE-0A-BATCH-59.md#paragraph-4",
+      "reason": "Cross-log resolution policy is not fixed; the observed separate folds do not by themselves establish a wrong attempted conclusion. A17 covers no authority from an unfinished attempt, not shared-work-log identity.",
+      "preserved_recorded_text": "Combined unresolved reporting folds each log separately, so a resolution in one file cannot discharge another file's attempt. This is distinct from the mathematical graph's proposed merge semantics and needs separate operational-policy disposition. Tests cover distinct custom graph paths, malformed logs, lock refusal, no-final-newline repair and unchanged bytes on rejected writes; they do not test process crash or concurrent graph mutation."
+    },
+    {
+      "id": "63.5",
+      "status": "deferred_contract_or_unreproduced_interpretation",
+      "evidence_record": "reports/PHASE-0A-BATCH-63.md#paragraph-5",
+      "reason": "Direct API accepts a mutated compiled plan, but the ordinary CLI builds it immediately and no external bypass is shown. Decide whether public materializer entry must revalidate before fixing expectation.",
+      "preserved_recorded_text": "A direct API caller can alter a compiled inventory license to EXCLUDE while retaining materializable and plan_fingerprint; materialization accepts it. The ordinary CLI builds the plan immediately. This establishes an internal trusted-plan assumption, not an external CLI bypass or theorem admission. Proposed boundary: recompute/revalidate plans at public API entry, or expose an explicit trusted internal type; fingerprints alone do not confer authority."
+    },
+    {
+      "id": "65.2",
+      "status": "deferred_contract_or_unreproduced_interpretation",
+      "evidence_record": "reports/PHASE-0A-BATCH-65.md#paragraph-2",
+      "reason": "Scope-label equality and format-only history fingerprint may be adequate for stated bundle syntax; no concrete false agreement under different semantic scopes is reproduced.",
+      "preserved_recorded_text": "Aggregation binds receipt bytes and requires explicit agreement/supersession for every repeated semantic item. It validates scope-label equality, declared status/state, receipt membership and replacement provenance. It does not execute mathematical evidence or establish semantic equality of underlying scopes. The history fingerprint on each receipt is format-checked, not independently reconstructed. CLOSED remains a derived observation."
+    },
+    {
+      "id": "65.3c",
+      "status": "deferred_contract_or_unreproduced_interpretation",
+      "evidence_record": "reports/PHASE-0A-BATCH-65.md#paragraph-3",
+      "reason": "The lone-closed replacement_ids policy is unclear: explicit supersession checks references, but a closed observation without replacement may be intentional. Need contract before fixed expectation.",
+      "preserved_recorded_text": "Reproduced gaps: duplicate open_items entries pass set equality and inflate per-receipt open_count while the aggregate count remains unique; the stable-ID regex admits a final newline; lone closed observations accept absent replacement_ids whereas explicit supersession checks replacement existence. Proposed fixes: strict list/type/uniqueness checks, fullmatch IDs and a consistent reference-existence policy. None constitutes a false theorem admission."
+    },
+    {
+      "id": "66.4a",
+      "status": "deferred_contract_or_unreproduced_interpretation",
+      "evidence_record": "reports/PHASE-0A-BATCH-66.md#paragraph-4",
+      "reason": "VERIFIED is classified CLOSED yet does not propagate like literal DISCHARGED. Determine whether classification or propagation is normative before expected verdict.",
+      "preserved_recorded_text": "Premise propagation requires exact scope exports and literal DISCHARGED; VERIFIED does not propagate even though both are classified closed. Direct discharges require evidence names but do not resolve those names. does_not_discharge is descriptive. Historical objects are preserved through normalization/copying, while returned dictionaries remain mutable. General cyclic/nonmonotone status semantics are not established by the eight tests or bounded iteration and remain outside any adopted 0.50 kernel design."
+    },
+    {
+      "id": "68.2",
+      "status": "deferred_contract_or_unreproduced_interpretation",
+      "evidence_record": "reports/PHASE-0A-BATCH-68.md#paragraph-2",
+      "reason": "Direct loaded-map mutation shows a structural fingerprint unchanged while currentness changes. Whether that fingerprint promises evaluated observation identity is undecided; no persisted false authority shown.",
+      "preserved_recorded_text": "Four controls verify expression and state boundaries. A real offline SOS receipt is recorded; removing loaded authority_receipts makes its binding noncurrent but preserves state_fingerprint because that map is absent from the snapshot. This is a direct loaded-state mutation diagnostic, not a persisted event or cryptographic collision. Proposed fix: distinguish structural content identity from evaluated observation identity, or include all consulted authority state."
+    },
+    {
+      "id": "75.6a",
+      "status": "deferred_contract_or_unreproduced_interpretation",
+      "evidence_record": "reports/PHASE-0A-BATCH-75.md#paragraph-6",
+      "reason": "The report identifies permissive row labels but executes no malformed-row counterexample for these parser paths. Establish a concrete candidate and intended contract before a neutral expectation.",
+      "preserved_recorded_text": "Ideal generator and decomposition parsers remain permissive about row labels. Decomposition rejects missing/empty components but its output is not an independently checked cover proof. The docstring claim that it carries its own exhaustiveness proof overstates the returned data."
+    },
+    {
+      "id": "76.5",
+      "status": "deferred_contract_or_unreproduced_interpretation",
+      "evidence_record": "reports/PHASE-0A-BATCH-76.md#paragraph-5",
+      "reason": "Aborted attempt persistence is documented, but no rule says every CAS/parser failure must durably record an attempt. This is a policy/observability choice, not a reproduced wrong verdict.",
+      "preserved_recorded_text": "Aborted runs persist an artifact plus an attempt note and mint no model. CAS errors, nonzero non-abort exits and parsing errors raise before run_cas persistence; those failure classes do not receive the same durable attempt record."
+    },
+    {
+      "id": "76.8a",
+      "status": "deferred_contract_or_unreproduced_interpretation",
+      "evidence_record": "reports/PHASE-0A-BATCH-76.md#paragraph-8",
+      "reason": "Whitespace split is source-observed, but no quoted executable/argument control was executed. Confirm supported GP_SINGULAR_ARGV syntax and a concrete failed invocation before fixing expected behavior.",
+      "preserved_recorded_text": "GP_SINGULAR_ARGV uses whitespace split, so quoted executable paths/arguments with spaces are not preserved. Identifier matching uses dollar rather than fullmatch and the expression/body guard remains an acknowledged denylist, not a typed language proof."
+    },
+    {
+      "id": "83.5",
+      "status": "deferred_contract_or_unreproduced_interpretation",
+      "evidence_record": "reports/PHASE-0A-BATCH-83.md#paragraph-5",
+      "reason": "Abstract primeField accepts arbitrary Nat syntactically, but no runtime proof admission or actual composite-field constructor is shown. Need a concrete attempted field claim before expectation.",
+      "preserved_recorded_text": "Atlas reach soundness is case analysis over an abstract vocabulary. primeField accepts any Nat syntactically; no prime validation or field construction occurs. Ordered and char-zero stability theorems project premises already present in the extension relation, not a proof that arbitrary runtime evidence supplies those premises."
+    },
+    {
+      "id": "83.8",
+      "status": "deferred_contract_or_unreproduced_interpretation",
+      "evidence_record": "reports/PHASE-0A-BATCH-83.md#paragraph-8",
+      "reason": "The historical Boolean field-fragility countermodels are explicit formal shadows, but not concrete arithmetic certificates or a runtime attempted EMPTY admission. A01 and X56 show related real reach refusals with different certificate premises. Specify the exact abstract attempted claim before declaring duplicate or new case; repair prose separately.",
+      "preserved_recorded_text": "CertificateScope is a historical two-level scope shadow. AlgebraicExtension explicitly assumes preservation of unit/localized/resultant facts; integer statement validity is True, and field-fragility countermodels are Boolean validity models. Its theorem names do not prove actual arithmetic certificate validity or current receipt authority. Update introductory runtime-scope wording in any future documentation repair."
+    }
+  ],
+  "limit": "No existing expectation changed. Direct-API observations remain preserved. These rows require a specified supported contract or additional concrete incident before new fixed verdicts; this is not a claim that the predecessor behavior is sound."
+}

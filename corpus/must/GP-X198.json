@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "id": "GP-X198",
+  "seed": null,
+  "title": "A conclusion read alone requires its index component",
+  "situation": "A conclusion can consume a missing component even when no construction step records it.",
+  "inputs": {
+    "scenario": "coverage_inventory",
+    "asserted_dimensions": [
+      "place",
+      "order"
+    ],
+    "represented_indices": {
+      "place": [
+        "y",
+        "infinity",
+        "t"
+      ],
+      "order": [
+        "-1",
+        "-2",
+        "-3",
+        "-5"
+      ]
+    },
+    "construction_uses": [
+      {
+        "dimension": "place",
+        "indices": [
+          "y",
+          "t"
+        ],
+        "description": "coordinate change"
+      }
+    ],
+    "conclusion_uses": [
+      {
+        "dimension": "place",
+        "indices": [
+          "y",
+          "t"
+        ],
+        "description": "downstream place use"
+      },
+      {
+        "dimension": "order",
+        "indices": [
+          "0"
+        ],
+        "description": "a read without a construction use"
+      }
+    ]
+  },
+  "attempted_conclusion": "The recorded uses are covered by the declared index inventory on all asserted dimensions.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A conclusion can consume a missing component even when no construction step records it."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/check.py",
+      "line": 658,
+      "anchor": "def coverage_gaps("
+    }
+  ]
+}

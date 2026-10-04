@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "title": "Phase 0a Q2 exact arithmetic and formal deletion batch",
+  "status": "proposed_five_mechanism_disposition_pending_parent_adjudication",
+  "mechanism_count": 5,
+  "rows": [
+    {
+      "id": "70.2",
+      "adjudication_pointer": "reports/PHASE-0A-FINDING-ADJUDICATION.json#/rows/104/obligations/0",
+      "source_report": "reports/PHASE-0A-BATCH-70.md#paragraph-2",
+      "baseline_candidate_key": "cubic_witness_controls",
+      "proposed_status": "distinct_cubic_family_extracted_pending_parent_adjudication",
+      "case_ids": [
+        "GP-X347",
+        "GP-X348",
+        "GP-X349",
+        "GP-X350"
+      ],
+      "reuse_screen": [
+        "GP-X22",
+        "GP-X23",
+        "GP-X24"
+      ],
+      "distinction": "X22-X24 use a quadratic extension. The new family checks an irreducible cubic root, invertible cubic denominator, vanishing open guard and reducible cubic field declaration through pinned exact simple-number-field code.",
+      "authority_limit": "No external CAS, chosen ordered embedding or new checker admission."
+    },
+    {
+      "id": "71.2a",
+      "adjudication_pointer": "reports/PHASE-0A-FINDING-ADJUDICATION.json#/rows/109/obligations/0",
+      "source_report": "reports/PHASE-0A-BATCH-71.md#paragraph-2",
+      "baseline_candidate_key": "real_sign_exact",
+      "proposed_status": "distinct_exact_sign_family_extracted_pending_parent_adjudication",
+      "case_ids": [
+        "GP-X351",
+        "GP-X352",
+        "GP-X353",
+        "GP-X354"
+      ],
+      "reuse_screen": [
+        "GP-X273",
+        "GP-X274"
+      ],
+      "distinction": "X273/X274 cover selected-root branch inclusion. The new family replays repeated interior and endpoint signs, common-factor zero, and a false sign receipt through pinned producer plus independent exact receipt checker.",
+      "authority_limit": "Shared parser/Fraction/Sturm assumptions remain; no live CAS or general soundness certification."
+    },
+    {
+      "id": "81.5",
+      "adjudication_pointer": "reports/PHASE-0A-FINDING-ADJUDICATION.json#/rows/200/obligations/0",
+      "source_report": "reports/PHASE-0A-BATCH-81.md#paragraph-5",
+      "baseline_candidate_key": "zero_algebra_nontriviality",
+      "proposed_status": "formal_deletion_countermodel_extracted_pending_parent_adjudication",
+      "case_ids": [
+        "GP-X355"
+      ],
+      "reuse_screen": [
+        "GP-X133",
+        "GP-C01"
+      ],
+      "distinction": "X133 is a zero ideal in a nonzero polynomial ring. The one-element algebra has 1=0, a point satisfying both generators, and the unit expression still equals one, so nontriviality is necessary to infer emptiness. Integer equations give the paired nontrivial positive contrast.",
+      "authority_limit": "Reference one-element algebra, not a GP field model or a fresh Lean build."
+    },
+    {
+      "id": "82.5",
+      "adjudication_pointer": "reports/PHASE-0A-FINDING-ADJUDICATION.json#/rows/209/obligations/0",
+      "source_report": "reports/PHASE-0A-BATCH-82.md#paragraph-5",
+      "baseline_candidate_key": "fin4_cancellation",
+      "proposed_status": "formal_deletion_countermodel_extracted_pending_parent_adjudication",
+      "case_ids": [
+        "GP-X356"
+      ],
+      "reuse_screen": [
+        "GP-X120",
+        "GP-X124"
+      ],
+      "distinction": "X120 concerns nonzerodivisor observation and X124 exceptional-factor unit cancellation. The Fin4 c=g=2 example retains a nonzero coefficient and product-zero equation while showing cancellation fails without NoZeroDivisors; complete Fin2 multiplication is the positive control.",
+      "authority_limit": "Finite modular reference arithmetic, not a native runtime admission or fresh Lean build."
+    },
+    {
+      "id": "OperationContract:664",
+      "parent_decision_pointer": "reports/PHASE-0A-CLOSURE-DECISIONS.json#/decisions/6",
+      "source_pointer": "oracle/checkout/lean/GrandPortage/OperationContract.lean:642-667",
+      "proposed_status": "stronger_premise_countermodel_extracted_pending_parent_adjudication",
+      "case_ids": [
+        "GP-X357"
+      ],
+      "reuse_screen": [
+        "GP-X141"
+      ],
+      "distinction": "X141 has empty output against a nonzero source and fails source containment. In X357, I=J=(6) satisfies source containment and generator no-invention; 2*3=6 puts 3 in the true saturation but 3 is absent from J. Both local checks thus hold while exactness fails.",
+      "authority_limit": "Reference integer arithmetic, no Lean execution or native saturation verdict. Parent had already judged X141 only a partial mapping."
+    }
+  ],
+  "new_case_observations": {
+    "GP-X347": {
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "native_exact_cubic",
+      "route": "q2_exact",
+      "native_is_point": true,
+      "external_execution": false,
+      "reason": "all equations and guards check"
+    },
+    "GP-X348": {
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "native_exact_cubic",
+      "route": "q2_exact",
+      "native_is_point": true,
+      "external_execution": false,
+      "reason": "all equations and guards check"
+    },
+    "GP-X349": {
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "layer": "native_exact_cubic",
+      "route": "q2_exact",
+      "native_is_point": false,
+      "external_execution": false,
+      "reason": "open guard x^3-2 vanishes"
+    },
+    "GP-X350": {
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "layer": "native_exact_cubic",
+      "route": "q2_exact",
+      "native_result": "UNVERIFIABLE_FIELD",
+      "external_execution": false,
+      "reason": "the declared minimal polynomial is reducible over Q"
+    },
+    "GP-X351": {
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "native_exact_selected_sign",
+      "route": "q2_exact",
+      "exact_sign": 1,
+      "external_execution": false,
+      "reason": "Exact selected-root sign and independent receipt replay agree."
+    },
+    "GP-X352": {
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "native_exact_selected_sign",
+      "route": "q2_exact",
+      "exact_sign": 0,
+      "external_execution": false,
+      "reason": "Exact selected-root sign and independent receipt replay agree."
+    },
+    "GP-X353": {
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "native_exact_selected_sign",
+      "route": "q2_exact",
+      "exact_sign": 1,
+      "external_execution": false,
+      "reason": "Exact selected-root sign and independent receipt replay agree."
+    },
+    "GP-X354": {
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "layer": "native_exact_selected_sign",
+      "route": "q2_exact",
+      "correct_sign": 1,
+      "tampered_sign": -1,
+      "positive_receipt_replayed": true,
+      "external_execution": false,
+      "reason": "ordered receipt does not replay under the independent Sturm checker"
+    },
+    "GP-X355": {
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "layer": "reference_zero_algebra",
+      "route": "q2_exact",
+      "reference_equation_values": [
+        0,
+        0
+      ],
+      "one_equals_zero": true,
+      "reference_point_exists": true,
+      "integer_nontrivial_positive_control": {
+        "x_for_first_equation": 0,
+        "second_equation_at_x_zero": 1,
+        "simultaneous_integer_point": false
+      },
+      "native_lean_verdict": null,
+      "external_execution": false,
+      "reason": "In the one-element algebra, 1=0 and both generators vanish at its point, so the unit derivation alone does not exclude a point."
+    },
+    "GP-X356": {
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "layer": "reference_fin4_cancellation",
+      "route": "q2_exact",
+      "reference_product_mod_four": 0,
+      "factors_nonzero": true,
+      "fin2_no_zero_divisors_positive_control": true,
+      "native_lean_verdict": null,
+      "external_execution": false,
+      "reason": "In Fin4, c=g=2 are nonzero and c*g=0; cancellation needs no-zero-divisors."
+    },
+    "GP-X357": {
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "layer": "reference_sixes_saturation",
+      "route": "q2_exact",
+      "contains_source": true,
+      "no_invented_generator": true,
+      "missing_element_saturation_witness_multiplier": 2,
+      "missing_element_in_recorded_output": false,
+      "exact_saturation_generator": 3,
+      "native_lean_verdict": null,
+      "external_execution": false,
+      "reason": "I=J=(6) passes source containment and generator no-invention, but 2*3=6 puts 3 in the saturation while 3 is not in J."
+    }
+  },
+  "replay": {
+    "baseline": "reports/oracle-runs/20260929T003257767801Z.json",
+    "new": "reports/oracle-runs/20260929T012356934782Z.json",
+    "summary": {
+      "AGREES": 381,
+      "DIAGNOSTIC_OBSERVED": 1,
+      "KNOWN_DIFFERENCE": 14,
+      "PENDING": 1,
+      "UNSUPPORTED": 1
+    },
+    "new_case_ids": [
+      "GP-X347",
+      "GP-X348",
+      "GP-X349",
+      "GP-X350",
+      "GP-X351",
+      "GP-X352",
+      "GP-X353",
+      "GP-X354",
+      "GP-X355",
+      "GP-X356",
+      "GP-X357"
+    ]
+  },
+  "preservation": {
+    "baseline_case_count": 387,
+    "all_prior_case_bytes_unchanged": true,
+    "all_prior_expected_observed_status_layer_route_unchanged": true,
+    "reason_only_ids": [
+      "GP-X236",
+      "GP-X237"
+    ],
+    "reason_change_only_ephemeral_completion_marker": true
+  },
+  "separate_already_closed_rows": [
+    "73.3",
+    "75.3"
+  ],
+  "limits": [
+    "Native exact arithmetic in the cubic and selected-real families is bounded to the pinned implementation and does not certify shared parser or whole-request resource soundness.",
+    "Zero-algebra, Fin4 and saturation observations are explicit reference countermodels to deleted premises; Lean source was read as a hypothesis pointer but not compiled.",
+    "OperationContract:664 requires both source containment and generator no-invention. GP-X141 remains only a thematic comparison; X357 supplies the stronger premises.",
+    "No external campaign read, CAS execution, new kernel/checker admission, or publication."
+  ],
+  "sha256": {
+    "reports/oracle-runs/20260929T003257767801Z.json": "5a0c3d59c02dd06505415b5b571251e676d06ef76b291302deaacedce48bfe86",
+    "reports/oracle-runs/20260929T012356934782Z.json": "b24859836e54daffe5095c4203b4266875ef2fa1bd571de0db723b971e746b05",
+    "oracle/ROUTES.json": "548e274261c6fd6f0d5573752e70585bd93c819e5d8823b95e869bd3dfa80f51",
+    "tools/check-corpus.py": "8d10f551b5bb459dd344932fa8a9e3a1885a05e28f0d2e8aefa46c184b2c7b92",
+    "tools/q2_exact_probes.py": "28931ad13ae2e6c3317c6ca6cbe7de75fcc1f52e4a985c92c7ec1cda89c56e13",
+    "corpus/must/GP-X347.json": "f3941c0d43dd18b9cbbb041cbd277cbf32809c018c4e1799391df4aec632e659",
+    "corpus/must/GP-X348.json": "c6cb7c418ce96b019833cbb3254c2debcfdc2bfb8840118e508de169d37149cc",
+    "corpus/must/GP-X349.json": "4dc6e85690ee4353a983978c500aa3e4d4348649eec6c1d6bedb19649d935c19",
+    "corpus/must/GP-X350.json": "f3b39018fb784ff82f104d502174f93d20bc54b1bff4a200d0fdde6f1fcd6960",
+    "corpus/must/GP-X351.json": "bc2ab8e54703ae11708589d0d0223b825d29afd763e660eeaec7ff771cc49ede",
+    "corpus/must/GP-X352.json": "fb9fdc7d0f89b128f27db245f6f8bfb948fb3a71e5b77fb792ac743107178242",
+    "corpus/must/GP-X353.json": "74a43cb6d0cc924a1300225963cb4750a6f1fa3cd7992179a02684a6c6c9ed43",
+    "corpus/must/GP-X354.json": "8193ee3d0b6a299d537a4e65c489257f4692d067bd2c7a10e181ef9fe21dfd57",
+    "corpus/must/GP-X355.json": "7672cc3337de4836f8d63025f774c37cf0102f24a6939d2ae332dd5fa29ebaa5",
+    "corpus/must/GP-X356.json": "223c9ab91d6fe9f8e841863039d512918fcb4b5c8ae9d1b08b558db1c7fc9e46",
+    "corpus/must/GP-X357.json": "be370991a990a865da9ce63daeee2310b40ffe2c2d5426384272f10b02850bc4"
+  }
+}

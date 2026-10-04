@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "GP-A08a",
+  "seed": "A8",
+  "title": "Characteristic change has no unconditional existence transport",
+  "situation": "Fano/non-Fano realizability changes across characteristic 0 and 2.",
+  "inputs": {
+    "source_context": "Q",
+    "target_context": "F_2",
+    "extra_certificate": null
+  },
+  "attempted_conclusion": "Transport emptiness unconditionally into characteristic 2.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "No reach justification survives the characteristic change."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 548,
+      "anchor": "| A8 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_kernel.py",
+      "line": 153,
+      "anchor": "def test_specialization_is_maximally_lossy("
+    }
+  ]
+}

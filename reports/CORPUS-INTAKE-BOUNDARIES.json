@@ -1,0 +1,40 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "76845956ec2dd42cf4884d3fa61780c2d4d3066ea274387b85d2a6c7a239ca76",
+  "scope": "Synthetic directories only; no actual campaign harvest.",
+  "controls": [
+    {
+      "name": "structural retention intake accepts unloadable synthetic graph",
+      "intake_status": "READY",
+      "scope": "READY is retention eligibility, not load-time authority; mirrors retained test fixture"
+    },
+    {
+      "name": "ready intake then native loading",
+      "exception": "GraphError",
+      "reason": "tmp/intake-boundary-u03qd7g7/synthetic-corpus/arr15/graph.jsonl:1: `kernel_epoch` must be an integer, not None",
+      "report_written": false
+    },
+    {
+      "name": "source already contains export-manifest.json",
+      "export_returned_success": true,
+      "validation": {
+        "status": "BLOCKED-ON-CORPUS",
+        "reasons": [
+          "SHA mismatch: export-manifest.json"
+        ],
+        "event_counts": {
+          "meta": 1,
+          "verdict": 1
+        },
+        "graph_formats": [
+          8
+        ],
+        "export_manifest_sha256": "f1414a9252639d1c5f373d7a9422a9db524c9cb312918f4920a219a78f937428",
+        "files": 2,
+        "bytes": 132,
+        "authority_note": "verbatim retention only; load-time authority must be reconstructed and checked"
+      },
+      "scope": "Exporter overwrites copied reserved file with generated metadata; only synthetic files used"
+    }
+  ]
+}

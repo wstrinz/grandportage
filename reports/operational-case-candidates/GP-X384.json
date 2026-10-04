@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "GP-X384",
+  "seed": null,
+  "title": "Operational 69.3: digest filesystem custody boundary",
+  "situation": "Export source already contains export-manifest.json in its verbatim payload namespace.",
+  "inputs": {
+    "incident_row": "69.3",
+    "vector": {
+      "operation": "export",
+      "source_payload_file": "export-manifest.json",
+      "metadata_output_file": "export-manifest.json",
+      "collision": "same namespace"
+    },
+    "retained_evidence_refs": [
+      "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/2"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Treat successful export as byte-preserving retention.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Reserved-name collision should refuse before mutation or preserve source bytes under a distinct metadata name."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "scripts/corpus_check.py",
+      "line": 66,
+      "anchor": "(destination / \"export-manifest.json\").write_text(json.dumps(manifest, indent=2)+\"\\n\", encoding=\"utf-8\")",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

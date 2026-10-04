@@ -1,0 +1,51 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "grandportage/campaign.py",
+      "sha256": "aa7143280c0869a28761942ec3faf9f0c7da4d872b017dd7fffeb6716eb3cdf4",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_campaign.py",
+      "sha256": "9cfebc330109db739406d532312356758b9bcf5def573797bec0833dc47a4544",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "docs/PORTAGE-COMMAND-V0.md",
+      "sha256": "a466cadaa03d281c7c2e24f93674007889b946e120a9cbb17126594bf28ee426",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "caller_slices": [
+    "grandportage/cli.py:cmd_campaign_packet",
+    "grandportage/cli.py:cmd_campaign_ledger"
+  ],
+  "tests": {
+    "passed": 13,
+    "report": "reports/oracle-campaign-review.xml"
+  },
+  "diagnostics": "reports/PACKET-ATTEMPT-BINDING-AUDIT.json",
+  "findings": [
+    "Packets hash-bind bundle/catalog/source files and compare frontier identity, scope, state, status and receipt membership. They remain derived views.",
+    "Source commit strings are descriptive; source bytes are verified but commits are not resolved. Acceptance contract IDs are recorded strings rather than registry admission.",
+    "Accepted/refutation outcomes require declared PASS, artifact digest strings and complete named mutation refusals. The module does not execute a verifier, resolve returned artifact bytes or verify receipt contents.",
+    "Without prior_ledger, existing attempt input receives the current packet fingerprint after the packet changes. Explicit prior binding blocks this drift.",
+    "Direct overlay accepts an old ledger against changed packet content with the same packet ID; it does not compare attempt fingerprint or packet-set binding. CLI rebuilds both, with separate reads; no concurrent CLI race executed.",
+    "Prior preservation compares normalized records by ID and sorts attempts by ID; it establishes set extension under explicit prior binding, not chronological prefix or unconditional append-only persistence.",
+    "Verification debt counts pending outcomes, not unresolved proof obligations or all historical failed/unverifiable returns."
+  ],
+  "proposed_repairs": [
+    "Require attempt input to name its exact packet fingerprint; refuse stale identity instead of assigning the current one.",
+    "Check packet-set and per-attempt fingerprints at overlay boundaries.",
+    "Describe PASS and mutation results as recorded assertions until independent replay binds actual returned artifacts; keep this distinct from kernel warrants.",
+    "Qualify append-only and source-commit claims by the exact checks performed."
+  ],
+  "remaining": [
+    "Complete frontier_bundle dependency review and controls.",
+    "Review fixture/history semantics beyond the retained test selection; no campaign harvesting performed."
+  ]
+}

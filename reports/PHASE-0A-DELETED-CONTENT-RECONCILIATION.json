@@ -1,0 +1,1490 @@
+{
+  "scope": "Deleted non-test blobs at deletion boundaries in pinned reachable history; not all historical versions or semantic incident coverage.",
+  "pin": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "method": "git log --raw --no-abbrev --diff-filter=D, compare exact Git blobs against pinned tree inventory and retained history PIN",
+  "unique_paths": 156,
+  "deletion_occurrences": 156,
+  "counts": {
+    "content_review_needed": 79,
+    "exact_content_retained_not_incident_closed": 77
+  },
+  "rows": [
+    {
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "path": "review/ir-v2-projection/fixtures__gamma_window__graph.json",
+      "deleted_blob": "05bacca06ba0fbb8c15c52b359d68688e715a187",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "path": "review/ir-v2-projection/fixtures__jc2__graph.json",
+      "deleted_blob": "48917af2aa15ebb83f92dc08432622f2f1c000f5",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "path": "review/ir-v2-projection/fixtures__matroid__graph.json",
+      "deleted_blob": "7256d0fa3c129f29a153815db1d5f78cb9219246",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "path": "review/ir-v2-projection/tests__fixtures__arr15__class_12909_open_witness.json",
+      "deleted_blob": "307f4d4b6e2b88bd219e023400be49d8927af935",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "path": "review/ir-v2-projection/tests__fixtures__arr15__class_4102.json",
+      "deleted_blob": "b8ca78a87419a46d353d6887605516baaf8410f1",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "path": "review/ir-v2-projection/tests__fixtures__atlas__ordered_certificate.json",
+      "deleted_blob": "69639fe8ee804c099b1aec85c7f7ba5438d54f2e",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "path": "review/ir-v2-projection/tests__fixtures__dk_retrodiction__fixtures__D1-inference-on-family-claim__input.json",
+      "deleted_blob": "c298c3276732a6d5cb912280d170d1eeba51b807",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "path": "review/ir-v2-projection/tests__fixtures__dk_retrodiction__fixtures__D2-witness-substitution-scaling__fail-97vars.json",
+      "deleted_blob": "9150c5de4d97bb04f14f3de4e25960e05d70b473",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "path": "review/ir-v2-projection/tests__fixtures__dk_retrodiction__fixtures__D2-witness-substitution-scaling__pass-96vars.json",
+      "deleted_blob": "1d874371ac0bb4fa2bb18df8b11a24948d77096f",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "path": "review/ir-v2-projection/tests__fixtures__dk_retrodiction__fixtures__D3-inert-disposition__after.json",
+      "deleted_blob": "8e9f77bfda8bbf5c4ba0b79433b0068d17e030fb",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "path": "review/ir-v2-projection/tests__fixtures__dk_retrodiction__fixtures__D3-inert-disposition__before.json",
+      "deleted_blob": "f5bcf0270017a72d683b25c9f471538e4cf9295f",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "path": "review/ir-v2-projection/tests__fixtures__dk_retrodiction__fixtures__ledger__graph.json",
+      "deleted_blob": "7d1178424e07b650941879a1bffcb41434e30e2d",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "path": "review/ir-v2-projection/tests__fixtures__dk_retrodiction__transports__X8-X10.json",
+      "deleted_blob": "26fe2a3842cc0a5f27fbe8807e649ce7db4d5199",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "path": "review/ir-v2-projection/tests__test_match4_hardening.json",
+      "deleted_blob": "63516b8e324acc630ae5a7135cbf922a27e718ab",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "JC-COORDINATOR-NEXT-PACKET.md",
+      "deleted_blob": "8e43710b45cbce695813df66ebc2b6df732cf618",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "JC-H3-LOCALIZATION-COORDINATOR-PACKET.md",
+      "deleted_blob": "3474734284423656a0c47cfbe7bc323a4eeddf22",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "JC-LEAD-AGENT-PACKET.md",
+      "deleted_blob": "8ed520ec32e0524020b4fbb7edf32e7eef72a0c9",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "docs/JC-CLOSEOUT-AND-GP-ROADMAP.md",
+      "deleted_blob": "b882b1204501eedca7ef763c202f0f81fa81eec0",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "docs/JC-DM4-POLYNOMIAL-LIFT.md",
+      "deleted_blob": "36e9e90cecee7209ef1098ca8f79118c02381bb6",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/f2_75_125_publication/README.md",
+      "deleted_blob": "1c39326c5c44cfb830e9f2c2a7ea77991b567b59",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/f2_75_125_publication/__init__.py",
+      "deleted_blob": "9237b7ad8c60e17c2317e9445757ec4e01293f9c",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/f2_75_125_publication/__init__.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/f2_75_125_publication/adapter.py",
+      "deleted_blob": "62c8357e58380d75858bb55cd1f62308b6e6e110",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/f2_75_125_publication/adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_formalization_transport/README.md",
+      "deleted_blob": "badf4011959504fcbef2e8cc174451697903cb3b",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_formalization_transport/adapter.py",
+      "deleted_blob": "c7e45ce7c58037a36b96ef49522650af26d3e23b",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_formalization_transport/adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_adjoint_recurrence/JC-COORDINATOR-DELTA.md",
+      "deleted_blob": "9715cf9f6353e5ba528ffc88f1e84fb8d9e6622d",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_adjoint_recurrence/README.md",
+      "deleted_blob": "d128209c92ddbc71511d9a10550782fef284e406",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_adjoint_recurrence/adapter.py",
+      "deleted_blob": "8d2c68468d125fe8dd9b523cd935f2ece00d62f4",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_adjoint_recurrence/adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_b0_compatibility/JC-COORDINATOR-DELTA.md",
+      "deleted_blob": "1c4031d814955ef76a6a6ed54e191721e66df6d3",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_b0_compatibility/JC-GP-AGENT-PACKET.md",
+      "deleted_blob": "bcd9b13734bc3ef1dfd02d93f514c9eda103d330",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_b0_compatibility/README.md",
+      "deleted_blob": "c231b42735dac46181ec92c1dabd875a2f12d4d9",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_b0_compatibility/adapter.py",
+      "deleted_blob": "e00b1f667f38fd5bbfcf015c346c54c11290da21",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_b0_compatibility/adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_b0_free_plane/DEPTH8-README.md",
+      "deleted_blob": "75f155b924bcef6e0ae5458d30431e17851531a0",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_b0_free_plane/DEPTH8-SIX-COEFFICIENT-COORDINATOR-PACKET.md",
+      "deleted_blob": "0fe77533ca0795f5095c1cbfdb6dda68b9112eed",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_b0_free_plane/README.md",
+      "deleted_blob": "e9b0d212203618a1f39c0104f973d2a4e70b9bcb",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_b0_free_plane/adapter.py",
+      "deleted_blob": "2d60d9a8d36fbf356e4b7bd0be9b92a0090ceb8f",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_b0_free_plane/adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_b0_free_plane/depth8_adapter.py",
+      "deleted_blob": "aaad0c4e31f4d0f96fc986539a4efa3be3bcb856",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_b0_free_plane/depth8_adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_b0_free_plane/depth8_residual_adapter.py",
+      "deleted_blob": "e7dd2094fcc74c0bf0d42c0bdcee488135ab9bc8",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_b0_free_plane/depth8_residual_adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_depth8_fiber/JC-COORDINATOR-DELTA.md",
+      "deleted_blob": "3979083bc8266da16401fdadd950d7938d30257e",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_depth8_fiber/README.md",
+      "deleted_blob": "afd50b1c657bb9c5732ec0f8d9adac17c43de667",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_depth8_fiber/adapter.py",
+      "deleted_blob": "2c7124d6805f1df3240b432be743aeef53bdcc93",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_depth8_fiber/adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_frontier/README.md",
+      "deleted_blob": "16d07ba523f0e3136f34095a385a857e3c082bc1",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_frontier/adapter.py",
+      "deleted_blob": "23d546728e25a478277436a658b287ead9c5fb16",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_frontier/adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_localization/README.md",
+      "deleted_blob": "5ffcfdf5f86776f368d1c34bfe578dbeec9bdec6",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_localization/adapter.py",
+      "deleted_blob": "00651fbe91aa78877bf84c5754b99f150c772e18",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_localization/p-control.json",
+      "deleted_blob": "3c3dc3fc52bf379675afae5dfe6c117e40298330",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_localization/q-control.json",
+      "deleted_blob": "e6e7aec21c1eded8ac61cf6b5c559fc43c13cadd",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_localization/q_live_replay.py",
+      "deleted_blob": "82e63d3b8280d6178b339d7a621d2dd20fca8ebb",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_localization/q_live_replay_all.py",
+      "deleted_blob": "a2145491f8b2b4732dfa4c5576750771f5a365b9",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_localization/rows78_bare_family.py",
+      "deleted_blob": "eff85f23ad7b72e1ed6e13f299ee2a220dbab1c5",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_p_axis/README.md",
+      "deleted_blob": "8a92f84d5526a7ba89157b1dd2ea9e92ccd87790",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_p_axis/adapter.py",
+      "deleted_blob": "4c7d9499b0f111e07f1d9f60e4ca0266a57b2304",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_p_axis/adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_pin_ablation/README.md",
+      "deleted_blob": "d8cfda4b54c471a490565225165f049648776262",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_pin_ablation/frontier_adapter.py",
+      "deleted_blob": "77dd9f30d165f9eb2a67ce3f51cb00fbf6044498",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_pin_ablation/frontier_adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_s4_scope/README.md",
+      "deleted_blob": "f295411def090517e308e95891abb73a17137727",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_s4_scope/adapter.py",
+      "deleted_blob": "23e8005b311f5c5ba68f34fe783c0fb4cae48f4e",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_s4_scope/adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/CURRENT-SEAMS-COORDINATOR-DELTA.md",
+      "deleted_blob": "90ea65fb78601ed1e922b438995b705c39ce402c",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/JC-COORDINATOR-PACKET.md",
+      "deleted_blob": "847c5fe3fd9562ad2f3f6814c938f1f2845b4f82",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/NATIVE-RECEIPT-REQUEST.md",
+      "deleted_blob": "a9328318923cb84db5586ea01dcf3c67cb6e9999",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/ORIGINAL-PAIR-TO-ESYSTEM-COORDINATOR-PACKET.md",
+      "deleted_blob": "d2886bc0c1aedc03de9bde264c93e424c76e734d",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/README.md",
+      "deleted_blob": "34ffa092235859e15dfc83f040721c9aa8d3202b",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/REPLAY-GATE-COORDINATOR-PACKET.md",
+      "deleted_blob": "019cdee2980411e2ee4107bcb794e5d134103b8a",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/adapter.py",
+      "deleted_blob": "ed84a81f889e92963ff6eba74c6f158bc7655740",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_depth6/adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/c710_all_j_closeout_handback_adapter.py",
+      "deleted_blob": "7677e26e078d1db73f3ad57bc1ea8481caa9b3d3",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_depth6/c710_all_j_closeout_handback_adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/chain_adapter.py",
+      "deleted_blob": "75660e362a120803fc10d3c9f2d41dc3c834d85d",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_depth6/chain_adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/face_extraction_adapter.py",
+      "deleted_blob": "c7cab3a3fdf6b71cf19a8d6c874cfd13cf35d281",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_depth6/face_extraction_adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/frontier_adapter.py",
+      "deleted_blob": "24d72754f5075eb31578a6144596126c8045df36",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_depth6/frontier_adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/full_template_campaign.py",
+      "deleted_blob": "1f6597534c2d3a35f80553e77baa5d94a358bf4b",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_depth6/full_template_campaign.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+      "deleted_blob": "5bb5faed08062d97027cfa27fa288b5088b2bae0",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/r1_r7_seam_adapter.py",
+      "deleted_blob": "1e65d7b439448544af6e5854141995c8319f2273",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_depth6/r1_r7_seam_adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/replay_all.py",
+      "deleted_blob": "9c25f1826fec7b87d9c3c02ebb681346200f65f4",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_depth6/replay_all.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/s2_lowjet_guard_peel_handback_adapter.py",
+      "deleted_blob": "6d2adb79dfbc1a72dca076d54aa2ccaecc59315d",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_depth6/s2_lowjet_guard_peel_handback_adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/source_target_first_value_handback_adapter.py",
+      "deleted_blob": "e1527d34451ebaefbb536d9c546a21c8d6fc61ea",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_depth6/source_target_first_value_handback_adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/status_block.py",
+      "deleted_blob": "f2479e201257687341ac9d23992b84310dc364f6",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_depth6/status_block.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_depth6/support_seam_handback_adapter.py",
+      "deleted_blob": "d4e816da6704d936d1e26d831032345a69ea7ba9",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_depth6/support_seam_handback_adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_ladder/README.md",
+      "deleted_blob": "2f8ac67374544bc522767e7bdb3f69de9910ccbb",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_ladder/adapter.py",
+      "deleted_blob": "30eed9786ed9c003792a9be582a1169a610bbe10",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_ladder/adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_ladder/authority_adapter.py",
+      "deleted_blob": "b4f832cc7da9791e1a238c8e58c39fecc949789f",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_ladder/authority_adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_source_ladder/second_face_adapter.py",
+      "deleted_blob": "5eb5f182167fb78f0ee3fde43d66a5927ffdeb14",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_source_ladder/second_face_adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_wall_ob_open/JC-COORDINATOR-DELTA.md",
+      "deleted_blob": "77edcf5733b361fa813f8263dd643e9b566be78b",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_wall_ob_open/README.md",
+      "deleted_blob": "88fa031adec2a08c8189d704acfc0789fc174384",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/jc_h3_wall_ob_open/adapter.py",
+      "deleted_blob": "9a25e69a35b187cf941225e06e21e4879cfa7b1e",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "experiments/jc_h3_wall_ob_open/adapter.py"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/stacks_applicability/applications/jc_01Z2.json",
+      "deleted_blob": "3f4a9efbeb589798fba773d79178b408386e217a",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/stacks_applicability/applications/jc_08SL.json",
+      "deleted_blob": "0afe7759bcbf73e65d5abbfe2a07146eb2e328fd",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/stacks_applicability/reports/jc_00IP.md",
+      "deleted_blob": "258df483d017eceaefe18f61319aafcb27496e05",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/stacks_applicability/reports/jc_01Z2.md",
+      "deleted_blob": "76ec800162203ce6ffefe655812cc0b47cb62672",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "experiments/stacks_applicability/reports/jc_08SL.md",
+      "deleted_blob": "edbc56e16c0fd289c353eaef8aa8bb0a49d4ba48",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/campaign/jc_sigma/ledger.json",
+      "deleted_blob": "92f5a83b5353b1b29cf2cc31cc22f4e0e374b038",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/campaign/jc_sigma/packets.json",
+      "deleted_blob": "555b41e7dae6139e2fb836175d3632352bf2ece5",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/campaign/jc_sigma/tasks_v0.json",
+      "deleted_blob": "020ab9b118e373d3b1db1183f8c0452e69cbe6af",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/dossier/f2_75_125_publication/dossier.json",
+      "deleted_blob": "8754720ba5688a3d9025c2970c0049def87cf2e2",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/dossier/f2_75_125_publication/dossier.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/dossier/jc_publication/dossier.json",
+      "deleted_blob": "3dc9ccf166661abec4602f99c4387b9480cd02c3",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/frontier/current_v1.json",
+      "deleted_blob": "8956028f953f901052251f2279b5f8d86de3db91",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/frontier/current_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_adjoint_recurrence/v1.json",
+      "deleted_blob": "bcbd90cdd3e6da1a859cb2db152d8a246f70ebaf",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_adjoint_recurrence/v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_b0_compatibility/class_v1.json",
+      "deleted_blob": "7461c51704344f114cc2c21145a77f8348379a93",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_b0_compatibility/class_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_b0_depth8_free_plane/v1.json",
+      "deleted_blob": "a224c0b5c17875229c1e08363bf94f7de8aad3be",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_b0_depth8_free_plane/v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_b0_depth8_residual/v1.json",
+      "deleted_blob": "fd6093356ec0d43d97663d07bd5212ac6bb496cc",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_b0_depth8_residual/v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_b0_free_plane/v1.json",
+      "deleted_blob": "0347a7231bee3dab12c35076391bcf555619dd50",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_b0_free_plane/v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_depth8_fiber/v1.json",
+      "deleted_blob": "67656947a8c41a66a5460acc99aaac05efc86ffa",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_depth8_fiber/v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_formalization_transport/v0.json",
+      "deleted_blob": "b30b091757c2a230ade1222ccdaadc2540832e35",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_formalization_transport/v0.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_frontier/h8_c79_v1.json",
+      "deleted_blob": "719d892964c878fc0969ca775911f31508b761b2",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_frontier/h8_c79_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_p_axis/README.md",
+      "deleted_blob": "ae2f555ef4f2779667ac6c0ed3ebec9b3e2bd6bd",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_p_axis/localized_unit_ideal_v1.json",
+      "deleted_blob": "4da141b31f075eea49ece2e192457b7895ba536c",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_p_axis/localized_unit_ideal_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_p_axis/native_axis_slice_v1.json",
+      "deleted_blob": "9ff3c284d1fade9cd352ea7cde2d9d40e2664f7c",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_p_axis/native_axis_slice_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_rows78/laurent_coefficient_pipeline_v1.json",
+      "deleted_blob": "3f359cf0ddcae9aa8595e636b03ad107e5d783a9",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_rows78/laurent_lowering_v1.json",
+      "deleted_blob": "4ff96732741d43729a9d452e4c12b7c5ecc9d7ae",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_s4/scope_v1.json",
+      "deleted_blob": "752a340a3089ed454e39f2bb81431f558b0f655f",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_s4/scope_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_source_depth6/README.md",
+      "deleted_blob": "97659a78c99acc8545cc36bfcd48247c54e20ecb",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_source_depth6/boundary_v1.json",
+      "deleted_blob": "55202453475774517853561146a64b88b0c631fa",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_source_depth6/boundary_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_source_depth6/c710_all_j_closeout_handback_v1.json",
+      "deleted_blob": "4b48b286e25d73a20af2303a0cb647c8ead7ca98",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_source_depth6/c710_all_j_closeout_handback_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_source_depth6/chain_v1.json.gz",
+      "deleted_blob": "aa3f7273fa64a9962fd08077a98e7eb4984a632b",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_source_depth6/chain_v1.json.gz"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_source_depth6/graded_face_extraction_v1.json",
+      "deleted_blob": "a8e965d601e4d4546134f558387412cfc67ab906",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_source_depth6/graded_face_extraction_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_source_depth6/original_pair_to_esystem_v1.json",
+      "deleted_blob": "736ca7a55207f57b01f8ff66c67902d7e76d20c1",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_source_depth6/original_pair_to_esystem_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_source_depth6/r1_r7_seam_v1.json",
+      "deleted_blob": "e84a36876f4ca1cd0e3e545ac22393153e4c1ea5",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_source_depth6/r1_r7_seam_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_source_depth6/s2_lowjet_guard_peel_handback_v1.json",
+      "deleted_blob": "ab746c9ed27b78c8c2a149513a21b71b677025f3",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_source_depth6/s2_lowjet_guard_peel_handback_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_source_depth6/source_target_first_value_handback_v1.json",
+      "deleted_blob": "1b414ff505ed71e25aa22f53a4892f3ceea4668b",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_source_depth6/source_target_first_value_handback_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_source_depth6/support_seam_handback_v1.json",
+      "deleted_blob": "f0514611026d7f1f171da07260cb953f5cf3f5f6",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_source_depth6/support_seam_handback_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_source_ladder/README.md",
+      "deleted_blob": "820470e6bd4c49f4b3804773378cdad95221b9d3",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_source_ladder/localized_triangular_solve_chain_v1.json",
+      "deleted_blob": "c41417150e1dc82d376e3f77a8403a54b93767f4",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_source_ladder/localized_triangular_solve_chain_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_source_ladder/localized_triangular_solve_chain_v2_second_face.json",
+      "deleted_blob": "5eb01045eacf7e1587a53de9b28455e7c434e7d6",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_source_ladder/localized_triangular_solve_chain_v2_second_face.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_wall_ob_open/localized_unit_ideal_v1.json",
+      "deleted_blob": "52429fc2189bcbebfe5ac0a7aa95492f8410449c",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_wall_ob_open/localized_unit_ideal_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/jc_wall_ob_open/native_v1.json",
+      "deleted_blob": "6f3789bdf5227cfbebb9154868e15a83e03df46e",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "fixtures/jc_wall_ob_open/native_v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/release/jc_publication/release.json",
+      "deleted_blob": "5208353dfd8514377ffccce1dda217f45f842a33",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "fixtures/release/jc_publication/replay-resources.json",
+      "deleted_blob": "49cbef580043534394a1716e904dade9f284ac6d",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/FRONTIER-BUNDLE-COLD-WEB-REVIEW-2026-08-03.md",
+      "deleted_blob": "917cf0abec240650ca7ba7a6341d029c04a375fb",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/JC-WEB-REVIEW-PROMOTION-FIREWALL-2026-08-01.md",
+      "deleted_blob": "aff06aa925004f6400cbe2a0ed5522c00dad70f1",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/frontier-current-v1.json",
+      "deleted_blob": "61afcd894f5b4cdc95ce39bed1984979577a8f8d",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/frontier-current-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-adjoint-recurrence-v1.json",
+      "deleted_blob": "1c8b6d48f8253f8923d4d73121fceda08bbd20f3",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-adjoint-recurrence-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-b0-compatibility-v1.json",
+      "deleted_blob": "b2c2a6353b43dc1c152e14e79e34ef08ae134712",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-b0-compatibility-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-b0-depth8-free-plane-v1.json",
+      "deleted_blob": "8d0ff6bd9602a2214f85c5bb03b3f6b6ef7f7f31",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-b0-depth8-free-plane-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-b0-depth8-psi8-omega8-v1.json",
+      "deleted_blob": "09803c1eb6ab41d6aee5f43d01fd75a3ec4336fb",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-b0-depth8-psi8-omega8-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-b0-free-plane-v1.json",
+      "deleted_blob": "eace207096a810615fc5912b8da939e808223f8b",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-b0-free-plane-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-c710-all-j-closeout-frontier-v1.json",
+      "deleted_blob": "41d2815cff71a52431221b9fb9c0a12db585a6ec",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-c710-all-j-closeout-frontier-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-depth6-fast-replay.json",
+      "deleted_blob": "ad492f400109464a8349ed0ccfcc6a16c36a8837",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-depth6-fast-replay.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-depth6-frontier-v1.json",
+      "deleted_blob": "bdb551c6a721c61f8dfed89c2c7300544931e4b1",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-depth6-frontier-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-depth6-full-replay-v1.json",
+      "deleted_blob": "dc653675c5b29c7b66fcf2c62a891bcabc4ba646",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-depth6-full-replay-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-depth6-full-replay-v2.json",
+      "deleted_blob": "95b337b1de661a6a4760ca97679b9118f868e42b",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-depth6-full-replay-v2.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-depth6-native-replay-v1.json",
+      "deleted_blob": "13af80c9cb36c375a610faed5abbbb5f939fc982",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-depth6-native-replay-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-depth6-seam-replay-v2.json",
+      "deleted_blob": "56ad9d46eda1c06e09adfc6224754ec13fd11fef",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-depth6-seam-replay-v2.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-depth6-stage-journal.jsonl",
+      "deleted_blob": "bc8c77d5840eedecf2e4dcb3a2b09b5b81ae9239",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-depth6-status-block-v1.md",
+      "deleted_blob": "53ba47463773379eeebae1b65cc358aa1ff99cc3",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-depth8-fiber-v1.json",
+      "deleted_blob": "a331c34e21a7b1af0aaa8c91de1e0e310c119815",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-depth8-fiber-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-h8-c79-frontier-v1.json",
+      "deleted_blob": "96a7c5c7286e044c9d536427d590e9aef12f09ac",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-h8-c79-frontier-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-pin-ablation-frontier-v1.json",
+      "deleted_blob": "8cf36bd5d79410028ae91f161077751e916876f4",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-pin-ablation-frontier-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-s2-lowjet-guard-peel-frontier-v1.json",
+      "deleted_blob": "01730f67d72a3085a67bfd14f7897803af32e841",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-s2-lowjet-guard-peel-frontier-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-s4-scope-v1.json",
+      "deleted_blob": "87a012bb7ce94b94b06e6c018bdeb040a5447e75",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-s4-scope-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-source-target-first-value-frontier-v1.json",
+      "deleted_blob": "bb910ca992aa4001e23dfbba38b88b849d4d6f78",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-source-target-first-value-frontier-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-support-seam-frontier-v1.json",
+      "deleted_blob": "bc5c5dca3403055c0ff68722248a7e55bd5dad83",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-support-seam-frontier-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/jc-h3-wall-ob-open-v1.json",
+      "deleted_blob": "10de32037dc0849d916e39e7d7c2278290fef476",
+      "exact_retained_matches": [
+        {
+          "kind": "retained_history",
+          "path": "review/jc-h3-wall-ob-open-v1.json"
+        }
+      ],
+      "disposition": "exact_content_retained_not_incident_closed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/v0.19/jc-p-axis-explorer.html",
+      "deleted_blob": "bc24b279eb9a7a5bb29de46d0b3f4db2774c530e",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/v0.19/jc-p-axis.projection.json",
+      "deleted_blob": "4aac1cff6245ae3ec0c80a2080b41f3ac4cf90ae",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/v0.19/jc-p-axis/.portage/artifacts/sha256/17/30f30599217feab7eaab9d3274a05febec6d03fc9db0df6ba1966e18f62be8.json",
+      "deleted_blob": "2e5f4e23fe24cd9e22cfe8c9d6e16552ef2bb6ee",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/v0.19/jc-p-axis/.portage/artifacts/sha256/77/2d45fe034d0801437faf427418a5b0e58f8f9713c2dad0bfe0c13dd739e660.json",
+      "deleted_blob": "5e741bb474afb928200b2598b925ba6e4c1f540a",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/v0.19/jc-p-axis/.portage/artifacts/sha256/a8/23c5eb1cdef2ff24d1c0ea657125b46ba7a54c4bc8ead094e9d9400165741b.json",
+      "deleted_blob": "fc7f0856347617131ce108002d8876432897a0ff",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/v0.19/jc-p-axis/.portage/artifacts/sha256/c4/d35358060eec8e8d02f1064773fb3449d53e3ef55553e5c9772c1222580422.json",
+      "deleted_blob": "907e522b4e0d0d925d498093d75a3184f0327a57",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/v0.19/jc-p-axis/.portage/artifacts/sha256/dd/5bfaa1e18795257db14237f01f3af47f563af2184466798cc74d3d99d49fb6.json",
+      "deleted_blob": "b88eb4225dd015c322680755149c80803313890e",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    },
+    {
+      "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+      "path": "review/v0.19/jc-p-axis/.portage/graph.jsonl",
+      "deleted_blob": "1ba82447803e27f566e0e19c6beb298218a1cf85",
+      "exact_retained_matches": [],
+      "disposition": "content_review_needed"
+    }
+  ]
+}

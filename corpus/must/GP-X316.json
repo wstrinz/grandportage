@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "id": "GP-X316",
+  "seed": null,
+  "title": "Strict upper target is not exact contraction",
+  "situation": "The same forward elimination certificate is paired with a proposed reverse membership witness for the target generator 1 in the source ideal (x).",
+  "inputs": {
+    "certificate": {
+      "method": "groebner_elimination_v1",
+      "characteristic": 0,
+      "ring_vars": [
+        "y",
+        "x"
+      ],
+      "eliminated": [
+        "y"
+      ],
+      "source_generators": [
+        "x"
+      ],
+      "basis": [
+        "1"
+      ],
+      "target_generators": [
+        "1"
+      ],
+      "source_in_basis": [
+        [
+          "x"
+        ]
+      ],
+      "critical_pairs": [],
+      "retained_in_target": [
+        [
+          "1"
+        ]
+      ]
+    },
+    "reverse_cofactors": [
+      [
+        "0"
+      ]
+    ],
+    "requested_conclusion": "exact_contraction"
+  },
+  "attempted_conclusion": "Conclude that J equals I intersect Q[x] from the forward certificate alone.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The reverse identity 1 in (x) fails exact expansion."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/groebner.py",
+      "line": 1051,
+      "anchor": "Success establishes the completeness inclusion"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/groebner.py",
+      "line": 1053,
+      "anchor": "additionally requires GP's independent no-invention check"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/groebner.py",
+      "line": 794,
+      "anchor": "def check_membership_identity("
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "GP-X350",
+  "seed": null,
+  "title": "Reducible degree-three quotient is not an admitted field witness",
+  "situation": "A degree-three simple number-field witness is replayed against an exact equation and open guard; the declared quotient must be a field.",
+  "inputs": {
+    "control": "reducible_cubic",
+    "field": {
+      "base": "Q",
+      "symbol": "a",
+      "minimal_polynomial": "a^3-a"
+    },
+    "model": {
+      "characteristic": 0,
+      "coefficient_domain": "Q",
+      "point_universe": "ALGEBRAIC_CLOSURE",
+      "ring_vars": [
+        "x"
+      ],
+      "generators": [
+        "x^3-2"
+      ],
+      "open_conditions": [
+        "x"
+      ]
+    },
+    "coordinate": "a"
+  },
+  "attempted_conclusion": "Accept the displayed cubic witness as a valid point.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "a^3-a has a rational root and is reducible, so it cannot serve as the declared minimal polynomial of a simple field extension."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/number_field.py",
+      "line": 248,
+      "anchor": "def check_extension_witness(model, witness_field, witness_point):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "rework-packet",
+      "path": "reports/PHASE-0A-BATCH-70.md",
+      "line": 5,
+      "anchor": "Four additional controls accept a root of a^3-2"
+    }
+  ]
+}

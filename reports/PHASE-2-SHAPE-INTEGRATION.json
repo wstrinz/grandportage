@@ -1,0 +1,107 @@
+{
+ "schema": "gp-phase2-batch-integration/v1",
+ "date": "2026-10-01",
+ "parent_base_commit": "327c2e8a4e131c488a5aafeaab1d0db695cc8fc3",
+ "author": "GPC directly (single-chat operation)",
+ "previous_integration": "PHASE-2-UNREPLAYED-INTEGRATION.json",
+ "review": {
+  "semantics": "Supplied atoms, registered one-step rules and a goal; a held goal lies in the native forward closure (closure_sound).",
+  "countermodel": "closed_set_countermodel: a closed set containing the supplied atoms but not the goal yields an interpretation satisfying everything supplied with the goal false.",
+  "rules": "inclusion edges, checked exhaustive partition, kind-preserving transport, explicitly supplied kind-changing rule"
+ },
+ "verdicts": {
+  "GP-A14": "REFUSE",
+  "GP-X04": "REFUSE",
+  "GP-X09": "REFUSE"
+ },
+ "controls": {
+  "A14_path_starts_at_claim_object": "ACCEPT",
+  "A14_other_disconnected_object": "REFUSE",
+  "X04_every_branch_warranted": "ACCEPT",
+  "X04_unchecked_cover": "REFUSE",
+  "X09_same_kind_conclusion": "ACCEPT",
+  "X09_supplied_kind_changing_rule": "ACCEPT",
+  "X09_emptiness_conclusion": "REFUSE",
+  "X09_unknown_kind": "MALFORMED",
+  "A14_extra_input_field": "MALFORMED",
+  "X04_non_boolean_cover": "MALFORMED"
+ },
+ "counts": {
+  "previous_corpus_passes": 68,
+  "new_corpus_passes": 3,
+  "corpus_passes": 71,
+  "kernel_tagged_total": 79,
+  "remaining_kernel_cases": 8,
+  "new_corpus_cases": 0,
+  "fresh_corpus_folds": 12,
+  "separate_controls": 10,
+  "new_host_tests": 10,
+  "new_host_subtests": 27,
+  "fresh_prior_regression_tests": 229,
+  "fresh_prior_regression_subtests": 678,
+  "unchanged_retained_tests": 105,
+  "unchanged_retained_subtests": 271,
+  "total_current_test_coverage": 344,
+  "total_current_subtest_coverage": 976,
+  "new_audited_proof_declarations": 7
+ },
+ "validation": {
+  "new_suite": "10 passed, 27 subtests passed in 205.66s (0:03:25)",
+  "prior_suite": "229 passed, 678 subtests passed in 243.49s (0:04:03)",
+  "retained_suites": "Earlier phase-2 suites are byte-identical to the parent commit; not re-executed.",
+  "build": {
+   "harness_sha256": "96812a56eee1a1b091e028e0d6bb54476fd0528a018c2508c640508d976ee30e",
+   "olean_sha256": "fb5495185b3b312a2fd83f751631c7a582efc9191f114b99a1cc3271cdc2bc9d",
+   "axioms": [
+    "Quot.sound",
+    "propext"
+   ],
+   "compile_exit_code": 0,
+   "checker_exit_code": 0,
+   "kernel_checked": true,
+   "axiom_declarations": [
+    "step_sound",
+    "iterate_sound",
+    "closure_sound",
+    "closed_set_countermodel",
+    "derived_goal_sound",
+    "actual_base_sound",
+    "actual_fold_held_sound"
+   ]
+  },
+  "legacy_preservation": {
+   "case_count": 459,
+   "summary": {
+    "AGREES": 403,
+    "DIAGNOSTIC_OBSERVED": 4,
+    "KNOWN_DIFFERENCE": 14,
+    "UNSUPPORTED": 9,
+    "RETAINED_DIAGNOSTIC": 29
+   },
+   "protected_count": 67,
+   "receipt_sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f"
+  }
+ },
+ "source_hashes": {
+  "STATUS.md": "adba4b4411a0f50e23eed731917ab2194c8c97a58d06c785b31afb9efd43b044",
+  "TCB.md": "2944449d459f8ae11cea784648d1f78dec8c107d391d5967dbef767c1bce5d9c",
+  "tools/run-phase2-slice.py": "5bde2e64468517843f3f850964ac46c6e9b084e7306bc8b9d440263a799cab23",
+  "reports/PHASE-2-SLICE.json": "062e74a6e3f6d2743c91343b8a6c90f4c12e466d383834313fed81bdeca51ca7",
+  "reports/PHASE-2-SLICE.md": "1b84e302196b8ad05c20b0e60e353cd438626701e7279fea6169d9f9f458bd41",
+  "reports/PHASE-2-RULE-SHAPE.json": "1a0b4ea681ca36a2915fc4f7841ed6cbc6fb0bd2622f147f17a75dc378e1612c"
+ },
+ "remaining_queue": {
+  "native-event-lifecycle": [
+   "GP-X149",
+   "GP-X150",
+   "GP-X151",
+   "GP-X156",
+   "GP-X157",
+   "GP-X160",
+   "GP-X162",
+   "GP-X163"
+  ]
+ },
+ "g2_pass": false,
+ "public_push": false
+}

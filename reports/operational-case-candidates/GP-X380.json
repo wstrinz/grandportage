@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "GP-X380",
+  "seed": null,
+  "title": "Operational 63.2: digest filesystem custody boundary",
+  "situation": "Case-variant Windows alias of protected mixed-case source used as forced derived-output path.",
+  "inputs": {
+    "incident_row": "63.2",
+    "vector": {
+      "platform": "Windows",
+      "source_name": "protected mixed-case file",
+      "derived_output_path": "case-variant alias of source",
+      "mode": "forced"
+    },
+    "retained_evidence_refs": [
+      "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/3",
+      "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/5"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Allow output because abspath strings differ.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Protected source bytes should remain unchanged for both spellings."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/cli.py",
+      "line": 2558,
+      "anchor": "def _write_named_derived_output(args, content, protected=()):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

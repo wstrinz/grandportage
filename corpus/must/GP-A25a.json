@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "GP-A25a",
+  "seed": "A25",
+  "title": "Conflicting identifiers must not merge silently",
+  "situation": "The same object identifier is redeclared with a different description.",
+  "inputs": {
+    "declarations": [
+      {
+        "id": "A",
+        "description": "normalization one"
+      },
+      {
+        "id": "A",
+        "description": "normalization two"
+      }
+    ]
+  },
+  "attempted_conclusion": "Silently merge both declarations.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "One identifier cannot silently refer to conflicting objects."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 565,
+      "anchor": "| A25 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_store.py",
+      "line": 43,
+      "anchor": "def test_conflicting_redeclaration_is_a_hard_error("
+    }
+  ]
+}

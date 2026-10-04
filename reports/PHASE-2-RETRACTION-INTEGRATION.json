@@ -1,0 +1,110 @@
+{
+  "schema": "gp-phase2-retraction-integration/v1",
+  "date": "2026-10-01",
+  "parent_base_commit": "33e48e69121c806515907eb46bc8bbaf947f13c4",
+  "source_hashes": {
+    "tools/run-phase2-retraction-slice.py": "962b751d246d20381884510e1f92136e265b421ffb9cd8ff28d0139eed53ffd5",
+    "tests/test_phase2_retraction_slice.py": "d29d68101fd8096684057d3c74703ec1df6a08fde6e28d7671de38bc42574896",
+    "tools/run-phase2-slice.py": "f7a924c812df2d7b3685ffb6473b7194f2554492708f40a5335d03d17a0b74d0",
+    "reports/PHASE-2-RETRACTION-SLICE.json": "b4903189f4622cc569f419fbabceda67f40c04e67309a8d34ee4fd51b1c6bccc",
+    "reports/PHASE-2-SLICE.json": "a86619de8c853a9a577512f032465efca6f072a38c216c1d0489d484180e7769",
+    "reports/PHASE-2-PROVENANCE-SLICE.json": "b25868646d55fae9c419199de3339170c673317c28d47a30d2ed623ccb46e16e"
+  },
+  "worker_original_hashes": {
+    "adapter": "e13dd8470e001b3c0e2a0bff57e2b3543ef5e5ec7cdfbde847b2239bbb748524",
+    "tests": "7ff68e0f024e3e3396a005947438d93ca374d5c37b18f822d8d4e0be35d5e0f9",
+    "report": "11789fd08017327d8a057c6369b844bd671a26f1fa79c740ed38fd2bc99b6302"
+  },
+  "worker_active_seconds": 635,
+  "integration_changes": "Normalize completed adapter/test files to LF; add explicit executed/full-fixture flags after parent review, test/kernel hashes and separate fold counts; aggregate only three distinct full lifecycle passes. Production Lean code unchanged.",
+  "corpus": {
+    "previous_passes": 25,
+    "new_passes": 3,
+    "total_passes": 28,
+    "kernel_tagged_total": 79,
+    "cases": [
+      "GP-X142",
+      "GP-X147",
+      "GP-X148"
+    ],
+    "original_native_folds": 12,
+    "separate_control_folds": 7,
+    "g2_pass": false
+  },
+  "parent_review": {
+    "pinned_named_functions": {
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "pin_file_sha256": "180d920db790d5b5e318ce318b7b7e1467e6b11fd44e05e759e8b7cc7f4459db",
+      "functions": {
+        "tests/test_store.py": {
+          "line": 36,
+          "anchor": "def test_identical_redeclaration_is_idempotent(",
+          "file_sha256": "053be6bd1294920d8ecacfb750a626849069104ecc89c9c1492604c7af2e5c4e",
+          "function_sha256": "e3c879f25859f930c04030b2d93756013850946c24e4f5312dd3a9f8a47ada5e"
+        },
+        "tests/test_supersession_noise.py": {
+          "line": 92,
+          "anchor": "def test_minimal_inference_retract_is_not_a_live_successor(",
+          "file_sha256": "1ba3a7c9eecf41ba8d025ebd13ababe513def85f35ec5d5daac202be5c7f0821",
+          "function_sha256": "d325471a84d659cce4958a361499f8347779b18ff9d2f96b1702531f7796828a"
+        }
+      },
+      "boundary": "Only named source functions; literal fixtures remain the inputs. The withdrawal is retained separately as inert custody, not a successor inference."
+    },
+    "literal_objects_and_history_preserved": true,
+    "X142": "Two identical native declaration occurrences retain one complete record.",
+    "X147": "All inference history remains; actual targeted retract makes I ineligible for live use.",
+    "X148": "I2 has a distinct immutable identity despite equal argument properties and is not targeted or dependent on I; actual native liveness remains true.",
+    "withdrawal_record": "Full justification and target/change metadata retained as inert custody; no current binding or successor inference is assigned.",
+    "no_host_liveness_prefilter": true,
+    "post_run_comparison": "Exact full domain, currents, warrant bytes/bindings, retracted IDs, successors, live and held/query results.",
+    "checked_support_obligation_closed": false,
+    "authority": "Admission.refuseAll; opaque citations grant no checked truth. Complete lifecycle isolation is distinct from independent checked support."
+  },
+  "validation": {
+    "host_tests": 161,
+    "host_subtests": 381,
+    "new_host_tests": 17,
+    "final_budget_tests": 5,
+    "native_component_controls_unchanged": 553,
+    "proof_controls_unchanged": 81,
+    "all_four_orders_equal": true,
+    "report_links_and_hashes": "PASS",
+    "production_sources_unchanged": true
+  },
+  "infrastructure": {
+    "initial_attempt": "Report write and test-directory setup returned OSError ENOSPC / WinError112. Legacy replay also stopped on temp-directory creation. These attempts do not count as passes.",
+    "diagnostic": "F volume subsequently reported about4.5GB available; small write succeeded. Cause of transient discrepancy not established.",
+    "cleanup": "Only verified ignored tmp/phase2-conditional-routes/.lake/build and tmp/phase2-conditional-partition/.lake/build removed. Sources, receipts, harvest and main executables preserved.",
+    "recovery": "Interrupted declaration report regenerated; all source/report links checked. Aggregate and161 host tests passed serial retry with GPB writes briefly stopped.",
+    "worker_resumed": true
+  },
+  "budget": {
+    "counts": {
+      "logic": 636,
+      "decoder": 263,
+      "statement": 26,
+      "proof": 1602
+    },
+    "markdown_added_words": 7876,
+    "status_words": 286,
+    "failures": []
+  },
+  "next": {
+    "GPB": "Finish checked lifecycle supplemental scenarios and their tests under the same25-active-minute cap; zero distinct corpus passes added.",
+    "GPC": "Review true checked support, failed retry and earned output separately from corpus-case coverage."
+  },
+  "preservation": {
+    "fresh_receipt_sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f",
+    "case_count": 459,
+    "summary": {
+      "AGREES": 403,
+      "DIAGNOSTIC_OBSERVED": 4,
+      "KNOWN_DIFFERENCE": 14,
+      "UNSUPPORTED": 9,
+      "RETAINED_DIAGNOSTIC": 29
+    },
+    "protected_artifacts": 67,
+    "all_bytes_expectations_outcomes_unchanged": true
+  }
+}

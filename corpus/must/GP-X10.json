@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "GP-X10",
+  "seed": null,
+  "title": "Coordinate rings do not identify different point universes",
+  "situation": "Two models use the same rational equations and identity substitution, but their point universes differ or are incomplete.",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "generators": [
+      "x^2+1"
+    ],
+    "coefficient_domain": "Q",
+    "source_universe": "BASE",
+    "target_universe": "ALGEBRAIC_CLOSURE"
+  },
+  "attempted_conclusion": "Treat the displayed identity substitution as a point equivalence.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A coordinate-ring identity does not provide the missing change-of-context warrant."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 5103,
+      "anchor": "def test_equivalence_refuses_base_to_closure_point_universe_change("
+    }
+  ]
+}

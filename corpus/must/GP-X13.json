@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X13",
+  "seed": null,
+  "title": "Field-relative emptiness needs a typed point model",
+  "situation": "A combinatorial contradiction is attached to a model with no declared point universe.",
+  "inputs": {
+    "coefficient_domain": null,
+    "point_universe": null,
+    "claimed_field": "R"
+  },
+  "attempted_conclusion": "Conclude field-relative geometric emptiness from the combinatorial certificate.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "No binding connects the combinatorial objects to the claimed field-valued points."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_empty_scope_anchor.py",
+      "line": 54,
+      "anchor": "def test_native_field_empty_cannot_sit_at_a_bare_combinatorial_model("
+    }
+  ]
+}

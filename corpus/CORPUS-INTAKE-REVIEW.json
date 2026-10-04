@@ -1,0 +1,46 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "scripts/project_ir_corpus.py",
+      "sha256": "195b65281c8f80596ccc085cedde42b58cc8e0ce4a433cfd82c90203b5bd5616",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "scripts/corpus_check.py",
+      "sha256": "fed263a3f2b933e7d371b1dbe83c7f42e80379ea42e305fd107dfbe951b33f89",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_corpus_check.py",
+      "sha256": "3f8986e9ef06e9e198d6b4c218566610e25d331514e15e04b6c97c72ad455a18",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "tests": {
+    "passed": 4,
+    "report": "reports/oracle-corpus-intake-review.xml"
+  },
+  "diagnostics": "reports/CORPUS-INTAKE-BOUNDARIES.json",
+  "findings": [
+    "Exporter reads bytes before writing, checks file-set and byte stability afterward, and refuses symlinks. This does not establish authentication or a filesystem snapshot; failures can leave incomplete output.",
+    "Source export-manifest.json is copied then overwritten by generated manifest. Export returns success but validation finds its own recorded source-file hash mismatched.",
+    "READY checks no-backfill declaration, file/hash/field-path integrity, format-8 meta labels and presence of verdict events. It is not native-schema validation, source authentication or proof admission.",
+    "Native loading in run_campaign_corpus is outside an exception-to-report boundary. Structurally eligible but invalid synthetic graphs raise GraphError without corpus-report.json.",
+    "Existing baseline pins survive detected manifest changes; no baseline means initial integrity intake, not independent provenance authentication.",
+    "Runner licensed_conclusions includes clean transport inferences whose explanation can still be incomplete. Reconstructed fraction and data gaps must remain visible.",
+    "Recommendation remains None even for measured campaign reports; this script does not evaluate the 0.50 G0 gate. Three hardcoded predecessor campaign names do not replace the approved 0.50 sweep manifest."
+  ],
+  "proposed_repairs": [
+    "Preflight and reject reserved export-manifest.json source collisions before creating output, or keep export metadata outside verbatim payload namespace.",
+    "Separate retention-eligible, native-loadable and authority-reconstructed statuses; report per-campaign load errors instead of leaving no structured report.",
+    "Preserve source-byte integrity and baseline pins while explicitly labeling their authentication limits."
+  ],
+  "remaining": [
+    "Malformed JSON/type and concurrent export error paths remain incompletely exercised.",
+    "No confirmed full campaign harvest or 0.50 gate evaluation performed."
+  ]
+}

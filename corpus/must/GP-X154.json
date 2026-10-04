@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "id": "GP-X154",
+  "seed": null,
+  "title": "Allow supersession of a missing edge",
+  "situation": "A supersession reference must resolve to a record of the same kind.",
+  "inputs": {
+    "vocabulary": "lifecycle-scenario/v1",
+    "objects": {
+      "object-1": {
+        "category": "context",
+        "name": "IV",
+        "properties": {
+          "description": "the interval-valued system"
+        }
+      },
+      "object-2": {
+        "category": "context",
+        "name": "PD",
+        "properties": {
+          "description": "the positive-definite locus"
+        }
+      },
+      "object-3": {
+        "category": "relation",
+        "name": "E-IV-PD-RESTRICT",
+        "properties": {
+          "source_context": "IV",
+          "target_context": "PD",
+          "relation_class": "subset_restriction",
+          "justification": "the cut-out subset, same coordinates",
+          "coordinate_action": "unchanged"
+        }
+      }
+    },
+    "history": [
+      {
+        "object": "object-1"
+      },
+      {
+        "object": "object-2"
+      },
+      {
+        "object": "object-3",
+        "replacement": {
+          "prior": "GHOST",
+          "change": "relation_reclassification"
+        }
+      }
+    ],
+    "question": {}
+  },
+  "attempted_conclusion": "Allow supersession of a missing edge.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A supersession reference must resolve to a record of the same kind."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_supersession_noise.py",
+      "line": 393,
+      "anchor": "def test_a_dangling_supersession_is_refused_by_the_FOLD("
+    }
+  ]
+}

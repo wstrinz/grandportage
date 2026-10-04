@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "GP-X138",
+  "seed": null,
+  "title": "Bounded saturation failure cannot prove nonmembership",
+  "situation": "The producer stops at eight and reports UNVERIFIED; case GP-X129 supplies the valid ninth-power certificate.",
+  "inputs": {
+    "built_generators": [
+      "y"
+    ],
+    "source_generators": [
+      "x^9*y"
+    ],
+    "searched_exponents": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  "attempted_conclusion": "Refute membership of y in the saturation after checking powers zero through eight.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The producer stops at eight and reports UNVERIFIED; case GP-X129 supplies the valid ninth-power certificate."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 5382,
+      "anchor": "def test_a_power_nine_saturation_witness_is_not_falsely_refuted("
+    }
+  ]
+}

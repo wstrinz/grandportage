@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "GP-X389",
+  "seed": null,
+  "title": "Operational 69.2: corpus reporting boundary",
+  "situation": "Retained synthetic READY intake fixture whose graph has kernel_epoch null.",
+  "inputs": {
+    "incident_row": "69.2",
+    "vector": {
+      "intake_status": "READY",
+      "fixture": "retained synthetic campaign",
+      "graph_kernel_epoch": null,
+      "native_load": "attempted"
+    },
+    "retained_evidence_refs": [
+      "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/0",
+      "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/1"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Treat retention READY as a native-load and report-ready result.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Structural retention READY does not imply native load or report readiness: the retained synthetic graph raises GraphError before a report is written. No per-campaign error-report guarantee is selected here."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "scripts/project_ir_corpus.py",
+      "line": 129,
+      "anchor": "graph=S.load(str(Path(corpus_root)/campaign/\"graph.jsonl\"))",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

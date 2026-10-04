@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "GP-X338",
+  "seed": null,
+  "title": "Changed selected coefficient triggers backend fallback",
+  "situation": "The selected sparse generator changes its coefficient from 1 to 999 while the source generator remains x. The polynomial still lies in (x), but literal generator inclusion is lost. A forbidden backend stub reveals the next dispatch step.",
+  "inputs": {
+    "ring_vars": [
+      "x"
+    ],
+    "characteristic": 0,
+    "source_generators": [
+      {
+        "schema": "sparse_polynomial_v1",
+        "terms": [
+          {
+            "coefficient": "1",
+            "powers": [
+              [
+                "x",
+                1
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "relation": "NECESSARY_CONDITION",
+    "map_kind": "IDENTITY",
+    "backend_policy": "raise_on_dispatch",
+    "selected_generators": [
+      {
+        "schema": "sparse_polynomial_v1",
+        "terms": [
+          {
+            "coefficient": "999",
+            "powers": [
+              [
+                "x",
+                1
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "requested_observation": "backend_fallback"
+  },
+  "attempted_conclusion": "Observe loss of structural eligibility and a call to the backend path, without assigning a mathematical containment verdict.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The changed selected generator is not a literal subset and containment dispatches to the backend; no mathematical verdict is returned."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_source_depth6_full_template.py",
+      "line": 64,
+      "anchor": "def test_mutated_selected_face_loses_structural_authority("
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/provenance.py",
+      "line": 342,
+      "anchor": "if not all(generator in source_generators"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/verify.py",
+      "line": 234,
+      "anchor": "origin, evidence = (_backend or cas.SingularBackend(runner=_runner)).classify_identity("
+    }
+  ]
+}

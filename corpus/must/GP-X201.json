@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "GP-X201",
+  "seed": null,
+  "title": "identity envelope: matching",
+  "situation": "The invocation must carry exactly one matching identity block, consistent with the earlier version probe.",
+  "inputs": {
+    "boundary": "identity",
+    "variation": "matching",
+    "request": {
+      "coefficient_field": "Q",
+      "variables": [
+        "x"
+      ],
+      "ideal_generators": [
+        "x"
+      ],
+      "operation": "basis"
+    },
+    "evidence_origin": "fabricated_offline_control"
+  },
+  "attempted_conclusion": "Accept this execution envelope as belonging to the requested invocation; no theorem authority is asserted.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The invocation must carry exactly one matching identity block, consistent with the earlier version probe."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_inband_identity.py",
+      "line": 11,
+      "anchor": "def test_native_execution_identity_is_from_that_transcript("
+    }
+  ]
+}

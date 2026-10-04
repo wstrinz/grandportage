@@ -1,0 +1,66 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "406fced5576a8d970dc2e8b70b5f9f1af250393ce5fff19f8100ddd97e146c33",
+  "authority": "DIAGNOSTIC_ONLY",
+  "external_execution": false,
+  "identity_merge": [
+    {
+      "branch_order": [
+        "positive",
+        "unfinished"
+      ],
+      "projected": "UNVERIFIED",
+      "retained_receipts": {
+        "v.positive": "VERIFIED_DERIVED",
+        "v.unfinished": "UNVERIFIED"
+      },
+      "freshness": {
+        "v.positive": true,
+        "v.unfinished": true
+      }
+    },
+    {
+      "branch_order": [
+        "unfinished",
+        "positive"
+      ],
+      "projected": "VERIFIED_DERIVED",
+      "retained_receipts": {
+        "v.unfinished": "UNVERIFIED",
+        "v.positive": "VERIFIED_DERIVED"
+      },
+      "freshness": {
+        "v.unfinished": true,
+        "v.positive": true
+      }
+    }
+  ],
+  "section_orders": [
+    {
+      "order": [
+        "positive",
+        "rejected"
+      ],
+      "projected": "VERIFIED_SECTION",
+      "retained_receipts": 1,
+      "history_count": 2
+    },
+    {
+      "order": [
+        "rejected",
+        "positive"
+      ],
+      "projected": "VERIFIED_SECTION",
+      "retained_receipts": 1,
+      "history_count": 2
+    }
+  ],
+  "verdict_is_supersedable": false,
+  "finding": "The two valid identity-receipt branches merge without conflict but their active projected field depends on concatenation order. Both receipts remain fresh and retained. Rejected elimination proposals have a subject-specific non-overwrite rule.",
+  "limitation": "Backend execution manifests are fabricated test fixtures. Section arithmetic is replayed by the pinned fold. This assay does not establish GP 0.50 independent-warrant semantics or generic selective warrant retraction.",
+  "unresolved": [
+    "Does a failed attempt leave an earlier independently valid warrant active?",
+    "How are individual warrants retracted separately from the claim they support?",
+    "How should merge handle multiple current positive and negative receipts without arrival-order priority?"
+  ]
+}

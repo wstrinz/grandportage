@@ -1,0 +1,68 @@
+{
+  "id": "JC-C003",
+  "campaign": "JC",
+  "origin": "own",
+  "class": "JOIN",
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repo": "$DEV/math-stuff",
+      "ref": "d2_plane_72_108/F2_TOWER.md:75-114",
+      "date": "2026-07-26",
+      "harvest_sha256": "624b38c92fea86b74e875d77a074f583623e0d12d207787503bc644723ac10b9",
+      "related_history_commit": "fff0cc897bcdba7f849fe3c3085b2c441d0ac245"
+    }
+  ],
+  "claimed": "An exact base-case kill and exact period arithmetic were joined to claim that the period jump explains failure of tower transfer.",
+  "problem": "The source withdraws that explanation: the claimed link was printed prose connecting disjoint calculations, without the required derivation.",
+  "discovered_by": "unknown",
+  "cost": null,
+  "shipped": null,
+  "gp_v037_would_catch": null,
+  "core_expressible": null,
+  "core_would_refuse": null,
+  "notes": "Distinct from the incorrect chart constants: the repaired constants do not establish the missing bridge. No assertion that the weaker obstruction conclusion itself is refuted. GP catch assessment is conditional: explicit scope/guard/bridge requirements could prevent promotion, but GP cannot discover the missing premise or correct interpretation automatically; no campaign replay was run.",
+  "subfindings": [],
+  "status": "final retained source-backed record under ratified unknown policy; observation and counting limits remain explicit",
+  "primary_class": "JOIN",
+  "primary_origin": "own",
+  "record_kind": "documented incident",
+  "final_disposition": "retain qualified source-backed Appendix B candidate",
+  "owner_id": "JC-C003",
+  "original_pointer": {
+    "report": "reports/PHASE-0B-INVENTORY-DRAFT.json",
+    "pointer": "/rows/2",
+    "sha256": "ab1a7c4728bf5ff36129df136adb9c2f612181662ef29ee23358323d866a8ab2",
+    "review_date": "2026-09-29",
+    "date_kind": "retained report review date; not incident date or source publication date"
+  },
+  "source": {
+    "repo": "$WORKSPACE",
+    "ref": "reports/PHASE-0B-INVENTORY-DRAFT.json#/rows/2",
+    "date": "2026-09-29",
+    "review_date": "2026-09-29",
+    "date_kind": "review-source date of retained report; not incident date or original primary-source date"
+  },
+  "incident_date": null,
+  "source_date_qualification": "No incident date invented; original source dates/history metadata remain unchanged in sources.",
+  "cost_note": "Source evidence does not establish incident-specific work lost/cost class.",
+  "shipped_note": "Source evidence does not establish publication or handoff of a wrong claim; unknown is neither false nor n/a.",
+  "gp_v037_would_catch_note": "No supported frozen-GP catch verdict for this episode. Conditional design/reuse commentary in notes is not a yes/no/partial assessment; no fresh campaign replay.",
+  "counting_qualification": {
+    "record_count": 1,
+    "independent_sample": null,
+    "mathematical_incident_count": null,
+    "rule": "Count this owner record once. Repeated summaries, witnesses, consumers and children do not add independent samples.",
+    "source_detail": "Distinct from the incorrect chart constants: the repaired constants do not establish the missing bridge. No assertion that the weaker obstruction conclusion itself is refuted. GP catch assessment is conditional: explicit scope/guard/bridge requirements could prevent promotion, but GP cannot discover the missing premise or correct interpretation automatically; no campaign replay was run."
+  },
+  "classification_qualification": "Proposed primary class and origin retained from accepted inventory; uncertainty and secondary dimensions remain in evidence. Not a statistically adjudicated incident population.",
+  "parent_adjudications": [],
+  "linked_cross_occurrence": null,
+  "children": [],
+  "evidence_level": "retained source-backed report; no new source read, execution, or authentication",
+  "parent_integration": {
+    "worker_report": "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "worker_report_sha256": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849",
+    "register": "incident/correction/group"
+  }
+}

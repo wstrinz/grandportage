@@ -18,8 +18,8 @@ This review changes no product code, release version, kernel epoch, or campaign 
 Reproduce the read-only observation harness from the GP root:
 
 ```powershell
-python review/v0.32-preflight/probe.py C:/Users/wstri/dev/math-research/campaigns/dk-retrodiction
-python review/v0.32-preflight/probe.py C:/Users/wstri/dev/math-research/campaigns/dk-retrodiction --live
+python review/v0.32-preflight/probe.py $DEV/math-research/campaigns/dk-retrodiction
+python review/v0.32-preflight/probe.py $DEV/math-research/campaigns/dk-retrodiction --live
 ```
 
 The original shell runner was not run in the sibling campaign: it creates/deletes `.scratch` there. No `--record`, fixture regeneration, cfg23 edit, or configuration-23-4 edit was performed. The 189 custody-derivable commits are a pinned path-based proxy from T1, not a newly measured time saving.

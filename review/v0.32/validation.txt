@@ -27,7 +27,7 @@ CLI replay:
   frozen source inputs. The six D2 CLI verifications all return VERIFIED.
 
 Lean:
-  ELAN_HOME=C:/Users/wstri/.elan lake build (from lean/)
+  ELAN_HOME=$ELAN_HOME lake build (from lean/)
   Exit 0, 28 jobs. Two existing linter warnings (unnecessarySimpa and
   unusedVariables). The first invocation lacked ELAN_HOME; explicit installed
   toolchain configuration resolved it without source changes.

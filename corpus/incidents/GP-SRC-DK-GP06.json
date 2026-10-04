@@ -1,0 +1,167 @@
+{
+  "id": "GP-SRC-DK-GP06",
+  "source_row_id": "DK-GP06",
+  "campaign": "GP",
+  "related_campaign": "DK",
+  "inventory_role": "historical_tool_defect_exact_fixture_reuse",
+  "origin": "tool",
+  "origin_qualification": "Primary responsibility classification is provisional; first discoverer unknown.",
+  "class": "ADAPTER",
+  "secondary_classes": [
+    "COVER",
+    "WARRANT"
+  ],
+  "classification_status": "proposed qualified supplement; not approved AppendixB record",
+  "scope_or_region": "N/A",
+  "claimed": "COUNT disposition fields on PREDICATE should enforce declared family coverage.",
+  "problem": "Historical D3 silently folded three first encodings with inert fields; X400 exact before fixture rejects them; X401 typed declaration contrast keeps debt.",
+  "composite": true,
+  "grouping_limit": "Three first encodings share the recorded inert-field failure; contrast is not another incident or held coverage.",
+  "sources": [
+    {
+      "path": "$DEV/math-research/campaigns/dk-retrodiction/REPORT.md",
+      "lines": "322-329;412-417",
+      "sha256": "c56fe65d9e246bd06c525e9da5c642c24fa378681525d602679cd37e88228153",
+      "reading_status": "Campaign pointer/hash inherited from accepted bounded reconciliation; not newly read or independently verified this pass."
+    }
+  ],
+  "report_evidence": [
+    {
+      "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+      "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+      "pointer": "/named_row_register/5"
+    },
+    {
+      "report": "reports/PHASE-0B-GP-REUSE-PARENT-REVIEW.json",
+      "sha256": "6ed2cc1f7b9b4236c3d6e62a463c51784ef92f43a1695959be9571d584ec82d7",
+      "pointer": "/limits"
+    }
+  ],
+  "discovered_by": "unknown",
+  "cost": null,
+  "shipped": null,
+  "gp_v037_would_catch": null,
+  "core_expressible": null,
+  "core_would_refuse": null,
+  "observed_vs_attributed": {
+    "current_observation": null,
+    "historical": "Source-attributed only. Exact fixture reuse and retained diagnostic assertions do not establish literal current campaign outcomes.",
+    "current_catch_assessment": null
+  },
+  "related_occurrences": [],
+  "subepisodes": [
+    {
+      "id": "GP-DISP-DK-GP06/D3-inert-count-fields",
+      "source_disposition_id": "DK-GP06/D3-inert-count-fields",
+      "source_pointer": {
+        "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+        "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+        "pointer": "/dispositions/10"
+      },
+      "disposition": "exact_case_reuse",
+      "primary_class": "ADAPTER",
+      "secondary_classes": [
+        "COVER",
+        "WARRANT"
+      ],
+      "origin": "tool",
+      "summary": "Preserve established exact reuse of D3 PREDICATE carrying COUNT-only fields. Before fixture LF SHA256 7be21751fd5243e0e9736337a47c3e521bdae26c5ccfea772fcdf6cd27387723. Three actual first encodings remain one recorded inert-field mechanism; unrelated bad arithmetic probes are not added to it.",
+      "case_reuse": [
+        {
+          "id": "GP-X400",
+          "equivalence": "exact assigned fixture/model/premise behavior"
+        }
+      ],
+      "evidence_reports": [
+        "reports/PHASE-0A-GUARD-EXTRACTION.json"
+      ],
+      "missing_behavior_or_premise": null,
+      "admission": "not commissioned by this inventory pass",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "inventory_role": "source_attributed_historical_mechanism",
+      "owner_id": "GP-SRC-DK-GP06",
+      "record_kind": "source-attributed correction/group",
+      "counting_qualification": "Nested disposition of GP-SRC-DK-GP06; zero additional owner records and no presumed independent sample."
+    },
+    {
+      "id": "GP-DISP-DK-GP06/typed-count-contrast",
+      "source_disposition_id": "DK-GP06/typed-count-contrast",
+      "source_pointer": {
+        "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+        "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+        "pointer": "/dispositions/11"
+      },
+      "disposition": "related_rule_control",
+      "primary_class": "ADAPTER",
+      "secondary_classes": [
+        "COVER",
+        "WARRANT"
+      ],
+      "origin": "tool",
+      "summary": "The same after fixture accepts the COUNT declaration while FAMILY:C-SPLIT retains41 of42 members unsettled. This contrasts D3; declaration success is not earned family coverage.",
+      "case_reuse": [
+        {
+          "id": "GP-X401",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "evidence_reports": [
+        "reports/PHASE-0A-GUARD-EXTRACTION.json"
+      ],
+      "missing_behavior_or_premise": null,
+      "admission": "not commissioned by this inventory pass",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "inventory_role": "declaration_with_debt_control",
+      "owner_id": "GP-SRC-DK-GP06",
+      "record_kind": "operational diagnostic",
+      "counting_qualification": "Nested disposition of GP-SRC-DK-GP06; zero additional owner records and no presumed independent sample."
+    }
+  ],
+  "status": "final retained source-backed record under ratified unknown policy; observation and counting limits remain explicit",
+  "primary_class": "ADAPTER",
+  "primary_origin": "tool",
+  "record_kind": "source-attributed correction/group",
+  "final_disposition": "retain qualified source-attributed group record with nested subdispositions",
+  "owner_id": "GP-SRC-DK-GP06",
+  "original_pointer": {
+    "report": "reports/PHASE-0B-GP-INVENTORY-SUPPLEMENT-DRAFT.json",
+    "pointer": "/named_gp_source_groups/5",
+    "sha256": "1ea12da51790d7b0f3beb8c26586a921537b120df20a9730c8c8826344a3c55a",
+    "review_date": "2026-09-29",
+    "date_kind": "retained report review date; not incident date or source publication date"
+  },
+  "source": {
+    "repo": "$WORKSPACE",
+    "ref": "reports/PHASE-0B-GP-INVENTORY-SUPPLEMENT-DRAFT.json#/named_gp_source_groups/5",
+    "date": "2026-09-29",
+    "review_date": "2026-09-29",
+    "date_kind": "review-source date of retained report; not incident date or original primary-source date"
+  },
+  "incident_date": null,
+  "cost_note": "Incident-specific cost unestablished at this group scope. Any source-reported timing/effort remains attribution in retained subdispositions; do not convert test/search effort to work lost.",
+  "shipped_note": "Wrong-claim publication/handoff unestablished; source code release, commit or fixture existence alone is insufficient.",
+  "gp_v037_would_catch_note": "Historical failure, exact fixture reuse, present diagnostic observations and hypothetical core behavior are different evidence/version layers; no group-wide frozen catch verdict established.",
+  "counting_qualification": {
+    "record_count": 1,
+    "independent_sample": null,
+    "mathematical_incident_count": null,
+    "rule": "One source-group record organizing existing subdispositions; do not count each subdisposition, fixture, repair or repeated source as an independent incident.",
+    "source_detail": "Three first encodings share the recorded inert-field failure; contrast is not another incident or held coverage."
+  },
+  "notes": "Qualified retained source-attributed correction/group. Three first encodings share the recorded inert-field failure; contrast is not another incident or held coverage. No new source read or execution. Source dates/hashes and attribution are preserved; no independent sample or shipping authentication inferred.",
+  "parent_integration": {
+    "worker_report": "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "worker_report_sha256": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849",
+    "register": "incident/correction/group"
+  }
+}

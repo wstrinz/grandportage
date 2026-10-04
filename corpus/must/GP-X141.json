@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "GP-X141",
+  "seed": null,
+  "title": "One-sided saturation soundness cannot establish completeness",
+  "situation": "The one-sided check accepts no invented generators vacuously, yet y is missing with an explicit x^2 witness.",
+  "inputs": {
+    "built_generators": [],
+    "source_generators": [
+      "x^2*y",
+      "x*y^2"
+    ],
+    "saturated_at": "x",
+    "missing_generator": "y",
+    "distinguishing_point": {
+      "x": "1",
+      "y": "1"
+    }
+  },
+  "attempted_conclusion": "Conclude that the empty output generates the entire saturation.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The one-sided check accepts no invented generators vacuously, yet y is missing with an explicit x^2 witness."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 5439,
+      "anchor": "def test_a_verified_output_does_not_claim_completeness("
+    }
+  ]
+}

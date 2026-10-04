@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X40",
+  "seed": null,
+  "title": "A changed row commitment cannot reuse the old binding",
+  "situation": "An exact reduced-row binding is conditional on normalized-root inputs; the original-pair to normalized-root map remains unmaterialized.",
+  "inputs": {
+    "source_pair_materialized": false,
+    "source_map_materialized": false,
+    "proposed_value": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "attempted_conclusion": "Accept a changed first-row digest against the unchanged bound polynomial rows.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The native row commitments must match the frozen GP rows."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_original_pair_seam.py",
+      "line": 107,
+      "anchor": "def test_changed_native_row_commitment_breaks_the_gp_weld("
+    }
+  ]
+}

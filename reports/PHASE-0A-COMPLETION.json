@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "status": "completed_with_explicit_observation_limits",
+  "phase_0a_complete": true,
+  "g0_complete": false,
+  "scope": "Recorded-incident extraction under approved selective source/history closure scope; not full predecessor soundness certification.",
+  "source_boundary": {
+    "pin": "ac4155787207e2847d248cffed7be871d5dcd577",
+    "indexed_tree_paths": 368,
+    "indexed_reachable_commits": 244,
+    "tree_categories": {
+      "other": 26,
+      "documentation": 46,
+      "history_documents": 2,
+      "fixtures_examples": 31,
+      "implementation": 49,
+      "lean_theory": 45,
+      "release_review": 69,
+      "tests": 100
+    },
+    "deleted_test_files": 29,
+    "deleted_non_test_paths": 156
+  },
+  "accepted_evidence": [
+    {
+      "path": "reports/PHASE-0A-CLOSEOUT-PARENT-REVIEW.json",
+      "sha256": "4019b3bd56044bf374c13cec6801ea1e9519673fe130eaa8a8e9b409bb78b0a5"
+    },
+    {
+      "path": "reports/PHASE-0A-A24-INTEGRATION.json",
+      "sha256": "73cce79484e84a7e2bb5bcfd00c675cbce00bcf3f5b6b7fbe8320dec542a2693"
+    },
+    {
+      "path": "reports/PHASE-0A-CLOSEOUT-CONCORDANCE.json",
+      "sha256": "5972d37d4019a782b9bcf17fb373baaf084692b8728897f5ddabdf1a7156dbaf"
+    },
+    {
+      "path": "reports/PHASE-0A-FINAL-BOUNDARY-CHECK.json",
+      "sha256": "8dbe9a989860e5859057364cae856bbb72c3aea5535b345978efa050d025ed34"
+    },
+    {
+      "path": "reports/PHASE-0A-CLOSURE-DECISIONS.json",
+      "sha256": "811add5f30470d8845ef778bd1a8f146c5a0bda40aeba0c08df6cf9bcecb3452"
+    },
+    {
+      "path": "reports/PHASE-0A-NONINCIDENT-PARENT-DISPOSITION.json",
+      "sha256": "a3dbeca8128a63e8892b904eaf65fc6a047197e58e895a5441e164ff2b6cce21"
+    },
+    {
+      "path": "reports/PHASE-0A-DELETED-MAPPING-PARENT-DISPOSITION.json",
+      "sha256": "34278f064a012f53d6e97ee7a763676e0f81f920d7115bf1350ab5d052bca7ce"
+    },
+    {
+      "path": "reports/PHASE-0A-BOUNDED-CLOSEOUT-SLICE.json",
+      "sha256": "54ef2c1c052927cb228feb7ab5fd81bf7e60e188430b1356b6e6677880ac9575"
+    },
+    {
+      "path": "reports/PHASE-0A-RELEASE-DOCUMENT-DISPOSITION.json",
+      "sha256": "5816300b6a232491e34fc0b5bcb4a55b6ef3d40b2e1014957c540f33db266ef5"
+    },
+    {
+      "path": "reports/PHASE-0A-DOCUMENT-SUCCESSOR-FINAL.json",
+      "sha256": "117bd256fe8263cb67e1a30391efeeb887a49bf82259788c7e4ebd26fd3698c4"
+    },
+    {
+      "path": "reports/PHASE-0A-COORDINATOR-RESUMPTION.json",
+      "sha256": "7b9364e365d67e100c3401b4d29218116c7d56be83226dd6895dcb5775532758"
+    },
+    {
+      "path": "reports/NEUTRAL-LIFECYCLE-AUDIT.json",
+      "sha256": "45f8d61e28fb2002299b876201424511a4d70e5b494d65d5fc1404ee403d3651"
+    },
+    {
+      "path": "reports/PHASE-0A-OPERATIONAL-INTEGRATION.json",
+      "sha256": "6fec88298c951a6dd7a07ddf1e5197f84344c47eea56b78a02c2e99303dd756c"
+    },
+    {
+      "path": "reports/PHASE-0A-CONTRACTION-LIFT-INTEGRATION.json",
+      "sha256": "2f2f2367bb680596fb267e3148044efb3f855eac30fbf9d6668d26c6779ad097"
+    },
+    {
+      "path": "reports/PHASE-0A-ORDINARY-POINT-GUARD-INTEGRATION.json",
+      "sha256": "7f21e9a2f96e337c6279e18603fb38035fff1f5722f5d3b35c9dad48f6f8ddd6"
+    }
+  ],
+  "checklist": {
+    "source_history_groups_dispositioned": true,
+    "identified_incidents_resolved_for_extraction": true,
+    "family_neutrality_controls_accepted_with_limits": true,
+    "all459routes_observed_or_explicitly_classified": true,
+    "residual_design_repair_work_deferred_explicitly": true,
+    "final_schema_sources_hashes_replay_preservation_passed": true
+  },
+  "cases": 459,
+  "expected": {
+    "REFUSE": 321,
+    "ACCEPT": 138
+  },
+  "replay": {
+    "path": "reports/oracle-runs/20260930T021113009291Z.json",
+    "sha256": "0996858153e6f1fec40aad3fe1d71a70cff72b39972cd78937646818214be04d",
+    "summary": {
+      "AGREES": 403,
+      "DIAGNOSTIC_OBSERVED": 4,
+      "KNOWN_DIFFERENCE": 14,
+      "UNSUPPORTED": 9,
+      "RETAINED_DIAGNOSTIC": 29
+    }
+  },
+  "exceptions": {
+    "KNOWN_DIFFERENCE": [
+      "GP-A08b",
+      "GP-A08c",
+      "GP-X03",
+      "GP-X08",
+      "GP-X241",
+      "GP-X257",
+      "GP-X260",
+      "GP-X266",
+      "GP-X268",
+      "GP-X270",
+      "GP-X274",
+      "GP-X309",
+      "GP-X345",
+      "GP-X346"
+    ],
+    "UNSUPPORTED": [
+      "GP-A27-drop-GRH",
+      "GP-A27-full",
+      "GP-A27-heuristic",
+      "GP-A27-keep-GRH",
+      "GP-A27-label",
+      "GP-A27-partial",
+      "GP-X408",
+      "GP-X409",
+      "GP-X53"
+    ],
+    "DIAGNOSTIC_OBSERVED": [
+      "GP-A03a",
+      "GP-X410",
+      "GP-X411",
+      "GP-X412"
+    ],
+    "RETAINED_DIAGNOSTIC": [
+      "GP-X370",
+      "GP-X371",
+      "GP-X372",
+      "GP-X373",
+      "GP-X374",
+      "GP-X375",
+      "GP-X376",
+      "GP-X377",
+      "GP-X378",
+      "GP-X379",
+      "GP-X380",
+      "GP-X381",
+      "GP-X382",
+      "GP-X383",
+      "GP-X384",
+      "GP-X385",
+      "GP-X386",
+      "GP-X387",
+      "GP-X388",
+      "GP-X389",
+      "GP-X390",
+      "GP-X391",
+      "GP-X392",
+      "GP-X393",
+      "GP-X394",
+      "GP-X395",
+      "GP-X396",
+      "GP-X397",
+      "GP-X398"
+    ]
+  },
+  "a24": {
+    "status": "user_approved_correction_integrated_and_full_replay_verified",
+    "approval": "DECISIONS.md closeout decisions ratified2026-09-29",
+    "case": "GP-A24",
+    "old_case_path": "reports/A24-CORRECTION-AUDIT/GP-A24-original.json",
+    "old_case_sha256": "1e8c599b53e2a18a03938271eb84eba4c641ea0793f2014b7d136a3cd7a906a1",
+    "new_case_sha256": "242632ffbc9468314e540061bcd9f514a92a5eee481eea51a91a538e75daccee",
+    "expected_verdict_before_and_after": "REFUSE",
+    "source_pin_schema_preserved": true,
+    "previous_replay": "reports/oracle-runs/20260930T000850355521Z.json",
+    "new_replay": "reports/oracle-runs/20260930T021113009291Z.json",
+    "new_replay_sha256": "0996858153e6f1fec40aad3fe1d71a70cff72b39972cd78937646818214be04d",
+    "summary": {
+      "AGREES": 403,
+      "DIAGNOSTIC_OBSERVED": 4,
+      "KNOWN_DIFFERENCE": 14,
+      "UNSUPPORTED": 9,
+      "RETAINED_DIAGNOSTIC": 29
+    },
+    "preservation": {
+      "other_case_bytes": 458,
+      "other_route_entries": 458,
+      "other_outcomes": 458,
+      "immutable_replays": 63,
+      "full_record_variation": {
+        "only_fields": "reason framing nonce",
+        "ids": [
+          "GP-X236",
+          "GP-X237"
+        ],
+        "normalized_equal": true
+      }
+    },
+    "targeted_check": {
+      "path": "reports/A24-CORRECTION-AUDIT/TARGETED-CHECK.json",
+      "sha256": "e3171473ffe4552fb7d838389c219908181b81f1671e6692c5f3a153523b5449"
+    },
+    "native_verdict": "NOT_A_POINT",
+    "positive_contrast": "VERIFIED",
+    "limit": "Only offered extension-valued point rejected. No selected real embedding, global emptiness, Singular execution or persisted authority. No new checker admission."
+  },
+  "limits": [
+    "368treepaths/244reachable commits identify reviewed intake boundary; selective review does not imply every source line/diff deeply read.",
+    "Unsupported X53/A27/X408/X409 and diagnostic A03a/X410-X412 remain explicit; no fictitious native verdicts.",
+    "29retained operational diagnostics verify custody bindings, not fresh execution or held theorem authority.",
+    "138ACCEPT expectations retain family-specific control qualifications; supplied-premise or diagnostic positives are not checker-admission controls.",
+    "X378 native event fixture is legacy reproduction data inside neutral envelope, not a new-core format.",
+    "Known differences are preserved findings, not semantic repairs."
+  ],
+  "remaining_extraction_blockers": [],
+  "future_work": [
+    "0b final inventory integration",
+    "0c measurable-cap approval/spike",
+    "G1 explicit component/representation decisions"
+  ]
+}

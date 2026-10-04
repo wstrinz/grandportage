@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "GP-X217",
+  "seed": null,
+  "title": "A valid but different artifact cannot satisfy the trace",
+  "situation": "A valid but different artifact cannot satisfy the trace. This is an execution-storage integrity obligation, not a mathematical proof.",
+  "inputs": {
+    "storage_action": "swapped_reference",
+    "output": "answer one\n",
+    "evidence_origin": "fabricated_offline_record",
+    "second_output": "answer two\n"
+  },
+  "attempted_conclusion": "Accept the requested storage or reference operation as preserving the recorded execution evidence.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A valid but different artifact cannot satisfy the trace"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_artifacts.py",
+      "line": 119,
+      "anchor": "def test_manifest_audit_reports_missing_and_swapped_artifacts("
+    }
+  ]
+}

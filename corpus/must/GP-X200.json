@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "GP-X200",
+  "seed": null,
+  "title": "Equation-refinement annotation with equivalent_presentations",
+  "situation": "The legacy refinement annotation requires an equation-forgetting relation. This rule does not decide whether particular added equations are redundant.",
+  "inputs": {
+    "scenario": "equation_refinement",
+    "declared_relation": "equivalent_presentations"
+  },
+  "attempted_conclusion": "The equation-refinement annotation is consistent with the declared legacy relation.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The legacy refinement annotation requires an equation-forgetting relation. This rule does not decide whether particular added equations are redundant."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_mutations.py",
+      "line": 184,
+      "anchor": "def test_mut_typing_a_refinement_as_anything_else_is_caught("
+    }
+  ]
+}

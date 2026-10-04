@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "id": "GP-X259",
+  "seed": null,
+  "title": "Edited output proof cannot retain its previous binding",
+  "situation": "Every recorded output equation requires checked membership in the source ideal; empty output makes only this local obligation vacuous.",
+  "inputs": {
+    "source": {
+      "field": "Q",
+      "variables": [
+        "y",
+        "x"
+      ],
+      "equations": [
+        "x"
+      ]
+    },
+    "output": {
+      "field": "Q",
+      "variables": [
+        "x"
+      ],
+      "equations": [
+        "x"
+      ]
+    },
+    "eliminated": [
+      "y"
+    ],
+    "membership_rows": [
+      {
+        "equation": "x",
+        "cofactors": [
+          "0"
+        ]
+      }
+    ],
+    "previously_bound_rows": [
+      {
+        "equation": "x",
+        "cofactors": [
+          "1"
+        ]
+      }
+    ],
+    "execution_evidence": "producer_trace"
+  },
+  "attempted_conclusion": "Admit the submitted output membership evidence, without inferring output completeness.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Edited output proof cannot retain its previous binding"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/store.py",
+      "line": 707,
+      "anchor": "    def _apply_verdict(self, ev, where):"
+    }
+  ]
+}

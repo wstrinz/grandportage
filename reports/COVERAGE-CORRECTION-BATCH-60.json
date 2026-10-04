@@ -1,0 +1,39 @@
+{
+  "changes": [
+    {
+      "path": "grandportage/cli.py",
+      "before": "unreviewed",
+      "after": "partial",
+      "reason": "Previously recorded source slices not credited"
+    },
+    {
+      "path": "grandportage/dossier.py",
+      "before": "unreviewed",
+      "after": "partial",
+      "reason": "Batch 60 bounded source review"
+    },
+    {
+      "path": "grandportage/evidence.py",
+      "before": "unreviewed",
+      "after": "partial",
+      "reason": "Batch 60 bounded source review"
+    },
+    {
+      "path": "grandportage/mcp.py",
+      "before": "unreviewed",
+      "after": "partial",
+      "reason": "Previously recorded source slices not credited"
+    },
+    {
+      "path": "tests/test_evidence.py",
+      "before": "unreviewed",
+      "after": "partial",
+      "reason": "Batch 60 bounded source review"
+    }
+  ],
+  "counts": {
+    "unreviewed": 277,
+    "partial": 91
+  },
+  "note": "Earlier batch prose saying MCP already had partial inventory credit was incorrect. Source review evidence existed, but inventory entry remained unreviewed. CLI also had recorded complete-definition slices without partial credit. This is a conservative bookkeeping correction, not newly completed semantic review."
+}

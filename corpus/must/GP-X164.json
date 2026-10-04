@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "GP-X164",
+  "seed": null,
+  "title": "Current receipt binding control",
+  "situation": "Only matching provenance can project current identity authority; stale history must not overwrite a current result.",
+  "inputs": {},
+  "attempted_conclusion": "Use the current positive projected identity result.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Only matching provenance can project current identity authority; stale history must not overwrite a current result."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_verdict_provenance.py",
+      "line": 69,
+      "anchor": "def test_fresh_epoch1_verdict_is_active("
+    }
+  ]
+}

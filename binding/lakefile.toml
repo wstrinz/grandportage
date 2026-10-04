@@ -1,0 +1,28 @@
+name = "gp_binding"
+version = "0.1.0"
+defaultTargets = ["GPBinding"]
+
+# Binding package (post-G2 handoff §3.9, Addendum A §2.5e): Mathlib and Hex's Mathlib
+# bridges at the Addendum A2 pins. Never imported by Kernel or any runtime executable.
+
+[[require]]
+name = "gp_profile"
+path = "../profile"
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "85e3a25e006c35636f0e53b0e9296caca2685bc0"
+
+[[require]]
+name = "HexMvPolyMathlib"
+git = "https://github.com/leanprover/hex-mv-poly-mathlib.git"
+rev = "v0.6.0"
+
+[[lean_lib]]
+name = "GPBinding"
+
+[[require]]
+name = "AutoGeneralization"
+git = "https://github.com/pelicanhere/AutoGeneralization.git"
+rev = "07ed6f917b2cc8b0c29ef6dcb852e8beb9fbd2d1"

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "id": "GP-X357",
+  "seed": null,
+  "title": "Both local saturation checks do not prove exactness",
+  "situation": "For source and recorded output both (6) in Z, saturation at 2, source containment holds and the recorded generator 6 has a saturation witness. Yet 3 lies in the saturation via 2*3=6 and not in the recorded (6).",
+  "inputs": {
+    "control": "sixes_saturation",
+    "ambient": "Z",
+    "source_ideal_generator": 6,
+    "recorded_output_generator": 6,
+    "recorded_generators": [
+      6
+    ],
+    "saturating_element": 2,
+    "missing_element": 3,
+    "source_containment_checked": true,
+    "no_invented_generator_checked": true
+  },
+  "attempted_conclusion": "Promote source containment plus generator no-invention to exact saturation semantics.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Both local checks pass, but 3 is in (6):2^infinity and not in the unchanged output (6)."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/OperationContract.lean",
+      "line": 108,
+      "anchor": "structure SaturationChecked {R : Type u} [Mul R] [OfNat R 1]",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/OperationContract.lean",
+      "line": 644,
+      "anchor": "theorem sixes_checked_as_output :",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/OperationContract.lean",
+      "line": 664,
+      "anchor": "theorem checked_does_not_imply_saturation_semantics :",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

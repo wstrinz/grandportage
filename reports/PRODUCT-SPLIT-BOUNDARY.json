@@ -1,0 +1,235 @@
+{
+  "constructor_controls": [
+    {
+      "id": "constant",
+      "spec": {
+        "schema": "product_split_v1",
+        "characteristic": 0,
+        "ring_vars": [
+          "x",
+          "y",
+          "z"
+        ],
+        "unit_generators": [
+          "z"
+        ],
+        "receipts": [
+          {
+            "id": "split",
+            "equation": "x*y",
+            "scalar": "1",
+            "left": "x",
+            "right": "y"
+          }
+        ]
+      },
+      "parent_generators": [
+        "x*y"
+      ],
+      "observation": {
+        "accepted": true,
+        "event_kinds": [
+          "model",
+          "edge",
+          "model",
+          "edge",
+          "claim",
+          "partition"
+        ],
+        "open_conditions_preserved": true,
+        "no_verdict_event": true
+      }
+    },
+    {
+      "id": "normalized_parent",
+      "spec": {
+        "schema": "product_split_v1",
+        "characteristic": 0,
+        "ring_vars": [
+          "x",
+          "y",
+          "z"
+        ],
+        "unit_generators": [
+          "z"
+        ],
+        "receipts": [
+          {
+            "id": "split",
+            "equation": "x*y",
+            "scalar": "1",
+            "left": "x",
+            "right": "y"
+          }
+        ]
+      },
+      "parent_generators": [
+        "y*x"
+      ],
+      "observation": {
+        "accepted": true,
+        "event_kinds": [
+          "model",
+          "edge",
+          "model",
+          "edge",
+          "claim",
+          "partition"
+        ],
+        "open_conditions_preserved": true,
+        "no_verdict_event": true
+      }
+    },
+    {
+      "id": "equivalent_ideal_nonliteral",
+      "spec": {
+        "schema": "product_split_v1",
+        "characteristic": 0,
+        "ring_vars": [
+          "x",
+          "y",
+          "z"
+        ],
+        "unit_generators": [
+          "z"
+        ],
+        "receipts": [
+          {
+            "id": "split",
+            "equation": "x*y",
+            "scalar": "1",
+            "left": "x",
+            "right": "y"
+          }
+        ]
+      },
+      "parent_generators": [
+        "2*x*y"
+      ],
+      "observation": {
+        "accepted": false,
+        "exception": "ValueError",
+        "message": "selected product equation must be a literal parent generator; non-literal ideal membership needs a checked cofactor witness"
+      }
+    },
+    {
+      "id": "variable_unit",
+      "spec": {
+        "schema": "product_split_v1",
+        "characteristic": 0,
+        "ring_vars": [
+          "x",
+          "y",
+          "z"
+        ],
+        "unit_generators": [
+          "z"
+        ],
+        "receipts": [
+          {
+            "id": "split",
+            "equation": "z*x*y",
+            "scalar": "z",
+            "left": "x",
+            "right": "y"
+          }
+        ]
+      },
+      "parent_generators": [
+        "z*x*y"
+      ],
+      "observation": {
+        "accepted": false,
+        "exception": "ValueError",
+        "message": "product branch construction currently requires a constant-unit scalar; variable-unit receipts need localization-aware coverage"
+      }
+    },
+    {
+      "id": "false_identity",
+      "spec": {
+        "schema": "product_split_v1",
+        "characteristic": 0,
+        "ring_vars": [
+          "x",
+          "y",
+          "z"
+        ],
+        "unit_generators": [
+          "z"
+        ],
+        "receipts": [
+          {
+            "id": "split",
+            "equation": "x*y+1",
+            "scalar": "1",
+            "left": "x",
+            "right": "y"
+          }
+        ]
+      },
+      "parent_generators": [
+        "x*y+1"
+      ],
+      "observation": {
+        "accepted": false,
+        "exception": "ProductSplitError",
+        "message": "receipt 0 equation is not scalar times left times right: expected x*y"
+      }
+    }
+  ],
+  "variable_unit_standalone_verdict": "VERIFIED_BINARY_PRODUCT_SPLIT_IDENTITY",
+  "countermodels": [
+    {
+      "omitted": "no_zero_divisors",
+      "ring": "Z/6Z",
+      "scalar": 1,
+      "left": 2,
+      "right": 3,
+      "equation_value": 0
+    },
+    {
+      "omitted": "scalar_remains_unit",
+      "ring": "Q",
+      "scalar": 0,
+      "left": 1,
+      "right": 1,
+      "equation_value": 0
+    },
+    {
+      "omitted": "equation_vanishes",
+      "ring": "Q",
+      "scalar": 1,
+      "left": 1,
+      "right": 1,
+      "equation_value": 1
+    }
+  ],
+  "positive_finite_field_controls": [
+    {
+      "prime": 2,
+      "vanishing_unit_product_assignments": 3,
+      "all_have_zero_factor": true
+    },
+    {
+      "prime": 3,
+      "vanishing_unit_product_assignments": 10,
+      "all_have_zero_factor": true
+    },
+    {
+      "prime": 5,
+      "vanishing_unit_product_assignments": 36,
+      "all_have_zero_factor": true
+    },
+    {
+      "prime": 7,
+      "vanishing_unit_product_assignments": 78,
+      "all_have_zero_factor": true
+    }
+  ],
+  "scope": "Exact synthetic arithmetic and pinned direct constructor/checker only. Z/6Z is a premise-deletion semantic countermodel, not an admitted characteristic-six GP model. Finite enumeration is not a general soundness proof. No graph append, CAS or campaign source.",
+  "source_hashes": {
+    "oracle/checkout/grandportage/product_split.py": "1fa81ef864d3bcbcc56fe87d23ab17ba5e3e61dcd2bd6385616e5408f69a0aa1",
+    "oracle/checkout/grandportage/operations.py": "8b7465a3d2e2ebf0f72447c563e9c7edb0ff37c6556f2f89d0aa260f87fdd2b3"
+  },
+  "script_sha256": "790bb7673ae69b2631346195bd9947a15cb287540de7586a55020e897b84a60f"
+}

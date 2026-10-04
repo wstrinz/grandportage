@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "status": "bounded parent review; Phase0a remains open",
+  "worker_transition": {
+    "previous_thread": "01a0e90c-4cb4-7392-b246-590cce500642",
+    "previous_assignment": "completed",
+    "current_thread": "01a0eeca-572e-7202-a708-c730d410b901",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "assignment": "JC three-summary incident review only; two separate output reports"
+  },
+  "document_successor": {
+    "report": "reports/PHASE-0A-DOCUMENT-SUCCESSOR-FINAL.json",
+    "decision": "accept four bounded document dispositions and OperationContract mappings with their stated evidence/execution limits; exact-contraction lift residual remains open",
+    "referenced_case_count": 48,
+    "missing_case_ids": [],
+    "parent_payload_spot_checks": [
+      "GP-X05",
+      "GP-X06",
+      "GP-X07",
+      "GP-X100",
+      "GP-X101",
+      "GP-X103",
+      "GP-X104",
+      "GP-X357",
+      "GP-X360",
+      "GP-X362",
+      "GP-X379",
+      "GP-X382"
+    ],
+    "limit": "Remaining mapped payloads rely on the prior accepted extraction reviews and worker comparison; this is not a fresh full-corpus audit."
+  },
+  "contraction_candidate": {
+    "decision": "accept neutral design and honest unsupported route assessment; not admitted as a case",
+    "source_sha256_independently_verified": "7c9afad6ba96f38f352554b778d2e9e01a1cb37f540a477da12e8f2042838196",
+    "independent_source_read": "pinned OperationContract lines767-814, including theorem778 and positive identity lift",
+    "minimum": "one REFUSE and one all-valid positive contrast",
+    "remaining": "integrate neutral cases with explicit unsupported observations, or a separately labeled reference observation; no native or Lean verdict invented"
+  },
+  "a24": {
+    "sources": [
+      {
+        "path": "$DEV/math-research/campaigns/match4/README.md",
+        "sha256": "c443eb8ad50746cfc207272d7ca2d98826e8eccc96d30f0266d498ac33edc7eb",
+        "read_extent": "full text"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+        "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51",
+        "read_extent": "full text"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M5.json",
+        "sha256": "08cc7b1b2b114f6be9557c1c2ff38e6b917f85bc7fc2bbedd1b4b30ee4ba974d",
+        "read_extent": "full text"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/fixtures/scouting/k222_collapsed.py",
+        "sha256": "08f7c23d56257ba96699317c6cbcbbdc42745ecc51a7343046eb60605f6579ac",
+        "read_extent": "full text"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/packets/founding/cq-scouting.md",
+        "sha256": "22ef379cb247595c62740a539b2997d7276aa0733a7b228af32b5aea7a44fcaa",
+        "read_extent": "lines217-283"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+        "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736",
+        "read_extent": "lines38-67"
+      }
+    ],
+    "source_status": "concrete fixture located within confirmed root; missing gpcqread/cqscouting filename spellings are not a source dependency for this control",
+    "independent_check": {
+      "method": "stdlib Fraction arithmetic in Q[s]/(s^2-3), without importing or executing campaign code",
+      "cross_class_edges": 12,
+      "all_squared_edge_lengths": 1,
+      "same_class_separation_product": 0,
+      "passed": true
+    },
+    "interpretation": "Let U be the unguarded edge-equation solution set and G its injective guarded subset. G is contained in U, so a valid proof U is empty implies G is empty. Missing guards alone cannot invalidate that direction. Here U has an explicit collapsed point. The source-supported trap is promotion of that plain witness to an injective realization.",
+    "source_observations": "M5 records plain witness VERIFIED and guarded witness NOT_A_POINT in the historical campaign; these are retained source statements, not a fresh frozen-oracle replay.",
+    "proposed_clarification": "Clarify A24 attempted conclusion as promotion of the collapsed edge-equation witness to an injective realization; retain REFUSE. Preserve the original case bytes/replay history in the audit and document the user-approved semantic correction.",
+    "decision_required": "user authorization for this change to a fixed seed interpretation; no case or expected verdict has been changed"
+  },
+  "corpus": {
+    "cases": 454,
+    "changed_cases": 0,
+    "changed_routes": 0,
+    "replay": "reports/oracle-runs/20260929T150216350486Z.json",
+    "fresh_replay_required": false
+  },
+  "not_complete": [
+    "contraction candidate not admitted",
+    "A24 semantic clarification pending",
+    "final neutrality and exception closeout",
+    "0b sweep in progress"
+  ]
+}

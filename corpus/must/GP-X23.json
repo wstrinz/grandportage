@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "GP-X23",
+  "seed": null,
+  "title": "Extension-valued witness 2",
+  "situation": "The equation x^2+1=0 and guard x!=0 are tested over the algebraic closure of Q using Q[a]/(a^2+1).",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "generators": [
+      "x^2+1"
+    ],
+    "guards": [
+      "x"
+    ],
+    "point_universe": "ALGEBRAIC_CLOSURE",
+    "field_polynomial": "a^2+1",
+    "coordinate": "1"
+  },
+  "attempted_conclusion": "Accept the displayed extension-valued point.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Substitution leaves 2, not zero."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_number_field_witness.py",
+      "line": 66,
+      "anchor": "def test_wrong_quotient_coordinate_is_a_mathematical_refutation("
+    }
+  ]
+}

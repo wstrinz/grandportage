@@ -1,0 +1,42 @@
+{
+  "files": [
+    {
+      "path": "grandportage/format.py",
+      "sha256": "9d7ad6885285b2e55de9bbf6dea62d428d1f68a3b7180728a1651365c82c171e",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "grandportage/migration.py",
+      "sha256": "a3e18bafa29af7b3ba4f5b7c3dee609009eacbacd3849179494f6a1dada3a4da",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_format_epoch.py",
+      "sha256": "bd634b5df90cece5c44c536e88ecea0554a3316d5bc53fefeb96fed23a7fdf58",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "evidence": [
+    "reports/MIGRATION-CUSTODY-BOUNDARY.json",
+    "reports/oracle-format-review.xml"
+  ],
+  "tests": {
+    "passed": 78,
+    "deselected": 1,
+    "excluded": "test_constructor_events_fit_epoch1_and_carry_characteristic: constructors include backend-dependent operations; no live execution claimed."
+  },
+  "findings": [
+    "Native event fields are closed; licensing booleans typed; lifecycle tombstones use reduced requirements. Format validation is not semantic proof admission.",
+    "Epoch0 conversion drops unknown fields and audits them; partition rule field removal causes graph co-location refusal in the tested split.",
+    "Current-format/older-epoch migration bypasses source header validation and accepts missing implementation identity in dry-run; historical-format control refuses.",
+    "Source files remain unchanged in all four controls. Output/audit writes are separate exclusive creations; no atomic pair-publication proof follows from overwrite prevention."
+  ],
+  "remaining": [
+    "Extract distinct custody requirement where not already represented.",
+    "Review malformed JSON shape/error totality and migration write interruption/race behavior.",
+    "Complete semantic disposition; source reading and passing tests alone do not close Phase 0a."
+  ]
+}

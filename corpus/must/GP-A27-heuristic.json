@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "id": "GP-A27-heuristic",
+  "seed": "A27",
+  "title": "Class-group authority contract: heuristic",
+  "situation": "Apply the supplied admission and result-scope premises to a fixed class-group claim. This is a conditional contract fixture; no actual arithmetic check or tool execution is supplied.",
+  "inputs": {
+    "fixture_kind": "conditional_admission_contract_not_a_real_certifying_run",
+    "claim": {
+      "kind": "class_group_complete",
+      "number_field": {
+        "coefficient_field": "Q",
+        "defining_polynomial": "a^2+5",
+        "generator": "a"
+      },
+      "candidate_group_invariant_factors": [
+        2
+      ]
+    },
+    "claim_sha256": "sha256:8e0e9c4edbfa3978deaa7a2f99aad4abed22e848eed83f93111d50c60fcc6149",
+    "synthetic_producer": {
+      "id": "class-group-contract-fixture",
+      "version": "1"
+    },
+    "effective_result": {
+      "conclusion": "heuristic_assertion",
+      "assumptions": [
+        "GRH"
+      ]
+    },
+    "supplied_premises": {
+      "checker_admitted": false,
+      "bound_check_succeeded": false,
+      "checker_contract_version": null,
+      "checked_claim_sha256": null,
+      "evidence_status": "no_admitted_check"
+    },
+    "requested_scope_assumptions": [
+      "GRH"
+    ]
+  },
+  "attempted_conclusion": "Treat the bound candidate class-group data as established in the requested scope under the explicitly supplied premises.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "An explicitly heuristic assertion supplies no admitted successful check, even under GRH."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/A27-CORRECTED-CONTRACT.md",
+      "line": 13,
+      "anchor": "A27-heuristic:"
+    },
+    {
+      "repository": "rework-packet",
+      "path": "reports/PACKET-REV3-REVIEW.md",
+      "line": 39,
+      "anchor": "**Proposed replacement:**"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/kernel.py",
+      "line": 142,
+      "anchor": "CLAIM_KINDS = (EMPTY, NONEMPTY, PREDICATE, IDENTITY)"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "GP-X397",
+  "seed": null,
+  "title": "Operational 77.3: hook error reporting boundary",
+  "situation": "Baseline or hook payload is a valid JSON array instead of an object.",
+  "inputs": {
+    "incident_row": "77.3",
+    "vector": {
+      "malformed_inputs": [
+        {
+          "component": "baseline",
+          "json_shape": "array"
+        },
+        {
+          "component": "hook payload",
+          "json_shape": "array"
+        }
+      ],
+      "contrast": "valid object"
+    },
+    "retained_evidence_refs": [
+      "reports/HOOK-BOUNDARY-AUDIT.json#/observations/0",
+      "reports/HOOK-BOUNDARY-AUDIT.json#/observations/1"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Infer that a JSON-array baseline or hook payload receives a structured blocking response.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The direct calls raise AttributeError for array inputs rather than returning a structured blocking response. Installed-host behavior and subsequent-event survival were not observed."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/hook.py",
+      "line": 84,
+      "anchor": "def read_baseline(root=\".\"):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

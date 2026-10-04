@@ -1,0 +1,190 @@
+{
+  "id": "ARR-C01",
+  "campaign": "ARR15",
+  "origin": "own",
+  "class": "MEANING",
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-22-n15-realization-triage.md",
+      "lines": [
+        46,
+        68
+      ],
+      "sha256": "b3526e4af20b5da2729740719911f56bfff52b7ae5d37e341db0b8ff72359a79",
+      "latest_path_history": "b78dbc257e0c7c19eba89abea72b94db88a26bfe|2026-08-22T15:59:12-05:00|Accept GP v0.25 and prepare full realization wave"
+    },
+    {
+      "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+      "lines": [
+        135,
+        141
+      ],
+      "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+      "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+    }
+  ],
+  "claimed": "Promote the 64-class assay to full matroid representability and complete realization-space dimensions.",
+  "problem": "Selected collinearity equations and at most four basis guards allow extra dependencies. The accepted object is a partial-incidence principal-open scheme, not the full determinant-pattern open.",
+  "discovered_by": "unknown",
+  "cost": null,
+  "shipped": null,
+  "gp_v037_would_catch": null,
+  "core_expressible": null,
+  "core_would_refuse": null,
+  "notes": "Concrete own-campaign near miss with recovery. Source records a stronger inbound report; actual downstream reliance unknown. The 64 cases form one flawed formulation episode, not 64 incidents. Primary-class choices are parent provisional; core catch remains null.",
+  "subfindings": [
+    {
+      "id": "ARR-C02",
+      "class": "SCOPE",
+      "problem": "Proper ideal gives a geometric point after field extension, not necessarily a Q-rational point. The accepted statement uses algebraic closure.",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-22-n15-realization-triage.md",
+          "lines": [
+            53,
+            65
+          ],
+          "sha256": "b3526e4af20b5da2729740719911f56bfff52b7ae5d37e341db0b8ff72359a79",
+          "latest_path_history": "b78dbc257e0c7c19eba89abea72b94db88a26bfe|2026-08-22T15:59:12-05:00|Accept GP v0.25 and prepare full realization wave"
+        }
+      ]
+    }
+  ],
+  "status": "final retained source-backed record under ratified unknown policy; observation and counting limits remain explicit",
+  "primary_class": "MEANING",
+  "primary_origin": "own",
+  "record_kind": "source-attributed correction/group",
+  "final_disposition": "retain qualified source-backed Appendix B candidate",
+  "owner_id": "ARR-C01",
+  "original_pointer": {
+    "report": "reports/PHASE-0B-INVENTORY-DRAFT.json",
+    "pointer": "/rows/46",
+    "sha256": "ab1a7c4728bf5ff36129df136adb9c2f612181662ef29ee23358323d866a8ab2",
+    "review_date": "2026-09-29",
+    "date_kind": "retained report review date; not incident date or source publication date"
+  },
+  "source": {
+    "repo": "$WORKSPACE",
+    "ref": "reports/PHASE-0B-INVENTORY-DRAFT.json#/rows/46",
+    "date": "2026-09-29",
+    "review_date": "2026-09-29",
+    "date_kind": "review-source date of retained report; not incident date or original primary-source date"
+  },
+  "incident_date": null,
+  "source_date_qualification": "No incident date invented; original source dates/history metadata remain unchanged in sources.",
+  "cost_note": "Source evidence does not establish incident-specific work lost/cost class.",
+  "shipped_note": "Source evidence does not establish publication or handoff of a wrong claim; unknown is neither false nor n/a.",
+  "gp_v037_would_catch_note": "No supported frozen-GP catch verdict for this episode. Conditional design/reuse commentary in notes is not a yes/no/partial assessment; no fresh campaign replay.",
+  "counting_qualification": {
+    "record_count": 1,
+    "independent_sample": null,
+    "mathematical_incident_count": null,
+    "rule": "Count this owner record once. Repeated summaries, witnesses, consumers and children do not add independent samples.",
+    "source_detail": "Concrete own-campaign near miss with recovery. Source records a stronger inbound report; actual downstream reliance unknown. The 64 cases form one flawed formulation episode, not 64 incidents. Primary-class choices are parent provisional; core catch remains null."
+  },
+  "classification_qualification": "Proposed primary class and origin retained from accepted inventory; uncertainty and secondary dimensions remain in evidence. Not a statistically adjudicated incident population.",
+  "parent_adjudications": [
+    {
+      "decision": "accept recorded correction as two premise failures in one triage episode; selected incidence equations/guards are not full matroid realization and proper ideal over Q is not a Q-point",
+      "qualifications": "Concrete own-campaign near miss with recovery. Source records a stronger inbound report; actual downstream reliance unknown. The 64 cases form one flawed formulation episode, not 64 incidents.",
+      "source": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-22-n15-realization-triage.md",
+          "lines": [
+            46,
+            68
+          ],
+          "sha256": "b3526e4af20b5da2729740719911f56bfff52b7ae5d37e341db0b8ff72359a79",
+          "latest_path_history": "b78dbc257e0c7c19eba89abea72b94db88a26bfe|2026-08-22T15:59:12-05:00|Accept GP v0.25 and prepare full realization wave"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            135,
+            141
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "pointer": {
+        "report": "reports/PHASE-0B-ARR15-PARENT-INTAKE.json",
+        "pointer": "/dispositions/0",
+        "sha256": "b0f5939999ceecf8ad1b62f268c73245cc103bfabea4e5299204d22f1ea21df8",
+        "review_date": "2026-09-29",
+        "date_kind": "retained report review date; not incident date or source publication date"
+      }
+    }
+  ],
+  "linked_cross_occurrence": null,
+  "children": [
+    {
+      "id": "ARR-C02",
+      "owner_id": "ARR-C01",
+      "record_kind": "source-attributed correction/group",
+      "primary_class": "SCOPE",
+      "primary_origin": "own",
+      "original_pointer": {
+        "report": "reports/PHASE-0B-ARR15-PARENT-INTAKE.json",
+        "pointer": "/dispositions/1",
+        "sha256": "b0f5939999ceecf8ad1b62f268c73245cc103bfabea4e5299204d22f1ea21df8",
+        "review_date": "2026-09-29",
+        "date_kind": "retained report review date; not incident date or source publication date"
+      },
+      "sources": [
+        [
+          {
+            "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-22-n15-realization-triage.md",
+            "lines": [
+              53,
+              65
+            ],
+            "sha256": "b3526e4af20b5da2729740719911f56bfff52b7ae5d37e341db0b8ff72359a79",
+            "latest_path_history": "b78dbc257e0c7c19eba89abea72b94db88a26bfe|2026-08-22T15:59:12-05:00|Accept GP v0.25 and prepare full realization wave"
+          }
+        ]
+      ],
+      "parent_adjudications": [
+        {
+          "decision": "accept recorded correction as two premise failures in one triage episode; selected incidence equations/guards are not full matroid realization and proper ideal over Q is not a Q-point",
+          "qualifications": "Separate error dimension within one triage episode; do not add an independent incident count.",
+          "source": [
+            {
+              "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-22-n15-realization-triage.md",
+              "lines": [
+                53,
+                65
+              ],
+              "sha256": "b3526e4af20b5da2729740719911f56bfff52b7ae5d37e341db0b8ff72359a79",
+              "latest_path_history": "b78dbc257e0c7c19eba89abea72b94db88a26bfe|2026-08-22T15:59:12-05:00|Accept GP v0.25 and prepare full realization wave"
+            }
+          ],
+          "pointer": {
+            "report": "reports/PHASE-0B-ARR15-PARENT-INTAKE.json",
+            "pointer": "/dispositions/1",
+            "sha256": "b0f5939999ceecf8ad1b62f268c73245cc103bfabea4e5299204d22f1ea21df8",
+            "review_date": "2026-09-29",
+            "date_kind": "retained report review date; not incident date or source publication date"
+          }
+        }
+      ],
+      "disposition": "Retain existing child premise/evidence-grade correction under named owner; no additional record or independent sample.",
+      "claimed": "Proper incidence ideal over Q was promoted to rational-point existence.",
+      "problem": "Proper ideal supplies algebraic-closure nonemptiness, not a Q-rational point; same 64-class triage episode as ARR-C01.",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "unknown_field_qualification": "Child-specific cost, wrong-claim handoff and frozen catch not established; core scoring deferred.",
+      "record_count": 0
+    }
+  ],
+  "evidence_level": "retained source-backed report; no new source read, execution, or authentication",
+  "parent_integration": {
+    "worker_report": "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "worker_report_sha256": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849",
+    "register": "incident/correction/group"
+  }
+}

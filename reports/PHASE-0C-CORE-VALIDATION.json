@@ -1,0 +1,2419 @@
+{
+  "status": "passed",
+  "case_count": 459,
+  "semantic_corpus_execution": false,
+  "results": [
+    {
+      "name": "positive-narrow",
+      "seconds": 0.9868190999841318,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": true,
+            "id": "base"
+          },
+          {
+            "held": true,
+            "id": "narrow"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "assertion-alone",
+      "seconds": 0.4223556999932043,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": false,
+            "id": "base"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "false-equality",
+      "seconds": 0.2086894999956712,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": false,
+            "id": "base"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "receipt-mismatch-lhs",
+      "seconds": 0.25614529999438673,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": false,
+            "id": "base"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "receipt-mismatch-scope",
+      "seconds": 0.21710529999108985,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": false,
+            "id": "base"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "receipt-mismatch-model_hash",
+      "seconds": 0.4410232999944128,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": false,
+            "id": "base"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "receipt-mismatch-checker_hash",
+      "seconds": 0.3334774000104517,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": false,
+            "id": "base"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "receipt-mismatch-id",
+      "seconds": 0.17449529998702928,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": false,
+            "id": "base"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "insufficient-reach",
+      "seconds": 0.3478086999966763,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": false,
+            "id": "base"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "widening-refused",
+      "seconds": 0.3084466999862343,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": true,
+            "id": "base"
+          },
+          {
+            "held": false,
+            "id": "narrow"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "stale-model",
+      "seconds": 0.912472500000149,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": false,
+            "id": "base"
+          },
+          {
+            "held": false,
+            "id": "narrow"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "stale-checker",
+      "seconds": 1.5106059000245295,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": false,
+            "id": "base"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "duplicate-id",
+      "seconds": 1.2903100000112318,
+      "exit": 2,
+      "output": {
+        "error": "duplicate claim id",
+        "status": "REFUSE"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "unknown-event",
+      "seconds": 0.38708720001159236,
+      "exit": 2,
+      "output": {
+        "error": "unknown event",
+        "status": "REFUSE"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "bad-field-type",
+      "seconds": 0.7516231000190601,
+      "exit": 2,
+      "output": {
+        "error": "Natural number expected",
+        "status": "REFUSE"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "missing-field",
+      "seconds": 1.3956217000377364,
+      "exit": 2,
+      "output": {
+        "error": "property not found: scope",
+        "status": "REFUSE"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "cyclic-narrow",
+      "seconds": 0.4743941000197083,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": false,
+            "id": "a"
+          },
+          {
+            "held": false,
+            "id": "b"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "malformed-json",
+      "seconds": 0.4065476999967359,
+      "exit": 2,
+      "output": {
+        "error": "offset 1: expected \"",
+        "status": "REFUSE"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "concatenated-fold",
+      "seconds": 0.6962993000051938,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": true,
+            "id": "base"
+          },
+          {
+            "held": true,
+            "id": "narrow"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "deterministic-refold",
+      "seconds": 1.1133107999921776,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": true,
+            "id": "base"
+          },
+          {
+            "held": true,
+            "id": "narrow"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "459-case-sized-load",
+      "seconds": 0.7007026999490336,
+      "exit": 0,
+      "output": {
+        "claims": [
+          {
+            "held": true,
+            "id": "GP-A01"
+          },
+          {
+            "held": true,
+            "id": "GP-A02"
+          },
+          {
+            "held": true,
+            "id": "GP-A03a"
+          },
+          {
+            "held": true,
+            "id": "GP-A03b"
+          },
+          {
+            "held": true,
+            "id": "GP-A04"
+          },
+          {
+            "held": true,
+            "id": "GP-A05"
+          },
+          {
+            "held": true,
+            "id": "GP-A06"
+          },
+          {
+            "held": true,
+            "id": "GP-A07a"
+          },
+          {
+            "held": true,
+            "id": "GP-A07b"
+          },
+          {
+            "held": true,
+            "id": "GP-A08a"
+          },
+          {
+            "held": true,
+            "id": "GP-A08b"
+          },
+          {
+            "held": true,
+            "id": "GP-A08c"
+          },
+          {
+            "held": true,
+            "id": "GP-A09"
+          },
+          {
+            "held": true,
+            "id": "GP-A10-C"
+          },
+          {
+            "held": true,
+            "id": "GP-A10-Q"
+          },
+          {
+            "held": true,
+            "id": "GP-A10-R"
+          },
+          {
+            "held": true,
+            "id": "GP-A11a"
+          },
+          {
+            "held": true,
+            "id": "GP-A11b"
+          },
+          {
+            "held": true,
+            "id": "GP-A12"
+          },
+          {
+            "held": true,
+            "id": "GP-A13-ambient"
+          },
+          {
+            "held": true,
+            "id": "GP-A13-derived"
+          },
+          {
+            "held": true,
+            "id": "GP-A14"
+          },
+          {
+            "held": true,
+            "id": "GP-A15"
+          },
+          {
+            "held": true,
+            "id": "GP-A16-covered"
+          },
+          {
+            "held": true,
+            "id": "GP-A16-missing"
+          },
+          {
+            "held": true,
+            "id": "GP-A17"
+          },
+          {
+            "held": true,
+            "id": "GP-A18"
+          },
+          {
+            "held": true,
+            "id": "GP-A19"
+          },
+          {
+            "held": true,
+            "id": "GP-A20a"
+          },
+          {
+            "held": true,
+            "id": "GP-A20b"
+          },
+          {
+            "held": true,
+            "id": "GP-A21"
+          },
+          {
+            "held": true,
+            "id": "GP-A22"
+          },
+          {
+            "held": true,
+            "id": "GP-A23"
+          },
+          {
+            "held": true,
+            "id": "GP-A24"
+          },
+          {
+            "held": true,
+            "id": "GP-A25a"
+          },
+          {
+            "held": true,
+            "id": "GP-A25b"
+          },
+          {
+            "held": true,
+            "id": "GP-A26"
+          },
+          {
+            "held": true,
+            "id": "GP-A27-drop-GRH"
+          },
+          {
+            "held": true,
+            "id": "GP-A27-full"
+          },
+          {
+            "held": true,
+            "id": "GP-A27-heuristic"
+          },
+          {
+            "held": true,
+            "id": "GP-A27-keep-GRH"
+          },
+          {
+            "held": true,
+            "id": "GP-A27-label"
+          },
+          {
+            "held": true,
+            "id": "GP-A27-partial"
+          },
+          {
+            "held": true,
+            "id": "GP-C01"
+          },
+          {
+            "held": true,
+            "id": "GP-C02"
+          },
+          {
+            "held": true,
+            "id": "GP-C03"
+          },
+          {
+            "held": true,
+            "id": "GP-C04"
+          },
+          {
+            "held": true,
+            "id": "GP-X01"
+          },
+          {
+            "held": true,
+            "id": "GP-X02"
+          },
+          {
+            "held": true,
+            "id": "GP-X03"
+          },
+          {
+            "held": true,
+            "id": "GP-X04"
+          },
+          {
+            "held": true,
+            "id": "GP-X05"
+          },
+          {
+            "held": true,
+            "id": "GP-X06"
+          },
+          {
+            "held": true,
+            "id": "GP-X07"
+          },
+          {
+            "held": true,
+            "id": "GP-X08"
+          },
+          {
+            "held": true,
+            "id": "GP-X09"
+          },
+          {
+            "held": true,
+            "id": "GP-X10"
+          },
+          {
+            "held": true,
+            "id": "GP-X100"
+          },
+          {
+            "held": true,
+            "id": "GP-X101"
+          },
+          {
+            "held": true,
+            "id": "GP-X102"
+          },
+          {
+            "held": true,
+            "id": "GP-X103"
+          },
+          {
+            "held": true,
+            "id": "GP-X104"
+          },
+          {
+            "held": true,
+            "id": "GP-X105"
+          },
+          {
+            "held": true,
+            "id": "GP-X106"
+          },
+          {
+            "held": true,
+            "id": "GP-X107"
+          },
+          {
+            "held": true,
+            "id": "GP-X108"
+          },
+          {
+            "held": true,
+            "id": "GP-X109"
+          },
+          {
+            "held": true,
+            "id": "GP-X11"
+          },
+          {
+            "held": true,
+            "id": "GP-X110"
+          },
+          {
+            "held": true,
+            "id": "GP-X111"
+          },
+          {
+            "held": true,
+            "id": "GP-X112"
+          },
+          {
+            "held": true,
+            "id": "GP-X113"
+          },
+          {
+            "held": true,
+            "id": "GP-X114"
+          },
+          {
+            "held": true,
+            "id": "GP-X115"
+          },
+          {
+            "held": true,
+            "id": "GP-X116"
+          },
+          {
+            "held": true,
+            "id": "GP-X117"
+          },
+          {
+            "held": true,
+            "id": "GP-X118"
+          },
+          {
+            "held": true,
+            "id": "GP-X119"
+          },
+          {
+            "held": true,
+            "id": "GP-X12"
+          },
+          {
+            "held": true,
+            "id": "GP-X120"
+          },
+          {
+            "held": true,
+            "id": "GP-X121"
+          },
+          {
+            "held": true,
+            "id": "GP-X122"
+          },
+          {
+            "held": true,
+            "id": "GP-X123"
+          },
+          {
+            "held": true,
+            "id": "GP-X124"
+          },
+          {
+            "held": true,
+            "id": "GP-X125"
+          },
+          {
+            "held": true,
+            "id": "GP-X126"
+          },
+          {
+            "held": true,
+            "id": "GP-X127"
+          },
+          {
+            "held": true,
+            "id": "GP-X128"
+          },
+          {
+            "held": true,
+            "id": "GP-X129"
+          },
+          {
+            "held": true,
+            "id": "GP-X13"
+          },
+          {
+            "held": true,
+            "id": "GP-X130"
+          },
+          {
+            "held": true,
+            "id": "GP-X131"
+          },
+          {
+            "held": true,
+            "id": "GP-X132"
+          },
+          {
+            "held": true,
+            "id": "GP-X133"
+          },
+          {
+            "held": true,
+            "id": "GP-X134"
+          },
+          {
+            "held": true,
+            "id": "GP-X135"
+          },
+          {
+            "held": true,
+            "id": "GP-X136"
+          },
+          {
+            "held": true,
+            "id": "GP-X137"
+          },
+          {
+            "held": true,
+            "id": "GP-X138"
+          },
+          {
+            "held": true,
+            "id": "GP-X139"
+          },
+          {
+            "held": true,
+            "id": "GP-X14"
+          },
+          {
+            "held": true,
+            "id": "GP-X140"
+          },
+          {
+            "held": true,
+            "id": "GP-X141"
+          },
+          {
+            "held": true,
+            "id": "GP-X142"
+          },
+          {
+            "held": true,
+            "id": "GP-X143"
+          },
+          {
+            "held": true,
+            "id": "GP-X144"
+          },
+          {
+            "held": true,
+            "id": "GP-X145"
+          },
+          {
+            "held": true,
+            "id": "GP-X146"
+          },
+          {
+            "held": true,
+            "id": "GP-X147"
+          },
+          {
+            "held": true,
+            "id": "GP-X148"
+          },
+          {
+            "held": true,
+            "id": "GP-X149"
+          },
+          {
+            "held": true,
+            "id": "GP-X15"
+          },
+          {
+            "held": true,
+            "id": "GP-X150"
+          },
+          {
+            "held": true,
+            "id": "GP-X151"
+          },
+          {
+            "held": true,
+            "id": "GP-X152"
+          },
+          {
+            "held": true,
+            "id": "GP-X153"
+          },
+          {
+            "held": true,
+            "id": "GP-X154"
+          },
+          {
+            "held": true,
+            "id": "GP-X155"
+          },
+          {
+            "held": true,
+            "id": "GP-X156"
+          },
+          {
+            "held": true,
+            "id": "GP-X157"
+          },
+          {
+            "held": true,
+            "id": "GP-X158"
+          },
+          {
+            "held": true,
+            "id": "GP-X159"
+          },
+          {
+            "held": true,
+            "id": "GP-X16"
+          },
+          {
+            "held": true,
+            "id": "GP-X160"
+          },
+          {
+            "held": true,
+            "id": "GP-X161"
+          },
+          {
+            "held": true,
+            "id": "GP-X162"
+          },
+          {
+            "held": true,
+            "id": "GP-X163"
+          },
+          {
+            "held": true,
+            "id": "GP-X164"
+          },
+          {
+            "held": true,
+            "id": "GP-X165"
+          },
+          {
+            "held": true,
+            "id": "GP-X166"
+          },
+          {
+            "held": true,
+            "id": "GP-X167"
+          },
+          {
+            "held": true,
+            "id": "GP-X168"
+          },
+          {
+            "held": true,
+            "id": "GP-X169"
+          },
+          {
+            "held": true,
+            "id": "GP-X17"
+          },
+          {
+            "held": true,
+            "id": "GP-X170"
+          },
+          {
+            "held": true,
+            "id": "GP-X171"
+          },
+          {
+            "held": true,
+            "id": "GP-X172"
+          },
+          {
+            "held": true,
+            "id": "GP-X173"
+          },
+          {
+            "held": true,
+            "id": "GP-X174"
+          },
+          {
+            "held": true,
+            "id": "GP-X175"
+          },
+          {
+            "held": true,
+            "id": "GP-X176"
+          },
+          {
+            "held": true,
+            "id": "GP-X177"
+          },
+          {
+            "held": true,
+            "id": "GP-X178"
+          },
+          {
+            "held": true,
+            "id": "GP-X179"
+          },
+          {
+            "held": true,
+            "id": "GP-X18"
+          },
+          {
+            "held": true,
+            "id": "GP-X180"
+          },
+          {
+            "held": true,
+            "id": "GP-X181"
+          },
+          {
+            "held": true,
+            "id": "GP-X182"
+          },
+          {
+            "held": true,
+            "id": "GP-X183"
+          },
+          {
+            "held": true,
+            "id": "GP-X184"
+          },
+          {
+            "held": true,
+            "id": "GP-X185"
+          },
+          {
+            "held": true,
+            "id": "GP-X186"
+          },
+          {
+            "held": true,
+            "id": "GP-X187"
+          },
+          {
+            "held": true,
+            "id": "GP-X188"
+          },
+          {
+            "held": true,
+            "id": "GP-X189"
+          },
+          {
+            "held": true,
+            "id": "GP-X19"
+          },
+          {
+            "held": true,
+            "id": "GP-X190"
+          },
+          {
+            "held": true,
+            "id": "GP-X191"
+          },
+          {
+            "held": true,
+            "id": "GP-X192"
+          },
+          {
+            "held": true,
+            "id": "GP-X193"
+          },
+          {
+            "held": true,
+            "id": "GP-X194"
+          },
+          {
+            "held": true,
+            "id": "GP-X195"
+          },
+          {
+            "held": true,
+            "id": "GP-X196"
+          },
+          {
+            "held": true,
+            "id": "GP-X197"
+          },
+          {
+            "held": true,
+            "id": "GP-X198"
+          },
+          {
+            "held": true,
+            "id": "GP-X199"
+          },
+          {
+            "held": true,
+            "id": "GP-X20"
+          },
+          {
+            "held": true,
+            "id": "GP-X200"
+          },
+          {
+            "held": true,
+            "id": "GP-X201"
+          },
+          {
+            "held": true,
+            "id": "GP-X202"
+          },
+          {
+            "held": true,
+            "id": "GP-X203"
+          },
+          {
+            "held": true,
+            "id": "GP-X204"
+          },
+          {
+            "held": true,
+            "id": "GP-X205"
+          },
+          {
+            "held": true,
+            "id": "GP-X206"
+          },
+          {
+            "held": true,
+            "id": "GP-X207"
+          },
+          {
+            "held": true,
+            "id": "GP-X208"
+          },
+          {
+            "held": true,
+            "id": "GP-X209"
+          },
+          {
+            "held": true,
+            "id": "GP-X21"
+          },
+          {
+            "held": true,
+            "id": "GP-X210"
+          },
+          {
+            "held": true,
+            "id": "GP-X211"
+          },
+          {
+            "held": true,
+            "id": "GP-X212"
+          },
+          {
+            "held": true,
+            "id": "GP-X213"
+          },
+          {
+            "held": true,
+            "id": "GP-X214"
+          },
+          {
+            "held": true,
+            "id": "GP-X215"
+          },
+          {
+            "held": true,
+            "id": "GP-X216"
+          },
+          {
+            "held": true,
+            "id": "GP-X217"
+          },
+          {
+            "held": true,
+            "id": "GP-X218"
+          },
+          {
+            "held": true,
+            "id": "GP-X219"
+          },
+          {
+            "held": true,
+            "id": "GP-X22"
+          },
+          {
+            "held": true,
+            "id": "GP-X220"
+          },
+          {
+            "held": true,
+            "id": "GP-X221"
+          },
+          {
+            "held": true,
+            "id": "GP-X222"
+          },
+          {
+            "held": true,
+            "id": "GP-X223"
+          },
+          {
+            "held": true,
+            "id": "GP-X224"
+          },
+          {
+            "held": true,
+            "id": "GP-X225"
+          },
+          {
+            "held": true,
+            "id": "GP-X226"
+          },
+          {
+            "held": true,
+            "id": "GP-X227"
+          },
+          {
+            "held": true,
+            "id": "GP-X228"
+          },
+          {
+            "held": true,
+            "id": "GP-X229"
+          },
+          {
+            "held": true,
+            "id": "GP-X23"
+          },
+          {
+            "held": true,
+            "id": "GP-X230"
+          },
+          {
+            "held": true,
+            "id": "GP-X231"
+          },
+          {
+            "held": true,
+            "id": "GP-X232"
+          },
+          {
+            "held": true,
+            "id": "GP-X233"
+          },
+          {
+            "held": true,
+            "id": "GP-X234"
+          },
+          {
+            "held": true,
+            "id": "GP-X235"
+          },
+          {
+            "held": true,
+            "id": "GP-X236"
+          },
+          {
+            "held": true,
+            "id": "GP-X237"
+          },
+          {
+            "held": true,
+            "id": "GP-X238"
+          },
+          {
+            "held": true,
+            "id": "GP-X239"
+          },
+          {
+            "held": true,
+            "id": "GP-X24"
+          },
+          {
+            "held": true,
+            "id": "GP-X240"
+          },
+          {
+            "held": true,
+            "id": "GP-X241"
+          },
+          {
+            "held": true,
+            "id": "GP-X242"
+          },
+          {
+            "held": true,
+            "id": "GP-X243"
+          },
+          {
+            "held": true,
+            "id": "GP-X244"
+          },
+          {
+            "held": true,
+            "id": "GP-X245"
+          },
+          {
+            "held": true,
+            "id": "GP-X246"
+          },
+          {
+            "held": true,
+            "id": "GP-X247"
+          },
+          {
+            "held": true,
+            "id": "GP-X248"
+          },
+          {
+            "held": true,
+            "id": "GP-X249"
+          },
+          {
+            "held": true,
+            "id": "GP-X25"
+          },
+          {
+            "held": true,
+            "id": "GP-X250"
+          },
+          {
+            "held": true,
+            "id": "GP-X251"
+          },
+          {
+            "held": true,
+            "id": "GP-X252"
+          },
+          {
+            "held": true,
+            "id": "GP-X253"
+          },
+          {
+            "held": true,
+            "id": "GP-X254"
+          },
+          {
+            "held": true,
+            "id": "GP-X255"
+          },
+          {
+            "held": true,
+            "id": "GP-X256"
+          },
+          {
+            "held": true,
+            "id": "GP-X257"
+          },
+          {
+            "held": true,
+            "id": "GP-X258"
+          },
+          {
+            "held": true,
+            "id": "GP-X259"
+          },
+          {
+            "held": true,
+            "id": "GP-X26"
+          },
+          {
+            "held": true,
+            "id": "GP-X260"
+          },
+          {
+            "held": true,
+            "id": "GP-X261"
+          },
+          {
+            "held": true,
+            "id": "GP-X262"
+          },
+          {
+            "held": true,
+            "id": "GP-X263"
+          },
+          {
+            "held": true,
+            "id": "GP-X264"
+          },
+          {
+            "held": true,
+            "id": "GP-X265"
+          },
+          {
+            "held": true,
+            "id": "GP-X266"
+          },
+          {
+            "held": true,
+            "id": "GP-X267"
+          },
+          {
+            "held": true,
+            "id": "GP-X268"
+          },
+          {
+            "held": true,
+            "id": "GP-X269"
+          },
+          {
+            "held": true,
+            "id": "GP-X27"
+          },
+          {
+            "held": true,
+            "id": "GP-X270"
+          },
+          {
+            "held": true,
+            "id": "GP-X271"
+          },
+          {
+            "held": true,
+            "id": "GP-X272"
+          },
+          {
+            "held": true,
+            "id": "GP-X273"
+          },
+          {
+            "held": true,
+            "id": "GP-X274"
+          },
+          {
+            "held": true,
+            "id": "GP-X275"
+          },
+          {
+            "held": true,
+            "id": "GP-X276"
+          },
+          {
+            "held": true,
+            "id": "GP-X277"
+          },
+          {
+            "held": true,
+            "id": "GP-X278"
+          },
+          {
+            "held": true,
+            "id": "GP-X279"
+          },
+          {
+            "held": true,
+            "id": "GP-X28"
+          },
+          {
+            "held": true,
+            "id": "GP-X280"
+          },
+          {
+            "held": true,
+            "id": "GP-X281"
+          },
+          {
+            "held": true,
+            "id": "GP-X282"
+          },
+          {
+            "held": true,
+            "id": "GP-X283"
+          },
+          {
+            "held": true,
+            "id": "GP-X284"
+          },
+          {
+            "held": true,
+            "id": "GP-X285"
+          },
+          {
+            "held": true,
+            "id": "GP-X286"
+          },
+          {
+            "held": true,
+            "id": "GP-X287"
+          },
+          {
+            "held": true,
+            "id": "GP-X288"
+          },
+          {
+            "held": true,
+            "id": "GP-X289"
+          },
+          {
+            "held": true,
+            "id": "GP-X29"
+          },
+          {
+            "held": true,
+            "id": "GP-X290"
+          },
+          {
+            "held": true,
+            "id": "GP-X291"
+          },
+          {
+            "held": true,
+            "id": "GP-X292"
+          },
+          {
+            "held": true,
+            "id": "GP-X293"
+          },
+          {
+            "held": true,
+            "id": "GP-X294"
+          },
+          {
+            "held": true,
+            "id": "GP-X295"
+          },
+          {
+            "held": true,
+            "id": "GP-X296"
+          },
+          {
+            "held": true,
+            "id": "GP-X297"
+          },
+          {
+            "held": true,
+            "id": "GP-X298"
+          },
+          {
+            "held": true,
+            "id": "GP-X299"
+          },
+          {
+            "held": true,
+            "id": "GP-X30"
+          },
+          {
+            "held": true,
+            "id": "GP-X300"
+          },
+          {
+            "held": true,
+            "id": "GP-X301"
+          },
+          {
+            "held": true,
+            "id": "GP-X302"
+          },
+          {
+            "held": true,
+            "id": "GP-X303"
+          },
+          {
+            "held": true,
+            "id": "GP-X304"
+          },
+          {
+            "held": true,
+            "id": "GP-X305"
+          },
+          {
+            "held": true,
+            "id": "GP-X306"
+          },
+          {
+            "held": true,
+            "id": "GP-X307"
+          },
+          {
+            "held": true,
+            "id": "GP-X308"
+          },
+          {
+            "held": true,
+            "id": "GP-X309"
+          },
+          {
+            "held": true,
+            "id": "GP-X31"
+          },
+          {
+            "held": true,
+            "id": "GP-X310"
+          },
+          {
+            "held": true,
+            "id": "GP-X311"
+          },
+          {
+            "held": true,
+            "id": "GP-X312"
+          },
+          {
+            "held": true,
+            "id": "GP-X313"
+          },
+          {
+            "held": true,
+            "id": "GP-X314"
+          },
+          {
+            "held": true,
+            "id": "GP-X315"
+          },
+          {
+            "held": true,
+            "id": "GP-X316"
+          },
+          {
+            "held": true,
+            "id": "GP-X317"
+          },
+          {
+            "held": true,
+            "id": "GP-X318"
+          },
+          {
+            "held": true,
+            "id": "GP-X319"
+          },
+          {
+            "held": true,
+            "id": "GP-X32"
+          },
+          {
+            "held": true,
+            "id": "GP-X320"
+          },
+          {
+            "held": true,
+            "id": "GP-X321"
+          },
+          {
+            "held": true,
+            "id": "GP-X322"
+          },
+          {
+            "held": true,
+            "id": "GP-X323"
+          },
+          {
+            "held": true,
+            "id": "GP-X324"
+          },
+          {
+            "held": true,
+            "id": "GP-X325"
+          },
+          {
+            "held": true,
+            "id": "GP-X326"
+          },
+          {
+            "held": true,
+            "id": "GP-X327"
+          },
+          {
+            "held": true,
+            "id": "GP-X328"
+          },
+          {
+            "held": true,
+            "id": "GP-X329"
+          },
+          {
+            "held": true,
+            "id": "GP-X33"
+          },
+          {
+            "held": true,
+            "id": "GP-X330"
+          },
+          {
+            "held": true,
+            "id": "GP-X331"
+          },
+          {
+            "held": true,
+            "id": "GP-X332"
+          },
+          {
+            "held": true,
+            "id": "GP-X333"
+          },
+          {
+            "held": true,
+            "id": "GP-X334"
+          },
+          {
+            "held": true,
+            "id": "GP-X335"
+          },
+          {
+            "held": true,
+            "id": "GP-X336"
+          },
+          {
+            "held": true,
+            "id": "GP-X337"
+          },
+          {
+            "held": true,
+            "id": "GP-X338"
+          },
+          {
+            "held": true,
+            "id": "GP-X339"
+          },
+          {
+            "held": true,
+            "id": "GP-X34"
+          },
+          {
+            "held": true,
+            "id": "GP-X340"
+          },
+          {
+            "held": true,
+            "id": "GP-X341"
+          },
+          {
+            "held": true,
+            "id": "GP-X342"
+          },
+          {
+            "held": true,
+            "id": "GP-X343"
+          },
+          {
+            "held": true,
+            "id": "GP-X344"
+          },
+          {
+            "held": true,
+            "id": "GP-X345"
+          },
+          {
+            "held": true,
+            "id": "GP-X346"
+          },
+          {
+            "held": true,
+            "id": "GP-X347"
+          },
+          {
+            "held": true,
+            "id": "GP-X348"
+          },
+          {
+            "held": true,
+            "id": "GP-X349"
+          },
+          {
+            "held": true,
+            "id": "GP-X35"
+          },
+          {
+            "held": true,
+            "id": "GP-X350"
+          },
+          {
+            "held": true,
+            "id": "GP-X351"
+          },
+          {
+            "held": true,
+            "id": "GP-X352"
+          },
+          {
+            "held": true,
+            "id": "GP-X353"
+          },
+          {
+            "held": true,
+            "id": "GP-X354"
+          },
+          {
+            "held": true,
+            "id": "GP-X355"
+          },
+          {
+            "held": true,
+            "id": "GP-X356"
+          },
+          {
+            "held": true,
+            "id": "GP-X357"
+          },
+          {
+            "held": true,
+            "id": "GP-X358"
+          },
+          {
+            "held": true,
+            "id": "GP-X359"
+          },
+          {
+            "held": true,
+            "id": "GP-X36"
+          },
+          {
+            "held": true,
+            "id": "GP-X360"
+          },
+          {
+            "held": true,
+            "id": "GP-X361"
+          },
+          {
+            "held": true,
+            "id": "GP-X362"
+          },
+          {
+            "held": true,
+            "id": "GP-X363"
+          },
+          {
+            "held": true,
+            "id": "GP-X364"
+          },
+          {
+            "held": true,
+            "id": "GP-X365"
+          },
+          {
+            "held": true,
+            "id": "GP-X366"
+          },
+          {
+            "held": true,
+            "id": "GP-X367"
+          },
+          {
+            "held": true,
+            "id": "GP-X368"
+          },
+          {
+            "held": true,
+            "id": "GP-X369"
+          },
+          {
+            "held": true,
+            "id": "GP-X37"
+          },
+          {
+            "held": true,
+            "id": "GP-X370"
+          },
+          {
+            "held": true,
+            "id": "GP-X371"
+          },
+          {
+            "held": true,
+            "id": "GP-X372"
+          },
+          {
+            "held": true,
+            "id": "GP-X373"
+          },
+          {
+            "held": true,
+            "id": "GP-X374"
+          },
+          {
+            "held": true,
+            "id": "GP-X375"
+          },
+          {
+            "held": true,
+            "id": "GP-X376"
+          },
+          {
+            "held": true,
+            "id": "GP-X377"
+          },
+          {
+            "held": true,
+            "id": "GP-X378"
+          },
+          {
+            "held": true,
+            "id": "GP-X379"
+          },
+          {
+            "held": true,
+            "id": "GP-X38"
+          },
+          {
+            "held": true,
+            "id": "GP-X380"
+          },
+          {
+            "held": true,
+            "id": "GP-X381"
+          },
+          {
+            "held": true,
+            "id": "GP-X382"
+          },
+          {
+            "held": true,
+            "id": "GP-X383"
+          },
+          {
+            "held": true,
+            "id": "GP-X384"
+          },
+          {
+            "held": true,
+            "id": "GP-X385"
+          },
+          {
+            "held": true,
+            "id": "GP-X386"
+          },
+          {
+            "held": true,
+            "id": "GP-X387"
+          },
+          {
+            "held": true,
+            "id": "GP-X388"
+          },
+          {
+            "held": true,
+            "id": "GP-X389"
+          },
+          {
+            "held": true,
+            "id": "GP-X39"
+          },
+          {
+            "held": true,
+            "id": "GP-X390"
+          },
+          {
+            "held": true,
+            "id": "GP-X391"
+          },
+          {
+            "held": true,
+            "id": "GP-X392"
+          },
+          {
+            "held": true,
+            "id": "GP-X393"
+          },
+          {
+            "held": true,
+            "id": "GP-X394"
+          },
+          {
+            "held": true,
+            "id": "GP-X395"
+          },
+          {
+            "held": true,
+            "id": "GP-X396"
+          },
+          {
+            "held": true,
+            "id": "GP-X397"
+          },
+          {
+            "held": true,
+            "id": "GP-X398"
+          },
+          {
+            "held": true,
+            "id": "GP-X399"
+          },
+          {
+            "held": true,
+            "id": "GP-X40"
+          },
+          {
+            "held": true,
+            "id": "GP-X400"
+          },
+          {
+            "held": true,
+            "id": "GP-X401"
+          },
+          {
+            "held": true,
+            "id": "GP-X402"
+          },
+          {
+            "held": true,
+            "id": "GP-X403"
+          },
+          {
+            "held": true,
+            "id": "GP-X404"
+          },
+          {
+            "held": true,
+            "id": "GP-X405"
+          },
+          {
+            "held": true,
+            "id": "GP-X406"
+          },
+          {
+            "held": true,
+            "id": "GP-X407"
+          },
+          {
+            "held": true,
+            "id": "GP-X408"
+          },
+          {
+            "held": true,
+            "id": "GP-X409"
+          },
+          {
+            "held": true,
+            "id": "GP-X41"
+          },
+          {
+            "held": true,
+            "id": "GP-X410"
+          },
+          {
+            "held": true,
+            "id": "GP-X411"
+          },
+          {
+            "held": true,
+            "id": "GP-X412"
+          },
+          {
+            "held": true,
+            "id": "GP-X42"
+          },
+          {
+            "held": true,
+            "id": "GP-X43"
+          },
+          {
+            "held": true,
+            "id": "GP-X44"
+          },
+          {
+            "held": true,
+            "id": "GP-X45"
+          },
+          {
+            "held": true,
+            "id": "GP-X46"
+          },
+          {
+            "held": true,
+            "id": "GP-X47"
+          },
+          {
+            "held": true,
+            "id": "GP-X48"
+          },
+          {
+            "held": true,
+            "id": "GP-X49"
+          },
+          {
+            "held": true,
+            "id": "GP-X50"
+          },
+          {
+            "held": true,
+            "id": "GP-X51"
+          },
+          {
+            "held": true,
+            "id": "GP-X52"
+          },
+          {
+            "held": true,
+            "id": "GP-X53"
+          },
+          {
+            "held": true,
+            "id": "GP-X54"
+          },
+          {
+            "held": true,
+            "id": "GP-X55"
+          },
+          {
+            "held": true,
+            "id": "GP-X56"
+          },
+          {
+            "held": true,
+            "id": "GP-X57"
+          },
+          {
+            "held": true,
+            "id": "GP-X58"
+          },
+          {
+            "held": true,
+            "id": "GP-X59"
+          },
+          {
+            "held": true,
+            "id": "GP-X60"
+          },
+          {
+            "held": true,
+            "id": "GP-X61"
+          },
+          {
+            "held": true,
+            "id": "GP-X62"
+          },
+          {
+            "held": true,
+            "id": "GP-X63"
+          },
+          {
+            "held": true,
+            "id": "GP-X64"
+          },
+          {
+            "held": true,
+            "id": "GP-X65"
+          },
+          {
+            "held": true,
+            "id": "GP-X66"
+          },
+          {
+            "held": true,
+            "id": "GP-X67"
+          },
+          {
+            "held": true,
+            "id": "GP-X68"
+          },
+          {
+            "held": true,
+            "id": "GP-X69"
+          },
+          {
+            "held": true,
+            "id": "GP-X70"
+          },
+          {
+            "held": true,
+            "id": "GP-X71"
+          },
+          {
+            "held": true,
+            "id": "GP-X72"
+          },
+          {
+            "held": true,
+            "id": "GP-X73"
+          },
+          {
+            "held": true,
+            "id": "GP-X74"
+          },
+          {
+            "held": true,
+            "id": "GP-X75"
+          },
+          {
+            "held": true,
+            "id": "GP-X76"
+          },
+          {
+            "held": true,
+            "id": "GP-X77"
+          },
+          {
+            "held": true,
+            "id": "GP-X78"
+          },
+          {
+            "held": true,
+            "id": "GP-X79"
+          },
+          {
+            "held": true,
+            "id": "GP-X80"
+          },
+          {
+            "held": true,
+            "id": "GP-X81"
+          },
+          {
+            "held": true,
+            "id": "GP-X82"
+          },
+          {
+            "held": true,
+            "id": "GP-X83"
+          },
+          {
+            "held": true,
+            "id": "GP-X84"
+          },
+          {
+            "held": true,
+            "id": "GP-X85"
+          },
+          {
+            "held": true,
+            "id": "GP-X86"
+          },
+          {
+            "held": true,
+            "id": "GP-X87"
+          },
+          {
+            "held": true,
+            "id": "GP-X88"
+          },
+          {
+            "held": true,
+            "id": "GP-X89"
+          },
+          {
+            "held": true,
+            "id": "GP-X90"
+          },
+          {
+            "held": true,
+            "id": "GP-X91"
+          },
+          {
+            "held": true,
+            "id": "GP-X92"
+          },
+          {
+            "held": true,
+            "id": "GP-X93"
+          },
+          {
+            "held": true,
+            "id": "GP-X94"
+          },
+          {
+            "held": true,
+            "id": "GP-X95"
+          },
+          {
+            "held": true,
+            "id": "GP-X96"
+          },
+          {
+            "held": true,
+            "id": "GP-X97"
+          },
+          {
+            "held": true,
+            "id": "GP-X98"
+          },
+          {
+            "held": true,
+            "id": "GP-X99"
+          }
+        ],
+        "status": "OK"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "lean-poly-unit",
+      "seconds": 1.2520547000458464,
+      "exit": 0,
+      "output": {
+        "valid": true
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "process-poly-unit",
+      "seconds": 1.7217488000169396,
+      "exit": 0,
+      "output": {
+        "binding": true,
+        "exit_code": 0,
+        "valid": true,
+        "version": true
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "lean-poly-fraction",
+      "seconds": 1.0359801000449806,
+      "exit": 0,
+      "output": {
+        "valid": true
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "process-poly-fraction",
+      "seconds": 2.058938800008036,
+      "exit": 0,
+      "output": {
+        "binding": true,
+        "exit_code": 0,
+        "valid": true,
+        "version": true
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "lean-poly-tampered-cofactor",
+      "seconds": 0.18010630004573613,
+      "exit": 1,
+      "output": {
+        "valid": false
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "process-poly-tampered-cofactor",
+      "seconds": 0.5650805000332184,
+      "exit": 1,
+      "output": {
+        "binding": true,
+        "exit_code": 0,
+        "valid": false,
+        "version": true
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "lean-poly-truncated-cofactor",
+      "seconds": 0.23918550001690164,
+      "exit": 1,
+      "output": {
+        "valid": false
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "process-poly-truncated-cofactor",
+      "seconds": 0.667454699985683,
+      "exit": 1,
+      "output": {
+        "binding": true,
+        "exit_code": 0,
+        "valid": false,
+        "version": true
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "lean-poly-high-degree-target",
+      "seconds": 0.2163130000117235,
+      "exit": 1,
+      "output": {
+        "valid": false
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "process-poly-high-degree-target",
+      "seconds": 0.7252393000526354,
+      "exit": 1,
+      "output": {
+        "binding": true,
+        "exit_code": 0,
+        "valid": false,
+        "version": true
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "lean-poly-zero-denominator",
+      "seconds": 0.3369173999526538,
+      "exit": 2,
+      "output": {
+        "error": "zero denominator",
+        "status": "REFUSE"
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "process-poly-zero-denominator",
+      "seconds": 0.6030825999914669,
+      "exit": 1,
+      "output": {
+        "binding": true,
+        "exit_code": 2,
+        "valid": false,
+        "version": true
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "lean-poly-duplicate-terms",
+      "seconds": 0.3026279000332579,
+      "exit": 0,
+      "output": {
+        "valid": true
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "process-poly-duplicate-terms",
+      "seconds": 0.6409892999799922,
+      "exit": 0,
+      "output": {
+        "binding": true,
+        "exit_code": 0,
+        "valid": true,
+        "version": true
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "process-wrong-input",
+      "seconds": 1.2358266000519507,
+      "exit": 1,
+      "output": {
+        "binding": false,
+        "exit_code": 0,
+        "valid": false,
+        "version": true
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "process-wrong-version",
+      "seconds": 1.2252682999824174,
+      "exit": 1,
+      "output": {
+        "binding": true,
+        "exit_code": 0,
+        "valid": false,
+        "version": false
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "lrat-valid",
+      "seconds": 0.8069293000153266,
+      "exit": 0,
+      "output": {
+        "valid": true
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "lrat-sat-counterexample",
+      "seconds": 0.4953756000031717,
+      "exit": 1,
+      "output": {
+        "valid": false
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "lrat-bad-hints",
+      "seconds": 0.5329381999908946,
+      "exit": 1,
+      "output": {
+        "valid": false
+      },
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "lrat-malformed",
+      "seconds": 0.7715115000028163,
+      "exit": 2,
+      "output": {
+        "error": "offset 0: digit expected",
+        "status": "REFUSE"
+      },
+      "stderr": "",
+      "passed": true
+    }
+  ],
+  "source_hashes": {
+    "spikes/lean-core/CheckerMain.lean": "29121c2d8dd90c25ab1ca1c2a10f689fa25dd611673d85f68155ebd4bcbe96b3",
+    "spikes/lean-core/fraction_checker.py": "35aac0a995c7d26c22418f6b953d190fc543921e8895a2b02d65149a31a0a533",
+    "spikes/lean-core/lake-manifest.json": "da3ecd03750f22da1132b38a7d8c4b03b2c469dc8faeacea16b6e06c4f81125e",
+    "spikes/lean-core/lakefile.toml": "58fbe882740022e201afcb5799574dfa13689866f62cb3ce2ad6fe85b994ed3a",
+    "spikes/lean-core/lean-toolchain": "97402b00d0468725baf4a753bf630ad69d0c588df2a7f5a849429b7926dfe000",
+    "spikes/lean-core/Main.lean": "ca675d85e6c8394295e8c04d7059b9c35bb5b3065a6f6225f3607dda310e0832",
+    "spikes/lean-core/README.md": "7c45d349bea8dc1687de60dc58235694bd172230d6c7767633695087f079a6e7",
+    "spikes/lean-core/Spike.lean": "25a8dab731bf2bd57c304e64d49d124d93b93728ee3c428c266553d4e3467068",
+    "spikes/lean-core/Spike/Lrat.lean": "2579f941911d69b866eea069b519a75f120d06c27904f4e0fb2e056c9d0cacc9",
+    "spikes/lean-core/Spike/Poly.lean": "ffb91c9e357482ea04ce6980fca9fd8a33bc29fe5ee022cfa9e307a2542961db"
+  },
+  "executable_hashes": {
+    "spikes/lean-core/.lake/build/bin/gp_spike.exe": "a24e8afc5ea4ff2d4d8bab10ff127b4cca557eb9854a0e475cd1ad9acae217c6",
+    "spikes/lean-core/.lake/build/bin/gp_check_spike.exe": "351801c4cf8d49b8ee1e737522cfed5b1ab52513ff97c89aa51572edd5d327c8"
+  }
+}

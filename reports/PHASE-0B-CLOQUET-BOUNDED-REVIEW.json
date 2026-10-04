@@ -1,0 +1,961 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "assignment": "finite Cloquet/match4 Phase0b source review",
+  "status": "bounded pass complete; parent integration/admission and broader Phase0b remain open",
+  "source_root": "$DEV/math-research/campaigns/match4",
+  "source_head": "a343801c9af4bb06f1cb514dfecdc745a8f5ac64",
+  "workspace": "$WORKSPACE",
+  "frozen_oracle": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "existing_corpus_count": 454,
+  "bounds": {
+    "required_documents_read_full": 5,
+    "pointer_followups_read_full": 5,
+    "pointer_cap": 5,
+    "source_content_documents": 10,
+    "primary_literature_pdfs_opened": 0,
+    "campaign_code_executed": false,
+    "gp_oracle_executed": false,
+    "harvested": false,
+    "case_route_tracker_changes": 0,
+    "commits": 0,
+    "external_reads_or_messages": 0
+  },
+  "evidence_policy": {
+    "raw_sha256": "Computed on actual file bytes. Git HEAD blob/path commit identifies repository history separately; no claim raw bytes equal LF-normalized Git blob.",
+    "source_claims": "Historical execution, source PDF findings, costs and build identities remain attributed reports. All miniature verdicts are retained historical observations, not newly executed tests.",
+    "shipping": "Wrong claim published or handed off for others to rely on; commit, merge or checkpoint word 'published' alone is insufficient.",
+    "core": "Every proposal core_expressible and core_would_refuse is null.",
+    "classification": "Campaign source corrections, deliberate controls and GP mechanics observations are separate. Row count is not independent mathematical incident count.",
+    "dedup": "Scouting -> LSA -> checkpoint repeats one correction; M5 source->miniature->parent repeat one control; CQ-P08/CQ-G03 share one attempt. Other Lane G rows share one session but assert distinct probes."
+  },
+  "sources": [
+    {
+      "relative_path": "README.md",
+      "path": "$DEV/math-research/campaigns/match4/README.md",
+      "sha256": "c443eb8ad50746cfc207272d7ca2d98826e8eccc96d30f0266d498ac33edc7eb",
+      "lines": 46,
+      "bytes": 2139,
+      "latest_path_history": "794587a59486dfbce2989be675c2b105086bd483|2026-09-10T19:48:43-05:00|Open Cloquet: founding packets, raw data manifest, executed calculator records, Lane D forced-direction compiler and first signatures",
+      "git_blob": "5a9e42b6a72aa948ec8a89b98d0286d4b99bf4fe",
+      "read_extent": "full text, lines 1-46",
+      "role": "required founding/summary",
+      "source_head": "a343801c9af4bb06f1cb514dfecdc745a8f5ac64"
+    },
+    {
+      "relative_path": "CHECKPOINT.md",
+      "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+      "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51",
+      "lines": 67,
+      "bytes": 7907,
+      "latest_path_history": "a343801c9af4bb06f1cb514dfecdc745a8f5ac64|2026-09-10T20:38:50-05:00|End-of-night checkpoint; two ready-to-launch Sonnet packets",
+      "git_blob": "1961d839fd897581ae2bbe8cd24c417ad6aff420",
+      "read_extent": "full text, lines 1-67",
+      "role": "required founding/summary",
+      "source_head": "a343801c9af4bb06f1cb514dfecdc745a8f5ac64"
+    },
+    {
+      "relative_path": "packets/founding/CQ-PLAN.md",
+      "path": "$DEV/math-research/campaigns/match4/packets/founding/CQ-PLAN.md",
+      "sha256": "b7bd2ef6f7f934855af47e8ccc0d37c314addc522f4003e56ad196cfb5acf080",
+      "lines": 313,
+      "bytes": 24614,
+      "latest_path_history": "794587a59486dfbce2989be675c2b105086bd483|2026-09-10T19:48:43-05:00|Open Cloquet: founding packets, raw data manifest, executed calculator records, Lane D forced-direction compiler and first signatures",
+      "git_blob": "247ccf337a657709f6de259105c13bea406f2251",
+      "read_extent": "full text, lines 1-313",
+      "role": "required founding/summary",
+      "source_head": "a343801c9af4bb06f1cb514dfecdc745a8f5ac64"
+    },
+    {
+      "relative_path": "packets/founding/cq-scouting.md",
+      "path": "$DEV/math-research/campaigns/match4/packets/founding/cq-scouting.md",
+      "sha256": "22ef379cb247595c62740a539b2997d7276aa0733a7b228af32b5aea7a44fcaa",
+      "lines": 440,
+      "bytes": 29022,
+      "latest_path_history": "794587a59486dfbce2989be675c2b105086bd483|2026-09-10T19:48:43-05:00|Open Cloquet: founding packets, raw data manifest, executed calculator records, Lane D forced-direction compiler and first signatures",
+      "git_blob": "92353dfb913bdf3552bc8205eea52c22c19da68b",
+      "read_extent": "full text, lines 1-440",
+      "role": "required founding/summary",
+      "source_head": "a343801c9af4bb06f1cb514dfecdc745a8f5ac64"
+    },
+    {
+      "relative_path": "packets/founding/gp-cq-read.md",
+      "path": "$DEV/math-research/campaigns/match4/packets/founding/gp-cq-read.md",
+      "sha256": "385150a7cbb557efea315780acca1f7d5fc82ecd7fa2f35615ed7144fcd9623a",
+      "lines": 361,
+      "bytes": 24974,
+      "latest_path_history": "794587a59486dfbce2989be675c2b105086bd483|2026-09-10T19:48:43-05:00|Open Cloquet: founding packets, raw data manifest, executed calculator records, Lane D forced-direction compiler and first signatures",
+      "git_blob": "4cb9e6380a628239441065cd7e994ce2be35abdd",
+      "read_extent": "full text, lines 1-361",
+      "role": "required founding/summary",
+      "source_head": "a343801c9af4bb06f1cb514dfecdc745a8f5ac64"
+    },
+    {
+      "relative_path": "literature/READS.md",
+      "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+      "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5",
+      "lines": 457,
+      "bytes": 25671,
+      "latest_path_history": "ef412026dc55e8ed61385a1b03e09a3e24d86c0c|2026-09-10T20:09:28-05:00|P0.5 source reads: transcribe Kurz LP/Lemma 6 discrepancy, Kurz-Pinchasi citation chain and m(3)=8, Winkler 2026 rank certificate + 4x4 example, Gerbracht degree-22 P_T, and the two Winkler existence/near-miss catalogs",
+      "git_blob": "3beff700137f1ff17e6ab7bbb3ddea8e57d472cc",
+      "read_extent": "full text, lines 1-457",
+      "role": "bounded pointer followup",
+      "source_head": "a343801c9af4bb06f1cb514dfecdc745a8f5ac64"
+    },
+    {
+      "relative_path": "lanes/G/RESULTS.md",
+      "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+      "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736",
+      "lines": 218,
+      "bytes": 12560,
+      "latest_path_history": "51b6ba447089ac13e8480a9bf58f8ce727a69cac|2026-09-10T20:21:49-05:00|Lane G: GP 0.32 Tier (a)/(b) miniatures M1,M2,M5,M6,M7,M8 with hostiles",
+      "git_blob": "43aed81b70150a2f6844601d5777b371b63f541a",
+      "read_extent": "full text, lines 1-218",
+      "role": "bounded pointer followup",
+      "source_head": "a343801c9af4bb06f1cb514dfecdc745a8f5ac64"
+    },
+    {
+      "relative_path": "fixtures/gp-miniatures/M5.json",
+      "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M5.json",
+      "sha256": "08cc7b1b2b114f6be9557c1c2ff38e6b917f85bc7fc2bbedd1b4b30ee4ba974d",
+      "lines": 49,
+      "bytes": 2408,
+      "latest_path_history": "51b6ba447089ac13e8480a9bf58f8ce727a69cac|2026-09-10T20:21:49-05:00|Lane G: GP 0.32 Tier (a)/(b) miniatures M1,M2,M5,M6,M7,M8 with hostiles",
+      "git_blob": "2b363c862f70d82ea99407c92bd0e674f1b0b90d",
+      "read_extent": "full text, lines 1-49",
+      "role": "bounded pointer followup",
+      "source_head": "a343801c9af4bb06f1cb514dfecdc745a8f5ac64"
+    },
+    {
+      "relative_path": "receipts/SCHEMA.md",
+      "path": "$DEV/math-research/campaigns/match4/receipts/SCHEMA.md",
+      "sha256": "83aeb3a99e7badfce98b950b3915b80d6c9d89589a7879955d6fa3686ad6774c",
+      "lines": 28,
+      "bytes": 1843,
+      "latest_path_history": "794587a59486dfbce2989be675c2b105086bd483|2026-09-10T19:48:43-05:00|Open Cloquet: founding packets, raw data manifest, executed calculator records, Lane D forced-direction compiler and first signatures",
+      "git_blob": "67900e04e6328f5a7cd9b8f971caed146ea653fa",
+      "read_extent": "full text, lines 1-28",
+      "role": "bounded pointer followup",
+      "source_head": "a343801c9af4bb06f1cb514dfecdc745a8f5ac64"
+    },
+    {
+      "relative_path": "verdicts/SCHEMA.md",
+      "path": "$DEV/math-research/campaigns/match4/verdicts/SCHEMA.md",
+      "sha256": "60d6ee65e0d2cde670985d2bccb8e9e430f77827801c2418febdd930ae76a8dc",
+      "lines": 48,
+      "bytes": 2420,
+      "latest_path_history": "54c67deb6ab0f191922d0013df44a1a9b9d5a93a|2026-09-10T20:27:04-05:00|Citizenship program: conjecture ledger (C-1..C-4), bridges register, findable-negatives index, charter yield statement; AGENTS rules",
+      "git_blob": "968a12d52c07a7b06fdd9ad715ece10f2ed8d74e",
+      "read_extent": "full text, lines 1-48",
+      "role": "bounded pointer followup",
+      "source_head": "a343801c9af4bb06f1cb514dfecdc745a8f5ac64"
+    }
+  ],
+  "local_cross_references": [
+    {
+      "path": "reports/PHASE-0A-COORDINATOR-RESUMPTION.md",
+      "sha256": "9c5235ec61c228066cff46db66e3ecb8fbd3c7c7b7f55b7030ad5ed5fbf95aca",
+      "lines": 13,
+      "read_extent": "full text"
+    },
+    {
+      "path": "reports/PHASE-0A-COORDINATOR-RESUMPTION.json",
+      "sha256": "7b9364e365d67e100c3401b4d29218116c7d56be83226dd6895dcb5775532758",
+      "lines": 100,
+      "read_extent": "full text"
+    },
+    {
+      "path": "corpus/must/GP-A24.json",
+      "sha256": "1e8c599b53e2a18a03938271eb84eba4c641ea0793f2014b7d136a3cd7a906a1",
+      "lines": 26,
+      "read_extent": "full text"
+    },
+    {
+      "path": "corpus/must/GP-A13-ambient.json",
+      "sha256": "d87ce328f3574714483c7dc9b952a7ba6391d207b20e68bb9646c347b283ba3e",
+      "lines": 36,
+      "read_extent": "full text"
+    },
+    {
+      "path": "corpus/must/GP-A13-derived.json",
+      "sha256": "808bdb2f8759c114c8bb52aae7371a3d275c074a0f2c404e379eb0fe8a100a61",
+      "lines": 36,
+      "read_extent": "full text"
+    },
+    {
+      "path": "corpus/must/GP-A18.json",
+      "sha256": "61d7e0ce789d2cc6c469f2bd29e6e1d8b28a733347f0731e79c59e8141d93817",
+      "lines": 37,
+      "read_extent": "full text"
+    },
+    {
+      "path": "corpus/must/GP-X160.json",
+      "sha256": "b79be0fabef9acba5f6f8c39fd32aa32bb035349006d315e59e871cd52e41178",
+      "lines": 80,
+      "read_extent": "full text"
+    },
+    {
+      "path": "corpus/must/GP-A10-R.json",
+      "sha256": "d7981457ee62ff3f7da445a328072c04b5c0ad66b09b3d5af2101665764f4cd8",
+      "lines": 43,
+      "read_extent": "full text"
+    },
+    {
+      "path": "corpus/must/GP-A10-C.json",
+      "sha256": "0dc4eb08bb12e4e52d0cc3dafeff73d99f16618b11bf93d1531fab19b6ffe3f3",
+      "lines": 43,
+      "read_extent": "full text"
+    },
+    {
+      "path": "corpus/must/GP-A16-covered.json",
+      "sha256": "4194049d120bb7c8da1aabf435104231f17e653e3589845332a2c5172e81f68d",
+      "lines": 32,
+      "read_extent": "full text"
+    },
+    {
+      "path": "corpus/must/GP-A16-missing.json",
+      "sha256": "96f56221f276fc151ea0a7debc09633ceb915a9eb64e4f1619ce7c6a2fd75107",
+      "lines": 32,
+      "read_extent": "full text"
+    },
+    {
+      "path": "corpus/must/GP-X96.json",
+      "sha256": "443d26f0cd945dba6938ff1b31ce102151c7abae7b20c7120975d77131720ccc",
+      "lines": 34,
+      "read_extent": "full text"
+    },
+    {
+      "path": "corpus/must/GP-X106.json",
+      "sha256": "dfcfabd88041f35aabc55121e3c567a771f801497ec3cc4e4ee1aae6bbb3d390",
+      "lines": 111,
+      "read_extent": "full text"
+    }
+  ],
+  "proposals": [
+    {
+      "id": "CQ-C01",
+      "title": "Kurz angle-LP discrepancy",
+      "kind": "attributed literature discrepancy / campaign adoption near-miss",
+      "dedup_key": "kurz-angle-row",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/cq-scouting.md",
+          "lines": [
+            259,
+            327
+          ],
+          "sha256": "22ef379cb247595c62740a539b2997d7276aa0733a7b228af32b5aea7a44fcaa"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            25,
+            77
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            41,
+            45
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "attempted_or_at_risk_claim": "Use the printed stronger angle row as a necessary condition, and treat reported survivor counts as a certification gate.",
+      "failure_or_boundary": "Source reports Lemma 6 gives adjacent-angle sum > pi/2, while LP uses x_u+x_v-y >= pi. Scouting supplies a unit pentagon with angle sum about134.76 degrees. No complete falsely rejected4-regular graph or disproof of34 is supplied.",
+      "discovery_as_recorded": "Scouting records exact pentagon checks; LSA reports a subsequent PDF read finding no nearby justifying hypothesis; checkpoint records correction.",
+      "disposition": "One discrepancy across scouting, LSA and checkpoint, not three incidents. Retain as attributed source statement: this worker did not open the primary PDF or execute pentagon code. No GP case asserted to certify LP-to-geometry validity.",
+      "scope_or_region": "BOTH",
+      "reuse_candidates": [],
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_evidence": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "execution_status": "source observations only; not newly executed"
+    },
+    {
+      "id": "CQ-C02",
+      "title": "General34 bound citation conflated with3-connected source",
+      "kind": "campaign source correction",
+      "dedup_key": "general34-provenance",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            81,
+            108
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            354,
+            363
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            41,
+            45
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "attempted_or_at_risk_claim": "Read arXiv:1401.4375 as proof of the general m(4)>=34 bound.",
+      "failure_or_boundary": "LSA traces the general bound citation to a2011 Geombinatorics article absent from its files; the arXiv paper is scoped to3-connected graphs. Similar titles do not establish identical sources.",
+      "discovery_as_recorded": "LSA citation-chain read; founding scouting had already left provenance open.",
+      "disposition": "Proposal for a source/scope correction, not evidence general34 is false. No direct primary read here; no native GP reuse for bibliography fact.",
+      "scope_or_region": "SCOPE",
+      "reuse_candidates": [],
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_evidence": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "execution_status": "source observations only; not newly executed"
+    },
+    {
+      "id": "CQ-C03",
+      "title": "Order8 uniqueness unsupported by cited source",
+      "kind": "campaign source correction",
+      "dedup_key": "m3-uniqueness",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/CQ-PLAN.md",
+          "lines": [
+            108,
+            112
+          ],
+          "sha256": "b7bd2ef6f7f934855af47e8ccc0d37c314addc522f4003e56ad196cfb5acf080"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            110,
+            129
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            364,
+            368
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            41,
+            45
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "attempted_or_at_risk_claim": "Attribute uniqueness of the8-vertex3-regular graph to Kurz-Pinchasi.",
+      "failure_or_boundary": "LSA reports that the paper states m(3)=8 as an exercise and never asserts uniqueness. Lack of that attribution does not prove nonuniqueness.",
+      "discovery_as_recorded": "Scouting flags unverified uniqueness; LSA recommends dropping or sourcing the clause.",
+      "disposition": "One corrected attribution episode; unknown original author/cost/reliance. No distinct GP mathematical defect.",
+      "scope_or_region": "SCOPE",
+      "reuse_candidates": [],
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_evidence": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "execution_status": "source observations only; not newly executed"
+    },
+    {
+      "id": "CQ-C04",
+      "title": "53 target paper/calculator identity conflation",
+      "kind": "campaign source correction",
+      "dedup_key": "calculator100-versus-paper53",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/cq-scouting.md",
+          "lines": [
+            36,
+            60
+          ],
+          "sha256": "22ef379cb247595c62740a539b2997d7276aa0733a7b228af32b5aea7a44fcaa"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            279,
+            350
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            369,
+            375
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            41,
+            45
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "attempted_or_at_risk_claim": "Attribute the mirror-symmetric one-angle53 target to arXiv:1906.11908 rather than calculator record100.",
+      "failure_or_boundary": "LSA says PDF text did not establish symmetry/angle; calculator record100 supplies the explicit source. The lane could not render the figure. Its phrase 'not in this PDF' is not adopted as proof geometric objects differ.",
+      "discovery_as_recorded": "LSA caption-text comparison against already-replayed calculator identity; no direct raw-page read by this worker.",
+      "disposition": "Source-binding correction proposal, with paper symmetry still inconclusive. Do not infer an exact graph exclusion from separated numerical closure roots.",
+      "scope_or_region": "BOTH",
+      "reuse_candidates": [],
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_evidence": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "execution_status": "source observations only; not newly executed"
+    },
+    {
+      "id": "CQ-P05",
+      "title": "Collapsed K222 witness promoted to injective realization",
+      "kind": "deliberate mathematical misuse control; no actual campaign error demonstrated",
+      "dedup_key": "M5-collapsed",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/cq-scouting.md",
+          "lines": [
+            221,
+            257
+          ],
+          "sha256": "22ef379cb247595c62740a539b2997d7276aa0733a7b228af32b5aea7a44fcaa"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M5.json",
+          "lines": [
+            8,
+            48
+          ],
+          "sha256": "08cc7b1b2b114f6be9557c1c2ff38e6b917f85bc7fc2bbedd1b4b30ee4ba974d"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            103,
+            110
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        }
+      ],
+      "attempted_or_at_risk_claim": "Promote the unguarded NONEMPTY point to an injective matchstick realization.",
+      "failure_or_boundary": "M5 records plain witness VERIFIED in Q(s)/(s^2-3), guarded identical witness NOT_A_POINT because same-class separation product is0. This is a positive-witness guard boundary. If G subset U, actual emptiness of U implies emptiness of G.",
+      "discovery_as_recorded": "Prewritten miniature, historical guarded replay. Parent separately checked all12 unit edges and vanishing guard with Fraction arithmetic.",
+      "disposition": "Reuse parent A24 source grounding; do not duplicate extraction or edit seed. Current A24 attempted conclusion is no-realization, and parent clarification remains pending Will. No wrong GP verdict shown.",
+      "scope_or_region": "BOTH",
+      "reuse_candidates": [
+        "GP-A24 (source grounding only; pending semantic clarification)"
+      ],
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_evidence": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "execution_status": "source observations only; not newly executed"
+    },
+    {
+      "id": "CQ-P06",
+      "title": "Ordered vector obstruction offered as complex emptiness",
+      "kind": "deliberate misuse control",
+      "dedup_key": "M2-ordered-versus-complex",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/gp-cq-read.md",
+          "lines": [
+            191,
+            219
+          ],
+          "sha256": "385150a7cbb557efea315780acca1f7d5fc82ecd7fa2f35615ed7144fcd9623a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            89,
+            101
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        }
+      ],
+      "attempted_or_at_risk_claim": "Issue3u=v+w with unit vectors as SCHEME/algebraic-closure emptiness.",
+      "failure_or_boundary": "Real contradiction norm(v-w)^2=-5; complex point over Q(sqrt(-5)) remains. Historical GP NOT_UNIT and VERIFIED complex witness. Ordered identity is only an ungraded note in0.32.",
+      "discovery_as_recorded": "Prewritten M2 answer key then Lane G exercise.",
+      "disposition": "Not a newly observed wrong campaign conclusion. A10-R/C reuse the ordered-versus-complex reach decision, not M2's particular model or literal cofactor.",
+      "scope_or_region": "SCOPE",
+      "reuse_candidates": [
+        "GP-A10-R",
+        "GP-A10-C"
+      ],
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_evidence": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "execution_status": "source observations only; not newly executed"
+    },
+    {
+      "id": "CQ-P07",
+      "title": "One correct chart offered as complete coverage",
+      "kind": "deliberate misuse control",
+      "dedup_key": "M6-half-angle-cover",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/gp-cq-read.md",
+          "lines": [
+            235,
+            289
+          ],
+          "sha256": "385150a7cbb557efea315780acca1f7d5fc82ecd7fa2f35615ed7144fcd9623a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            80,
+            87
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        }
+      ],
+      "attempted_or_at_risk_claim": "Treat the half-angle chart alone as covering the circle or all relevant graph branches.",
+      "failure_or_boundary": "Chart omits(-1,0); two opens D(1+x),D(1-x) cover via unit identity. Historical omitted-chart ideal NOT_UNIT with gap witness.",
+      "discovery_as_recorded": "Prewritten M6; Lane G records positive two-open cover and hostile omitted chart.",
+      "disposition": "Existing A16 covered/missing captures required exhaustion but has Boolean cover inputs. It does not encode these circle opens, graph family reconstruction or all sign/degenerate branches.",
+      "scope_or_region": "REGION",
+      "reuse_candidates": [
+        "GP-A16-covered",
+        "GP-A16-missing"
+      ],
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_evidence": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "execution_status": "source observations only; not newly executed"
+    },
+    {
+      "id": "CQ-P08",
+      "title": "Infinitesimal tangent direction offered as finite flex",
+      "kind": "deliberate misuse control",
+      "dedup_key": "M7-finite-flex",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/cq-scouting.md",
+          "lines": [
+            361,
+            367
+          ],
+          "sha256": "22ef379cb247595c62740a539b2997d7276aa0733a7b228af32b5aea7a44fcaa"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/gp-cq-read.md",
+          "lines": [
+            306,
+            314
+          ],
+          "sha256": "385150a7cbb557efea315780acca1f7d5fc82ecd7fa2f35615ed7144fcd9623a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            112,
+            118
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        }
+      ],
+      "attempted_or_at_risk_claim": "Infer finite-flex family existence from rank deficiency at one realization.",
+      "failure_or_boundary": "Ideal(x,y^2) has one point and1-dimensional tangent space. Lane G's undeclared t witness is UNVERIFIED, not a native finite-flex classification.",
+      "discovery_as_recorded": "Prewritten M7 then deliberate free-parameter witness attempt.",
+      "disposition": "No distinct actual mathematical incident demonstrated. No exact existing case selected: affine rank/existence or Jacobian sampling examples are not the same higher-order flex assertion. Parser diagnostic is separately CQ-G03 with same dedup episode.",
+      "scope_or_region": "BOTH",
+      "reuse_candidates": [],
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_evidence": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "execution_status": "source observations only; not newly executed"
+    },
+    {
+      "id": "CQ-P09",
+      "title": "Budget exhaustion offered as empty-family evidence",
+      "kind": "deliberate misuse control",
+      "dedup_key": "M8-budget",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/CQ-PLAN.md",
+          "lines": [
+            229,
+            235
+          ],
+          "sha256": "b7bd2ef6f7f934855af47e8ccc0d37c314addc522f4003e56ad196cfb5acf080"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            120,
+            129
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            175,
+            179
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        }
+      ],
+      "attempted_or_at_risk_claim": "Use a BUDGET work attempt to settle EMPTY or unbacked family count.",
+      "failure_or_boundary": "WORK-M8-001 recorded UNRESOLVED / graph_effect NONE,2.0 core-hours in the operational payload. Hostile EMPTY remains UNVERIFIED; unbacked family count flagged UNSOUND_PREMISE. Recorded2.0 is not measured cost of this incident.",
+      "discovery_as_recorded": "Prewritten M8 hostile; extra count finding arose in exercise.",
+      "disposition": "X96/X106 reuse the unfinished-search authority boundary but concern JC extraction/search, not the literal work sidecar or family-declaration path. Count refusal is a successful defense within same exercise.",
+      "scope_or_region": "BOTH",
+      "reuse_candidates": [
+        "GP-X96",
+        "GP-X106"
+      ],
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_evidence": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "execution_status": "source observations only; not newly executed"
+    },
+    {
+      "id": "CQ-G01",
+      "title": "False ambient cofactor reads as VERIFIED_DERIVED at unit ideal",
+      "kind": "GP mechanics interpretation observation",
+      "dedup_key": "M1-unit-quotient",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            61,
+            71
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            137,
+            150
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            49,
+            53
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "attempted_or_at_risk_claim": "Read VERIFIED_DERIVED at M1 as independent arithmetic validation of the hostile cofactor.",
+      "failure_or_boundary": "Every polynomial vanishes in the zero quotient of an already-unit ideal; source says verdict correctly derived, then ambient-ring anchor REFUTED. The distinction can be misread; no false algebraic acceptance asserted.",
+      "discovery_as_recorded": "Deliberate mutation and anchoring comparison, source explicitly files observation without fix.",
+      "disposition": "A13 ambient/derived distinction is relevant semantic reuse but does not test zero quotient or message wording. Retain specific presentation probe only if parent needs it; do not count legitimate derived identity as mathematical incident.",
+      "scope_or_region": "REGION",
+      "reuse_candidates": [
+        "GP-A13-ambient",
+        "GP-A13-derived"
+      ],
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_evidence": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "execution_status": "source observations only; not newly executed"
+    },
+    {
+      "id": "CQ-G02",
+      "title": "Live stale-model finding hidden by later unrelated supersession",
+      "kind": "GP mechanics candidate visibility defect",
+      "dedup_key": "M1-stale-view",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            73,
+            78
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            152,
+            165
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            49,
+            53
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "attempted_or_at_risk_claim": "Rely on plain gp check view to expose live stale-anchor debt after unrelated history changes.",
+      "failure_or_boundary": "Source records STALE-MODEL disappearing from default view after unrelated claim supersession, still visible under --history with historical label. Footer points to history: not literal silent deletion. No receipt ledger inspected or replayed here.",
+      "discovery_as_recorded": "Lane G staged supersession sequence then separate CLI reload, as recorded in result table.",
+      "disposition": "A18/X160 supply stale evidence/retired context decision reuse, but neither includes unrelated later supersession plus default-vs-history display. Candidate defect remains historical0.32 observation, not confirmed at frozen0.37.",
+      "scope_or_region": "N/A",
+      "reuse_candidates": [
+        "GP-A18",
+        "GP-X160"
+      ],
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_evidence": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "execution_status": "source observations only; not newly executed"
+    },
+    {
+      "id": "CQ-G03",
+      "title": "Free-parameter witness refusal exposes raw CAS parse error",
+      "kind": "GP mechanics diagnostic observation",
+      "dedup_key": "M7-finite-flex",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            112,
+            118
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            167,
+            173
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        }
+      ],
+      "attempted_or_at_risk_claim": "Obtain a useful semantic refusal explaining undeclared t in purported flex-family witness.",
+      "failure_or_boundary": "UNVERIFIED with Singular parse error; no false VERIFIED. Source suggests naming undeclared variable rather than surfacing raw error.",
+      "discovery_as_recorded": "Same M7 attempt as CQ-P08; no second mathematical episode.",
+      "disposition": "Diagnostic-quality proposal only. No exact corpus reuse selected for wording. No backend invoked in this pass.",
+      "scope_or_region": "N/A",
+      "reuse_candidates": [],
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_evidence": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "execution_status": "source observations only; not newly executed"
+    }
+  ],
+  "cost_context": {
+    "source": {
+      "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+      "lines": [
+        55,
+        56
+      ],
+      "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+    },
+    "reported": "Three Sonnet lanes approximately120k,120k,240k tokens; two intake stewards approximately100k,130k; Fable a few short turns.",
+    "allocation": "Approximately710k tokens across the wave, as a source-reported aggregate. Not attributable per proposal; actual wall-clock, incident cost and recovery cost unknown.",
+    "planned_caps": "CQ-PLAN8 core-hours per witness/candidate proposed, not runtime. M8's2.0 payload is a fixture work record."
+  },
+  "no_distinct_incident_dispositions": [
+    {
+      "item": "Lane D signatures and53 angle scan",
+      "source": {
+        "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+        "lines": [
+          8,
+          20
+        ],
+        "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+      },
+      "reason": "Recorded reconnaissance/calibration and seed-branch numerical roots, no newly proved family/graph/order exclusion. No solver run in this pass."
+    },
+    {
+      "item": "Gerbracht polynomial and Winkler4x4 checks",
+      "source": {
+        "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+        "lines": [
+          187,
+          246
+        ],
+        "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+      },
+      "reason": "Recorded transcription/compatibility controls. One coordinate polynomial is not full Harborth reconstruction; rank checks are not nonlinear closure. No error episode identified."
+    },
+    {
+      "item": "M3 selected root; M4 nonedge; degeneration controls",
+      "source": {
+        "path": "$DEV/math-research/campaigns/match4/packets/founding/CQ-PLAN.md",
+        "lines": [
+          142,
+          160
+        ],
+        "sha256": "b7bd2ef6f7f934855af47e8ccc0d37c314addc522f4003e56ad196cfb5acf080"
+      },
+      "reason": "Prewritten proposed positive/negative contract controls; Tier(c) deposit, not implemented by Lane G. No adverse actual verdict demonstrated."
+    },
+    {
+      "item": "Laman/degree/rational-coordinate/uniqueness advice",
+      "source": {
+        "path": "$DEV/math-research/campaigns/match4/packets/founding/cq-scouting.md",
+        "lines": [
+          361,
+          367
+        ],
+        "sha256": "22ef379cb247595c62740a539b2997d7276aa0733a7b228af32b5aea7a44fcaa"
+      },
+      "reason": "Conceptual corrections with no traced run or published wrong conclusion in this bounded record. Retain risk guidance; no fabricated independent incidents."
+    },
+    {
+      "item": "Custody and intake fixes",
+      "source": {
+        "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+        "lines": [
+          44,
+          54
+        ],
+        "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+      },
+      "reason": "Mailbox dirt, parser bullet-list requirements, stale blocked tempo and CRLF handling are process fixes. No mathematical contamination or wrong shipping established."
+    },
+    {
+      "item": "verdict schema promotion clauses",
+      "source": {
+        "path": "$DEV/math-research/campaigns/match4/verdicts/SCHEMA.md",
+        "lines": [
+          17,
+          23
+        ],
+        "sha256": "60d6ee65e0d2cde670985d2bccb8e9e430f77827801c2418febdd930ae76a8dc"
+      },
+      "reason": "Scope policy read and recorded, including a stated Whitney promotion with3-connectivity premise. This worker did not audit its sufficiency for geometric realizations; no blanket theorem endorsement or new incident finding."
+    }
+  ],
+  "custody": {
+    "formats": "Markdown scoped reports and schemas; JSON miniatures and construction records; hash-pinned immutable raw HTML/PDF fetch manifests; JSONL GP graph/work ledgers and verdict index; SHA256-addressed JSON artifacts.",
+    "receipt_contract": "Canonical sorted u<v LF adjacency SHA; cyclic ccw rotation/outer-face listing SHA; raw source version/hash/record index/branch; equations/guards/domain; selected-root f/interval; point/family/population quantifiers; evidence/verifier version; reviewed graph effect.",
+    "scope_policy": "PARAMETER_BOX, ASSEMBLY_BRANCH, CONSTRUCTION_FAMILY, PLANE_EMBEDDING, ABSTRACT_GRAPH, COMPLETE_VERTEX_ORDER; no numerical-failure verdict, no automatic linear hierarchy. Positive receipt may use POINT.",
+    "lane_graph_identity_reported": {
+      "gp": "0.32.0",
+      "source": {
+        "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+        "lines": [
+          9,
+          34
+        ],
+        "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+      },
+      "format": 7,
+      "epoch": 11,
+      "backend": "SingularBackend implementation4/protocol2; Singular4.2.1 under WSL",
+      "events": 43,
+      "prefix_sha256": "ed83e8f4164492f77ac0b87c93d5c0630f5caea25b7fe6b5704541b136db2927",
+      "limit": "Reported final identity, not independently folded or recomputed. Raw JSONL hash must not be confused with prefix digest.",
+      "gp_source_commit": "cca5b05d1d74df68d2fb8eb0e13429d3d6fe85ee"
+    },
+    "graph_fence": "Lane G separate graph; root empty by design per checkpoint. New campaign receipts effect NONE until binding/reach review. No campaign root proof inferred from miniatures.",
+    "selected_existing_paths_for_parent_private_harvest": [
+      {
+        "path": "$DEV/math-research/campaigns/match4/lanes/G/.portage/graph.jsonl",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/lanes/G/.portage/work.jsonl",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/lanes/G/.portage/artifacts/sha256/",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M1.json",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M2.json",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M5.json",
+        "status": "content read, SHA in source table"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M6.json",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M7.json",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M8.json",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/data/raw/MANIFEST.json",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/data/raw/mikematics_matchstick-graphs-calculator_2019-06-25.htm",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/data/graphs/calculator_records_2019-06-25.json",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/verdicts/INDEX.jsonl",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/results/inbox/p05-source-reads-v1.md",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/results/inbox/lane-g-tier-ab-v1.md",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/results/intake/2026-09-11-wave1-intake.md",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/results/intake/2026-09-11-wave1-intake-laneG.md",
+        "status": "path located by filename inventory; contents not read or harvested"
+      }
+    ],
+    "limits": "receipts inventory showed only SCHEMA.md. Verdict INDEX path exists; no claim about its entries. rg inventory does not list ignored PDFs; this pass does not assert current PDF presence/absence. Historical LSA PDF hashes in READS are not newly verified PDF bytes. Literature/scouting bundle sandbox links not fetched."
+  },
+  "necessary_remaining": [
+    "Parent decides A24 semantic clarification with Will; source guard control does not settle the current no-realization seed direction.",
+    "Parent integration determines which attributed corrections/probes merit admission. No new cases or routes were produced.",
+    "If parent needs current GP defect confirmation, inspect/fold exact Lane G custody and test the unrelated-supersession view under separately authorized frozen replay; this pass alone cannot establish it.",
+    "Primary evidence is required before turning Kurz/bibliography allegations into verified literature conclusions;2011 general-bound source and PDF figure symmetry remain source-recorded gaps. No automatic further audit."
+  ]
+}

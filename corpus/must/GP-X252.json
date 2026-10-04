@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "GP-X252",
+  "seed": null,
+  "title": "Variable slot cannot close the ring declaration",
+  "situation": "A program has named compiler slots; unchecked source in any slot can invalidate the intended ring and calculation.",
+  "inputs": {
+    "ring_name": "R",
+    "variables": [
+      "g0",
+      "x),dp; poly g0 = 1;//"
+    ],
+    "temporaries": [
+      {
+        "name": "I",
+        "type": "ideal",
+        "expression": "g0*x"
+      }
+    ],
+    "statements": [],
+    "requested_outputs": [
+      "I"
+    ]
+  },
+  "attempted_conclusion": "Accept this bounded program construction without introducing unchecked declarations or bypassing the identifier guard.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Variable slot cannot close the ring declaration"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 173,
+      "anchor": "def test_the_ring_line_cannot_be_closed_and_extended("
+    }
+  ]
+}

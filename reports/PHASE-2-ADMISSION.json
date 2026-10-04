@@ -1,0 +1,74 @@
+{
+  "schema": "gp-phase2-admission-review/v1",
+  "date": "2026-09-30",
+  "source_hashes": {
+    "phase2/lean/GP50/AdmissionProofs.lean": "fd954c14602191b78526403f7ebd664246cdfbc782c171484f0f6261cfd84c0c",
+    "phase2/lean/Tests/AdmissionProofs.lean": "55cc6903dcc9e1ccff96e817a66d3380092f5e005dee48e4d7188b94be1f1f7b",
+    "phase2/lean/GP50/BoundReplay.lean": "07256688ff9214e2f6643a4e0c2868246526eebc333223886dba447650298d3c",
+    "phase2/lean/GP50/BoundReplayProofs.lean": "5037e758415d99cf39efd9110e179891880bd019aaab576cdb56e91c72e381b6",
+    "phase2/lean/Tests/BoundReplay.lean": "2b42358f15f0a6f257ff18cfe3c5b0beafb17725d9b18a39521160be9be5495a",
+    "phase2/lean/GP50/Decoder.lean": "de8460f9839582d8df489266fe2e8306d327257520fb562262a995a337e0ea51",
+    "phase2/lean/GP50/SpanDecoder.lean": "305f075b39589ab92238ffefa1666f23f63ee62055ddaa61dc0c681d2e00913a",
+    "phase2/lean/GP50/Runner.lean": "ed591999cd8ad1fd25497b76bb6e207a775d5e9c5901b66f429cda054453fc52",
+    "phase2/lean/GP50.lean": "07634f5f885ea4acbba527749de748fdff0d4b9750d0198efd93177329038700",
+    "phase2/lean/lakefile.toml": "40e7267ea9ab7b3bd644b328e381694bac02e4523c1a42d4ed0bf2924000b386",
+    "tools/run-phase2-slice.py": "a618e28471cb60884c7e98910d0348bbcf22e8e2922e3421a041944661112088",
+    "tests/test_phase2_native_boundary.py": "20f98879dcddc73277abf7bce9a169df5516b44c2a3f3e3b7fb3791b023b9c45",
+    "tools/check-phase2-budget.py": "aab7c834a2845776dc6d41105d8f5b97e152852c685635c45c4dafa6b6fa75d7",
+    "tests/test_phase2_budget.py": "46f61fc6651b5bdc2c674b5807865e3b374f2076ac584399238079f33fc44ef4",
+    "reports/PHASE-2-SLICE.json": "c3c8aa22626d30034106aec72e74a39db202a09237d6c1a12df0dc23f560f46b"
+  },
+  "build": "lake build: 60 jobs passed",
+  "component_controls": {
+    "native_existing": 375,
+    "native_bound_replay": 60,
+    "total_native": 435,
+    "compiled_admission_proof_controls": 9,
+    "host_native_boundary_pytest": 15,
+    "budget_pytest": 5
+  },
+  "corpus": {
+    "executed_native_cases": 3,
+    "accepting_native_contrasts": 3,
+    "g2_pass": false
+  },
+  "independent_kernel_checks": {
+    "GP50.AdmissionProofs": 0,
+    "GP50.BoundReplayProofs": 0
+  },
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "worker_active_minutes": {
+    "AdmissionProofs": 12,
+    "BoundReplayProofs": 12
+  },
+  "legacy_preservation": {
+    "fresh_replay_count": 459,
+    "summary": {
+      "AGREES": 403,
+      "DIAGNOSTIC_OBSERVED": 4,
+      "KNOWN_DIFFERENCE": 14,
+      "UNSUPPORTED": 9,
+      "RETAINED_DIAGNOSTIC": 29
+    },
+    "scratch_replay_sha256": "e6c3b8651ae097625d6b5c425bec7b8a0ca95d678cc741eb1e5b469dacfc91f9",
+    "all_case_bytes_expectations_and_outcomes_preserved": true,
+    "immutable_latest_sha256": "0996858153e6f1fec40aad3fe1d71a70cff72b39972cd78937646818214be04d",
+    "oracle_pin_sha256": "180d920db790d5b5e318ce318b7b7e1467e6b11fd44e05e759e8b7cc7f4459db"
+  },
+  "guarantees": [
+    "actual runtime truth under validator and claim-projection contracts",
+    "receipt admission implies exact claim/version/binding and all-exponent rational span identity",
+    "unique registered clause meaning on acceptance"
+  ],
+  "open": [
+    "concrete fold-to-span semantic composition",
+    "whole-kernel heldSoundStatement",
+    "general event-set order theorem",
+    "remaining required slice behaviors",
+    "scope/rule/conflict/query implementation"
+  ]
+}

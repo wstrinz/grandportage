@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "GP-X119",
+  "seed": null,
+  "title": "An element may be both nonzero and nonunit",
+  "situation": "Minimal mathematical projection of the historical distinction; not a reconstruction of the campaign fixture. In Q[z]/(z^2-z), z maps to 1 at z=1 and to 0 at z=0.",
+  "inputs": {
+    "variables": [
+      "z"
+    ],
+    "generators": [
+      "z^2-z"
+    ],
+    "element": "z",
+    "annihilator": "z-1",
+    "cofactors": [
+      "1"
+    ],
+    "nonzero_point": {
+      "z": 1
+    },
+    "zero_point": {
+      "z": 0
+    }
+  },
+  "attempted_conclusion": "An element may be both nonzero and nonunit.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "In Q[z]/(z^2-z), z maps to 1 at z=1 and to 0 at z=0."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_b0_compatibility.py",
+      "line": 53,
+      "anchor": "def test_report_keeps_ring_class_separate_from_graph_and_geometry("
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+ "schema": "gp-phase2-section-integration/v1",
+ "date": "2026-10-01",
+ "parent_base_commit": "5f2e075a4584fa1f10d0dc3d3adcf69bae257e72",
+ "source_hashes": {
+  "STATUS.md": "d4692799c4f2af28464a40cd97f1cdfb854700958af00ab2c41963690a3a3f3a",
+  "TCB.md": "e5b28e6febf650a1e2318ab74501aa3c23a9bb0479a9f25194181b525b1a964a",
+  "phase2/lean/Tests/SectionProvenance.lean": "e054cd7a28ea09a5830c4f56ac342ced5ce2dc173e753790f1ab9953c518f3f3",
+  "tools/run-phase2-section-provenance.py": "76330b73a6cffbecbe5d10b4fa53c4a19d0fb2d3f5c63fc6c9307bdffc1caa58",
+  "tests/test_phase2_section_provenance.py": "d097d02dd3affcba0e645787e70b7943a558e008f002b4415698a4fe3cd14a3e",
+  "reports/PHASE-2-SECTION-PROVENANCE.json": "4018b5760ca66d91f2a2bd69e75b35ef37c3cc93bed33d82adbbc060180eee47",
+  "tools/run-phase2-slice.py": "d94f3aaea6114c60ce2bbf97f4dadbda43ef845eb1ce6542d9e9cc479e4d931b",
+  "reports/PHASE-2-SLICE.json": "92453e4dac8b88289a9dd37053f7f16284aab75105f6ab31e87f0466989610ed",
+  "reports/PHASE-2-SLICE.md": "82896066e89c3dcc320ecf364b73fcdb4e872203a325e5c146747cb4f9c9ed10",
+  "reports/PHASE-2-PROVENANCE-SLICE.json": "ee64e32176704d82d2afbefecaa3e68f07730996ec6efcf7a0d1a5accb9f594b",
+  "reports/PHASE-2-CHECKED-LIFECYCLE-SUPPLEMENT.json": "933f9b497be100efd7360eda970b8980189edf7dee7883be2f4df5594851ff48",
+  "reports/PHASE-2-MISSING-AUTHORITY.json": "43dd3a47a7655b53c85c3ff7ccd0d6e599e30a6a8eb73260eba29d21ce6475fc"
+ },
+ "author": "GPC directly (single-chat operation)",
+ "review": {
+  "family": "X173-X176 share pinned v0.37 tests/test_verdict_provenance.py lines 679-747 and one expected reason; X175 is the stored-certificate-binding case.",
+  "semantics": "A held section claim means its stored certificate is valid. The named hypothesis covers only the pinned certificate checked by verify.elimination_section, so the byte-binding check is required for soundness.",
+  "rejection": "A rejection is a separate current claim about a different proposal; it neither supplies nor retracts the section. Only an explicit targeted retraction removes support (contrast control).",
+  "scope_decision": "PolyStub is univariate and cannot check the bivariate substitution; no fixture supplies polynomial data and the layer tags assign authority to the binding/lifecycle contract, so arithmetic replay is out of scope (X175 profile duty concerns replacement certificates only).",
+  "verdicts": {
+   "GP-X173": "ACCEPT",
+   "GP-X174": "REFUSE",
+   "GP-X175": "REFUSE",
+   "GP-X176": "REFUSE"
+  },
+  "controls": {
+   "groebner_stamp": "REFUSE",
+   "rejected_verdict_stamp": "REFUSE",
+   "rejection_as_retraction": "REFUSE",
+   "success_only": "ACCEPT",
+   "rejected_before_success": "ACCEPT",
+   "missing_object_with_rejection": "REFUSE",
+   "mutated_object_with_rejection": "REFUSE",
+   "unknown_step": "MALFORMED",
+   "unknown_mutation": "MALFORMED",
+   "extra_input_field": "MALFORMED"
+  },
+  "section_arithmetic_replayed": false,
+  "production_profile_adoption": false
+ },
+ "counts": {
+  "previous_corpus_passes": 55,
+  "new_corpus_passes": 4,
+  "corpus_passes": 59,
+  "kernel_tagged_total": 79,
+  "remaining_kernel_cases": 20,
+  "new_corpus_cases": 0,
+  "fresh_corpus_folds": 16,
+  "separate_controls": 10,
+  "new_host_tests": 15,
+  "new_host_subtests": 32,
+  "fresh_prior_regression_tests": 229,
+  "fresh_prior_regression_subtests": 678,
+  "unchanged_retained_tests": 57,
+  "unchanged_retained_subtests": 147,
+  "total_current_test_coverage": 301,
+  "total_current_subtest_coverage": 857,
+  "new_audited_proof_declarations": 10
+ },
+ "validation": {
+  "new_suite": "15 passed, 32 subtests passed in 195.45s",
+  "prior_suite": "229 passed, 678 subtests passed in 219.32s",
+  "retained_suites": "Point, recorded-use, A27 and transport suites are byte-identical to 5f2e075; not re-executed.",
+  "build": {
+   "harness_sha256": "e054cd7a28ea09a5830c4f56ac342ced5ce2dc173e753790f1ab9953c518f3f3",
+   "olean_sha256": "f6e43745a5d553323985b29ee51082de8785710ad5c985be4ae3011f616b7b0b",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "compile_exit_code": 0,
+   "checker_exit_code": 0,
+   "kernel_checked": true,
+   "axiom_declarations": [
+    "bound_stores_checked",
+    "bound_section_sound",
+    "rejection_given",
+    "actual_base_sound",
+    "actual_validator_sound",
+    "actual_fold_held_sound",
+    "held_section_is_valid_stored",
+    "mutated_certificate_not_covered",
+    "missing_object_has_no_meaning",
+    "rejection_is_not_section"
+   ]
+  },
+  "legacy_preservation": {
+   "case_count": 459,
+   "summary": {
+    "AGREES": 403,
+    "DIAGNOSTIC_OBSERVED": 4,
+    "KNOWN_DIFFERENCE": 14,
+    "UNSUPPORTED": 9,
+    "RETAINED_DIAGNOSTIC": 29
+   },
+   "protected_count": 67,
+   "receipt_sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f"
+  }
+ },
+ "remaining_queue": {
+  "supplied-premise-authority": [
+   "GP-A01",
+   "GP-A08a",
+   "GP-A14",
+   "GP-X04",
+   "GP-X09",
+   "GP-X14",
+   "GP-X229",
+   "GP-X283",
+   "GP-X399",
+   "GP-X402",
+   "GP-X403",
+   "GP-X65"
+  ],
+  "native-event-lifecycle": [
+   "GP-X149",
+   "GP-X150",
+   "GP-X151",
+   "GP-X156",
+   "GP-X157",
+   "GP-X160",
+   "GP-X162",
+   "GP-X163"
+  ]
+ },
+ "g2_pass": false,
+ "public_push": false
+}

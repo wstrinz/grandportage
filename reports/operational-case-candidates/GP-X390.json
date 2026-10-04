@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "GP-X390",
+  "seed": null,
+  "title": "Operational 74.3: transcript postvalidation boundary",
+  "situation": "Two bounded Python subprocesses emit raw OK newline and O ff K newline byte strings.",
+  "inputs": {
+    "incident_row": "74.3",
+    "vector": {
+      "streams": [
+        {
+          "raw_bytes_hex": "4f4b0a",
+          "decoded": "OK\n"
+        },
+        {
+          "raw_bytes_hex": "4fff4b0a",
+          "decoded": "OK\n"
+        }
+      ],
+      "decoder": "UTF-8 ignore errors"
+    },
+    "retained_evidence_refs": [
+      "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/0",
+      "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/1"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Use decoded stdout text hash as distinct raw-output identity.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Distinct raw streams must remain distinguishable or decoding should refuse."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/cas.py",
+      "line": 963,
+      "anchor": "stdout = bytes(buffers[\"stdout\"]).decode(\"utf-8\", errors=\"ignore\")",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

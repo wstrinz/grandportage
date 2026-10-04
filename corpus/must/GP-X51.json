@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "GP-X51",
+  "seed": null,
+  "title": "Provenance may be forgotten in the forward direction",
+  "situation": "Conservatively models the actual-realizable locus as tighter than the relaxed summit locus until Lean makes the projection definitional.",
+  "inputs": {
+    "source_object": "Summit retaining pair and descent provenance",
+    "target_object": "Relaxed seven-coordinate summit point",
+    "information_lost": [
+      "originating covered pair",
+      "triangular descent witness",
+      "actual-realizability index"
+    ],
+    "source_context": "characteristic zero",
+    "claim": "NONEMPTY",
+    "direction": "ALONG",
+    "supplied_lift_warrant": null
+  },
+  "attempted_conclusion": "Conclude a relaxed summit point exists from a point with actual-source provenance.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "A point with actual-source provenance projects to the relaxed object; retaining provenance is not necessary for the weaker existence claim."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_formalization_transport.py",
+      "line": 52,
+      "anchor": "def test_actual_provenance_forgets_forward_but_cannot_be_recovered("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "fixtures/jc_formalization_transport/v0.json",
+      "line": 527,
+      "anchor": "\"id\": \"JC.ASSAY.A.FORWARD_FORGET\""
+    }
+  ]
+}

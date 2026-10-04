@@ -1,0 +1,2377 @@
+{
+  "schema_version": 1,
+  "purpose": "Phase 0a source coverage inventory, not extracted cases or oracle verdicts",
+  "source_repo": "$DEV/grand-portage",
+  "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "generated_at_utc": "2026-09-27T19:08:51.0891845Z",
+  "coverage_note": "Pinned tree only. Partial means source-pointed slices have been extracted, not that the whole file or all regressions have been reviewed. See REVIEW-COVERAGE.json for history and deleted-path gaps.",
+  "sources": [
+    {
+      "path": ".codex/config.toml",
+      "git_object": "fafc6ac9cbaf3547331915c00bd4b0a367bbe132",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": ".gitattributes",
+      "git_object": "022f8995e64b2b97eba6da84b1fed5915745d0ac",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "git_object": "7e67bcb095dd66a4744f53cbe34a42380f9c26da",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": ".gitignore",
+      "git_object": "c5ef3ef855f97f521826d9c72323d31020633890",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": ".mcp.json",
+      "git_object": "388878b768ad600a6223396976d2010622422d05",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "ADAPTER-CONTRACT.md",
+      "git_object": "59d1fdab364f580b5334fec88073d4202e87477c",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "git_object": "0266f5a9a30c9a66894ebb8c6bd7981dfa446b79",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "COMPATIBILITY.md",
+      "git_object": "1258be873405bf2d591588ae66f7e6e312fe380c",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "CURRENT.md",
+      "git_object": "910606ff611481f5c2083326d019d5dc0194c80a",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "DESIGN.md",
+      "git_object": "6ec47e6db00497d2b24472c7218b4e0be73084a6",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "DESIGN_DIRECTION.md",
+      "git_object": "582375b18c18ec233ca5f2fc76239814ed961196",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "EXPERIMENT-B.md",
+      "git_object": "2b9ee930028a8f4363c014c9363e489fbf6d24ed",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "HANDOFF.md",
+      "git_object": "49ccd50feaaf62af774e24bea033c03a66060a73",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "HISTORY/README.md",
+      "git_object": "9935dceabc880782e6409b276197c242f7768d7e",
+      "category": "history_documents",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "HISTORY/REVIEW-through-v0.18.md",
+      "git_object": "65cbd63a6df9274c903a5d30c76d8cd4aefc14bd",
+      "category": "history_documents",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "KILL-CRITERIA.md",
+      "git_object": "3b2568c65a5768c1e429ac7c6bf82d5e0e9edf2f",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "LICENSE",
+      "git_object": "407accdc20a0678311aef0b3669e77deed7d841e",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "OPERATION-CONTRACTS.md",
+      "git_object": "d809915ddacd09365a70dc59c2f2c8d6c473c24e",
+      "category": "documentation",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A22",
+        "GP-X25",
+        "GP-X26"
+      ]
+    },
+    {
+      "path": "QUICKSTART.md",
+      "git_object": "657e1c52013dff188f2debf421d05e29b368326e",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "README.md",
+      "git_object": "73456e324e4bd9b303eac34b3e8b2377ded745d6",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "REVIEW.md",
+      "git_object": "1b4f490dcbe861aa68547c320f843bb92704f177",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "SCOPE.md",
+      "git_object": "f99b6b4e568e44db90ce404a02c19e39d0f4fb10",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "SPEC.md",
+      "git_object": "e6d4fa1d813cf99f9af9e484485a214380eaff97",
+      "category": "documentation",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A15",
+        "GP-A22"
+      ]
+    },
+    {
+      "path": "TESTPLAN.md",
+      "git_object": "02d6fc9da205a79dac78a141c8b4866c31754d28",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "docs/ATLAS-FOLLOWUP-V1.md",
+      "git_object": "395399a639edd76a2d6aed7125a5a5eab066da31",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "docs/ATLAS-MAPPING-V0.md",
+      "git_object": "d301f77b2bc957017053fb1b10b1e58481759699",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "docs/ATLAS-WORK.md",
+      "git_object": "2073e3fc206f5ec357431c1ce4794970fb366d63",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "docs/CAMPAIGN-DOSSIER-V0.md",
+      "git_object": "8ba17d4048725aa193b0a6bff5fbf0b46b34fd2e",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "docs/CAMPAIGN-PUBLICATION-V0.md",
+      "git_object": "6c459cd30aad0169e4d862ad852838e7a93165dd",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "docs/CAMPAIGN-RELEASE-V0.md",
+      "git_object": "58d2a6a9ab9ac38c0fbf621e41dcdb4a1c559a04",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "docs/CERTIFICATE-INTERPRETER-V0.md",
+      "git_object": "9863a36f6e1724838aa792b6f1c28386b393bbbe",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "docs/EXPRESSION-TRANSPORT-V0.md",
+      "git_object": "e1d1814e3a186d4f7051b6ff01a8463d06aabc33",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "docs/FOUNDATIONS-PRIOR-ART.md",
+      "git_object": "a84f625a9c71357acaf6ed4d89d73ab9cefb0feb",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "docs/IR-V2-CORPUS-REPORT.md",
+      "git_object": "d8d8d49980f447d3d1fa58f7fd3f9045299b5fda",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "docs/IR-V2-PROJECTION-REPORT.md",
+      "git_object": "3b2309e32ce9f62467c288ebc86074bb2679e6ca",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "docs/IR-V2-TYPES.md",
+      "git_object": "ef0fcc3d9fd13b1cbe76bb4cf672fb572d418217",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "docs/OBSERVATION-AXIS-V0.md",
+      "git_object": "68e8081f23a1d89cf5b9db4e21d3eb3b7ddb9bd0",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "docs/PORTAGE-COMMAND-V0.md",
+      "git_object": "18f1ff6d646ffd392f93cb4146426b1fd4bd327a",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "docs/PRESERVATION-ATLAS-PROGRAM.md",
+      "git_object": "31b6110a96cbdfb380ebec7062d2123cdf9e33dd",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "docs/REQUIREMENT-PROFILES-V0.md",
+      "git_object": "01ea09cc9512117a72657fef65a9bd98aeaf9dfc",
+      "category": "documentation",
+      "review_status": "partial"
+    },
+    {
+      "path": "docs/V0.27-JC-EXTRACTION-INVENTORY.md",
+      "git_object": "71fa3f35771f00f9436a6e81b15f18795d90913a",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "docs/V0.27-READ-MODEL-LATTICE.md",
+      "git_object": "2f774740d4b7a3dacd3bbe34bdae713e3a4b8ca4",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "docs/VISUALIZATION.md",
+      "git_object": "c8aebd9d3af2b1ef0e1a8ceff814f2b9a04f22f7",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "docs/WORK.md",
+      "git_object": "2e80f5fde61b7aba56671f8ed6935902ed0c7fa1",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "docs/first-run/BRIEF.md",
+      "git_object": "f8cc20972df729365269f0f126adf7432f9ac6ff",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "docs/first-run/FINDINGS.md",
+      "git_object": "2858a190c0ed993d18d7b26315417113babbcc77",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "docs/first-run/STEP2_GAMMA_CHART.md",
+      "git_object": "cc5295b754c3f70bba8924e17e3ed881706fa9e4",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "docs/first-run/T2-SYNTHESIS.md",
+      "git_object": "d9859aef8997f7426de390f939fabc65824396a4",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "docs/first-run/T2-audit-content.md",
+      "git_object": "6d88a3a02dd32ae33e26343b928280ffbaa119c1",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "docs/first-run/T2-audit-direction.md",
+      "git_object": "5ff2195eb4928fea8c022e0c93651a76bc762ce1",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "docs/first-run/campaign-graph.jsonl",
+      "git_object": "5426397f306ecfdee8b185a6a25667db2eff3c79",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "docs/portagecommandconceptv2.md",
+      "git_object": "fb988049cf3319310ce459235b949d6fead0776a",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "examples/.mcp.json",
+      "git_object": "a87bf76b58e0ecd4a0275c5074645a33a9553613",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "examples/README.md",
+      "git_object": "d51ac1d3982cb27304a1a760d7825467282da9f5",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "examples/settings.json",
+      "git_object": "dfc64b7bf5a19f4a191e6b4b34c772130575551b",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "experiments/consolidation/README.md",
+      "git_object": "9f4446dbd8d7b5ea0e45bb5b86f6e22caf795eaa",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "experiments/consolidation/differential_affine.py",
+      "git_object": "8ea3a82bca471f466579ec460508fe9b6082c6c3",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "experiments/consolidation/merge_assay.py",
+      "git_object": "151d60e754be920b5d4fb0108d14384c224cc2d7",
+      "category": "other",
+      "review_status": "partial"
+    },
+    {
+      "path": "experiments/stacks_applicability/MCP-ASSAY.md",
+      "git_object": "e62ddd4dcbe1c30b9c3a267bb5fe972c6a967360",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "experiments/stacks_applicability/README.md",
+      "git_object": "385689a04d0b39024f16dbba60dbaa6505591614",
+      "category": "documentation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "experiments/stacks_applicability/__init__.py",
+      "git_object": "af17bcb2d5847cdac3a3c73fee73aa59c1671058",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "experiments/stacks_applicability/applications/synthetic_00IP.json",
+      "git_object": "97648bf1e796c62bd72956be74b984dbb51b3d56",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "experiments/stacks_applicability/sidecar.py",
+      "git_object": "22e9c39c611b64b308dbd3c2da236c4670617db2",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "experiments/stacks_applicability/theorem_shelf.json",
+      "git_object": "6996657da8a33a6f7d32c167b4e71b0ac4d5a3a9",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "fixtures/_port/gen_gamma_window.py",
+      "git_object": "92e33ddc1eb814d54d240496f015445b8094d154",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "fixtures/_port/gen_jc2.py",
+      "git_object": "f6392bcc8f55d8d7e5f3d4ae205da74162fe8575",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "fixtures/_port/gen_matroid.py",
+      "git_object": "d637834fda5021cc4ec5f5d148cda10b36e409ed",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "fixtures/algebraic_contracts/factor_power_affine_contradiction_v1.json",
+      "git_object": "f3b071f3220f4e3119eda706915e3f1a328efa88",
+      "category": "fixtures_examples",
+      "review_status": "partial",
+      "factor_review": "corpus/FACTOR-COMPOSITION-REVIEW.json"
+    },
+    {
+      "path": "fixtures/algebraic_contracts/factor_power_v1.json",
+      "git_object": "9d9873f10d1cf86052c55c79ad3af2baef006e05",
+      "category": "fixtures_examples",
+      "review_status": "partial",
+      "factor_review": "corpus/FACTOR-COMPOSITION-REVIEW.json"
+    },
+    {
+      "path": "fixtures/algebraic_contracts/localized_triangular_solve_chain_v1.json",
+      "git_object": "50a6a8496dbb945c7e23624599b6c5aedda8bc4b",
+      "category": "fixtures_examples",
+      "review_status": "partial"
+    },
+    {
+      "path": "fixtures/algebraic_contracts/localized_triangular_solve_chain_v2.json",
+      "git_object": "869e9c5df03192b813dba9437d4fc1f9e6dfa467",
+      "category": "fixtures_examples",
+      "review_status": "partial"
+    },
+    {
+      "path": "fixtures/algebraic_contracts/product_split_v1.json",
+      "git_object": "54f8d9e322bd868f91c7c3a3a14cd3dd381c170b",
+      "category": "fixtures_examples",
+      "review_status": "partial",
+      "product_split_review": "corpus/PRODUCT-SPLIT-REVIEW.json"
+    },
+    {
+      "path": "fixtures/arr15/n14-nondivfree-member-keys-v1.json",
+      "git_object": "3e878ef0af0109446a090b3ae0ead0569bbefa9e",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "fixtures/campaign/matroid/bundle.json",
+      "git_object": "d598eef6ee60c011992d46212ed26296e64b7d1c",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "fixtures/campaign/matroid/ledger.json",
+      "git_object": "ea3ec5c38fc10123f88d0e5f1ac068f3bb6217d6",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "fixtures/campaign/matroid/packets.json",
+      "git_object": "4fbc1ce8d6acdb3a3252b8494c3be847813bb8c1",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "fixtures/campaign/matroid/receipt.json",
+      "git_object": "f7376e5411cca0c6460c29129ddcf4417c003415",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "fixtures/campaign/matroid/tasks_v0.json",
+      "git_object": "a9553b0e6f06950c45e85b7f6fdb2bb893df26dc",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "fixtures/dossier/synthetic/authority.md",
+      "git_object": "3b5f70554c5f2a40136d203d439c01c138c28783",
+      "category": "fixtures_examples",
+      "review_status": "partial"
+    },
+    {
+      "path": "fixtures/dossier/synthetic/dossier.json",
+      "git_object": "906e3d9630867e28622e44e329abacbf7d2f0e8f",
+      "category": "fixtures_examples",
+      "review_status": "partial"
+    },
+    {
+      "path": "fixtures/dossier/synthetic/proof.txt",
+      "git_object": "45d5b01d22ccacbeeb64d2bae7954863c78f9a96",
+      "category": "fixtures_examples",
+      "review_status": "partial"
+    },
+    {
+      "path": "fixtures/dossier/synthetic/synthetic-receipt.json",
+      "git_object": "903c6fbcac6981af2dba81522520ecab5c21f459",
+      "category": "fixtures_examples",
+      "review_status": "partial"
+    },
+    {
+      "path": "fixtures/dossier/synthetic/verify_synthetic.py",
+      "git_object": "fc21342262443b2a8b29837023b60199787c045d",
+      "category": "fixtures_examples",
+      "review_status": "partial"
+    },
+    {
+      "path": "fixtures/frontier/synthetic/bundle.json",
+      "git_object": "9cc9e55585451bcb1127972e1ab5e24374208467",
+      "category": "fixtures_examples",
+      "review_status": "partial"
+    },
+    {
+      "path": "fixtures/frontier/synthetic/execution.json",
+      "git_object": "3a3dce8419dd1187a4f7679dcf5ab934a87e4824",
+      "category": "fixtures_examples",
+      "review_status": "partial"
+    },
+    {
+      "path": "fixtures/frontier/synthetic/planning.json",
+      "git_object": "d50a63a6a1832cce68f6b5043d9116636cf703f3",
+      "category": "fixtures_examples",
+      "review_status": "partial"
+    },
+    {
+      "path": "fixtures/gamma_window/graph.jsonl",
+      "git_object": "ec72e60854dad7007ae26e3dda67924a16462c93",
+      "category": "fixtures_examples",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A15"
+      ]
+    },
+    {
+      "path": "fixtures/jc2/expect.json",
+      "git_object": "b0108c4c4c233d7ee84e384f361199d1b6cabb96",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "fixtures/jc2/graph.jsonl",
+      "git_object": "c8d16f74d1927c03199fd3169a61e0fbadfb25a9",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "fixtures/matroid/expect.json",
+      "git_object": "72be008254dd9161778b8ddccc9955b7688ab751",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "fixtures/matroid/graph.jsonl",
+      "git_object": "1cebd2793362a8b767c89414a683175309a7f58f",
+      "category": "fixtures_examples",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "fixtures/release/synthetic/release.json",
+      "git_object": "7c2b9d743d5be3e0d5a790e767b62dc565d9f2f9",
+      "category": "fixtures_examples",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/__init__.py",
+      "git_object": "8368ae9a628779c3478c41cf67711c397f93ea28",
+      "category": "implementation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "grandportage/adapter_conformance.py",
+      "git_object": "1e032af6756194303315263692d59f058ea08391",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/artifacts.py",
+      "git_object": "ffad97a1c98a5c0b62b78538884eb5080b019f4c",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/authority.py",
+      "git_object": "67f25eed0009f1f3dc6e033eb3607985c81ae742",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/authority_registry.py",
+      "git_object": "55b7874311f09bdc2bd3f85d51a85c676748784a",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/backend.py",
+      "git_object": "f3f0979d111b4c530767aa173962699435479a07",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/campaign.py",
+      "git_object": "39d81e0dda09d70d416dde2997c7f7b27c871fd5",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/cas.py",
+      "git_object": "c1d0b2036c71fe13c09bb9ed1360e22825e84973",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/check.py",
+      "git_object": "e3b272e4c8562887c1f1e0d2fbb5fe401c68740e",
+      "category": "implementation",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A03a"
+      ]
+    },
+    {
+      "path": "grandportage/cli.py",
+      "git_object": "bcf8c4759a9eea0cf85b6302ab84c2a0d9968fe1",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/coefficient_expansion.py",
+      "git_object": "073c939ff14bd58e8b21f6c1d931e9618e610fc7",
+      "category": "implementation",
+      "review_status": "partial",
+      "coefficient_review": "corpus/COEFFICIENT-REVIEW.json"
+    },
+    {
+      "path": "grandportage/contracts.py",
+      "git_object": "bb0fed16061ac973777055698728ecb8b60de964",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/discharge.py",
+      "git_object": "0145494e519913cfbd839495b966cc09fee7bd55",
+      "category": "implementation",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-X03",
+        "GP-X08"
+      ]
+    },
+    {
+      "path": "grandportage/dossier.py",
+      "git_object": "6c74e12a67767013a38da0c9bf832c9fe9b240c6",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/evidence.py",
+      "git_object": "73dc07a27b73d80734f317ebe24f7d5e475fe750",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/explain.py",
+      "git_object": "7e5c7c31a20942332ee8bbbab4447ccdf8006543",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/factor_power.py",
+      "git_object": "5a5061db458b4d3f2620c3c7ff626d92d5773c55",
+      "category": "implementation",
+      "review_status": "partial",
+      "factor_review": "corpus/FACTOR-COMPOSITION-REVIEW.json"
+    },
+    {
+      "path": "grandportage/factor_power_contradiction.py",
+      "git_object": "ebcfb7a9c91898b05d6df711316794a9e049db5f",
+      "category": "implementation",
+      "review_status": "partial",
+      "factor_review": "corpus/FACTOR-COMPOSITION-REVIEW.json"
+    },
+    {
+      "path": "grandportage/field.py",
+      "git_object": "ecf9990495d337f3c491491bc78938898cb9b763",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/format.py",
+      "git_object": "a3f46a78ed24247e01cfe41d06b49c887a58cc00",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/frontier.py",
+      "git_object": "d5c42cdc3cee1da32b27a7d66f2e17dcd72ee3e8",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/frontier_bundle.py",
+      "git_object": "30f090a6cc586b90b263e7b42a957e30c5f68483",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/groebner.py",
+      "git_object": "d402fe57f3f911f3c111f4904e439e3de3afda37",
+      "category": "implementation",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-X15",
+        "GP-X16"
+      ],
+      "polynomial_review": "corpus/POLYNOMIAL-REVIEW.json"
+    },
+    {
+      "path": "grandportage/groebner_producer.py",
+      "git_object": "db0e82e578a1c42728d4736702abcbf84eae437b",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/hook.py",
+      "git_object": "332e601f4cff8ac6eb86c2af6683cbf03f9ce232",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/identity.py",
+      "git_object": "aca19c349f9476a434ed97149178b921a29ee4ae",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/kernel.py",
+      "git_object": "2daf77644e3fa2576903cc4b8601e666a64a1cb3",
+      "category": "implementation",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A02",
+        "GP-A04",
+        "GP-A07a",
+        "GP-A07b",
+        "GP-A16-covered",
+        "GP-A16-missing",
+        "GP-X04",
+        "GP-X05",
+        "GP-X06",
+        "GP-X09"
+      ]
+    },
+    {
+      "path": "grandportage/laurent_coefficient_pipeline.py",
+      "git_object": "1fcd3d0bc01fa48ebcecfd5cf8a7ee3a7318d975",
+      "category": "implementation",
+      "review_status": "partial",
+      "laurent_review": "corpus/LAURENT-PIPELINE-REVIEW.json"
+    },
+    {
+      "path": "grandportage/laurent_lowering.py",
+      "git_object": "fa6fe0737365707ae160845da8c29004c6431cb6",
+      "category": "implementation",
+      "review_status": "partial",
+      "laurent_review": "corpus/LAURENT-PIPELINE-REVIEW.json"
+    },
+    {
+      "path": "grandportage/localization.py",
+      "git_object": "79b29fb2edcea7122dc3e1566ad54c7b7b0c9b4b",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/mcp.py",
+      "git_object": "15ca03e704c92474df947db4015638ddb1b77439",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/migration.py",
+      "git_object": "03a3b6c370d1723b1b6c38cfc72faceebe085990",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/number_field.py",
+      "git_object": "31656714a1d01699659f93992b5e366f6b5b0815",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/operations.py",
+      "git_object": "44593e2e859282c16da36a6dfd770650638dbfa9",
+      "category": "implementation",
+      "review_status": "partial",
+      "product_split_review": "corpus/PRODUCT-SPLIT-REVIEW.json"
+    },
+    {
+      "path": "grandportage/ordered.py",
+      "git_object": "7429a7923b62cb406b7f1dd30f909d0653fb7c60",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/ordered_receipt.py",
+      "git_object": "ff7ff49cb3d31dcf187f6b1bd7b2d3effca53727",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/ordered_sos.py",
+      "git_object": "a6045b68fe8121eab509355d0377ea8c99a332ad",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/product_split.py",
+      "git_object": "ad9e37e73bcfc02332ae81693b316bc5f9b7372b",
+      "category": "implementation",
+      "review_status": "partial",
+      "product_split_review": "corpus/PRODUCT-SPLIT-REVIEW.json"
+    },
+    {
+      "path": "grandportage/project_v2.py",
+      "git_object": "c160e38b5684fec2f5be8e30a84b61721148f0e7",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/projection.py",
+      "git_object": "d2cdc69a8713aa779e263eecb7b7e00b95af1a85",
+      "category": "implementation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "grandportage/provenance.py",
+      "git_object": "3602e25a65327414cf2e5e41e6ef6bc8e2a3def1",
+      "category": "implementation",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A25b",
+        "GP-X46",
+        "GP-X47",
+        "GP-X48",
+        "GP-X49"
+      ]
+    },
+    {
+      "path": "grandportage/publication.py",
+      "git_object": "3c03b01c68dc7ae5efda467931f5bcba610d70e8",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/reference_oracle.py",
+      "git_object": "6e78192282931831d7b5007296c21d6585b7a1ca",
+      "category": "implementation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "grandportage/release.py",
+      "git_object": "e4e892a8dfd1bca8607f6ef32d2ddb33a43b4106",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/store.py",
+      "git_object": "7410b55e007316533e0ce697c5a43559211c3357",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/triangular.py",
+      "git_object": "53983d94636eb1391313f6e6b6c09ecc7b65e629",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "grandportage/verify.py",
+      "git_object": "cecc60df2e629d009ca83cc030c3ee43af09ecd5",
+      "category": "implementation",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A23",
+        "GP-X20",
+        "GP-X21"
+      ]
+    },
+    {
+      "path": "grandportage/visualization.py",
+      "git_object": "aeb9ad686ecf9ce07a05c4bb4c669a63c35dbb94",
+      "category": "implementation",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "grandportage/work.py",
+      "git_object": "3e7715c26d22ad17a2aa9b961c5f97c0ff859b2f",
+      "category": "implementation",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/.gitignore",
+      "git_object": "4080d07dfc31f2b8ff0a971431e329a34ae3674c",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/AtlasParity.lean",
+      "git_object": "53c0f05e3bf40cd73d482e1696dcf4b4f3efcd72",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage.lean",
+      "git_object": "a088c163e24ba044bcbd37f3db9150b1859857b3",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/GrandPortage/AffineCoordinate.lean",
+      "git_object": "ca5dcbf332d6818d8fba0624219b65caf368d114",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/GrandPortage/AffineFiberBlock.lean",
+      "git_object": "c5dcbb5b40611faec2893ad0f180f28953635b6f",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/GrandPortage/Atlas.lean",
+      "git_object": "ab3d8b4c812cacbaa4d1be123a8dd486b1fe7028",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/BackendTrust.lean",
+      "git_object": "ce8e9e937b94bef7e0419589edcbc1b7c805e28e",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/CancellationInterpreter.lean",
+      "git_object": "0b68862bb3d71fcfc4a6527fef429bb35fd5269a",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/CertificateInterpreter.lean",
+      "git_object": "1a658a00b92090ad7a8a0c8b046ed01a26b2784e",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/CertificateScope.lean",
+      "git_object": "94306aaf29cbcd1eca23a0c34ed1af3c0cc0be83",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/CoefficientExpansion.lean",
+      "git_object": "8dd388504019fb240c6f5599cb6c9644dfda62b9",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/GrandPortage/Conditions.lean",
+      "git_object": "fde6a3bd813fb99b6422d620a3cfd0ea01c1669c",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/GrandPortage/Exhaustive.lean",
+      "git_object": "84050b2b7619432793561a2ebb7c59d74dba27f1",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/ExplainChecks.lean",
+      "git_object": "983b412853fbf0d16a8e38817c7501f0eb30e7bc",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/ExpressionTransport.lean",
+      "git_object": "bb716987183a50ec961137426a6e68cad7140bc2",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/FactorPower.lean",
+      "git_object": "ccfc6eb7c38e13106accfdeab5b2bf55b611a696",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/GrandPortage/FirstOrderFiber.lean",
+      "git_object": "db6d81152a3db9c0d83e7da53797fb92cc608346",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/GrandPortage/GradedFaceExtraction.lean",
+      "git_object": "a0f4f47b48c178e3f1216f01c07e85c362c3efb7",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/GrandPortage/IR.lean",
+      "git_object": "748c8681b666af77747ef4940df96826bc4d5989",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/IRChecks.lean",
+      "git_object": "3f656c7db7ba2b4862dba1bbfafefb219c5e354e",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/Identity.lean",
+      "git_object": "4a1d3b749f0389a908742e52a440b359027ae613",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/ImageClosure.lean",
+      "git_object": "36d1128af078f83fb69dbca4521003422fc1187f",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/JCDm4Valuation.lean",
+      "git_object": "2ca616b2ef8d5b0e0112f49824bd764e0b03880a",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/GrandPortage/LaurentLowering.lean",
+      "git_object": "5740f24a1991ab1afb579d8797f04299cf3c4eac",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/GrandPortage/Localization.lean",
+      "git_object": "50e836ca634ba5f64cb2ee494661e619c5ead4ca",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/MappedEquivalence.lean",
+      "git_object": "39aab61cdf3414edb2ad68c1da5a56a8d754e616",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/OperationContract.lean",
+      "git_object": "c805f85ff1288553f855daf072695578afebde2d",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/ParametricRecurrence.lean",
+      "git_object": "a625c894ed675255753b735a09bfdc01c78506a3",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/GrandPortage/PartitionContract.lean",
+      "git_object": "270a429adb439a0007b3b56442eb5afefdda0bdb",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/Points.lean",
+      "git_object": "30727aa1422009bf33c83b35e47da48233f7c754",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/ProductSplit.lean",
+      "git_object": "4d03a2879e73450d9d593a7de4d3376ccc43c973",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/GrandPortage/RelationalTransport.lean",
+      "git_object": "dec61fa2820f6e8cd4a0911dc7a6b3c971a52c91",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/RequirementChecks.lean",
+      "git_object": "6620341027fcd76307e67ad324e2f6ddf840ae4a",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/RingElementClass.lean",
+      "git_object": "2e5184e9ba085236ca7fbaab2f9c0245cab1b984",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/GrandPortage/SelectedEmbedding.lean",
+      "git_object": "c78b740de5888c80e99a40f88d914f9f83dc5cb1",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/SemanticLoss.lean",
+      "git_object": "5cab0eb52e287cf0cd574bd861ef5e3437bf0fb3",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/TargetDischarge.lean",
+      "git_object": "aaedfb583799b73feba09a7a0604df67f2422dce",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/TriangularChain.lean",
+      "git_object": "15c53c1a25a59aac552dca9bd193518a09329627",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/GrandPortage/UnitInterpreter.lean",
+      "git_object": "ce562d2e9933937cbd98bf8dcdfe33d0ab290125",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/InterpreterParity.lean",
+      "git_object": "06301024f4abf3a4d559035bb6ca18b4c1c58926",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/README.md",
+      "git_object": "a138434af20dba2b101d13e595416c7f3e79b625",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/THEORY.md",
+      "git_object": "71b10aa5273bf625ba912f107f7b2f5238aa96e0",
+      "category": "lean_theory",
+      "review_status": "partial"
+    },
+    {
+      "path": "lean/lake-manifest.json",
+      "git_object": "17c172458552dad2658701f9fd5b4a62bbfaba31",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/lakefile.toml",
+      "git_object": "f7e9b4dffb9c903235f455b98ea1d9d883c61ea1",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "lean/lean-toolchain",
+      "git_object": "2b61957be5f4986fcc464cb4f62322f2d6ca3dfc",
+      "category": "lean_theory",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "public-snapshot-v1.json",
+      "git_object": "3062bc77163a3cd2c68c7bd6b3ca2dcaa95c08cb",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "pyproject.toml",
+      "git_object": "d355b570051c6c74c461f7d75847da9aa0485754",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/LSEM-COLD-RETEST-PACKET-2026-08-03.md",
+      "git_object": "ffef34f41a7cb5d64121974d94cfabf9775d4a15",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/ir-v2-projection/README.md",
+      "git_object": "aa080dbd2d1def41ac5685f53672245bdd5d639c",
+      "category": "release_review",
+      "review_status": "partial"
+    },
+    {
+      "path": "review/ir-v2-projection/index.json",
+      "git_object": "ecbe47b6a4c01b98128fa8f250e6d862a51102ed",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.18/README.md",
+      "git_object": "aa1f6ee8494350cc39660d595f3bd474e64c52a7",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.18/SHA256SUMS",
+      "git_object": "689963616f8d8e535a7e571d18f4267abdb9e735",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.18/jc2-explorer.html",
+      "git_object": "d6f455c2b2da9a94412a7b0cdb99fa9e8136eb05",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.18/jc2.projection.json",
+      "git_object": "86c43de14b74f52c15ccc7711b2ab9b5b1a6566d",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.19/README.md",
+      "git_object": "f2f6774204d501a508357b24f3ddeb25c8aa69be",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.19/SHA256SUMS",
+      "git_object": "ada6529a06aa32ad928fb0256f8dadde98112f13",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.19/differential-affine-internal.json",
+      "git_object": "da39c865034c78b74a91ffaec207eaf59dd8740f",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.19/differential-affine-singular.json",
+      "git_object": "7d55fd94c965215cd65273153f148382c9d753e2",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.19/evidence-manifest.json",
+      "git_object": "12d9eb99d5dedfa8828f4214e0112b141b687d4f",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.19/merge-assay.json",
+      "git_object": "678e36b9f83dfbf54b92f6d26090fb2d42e55ad5",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.20/README.md",
+      "git_object": "4ba256f0e5912faf7d44a01436334463f41c04c1",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.20/SHA256SUMS",
+      "git_object": "78a8be5a4f735a918282183ede09eb0116217457",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.20/evidence-manifest.json",
+      "git_object": "b823161648e24ea455f765200850254290ae2ee5",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.20/second-face-explorer.html",
+      "git_object": "a3f34479481281fba8993e2dbc96c6254e6344dc",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.20/second-face.projection.json",
+      "git_object": "aac0d7ed5364c2fc8e9944b09d4abc81d4c37bb3",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.20/top-face-explorer.html",
+      "git_object": "091ea7b167a42a7226530fd81233ed313272052a",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.20/top-face.projection.json",
+      "git_object": "a646b945898ad783313d14616e1908c723a964ce",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.21/README.md",
+      "git_object": "2c942ce5de734e366a2260ab4ba4456f7a523484",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.21/SHA256SUMS",
+      "git_object": "f421948172b070a5b5fba3d7545a91366d1aa7e8",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.21/evidence-manifest.json",
+      "git_object": "b823161648e24ea455f765200850254290ae2ee5",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.22/README.md",
+      "git_object": "77a376597dd5c47c1280b52060733818c4fe3402",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.22/SHA256SUMS",
+      "git_object": "2d0c5f45689670241582a1ef24088624bf55b972",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.22/evidence-manifest.json",
+      "git_object": "323d4157b9cfb57885f68cc0300053b746592656",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.23/README.md",
+      "git_object": "ba85b32b93d4ea6e8930ba8897451a17132386ff",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.23/SHA256SUMS",
+      "git_object": "7ccedc688826acb1696977f40f760ae068edaacb",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.24/README.md",
+      "git_object": "85b11a272ac5ff46cf1d280248eed3cf9890480f",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.24/SHA256SUMS",
+      "git_object": "05920b07991131f77b0efddde1dd1999f2050bba",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.25/README.md",
+      "git_object": "a85b4dd24767733a151cd1c05219a65c29d5d641",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.26/README.md",
+      "git_object": "3f83c291a9c85b75fd1adccd7724e71c396a919b",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.27/README.md",
+      "git_object": "5fae5622625827cdc86234f5b035ad84109f09e2",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.28/README.md",
+      "git_object": "8ab0bf47d47bc40c5e81ea79897f56e00f73707e",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.28/arr15-current-graph.projection.json",
+      "git_object": "cba539cc301019eead4eee0dffaedceccbaf48ff",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.28/arr15-projection-dogfood.md",
+      "git_object": "f5b7142ce553c119528be4d61705461fe60e36fe",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.28/cold-trial-failure-matrix.md",
+      "git_object": "5f1d0b57129c83a5af024ae7fc7cad8b1584232f",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.28/cold-trial-report.md",
+      "git_object": "86b08182db6bcbb3edc117fc8652346c65a521ba",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.29/README.md",
+      "git_object": "de0af429dc8d25265a7a785478a2c6360a00a5e7",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.30/COMPATIBILITY-ASSAY.md",
+      "git_object": "b63e634972fe88ec81ad6c752554bb6e86877981",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.30/README.md",
+      "git_object": "1176cede7f83f8e2f24a9151b59ec3d29207b7e5",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.30/field-scope-validation-v1/POSTMORTEM.md",
+      "git_object": "4fe09ce291e90bb86bc29220a72379943fec8ef9",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.31.1/README.md",
+      "git_object": "f4c70dd1a3be778bae98a0697c05f1e9aa3f71fb",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.31.2/README.md",
+      "git_object": "be38fb08b3c0dcbca37cf4f8689da34830c6b48e",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.31/README.md",
+      "git_object": "59894699e6e13f1d892546708be74b391c046def",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.32-preflight/README.md",
+      "git_object": "4b9f653a1b86fe42168ed5acf087d7a45ab6bf1b",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.32-preflight/history-baseline.txt",
+      "git_object": "12ce07e368793eb471cb9d187b52366728dde3d1",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.32-preflight/observations-live.json",
+      "git_object": "2012eaa7c2507198f0d42775f542a5ffd0c8bef0",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.32-preflight/observations.json",
+      "git_object": "d9392c9c0aa9bcb8c50bcb5573753ed2206a513f",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.32-preflight/probe.py",
+      "git_object": "1df99bd01b9946c2d8b117aa2de163effefc2098",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.32-preflight/source-manifest.json",
+      "git_object": "0c4991ea123dfadd80857a6caed21ce1bacc3fe9",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.32-preflight/validation.txt",
+      "git_object": "69745347928038c5b79a57e3ed9ee27ce9d092f2",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.32/README.md",
+      "git_object": "362c76146effaa07509f366241eb1d7068f922ae",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.32/SOL-HANDOFF.md",
+      "git_object": "4482451b5dd543c020a2a79adfb2176be9353883",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.32/guard-replay.json",
+      "git_object": "4265742e2f69768ba0bce568c9747c81ff80354c",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.32/observations.json",
+      "git_object": "74a62fd6ddaac96d5c0edcf9c2e4e13b869d58dc",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.32/validation.txt",
+      "git_object": "ac96340725d84aa1ea7fc46019d3aa02c1b69693",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.33/README.md",
+      "git_object": "eaef720f79d24d9381fb1eedfa2eac2a4f7d223d",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.33/validation.txt",
+      "git_object": "7ad66bdf4577c2c742554b4260b8a6eef681d6a3",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.34-preflight/README.md",
+      "git_object": "bf750500dbe27b6453329defb58b1800c81dcd5f",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.34-preflight/SEAM.md",
+      "git_object": "ea3caed41683202d0139103f02a6436e2d04a8c8",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.34/README.md",
+      "git_object": "b9331b11debab88614c53360ec2dc7b69a308dba",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.34/validation.txt",
+      "git_object": "ed0d43a0e45d9e171e56cfeba0469673a06dd0f1",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.35/README.md",
+      "git_object": "dd3c422fbc234fa688a10883a266e2388e2b1a3d",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.35/validation.txt",
+      "git_object": "d4a430f561d6e48eaa9722054c790a528b896fe8",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.36/README.md",
+      "git_object": "c630894573e4585f53fe4ae7598bf952678e2121",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.36/hosted-validation.json",
+      "git_object": "44fe7b6a5cd90935d4fcd40b4c3d0722c2ee32e8",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.36/validation.txt",
+      "git_object": "31bd5b44d7a7dfedf192d76d71e57498f8b0b648",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "review/v0.37/README.md",
+      "git_object": "77cba5d165208b368cc4699de738a752b6d21efb",
+      "category": "release_review",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "scripts/atlas_requirements.py",
+      "git_object": "2a3b897009d2f6ddf135d60f7e77c92a31c32ec1",
+      "category": "other",
+      "review_status": "partial"
+    },
+    {
+      "path": "scripts/build_jc_replay_resources.py",
+      "git_object": "9ffa198cbbb5b397b5e9dd40d94f131293b11963",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "scripts/build_synthetic_triangular_fixtures.py",
+      "git_object": "7667985cc8aa93d4f390c851ec32c7bc49e400d9",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "scripts/check_atlas_parity.py",
+      "git_object": "8207599a0b973aebbd88954fd5ed1d3be32361e0",
+      "category": "other",
+      "review_status": "partial"
+    },
+    {
+      "path": "scripts/check_interpreter_parity.py",
+      "git_object": "b45d4368a8bbd506d6fed283c2cff8f24218ca49",
+      "category": "other",
+      "review_status": "partial"
+    },
+    {
+      "path": "scripts/compact_review_projection.py",
+      "git_object": "ab98f48be7449708b17094e2286315b61c29562e",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "scripts/corpus_check.py",
+      "git_object": "ea6280ce686773dc0df6e31086a6a5482c144f43",
+      "category": "other",
+      "review_status": "partial"
+    },
+    {
+      "path": "scripts/project_ir_corpus.py",
+      "git_object": "ce1d3b47c600f512cfba0709d56458e71eb748a5",
+      "category": "other",
+      "review_status": "partial"
+    },
+    {
+      "path": "scripts/public_snapshot.py",
+      "git_object": "59a3f13913fbe45ac600b4f522a805a993dd461b",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "scripts/replay_guard_fixtures.py",
+      "git_object": "a7bee0fbbded5c35c86db890d78e2768cf7e5cbe",
+      "category": "other",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/conftest.py",
+      "git_object": "e356f79cf24850300eb39d5548fed49db93fbbd5",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/arr15/README.md",
+      "git_object": "39aeeb40bfaa4cd0ba71c2b713eaac42d131a007",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/arr15/class_12909_open_witness.json",
+      "git_object": "4ba3da51163962495f2eb1c04cb534dbc70fdc6e",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/arr15/class_4102.json",
+      "git_object": "9cce898106240736ecf64b7919efc4b9ac9e9ce9",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/atlas/ordered_certificate.json",
+      "git_object": "a8b12ad7dbfc15dc3704bd3a17b981001486a3f1",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/README.md",
+      "git_object": "e8f30fb8eb5c2a13bda8b10888bd74ec85a1d841",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D1-inference-on-family-claim/expected.txt",
+      "git_object": "87c7e4750dfb9620b32d393e5badb66bf9f7f284",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D1-inference-on-family-claim/input.json",
+      "git_object": "2e7b3dd59d17bb79110e60e0ffa5601fa22f8b1b",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D2-witness-substitution-scaling/expected-fail-97vars.txt",
+      "git_object": "27f27f2cec486232baaed46f5986088d6694bc6a",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D2-witness-substitution-scaling/expected-pass-96vars.txt",
+      "git_object": "455675ffd6356d5addd410ad9e9a38537b300287",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D2-witness-substitution-scaling/fail-97vars.json",
+      "git_object": "2a4d129b4fa63c491f3826412a7123097bce3ea3",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D2-witness-substitution-scaling/pass-96vars.json",
+      "git_object": "ca3e0bf2fd45776fc90ae42c632111429e405fde",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D3-inert-disposition/after.json",
+      "git_object": "e613ff4353aea73dd17465afb08125020db7d420",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D3-inert-disposition/before.json",
+      "git_object": "10de7dd8d388b404f08ae1f559613e005b06a842",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D3-inert-disposition/expected-after.txt",
+      "git_object": "57c1eadd2e31b66b4a670562950a3e0e27da70b6",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D3-inert-disposition/expected-before.txt",
+      "git_object": "09ca96564fd5d34b455f1240949ce0862fe3cd8d",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/ledger/expected-check.txt",
+      "git_object": "47b1d406e419df8198eeeb17db46c92924412dd6",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/ledger/expected-history.txt",
+      "git_object": "12ce07e368793eb471cb9d187b52366728dde3d1",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/ledger/graph.jsonl",
+      "git_object": "b0b061196fc00e8609ba2092147e4368e5e14001",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/manifest.json",
+      "git_object": "11bd6b39072b715b8b86588f878b17d9254caa97",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/transports/X8-X10.json",
+      "git_object": "39d45e0d6567294c81309f1472c084562487bc2e",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/transports/verbatim-v0.31.2.md",
+      "git_object": "edec431ef0b561222f50b0adee07c772da6f1c51",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/fixtures/reference_oracle/corpus_v1.json",
+      "git_object": "cb3e2b718b6f8f21bfa5cc129ab97af68612ed05",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/helpers.py",
+      "git_object": "4fe271af51aebbe2aa05fb3e293c30e4576f6fed",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_adapter_conformance.py",
+      "git_object": "2911746efcabd91efb084fe100fca2ed456f0e7a",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_adversarial.py",
+      "git_object": "e9ab041bf75ba3f47d6c753d8e87dbc495266b8b",
+      "category": "tests",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A05",
+        "GP-A06",
+        "GP-A09",
+        "GP-A17",
+        "GP-X10",
+        "GP-X11",
+        "GP-X12"
+      ]
+    },
+    {
+      "path": "tests/test_affine_coordinate.py",
+      "git_object": "dc4150c2de86e4eabfc8ad0a736f0c64d29f25a1",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_architecture.py",
+      "git_object": "9efa4a35b699c05ff8a1cab13d5cbf068d2753f8",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_arr15_contract_closure.py",
+      "git_object": "f84c0706130f9a9e3cc4f0edf1c24e39c0f37b20",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_arr15_post_focus_hardening.py",
+      "git_object": "f38952965cdfb86697a4633784257ecd428b2f4f",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_arr15_product_surface.py",
+      "git_object": "7872ef558bef5b77fa278c10f1e21608535087fd",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_arr15_rc_refresh.py",
+      "git_object": "27ee00f8c542c6f7b0547c66994b4af60ae03d64",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_artifacts.py",
+      "git_object": "2fb9e2d926e762da832b4debe6aa758f94958846",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_atlas.py",
+      "git_object": "46f6f4eac34f13da5918bbec11fd56bd03b6aec8",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_atlas_requirements.py",
+      "git_object": "89e0b1c37d259fa6aca5b8c5c3c7fedd0f1606f9",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_authority_binding.py",
+      "git_object": "23a206ad0ef69908d7e220ca5565179084c7b04e",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_authority_registry.py",
+      "git_object": "f2a8a64577852f24a69ece2a714256b0b2e9b5aa",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_backend.py",
+      "git_object": "8f270055c4283e4bc1163e3aaa1e0270f90ab106",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_boundary.py",
+      "git_object": "17503596895930740013879ce857d2a278b43472",
+      "category": "tests",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A19",
+        "GP-C04",
+        "GP-X15",
+        "GP-X16"
+      ]
+    },
+    {
+      "path": "tests/test_campaign.py",
+      "git_object": "0aa11d8906448a6a488267f2608bacb621e61f8a",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_cancellation_interpreter.py",
+      "git_object": "9bd3985933719bf6dd1c11cf077b3e02f3e92a6c",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_cell_ledger.py",
+      "git_object": "f7b16dd8333ada0ab68192bd7b73b949bcbe716e",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_certificate_composition.py",
+      "git_object": "5e99131b7f64141c2b9262f129bff4b7b9e49610",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_coefficient_expansion.py",
+      "git_object": "05d3458892c7349fbe5fdfa46c850b9968e7ec05",
+      "category": "tests",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A22",
+        "GP-X27",
+        "GP-X28",
+        "GP-X29",
+        "GP-X30",
+        "GP-X31",
+        "GP-X32",
+        "GP-X33",
+        "GP-X34"
+      ],
+      "coefficient_review": "corpus/COEFFICIENT-REVIEW.json"
+    },
+    {
+      "path": "tests/test_compact_review_projection.py",
+      "git_object": "68742fd3856e2aa4316644bef039c908c2dcf6aa",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_contracts.py",
+      "git_object": "33ca0201746582b601d7f9e2f3b3d14b4782a3cc",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_corpus_check.py",
+      "git_object": "2d506794d5f9fb4113abd5d56a48cd0baeee1b27",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_declare_target.py",
+      "git_object": "df5f49ffc65a17a357357e1e892e01e10603c0fe",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_differential_affine.py",
+      "git_object": "11b65f3367c4d2bb8d4040c0cb71a55deed03f91",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_dossier.py",
+      "git_object": "9247c9118f5e46e04ca4f2e72423f151af79e2ae",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_embedding_semantics.py",
+      "git_object": "53cd4cf08c42dea445779eb24630ee746cd47cc6",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_empty_scope_anchor.py",
+      "git_object": "148ca3ecb68d17dc37cb34561d36cc40a0f74bec",
+      "category": "tests",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-X13",
+        "GP-X14"
+      ]
+    },
+    {
+      "path": "tests/test_epoch12_contract.py",
+      "git_object": "ab7c4894f038504418636f7a3285e7df57f048d8",
+      "category": "tests",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A10-C",
+        "GP-A10-Q",
+        "GP-A10-R",
+        "GP-X01",
+        "GP-X02"
+      ]
+    },
+    {
+      "path": "tests/test_evidence.py",
+      "git_object": "dd4f933f42a7e0771802bee9dde3e1a9629309a2",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_explain.py",
+      "git_object": "f77c7636ed45b50079f3b4696f25ca787e7d8f35",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_factor_power.py",
+      "git_object": "132b13f1880d8e4b519cda90e7d00e1ebac4cebe",
+      "category": "tests",
+      "review_status": "partial",
+      "factor_review": "corpus/FACTOR-COMPOSITION-REVIEW.json"
+    },
+    {
+      "path": "tests/test_factor_power_contradiction.py",
+      "git_object": "57a75416df65a022f4eaa0464bd11004bfbba911",
+      "category": "tests",
+      "review_status": "partial",
+      "factor_review": "corpus/FACTOR-COMPOSITION-REVIEW.json"
+    },
+    {
+      "path": "tests/test_family_retrodiction.py",
+      "git_object": "51e30415685b473741f20d4aa0156e3b6ee3974d",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_field_scope_validation.py",
+      "git_object": "3d25cafcb33a28962e3a9aaff8cbc6d708991001",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_format_epoch.py",
+      "git_object": "d2c2a18b093e2218e4f821cc315623ea03411919",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_frontier.py",
+      "git_object": "98021554896d66a65ee068d9d28e88ab3ca00fde",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_frontier_bundle.py",
+      "git_object": "4c0c6c99c9ffbca50ff6c6557f2191d6003c6818",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_groebner.py",
+      "git_object": "c8f4882d0a4e09151fc8c586c4a6d89c4848a042",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_groebner_producer.py",
+      "git_object": "dcbfcca14dc18f6033f40031f4f98acf14fe7fe0",
+      "category": "tests",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A22",
+        "GP-X25",
+        "GP-X26"
+      ]
+    },
+    {
+      "path": "tests/test_guard_release.py",
+      "git_object": "9649f00f92dec680b163299692c07e5391c997cb",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_identity_surface.py",
+      "git_object": "3efa65c9a5c1c2a8e6beb520532bf5da20d4ea3c",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_inband_identity.py",
+      "git_object": "f827e187508fff6cb9491062ce98698616736a74",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_kernel.py",
+      "git_object": "7ab088ebad9c19724cc668b83f5a29c37ed22971",
+      "category": "tests",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A01",
+        "GP-A03b",
+        "GP-A08a",
+        "GP-A08b",
+        "GP-A08c",
+        "GP-A11a",
+        "GP-A11b",
+        "GP-A12",
+        "GP-A13-ambient",
+        "GP-A13-derived",
+        "GP-A26",
+        "GP-C01",
+        "GP-C02",
+        "GP-X07"
+      ]
+    },
+    {
+      "path": "tests/test_large_model_containment.py",
+      "git_object": "558f50df70356484d4afbe0dc5c4c4e13064aa2b",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_laurent_lowering.py",
+      "git_object": "dfa5600e8d6b9a8a378cc5a79bdca5f6c220e8e6",
+      "category": "tests",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A21"
+      ],
+      "laurent_review": "corpus/LAURENT-PIPELINE-REVIEW.json"
+    },
+    {
+      "path": "tests/test_live_front.py",
+      "git_object": "50a1ac0388dfac3a80aa87668f14f14a6d667b47",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_localization.py",
+      "git_object": "aeb53e3973e4cf700da3bf2fda4094652f57da11",
+      "category": "tests",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-X17",
+        "GP-X18",
+        "GP-X19"
+      ]
+    },
+    {
+      "path": "tests/test_match4_hardening.py",
+      "git_object": "b2d99cda1da1cb2350512fdc9de12300b1ea7e8d",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_mcp.py",
+      "git_object": "2e2db0b844c04fd9b23581d8207afe76727b55cd",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_merge_assay.py",
+      "git_object": "5af368fd9fa036b3d72070e287f3242e31dd139b",
+      "category": "tests",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A25b"
+      ]
+    },
+    {
+      "path": "tests/test_mutations.py",
+      "git_object": "d671094a5036c4f22f3fc0d6010da807bd22e7b8",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_number_field_witness.py",
+      "git_object": "a35606be2a194141beecf0bf57f99a2506dcf38f",
+      "category": "tests",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-X22",
+        "GP-X23",
+        "GP-X24",
+        "GP-X45",
+        "GP-X46",
+        "GP-X47",
+        "GP-X48",
+        "GP-X49",
+        "GP-X50"
+      ]
+    },
+    {
+      "path": "tests/test_operations.py",
+      "git_object": "fbef59dd8b047801bb3a9d7e0a51a90c02598541",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_ordered_real_semantics.py",
+      "git_object": "eebaa1675b971d1f6cf6d79824a48564bde8a13d",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_point_lift.py",
+      "git_object": "2c565651cfa0f6517d457009f81529065961b58c",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_predicate_lint.py",
+      "git_object": "9031925e5d9cab7bb9474bbbfea8586f4bf8edfd",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_product_partition.py",
+      "git_object": "04d8c99a2706318b22bb7064257dfb128b2659c9",
+      "category": "tests",
+      "review_status": "partial",
+      "product_split_review": "corpus/PRODUCT-SPLIT-REVIEW.json"
+    },
+    {
+      "path": "tests/test_product_split.py",
+      "git_object": "39235c6d741056d17641a7f1eb336bac20cf5846",
+      "category": "tests",
+      "review_status": "partial",
+      "product_split_review": "corpus/PRODUCT-SPLIT-REVIEW.json"
+    },
+    {
+      "path": "tests/test_project_v2.py",
+      "git_object": "9342d6de76c524fb022c1b86cfddd988fd9fb5b7",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_projection.py",
+      "git_object": "f388e3e948fdd8cefa8a27ad3b7273ca29a9e0e0",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_public_snapshot.py",
+      "git_object": "4398fb873c7a2e538bbcd88498d51f099a301860",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_publication.py",
+      "git_object": "dffae68e718fc3b8caf60f12a390d4dc838a7998",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_reference_oracle.py",
+      "git_object": "707b8f8fad74f3141fadc131e14b6f6b738fbf1f",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_release.py",
+      "git_object": "de43ae096219f07c60bfdfb90b2e23f008f833a7",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_retrodiction.py",
+      "git_object": "c2b4096b42d4be57a5839edd385ea99002778799",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_scalar_division.py",
+      "git_object": "7b04a77dfec4799f3991fac6674346d215314fce",
+      "category": "tests",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A20a",
+        "GP-A20b"
+      ]
+    },
+    {
+      "path": "tests/test_stacks_applicability_spike.py",
+      "git_object": "3e6437e18a2ca3ba7414668a280f987d1182b256",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_store.py",
+      "git_object": "8465501b36d86a32d22bb846676301ad934dae5b",
+      "category": "tests",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A14",
+        "GP-A25a",
+        "GP-C03"
+      ]
+    },
+    {
+      "path": "tests/test_supersession_noise.py",
+      "git_object": "d8ed647edf661469605bc12121dfb6f25cdaff67",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_surface_smoke.py",
+      "git_object": "cd01156b6bbe8247eca5885b021d888b020ac6eb",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_synthetic_frontier_bundle.py",
+      "git_object": "9742069e9dffd4fe9ce23e749322a1e1f2f88b0c",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_triangular.py",
+      "git_object": "49ece2ed6848850868eb5463c9f092f40c271c8f",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tests/test_unit_certificate_composition.py",
+      "git_object": "b6c2aa419e4f64c353edaf725323bf972309c472",
+      "category": "tests",
+      "review_status": "unreviewed"
+    },
+    {
+      "path": "tests/test_verdict_provenance.py",
+      "git_object": "02aeaef0dadc7c47b816057b9cb02eec5e201c3b",
+      "category": "tests",
+      "review_status": "partial",
+      "extracted_cases": [
+        "GP-A17",
+        "GP-A18",
+        "GP-X20",
+        "GP-X21"
+      ]
+    },
+    {
+      "path": "tests/test_work_accounting.py",
+      "git_object": "9a88cb33b6262b9bf74a0df32a7d67f28d2e57ec",
+      "category": "tests",
+      "review_status": "partial"
+    },
+    {
+      "path": "tools/replay_arr15_e10.py",
+      "git_object": "0631409b889a41c57aea1675af07db7d6a5104f0",
+      "category": "other",
+      "review_status": "unreviewed"
+    }
+  ]
+}

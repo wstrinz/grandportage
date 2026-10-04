@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "GP-A23",
+  "seed": "A23",
+  "title": "Open-locus emptiness does not establish parent emptiness",
+  "situation": "A localized unit certificate empties an open submodel.",
+  "inputs": {
+    "scope_of_certificate": "open submodel",
+    "target": "whole parent"
+  },
+  "attempted_conclusion": "Conclude the parent is empty.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The omitted closed locus is not covered."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 563,
+      "anchor": "| A23 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/verify.py",
+      "line": 2108,
+      "anchor": "def localized_unit_ideal("
+    }
+  ]
+}

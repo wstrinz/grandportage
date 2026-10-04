@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "id": "GP-X116",
+  "seed": null,
+  "title": "Retain the partial forward map with its remaining coefficient obligation",
+  "situation": "Keeping the partial result and named remainder preserves the scoped report.",
+  "inputs": {
+    "contract_section": "seam",
+    "baseline_contract": {
+      "prior_parent_status": "UNMATERIALIZED_OPEN",
+      "partial_status": "SIGMA_TOP_FACE_PARTIALLY_MATERIALIZED",
+      "remaining_status": "OPEN_REMAINING_COEFFICIENT_MAP",
+      "frame": "psi2 covered frame over a characteristic-zero field",
+      "direction": "forward necessary consequence only",
+      "checks": 41,
+      "mutation_refusals": 8,
+      "ratios": {
+        "Q_(8,1)/p": "5/3",
+        "Q_(1,2)/p^2": "5/9",
+        "c_B/p^3": "5/3"
+      },
+      "p_nonzero": true,
+      "gauge_free_value": {
+        "coordinate": "covered P_(3,0)",
+        "value": 0
+      },
+      "row6_cross_check": "c_B/27 = 5*p^3/81",
+      "reverse_lift_licensed": false,
+      "source_sufficiency_licensed": false,
+      "pair_existence_licensed": false,
+      "r5_licensed": false,
+      "r7_licensed": false,
+      "h3_licensed": false
+    },
+    "operations": []
+  },
+  "attempted_conclusion": "Retain the partial forward map with its remaining coefficient obligation.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Keeping the partial result and named remainder preserves the scoped report."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_source_target_first_value_handback.py",
+      "line": 26,
+      "anchor": "def test_parent_is_split_not_falsely_closed("
+    }
+  ]
+}

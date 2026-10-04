@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "GP-X88",
+  "seed": null,
+  "title": "Accept a changed solved polynomial under its old commitment",
+  "situation": "The solved value no longer matches the committed intermediate result.",
+  "inputs": {
+    "ordered_steps": 23,
+    "input_values": 10,
+    "faces": 25,
+    "residuals": 2,
+    "pin": "15*t^3+1",
+    "proposal": "bad_value"
+  },
+  "attempted_conclusion": "Accept a changed solved polynomial under its old commitment.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The solved value no longer matches the committed intermediate result."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_source_depth6_chain.py",
+      "line": 105,
+      "anchor": "def test_mutated_solved_value_is_rejected_after_resigning("
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+✖ [1188/1189] Building Binding (13s)
+trace: .> LEAN_PATH=spikes/mathlib-binding/.lake/packages/Cli/.lake/build/lib/lean;spikes/mathlib-binding/.lake/packages/batteries/.lake/build/lib/lean;spikes/mathlib-binding/.lake/packages/Qq/.lake/build/lib/lean;spikes/mathlib-binding/.lake/packages/aesop/.lake/build/lib/lean;spikes/mathlib-binding/.lake/packages/proofwidgets/.lake/build/lib/lean;spikes/mathlib-binding/.lake/packages/importGraph/.lake/build/lib/lean;spikes/mathlib-binding/.lake/packages/LeanSearchClient/.lake/build/lib/lean;spikes/mathlib-binding/.lake/packages/plausible/.lake/build/lib/lean;spikes/mathlib-binding/.lake/packages/mathlib/.lake/build/lib/lean;spikes/mathlib-binding/.lake/build/lib/lean $ELAN_HOME/toolchains/leanprover--lean4---v4.32.1/bin/lean.exe spikes/mathlib-binding/Binding.lean -o spikes/mathlib-binding/.lake/build/lib/lean/Binding.olean -i spikes/mathlib-binding/.lake/build/lib/lean/Binding.ilean -c spikes/mathlib-binding/.lake/build/ir/Binding.c --setup spikes/mathlib-binding/.lake/build/ir/Binding.setup.json --json
+warning: Binding.lean:26:40: Try `simp at h` instead of `simpa using h`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: Binding.lean:56:4: Try `simp at hc` instead of `simpa using hc`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+error: Binding.lean:75:72: unsolved goals
+⊢ 3 = 0 ∨ 8 = 0
+error: Binding.lean:79:68: unsolved goals
+case refine_2
+⊢ 1 = 0
+error: Binding.lean:83:78: unsolved goals
+⊢ 0 = 3
+info: Binding.lean:87:0: Binding.integral_unit_identity.{u_1} {R : Type u_1} [CommRing R] (x : R) : 1 = 2 * x + (1 - 2 * x)
+info: Binding.lean:88:0: Binding.integral_system_empty.{u_1} {R : Type u_1} [CommRing R] [Nontrivial R] : ¬IntegralSystemSolvable R
+info: Binding.lean:89:0: Binding.gp_a08b_F3 : ¬IntegralSystemSolvable (ZMod 3)
+info: Binding.lean:90:0: Binding.denominator_eight_not_unit.{u_1} {R : Type u_1} [CommRing R] [Nontrivial R] [CharP R 2] : ¬IsUnit 8
+info: Binding.lean:91:0: Binding.gp_a05_no_coefficient.{u_1} {R : Type u_1} [CommRing R] [Nontrivial R] [CharP R 2] : ¬∃ c, 8 * c = 3
+info: Binding.lean:92:0: Binding.gp_a05_no_rat_ring_hom.{u_1} {R : Type u_1} [CommRing R] [Nontrivial R] [CharP R 2] : ¬Nonempty (ℚ →+* R)
+info: Binding.lean:93:0: 'Binding.trivial_ring_has_point' depends on axioms: [propext, sorryAx, Quot.sound]
+info: Binding.lean:94:0: 'Binding.char_three_coefficient_exists' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: Binding.lean:95:0: 'Binding.integral_unit_identity' depends on axioms: [propext]
+error: build failed
+info: Binding.lean:96:0: 'Binding.integral_system_empty' depends on axioms: [propext]
+info: Binding.lean:97:0: 'Binding.gp_a08b_F3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Binding.lean:98:0: 'Binding.denominator_eight_zero' depends on axioms: [propext]
+info: Binding.lean:99:0: 'Binding.denominator_eight_not_unit' depends on axioms: [propext]
+info: Binding.lean:100:0: 'Binding.gp_a05_no_coefficient' depends on axioms: [propext]
+info: Binding.lean:101:0: 'Binding.gp_a05_F2' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Binding.lean:102:0: 'Binding.gp_a05_no_rat_ring_hom' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Binding.lean:103:0: 'Binding.totalized_division_is_zero' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: Lean exited with code 1
+Some required targets logged failures:
+- Binding

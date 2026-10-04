@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "GP-X401",
+  "seed": null,
+  "title": "A typed COUNT disposition may declare while its family coverage debt remains live",
+  "situation": "The same 42-member family declares C-SPLIT as COUNT with one settled group of size one and no claimed completion of the remaining members.",
+  "inputs": {
+    "fixture": "fixtures/D3-inert-disposition/after.json",
+    "fixture_lf_sha256": "4c45f1d6a945a51da173ec1b70ab13cba314409b51ba833aa95b745482149f35",
+    "fixture_manifest_source_commit": "b876fe4ed5c8963a0e8c19e18c829821c0686654",
+    "family": {"id": "F", "count": 42, "enumeration": "C-COUNT"},
+    "claim": {"id": "C-SPLIT", "kind": "COUNT", "family": "F", "splits": "F", "groups": [{"id": "G-DONE", "settles": 1, "verdict": "settled"}]},
+    "unsettled_remainder": 41,
+    "required_observation": "Checker retains FAMILY:C-SPLIT.",
+    "observation_layer": "frozen_declaration_acceptance_with_checker_debt",
+    "does_not_license": ["family coverage", "a proved family bridge", "a model-level conclusion"]
+  },
+  "attempted_conclusion": "Accept the typed declaration only; do not infer complete family coverage or a held family conclusion.",
+  "expected": {"verdict": "ACCEPT", "reason": "The frozen loader accepts the COUNT declaration, while the checker emits FAMILY:C-SPLIT for the 41-member coverage debt."},
+  "scope_or_region": "N/A",
+  "sources": [
+    {"repository": "gp-v037", "commit": "ac4155787207e2847d248cffed7be871d5dcd577", "path": "tests/test_guard_release.py", "line": 49, "anchor": "def test_inert_disposition_is_refused_but_count_control_keeps_coverage_debt("}
+  ]
+}

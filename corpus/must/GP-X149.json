@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "id": "GP-X149",
+  "seed": null,
+  "title": "Use an edge withdrawal tombstone as an edge",
+  "situation": "A tombstone records withdrawal without minting an edge.",
+  "inputs": {
+    "vocabulary": "lifecycle-scenario/v1",
+    "objects": {
+      "object-1": {
+        "category": "context",
+        "name": "IV",
+        "properties": {
+          "description": "the interval-valued system"
+        }
+      },
+      "object-2": {
+        "category": "context",
+        "name": "PD",
+        "properties": {
+          "description": "the positive-definite locus"
+        }
+      },
+      "object-3": {
+        "category": "relation",
+        "name": "E-IV-PD",
+        "properties": {
+          "source_context": "IV",
+          "target_context": "PD",
+          "relation_class": "unspecified",
+          "justification": "the step is not yet characterised",
+          "coordinate_action": "unchanged",
+          "unresolved_reason": "nobody has derived what this inclusion loses"
+        }
+      },
+      "object-4": {
+        "category": "relation",
+        "name": "W-E",
+        "properties": {
+          "justification": "not an edge"
+        }
+      }
+    },
+    "history": [
+      {
+        "object": "object-1"
+      },
+      {
+        "object": "object-2"
+      },
+      {
+        "object": "object-3"
+      },
+      {
+        "object": "object-4",
+        "replacement": {
+          "prior": "E-IV-PD",
+          "change": "relation_withdrawal"
+        }
+      }
+    ],
+    "question": {
+      "object": "W-E",
+      "collection": "relations"
+    }
+  },
+  "attempted_conclusion": "Use an edge withdrawal tombstone as an edge.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A tombstone records withdrawal without minting an edge."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_supersession_noise.py",
+      "line": 123,
+      "anchor": "def test_edge_withdraw_retires_a_declaration_without_minting_an_edge("
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X43",
+  "seed": null,
+  "title": "Conditional row evidence does not prove original-source membership",
+  "situation": "An exact reduced-row binding is conditional on normalized-root inputs; the original-pair to normalized-root map remains unmaterialized.",
+  "inputs": {
+    "source_pair_materialized": false,
+    "source_map_materialized": false,
+    "proposed_value": null
+  },
+  "attempted_conclusion": "Conclude original-source support from the unchanged conditional report.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The verified metadata report explicitly preserves the missing source-map obligation."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_original_pair_seam.py",
+      "line": 45,
+      "anchor": "def test_conditional_seam_welds_native_rows_without_graph_authority("
+    }
+  ]
+}

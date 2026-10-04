@@ -1,0 +1,2620 @@
+{
+  "schema_version": 1,
+  "status": "one bounded primary-only clarification complete; expression proposals only; unresolved retained",
+  "date": "2026-09-30",
+  "inputs": [
+    {
+      "Path": "reports/PHASE-1-PAPER-EXPRESSIVENESS.md",
+      "Hash": "D8DA3BFEB0A3108EF135858326F64D6B8919E02AC1394B83023997937DD07612"
+    },
+    {
+      "Path": "reports/PHASE-1-PAPER-EXPRESSIVENESS.json",
+      "Hash": "5654E694DFD4C84BB77F8D903F2FE501678743AFA08714BBE5C73055D8583F92"
+    },
+    {
+      "Path": "SPEC-CORE.md",
+      "Hash": "2D3A557C316F81125E49CA916F6CA96AB501D955282AF6DFEFF9AC9BAEB0CD6C"
+    },
+    {
+      "Path": "phase1/lean/SoundnessStatement.lean",
+      "Hash": "0878A0C62B2DFAA1E8B653ACE4E245E6C82F43D0D23212FBB95CD9E0CA73FA8D"
+    },
+    {
+      "Path": "corpus/incident-registers/MANIFEST.json",
+      "Hash": "4712B949F9A403E445CB255C6A2D94F7E97FBC52D3303AEA8C843B0D352AD331"
+    },
+    {
+      "Path": "DECISIONS.md",
+      "Hash": "9679FD3F7005C3DDD43404B2A5BE02EEC8FE74783AA55A92EC825B359DE4A053"
+    },
+    {
+      "Path": "AGENTS.md",
+      "Hash": "939AFE97B997CA5F2B86E081F23E6BCFECD621E3C8DD2BFA7627EE1D36BB180F"
+    }
+  ],
+  "authority": "Parent's one-pass clarification under Phase1 specification/scoring authorization; G1/Phase2 closed.",
+  "budget": {
+    "start_utc": "2026-09-30T12:44:58Z",
+    "cap_active_minutes": 25,
+    "active_minutes_charged": 15,
+    "unattended_wait_minutes": 0,
+    "conservative_delivery_allowance_end_utc": "2026-09-30T12:59:58Z"
+  },
+  "method": {
+    "denominator": 67,
+    "primary_only": true,
+    "eligibility": "Same explicit recorded non-MEANING classes on 76 manifest-listed incident/correction/group files; 9 MEANING excluded. No supplemental entries/children counted.",
+    "E": "Architectural paper expressibility requires a concrete proposed statement, model/selected region, ambient universal scope and required checker/premise/binding contract. Missing implementation/admission is not inexpressibility. Proposed contracts do not assert checker existence.",
+    "R": "Independently retained original conditional refusal judgment; all67 unchanged. Missing implemented checker may keep R unresolved but is not itself grounds for E false.",
+    "whole_row": "Groups are one descriptive owner each. Unspecified host/reviewer/reporting parts prevent whole-row E true; some R judgments historically target an authority overclaim within group and do not promise catch of every subfinding.",
+    "not_scored": "Generic arbitrary Stmt encodability, incidental mathematical subset of a host event, independent incident counts, checker admission or gate completion."
+  },
+  "summary": {
+    "E_true": 52,
+    "E_false": 8,
+    "E_null": 7,
+    "R_true": 19,
+    "R_false": 11,
+    "R_null": 37,
+    "E_R_differ_on_rows": 35,
+    "E_changes": 35,
+    "R_changes": 0,
+    "expression_interval": [
+      0.7761194029850746,
+      0.8805970149253731
+    ],
+    "unit": "descriptive owner/group paper proposals, not independent incident statistics",
+    "gate_claim": null
+  },
+  "judgments": [
+    {
+      "id": "ARR-C03",
+      "recorded_class": "BINDING",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/ARR-C03.json",
+        "pointer": "",
+        "sha256": "d6198d54217e3521f98b935dbdf8c2291f66e9d1446fc4b5651ae325b246224c"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Treat printed paper matrix as the database M13^1 arrangement under presentation equivalence.",
+      "recorded_minimal_mechanism": "Accepted receipt says original arXiv v1 TeX prints (1,-1,0) instead of (a1,-1,0) in column5. Literal matrix has41 versus45 dependent triples and different characteristic polynomial; correction restores all286 triple decisions.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "The printed matrix M and database arrangement D are presentation-equivalent and induce the same dependent-triple set.",
+        "model_or_selected_region": "Named M13^1 matrices, selected presentation and column ordering.",
+        "ambient_universally_quantified_scope": "Fields supporting the recorded coefficient specialization; all relevant triple indices.",
+        "required_checker_premise_binding_contract": "Bind both literal matrices/database version; check invertible coordinate change, allowed column rescaling/permutation and all 286 determinant decisions. No equivalence checker is asserted to exist."
+      },
+      "old_reason_and_R_qualification": "Literal versus corrected arrangement identity needs an admitted presentation-equivalence/triple checker; hashes bind a chosen matrix but do not identify intended database object.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "ARR-C04",
+      "recorded_class": "BINDING",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/ARR-C04.json",
+        "pointer": "",
+        "sha256": "f6e80134b9d0c56540a79ed7a07538740d745de8cb77fec3c5ec1ecf3b683511"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Use unrelated Barakat-Kuehne M12 objects for singular M1/M2 calibration, or search the generation paper for later M13 naming.",
+      "recorded_minimal_mechanism": "FRONTIER attributes singular M1/M2 to Kuehne-Luber-Pokora/Corey-Luber and exceptional M13 naming to the nonfree-locus paper.",
+      "old": {
+        "E": false,
+        "R": false
+      },
+      "proposed": {
+        "E": false,
+        "R": false
+      },
+      "concrete_expression": null,
+      "old_reason_and_R_qualification": "Bibliographic attribution and naming confusion is external intended-source interpretation; custody cannot establish which paper defines M1/M2/M13.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Naming/attribution confusion identifies the intended literature source; no fully specified machine custody contract represents the whole historical interpretation.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "ARR-C06",
+      "recorded_class": "SCOPE",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/ARR-C06.json",
+        "pointer": "",
+        "sha256": "b56c10cf91400a66082580cfb9ac0be86e19d97cc340d77a4bc2159b7432c10d"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Present idx001 representability, freeness or exponents as discovery of a new arrangement.",
+      "recorded_minimal_mechanism": "Exact identification is reported with G(5,5,3); freeness/exponents are known. Arithmetic geometry remains plausible-new, not proven novel.",
+      "old": {
+        "E": false,
+        "R": false
+      },
+      "proposed": {
+        "E": false,
+        "R": false
+      },
+      "concrete_expression": null,
+      "old_reason_and_R_qualification": "Global novelty is not a scope-inclusion judgment; identification and bounded absence cannot prove priority/newness.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Arrangement newness/priority remains external historical interpretation; a mathematical identification statement could be encoded but does not represent the novelty claim.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "ARR-C07",
+      "recorded_class": "WARRANT",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/ARR-C07.json",
+        "pointer": "",
+        "sha256": "cdfdbb641affa4cbe0004712f47ef64c4618f2629af36744f142540cb02dc21f"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Assert a specific Bresciani/nonabelian-H1 obstruction from the directly computed field gap.",
+      "recorded_minimal_mechanism": "Source says required normalizer, quotient and lifting data were not constructed; primary inspection led to omission.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "The computed field-gap example satisfies the premises and conclusion of the specifically named obstruction theorem.",
+        "model_or_selected_region": "Named arrangement/descent object, normalizer, quotient and lift data.",
+        "ambient_universally_quantified_scope": "Fields/extension and group hypotheses of that theorem, universally quantified where appropriate.",
+        "required_checker_premise_binding_contract": "Bind exact theorem/version, gap receipt and construction data; derivation must verify each normalizer/quotient/lift premise. These structures were recorded missing, not silently supplied."
+      },
+      "old_reason_and_R_qualification": "Computed field gap cannot support the specific obstruction without normalizer/quotient/lifting premises and an admitted derivation; retain direct gap independently.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "ARR-O08",
+      "recorded_class": "BINDING",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/ARR-O08.json",
+        "pointer": "",
+        "sha256": "c2baa6caf8037e99b9a9440d03edee10eff5222ee82d53ac851254fdaafc7835"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Mark the cold publication-positioning attempt SUPPORTED despite incorrect declared base-blob hash.",
+      "recorded_minimal_mechanism": "Packet declared wrong SHA for RESULTS_SO_FAR at base628c24e; trial stays PARTIAL and mandated replay exits FAIL_PACKET_INPUT_MISMATCH. Later checkpoint expects precisely this regression failure.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "The trial's declared base-blob digest equals the actual pinned RESULTS_SO_FAR blob digest.",
+        "model_or_selected_region": "Named packet and base628c24e blob bytes.",
+        "ambient_universally_quantified_scope": "Finite versioned replay contexts for that exact packet/base.",
+        "required_checker_premise_binding_contract": "Hash actual bytes under declared algorithm; bind packet, base commit and checker version. Equality is a concrete custody statement."
+      },
+      "old_reason_and_R_qualification": "Declared base-blob digest mismatch is exactly K4 custody, provided adapter hashes the actual base bytes and current identity is registered.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "ARR-T13",
+      "recorded_class": "ADAPTER",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/ARR-T13.json",
+        "pointer": "",
+        "sha256": "5caeba1ccdd162931755871ef07ee3e710fcc8fd701f658692f27aafca5e7b80"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Treat every Singular D(A) resolution as independent authority for all18 module baselines.",
+      "recorded_minimal_mechanism": "Source rejects ten high-generator D(A) outputs; Macaulay2 QQ remains authoritative. Singular Jacobian/D0 data over verified-generic large prime has narrower support.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "Each claimed D(A) baseline is certified by an exact resolution of the declared module; any Jacobian/D0 finite-prime result has only its declared reach.",
+        "model_or_selected_region": "The 18 declared arrangement/module baselines and associated chain maps.",
+        "ambient_universally_quantified_scope": "QQ for characteristic-zero module claims; separately the verified-generic prime and genericity premises for prime claims.",
+        "required_checker_premise_binding_contract": "Bind ring, matrices/maps, module generators, algorithm/version; exactness/module-identification and prime-to-QQ transport require sound contracts. Model all baseline authority subitems, not ten independent samples."
+      },
+      "old_reason_and_R_qualification": "Validity of high-generator Singular resolutions and prime versus QQ support requires actual sound module-checker contracts; tool labels are not admission.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "CQ-C01",
+      "recorded_class": "SCOPE",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/CQ-C01.json",
+        "pointer": "",
+        "sha256": "a3f8982c1a1892e344ef1fc653e1bfc13ac428fb9cbadc0f89eb595eb7f076ff"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Use the printed stronger angle row as a necessary condition, and treat reported survivor counts as a certification gate.",
+      "recorded_minimal_mechanism": "Source reports Lemma 6 gives adjacent-angle sum > pi/2, while LP uses x_u+x_v-y >= pi. Scouting supplies a unit pentagon with angle sum about134.76 degrees. No complete falsely rejected4-regular graph or disproof of34 is supplied.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "Every realization of the declared graph satisfying the geometric premises satisfies the proposed adjacent-angle inequality; the LP survivor count covers all declared feasible candidates.",
+        "model_or_selected_region": "Graph, selected adjacent vertices, plane realization and angle convention; explicit LP polytope.",
+        "ambient_universally_quantified_scope": "All real coordinate realizations meeting unit-distance and graph hypotheses.",
+        "required_checker_premise_binding_contract": "Exact geometry-to-LP implication and exhaustive finite candidate/LP coverage contracts, with original inequality constants bound. Trig/angle predicates may need exact geometric formulation; no implementation or truth asserted."
+      },
+      "old_reason_and_R_qualification": "Stronger LP inequality versus geometric necessary condition needs an admitted geometry-to-LP implication, not merely declared scope; no such checker is specified.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "CQ-C02",
+      "recorded_class": "SCOPE",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/CQ-C02.json",
+        "pointer": "",
+        "sha256": "0818eacf811e4df423755c5b7730bef91db6a36acc675ed85770413a298fcae1"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Read arXiv:1401.4375 as proof of the general m(4)>=34 bound.",
+      "recorded_minimal_mechanism": "LSA traces the general bound citation to a2011 Geombinatorics article absent from its files; the arXiv paper is scoped to3-connected graphs. Similar titles do not establish identical sources.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "The bound m(4)>=34 holds for the stated graph class; cited evidence supports only the separately stated 3-connected class.",
+        "model_or_selected_region": "Finite simple 4-regular unit-distance graph family.",
+        "ambient_universally_quantified_scope": "All real realizations; connectivity is an explicit quantified family hypothesis.",
+        "required_checker_premise_binding_contract": "Bind graph-class definition and theorem statement/version; proof receipt or admitted inclusion/derivation must support the requested class, not citation title."
+      },
+      "old_reason_and_R_qualification": "Citation to a 3-connected result cannot authorize the general bound: K5 withholds citation authority, K2 cannot broaden accurately encoded connectivity scope.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "CQ-C03",
+      "recorded_class": "WARRANT",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/CQ-C03.json",
+        "pointer": "",
+        "sha256": "924bb32c6b471449d3b30c80a28869756cb5b01fd4e15a1fb16e2466663aff79"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Attribute uniqueness of the8-vertex3-regular graph to Kurz-Pinchasi.",
+      "recorded_minimal_mechanism": "LSA reports that the paper states m(3)=8 as an exercise and never asserts uniqueness. Lack of that attribution does not prove nonuniqueness.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "Up to specified graph isomorphism there is exactly one 8-vertex 3-regular graph in the intended geometric family.",
+        "model_or_selected_region": "Explicit finite graph family and equivalence relation.",
+        "ambient_universally_quantified_scope": "All graph candidates/realizations satisfying the intended unit-distance constraints.",
+        "required_checker_premise_binding_contract": "Bind family definition, enumeration/isomorphism and realization evidence or proof of uniqueness. The source attribution remains external; citation is non-authoritative."
+      },
+      "old_reason_and_R_qualification": "Citation/exercise cannot become a held uniqueness theorem without admitted proof/rule. Attribution itself remains outside core validation.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "CQ-C04",
+      "recorded_class": "BINDING",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/CQ-C04.json",
+        "pointer": "",
+        "sha256": "dc87ef631dcff58aefb1db18c549a1907ba5c87c4d236972495f8bb5587a814a"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Attribute the mirror-symmetric one-angle53 target to arXiv:1906.11908 rather than calculator record100.",
+      "recorded_minimal_mechanism": "LSA says PDF text did not establish symmetry/angle; calculator record100 supplies the explicit source. The lane could not render the figure. Its phrase 'not in this PDF' is not adopted as proof geometric objects differ.",
+      "old": {
+        "E": false,
+        "R": false
+      },
+      "proposed": {
+        "E": false,
+        "R": false
+      },
+      "concrete_expression": null,
+      "old_reason_and_R_qualification": "Choosing calculator versus PDF as source of symmetry is an attribution/intent question; hashes cannot resolve unrendered figure evidence.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "The recorded issue is choosing PDF versus calculator as the intended source of symmetry; source/figure interpretation remains unmodelled, not rescued by encoding a graph subset.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B001",
+      "recorded_class": "COVER",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/DK-B001.json",
+        "pointer": "",
+        "sha256": "19d58ce28842ac78824729abc49a70ae0d78f8df62721549005caf14a5a241b6"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Depth-6 final count351 and 13,610/13,610 shallow-replay completion were accepted.",
+      "recorded_minimal_mechanism": "After526/1361 controls,352 keys already exist, with VF2-confirmed counterexample. Independent whole-graph implementation finishes159931 nodes, withdrawing literal200001 cap trigger.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "The complete depth-6 search produces exactly 351 distinct keys and every shallow-replay obligation is discharged.",
+        "model_or_selected_region": "Pinned producer search space, depth bound, graph objects and key equivalence.",
+        "ambient_universally_quantified_scope": "All admissible nodes/branches within the finite declared depth-6 universe.",
+        "required_checker_premise_binding_contract": "Bind search definition, full branch partition/stopping evidence, key equivalence, table and replay obligations. Completeness is an explicit premise, not independent implementation agreement."
+      },
+      "old_reason_and_R_qualification": "Count/shallow replay completeness needs a finite search universe, exhaustive coverage witness and equivalence checker; finite materialization closure is not enumeration completeness.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B002",
+      "recorded_class": "SCOPE",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/DK-B002.json",
+        "pointer": "",
+        "sha256": "e5cc5318f743ed3c9dd82dadd40308f9948204eac1ac974d39cc3d4b9878d7c5"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "CT1 capstone said31 scalar chart guards were combinatorially redundant.",
+      "recorded_minimal_mechanism": "Scalar restrictions were confused with vector nonvanishing. Repaired accepted proof uses five genuine factors and covered boundaries.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "The 31 chart restrictions are redundant for the declared realization model, or the replacement genuine factors and boundary charts cover it.",
+        "model_or_selected_region": "CT1 scalar/vector chart model, 31 guards and repaired five-factor atlas.",
+        "ambient_universally_quantified_scope": "All points over the named coefficient domain satisfying base model equations.",
+        "required_checker_premise_binding_contract": "Bind scalar versus vector predicates; guard implication and atlas boundary-coverage proofs required. This represents the proof defect without assuming repaired proof truth."
+      },
+      "old_reason_and_R_qualification": "Scalar guards versus vector nonvanishing needs algebraic guard-implication and boundary coverage evidence; scope syntax alone cannot establish redundancy.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B003",
+      "recorded_class": "SCOPE",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/DK-B003.json",
+        "pointer": "",
+        "sha256": "589981e6cc1303222dbffb7c2b8748b576144ad53b844ca4d48033956e67353e"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "CT1/Type-A Bland–Jensen and two Poncelet-surgery negatives were used as bare-incidence negatives.",
+      "recorded_minimal_mechanism": "Adapters impose CLEAN_MINIMAL: unspecified triples are bases. UNSAT initially excludes only that completion unless independent coverage/backstop applies.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "The declared incidence configuration has no realization; distinguish no CLEAN_MINIMAL completion from no bare-incidence completion.",
+        "model_or_selected_region": "CT1/Type-A and Poncelet configurations, explicit specified/unspecified triples.",
+        "ambient_universally_quantified_scope": "All field-valued realizations within the declared clean or bare class.",
+        "required_checker_premise_binding_contract": "Bind completion predicates and UNSAT encoding; widening requires an independently sound clean-deformation/coverage rule."
+      },
+      "old_reason_and_R_qualification": "CLEAN_MINIMAL completion is a premise. K2 cannot turn its negative into bare-incidence negative; any clean-deformation bridge needs separately admitted coverage theorem.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B004",
+      "recorded_class": "ADAPTER",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/DK-B004.json",
+        "pointer": "",
+        "sha256": "ccd0da5315ec4572aaf708f5665e973bd86013a7ac3c1a8d022e7e18809c6f1b"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Custom Levi checker supported non-isomorphism and a0/1847 self-dual statement.",
+      "recorded_minimal_mechanism": "39/40 cyclic17 relabelings false-negative due to free greedy line choices. Repaired correspondence is checked against full incidence. Historical Stokes verdicts retained; trade self-duality statement withdrawn.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "Graphs G and H are non-isomorphic; none of the 1847 declared configurations is self-dual.",
+        "model_or_selected_region": "Finite Levi graphs with point/line roles, full incidence and allowed duality.",
+        "ambient_universally_quantified_scope": "All incidence-preserving bijections/role permutations under chosen equivalence.",
+        "required_checker_premise_binding_contract": "Bind graph encoding and permutation action; certificate for isomorphism/nonisomorphism/exhaustion required. Greedy search failure alone cannot certify absence."
+      },
+      "old_reason_and_R_qualification": "Greedy Levi false negatives require correspondence/completeness validation against full incidence; core cannot repair algorithm or infer non-isomorphism from failure.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B006",
+      "recorded_class": "SCOPE",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/DK-B006.json",
+        "pointer": "",
+        "sha256": "1a364b8a66306ec99f01f1975edac0b590c287ce8eb765e4836f6568c73bfd17"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Generic n,k core calls could label a non23 state as CFG23 success.",
+      "recorded_minimal_mechanism": "Pre-repair22_4 false success reproduced; all public CFG23 decision surfaces now require exactly23 lines; generic controls separated.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "The input is a valid CFG23 success: exactly 23 lines and all declared configuration predicates hold.",
+        "model_or_selected_region": "Concrete finite incidence state including n and k.",
+        "ambient_universally_quantified_scope": "All interpretations under the fixed CFG23 incidence contract; generic n,k requests are different statements.",
+        "required_checker_premise_binding_contract": "Bind n,k/full incidence and validate cardinality/degree/incidence constraints; no adapter may relabel generic success as CFG23."
+      },
+      "old_reason_and_R_qualification": "CFG23 statement/model must bind n=23. Exact model/statement binding rejects non23 receipt only if adapter preserves n rather than relabeling generic output.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B007",
+      "recorded_class": "ADAPTER",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/DK-B007.json",
+        "pointer": "",
+        "sha256": "d76dd14d424522eb37465952226e0901b8831b1979c67d70c1b495e70379a0d9"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Capped local-optimum sweeps were classified as dedup failures.",
+      "recorded_minimal_mechanism": "Healthy truncation needs partial receipt status; repaired independent classification preserves complete-certificate strength and true failure labels.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "This run is partial because its cap was reached, or failed dedup according to the stated classification predicate; completeness status remains separate.",
+        "model_or_selected_region": "Finite run transcript, cap, stopping reason and dedup invariants.",
+        "ambient_universally_quantified_scope": "All deterministic replay executions under pinned settings; no universal search claim from truncation.",
+        "required_checker_premise_binding_contract": "Define typed partial/failure/complete result predicates and sound transcript classification; bind actual terminal condition. Historical defect was disposition, not proven false EMPTY."
+      },
+      "old_reason_and_R_qualification": "Partial versus dedup-failure disposition is adapter result semantics. Proposal has absent attempts but no precise truncation/failure event vocabulary; no false EMPTY is recorded.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B008",
+      "recorded_class": "COVER",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/DK-B008.json",
+        "pointer": "",
+        "sha256": "ef28b8e0c129e4e44e516c2ac43bb25896f3db3581a0e86893411e4ab8bac884"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "One-color same-orbit V4 canonicalizer established coherent action equivalence.",
+      "recorded_minimal_mechanism": "Local relabeling can ignore one globally coupled r/s/sr labelling and false-merge; initial literal counterexample anchor also needed correction.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "Two finite V4 action configurations are equivalent under one globally coherent group/role relabeling.",
+        "model_or_selected_region": "Incidence structures with coherent r/s/sr actions and coupled point/line permutations.",
+        "ambient_universally_quantified_scope": "All allowed simultaneous equivariant relabelings.",
+        "required_checker_premise_binding_contract": "Bind action tables/incidence; witness or exhaustive equivalence contract preserving group relations/global coupling. Local orbit matching is insufficient."
+      },
+      "old_reason_and_R_qualification": "Globally coupled action equivalence needs admitted coherent canonicalization/correspondence checker; local relabeling evidence is not automatically sound.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B009",
+      "recorded_class": "COVER",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/DK-B009.json",
+        "pointer": "",
+        "sha256": "b94a171503c2f575a3ac2bed033dd7c6a500ba595f9d8f2a74ed3cbd53c8931a"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Intrinsic V4 leaf bytes were a canonical form for isomorph-free use.",
+      "recorded_minimal_mechanism": "Point/line role omitted; audit reproduced five cross-split false merges. Silent None on budget exhaustion and missing validation were associated hazards.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "Canonical bytes identify exactly the declared role-preserving isomorphism class; exhaustion returns partial, never a canonical certificate.",
+        "model_or_selected_region": "Point/line-tagged finite V4 leaf structure, encoding and run budget.",
+        "ambient_universally_quantified_scope": "All role-preserving isomorphic copies and deterministic budget-limited executions.",
+        "required_checker_premise_binding_contract": "Faithful role-tagged serialization, canonicalizer soundness/completeness and typed exhaustion contract. Include role omission, budget None and validation submechanisms under one owner."
+      },
+      "old_reason_and_R_qualification": "Role-byte omissions and budget None require faithful encoding and completeness/status contracts, not generic custody comparisons.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B010",
+      "recorded_class": "ADAPTER",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/DK-B010.json",
+        "pointer": "",
+        "sha256": "70e05f3e29a2505cecf4999c5ad2adee9fd355e897d5134092903fc348ac435e"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Cuntz coherent Aut(V4) stabilizer was{id,(s t)}.",
+      "recorded_minimal_mechanism": "Earlier routine intersected decoupled point/line necessary conditions; incidence-coupled stabilizer is{id}. No canonical verdict changes.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "The coherent incidence-coupled Aut(V4) stabilizer equals the stated finite set.",
+        "model_or_selected_region": "Cuntz point/line incidence and coupled V4 action.",
+        "ambient_universally_quantified_scope": "All allowed simultaneous automorphisms.",
+        "required_checker_premise_binding_contract": "Bind action and incidence tables; verify every listed permutation and exhaustive exclusion of others, not intersection of decoupled necessary conditions."
+      },
+      "old_reason_and_R_qualification": "Incidence-coupled stabilizer correctness requires actual action/incidence validation; intersecting necessary conditions is a domain computation error.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B011",
+      "recorded_class": "COVER",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/DK-B011.json",
+        "pointer": "",
+        "sha256": "fdb773644f55437e32b71fc89f9daac260ab5bd2e0ba3d001144078a211598a7"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Fixed-candidate positive histories and negative search had faithful global topology authority.",
+      "recorded_minimal_mechanism": "Positive controls omit working-line crossing; base-point selection is hash-seed-dependent and negative completeness silently single-base-point. Repaired positives cold-check; global sweep theorem still open.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "Each positive history satisfies working-line crossings; the negative covers every admissible base-point choice for the candidate.",
+        "model_or_selected_region": "Fixed candidate, wiring histories, base-point choices and crossing model.",
+        "ambient_universally_quantified_scope": "All admissible base points/history branches, with seed behavior explicitly bound.",
+        "required_checker_premise_binding_contract": "Exact crossing/history validation and exhaustive base-point partition/stopping certificate; deterministic transcript/seed contract. All three recorded defects represented, no global theorem supplied."
+      },
+      "old_reason_and_R_qualification": "Crossing correctness and all-base-point topology coverage need oracle/coverage contracts absent here; positive-control retention cannot prove global negative completeness.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B012",
+      "recorded_class": "ADAPTER",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/DK-B012.json",
+        "pointer": "",
+        "sha256": "8d89f302c113dae263e9657e903988d2778c0f1fc5d5b7d2a4139aaa905f22a6"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Modernization generator terminal/width certificates correctly represented initialized crossing.",
+      "recorded_minimal_mechanism": "It marked a k-fold crossing without reversing its block. Terminal/width authority rejected; later bounded prototype passes controls but BP12 equivalence/canonical augmentation remain open.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "Generated initialized crossing reverses the correct block and its terminal/width certificate describes the resulting valid history.",
+        "model_or_selected_region": "Concrete modernization state, k-fold crossing block, transition sequence and terminal width.",
+        "ambient_universally_quantified_scope": "All admissible initialized configurations and replay steps under pinned generator semantics.",
+        "required_checker_premise_binding_contract": "Bind transition definition and witness; check block reversal/history invariants and terminal properties. BP12 equivalence/canonical augmentation remain distinct open obligations."
+      },
+      "old_reason_and_R_qualification": "Crossing block reversal and terminal-width semantics lie in generator/adapter correctness; scope and hashes faithfully bind even wrong generated histories.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B013",
+      "recorded_class": "WARRANT",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/DK-B013.json",
+        "pointer": "",
+        "sha256": "442aed9463bb82f94e04c0ba0c422c7ecad890678240237c8dd257f9ec59382a"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Five rank35 germs' exact order16 jets established branch/non-isolation.",
+      "recorded_minimal_mechanism": "Finite jets do not establish infinite formal/convergent arc; DKC rejects the inference. Five branch questions and45 repairs remain INCONCLUSIVE.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "There exists a nonconstant formal/convergent branch through the selected rank35 germ; distinguish the finite order16 jet statement.",
+        "model_or_selected_region": "Named five germs, selected base point and truncated jets.",
+        "ambient_universally_quantified_scope": "Coefficient field/analytic domain and quantified branch hypotheses; selected germ is model identity.",
+        "required_checker_premise_binding_contract": "Branch claim needs exact formal/convergence existence contract; finite-jet checking only earns finite truncation statement. Bind order and local equations."
+      },
+      "old_reason_and_R_qualification": "Finite order16 jets do not authorize infinite formal/convergent arc. No admitted finite-jet-to-branch rule exists; finite results can remain held at their actual statement.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B014",
+      "recorded_class": "SCOPE",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/DK-B014.json",
+        "pointer": "",
+        "sha256": "364dd163f1d6e0feb99545a8b4608d09cb49d65f249af423157177db68641195"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Jacobian repair-transversality inference licensed parent repair geometry.",
+      "recorded_minimal_mechanism": "Added repair equations do not vanish at parent point; tangent-rank/local-IFT premise fails.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "Repair equations vanish at the selected parent point and the local Jacobian/IFT premises imply the claimed local repair geometry.",
+        "model_or_selected_region": "Parent point, original and added repair equations, selected local neighborhood.",
+        "ambient_universally_quantified_scope": "Fields/analytic contexts satisfying the chosen IFT hypotheses.",
+        "required_checker_premise_binding_contract": "Exact evaluation at the bound point plus rank and local theorem premise checks; selected locus/neighborhood stays in statement/model."
+      },
+      "old_reason_and_R_qualification": "IFT application requires equations vanish at selected parent point. A point is representable but checking the local-locus premise needs an actual evaluation/IFT contract.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B019",
+      "recorded_class": "BINDING",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/DK-B019.json",
+        "pointer": "",
+        "sha256": "2c7deb06b1d312daeb1e8b933ffc9534866082c8a985871e278b6f0848a8c641"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "BGS recovered panel had24 point markers and source decode was terminally blocked.",
+      "recorded_minimal_mechanism": "24th raster marker belongs to adjacent19_4 panel; obsolete parser mirror/block diagnosis corrected. Target native vector group has23 points; final numerical source reconciliation still not exact incidence custody.",
+      "old": {
+        "E": false,
+        "R": false
+      },
+      "proposed": {
+        "E": false,
+        "R": false
+      },
+      "concrete_expression": null,
+      "old_reason_and_R_qualification": "Raster marker attribution and obsolete parser explanation are source-recovery interpretation; byte binding cannot decide target panel or exact incidence.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Whole episode includes mistaken raster-panel attribution and obsolete parser/block explanation. A finite marker-count substatement would omit unmodelled source recovery/intent.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B020",
+      "recorded_class": "OTHER",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/DK-B020.json",
+        "pointer": "",
+        "sha256": "cb885896d90017d03065830edba1fe86df21843c2aad762bbc0e210125daea3a"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "E1-prime gluing report's rank histogram and blob hashes described the exhaustive sweep.",
+      "recorded_minimal_mechanism": "Producer rank prose corrected to{8:16521,7:604,6:7}; committed-blob hashes repaired. Retained rational-component sweep still zero survivors.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "The declared exhaustive finite sweep has histogram {8:16521,7:604,6:7} and each reported blob digest equals its actual committed bytes.",
+        "model_or_selected_region": "Pinned rational-component sweep universe, rank matrices/results and committed report artifacts.",
+        "ambient_universally_quantified_scope": "All enumerated sweep entries under exact rational arithmetic and pinned versions.",
+        "required_checker_premise_binding_contract": "Coverage/stopping and rank certificates, exact histogram aggregation and byte-digest contracts. Represent both mathematical aggregation and custody parts; no outcome changed."
+      },
+      "old_reason_and_R_qualification": "Blob identity is representable; rank-histogram correctness is a distinct numerical aggregation check. Composite row cannot earn a whole-row custody score.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B021",
+      "recorded_class": "COVER",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/DK-B021.json",
+        "pointer": "",
+        "sha256": "b5e373951ed8f311bbfd0b034d538b97d312d6482b79648b76114693a4b9ab33"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Secondary general-valence Superposition enumeration had569 unordered menus.",
+      "recorded_minimal_mechanism": "Split-aware corrected menu count is9090. Secondary capped experiment remains reconnaissance.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "The split-aware declared finite menu universe has exactly the claimed number of unordered equivalence classes.",
+        "model_or_selected_region": "General-valence superposition menus, allowed splits and unordered equivalence.",
+        "ambient_universally_quantified_scope": "All admissible menus/splits in the specified bounded combinatorial universe.",
+        "required_checker_premise_binding_contract": "Bind generation predicates/splits; exhaustive partition/enumeration and equivalence contracts. Reconnaissance status cannot become unbounded completeness."
+      },
+      "old_reason_and_R_qualification": "Split-aware menu count needs exhaustive enumeration/partition proof over a specified universe; capped reconnaissance cannot supply it.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B022",
+      "recorded_class": "SCOPE",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/DK-B022.json",
+        "pointer": "",
+        "sha256": "4f103d9d257cf7b9ddbbbf70650f53b0d8ccd12137c8d86704124d82f3d1cd91"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "A-0003 witness disagreed with SAT orientation under global-sign comparison.",
+      "recorded_minimal_mechanism": "Element-wise reorientation restores agreement; global-sign-only false field superseded.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "A-0003 witness and SAT orientation are equivalent under the specified element-wise reorientation action.",
+        "model_or_selected_region": "Named witness/orientation sign arrays and element labels.",
+        "ambient_universally_quantified_scope": "All allowed reorientation signs/permutations; field assumptions separately bound.",
+        "required_checker_premise_binding_contract": "Check explicit transformation against full sign data; globally uniform sign is a different equivalence relation. Bind normalization/action conventions."
+      },
+      "old_reason_and_R_qualification": "Correct reorientation equivalence needs a signed-action correspondence rule/checker; global-sign label mismatch is not corrected by core scope comparisons.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B024",
+      "recorded_class": "BINDING",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/DK-B024.json",
+        "pointer": "",
+        "sha256": "2a508d1382a7878464bea587834809a30bbccf6af4cff23f94c3df41a127ae3c"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Class122 union verifier expected81+11 rows.",
+      "recorded_minimal_mechanism": "Current chart regenerates82+10=92; hardcoded split caused false negative. Certificate unchanged.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "The current chart certificate consists of the specified 92 rows partitioned 82+10 and validates the class122 negative.",
+        "model_or_selected_region": "Named class122 chart, row sets and unchanged certificate.",
+        "ambient_universally_quantified_scope": "All points over the chart's actual domain subject to coverage predicates.",
+        "required_checker_premise_binding_contract": "Bind chart version and partition predicates, check rows/coverage/certificate; a legacy 81+11 expected split is a different validator contract. False rejection remains unresolved."
+      },
+      "old_reason_and_R_qualification": "Versioned chart identity is representable, but hardcoded split causes false refusal even with unchanged certificate. Core cannot infer correct 82+10 split or cure checker overrefusal.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B025",
+      "recorded_class": "WARRANT",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/DK-B025.json",
+        "pointer": "",
+        "sha256": "129a54d5cb53cebe60d296df5ee31e7ee665c64cd5415146ca9255f20c1b69e6"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Cuntz's Galois remark implied CT1 real emptiness.",
+      "recorded_minimal_mechanism": "Intake removed attempted real-emptiness inference; remark alone supplies no such proof.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "CT1 has no real realization, distinguished from the content of a Galois remark.",
+        "model_or_selected_region": "CT1 incidence/equation model.",
+        "ambient_universally_quantified_scope": "All real realizations satisfying declared constraints.",
+        "required_checker_premise_binding_contract": "Exact real-emptiness proof/certificate or admitted derivation with premises; citation/remark has no authority. Retain separate valid proof support."
+      },
+      "old_reason_and_R_qualification": "Galois remark is citation/assertion, not real-emptiness authority. Separate accepted proof survives under independent warrant IDs.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B027",
+      "recorded_class": "SCOPE",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/DK-B027.json",
+        "pointer": "",
+        "sha256": "60c531303b7a403412d136edfa94494fc07cdbf9f98534030d8961a0ba05a518"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Orbit retrodiction could diagnose direct Q→F19 specialization.",
+      "recorded_minimal_mechanism": "Invalid direct-field specialization diagnosis removed; 1-WL stabilization helper also repaired.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": null,
+        "R": true
+      },
+      "concrete_expression": null,
+      "old_reason_and_R_qualification": "No direct Q-to-F19 scope narrowing exists. An integral model/suitable-prime bridge needs an admitted rule; helper repair is an unscored adapter subfinding.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Integral-model specialization is mathematically representable, but owner also includes a repaired 1-WL helper with insufficient retained mechanism to propose its computational statement. Whole-row remains unresolved.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "DK-B028",
+      "recorded_class": "WARRANT",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/DK-B028.json",
+        "pointer": "",
+        "sha256": "9b2bb757964c760227527c45543e457cd402a351c970353162e4df362ce4b759"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "SAT controls/Trade37 UNSAT calculations could be promoted from retained receipts alone.",
+      "recorded_minimal_mechanism": "Four positive sign assignments not retained; ephemeral prefix LRAT bytes lost. Outcomes quarantined pending witness retention and bounded regeneration/cold check.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "Each retained sign assignment satisfies the named SAT instance; each negative has a retained LRAT proof accepted against the exact CNF.",
+        "model_or_selected_region": "Named CNFs, assignments, LRAT bytes and prefix/full instance distinction.",
+        "ambient_universally_quantified_scope": "All Boolean interpretations of pinned CNF; execution/version assumptions explicit.",
+        "required_checker_premise_binding_contract": "Bind exact instance/proof bytes, validate assignments and LRAT using a sound admitted contract including native TCB if used. Missing retained bytes cannot be replaced by labels."
+      },
+      "old_reason_and_R_qualification": "Missing positive assignments and lost LRAT bytes cannot form replayable bound receipts; keep source outcome assertions but do not grant authority without retained proof.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "GP-SRC-ARR-G09",
+      "recorded_class": "ADAPTER",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/GP-SRC-ARR-G09.json",
+        "pointer": "",
+        "sha256": "5229303e10b23dd573e2493754ef64a0137f1a70c23fc5232a6911d99ce3bca8"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Ordinary point checking must enforce every open condition including with generators=[].",
+      "recorded_minimal_mechanism": "Historical hostile assay records guard omission in ordinary and equation-free branches; later0.26 acceptance reports recovery.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "A selected ordinary point satisfies every model equation and every declared nonzero guard, including an empty equation list.",
+        "model_or_selected_region": "Point coordinates, generators and open-guard list; selected point is statement/model identity.",
+        "ambient_universally_quantified_scope": "Coefficient fields/rings where declared evaluation/invertibility semantics apply.",
+        "required_checker_premise_binding_contract": "Faithful model codec plus exact evaluation and nonvanishing checker covering all guards independently of generator count. Does not assert current checker catches it."
+      },
+      "old_reason_and_R_qualification": "Point validity must include every open guard even with no equations. Requires actual point checker soundness; binding to defective receipt does not expose omitted checks.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "GP-SRC-ARR-G10",
+      "recorded_class": "ADAPTER",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/GP-SRC-ARR-G10.json",
+        "pointer": "",
+        "sha256": "67f37946bc4129401ea701e6e0cff0269b0854f5c443ce825b18289b9afba0de"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Large localized route and up-to64-guard search should complete supported packaging.",
+      "recorded_minimal_mechanism": "Earlier realistic localized route crash and later MAX_GUARDS16 packaging block are not proved-identical failures.",
+      "old": {
+        "E": false,
+        "R": false
+      },
+      "proposed": {
+        "E": false,
+        "R": false
+      },
+      "concrete_expression": null,
+      "old_reason_and_R_qualification": "Crash and guard packaging capacity are availability/product limits, not a false-held claim to be refused. Source says no false EMPTY; core cannot make route complete.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Whole group is producer crash and packaging capacity. A point/emptiness substatement cannot represent host availability or make max-guard route complete.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "GP-SRC-ARR-G11",
+      "recorded_class": "WARRANT",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/GP-SRC-ARR-G11.json",
+        "pointer": "",
+        "sha256": "7834512ac16fe9ff84b8c299d7459848f256be09e0dac2c8f8a56c5cc38eddae"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Stored admitted NONSQUARE_CLASS should have explicit verification/debt/authority lifecycle handling.",
+      "recorded_minimal_mechanism": "Source says all checkers/verifiers ignore the stored kind; eight advertised passes versus stronger ninth predeclared refutation is qualified product acceptance.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "The NONSQUARE_CLASS claim for the specified class has a live verifying warrant, or remains unverified debt without authority.",
+        "model_or_selected_region": "Named nonsquare object and immutable warrant records in a finite snapshot.",
+        "ambient_universally_quantified_scope": "Field/characteristic and class-equivalence hypotheses for nonsquareness; snapshot version separately bound.",
+        "required_checker_premise_binding_contract": "Nonsquare mathematical certificate contract plus explicit typed kind/admission/liveness mapping. Stored kind name cannot itself be a receipt. Lifecycle is a representation proposal."
+      },
+      "old_reason_and_R_qualification": "Stored kind name without an admitted verifying contract gives no K1 authority. Lifecycle visibility is proposed, not proven; nonsquare mathematics remains unresolved.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "GP-SRC-CQ-G02",
+      "recorded_class": "BINDING",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/GP-SRC-CQ-G02.json",
+        "pointer": "",
+        "sha256": "a47830302ba1e43147755f8d7edada5081b5bf3042664900344fb83794d3d419"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Default check view should expose live STALE-MODEL after unrelated supersession.",
+      "recorded_minimal_mechanism": "Historical0.32 live stale finding disappears from default view but remains in --history, with footer direction.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": null,
+        "R": null
+      },
+      "concrete_expression": null,
+      "old_reason_and_R_qualification": "Live stale warrant can be represented by K4/supersession, but disappearance from default view is a renderer visibility defect; typed fold/history schema is unspecified.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Live stale support is representable, but default-view suppression is an external presentation mechanism not supplied by the abstract held interface. Whole visibility sequence remains unresolved.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "GP-SRC-DK-GP01",
+      "recorded_class": "SCOPE",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/GP-SRC-DK-GP01.json",
+        "pointer": "",
+        "sha256": "22cfec107c8f7c209db12fcdf3310a599ef426d91806a29d538a1306817fabe8"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Point EQUIVALENCE across BASE and ALGEBRAIC_CLOSURE and selected embedding context was treated as adequate authority.",
+      "recorded_minimal_mechanism": "False descent was source-reported and later repaired; embedding identity was separately exposed.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "A selected point-equivalence/descent map is valid at the declared BASE or closure universe with the named embedding.",
+        "model_or_selected_region": "Point models, selected embeddings, source/target maps and universes.",
+        "ambient_universally_quantified_scope": "Base field/extension/closure properties and quantified map hypotheses.",
+        "required_checker_premise_binding_contract": "Bind point/embedding/endpoint definitions; check map relations and any descent rule under actual field scope. Embedding selection cannot be erased by scope label."
+      },
+      "old_reason_and_R_qualification": "BASE-to-closure equivalence cannot imply descent to BASE. Selected embedding/model identity must be bound and any transport have separately admitted proof.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "GP-SRC-DK-GP02",
+      "recorded_class": "BINDING",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/GP-SRC-DK-GP02.json",
+        "pointer": "",
+        "sha256": "48ca1704c709053555b5efc3681a9cc9325b6733c69d16cee45081c63cb3e02b"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Read and migration should enforce the same closed historical header contract.",
+      "recorded_minimal_mechanism": "Valid format6 read rejection and malformed5/6 migration acceptance/read rejection are distinct historical defects.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "Reading or migrating a format5/6 header obeys its closed identity schema and preserves authentic required identity values.",
+        "model_or_selected_region": "Finite historical header bytes, format versions and typed read/migration relation.",
+        "ambient_universally_quantified_scope": "All headers in each declared format language; no mathematical-field transport.",
+        "required_checker_premise_binding_contract": "Specify required identity fields, codec language and migration preservation/refusal contract; bind source/output bytes and schema version. Paper computational statement, not claim current decoder conforms."
+      },
+      "old_reason_and_R_qualification": "Typed decoder/header identity contract is proposed but not specified. Read false refusal and malformed migration acceptance are different submechanisms; no whole-row refusal follows.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "GP-SRC-DK-GP03",
+      "recorded_class": "SCOPE",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/GP-SRC-DK-GP03.json",
+        "pointer": "",
+        "sha256": "f0f8ad3c92867899591464a18693547de67c5fb9e270d2e8cbf9431d228cc1ff"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Typed models, field-relative EMPTY and certificate evidence should respect scope and eligibility.",
+      "recorded_minimal_mechanism": "Field-string and model-scope repairs are historical; certificate-content compatibility remains open; retry selection is only an applicability observation.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "An EMPTY receipt proves emptiness of the named typed model at its declared field reach, has compatible content, and retry selection preserves independently applicable support.",
+        "model_or_selected_region": "Typed model, certificate payload/kind and finite set of immutable warrants/retries.",
+        "ambient_universally_quantified_scope": "Declared field/domain contexts; receipt content compatibility is explicit.",
+        "required_checker_premise_binding_contract": "Faithful field/model codecs, semantic emptiness checker, payload-kind validation, applicability and independent-warrant selection contract. Entire three-part group modeled; unknown compatibility truth/refusal retained."
+      },
+      "old_reason_and_R_qualification": "Field-relative scope is representable, but group includes unresolved certificate-content compatibility and retry selection; requires content checker plus typed lifecycle semantics.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "GP-SRC-DK-GP04",
+      "recorded_class": "ADAPTER",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/GP-SRC-DK-GP04.json",
+        "pointer": "",
+        "sha256": "64f9ec3dc9a8b79bc76e4eba6215f872c1627d77a2f5e2afaf71073f18ac7d41"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "A family-scoped PREDICATE should be usable as an inference premise only with a checked model bridge.",
+      "recorded_minimal_mechanism": "Historical D1 crashed with KeyError:model; existing X399 exact guard fixture refuses missing family_bridge.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "A family-scoped predicate licenses the target model only through a validated family-to-model bridge with all required typed endpoints.",
+        "model_or_selected_region": "Family predicate, target model and concrete bridge/endpoint data.",
+        "ambient_universally_quantified_scope": "Every family/model context satisfying the bridge's explicit hypotheses.",
+        "required_checker_premise_binding_contract": "Bridge rule checks membership/endpoint/model relation and side conditions; decoder rejects absent model/bridge without treating crash as proof. Historical host symptom not modeled as general service availability."
+      },
+      "old_reason_and_R_qualification": "Missing model/family bridge can be a K3 side condition if a rule is instantiated, but no family bridge rule/decoder is specified; historical crash is not semantic refusal.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "GP-SRC-DK-GP05",
+      "recorded_class": "ADAPTER",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/GP-SRC-DK-GP05.json",
+        "pointer": "",
+        "sha256": "e92cd93b0942a31619916afa478afa5d6710ad10f1e1a68406c280c14e67c096"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "The D2 substitution encoder should handle the intended138-variable E1 witness.",
+      "recorded_minimal_mechanism": "Historical source reports96-variable success/97 failure and E1 untested. Retained frozen test source asserts ok for both96 and97; no current failure follows from fail-97vars filename.",
+      "old": {
+        "E": false,
+        "R": false
+      },
+      "proposed": {
+        "E": false,
+        "R": false
+      },
+      "concrete_expression": null,
+      "old_reason_and_R_qualification": "Variable-count encoder capacity is implementation availability; historical 97 limit does not establish current failure, and no wrong-held consequence is recorded.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "The actual owner is encoder capacity at 96/97/138 variables, including untested/current-asserted-success limits. A substitution identity subclaim cannot represent missing execution or product availability.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "GP-SRC-DK-GP06",
+      "recorded_class": "ADAPTER",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/GP-SRC-DK-GP06.json",
+        "pointer": "",
+        "sha256": "25b0abad2c776045af9f71ebf4b178f520ce69731a16529152d33c8cd83eb65c"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "COUNT disposition fields on PREDICATE should enforce declared family coverage.",
+      "recorded_minimal_mechanism": "Historical D3 silently folded three first encodings with inert fields; X400 exact before fixture rejects them; X401 typed declaration contrast keeps debt.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "A typed COUNT/PREDICATE declaration covers precisely its declared family partition, with unsupported count debt retained rather than inert fields granting authority.",
+        "model_or_selected_region": "Finite family, partition/count declaration and immutable count warrants.",
+        "ambient_universally_quantified_scope": "All declared family members under stated equivalence and membership predicates.",
+        "required_checker_premise_binding_contract": "Faithful typed declaration codec, partition/disjointness/coverage/count proof contracts and debt/authority mapping. No implementation of counting is assumed."
+      },
+      "old_reason_and_R_qualification": "Family count coverage must be interpreted by a declared partition/count contract. Inert fields/debt fixture cannot replace a specified checker; closure finiteness is unrelated.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "JC-B002",
+      "recorded_class": "COVER",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/JC-B002.json",
+        "pointer": "",
+        "sha256": "1816a12322257267302d2db7a283d60020c0c74c2e111aba28dba3f599dd8182"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Pipeline consumed only M<0 slices of P and Q.",
+      "recorded_minimal_mechanism": "Necessary conditions on the M>=0 half-line were omitted without a stopping certificate; an ORDER omission, not a j<=5 magnitude cutoff.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "The P/Q slice conclusions cover both M<0 and M>=0 domains, or an explicit stopping/exclusion proof justifies omitted domain.",
+        "model_or_selected_region": "P/Q models and two sign-defined half-line regions.",
+        "ambient_universally_quantified_scope": "All ordered-domain parameter values with stated coefficient assumptions.",
+        "required_checker_premise_binding_contract": "Bind inequality direction and region partition; require coverage/transport/stopping theorem, not magnitude cutoff. Selected slice/region belongs in model."
+      },
+      "old_reason_and_R_qualification": "Omitted M>=0 half-line requires coverage/stopping proof for domain split. Proposal lacks coverage datatype or half-line profile; do not infer completeness from finite closure.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "JC-B003",
+      "recorded_class": "SCOPE",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/JC-B003.json",
+        "pointer": "",
+        "sha256": "c64acf7fea07a518878de64ad05f660b445307c95558cf71c56b958413358461"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "C08/C20 Q or splitting-field emptiness was consumed as geometric emptiness over arbitrary char-0 K.",
+      "recorded_minimal_mechanism": "KILL authority withdrawn: larger-field points exist and no descent into Q(sqrt17) is established. Source reports 11341 returning states, not a changed independently audited kill.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "The named C08/C20 model has no points over the specified coefficient field class.",
+        "model_or_selected_region": "Equations/guards and selected named model; distinct Q, splitting-field and arbitrary-field claims.",
+        "ambient_universally_quantified_scope": "All fields K satisfying characteristic-zero/extension hypotheses at actual receipt reach.",
+        "required_checker_premise_binding_contract": "Exact field-relative emptiness certificate; bind model and field definition; widening needs separately checked descent/transport theorem. No discovery of false scope labels."
+      },
+      "old_reason_and_R_qualification": "Q/splitting-field emptiness cannot widen to arbitrary char0 K using K2. Accurate field contexts/reach and absence of an admitted descent rule are necessary.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "JC-B004",
+      "recorded_class": "ADAPTER",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/JC-B004.json",
+        "pointer": "",
+        "sha256": "ba76651c7d682ebebeb99d8bd60bcc0c13b4d13a7ba29a3c8c7b5bbbe48ee5f2"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Full rank/nullity zero was used as the no-Phi-relation criterion.",
+      "recorded_minimal_mechanism": "Pure G1/G2 syzygy at weight43 lowers rank without a Phi relation; old test misfires on repaired data. Replaced by Phi-column dependence modulo others.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "There is no Phi-column relation modulo the span of the other designated columns.",
+        "model_or_selected_region": "Exact weight43 matrix with distinguished Phi/G1/G2 columns and coefficient basis.",
+        "ambient_universally_quantified_scope": "Coefficient fields satisfying exact rank/span arithmetic hypotheses.",
+        "required_checker_premise_binding_contract": "Bind column roles and quotient-span criterion; exact row/column reduction or proof verifies designated dependence, not full nullity."
+      },
+      "old_reason_and_R_qualification": "Phi dependence modulo other columns versus full nullity is actual linear algebra statement/checker semantics; no specified matrix checker establishes it.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "JC-B005",
+      "recorded_class": "BINDING",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/JC-B005.json",
+        "pointer": "",
+        "sha256": "d2dcfa8c7df209bc67b33b6c5be527c13f3ea541c5d6149c7c822b061486b5e0"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Later lane recommended recomputing an already repaired F2 tower delta.",
+      "recorded_minimal_mechanism": "Stale prose beneath a banner was consumed instead of repaired module. History says external reviewer inherited the wrong recommendation.",
+      "old": {
+        "E": false,
+        "R": false
+      },
+      "proposed": {
+        "E": false,
+        "R": false
+      },
+      "concrete_expression": null,
+      "old_reason_and_R_qualification": "Recorded error is prose-only reading/recommendation by external reviewer. Registered supersession could flag a modeled stale warrant but cannot prevent reading stale prose outside core.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Known-high-cost whole event is reviewer reading stale prose/recommendation. A current-warrant subset cannot represent or prevent that external consumer behavior.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "JC-B007",
+      "recorded_class": "ADAPTER",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/JC-B007.json",
+        "pointer": "",
+        "sha256": "fdfa636db4d25754367c6c1613136a2692bc677181b5fb59ac72153854dd38bc"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Substring check purported to validate reopened residual-gauge status.",
+      "recorded_minimal_mechanism": "REOPENED matched inside was REOPENED ... now DISSOLVED and misleadingly passed.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "The authoritative residual-gauge status at the bound snapshot is REOPENED, rather than a historical substring of prose now DISSOLVED.",
+        "model_or_selected_region": "Versioned structured residual-gauge state and ordered transitions.",
+        "ambient_universally_quantified_scope": "All snapshots/contexts following the declared finite status transition contract.",
+        "required_checker_premise_binding_contract": "Typed status decoder from explicit event fields, current-state fold and exact equality; bind source version. Parsing prose is not trusted state construction."
+      },
+      "old_reason_and_R_qualification": "Substring status check is adapter parsing, not missing evidence. Need exact typed status decoder rather than assuming 'REOPENED' text means current status.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "JC-B008",
+      "recorded_class": "ADAPTER",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/JC-B008.json",
+        "pointer": "",
+        "sha256": "f40eb51e90e04b5ebda08eae72b3eabd7ca76f43b6e13097b15cffb906dbcf49"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Lower-bound checker asserted A_T_MIN>=1 where 9 was intended.",
+      "recorded_minimal_mechanism": "Source explicitly records this self-caught weak-bound check.",
+      "old": {
+        "E": false,
+        "R": false
+      },
+      "proposed": {
+        "E": true,
+        "R": false
+      },
+      "concrete_expression": {
+        "statement": "A_T_MIN >= 1; separately A_T_MIN >= 9 is a stronger requested statement.",
+        "model_or_selected_region": "Named bound object and exact threshold literal in statement.",
+        "ambient_universally_quantified_scope": "All instances satisfying the lower-bound theorem's actual domain premises.",
+        "required_checker_premise_binding_contract": "Faithful numeric statement codec and sound bound certificate; no adapter substitution of thresholds. >=1 is representable/possibly true and refusal of intended-threshold error remains false."
+      },
+      "old_reason_and_R_qualification": "An honestly held >=1 statement does not establish the intended >=9 statement. Core cannot discover intended threshold; statement binding helps only after correct specification.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "JC-B009",
+      "recorded_class": "ADAPTER",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/JC-B009.json",
+        "pointer": "",
+        "sha256": "698518d513b9a2ab4d0a2b125a77ca1740e4b0b762bcbdcc538a9a5d49f4b15e"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Riemann-Hurwitz test purported to supply discriminating validation.",
+      "recorded_minimal_mechanism": "Source records the test was an identity for all inputs.",
+      "old": {
+        "E": false,
+        "R": false
+      },
+      "proposed": {
+        "E": true,
+        "R": false
+      },
+      "concrete_expression": {
+        "statement": "The recorded Riemann-Hurwitz arithmetic expression is an identity for all inputs in its stated domain.",
+        "model_or_selected_region": "Exact test expression and input tuple with genus/degree/ramification convention.",
+        "ambient_universally_quantified_scope": "All tuples permitted by that expression's declared arithmetic domain.",
+        "required_checker_premise_binding_contract": "Bind actual expression/domain and arithmetic proof contract; relevance/discrimination is not inferred from a proved identity. Represents the recorded tautology, not unstated intended test purpose."
+      },
+      "old_reason_and_R_qualification": "Tautological checker can correctly prove a tautology while failing intended discrimination. Generic soundness does not supply relevance/completeness.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "JC-B010",
+      "recorded_class": "ADAPTER",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/JC-B010.json",
+        "pointer": "",
+        "sha256": "85830d30fbd1ffb8736ab8a979a1219bac96e9d1b9d22c25f2d89e2077e90d0c"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Four first-draft Whetstone checks were validation, including false monotonicity.",
+      "recorded_minimal_mechanism": "Removed checks were tautological/filter-guaranteed or compared scope to itself. MONO-CONTRADICTION also asserted a false claim.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": null,
+        "R": null
+      },
+      "concrete_expression": null,
+      "old_reason_and_R_qualification": "Composite vacuous checks and false monotonicity require actual statement/checker audits. Core can refuse an unproved MONO rule but cannot detect relevance errors in correctly bound tautologies.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Four vacuous/filter/self-scope checks plus false monotonicity are mathematical/computationally representable in principle, but retained summary lacks exact four predicates/domains. Whole-row concrete expression remains unresolved; no formulas invented.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "JC-B011",
+      "recorded_class": "ADAPTER",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/JC-B011.json",
+        "pointer": "",
+        "sha256": "c3f46c153db2511c86ab18d236627f49b9c20b1d41fcc664ce7af9c6cf44c969"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Modular triage produced UNIT verdicts.",
+      "recorded_minimal_mechanism": "Source records poly g0 shadowed ring variable and manufactured false UNIT verdicts for months.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "The declared polynomial ideal is the unit ideal, meaning an explicit cofactor combination equals 1 in the intended polynomial ring.",
+        "model_or_selected_region": "Actual generator polynomials, variable names, ring and modular specialization.",
+        "ambient_universally_quantified_scope": "Fields/characteristics where coefficients reduce and ring operations are defined.",
+        "required_checker_premise_binding_contract": "Hygienic faithful program-to-polynomial codec, exact cofactor checking and complete variable binding. An unsound admitted adapter can still manufacture wrong receipts; R stays null."
+      },
+      "old_reason_and_R_qualification": "Variable shadowing manufactures false UNIT; faithfully bound program/output remains wrong. Needs hygienic encoder and sound certificate checker, not an invented oracle.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "JC-B012",
+      "recorded_class": "SCOPE",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/JC-B012.json",
+        "pointer": "",
+        "sha256": "28b1dee6fe2bfafeb343b6c73856f685fc100c33633db96e1f883cd8598dada2"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "slice_phi_yplace transferred unshifted divisibility/cascade bounds into shifted chart as a proof of a_t<=9.",
+      "recorded_minimal_mechanism": "Audit records genuine-polynomial control violating shifted bound; this leg not established as written, while unshifted syzygy leg remains.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "The claimed a_t<=9 bound follows in the shifted chart only when the required divisibility/cascade premises hold there.",
+        "model_or_selected_region": "Shifted/unshifted charts, selected chart transformation and point/locus.",
+        "ambient_universally_quantified_scope": "All coefficient-domain contexts and parameter points satisfying each chart's actual premises.",
+        "required_checker_premise_binding_contract": "Guarded substitution/transport proof; bind shift, divisibility and selected region. Child JC-B013 remains under same owner, not added to denominator."
+      },
+      "old_reason_and_R_qualification": "Unshifted chart premise cannot license shifted bound without admitted guarded transport. JC-B013 is child warrant failure, not additional main record.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "JC-B014",
+      "recorded_class": "BINDING",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/JC-B014.json",
+        "pointer": "",
+        "sha256": "33b86987b8a351cfba2ac10172b8f12cbcb979ffc64abade871a63f11c2bcbc0"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Frontier reconciliation quoted withdrawn 1090/135 draft figures as committed audit inconsistency.",
+      "recorded_minimal_mechanism": "Audit records consistent committed 11341 and stale compiler literal/prose; recomputed column was already correct.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": null,
+        "R": null
+      },
+      "concrete_expression": null,
+      "old_reason_and_R_qualification": "Old compiler/prose versus current audit is version-custody representable but exact compiler semantics and current publication mapping are unspecified; no theorem changed.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Actual episode includes stale compiler/prose misquotation versus recomputed/current column. Versioned tables are representable but whole external frontier-reading/compiler correspondence lacks a concrete retained consumer contract.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "JC-C001",
+      "recorded_class": "SCOPE",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/JC-C001.json",
+        "pointer": "",
+        "sha256": "97047fea6e8ae31fef714b4adfbb6a341f21e2456bc8c8c9953c599480688d4e"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Rational irreducibility of a quartic was used for the arbitrary characteristic-zero coefficient-field ledger.",
+      "recorded_minimal_mechanism": "Over an algebraic closure partial support at individual roots is possible; the single quartic valuation omits branches.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "The characteristic-zero ledger's claimed valuation covers every relevant quartic branch, distinguishing rational irreducibility from algebraic-closure branchwise behavior.",
+        "model_or_selected_region": "Quartic polynomial and selected branch/root labels in valuation model.",
+        "ambient_universally_quantified_scope": "All permitted characteristic-zero coefficient fields/extension contexts.",
+        "required_checker_premise_binding_contract": "Exact factor/root/branch partition and valuation/checker contracts; bind root identity, coefficient field and irreducibility reach. Rational proof cannot silently aggregate closure branches."
+      },
+      "old_reason_and_R_qualification": "Q irreducibility does not supply algebraically closed branch coverage. K2 cannot widen field reach; selected roots/branches must be distinct statements/models.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "JC-C002",
+      "recorded_class": "SCOPE",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/JC-C002.json",
+        "pointer": "",
+        "sha256": "8ec9c4444bb81fcd8d18d1ce4f538425f01296f233e1e6d04e5b523e8bc254c7"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "A final-chain-corner dictionary was used at (5,20) outside its required retraction shape.",
+      "recorded_minimal_mechanism": "The dictionary supplied exponent 5 instead of 4; checking existence of some exponent hides the failed guard for the actual chart exponent.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "At chart (5,20) the dictionary is applicable and supplies the actual chart exponent, including its retraction-shape guard.",
+        "model_or_selected_region": "Named chart, selected dictionary row, retraction shape and exponent literal.",
+        "ambient_universally_quantified_scope": "All chart contexts satisfying the dictionary's explicit structural premises.",
+        "required_checker_premise_binding_contract": "Bind table version, shape predicate and exponent; proof/checker validates actual exponent/side condition, not existence of some exponent."
+      },
+      "old_reason_and_R_qualification": "Dictionary requires actual retraction shape and chart exponent, needing checked structural side conditions; checking some exponent is a domain-checker defect.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "JC-C003",
+      "recorded_class": "JOIN",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/JC-C003.json",
+        "pointer": "",
+        "sha256": "d0f5e06e324d2ba0d0df9373c2e1d13001035269e903c339b2f9c4cc0b2d49a8"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "An exact base-case kill and exact period arithmetic were joined to claim that the period jump explains failure of tower transfer.",
+      "recorded_minimal_mechanism": "The source withdraws that explanation: the claimed link was printed prose connecting disjoint calculations, without the required derivation.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "The exact period jump explains failure of tower transfer via the specified derivation connecting the two computations.",
+        "model_or_selected_region": "Named base-case/tower and period objects with explicit relation.",
+        "ambient_universally_quantified_scope": "All arithmetic/geometric contexts satisfying premises of the connecting rule.",
+        "required_checker_premise_binding_contract": "Bind both exact computations and precise connecting implication; admitted rule must prove link. Explanation prose without mathematical link stays obligation."
+      },
+      "old_reason_and_R_qualification": "Disjoint exact computations do not imply explanatory link. K3 requires a registered sound joining derivation with explicit premises; absent link stays obligation.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "PR-C04",
+      "recorded_class": "WARRANT",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/PR-C04.json",
+        "pointer": "",
+        "sha256": "f2db992515f1615fca62b90e9a9136a1ba608a25818f92930954755721982743"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "'Stalls at30%' and50% coverage appears unreachable by small finite quotients.",
+      "recorded_minimal_mechanism": "Of1363 UNKNOWN orientation cells,770 never reached S7 and593 exhausted four run families; three SL2 families and S7 positive control not attempted.491 two-sided negatives combine Britton+sieve.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "No allowed small finite quotient/run family reaches the claimed coverage target, distinguishing actually attempted cell/family outcomes.",
+        "model_or_selected_region": "Declared finite orientation cells, quotient/run families and target coverage measure.",
+        "ambient_universally_quantified_scope": "All families/cells within an explicitly bounded admissible universe.",
+        "required_checker_premise_binding_contract": "Family reach/count and exhaustive coverage contracts; bind caps/attempted families. Unattempted cells remain obligations, not negative receipts."
+      },
+      "old_reason_and_R_qualification": "Unattempted/exhausted finite families cannot authorize universal unreachable coverage claim. Preserve 491 licensed negatives; missing families stay absent obligations.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "PR-C05",
+      "recorded_class": "WARRANT",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/PR-C05.json",
+        "pointer": "",
+        "sha256": "08e05a8cb5a8d53fc351b85675be2ef076a266ba1afdedec2949199c3f063b3f"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Promote Lane C to requested exact site-sequencing DP and n8 no-path as exact negative.",
+      "recorded_minimal_mechanism": "Implemented level-synchronous heuristic beam; n8 budget-limited, n9/10 not attempted; bases113/212/406 not known optimal. Later Epoch7 exact scheduler likewise absent.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "The exact site-sequencing optimization has the claimed optimum or no path at n8.",
+        "model_or_selected_region": "State graph, transition costs, n-specific start/goal and scheduling rules.",
+        "ambient_universally_quantified_scope": "All legal paths in declared finite state space; n and allowed operations fixed.",
+        "required_checker_premise_binding_contract": "Exact transition/path certificate, admissible lower-bound or exhaustive negative/completeness contract; bind cap/beam/exact algorithm distinction."
+      },
+      "old_reason_and_R_qualification": "Heuristic beam and capped n8 do not authorize exact optimal DP/no-path. Bound receipts to actual heuristic/budget reach; no search-completeness rule is earned.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "PR-C10",
+      "recorded_class": "COVER",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/PR-C10.json",
+        "pointer": "",
+        "sha256": "e7b7508481be5c92a6952d194417076e3b5197d2ffb61b72fc00ccfd6c1c1959"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Treat a claimed checker matrix as exhaustive direct developing_map comparison.",
+      "recorded_minimal_mechanism": "One repair omitted outside18 real rotations; later n7 producer/audit both missed direct matrix and audit mislabeled self-rotations as compatible pair rotations; n6 producer missed105-position matrix.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "The developing-map checker matrix includes every required pair and uses correct pair-rotation compatibility labels.",
+        "model_or_selected_region": "n6/n7 finite position/pair matrix, 18 real rotations and source developing maps.",
+        "ambient_universally_quantified_scope": "All position pairs and admissible rotations within declared finite set.",
+        "required_checker_premise_binding_contract": "Explicit matrix indexing/coverage and exact compatibility predicates; bind producer/auditor artifacts and distinguish self-rotation from pair rotation. Entire grouped omitted/mislabeled matrix mechanisms represented."
+      },
+      "old_reason_and_R_qualification": "Direct developing-map matrix and rotation partition completeness require checker/coverage representation absent in proposal; producer/auditor agreement is insufficient.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "PR-C11",
+      "recorded_class": "OTHER",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/PR-C11.json",
+        "pointer": "",
+        "sha256": "5233ac37d2ff06adcaafaed12ad1f6574103dadcb3f7ac86b8034e79bdea7954"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Report181 missing rows as161 shard/benchmark plus20 metered-wave.",
+      "recorded_minimal_mechanism": "Correct split142+39; zero-hit totals retained.",
+      "old": {
+        "E": false,
+        "R": false
+      },
+      "proposed": {
+        "E": true,
+        "R": false
+      },
+      "concrete_expression": {
+        "statement": "The 181 missing rows partition into the stated shard/benchmark and metered-wave categories.",
+        "model_or_selected_region": "Finite missing-row list with category labels and reported aggregates.",
+        "ambient_universally_quantified_scope": "All rows in the bound snapshot; deterministic aggregation semantics.",
+        "required_checker_premise_binding_contract": "Faithful category codec, exact disjoint partition/count contract and current report binding. Corrected 142+39 versus 161+20 is computationally representable; reporting/refusal still false."
+      },
+      "old_reason_and_R_qualification": "Arithmetic shard-category reporting discrepancy is external aggregation/reporting, with unchanged zero-hit result; no receipt/fold contract is specified to police counts.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "PR-C12",
+      "recorded_class": "BINDING",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/PR-C12.json",
+        "pointer": "",
+        "sha256": "32f1eb8b63efbd069e0f196f511905e0723240bab038c7b85883d6d3aac0906a"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Receipt says endpoint total31, automorphism x->xy in Prop1.2, Carreras inherits stable AK3 claim, and Lisitsa never revisits it.",
+      "recorded_minimal_mechanism": "Erratum gives total32, x->xy^-1 for Prop1.2; xy belongs to another proof. Carreras only bibliography citation; publisher indexed Lisitsa abstract later retracts basis and leaves AK3 unresolved, unlike arXivv1.",
+      "old": {
+        "E": false,
+        "R": false
+      },
+      "proposed": {
+        "E": false,
+        "R": false
+      },
+      "concrete_expression": null,
+      "old_reason_and_R_qualification": "Mixed erratum/bibliography/retraction attributions require source interpretation, not scope entailment. Custody retains versions but cannot discover corrected mathematical text.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Whole group combines erratum interpretation, proof attribution, bibliography-only citation and publication retraction history. Encoding isolated formulas/counts would omit the source-meaning/reliance mechanisms.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "PR-C13",
+      "recorded_class": "SCOPE",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/PR-C13.json",
+        "pointer": "",
+        "sha256": "970297f383604baf4efd46b99ae460c3f2a8164360428095fdcbeaaca3c07653"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Use Epoch4 bound/residual prose globally; count only8 k1 rows; use mixed Epoch5/6 F3 or stale records as current gates.",
+      "recorded_minimal_mechanism": "Sources record overstated121 bound/misstated mates,16 rather than8 k1 members, mixed F3 units needing split, missing3 base rows in frontier, and dated record207/402 rather than209/403.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": null,
+        "R": null
+      },
+      "concrete_expression": null,
+      "old_reason_and_R_qualification": "Composite bound/residual/count/F3/stale-record errors require multiple domain/profile/adapter contracts. Version pinning helps one seam only; group not independent samples.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Composite bounds/mates, k1 enumeration, F3 split, missing base rows and dated record prose are partly representable, but whole source/prose reconciliation lacks complete retained statement predicates. No blanket subpart score.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "PR-O01",
+      "recorded_class": "BINDING",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/PR-O01.json",
+        "pointer": "",
+        "sha256": "f1bf38ac4a43525c2c3748834564dccec301fd83fb9b8456b736098e695e5ce5"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Manifest names executable checks; summary is byte deterministic; ten withdrawal exercises ran.",
+      "recorded_minimal_mechanism": "Two named scripts did not exist, real shear replay was understated; wall time in stored summary contradicted determinism and made hash table stale; actual receipt has eleven withdrawals.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": null,
+        "R": null
+      },
+      "concrete_expression": null,
+      "old_reason_and_R_qualification": "Missing scripts, timing-dependent deterministic summary and withdrawal count are package/report correctness; digest mismatch can be bound but reproduction/summary contracts are not specified.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Package scripts existence, wall-time-dependent summary byte determinism and exercise accounting need explicit packaging/host/report contracts. A digest/count substatement cannot represent whole executable-package behavior.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "PR-T06",
+      "recorded_class": "ADAPTER",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/PR-T06.json",
+        "pointer": "",
+        "sha256": "ca1e3db3f4247b00036b3415045d3114980d009ae9076cc4d9da7df7819c8551"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Use packet heuristic as admissible A* lower bound.",
+      "recorded_minimal_mechanism": "Inversion negates e_a; source says heuristic violated admissibility and Lane E corrected it.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "The A* heuristic h is an admissible lower bound for every state under the exact transition metric, including inversion.",
+        "model_or_selected_region": "State graph, inversion transition e_a -> -e_a and heuristic formula.",
+        "ambient_universally_quantified_scope": "All reachable states and allowed exact transitions under fixed cost semantics.",
+        "required_checker_premise_binding_contract": "Bind formula/cost model; proof/checker verifies h<=true optimum, consistency if used, and inversion behavior. No heuristic soundness inferred from packet label."
+      },
+      "old_reason_and_R_qualification": "A* heuristic admissibility under inversion is a soundness premise requiring actual metric/transition proof, not core determination of a checker label.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "PR-T07",
+      "recorded_class": "ADAPTER",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/PR-T07.json",
+        "pointer": "",
+        "sha256": "d15a76252b21e7222ff5bbc777aa0908c60e8480ce75e5f0f07c13eb817d16c3"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Treat inversion as free in exact SL2(Fp) conjugacy comparison.",
+      "recorded_minimal_mechanism": "At p congruent3 mod4, unipotent classes at trace±2 swap under inversion; retrospective identifies unsound draft comparison, closeout says sieve handles this.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "The finite SL2(Fp) comparison respects the declared conjugacy equivalence; inversion changes the relevant unipotent classes when appropriate.",
+        "model_or_selected_region": "Exact matrices/conjugacy relation, selected trace classes and inversion operation.",
+        "ambient_universally_quantified_scope": "Prime fields with stated p mod4/trace conditions, universally quantified as claimed.",
+        "required_checker_premise_binding_contract": "Exact matrix/group proof or witness/exhaustion contract; bind prime, classes, permissible operations and conjugacy versus inversion distinction."
+      },
+      "old_reason_and_R_qualification": "SL2 inversion/conjugacy semantics depend on prime and classes; needs actual finite-group rule/checker with correct field premises.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "PR-T09",
+      "recorded_class": "ADAPTER",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/PR-T09.json",
+        "pointer": "",
+        "sha256": "5cb4b01589408d6507bfee2a33ca78cfeb78f0098b8dff7b0cbfe6d8361dd8bf"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Reject three n6 quotient conjugacy witnesses by structural equality of noncanonical expressions.",
+      "recorded_minimal_mechanism": "Audit falsely refutes due to noncanonical Britton-reduced comparison; PRC confirms C*residual*C^-1=anchor for three named rows.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": true,
+        "R": null
+      },
+      "concrete_expression": {
+        "statement": "For each named row, C*residual*C^-1 equals anchor in the declared group.",
+        "model_or_selected_region": "Three concrete quotient words and selected conjugating witness.",
+        "ambient_universally_quantified_scope": "All contexts satisfying group presentation/quotient premises; exact word semantics.",
+        "required_checker_premise_binding_contract": "Bind words/presentation; sound word equality/conjugacy certificate contract respecting noncanonical expressions. Structural inequality cannot prove group inequality."
+      },
+      "old_reason_and_R_qualification": "Noncanonical Britton equality causes false refusal; core cannot make equality canonical or validate conjugacy without an admitted word checker.",
+      "E_change_reason": "Separate representability from refusal: concrete domain/computational statement above can be proposed under abstract Profile/Checker/Rule interfaces without claiming any checker exists or catches error.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "PR-T15",
+      "recorded_class": "BINDING",
+      "record_kind": "documented incident",
+      "source": {
+        "path": "corpus/incidents/PR-T15.json",
+        "pointer": "",
+        "sha256": "54034f6772d3d9a66da3e626014af0bdbb3fe68c4dea29aa913295f9971b2163"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Use normalized matching_key interchangeably with literal row for checkpoint history replay.",
+      "recorded_minimal_mechanism": "Source assay attributes ac00174 edge-history failure to normalized source, recovering only with literal source bytes; Epoch1 exact4776-edge149-history review reported.",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "concrete_expression": {
+        "statement": "The literal source row yields the claimed replay history; a normalized matching key is a distinct bound input.",
+        "model_or_selected_region": "ac00174 literal row, checkpoint edge history and normalization function.",
+        "ambient_universally_quantified_scope": "All replay executions under pinned transition/version semantics.",
+        "required_checker_premise_binding_contract": "Bind exact literal bytes, normalization and replay contract; digest comparison cannot substitute normalized key for original history."
+      },
+      "old_reason_and_R_qualification": "Literal checkpoint history and normalized key are distinct identities. K4 rejects substituted bytes if literal input digest and replay contract bind the actual history.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Paper interface representation only; named exact artifacts and faithful codec/premise definitions must be instantiated. Required checker/proof contract is a specification obligation, not an existence/admission/implementation claim. Refusal remains independently unchanged.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    },
+    {
+      "id": "PR-T16",
+      "recorded_class": "ADAPTER",
+      "record_kind": "source-attributed correction/group",
+      "source": {
+        "path": "corpus/incidents/PR-T16.json",
+        "pointer": "",
+        "sha256": "b766fd3ca6d091bf875998916c295d38487b33bf99f777568377aff7b1b324a3"
+      },
+      "evidence_pointers": {
+        "classification": "/class",
+        "claim": "/claimed",
+        "minimal_mechanism": "/problem",
+        "qualification": "/notes",
+        "cost": "/cost"
+      },
+      "recorded_claim": "Infer complete loop removal/optimality or unqualified descriptive assay source correspondence.",
+      "recorded_minimal_mechanism": "Loop erasure drops cut-state lookup after repeat, potentially missing later loops; emitted paths all replay. Later PRC repairs runner accounting, cap-classification tests and payload aliasing/source correspondence.",
+      "old": {
+        "E": null,
+        "R": null
+      },
+      "proposed": {
+        "E": null,
+        "R": null
+      },
+      "concrete_expression": null,
+      "old_reason_and_R_qualification": "Loop erasure/optimality, later cap accounting and payload aliases are distinct adapter semantics; replay of emitted path does not prove optimality or all loops removed.",
+      "E_change_reason": "Expression retained or whole-row limit still unresolved.",
+      "R_change": false,
+      "remaining_limits": "Owner combines loop-erasure/optimality, runner/cap accounting and payload aliasing/source correspondence. Path replay/algorithm predicates are possible, but retained summary does not specify every host/accounting relation; whole-row remains unresolved.",
+      "group_qualification": "One descriptive main owner/group entry only; subfindings, children, aliases and consumers add no independent samples."
+    }
+  ],
+  "known_high_cost": [
+    {
+      "id": "JC-B003",
+      "old": {
+        "E": true,
+        "R": true
+      },
+      "proposed": {
+        "E": true,
+        "R": true
+      },
+      "qualification": "Faithful Q/L/K reach and absence of admitted descent; no catch of incorrectly specified meaning/unsound checker."
+    },
+    {
+      "id": "JC-B005",
+      "old": {
+        "E": false,
+        "R": false
+      },
+      "proposed": {
+        "E": false,
+        "R": false
+      },
+      "inexpressible_reason": "Whole stale-prose reviewer recommendation is external consumer behavior; registering supersession cannot force correct reading.",
+      "source_attribution": "High cost/shipping source-reported only, not independently authenticated."
+    }
+  ],
+  "scope_region_review": {
+    "pivot_counterexample_found": false,
+    "examples": [
+      {
+        "id": "DK-B014",
+        "lesson": "Selected parent point/local repair locus belongs in model/region. Ambient field/analytic IFT hypotheses belong in universally quantified scope; rank does not imply equations vanish there."
+      },
+      {
+        "id": "JC-C001",
+        "lesson": "Individual quartic root/branch is model identity; rational versus arbitrary-field/closure hypotheses are scope. Field widening cannot erase branch coverage."
+      },
+      {
+        "id": "GP-SRC-DK-GP01",
+        "lesson": "Selected point/embedding/map endpoints are model identity; base versus closure and quantified extension properties are scope. Descent needs a separate rule."
+      },
+      {
+        "id": "JC-B002",
+        "lesson": "M<0/M>=0 slice region is explicitly bound model/region; all values in each region must satisfy hypotheses. Coverage of the union requires its own proof."
+      },
+      {
+        "id": "JC-C002",
+        "lesson": "Actual chart/dictionary exponent and retraction shape must be bound. A generic existence of some exponent does not validate the selected chart."
+      }
+    ],
+    "limit": "No counterexample established within67 retained summaries requiring pivot of selected-region versus ambient-scope split. This is finite paper evidence, not universal proof or G1 adoption."
+  },
+  "remaining_whole_row_unknown_ids": [
+    "DK-B027",
+    "GP-SRC-CQ-G02",
+    "JC-B010",
+    "JC-B014",
+    "PR-C13",
+    "PR-O01",
+    "PR-T16"
+  ],
+  "retained_limits": [
+    "Exact domain codecs/predicates/recipes must be instantiated later; no concrete checker or domain AST is claimed implemented/admitted.",
+    "An unsound admitted checker can still emit wrong bound receipt. Core cannot detect this from output alone.",
+    "Correct weak/tautological statements can be expressible while intended stronger/relevant use is not refused.",
+    "Original report pair unchanged; source corpus/spec/goal unchanged.",
+    "Old R on DK-B027 targets invalid field-specialization promotion, not the underdescribed 1-WL helper; E now null for whole owner.",
+    "No supplemental scoring, source reads/harvest, campaign/code execution, corpus edits, commits or gate assertions."
+  ],
+  "validation": {
+    "status": "passed",
+    "rows": 67,
+    "unique_ids": 67,
+    "positive_expression_fields_required": 4,
+    "R_preserved_on_every_row": true,
+    "original_report_hashes_preserved": true
+  }
+}

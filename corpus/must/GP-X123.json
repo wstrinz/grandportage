@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "GP-X123",
+  "seed": null,
+  "title": "Promote one excluded fiber to exclusion of the whole parent",
+  "situation": "Minimal mathematical projection of the historical distinction; not a reconstruction of the campaign fixture. For the family a=0 with free x, the fiber at a=1 is empty while (a,x)=(0,0) lies in the parent.",
+  "inputs": {
+    "variables": [
+      "a",
+      "x"
+    ],
+    "parent_equations": [
+      "a"
+    ],
+    "excluded_base": {
+      "a": "1"
+    },
+    "excluded_fiber_generators": [
+      "1"
+    ],
+    "parent_point": {
+      "a": "0",
+      "x": "0"
+    }
+  },
+  "attempted_conclusion": "Promote one excluded fiber to exclusion of the whole parent.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "For the family a=0 with free x, the fiber at a=1 is empty while (a,x)=(0,0) lies in the parent."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "line": 62,
+      "anchor": "def test_report_excludes_only_the_frozen_witness("
+    }
+  ]
+}

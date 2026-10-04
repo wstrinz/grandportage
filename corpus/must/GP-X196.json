@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "GP-X196",
+  "seed": null,
+  "title": "All recorded uses have components on both asserted dimensions",
+  "situation": "The inventory contains every recorded use. This does not establish that the components impose sufficiently strong constraints.",
+  "inputs": {
+    "scenario": "coverage_inventory",
+    "asserted_dimensions": [
+      "place",
+      "order"
+    ],
+    "represented_indices": {
+      "place": [
+        "y",
+        "infinity",
+        "t"
+      ],
+      "order": [
+        "-1",
+        "-2",
+        "-3",
+        "-5",
+        "-4",
+        "0",
+        "1",
+        "2"
+      ]
+    },
+    "construction_uses": [
+      {
+        "dimension": "place",
+        "indices": [
+          "y",
+          "t"
+        ],
+        "description": "coordinate change"
+      },
+      {
+        "dimension": "order",
+        "indices": [
+          "-1",
+          "-2",
+          "-3",
+          "-4",
+          "-5"
+        ],
+        "description": "coefficient family"
+      }
+    ],
+    "conclusion_uses": [
+      {
+        "dimension": "order",
+        "indices": [
+          "0",
+          "1",
+          "2"
+        ],
+        "description": "required nonnegative slices"
+      }
+    ]
+  },
+  "attempted_conclusion": "The recorded uses are covered by the declared index inventory on all asserted dimensions.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The inventory contains every recorded use. This does not establish that the components impose sufficiently strong constraints."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/check.py",
+      "line": 658,
+      "anchor": "def coverage_gaps("
+    }
+  ]
+}

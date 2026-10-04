@@ -1,0 +1,109 @@
+{
+  "goal": "Complete Phase 0 or identify concrete blockers; do not advance into Phase 1 by inference.",
+  "status": "phase0_completed_G0_ratified_Phase1_spec_authorized",
+  "lanes": {
+    "0a": {
+      "status": "completed_with_explicit_observation_limits",
+      "evidence": "reports/PHASE-0A-COMPLETION.json;459cases unchanged expectations;403AGREES/14KNOWN_DIFFERENCE/4DIAGNOSTIC_OBSERVED/29RETAINED_DIAGNOSTIC/9UNSUPPORTED; zero pending/errors/reviewrequired. Approved A24source-grounded native refusal plus unguarded positive;458other cases/routes/outcomes and63prior replays preserved.",
+      "remaining": [],
+      "closeout_decision": "Complete recorded-incident extraction under approved selective scope; explicit exceptions retained, no predecessor soundness claim."
+    },
+    "0b": {
+      "status": "completed_bounded_confirmed_sweep_under_ratified_unknown_policy",
+      "rule_source": "docs/GP-0.50-REWORK-PACKET-rev3.md section 0b and Appendices B/C",
+      "remaining": [],
+      "evidence": "reports/PHASE-0B-COMPLETION.json;76incident/correction/group records and39separate main dispositions account for115entries;17auxiliary/47nested/2child/fourcross-owner distinctions preserved.89private files hash-size-ignore verified. Explicit unknown policy ratified; pivot screen indeterminate, not passed."
+    },
+    "0c": {
+      "status": "completed_bounded_feasibility_with_explicit_limits",
+      "remaining": [],
+      "budget_ledger": "reports/PHASE-0C-BUDGET.json",
+      "evidence": "reports/PHASE-0C-COMPLETION.json;110shared active minutes,41controls,twoactual Mathlib obligations/pins/timings, native LRAT limit retained."
+    },
+    "0d": {
+      "status": "private_preparation_verified",
+      "evidence": "reports/freeze-v0.37.1/AUDIT.json and RELEASE-HANDOFF.md; prepared README now 160 lines and actual frozen limit test passes; isolated patch reapplication verified.",
+      "remaining": [],
+      "deferred_public_actions": "Application/publication and any freeze tag designation remain unperformed under DECISIONS.md item 5; no approval is requested while independent Phase 0 work remains. Existing v0.37.0 release tag is unchanged, with ordinary release annotation."
+    },
+    "0e": {
+      "status": "completed_bounded_primary_source_review",
+      "active_review_cap_minutes": 120,
+      "remaining": [],
+      "limits": "No code imports, installations or implementation prototypes; P13 M1-only and P15 post-G5.",
+      "budget_accounting": {
+        "authorized_active_review_minutes": 120,
+        "completed_active_review_minutes": 75,
+        "charges": [
+          {
+            "owner": "worker",
+            "report": "reports/PHASE-0E-P1-P2-P17-REVIEW.json",
+            "minutes": 14
+          },
+          {
+            "owner": "parent",
+            "report": "reports/PHASE-0E-P12-P16-P18-REVIEW.json",
+            "minutes": 12
+          },
+          {
+            "owner": "worker",
+            "report": "reports/PHASE-0E-TRANSFER-REVIEW.json",
+            "minutes": 15
+          },
+          {
+            "owner": "parent",
+            "report": "reports/PHASE-0E-TRANSFER-PARENT-REVIEW.json",
+            "minutes": 4
+          },
+          {
+            "owner": "worker",
+            "report": "reports/PHASE-0E-CERTIFICATE-CAMPAIGN-REVIEW.json",
+            "minutes": 16
+          },
+          {
+            "owner": "parent",
+            "report": "reports/PHASE-0E-FINAL-PARENT-REVIEW.json",
+            "minutes": 14
+          }
+        ],
+        "reserved_worker_slice_minutes": 0,
+        "unreserved_minutes": 45,
+        "active_owner": null,
+        "scope": "Finite0e reading and synthesis complete. Unspent cap does not commission further research.",
+        "reserved_parent_slice_minutes": 0,
+        "parent_scope": "Complete; no active reading."
+      },
+      "evidence": "All18 rows accounted; three G1 recommendations, bounded territory/consumer and interoperability assessment in PRIOR-ART.md. Six consequential worker source files independently checked. No checker execution, package adoption or G1/G0 completion."
+    }
+  },
+  "blocker_assessment": "Phase0/G0 complete under ratified qualifications. Phase1 specification authorized; G1 decisions/soundness elaboration/expressiveness scoring remain. No Phase2 implementation.",
+  "next_work": [
+    "Prepare one-page SPEC-CORE and Mathlib-free elaborated soundness statement.",
+    "Bounded paper scoring against proposed semantics; no silent core_would_refuse attribution or incident evidence changes.",
+    "Evidence-backed three G1 recommendations for Will sign-off."
+  ],
+  "new_findings": [
+    "reports/RETRY-MERGE-AUDIT.json",
+    "reports/JOIN-AUTHORITY-AUDIT.json"
+  ],
+  "neutral_lifecycle_migration": {
+    "cases": 22,
+    "expected_verdicts_changed": 0,
+    "report": "reports/NEUTRAL-LIFECYCLE-AUDIT.json"
+  },
+  "packet_revision": {
+    "revision": 3,
+    "status": "approved_with_review_amendments",
+    "packet": "docs/GP-0.50-REWORK-PACKET-rev3.md",
+    "amendments": "reports/PACKET-REV3-REVIEW.md"
+  },
+  "heartbeat": {
+    "automation_id": "grand-portage-phase-0-shepherd",
+    "status": "PAUSED",
+    "interval_minutes": 50,
+    "renewed_by_user": "2026-09-29"
+  },
+  "before_phase1": [
+    "Completed by direct2026-09-30 user ratification in reports/PHASE-0-G0-REVIEW.md; cost percentages remain indeterminate."
+  ]
+}

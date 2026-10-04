@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "GP-X412",
+  "seed": null,
+  "title": "A nonvanishing guard admits the equation-free offered point",
+  "situation": "An offered ordinary rational point at an exact open model. Equations must vanish and every nonzero guard must remain nonzero.",
+  "inputs": {
+    "coefficient_domain": "Q",
+    "point_universe": "rational points",
+    "variables": [
+      "x"
+    ],
+    "equations": [],
+    "nonzero_guards": [
+      "x"
+    ],
+    "point": {
+      "x": "1"
+    }
+  },
+  "attempted_conclusion": "Accept the offered point as a witness at this exact open model.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "With no equations and x=1, the open guard is nonzero. This point satisfies its own model; no transport or current held authority follows."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 4509,
+      "anchor": "def test_equation_free_open_locus_still_checks_its_guard():"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "id": "GP-X160",
+  "seed": null,
+  "title": "Treat a claim at a superseded model as current without repointing",
+  "situation": "Model replacement does not automatically repoint consumers.",
+  "inputs": {
+    "vocabulary": "lifecycle-scenario/v1",
+    "objects": {
+      "object-1": {
+        "category": "context",
+        "name": "M",
+        "properties": {
+          "description": "m"
+        }
+      },
+      "object-2": {
+        "category": "context",
+        "name": "N",
+        "properties": {
+          "description": "n"
+        }
+      },
+      "object-3": {
+        "category": "assertion",
+        "name": "C",
+        "properties": {
+          "context": "M",
+          "statement_class": "universal_property",
+          "statement": "P"
+        }
+      },
+      "object-4": {
+        "category": "context",
+        "name": "M2",
+        "properties": {
+          "description": "m"
+        }
+      }
+    },
+    "history": [
+      {
+        "object": "object-1"
+      },
+      {
+        "object": "object-2"
+      },
+      {
+        "object": "object-3"
+      },
+      {
+        "object": "object-4",
+        "replacement": {
+          "prior": "M",
+          "change": "restatement"
+        }
+      }
+    ],
+    "question": {
+      "concerns": [
+        "retired_context_dependency"
+      ]
+    }
+  },
+  "attempted_conclusion": "Treat a claim at a superseded model as current without repointing.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Model replacement does not automatically repoint consumers."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_supersession_noise.py",
+      "line": 210,
+      "anchor": "def test_verify_declines_a_live_edge_with_a_superseded_endpoint("
+    }
+  ]
+}

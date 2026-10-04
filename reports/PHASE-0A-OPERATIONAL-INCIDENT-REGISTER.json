@@ -1,0 +1,959 @@
+{
+  "schema_version": 1,
+  "title": "Phase 0a operational incident register",
+  "status": "parent_review_proposal",
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "basis": [
+    "reports/PHASE-0A-CLOSURE-TRIAGE.json",
+    "reports/PHASE-0A-CLOSURE-MATRIX.json",
+    "reports/PHASE-0A-CURRENT-REMAINING-QUEUE.json"
+  ],
+  "scope": {
+    "concrete_operational_incidents": 21,
+    "N3_filesystem_custody": 5,
+    "N4_postvalidation_identity": 3,
+    "unique_incidents": 29,
+    "excluded_wording_only": [
+      "51.4"
+    ]
+  },
+  "mechanism_groups": [
+    {
+      "key": "source_format_schema",
+      "incident_ids": [
+        "53.2",
+        "54.3",
+        "55.2a",
+        "55.2b"
+      ]
+    },
+    {
+      "key": "health_request_commit",
+      "incident_ids": [
+        "55.3",
+        "56.2",
+        "56.3"
+      ]
+    },
+    {
+      "key": "handoff_api_contract",
+      "incident_ids": [
+        "58.2",
+        "58.3a"
+      ]
+    },
+    {
+      "key": "digest_filesystem_custody",
+      "incident_ids": [
+        "61.3",
+        "63.2",
+        "63.3",
+        "63.4",
+        "65.4",
+        "69.3"
+      ]
+    },
+    {
+      "key": "packet_attempt_binding",
+      "incident_ids": [
+        "64.3b"
+      ]
+    },
+    {
+      "key": "frontier_count_status",
+      "incident_ids": [
+        "65.3a",
+        "65.3b",
+        "66.2"
+      ]
+    },
+    {
+      "key": "corpus_reporting",
+      "incident_ids": [
+        "69.2"
+      ]
+    },
+    {
+      "key": "transcript_postvalidation",
+      "incident_ids": [
+        "74.3",
+        "74.5",
+        "76.2"
+      ]
+    },
+    {
+      "key": "lexical_validation",
+      "incident_ids": [
+        "74.4",
+        "76.8b"
+      ]
+    },
+    {
+      "key": "cas_declaration_identity",
+      "incident_ids": [
+        "76.3",
+        "76.7"
+      ]
+    },
+    {
+      "key": "hook_error_reporting",
+      "incident_ids": [
+        "77.3",
+        "77.4"
+      ]
+    }
+  ],
+  "incidents": [
+    {
+      "id": "53.2",
+      "mechanism_group": "source_format_schema",
+      "concrete_input": "Format 8/epoch 11 migration source header missing implementation identity; format 6 missing and valid epoch 11 headers are controls.",
+      "attempted_operational_conclusion": "Treat rewritten migration output as validating the original source identity.",
+      "expected_contract": "Malformed source header should refuse under its recorded epoch before replacement.",
+      "observed_behavior": "Dry run accepts the epoch 11 missing-identity header; format 6 missing identity refuses.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/migration.py",
+        "line": 130,
+        "sha256": "a3e18bafa29af7b3ba4f5b7c3dee609009eacbacd3849179494f6a1dada3a4da"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-53.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/0",
+        "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/1",
+        "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/2"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [
+        "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/2"
+      ],
+      "positive_control_requested_in_prior_queue": "Historical format-6 missing identity refuses; valid format-8/epoch-11 source header succeeds.",
+      "prior_recorded_text": "Four dry-run diagnostics bind source bytes before/after. Historical format 6 missing implementation identity refuses. Current format 8 with older kernel epoch 11 and the same missing identity passes migration dry-run; valid internally consistent format-8/epoch-11 metadata also passes. migrate_kernel_epoch intentionally bypasses validate_meta_for_read for this combination to allow epoch advancement, but does not replace it with source-header shape/identity validation. It validates the newly generated header instead. Proposed fix: independently validate the source header under its recorded epoch, then replace it. This is a provenance custody gap, not a reproduced arithmetic or current-verdict bypass.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "54.3",
+      "mechanism_group": "source_format_schema",
+      "concrete_input": "Numeric source_commit in otherwise current metadata.",
+      "attempted_operational_conclusion": "Return the documented structured GraphError for malformed metadata.",
+      "expected_contract": "Malformed field must fail through GraphError, while valid string commit validates.",
+      "observed_behavior": "Regex matching raises raw TypeError; malformed metadata is not accepted.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/format.py",
+        "line": 314,
+        "sha256": "9d7ad6885285b2e55de9bbf6dea62d428d1f68a3b7180728a1651365c82c171e"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-54.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/IMPLEMENTATION-IDENTITY-BOUNDARY.json#/controls/2"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Valid string source_commit validates; malformed numeric value returns a structured refusal.",
+      "prior_recorded_text": "A numeric source_commit in otherwise valid current metadata raises TypeError from regex matching, outside the normal GraphError validation contract. The malformed input is not accepted. Proposed fix: type-check commit values before matching and normalize errors at the documented boundary. Keep this robustness diagnostic distinct from a normal corpus refusal or false-proof admission.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "55.2a",
+      "mechanism_group": "source_format_schema",
+      "concrete_input": "Exported authoring JSON has integral as string false.",
+      "attempted_operational_conclusion": "Treat exported schema validation as matching native Boolean integral validation.",
+      "expected_contract": "A published schema and native shape validator should agree on field type.",
+      "observed_behavior": "Schema accepts the string; native validator refuses it.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cli.py",
+        "line": 2125,
+        "sha256": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-55.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/0"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Boolean integral native/exported acceptance and string integral refusal agree.",
+      "prior_recorded_text": "Four bounded controls expose two interface mismatches. The exported JSON schema accepts integral=\"false\" because the property is untyped, while native validation requires a boolean. Conversely, native shape validation accepts a sparse inference retraction, while the exported authoring schema requires asserted. The native tombstone control checks shape only, not validity of a referenced graph target. Proposed repair: generate the boolean and tombstone constraints from the runtime contract, or explicitly describe the schema as an approximation rather than the one runtime schema.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "55.2b",
+      "mechanism_group": "source_format_schema",
+      "concrete_input": "Sparse inference retraction without asserted field.",
+      "attempted_operational_conclusion": "Treat exported authoring schema and native event shape as one contract.",
+      "expected_contract": "The two validators should agree after schema policy is stated.",
+      "observed_behavior": "Native shape accepts; exported authoring schema refuses.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/mcp.py",
+        "line": 232,
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-55.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/1"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Sparse tombstone authoring/export and native shape agree after intended schema policy is stated.",
+      "prior_recorded_text": "Four bounded controls expose two interface mismatches. The exported JSON schema accepts integral=\"false\" because the property is untyped, while native validation requires a boolean. Conversely, native shape validation accepts a sparse inference retraction, while the exported authoring schema requires asserted. The native tombstone control checks shape only, not validity of a referenced graph target. Proposed repair: generate the boolean and tombstone constraints from the runtime contract, or explicitly describe the schema as an approximation rather than the one runtime schema.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "55.3",
+      "mechanism_group": "health_request_commit",
+      "concrete_input": "Mocked CAS health probe returns unexpected parsed basis [1] rather than the expected two-generator basis.",
+      "attempted_operational_conclusion": "Doctor reports healthy on the text-only health response.",
+      "expected_contract": "Unexpected arithmetic should produce failed health and nonzero doctor status.",
+      "observed_behavior": "Text warns, but no isError; doctor reports healthy true and exits zero.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/mcp.py",
+        "line": 823,
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-55.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/2",
+        "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/3"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [
+        "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/2"
+      ],
+      "positive_control_requested_in_prior_queue": "Expected and unexpected parsed CAS bases yield distinct health flags and doctor exit codes.",
+      "prior_recorded_text": "Correct and unexpected parsed CAS bases both return normal text from h_cas_health. The unexpected result explicitly warns not to trust verdicts, but omits isError. cmd_doctor reads only that flag for CAS healthy, so the unexpected case reports healthy=true and exits zero. Proposed repair: return a failed structured health result on unexpected arithmetic and propagate it consistently into doctor status. Mocked execution and parsed values isolate this control-flow defect; no actual CAS run or binary failure is claimed. Health is never a substitute for proof replay.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "56.2",
+      "mechanism_group": "health_request_commit",
+      "concrete_input": "Syntactically valid JSON array request followed by a ping, contrasted with malformed syntax followed by ping.",
+      "attempted_operational_conclusion": "Serve should contain one malformed message and process the next.",
+      "expected_contract": "Wrong request shape should get a structured error without ending the serve invocation.",
+      "observed_behavior": "Array reaches request.get and raises AttributeError before the handler guard; no next response.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/mcp.py",
+        "line": 1438,
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-56.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/0",
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/1"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/0"
+      ],
+      "positive_control_requested_in_prior_queue": "Malformed syntax error response is followed by successful ping; array request should be contained likewise.",
+      "prior_recorded_text": "Malformed JSON syntax produces a parse-error response and the next ping succeeds. A syntactically valid JSON array reaches request.get before the handler exception guard and raises AttributeError, ending this serve invocation before the next ping. Proposed fix: validate request/params/arguments shapes and contain per-message failures before calling handlers. No external service was contacted; the control uses StringIO.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "56.3",
+      "mechanism_group": "health_request_commit",
+      "concrete_input": "Valid model append followed by injected C.run reporting exception; valid save and pre-append invalid event are controls.",
+      "attempted_operational_conclusion": "Interpret an error response as an uncommitted action safe to retry.",
+      "expected_contract": "Response should expose durable commit status separately from post-commit render error.",
+      "observed_behavior": "Graph bytes contain the model, while dispatch returns isError traceback and ambiguous retry status.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/mcp.py",
+        "line": 1359,
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-56.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/2",
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/3",
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/4"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/2",
+        "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/3"
+      ],
+      "positive_control_requested_in_prior_queue": "Successful append response and pre-append failure preserve distinct durable commit status.",
+      "prior_recorded_text": "Three temporary graph declarations distinguish outcomes. A valid model is saved successfully. An invalid event returns an error with unchanged bytes. A valid model followed by an injected C.run reporting exception is durably saved, yet dispatch returns isError with a traceback. This is a simulated post-commit reporting failure, not an observed production outage. The response does not falsely say unchanged in this path, but an error alone cannot tell the caller whether retrying duplicates an already committed action. Proposed fix: expose commit status/receipt separately from rendering errors and define retry behavior explicitly.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "58.2",
+      "mechanism_group": "handoff_api_contract",
+      "concrete_input": "Two synthetic Q models with x^2+1 and point universes BASE and ALGEBRAIC_CLOSURE.",
+      "attempted_operational_conclusion": "Use compact handoff text as sufficient model context.",
+      "expected_contract": "Different point universes should be distinguishable in a handoff.",
+      "observed_behavior": "Rendered text is identical although stored point scopes differ.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/mcp.py",
+        "line": 1187,
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-58.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/MCP-HANDOFF-CONTEXT-BOUNDARY.json#/controls/0",
+        "reports/MCP-HANDOFF-CONTEXT-BOUNDARY.json#/controls/1"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Q BASE and Q ALGEBRAIC_CLOSURE compact handoffs identify their different point universes.",
+      "prior_recorded_text": "Two synthetic model declarations demonstrate that the compact handoff emits identical text for Q BASE and Q ALGEBRAIC_CLOSURE point universes of x^2+1=0. The former has no rational point; the latter has points. Stored point scopes differ correctly. The issue is omitted context in a view advertised as the handoff, not loss in storage or a false mathematical verdict. Proposed fix: show point universe and selected embedding/context explicitly, or clearly identify the view as incomplete with a full structured context path.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "58.3a",
+      "mechanism_group": "handoff_api_contract",
+      "concrete_input": "Advertised portage_check floor argument, with source handler implementation.",
+      "attempted_operational_conclusion": "Assume supplied floor changes h_portage_check behavior.",
+      "expected_contract": "An advertised floor should be consulted or the description narrowed.",
+      "observed_behavior": "Reviewed handler does not consult floor; no paired dynamic request is retained.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/mcp.py",
+        "line": 923,
+        "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-58.md#paragraph-3",
+      "reproduction_evidence": [],
+      "reproduction_state": "source_and_report_only",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Two requests differing only in floor produce distinguishable behavior if floor is advertised.\n",
+      "prior_recorded_text": "Static contract findings: portage_check advertises floor but h_portage_check does not consult it; description-only promises should be removed or implemented and tested. The producing ideal tool's advice that attaching a certificate kind derives scope overstates what is needed for earned authority. The transport table's newer description correctly requires a current receipt and target-context gates; align the producer guidance to that boundary. Nonzero-characteristic computations may establish claims in that exact field even though they do not automatically transfer to characteristic zero, so blanket reconnaissance wording needs qualification.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "source_grounded_report_only",
+      "limits": [
+        "No separate dynamic input contrast retained."
+      ]
+    },
+    {
+      "id": "61.3",
+      "mechanism_group": "digest_filesystem_custody",
+      "concrete_input": "Isolated Git repository with CRLF committed fixture and declared sha256-lf-normalized digest.",
+      "attempted_operational_conclusion": "Treat checkout and pinned-ref audits as the same normalized-byte contract.",
+      "expected_contract": "LF and CRLF audit paths should compute the same declared normalized digest.",
+      "observed_behavior": "Checkout is CURRENT_CLEAN; pinned HEAD is STALE with two digest mismatches.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/dossier.py",
+        "line": 500,
+        "sha256": "6b81486e77377d76971059b2cb3789803152945af4e938de2013ee5f0f527e11"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-61.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/DOSSIER-BOUNDARIES-AUDIT.json#/controls/2",
+        "reports/DOSSIER-BOUNDARIES-AUDIT.json#/controls/3"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [
+        "reports/DOSSIER-BOUNDARIES-AUDIT.json#/controls/2"
+      ],
+      "positive_control_requested_in_prior_queue": "LF and CRLF checkout and pinned-ref audits compute the same declared normalized digest.",
+      "prior_recorded_text": "A real isolated Git repository containing CRLF fixture files exposes differing digest semantics: checkout audit is CURRENT_CLEAN, pinned HEAD audit is STALE with both digests mismatched. Both declare sha256-lf-normalized, but the pinned branch hashes raw bytes. Proposed repair: share normalization and test both paths with LF/CRLF. Source-ref mode intentionally omits working-tree dirt; that is not the defect.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "63.2",
+      "mechanism_group": "digest_filesystem_custody",
+      "concrete_input": "Case-variant Windows alias of protected mixed-case source used as forced derived-output path.",
+      "attempted_operational_conclusion": "Allow output because abspath strings differ.",
+      "expected_contract": "Protected source bytes should remain unchanged for both spellings.",
+      "observed_behavior": "Alias passes and replaces protected input; identical spelling refuses.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cli.py",
+        "line": 2558,
+        "sha256": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-63.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/3",
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/5"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/3"
+      ],
+      "positive_control_requested_in_prior_queue": "Identical spelling and case/alias spelling both protect input bytes.",
+      "prior_recorded_text": "The writer compares abspath strings without filesystem case normalization. On this Windows volume, a lowercase alias to a protected mixed-case filename passes with force and replaces the protected input. The normal identical-spelling control refuses. All controls use scratch files. Proposed fix: canonical filesystem identity checks for input aliases, retaining refusal even with force; test Windows case variants and directory aliases. Replacement of hard links/symlinks has different semantics and is not established by this control.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "63.3",
+      "mechanism_group": "digest_filesystem_custody",
+      "concrete_input": "Preexisting output.PID.tmp placed before an exclusive temporary open.",
+      "attempted_operational_conclusion": "Cleanup may remove the temporary path after failed creation.",
+      "expected_contract": "A file not created by this invocation should remain untouched.",
+      "observed_behavior": "Exclusive open raises FileExistsError and finally deletes the preexisting file.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cli.py",
+        "line": 2558,
+        "sha256": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-63.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/2",
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/4"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/2"
+      ],
+      "positive_control_requested_in_prior_queue": "Ordinary exclusive temporary creation succeeds; preexisting file remains untouched on failure.",
+      "prior_recorded_text": "A preexisting <output>.<pid>.tmp makes exclusive open raise FileExistsError, but finally unlinks that preexisting file. Proposed fix: an exclusively created unique temporary file with ownership tracked, and cleanup only for the file this invocation created. Existing output without force still refuses and preserves bytes. The current check-before-replace is not a concurrent no-clobber guarantee; that separate race was not executed here.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "63.4",
+      "mechanism_group": "digest_filesystem_custody",
+      "concrete_input": "Deterministic injected write changes proof.txt after digest check but before release copyfile.",
+      "attempted_operational_conclusion": "Treat materialized archive bytes as bound by the checked source digest.",
+      "expected_contract": "Archived bytes must match the bound digest or the operation should refuse.",
+      "observed_behavior": "Materialization succeeds with archived digest different from bound digest and checksum entry.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/release.py",
+        "line": 803,
+        "sha256": "65c3cead208858bf26cd9441288c14c1c473ac35d27640ad7561c9809a11cd9c"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-63.md#paragraph-4",
+      "reproduction_evidence": [
+        "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/0"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Unchanged source copy matches manifest digest; injected source change refuses or rebinds archived digest.",
+      "prior_recorded_text": "At the release copy boundary, a deterministic injected write changes proof.txt after its digest check but before copyfile reads it. Materialization succeeds, while the archived digest differs from the bound digest and generated checksum entry. Git cleanliness was mocked exactly as in retained tests; this is a reproducible timing window, not an observed external race. Proposed fix: validate staged bytes against expected hashes before publication; use immutable source snapshots or stable file handles where required. An atomic destination rename alone cannot establish source-byte consistency.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "65.4",
+      "mechanism_group": "digest_filesystem_custody",
+      "concrete_input": "CLI --emit-review output names its own bound manifest or receipt; separate-path output is the control.",
+      "attempted_operational_conclusion": "Allow emitting review to a protected input path.",
+      "expected_contract": "Bound source input bytes must remain unchanged.",
+      "observed_behavior": "Actual CLI overwrites either selected bound input and exits zero.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/frontier_bundle.py",
+        "line": 360,
+        "sha256": "acb4d823eaee9d39d1494374cb20d6153763ab2689a898bb537d56fe2ff71103"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-65.md#paragraph-4",
+      "reproduction_evidence": [
+        "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/3",
+        "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/4"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Review emission to a separate path succeeds and bound inputs retain their hashes.",
+      "prior_recorded_text": "Actual CLI --emit-review overwrites either its own manifest or a bound receipt when that input is selected as output. Controls touch scratch files only. The mkstemp writer owns its temporary file correctly, unlike the shared PID writer, but performs no protected-input check. Proposed fix: protect all bound input identities with filesystem alias handling, and specify deliberate existing-output replacement policy. Atomic replacement does not itself protect custody.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "69.3",
+      "mechanism_group": "digest_filesystem_custody",
+      "concrete_input": "Export source already contains export-manifest.json in its verbatim payload namespace.",
+      "attempted_operational_conclusion": "Treat successful export as byte-preserving retention.",
+      "expected_contract": "Reserved-name collision should refuse before mutation or preserve source bytes under a distinct metadata name.",
+      "observed_behavior": "Export returns success, overwrites copied file, and validator later reports SHA mismatch.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "scripts/corpus_check.py",
+        "line": 66,
+        "sha256": "fed263a3f2b933e7d371b1dbe83c7f42e80379ea42e305fd107dfbe951b33f89"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-69.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/2"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "No reserved source name exports unchanged; collision refuses before output mutation.",
+      "prior_recorded_text": "A source containing export-manifest.json is copied verbatim initially, then that file is overwritten by generated export metadata. Export returns success; its validator subsequently reports SHA mismatch for the reserved file. Proposed fix: preflight reserved-name collisions before output creation, or put metadata outside the verbatim payload namespace. Preserve the new-destination and source-stability checks. Current failures can leave incomplete exports; no atomic snapshot claim is justified.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "64.3b",
+      "mechanism_group": "packet_attempt_binding",
+      "concrete_input": "Old ledger and changed proposition under the same packet ID with refreshed manifest hashes.",
+      "attempted_operational_conclusion": "Overlay old ledger onto new packet by matching ID alone.",
+      "expected_contract": "Overlay should bind packet content identity; matching packet or explicit prior-ledger mismatch controls differ.",
+      "observed_behavior": "Direct overlay accepts changed content; explicit prior ledger refuses changed attempt fingerprint.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/campaign.py",
+        "line": 585,
+        "sha256": "aa7143280c0869a28761942ec3faf9f0c7da4d872b017dd7fffeb6716eb3cdf4"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-64.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/0",
+        "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/1",
+        "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/2"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [
+        "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/2"
+      ],
+      "positive_control_requested_in_prior_queue": "Overlay with matching packet fingerprints succeeds; changed proposition under the old ledger refuses.\n",
+      "prior_recorded_text": "With packet ID unchanged, alter its proposition and explicitly refresh catalog/packet/ledger manifest hashes. Recompiling unchanged accepted-attempt input assigns the new packet fingerprint and preserves ACCEPTED_ARTIFACT. This is not a hash bypass: the caller has supplied newly matching bindings. An explicit prior ledger correctly refuses because the normalized attempt fingerprint changed. A direct overlay of the old ledger with the new packet set succeeds because it checks IDs but not content identity. Normal CLI rebuilds both inputs; an actual concurrent CLI race was not tested.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "65.3a",
+      "mechanism_group": "frontier_count_status",
+      "concrete_input": "Duplicate open_items in one receipt.",
+      "attempted_operational_conclusion": "Treat per-receipt open_count and aggregate unique count as consistent.",
+      "expected_contract": "Duplicate list entries should be rejected or deduplicated consistently.",
+      "observed_behavior": "Receipt reports 2 open while aggregate reports 1.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/frontier_bundle.py",
+        "line": 166,
+        "sha256": "acb4d823eaee9d39d1494374cb20d6153763ab2689a898bb537d56fe2ff71103"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-65.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/0"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Unique open_items maintains matching per-receipt and aggregate counts.",
+      "prior_recorded_text": "Reproduced gaps: duplicate open_items entries pass set equality and inflate per-receipt open_count while the aggregate count remains unique; the stable-ID regex admits a final newline; lone closed observations accept absent replacement_ids whereas explicit supersession checks replacement existence. Proposed fixes: strict list/type/uniqueness checks, fullmatch IDs and a consistent reference-existence policy. None constitutes a false theorem admission.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "65.3b",
+      "mechanism_group": "frontier_count_status",
+      "concrete_input": "Stable semantic ID A followed by terminal newline.",
+      "attempted_operational_conclusion": "Treat a regex match as full valid ID validation.",
+      "expected_contract": "Valid A may pass; terminal newline should fail the lexical contract.",
+      "observed_behavior": "ID A newline is accepted.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/frontier_bundle.py",
+        "line": 37,
+        "sha256": "acb4d823eaee9d39d1494374cb20d6153763ab2689a898bb537d56fe2ff71103"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-65.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/1"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Valid stable ID accepted; terminal newline rejected.",
+      "prior_recorded_text": "Reproduced gaps: duplicate open_items entries pass set equality and inflate per-receipt open_count while the aggregate count remains unique; the stable-ID regex admits a final newline; lone closed observations accept absent replacement_ids whereas explicit supersession checks replacement existence. Proposed fixes: strict list/type/uniqueness checks, fullmatch IDs and a consistent reference-existence policy. None constitutes a false theorem admission.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "66.2",
+      "mechanism_group": "frontier_count_status",
+      "concrete_input": "Item status FAILED with frontier_state absent; explicit OPEN is control.",
+      "attempted_operational_conclusion": "Default an unknown status to CLOSED.",
+      "expected_contract": "Unknown status must not silently close an obligation; exact refuse/open policy remains undecided.",
+      "observed_behavior": "Observation becomes CLOSED, while explicit OPEN remains OPEN.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/frontier.py",
+        "line": 290,
+        "sha256": "04bde7fe30865018c6ed461f793a446756c7d8a0901c820e16bd47484079d5ae"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-66.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/FRONTIER-PROJECTION-BOUNDARIES.json#/controls/0",
+        "reports/FRONTIER-PROJECTION-BOUNDARIES.json#/controls/1"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [
+        "reports/FRONTIER-PROJECTION-BOUNDARIES.json#/controls/1"
+      ],
+      "positive_control_requested_in_prior_queue": "Explicit OPEN remains open; known CLOSED status closes; unknown FAILED does not silently close.",
+      "prior_recorded_text": "Unknown nonempty status FAILED defaults to CLOSED in item observations when frontier_state is absent. Explicit OPEN preserves the obligation. Proposed repair: require explicit state or an exhaustive typed mapping, with unknown status refused or left open according to an explicitly selected policy. This is a research display/aggregation risk, not a kernel proof admission.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "69.2",
+      "mechanism_group": "corpus_reporting",
+      "concrete_input": "Retained synthetic READY intake fixture whose graph has kernel_epoch null.",
+      "attempted_operational_conclusion": "Treat retention READY as a native-load and report-ready result.",
+      "expected_contract": "Native load refusal should be reported per campaign without promoting authority.",
+      "observed_behavior": "GraphError occurs before corpus-report.json exists; READY remains retention-only.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "scripts/project_ir_corpus.py",
+        "line": 129,
+        "sha256": "195b65281c8f80596ccc085cedde42b58cc8e0ce4a433cfd82c90203b5bd5616"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-69.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/0",
+        "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/1"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Valid native graph produces a report; malformed graph yields a per-campaign load error.",
+      "prior_recorded_text": "READY is a retention/shape check: manifest hashes, field paths, format-8 labels and retained verdict-event presence. The retained synthetic test itself is not a valid native graph. Loading it through the campaign runner raises GraphError before any corpus-report.json is written. This is correct native refusal but incomplete reporting. Proposed fix: distinct retention/native-load/authority statuses and per-campaign load-error records, without relaxing eligibility or backfilling source data.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "74.3",
+      "mechanism_group": "transcript_postvalidation",
+      "concrete_input": "Two bounded Python subprocesses emit raw OK newline and O ff K newline byte strings.",
+      "attempted_operational_conclusion": "Use decoded stdout text hash as distinct raw-output identity.",
+      "expected_contract": "Distinct raw streams must remain distinguishable or decoding should refuse.",
+      "observed_behavior": "errors=ignore reduces both to OK newline and the same retained text digest.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cas.py",
+        "line": 963,
+        "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-74.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/0",
+        "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/1"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [
+        "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/0"
+      ],
+      "positive_control_requested_in_prior_queue": "Valid UTF-8 transcript retains bytes; distinct invalid byte streams cannot share retained evidence identity.",
+      "prior_recorded_text": "Two actual bounded Python subprocesses emitting different byte strings, OK newline and O ff K newline, both retain OK newline and the same stdout text digest because errors=ignore drops invalid UTF-8. This is lossy transcript custody, not a cryptographic collision or reproduced proof admission.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "74.5",
+      "mechanism_group": "transcript_postvalidation",
+      "concrete_input": "Direct injected-runner artifact with mutable abort_reason object.",
+      "attempted_operational_conclusion": "Treat frozen ExecutionArtifact as immutable after validation.",
+      "expected_contract": "Digest should stay stable after construction or mutable metadata should refuse.",
+      "observed_behavior": "Mutating referenced reason changes fingerprint while validator accepts.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/backend.py",
+        "line": 132,
+        "sha256": "8a2cbb4c617e2e76b4a346bb0cabfaf583e7ebfe150207e4889eaf593e4dd03f"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-74.md#paragraph-5",
+      "reproduction_evidence": [
+        "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/3"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Native string/null abort_reason remains stable; direct mutable object is copied/refused.",
+      "prior_recorded_text": "ExecutionArtifact frozen dataclass retains arbitrary abort_reason by reference. A direct injected-runner mutable reason changes the artifact digest after construction while validate_execution_artifact accepts it. Native subprocess produces only strings/null, so this is a direct-API envelope defect, not a demonstrated native attack.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "76.2",
+      "mechanism_group": "transcript_postvalidation",
+      "concrete_input": "Validated CASProgram body later mutated to a shadowing statement before injected execution.",
+      "attempted_operational_conclusion": "Trust constructor validation as non-bypassable for the executed body.",
+      "expected_contract": "Executed body must be snapshot-bound or revalidated after mutation.",
+      "observed_behavior": "Injected runner receives shadowing statement and mock complete transcript parses.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cas.py",
+        "line": 329,
+        "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-76.md#paragraph-2",
+      "reproduction_evidence": [
+        "reports/CAS-PROGRAM-CUSTODY.json#/observations/0",
+        "reports/CAS-PROGRAM-CUSTODY.json#/observations/1"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [
+        "reports/CAS-PROGRAM-CUSTODY.json#/observations/0"
+      ],
+      "positive_control_requested_in_prior_queue": "Unchanged validated body executes; post-validation shadowing mutation must be refused or snapshotted.",
+      "prior_recorded_text": "CASProgram validates constructor inputs, but stores mutable lists and renders them again at execution. A shadowing statement rejected in the constructor reaches the injected runner after body mutation and its mock complete transcript parses. This contradicts the absolute non-bypassable wording for direct Python callers; no live CAS or external-input exploit is claimed.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "74.4",
+      "mechanism_group": "lexical_validation",
+      "concrete_input": "64-hex execution fingerprint with terminal newline.",
+      "attempted_operational_conclusion": "Treat regex dollar match as full lexical validation.",
+      "expected_contract": "Bare digest should pass; trailing newline should fail.",
+      "observed_behavior": "valid_fingerprint accepts the newline-bearing string.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/backend.py",
+        "line": 48,
+        "sha256": "8a2cbb4c617e2e76b4a346bb0cabfaf583e7ebfe150207e4889eaf593e4dd03f"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-74.md#paragraph-4",
+      "reproduction_evidence": [
+        "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/2"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Valid 64-hex digest accepted and trailing newline rejected.",
+      "prior_recorded_text": "valid_fingerprint accepts a final newline because regex match with dollar permits it. No stored-object or authority bypass established; use fullmatch for the advertised lexical contract.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "76.8b",
+      "mechanism_group": "lexical_validation",
+      "concrete_input": "CAS identifier string with terminal newline, inferred from dollar-anchored validator source.",
+      "attempted_operational_conclusion": "Treat anchored regex match as full identifier validation.",
+      "expected_contract": "Bare identifier should pass; newline suffix should fail.",
+      "observed_behavior": "Source matcher permits terminal newline; no separate bounded execution observation retained.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cas.py",
+        "line": 183,
+        "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-76.md#paragraph-8",
+      "reproduction_evidence": [],
+      "reproduction_state": "source_and_report_only",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Valid identifier is accepted; identical spelling plus terminal newline is refused.\n",
+      "prior_recorded_text": "GP_SINGULAR_ARGV uses whitespace split, so quoted executable paths/arguments with spaces are not preserved. Identifier matching uses dollar rather than fullmatch and the expression/body guard remains an acknowledged denylist, not a typed language proof.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "source_grounded_report_only",
+      "limits": [
+        "No separate dynamic input contrast retained."
+      ]
+    },
+    {
+      "id": "76.3",
+      "mechanism_group": "cas_declaration_identity",
+      "concrete_input": "Injected CAS result declares GP_I[1]=x but caller metadata supplies generators [1].",
+      "attempted_operational_conclusion": "Use resulting model declaration as parsed-output generator provenance.",
+      "expected_contract": "Resulting model generators should match parsed output or record the caller distinction.",
+      "observed_behavior": "Stored model generators are caller [1], not parsed x; no operation verdict is created.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cas.py",
+        "line": 735,
+        "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-76.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/CAS-PROGRAM-CUSTODY.json#/observations/2"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Matching caller/output generators bind declaration; mismatch refuses or records explicit provenance difference.",
+      "prior_recorded_text": "run_cas persists caller-supplied program.generators, not parsed output generators. A synthetic run emitting x records a model with supplied generators [1]. This creates a declaration, not an operation or contraction verdict; output-to-model provenance wording is stronger than the enforced binding.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "76.7",
+      "mechanism_group": "cas_declaration_identity",
+      "concrete_input": "Program semantic fingerprint excludes caller generators that populate resulting model declaration.",
+      "attempted_operational_conclusion": "Use program fingerprint as complete model-declaration identity.",
+      "expected_contract": "Changed declaration generators should change bound identity or be explicitly distinguished.",
+      "observed_behavior": "Source shows omission; no changed-generator persistence contrast is retained.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/cas.py",
+        "line": 439,
+        "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-76.md#paragraph-7",
+      "reproduction_evidence": [],
+      "reproduction_state": "contrast_missing",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Same program with changed model generators yields distinguishable declaration identity.",
+      "prior_recorded_text": "Program semantic fingerprints include rendered text, ordering and outputs but omit generators metadata used to declare the resulting model. A fingerprint therefore binds the execution request, not every model declaration field.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "minimal_changed_generator_contrast_missing",
+      "limits": [
+        "No separate dynamic input contrast retained."
+      ]
+    },
+    {
+      "id": "77.3",
+      "mechanism_group": "hook_error_reporting",
+      "concrete_input": "Baseline or hook payload is a valid JSON array instead of an object.",
+      "attempted_operational_conclusion": "Expect structured refusal inside the hook guard.",
+      "expected_contract": "Malformed shape should block in a structured response and preserve next-event processing.",
+      "observed_behavior": "Both array inputs raise raw AttributeError; host behavior after error was not tested.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/hook.py",
+        "line": 84,
+        "sha256": "679f181223aa7796c94c1c4248d74c698afe990817bad615fe1b1696a5a4c9aa"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-77.md#paragraph-3",
+      "reproduction_evidence": [
+        "reports/HOOK-BOUNDARY-AUDIT.json#/observations/0",
+        "reports/HOOK-BOUNDARY-AUDIT.json#/observations/1"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Valid object payloads continue processing; array payloads return structured refusal and next event survives.",
+      "prior_recorded_text": "Valid JSON arrays for baseline or hook payload raise AttributeError rather than producing a structured refusal. Graph load exceptions themselves are caught and block; baseline and payload shape errors lie outside that protection. Host handling of the uncaught process error was not tested.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    },
+    {
+      "id": "77.4",
+      "mechanism_group": "hook_error_reporting",
+      "concrete_input": "Two different malformed graph JSON strings on successive hook evaluations.",
+      "attempted_operational_conclusion": "Treat repeat suppression by finding ID as unchanged explanation.",
+      "expected_contract": "Changed decoder error should report changed cause while still blocking.",
+      "observed_behavior": "Second call says still refused, unchanged although evaluate messages differ; exit 2 remains blocking.",
+      "source_pin": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "grandportage/hook.py",
+        "line": 355,
+        "sha256": "679f181223aa7796c94c1c4248d74c698afe990817bad615fe1b1696a5a4c9aa"
+      },
+      "batch_evidence": "reports/PHASE-0A-BATCH-77.md#paragraph-4",
+      "reproduction_evidence": [
+        "reports/HOOK-BOUNDARY-AUDIT.json#/observations/2"
+      ],
+      "reproduction_state": "retained_bounded_observation",
+      "positive_control_recorded": [],
+      "positive_control_requested_in_prior_queue": "Same graph error reports unchanged; different decoder errors report changed while exit remains blocking.",
+      "prior_recorded_text": "Repeat suppression keys on finding IDs, not content fingerprints or full graph-error text. Two distinct malformed JSON graph errors produce different evaluate messages, but the second main call says still refused, unchanged. Exit 2 remains blocking; the defect hides changed explanation, not the block.",
+      "prior_execution_status": "prior_report_only_no_new_execution",
+      "coverage_assessment": "adequate_retained_incident_observation",
+      "limits": []
+    }
+  ],
+  "true_minimal_reproduction_gaps": [
+    {
+      "id": "76.7",
+      "missing": "Same rendered program with changed caller generators, followed through declaration persistence/fingerprint comparison.",
+      "protects_against": "Treating execution program identity as complete resulting model-declaration identity.",
+      "existing_evidence": "Pinned source shows fingerprint omission; no changed-generator persistence contrast is retained.",
+      "action_status": "parent_review_not_authorized_case_expansion"
+    }
+  ],
+  "source_only_limits": [
+    {
+      "id": "58.3a",
+      "description": "Reviewed handler does not consult floor; no paired dynamic request is retained."
+    },
+    {
+      "id": "76.8b",
+      "description": "Source matcher permits terminal newline; no separate bounded execution observation retained."
+    }
+  ],
+  "interpretation_limits": [
+    "Retained report controls are incident evidence but are not neutral case-schema entries; strict corpus/schema completion is not claimed.",
+    "No new reproduction, execution, source sweep, policy selection or checker admission was performed.",
+    "Observed operational behavior does not by itself establish a false-held mathematical verdict.",
+    "Positive-control pointers distinguish recorded controls from earlier requested controls; an empty recorded list is reported rather than filled by inference."
+  ],
+  "assessment_counts": {
+    "retained_bounded_observation": 26,
+    "source_and_report_only": 2,
+    "contrast_missing": 1
+  },
+  "policy_or_wording_choices_not_reproduction_gaps": [
+    {
+      "ids": [
+        "55.2b"
+      ],
+      "boundary": "Whether the exported authoring schema should accept sparse retractions or be labeled a narrower approximation."
+    },
+    {
+      "ids": [
+        "66.2"
+      ],
+      "boundary": "Whether an unknown status refuses or remains open; the observed silent CLOSED state is the incident."
+    },
+    {
+      "ids": [
+        "56.3"
+      ],
+      "boundary": "The retry protocol after a durable append and response-rendering failure."
+    },
+    {
+      "ids": [
+        "76.3"
+      ],
+      "boundary": "Whether a caller/output generator mismatch refuses or is explicitly represented as distinct provenance."
+    }
+  ]
+}

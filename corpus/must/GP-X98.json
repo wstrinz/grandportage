@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X98",
+  "seed": null,
+  "title": "Resolve overlapping reports implicitly by last writer",
+  "situation": "Overlapping observations require an explicit resolution rather than an implicit overwrite.",
+  "inputs": {
+    "receipts": 7,
+    "proposal": "omit_resolution",
+    "proposed_scope": "JC.H3.B0.NOT_THE_SCOPE"
+  },
+  "attempted_conclusion": "Resolve overlapping reports implicitly by last writer.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Overlapping observations require an explicit resolution rather than an implicit overwrite."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_current_frontier_bundle.py",
+      "line": 58,
+      "anchor": "def test_current_bundle_refuses_implicit_last_writer_wins("
+    }
+  ]
+}

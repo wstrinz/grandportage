@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "GP-X369",
+  "seed": null,
+  "title": "Geometric hole refutes declared algebraic-closure cover",
+  "situation": "The algebraic-closure parent x^2+1=0 contains i, while the empty branch family misses it. Two branches with equation 1=0 encode that same empty union in the frozen native partition graph.",
+  "inputs": {
+    "control": "geometric_refutation",
+    "coefficient_domain": "Q",
+    "variables": [
+      "x"
+    ],
+    "parent_equations": [
+      "x^2+1"
+    ],
+    "semantic_branches": [],
+    "native_empty_union_encoding": [
+      [
+        "1"
+      ],
+      [
+        "1"
+      ]
+    ],
+    "geometric_test": "explicitly_assumed_injected",
+    "point_universe": "ALGEBRAIC_CLOSURE"
+  },
+  "attempted_conclusion": "Accept noncoverage only in the declared algebraic-closure point universe under the explicit geometric test assumption.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The geometric point i lies in the parent and no empty-locus branch; the declared geometric cover is refuted."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/Exhaustive.lean",
+      "line": 63,
+      "anchor": "theorem geometric_hole_does_not_refute_base_cover :",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/Exhaustive.lean",
+      "line": 102,
+      "anchor": "theorem algebraic_cover_failure_is_refutation :",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/verify.py",
+      "line": 1516,
+      "anchor": "def partition_exhaustiveness(graph, pid, timeout=300, _runner=None, _backend=None):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "tests/test_adversarial.py",
+      "line": 5006,
+      "anchor": "def test_geometric_hole_refutes_an_algebraically_closed_partition():",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

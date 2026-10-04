@@ -1,0 +1,455 @@
+{
+  "schema": "gp-phase2-point-routes-integration/v1",
+  "date": "2026-10-01",
+  "parent_base_commit": "d84fdd16e90a0b068612fe14c01280e3bafd77e4",
+  "source_hashes": {
+    "STATUS.md": "6e42ec7fa83a37dd14a884a374fdbf9e56341eb7af6ad7ca6f26a81953e0ffbb",
+    "TCB.md": "0cc16158aab0e594740f45c132074a943b35db0aaa76d14aa5dabb2898f4a18e",
+    "phase2/lean/Tests/ConditionalPointRoutes.lean": "63113db3d576dce77c6949a2172eda5e34f5b8041c024c6f19ec1934487554a1",
+    "tools/run-phase2-conditional-point-routes.py": "ccef210208c41fb0507dceb27f3a9ffdba1596229f1100f94fc24a4b524b1932",
+    "tests/test_phase2_conditional_point_routes.py": "23287067e6e47ac5ec3221948f785dde63d13c0b533b8649e0199dfe2d784f05",
+    "reports/PHASE-2-CONDITIONAL-POINT-ROUTES.json": "268752ee2d82481cecd268dbac5502b4510d4ac3c7323fae6ca839b7424d1563",
+    "tools/run-phase2-slice.py": "0711c807832fba5d68fe288fdf0c8c6a8f3b7f6b979fc5a42eae815bd629d1c5",
+    "reports/PHASE-2-SLICE.json": "686d14cf307c27799d15c2a96e5a78d984c799d63cbc5bdc30bd9616c0dea2aa",
+    "reports/PHASE-2-SLICE.md": "f2a7598980126cb9c4a8afd837b40f9b037b9e3f3847668bba49fd1dd8ab06ea",
+    "reports/PHASE-2-MISSING-AUTHORITY.json": "79c54a211f01fba72d6cc48de40bbd13a9a8e87b3c4811ba6a93a3ec4420683b",
+    "reports/PHASE-2-CHECKED-LIFECYCLE-SUPPLEMENT.json": "1112fdcea9f4ab079d784e4763aa0dc697cded7be18568e1e4b67352907f41a7",
+    "reports/PHASE-2-PROVENANCE-SLICE.json": "54293858fde4d58b8450b72adb1cdc595e44732da90a500e3d0442a93372e3d4"
+  },
+  "worker_original_hashes": {
+    "phase2/lean/Tests/ConditionalPointRoutes.lean": "14249770eda9c052b12b702e13eda48d837055d33816ce082f0a5339f2b98309",
+    "tools/run-phase2-conditional-point-routes.py": "6d70614b5082ab3c810878dad0d0506543f0ae4d7439645f2f1d1603679efc81",
+    "tests/test_phase2_conditional_point_routes.py": "5b345c1f2d094fa4a8d6403e9a46dcccb30a6a5f2060f1d944621b7fdc7f6dc7",
+    "reports/PHASE-2-CONDITIONAL-POINT-ROUTES.json": "4929ddf204a07ecdaa8cea0aaf67728668cf7bf1056867f25fc5447f1d689fd9"
+  },
+  "worker_active_seconds": 2042,
+  "parent_review": {
+    "full_harness_adapter_and_tests_read": true,
+    "source_anchor": "Pinned test_adversarial.py:1494 explicitly requires universal/EXHIBITED licensing [True,False]. X180 preserves the reversed premise order [False,True].",
+    "semantic_boundary": "Arbitrary Point/worlds with a named SIDE witness. SIDE and TIGHT witness membership are global distinct formulas; narrowing cannot change selected model identity. Registered join requires actual universal restriction and tight-point warrant. No pointwise recasting of existence.",
+    "actual_fold": "Original held claims [1,2,11], supports [10,20,110]; unsupported tight-point and join records retained in complete snapshots. Valid universal leg and supplied SIDE point remain held.",
+    "countermodel": "Checked Unit interpretation: TIGHT empty, SIDE/LOOSE inhabited, property true, named SIDE witness not TIGHT. Global join is false despite valid inclusions.",
+    "separate_accepting_control": "Adds explicit TIGHT membership of the same witness and checked inhabited interpretation; direct receipt supports the point. Point K2 remains false, so this does not justify a lift from inclusion alone.",
+    "binding_and_lifecycle": "Literal inputs, source bytes, distinct selected statements/models, dependency order and all resolved records retained; reverse/duplicate results equal.",
+    "prior_38_complete_execution_records_equal": true,
+    "production_profile_adoption": false,
+    "underlying_algebraic_truth_certified": false
+  },
+  "integration_changes": "Normalize completed files, bind compile cache to local sources/imported oleans and toolchain hashes, rebuild and independently kernel check, move test receipt into scratch, add EXECUTED status, integrate two cases, refresh only shared-adapter hashes in earlier reports. Production Lean and shared executables unchanged.",
+  "counts": {
+    "previous_corpus_passes": 38,
+    "new_corpus_passes": 2,
+    "corpus_passes": 40,
+    "kernel_tagged_total": 79,
+    "remaining_kernel_cases": 39,
+    "new_corpus_cases": 0,
+    "original_fold_executions": 8,
+    "separate_control_executions": 16,
+    "host_tests": 242,
+    "host_subtests": 714,
+    "unchanged_existing_native_component_controls": 553,
+    "unchanged_existing_compiled_proof_controls": 83,
+    "new_axiom_audited_harness_theorems": 8
+  },
+  "validation": {
+    "new_suite": "13 passed, 36 subtests passed in 467.40s",
+    "prior_suite": "229 passed, 678 subtests passed in 164.26s",
+    "aggregate": "40 distinct fixtures; required early slice complete; G2 false",
+    "new_build": {
+      "build_input_hashes": {
+        "phase2/lean/GP50/AdmissionProofs.lean": "7947e809e5e2978c33ae77ee86e9aab550c0e755dcefb58889695321ceaaf6f6",
+        "phase2/lean/GP50/BoundReplay.lean": "07256688ff9214e2f6643a4e0c2868246526eebc333223886dba447650298d3c",
+        "phase2/lean/GP50/BoundReplayProofs.lean": "5037e758415d99cf39efd9110e179891880bd019aaab576cdb56e91c72e381b6",
+        "phase2/lean/GP50/Closure.lean": "623d2368841f8278a007129faac79d498c1010523e9552a1dd2d3fa0201f5403",
+        "phase2/lean/GP50/ClosureCompleteness.lean": "ea54208380fde0498b4d8a28211ea8c1a080c198c40a66826f5857e38515a993",
+        "phase2/lean/GP50/ClosureOrderProofs.lean": "3d4f3173d069eb360f864616e2ac3593e3b567bf92a80c486d5054af8d00c158",
+        "phase2/lean/GP50/ClosureProofs.lean": "f8ec36075d52f1bf31d6b4c68f8064ec1d745deaba1c30dac121e3d3195af987",
+        "phase2/lean/GP50/Conflict.lean": "e05e82b0bae7b0c2d7a717e89ea28476b9f74a9d1727721818b0d4a17341590c",
+        "phase2/lean/GP50/ConflictProofs.lean": "6d4cc8734ff7d5e48511cd1a168e4fc3214064aa9eeb941ca319b3eef2f16018",
+        "phase2/lean/GP50/ConflictSoundnessProofs.lean": "1825e50668c6710a99ab79e9d1c855ef20b4408c2e3cdd35f9275d5338dc585c",
+        "phase2/lean/GP50/Cover.lean": "4112ba30d1e1d40727195fd47f8cc496c53413cfc1cf204ec10ef3ed2b711844",
+        "phase2/lean/GP50/CoverAdmissionProofs.lean": "c09c24fc0e91e5daa882733d13ff44c5924837eb8f616e2a3af90fc2ce7e1cd2",
+        "phase2/lean/GP50/CoveredDecoder.lean": "e7bc1b0c6e53d03acc5e95f155168dd86aeb3c9407c4a3996682550009dbcb58",
+        "phase2/lean/GP50/CoveredSpan.lean": "a9eb747b7f988b29a439af4cc8f262c93779eddb1e1453aaf567e3c714533cd8",
+        "phase2/lean/GP50/CoverProofs.lean": "22ff82e94fc6ddd4b6b182faab4e1568b6e8365a87d9772783ca02e839844943",
+        "phase2/lean/GP50/Decoder.lean": "de8460f9839582d8df489266fe2e8306d327257520fb562262a995a337e0ea51",
+        "phase2/lean/GP50/Entry.lean": "96aa87bbc08df401335a77358815269a04456dcea810c7aa99dff50ff8de392d",
+        "phase2/lean/GP50/EventOrderProofs.lean": "a883d2e705ba29b4654bfd42f0ffa663a8c7f2e9efdde3fd9d80fab83067867b",
+        "phase2/lean/GP50/Events.lean": "1e3d7497baaff4015d4706bccef0a62bdbf99d92ae64d7e2069907a221d091f3",
+        "phase2/lean/GP50/LifecycleRunner.lean": "612c1ec3a7a42dda2f44953be7c2f2f42065b817a4253b691132823eb4e86121",
+        "phase2/lean/GP50/Narrowing.lean": "70c0441bad0ce466e7da8a4a0159a0a09cf370f1eee16137474c74b15ce9bcf3",
+        "phase2/lean/GP50/NarrowingAdmissionProofs.lean": "29be7d7138dc436b2990dc544259351810eb7c2877438ef37e5fcb6ba52053df",
+        "phase2/lean/GP50/NarrowingProofs.lean": "7735f7ba64e9cc6caaec131ebef7d20f53ddb10910cb98b98116fc938896c72a",
+        "phase2/lean/GP50/PolyStub.lean": "0402ce3056121162d2834f46a6eb58ec90ac5d22f3fd577ff1878d6f9dc19b9f",
+        "phase2/lean/GP50/PolyStubProofs.lean": "d793e18b94f3e903ccce432b4c9a2c2248013a8e4f6f005bf2a38f085d4ca849",
+        "phase2/lean/GP50/Presentation.lean": "2beb9f045e9d189b7f2fe8da1e826aabc1bb1cfa06cf63fad7de75e869c5bde8",
+        "phase2/lean/GP50/Queries.lean": "fb6309a917955801d0eaa839506fcf020f1ea7d423cfb5ee23bd9ebf98b0bde2",
+        "phase2/lean/GP50/QueryDecoder.lean": "ab22232569ec6d0cf915d33e21a1388dc76f3a984256a8873d8ff8a5f9139b64",
+        "phase2/lean/GP50/Runner.lean": "da9d8101c5e4355e2a402c5976eaa912c9abb7aa82ef4c5c681ef86c4680b1d1",
+        "phase2/lean/GP50/Runtime.lean": "f4c52eee8deaa575a0baa52e92fffb8c436eab9a281834ba1f0897f5af8626c3",
+        "phase2/lean/GP50/RuntimeProofs.lean": "1e983e64655a3d8eced5e2807194b5c39400695d8b2bde0cc7b66703dcfeb43a",
+        "phase2/lean/GP50/ScopedDecoder.lean": "f4df7532c640e84a0c44b26188039a9fbf56352b4eeb26be40aa4688b58e5bf3",
+        "phase2/lean/GP50/ScopedRunner.lean": "e86a883bf4a6c1dd78f28c6651dc5a6c83f0d7bfada4bad9581afeedd1e7b91f",
+        "phase2/lean/GP50/ScopedSpan.lean": "01140faf9ffeb76d718460527105a5b0ecfaca5efede8aa8c142619996911446",
+        "phase2/lean/GP50/ScopedSpanProofs.lean": "a40ca47146ad158282f3550bd7ce96ceb40350b35e07c974d021303f326366f3",
+        "phase2/lean/GP50/Semantics.lean": "d57e383d780b15c03ebb46f62c36e74556f2f0c08793f958daf9b4fd02db1c8d",
+        "phase2/lean/GP50/SpanDecoder.lean": "305f075b39589ab92238ffefa1666f23f63ee62055ddaa61dc0c681d2e00913a",
+        "phase2/lean/GP50/SpanSoundnessProofs.lean": "de333cacb65fc1a705250995b6bebc1365d6a676325df2873e60cfdb40b17906",
+        "phase2/lean/.lake/build/lib/lean/GP50/AdmissionProofs.olean": "9ea5cea7e4b27143096f8a9480470496094e4aa343a0eff6f80bad330b6c4c47",
+        "phase2/lean/.lake/build/lib/lean/GP50/BoundReplay.olean": "4921c42e8778c31fa7d5694b797cda973d943ecca517e487fa5fa4d3794ab2b4",
+        "phase2/lean/.lake/build/lib/lean/GP50/BoundReplayProofs.olean": "1b70227fe2b93645df356cc57863c73862235e14d1f092143dae2e1ca9615d95",
+        "phase2/lean/.lake/build/lib/lean/GP50/Closure.olean": "5678fa5b95797150ed4798f443eda830c51f2d082d6a09eb8d47d60185f89929",
+        "phase2/lean/.lake/build/lib/lean/GP50/ClosureCompleteness.olean": "b4da156aa1ce808094e97a3b8d42dbde55f81ab2011232a3932ff5e4d824b6df",
+        "phase2/lean/.lake/build/lib/lean/GP50/ClosureOrderProofs.olean": "6759f6956b9760c0d6d295f60498b547680af1bc89363e5d8f7ac7f476d8b868",
+        "phase2/lean/.lake/build/lib/lean/GP50/ClosureProofs.olean": "c680baa31a268a317fa8bb955fd973a9faa6608638e773210eb5bf7c1af5e3aa",
+        "phase2/lean/.lake/build/lib/lean/GP50/Conflict.olean": "ce12eca9dace5c9a08e547e00caa2a21875c4a9e039d6dec268bcff55a8a847a",
+        "phase2/lean/.lake/build/lib/lean/GP50/ConflictProofs.olean": "cf9262a27edb1c02c646bc15122c3bd0c3620307bf86676d633ddf98c9e92e83",
+        "phase2/lean/.lake/build/lib/lean/GP50/ConflictSoundnessProofs.olean": "7d25d4719d79b08748c211a8c39d091cecb772ca01a61ba578a3fd416f9017a6",
+        "phase2/lean/.lake/build/lib/lean/GP50/Cover.olean": "89e9dc9a057a0fae8dc627c0e04d0c48f741c95fdbf2684d95c1b52e624f993b",
+        "phase2/lean/.lake/build/lib/lean/GP50/CoverAdmissionProofs.olean": "e85dc4c006291083ae0d48763aac55d2919aed052bef29f2e9b0278569a0d2f0",
+        "phase2/lean/.lake/build/lib/lean/GP50/CoveredDecoder.olean": "0f9a360a852cf3801267ae434f9cc607cecca54fe7cf62fd5501e1449812c440",
+        "phase2/lean/.lake/build/lib/lean/GP50/CoveredSpan.olean": "aca9e63e91bb42d843080f7e903f41b4020f174a8c400c73ed8bd6b3056676cd",
+        "phase2/lean/.lake/build/lib/lean/GP50/CoverProofs.olean": "68438217611f5a2176ca25e7f4d21e94a2d506e4ace06a0b9f9e0f03544b3a32",
+        "phase2/lean/.lake/build/lib/lean/GP50/Decoder.olean": "f470140a5049efcc35f065780cc0a4dfc4dd00c79836b2f3c2718f0d354b5a59",
+        "phase2/lean/.lake/build/lib/lean/GP50/Entry.olean": "38dc6efa81b31cdd75c8c0c6c6d0b5da1b466b91a0ba0727e196fa05731c482d",
+        "phase2/lean/.lake/build/lib/lean/GP50/EventOrderProofs.olean": "e2bfd3d85871929801e86ad873a2495e81aa6d85ac94490a4db46bdf76a27666",
+        "phase2/lean/.lake/build/lib/lean/GP50/Events.olean": "b9843ea1255a625e3774561987cdd5598b8eee265d509fc84cd19ea942846203",
+        "phase2/lean/.lake/build/lib/lean/GP50/LifecycleRunner.olean": "d537e8f6f5f044cdc080c31a369a99e6e24f31f93e7cf1835de8f089a58f3677",
+        "phase2/lean/.lake/build/lib/lean/GP50/Narrowing.olean": "17aadb682b842e71688e1b9ab212d29524cc9cd0032c66ec316ec032c25129d1",
+        "phase2/lean/.lake/build/lib/lean/GP50/NarrowingAdmissionProofs.olean": "bd7fea7f0b5abd00e4c660871641383abefd75843d2694cf8912081c6b500df7",
+        "phase2/lean/.lake/build/lib/lean/GP50/NarrowingProofs.olean": "17351eef65763e6f654800f38c0ec7a2d9218ff4800fe9de305a50d20bb449d7",
+        "phase2/lean/.lake/build/lib/lean/GP50/PolyStub.olean": "f6042fb433639486ddb8612fda02322a893a323cec84467659732af53930faac",
+        "phase2/lean/.lake/build/lib/lean/GP50/PolyStubProofs.olean": "96457102847ad075ba8ca5c7044d21bb9a0add438d0cb161c3fd0b091e78490a",
+        "phase2/lean/.lake/build/lib/lean/GP50/Presentation.olean": "341e872a5650238ae87ff6e4d1634651b97125235639c361c871aed024d182cf",
+        "phase2/lean/.lake/build/lib/lean/GP50/Queries.olean": "ea273cf71e6ec9c2f998b720c451d48e28173f3f26d8f6325a6b067a72115028",
+        "phase2/lean/.lake/build/lib/lean/GP50/QueryDecoder.olean": "219d2ce2c6cc45af682ccf2db31fa2ad0fe4b3c6f09d9079eafe8b92ea1b83e3",
+        "phase2/lean/.lake/build/lib/lean/GP50/Runner.olean": "289f7f585197252347b9f611019db9f5d9fa4a1bc55d64f42889605eb8b453c5",
+        "phase2/lean/.lake/build/lib/lean/GP50/Runtime.olean": "51471aa5d0f2ed5a1a2f0d3e4e4c8ca0c7eb69a5acb0bfe3befb9a09436999c0",
+        "phase2/lean/.lake/build/lib/lean/GP50/RuntimeProofs.olean": "d2ae8d8822e9832b317e17f675962c6c2d9015d94fee956871576a00debc4871",
+        "phase2/lean/.lake/build/lib/lean/GP50/ScopedDecoder.olean": "53b38018c55dbf193d84a80149f8e0fa414769a74db52b3dad1074763be1f2b8",
+        "phase2/lean/.lake/build/lib/lean/GP50/ScopedRunner.olean": "7cb68ea8131cfda276c7990aaf2ee1374382cb504e372680d57343f62835f670",
+        "phase2/lean/.lake/build/lib/lean/GP50/ScopedSpan.olean": "f3261c6aaa270a05c5a78eae065c34ad89ce5f4f1cc1b737734db536f6812ef0",
+        "phase2/lean/.lake/build/lib/lean/GP50/ScopedSpanProofs.olean": "c9bf457f0a4cb7eb2846ea73f3539d307f8048cce14f2d6e5f0c4c403a9b6833",
+        "phase2/lean/.lake/build/lib/lean/GP50/Semantics.olean": "e0a8746a2297e41fdd11b38a61bacd37215037067e87799649a397fdd2c3bc51",
+        "phase2/lean/.lake/build/lib/lean/GP50/SpanDecoder.olean": "4fbc8f102a6ee99e95d2c48699c34f30eb08573842d6bf87e65498bb4ada3b9a",
+        "phase2/lean/.lake/build/lib/lean/GP50/SpanSoundnessProofs.olean": "74cb8e6f2eed2bd47be0ee3106f78bd0852d6c7a93ab2223bdc59de245914b2f",
+        "phase2/lean/lean-toolchain": "8e3538e0ab5f81a3ee04927d8838c8c674e0e112838b4b3ce87ec218143276af",
+        "phase2/lean/lakefile.toml": "2e15631a691cc3da161657b3465c305d89cc5dc929981905e5f3b8b9afdadfee",
+        "$ELAN_HOME/toolchains/leanprover--lean4---v4.32.1/bin/lean.exe": "c3f02a2b739078d1237af9feefd27ec85b943b56870234b42bc0111d6699d54d",
+        "$ELAN_HOME/toolchains/leanprover--lean4---v4.32.1/bin/leanchecker.exe": "c0d4c83407947c26023f10e611e45eda1edbec358140e4217f1edda9aef35265"
+      },
+      "harness_sha256": "63113db3d576dce77c6949a2172eda5e34f5b8041c024c6f19ec1934487554a1",
+      "olean_sha256": "9f5b960afc385f5e02b850c77f24c6a84e2f0361522936d5a7eaa9d386eb316e",
+      "wrapper_sha256": "d4571863e708e48d9be934ddbcde3756077504f044e38306c6f3c17633192523",
+      "lean_path": "tmp/phase2-conditional-point-routes;phase2/lean/.lake/build/lib/lean;$ELAN_HOME/toolchains/leanprover--lean4---v4.32.1/lib/lean",
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "compile_command": [
+        "$ELAN_HOME/toolchains/leanprover--lean4---v4.32.1/bin/lake.exe",
+        "env",
+        "lean",
+        "-o",
+        "tmp/phase2-conditional-point-routes/Tests/ConditionalPointRoutes.olean",
+        "Tests/ConditionalPointRoutes.lean"
+      ],
+      "compile_exit_code": 0,
+      "compile_log_sha256": "960a756d999fd5883bea8a24b42819b2625e5ddb50d105d67ab6c86b43b2773d",
+      "checker_command": [
+        "$ELAN_HOME/toolchains/leanprover--lean4---v4.32.1/bin/leanchecker.exe",
+        "-v",
+        "Tests.ConditionalPointRoutes"
+      ],
+      "checker_exit_code": 0,
+      "checker_log_sha256": "dab8e67e073dfc0094806f98510efcef29edce5dd3d4e87f1baeabecbeab880c",
+      "kernel_checked": true
+    },
+    "legacy_receipt": "tmp/phase2-point-legacy-preservation.json",
+    "legacy_receipt_sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f",
+    "legacy_case_count": 459,
+    "legacy_summary": {
+      "AGREES": 403,
+      "DIAGNOSTIC_OBSERVED": 4,
+      "KNOWN_DIFFERENCE": 14,
+      "UNSUPPORTED": 9,
+      "RETAINED_DIAGNOSTIC": 29
+    },
+    "protected_artifacts": 67,
+    "budget": {
+      "baseline": "a95fcee6f24f1f63b41fd56681319053727488b3",
+      "counts": {
+        "logic": 636,
+        "decoder": 263,
+        "statement": 26,
+        "proof": 1668
+      },
+      "modules": [
+        {
+          "path": "phase2\\lean\\GP50\\AdmissionProofs.lean",
+          "category": "proof",
+          "lines": 179
+        },
+        {
+          "path": "phase2\\lean\\GP50\\BoundReplay.lean",
+          "category": "logic",
+          "lines": 37
+        },
+        {
+          "path": "phase2\\lean\\GP50\\BoundReplayProofs.lean",
+          "category": "proof",
+          "lines": 131
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Closure.lean",
+          "category": "logic",
+          "lines": 23
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ClosureCompleteness.lean",
+          "category": "proof",
+          "lines": 129
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ClosureOrderProofs.lean",
+          "category": "proof",
+          "lines": 56
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ClosureProofs.lean",
+          "category": "proof",
+          "lines": 44
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Conflict.lean",
+          "category": "logic",
+          "lines": 39
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ConflictProofs.lean",
+          "category": "proof",
+          "lines": 32
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ConflictSoundnessProofs.lean",
+          "category": "proof",
+          "lines": 66
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Cover.lean",
+          "category": "logic",
+          "lines": 26
+        },
+        {
+          "path": "phase2\\lean\\GP50\\CoverAdmissionProofs.lean",
+          "category": "proof",
+          "lines": 110
+        },
+        {
+          "path": "phase2\\lean\\GP50\\CoveredDecoder.lean",
+          "category": "decoder",
+          "lines": 20
+        },
+        {
+          "path": "phase2\\lean\\GP50\\CoveredSpan.lean",
+          "category": "logic",
+          "lines": 28
+        },
+        {
+          "path": "phase2\\lean\\GP50\\CoverProofs.lean",
+          "category": "proof",
+          "lines": 30
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Decoder.lean",
+          "category": "decoder",
+          "lines": 156
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Entry.lean",
+          "category": "logic",
+          "lines": 7
+        },
+        {
+          "path": "phase2\\lean\\GP50\\EventOrderProofs.lean",
+          "category": "proof",
+          "lines": 341
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Events.lean",
+          "category": "logic",
+          "lines": 109
+        },
+        {
+          "path": "phase2\\lean\\GP50\\LifecycleRunner.lean",
+          "category": "logic",
+          "lines": 64
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Narrowing.lean",
+          "category": "logic",
+          "lines": 23
+        },
+        {
+          "path": "phase2\\lean\\GP50\\NarrowingAdmissionProofs.lean",
+          "category": "proof",
+          "lines": 121
+        },
+        {
+          "path": "phase2\\lean\\GP50\\NarrowingProofs.lean",
+          "category": "proof",
+          "lines": 15
+        },
+        {
+          "path": "phase2\\lean\\GP50\\PolyStub.lean",
+          "category": "logic",
+          "lines": 27
+        },
+        {
+          "path": "phase2\\lean\\GP50\\PolyStubProofs.lean",
+          "category": "proof",
+          "lines": 113
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Presentation.lean",
+          "category": "logic",
+          "lines": 24
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Queries.lean",
+          "category": "logic",
+          "lines": 58
+        },
+        {
+          "path": "phase2\\lean\\GP50\\QueryDecoder.lean",
+          "category": "decoder",
+          "lines": 19
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Runner.lean",
+          "category": "logic",
+          "lines": 26
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Runtime.lean",
+          "category": "logic",
+          "lines": 59
+        },
+        {
+          "path": "phase2\\lean\\GP50\\RuntimeProofs.lean",
+          "category": "proof",
+          "lines": 43
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ScopedDecoder.lean",
+          "category": "decoder",
+          "lines": 20
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ScopedRunner.lean",
+          "category": "logic",
+          "lines": 50
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ScopedSpan.lean",
+          "category": "logic",
+          "lines": 36
+        },
+        {
+          "path": "phase2\\lean\\GP50\\ScopedSpanProofs.lean",
+          "category": "proof",
+          "lines": 71
+        },
+        {
+          "path": "phase2\\lean\\GP50\\Semantics.lean",
+          "category": "statement",
+          "lines": 26
+        },
+        {
+          "path": "phase2\\lean\\GP50\\SpanDecoder.lean",
+          "category": "decoder",
+          "lines": 48
+        },
+        {
+          "path": "phase2\\lean\\GP50\\SpanSoundnessProofs.lean",
+          "category": "proof",
+          "lines": 187
+        }
+      ],
+      "markdown_added_words": 8081,
+      "markdown_target": 10000,
+      "markdown_tripwire": 15000,
+      "status_words": 261,
+      "targets_exceeded": [
+        "logic"
+      ],
+      "failures": []
+    }
+  },
+  "remaining_queue": {
+    "supplied-premise-authority": [
+      "GP-A01",
+      "GP-A08a",
+      "GP-A14",
+      "GP-A27-drop-GRH",
+      "GP-A27-full",
+      "GP-A27-heuristic",
+      "GP-A27-keep-GRH",
+      "GP-A27-label",
+      "GP-A27-partial",
+      "GP-X04",
+      "GP-X09",
+      "GP-X14",
+      "GP-X173",
+      "GP-X174",
+      "GP-X176",
+      "GP-X229",
+      "GP-X283",
+      "GP-X399",
+      "GP-X402",
+      "GP-X403",
+      "GP-X60",
+      "GP-X61",
+      "GP-X62",
+      "GP-X65"
+    ],
+    "native-event-lifecycle": [
+      "GP-X149",
+      "GP-X150",
+      "GP-X151",
+      "GP-X156",
+      "GP-X157",
+      "GP-X160",
+      "GP-X162",
+      "GP-X163"
+    ],
+    "stored-certificate-binding": [
+      "GP-X175"
+    ],
+    "finite-recorded-use-coverage": [
+      "GP-X193",
+      "GP-X194",
+      "GP-X195",
+      "GP-X196",
+      "GP-X197",
+      "GP-X198"
+    ]
+  },
+  "process_assessment": "Core and main proofs complete; finite G2 case gate remains. Latest pair needed a distinct global-witness semantic proof. Small batches and separate Lean --run invocations impose overhead; use family batches and one relevant regression/replay per integration, without weakening contract review.",
+  "next_worker": {
+    "thread": "01a0eeca-572e-7202-a708-c730d410b901",
+    "cases": [
+      "GP-X193",
+      "GP-X194",
+      "GP-X195",
+      "GP-X196",
+      "GP-X197",
+      "GP-X198"
+    ],
+    "cap_active_minutes": 45,
+    "boundary": "One test-only finite recorded-use coverage harness; actual fold, native per-dimension missing sets, literal full inventory, checked containment/rule contracts. No mathematical component sufficiency or real-world completeness claim.",
+    "following_candidate_family": "Six A27 fixtures explicitly assume synthetic admitted/bound-check premises; can share one conditional assumption/binding harness after current assignment. Not separately assigned yet."
+  },
+  "g2_pass": false,
+  "public_push": false
+}

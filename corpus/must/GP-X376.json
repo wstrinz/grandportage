@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "GP-X376",
+  "seed": null,
+  "title": "Operational 56.3: health request commit boundary",
+  "situation": "Valid model append followed by injected C.run reporting exception; valid save and pre-append invalid event are controls.",
+  "inputs": {
+    "incident_row": "56.3",
+    "vector": {
+      "operation": "valid model append",
+      "post_append_fault": "injected C.run reporting exception",
+      "controls": [
+        "valid save",
+        "invalid event before append"
+      ]
+    },
+    "retained_evidence_refs": [
+      "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/2",
+      "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/3",
+      "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/4"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Interpret an error response as an uncommitted action safe to retry.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Response should expose durable commit status separately from post-commit render error."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/mcp.py",
+      "line": 1359,
+      "anchor": "def dispatch(request, root=ROOT):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

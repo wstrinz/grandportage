@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-30",
+  "status": "integrated_and_full_replay_verified",
+  "cases": [
+    "GP-X410",
+    "GP-X411",
+    "GP-X412"
+  ],
+  "total_cases": 459,
+  "expectations": {
+    "REFUSE": 321,
+    "ACCEPT": 138
+  },
+  "replay": "reports/oracle-runs/20260930T000850355521Z.json",
+  "replay_sha256": "ff24154e8cac12fdb3e2bbefe9cab3bafd0bbebb2d5e38976e1c85bfcb90a81d",
+  "summary": {
+    "AGREES": 402,
+    "DIAGNOSTIC_OBSERVED": 4,
+    "KNOWN_DIFFERENCE": 14,
+    "PENDING": 1,
+    "UNSUPPORTED": 9,
+    "RETAINED_DIAGNOSTIC": 29
+  },
+  "preservation": {
+    "prior_case_bytes_unchanged": 456,
+    "prior_routes_semantically_unchanged": 456,
+    "prior_outcomes_unchanged": 456,
+    "prior_immutable_replays_unchanged": 62,
+    "full_record_variation": "X236/X237 reason strings differ only in fresh CAS framing nonces; normalized reasons and all other prior record fields unchanged"
+  },
+  "source_bindings": {
+    "grandportage/verify.py": "51ee50fd4be7e8f0f6b2cdd10f680ac7060ef8f91f1f424290a342e3c7ce9c03",
+    "tests/test_adversarial.py": "1150aa49c0596af1a9816a71f44694838e6fef17370a2fc8337b453b3d43c9f8"
+  },
+  "adapter_sha256": "719e2a15504b840ad199bb563b5acf57ffd2f98ccb7c111743c0bbb86c12b76d",
+  "candidate_report": {
+    "path": "reports/PHASE-0A-ORDINARY-POINT-GUARD-CANDIDATE.json",
+    "sha256": "02582a58d9dc6c9fca1d6dcabdf17028d96cb720472de6e688830a465617c1de",
+    "meaning": "Unmodified pre-admission design; its route binding is to the pre-admission route file, not the changed current route."
+  },
+  "independent_argument": [
+    "At (0,0), y=0 but guard x=0 fails; the offered point is outside the open model.",
+    "With no equations, x=0 still fails the open guard.",
+    "With no equations, x=1 satisfies the open guard. Refusing a bad point does not prove model emptiness."
+  ],
+  "observation": {
+    "status": "DIAGNOSTIC_OBSERVED",
+    "native_observed_verdict": null,
+    "actual_diagnostic_decisions": {
+      "GP-X410": "REFUSE",
+      "GP-X411": "REFUSE",
+      "GP-X412": "ACCEPT"
+    },
+    "mechanism": "Existing pinned _ExactPointBackend returns literal values; actual pinned point_witness decides equation-versus-guard predicates. No invented arithmetic checker.",
+    "control": "X412 is an executed diagnostic contrast to X411; equation-bearing positive remains a primary source assertion only.",
+    "limits": [
+      "No Singular execution, CAS parser validation, production execution binding, native receipt or held authority.",
+      "Test graph omits explicit coefficient domain/point universe; projection is restricted to literal rational zero/one coordinates.",
+      "Default production backend availability was not tested.",
+      "Source reason strings are preserved verbatim; broad refutation prose is not adopted as authority beyond rejecting the offered point."
+    ]
+  },
+  "targeted_validation": "All three projections/decisions checked; mutated in-memory payloads refused by byte-bound adapter. Full459 replay has no ERROR/REVIEW_REQUIRED.",
+  "remaining": [
+    "A24 clarification requires direct user approval; original case/REFUSE/PENDING unchanged.",
+    "Final source/family/exception closeout requires explicit qualified parent judgment.",
+    "Final0b schema unknown-field decision remains pending; no final AppendixB records claimed."
+  ]
+}

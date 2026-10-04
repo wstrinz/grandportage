@@ -1,0 +1,60 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "grandportage/project_v2.py",
+      "sha256": "504dc48fa0f001bf9e932de4b99c30b32aa1d43a5129508e53e9c58e7f5a98ea",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_project_v2.py",
+      "sha256": "16a9321b48debbca686fcbd816d8df78c695cf28f19f984bba11e3e72a3007f8",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/IRChecks.lean",
+      "sha256": "7c610bedb277f31280a3605fab54ee8f1aeef6d2b2ea7248805f92d187cf268d",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "dependency_slices": [
+    {
+      "path": "scripts/project_ir_corpus.py",
+      "lines": [
+        1,
+        140
+      ],
+      "full_text_read": false,
+      "note": "Complete repository fixture discovery/wrapping/run functions read; beginning of separate campaign function only."
+    }
+  ],
+  "tests": {
+    "passed": 6,
+    "reports": [
+      "reports/oracle-project-v2-review.xml",
+      "reports/oracle-project-v2-corpus-review.xml"
+    ],
+    "scope": "Five focused tests plus one pinned-repository fixture corpus replay; no sibling campaigns or Lean compilation."
+  },
+  "diagnostics": "reports/IR-PROJECTION-BOUNDARIES.json",
+  "findings": [
+    "PROJECTABLE denotes a data skeleton only. Every receipt retains actual_requirement_discharge gap; no new proof profile is minted from certificate tags.",
+    "State fingerprint snapshots selected graph dictionaries but omits authority_receipts. Removing that loaded map changes binding currentness while state_fingerprint stays equal. Direct state mutation control, not persisted-event bypass.",
+    "Rational characteristic-zero expressions are explicit gaps. In characteristic three 1/2 normalizes to integer two; x^3 remains a distinct polynomial from x. Parser normalization is not verified by Lean.",
+    "Unary integer constructor encoding has a 128 cost bound; it is an adapter budget, not mathematical invalidity.",
+    "Predicate projection fingerprints and retains supplied condition but does not construct its interpretation proof. Step profiles retain UNKNOWN discharge/NOT_PROJECTED justification.",
+    "Fixture corpus regression verifies deterministic source/report hashes for repository-owned fixtures; it explicitly disables binary rechecks and does not establish full campaign coverage.",
+    "Lean type names and callable Python gate references are synchronization checks, not soundness or cross-language codec proofs."
+  ],
+  "proposed_repairs": [
+    "Include all authority-relevant loaded state in any fingerprint advertised as identifying current projection behavior, or distinguish structural-state and evaluated-observation fingerprints.",
+    "Preserve diagnostic-only labels, characteristic context and explicit expression gaps in consumers."
+  ],
+  "remaining": [
+    "Complete separate campaign corpus runner and intake review without harvesting unconfirmed campaigns.",
+    "Further expression/budget and loaded-state mutation cases remain; semantic coverage is partial."
+  ]
+}

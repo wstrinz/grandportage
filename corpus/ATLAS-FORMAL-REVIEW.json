@@ -1,0 +1,51 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "lean/GrandPortage/Atlas.lean",
+      "sha256": "114d0560bbfead5f3b695cdf59d3fe06f0af841f8f0476c2e6184d7c673f5209",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/CertificateScope.lean",
+      "sha256": "f1d75fc88f7a84a3b88d22e246e355416f3d7a61bcf66fe85307b999b79ec89b",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/RelationalTransport.lean",
+      "sha256": "982fe40b511e54ed994fa51a63400a2a06e7d1136772309e7fcd1f89dce39d39",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/Points.lean",
+      "sha256": "08fb3a8d1617d294ecf3fa767b75248556000f64f83733fe846052cd9e00d5fa",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "lean/AtlasParity.lean",
+      "sha256": "06634f4a211d1f47e80b329a37e8ffe963e9e72bda345b803d38e7e9bfa6dbf8",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "validation": "Formal source reading and dependency interpretation only; no Lean compilation or execution. Existing Batch 80 Python parser/inventory tests are not rerun or promoted to formal verification.",
+  "findings": [
+    "Points proves the same-coordinate inclusion fragment and finite countermodels to three invalid universal directions. A countermodel refutes a generic rule, not every individual instance. Cover.empty uses explicit exhaustive coverage and all branch emptiness; it does not compute or authenticate the cover.",
+    "RelationalTransport proves existential-image/universal-preimage adjunction for every relation, identity/composition and total/surjective variance. Predicate transfer additionally requires PredicateCorresponds. Its Boolean compiled capability table is a declarative shadow, not evidence that a concrete operation has those capabilities.",
+    "Atlas transfer lemmas quantify over explicit source/target model predicates. PointWitness retains a chosen point and mapping data; mere nonempty sets do not lift an arbitrary specified target point. Family elimination is universal instantiation, with enumeration authenticity and binding outside the theorem.",
+    "Atlas reach soundness is case analysis over an abstract vocabulary. primeField accepts any Nat syntactically; no prime validation or field construction occurs. Ordered and char-zero stability theorems project premises already present in the extension relation, not a proof that arbitrary runtime evidence supplies those premises.",
+    "OrderedArithmetic contradiction follows by zero cofactor terms, nonnegative square sums and negativeOne exclusion. The newer CertificateInterpreter supplies one derivation/evaluation bridge; Atlas alone begins with the evaluated equality. replayed_equality_survives is congruence under any function, not operation preservation.",
+    "Preservation polarity swaps universal quantifiers over an already supplied preserves relation. The nilpotent example proves any zero/multiplication-preserving observation into a square-zero-free target kills epsilon; it does not establish a general functor-of-points reconstruction theorem.",
+    "CertificateScope is a historical two-level scope shadow. AlgebraicExtension explicitly assumes preservation of unit/localized/resultant facts; integer statement validity is True, and field-fragility countermodels are Boolean validity models. Its theorem names do not prove actual arithmetic certificate validity or current receipt authority. Update introductory runtime-scope wording in any future documentation repair.",
+    "CertificateScope maximality holds only in its stated exact-field/scheme poset under supplied stability proof or refutation. It does not establish maximal ORDERED/CHAR_0 reach or a general interpreter requirement lattice. Atlas separately retains UNKNOWN knowledge.",
+    "AtlasParity emits the same bounded 90 reach/49 extension vocabulary described in Batch 80. Source read only: no fresh Lean compilation/execution, no current cross-language agreement claim."
+  ],
+  "remaining": [
+    "Review remaining IR/formal model implementations and map concrete runtime hypotheses.",
+    "Preserve missing semantics and independent warrant decisions as open; no generic theorem authorizes a new runtime route."
+  ]
+}

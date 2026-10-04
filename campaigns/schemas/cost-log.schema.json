@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gp-cost-log/v1",
+  "title": "Campaign cost log entry (one JSON object per line)",
+  "description": "Post-G3a handoff §3: wall time, tokens, agent turns, catches, false refusals and expensive near-misses, per task. Logging starts on 3P day one.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["task", "stage", "started", "ended", "wall_seconds", "agent_turns", "tokens", "catches", "false_refusals", "near_misses"],
+  "properties": {
+    "task": {"type": "string", "minLength": 1, "description": "A stable task id, e.g. F0-fano-char2."},
+    "stage": {"enum": ["F0", "F1", "F2", "other"]},
+    "started": {"type": "string", "format": "date-time"},
+    "ended": {"type": "string", "format": "date-time"},
+    "wall_seconds": {"type": "number", "minimum": 0},
+    "agent_turns": {"type": "integer", "minimum": 0},
+    "tokens": {
+      "description": "Token counts where the harness reports them; null when unavailable.",
+      "oneOf": [{"type": "null"}, {"type": "object", "additionalProperties": false, "required": ["input", "output"],
+        "properties": {"input": {"type": "integer", "minimum": 0}, "output": {"type": "integer", "minimum": 0}}}]
+    },
+    "catches": {"type": "array", "description": "Real errors GP stopped in this task.", "items": {"type": "object",
+      "additionalProperties": false, "required": ["claim", "what"],
+      "properties": {"claim": {"type": "string"}, "what": {"type": "string"}}}},
+    "false_refusals": {"type": "integer", "minimum": 0, "description": "Sound claims refused; each also has a friction-log entry."},
+    "near_misses": {"type": "array", "description": "Errors that almost got through, or cost a lot to avoid.", "items": {"type": "object",
+      "additionalProperties": false, "required": ["what", "cost"],
+      "properties": {"what": {"type": "string"}, "cost": {"type": "string"}}}},
+    "notes": {"type": "string"}
+  }
+}

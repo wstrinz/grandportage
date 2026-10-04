@@ -1,0 +1,11 @@
+# Phase 0a — complete MCP text read and handoff context
+
+Completed the remaining MCP tool declarations, producing handlers, graph/table rendering and classification handler. Together with earlier contiguous slices, all mcp.py lines have now been text-read; MCP-BOUNDARY-REVIEW.json records the full range and all function intervals. Semantic review remains partial. The full 42-test MCP result from Batch 57 remains relevant; no unchanged test suite was redundantly rerun.
+
+Two synthetic model declarations demonstrate that the compact handoff emits identical text for Q BASE and Q ALGEBRAIC_CLOSURE point universes of x^2+1=0. The former has no rational point; the latter has points. Stored point scopes differ correctly. The issue is omitted context in a view advertised as the handoff, not loss in storage or a false mathematical verdict. Proposed fix: show point universe and selected embedding/context explicitly, or clearly identify the view as incomplete with a full structured context path.
+
+Static contract findings: portage_check advertises floor but h_portage_check does not consult it; description-only promises should be removed or implemented and tested. The producing ideal tool's advice that attaching a certificate kind derives scope overstates what is needed for earned authority. The transport table's newer description correctly requires a current receipt and target-context gates; align the producer guidance to that boundary. Nonzero-characteristic computations may establish claims in that exact field even though they do not automatically transfer to characteristic zero, so blanket reconnaissance wording needs qualification.
+
+Classify-identity remains a read-only computation whose prose asks the caller to declare the result; it does not itself record a verifier warrant. Model/edge construction requires a relation declaration, but that declaration is not a mathematical proof of the relation. Prior native-replay findings remain the evidence for authority behavior.
+
+All 352 corpus cases validate unchanged. Source counts remain 84 partial / 284 unreviewed because MCP already had partial credit; completing text reading does not upgrade semantic coverage. No campaign harvest, live CAS, Lean work, oracle edits or publication. Phase 0 remains active.

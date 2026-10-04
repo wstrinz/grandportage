@@ -1,0 +1,35 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "170ae1cd4127c7b3d92d15d9667c53b9585ddf8b003d480ffb494cc5211dabf4",
+  "scope": "Five private synthetic diagnostics, no original source or campaign mutated; derived-view consistency only.",
+  "controls": [
+    {
+      "name": "duplicate open list accepted",
+      "receipt_open_count": 2,
+      "aggregate_open_count": 1
+    },
+    {
+      "name": "trailing newline semantic ID",
+      "accepted_id": "A\n"
+    },
+    {
+      "name": "single receipt absent replacement",
+      "accepted": true,
+      "scope": "Replacement existence is checked for supersession resolutions, not lone observations; no theorem admitted"
+    },
+    {
+      "name": "overwrite-manifest",
+      "exit_code": 0,
+      "input_overwritten": true,
+      "original_sha256": "9efd0f9c4cb7145f835590e8614919082bdb6bcd19147d0d4faddaae0783e5ac",
+      "output_schema": "gp-frontier-current-review/v1"
+    },
+    {
+      "name": "overwrite-receipt",
+      "exit_code": 0,
+      "input_overwritten": true,
+      "original_sha256": "295831e336295423ce9c42c4b5e110cc5186ab77f3d88a63ae7a73d236a54d97",
+      "output_schema": "gp-frontier-current-review/v1"
+    }
+  ]
+}

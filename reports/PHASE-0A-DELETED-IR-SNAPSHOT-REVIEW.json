@@ -1,0 +1,838 @@
+{
+  "scope": "Exactly the 14 unmatched deleted non-test paths beginning review/ir-v2-projection/ from reports/PHASE-0A-DELETED-CONTENT-RECONCILIATION.json.",
+  "method": "Pinned predecessor Git blobs were read with git cat-file. Generated IR metadata was not treated as semantic coverage; only retained guard assertions and a direct neutral premise/conclusion match were used for case mappings.",
+  "validation": {
+    "expected_rows": 14,
+    "unique_paths": 14,
+    "all_blob_identities_read": true
+  },
+  "counts": {
+    "metadata_only_no_neutral_case_obligation": 7,
+    "covered_by_existing_case": 1,
+    "unresolved_minimal_mechanism": 3,
+    "metadata_only_positive_replay_no_neutral_case_obligation": 2,
+    "partially_covered_with_unresolved_transport_gate": 1
+  },
+  "records": [
+    {
+      "path": "review/ir-v2-projection/fixtures__gamma_window__graph.json",
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "deleted_blob": "05bacca06ba0fbb8c15c52b359d68688e715a187",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 46364,
+        "complete_json_read": true
+      },
+      "reading_extent": "Complete pinned JSON blob parsed. Read schema, authority, graph_effect, source identity, counts, reason_counts, and categories/load_error as present; retained guard source was read only for the D1/D2/D3/X8-X10 incidents.",
+      "snapshot_contract": {
+        "schema": "grand-portage-ir-v2-projection/v0",
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE",
+        "source": {
+          "adapter": "stored events (no inferred meta or context)",
+          "hash_encoding": "source bytes with CRLF normalized to LF",
+          "path": "fixtures/gamma_window/graph.jsonl",
+          "sha256": "6debfab6568424233a953eadcc7cb86a52e2743a63ce1c214bcff550fe884440"
+        },
+        "counts": {
+          "bindings": {},
+          "claims": {
+            "UNPROJECTABLE": 5
+          },
+          "evidence": {
+            "UNPROJECTABLE": 1
+          },
+          "licences": {
+            "UNPROJECTABLE": 5
+          },
+          "models": {
+            "UNPROJECTABLE": 10
+          },
+          "steps": {
+            "PROJECTABLE": 3,
+            "UNPROJECTABLE": 3
+          }
+        },
+        "reason_counts": {
+          "claim.predicate_interpretation": 8,
+          "context.about": 20,
+          "context.characteristic": 20,
+          "context.coefficient_domain": 20,
+          "context.generators": 20,
+          "context.point_universe": 20,
+          "context.ring_vars": 20,
+          "evidence.actual_requirement_discharge": 1,
+          "licence.leaf_receipt": 5,
+          "licence.step_justification_and_discharge": 5,
+          "runtime.full_check_refused": 4,
+          "runtime.transport_refused": 4,
+          "step.relation_class": 6
+        },
+        "status": null,
+        "load_error": null
+      },
+      "what_it_records": "A complete generated projection of gamma_window/graph.jsonl: 5 claims, 1 evidence, 5 licences and 10 models are UNPROJECTABLE; three steps remain PROJECTABLE and three do not. It records missing context, receipt and runtime-refusal fields, but it neither validates a mathematical conclusion nor asserts a particular counterexample.",
+      "existing_evidence_or_case_mappings": [],
+      "genuinely_missing_obligation": null,
+      "incident_disposition": "metadata_only_no_neutral_case_obligation",
+      "source_review_pointers": [
+        "$DEV/grand-portage git cat-file blob 05bacca06ba0fbb8c15c52b359d68688e715a187",
+        "corpus/IR-PROJECTION-REVIEW.json#/findings",
+        "corpus/IR-INTERPRETER-DOCUMENT-REVIEW.json#/sources",
+        "reports/PHASE-0A-BATCH-68.md",
+        "reports/PHASE-0A-BATCH-79.md",
+        "$DEV/grand-portage/tests/test_project_v2.py:91-95",
+        "$DEV/grand-portage/grandportage/project_v2.py:265-269"
+      ]
+    },
+    {
+      "path": "review/ir-v2-projection/fixtures__jc2__graph.json",
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "deleted_blob": "48917af2aa15ebb83f92dc08432622f2f1c000f5",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 110943,
+        "complete_json_read": true
+      },
+      "reading_extent": "Complete pinned JSON blob parsed. Read schema, authority, graph_effect, source identity, counts, reason_counts, and categories/load_error as present; retained guard source was read only for the D1/D2/D3/X8-X10 incidents.",
+      "snapshot_contract": {
+        "schema": "grand-portage-ir-v2-projection/v0",
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE",
+        "source": {
+          "adapter": "stored events (no inferred meta or context)",
+          "hash_encoding": "source bytes with CRLF normalized to LF",
+          "path": "fixtures/jc2/graph.jsonl",
+          "sha256": "0106dfd0ec7a69ec9acc6b6c384b730ea29acf71d42e4cf192b2813910121346"
+        },
+        "counts": {
+          "bindings": {},
+          "claims": {
+            "UNPROJECTABLE": 14
+          },
+          "evidence": {
+            "UNPROJECTABLE": 7
+          },
+          "licences": {
+            "UNPROJECTABLE": 13
+          },
+          "models": {
+            "UNPROJECTABLE": 18
+          },
+          "steps": {
+            "PROJECTABLE": 15
+          }
+        },
+        "reason_counts": {
+          "claim.identity_expression": 4,
+          "claim.predicate_interpretation": 2,
+          "context.about": 45,
+          "context.characteristic": 45,
+          "context.coefficient_domain": 45,
+          "context.generators": 45,
+          "context.point_universe": 45,
+          "context.ring_vars": 45,
+          "evidence.actual_requirement_discharge": 7,
+          "licence.leaf_receipt": 13,
+          "licence.step_justification_and_discharge": 11,
+          "runtime.full_check_refused": 6,
+          "runtime.transport_refused": 5
+        },
+        "status": null,
+        "load_error": null
+      },
+      "what_it_records": "A complete generated projection of jc2/graph.jsonl: 14 claims, 7 evidence records, 13 licences and 18 models are UNPROJECTABLE, while 15 steps are PROJECTABLE. The rows preserve audit debt and historic runtime-refusal labels only; they are not a semantic acceptance or refusal test.",
+      "existing_evidence_or_case_mappings": [],
+      "genuinely_missing_obligation": null,
+      "incident_disposition": "metadata_only_no_neutral_case_obligation",
+      "source_review_pointers": [
+        "$DEV/grand-portage git cat-file blob 48917af2aa15ebb83f92dc08432622f2f1c000f5",
+        "corpus/IR-PROJECTION-REVIEW.json#/findings",
+        "corpus/IR-INTERPRETER-DOCUMENT-REVIEW.json#/sources",
+        "reports/PHASE-0A-BATCH-68.md",
+        "reports/PHASE-0A-BATCH-79.md",
+        "$DEV/grand-portage/tests/test_project_v2.py:91-95",
+        "$DEV/grand-portage/grandportage/project_v2.py:265-269"
+      ]
+    },
+    {
+      "path": "review/ir-v2-projection/fixtures__matroid__graph.json",
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "deleted_blob": "7256d0fa3c129f29a153815db1d5f78cb9219246",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 88728,
+        "complete_json_read": true
+      },
+      "reading_extent": "Complete pinned JSON blob parsed. Read schema, authority, graph_effect, source identity, counts, reason_counts, and categories/load_error as present; retained guard source was read only for the D1/D2/D3/X8-X10 incidents.",
+      "snapshot_contract": {
+        "schema": "grand-portage-ir-v2-projection/v0",
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE",
+        "source": {
+          "adapter": "stored events (no inferred meta or context)",
+          "hash_encoding": "source bytes with CRLF normalized to LF",
+          "path": "fixtures/matroid/graph.jsonl",
+          "sha256": "3f511076e2ea3e9e15beb4bea33fd926e07920e91bd278d27d6ab66a6d52de2a"
+        },
+        "counts": {
+          "bindings": {},
+          "claims": {
+            "UNPROJECTABLE": 14
+          },
+          "evidence": {
+            "UNPROJECTABLE": 7
+          },
+          "licences": {
+            "UNPROJECTABLE": 12
+          },
+          "models": {
+            "UNPROJECTABLE": 19
+          },
+          "steps": {
+            "PROJECTABLE": 10
+          }
+        },
+        "reason_counts": {
+          "claim.predicate_interpretation": 2,
+          "context.about": 45,
+          "context.characteristic": 45,
+          "context.coefficient_domain": 45,
+          "context.generators": 45,
+          "context.point_universe": 45,
+          "context.ring_vars": 45,
+          "evidence.actual_requirement_discharge": 7,
+          "licence.leaf_receipt": 12,
+          "licence.step_justification_and_discharge": 12,
+          "runtime.full_check_refused": 6,
+          "runtime.transport_refused": 6
+        },
+        "status": null,
+        "load_error": null
+      },
+      "what_it_records": "A complete generated projection of matroid/graph.jsonl: 14 claims, 7 evidence records, 12 licences and 19 models are UNPROJECTABLE, while 10 steps are PROJECTABLE. It reports missing context and receipt debt, not an independently replayed matroid counterexample or theorem.",
+      "existing_evidence_or_case_mappings": [],
+      "genuinely_missing_obligation": null,
+      "incident_disposition": "metadata_only_no_neutral_case_obligation",
+      "source_review_pointers": [
+        "$DEV/grand-portage git cat-file blob 7256d0fa3c129f29a153815db1d5f78cb9219246",
+        "corpus/IR-PROJECTION-REVIEW.json#/findings",
+        "corpus/IR-INTERPRETER-DOCUMENT-REVIEW.json#/sources",
+        "reports/PHASE-0A-BATCH-68.md",
+        "reports/PHASE-0A-BATCH-79.md",
+        "$DEV/grand-portage/tests/test_project_v2.py:91-95",
+        "$DEV/grand-portage/grandportage/project_v2.py:265-269"
+      ]
+    },
+    {
+      "path": "review/ir-v2-projection/tests__fixtures__arr15__class_12909_open_witness.json",
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "deleted_blob": "307f4d4b6e2b88bd219e023400be49d8927af935",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 2139,
+        "complete_json_read": true
+      },
+      "reading_extent": "Complete pinned JSON blob parsed. Read schema, authority, graph_effect, source identity, counts, reason_counts, and categories/load_error as present; retained guard source was read only for the D1/D2/D3/X8-X10 incidents.",
+      "snapshot_contract": {
+        "schema": "grand-portage-ir-v2-projection/v0",
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE",
+        "source": {
+          "adapter": "ARR15 model payload wrapper; synthetic id/meta only; no invented claim or field context",
+          "hash_encoding": "source bytes with CRLF normalized to LF",
+          "path": "tests/fixtures/arr15/class_12909_open_witness.json",
+          "sha256": "171d5e66bb7b84dc0252f8bbe9cec2f971acbd7cab284dc9dbff2e1767052a2a"
+        },
+        "counts": {
+          "bindings": {},
+          "claims": {},
+          "evidence": {},
+          "licences": {},
+          "models": {
+            "UNPROJECTABLE": 1
+          },
+          "steps": {}
+        },
+        "reason_counts": {
+          "context.about": 1,
+          "context.characteristic": 1,
+          "context.coefficient_domain": 1,
+          "context.point_universe": 1
+        },
+        "status": null,
+        "load_error": null
+      },
+      "what_it_records": "ARR15 wrapper serialization of one model. Its sole model is UNPROJECTABLE for omitted about/field/point-universe context; it has no claim, evidence, licence, step, acceptance, or refusal assertion.",
+      "existing_evidence_or_case_mappings": [],
+      "genuinely_missing_obligation": null,
+      "incident_disposition": "metadata_only_no_neutral_case_obligation",
+      "source_review_pointers": [
+        "$DEV/grand-portage git cat-file blob 307f4d4b6e2b88bd219e023400be49d8927af935",
+        "corpus/IR-PROJECTION-REVIEW.json#/findings",
+        "corpus/IR-INTERPRETER-DOCUMENT-REVIEW.json#/sources",
+        "reports/PHASE-0A-BATCH-68.md",
+        "reports/PHASE-0A-BATCH-79.md",
+        "$DEV/grand-portage/tests/test_project_v2.py:91-95",
+        "$DEV/grand-portage/grandportage/project_v2.py:265-269"
+      ]
+    },
+    {
+      "path": "review/ir-v2-projection/tests__fixtures__arr15__class_4102.json",
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "deleted_blob": "b8ca78a87419a46d353d6887605516baaf8410f1",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 2275,
+        "complete_json_read": true
+      },
+      "reading_extent": "Complete pinned JSON blob parsed. Read schema, authority, graph_effect, source identity, counts, reason_counts, and categories/load_error as present; retained guard source was read only for the D1/D2/D3/X8-X10 incidents.",
+      "snapshot_contract": {
+        "schema": "grand-portage-ir-v2-projection/v0",
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE",
+        "source": {
+          "adapter": "ARR15 model payload wrapper; synthetic id/meta only; no invented claim or field context",
+          "hash_encoding": "source bytes with CRLF normalized to LF",
+          "path": "tests/fixtures/arr15/class_4102.json",
+          "sha256": "42e3be08f3650b4667409cc72e4c9e81a05a60a31b906c19b1a0dc6cfc308859"
+        },
+        "counts": {
+          "bindings": {},
+          "claims": {},
+          "evidence": {},
+          "licences": {},
+          "models": {
+            "UNPROJECTABLE": 1
+          },
+          "steps": {}
+        },
+        "reason_counts": {
+          "context.about": 1,
+          "context.characteristic": 1,
+          "context.coefficient_domain": 1,
+          "context.point_universe": 1
+        },
+        "status": null,
+        "load_error": null
+      },
+      "what_it_records": "ARR15 wrapper serialization of one model. Its sole model is UNPROJECTABLE for omitted about/field/point-universe context; it has no claim, evidence, licence, step, acceptance, or refusal assertion.",
+      "existing_evidence_or_case_mappings": [],
+      "genuinely_missing_obligation": null,
+      "incident_disposition": "metadata_only_no_neutral_case_obligation",
+      "source_review_pointers": [
+        "$DEV/grand-portage git cat-file blob b8ca78a87419a46d353d6887605516baaf8410f1",
+        "corpus/IR-PROJECTION-REVIEW.json#/findings",
+        "corpus/IR-INTERPRETER-DOCUMENT-REVIEW.json#/sources",
+        "reports/PHASE-0A-BATCH-68.md",
+        "reports/PHASE-0A-BATCH-79.md",
+        "$DEV/grand-portage/tests/test_project_v2.py:91-95",
+        "$DEV/grand-portage/grandportage/project_v2.py:265-269"
+      ]
+    },
+    {
+      "path": "review/ir-v2-projection/tests__fixtures__atlas__ordered_certificate.json",
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "deleted_blob": "69639fe8ee804c099b1aec85c7f7ba5438d54f2e",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 4068,
+        "complete_json_read": true
+      },
+      "reading_extent": "Complete pinned JSON blob parsed. Read schema, authority, graph_effect, source identity, counts, reason_counts, and categories/load_error as present; retained guard source was read only for the D1/D2/D3/X8-X10 incidents.",
+      "snapshot_contract": {
+        "schema": "grand-portage-ir-v2-projection/v0",
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE",
+        "source": {
+          "adapter": "atlas sample packaging; explicit fixture context; supplied certificate is unverified data, not a receipt",
+          "hash_encoding": "source bytes with CRLF normalized to LF",
+          "path": "tests/fixtures/atlas/ordered_certificate.json",
+          "sha256": "80e1f320d6b8b9ed8d631d4da9e5a53d405bac55314cca59ebd4e38e594c3191"
+        },
+        "counts": {
+          "bindings": {},
+          "claims": {
+            "PROJECTABLE": 1
+          },
+          "evidence": {
+            "UNPROJECTABLE": 1
+          },
+          "licences": {},
+          "models": {
+            "PROJECTABLE": 1
+          },
+          "steps": {}
+        },
+        "reason_counts": {
+          "evidence.actual_requirement_discharge": 1
+        },
+        "status": null,
+        "load_error": null
+      },
+      "what_it_records": "The supplied atlas certificate is retained as unverified data: one claim and model are projectable, but the evidence has actual_requirement_discharge debt. The snapshot therefore records the refusal to treat a certificate payload as a checked receipt.",
+      "existing_evidence_or_case_mappings": [
+        {
+          "case_id": "GP-X65",
+          "source": "corpus/must/GP-X65.json",
+          "equivalence": "Both premises supply only a certificate label/payload without a current checked verdict; both conclusions refuse authority. The atlas fixture's ordering and identifier are incidental."
+        }
+      ],
+      "genuinely_missing_obligation": null,
+      "incident_disposition": "covered_by_existing_case",
+      "source_review_pointers": [
+        "$DEV/grand-portage git cat-file blob 69639fe8ee804c099b1aec85c7f7ba5438d54f2e",
+        "corpus/IR-PROJECTION-REVIEW.json#/findings",
+        "corpus/IR-INTERPRETER-DOCUMENT-REVIEW.json#/sources",
+        "reports/PHASE-0A-BATCH-68.md",
+        "reports/PHASE-0A-BATCH-79.md",
+        "$DEV/grand-portage/grandportage/project_v2.py:265-269"
+      ]
+    },
+    {
+      "path": "review/ir-v2-projection/tests__fixtures__dk_retrodiction__fixtures__D1-inference-on-family-claim__input.json",
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "deleted_blob": "c298c3276732a6d5cb912280d170d1eeba51b807",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 817,
+        "complete_json_read": true
+      },
+      "reading_extent": "Complete pinned JSON blob parsed. Read schema, authority, graph_effect, source identity, counts, reason_counts, and categories/load_error as present; retained guard source was read only for the D1/D2/D3/X8-X10 incidents.",
+      "snapshot_contract": {
+        "schema": "grand-portage-ir-v2-projection/v0",
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE",
+        "source": {
+          "adapter": "stored events (no inferred meta or context)",
+          "hash_encoding": "source bytes with CRLF normalized to LF",
+          "path": "tests/fixtures/dk_retrodiction/fixtures/D1-inference-on-family-claim/input.json",
+          "sha256": "023ae70cb544e795fa78710a629886d4f25e0193b50f41c4df30938ebd97e591"
+        },
+        "counts": {},
+        "reason_counts": {},
+        "status": "UNPROJECTABLE",
+        "load_error": "inference 'INF' premise 0 cites PREDICATE claim 'C-COUNT' at family 'F' without an explicit family_bridge. DISCHARGE: retain the family claim and its enumeration debt, then declare a checked family_bridge to one exhibited proved member, or keep the required model claim as an open slot."
+      },
+      "what_it_records": "Load-time refusal: a family-level PREDICATE claim is cited as a premise without an explicit checked family_bridge. The exact retained guard assertion is GraphError matching DISCHARGE.*family.",
+      "existing_evidence_or_case_mappings": [
+        {
+          "case_id": "GP-X113",
+          "source": "corpus/must/GP-X113.json",
+          "equivalence": "Related bridge principle only: it refuses an uninstantiated linearization bridge. It does not exercise the distinct family-claim premise gate, so it is not claimed as coverage."
+        }
+      ],
+      "genuinely_missing_obligation": "Add paired minimal controls: refuse an inference whose family PREDICATE premise lacks family_bridge; accept the same inference only with a checked bridge to an exhibited proved member.",
+      "incident_disposition": "unresolved_minimal_mechanism",
+      "source_review_pointers": [
+        "$DEV/grand-portage git cat-file blob c298c3276732a6d5cb912280d170d1eeba51b807",
+        "corpus/IR-PROJECTION-REVIEW.json#/findings",
+        "corpus/IR-INTERPRETER-DOCUMENT-REVIEW.json#/sources",
+        "reports/PHASE-0A-BATCH-68.md",
+        "reports/PHASE-0A-BATCH-79.md",
+        "$DEV/grand-portage/tests/test_guard_release.py:26-28",
+        "$DEV/grand-portage/scripts/replay_guard_fixtures.py:42-52"
+      ]
+    },
+    {
+      "path": "review/ir-v2-projection/tests__fixtures__dk_retrodiction__fixtures__D2-witness-substitution-scaling__fail-97vars.json",
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "deleted_blob": "9150c5de4d97bb04f14f3de4e25960e05d70b473",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 4072,
+        "complete_json_read": true
+      },
+      "reading_extent": "Complete pinned JSON blob parsed. Read schema, authority, graph_effect, source identity, counts, reason_counts, and categories/load_error as present; retained guard source was read only for the D1/D2/D3/X8-X10 incidents.",
+      "snapshot_contract": {
+        "schema": "grand-portage-ir-v2-projection/v0",
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE",
+        "source": {
+          "adapter": "stored events (no inferred meta or context)",
+          "hash_encoding": "source bytes with CRLF normalized to LF",
+          "path": "tests/fixtures/dk_retrodiction/fixtures/D2-witness-substitution-scaling/fail-97vars.json",
+          "sha256": "c9277c0b3849ff6684bb90f22c083a47249de2cf046516666121068c5df42406"
+        },
+        "counts": {
+          "bindings": {},
+          "claims": {
+            "UNPROJECTABLE": 1
+          },
+          "evidence": {},
+          "licences": {},
+          "models": {
+            "UNPROJECTABLE": 1
+          },
+          "steps": {}
+        },
+        "reason_counts": {
+          "context.about": 2
+        },
+        "status": null,
+        "load_error": null
+      },
+      "what_it_records": "Despite its historical filename, the exact parametrized retained test calls cas.check_witness for size 97 three times and asserts ok. The projection itself has one claim and model UNPROJECTABLE solely for missing about context; it records no negative boundary or refusal.",
+      "existing_evidence_or_case_mappings": [],
+      "genuinely_missing_obligation": null,
+      "incident_disposition": "metadata_only_positive_replay_no_neutral_case_obligation",
+      "source_review_pointers": [
+        "$DEV/grand-portage git cat-file blob 9150c5de4d97bb04f14f3de4e25960e05d70b473",
+        "corpus/IR-PROJECTION-REVIEW.json#/findings",
+        "corpus/IR-INTERPRETER-DOCUMENT-REVIEW.json#/sources",
+        "reports/PHASE-0A-BATCH-68.md",
+        "reports/PHASE-0A-BATCH-79.md",
+        "$DEV/grand-portage/tests/test_guard_release.py:121-132",
+        "$DEV/grand-portage/scripts/replay_guard_fixtures.py:54-61"
+      ]
+    },
+    {
+      "path": "review/ir-v2-projection/tests__fixtures__dk_retrodiction__fixtures__D2-witness-substitution-scaling__pass-96vars.json",
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "deleted_blob": "1d874371ac0bb4fa2bb18df8b11a24948d77096f",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 4053,
+        "complete_json_read": true
+      },
+      "reading_extent": "Complete pinned JSON blob parsed. Read schema, authority, graph_effect, source identity, counts, reason_counts, and categories/load_error as present; retained guard source was read only for the D1/D2/D3/X8-X10 incidents.",
+      "snapshot_contract": {
+        "schema": "grand-portage-ir-v2-projection/v0",
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE",
+        "source": {
+          "adapter": "stored events (no inferred meta or context)",
+          "hash_encoding": "source bytes with CRLF normalized to LF",
+          "path": "tests/fixtures/dk_retrodiction/fixtures/D2-witness-substitution-scaling/pass-96vars.json",
+          "sha256": "328cebd63060b94a684719157c726c441583f6070743b48f7b6d3b4aa5962aac"
+        },
+        "counts": {
+          "bindings": {},
+          "claims": {
+            "UNPROJECTABLE": 1
+          },
+          "evidence": {},
+          "licences": {},
+          "models": {
+            "UNPROJECTABLE": 1
+          },
+          "steps": {}
+        },
+        "reason_counts": {
+          "context.about": 2
+        },
+        "status": null,
+        "load_error": null
+      },
+      "what_it_records": "The exact parametrized retained test calls cas.check_witness for size 96 three times and asserts ok. The projection itself has one claim and model UNPROJECTABLE solely for missing about context; it records no comparative 96/97 semantic boundary.",
+      "existing_evidence_or_case_mappings": [],
+      "genuinely_missing_obligation": null,
+      "incident_disposition": "metadata_only_positive_replay_no_neutral_case_obligation",
+      "source_review_pointers": [
+        "$DEV/grand-portage git cat-file blob 1d874371ac0bb4fa2bb18df8b11a24948d77096f",
+        "corpus/IR-PROJECTION-REVIEW.json#/findings",
+        "corpus/IR-INTERPRETER-DOCUMENT-REVIEW.json#/sources",
+        "reports/PHASE-0A-BATCH-68.md",
+        "reports/PHASE-0A-BATCH-79.md",
+        "$DEV/grand-portage/tests/test_guard_release.py:121-132",
+        "$DEV/grand-portage/scripts/replay_guard_fixtures.py:54-61"
+      ]
+    },
+    {
+      "path": "review/ir-v2-projection/tests__fixtures__dk_retrodiction__fixtures__D3-inert-disposition__after.json",
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "deleted_blob": "8e9f77bfda8bbf5c4ba0b79433b0068d17e030fb",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 2897,
+        "complete_json_read": true
+      },
+      "reading_extent": "Complete pinned JSON blob parsed. Read schema, authority, graph_effect, source identity, counts, reason_counts, and categories/load_error as present; retained guard source was read only for the D1/D2/D3/X8-X10 incidents.",
+      "snapshot_contract": {
+        "schema": "grand-portage-ir-v2-projection/v0",
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE",
+        "source": {
+          "adapter": "stored events (no inferred meta or context)",
+          "hash_encoding": "source bytes with CRLF normalized to LF",
+          "path": "tests/fixtures/dk_retrodiction/fixtures/D3-inert-disposition/after.json",
+          "sha256": "4c45f1d6a945a51da173ec1b70ab13cba314409b51ba833aa95b745482149f35"
+        },
+        "counts": {
+          "bindings": {},
+          "claims": {
+            "UNPROJECTABLE": 2
+          },
+          "evidence": {
+            "UNPROJECTABLE": 1
+          },
+          "licences": {},
+          "models": {},
+          "steps": {}
+        },
+        "reason_counts": {
+          "binding.replay_receipt": 1,
+          "claim.algebraic_model_context": 2,
+          "claim.kind_adapter:COUNT": 1,
+          "claim.predicate_interpretation": 1,
+          "evidence.actual_requirement_discharge": 1,
+          "evidence.interpreter": 1
+        },
+        "status": null,
+        "load_error": null
+      },
+      "what_it_records": "Positive control for the D3 schema distinction: after using a COUNT disposition, the graph folds and C.run retains FAMILY:C-SPLIT as coverage debt. The projection still records that it lacks replay receipt, interpretation and model context, so this is not substantive authority.",
+      "existing_evidence_or_case_mappings": [],
+      "genuinely_missing_obligation": "Paired with D3-before: accept a typed COUNT disposition as explicit unresolved coverage debt, while refusing the same COUNT-only fields on PREDICATE.",
+      "incident_disposition": "unresolved_minimal_mechanism",
+      "source_review_pointers": [
+        "$DEV/grand-portage git cat-file blob 8e9f77bfda8bbf5c4ba0b79433b0068d17e030fb",
+        "corpus/IR-PROJECTION-REVIEW.json#/findings",
+        "corpus/IR-INTERPRETER-DOCUMENT-REVIEW.json#/sources",
+        "reports/PHASE-0A-BATCH-68.md",
+        "reports/PHASE-0A-BATCH-79.md",
+        "$DEV/grand-portage/tests/test_guard_release.py:49-53",
+        "$DEV/grand-portage/scripts/replay_guard_fixtures.py:42-52"
+      ]
+    },
+    {
+      "path": "review/ir-v2-projection/tests__fixtures__dk_retrodiction__fixtures__D3-inert-disposition__before.json",
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "deleted_blob": "f5bcf0270017a72d683b25c9f471538e4cf9295f",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 764,
+        "complete_json_read": true
+      },
+      "reading_extent": "Complete pinned JSON blob parsed. Read schema, authority, graph_effect, source identity, counts, reason_counts, and categories/load_error as present; retained guard source was read only for the D1/D2/D3/X8-X10 incidents.",
+      "snapshot_contract": {
+        "schema": "grand-portage-ir-v2-projection/v0",
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE",
+        "source": {
+          "adapter": "stored events (no inferred meta or context)",
+          "hash_encoding": "source bytes with CRLF normalized to LF",
+          "path": "tests/fixtures/dk_retrodiction/fixtures/D3-inert-disposition/before.json",
+          "sha256": "7be21751fd5243e0e9736337a47c3e521bdae26c5ccfea772fcdf6cd27387723"
+        },
+        "counts": {},
+        "reason_counts": {},
+        "status": "UNPROJECTABLE",
+        "load_error": "claim 'C-SPLIT' has kind PREDICATE but carries COUNT-only field(s) splits, groups, method, proves. DISCHARGE: use a family COUNT disposition, or remove these fields and keep the narrower claim. Disposition fields cannot be silently ignored."
+      },
+      "what_it_records": "Load-time refusal: claim C-SPLIT declares kind PREDICATE while carrying COUNT-only fields splits, groups, method and proves. The exact retained test expects GraphError matching PREDICATE.*COUNT|COUNT.*PREDICATE.",
+      "existing_evidence_or_case_mappings": [
+        {
+          "case_id": "GP-X230/GP-X233",
+          "source": "corpus/must/GP-X230.json; corpus/must/GP-X233.json",
+          "equivalence": "They distinguish structured computation-record states, not a claim-kind versus disposition-field validator. They are context only and are not asserted as coverage."
+        }
+      ],
+      "genuinely_missing_obligation": "Paired with D3-after: refuse a PREDICATE payload containing COUNT-only fields; accept a correctly typed COUNT payload and retain the coverage-debt finding.",
+      "incident_disposition": "unresolved_minimal_mechanism",
+      "source_review_pointers": [
+        "$DEV/grand-portage git cat-file blob f5bcf0270017a72d683b25c9f471538e4cf9295f",
+        "corpus/IR-PROJECTION-REVIEW.json#/findings",
+        "corpus/IR-INTERPRETER-DOCUMENT-REVIEW.json#/sources",
+        "reports/PHASE-0A-BATCH-68.md",
+        "reports/PHASE-0A-BATCH-79.md",
+        "$DEV/grand-portage/tests/test_guard_release.py:49-53",
+        "$DEV/grand-portage/scripts/replay_guard_fixtures.py:42-52"
+      ]
+    },
+    {
+      "path": "review/ir-v2-projection/tests__fixtures__dk_retrodiction__fixtures__ledger__graph.json",
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "deleted_blob": "7d1178424e07b650941879a1bffcb41434e30e2d",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 65070,
+        "complete_json_read": true
+      },
+      "reading_extent": "Complete pinned JSON blob parsed. Read schema, authority, graph_effect, source identity, counts, reason_counts, and categories/load_error as present; retained guard source was read only for the D1/D2/D3/X8-X10 incidents.",
+      "snapshot_contract": {
+        "schema": "grand-portage-ir-v2-projection/v0",
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE",
+        "source": {
+          "adapter": "stored events (no inferred meta or context)",
+          "hash_encoding": "source bytes with CRLF normalized to LF",
+          "path": "tests/fixtures/dk_retrodiction/fixtures/ledger/graph.jsonl",
+          "sha256": "647006161a9af5b6ac2fd6d1e9938c1e5519e6b576359bfa9d6735b88a6a0fd8"
+        },
+        "counts": {
+          "bindings": {},
+          "claims": {
+            "UNPROJECTABLE": 57
+          },
+          "evidence": {
+            "UNPROJECTABLE": 15
+          },
+          "licences": {},
+          "models": {
+            "UNPROJECTABLE": 19
+          },
+          "steps": {}
+        },
+        "reason_counts": {
+          "binding.replay_receipt": 10,
+          "claim.algebraic_model_context": 17,
+          "claim.kind_adapter:COUNT": 7,
+          "claim.predicate_interpretation": 37,
+          "context.about": 59,
+          "context.coefficient_domain": 49,
+          "context.generators": 52,
+          "context.point_universe": 49,
+          "context.ring_vars": 52,
+          "evidence.actual_requirement_discharge": 15,
+          "evidence.interpreter": 10
+        },
+        "status": null,
+        "load_error": null
+      },
+      "what_it_records": "Generated ledger serialization: 57 claims, 15 evidence records and 19 models are all UNPROJECTABLE. Its reasons include receipt, interpreter, kind-adapter and missing-context debt. It is an audit container, not proof that each embedded historical label is a current corpus case.",
+      "existing_evidence_or_case_mappings": [],
+      "genuinely_missing_obligation": null,
+      "incident_disposition": "metadata_only_no_neutral_case_obligation",
+      "source_review_pointers": [
+        "$DEV/grand-portage git cat-file blob 7d1178424e07b650941879a1bffcb41434e30e2d",
+        "corpus/IR-PROJECTION-REVIEW.json#/findings",
+        "corpus/IR-INTERPRETER-DOCUMENT-REVIEW.json#/sources",
+        "reports/PHASE-0A-BATCH-68.md",
+        "reports/PHASE-0A-BATCH-79.md",
+        "$DEV/grand-portage/tests/test_guard_release.py:76-80",
+        "$DEV/grand-portage/grandportage/project_v2.py:265-269"
+      ]
+    },
+    {
+      "path": "review/ir-v2-projection/tests__fixtures__dk_retrodiction__transports__X8-X10.json",
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "deleted_blob": "26fe2a3842cc0a5f27fbe8807e649ce7db4d5199",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 9934,
+        "complete_json_read": true
+      },
+      "reading_extent": "Complete pinned JSON blob parsed. Read schema, authority, graph_effect, source identity, counts, reason_counts, and categories/load_error as present; retained guard source was read only for the D1/D2/D3/X8-X10 incidents.",
+      "snapshot_contract": {
+        "schema": "grand-portage-ir-v2-projection/v0",
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE",
+        "source": {
+          "adapter": "stored events (no inferred meta or context)",
+          "hash_encoding": "source bytes with CRLF normalized to LF",
+          "path": "tests/fixtures/dk_retrodiction/transports/X8-X10.json",
+          "sha256": "b1009142a6cad512e9d6f87fdeaeadc507081c3481aaadf026fd7eea0d9fded1"
+        },
+        "counts": {
+          "bindings": {},
+          "claims": {
+            "UNPROJECTABLE": 5
+          },
+          "evidence": {},
+          "licences": {
+            "UNPROJECTABLE": 3
+          },
+          "models": {
+            "UNPROJECTABLE": 1
+          },
+          "steps": {}
+        },
+        "reason_counts": {
+          "claim.predicate_interpretation": 8,
+          "context.about": 9,
+          "context.coefficient_domain": 9,
+          "context.generators": 9,
+          "context.point_universe": 9,
+          "context.ring_vars": 9,
+          "licence.leaf_receipt": 3,
+          "licence.premise_claim": 2,
+          "licence.step_justification_and_discharge": 2,
+          "runtime.full_check_refused": 2,
+          "runtime.transport_refused": 2
+        },
+        "status": null,
+        "load_error": null
+      },
+      "what_it_records": "The projection preserves two actual transport refusals. INF-X8 cannot promote two counted E4 actions to a world claim without E5 completeness; INF-X10 lacks the premise/parent-cover bridge from the frozen corpus. The retained guard test asserts both INF-X8 and INF-X10 are refused and only INF-X9 is clean.",
+      "existing_evidence_or_case_mappings": [
+        {
+          "case_id": "GP-X141",
+          "source": "corpus/must/GP-X141.json",
+          "equivalence": "X8's attempted conclusion needs completeness, and GP-X141 refuses using one-sided soundness as completeness. It does not exercise the transport validator's family COUNT-to-world E5 gate."
+        },
+        {
+          "case_id": "GP-X83",
+          "source": "corpus/must/GP-X83.json",
+          "equivalence": "X10's frozen-corpus premise lacks an actual-source/parent-cover edge, matching the refusal principle in GP-X83. GP-X83 does not exercise the X10 inference/transport gate."
+        }
+      ],
+      "genuinely_missing_obligation": "A paired transport control: refuse family COUNT evidence without its E5 completeness bridge and a frozen corpus without actual-source/parent-cover binding; accept only with those separately checked premises.",
+      "incident_disposition": "partially_covered_with_unresolved_transport_gate",
+      "source_review_pointers": [
+        "$DEV/grand-portage git cat-file blob 26fe2a3842cc0a5f27fbe8807e649ce7db4d5199",
+        "corpus/IR-PROJECTION-REVIEW.json#/findings",
+        "corpus/IR-INTERPRETER-DOCUMENT-REVIEW.json#/sources",
+        "reports/PHASE-0A-BATCH-68.md",
+        "reports/PHASE-0A-BATCH-79.md",
+        "$DEV/grand-portage/tests/test_guard_release.py:81-85",
+        "$DEV/grand-portage/tests/fixtures/dk_retrodiction/transports/verbatim-v0.31.2.md"
+      ]
+    },
+    {
+      "path": "review/ir-v2-projection/tests__test_match4_hardening.json",
+      "deletion_commit": "9367485558f8085f1863d9afec9cdf1f3d130af5",
+      "deleted_blob": "63516b8e324acc630ae5a7135cbf922a27e718ab",
+      "blob_identity": {
+        "git_object_type": "blob",
+        "byte_length": 1925,
+        "complete_json_read": true
+      },
+      "reading_extent": "Complete pinned JSON blob parsed. Read schema, authority, graph_effect, source identity, counts, reason_counts, and categories/load_error as present; retained guard source was read only for the D1/D2/D3/X8-X10 incidents.",
+      "snapshot_contract": {
+        "schema": "grand-portage-ir-v2-projection/v0",
+        "authority": "DERIVED_READ_MODEL_ONLY",
+        "graph_effect": "NONE",
+        "source": {
+          "adapter": "Cloquet/Match4 existing literal regression; not a complete campaign ledger",
+          "hash_encoding": "source bytes with CRLF normalized to LF",
+          "path": "tests/test_match4_hardening.py",
+          "sha256": "592d07cdd3ba73cc89abf736576009877a2ea2e110785dfb6b4535f681eadbaf"
+        },
+        "counts": {
+          "bindings": {},
+          "claims": {},
+          "evidence": {},
+          "licences": {},
+          "models": {
+            "UNPROJECTABLE": 1
+          },
+          "steps": {}
+        },
+        "reason_counts": {
+          "context.about": 1,
+          "context.characteristic": 1,
+          "context.coefficient_domain": 1,
+          "context.generators": 1,
+          "context.point_universe": 1,
+          "context.ring_vars": 1
+        },
+        "status": null,
+        "load_error": null
+      },
+      "what_it_records": "Projection wrapper for an existing literal Match4 regression. It carries one UNPROJECTABLE model and no claims, evidence, licences or steps; its source adapter expressly says it is not a complete campaign ledger. It supplies no separate refusal or counterexample.",
+      "existing_evidence_or_case_mappings": [],
+      "genuinely_missing_obligation": null,
+      "incident_disposition": "metadata_only_no_neutral_case_obligation",
+      "source_review_pointers": [
+        "$DEV/grand-portage git cat-file blob 63516b8e324acc630ae5a7135cbf922a27e718ab",
+        "corpus/IR-PROJECTION-REVIEW.json#/findings",
+        "corpus/IR-INTERPRETER-DOCUMENT-REVIEW.json#/sources",
+        "reports/PHASE-0A-BATCH-68.md",
+        "reports/PHASE-0A-BATCH-79.md",
+        "$DEV/grand-portage/tests/test_project_v2.py:91-95",
+        "$DEV/grand-portage/grandportage/project_v2.py:265-269"
+      ]
+    }
+  ]
+}

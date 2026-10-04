@@ -1,0 +1,49 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "grandportage/explain.py",
+      "sha256": "da8976e35b4594c61165c03bd3a7441216d3ee073015b006c2a2445f63fbf3d8",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_explain.py",
+      "sha256": "10d6ae4ed556ab3113cf3bd34619d7cbce3a1b999a13c0ccf9058d48192c8434",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/ExplainChecks.lean",
+      "sha256": "48bb2fce9d332ee35b598756624114f3a88a80729ff88e949bf988830c8cb035",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "dependency_slices": [
+    "grandportage/project_v2.py:context (77-105)",
+    "tests/test_project_v2.py:graph helper"
+  ],
+  "tests": {
+    "passed": 5,
+    "report": "reports/oracle-explain-review.xml",
+    "scope": "Offline real SOS receipt recording and freshness tests; Lean dictionary equality only, no Lean compilation. Missing-corpus sentinel test does not read a campaign."
+  },
+  "diagnostics": "reports/EXPLAIN-TRANSPORT-BOUNDARY.json",
+  "findings": [
+    "Native zero-step inference with unverified leaf yields runtime_licensed true and profile_covered true but complete false and child runtime_licensed false. Preserve the full tree; top-level runtime_licensed is not independently earned conclusion authority.",
+    "Leaf active receipts require current provenance, loaded current flag and authority receipt membership. Ordered SOS interpretation is recognized by exact interpreter version and representation keys, not certificate tag alone.",
+    "Completeness additionally requires all obligations REIFIED and all children complete. REIFIED recovers data relationships; it is not a proved Python/Lean codec.",
+    "Paths expose adapter gaps for transport/selected structure/preservation; predicate rewrites remain adapter gaps. Legacy partition and family diagnostics do not establish native representability or authority.",
+    "Context helper checks required fields and attempts expression parsing; full project_v2 and expression semantics remain separately reviewable.",
+    "Lean name-check text equality establishes dictionary synchronization only. No Lean execution or kernel feasibility claim."
+  ],
+  "proposed_repairs": [
+    "Clarify or rename inference runtime_licensed as conditional runtime/transport admission; reserve earned conclusion terminology for complete receipt-bound derivations.",
+    "Keep missing child authority and adapter gaps visible in every consumer rather than collapsing top-level booleans."
+  ],
+  "remaining": [
+    "Complete project_v2 source/test review and expression semantics.",
+    "Broader inference/partition/family explanation adversarial coverage remains partial."
+  ]
+}

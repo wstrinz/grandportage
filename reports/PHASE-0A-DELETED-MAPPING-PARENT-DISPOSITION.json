@@ -1,0 +1,12 @@
+{
+  "status": "parent_accepted_bounded_mapping_reconciliation",
+  "assertion_count": 42,
+  "base_report": "reports/PHASE-0A-DELETED-MAPPING-FINAL.json",
+  "gate_review": "reports/PHASE-0A-DELETED-RESIDUAL-GATE-REVIEW.json",
+  "overrides": {
+    "2": "Exact Cramer pair X406/X407 integrated, full replay pending.",
+    "6,11,16,20,21": "Accept reached-gate mechanism reuse from residual gate review; 11 mutations stop at binding/fixed-record gates before independent algebra."
+  },
+  "parent_verification": "Read all42 compact assertion dispositions and independently inspected C1, A1, A3, M3, N7 and P9 frozen validator code. These gates compare prior digests, sparse commitments or fixed authority objects before later arithmetic.",
+  "limit": "Binding-only reuse certifies neither mutated polynomial arithmetic nor full fixture replay. Positive historical assertions remain source evidence. This accounts for fixed42 assertions, not all history."
+}

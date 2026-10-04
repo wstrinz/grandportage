@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "scope": "Pinned historical residual contract and finite-witness preflight only; no companion campaign, native bindings, live CAS, Lean compilation, parent exclusion or graph admission.",
+  "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+  "baseline_run": "reports/oracle-runs/20260928T201826560097Z.json",
+  "baseline_run_sha256": "fe9c1bbef8978ef482bca815e334bc5eb1dcdba6e17bcd59900d2a6d384f9f86",
+  "replay_run": "reports/oracle-runs/20260928T203130963441Z.json",
+  "replay_run_sha256": "1018b58dd2da15b21aa4558ad6aea512a6c8f6c8efa31c983a233b6aa3c9deeb",
+  "runner_sha256": "eff85d6ee2526f81a5f59fbe8d129f78670293bc15ae3bdfef19cc2b83a85a5a",
+  "adapter_sha256": "61178fc72397d507a5ae575210cb862bb636fe49ab3140fbee8cdb33e0ac5bfe",
+  "routes_sha256": "9a413678bfd7ad89ed288500b0cc4af02f9a268cf704c61333b4755ec434e960",
+  "historical_fixture_sha256": "ce082feccd226db1bd8e0749b652ae806e896a79053a0ed7454c5a1288e686b6",
+  "old_case_count": 372,
+  "new_case_count": 377,
+  "old_case_bytes_unchanged": true,
+  "old_case_expectations_observations_statuses_routes_layers_unchanged": true,
+  "old_diagnostic_completion_markers_regenerated": [
+    "GP-X236",
+    "GP-X237"
+  ],
+  "new_summary": {
+    "AGREES": 362,
+    "DIAGNOSTIC_OBSERVED": 1,
+    "KNOWN_DIFFERENCE": 12,
+    "PENDING": 1,
+    "UNSUPPORTED": 1
+  },
+  "seven_parameter_disposition": {
+    "M1_local_empty_promotion": "GP-X123 (existing)",
+    "N6_changed_coefficient_field": "GP-X332",
+    "N7_reversed_ring_order": "GP-X333",
+    "N4_changed_nested_source_digest": "GP-X71 (existing)",
+    "A4_unexplained_middle_residual": "GP-X334",
+    "N8_changed_witness_slice": "GP-X335",
+    "W3_changed_finite_modulus": "GP-X336",
+    "positive_finite_witness": "GP-X319 (existing)",
+    "distinct_false_gcd_summary": "GP-X320 (existing)"
+  },
+  "new_cases": [
+    {
+      "id": "GP-X332",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "c13a9337da8ff4910cd577b4266c762e338bbe5d0f8a99b935682a5aa4b214ff",
+      "observation": {
+        "reason": "N6: coefficient field or pin changed",
+        "control": "field",
+        "rejection_gate": "N6",
+        "outer_fixture_digest_rejection": false,
+        "W5_reached": null,
+        "mathematical_invalidity_established": false,
+        "graph_effect": "NONE",
+        "parent_exclusion": false,
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X333",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "61e002fa1d43d2cfe4e32d2385da1f233db34eca08e72266c1dab24e27c5524a",
+      "observation": {
+        "reason": "N7: ring order or coordinate packs changed",
+        "control": "ring_order",
+        "rejection_gate": "N7",
+        "outer_fixture_digest_rejection": false,
+        "W5_reached": null,
+        "mathematical_invalidity_established": false,
+        "graph_effect": "NONE",
+        "parent_exclusion": false,
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X334",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "1027b031014aae0d8c2b66f26b207e375e853ad2f449ce61bdd5c9a5e3e61407",
+      "observation": {
+        "reason": "A4: missing-middle-coordinate rationale changed",
+        "control": "middle_rationale",
+        "rejection_gate": "A4",
+        "outer_fixture_digest_rejection": false,
+        "W5_reached": null,
+        "mathematical_invalidity_established": false,
+        "graph_effect": "NONE",
+        "parent_exclusion": false,
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X335",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "f7deb736c40bfe072a87d7e55be48ce6bb685c724900b44e42d171dfd06034e0",
+      "observation": {
+        "reason": "N8: native scope or refusal boundary widened",
+        "control": "slice",
+        "rejection_gate": "N8",
+        "outer_fixture_digest_rejection": false,
+        "W5_reached": null,
+        "mathematical_invalidity_established": false,
+        "graph_effect": "NONE",
+        "parent_exclusion": false,
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X336",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "d6f79185f336875777a6f7e29263b1acfec0a6b1f186108d00ef69c72025ce60",
+      "observation": {
+        "reason": "W3: finite compatible witness equations or modulus failed",
+        "control": "modulus",
+        "rejection_gate": "W3",
+        "outer_fixture_digest_rejection": false,
+        "W5_reached": false,
+        "mathematical_invalidity_established": false,
+        "graph_effect": "NONE",
+        "parent_exclusion": false,
+        "external_execution": false
+      }
+    }
+  ]
+}

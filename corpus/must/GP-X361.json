@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "seed": null,
+  "scope_or_region": "N/A",
+  "id": "GP-X361",
+  "title": "Explicit guard multiplier proves localized membership",
+  "situation": "For I=(6) in Z and guard 2, multiplier 2 sends element 3 to 6 in I.",
+  "inputs": {
+    "control": "local_membership",
+    "ambient": "Z",
+    "ideal_generator": 6,
+    "guard": 2,
+    "element": 3,
+    "multiplier": 2
+  },
+  "attempted_conclusion": "Accept 3 as a member after localization at 2.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The permitted multiplier provides a local membership witness."
+  },
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/Localization.lean",
+      "line": 38,
+      "anchor": "def SatMem {R : Type u} [Mul R] [OfNat R 1] (I : Ideal R) (f g : R) : Prop :=",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/Localization.lean",
+      "line": 82,
+      "anchor": "theorem three_satMem_sixes : SatMem sixes 2 3 :=",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

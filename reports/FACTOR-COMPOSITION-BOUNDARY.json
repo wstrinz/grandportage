@@ -1,0 +1,382 @@
+{
+  "controls": [
+    {
+      "id": "factor_valid",
+      "input": {
+        "schema": "factor_power_v1",
+        "characteristic": 0,
+        "ring_vars": [
+          "x",
+          "u"
+        ],
+        "unit_generators": [
+          "u"
+        ],
+        "receipts": [
+          {
+            "id": "power",
+            "equation": "x^2",
+            "scalar": "1",
+            "base": "x",
+            "exponent": 2
+          }
+        ]
+      },
+      "accepted": true,
+      "observation": {
+        "verdict": "VERIFIED_FACTOR_POWER_IDENTITY",
+        "licenses": [
+          "exact_declared_unit_monomial_times_positive_power_identity"
+        ],
+        "open_obligations": [
+          "equation vanishes in the interpreted target",
+          "the interpreted target has no zero divisors",
+          "the nonzero scalar coefficient and declared unit generators remain units in that target"
+        ],
+        "authority_boundary": "factor identity only; no base-vanishing, emptiness, component, source-membership, or claim-transport authority"
+      }
+    },
+    {
+      "id": "max_exponent",
+      "input": {
+        "schema": "factor_power_v1",
+        "characteristic": 0,
+        "ring_vars": [
+          "x",
+          "u"
+        ],
+        "unit_generators": [
+          "u"
+        ],
+        "receipts": [
+          {
+            "id": "power",
+            "equation": "x^64",
+            "scalar": "1",
+            "base": "x",
+            "exponent": 64
+          }
+        ]
+      },
+      "accepted": true,
+      "observation": {
+        "verdict": "VERIFIED_FACTOR_POWER_IDENTITY",
+        "licenses": [
+          "exact_declared_unit_monomial_times_positive_power_identity"
+        ],
+        "open_obligations": [
+          "equation vanishes in the interpreted target",
+          "the interpreted target has no zero divisors",
+          "the nonzero scalar coefficient and declared unit generators remain units in that target"
+        ],
+        "authority_boundary": "factor identity only; no base-vanishing, emptiness, component, source-membership, or claim-transport authority"
+      }
+    },
+    {
+      "id": "over_exponent",
+      "input": {
+        "schema": "factor_power_v1",
+        "characteristic": 0,
+        "ring_vars": [
+          "x",
+          "u"
+        ],
+        "unit_generators": [
+          "u"
+        ],
+        "receipts": [
+          {
+            "id": "power",
+            "equation": "x^65",
+            "scalar": "1",
+            "base": "x",
+            "exponent": 65
+          }
+        ]
+      },
+      "accepted": false,
+      "observation": {
+        "exception": "FactorPowerError",
+        "message": "receipt 0 exponent must be an integer from 1 through 64"
+      }
+    },
+    {
+      "id": "bool_exponent",
+      "input": {
+        "schema": "factor_power_v1",
+        "characteristic": 0,
+        "ring_vars": [
+          "x",
+          "u"
+        ],
+        "unit_generators": [
+          "u"
+        ],
+        "receipts": [
+          {
+            "id": "power",
+            "equation": "x",
+            "scalar": "1",
+            "base": "x",
+            "exponent": true
+          }
+        ]
+      },
+      "accepted": false,
+      "observation": {
+        "exception": "FactorPowerError",
+        "message": "receipt 0 exponent must be an integer from 1 through 64"
+      }
+    },
+    {
+      "id": "unit_scalar",
+      "input": {
+        "schema": "factor_power_v1",
+        "characteristic": 0,
+        "ring_vars": [
+          "x",
+          "u"
+        ],
+        "unit_generators": [
+          "u"
+        ],
+        "receipts": [
+          {
+            "id": "power",
+            "equation": "u*x^2",
+            "scalar": "u",
+            "base": "x",
+            "exponent": 2
+          }
+        ]
+      },
+      "accepted": true,
+      "observation": {
+        "verdict": "VERIFIED_FACTOR_POWER_IDENTITY",
+        "licenses": [
+          "exact_declared_unit_monomial_times_positive_power_identity"
+        ],
+        "open_obligations": [
+          "equation vanishes in the interpreted target",
+          "the interpreted target has no zero divisors",
+          "the nonzero scalar coefficient and declared unit generators remain units in that target"
+        ],
+        "authority_boundary": "factor identity only; no base-vanishing, emptiness, component, source-membership, or claim-transport authority"
+      }
+    },
+    {
+      "id": "undeclared_scalar",
+      "input": {
+        "schema": "factor_power_v1",
+        "characteristic": 0,
+        "ring_vars": [
+          "x",
+          "u"
+        ],
+        "unit_generators": [
+          "u"
+        ],
+        "receipts": [
+          {
+            "id": "power",
+            "equation": "x^3",
+            "scalar": "x",
+            "base": "x",
+            "exponent": 2
+          }
+        ]
+      },
+      "accepted": false,
+      "observation": {
+        "exception": "FactorPowerError",
+        "message": "receipt 0 scalar may use only declared unit generators"
+      }
+    },
+    {
+      "id": "composition_valid",
+      "input": {
+        "schema": "factor_power_affine_contradiction_v1",
+        "factor_power": {
+          "schema": "factor_power_v1",
+          "characteristic": 0,
+          "ring_vars": [
+            "x",
+            "u"
+          ],
+          "unit_generators": [
+            "u"
+          ],
+          "receipts": [
+            {
+              "id": "power",
+              "equation": "x^2",
+              "scalar": "1",
+              "base": "x",
+              "exponent": 2
+            }
+          ]
+        },
+        "factor_receipt": "power",
+        "pivot": {
+          "variable": "x",
+          "solution": "0"
+        },
+        "consequence": {
+          "id": "second",
+          "equation": "x+1",
+          "residual": "1"
+        }
+      },
+      "accepted": true,
+      "observation": {
+        "verdict": "VERIFIED_FACTOR_POWER_AFFINE_CONTRADICTION_PATTERN",
+        "licenses": [
+          "exact_factor_to_affine_declared_unit_contradiction_pattern"
+        ],
+        "open_obligations": [
+          "the factor and consequence equations vanish in the same interpreted target",
+          "the interpreted target has no zero divisors",
+          "the nonzero scalar coefficients and declared unit generators remain units in that target"
+        ],
+        "authority_boundary": "exact contradiction pattern only; no model binding, emptiness, component, source-membership, or claim-transport authority"
+      }
+    },
+    {
+      "id": "self_referential_pivot",
+      "input": {
+        "schema": "factor_power_affine_contradiction_v1",
+        "factor_power": {
+          "schema": "factor_power_v1",
+          "characteristic": 0,
+          "ring_vars": [
+            "x",
+            "u"
+          ],
+          "unit_generators": [
+            "u"
+          ],
+          "receipts": [
+            {
+              "id": "power",
+              "equation": "x^2",
+              "scalar": "1",
+              "base": "x",
+              "exponent": 2
+            }
+          ]
+        },
+        "factor_receipt": "power",
+        "pivot": {
+          "variable": "x",
+          "solution": "x"
+        },
+        "consequence": {
+          "id": "second",
+          "equation": "x+1",
+          "residual": "1"
+        }
+      },
+      "accepted": false,
+      "observation": {
+        "exception": "FactorPowerContradictionError",
+        "message": "pivot solution may not contain the pivot variable"
+      }
+    },
+    {
+      "id": "wrong_residual",
+      "input": {
+        "schema": "factor_power_affine_contradiction_v1",
+        "factor_power": {
+          "schema": "factor_power_v1",
+          "characteristic": 0,
+          "ring_vars": [
+            "x",
+            "u"
+          ],
+          "unit_generators": [
+            "u"
+          ],
+          "receipts": [
+            {
+              "id": "power",
+              "equation": "x^2",
+              "scalar": "1",
+              "base": "x",
+              "exponent": 2
+            }
+          ]
+        },
+        "factor_receipt": "power",
+        "pivot": {
+          "variable": "x",
+          "solution": "0"
+        },
+        "consequence": {
+          "id": "second",
+          "equation": "x+1",
+          "residual": "2"
+        }
+      },
+      "accepted": false,
+      "observation": {
+        "exception": "FactorPowerContradictionError",
+        "message": "consequence residual is not the exact pivot substitution: expected 1"
+      }
+    },
+    {
+      "id": "nonunit_residual",
+      "input": {
+        "schema": "factor_power_affine_contradiction_v1",
+        "factor_power": {
+          "schema": "factor_power_v1",
+          "characteristic": 0,
+          "ring_vars": [
+            "x",
+            "u"
+          ],
+          "unit_generators": [
+            "u"
+          ],
+          "receipts": [
+            {
+              "id": "power",
+              "equation": "x^2",
+              "scalar": "1",
+              "base": "x",
+              "exponent": 2
+            }
+          ]
+        },
+        "factor_receipt": "power",
+        "pivot": {
+          "variable": "x",
+          "solution": "0"
+        },
+        "consequence": {
+          "id": "second",
+          "equation": "x",
+          "residual": "0"
+        }
+      },
+      "accepted": false,
+      "observation": {
+        "exception": "FactorPowerContradictionError",
+        "message": "consequence residual must be one nonzero unit monomial"
+      }
+    }
+  ],
+  "semantic_countermodel": {
+    "ring": "Z/4Z",
+    "base": 2,
+    "exponent": 2,
+    "power": 0,
+    "base_nonzero": true,
+    "scope": "Without excluding nonzero nilpotents, vanishing powers do not force base vanishing. Not a GP characteristic-four model."
+  },
+  "scope": "Pinned direct checkers, synthetic exact inputs. No model/graph events, CAS or campaign. Max-exponent refusal is resource policy, not a false mathematical identity.",
+  "source_hashes": {
+    "oracle/checkout/grandportage/factor_power.py": "8323a089ce32117c552e689c65b86eed50e72ad820e6affc7291af078e519699",
+    "oracle/checkout/grandportage/factor_power_contradiction.py": "4ccd7bcb680bf193132946b263b2bf6502da7e4fe557e16fba7fdc0ba06dd8cd"
+  },
+  "script_sha256": "cc3904eeb12aa20d980552fde18637a8955eff1e80f181601dc91fc27edd57a5"
+}

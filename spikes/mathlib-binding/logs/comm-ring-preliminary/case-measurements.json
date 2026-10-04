@@ -1,0 +1,30 @@
+[
+  {
+    "label": "case-A08-elaboration",
+    "command": "lake env lean A08Timing.lean -o .lake/build/lib/lean/A08Timing.olean",
+    "started_utc": "2026-09-30T11:44:37.3178820Z",
+    "elapsed_seconds": 17.2739786,
+    "exit_code": 0
+  },
+  {
+    "label": "case-A08-kernel-replay",
+    "command": "lake env leanchecker -v A08Timing",
+    "started_utc": "2026-09-30T11:44:54.5998386Z",
+    "elapsed_seconds": 33.392713,
+    "exit_code": 0
+  },
+  {
+    "label": "case-A05-elaboration",
+    "command": "lake env lean A05Timing.lean -o .lake/build/lib/lean/A05Timing.olean",
+    "started_utc": "2026-09-30T11:45:28.0097964Z",
+    "elapsed_seconds": 44.2130635,
+    "exit_code": 0
+  },
+  {
+    "label": "case-A05-kernel-replay",
+    "command": "lake env leanchecker -v A05Timing",
+    "started_utc": "2026-09-30T11:46:12.2292737Z",
+    "elapsed_seconds": 92.6752303,
+    "exit_code": 0
+  }
+]

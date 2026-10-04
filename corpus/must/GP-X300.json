@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "GP-X300",
+  "seed": null,
+  "title": "Incorrect substituted residual refuses",
+  "situation": "Check a bounded exact power identity or composed affine pattern. No equations are bound to a geometric model and no emptiness inference is requested.",
+  "inputs": {
+    "variables": [
+      "x",
+      "u"
+    ],
+    "characteristic": 0,
+    "declared_units": [
+      "u"
+    ],
+    "exponent_limit": 64,
+    "power_identity": {
+      "equation": "x^2",
+      "scalar": "1",
+      "base": "x",
+      "exponent": 2
+    },
+    "question": "check_affine_contradiction_pattern",
+    "pivot": {
+      "variable": "x",
+      "solution": "0"
+    },
+    "consequence": {
+      "equation": "x+1",
+      "residual": "2"
+    }
+  },
+  "attempted_conclusion": "Validate the requested exact identity/pattern under the explicitly supplied exponent limit; retain all model and interpretation obligations.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Incorrect substituted residual refuses"
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/factor_power_contradiction.py",
+      "line": 49,
+      "anchor": "def verify(spec):"
+    }
+  ]
+}

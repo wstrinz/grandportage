@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "title": "Phase 0a deleted dm4 polynomial-lift quantifier extraction",
+  "source": {
+    "path": "docs/JC-DM4-POLYNOMIAL-LIFT.md",
+    "deleted_blob": "36e9e90cecee7209ef1098ca8f79118c02381bb6",
+    "sha256": "b7674294174236b795081138306e3c7a086271047808e105d952f93a44f668d1",
+    "deletion_commit": "2cac30114573f7b6923c43d86fb22679c4dbedfb",
+    "universal_claim_lines": "8-10",
+    "displayed_equations_lines": "23-32",
+    "zero_chart_lines": "74-83",
+    "full_text_read": true
+  },
+  "reuse_screen": {
+    "GP-A22": "degree-cap obstruction from a forced polynomial dm4; no arbitrary rational zero-chart solution",
+    "GP-X25": "bounded polynomial source witness at cap zero; no universal quantifier",
+    "GP-X26": "bounded polynomial source witness at cap one; no universal quantifier"
+  },
+  "cases": {
+    "GP-X341": {
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "layer": "exact_reference_rational_zero_chart",
+      "route": "dm4_zero_chart",
+      "equation_residuals": {
+        "G1": "0",
+        "G2": "0",
+        "G3": "0"
+      },
+      "reduced_q_numerator": "1",
+      "reduced_q_denominator": "y",
+      "q_in_Qy_polynomial_ring": false,
+      "same_retained_zero_chart": true,
+      "conclusion_scope": "displayed_G1_G2_G3_only",
+      "full_v13_target_checked": false,
+      "nonzero_chart_valuation_theorem_tested": false,
+      "native_rational_lift_verdict": null,
+      "reference_engine": "sympy 1.14.0",
+      "external_execution": false,
+      "reason": "q=1/y solves G1-G3 on the all-zero retained chart but has reduced denominator y, so universal polynomiality fails."
+    },
+    "GP-X342": {
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "exact_reference_rational_zero_chart",
+      "route": "dm4_zero_chart",
+      "equation_residuals": {
+        "G1": "0",
+        "G2": "0",
+        "G3": "0"
+      },
+      "reduced_q_numerator": "0",
+      "reduced_q_denominator": "1",
+      "q_in_Qy_polynomial_ring": true,
+      "same_retained_zero_chart": true,
+      "conclusion_scope": "displayed_G1_G2_G3_only",
+      "full_v13_target_checked": false,
+      "nonzero_chart_valuation_theorem_tested": false,
+      "native_rational_lift_verdict": null,
+      "reference_engine": "sympy 1.14.0",
+      "external_execution": false,
+      "reason": "q=0 is polynomial and solves G1-G3 on the same retained chart."
+    }
+  },
+  "arithmetic": "At a=b=c=d0=d1=d2=0, every displayed term of G1,G2,G3 vanishes for any q in Q(y). q=1/y has reduced denominator y and lies outside Q[y]; q=0 lies in Q[y].",
+  "replay": {
+    "baseline_run": "reports/oracle-runs/20260928T220044757918Z.json",
+    "new_run": "reports/oracle-runs/20260928T224802105393Z.json",
+    "summary": {
+      "AGREES": 368,
+      "DIAGNOSTIC_OBSERVED": 1,
+      "KNOWN_DIFFERENCE": 12,
+      "PENDING": 1,
+      "UNSUPPORTED": 1
+    },
+    "new_case_ids": [
+      "GP-X341",
+      "GP-X342"
+    ]
+  },
+  "preservation": {
+    "baseline_case_count": 381,
+    "all_prior_case_bytes_unchanged": true,
+    "all_prior_expected_observed_status_layer_route_unchanged": true,
+    "reason_only_ids": [
+      "GP-X236",
+      "GP-X237"
+    ],
+    "reason_change_only_ephemeral_completion_marker": true
+  },
+  "limitations": [
+    "The refusal targets the literal universal assertion for the three displayed equations. It does not deny existence of a polynomial q for the same retained chart.",
+    "The positive case proves existence for displayed G1-G3 only; it does not verify the full v13 target, Phi fallback, or a general lift theorem.",
+    "The pinned JCDm4Valuation theorem is a conditional nonzero-chart integer inequality statement. Neither case tests or refutes it.",
+    "Reference arithmetic uses local SymPy 1.14.0; no native predecessor rational-lift checker, Lean compilation, external campaign execution, or graph authority."
+  ],
+  "sha256": {
+    "reports/oracle-runs/20260928T220044757918Z.json": "9cfc329bd086d63a470af593423daec34a822a8d9dfda332cfb0bc1d09d79be4",
+    "reports/oracle-runs/20260928T224802105393Z.json": "c0a28dd6b4885a5928068a656a5273f29d10ac6f3bb5d4b380e4c20724cd46c7",
+    "oracle/ROUTES.json": "275563d422d73da9eebe2531f3283980e6910cd4722c07c6d5615cc1da169324",
+    "tools/check-corpus.py": "f1663d5ae0ee4a0884389925c15bb60e3174448e653b75a7b8f107e619d53c7c",
+    "tools/dm4_zero_chart_probes.py": "c9fc3e8fc4ea5e3ecfa8c1e614631dca52ba8d5d842f41eab62e1259418009a1",
+    "corpus/must/GP-X341.json": "e486c49c8952d8bada582744838b87759c6dac3c2f755a53c5f08084358c3437",
+    "corpus/must/GP-X342.json": "854c2c0f85bf2c4109ca7e70a353afba349aea28ef6ef31f8414e7781fd1a9cf"
+  }
+}

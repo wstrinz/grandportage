@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "GP-X262",
+  "seed": null,
+  "title": "Empty output has vacuous no-invention evidence",
+  "situation": "Every recorded output equation requires checked membership in the source ideal; empty output makes only this local obligation vacuous.",
+  "inputs": {
+    "source": {
+      "field": "Q",
+      "variables": [
+        "y",
+        "x"
+      ],
+      "equations": [
+        "x"
+      ]
+    },
+    "output": {
+      "field": "Q",
+      "variables": [
+        "x"
+      ],
+      "equations": []
+    },
+    "eliminated": [
+      "y"
+    ],
+    "membership_rows": [],
+    "previously_bound_rows": null,
+    "execution_evidence": "no_execution"
+  },
+  "attempted_conclusion": "Admit the submitted output membership evidence, without inferring output completeness.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Empty output has vacuous no-invention evidence"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/store.py",
+      "line": 707,
+      "anchor": "    def _apply_verdict(self, ev, where):"
+    }
+  ]
+}

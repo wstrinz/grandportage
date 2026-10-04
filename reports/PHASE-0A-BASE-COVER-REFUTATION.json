@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "title": "Phase 0a 84.8 BASE cover refutation distinction",
+  "status": "proposed_for_parent_adjudication",
+  "finding_obligation": "84.8",
+  "parent_decision": "reports/PHASE-0A-CLOSURE-DECISIONS.json#/decisions/46",
+  "rejected_reuse": {
+    "case_id": "GP-X56",
+    "reason": "X56 refuses base EMPTY transported to an extension; 84.8 refuses geometric noncoverage promoted to a BASE-cover refutation."
+  },
+  "case_ids": [
+    "GP-X368",
+    "GP-X369"
+  ],
+  "semantic_contrast": {
+    "coefficient_domain": "Q",
+    "parent_equation": "x^2+1=0",
+    "literal_branch_family": [],
+    "base_point_universe": "Q BASE",
+    "geometric_point_universe": "algebraic closure of Q",
+    "rational_parent_empty_argument": "For every q in Q, q^2+1>0.",
+    "geometric_hole": "i is a parent point since i^2+1=0; no branch covers i.",
+    "base_cover_true_vacuously": true,
+    "geometric_cover_false": true,
+    "base_refutation_attempt": "REFUSE; failed geometric cover test is debt in BASE scope, not proof of BASE exhaustiveness.",
+    "geometric_noncoverage_control": "ACCEPT at declared ALGEBRAIC_CLOSURE scope under the explicitly injected geometric test."
+  },
+  "native_representation": {
+    "literal_zero_branch_partition_supported": false,
+    "reason": "Frozen graph partition requires at least two branch IDs, and verifier also refuses a missing branch list before the geometric test.",
+    "encoding": [
+      {
+        "id": "B0",
+        "generators": [
+          "1"
+        ]
+      },
+      {
+        "id": "B1",
+        "generators": [
+          "1"
+        ]
+      }
+    ],
+    "equivalence": "Each branch has the impossible equation 1=0, so their union is empty just like the literal zero-branch family.",
+    "backend_test_status": "Explicit injected proper-ideal and failed-geometric-cover responses; no independently checked CAS answer."
+  },
+  "source_pins": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "lean/GrandPortage/Exhaustive.lean",
+      "line": 45,
+      "anchor": "theorem empty_parent_covered {α : Type u} {ι : Type v}",
+      "sha256": "66cf5719c671ef74a6ac0c2c7fec407f5a62c967dc7f0844034bee5825685953"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "lean/GrandPortage/Exhaustive.lean",
+      "line": 63,
+      "anchor": "theorem geometric_hole_does_not_refute_base_cover :",
+      "sha256": "66cf5719c671ef74a6ac0c2c7fec407f5a62c967dc7f0844034bee5825685953"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "lean/GrandPortage/Exhaustive.lean",
+      "line": 94,
+      "anchor": "def classifyFailedGeometricCover :",
+      "sha256": "66cf5719c671ef74a6ac0c2c7fec407f5a62c967dc7f0844034bee5825685953"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "lean/GrandPortage/Exhaustive.lean",
+      "line": 99,
+      "anchor": "theorem base_cover_failure_remains_debt :",
+      "sha256": "66cf5719c671ef74a6ac0c2c7fec407f5a62c967dc7f0844034bee5825685953"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "lean/GrandPortage/Exhaustive.lean",
+      "line": 102,
+      "anchor": "theorem algebraic_cover_failure_is_refutation :",
+      "sha256": "66cf5719c671ef74a6ac0c2c7fec407f5a62c967dc7f0844034bee5825685953"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/verify.py",
+      "line": 1516,
+      "anchor": "def partition_exhaustiveness(graph, pid, timeout=300, _runner=None, _backend=None):",
+      "sha256": "51ee50fd4be7e8f0f6b2cdd10f680ac7060ef8f91f1f424290a342e3c7ce9c03"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 5006,
+      "anchor": "def test_geometric_hole_refutes_an_algebraically_closed_partition():",
+      "sha256": "1150aa49c0596af1a9816a71f44694838e6fef17370a2fc8337b453b3d43c9f8"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 5020,
+      "anchor": "def test_geometric_hole_remains_debt_over_the_base_point_universe():",
+      "sha256": "1150aa49c0596af1a9816a71f44694838e6fef17370a2fc8337b453b3d43c9f8"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/store.py",
+      "line": 1729,
+      "anchor": "\"%s: partition %r needs at least two `branches`; a split into \"",
+      "sha256": "900da33d1b8e3ae045533b3ae8ed67317a3bc56a35861d2bcd604ae6adb7e755"
+    }
+  ],
+  "case_observations": [
+    {
+      "id": "GP-X368",
+      "case_sha256": "2e1f304319bd7bc192f4395cd40f3030a7e521d6b123f841d3b01a28a59a0d0d",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "layer": "native_partition_classifier_with_injected_geometric_test",
+      "route": "base_cover_refutation",
+      "reason": "the branches B0, B1 do not cover M OVER THE ALGEBRAIC CLOSURE: 1 vanishes wherever all of them do and does not vanish on the parent.\n  THIS IS A HOLE IN THE CASE ANALYSIS, not an error in any branch. Each branch may be perfectly correct and every computation on it sound; what is false is the premise that they are all the cases.\n  ONE WAY OUT THAT IS NOT A FIX: if M has NO POINTS OVER THE BASE FIELD, the branches cover it vacuously and this verdict is about a point that does not exist there. The test cannot decide that -- it is the emptiness question, and it wants a certificate. Record the emptiness and the case analysis is moot; the graph is the place to settle which of the two you have.",
+      "native_classifier_verdict": "NOT_GEOMETRICALLY_EXHAUSTIVE",
+      "native_classifier_called": true,
+      "backend_calls": [
+        {
+          "operation": "membership",
+          "ring": [
+            "x"
+          ],
+          "target": "1",
+          "generators": [
+            "x^2+1"
+          ]
+        },
+        {
+          "operation": "partition_cover",
+          "ring": [
+            "x"
+          ],
+          "parent": [
+            "x^2+1"
+          ],
+          "branches": [
+            [
+              "1"
+            ],
+            [
+              "1"
+            ]
+          ]
+        }
+      ],
+      "geometric_test_injected": true,
+      "literal_empty_branch_family": [],
+      "native_empty_union_encoding": [
+        [
+          "1"
+        ],
+        [
+          "1"
+        ]
+      ],
+      "exact_reference": {
+        "rational_no_root_argument": "For every rational q, q^2 is nonnegative, so q^2+1>0.",
+        "algebraic_closure_root": "i, with i^2=-1",
+        "i_squared_pair": [
+          -1,
+          0
+        ],
+        "both_branch_loci_empty": true,
+        "base_cover_truth": true,
+        "geometric_cover_truth": false
+      },
+      "lean_recompiled": false,
+      "external_execution": false,
+      "persisted_verdict": false
+    },
+    {
+      "id": "GP-X369",
+      "case_sha256": "ed55d33af0d04bbee57b67dc11e4a47d086af93e449f438f323f2a3031fca979",
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "native_partition_classifier_with_injected_geometric_test",
+      "route": "base_cover_refutation",
+      "reason": "the branches B0, B1 do not cover M in its DECLARED point universe ALGEBRAIC_CLOSURE: 1 vanishes wherever all branches do and not on the parent. Because the model explicitly interprets points over the algebraic closure, this is a refuted exhaustiveness premise, not merely a possible geometric hole.",
+      "native_classifier_verdict": "NOT_EXHAUSTIVE",
+      "native_classifier_called": true,
+      "backend_calls": [
+        {
+          "operation": "membership",
+          "ring": [
+            "x"
+          ],
+          "target": "1",
+          "generators": [
+            "x^2+1"
+          ]
+        },
+        {
+          "operation": "partition_cover",
+          "ring": [
+            "x"
+          ],
+          "parent": [
+            "x^2+1"
+          ],
+          "branches": [
+            [
+              "1"
+            ],
+            [
+              "1"
+            ]
+          ]
+        }
+      ],
+      "geometric_test_injected": true,
+      "literal_empty_branch_family": [],
+      "native_empty_union_encoding": [
+        [
+          "1"
+        ],
+        [
+          "1"
+        ]
+      ],
+      "exact_reference": {
+        "rational_no_root_argument": "For every rational q, q^2 is nonnegative, so q^2+1>0.",
+        "algebraic_closure_root": "i, with i^2=-1",
+        "i_squared_pair": [
+          -1,
+          0
+        ],
+        "both_branch_loci_empty": true,
+        "base_cover_truth": true,
+        "geometric_cover_truth": false
+      },
+      "lean_recompiled": false,
+      "external_execution": false,
+      "persisted_verdict": false
+    }
+  ],
+  "replay": {
+    "baseline_path": "reports/oracle-runs/20260929T013956101499Z.json",
+    "new_path": "reports/oracle-runs/20260929T120626698944Z.json",
+    "baseline_case_count": 408,
+    "new_case_count": 410,
+    "new_summary": {
+      "AGREES": 393,
+      "DIAGNOSTIC_OBSERVED": 1,
+      "KNOWN_DIFFERENCE": 14,
+      "PENDING": 1,
+      "UNSUPPORTED": 1
+    },
+    "all_new_agree": true
+  },
+  "preservation": {
+    "prior_case_count": 408,
+    "fields_compared": [
+      "case_sha256",
+      "expected",
+      "observed_verdict",
+      "status",
+      "layer",
+      "route"
+    ],
+    "changed_prior_cases": []
+  },
+  "sha256": {
+    "baseline_run": "28c4fa3a2c6389cd0ca9322a39cc2980f3d08509e94110087ea833d9228bb12c",
+    "new_run": "99a3db17375a6835d125cb8cc4167cf5a14df8ef3771e00550f7611b1ae55437",
+    "probe": "12bf5867588e995b77ca65423fa743072beffcd9a847918648cebd30e8ddcb74",
+    "runner": "8df12d2a7c4c4f594c3958d012cb1516da609fe93c3e719ce8d9dc4066aedb9b",
+    "routes": "2dd75db116fc67eebe203961433a50ac5be48c8ffaed136df372ccb5ce930386",
+    "GP-X368": "2e1f304319bd7bc192f4395cd40f3030a7e521d6b123f841d3b01a28a59a0d0d",
+    "GP-X369": "ed55d33af0d04bbee57b67dc11e4a47d086af93e449f438f323f2a3031fca979"
+  },
+  "limits": [
+    "The native partition classifier was called with an injected geometric test result. The backend response is an assumption, not independently replayed ideal arithmetic.",
+    "The elementary rational and Gaussian-root contrast supplies a concrete semantic countermodel but is not a new Lean compilation or general checker soundness argument.",
+    "A refusal to refute BASE coverage does not establish a checked or held BASE cover.",
+    "The native graph uses two empty-locus branches because literal zero branches are unrepresentable; this preserves the empty union of loci, not the exact source syntax.",
+    "No live CAS, persisted partition verdict, new kernel, or predecessor repair."
+  ]
+}

@@ -1,0 +1,118 @@
+--- a/README.md
++++ b/README.md
+@@ -1,9 +1,10 @@
++> *Frozen at v0.37.0. This repository remains the reference implementation and fixture source for a successor now in design. No further feature development here.*
++
+ # Grand Portage
+ 
+ **Transport typing and obstruction tracking for computational algebra.**
+ 
+-A computation produces an artifact. The artifact does not carry its own
+-license to conclude. Grand Portage computes which claims remain licensed after each modelling step
++A computation produces an artifact. The artifact does not carry its own license to conclude. Grand Portage computes which claims remain licensed after each modelling step
+ under available evidence, and refuses unsupported conclusions.
+ 
+ ```text
+@@ -105,23 +106,23 @@
+ field-relative emptiness scope. The current transport semantics are kernel
+ epoch 12.
+ 
+-- [QUICKSTART.md](QUICKSTART.md) â€” install and first campaign
+-- [SPEC.md](SPEC.md) â€” complete transport and verifier behavior
+-- [OPERATION-CONTRACTS.md](OPERATION-CONTRACTS.md) â€” operation semantics versus checked guarantees
+-- [COMPATIBILITY.md](COMPATIBILITY.md) â€” formats, epochs, and migration
+-- [ARCHITECTURE.md](ARCHITECTURE.md) â€” trust zones and module boundaries
+-- [REVIEW.md](REVIEW.md) â€” current general attack surface
+-- [review/v0.29/README.md](review/v0.29/README.md) â€” public release record, selected-embedding implementation, and CFG23 replay evidence
+-- [review/v0.30/README.md](review/v0.30/README.md) â€” native verification, extension witnesses, ordered receipt independence, and Lean epoch-11 parity
+-- [review/v0.31/README.md](review/v0.31/README.md) â€” public release record, compatibility repairs, and field-scope hardening
+-- [review/v0.31.1/README.md](review/v0.31.1/README.md) â€” patch release record for field-scoped emptiness on untyped models
+-- [review/v0.31.2/README.md](review/v0.31.2/README.md) â€” patch release record for environment-independent exact identity receipts
+-- [review/v0.32/README.md](review/v0.32/README.md) â€” guard release, DK acceptance deltas, and operational accounting
+-- [review/v0.33/README.md](review/v0.33/README.md) â€” authority-binding boundary and review diagnostics
+-- [review/v0.34/README.md](review/v0.34/README.md) â€” field reach, ordered SOS replay, family/model bridge, and migration
+-- [grandportage-jc-campaign](https://github.com/wstrinz/grandportage-jc-campaign) â€” optional extracted campaign fixtures, replay, and historical review brief
+-- [HISTORY/](HISTORY/) â€” superseded findings retained as evidence
+-- [lean/README.md](lean/README.md) â€” non-authoritative semantic shadow
++- [QUICKSTART.md](QUICKSTART.md) — install and first campaign
++- [SPEC.md](SPEC.md) — complete transport and verifier behavior
++- [OPERATION-CONTRACTS.md](OPERATION-CONTRACTS.md) — operation semantics versus checked guarantees
++- [COMPATIBILITY.md](COMPATIBILITY.md) — formats, epochs, and migration
++- [ARCHITECTURE.md](ARCHITECTURE.md) — trust zones and module boundaries
++- [REVIEW.md](REVIEW.md) — current general attack surface
++- [review/v0.29/README.md](review/v0.29/README.md) — public release record, selected-embedding implementation, and CFG23 replay evidence
++- [review/v0.30/README.md](review/v0.30/README.md) — native verification, extension witnesses, ordered receipt independence, and Lean epoch-11 parity
++- [review/v0.31/README.md](review/v0.31/README.md) — public release record, compatibility repairs, and field-scope hardening
++- [review/v0.31.1/README.md](review/v0.31.1/README.md) — patch release record for field-scoped emptiness on untyped models
++- [review/v0.31.2/README.md](review/v0.31.2/README.md) — patch release record for environment-independent exact identity receipts
++- [review/v0.32/README.md](review/v0.32/README.md) — guard release, DK acceptance deltas, and operational accounting
++- [review/v0.33/README.md](review/v0.33/README.md) — authority-binding boundary and review diagnostics
++- [review/v0.34/README.md](review/v0.34/README.md) — field reach, ordered SOS replay, family/model bridge, and migration
++- [grandportage-jc-campaign](https://github.com/wstrinz/grandportage-jc-campaign) — optional extracted campaign fixtures, replay, and historical review brief
++- HISTORY/ (private workspace archive; unavailable in the public snapshot) — superseded findings retained as evidence
++- [lean/README.md](lean/README.md) — non-authoritative semantic shadow
+ 
+ After the companion is published, its optional external conformance lane is:
+ 
+--- a/SPEC.md
++++ b/SPEC.md
+@@ -64,11 +64,15 @@
+ 
+ ## Status
+ 
+-All five layers are built and gated: <!--checks-->1811<!--/checks--> checks, live against Singular 4.2.1,
+-and it has had eleven live user sessions — see [docs/first-run/](docs/first-run/)
+-for the first, written up in full.
+-
+-* **[COMPATIBILITY.md](COMPATIBILITY.md) — graph format 7, kernel epoch 11, selected-embedding identity, native/CAS provenance, extension witnesses, durable artifacts, and conservative migration**
++Frozen reference: package version 0.37.0, graph format 8, kernel epoch 12.
++The release records <!--checks-->1811<!--/checks--> checks; this is a historical
++release count, not a new verification run. See
++[review/v0.37/README.md](review/v0.37/README.md) for the frozen boundary.
++[docs/first-run/](docs/first-run/) retains the first campaign record.
++Known limitations and misleading guidance are recorded in
++[known issues](review/v0.37/KNOWN-ISSUES.md).
++
++* **[COMPATIBILITY.md](COMPATIBILITY.md) — graph format 8, kernel epoch 12, field context, verifier-earned reach, and conservative migration**
+ * **[QUICKSTART.md](QUICKSTART.md) — install, a campaign in ten minutes, and the three things worth knowing on day one**
+ * **[v0.26 release packet](review/v0.26/README.md) — ARR15 open-locus soundness, bounded localization, and MCP custody**
+ * [DESIGN.md](DESIGN.md) — architecture and the decisions behind it
+--- /dev/null
++++ b/review/v0.37/KNOWN-ISSUES.md
+@@ -0,0 +1,36 @@
++# Known issues in frozen GP v0.37.0
++
++The frozen implementation is retained unchanged. These are limitations of
++its advice or expressiveness, not claims that the new rework is implemented.
++
++## Point containment versus ideal containment
++
++The NOT_BY_IDEAL finding in grandportage/check.py recommends radical
++membership as an alternative way to establish containment and says every
++licensed cell rests on that containment. Radical membership earns point
++containment, not every coordinate-ring identity pullback. With the models
++(x^2) and (x), point containment does not make x zero in Q[x]/(x^2).
++IDENTITY transport needs the relevant ideal-containment or ring-map evidence.
++Do not apply the radical-membership advice to those identity cells.
++
++This is a diagnostic/admission-guidance defect. The existence of that advice
++alone is not a reproduced end-to-end false-authority result.
++
++## Specialization conservatism described as a theorem
++
++The SPECIALIZATION table refuses EMPTY and NONEMPTY transport across a
++characteristic change even with additional p-integral evidence. SPEC.md and
++the specialization discharge text overstate that refusal as a theorem.
++
++Unconditional transport is unsound. With suitable integral model data, a
++p-integral unit-ideal certificate can instead be replayed after reduction,
++and a p-integral rational witness can be reduced and checked in characteristic
++p. Any open-locus guards must also survive reduction. The frozen table does
++not express these sufficient conditions.
++
++For example, 1=(2*x)+(1-2*x) replays modulo 3, while x=1/2 on 2*x-1=0 reduces
++to x=2 modulo 3. These do not authorize arbitrary characteristic changes.
++
++Sources: the frozen grandportage/kernel.py transport table,
++grandportage/check.py NOT_BY_IDEAL finding, grandportage/discharge.py
++specialization guidance, and SPEC.md's corresponding transport notes.

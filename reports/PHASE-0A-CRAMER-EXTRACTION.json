@@ -1,0 +1,56 @@
+{
+  "bindings": {
+    "adapter_sha256": "cc8112c8f744bfdde93dac1f4203bfa0fe520464b0d3f8b8e83d02ee9b19928e",
+    "fixture_sha256": "faeda936b84f5f4ba68f55eeb4cc00d34a6c5f7e6e60f7312e4e3f21f1ff0e95",
+    "test_sha256": "bbaf7f288b7d27c667e71cec4af9af18399ffa913aeeecd179509e56bb3519ba"
+  },
+  "candidate_ids": [
+    "GP-X406",
+    "GP-X407"
+  ],
+  "elapsed_seconds": 102.191019,
+  "history_pin": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+  "limits": [
+    "No corpus/oracle route was changed or run.",
+    "No native producer, CAS, campaign, graph, or source binding check was invoked.",
+    "The result is fixture-bound and does not prove a general denominator theorem or any graph authority."
+  ],
+  "observations": {
+    "negative": {
+      "id": "GP-X406",
+      "power_one_refuted": true,
+      "remainder_is_nonzero": true,
+      "result": "REFUSE_AT_HISTORICAL_EXACT_REPLAY_LAYER"
+    },
+    "positive": {
+      "chart_determinant": "VERIFIED_DET5",
+      "historical_clearing_exponent": 2,
+      "id": "GP-X407",
+      "phi_terms": 3137,
+      "result": "ACCEPT_AT_HISTORICAL_EXACT_REPLAY_LAYER"
+    }
+  },
+  "runtime_preflight": {
+    "adapter_entry": "validate_fixture_value",
+    "external_cas_called": false,
+    "fixture_bytes": 1487286,
+    "fixture_construction_called": false,
+    "native_binding_check_called": false,
+    "native_replay_called": false
+  },
+  "schema_version": 1,
+  "status": "focused_offline_historical_replay",
+  "source_anchors": [
+    "reports/PHASE-0A-SIX-DELETED-NOTES-REVIEW.json#/records/2/incidents/1",
+    "deleted blob c231b42735dac46181ec92c1dabd875a2f12d4d9 lines 8-13",
+    "oracle/history/checkout/experiments/jc_h3_b0_compatibility/adapter.py:496-500,750-789",
+    "oracle/history/checkout/tests/test_jc_h3_b0_compatibility.py:36-45,71-83",
+    "oracle/history/checkout/fixtures/jc_b0_compatibility/class_v1.json:68322-68349,91072+"
+  ],
+  "extraction_design": {
+    "positive_candidate": "GP-X407 binds exponent 2, the five det5-Cramer columns, the c8_9^2 Lambda term, model equations b=R=A=OB=0, guards c2_3/p/det5, and the full fixture SHA-256; it accepts only at historical exact-replay layer.",
+    "negative_candidate": "GP-X406 uses the same bound input and guards with exponent 1; it refuses only because the pinned power-one numerator/denominator division has nonzero remainder.",
+    "existing_cases": "GP-X119/X120 cover nonzero/nonunit versus nonzerodivisor only and do not cover a Cramer denominator or exponent threshold."
+  },
+  "candidate_schema_correction": "After the focused 102.191019-second replay, GP-X406/GP-X407 were repackaged to corpus/case.schema.json: seed=null; scope_or_region=REGION; historical_binding and limits moved under inputs; actual gp-history adapter/test sources added. The fixture, adapter, test hashes, input values, guards, and recorded replay observations are unchanged; no arithmetic rerun was needed."
+}

@@ -1,0 +1,139 @@
+{
+  "status": "passed_parent_review",
+  "primary_file_hashes_verified": 54,
+  "locked_dependencies_verified": [
+    {
+      "name": "mathlib",
+      "head": "520045ab14e26149ee970e2e617ca04b09bde5d6"
+    },
+    {
+      "name": "plausible",
+      "head": "e12c1910fe855cbfc38803cd4e55543906d5fa62"
+    },
+    {
+      "name": "LeanSearchClient",
+      "head": "c5d5b8fe6e5158def25cd28eb94e4141ad97c843"
+    },
+    {
+      "name": "importGraph",
+      "head": "7e9612bf0b9ee66db3cb5b9988a35afc706f5a12"
+    },
+    {
+      "name": "proofwidgets",
+      "head": "6e311e2a844da9b2cc3971187df2fe0066947b93"
+    },
+    {
+      "name": "aesop",
+      "head": "a7dbf0c63b694e47f425f3dcddbc0e178bb432d3"
+    },
+    {
+      "name": "Qq",
+      "head": "38d591e778f100aec9762bb582f9c7f55f50e9dc"
+    },
+    {
+      "name": "batteries",
+      "head": "023ce7d62a0531e22a5331e20b587817a80d49ff"
+    },
+    {
+      "name": "Cli",
+      "head": "88679d088c9720c27ebdf2ba4dafe17341747f94"
+    }
+  ],
+  "mathlib_revision": "520045ab14e26149ee970e2e617ca04b09bde5d6",
+  "license": "Apache-2.0",
+  "toolchain": "Lean4.32.1/f054605aea4b840552cca2e725580bffd1e1b704",
+  "semantic_judgments": [
+    "A08 identity and common-zero contradiction need only Ring+Nontrivial; explicit ZMod3 instance. Trivial-ring contrast protects nontrivial premise.",
+    "A05 denominator8 is0 and numerator3 is1 in CharP2; no coefficient solves8*c=3. Unital Q ring-hom contradiction formalized, not an API failure.",
+    "Totalized division in F2 is syntactic0, not reduction of Q coefficient. Special evaluations/integral reformulations are not excluded.",
+    "No JSON-to-Lean correctness, scope-entailment or production checker admission established."
+  ],
+  "final_axiom_outputs_checked": 11,
+  "sorry_or_native_result_axiom": false,
+  "measurement_limits": "package-clean with precompiled dependency cache and reused installed Lean; timings under concurrent activity, not cold Mathlib-source or stable throughput benchmark; rechecks only new declarations against imports",
+  "combined_measurements": [
+    {
+      "label": "clean-package-build",
+      "command": "lake build Binding",
+      "started_utc": "2026-09-30T11:47:49.7520951Z",
+      "ended_utc": "2026-09-30T11:48:28.9341864Z",
+      "elapsed_seconds": 39.1768782,
+      "exit_code": 0
+    },
+    {
+      "label": "warm-noop-build",
+      "command": "lake build Binding",
+      "started_utc": "2026-09-30T11:48:28.9844459Z",
+      "ended_utc": "2026-09-30T11:48:43.6042821Z",
+      "elapsed_seconds": 14.6170463,
+      "exit_code": 0
+    },
+    {
+      "label": "warm-elaboration-1",
+      "command": "lake env lean Binding.lean",
+      "started_utc": "2026-09-30T11:48:43.6343188Z",
+      "ended_utc": "2026-09-30T11:49:22.5468519Z",
+      "elapsed_seconds": 38.9124195,
+      "exit_code": 0
+    },
+    {
+      "label": "warm-elaboration-2",
+      "command": "lake env lean Binding.lean",
+      "started_utc": "2026-09-30T11:49:22.5497741Z",
+      "ended_utc": "2026-09-30T11:50:01.3552913Z",
+      "elapsed_seconds": 38.8053758,
+      "exit_code": 0
+    },
+    {
+      "label": "warm-elaboration-3",
+      "command": "lake env lean Binding.lean",
+      "started_utc": "2026-09-30T11:50:01.3580966Z",
+      "ended_utc": "2026-09-30T11:51:51.6237413Z",
+      "elapsed_seconds": 110.2655091,
+      "exit_code": 0
+    }
+  ],
+  "case_measurements": [
+    {
+      "label": "case-A08-elaboration",
+      "command": "lake env lean A08Timing.lean -o .lake/build/lib/lean/A08Timing.olean",
+      "started_utc": "2026-09-30T11:54:43.7665348Z",
+      "elapsed_seconds": 39.2723318,
+      "exit_code": 0
+    },
+    {
+      "label": "case-A08-kernel-replay",
+      "command": "lake env leanchecker -v A08Timing",
+      "started_utc": "2026-09-30T11:55:23.0434280Z",
+      "elapsed_seconds": 93.0597038,
+      "exit_code": 0
+    },
+    {
+      "label": "case-A05-elaboration",
+      "command": "lake env lean A05Timing.lean -o .lake/build/lib/lean/A05Timing.olean",
+      "started_utc": "2026-09-30T11:56:56.1087742Z",
+      "elapsed_seconds": 49.7084397,
+      "exit_code": 0
+    },
+    {
+      "label": "case-A05-kernel-replay",
+      "command": "lake env leanchecker -v A05Timing",
+      "started_utc": "2026-09-30T11:57:45.8173845Z",
+      "elapsed_seconds": 148.5809114,
+      "exit_code": 0
+    }
+  ],
+  "new_module_kernel_replay": {
+    "command": "lake env leanchecker -v Binding",
+    "exit_code": 0,
+    "elapsed_seconds": 118.7292381,
+    "recheck_scope": "new module declarations replayed into imported environment, not fresh replay of imported Mathlib"
+  },
+  "source_bindings": {
+    "spikes/mathlib-binding/Binding.lean": "e7e274628ed2580b904cd9ca3ac54eedf03a3957b9c7b0f5be757951500167d5",
+    "spikes/mathlib-binding/A08Timing.lean": "2451b568a59a827b948861cda1e09590383645cfb17317851adceac5d1bc431b",
+    "spikes/mathlib-binding/A05Timing.lean": "614f1ca608470a4086e6f435a7b28fefef0c11d8d66ae114628468bf35bdde50",
+    "spikes/mathlib-binding/lake-manifest.json": "a130c116f6c6e9111bb2a3d4befe73896fce3e4d3debd5ee512e9ec028462cf8",
+    "spikes/mathlib-binding/logs/provenance.json": "82c6d6ad5faf521c4c94a40c8c604cf0f1554157a95a8e96d30f2d91e8d5d4cb"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "status": "focused_parent_source_review_not_full_source_closure",
+  "pin": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "tests/test_guard_release.py",
+      "reading_extent": "Focused D1/D3 and related guards inspected; combined output truncated, no full-file read claim."
+    },
+    {
+      "path": "scripts/replay_guard_fixtures.py",
+      "reading_extent": "Replay loop and declaration/check sequencing inspected."
+    },
+    {
+      "path": "tests/fixtures/dk_retrodiction/fixtures/D1-inference-on-family-claim/input.json",
+      "reading_extent": "Complete small input read."
+    }
+  ],
+  "findings": [
+    {
+      "id": "family_bridge_positive_requires_evidence",
+      "description": "D1 source test asserts refusal of a family PREDICATE premise without family_bridge. Other family EMPTY/NONEMPTY/COUNT controls likewise refuse. These tests alone do not demonstrate a checked bridge positive. Before adding one, verify actual bridge admission and receipt/currentness; do not turn the discharge suggestion into presumed authority.",
+      "queue": "Distinct candidate, not mapped by existing family-titled cases; title search only is not an exhaustive equivalence proof."
+    },
+    {
+      "id": "typed_count_does_not_settle_enumeration",
+      "description": "D3-before refuses PREDICATE carrying COUNT disposition fields. D3-after loads as COUNT but C.run retains FAMILY:C-SPLIT. ACCEPT at declaration does not mean family coverage is held."
+    },
+    {
+      "id": "refused_declaration_empty_graph",
+      "description": "The replay script explicitly records declaration refusal separately from subsequent clean check of the unchanged empty graph. A clean check must not mask the refused declaration.",
+      "queue": "Preserve this observation layering in future snapshot extraction."
+    },
+    {
+      "id": "witness_filename_not_verdict",
+      "description": "Retained live source tests assert ok for both pass-96vars and fail-97vars. No live execution performed here."
+    }
+  ]
+}

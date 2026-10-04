@@ -1,0 +1,113 @@
+{
+  "status": "bounded initial extraction; not complete JC sweep",
+  "records": [
+    {
+      "id": "JC-C001",
+      "campaign": "JC",
+      "origin": "own",
+      "source": {
+        "repo": "$DEV/math-stuff",
+        "ref": "d2_plane_72_108/FIELD_SPLIT_AUDIT.md:13-59",
+        "date": "2026-07-21",
+        "harvest_sha256": "db4d7a74aa30e6fcbe3e810c98f25e78073f5dcc15e7548710f299c6ceee6e00",
+        "related_history_commit": "9b7d13123c4ae55b7005b2f0ac9c03bc3ee31bbb"
+      },
+      "claimed": "Rational irreducibility of a quartic was used for the arbitrary characteristic-zero coefficient-field ledger.",
+      "problem": "Over an algebraic closure partial support at individual roots is possible; the single quartic valuation omits branches.",
+      "class": "SCOPE",
+      "scope_or_region": "SCOPE",
+      "discovered_by": "unknown",
+      "cost": null,
+      "cost_note": "Internal claim correction/retraction supports at least medium; elapsed time and shipping status are not yet grounded, so final medium/high classification is withheld.",
+      "shipped": null,
+      "gp_v037_would_catch": "partial",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "The source records withdrawal of geometric survivor-count authority and a later split-place repair. Repair proof not independently verified. GP catch assessment is conditional: explicit scope/guard/bridge requirements could prevent promotion, but GP cannot discover the missing premise or correct interpretation automatically; no campaign replay was run.",
+      "status": "staged: not an Appendix B completed record",
+      "remaining_fields": [
+        "cost",
+        "shipped",
+        "discovery attribution if supported"
+      ]
+    },
+    {
+      "id": "JC-C002",
+      "campaign": "JC",
+      "origin": "own",
+      "source": {
+        "repo": "$DEV/math-stuff",
+        "ref": "d2_plane_72_108/PASSPORT_75_125_REPAIR.md:11-63",
+        "date": "2026-07-26",
+        "harvest_sha256": "4bde9e54296c02bad2fda8417c55a5b89085482dffbe49acf80cc399cd8633d1",
+        "related_history_commit": "2adb92af93871490c924486a942835ab65e42127"
+      },
+      "claimed": "A final-chain-corner dictionary was used at (5,20) outside its required retraction shape.",
+      "problem": "The dictionary supplied exponent 5 instead of 4; checking existence of some exponent hides the failed guard for the actual chart exponent.",
+      "class": "SCOPE",
+      "scope_or_region": "REGION",
+      "discovered_by": "unknown",
+      "cost": null,
+      "cost_note": "Internal claim correction/retraction supports at least medium; elapsed time and shipping status are not yet grounded, so final medium/high classification is withheld.",
+      "shipped": null,
+      "gp_v037_would_catch": "partial",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Independent elementary check: ceil(20/5)=4 and 4*(5-1)=16, not20; choosing5 only satisfies a different existential guard. This checks the stated guard mismatch, not the chart theorem. GP catch assessment is conditional: explicit scope/guard/bridge requirements could prevent promotion, but GP cannot discover the missing premise or correct interpretation automatically; no campaign replay was run.",
+      "status": "staged: not an Appendix B completed record",
+      "remaining_fields": [
+        "cost",
+        "shipped",
+        "discovery attribution if supported"
+      ]
+    },
+    {
+      "id": "JC-C003",
+      "campaign": "JC",
+      "origin": "own",
+      "source": {
+        "repo": "$DEV/math-stuff",
+        "ref": "d2_plane_72_108/F2_TOWER.md:75-114",
+        "date": "2026-07-26",
+        "harvest_sha256": "624b38c92fea86b74e875d77a074f583623e0d12d207787503bc644723ac10b9",
+        "related_history_commit": "fff0cc897bcdba7f849fe3c3085b2c441d0ac245"
+      },
+      "claimed": "An exact base-case kill and exact period arithmetic were joined to claim that the period jump explains failure of tower transfer.",
+      "problem": "The source withdraws that explanation: the claimed link was printed prose connecting disjoint calculations, without the required derivation.",
+      "class": "JOIN",
+      "scope_or_region": "BOTH",
+      "discovered_by": "unknown",
+      "cost": null,
+      "cost_note": "Internal claim correction/retraction supports at least medium; elapsed time and shipping status are not yet grounded, so final medium/high classification is withheld.",
+      "shipped": null,
+      "gp_v037_would_catch": "partial",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Distinct from the incorrect chart constants: the repaired constants do not establish the missing bridge. No assertion that the weaker obstruction conclusion itself is refuted. GP catch assessment is conditional: explicit scope/guard/bridge requirements could prevent promotion, but GP cannot discover the missing premise or correct interpretation automatically; no campaign replay was run.",
+      "status": "staged: not an Appendix B completed record",
+      "remaining_fields": [
+        "cost",
+        "shipped",
+        "discovery attribution if supported"
+      ]
+    }
+  ],
+  "deduplication": [
+    {
+      "source": "whetstone/MODELLING_GAPS.md:487-498",
+      "decision": "three gauge leaks represent one modelling gap with three witnesses; do not create three incident counts",
+      "status": "separate incident detail extraction pending"
+    }
+  ],
+  "read_extent": {
+    "FIELD_SPLIT_AUDIT.md": "full text",
+    "F2_TOWER.md": "first120 lines including both correction banners",
+    "PASSPORT_75_125_REPAIR.md": "first75 lines",
+    "MODELLING_GAPS.md": "selected sections, including487-498; not full text"
+  },
+  "independent_check": {
+    "chart_guard": "(20+5-1)//5 == 4; 4*(5-1) ==16 !=20; 5*(5-1)==20",
+    "passed": true
+  },
+  "shipping_criterion": "User confirmed publication or relied-on handoff; local commit alone is insufficient. Shipping remains unknown for these three records."
+}

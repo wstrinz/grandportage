@@ -1,0 +1,155 @@
+{
+ "schema": "gp-phase2-admission-integration/v1",
+ "date": "2026-10-01",
+ "parent_base_commit": "d8ac02a7eb305802a20bfb0b665b058bd55eb39f",
+ "interrupted_checkpoint_commit": "6283ff5071eeed558e978bb08e67274fa631a559",
+ "source_hashes": {
+  "STATUS.md": "e68bec9ee4f76b57ed785d0d535fc5ba27f3bc72d1c7a5223b8af237370b1e41",
+  "TCB.md": "88c0c30ef085c36aacbb61599b70772cf535094e10934305e3e463f49758bcc8",
+  "phase2/lean/Tests/ConditionalAdmissionScope.lean": "cdcc1d177827ede90d4bfcad227248570a5b79323bc098fb0c00b0e8aa676636",
+  "tools/run-phase2-conditional-admission-scope.py": "15f039403073fb35b3aaa372d3b8214af5a25bbdfeeaed6744aeb2061fbc1da1",
+  "tests/test_phase2_conditional_admission_scope.py": "f0962abce423189f188a367f7904555c44f0f64aa728b261755b08433b586587",
+  "reports/PHASE-2-CONDITIONAL-ADMISSION-SCOPE.json": "8def4726c5e78a5cc73a7a843cc589ff4760b92077f8ac4d5a45104afe607e34",
+  "tools/run-phase2-slice.py": "3c46558a80931c04bc25bd898d5355e4be93e4c7842efdd10a8fd90e747898ca",
+  "reports/PHASE-2-SLICE.json": "470d7e5215fea678aee9485bb1bff52c11d499c1a955eada2efa8fc4351d020b",
+  "reports/PHASE-2-SLICE.md": "d425b4f6fd306a771adc084581a22efc9e02b07e7a21a1187fa9b2d749be78e3",
+  "reports/PHASE-2-PROVENANCE-SLICE.json": "bd35719a35a04cbb0ebc30a6291f2937ad10dbb57b2b442197942477e0578180",
+  "reports/PHASE-2-CHECKED-LIFECYCLE-SUPPLEMENT.json": "ca6b8e14e08cc089106c521531811a559b0fa45d2b431b09ba8a88d874bb52a2",
+  "reports/PHASE-2-MISSING-AUTHORITY.json": "32bfe86da2a514ba538c104a6dc705c12c2119f7d93a6d07df99aec82867564a"
+ },
+ "worker_original_hashes": {
+  "phase2/lean/Tests/ConditionalAdmissionScope.lean": "78f7331ae22874231fa803b470e43ca8557c4014c5b3dc29754e98e39e0d2d70",
+  "tools/run-phase2-conditional-admission-scope.py": "4452a1ea9d6e879d06d9462ac89aedc094029614011299d96c760514b4c7955e",
+  "tests/test_phase2_conditional_admission_scope.py": "1ef900a4956b4b0c7a0dcd876f01c07841167f364a9328f627780e2c49a82e88",
+  "reports/PHASE-2-CONDITIONAL-ADMISSION-SCOPE.json": "42c97bece756fc1c9c3f83628c939535b534c665ae8a412f09848c57d2622c9d"
+ },
+ "worker_active_seconds": 1369,
+ "parent_review": {
+  "whole_harness_adapter_tests_and_contract_read": true,
+  "semantic_hypotheses": "Named synthetic admitted-check and successful-check hypotheses remain explicit premises. GRH restricts the context of the held claim; it is not asserted globally.",
+  "narrowing": "Actual narrowing preserves exact claim and scope. Dropping GRH and quotient-to-equality substitution refuse; full and keep-GRH variants accept conditionally; partial, heuristic and label variants refuse.",
+  "verdicts": {
+   "GP-A27-full": "ACCEPT",
+   "GP-A27-keep-GRH": "ACCEPT",
+   "GP-A27-drop-GRH": "REFUSE",
+   "GP-A27-partial": "REFUSE",
+   "GP-A27-heuristic": "REFUSE",
+   "GP-A27-label": "REFUSE"
+  },
+  "worker_only_annotations": "Worker report fields test_validation and assignment_clock are preserved only through the worker-original report hash; the primary report is the fresh parent receipt.",
+  "arithmetic_or_checker_adoption": false,
+  "production_profile_adoption": false,
+  "frozen_oracle": "UNSUPPORTED"
+ },
+ "interruption_recovery": "A reset lost the three validation process handles. Normalized files were confirmed against the checkpoint hashes, then the new suite, prior regression selection and legacy replay were rerun once each. The stale pre-normalization receipt was replaced by the fresh receipt bound to the normalized harness.",
+ "integration_changes": "Promote the fresh receipt to the primary report. Append six execution rows to the aggregate, retaining the previous 46 verbatim. The main-driver stage supports future complete refresh; source isolation shows prior helper and execution code unchanged. Refresh aggregator identity fields only in three earlier reports, with no claim of fresh prior native execution.",
+ "counts": {
+  "previous_corpus_passes": 46,
+  "new_corpus_passes": 6,
+  "corpus_passes": 52,
+  "kernel_tagged_total": 79,
+  "remaining_kernel_cases": 27,
+  "new_corpus_cases": 0,
+  "fresh_corpus_folds": 24,
+  "separate_controls": 17,
+  "new_host_tests": 16,
+  "new_host_subtests": 43,
+  "fresh_prior_regression_tests": 229,
+  "fresh_prior_regression_subtests": 678,
+  "unchanged_retained_point_and_coverage_tests": 27,
+  "unchanged_retained_point_and_coverage_subtests": 66,
+  "total_current_test_coverage": 272,
+  "total_current_subtest_coverage": 787,
+  "new_audited_proof_declarations": 11
+ },
+ "validation": {
+  "new_suite": "16 passed, 43 subtests passed in 449.88s",
+  "prior_suite": "229 passed, 678 subtests passed in 147.07s",
+  "retained_suites": "Point and recorded-use tests, harnesses, adapters and reports are byte-identical to d8ac02a; not re-executed.",
+  "build": {
+   "harness_sha256": "cdcc1d177827ede90d4bfcad227248570a5b79323bc098fb0c00b0e8aa676636",
+   "olean_sha256": "7070bba024481d492791bb75d0d3312e3aecaf9594309b328edd095a87997216",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "compile_exit_code": 0,
+   "checker_exit_code": 0,
+   "kernel_checked": true,
+   "axiom_declarations": [
+    "subset_sound",
+    "named_admission_given",
+    "named_success_given",
+    "result_from_sound_contract",
+    "actual_base_sound",
+    "actual_validator_sound",
+    "actual_fold_held_sound",
+    "held_target_is_conditional_full",
+    "GRH_cannot_be_dropped",
+    "quotient_does_not_imply_full",
+    "scope_narrowing_direction"
+   ]
+  },
+  "legacy_preservation": {
+   "case_count": 459,
+   "summary": {
+    "AGREES": 403,
+    "DIAGNOSTIC_OBSERVED": 4,
+    "KNOWN_DIFFERENCE": 14,
+    "UNSUPPORTED": 9,
+    "RETAINED_DIAGNOSTIC": 29
+   },
+   "protected_count": 67,
+   "receipt_sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f"
+  }
+ },
+ "remaining_queue": {
+  "supplied-premise-authority": [
+   "GP-A01",
+   "GP-A08a",
+   "GP-A14",
+   "GP-X04",
+   "GP-X09",
+   "GP-X14",
+   "GP-X173",
+   "GP-X174",
+   "GP-X176",
+   "GP-X229",
+   "GP-X283",
+   "GP-X399",
+   "GP-X402",
+   "GP-X403",
+   "GP-X60",
+   "GP-X61",
+   "GP-X62",
+   "GP-X65"
+  ],
+  "native-event-lifecycle": [
+   "GP-X149",
+   "GP-X150",
+   "GP-X151",
+   "GP-X156",
+   "GP-X157",
+   "GP-X160",
+   "GP-X162",
+   "GP-X163"
+  ],
+  "stored-certificate-binding": [
+   "GP-X175"
+  ]
+ },
+ "next_worker": {
+  "thread": "01a0eeca-572e-7202-a708-c730d410b901",
+  "cases": [
+   "GP-X60",
+   "GP-X61",
+   "GP-X62"
+  ],
+  "active_minute_cap": 40,
+  "status": "assigned; interrupted turn 01a0f8a5-cba0-7e33-b650-edd796031188 produced no deliverables",
+  "boundary": "One conditional theorem-transport harness. Preserve three premise statements/statuses, exact source/target and conditional interpretation; OPEN premises are not discharged. Keep authority and consumer endpoints distinct."
+ },
+ "g2_pass": false,
+ "public_push": false
+}

@@ -1,0 +1,11 @@
+# Phase 0a — zero-step audit and legacy ordered scope
+
+Read the complete audit_inference and probe definitions and their immediate helper context, effective_certificate, derive_scope and valid_field_scope, plus the claim-fold scope derivation and transport-finding consumer slices. This adds bounded semantic evidence to already partial source files; no new full-source claim or coverage increment.
+
+Six native graph controls each audit a zero-step inference and a BASE_EXTENSION step before or after recording an actual valid SOS receipt. With explicit about fields, R transport requires current ORDERED reach; C refuses even with a valid receipt. When about is absent at both endpoints, the new field gate is skipped, but the old scope rule still refuses extension of an R-scoped ordered claim. Missing typed context has not produced a false licence in these controls.
+
+All zero-step audits return (True, []) independently of proof replay. check_transport consequently emits no route failure for those inferences. This is consistent with the earlier JOIN-AUTHORITY-AUDIT: the API checks transportation, not premise truth or logical entailment. Success must not be promoted to a held-claim warrant in 0.50. The report retains all checker findings; every fixture still has an unverified containment-edge finding, so this is not a claim of a completely clean graph or end-to-end acceptance.
+
+The typed R success reason uses generic wording that the certificate base-changes. Actual permission came from the narrower field gate and ordered reach; C remains refused. Proposed explanation fix: retain the checked interpretation reason in the successful trace, rather than suggesting universal base change. This is a reporting limitation, not a demonstrated soundness failure.
+
+The first synthetic fixture mixed legacy field with structured coefficient_domain, which the frozen graph correctly rejected. The corrected legacy comparison omits about and field, retaining explicit Q computation and BASE points; it makes no invented R/C target distinction. Final six controls pass. Corpus, expected verdicts, adapters and latest immutable replay remain unchanged at 352 cases. No new known difference is counted. No campaign, CAS, Lean or public changes occurred.

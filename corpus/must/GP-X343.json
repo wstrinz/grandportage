@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "GP-X343",
+  "seed": null,
+  "title": "Zero-step route audit does not earn an emptiness premise",
+  "situation": "A typed R EMPTY claim names an ordered SOS certificate but has no current verifier verdict. A zero-step inference has an empty route, so its audit returns success without inspecting proof replay. The same exact SOS identity can separately be replayed as a positive receipt control.",
+  "inputs": {
+    "control": "zero_step_vs_receipt",
+    "field": "R",
+    "generators": [
+      "x^2+1"
+    ],
+    "certificate": "ORDERED_SOS_CERT",
+    "squares": [
+      "x"
+    ],
+    "cofactors": [
+      "-1"
+    ],
+    "route_steps": [],
+    "attempted_authority": "EMPTY premise from zero-step audit alone"
+  },
+  "attempted_conclusion": "Promote a true zero-step route audit to earned EMPTY premise authority without a current checked receipt.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "An empty transport path has no failed step but supplies no verifier-earned certificate reach."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/check.py",
+      "line": 228,
+      "anchor": "def audit_inference(graph, iid):"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/check.py",
+      "line": 235,
+      "anchor": "inf = graph.inferences[iid]"
+    },
+    {
+      "repository": "rework-packet",
+      "path": "reports/PHASE-0A-BATCH-51.md",
+      "line": 7,
+      "anchor": "All zero-step audits return (True, []) independently of proof replay."
+    }
+  ]
+}

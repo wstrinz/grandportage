@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "GP-A09",
+  "seed": "A9",
+  "title": "Elimination cannot retain an unavailable symbol",
+  "situation": "The source x*y=1 is projected to the x coordinate.",
+  "inputs": {
+    "source_variables": [
+      "x",
+      "y"
+    ],
+    "target_variables": [
+      "x"
+    ],
+    "identity": "x*y=1"
+  },
+  "attempted_conclusion": "Use the unchanged identity in Q[x].",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The target statement contains the eliminated symbol y."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 549,
+      "anchor": "| A9 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 4211,
+      "anchor": "def test_an_identity_cannot_be_carried_into_a_ring_without_its_symbols("
+    }
+  ]
+}

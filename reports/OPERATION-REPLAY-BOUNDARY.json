@@ -1,0 +1,49 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "67172773831625aa0b91654c83ac12db6495c75ca3a15d61a931c18c5e7f5970",
+  "sources": {
+    "grandportage/store.py": "900da33d1b8e3ae045533b3ae8ed67317a3bc56a35861d2bcd604ae6adb7e755",
+    "grandportage/provenance.py": "79440d816d0217e6cd9297a0b81d742ed83984007355c21013839df8c3a7828a",
+    "tests/test_artifacts.py": "1b78dc5d7c7212f4dac39d989bde1ca4fa92734c6aba222ae8cd89d35611cb3b"
+  },
+  "controls": [
+    {
+      "control": "valid_producer",
+      "current": true,
+      "reason": "current",
+      "active": "VERIFIED",
+      "identity_valid": true
+    },
+    {
+      "control": "tampered_old_binding",
+      "current": false,
+      "reason": "verifier input fingerprint does not match",
+      "active": null,
+      "identity_valid": false
+    },
+    {
+      "control": "invalid_reissued_producer",
+      "current": true,
+      "reason": "current",
+      "active": "VERIFIED",
+      "identity_valid": false
+    },
+    {
+      "control": "invalid_native",
+      "current": false,
+      "reason": "authoritative operation verdict lacks a backend execution trace and is not a verifier-native structural decision",
+      "active": null,
+      "identity_valid": false
+    },
+    {
+      "control": "empty_native",
+      "current": true,
+      "reason": "current",
+      "active": "VERIFIED",
+      "identity_valid": true
+    }
+  ],
+  "scope": "Actual freshness and native Graph.apply. Producer traces fabricated; no CAS, binary probe, graph persistence or patched freshness.",
+  "finding": "Nonempty operation-output cofactors are not arithmetically replayed at fold under producer provenance. Old binding rejects tampering; native empty-trace eligibility rejects nonempty output but accepts the vacuous zero target. This is a trusted-producer boundary, not a proven live producer error.",
+  "proposal": "Replay each output membership and exact input partition at admission; preserve zero-output vacuity without granting completeness."
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "GP-X55",
+  "seed": null,
+  "title": "An initial-form solution does not establish an actual lift",
+  "situation": "A degeneration or lifting theorem would be required; current GP deliberately has no such relation.",
+  "inputs": {
+    "source_object": "Weighted initial-form solution",
+    "target_object": "Genuine marked formal arc",
+    "information_lost": [
+      "formal lift",
+      "source-open condition",
+      "all higher compatibility equations"
+    ],
+    "source_context": "QQ",
+    "claim": "NONEMPTY",
+    "direction": "ALONG",
+    "supplied_lift_warrant": null
+  },
+  "attempted_conclusion": "Conclude that an actual source-open formal lift exists from an initial-form solution.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Higher compatibility and the source-open condition require a separate lifting theorem."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_formalization_transport.py",
+      "line": 70,
+      "anchor": "def test_non_affine_lifts_and_slice_reversal_fail_closed("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "fixtures/jc_formalization_transport/v0.json",
+      "line": 567,
+      "anchor": "\"id\": \"JC.ASSAY.D.INITIAL_TO_ACTUAL\""
+    }
+  ]
+}

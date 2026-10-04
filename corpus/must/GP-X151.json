@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "id": "GP-X151",
+  "seed": null,
+  "title": "Clear stale path debt after withdrawing the rider too",
+  "situation": "Neither the edge nor its only rider remains live; their history stays visible.",
+  "inputs": {
+    "vocabulary": "lifecycle-scenario/v1",
+    "objects": {
+      "object-1": {
+        "category": "context",
+        "name": "IV",
+        "properties": {
+          "description": "the interval-valued system"
+        }
+      },
+      "object-2": {
+        "category": "context",
+        "name": "PD",
+        "properties": {
+          "description": "the positive-definite locus"
+        }
+      },
+      "object-3": {
+        "category": "relation",
+        "name": "E-IV-PD",
+        "properties": {
+          "source_context": "IV",
+          "target_context": "PD",
+          "relation_class": "unspecified",
+          "justification": "the step is not yet characterised",
+          "coordinate_action": "unchanged",
+          "unresolved_reason": "nobody has derived what this inclusion loses"
+        }
+      },
+      "object-4": {
+        "category": "assertion",
+        "name": "C-PD",
+        "properties": {
+          "context": "PD",
+          "statement_class": "universal_property",
+          "statement": "the bound holds on PD"
+        }
+      },
+      "object-5": {
+        "category": "argument",
+        "name": "I",
+        "properties": {
+          "premise": "C-PD",
+          "transport_route": [
+            {
+              "relation": "E-IV-PD",
+              "direction": "reverse"
+            }
+          ],
+          "conclusion_class": "universal_property",
+          "conclusion": "so the bound holds on IV as well"
+        }
+      },
+      "object-6": {
+        "category": "relation",
+        "name": "W-E",
+        "properties": {
+          "justification": "not an edge"
+        }
+      },
+      "object-7": {
+        "category": "argument",
+        "name": "R-I",
+        "properties": {
+          "justification": "argument withdrawn"
+        }
+      }
+    },
+    "history": [
+      {
+        "object": "object-1"
+      },
+      {
+        "object": "object-2"
+      },
+      {
+        "object": "object-3"
+      },
+      {
+        "object": "object-4"
+      },
+      {
+        "object": "object-5"
+      },
+      {
+        "object": "object-6",
+        "replacement": {
+          "prior": "E-IV-PD",
+          "change": "relation_withdrawal"
+        }
+      },
+      {
+        "object": "object-7",
+        "replacement": {
+          "prior": "I",
+          "change": "argument_retraction"
+        }
+      }
+    ],
+    "question": {
+      "concerns": [
+        "retired_route_dependency"
+      ]
+    }
+  },
+  "attempted_conclusion": "Clear stale path debt after withdrawing the rider too.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Neither the edge nor its only rider remains live; their history stays visible."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_supersession_noise.py",
+      "line": 497,
+      "anchor": "def test_a_withdrawn_edge_whose_only_rider_was_withdrawn_too_is_gone("
+    }
+  ]
+}

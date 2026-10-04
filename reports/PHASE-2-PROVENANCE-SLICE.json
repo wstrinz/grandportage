@@ -1,0 +1,1645 @@
+{
+  "schema": "gp-phase2-provenance-slice/v1",
+  "commissioned_case_count": 8,
+  "executed_case_count": 8,
+  "unexecuted_case_count": 0,
+  "positive_contrasts": 6,
+  "complete_ten_case_slice": false,
+  "g2_pass": false,
+  "cases": [
+    {
+      "id": "GP-X165",
+      "source_sha256": "cc7064567c8a8b1261ff55fac5c2964d95ac1cb35dc8437d015a35515e1b307f",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Only matching provenance can project current identity authority; stale history must not overwrite a current result."
+      },
+      "status": "EXECUTED",
+      "observed": "REFUSE",
+      "full_fixture_contract": true,
+      "route": {
+        "kind": "lifecycle",
+        "action": "receipt",
+        "layer": "provenance_binding",
+        "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+      },
+      "literal_source_records": {
+        "model": {
+          "id": "M",
+          "what": "a line",
+          "characteristic": 0,
+          "ring_vars": [
+            "x"
+          ],
+          "generators": [
+            "x"
+          ]
+        },
+        "claim": {
+          "id": "C",
+          "model": "M",
+          "kind": "K.IDENTITY",
+          "statement": "x vanishes",
+          "lhs": "x",
+          "rhs": "0",
+          "ring_vars": [
+            "x"
+          ],
+          "identity_origin": "K.DERIVED",
+          "established_by": "RAN",
+          "ladder": "exact-checked"
+        }
+      },
+      "provenance_mapping": {
+        "source_constructor": "_verdict(_identity_graph())",
+        "native_warrant_id": 10,
+        "native_claim_key": 1,
+        "source_model": "M",
+        "source_claim": "C",
+        "source_verdict_id": "v.C.mismatch.verifier",
+        "mutation": {
+          "verifier": "verify.old_identity"
+        }
+      },
+      "native_result": {
+        "authority": {
+          "current_count": 1,
+          "domain": [
+            1
+          ],
+          "held": [],
+          "live_warrants": [],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [],
+          "warrant_count": 1
+        },
+        "identity": {
+          "currents": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "version": 1
+            }
+          ],
+          "domain": [
+            1
+          ],
+          "retracted": [],
+          "successors": [],
+          "warrants": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"verify.old_identity\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "data": "v.C.mismatch.verifier",
+                "kind": "receipt"
+              },
+              "id": 10,
+              "version": 1
+            }
+          ]
+        },
+        "identity_admission": "refuseAll"
+      },
+      "native_inputs": {
+        "registry_sha256": "551dd180550863642bb1e2639500c12bd9401af681a06cb997db9109d24d698a",
+        "events_sha256": "10328bd293bc1e2e06adeb344feeab9708b8f1aabf8e6d0a26254255025013db"
+      },
+      "positive_contrast": {
+        "authority": {
+          "current_count": 1,
+          "domain": [
+            1
+          ],
+          "held": [
+            1
+          ],
+          "live_warrants": [
+            10
+          ],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [
+            10
+          ],
+          "warrant_count": 1
+        },
+        "identity": {
+          "currents": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "version": 1
+            }
+          ],
+          "domain": [
+            1
+          ],
+          "retracted": [],
+          "successors": [],
+          "warrants": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "data": "current:C",
+                "kind": "receipt"
+              },
+              "id": 10,
+              "version": 1
+            }
+          ]
+        },
+        "identity_admission": "refuseAll"
+      },
+      "positive_inputs": {
+        "registry_sha256": "ce860e2c95b3b888445d86b8a0b8d6b26fceb585dc4bdc9df2061254b365b31f",
+        "events_sha256": "0cf8168ffa7329288ea152dd685c41abd04afc5cd75947fb39f25d8cb130ef6a"
+      },
+      "translation_fidelity": "Exact recorded producer/backend/version/epoch mismatch is retained in native receipt and warrant bindings; current clause/current custody remain unchanged."
+    },
+    {
+      "id": "GP-X166",
+      "source_sha256": "ed324144a08d379424adc5c4149640ca059845b751eaf1baa6607d4481f0f7ae",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Only matching provenance can project current identity authority; stale history must not overwrite a current result."
+      },
+      "status": "EXECUTED",
+      "observed": "REFUSE",
+      "full_fixture_contract": true,
+      "route": {
+        "kind": "lifecycle",
+        "action": "receipt",
+        "layer": "provenance_binding",
+        "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+      },
+      "literal_source_records": {
+        "model": {
+          "id": "M",
+          "what": "a line",
+          "characteristic": 0,
+          "ring_vars": [
+            "x"
+          ],
+          "generators": [
+            "x"
+          ]
+        },
+        "claim": {
+          "id": "C",
+          "model": "M",
+          "kind": "K.IDENTITY",
+          "statement": "x vanishes",
+          "lhs": "x",
+          "rhs": "0",
+          "ring_vars": [
+            "x"
+          ],
+          "identity_origin": "K.DERIVED",
+          "established_by": "RAN",
+          "ladder": "exact-checked"
+        }
+      },
+      "provenance_mapping": {
+        "source_constructor": "_verdict(_identity_graph())",
+        "native_warrant_id": 10,
+        "native_claim_key": 1,
+        "source_model": "M",
+        "source_claim": "C",
+        "source_verdict_id": "v.C.mismatch.verifier_version",
+        "mutation": {
+          "verifier_version": 999
+        }
+      },
+      "native_result": {
+        "authority": {
+          "current_count": 1,
+          "domain": [
+            1
+          ],
+          "held": [],
+          "live_warrants": [],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [],
+          "warrant_count": 1
+        },
+        "identity": {
+          "currents": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "version": 1
+            }
+          ],
+          "domain": [
+            1
+          ],
+          "retracted": [],
+          "successors": [],
+          "warrants": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 999,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "data": "v.C.mismatch.verifier_version",
+                "kind": "receipt"
+              },
+              "id": 10,
+              "version": 1
+            }
+          ]
+        },
+        "identity_admission": "refuseAll"
+      },
+      "native_inputs": {
+        "registry_sha256": "0b2e18772bd7ee72ad041a90d0c2427f4490bc7e34d4a449a2ad89b6775462ac",
+        "events_sha256": "afcdae8e38dc5e5b8fc2f6c919e0417002aa519c64dadac1785dc8b7a8e398ee"
+      },
+      "positive_contrast": {
+        "authority": {
+          "current_count": 1,
+          "domain": [
+            1
+          ],
+          "held": [
+            1
+          ],
+          "live_warrants": [
+            10
+          ],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [
+            10
+          ],
+          "warrant_count": 1
+        },
+        "identity": {
+          "currents": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "version": 1
+            }
+          ],
+          "domain": [
+            1
+          ],
+          "retracted": [],
+          "successors": [],
+          "warrants": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "data": "current:C",
+                "kind": "receipt"
+              },
+              "id": 10,
+              "version": 1
+            }
+          ]
+        },
+        "identity_admission": "refuseAll"
+      },
+      "positive_inputs": {
+        "registry_sha256": "ce860e2c95b3b888445d86b8a0b8d6b26fceb585dc4bdc9df2061254b365b31f",
+        "events_sha256": "0cf8168ffa7329288ea152dd685c41abd04afc5cd75947fb39f25d8cb130ef6a"
+      },
+      "translation_fidelity": "Exact recorded producer/backend/version/epoch mismatch is retained in native receipt and warrant bindings; current clause/current custody remain unchanged."
+    },
+    {
+      "id": "GP-X167",
+      "source_sha256": "dd6bf4e22011a56c07b770d04ba50693f781a84f28b2c3d3ac56a76028170373",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Only matching provenance can project current identity authority; stale history must not overwrite a current result."
+      },
+      "status": "EXECUTED",
+      "observed": "REFUSE",
+      "full_fixture_contract": true,
+      "route": {
+        "kind": "lifecycle",
+        "action": "receipt",
+        "layer": "provenance_binding",
+        "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+      },
+      "literal_source_records": {
+        "model": {
+          "id": "M",
+          "what": "a line",
+          "characteristic": 0,
+          "ring_vars": [
+            "x"
+          ],
+          "generators": [
+            "x"
+          ]
+        },
+        "claim": {
+          "id": "C",
+          "model": "M",
+          "kind": "K.IDENTITY",
+          "statement": "x vanishes",
+          "lhs": "x",
+          "rhs": "0",
+          "ring_vars": [
+            "x"
+          ],
+          "identity_origin": "K.DERIVED",
+          "established_by": "RAN",
+          "ladder": "exact-checked"
+        }
+      },
+      "provenance_mapping": {
+        "source_constructor": "_verdict(_identity_graph())",
+        "native_warrant_id": 10,
+        "native_claim_key": 1,
+        "source_model": "M",
+        "source_claim": "C",
+        "source_verdict_id": "v.C.mismatch.kernel_epoch",
+        "mutation": {
+          "kernel_epoch": 13
+        }
+      },
+      "native_result": {
+        "authority": {
+          "current_count": 1,
+          "domain": [
+            1
+          ],
+          "held": [],
+          "live_warrants": [],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [],
+          "warrant_count": 1
+        },
+        "identity": {
+          "currents": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "version": 1
+            }
+          ],
+          "domain": [
+            1
+          ],
+          "retracted": [],
+          "successors": [],
+          "warrants": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 13,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "data": "v.C.mismatch.kernel_epoch",
+                "kind": "receipt"
+              },
+              "id": 10,
+              "version": 1
+            }
+          ]
+        },
+        "identity_admission": "refuseAll"
+      },
+      "native_inputs": {
+        "registry_sha256": "243fe711c883df3621c32fe25277522e0d866a44cd2bbd8f216f940d08936106",
+        "events_sha256": "3fcee78419dc940b67110fc16955540b661374971d123623df0b87d2a12e8ea2"
+      },
+      "positive_contrast": {
+        "authority": {
+          "current_count": 1,
+          "domain": [
+            1
+          ],
+          "held": [
+            1
+          ],
+          "live_warrants": [
+            10
+          ],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [
+            10
+          ],
+          "warrant_count": 1
+        },
+        "identity": {
+          "currents": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "version": 1
+            }
+          ],
+          "domain": [
+            1
+          ],
+          "retracted": [],
+          "successors": [],
+          "warrants": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "data": "current:C",
+                "kind": "receipt"
+              },
+              "id": 10,
+              "version": 1
+            }
+          ]
+        },
+        "identity_admission": "refuseAll"
+      },
+      "positive_inputs": {
+        "registry_sha256": "ce860e2c95b3b888445d86b8a0b8d6b26fceb585dc4bdc9df2061254b365b31f",
+        "events_sha256": "0cf8168ffa7329288ea152dd685c41abd04afc5cd75947fb39f25d8cb130ef6a"
+      },
+      "translation_fidelity": "Exact recorded producer/backend/version/epoch mismatch is retained in native receipt and warrant bindings; current clause/current custody remain unchanged."
+    },
+    {
+      "id": "GP-X168",
+      "source_sha256": "0ac50e53039cdcec26ccb720501c55110e7555ec06e897879fb927881650c517",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Only matching provenance can project current identity authority; stale history must not overwrite a current result."
+      },
+      "status": "EXECUTED",
+      "observed": "REFUSE",
+      "full_fixture_contract": true,
+      "route": {
+        "kind": "lifecycle",
+        "action": "receipt",
+        "layer": "provenance_binding",
+        "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+      },
+      "literal_source_records": {
+        "model": {
+          "id": "M",
+          "what": "a line",
+          "characteristic": 0,
+          "ring_vars": [
+            "x"
+          ],
+          "generators": [
+            "x"
+          ]
+        },
+        "claim": {
+          "id": "C",
+          "model": "M",
+          "kind": "K.IDENTITY",
+          "statement": "x vanishes",
+          "lhs": "x",
+          "rhs": "0",
+          "ring_vars": [
+            "x"
+          ],
+          "identity_origin": "K.DERIVED",
+          "established_by": "RAN",
+          "ladder": "exact-checked"
+        }
+      },
+      "provenance_mapping": {
+        "source_constructor": "_verdict(_identity_graph())",
+        "native_warrant_id": 10,
+        "native_claim_key": 1,
+        "source_model": "M",
+        "source_claim": "C",
+        "source_verdict_id": "v.C.mismatch.backend",
+        "mutation": {
+          "backend": "not-singular"
+        }
+      },
+      "native_result": {
+        "authority": {
+          "current_count": 1,
+          "domain": [
+            1
+          ],
+          "held": [],
+          "live_warrants": [],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [],
+          "warrant_count": 1
+        },
+        "identity": {
+          "currents": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "version": 1
+            }
+          ],
+          "domain": [
+            1
+          ],
+          "retracted": [],
+          "successors": [],
+          "warrants": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"not-singular\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "data": "v.C.mismatch.backend",
+                "kind": "receipt"
+              },
+              "id": 10,
+              "version": 1
+            }
+          ]
+        },
+        "identity_admission": "refuseAll"
+      },
+      "native_inputs": {
+        "registry_sha256": "4bfba03df746df35a9da0c2b762879ee9b547493bbcab294adcc3ea1718297a2",
+        "events_sha256": "02775fd9899e22ecb6876236ff497b61fdc0e1c12d29888c793b22113ca38566"
+      },
+      "positive_contrast": {
+        "authority": {
+          "current_count": 1,
+          "domain": [
+            1
+          ],
+          "held": [
+            1
+          ],
+          "live_warrants": [
+            10
+          ],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [
+            10
+          ],
+          "warrant_count": 1
+        },
+        "identity": {
+          "currents": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "version": 1
+            }
+          ],
+          "domain": [
+            1
+          ],
+          "retracted": [],
+          "successors": [],
+          "warrants": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "data": "current:C",
+                "kind": "receipt"
+              },
+              "id": 10,
+              "version": 1
+            }
+          ]
+        },
+        "identity_admission": "refuseAll"
+      },
+      "positive_inputs": {
+        "registry_sha256": "ce860e2c95b3b888445d86b8a0b8d6b26fceb585dc4bdc9df2061254b365b31f",
+        "events_sha256": "0cf8168ffa7329288ea152dd685c41abd04afc5cd75947fb39f25d8cb130ef6a"
+      },
+      "translation_fidelity": "Exact recorded producer/backend/version/epoch mismatch is retained in native receipt and warrant bindings; current clause/current custody remain unchanged."
+    },
+    {
+      "id": "GP-X169",
+      "source_sha256": "da9d6c262e582adcd2849f910a9abe2fab77e994c00744cc3b935695204a569a",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Only matching provenance can project current identity authority; stale history must not overwrite a current result."
+      },
+      "status": "EXECUTED",
+      "observed": "REFUSE",
+      "full_fixture_contract": true,
+      "route": {
+        "kind": "lifecycle",
+        "action": "receipt",
+        "layer": "provenance_binding",
+        "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+      },
+      "literal_source_records": {
+        "model": {
+          "id": "M",
+          "what": "a line",
+          "characteristic": 0,
+          "ring_vars": [
+            "x"
+          ],
+          "generators": [
+            "x^2"
+          ]
+        },
+        "claim": {
+          "id": "C",
+          "model": "M",
+          "kind": "K.IDENTITY",
+          "statement": "x vanishes",
+          "lhs": "x",
+          "rhs": "0",
+          "ring_vars": [
+            "x"
+          ],
+          "identity_origin": "K.DERIVED",
+          "established_by": "RAN",
+          "ladder": "exact-checked"
+        }
+      },
+      "provenance_mapping": {
+        "source_constructor": "_verdict(_identity_graph())",
+        "native_warrant_id": 10,
+        "native_claim_key": 1,
+        "source_model": "M",
+        "source_claim": "C",
+        "source_semantic_generator_before": "x",
+        "source_semantic_generator_after": "x^2",
+        "old_receipt_retained": true
+      },
+      "native_result": {
+        "authority": {
+          "current_count": 1,
+          "domain": [
+            1
+          ],
+          "held": [],
+          "live_warrants": [],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [],
+          "warrant_count": 1
+        },
+        "identity": {
+          "currents": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "d87c292483d43cb3145bfd4a58b2d26404176cb5bbd742c8d56b5bbea523e47a",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "d337d2ee913d179a21a6369f59753144d73264d2b54e01c2a86b1887d34172d2"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "9a634d101b9fef9e07d5981a963bca3a98a45c6ac5b68b915868733d3cebedcb",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "version": 1
+            }
+          ],
+          "domain": [
+            1
+          ],
+          "retracted": [],
+          "successors": [],
+          "warrants": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "data": "current:C",
+                "kind": "receipt"
+              },
+              "id": 10,
+              "version": 1
+            }
+          ]
+        },
+        "identity_admission": "refuseAll"
+      },
+      "native_inputs": {
+        "registry_sha256": "9d5b8d15fa72e91d3453ea2e5ce270d14d15508cb1a07c35c8e0c12511e364a2",
+        "events_sha256": "4d30b18dff456f8b943e98d8f74352ae9cac2223eea407ae62c14b713836d761"
+      },
+      "positive_contrast": {
+        "authority": {
+          "current_count": 1,
+          "domain": [
+            1
+          ],
+          "held": [
+            1
+          ],
+          "live_warrants": [
+            10
+          ],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [
+            10
+          ],
+          "warrant_count": 1
+        },
+        "identity": {
+          "currents": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "version": 1
+            }
+          ],
+          "domain": [
+            1
+          ],
+          "retracted": [],
+          "successors": [],
+          "warrants": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "data": "current:C",
+                "kind": "receipt"
+              },
+              "id": 10,
+              "version": 1
+            }
+          ]
+        },
+        "identity_admission": "refuseAll"
+      },
+      "positive_inputs": {
+        "registry_sha256": "ce860e2c95b3b888445d86b8a0b8d6b26fceb585dc4bdc9df2061254b365b31f",
+        "events_sha256": "0cf8168ffa7329288ea152dd685c41abd04afc5cd75947fb39f25d8cb130ef6a"
+      },
+      "translation_fidelity": "M changes literally from (x) to (x^2), C remains x=0; old exact-replay receipt/warrant binding is retained while current model/input digests change."
+    },
+    {
+      "id": "GP-X170",
+      "source_sha256": "9a68993c464519b4c626ecab1f8b5dd1d3931488e494799e29770d6d9fa38968",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Only matching provenance can project current identity authority; stale history must not overwrite a current result."
+      },
+      "status": "EXECUTED",
+      "observed": "REFUSE",
+      "full_fixture_contract": true,
+      "route": {
+        "kind": "lifecycle",
+        "action": "receipt",
+        "layer": "provenance_binding",
+        "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+      },
+      "literal_source_records": {
+        "model": {
+          "id": "M",
+          "what": "a line",
+          "characteristic": 0,
+          "ring_vars": [
+            "x"
+          ],
+          "generators": [
+            "x"
+          ]
+        },
+        "claim": {
+          "id": "C",
+          "model": "M",
+          "kind": "K.IDENTITY",
+          "statement": "x vanishes",
+          "lhs": "x",
+          "rhs": "0",
+          "ring_vars": [
+            "x"
+          ],
+          "identity_origin": "K.DERIVED",
+          "established_by": "RAN",
+          "ladder": "exact-checked"
+        }
+      },
+      "provenance_mapping": {
+        "source_constructor": "_verdict(_identity_graph())",
+        "native_warrant_id": 10,
+        "native_claim_key": 1,
+        "source_model": "M",
+        "source_claim": "C",
+        "source_verdict_id": "v.C.legacy",
+        "retained_legacy_event": {
+          "ev": "verdict",
+          "id": "v.C.legacy",
+          "subject": "claim",
+          "of": "C",
+          "verdict": "VERIFIED_DERIVED",
+          "why": "an epoch-0 verifier said so"
+        },
+        "absent_source_producer_fields": [
+          "verifier",
+          "verifier_version",
+          "kernel_epoch",
+          "backend"
+        ]
+      },
+      "native_result": {
+        "authority": {
+          "current_count": 1,
+          "domain": [
+            1
+          ],
+          "held": [],
+          "live_warrants": [],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [],
+          "warrant_count": 1
+        },
+        "identity": {
+          "currents": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "version": 1
+            }
+          ],
+          "domain": [
+            1
+          ],
+          "retracted": [],
+          "successors": [],
+          "warrants": [
+            {
+              "binding": {
+                "authority": "legacy-unbound-provenance",
+                "authorityVersion": 0,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 0,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "kind": "citation",
+                "text": "{\"ev\":\"verdict\",\"id\":\"v.C.legacy\",\"of\":\"C\",\"subject\":\"claim\",\"verdict\":\"VERIFIED_DERIVED\",\"why\":\"an epoch-0 verifier said so\"}"
+              },
+              "id": 10,
+              "version": 1
+            }
+          ]
+        },
+        "identity_admission": "refuseAll"
+      },
+      "native_inputs": {
+        "registry_sha256": "d7f1df786c0f8a20a8e867db021ca59e3995fa01ad1bcb08db26d7e0a0724bf2",
+        "events_sha256": "f31da619871c2a8e7889d75a66adadf4b1dc4388f2c2f8871cb3a5ee800e5347"
+      },
+      "positive_contrast": {
+        "authority": {
+          "current_count": 1,
+          "domain": [
+            1
+          ],
+          "held": [
+            1
+          ],
+          "live_warrants": [
+            10
+          ],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [
+            10
+          ],
+          "warrant_count": 1
+        },
+        "identity": {
+          "currents": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "version": 1
+            }
+          ],
+          "domain": [
+            1
+          ],
+          "retracted": [],
+          "successors": [],
+          "warrants": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "data": "current:C",
+                "kind": "receipt"
+              },
+              "id": 10,
+              "version": 1
+            }
+          ]
+        },
+        "identity_admission": "refuseAll"
+      },
+      "positive_inputs": {
+        "registry_sha256": "ce860e2c95b3b888445d86b8a0b8d6b26fceb585dc4bdc9df2061254b365b31f",
+        "events_sha256": "0cf8168ffa7329288ea152dd685c41abd04afc5cd75947fb39f25d8cb130ef6a"
+      },
+      "translation_fidelity": "The complete literal epoch-0 event is retained as an opaque readable citation; unbound/zero native provenance placeholders confer no receipt authority and cannot match current custody."
+    },
+    {
+      "id": "GP-X171",
+      "source_sha256": "c1cf8cbce414ba79294c53eb67b18ba6e1aa752ce47d551f0e3661333a036af3",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "Only matching provenance can project current identity authority; stale history must not overwrite a current result."
+      },
+      "status": "EXECUTED",
+      "observed": "ACCEPT",
+      "full_fixture_contract": true,
+      "route": {
+        "kind": "lifecycle",
+        "action": "receipt",
+        "layer": "provenance_binding",
+        "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+      },
+      "literal_source_records": {
+        "model": {
+          "id": "M",
+          "what": "a line",
+          "characteristic": 0,
+          "ring_vars": [
+            "x"
+          ],
+          "generators": [
+            "x"
+          ]
+        },
+        "claim": {
+          "id": "C",
+          "model": "M",
+          "kind": "K.IDENTITY",
+          "statement": "x vanishes",
+          "lhs": "x",
+          "rhs": "0",
+          "ring_vars": [
+            "x"
+          ],
+          "identity_origin": "K.DERIVED",
+          "established_by": "RAN",
+          "ladder": "exact-checked"
+        }
+      },
+      "provenance_mapping": {
+        "source_constructor": "retained lifecycle_probes.probe receipt/order",
+        "native_warrant_id": 10,
+        "native_claim_key": 1,
+        "source_model": "M",
+        "source_claim": "C",
+        "source_verdict_ids": [
+          "receipt.valid",
+          "receipt.stale"
+        ],
+        "native_warrant_ids": [
+          10,
+          11
+        ],
+        "source_epochs": [
+          12,
+          11
+        ],
+        "native_epochs": [
+          1,
+          0
+        ],
+        "order": "valid_stale"
+      },
+      "native_result": {
+        "authority": {
+          "current_count": 1,
+          "domain": [
+            1
+          ],
+          "held": [
+            1
+          ],
+          "live_warrants": [
+            10
+          ],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [
+            10
+          ],
+          "warrant_count": 2
+        },
+        "identity": {
+          "currents": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "version": 1
+            }
+          ],
+          "domain": [
+            1
+          ],
+          "retracted": [],
+          "successors": [],
+          "warrants": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "data": "receipt.valid",
+                "kind": "receipt"
+              },
+              "id": 10,
+              "version": 1
+            },
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 0,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "data": "receipt.stale",
+                "kind": "receipt"
+              },
+              "id": 11,
+              "version": 1
+            }
+          ]
+        },
+        "identity_admission": "refuseAll"
+      },
+      "native_inputs": {
+        "registry_sha256": "1e87651066778be4a2fa572d26c37ba5b4b49e64a90e7b81fe6a883aa1980222",
+        "events_sha256": "f5b035647018afdf7d255fa5c9ecc9d3354bcc39a40343333bdc04d29f52f091"
+      },
+      "positive_contrast": null,
+      "positive_inputs": null,
+      "translation_fidelity": "Retained baseline adapter supplies both exact histories: valid/stale IDs and source epoch 12/11. Native epochs 1/0 preserve their equality/mismatch contract. Both complete records survive; only the valid receipt contributes held authority in either order."
+    },
+    {
+      "id": "GP-X172",
+      "source_sha256": "fcd20249e59ad768d18ec56cbabc7eace4f29e94882314849ebda576a7d2c4ec",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "Only matching provenance can project current identity authority; stale history must not overwrite a current result."
+      },
+      "status": "EXECUTED",
+      "observed": "ACCEPT",
+      "full_fixture_contract": true,
+      "route": {
+        "kind": "lifecycle",
+        "action": "receipt",
+        "layer": "provenance_binding",
+        "limitation": "Frozen v0.37 lifecycle/binding contract, not a GP 0.50 held claim. No external backend. Receipt routes explicitly use fabricated historical backend descriptors; section arithmetic is replayed separately by the fold."
+      },
+      "literal_source_records": {
+        "model": {
+          "id": "M",
+          "what": "a line",
+          "characteristic": 0,
+          "ring_vars": [
+            "x"
+          ],
+          "generators": [
+            "x"
+          ]
+        },
+        "claim": {
+          "id": "C",
+          "model": "M",
+          "kind": "K.IDENTITY",
+          "statement": "x vanishes",
+          "lhs": "x",
+          "rhs": "0",
+          "ring_vars": [
+            "x"
+          ],
+          "identity_origin": "K.DERIVED",
+          "established_by": "RAN",
+          "ladder": "exact-checked"
+        }
+      },
+      "provenance_mapping": {
+        "source_constructor": "retained lifecycle_probes.probe receipt/order",
+        "native_warrant_id": 10,
+        "native_claim_key": 1,
+        "source_model": "M",
+        "source_claim": "C",
+        "source_verdict_ids": [
+          "receipt.valid",
+          "receipt.stale"
+        ],
+        "native_warrant_ids": [
+          10,
+          11
+        ],
+        "source_epochs": [
+          12,
+          11
+        ],
+        "native_epochs": [
+          1,
+          0
+        ],
+        "order": "stale_valid"
+      },
+      "native_result": {
+        "authority": {
+          "current_count": 1,
+          "domain": [
+            1
+          ],
+          "held": [
+            1
+          ],
+          "live_warrants": [
+            10
+          ],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [
+            10
+          ],
+          "warrant_count": 2
+        },
+        "identity": {
+          "currents": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "version": 1
+            }
+          ],
+          "domain": [
+            1
+          ],
+          "retracted": [],
+          "successors": [],
+          "warrants": [
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 1,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "data": "receipt.valid",
+                "kind": "receipt"
+              },
+              "id": 10,
+              "version": 1
+            },
+            {
+              "binding": {
+                "authority": "{\"backend\":\"native-rat-cofactor-replay\",\"verifier\":\"gp50-rat-span-test-stub\"}",
+                "authorityVersion": 1,
+                "inputHashes": [
+                  "89236f2eadc39f0882ecca3be6307898ebfe6169b039bfba2d2f9b2cf6dd7ba0",
+                  "826b7764c3709650461e948c9b3ae233dc7c3b63c159de784c1d38474a9f633d",
+                  "afac130f51484b7f69e7256ecc84b240e7e535b97138bf1d46d4c6e2af1325c5"
+                ],
+                "kernelVersion": 0,
+                "modelHash": "da12b2db5f0282be107063712fe0a39177ed7df692b3f9f54ca577f48f4b3da1",
+                "scopeHash": "3fba11b801ae62514f15ec2f0646535df082b2dc5849b3a5d825efdfc8f75c3b",
+                "statementHash": "384bf9e735f5be070bd700a6fdf3045761c20eb97e8cc2052265d424b3798fd9"
+              },
+              "claim": 1,
+              "evidence": {
+                "data": "receipt.stale",
+                "kind": "receipt"
+              },
+              "id": 11,
+              "version": 1
+            }
+          ]
+        },
+        "identity_admission": "refuseAll"
+      },
+      "native_inputs": {
+        "registry_sha256": "1e87651066778be4a2fa572d26c37ba5b4b49e64a90e7b81fe6a883aa1980222",
+        "events_sha256": "2f9c49c152018ef6561bd9e0b335fecf7f6ae71c6119c598af9d4b721dbed2f3"
+      },
+      "positive_contrast": null,
+      "positive_inputs": null,
+      "translation_fidelity": "Retained baseline adapter supplies both exact histories: valid/stale IDs and source epoch 12/11. Native epochs 1/0 preserve their equality/mismatch contract. Both complete records survive; only the valid receipt contributes held authority in either order."
+    }
+  ],
+  "pinned_source": {
+    "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+    "path": "tests/test_verdict_provenance.py",
+    "file_sha256": "0768ed5bd2b671ba57127b708dfd877970740cae40587631ae5fcd7c0e2ad7bd",
+    "named_blocks": {
+      "_identity_graph": {
+        "line": 20,
+        "start_line": 20,
+        "end_line": 34,
+        "sha256": "a7d0cc520a641339ff991761d79df2ff0fe81d210ba165576db3e03f63fdaba2"
+      },
+      "_execution": {
+        "line": 37,
+        "start_line": 37,
+        "end_line": 60,
+        "sha256": "11f3b3e630ee26380e37ae2e931b083fead85dfc4562dcb161aa440ab3df5815"
+      },
+      "_verdict": {
+        "line": 63,
+        "start_line": 63,
+        "end_line": 66,
+        "sha256": "a7566018e681cbbb8f08e64034bb5361fb7748823ab2ebcdc66e0ba5ec1d360f"
+      },
+      "test_fresh_epoch1_verdict_is_active": {
+        "line": 69,
+        "start_line": 69,
+        "end_line": 76,
+        "sha256": "44d383b5dc757a48431c28874cf26e0bc52d614838750533f25fce381e0a2ff9"
+      },
+      "test_legacy_verified_remains_readable_but_inactive": {
+        "line": 463,
+        "start_line": 463,
+        "end_line": 485,
+        "sha256": "a51efa9273d4df1a92af01bd34d18ec009bf579713af235b0dee8ebf7f4da64e"
+      },
+      "test_verdict_for_different_semantic_input_is_stale": {
+        "line": 488,
+        "start_line": 488,
+        "end_line": 496,
+        "sha256": "00efb46019f24d39f0f4308e204f953b9a74314b3cf354ca7c85176b0765b87f"
+      },
+      "test_mismatched_verifier_kernel_or_backend_is_stale": {
+        "line": 508,
+        "start_line": 499,
+        "end_line": 517,
+        "sha256": "e597b31e0ca1f9eb177098813cfcc2dfb8f0875bb1e9f1581f868107b206d435"
+      }
+    }
+  },
+  "retained_order_constructor": {
+    "base_commit": "a95fcee6f24f1f63b41fd56681319053727488b3",
+    "path": "tools/lifecycle_probes.py",
+    "sha256": "b74d26a213f9c7c389fbd69ff064fbc29f781763cf66dc8dfe753aff5f9ab944",
+    "source_epoch_path": "grandportage/format.py",
+    "source_epoch_sha256": "9d7ad6885285b2e55de9bbf6dea62d428d1f68a3b7180728a1651365c82c171e",
+    "source_current_epoch": 12,
+    "source_stale_epoch": 11,
+    "native_current_epoch": 1,
+    "native_stale_epoch": 0
+  },
+  "branch_order_records_equal": true,
+  "runner_sha256": "0ff86be251c032a6bc47b211972e81e3beb86fddc59bac0c386d06ee1601b89a",
+  "identity_inspector_sha256": "4affc188563f818aad3c798a4b49b0ccd25438c12a16cfd9283d9789f1128ab3",
+  "adapter_sha256": "b62a3c710a931bc466505bc8a4b101c2946a428956ef60e617025cc3d0c21cb2",
+  "shared_adapter_sha256": "4e06458c4f26d745ad02e6ea169355d18013cc6d9aa3fd900dd1ea373c599939",
+  "vocabulary_mapping": {
+    "verifier_and_backend": "Native binding.authority stores a canonical pair. Current source verifier/backend contract maps to the actual Rat checker/replay; literal mismatches replace the corresponding component.",
+    "verifier_version": "Native authorityVersion=1 is the admitted test checker version; literal mismatch 999 stays 999.",
+    "kernel_epoch": "Source current epoch contract maps to native kernelVersion=1; literal differing epoch 13 stays 13. No source kernel numeric equality is asserted.",
+    "semantic_input": "Current M/C literal packets and actual polynomial data are hashed separately; old receipt/warrant inputs remain unchanged.",
+    "native_identity_view": "The same event bytes run through the native lifecycle inspector to expose complete resolution records. Its refuseAll admission does not supply authority; authority comes only from the bound Rat runner."
+  },
+  "trust_boundary": "Host deterministic JSON/SHA-256 binding and native compiler/runtime remain explicit. The source fabricates Singular execution descriptors; no Singular process or source Python success flag supplies native authority.",
+  "scope_limit": "Eight full provenance fixtures are aggregated separately from component contrasts; required slice behavior coverage remains incomplete."
+}

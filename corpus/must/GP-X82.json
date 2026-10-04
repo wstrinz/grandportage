@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "GP-X82",
+  "seed": null,
+  "title": "Treat intermediate digest commitments as a checked source derivation",
+  "situation": "A hash commitment supplies neither intermediate polynomials nor their derivation.",
+  "inputs": {
+    "equation": "alpha*c7_5+beta=0",
+    "alpha": "5/2*t*(c2_3^2-4*c4_5)",
+    "pin": "15*t^3+1",
+    "source_binding": "digest commitments only",
+    "proposal": "promote_digest"
+  },
+  "attempted_conclusion": "Treat intermediate digest commitments as a checked source derivation.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A hash commitment supplies neither intermediate polynomials nor their derivation."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_source_depth6_authority.py",
+      "line": 73,
+      "anchor": "def test_intermediate_rung_commitment_is_not_promoted_to_polynomial_proof("
+    }
+  ]
+}

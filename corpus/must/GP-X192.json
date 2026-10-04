@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "GP-X192",
+  "seed": null,
+  "title": "An unreviewed warning still blocks operational continuation",
+  "situation": "No review record exists to carry this warning.",
+  "inputs": {
+    "scenario": "reviewed_warning",
+    "reviewed_relation": "unspecified",
+    "current_relation": "unspecified",
+    "review_record": "absent",
+    "review_reason": "carried deliberately"
+  },
+  "attempted_conclusion": "Allow work to proceed under the recorded warning-review policy.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "No review record exists to carry this warning."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/hook.py",
+      "line": 235,
+      "anchor": "if entry is None:"
+    }
+  ]
+}

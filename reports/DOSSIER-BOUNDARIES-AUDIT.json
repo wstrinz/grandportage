@@ -1,0 +1,84 @@
+{
+  "scope": "Synthetic offline derived-read-model diagnostics; no campaign harvest or graph authority. Commands in authored replay metadata were not executed.",
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "bc9b67b7326051bae3953f03af37c50a74d53ee94567cf7b39aa52d635479013",
+  "source_sha256": "6b81486e77377d76971059b2cb3789803152945af4e938de2013ee5f0f527e11",
+  "controls": [
+    {
+      "name": "authored replay PASS without source audit",
+      "source_status": "UNCHECKED",
+      "profiles": {
+        "SYNTHETIC.GOLD_FLAG": "NOT_READY",
+        "SYNTHETIC.PUBLICATION_FLAG": "READY"
+      },
+      "files": []
+    },
+    {
+      "name": "same input with freshness criterion",
+      "source_status": "UNCHECKED",
+      "profiles": {
+        "SYNTHETIC.GOLD_FLAG": "NOT_READY",
+        "SYNTHETIC.PUBLICATION_FLAG": "NOT_READY"
+      },
+      "files": []
+    },
+    {
+      "name": "CRLF working tree LF-normalized audit",
+      "source_status": "CURRENT_CLEAN",
+      "profiles": {
+        "SYNTHETIC.GOLD_FLAG": "NOT_READY",
+        "SYNTHETIC.PUBLICATION_FLAG": "READY"
+      },
+      "files": [
+        {
+          "id": "SYNTHETIC.AUTHORITY",
+          "kind": "source",
+          "path": "authority.md",
+          "status": "MATCH",
+          "expected_sha256": "sha256:46cf451fffb0b6cbaecd5a11851288c79efebc01dcf5eff66bff8ef4c4ebe09a",
+          "observed_sha256": "sha256:46cf451fffb0b6cbaecd5a11851288c79efebc01dcf5eff66bff8ef4c4ebe09a"
+        },
+        {
+          "id": "SYNTHETIC.PROOF",
+          "kind": "artifact",
+          "path": "proof.txt",
+          "status": "MATCH",
+          "expected_sha256": "sha256:c107518bc5cd0067a8bf325a10f7cf796c9d44daa81cf89f25ede4f19552a6a1",
+          "observed_sha256": "sha256:c107518bc5cd0067a8bf325a10f7cf796c9d44daa81cf89f25ede4f19552a6a1"
+        }
+      ]
+    },
+    {
+      "name": "same committed CRLF blobs pinned audit",
+      "source_status": "STALE",
+      "profiles": {
+        "SYNTHETIC.GOLD_FLAG": "NOT_READY",
+        "SYNTHETIC.PUBLICATION_FLAG": "READY"
+      },
+      "files": [
+        {
+          "id": "SYNTHETIC.AUTHORITY",
+          "kind": "source",
+          "path": "authority.md",
+          "status": "DIGEST_MISMATCH",
+          "expected_sha256": "sha256:46cf451fffb0b6cbaecd5a11851288c79efebc01dcf5eff66bff8ef4c4ebe09a",
+          "observed_sha256": "sha256:009cbac8ddd67442f626e4f1d9e552ad9d3ff1f0ccd9ad18881ad165b484e25d"
+        },
+        {
+          "id": "SYNTHETIC.PROOF",
+          "kind": "artifact",
+          "path": "proof.txt",
+          "status": "DIGEST_MISMATCH",
+          "expected_sha256": "sha256:c107518bc5cd0067a8bf325a10f7cf796c9d44daa81cf89f25ede4f19552a6a1",
+          "observed_sha256": "sha256:034a09a6a59b909c420dd026be21ac181a85a0f06981d8b81a395440ee8bcf5f"
+        }
+      ]
+    },
+    {
+      "name": "retained synthetic replay script",
+      "exit_code": 1,
+      "stderr": "Traceback (most recent call last):\n  File \"oracle/checkout/fixtures/dossier/synthetic/verify_synthetic.py/", line 17, in <module>\n    \"authority_sha256\": digest(ROOT.parent / \"authority\" / \"authority.md\"),\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"oracle/checkout/fixtures/dossier/synthetic/verify_synthetic.py/", line 12, in digest\n    return hashlib.sha256(path.read_bytes().replace(b\"\\r\\n\", b\"\\n\")).hexdigest()\n                          ^^^^^^^^^^^^^^^^^\n  File \"$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/pathlib.py/", line 1019, in read_bytes\n    with self.open(mode='rb') as f:\n         ^^^^^^^^^^^^^^^^^^^^\n  File \"$APPDATA/Roaming/uv/python/cpython-3.12.9-windows-x86_64-none/Lib/pathlib.py/", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'oracle/checkout/fixtures/dossier/authority/authority.md'\n",
+      "scope": "Fixture packaging failure, not mathematical replay"
+    }
+  ]
+}

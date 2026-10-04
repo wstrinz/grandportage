@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "GP-X214",
+  "seed": null,
+  "title": "Rehashed output still fails the retained object address",
+  "situation": "Rehashed output still fails the retained object address. This is an execution-storage integrity obligation, not a mathematical proof.",
+  "inputs": {
+    "storage_action": "change_output_rehash",
+    "output": "answer one\n",
+    "evidence_origin": "fabricated_offline_record",
+    "replacement_output": "changed answer\n"
+  },
+  "attempted_conclusion": "Accept the requested storage or reference operation as preserving the recorded execution evidence.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Rehashed output still fails the retained object address"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/artifacts.py",
+      "line": 59,
+      "anchor": "def _validate_envelope("
+    }
+  ]
+}

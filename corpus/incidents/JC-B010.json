@@ -1,0 +1,83 @@
+{
+  "id": "JC-B010",
+  "campaign": "JC",
+  "origin": "own",
+  "class": "ADAPTER",
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "path": "$DEV/math-stuff/whetstone/whetstone_dag.py",
+      "lines": "851-865",
+      "sha256": "627749285c45566edddd05b01ae1f44c2488b29564b1ea98cc663099aad4992c"
+    }
+  ],
+  "claimed": "Four first-draft Whetstone checks were validation, including false monotonicity.",
+  "problem": "Removed checks were tautological/filter-guaranteed or compared scope to itself. MONO-CONTRADICTION also asserted a false claim.",
+  "discovered_by": "unknown",
+  "cost": null,
+  "shipped": null,
+  "gp_v037_would_catch": null,
+  "core_expressible": null,
+  "core_would_refuse": null,
+  "notes": "Retain reported incident and unknowns; no fresh campaign/checker execution. Fixed independent expectations and mutation controls might block admission; GP itself cannot detect vacuous checks or wrong semantics.",
+  "subfindings": [],
+  "status": "final retained source-backed record under ratified unknown policy; observation and counting limits remain explicit",
+  "primary_class": "ADAPTER",
+  "primary_origin": "own",
+  "record_kind": "documented incident",
+  "final_disposition": "retain qualified source-backed Appendix B candidate",
+  "owner_id": "JC-B010",
+  "original_pointer": {
+    "report": "reports/PHASE-0B-INVENTORY-DRAFT.json",
+    "pointer": "/rows/12",
+    "sha256": "ab1a7c4728bf5ff36129df136adb9c2f612181662ef29ee23358323d866a8ab2",
+    "review_date": "2026-09-29",
+    "date_kind": "retained report review date; not incident date or source publication date"
+  },
+  "source": {
+    "repo": "$WORKSPACE",
+    "ref": "reports/PHASE-0B-INVENTORY-DRAFT.json#/rows/12",
+    "date": "2026-09-29",
+    "review_date": "2026-09-29",
+    "date_kind": "review-source date of retained report; not incident date or original primary-source date"
+  },
+  "incident_date": null,
+  "source_date_qualification": "No incident date invented; original source dates/history metadata remain unchanged in sources.",
+  "cost_note": "Source evidence does not establish incident-specific work lost/cost class.",
+  "shipped_note": "Source evidence does not establish publication or handoff of a wrong claim; unknown is neither false nor n/a.",
+  "gp_v037_would_catch_note": "No supported frozen-GP catch verdict for this episode. Conditional design/reuse commentary in notes is not a yes/no/partial assessment; no fresh campaign replay.",
+  "counting_qualification": {
+    "record_count": 1,
+    "independent_sample": null,
+    "mathematical_incident_count": null,
+    "rule": "Count this owner record once. Repeated summaries, witnesses, consumers and children do not add independent samples.",
+    "source_detail": "Retain reported incident and unknowns; no fresh campaign/checker execution. Fixed independent expectations and mutation controls might block admission; GP itself cannot detect vacuous checks or wrong semantics."
+  },
+  "classification_qualification": "Proposed primary class and origin retained from accepted inventory; uncertainty and secondary dimensions remain in evidence. Not a statistically adjudicated incident population.",
+  "parent_adjudications": [
+    {
+      "decision": "accept source-supported extraction with unknowns",
+      "qualifications": "Retain reported incident and unknowns; no fresh campaign/checker execution.",
+      "source": {
+        "path": "$DEV/math-stuff/whetstone/whetstone_dag.py",
+        "lines": "851-865",
+        "sha256": "627749285c45566edddd05b01ae1f44c2488b29564b1ea98cc663099aad4992c"
+      },
+      "pointer": {
+        "report": "reports/PHASE-0B-JC-PARENT-ADJUDICATION.json",
+        "pointer": "/dispositions/9",
+        "sha256": "83ef1d579eb45ba0cf1ec934902678545beab0fbc5cb4c5355b1a750b3ca912e",
+        "review_date": "2026-09-29",
+        "date_kind": "retained report review date; not incident date or source publication date"
+      }
+    }
+  ],
+  "linked_cross_occurrence": null,
+  "children": [],
+  "evidence_level": "retained source-backed report; no new source read, execution, or authentication",
+  "parent_integration": {
+    "worker_report": "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "worker_report_sha256": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849",
+    "register": "incident/correction/group"
+  }
+}

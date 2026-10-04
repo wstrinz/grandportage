@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "GP-A01",
+  "seed": "A1",
+  "title": "Field-specific emptiness cannot become universal",
+  "situation": "A nonsquare-class obstruction is valid over Q(sqrt(17)).",
+  "inputs": {
+    "context": "Q(sqrt(17))",
+    "target_context": "every characteristic-zero field",
+    "warrant": "field-specific obstruction"
+  },
+  "attempted_conclusion": "The model is empty over every characteristic-zero field.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The warrant has only field-specific reach."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 541,
+      "anchor": "| A1 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_kernel.py",
+      "line": 222,
+      "anchor": "def test_field_relative_emptiness_refused_under_every_lossy_typing("
+    }
+  ]
+}

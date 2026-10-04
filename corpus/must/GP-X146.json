@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "id": "GP-X146",
+  "seed": null,
+  "title": "Fold inference supersession in either branch order",
+  "situation": "Supersession is resolved after the full fold, so both orders retain the same records and successor links.",
+  "inputs": {
+    "vocabulary": "lifecycle-scenario/v1",
+    "objects": {
+      "object-1": {
+        "category": "context",
+        "name": "M",
+        "properties": {
+          "description": "m"
+        }
+      },
+      "object-2": {
+        "category": "context",
+        "name": "N",
+        "properties": {
+          "description": "n"
+        }
+      },
+      "object-3": {
+        "category": "assertion",
+        "name": "C",
+        "properties": {
+          "context": "M",
+          "statement_class": "universal_property",
+          "statement": "P"
+        }
+      },
+      "object-4": {
+        "category": "argument",
+        "name": "I",
+        "properties": {
+          "premise": "C",
+          "transport_route": [],
+          "conclusion_class": "universal_property",
+          "conclusion": "P at M"
+        }
+      },
+      "object-5": {
+        "category": "argument",
+        "name": "I2",
+        "properties": {
+          "premise": "C",
+          "transport_route": [],
+          "conclusion_class": "universal_property",
+          "conclusion": "P restated"
+        }
+      }
+    },
+    "history": [
+      {
+        "object": "object-1"
+      },
+      {
+        "object": "object-2"
+      },
+      {
+        "object": "object-3"
+      },
+      {
+        "object": "object-4"
+      },
+      {
+        "object": "object-5",
+        "replacement": {
+          "prior": "I",
+          "change": "restatement"
+        }
+      }
+    ],
+    "question": {},
+    "branch_comparison": {
+      "common": [
+        {
+          "object": "object-1"
+        },
+        {
+          "object": "object-2"
+        },
+        {
+          "object": "object-3"
+        }
+      ],
+      "first_branch": [
+        {
+          "object": "object-4"
+        }
+      ],
+      "second_branch": [
+        {
+          "object": "object-5",
+          "replacement": {
+            "prior": "I",
+            "change": "restatement"
+          }
+        }
+      ]
+    }
+  },
+  "attempted_conclusion": "Fold inference supersession in either branch order.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Supersession is resolved after the full fold, so both orders retain the same records and successor links."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 3297,
+      "anchor": "def test_supersession_does_not_make_the_fold_order_dependent("
+    }
+  ]
+}

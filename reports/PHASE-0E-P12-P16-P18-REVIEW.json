@@ -1,0 +1,171 @@
+{
+  "schema_version": "1.0",
+  "scope": [
+    "P12",
+    "P16",
+    "P18"
+  ],
+  "global_0e_complete": false,
+  "package_adoption_authorized": false,
+  "execution": false,
+  "rows": [
+    {
+      "id": "P12",
+      "verdict": "imitate",
+      "guarantee_piece": "Disclose exact scope and conditional reliability",
+      "unknowns": [
+        "No uniform machine schema established"
+      ]
+    },
+    {
+      "id": "P16",
+      "verdict": "imitate",
+      "guarantee_piece": "Source and completeness explanations; potential community adapter",
+      "unknowns": [
+        "Consumer acceptance unconfirmed",
+        "Mutable LeanBridge not compiled/pinned"
+      ]
+    },
+    {
+      "id": "P18",
+      "verdict": "imitate",
+      "guarantee_piece": "Exact goal meaning and evidence pointer binding",
+      "unknowns": [
+        "Full paper unread",
+        "Exact campaign problem coverage unestablished",
+        "Mutable main revision not identified"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "LMFDB-RCS",
+      "url": "https://www.lmfdb.org/rcs",
+      "extent": "Overview",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "LMFDB-Q-RELIABILITY",
+      "url": "https://www.lmfdb.org/knowledge/show/rcs.rigor.ec.q",
+      "extent": "Specific claim qualifications",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "LMFDB-NF-COMPLETENESS",
+      "url": "https://www.lmfdb.org/knowledge/show/rcs.cande.ec",
+      "extent": "Number fields and conductor bounds",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "ROE-SLIDES",
+      "url": "https://math.mit.edu/~roed/writings/talks/2026_06_29.pdf",
+      "extent": "Twelve-page June 29 2026 presentation",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "WORKSHOP",
+      "url": "https://multramate.github.io/lean-lmfdb/",
+      "extent": "Program and abstracts; source-reported results only",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "LEANBRIDGE",
+      "url": "https://github.com/CBirkbeck/LeanBridge",
+      "extent": "Mutable main README, no build",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "FC-README",
+      "url": "https://github.com/google-deepmind/formal-conjectures",
+      "extent": "Mutable main",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "FC-STATEMENTS",
+      "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/main/STATEMENTS.md",
+      "extent": "Mutable main guidance",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "FC-PROOFS",
+      "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/main/PROOFS.md",
+      "extent": "Mutable main guidance",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "FC-CONTRIBUTING",
+      "url": "https://github.com/google-deepmind/formal-conjectures/blob/main/CONTRIBUTING.md",
+      "extent": "Mutable main metadata",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "FC-PAPER",
+      "url": "https://arxiv.org/abs/2605.13171v1",
+      "extent": "May 13 2026 abstract/identity only",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "MAGMA",
+      "url": "https://magma.maths.usyd.edu.au/magma/handbook/text/416",
+      "extent": "Independent effective-bound check",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "PARI",
+      "url": "https://pari.math.u-bordeaux.fr/dochtml/html-stable/General_number_fields.html",
+      "extent": "Independent certification-contract check",
+      "retrieved_utc_date": "2026-09-30"
+    }
+  ],
+  "worker_review": {
+    "report": "reports/PHASE-0E-P1-P2-P17-REVIEW.json",
+    "status": "bounded_reading_accepted",
+    "constraints_checked": 3,
+    "not_independently_reproduced": "Detailed checker catalog, runtime behavior and compatibility",
+    "independent_pinned_reads": [
+      {
+        "project": "MathEvidence",
+        "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+        "path": "docs/STATUS.md",
+        "bytes": 9730,
+        "sha256": "922773822efba9c43590cdfd11be952b96e511c4f3137c36cb0bbfcca7a564e1"
+      },
+      {
+        "project": "MathEvidence",
+        "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+        "path": "registry/capabilities/algebra.rational_equality.json",
+        "bytes": 5170,
+        "sha256": "dea2f0da6f39b17d199157998d0e10f5e073075149cef75d36a4d9a8fd8d7beb"
+      },
+      {
+        "project": "MathEvidence",
+        "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+        "path": "MathEvidence/Conjecture/Engine.lean",
+        "bytes": 3204,
+        "sha256": "50f89fcd2aa9099ec9a2aa0be3a096d3017dba5c86ffa58d82a2f1afce44970a"
+      },
+      {
+        "project": "MathKernel",
+        "revision": "272a1644011b1a7f325f580fa96cbe3ef8fe27bb",
+        "path": "src/mathkernel_artifacts/evidence.py",
+        "bytes": 11502,
+        "sha256": "e543b5dc49bacf8f33aa973e93776a4fe255bab861e3ab9db94f64a99dad792d"
+      }
+    ],
+    "sha256": "7eda5077c9d6244c070c110ad4208eb0681c0ffcda3f61ea7a60d2998f0db55a"
+  },
+  "blocked_fetches": [
+    "LMFDB rcs.source.ec.q access challenge",
+    "Formal Conjectures current-commit API unavailable",
+    "Pinned GitHub raw web cache misses; four memory-only HTTP fallback reads succeeded"
+  ],
+  "timing": {
+    "start_utc": "2026-09-30T00:49:02Z",
+    "reserved_max_minutes": 15,
+    "charge_minutes": 12,
+    "end_utc": "2026-09-30T01:00:45.165980Z",
+    "source_reading_end_utc": "2026-09-30T00:56:49Z",
+    "accounting": "Whole continuous parent session through artifact serialization, rounded up; includes source review, synthesis, failed fetches and tool latency. No further public-source reading after recorded reading end.",
+    "elapsed_seconds": 703.16598
+  }
+}

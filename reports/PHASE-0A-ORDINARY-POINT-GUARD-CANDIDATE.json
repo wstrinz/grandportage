@@ -1,0 +1,549 @@
+{
+  "schema_version": 1,
+  "title": "Ordinary-point open-guard candidate design",
+  "date": "2026-09-29",
+  "workspace": "$WORKSPACE",
+  "pinned_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "pin_verification": {
+    "head_read": "ac4155787207e2847d248cffed7be871d5dcd577",
+    "selected_tracked_source_diff_exit_code": 0,
+    "meaning": "Selected files match tracked pinned checkout; raw local file SHA256 values below retain checkout bytes."
+  },
+  "status": "Minimum three-candidate design complete; no execution or admission",
+  "scope": {
+    "family": "ARR-G09 ordinary guarded point and equation-free point mechanisms only",
+    "maximum_candidates": 3,
+    "proposed_candidates": 3,
+    "case_inventory_preserved": 456,
+    "A24": "pending; unchanged",
+    "writes": [
+      "reports/PHASE-0A-ORDINARY-POINT-GUARD-CANDIDATE.md",
+      "reports/PHASE-0A-ORDINARY-POINT-GUARD-CANDIDATE.json"
+    ],
+    "other_work": "Scaling, migration, retry and display proposals remain uncommissioned; D2 note is qualification only."
+  },
+  "arr_source": {
+    "report": "reports/PHASE-0B-ARR15-BOUNDED-REVIEW.json",
+    "row": "ARR-G09",
+    "recorded_behavior": "Historical ordinary verifier ignored open_conditions, including generators=[]. Later0.26 acceptance reports recovery. Neither proves a current frozen outcome.",
+    "source_provenance": [
+      {
+        "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+        "lines": [
+          199,
+          213
+        ],
+        "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+        "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+        "lines": [
+          504,
+          509
+        ],
+        "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+        "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-gp-v026-live-acceptance-r2.md",
+        "lines": [
+          14,
+          19
+        ],
+        "sha256": "555929ced4ae8bccead89ab2be6b35725a9e154aaf2c3fa38a2db8794c674931",
+        "latest_path_history": "791f962c778bb77584a1984482728bdd8169d5f9|2026-08-23T09:12:44-05:00|Accept cyclotomic summit and close post-68 intake"
+      }
+    ]
+  },
+  "primary_source_anchors": [
+    {
+      "end": 1828,
+      "sha256": "51ee50fd4be7e8f0f6b2cdd10f680ac7060ef8f91f1f424290a342e3c7ce9c03",
+      "anchor": "WITNESS_VERIFIED = \"VERIFIED\"",
+      "start": 1827,
+      "path": "oracle/checkout/grandportage/verify.py",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "end": 2000,
+      "sha256": "51ee50fd4be7e8f0f6b2cdd10f680ac7060ef8f91f1f424290a342e3c7ce9c03",
+      "anchor": "def point_witness(graph, cid, timeout=300, _runner=None, _backend=None):",
+      "start": 1873,
+      "path": "oracle/checkout/grandportage/verify.py",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "end": 2801,
+      "sha256": "51ee50fd4be7e8f0f6b2cdd10f680ac7060ef8f91f1f424290a342e3c7ce9c03",
+      "anchor": "        if (c.get(\"kind\") == K.NONEMPTY and c.get(\"witness_point\")",
+      "start": 2798,
+      "path": "oracle/checkout/grandportage/verify.py",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "end": 1190,
+      "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453",
+      "anchor": "    def evaluate_point(self, ring_vars, generators, point, characteristic=0,",
+      "start": 1185,
+      "path": "oracle/checkout/grandportage/cas.py",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "end": 1557,
+      "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453",
+      "anchor": "def check_witness(ring_vars, generators, point, characteristic=0, timeout=300,",
+      "start": 1483,
+      "path": "oracle/checkout/grandportage/cas.py",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "end": 36,
+      "sha256": "1150aa49c0596af1a9816a71f44694838e6fef17370a2fc8337b453b3d43c9f8",
+      "anchor": "def _graph(events):",
+      "start": 32,
+      "path": "oracle/checkout/tests/test_adversarial.py",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "end": 4520,
+      "sha256": "1150aa49c0596af1a9816a71f44694838e6fef17370a2fc8337b453b3d43c9f8",
+      "anchor": "class _ExactPointBackend(object):",
+      "start": 4461,
+      "path": "oracle/checkout/tests/test_adversarial.py",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "end": 281,
+      "sha256": "bb815c2cfe03feb2eaae94756e5d41fcf8d5b836ba50d97c750fd52a7cad877e",
+      "anchor": "def check_extension_witness(model, witness_field, witness_point):",
+      "start": 248,
+      "path": "oracle/checkout/grandportage/number_field.py",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "end": 131,
+      "sha256": "62c81e677be9145b9694e9f4e1cfdb951af93e22a7991e191d06af93788d67a0",
+      "anchor": "@pytest.mark.live",
+      "start": 121,
+      "path": "oracle/checkout/tests/test_guard_release.py",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ],
+  "report_case_route_bindings": [
+    {
+      "path": "reports/PHASE-0B-ARR15-BOUNDED-REVIEW.json",
+      "sha256": "ad715538a1d68d69d5aedb6586f773b9cbd16dfea45db4113bf4ced8394f4f48"
+    },
+    {
+      "path": "reports/PHASE-0A-GUARD-SNAPSHOT-PARENT-NOTES.json",
+      "sha256": "4a02efdbf6c4ef04bf1e53c1d81fc170e298023fdffde3f62dc37f8f24903d4a"
+    },
+    {
+      "path": "corpus/must/GP-X349.json",
+      "sha256": "4dc6e85690ee4353a983978c500aa3e4d4348649eec6c1d6bedb19649d935c19"
+    },
+    {
+      "path": "oracle/ROUTES.json",
+      "sha256": "2804045ca48bfcd1d8f34f7dad52c423222d02160e71ddcafa478de0e709cfe4"
+    }
+  ],
+  "native_call_path": [
+    {
+      "step": 1,
+      "path": "grandportage/verify.py",
+      "lines": [
+        2798,
+        2801
+      ],
+      "behavior": "verify_all schedules a NONEMPTY structured witness needing verification; direct point_witness avoids recording, but is not an epoch-1 held-claim path."
+    },
+    {
+      "step": 2,
+      "path": "grandportage/verify.py",
+      "lines": [
+        1908,
+        1928
+      ],
+      "behavior": "Check NONEMPTY, witness_point, model and flat expression inputs."
+    },
+    {
+      "step": 3,
+      "path": "grandportage/verify.py",
+      "lines": [
+        1929,
+        1945
+      ],
+      "behavior": "witness_field not None selects check_extension_witness; the candidates omit that field and reach ordinary branch."
+    },
+    {
+      "step": 4,
+      "path": "grandportage/verify.py",
+      "lines": [
+        1946,
+        1970
+      ],
+      "behavior": "Pending ideal/ring/characteristic checks precede gens+guards evaluation. Empty gens with guard x still evaluates x; only entirely expression-free models synthesize0. No generators=[] success early return occurs here."
+    },
+    {
+      "step": 5,
+      "path": "grandportage/cas.py",
+      "lines": [
+        1185,
+        1190
+      ],
+      "behavior": "SingularBackend.evaluate_point calls cas.check_witness with execute runner."
+    },
+    {
+      "step": 6,
+      "path": "grandportage/cas.py",
+      "lines": [
+        1503,
+        1557
+      ],
+      "behavior": "Validate complete constant coordinates, construct Singular map/program, _execute at1542, parse exact expression values. This is an external backend path, not an ordinary in-process native arithmetic checker."
+    },
+    {
+      "step": 7,
+      "path": "grandportage/verify.py",
+      "lines": [
+        1972,
+        2000
+      ],
+      "behavior": "Equation rows must vanish; guard rows must not vanish. Aggregate all-zero boolean is ignored. Return VERIFIED or NOT_A_POINT with named equation/guard failure."
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_key": "ordinary-equations-vanishing-guard",
+      "corpus_id": null,
+      "status": "unadmitted design only",
+      "inputs": {
+        "model": {
+          "id": "M",
+          "desc": "Minimal ordinary rational open locus",
+          "characteristic": 0,
+          "coefficient_domain": "Q",
+          "point_universe": "BASE",
+          "ring_vars": [
+            "x",
+            "y"
+          ],
+          "generators": [
+            "y"
+          ],
+          "open_conditions": [
+            "x"
+          ]
+        },
+        "claim": {
+          "id": "W",
+          "model": "M",
+          "kind": "NONEMPTY",
+          "statement": "The recorded open model contains the displayed rational point.",
+          "scope": "Q",
+          "witness_kind": "EXHIBITED",
+          "witness_point": {
+            "x": "0",
+            "y": "0"
+          }
+        },
+        "witness_field_present": false
+      },
+      "attempted_conclusion": "Accept the offered point as a witness at this exact open model.",
+      "expected_contract": {
+        "verdict": "REFUSE",
+        "native_witness_value": "NOT_A_POINT",
+        "authority": "expected contract/source assertion only, not observed execution",
+        "meaning": "Reject this offered witness. Do not infer the model is EMPTY or that no other point exists."
+      },
+      "hand_evaluation": {
+        "equations": [
+          {
+            "expression": "y",
+            "value": "0",
+            "vanishes": true
+          }
+        ],
+        "guards": [
+          {
+            "expression": "x",
+            "value": "0",
+            "vanishes": true
+          }
+        ],
+        "note": "Transparent mathematical derivation for literals x/y; not a runtime result or new reference checker."
+      },
+      "ordinary_call_request": {
+        "function": "grandportage.verify.point_witness",
+        "claim_id": "W",
+        "backend_default": "grandportage.cas.SingularBackend",
+        "witness_field": "omit entirely; do not use null-valued synthetic number-field wrapper"
+      },
+      "source_test_assertion": {
+        "path": "oracle/checkout/tests/test_adversarial.py",
+        "lines": [
+          4493,
+          4500
+        ],
+        "scope": "Same equation/coordinate/guard values in existing _open_witness_graph; its model omits explicit coefficient_domain/point_universe. Candidate makes rational BASE context explicit; candidate graph admission is not executed."
+      },
+      "observation": {
+        "actual_native_verdict": null,
+        "actual_diagnostic_verdict": null,
+        "actual_receipt": null,
+        "external_backend_requirement": "Required for default production ordinary verifier; backend availability untested.",
+        "CAS_free_design": "Use only the already pinned _ExactPointBackend with x/y expressions and literal0/1 coordinates to inspect the production guard-decision branch, if separately commissioned. This remains a diagnostic seam, never Singular execution evidence or an admitted exact checker."
+      }
+    },
+    {
+      "candidate_key": "ordinary-equation-free-vanishing-guard",
+      "corpus_id": null,
+      "status": "unadmitted design only",
+      "inputs": {
+        "model": {
+          "id": "M",
+          "desc": "Minimal ordinary rational open locus",
+          "characteristic": 0,
+          "coefficient_domain": "Q",
+          "point_universe": "BASE",
+          "ring_vars": [
+            "x"
+          ],
+          "generators": [],
+          "open_conditions": [
+            "x"
+          ]
+        },
+        "claim": {
+          "id": "W",
+          "model": "M",
+          "kind": "NONEMPTY",
+          "statement": "The recorded open model contains the displayed rational point.",
+          "scope": "Q",
+          "witness_kind": "EXHIBITED",
+          "witness_point": {
+            "x": "0"
+          }
+        },
+        "witness_field_present": false
+      },
+      "attempted_conclusion": "Accept the offered point as a witness at this exact open model.",
+      "expected_contract": {
+        "verdict": "REFUSE",
+        "native_witness_value": "NOT_A_POINT",
+        "authority": "expected contract/source assertion only, not observed execution",
+        "meaning": "Reject this offered witness. Do not infer the model is EMPTY or that no other point exists."
+      },
+      "hand_evaluation": {
+        "equations": [],
+        "guards": [
+          {
+            "expression": "x",
+            "value": "0",
+            "vanishes": true
+          }
+        ],
+        "note": "Transparent mathematical derivation for literals x/y; not a runtime result or new reference checker."
+      },
+      "ordinary_call_request": {
+        "function": "grandportage.verify.point_witness",
+        "claim_id": "W",
+        "backend_default": "grandportage.cas.SingularBackend",
+        "witness_field": "omit entirely; do not use null-valued synthetic number-field wrapper"
+      },
+      "source_test_assertion": {
+        "path": "oracle/checkout/tests/test_adversarial.py",
+        "lines": [
+          4509,
+          4520
+        ],
+        "scope": "Same equation/coordinate/guard values in existing _open_witness_graph; its model omits explicit coefficient_domain/point_universe. Candidate makes rational BASE context explicit; candidate graph admission is not executed."
+      },
+      "observation": {
+        "actual_native_verdict": null,
+        "actual_diagnostic_verdict": null,
+        "actual_receipt": null,
+        "external_backend_requirement": "Required for default production ordinary verifier; backend availability untested.",
+        "CAS_free_design": "Use only the already pinned _ExactPointBackend with x/y expressions and literal0/1 coordinates to inspect the production guard-decision branch, if separately commissioned. This remains a diagnostic seam, never Singular execution evidence or an admitted exact checker."
+      }
+    },
+    {
+      "candidate_key": "ordinary-equation-free-nonvanishing-guard",
+      "corpus_id": null,
+      "status": "unadmitted design only",
+      "inputs": {
+        "model": {
+          "id": "M",
+          "desc": "Minimal ordinary rational open locus",
+          "characteristic": 0,
+          "coefficient_domain": "Q",
+          "point_universe": "BASE",
+          "ring_vars": [
+            "x"
+          ],
+          "generators": [],
+          "open_conditions": [
+            "x"
+          ]
+        },
+        "claim": {
+          "id": "W",
+          "model": "M",
+          "kind": "NONEMPTY",
+          "statement": "The recorded open model contains the displayed rational point.",
+          "scope": "Q",
+          "witness_kind": "EXHIBITED",
+          "witness_point": {
+            "x": "1"
+          }
+        },
+        "witness_field_present": false
+      },
+      "attempted_conclusion": "Accept the offered point as a witness at this exact open model.",
+      "expected_contract": {
+        "verdict": "ACCEPT",
+        "native_witness_value": "VERIFIED",
+        "authority": "expected contract/source assertion only, not observed execution",
+        "meaning": "Validate the offered point at its own open model. Do not infer transport or current held authority."
+      },
+      "hand_evaluation": {
+        "equations": [],
+        "guards": [
+          {
+            "expression": "x",
+            "value": "1",
+            "vanishes": false
+          }
+        ],
+        "note": "Transparent mathematical derivation for literals x/y; not a runtime result or new reference checker."
+      },
+      "ordinary_call_request": {
+        "function": "grandportage.verify.point_witness",
+        "claim_id": "W",
+        "backend_default": "grandportage.cas.SingularBackend",
+        "witness_field": "omit entirely; do not use null-valued synthetic number-field wrapper"
+      },
+      "source_test_assertion": {
+        "path": "oracle/checkout/tests/test_adversarial.py",
+        "lines": [
+          4509,
+          4514
+        ],
+        "scope": "Same equation/coordinate/guard values in existing _open_witness_graph; its model omits explicit coefficient_domain/point_universe. Candidate makes rational BASE context explicit; candidate graph admission is not executed."
+      },
+      "observation": {
+        "actual_native_verdict": null,
+        "actual_diagnostic_verdict": null,
+        "actual_receipt": null,
+        "external_backend_requirement": "Required for default production ordinary verifier; backend availability untested.",
+        "CAS_free_design": "Use only the already pinned _ExactPointBackend with x/y expressions and literal0/1 coordinates to inspect the production guard-decision branch, if separately commissioned. This remains a diagnostic seam, never Singular execution evidence or an admitted exact checker."
+      }
+    }
+  ],
+  "positive_coverage": {
+    "proposed_positive": "ordinary-equation-free-nonvanishing-guard",
+    "why_minimal": "One-variable x=1 point is the direct contrast to equation-free x=0; verifies that nonzero guard is accepted rather than interpreting the backend aggregate all-zero flag as rejection.",
+    "guarded_equation_positive_source": {
+      "path": "oracle/checkout/tests/test_adversarial.py",
+      "lines": [
+        4502,
+        4506
+      ],
+      "input": {
+        "ring_vars": [
+          "x",
+          "y"
+        ],
+        "generators": [
+          "y"
+        ],
+        "open_conditions": [
+          "x"
+        ],
+        "witness_point": {
+          "x": "1",
+          "y": "0"
+        }
+      },
+      "assertion": "WITNESS_VERIFIED using the existing _ExactPointBackend",
+      "qualification": "Existing primary source assertion is retained as the equation-bearing positive contrast, not promoted to an admitted case or fresh pass. A fourth payload is unnecessary for this minimum design; full production evidence for either branch still requires a separately commissioned supported backend observation."
+    }
+  },
+  "existing_case_comparison": {
+    "id": "GP-X349",
+    "inputs": {
+      "field": {
+        "base": "Q",
+        "symbol": "a",
+        "minimal_polynomial": "a^3-2"
+      },
+      "model": {
+        "characteristic": 0,
+        "coefficient_domain": "Q",
+        "point_universe": "ALGEBRAIC_CLOSURE",
+        "ring_vars": [
+          "x"
+        ],
+        "generators": [
+          "x^3-2"
+        ],
+        "open_conditions": [
+          "x^3-2"
+        ]
+      },
+      "coordinate": "a"
+    },
+    "route": {
+      "kind": "q2_exact",
+      "layer": "native_exact_cubic",
+      "limitation": "Pinned exact simple-number-field witness check; no external CAS, campaign point, chosen ordered embedding, or new checker admission."
+    },
+    "primary_path": "grandportage.number_field.check_extension_witness at248; equation loop267-273 and guard loop275-281",
+    "equivalence": "Related guard rule only. X349 uses an explicit field and nonempty cubic equation; ordinary candidates omit witness_field and generators=[] reaches a different branch. A no-CAS number-field result cannot stand in for the Singular-backed ordinary verifier. No existing exact ordinary-case reuse is claimed."
+  },
+  "observation_feasibility": {
+    "default_production_without_external_CAS": false,
+    "default_production_available_here": null,
+    "actual_execution": false,
+    "faithful_decision_branch_diagnostic_available_in_pinned_source": true,
+    "existing_seam": {
+      "path": "oracle/checkout/tests/test_adversarial.py",
+      "lines": [
+        4461,
+        4481
+      ],
+      "supported_expressions": [
+        "0",
+        "x",
+        "y"
+      ],
+      "limitations": [
+        "Only literal0/1 coordinates here; this helper compares strings for vanishing and is not a general rational/polynomial evaluator.",
+        "It returns expression rows from supplied coordinates and the actual point_witness code decides equation/guard predicates. No hardcoded candidate verdict is needed.",
+        "It does not run cas.check_witness, validate Singular program/parsing, bind a backend execution, produce a native receipt, or establish graph currentness.",
+        "The existing _graph helper uses S.Graph.apply/validate (32-36), not a claim of epoch-1 native admission or held authority."
+      ]
+    },
+    "recommendation": "Review as retained-source diagnostic design. Do not assign a runnable oracle route or fabricate an observed REFUSE/ACCEPT. If parent later commissions execution, distinguish actual backend result from the pinned test seam; unsupported default production observation stays null."
+  },
+  "D2_qualification": {
+    "historical_report": "DK REPORT515-528/570-573 records historical96/97 substitution failure; no new campaign body read.",
+    "parent_note": "reports/PHASE-0A-GUARD-SNAPSHOT-PARENT-NOTES.json#/findings/3",
+    "primary_anchor": {
+      "path": "oracle/checkout/tests/test_guard_release.py",
+      "lines": [
+        121,
+        131
+      ],
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    "finding": "The retained live source test parametrizes96 and97 and asserts ok for both. fail-97vars.json is a historical fixture filename, not frozen refusal authority. No live run performed here.",
+    "prior_consolidation": "Left unchanged as directed; this qualification accompanies the proposal."
+  },
+  "verification_limits": [
+    "No source test imported or executed, backend queried, campaign/Lean code run, case extracted, reference checker invented, oracle route changed, corpus modified, replay run, tracker changed or commit made.",
+    "Source assertions and hand evaluation are clearly separated from null observed runtime results.",
+    "Only this ordinary-point family is designed; coordinator owns all admission and follow-up."
+  ]
+}

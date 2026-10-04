@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "GP-X124",
+  "seed": null,
+  "title": "Cancel an exceptional factor without proving it invertible",
+  "situation": "Minimal projection of the exceptional-factor policy: z*x=0 has solutions on z=0 even when x is nonzero.",
+  "inputs": {
+    "variables": [
+      "z",
+      "x"
+    ],
+    "product": "z*x",
+    "cancelled_conclusion": "x",
+    "point": {
+      "z": "0",
+      "x": "1"
+    },
+    "unit_witness": null
+  },
+  "attempted_conclusion": "Every point satisfying z*x=0 also satisfies x=0.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The point z=0, x=1 is an exact counterexample; cancelling z discards the exceptional component."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "line": 103,
+      "anchor": "def test_exceptional_factor_cancellation_mutation_refuses("
+    }
+  ]
+}

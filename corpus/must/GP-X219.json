@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "GP-X219",
+  "seed": null,
+  "title": "A path-like reference cannot escape the artifact store",
+  "situation": "A path-like reference cannot escape the artifact store. This is an execution-storage integrity obligation, not a mathematical proof.",
+  "inputs": {
+    "storage_action": "path_reference",
+    "output": "answer one\n",
+    "evidence_origin": "fabricated_offline_record",
+    "reference": "../../graph.jsonl"
+  },
+  "attempted_conclusion": "Accept the requested storage or reference operation as preserving the recorded execution evidence.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A path-like reference cannot escape the artifact store"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_artifacts.py",
+      "line": 141,
+      "anchor": "def test_malformed_fingerprint_cannot_escape_artifact_store("
+    }
+  ]
+}

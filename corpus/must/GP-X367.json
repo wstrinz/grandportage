@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "seed": null,
+  "scope_or_region": "N/A",
+  "id": "GP-X367",
+  "title": "Two-point swap equivalence gives no literal containment",
+  "situation": "Source points are {a}, target points {b}, and the forward and backward maps swap the two carrier elements.",
+  "inputs": {
+    "control": "swap_not_containment",
+    "carrier": [
+      "a",
+      "b"
+    ],
+    "source_points": [
+      "a"
+    ],
+    "target_points": [
+      "b"
+    ],
+    "forward": {
+      "a": "b",
+      "b": "a"
+    },
+    "backward": {
+      "a": "b",
+      "b": "a"
+    }
+  },
+  "attempted_conclusion": "Infer literal source-to-target containment from mapped equivalence.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Both map directions and inverses hold, but a is not a target point."
+  },
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/MappedEquivalence.lean",
+      "line": 137,
+      "anchor": "def onlyA_onlyB_equiv : MappedEquivalence onlyA onlyB where",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/MappedEquivalence.lean",
+      "line": 149,
+      "anchor": "theorem onlyA_not_refines_onlyB : Not (Refines onlyA onlyB) := by",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/MappedEquivalence.lean",
+      "line": 161,
+      "anchor": "theorem mappedEquivalence_not_refines :",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

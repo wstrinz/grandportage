@@ -1,0 +1,31 @@
+Binding.lean:25:10: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  1 - 2 * x
+in the target expression
+  1 = 0 + (1 - 0)
+
+R : Type u_1
+inst✝¹ : CommRing R
+inst✝ : Nontrivial R
+x : R
+hx : 2 * x = 0
+hy : 1 - 2 * x = 0
+h : 1 = 0 + (1 - 0)
+⊢ False
+Binding.lean:56:4: warning: Try `simp at hc` instead of `simpa using hc`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+Binding.lean:75:37: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HDiv (ZMod 2) ℕ (ZMod 2)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Binding.lean:75:61: error: unsolved goals
+⊢ 3 / 8 = 0
+'Binding.integral_unit_identity' depends on axioms: [propext]
+'Binding.integral_system_empty' depends on axioms: [propext, sorryAx]
+'Binding.gp_a08b_F3' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'Binding.denominator_eight_zero' depends on axioms: [propext]
+'Binding.denominator_eight_not_unit' depends on axioms: [propext]
+'Binding.gp_a05_no_coefficient' depends on axioms: [propext]
+'Binding.gp_a05_F2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Binding.gp_a05_no_rat_ring_hom' depends on axioms: [propext, Classical.choice, Quot.sound]
+Binding.lean:86:14: error(lean.unknownIdentifier): Unknown constant `totalized_division_is_zero`

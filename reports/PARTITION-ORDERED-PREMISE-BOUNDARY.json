@@ -1,0 +1,95 @@
+{
+  "native_schema_refusal": "<log>:0: epoch-1 inference event has unknown field `via_partition`. Native schemas are closed; fix the spelling or add the field to the format.",
+  "controls": [
+    {
+      "field": "R",
+      "branch_receipts_recorded": true,
+      "cover_projection_supplied": true,
+      "branch_reaches": [
+        null,
+        null
+      ],
+      "audit_allowed": true,
+      "trace": [
+        [
+          "(partition)",
+          "COVERS",
+          true,
+          "licensed: every branch carries EMPTY and the partition is declared exhaustive, so the parent is covered"
+        ]
+      ],
+      "findings": []
+    },
+    {
+      "field": "C",
+      "branch_receipts_recorded": true,
+      "cover_projection_supplied": true,
+      "branch_reaches": [
+        null,
+        null
+      ],
+      "audit_allowed": true,
+      "trace": [
+        [
+          "(partition)",
+          "COVERS",
+          true,
+          "licensed: every branch carries EMPTY and the partition is declared exhaustive, so the parent is covered"
+        ]
+      ],
+      "findings": []
+    },
+    {
+      "field": "R",
+      "branch_receipts_recorded": false,
+      "cover_projection_supplied": true,
+      "branch_reaches": [
+        null,
+        null
+      ],
+      "audit_allowed": true,
+      "trace": [
+        [
+          "(partition)",
+          "COVERS",
+          true,
+          "licensed: every branch carries EMPTY and the partition is declared exhaustive, so the parent is covered"
+        ]
+      ],
+      "findings": []
+    },
+    {
+      "field": "C",
+      "branch_receipts_recorded": true,
+      "cover_projection_supplied": false,
+      "branch_reaches": [
+        null,
+        null
+      ],
+      "audit_allowed": false,
+      "trace": [
+        [
+          "(partition)",
+          "COVERS",
+          false,
+          "the partition does not carry a claim that its branches COVER the parent, so a result on every branch is a result about a union that may not be the whole (partition exhaustiveness has no current VERIFIED verdict; a declaration alone does not license a case split in kernel epoch 12)"
+        ]
+      ],
+      "findings": [
+        {
+          "id": "TRANSPORT:JOIN",
+          "detail": "no ordered-field zero\n  asserted: the parent has no points\n  refused : the partition does not carry a claim that its branches COVER the parent, so a result on every branch is a result about a union that may not be the whole (partition exhaustiveness has no current VERIFIED verdict; a declaration alone does not license a case split in kernel epoch 12)"
+        }
+      ]
+    }
+  ],
+  "script_sha256": "f914f1c395edaf5154940a2ccdae15904940dfae12b4dfac1bebe928f03eb6b1",
+  "source_sha256": {
+    "grandportage/check.py": "00d979f20fe53e6ce15877d7fe19ba7a1b73bff14c414fb811c345104e4d5ad5",
+    "grandportage/kernel.py": "6e0c4701cfc4ffc4dd3824d33966ed0a09c8603447b000ee43d29c0a70e59cf4",
+    "grandportage/store.py": "900da33d1b8e3ae045533b3ae8ed67317a3bc56a35861d2bcd604ae6adb7e755"
+  },
+  "finding": "Given a correct cover projection, partition audit counts ORDERED_SOS branch premises without checking current reach or applicability to C. Valid ordered identities cannot prove complex emptiness of x^2+1: i is a root. Missing branch receipts also do not prevent this consumer from counting the certificate kind.",
+  "proposed_fix": "Require every branch premise to have replay-earned authority applicable to the exact branch/parent context before composition. Keep cover correctness as a separate required premise.",
+  "limitation": "Legacy graph API consumer isolation: current epoch-1 schema rejects via_partition before this path. Cover projection explicitly assigned, not persisted or produced by a backend. Identical loci make the supplied cover mathematically true. Branch SOS receipts, when present, use actual native replay. No end-to-end admission or clean-global-check claim; all findings retained."
+}

@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "id": "GP-X150",
+  "seed": null,
+  "title": "Clear stale path debt while a live inference uses a withdrawn edge",
+  "situation": "Withdrawal does not hide live traffic over the withdrawn relation.",
+  "inputs": {
+    "vocabulary": "lifecycle-scenario/v1",
+    "objects": {
+      "object-1": {
+        "category": "context",
+        "name": "IV",
+        "properties": {
+          "description": "the interval-valued system"
+        }
+      },
+      "object-2": {
+        "category": "context",
+        "name": "PD",
+        "properties": {
+          "description": "the positive-definite locus"
+        }
+      },
+      "object-3": {
+        "category": "relation",
+        "name": "E-IV-PD",
+        "properties": {
+          "source_context": "IV",
+          "target_context": "PD",
+          "relation_class": "unspecified",
+          "justification": "the step is not yet characterised",
+          "coordinate_action": "unchanged",
+          "unresolved_reason": "nobody has derived what this inclusion loses"
+        }
+      },
+      "object-4": {
+        "category": "assertion",
+        "name": "C-PD",
+        "properties": {
+          "context": "PD",
+          "statement_class": "universal_property",
+          "statement": "the bound holds on PD"
+        }
+      },
+      "object-5": {
+        "category": "argument",
+        "name": "I",
+        "properties": {
+          "premise": "C-PD",
+          "transport_route": [
+            {
+              "relation": "E-IV-PD",
+              "direction": "reverse"
+            }
+          ],
+          "conclusion_class": "universal_property",
+          "conclusion": "so the bound holds on IV as well"
+        }
+      },
+      "object-6": {
+        "category": "relation",
+        "name": "W-E",
+        "properties": {
+          "justification": "not an edge"
+        }
+      }
+    },
+    "history": [
+      {
+        "object": "object-1"
+      },
+      {
+        "object": "object-2"
+      },
+      {
+        "object": "object-3"
+      },
+      {
+        "object": "object-4"
+      },
+      {
+        "object": "object-5"
+      },
+      {
+        "object": "object-6",
+        "replacement": {
+          "prior": "E-IV-PD",
+          "change": "relation_withdrawal"
+        }
+      }
+    ],
+    "question": {
+      "concerns": [
+        "retired_route_dependency"
+      ]
+    }
+  },
+  "attempted_conclusion": "Clear stale path debt while a live inference uses a withdrawn edge.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Withdrawal does not hide live traffic over the withdrawn relation."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_supersession_noise.py",
+      "line": 135,
+      "anchor": "def test_withdrawing_an_edge_does_not_hide_live_traffic("
+    }
+  ]
+}

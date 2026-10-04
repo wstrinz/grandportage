@@ -1,0 +1,64 @@
+{
+  "controls": [
+    {
+      "id": "process_cache",
+      "first": [
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        false
+      ],
+      "after_simulated_checkout_change": [
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        false
+      ],
+      "after_explicit_cache_clear": [
+        "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        true
+      ],
+      "git_calls": [
+        [
+          "rev-parse",
+          "HEAD"
+        ],
+        [
+          "status",
+          "--porcelain",
+          "--untracked-files=normal"
+        ],
+        [
+          "rev-parse",
+          "HEAD"
+        ],
+        [
+          "status",
+          "--porcelain",
+          "--untracked-files=normal"
+        ]
+      ]
+    },
+    {
+      "id": "unavailable_source",
+      "identity": [
+        null,
+        null
+      ],
+      "rendered": "grand-portage test\nsource unavailable\ndirty unknown\ngraph format 8\nkernel epoch 12\nMCP protocol 2025-06-18\nbackend grandportage.cas.SingularBackend implementation 5 / protocol 2"
+    },
+    {
+      "id": "malformed_commit_type",
+      "exception": "TypeError",
+      "message": "expected string or bytes-like object, got 'int'"
+    }
+  ],
+  "script_sha256": "d5412cdf0a3cb88d2cad236c9705862719715f2fa023f1902180aeff76e21d84",
+  "source_sha256": {
+    "grandportage/identity.py": "0658f232411eccc8cd94e2c9ea479a7c7de531f0e59b15d49f151da3c51587f6",
+    "grandportage/format.py": "9d7ad6885285b2e55de9bbf6dea62d428d1f68a3b7180728a1651365c82c171e"
+  },
+  "interpretation": [
+    "Git identity is a process-cached observation, not a digest of loaded code or a continuously refreshed checkout attestation. Simulated changes are observed only after cache clear.",
+    "Unavailable Git context remains explicitly unknown; no commit or clean flag is fabricated.",
+    "JSON numeric source_commit raises raw TypeError in regex validation instead of GraphError; malformed input is not accepted, but domain error normalization is incomplete."
+  ],
+  "proposed_fix": "Describe identity as cached source metadata; if stronger reproducibility is needed, bind release/content digests at build time. Validate source_commit type before regex matching and return the declared domain error. Do not infer executable authenticity from a self-reported identity.",
+  "scope": "Mocked Git observations and one malformed metadata scalar; no checkout mutation or false mathematical authority."
+}

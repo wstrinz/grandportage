@@ -1,0 +1,13 @@
+# DK parent intake — 2026-09-29
+
+Worker completed its finite pass: twelve documents fully read,29 campaign proposals and ten historical GP entries. Parent independently checked all12 source hashes, both raw archive hashes, both serialized index digests and central-directory name/size data. Recorded corrections are accepted for source extraction with stated limits. B016/B017 remain summary-supported defect leads; B029 records a binding trap without a reproduced wrong-instance outcome. B028 records two custody near misses with authority withheld. No independent-incident count is inferred from29 rows.
+
+Checked the old search objective directly:23 lines have253 pairs;23 four-fold points account for138 pairs, leaving115. Under that stated objective, zero cannot be attained. This supports B005's model correction, not a geometric nonexistence claim. Primary checks also confirm the clean-matroid completion boundary, unsupported scalar guard removal, withdrawn shallow counts and role/coherence false merges as recorded corrections; repaired implementations were not executed.
+
+D1 family/model bridge and D3 inert PREDICATE fields have exact current premise reuse through X399/X400. Historical crashes/acceptances stay historical; their later guarded refusals are separately observed. Eight other GP register rows need supported observation/family reconciliation; broad shared subject matter does not suffice.
+
+A bounded raw comparison of both approved archives finds165 shared files byte-identical, nine changed shared files, two added independent-work documents and no removed files. This avoids treating same filenames as proof of equal contents. Parent read selected statement and independent-work material and inspected three stored evidence exports. Their claims distinguish existence from classification/priority and witness replay from full classification. The exclusion summary explicitly has decides=[] and graph_effect NONE. No Lean or external theorem verification occurred.
+
+Preserved22 private verbatim items:12 source documents, both archives and eight selected v1.2.0 members. Raw hashes checked; no overwrite. See DK-HARVEST-MANIFEST and DK-ARCHIVE-CONTENT-COMPARISON. These are authorized source reads/custody, not public publication or new admitted proof.
+
+The50-minute same-chat heartbeat is active under renewed user authorization. Worker now owns Cloquet bounded review. Parent retains DK/GP integration and0a closeout; A24's requested semantic clarification remains unanswered. All454 cases/routes/immutable replays unchanged. DK and Phase0b are not declared complete.

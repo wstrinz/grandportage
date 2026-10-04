@@ -1,0 +1,25 @@
+{
+  "commit": "af4f6a8f6872521f4f814ab8cdb22af32a11d52c",
+  "status": "two_remaining_release_document_paths_dispositioned",
+  "sources": [
+    {
+      "path": "README.md",
+      "sha256": "8b1b81cf0e28cc25f1fd2375c088a67f25dba106cb1dd46acb606bbc9e5e0c61"
+    },
+    {
+      "path": "SPEC.md",
+      "sha256": "e9b73b234e1e2884d9b4728b409a763fecf62481d262093563c6fd41d327cf40"
+    }
+  ],
+  "findings": [
+    {
+      "path": "SPEC.md",
+      "disposition": "Exact relocation of parent README body after replacement of two check-count markers, plus new title/introduction. Parent read all553lines and independently compared full texts. No new incident introduced by this release diff. Historical incidents remain source-backed earlier corpus obligations, not newly verified claims."
+    },
+    {
+      "path": "README.md",
+      "disposition": "Condensed release introduction; all90 added lines read. Certificate-kind/scope wording retains the checked-receipt qualification recorded for58.3b/78.4. Historical check counts, live runs and hook claims are not fresh evidence. No distinct new reproduced incident in these added lines."
+    }
+  ],
+  "limit": "Closes the two outstanding path-diff dispositions for this release commit only; does not certify all reachable history or runtime soundness."
+}

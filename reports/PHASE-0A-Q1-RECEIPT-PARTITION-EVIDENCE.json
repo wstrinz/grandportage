@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "title": "Phase 0a Q1 receipt and partition batch",
+  "status": "proposed_five_row_disposition_pending_parent_adjudication",
+  "row_count": 5,
+  "rows": [
+    {
+      "id": "51.3",
+      "adjudication_pointer": "reports/PHASE-0A-FINDING-ADJUDICATION.json#/rows/2/obligations/0",
+      "source_report": "reports/PHASE-0A-BATCH-51.md#paragraph-3",
+      "baseline_candidate_key": "zero_step_authority",
+      "proposed_status": "new_control_extracted_pending_parent_adjudication",
+      "case_ids": [
+        "GP-X343"
+      ],
+      "near_cases": [
+        "GP-X181",
+        "GP-X182"
+      ],
+      "assertion_level_distinction": "X181/X182 have explicit missing premise slots. X343 has no route steps, so audit_inference returns (True,[]) without inspecting receipt; the claim has neither certificate verdict nor reach until a separate exact SOS replay.",
+      "observation_limit": "REFUSE is the no-receipt authority boundary; the pinned audit itself returns True and no native held-claim verdict is reproduced."
+    },
+    {
+      "id": "52.2a",
+      "adjudication_pointer": "reports/PHASE-0A-FINDING-ADJUDICATION.json#/rows/6/obligations/0",
+      "source_report": "reports/PHASE-0A-BATCH-52.md#paragraph-2",
+      "baseline_candidate_key": "legacy_partition_ordered",
+      "proposed_status": "paired_legacy_controls_extracted_pending_parent_adjudication",
+      "case_ids": [
+        "GP-X344",
+        "GP-X345"
+      ],
+      "near_cases": [
+        "GP-A16-covered",
+        "GP-X184",
+        "GP-A10-C",
+        "GP-A10-R"
+      ],
+      "assertion_level_distinction": "A16/X184 assume applicable branch emptiness. A10-C refuses standalone ordered reach in C. The legacy partition consumer separately accepts two replayed ORDERED-only branch certificates over C under a true supplied cover; X345 fixes this cross-context composition gap, X344 is the R positive control.",
+      "observation_limit": "X345 is a legacy-consumer KNOWN_DIFFERENCE, not an admitted epoch-1 inference or a published held claim; via_partition is rejected by current schema."
+    },
+    {
+      "id": "52.2b",
+      "adjudication_pointer": "reports/PHASE-0A-FINDING-ADJUDICATION.json#/rows/7/obligations/0",
+      "source_report": "reports/PHASE-0A-BATCH-52.md#paragraph-2",
+      "baseline_candidate_key": "legacy_partition_absent",
+      "proposed_status": "legacy_missing_receipt_control_extracted_pending_parent_adjudication",
+      "case_ids": [
+        "GP-X346"
+      ],
+      "near_cases": [
+        "GP-A16-missing",
+        "GP-X183",
+        "GP-X65"
+      ],
+      "assertion_level_distinction": "A16-missing and X183 lack a cover or a branch premise. X346 supplies a true cover and both named branch claims, but no checked branch receipts; the legacy consumer counts the names and accepts. X344 supplies the paired exact-receipt control.",
+      "observation_limit": "Legacy-consumer KNOWN_DIFFERENCE; cover verdict is an explicitly supplied projection and native epoch-1 schema rejects via_partition."
+    },
+    {
+      "id": "58.3b",
+      "adjudication_pointer": "reports/PHASE-0A-FINDING-ADJUDICATION.json#/rows/37/obligations/1",
+      "source_report": "reports/PHASE-0A-BATCH-58.md#paragraph-3",
+      "baseline_candidate_key": "kind_without_receipt",
+      "proposed_status": "proposed_mechanism_reuse_no_new_case",
+      "case_ids": [
+        "GP-X65",
+        "GP-X66"
+      ],
+      "near_cases": [
+        "GP-A26",
+        "GP-C01"
+      ],
+      "assertion_level_distinction": "Producer advice claims that attaching a certificate kind derives earned scope. X65 already refuses EMPTY authority from a known LOCALIZED_UNIT_IDEAL_CERT name without a current verdict; X66 retains authority with its current receipt. This is the same missing-earned-receipt requirement, while the advice text is only a wording diagnostic.",
+      "observation_limit": "X65 uses localized-unit certificate handling, so this is mechanism-level normative reuse, not an exact replay of the MCP advice or generic UNIT_IDEAL_CERT transport. No false-held runtime result is inferred."
+    },
+    {
+      "id": "78.4",
+      "adjudication_pointer": "reports/PHASE-0A-FINDING-ADJUDICATION.json#/rows/170/obligations/0",
+      "source_report": "reports/PHASE-0A-BATCH-78.md#paragraph-4",
+      "baseline_candidate_key": "kind_without_receipt",
+      "proposed_status": "proposed_mechanism_reuse_with_transport_limit_no_new_case",
+      "case_ids": [
+        "GP-X65",
+        "GP-X66",
+        "GP-C01"
+      ],
+      "near_cases": [
+        "GP-A26"
+      ],
+      "assertion_level_distinction": "The retained test classifies a BASE_EXTENSION with a declared UNIT_IDEAL_CERT but exhibits no receipt. GP-A26 tests an unknown name; X65 tests a known name lacking a current checked verdict, X66 supplies a current-verdict positive, and C01 covers the conditional base-extension cell with an exact unit identity. Thus declaration-only transport classification cannot be read as earned leaf authority.",
+      "observation_limit": "Generic UNIT_IDEAL_CERT and localized-unit native handling are not identical. The retained hook test observes no findings, not a full false-held claim or actual receipt. Parent must adjudicate whether mechanism-level reuse suffices; no case was added for a mere missing ledger pointer."
+    }
+  ],
+  "new_case_observations": {
+    "GP-X343": {
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "layer": "operational_zero_route_vs_receipt",
+      "route": "receipt_partition",
+      "zero_step_before_receipt": {
+        "allowed": true,
+        "trace": [],
+        "certificate_verdict": null,
+        "certificate_reach": null
+      },
+      "positive_receipt_control": {
+        "verdict": "VERIFIED",
+        "reach": {
+          "kind": "ORDERED"
+        },
+        "zero_step_still_allowed": true
+      },
+      "native_held_claim_verdict": null,
+      "external_execution": false,
+      "reason": "The zero-step audit is true with no current certificate verdict or reach; only separate exact SOS replay earns ORDERED reach."
+    },
+    "GP-X344": {
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "legacy_partition_ordered_R_positive",
+      "route": "receipt_partition",
+      "legacy_consumer_allowed": true,
+      "native_sos_receipt_verdicts": [
+        "VERIFIED",
+        "VERIFIED"
+      ],
+      "branch_receipts_recorded": true,
+      "target_field": "R",
+      "complex_counterpoint": null,
+      "cover_projection_supplied_not_native_receipt": true,
+      "current_epoch_schema_refusal": "<log>:0: epoch-1 inference event has unknown field `via_partition`. Native schemas are closed; fix the spelling or add the field to the format.",
+      "native_held_claim_verdict": null,
+      "external_execution": false,
+      "reason": "The isolated legacy partition consumer accepts the supplied true cover and both named branch premises."
+    },
+    "GP-X345": {
+      "expected": "REFUSE",
+      "observed_verdict": "ACCEPT",
+      "status": "KNOWN_DIFFERENCE",
+      "layer": "legacy_partition_ordered_C_gap",
+      "route": "receipt_partition",
+      "legacy_consumer_allowed": true,
+      "native_sos_receipt_verdicts": [
+        "VERIFIED",
+        "VERIFIED"
+      ],
+      "branch_receipts_recorded": true,
+      "target_field": "C",
+      "complex_counterpoint": "i solves x^2+1=0",
+      "cover_projection_supplied_not_native_receipt": true,
+      "current_epoch_schema_refusal": "<log>:0: epoch-1 inference event has unknown field `via_partition`. Native schemas are closed; fix the spelling or add the field to the format.",
+      "native_held_claim_verdict": null,
+      "external_execution": false,
+      "reason": "The isolated legacy partition consumer accepts the supplied true cover and both named branch premises."
+    },
+    "GP-X346": {
+      "expected": "REFUSE",
+      "observed_verdict": "ACCEPT",
+      "status": "KNOWN_DIFFERENCE",
+      "layer": "legacy_partition_missing_receipts_gap",
+      "route": "receipt_partition",
+      "legacy_consumer_allowed": true,
+      "native_sos_receipt_verdicts": [],
+      "branch_receipts_recorded": false,
+      "target_field": "R",
+      "complex_counterpoint": null,
+      "cover_projection_supplied_not_native_receipt": true,
+      "current_epoch_schema_refusal": "<log>:0: epoch-1 inference event has unknown field `via_partition`. Native schemas are closed; fix the spelling or add the field to the format.",
+      "native_held_claim_verdict": null,
+      "external_execution": false,
+      "reason": "The isolated legacy partition consumer accepts the supplied true cover and both named branch premises."
+    }
+  },
+  "replay": {
+    "baseline": "reports/oracle-runs/20260928T224802105393Z.json",
+    "new": "reports/oracle-runs/20260929T003257767801Z.json",
+    "summary": {
+      "AGREES": 370,
+      "DIAGNOSTIC_OBSERVED": 1,
+      "KNOWN_DIFFERENCE": 14,
+      "PENDING": 1,
+      "UNSUPPORTED": 1
+    },
+    "new_case_ids": [
+      "GP-X343",
+      "GP-X344",
+      "GP-X345",
+      "GP-X346"
+    ]
+  },
+  "preservation": {
+    "baseline_case_count": 383,
+    "all_prior_case_bytes_unchanged": true,
+    "all_prior_expected_observed_status_layer_route_unchanged": true,
+    "reason_only_ids": [
+      "GP-X236",
+      "GP-X237"
+    ],
+    "reason_change_only_ephemeral_completion_marker": true
+  },
+  "limits": [
+    "The zero-step API checks route transport, not premise truth or logical entailment. X343 does not claim a native held-claim refusal.",
+    "The partition probe uses the isolated legacy Graph API and an explicitly supplied mathematically true cover projection. Current epoch-1 schema rejects via_partition before consumer dispatch.",
+    "Exact ordered SOS identities are replayed without search or external CAS where recorded. x^2+1 has complex roots, so ORDERED reach cannot establish C emptiness.",
+    "The two proposed reuse rows are not parent-adjudicated and do not assert an end-to-end false-held result."
+  ],
+  "sha256": {
+    "reports/oracle-runs/20260928T224802105393Z.json": "c0a28dd6b4885a5928068a656a5273f29d10ac6f3bb5d4b380e4c20724cd46c7",
+    "reports/oracle-runs/20260929T003257767801Z.json": "5a0c3d59c02dd06505415b5b571251e676d06ef76b291302deaacedce48bfe86",
+    "oracle/ROUTES.json": "71950740665ad95007a08681c26e09d6f2a8a4538633a500f3087ad19eeebdee",
+    "tools/check-corpus.py": "f684fc080ba33c98243be2466591b8f507289c728d0179ac1aa73e08d816095b",
+    "tools/receipt_partition_probes.py": "0fe320fa0e1516e1aaf2df20d9d539fb37511df387f1c83e8ad0a9b34c18768f",
+    "corpus/must/GP-X343.json": "27eb70b59a8a094c9cf2df9d732852aea9191b792f29a9ade293f775e30b3fa8",
+    "corpus/must/GP-X344.json": "a379e543a1a5c2c7adda60f453ca7f6f7865375f55896f7be78ee309162249b2",
+    "corpus/must/GP-X345.json": "a8e062fe3e7c16bc91a1daf3544c14a74c6eba4223e6d2d8578e8e79873d9bf7",
+    "corpus/must/GP-X346.json": "05b54c2ad41771bd33c6f7d4e5b6f6992609ec08dc7386b5ad70655c26545e7b"
+  }
+}

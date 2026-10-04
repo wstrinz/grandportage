@@ -1,0 +1,84 @@
+{
+  "files": [
+    {
+      "path": "grandportage/coefficient_expansion.py",
+      "sha256": "c5d5389d6fbfa5bc8d64ccae48aeef5828442b3b6c913e20fc1de59b815bb98e",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_coefficient_expansion.py",
+      "sha256": "9f3167c90e550e6712dd89b8e6f6179708651a0198be8d48905cfac02570ecff",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "test_functions": [
+        "test_complete_expansion_checks_pack_and_every_coefficient",
+        "test_selected_coefficients_are_necessary_only",
+        "test_complete_expansion_rejects_an_omitted_overflow_row",
+        "test_selected_rows_may_omit_overflow_without_minting_equivalence",
+        "test_invented_or_wrong_coefficient_is_rejected",
+        "test_coefficient_row_keys_are_canonical_nonnegative_integers",
+        "test_cap_means_cap_plus_one_distinct_coordinates",
+        "test_pack_order_and_images_are_checked_not_declared",
+        "test_one_coordinate_cannot_pack_two_bounded_polynomials",
+        "test_recorded_rows_must_live_in_the_scalar_ring",
+        "test_images_cannot_retain_source_variables",
+        "test_source_equation_cannot_smuggle_in_lowered_coordinates",
+        "test_specification_is_closed_and_fingerprinted_deterministically",
+        "test_cli_reports_the_authority_boundary",
+        "test_large_sparse_image_survives_coefficient_lowering_without_infix_ast",
+        "test_large_sparse_image_order_mutation_is_refused"
+      ]
+    }
+  ],
+  "cli_slice": "cmd_verify_coefficient_expansion read in full; entire CLI not claimed reviewed.",
+  "prior_test_evidence": {
+    "report": "reports/oracle-batch3-tests.xml",
+    "sha256": "6c62a2e00e129506ae815f92edf0809ec400c446a2eb9f13a65d43ab25a5f360",
+    "coefficient_instances_passed": 18,
+    "names": [
+      "test_complete_expansion_checks_pack_and_every_coefficient",
+      "test_selected_coefficients_are_necessary_only",
+      "test_complete_expansion_rejects_an_omitted_overflow_row",
+      "test_selected_rows_may_omit_overflow_without_minting_equivalence",
+      "test_invented_or_wrong_coefficient_is_rejected",
+      "test_coefficient_row_keys_are_canonical_nonnegative_integers[01]",
+      "test_coefficient_row_keys_are_canonical_nonnegative_integers[-1]",
+      "test_coefficient_row_keys_are_canonical_nonnegative_integers[one]",
+      "test_cap_means_cap_plus_one_distinct_coordinates",
+      "test_pack_order_and_images_are_checked_not_declared",
+      "test_one_coordinate_cannot_pack_two_bounded_polynomials",
+      "test_recorded_rows_must_live_in_the_scalar_ring",
+      "test_images_cannot_retain_source_variables",
+      "test_source_equation_cannot_smuggle_in_lowered_coordinates",
+      "test_specification_is_closed_and_fingerprinted_deterministically",
+      "test_cli_reports_the_authority_boundary",
+      "test_large_sparse_image_survives_coefficient_lowering_without_infix_ast",
+      "test_large_sparse_image_order_mutation_is_refused"
+    ],
+    "note": "Existing coefficient subset evidence reused; no new full-suite execution claim."
+  },
+  "diagnostic": "reports/COEFFICIENT-ERROR-BOUNDARY.json",
+  "existing_cases": [
+    "GP-X27",
+    "GP-X28",
+    "GP-X29",
+    "GP-X30",
+    "GP-X31",
+    "GP-X32",
+    "GP-X33",
+    "GP-X34"
+  ],
+  "findings": [
+    "Complete rows grant converse only after checking all rows and rejecting degree overflow; mixed/selected reports remain one-way.",
+    "Both selected and complete modes enforce no terms beyond declared degree. Test name about omitting overflow actually keeps degree 2 and omits an in-bound row.",
+    "Images exclude source variables; source expressions exclude lowered coordinates/parameter; rows exclude source variables/parameter; bounded-coordinate reuse refused.",
+    "Malformed coverage list raises TypeError through CLI; Unicode digit key raises raw ValueError directly, caught by CLI. Neither grants authority.",
+    "Separate parses and substitution use arithmetic budgets; no cumulative whole-request cost proof established by this review."
+  ],
+  "remaining": [
+    "Extract or disposition malformed-input totality cases without equating a crash to normal refusal.",
+    "Complete arithmetic dependency and cumulative resource/error-shape coverage.",
+    "General checker soundness and interpretation obligations remain open."
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "GP-X175",
+  "seed": null,
+  "title": "Use a mutated stored section certificate",
+  "situation": "A rejected or altered proposal supplies no authority; an earlier independently valid section certificate remains available.",
+  "inputs": {
+    "sequence": [
+      "success"
+    ],
+    "mutation": "proof"
+  },
+  "attempted_conclusion": "Use a current exact section certificate for contraction.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A rejected or altered proposal supplies no authority; an earlier independently valid section certificate remains available."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_verdict_provenance.py",
+      "line": 731,
+      "anchor": "def test_mutating_stored_section_certificate_makes_verdict_stale("
+    }
+  ]
+}

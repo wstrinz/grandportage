@@ -1,0 +1,132 @@
+{
+  "schema": "gp-phase2-routes-integration/v1",
+  "date": "2026-10-01",
+  "parent_base_commit": "cddb2130859dbbcab5f56ba2e17444e867498128",
+  "source_hashes": {
+    "phase2/lean/Tests/ConditionalRoutes.lean": "1c0ff5fbb25004d38f87c8ac0acddc19a0d3bd32b50e991dd8b05aca9bfeb078",
+    "phase2/lean/lakefile.toml": "2e15631a691cc3da161657b3465c305d89cc5dc929981905e5f3b8b9afdadfee",
+    "tools/run-phase2-conditional-routes-slice.py": "e7337132e3e3005542e32d6637dd0dda9fc0b658a9a7a429931a130ac09639cc",
+    "tests/test_phase2_conditional_routes.py": "40928efa2384d445538d8c83deb3af2bcb7cbb24f342e363a09da2a8853807ca",
+    "tools/run-phase2-slice.py": "8c5b3f1e8df533a50bb53c156c9617cc004e8355d26a3893b38932c03cd06360",
+    "reports/PHASE-2-CONDITIONAL-ROUTES-SLICE.json": "8e718ef9acc262e541daa89374e3438c75c94f62acfd3b9f07f2cfed2cb76091",
+    "reports/PHASE-2-SLICE.json": "e925fad24189f12b135a02789d880510063cebe7fdfa6c2c0d29be8d92f85e4e",
+    "reports/PHASE-2-PROVENANCE-SLICE.json": "f4501d4f550b04fe7d91a05d0dd94ced550dd88b9b400d620997257dd60b083a"
+  },
+  "worker_original_hashes": {
+    "harness": "96d9fbd58fc7d4294586d4ee4d1bce15f4189c32d19a344b3a18977914c6418b",
+    "adapter": "0506be1337404bda78c9bc3abf24151d341512385e194ab4f192d357cd2889df",
+    "tests": "1d9e3313ccb395b84cda4c4daa02464712a0e54406918f0fba70d2f2666d4799",
+    "report": "4295c0078332246cffa66ac1826f73e5279d2d587e7e089a06b98d3bb6d43759"
+  },
+  "worker_active_seconds": 1441,
+  "integration_changes": "Normalize completed files; register the executable in the main pinned package and change adapter default path; require G2 eligibility; add GPC native_fold_held_sound corollary transferring the exact Unit executable to arbitrary Point types; aggregate cases. All production GP50 sources unchanged.",
+  "corpus": {
+    "previous_passes": 23,
+    "new_passes": 2,
+    "total_passes": 25,
+    "kernel_tagged_total": 79,
+    "cases": [
+      "GP-X177",
+      "GP-X178"
+    ],
+    "native_folds": 6,
+    "g2_pass": false
+  },
+  "parent_review": {
+    "pinned_named_functions": {
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "file_sha256": "1150aa49c0596af1a9816a71f44694838e6fef17370a2fc8337b453b3d43c9f8",
+      "pin_file_sha256": "180d920db790d5b5e318ce318b7b7e1467e6b11fd44e05e759e8b7cc7f4459db",
+      "functions": {
+        "GP-X177": {
+          "line": 1429,
+          "anchor": "def test_an_argument_can_now_combine_two_premises(",
+          "function_sha256": "3cf78f503159da30dee12a6d801ab2f1c78cad6facf2fa94aab941c711ce9bce"
+        },
+        "GP-X178": {
+          "line": 1465,
+          "anchor": "def test_premises_that_never_meet_are_a_fold_error(",
+          "function_sha256": "4b2d799d1e6dc97f9af0beaf981813649b24854fda59d2a0fe95fb237e9adca9"
+        }
+      },
+      "boundary": "Literal unchanged fixture abstraction, not reconstruction of historical graph statements/routes or renderer behavior."
+    },
+    "literal_contexts": [
+      "tight",
+      "loose",
+      "side"
+    ],
+    "semantic_hypotheses": [
+      "loose: a universal property (first selected predicate)",
+      "side: a universal property (second selected predicate)",
+      "first: tight subset loose (equations_forgotten)",
+      "second: tight subset side (equations_forgotten)"
+    ],
+    "fixed_selected_predicates": "Separate first/second predicate identities preserve the two supplied premise identities; neither changes during restriction. The source abstraction retains both identical display texts verbatim.",
+    "actual_K2": "GP50.Semantic.acceptsNarrow executes exact registry binding, statement equality and sound scope inclusion. statementHash/modelHash/inputHashes/kernelVersion survive restriction.",
+    "actual_K3": "Exact joint warrant and complete ordered premise records require both parsed routes licensed, not just semantic property truth.",
+    "X178": "Second route remains physically empty; no second narrow warrant or claim is inserted. Its endpoint remains side and target is refused.",
+    "vacuity_guard": "The licensed-routes statement requires both route Booleans globally, at theory scope with a no-point context. A proof shows missing-route licensing cannot hold even if regions are empty.",
+    "native_arbitrary_Point_connection": "admission_point_independent and GPC native_fold_held_sound connect the executable Unit admission to every Point type; only standard axioms.",
+    "required_K2_example_completed": true,
+    "K2_qualification": "Approved conditional premises, faithful literal objects/routes, actual checker execution and registered semantic inclusion, not analogous component testing. No whole G2 gate claim.",
+    "production_profile_adoption": false,
+    "underlying_algebraic_truth_certified": false
+  },
+  "validation": {
+    "full_lean_build_jobs": 129,
+    "independent_leanchecker": [
+      "Tests.ConditionalRoutes"
+    ],
+    "axioms": [
+      "propext",
+      "Quot.sound"
+    ],
+    "host_tests": 144,
+    "host_subtests": 347,
+    "new_host_tests": 11,
+    "final_budget_tests": 5,
+    "new_proof_controls": 1,
+    "cumulative_proof_controls": 81,
+    "native_component_controls_unchanged": 553,
+    "complete_snapshots_bindings_dependencies_checked": true,
+    "order_and_duplicate_controls_pass": true,
+    "report_links_and_hashes": "PASS",
+    "all_production_sources_unchanged": true,
+    "nonblocking_warnings": "Unused simp arguments in erased point-independence proof; no proof or build failures."
+  },
+  "preservation": {
+    "fresh_receipt_sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f",
+    "case_count": 459,
+    "summary": {
+      "AGREES": 403,
+      "DIAGNOSTIC_OBSERVED": 4,
+      "KNOWN_DIFFERENCE": 14,
+      "UNSUPPORTED": 9,
+      "RETAINED_DIAGNOSTIC": 29
+    },
+    "protected_artifacts": 67,
+    "all_bytes_expectations_outcomes_unchanged": true
+  },
+  "budget": {
+    "counts": {
+      "logic": 636,
+      "decoder": 263,
+      "statement": 26,
+      "proof": 1602
+    },
+    "markdown_added_words": 7848,
+    "status_words": 273,
+    "failures": []
+  },
+  "next": {
+    "GPB": [
+      "GP-X142",
+      "GP-X147",
+      "GP-X148"
+    ],
+    "GPC": "Review complete lifecycle outputs; distinguish inert inference isolation from independent checked support. Failed retry, earned and real proved-overlap conflict remain separate required examples.",
+    "user_decision_blocking_current_work": false
+  }
+}

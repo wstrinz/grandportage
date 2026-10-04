@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "id": "GP-X195",
+  "seed": null,
+  "title": "Repairing order inventory does not repair place coverage",
+  "situation": "Adding missing order components does not represent the missing t place.",
+  "inputs": {
+    "scenario": "coverage_inventory",
+    "asserted_dimensions": [
+      "place",
+      "order"
+    ],
+    "represented_indices": {
+      "place": [
+        "y",
+        "infinity"
+      ],
+      "order": [
+        "-1",
+        "-2",
+        "-3",
+        "-5",
+        "-4",
+        "0",
+        "1",
+        "2"
+      ]
+    },
+    "construction_uses": [
+      {
+        "dimension": "place",
+        "indices": [
+          "y",
+          "t"
+        ],
+        "description": "coordinate change"
+      },
+      {
+        "dimension": "order",
+        "indices": [
+          "-1",
+          "-2",
+          "-3",
+          "-4",
+          "-5"
+        ],
+        "description": "coefficient family"
+      }
+    ],
+    "conclusion_uses": [
+      {
+        "dimension": "order",
+        "indices": [
+          "0",
+          "1",
+          "2"
+        ],
+        "description": "required nonnegative slices"
+      }
+    ]
+  },
+  "attempted_conclusion": "The recorded uses are covered by the declared index inventory on all asserted dimensions.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Adding missing order components does not represent the missing t place."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_retrodiction.py",
+      "line": 154,
+      "anchor": "def test_each_axis_is_necessary_the_other_cannot_cover_for_it("
+    }
+  ]
+}

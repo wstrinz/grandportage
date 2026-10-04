@@ -1,0 +1,131 @@
+{
+  "schema": "gp-phase2-supersession-integration/v1",
+  "date": "2026-10-01",
+  "parent_base_commit": "5cf1e5cde2df2eb9be21583032b0d7635f067832",
+  "source_hashes": {
+    "DECISIONS.md": "481e254a0d5bf8d73e3f500d386e0cc82b19fe23c877e0a556b6cc66d9d87a8d",
+    "STATUS.md": "2b352b29c2858fd8989929ed6f088a72da11fffd653ccb8bcb317f19cfebb1c0",
+    "phase2/lean/GP50/ConflictSoundnessProofs.lean": "1825e50668c6710a99ab79e9d1c855ef20b4408c2e3cdd35f9275d5338dc585c",
+    "phase2/lean/Tests/Conflict.lean": "aeb32e8ea331f3939c7f5ee5a16c1c2a610f9dbe14873c5ad5ba06bf32baa46c",
+    "tools/run-phase2-slice.py": "72110fcf90f602dc34cafff25dc607a8900b03b08f3062fda7b5f144d9425ed8",
+    "tools/run-phase2-supersession-guards.py": "aa4c5a47957830a0defa19aa37e68d361ab0d79be489760c2d1b00b56ac44cac",
+    "tests/test_phase2_supersession_guards.py": "09590acf84a22fb1a308f8281dfe5bc6114ccecc32801ec8bcd1616da3412d78",
+    "tools/run-phase2-residual-successors.py": "c207a2c9d2fe344002439cd4c9192844981f4d658f5a407fcbc07a21e6eb99db",
+    "tests/test_phase2_residual_successors.py": "479eba7c6711c78cafefa5851974f591045f4a2ddbce520902174abf896aab8e",
+    "tools/run-phase2-conflict-demonstration.py": "7377581be14a9fe58d3ef0e9bb220d0fd7a23135938473ac65edaa71c91cb5eb",
+    "reports/PHASE-2-SLICE.json": "c343e62c6945f2625f20032818073721276a50defccced8419cc3f64978b0bc8",
+    "reports/PHASE-2-SLICE.md": "90a791ad0695935f34c65fb77b9f7b38d4ef20bc57659d523478808fb4e71c03",
+    "reports/PHASE-2-SUPERSESSION-GUARDS.json": "44c21ef5ddbe7b9e56a02040e8c118dd4fe5f9344ccd2b7f55f7a7b98925c7fe",
+    "reports/PHASE-2-RESIDUAL-SUCCESSORS.json": "efdbf909a864496475cf6e70870c7463bf160ffcb86c6a82b5ef7bdbc52a4de0",
+    "reports/PHASE-2-CONFLICT-DEMONSTRATION.json": "c528854b0343f7f9d6d6f388c4468c2ed06ff4ebe56d0aee8ed682b5422f6fdc",
+    "reports/PHASE-2-PROVENANCE-SLICE.json": "97925853c5e08982a8a0e8d01e0d1583fa142c0b7416e76a5a1beede7b17c359",
+    "reports/PHASE-2-CHECKED-LIFECYCLE-SUPPLEMENT.json": "ee0af465d807d2bc45a470ce521a860ea60a9efc6ac61289dd3170dcbc46c1ab"
+  },
+  "worker_original_hashes": {
+    "supersession_guards": {
+      "tools/run-phase2-supersession-guards.py": "66e4f58c1984fb33e7abef3e545a60c8dc83f10056f81a0c78279009b7af2776",
+      "tests/test_phase2_supersession_guards.py": "830069aa443198ee0bfdec845d37692bc172f69f5caa37c2e4f1f07f5e97598c",
+      "reports/PHASE-2-SUPERSESSION-GUARDS.json": "bc0ed362121809288159a328d9c32d3569a0488cc1b74abe0a68a9f333da43a7"
+    },
+    "residual_successors": {
+      "tools/run-phase2-residual-successors.py": "15596e3830abe701df5a5a21dcd0b79c1f8b6d1bb3602bbd7305924242eb46e8",
+      "tests/test_phase2_residual_successors.py": "7fc7cafa28b1f626c314932222211fab476d801838e4a23c247a13403016420e",
+      "reports/PHASE-2-RESIDUAL-SUCCESSORS.json": "3b7f5dd26ba3582499084e7dc2f579e95b9ccd0942bf07a8cdba0c3579464042"
+    }
+  },
+  "worker_active_seconds": {
+    "supersession_guards": 543,
+    "residual_successors": 394
+  },
+  "parent_review": {
+    "original_named_source_functions_read": true,
+    "literal_objects_properties_history_and_queries_preserved": true,
+    "X152": "Native resolve rejects withdrawal plus live replacement for one target.",
+    "X153": "Native resolve rejects self supersession; no host prefilter.",
+    "X154": "Native resolve rejects missing GHOST endpoint; no fabricated original declaration or general category checker claimed.",
+    "X155": "Native cycle rejection prevents the attempted debt clearance before any snapshot. The original accepts the cycle and retains two untyped/one parallel finding. This is the complete attempted-conclusion refusal, not reproduction of its finding-list query.",
+    "X158": "Full retained native snapshot and chain 3->4->8 leave exactly relation8 live; contexts remain separately live. Omitted-link control exposes two relation heads.",
+    "X159": "Actual native live IDs retain both distinct relations at the exact IV->PD pair. Full immutable identities supply labels/endpoints after snapshot comparison. Literal null prior is preserved and creates no supersession. Clearance refused from actual independent live heads, not a native malformed diagnostic or a new audit surface.",
+    "X161": "Actual native successor links preserve C->C2 and C->C3, both successor identities live, historical C retained and inactive. No predecessor prose rendering claimed.",
+    "authority": "Admission.refuseAll; these lifecycle contracts supply no checked mathematical truth.",
+    "all_four_orders_equal": true,
+    "prior_28_complete_execution_records_equal": true
+  },
+  "parent_conflict_work": {
+    "theorems": [
+      "sound_evaluate_conflict_has_no_witness",
+      "sound_fold_conflict_has_no_witness"
+    ],
+    "actual_fold_contract": "withNarrowing over the real resolved event set, exact registered Clause meaning, BaseValidatorSound contracts. Confirmed inhabited-overlap findings have no witness under these assumptions. Unknown-overlap findings remain possible.",
+    "kernel_checked_modules": [
+      "GP50.ConflictSoundnessProofs",
+      "Tests.Conflict"
+    ],
+    "axioms": [
+      "propext",
+      "Quot.sound"
+    ],
+    "direct_user_ratification": "2026-10-01 conflict demonstration ratified: Will directly selected Approve faulty-checker demonstration plus soundness proof.",
+    "existing_alarm_controls_replayed": 15,
+    "interpretation": "Deliberately faulty checker simulation plus impossibility theorem closes the required conflict demonstration. Faulty admission is not adopted; no production profile or 79-case gate exception."
+  },
+  "integration_changes": "Normalize completed worker sources to LF and add explicit full-contract/status fields after parent review. Integrate seven distinct fixture passes and ratified conflict demonstration. Add proof-only module and two compiled examples; production logic/decoders/statements and receipt/lifecycle executables unchanged. Refresh shared-adapter hashes only in previous reports.",
+  "counts": {
+    "previous_corpus_passes": 28,
+    "new_corpus_passes": 7,
+    "corpus_passes": 35,
+    "kernel_tagged_total": 79,
+    "remaining_kernel_cases": 44,
+    "new_corpus_cases": 0,
+    "guard_original_folds": 20,
+    "guard_separate_controls": 24,
+    "residual_original_folds": 8,
+    "residual_separate_controls": 16,
+    "existing_native_components": 553,
+    "compiled_proof_controls": 83,
+    "host_tests": 211,
+    "host_subtests": 617,
+    "new_host_tests": 32,
+    "new_host_subtests": 168
+  },
+  "required_early_slice_complete": true,
+  "g2_pass": false,
+  "legacy_preservation": {
+    "receipt": "tmp/phase2-supersession-closeout-legacy-preservation.json",
+    "sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f",
+    "case_count": 459,
+    "summary": {
+      "AGREES": 403,
+      "DIAGNOSTIC_OBSERVED": 4,
+      "KNOWN_DIFFERENCE": 14,
+      "UNSUPPORTED": 9,
+      "RETAINED_DIAGNOSTIC": 29
+    },
+    "protected_artifact_count": 67,
+    "bytes_expectations_outcomes_unchanged": true
+  },
+  "budget": {
+    "counts": {
+      "logic": 636,
+      "decoder": 263,
+      "statement": 26,
+      "proof": 1668
+    },
+    "markdown_added_words": 7974,
+    "status_words": 270,
+    "failures": []
+  },
+  "slice_words": 500,
+  "next_worker": {
+    "designator": "GPB",
+    "thread_id": "01a0eeca-572e-7202-a708-c730d410b901",
+    "cases": [
+      "GP-A15",
+      "GP-A26",
+      "GP-X82"
+    ],
+    "active_minutes_cap": 30,
+    "boundary": "Complete missing-authority contracts through existing native interfaces only; partial cases stay unexecuted. No production/shared edits or admission of new checker/profile."
+  },
+  "publication": "Local commit only; no push. Heartbeats remain paused."
+}

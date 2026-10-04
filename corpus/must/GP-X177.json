@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "id": "GP-X177",
+  "seed": null,
+  "title": "Two universal premises restrict to their common context",
+  "situation": "Both reverse routes restrict universal properties to the same context. Premise truth is assumed.",
+  "inputs": {
+    "contexts": [
+      "tight",
+      "loose",
+      "side"
+    ],
+    "relations": [
+      {
+        "name": "first",
+        "source": "tight",
+        "target": "loose",
+        "relation": "equations_forgotten"
+      },
+      {
+        "name": "second",
+        "source": "tight",
+        "target": "side",
+        "relation": "equations_forgotten"
+      }
+    ],
+    "premises": [
+      {
+        "context": "loose",
+        "statement_class": "universal_property",
+        "statement": "a universal property",
+        "route": [
+          {
+            "relation": "first",
+            "direction": "reverse"
+          }
+        ]
+      },
+      {
+        "context": "side",
+        "statement_class": "universal_property",
+        "statement": "a universal property",
+        "route": [
+          {
+            "relation": "second",
+            "direction": "reverse"
+          }
+        ]
+      }
+    ],
+    "conclusion_class": "universal_property",
+    "conclusion_text": "both premises have licensed routes to the tight context"
+  },
+  "attempted_conclusion": "Accept the stated conditional premise-route or cover-composition step.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Both reverse routes restrict universal properties to the same context. Premise truth is assumed."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 1429,
+      "anchor": "def test_an_argument_can_now_combine_two_premises("
+    }
+  ]
+}

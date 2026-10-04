@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "CTRL-SWAPPED-GENERATOR",
+  "title": "X125 with two generators swapped against their cofactors",
+  "inputs": {
+    "variables": [
+      "x",
+      "y"
+    ],
+    "generators": [
+      "3*x^2-1",
+      "y^2-x^3+x-1",
+      "2*y"
+    ],
+    "target": "1",
+    "cofactors": [
+      "-(18*x+27)/23",
+      "(4-6*x^2-9*x)/23",
+      "(18*x+27)*y/46"
+    ],
+    "characteristic": 0
+  },
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Cofactors are bound to generator positions."
+  },
+  "control": "adversarial admission control (post-G2 \u00a73.3); not a corpus case"
+}

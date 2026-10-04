@@ -1,0 +1,60 @@
+{
+  "schema": "gp-phase2-runtime-review/v1",
+  "date": "2026-09-30",
+  "source_hashes": {
+    "phase2/lean/GP50/Decoder.lean": "ff9285482c6e449ef4ece013f06cc2bec2b7513c5dbed74b0df30d3dd5f111c6",
+    "phase2/lean/GP50/Runtime.lean": "f4c52eee8deaa575a0baa52e92fffb8c436eab9a281834ba1f0897f5af8626c3",
+    "phase2/lean/GP50/Entry.lean": "96aa87bbc08df401335a77358815269a04456dcea810c7aa99dff50ff8de392d",
+    "phase2/lean/GP50/RuntimeProofs.lean": "1e983e64655a3d8eced5e2807194b5c39400695d8b2bde0cc7b66703dcfeb43a",
+    "phase2/lean/Tests/Decoder.lean": "03bf369153313c962cc43581794ef856dfa83404e9cbcaa2dea7cc7cc6f1d671",
+    "phase2/lean/Tests/Runtime.lean": "a23c5a0d77d9ea1340a54215f147732e569054e9f7ff938dd83cdcccaf2d1d43",
+    "phase2/lean/GP50.lean": "fb1d47ecb1d17fc0569156c6dfc989aa915852fa6b6546bf205fc322c2c3c6d4",
+    "phase2/lean/lakefile.toml": "2f1cc1b11fc712e11faca9140c8295adc8b9e765fb6e52ca9552d085a0ca82f6"
+  },
+  "build": "lake build: 38 jobs passed",
+  "controls": {
+    "decoder": 247,
+    "runtime": 23,
+    "prior_foundation": 65,
+    "total_component": 335
+  },
+  "decoder_contract": {
+    "raw_duplicate_keys": "rejected at every object depth after escape decoding",
+    "extra_fields": "rejected at each typed level",
+    "unknown_construct_or_status": "malformed",
+    "numeric_normalization": "Lean JSON normalizes negative zero and certain exponent spellings; no strings/booleans/fractional representations are accepted as Nat",
+    "parsed_ast_entrypoint": "cannot recover duplicate keys or original bytes; raw Entry.decodeFold uses raw Decoder.decode",
+    "receipt_string": "opaque; decoded successfully does not mean checked"
+  },
+  "proved": [
+    "GP50.held_evaluate_iff",
+    "GP50.held_fold_iff"
+  ],
+  "meaning": "actual runtime held claims equal claims of reachable warrants under the generated validator-gated graph",
+  "independent_kernel_replay": {
+    "GP50.RuntimeProofs": 0,
+    "GP50.Decoder": 0
+  },
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "admission": "function capabilities; refuseAll default; tests use named component seams, not admitted mathematical evidence",
+  "not_claimed": [
+    "whole-kernel heldSoundStatement",
+    "event resolver order independence",
+    "corpus slice execution",
+    "G2 pass",
+    "algebraic checker admission"
+  ],
+  "worker_active_minutes": {
+    "initial_decoder": 13,
+    "duplicate_guard": 10
+  },
+  "preserved": {
+    "original_case_bytes_and_expectations": 459,
+    "oracle_pin_and_latest_results": true,
+    "verbatim_handoff": true
+  }
+}

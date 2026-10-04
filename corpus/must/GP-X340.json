@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "seed": null,
+  "inputs": {
+    "fixture_sha256": "8b9cf56ca0faad4dbeeb57593c2612ed408521df3a9d62c34bcd838e8189cd58",
+    "regimes": [
+      "R5",
+      "R6"
+    ],
+    "zero_from": 14,
+    "operator_coefficient_domain": "QQ",
+    "shift_convention": "(S B)_d = B_(d+1)",
+    "unit_operator": {
+      "0": "1"
+    },
+    "control": "reject_blanket_minimality",
+    "claimed_minimal_operator": {
+      "0": "-1",
+      "1": "1"
+    },
+    "minimality_order": "shift_degree"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_adjoint_recurrence/adapter.py",
+      "line": 52,
+      "anchor": "(\"R5\", (14, 14), False, (2, 3, 4, 5), (), 4)"
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_adjoint_recurrence/adapter.py",
+      "line": 53,
+      "anchor": "(\"R6\", (15, 24), True, ROWS, (), 5)"
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_adjoint_recurrence/adapter.py",
+      "line": 332,
+      "anchor": "\"blanket minimality of S-1 within every regime (the zero-tail \""
+    }
+  ],
+  "id": "GP-X340",
+  "title": "Zero regimes refuse blanket S-1 minimality",
+  "situation": "The same pinned R5 and R6 are identically zero. The statement that S-1 is minimal in each regime is compared against the degree-zero unit annihilator over QQ.",
+  "attempted_conclusion": "Call S-1 a minimal shift-degree annihilator separately on R5 and R6.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The nonzero unit operator annihilates either zero regime and has shift degree zero, below the degree-one S-1."
+  }
+}

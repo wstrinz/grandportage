@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "GP-X388",
+  "seed": null,
+  "title": "Operational 66.2: frontier count status boundary",
+  "situation": "Item status FAILED with frontier_state absent; explicit OPEN is control.",
+  "inputs": {
+    "incident_row": "66.2",
+    "vector": {
+      "item_status": "FAILED",
+      "frontier_state": "absent",
+      "control_frontier_state": "OPEN"
+    },
+    "retained_evidence_refs": [
+      "reports/FRONTIER-PROJECTION-BOUNDARIES.json#/controls/0",
+      "reports/FRONTIER-PROJECTION-BOUNDARIES.json#/controls/1"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Default an unknown status to CLOSED.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Unknown status must not silently close an obligation; exact refuse/open policy remains undecided."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/frontier.py",
+      "line": 290,
+      "anchor": "if (item.get(\"frontier_state\") == \"OPEN\"",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

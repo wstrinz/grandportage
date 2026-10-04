@@ -1,0 +1,204 @@
+{
+  "schema": "gp-phase2-provenance-release-integration/v1",
+  "date": "2026-09-30",
+  "parent_base_commit": "41dd2c9",
+  "source_hashes": {
+    "tools/run-phase2-slice.py": "9e02a5eeda3f8f9d5e956833071d287e1f2fdfe09397b7d46cfffecede626e62",
+    "tools/run-phase2-provenance-slice.py": "583b7cce690a9715c40bf86ec2652b8f7f56cc4933b5f5f074f7adff954a8a8b",
+    "tests/test_phase2_provenance_slice.py": "595da5cb587e70daca76cebea0b3f8e7d39d712fa417098df2b991b7b6302db8",
+    "phase2/lean/GP50/Conflict.lean": "e05e82b0bae7b0c2d7a717e89ea28476b9f74a9d1727721818b0d4a17341590c",
+    "phase2/lean/GP50/ConflictProofs.lean": "40e361e903287aaf19b2fed16387f3c7477dae822331ded4cae3c459bbaa84e4",
+    "phase2/lean/Tests/Conflict.lean": "9fa234dac9c6ecf78cb92614f67ac47fabaad4d91afba899f610cce86fa08859",
+    "phase2/lean/GP50/ScopedRunner.lean": "e86a883bf4a6c1dd78f28c6651dc5a6c83f0d7bfada4bad9581afeedd1e7b91f",
+    "tests/test_phase2_scoped_wire.py": "dd5baf01a46863be98235645d888588ddf3768a65447aefc18571a70fa6f3edd",
+    "tests/test_phase2_cover_wire.py": "9b4b2dc51905766acb52140f409d7cd4ddebf3cd62b5d7572cad7fd018a7b23c",
+    "reports/PHASE-2-PROVENANCE-SLICE.json": "1e6021baebedf52d72916ce8476effadbe6a46008d954a4fa013fdcd41deccdd",
+    "reports/PHASE-2-SLICE.json": "d9e5f820f3e78a9599f7e1bbbaf37864aaf64c61a1bf32c07fc2fbf4a8e26e9b"
+  },
+  "corpus": {
+    "previous_passes": 7,
+    "new_passes": 8,
+    "total_passes": 15,
+    "kernel_tagged_total": 79,
+    "provenance_cases": [
+      "GP-X165",
+      "GP-X166",
+      "GP-X167",
+      "GP-X168",
+      "GP-X169",
+      "GP-X170",
+      "GP-X171",
+      "GP-X172"
+    ],
+    "positive_contrasts": 6,
+    "complete_order_records_equal": true,
+    "order_constructor": {
+      "base_commit": "a95fcee6f24f1f63b41fd56681319053727488b3",
+      "path": "tools/lifecycle_probes.py",
+      "sha256": "b74d26a213f9c7c389fbd69ff064fbc29f781763cf66dc8dfe753aff5f9ab944",
+      "source_epoch_path": "grandportage/format.py",
+      "source_epoch_sha256": "9d7ad6885285b2e55de9bbf6dea62d428d1f68a3b7180728a1651365c82c171e",
+      "source_current_epoch": 12,
+      "source_stale_epoch": 11,
+      "native_current_epoch": 1,
+      "native_stale_epoch": 0
+    },
+    "new_conflict_corpus_passes": 0,
+    "g2_pass": false
+  },
+  "review": {
+    "literal_model_and_claim": "M:(x), C:x=0; input mutation retains C and changes M:(x\u00b2)",
+    "verified_mutations": [
+      "verifier",
+      "verifier_version",
+      "kernel_epoch",
+      "backend"
+    ],
+    "legacy_record": "Complete literal epoch-0 verdict retained as inert citation",
+    "source_execution": "Fabricated historical Singular descriptors supply no authority; actual Rat replay does",
+    "worker_active_seconds": 654,
+    "parent_added_orders": 2
+  },
+  "validation": {
+    "host_tests": 91,
+    "host_subtests": 125,
+    "post_release_wire_tests": 45,
+    "build_jobs": 114,
+    "new_native_conflict_controls": 15,
+    "cumulative_native_component_controls": 553,
+    "new_compiled_proof_controls": 2,
+    "cumulative_compiled_proof_controls": 67,
+    "independent_leanchecker": [
+      "GP50.ConflictProofs",
+      "GP50.ScopedRunner"
+    ],
+    "axioms": {
+      "confirmed_conflict_excludes_joint_truth": [],
+      "release_preserves_complete_state": [
+        "propext"
+      ]
+    }
+  },
+  "release_review": {
+    "runtime_state_preserved": true,
+    "witness": "Actual shared context with proved membership in both scopes",
+    "unknown_overlap": "Finding retained; release allowed",
+    "positive_alarm": "Test-only deliberately unsound admission; no production profile/checker adoption",
+    "production_stub": "Positive formal Rat identities only; contradiction predicate always false",
+    "scoped_runner_sha256": "6ea639fe47341678d1e96841fae8cb49c2d79e0fea2a08d4d62c5a981ac76c02",
+    "wire_inputs": {
+      "events.json": "db27c1efa9f5f3bb648b00451477060cc3b7c46ee4ec12099118d24e1d7337ab",
+      "query.json": "b18de00dd03793afbea6fb583a61f7c26a6200303fcef87d6d0654c077d36f2a",
+      "registry.json": "ba4368095b3d825f11ac682059e4c8d24098401d48fcf957303ee6bf8b5056b4"
+    },
+    "wire_result": {
+      "earned": [
+        {
+          "claim": 3,
+          "open_obligations": [
+            7,
+            8
+          ]
+        },
+        {
+          "claim": 4,
+          "open_obligations": [
+            7
+          ]
+        }
+      ],
+      "release": {
+        "allowed": true,
+        "findings": []
+      },
+      "state": {
+        "current_count": 4,
+        "domain": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "held": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "live_warrants": [
+          10,
+          20,
+          30,
+          40
+        ],
+        "retracted": [],
+        "status": "OK",
+        "successors": [],
+        "supports": [
+          10,
+          20,
+          30,
+          40
+        ],
+        "warrant_count": 4
+      },
+      "why_not": [
+        {
+          "claim": 3,
+          "held": true,
+          "warrants": [
+            {
+              "id": 30,
+              "reasons": [],
+              "supported": true
+            }
+          ]
+        },
+        {
+          "claim": 4,
+          "held": true,
+          "warrants": [
+            {
+              "id": 40,
+              "reasons": [],
+              "supported": true
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "preservation": {
+    "fresh_replay_sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f",
+    "case_count": 459,
+    "summary": {
+      "AGREES": 403,
+      "DIAGNOSTIC_OBSERVED": 4,
+      "KNOWN_DIFFERENCE": 14,
+      "UNSUPPORTED": 9,
+      "RETAINED_DIAGNOSTIC": 29
+    },
+    "protected_count": 67,
+    "all_prior_bytes_expectations_outcomes_unchanged": true
+  },
+  "budget": {
+    "counts": {
+      "logic": 636,
+      "decoder": 263,
+      "statement": 26,
+      "proof": 1487
+    },
+    "targets_exceeded": [
+      "logic"
+    ],
+    "markdown_added_words": 7387,
+    "failures": []
+  },
+  "budget_note": "Workspace proof count includes active worker erased proofs; they are unreviewed and excluded from this checkpoint commit.",
+  "remaining": [
+    "Actual event-set order proof worker active",
+    "Faithful required semantic slice fixtures",
+    "All 79 kernel-tagged cases",
+    "G2 readability review"
+  ]
+}

@@ -1,0 +1,310 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "files": [
+    {
+      "path": "tests/test_inband_identity.py",
+      "sha256": "cbab4d51cfd162f8d0ea2336c56b69464dbf37a85b69bfb5c7f90eea9e4af5c7",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "functions": [
+        {
+          "name": "test_native_execution_identity_is_from_that_transcript",
+          "line": 11,
+          "end_line": 18,
+          "status": "source_read_and_regression_passed",
+          "remaining": "Neutral extraction complete only for listed cases; other distinct controls remain pending."
+        },
+        {
+          "name": "test_identity_failure_cannot_record",
+          "line": 21,
+          "end_line": 34,
+          "status": "source_read_and_regression_passed",
+          "remaining": "Neutral extraction complete only for listed cases; other distinct controls remain pending."
+        },
+        {
+          "name": "test_mixed_trace_cannot_rehabilitate_earlier_execution",
+          "line": 36,
+          "end_line": 43,
+          "status": "source_read_and_regression_passed",
+          "remaining": "Neutral extraction complete only for listed cases; other distinct controls remain pending."
+        },
+        {
+          "name": "test_native_inband_version_replays",
+          "line": 46,
+          "end_line": 51,
+          "status": "live_unexecuted",
+          "remaining": "Neutral extraction complete only for listed cases; other distinct controls remain pending."
+        }
+      ],
+      "remaining": "Live backend test remains unexecuted; mixed-history identity passed as a regression but still needs a neutral multi-attempt case."
+    },
+    {
+      "path": "tests/test_artifacts.py",
+      "sha256": "1b78dc5d7c7212f4dac39d989bde1ca4fa92734c6aba222ae8cd89d35611cb3b",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "functions": [
+        {
+          "name": "test_complete_execution_round_trips_and_deduplicates",
+          "line": 62,
+          "end_line": 75,
+          "status": "source_read_and_regression_passed",
+          "remaining": "Extracted storage slice only; no general proof of persistence or concurrency behavior.",
+          "cases": [
+            "GP-X211"
+          ]
+        },
+        {
+          "name": "test_corrupt_existing_object_is_refused_and_not_healed",
+          "line": 78,
+          "end_line": 89,
+          "status": "source_read_and_regression_passed",
+          "remaining": "Extracted storage slice only; no general proof of persistence or concurrency behavior.",
+          "cases": [
+            "GP-X212"
+          ]
+        },
+        {
+          "name": "test_publication_fails_closed_without_atomic_immutable_link",
+          "line": 92,
+          "end_line": 103,
+          "status": "source_read_and_regression_passed",
+          "remaining": "Extracted storage slice only; no general proof of persistence or concurrency behavior.",
+          "cases": [
+            "GP-X220"
+          ]
+        },
+        {
+          "name": "test_inner_hash_and_content_address_are_both_checked",
+          "line": 106,
+          "end_line": 116,
+          "status": "source_read_and_regression_passed",
+          "remaining": "Extracted storage slice only; no general proof of persistence or concurrency behavior.",
+          "cases": [
+            "GP-X213",
+            "GP-X214"
+          ]
+        },
+        {
+          "name": "test_manifest_audit_reports_missing_and_swapped_artifacts",
+          "line": 119,
+          "end_line": 138,
+          "status": "source_read_and_regression_passed",
+          "remaining": "Extracted storage slice only; no general proof of persistence or concurrency behavior.",
+          "cases": [
+            "GP-X216",
+            "GP-X217",
+            "GP-X218"
+          ]
+        },
+        {
+          "name": "test_malformed_fingerprint_cannot_escape_artifact_store",
+          "line": 141,
+          "end_line": 143,
+          "status": "source_read_and_regression_passed",
+          "remaining": "Extracted storage slice only; no general proof of persistence or concurrency behavior.",
+          "cases": [
+            "GP-X219"
+          ]
+        },
+        {
+          "name": "test_persist_all_uses_content_addresses_in_execution_order",
+          "line": 146,
+          "end_line": 151,
+          "status": "source_read_and_regression_passed",
+          "remaining": "Extracted storage slice only; no general proof of persistence or concurrency behavior.",
+          "cases": [
+            "GP-X221"
+          ]
+        },
+        {
+          "name": "test_cli_audits_referenced_objects_without_changing_graph_fold",
+          "line": 154,
+          "end_line": 185,
+          "status": "source_read_and_regression_passed",
+          "remaining": "CLI formatting and exact original non-replayable trace variant remain source-test evidence; case questions deliberately separate mathematical authority and artifact audit.",
+          "cases": [
+            "GP-X226",
+            "GP-X227",
+            "GP-X228"
+          ]
+        },
+        {
+          "name": "test_exact_identity_receipt_survives_local_backend_state",
+          "line": 192,
+          "end_line": 228,
+          "status": "source_read_and_regression_passed",
+          "remaining": "CLI formatting and exact original non-replayable trace variant remain source-test evidence; case questions deliberately separate mathematical authority and artifact audit.",
+          "cases": [
+            "GP-X222",
+            "GP-X223",
+            "GP-X224",
+            "GP-X225"
+          ]
+        },
+        {
+          "name": "test_malformed_v2_manifest_is_an_explicit_audit_failure",
+          "line": 231,
+          "end_line": 251,
+          "status": "source_read_and_regression_passed",
+          "remaining": "Neutral extraction complete only for listed cases; other distinct controls remain pending."
+        },
+        {
+          "name": "test_unavailable_historical_backend_is_readable_but_not_authority",
+          "line": 254,
+          "end_line": 287,
+          "status": "source_read_and_regression_passed",
+          "remaining": "CLI formatting and exact original non-replayable trace variant remain source-test evidence; case questions deliberately separate mathematical authority and artifact audit.",
+          "cases": [
+            "GP-X229"
+          ]
+        },
+        {
+          "name": "test_cli_reports_artifact_publication_failure_without_traceback",
+          "line": 290,
+          "end_line": 299,
+          "status": "source_read_and_regression_passed",
+          "remaining": "Neutral extraction complete only for listed cases; other distinct controls remain pending."
+        }
+      ],
+      "remaining": "Malformed graph-manifest and CLI error/readability cases still need neutral disposition; main storage, exact replay and historical metadata boundaries extracted."
+    },
+    {
+      "path": "tests/test_backend.py",
+      "sha256": "99faee8eb7f47e3a39a5fda6e94c553bcf988744d2a7eceb8080291b57cc9650",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "functions": [],
+      "remaining": "Full text review completed in Batch 74; 28 offline tests pass, eight live excluded. See BACKEND-COMPLETE-TEXT-REVIEW.json for scopes and remaining semantic/extraction work."
+    },
+    {
+      "path": "grandportage/cas.py",
+      "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "functions": [],
+      "remaining": "Complete source text read across Batches 74-76. CAS-PROGRAM-REVIEW.json, CAS-OPERATIONS-REVIEW.json and BACKEND-COMPLETE-TEXT-REVIEW.json record findings. Semantic extraction, remaining boundary tests and process races remain incomplete."
+    },
+    {
+      "path": "grandportage/artifacts.py",
+      "sha256": "1d3da9853c59899b29a522c4646f488712f80b1efbcc93fa843f1243ee098864",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "functions": [],
+      "remaining": "Complete closed-envelope type matrix, concurrency races, note references, Groebner final-artifact binding and graph-audit consumer behavior still need disposition."
+    },
+    {
+      "path": "grandportage/provenance.py",
+      "sha256": "79440d816d0217e6cd9297a0b81d742ed83984007355c21013839df8c3a7828a",
+      "full_text_read": false,
+      "semantic_status": "partial",
+      "functions": [],
+      "remaining": "Read decode_backend_provenance/backend_provenance lines 585-649; other receipt/fingerprint/authority paths remain partial."
+    },
+    {
+      "path": "grandportage/adapter_conformance.py",
+      "sha256": "8d865fdcff53a48698096a8a7ae26450026e242a4fa30d838331b5b66b919fba",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "functions": [],
+      "remaining": "All four source test instances pass. Diagnostic self-report controls expose structural scope; full structural rejection matrix and mutation replay by actual adapters remain separate obligations."
+    },
+    {
+      "path": "tests/test_adapter_conformance.py",
+      "sha256": "ae92f1f51eeba248248480d2f7b87d6e26806687fda7cf729324cd7e1d9abe1e",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "functions": [],
+      "remaining": "All four source test instances pass. Diagnostic self-report controls expose structural scope; full structural rejection matrix and mutation replay by actual adapters remain separate obligations."
+    },
+    {
+      "path": "tests/test_boundary.py",
+      "sha256": "64ab66da2ae7e9c2be5c4dd8fda370953ef55bc8fe4acc258aaa8150f0898dcf",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "functions": [],
+      "remaining": "Full text reading complete in Batch 78; 42 offline instances pass across complementary Batches 77-78, 13 live unexecuted. See BOUNDARY-TEST-REVIEW.json for per-function dispositions and remaining extraction limits."
+    },
+    {
+      "path": "tests/test_groebner_producer.py",
+      "sha256": "ace224400c762dd754841c8937a3e619a00a3ce68dce0835a6c2050d5581f910",
+      "full_text_read": false,
+      "semantic_status": "partial",
+      "functions": [],
+      "remaining": "Three timeout/output controls read and passed in this slice. Producer proof, size/binding and live CAS families retain separate partial review obligations."
+    }
+  ],
+  "cases": [
+    "GP-X201",
+    "GP-X202",
+    "GP-X203",
+    "GP-X204",
+    "GP-X205",
+    "GP-X206",
+    "GP-X207",
+    "GP-X208",
+    "GP-X209",
+    "GP-X210",
+    "GP-X211",
+    "GP-X212",
+    "GP-X213",
+    "GP-X214",
+    "GP-X215",
+    "GP-X216",
+    "GP-X217",
+    "GP-X218",
+    "GP-X219",
+    "GP-X220",
+    "GP-X221",
+    "GP-X222",
+    "GP-X223",
+    "GP-X224",
+    "GP-X225",
+    "GP-X226",
+    "GP-X227",
+    "GP-X228",
+    "GP-X229",
+    "GP-X230",
+    "GP-X231",
+    "GP-X232",
+    "GP-X233",
+    "GP-X234",
+    "GP-X235",
+    "GP-X236",
+    "GP-X237",
+    "GP-X238",
+    "GP-X239",
+    "GP-X240",
+    "GP-X241",
+    "GP-X242",
+    "GP-X243",
+    "GP-X244",
+    "GP-X245",
+    "GP-X246",
+    "GP-X247",
+    "GP-X248",
+    "GP-X249",
+    "GP-X250",
+    "GP-X251",
+    "GP-X252",
+    "GP-X253",
+    "GP-X254"
+  ],
+  "scope": "Offline execution-envelope observations and source-test evidence, not live process verification or held graph authority.",
+  "results": [
+    "17 selected identity/completion/immutability regressions passed",
+    "13 artifact regressions passed",
+    "Live in-band Singular case not run"
+  ],
+  "findings": [
+    "Version banner plus invocation nonce binds the reported identity but is not an executable-content digest.",
+    "A caller-injected runner cannot record native authority; native-path monkeypatches here are explicit test doubles, not deployment evidence.",
+    "Raw artifact loss is audit debt separate from graph fold semantics in the frozen implementation.",
+    "Replayable exact arithmetic identity survives unavailable or changed local backend; unavailable historical non-replayable metadata remains legacy-readable without authority."
+  ],
+  "remaining": [
+    "Retain/comment-triage compiler conservative refusal without changing oracle",
+    "Review remaining process races, producer binding and actual backend custody",
+    "Continue artifact note/Groebner binding and authority families"
+  ]
+}

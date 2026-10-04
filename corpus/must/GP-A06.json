@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "GP-A06",
+  "seed": "A6",
+  "title": "A predicate on an isolated region does not cover the curve",
+  "situation": "The nodal cubic has an isolated real point (0,0); x vanishes there.",
+  "inputs": {
+    "variables": [
+      "x",
+      "y"
+    ],
+    "equations": [
+      "y^2-x^2*(x-1)"
+    ],
+    "region": "{(0,0)}",
+    "predicate": "x=0"
+  },
+  "attempted_conclusion": "Conclude x vanishes on the whole real curve.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A regional predicate is not an ideal identity or a global predicate."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 546,
+      "anchor": "| A6 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 2843,
+      "anchor": "def test_the_nodal_cubic_is_refused_by_computation_not_declaration("
+    }
+  ]
+}

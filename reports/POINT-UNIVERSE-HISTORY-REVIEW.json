@@ -1,0 +1,84 @@
+{
+  "commit": "93770c6740c61e1adf809618cd798a0334daffc9",
+  "parent": "3ae698ac58c02ed0a95beb9c27293603d6c3713b",
+  "full_diff_read": true,
+  "diff_sha256": "0f3dd06138810bf1284f2aaa3bbde7ee4fc54c048316ff1d6835a267414e3804",
+  "files": [
+    {
+      "path": "CURRENT.md",
+      "blob": "61474af7b6d874fa052ccfcf9e687380920d5f18",
+      "sha256": "117f4473da4b7d5c2a1bd463ccc3705639c3691966f74d66b436661675698bca",
+      "disposition": "Mechanical historical check-count updates only; not current test evidence."
+    },
+    {
+      "path": "HANDOFF.md",
+      "blob": "f017eea45676dd6b51b67afe399659a313b4a7cf",
+      "sha256": "598e687f78e2900130bd758eeb1daa02ee86b3fe5edc9578aa96bba921e5f30f",
+      "disposition": "Mechanical historical check-count updates only; not current test evidence."
+    },
+    {
+      "path": "README.md",
+      "blob": "7eb3492005f93787d5e2b4f9a05692d960ff97a9",
+      "sha256": "63b9e0b1669c9c9cf3269a21ad3df6d30447964b74481efe18fa4a935469808a",
+      "disposition": "Mechanical historical check-count updates only; not current test evidence."
+    },
+    {
+      "path": "REVIEW.md",
+      "blob": "10cabfd22ec596e0e2f75c25642bab1b09eb9894",
+      "sha256": "e9c6b2a51d18e13829e7cf61c55215e18668c923fd0c98c8251b2044ee3896df",
+      "disposition": "Mechanical historical check-count updates only; not current test evidence."
+    },
+    {
+      "path": "SPEC.md",
+      "blob": "37e3f59914d2bee9fd00a8559d8af6524058cb2f",
+      "sha256": "370d6e612a50585b3fdc1f52b884bc3d36891a3ab9db6b08ed208a9fe67e9dbd",
+      "disposition": "Mechanical historical check-count updates only; not current test evidence."
+    },
+    {
+      "path": "TESTPLAN.md",
+      "blob": "75d62afa6ab9fbcccee41f51172044b3b88e8743",
+      "sha256": "6b82180b91c3f51e02001054232ad075a24c924aafea633853072cef846eb833",
+      "disposition": "Mechanical historical check-count updates only; not current test evidence."
+    },
+    {
+      "path": "grandportage/store.py",
+      "blob": "8e826d6df3ded3a7623c749c04015ea8df9b9a09",
+      "sha256": "b0e274084096ebcc16a1a260bd946d07df83b4c4a7970a930b3c2e350afa11fe",
+      "disposition": "Structural universe gate and omission semantics; all added commentary read."
+    },
+    {
+      "path": "tests/test_adversarial.py",
+      "blob": "1f9c8664b283d4783ee1475a4eaffcc373656b52",
+      "sha256": "37d12255251e4ebe1c83c8969c7acb7c973a540089a9e83d18edbb40b4dc173a",
+      "disposition": "Both directions, omission, retained toy, all typed relations and untyped control; full added test block read."
+    }
+  ],
+  "current_source_tests": {
+    "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+    "source_sha256": "1150aa49c0596af1a9816a71f44694838e6fef17370a2fc8337b453b3d43c9f8",
+    "xml_sha256": "a3548ab1969fb5d4a4dc538c77f04473b9de1aa7f7139bec9c6f7fb8a08b9e7e",
+    "passed": 15,
+    "names": [
+      "test_geometric_hole_remains_debt_over_the_base_point_universe",
+      "test_partition_refuses_a_branch_in_another_point_universe",
+      "test_partition_fingerprint_binds_the_declared_point_universe",
+      "test_equivalence_refuses_base_to_closure_point_universe_change",
+      "test_equivalence_refuses_closure_to_base_point_universe_change",
+      "test_equivalence_with_matching_point_universes_still_folds",
+      "test_equivalence_with_both_point_universes_omitted_still_folds",
+      "test_equivalence_refuses_when_only_one_endpoint_names_a_point_universe",
+      "test_the_accepted_cfg23_false_descent_no_longer_folds",
+      "test_other_edge_types_refuse_the_same_point_universe_bypass[NECESSARY_CONDITION-POLYNOMIAL]",
+      "test_other_edge_types_refuse_the_same_point_universe_bypass[BASE_EXTENSION-POLYNOMIAL]",
+      "test_other_edge_types_refuse_the_same_point_universe_bypass[IMAGE_CLOSURE-POLYNOMIAL]",
+      "test_other_edge_types_refuse_the_same_point_universe_bypass[RESTRICTION-IDENTITY_MAP]",
+      "test_other_edge_types_refuse_the_same_point_universe_bypass[SPECIALIZATION-POLYNOMIAL]",
+      "test_untyped_remains_the_escape_valve_for_a_real_point_universe_change"
+    ]
+  },
+  "limits": [
+    "No historical checkout execution or live Singular run.",
+    "No campaign repository read; retained GP test reproduction only.",
+    "Complete diff reading does not close portable extraction of all relation/omission controls."
+  ]
+}

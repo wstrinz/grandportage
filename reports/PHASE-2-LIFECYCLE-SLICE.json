@@ -1,0 +1,1766 @@
+{
+  "schema": "gp-phase2-lifecycle-slice/v1",
+  "case_count": 3,
+  "branch_executions": 6,
+  "complete_ten_case_slice": false,
+  "g2_pass": false,
+  "source_contract": {
+    "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+    "path": "tests/test_adversarial.py",
+    "line": 3297,
+    "anchor": "def test_supersession_does_not_make_the_fold_order_dependent(",
+    "file_sha256": "1150aa49c0596af1a9816a71f44694838e6fef17370a2fc8337b453b3d43c9f8",
+    "function_sha256": "13623373c6c6e898105eb30346ea19b0876aee8806670386108ff861273ff825",
+    "contract": "Same retained records in both concatenation orders; old successor pointer exists.",
+    "fixture_boundary": "Literal unchanged fixture abstraction, not a reconstruction of predecessor object data."
+  },
+  "runner_path": "phase2/lean/.lake/build/bin/gp_lifecycle_runner.exe",
+  "runner_sha256": "4affc188563f818aad3c798a4b49b0ccd25438c12a16cfd9283d9789f1128ab3",
+  "runner_source_sha256": "612c1ec3a7a42dda2f44953be7c2f2f42065b817a4253b691132823eb4e86121",
+  "adapter_sha256": "7e8f383ff29052d0df34d16e00d65d36d2799232a81aefb542b64e1d53f585a8",
+  "cases": [
+    {
+      "id": "GP-X144",
+      "source_sha256": "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "Supersession is resolved after the full fold, so both orders retain the same records and successor links."
+      },
+      "observed": "ACCEPT",
+      "question": "retained records and successor links are order-independent",
+      "full_fixture_contract": true,
+      "identity_records": [
+        {
+          "id": 1,
+          "identity": {
+            "fixture": "GP-X144",
+            "key": "object-1",
+            "category": "context",
+            "name": "M",
+            "properties": {
+              "description": "m"
+            },
+            "replacement": null
+          },
+          "binding": {
+            "statementHash": "46c19eef1c04e1c067ddf37d6dee9eb8297a846e55c1cd68a7df656945843d8b",
+            "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+            "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+            "inputHashes": [
+              "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+              "bdf2a6305a738ae97c5a0d42c45fa1eea63be67da3d0fde59265e8bb377300ad",
+              "2a48dbfc12443be7690866692ea74759004880387154aff8bed4bc7dddb9c8bc"
+            ],
+            "authority": "gp50-inert-lifecycle-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          }
+        },
+        {
+          "id": 2,
+          "identity": {
+            "fixture": "GP-X144",
+            "key": "object-2",
+            "category": "context",
+            "name": "N",
+            "properties": {
+              "description": "n"
+            },
+            "replacement": null
+          },
+          "binding": {
+            "statementHash": "ef445cf2702c5a4afce81731a13450ed12a09c80cdb90a5d91edef38b921782d",
+            "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+            "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+            "inputHashes": [
+              "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+              "bdf2642902a06370251890bb71e8e7de50b018936ff89cf2f5f6e7c5e3fa421c",
+              "ed4ef818e22f3e36b39f068a6a31cc648cee336e9034522d0e782d2256a28fa5"
+            ],
+            "authority": "gp50-inert-lifecycle-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          }
+        },
+        {
+          "id": 3,
+          "identity": {
+            "fixture": "GP-X144",
+            "key": "object-3",
+            "category": "assertion",
+            "name": "C",
+            "properties": {
+              "context": "M",
+              "statement_class": "universal_property",
+              "statement": "P"
+            },
+            "replacement": null
+          },
+          "binding": {
+            "statementHash": "1b15156faa671cf30f4dbba8570b6e61be6b90475406faff9e6397d3a5db816a",
+            "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+            "modelHash": "a4bb5bd5cbf9d932a65b835d1b0ca8de50f62d2a4eb1dcaafd596c635fc75783",
+            "inputHashes": [
+              "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+              "21f2c447f55136348f59c4b389666b642a673d8a694283df95bd132ecd3ead24",
+              "5c3510c5da678437c4bd7f382d12e275ddb23bde60d23d1cab5791bc7091baa9"
+            ],
+            "authority": "gp50-inert-lifecycle-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          }
+        },
+        {
+          "id": 4,
+          "identity": {
+            "fixture": "GP-X144",
+            "key": "object-4",
+            "category": "assertion",
+            "name": "C2",
+            "properties": {
+              "context": "M",
+              "statement_class": "universal_property",
+              "statement": "P",
+              "citation": "better citation"
+            },
+            "replacement": {
+              "prior": "C",
+              "change": "annotation_only"
+            }
+          },
+          "binding": {
+            "statementHash": "9494b61b10c8b6ee2aaba08ab3feffed69c70f725c1a390b97efc66d17e6c44c",
+            "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+            "modelHash": "a4bb5bd5cbf9d932a65b835d1b0ca8de50f62d2a4eb1dcaafd596c635fc75783",
+            "inputHashes": [
+              "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+              "4e5063e4898801db235d6519ef2af1a2532054151ac4c24ee2513d7602343dcd",
+              "9cc7b27773e78a03bcc0683afe104123053bb4fe1d1d29a9fcd921ba2bc63dea"
+            ],
+            "authority": "gp50-inert-lifecycle-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          }
+        }
+      ],
+      "expected_successors": [
+        [
+          3,
+          4
+        ]
+      ],
+      "native_inputs": {
+        "old_then_new": "35d7308823c8c375661ca13a4bd085a35a53edab9e631cd64ea3038d55083e28",
+        "new_then_old": "cd7c6456681318e983699064feec403f65d25968e7b3d9cbb62c9795028d179a"
+      },
+      "native_results": {
+        "old_then_new": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            },
+            {
+              "claim": 2,
+              "held": false
+            },
+            {
+              "claim": 3,
+              "held": false
+            },
+            {
+              "claim": 4,
+              "held": false
+            }
+          ],
+          "live_warrants": [
+            1,
+            2,
+            4
+          ],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "bdf2a6305a738ae97c5a0d42c45fa1eea63be67da3d0fde59265e8bb377300ad",
+                    "2a48dbfc12443be7690866692ea74759004880387154aff8bed4bc7dddb9c8bc"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "46c19eef1c04e1c067ddf37d6dee9eb8297a846e55c1cd68a7df656945843d8b"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "bdf2642902a06370251890bb71e8e7de50b018936ff89cf2f5f6e7c5e3fa421c",
+                    "ed4ef818e22f3e36b39f068a6a31cc648cee336e9034522d0e782d2256a28fa5"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "ef445cf2702c5a4afce81731a13450ed12a09c80cdb90a5d91edef38b921782d"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "21f2c447f55136348f59c4b389666b642a673d8a694283df95bd132ecd3ead24",
+                    "5c3510c5da678437c4bd7f382d12e275ddb23bde60d23d1cab5791bc7091baa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "a4bb5bd5cbf9d932a65b835d1b0ca8de50f62d2a4eb1dcaafd596c635fc75783",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "1b15156faa671cf30f4dbba8570b6e61be6b90475406faff9e6397d3a5db816a"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "4e5063e4898801db235d6519ef2af1a2532054151ac4c24ee2513d7602343dcd",
+                    "9cc7b27773e78a03bcc0683afe104123053bb4fe1d1d29a9fcd921ba2bc63dea"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "a4bb5bd5cbf9d932a65b835d1b0ca8de50f62d2a4eb1dcaafd596c635fc75783",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "9494b61b10c8b6ee2aaba08ab3feffed69c70f725c1a390b97efc66d17e6c44c"
+                },
+                "claim": 4,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "retracted": [],
+            "successors": [
+              [
+                3,
+                4
+              ]
+            ],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "bdf2a6305a738ae97c5a0d42c45fa1eea63be67da3d0fde59265e8bb377300ad",
+                    "2a48dbfc12443be7690866692ea74759004880387154aff8bed4bc7dddb9c8bc"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "46c19eef1c04e1c067ddf37d6dee9eb8297a846e55c1cd68a7df656945843d8b"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "bdf2642902a06370251890bb71e8e7de50b018936ff89cf2f5f6e7c5e3fa421c",
+                    "ed4ef818e22f3e36b39f068a6a31cc648cee336e9034522d0e782d2256a28fa5"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "ef445cf2702c5a4afce81731a13450ed12a09c80cdb90a5d91edef38b921782d"
+                },
+                "claim": 2,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "21f2c447f55136348f59c4b389666b642a673d8a694283df95bd132ecd3ead24",
+                    "5c3510c5da678437c4bd7f382d12e275ddb23bde60d23d1cab5791bc7091baa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "a4bb5bd5cbf9d932a65b835d1b0ca8de50f62d2a4eb1dcaafd596c635fc75783",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "1b15156faa671cf30f4dbba8570b6e61be6b90475406faff9e6397d3a5db816a"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "4e5063e4898801db235d6519ef2af1a2532054151ac4c24ee2513d7602343dcd",
+                    "9cc7b27773e78a03bcc0683afe104123053bb4fe1d1d29a9fcd921ba2bc63dea"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "a4bb5bd5cbf9d932a65b835d1b0ca8de50f62d2a4eb1dcaafd596c635fc75783",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "9494b61b10c8b6ee2aaba08ab3feffed69c70f725c1a390b97efc66d17e6c44c"
+                },
+                "claim": 4,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 4,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "new_then_old": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            },
+            {
+              "claim": 2,
+              "held": false
+            },
+            {
+              "claim": 3,
+              "held": false
+            },
+            {
+              "claim": 4,
+              "held": false
+            }
+          ],
+          "live_warrants": [
+            1,
+            2,
+            4
+          ],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "bdf2a6305a738ae97c5a0d42c45fa1eea63be67da3d0fde59265e8bb377300ad",
+                    "2a48dbfc12443be7690866692ea74759004880387154aff8bed4bc7dddb9c8bc"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "46c19eef1c04e1c067ddf37d6dee9eb8297a846e55c1cd68a7df656945843d8b"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "bdf2642902a06370251890bb71e8e7de50b018936ff89cf2f5f6e7c5e3fa421c",
+                    "ed4ef818e22f3e36b39f068a6a31cc648cee336e9034522d0e782d2256a28fa5"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "ef445cf2702c5a4afce81731a13450ed12a09c80cdb90a5d91edef38b921782d"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "21f2c447f55136348f59c4b389666b642a673d8a694283df95bd132ecd3ead24",
+                    "5c3510c5da678437c4bd7f382d12e275ddb23bde60d23d1cab5791bc7091baa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "a4bb5bd5cbf9d932a65b835d1b0ca8de50f62d2a4eb1dcaafd596c635fc75783",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "1b15156faa671cf30f4dbba8570b6e61be6b90475406faff9e6397d3a5db816a"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "4e5063e4898801db235d6519ef2af1a2532054151ac4c24ee2513d7602343dcd",
+                    "9cc7b27773e78a03bcc0683afe104123053bb4fe1d1d29a9fcd921ba2bc63dea"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "a4bb5bd5cbf9d932a65b835d1b0ca8de50f62d2a4eb1dcaafd596c635fc75783",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "9494b61b10c8b6ee2aaba08ab3feffed69c70f725c1a390b97efc66d17e6c44c"
+                },
+                "claim": 4,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "retracted": [],
+            "successors": [
+              [
+                3,
+                4
+              ]
+            ],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "bdf2a6305a738ae97c5a0d42c45fa1eea63be67da3d0fde59265e8bb377300ad",
+                    "2a48dbfc12443be7690866692ea74759004880387154aff8bed4bc7dddb9c8bc"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "46c19eef1c04e1c067ddf37d6dee9eb8297a846e55c1cd68a7df656945843d8b"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "bdf2642902a06370251890bb71e8e7de50b018936ff89cf2f5f6e7c5e3fa421c",
+                    "ed4ef818e22f3e36b39f068a6a31cc648cee336e9034522d0e782d2256a28fa5"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "ef445cf2702c5a4afce81731a13450ed12a09c80cdb90a5d91edef38b921782d"
+                },
+                "claim": 2,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "21f2c447f55136348f59c4b389666b642a673d8a694283df95bd132ecd3ead24",
+                    "5c3510c5da678437c4bd7f382d12e275ddb23bde60d23d1cab5791bc7091baa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "a4bb5bd5cbf9d932a65b835d1b0ca8de50f62d2a4eb1dcaafd596c635fc75783",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "1b15156faa671cf30f4dbba8570b6e61be6b90475406faff9e6397d3a5db816a"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "c7bdf284879011a4de3063b83236b71762c2b6bbfaad39e61a478ba523c7011f",
+                    "4e5063e4898801db235d6519ef2af1a2532054151ac4c24ee2513d7602343dcd",
+                    "9cc7b27773e78a03bcc0683afe104123053bb4fe1d1d29a9fcd921ba2bc63dea"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "a4bb5bd5cbf9d932a65b835d1b0ca8de50f62d2a4eb1dcaafd596c635fc75783",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "9494b61b10c8b6ee2aaba08ab3feffed69c70f725c1a390b97efc66d17e6c44c"
+                },
+                "claim": 4,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 4,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        }
+      },
+      "both_orders_equal": true,
+      "mathematical_authority_admitted": false
+    },
+    {
+      "id": "GP-X145",
+      "source_sha256": "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "Supersession is resolved after the full fold, so both orders retain the same records and successor links."
+      },
+      "observed": "ACCEPT",
+      "question": "retained records and successor links are order-independent",
+      "full_fixture_contract": true,
+      "identity_records": [
+        {
+          "id": 1,
+          "identity": {
+            "fixture": "GP-X145",
+            "key": "object-1",
+            "category": "context",
+            "name": "M",
+            "properties": {
+              "description": "m"
+            },
+            "replacement": null
+          },
+          "binding": {
+            "statementHash": "40723cab75b023452e3f6acf74fb733e2d76c8e36b198ca851266dc1c84dfba2",
+            "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+            "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+            "inputHashes": [
+              "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+              "bdf2a6305a738ae97c5a0d42c45fa1eea63be67da3d0fde59265e8bb377300ad",
+              "2a48dbfc12443be7690866692ea74759004880387154aff8bed4bc7dddb9c8bc"
+            ],
+            "authority": "gp50-inert-lifecycle-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          }
+        },
+        {
+          "id": 2,
+          "identity": {
+            "fixture": "GP-X145",
+            "key": "object-2",
+            "category": "context",
+            "name": "N",
+            "properties": {
+              "description": "n"
+            },
+            "replacement": null
+          },
+          "binding": {
+            "statementHash": "6e8c47ae2fa4918595c3f0241bbe4a1cdc910fb451366a1afa535747ff54bff0",
+            "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+            "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+            "inputHashes": [
+              "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+              "bdf2642902a06370251890bb71e8e7de50b018936ff89cf2f5f6e7c5e3fa421c",
+              "ed4ef818e22f3e36b39f068a6a31cc648cee336e9034522d0e782d2256a28fa5"
+            ],
+            "authority": "gp50-inert-lifecycle-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          }
+        },
+        {
+          "id": 3,
+          "identity": {
+            "fixture": "GP-X145",
+            "key": "object-3",
+            "category": "relation",
+            "name": "E",
+            "properties": {
+              "source_context": "M",
+              "target_context": "N",
+              "relation_class": "equations_forgotten",
+              "justification": "drops equations"
+            },
+            "replacement": null
+          },
+          "binding": {
+            "statementHash": "6fc065ae4ad33e2f2e3b56d22912330482c7b97e24ef05387ce2c05976d88301",
+            "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+            "modelHash": "19779007defa5517c7434c1c7fdb8e82c698cbc76e09d3870535b89f655aa818",
+            "inputHashes": [
+              "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+              "cdb9957c16d04747535ef928f8317825947c0c702a57d20bcddcdb2888221233",
+              "5c3510c5da678437c4bd7f382d12e275ddb23bde60d23d1cab5791bc7091baa9"
+            ],
+            "authority": "gp50-inert-lifecycle-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          }
+        },
+        {
+          "id": 4,
+          "identity": {
+            "fixture": "GP-X145",
+            "key": "object-4",
+            "category": "relation",
+            "name": "E2",
+            "properties": {
+              "source_context": "M",
+              "target_context": "N",
+              "relation_class": "equations_forgotten",
+              "justification": "drops equations"
+            },
+            "replacement": {
+              "prior": "E",
+              "change": "relation_reclassification"
+            }
+          },
+          "binding": {
+            "statementHash": "c8fe171686873b47641389d7250a18022829b71dd2ae734681e353491fbad1ec",
+            "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+            "modelHash": "19779007defa5517c7434c1c7fdb8e82c698cbc76e09d3870535b89f655aa818",
+            "inputHashes": [
+              "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+              "b6d493feb9bc4d8131c268a2c063ca698e03b737915065e1d4a7c7ccf391600c",
+              "22e4529f5a84868799fd8c71043e2148392ee25a13e325fa5162269760750fc7"
+            ],
+            "authority": "gp50-inert-lifecycle-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          }
+        }
+      ],
+      "expected_successors": [
+        [
+          3,
+          4
+        ]
+      ],
+      "native_inputs": {
+        "old_then_new": "729e3cb46480c63ea4f8efe0d83a5a26fefcc0566a89f9638b0d7fdbd698bfb1",
+        "new_then_old": "06e94e80509bb16e877084442b55baff8a1e18c6fd278e872e639db2bd74c6ed"
+      },
+      "native_results": {
+        "old_then_new": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            },
+            {
+              "claim": 2,
+              "held": false
+            },
+            {
+              "claim": 3,
+              "held": false
+            },
+            {
+              "claim": 4,
+              "held": false
+            }
+          ],
+          "live_warrants": [
+            1,
+            2,
+            4
+          ],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "bdf2a6305a738ae97c5a0d42c45fa1eea63be67da3d0fde59265e8bb377300ad",
+                    "2a48dbfc12443be7690866692ea74759004880387154aff8bed4bc7dddb9c8bc"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "40723cab75b023452e3f6acf74fb733e2d76c8e36b198ca851266dc1c84dfba2"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "bdf2642902a06370251890bb71e8e7de50b018936ff89cf2f5f6e7c5e3fa421c",
+                    "ed4ef818e22f3e36b39f068a6a31cc648cee336e9034522d0e782d2256a28fa5"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "6e8c47ae2fa4918595c3f0241bbe4a1cdc910fb451366a1afa535747ff54bff0"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "cdb9957c16d04747535ef928f8317825947c0c702a57d20bcddcdb2888221233",
+                    "5c3510c5da678437c4bd7f382d12e275ddb23bde60d23d1cab5791bc7091baa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "19779007defa5517c7434c1c7fdb8e82c698cbc76e09d3870535b89f655aa818",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "6fc065ae4ad33e2f2e3b56d22912330482c7b97e24ef05387ce2c05976d88301"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "b6d493feb9bc4d8131c268a2c063ca698e03b737915065e1d4a7c7ccf391600c",
+                    "22e4529f5a84868799fd8c71043e2148392ee25a13e325fa5162269760750fc7"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "19779007defa5517c7434c1c7fdb8e82c698cbc76e09d3870535b89f655aa818",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "c8fe171686873b47641389d7250a18022829b71dd2ae734681e353491fbad1ec"
+                },
+                "claim": 4,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "retracted": [],
+            "successors": [
+              [
+                3,
+                4
+              ]
+            ],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "bdf2a6305a738ae97c5a0d42c45fa1eea63be67da3d0fde59265e8bb377300ad",
+                    "2a48dbfc12443be7690866692ea74759004880387154aff8bed4bc7dddb9c8bc"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "40723cab75b023452e3f6acf74fb733e2d76c8e36b198ca851266dc1c84dfba2"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "bdf2642902a06370251890bb71e8e7de50b018936ff89cf2f5f6e7c5e3fa421c",
+                    "ed4ef818e22f3e36b39f068a6a31cc648cee336e9034522d0e782d2256a28fa5"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "6e8c47ae2fa4918595c3f0241bbe4a1cdc910fb451366a1afa535747ff54bff0"
+                },
+                "claim": 2,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "cdb9957c16d04747535ef928f8317825947c0c702a57d20bcddcdb2888221233",
+                    "5c3510c5da678437c4bd7f382d12e275ddb23bde60d23d1cab5791bc7091baa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "19779007defa5517c7434c1c7fdb8e82c698cbc76e09d3870535b89f655aa818",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "6fc065ae4ad33e2f2e3b56d22912330482c7b97e24ef05387ce2c05976d88301"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "b6d493feb9bc4d8131c268a2c063ca698e03b737915065e1d4a7c7ccf391600c",
+                    "22e4529f5a84868799fd8c71043e2148392ee25a13e325fa5162269760750fc7"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "19779007defa5517c7434c1c7fdb8e82c698cbc76e09d3870535b89f655aa818",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "c8fe171686873b47641389d7250a18022829b71dd2ae734681e353491fbad1ec"
+                },
+                "claim": 4,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 4,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "new_then_old": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            },
+            {
+              "claim": 2,
+              "held": false
+            },
+            {
+              "claim": 3,
+              "held": false
+            },
+            {
+              "claim": 4,
+              "held": false
+            }
+          ],
+          "live_warrants": [
+            1,
+            2,
+            4
+          ],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "bdf2a6305a738ae97c5a0d42c45fa1eea63be67da3d0fde59265e8bb377300ad",
+                    "2a48dbfc12443be7690866692ea74759004880387154aff8bed4bc7dddb9c8bc"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "40723cab75b023452e3f6acf74fb733e2d76c8e36b198ca851266dc1c84dfba2"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "bdf2642902a06370251890bb71e8e7de50b018936ff89cf2f5f6e7c5e3fa421c",
+                    "ed4ef818e22f3e36b39f068a6a31cc648cee336e9034522d0e782d2256a28fa5"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "6e8c47ae2fa4918595c3f0241bbe4a1cdc910fb451366a1afa535747ff54bff0"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "cdb9957c16d04747535ef928f8317825947c0c702a57d20bcddcdb2888221233",
+                    "5c3510c5da678437c4bd7f382d12e275ddb23bde60d23d1cab5791bc7091baa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "19779007defa5517c7434c1c7fdb8e82c698cbc76e09d3870535b89f655aa818",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "6fc065ae4ad33e2f2e3b56d22912330482c7b97e24ef05387ce2c05976d88301"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "b6d493feb9bc4d8131c268a2c063ca698e03b737915065e1d4a7c7ccf391600c",
+                    "22e4529f5a84868799fd8c71043e2148392ee25a13e325fa5162269760750fc7"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "19779007defa5517c7434c1c7fdb8e82c698cbc76e09d3870535b89f655aa818",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "c8fe171686873b47641389d7250a18022829b71dd2ae734681e353491fbad1ec"
+                },
+                "claim": 4,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "retracted": [],
+            "successors": [
+              [
+                3,
+                4
+              ]
+            ],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "bdf2a6305a738ae97c5a0d42c45fa1eea63be67da3d0fde59265e8bb377300ad",
+                    "2a48dbfc12443be7690866692ea74759004880387154aff8bed4bc7dddb9c8bc"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "40723cab75b023452e3f6acf74fb733e2d76c8e36b198ca851266dc1c84dfba2"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "bdf2642902a06370251890bb71e8e7de50b018936ff89cf2f5f6e7c5e3fa421c",
+                    "ed4ef818e22f3e36b39f068a6a31cc648cee336e9034522d0e782d2256a28fa5"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "6e8c47ae2fa4918595c3f0241bbe4a1cdc910fb451366a1afa535747ff54bff0"
+                },
+                "claim": 2,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "cdb9957c16d04747535ef928f8317825947c0c702a57d20bcddcdb2888221233",
+                    "5c3510c5da678437c4bd7f382d12e275ddb23bde60d23d1cab5791bc7091baa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "19779007defa5517c7434c1c7fdb8e82c698cbc76e09d3870535b89f655aa818",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "6fc065ae4ad33e2f2e3b56d22912330482c7b97e24ef05387ce2c05976d88301"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "141d3d8ebdbdd45e8f17ecf623ec0c17b237e290574b4695e858d7ef1d3020c5",
+                    "b6d493feb9bc4d8131c268a2c063ca698e03b737915065e1d4a7c7ccf391600c",
+                    "22e4529f5a84868799fd8c71043e2148392ee25a13e325fa5162269760750fc7"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "19779007defa5517c7434c1c7fdb8e82c698cbc76e09d3870535b89f655aa818",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "c8fe171686873b47641389d7250a18022829b71dd2ae734681e353491fbad1ec"
+                },
+                "claim": 4,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 4,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        }
+      },
+      "both_orders_equal": true,
+      "mathematical_authority_admitted": false
+    },
+    {
+      "id": "GP-X146",
+      "source_sha256": "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "Supersession is resolved after the full fold, so both orders retain the same records and successor links."
+      },
+      "observed": "ACCEPT",
+      "question": "retained records and successor links are order-independent",
+      "full_fixture_contract": true,
+      "identity_records": [
+        {
+          "id": 1,
+          "identity": {
+            "fixture": "GP-X146",
+            "key": "object-1",
+            "category": "context",
+            "name": "M",
+            "properties": {
+              "description": "m"
+            },
+            "replacement": null
+          },
+          "binding": {
+            "statementHash": "57a1dc5e7f16290c6fdf629d5269055eaddf13fbcf59310b7f4478b0877e44c1",
+            "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+            "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+            "inputHashes": [
+              "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+              "bdf2a6305a738ae97c5a0d42c45fa1eea63be67da3d0fde59265e8bb377300ad",
+              "2a48dbfc12443be7690866692ea74759004880387154aff8bed4bc7dddb9c8bc"
+            ],
+            "authority": "gp50-inert-lifecycle-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          }
+        },
+        {
+          "id": 2,
+          "identity": {
+            "fixture": "GP-X146",
+            "key": "object-2",
+            "category": "context",
+            "name": "N",
+            "properties": {
+              "description": "n"
+            },
+            "replacement": null
+          },
+          "binding": {
+            "statementHash": "500bd228be33572477d0aefa4172092872652109f88fb8704fcee94bbddb3362",
+            "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+            "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+            "inputHashes": [
+              "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+              "bdf2642902a06370251890bb71e8e7de50b018936ff89cf2f5f6e7c5e3fa421c",
+              "ed4ef818e22f3e36b39f068a6a31cc648cee336e9034522d0e782d2256a28fa5"
+            ],
+            "authority": "gp50-inert-lifecycle-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          }
+        },
+        {
+          "id": 3,
+          "identity": {
+            "fixture": "GP-X146",
+            "key": "object-3",
+            "category": "assertion",
+            "name": "C",
+            "properties": {
+              "context": "M",
+              "statement_class": "universal_property",
+              "statement": "P"
+            },
+            "replacement": null
+          },
+          "binding": {
+            "statementHash": "8a4cc4132119213d3a766c5751050736546a266db0749aaa7adf23795c0f283d",
+            "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+            "modelHash": "a4bb5bd5cbf9d932a65b835d1b0ca8de50f62d2a4eb1dcaafd596c635fc75783",
+            "inputHashes": [
+              "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+              "21f2c447f55136348f59c4b389666b642a673d8a694283df95bd132ecd3ead24",
+              "5c3510c5da678437c4bd7f382d12e275ddb23bde60d23d1cab5791bc7091baa9"
+            ],
+            "authority": "gp50-inert-lifecycle-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          }
+        },
+        {
+          "id": 4,
+          "identity": {
+            "fixture": "GP-X146",
+            "key": "object-4",
+            "category": "argument",
+            "name": "I",
+            "properties": {
+              "premise": "C",
+              "transport_route": [],
+              "conclusion_class": "universal_property",
+              "conclusion": "P at M"
+            },
+            "replacement": null
+          },
+          "binding": {
+            "statementHash": "71e2f197086567b9d18f08568d7e6259f84c84e4a4c762728927314f3febd564",
+            "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+            "modelHash": "674c56dfb7a7e1de5cf746b5ba61ea886249348853fc390d55955730487d02b0",
+            "inputHashes": [
+              "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+              "0876a6d3e635861b63162bed1ac7d2f21fae7ab13a4066a250fc039953709688",
+              "397b262716645020be95699b18fbe713d0e44f07814672f02fa2c7f4e7402987"
+            ],
+            "authority": "gp50-inert-lifecycle-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          }
+        },
+        {
+          "id": 5,
+          "identity": {
+            "fixture": "GP-X146",
+            "key": "object-5",
+            "category": "argument",
+            "name": "I2",
+            "properties": {
+              "premise": "C",
+              "transport_route": [],
+              "conclusion_class": "universal_property",
+              "conclusion": "P restated"
+            },
+            "replacement": {
+              "prior": "I",
+              "change": "restatement"
+            }
+          },
+          "binding": {
+            "statementHash": "bd59c8906ef6822d1eae6d28a41ec8eb42fb6d584e4ef0a3f6af6434c6c5962b",
+            "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+            "modelHash": "674c56dfb7a7e1de5cf746b5ba61ea886249348853fc390d55955730487d02b0",
+            "inputHashes": [
+              "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+              "0d70361bff2d2f15e156c487d94e75925fca9321c8583b70a75bbb57ac6b86f6",
+              "e0b7ee5bdaac25f46bb84f90a02a9d721eeda1ea082f8941fea922506d4619c1"
+            ],
+            "authority": "gp50-inert-lifecycle-custody",
+            "authorityVersion": 1,
+            "kernelVersion": 1
+          }
+        }
+      ],
+      "expected_successors": [
+        [
+          4,
+          5
+        ]
+      ],
+      "native_inputs": {
+        "old_then_new": "5dba82f4028ef3b01a015103ceead5301a6447cdb70ba9b496987a67ffd765a1",
+        "new_then_old": "df1b18ef2b8440f9fa9901cff482df53d6f43146e76cee2acb464a673a60c32f"
+      },
+      "native_results": {
+        "old_then_new": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            },
+            {
+              "claim": 2,
+              "held": false
+            },
+            {
+              "claim": 3,
+              "held": false
+            },
+            {
+              "claim": 4,
+              "held": false
+            },
+            {
+              "claim": 5,
+              "held": false
+            }
+          ],
+          "live_warrants": [
+            1,
+            2,
+            3,
+            5
+          ],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "bdf2a6305a738ae97c5a0d42c45fa1eea63be67da3d0fde59265e8bb377300ad",
+                    "2a48dbfc12443be7690866692ea74759004880387154aff8bed4bc7dddb9c8bc"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "57a1dc5e7f16290c6fdf629d5269055eaddf13fbcf59310b7f4478b0877e44c1"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "bdf2642902a06370251890bb71e8e7de50b018936ff89cf2f5f6e7c5e3fa421c",
+                    "ed4ef818e22f3e36b39f068a6a31cc648cee336e9034522d0e782d2256a28fa5"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "500bd228be33572477d0aefa4172092872652109f88fb8704fcee94bbddb3362"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "21f2c447f55136348f59c4b389666b642a673d8a694283df95bd132ecd3ead24",
+                    "5c3510c5da678437c4bd7f382d12e275ddb23bde60d23d1cab5791bc7091baa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "a4bb5bd5cbf9d932a65b835d1b0ca8de50f62d2a4eb1dcaafd596c635fc75783",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "8a4cc4132119213d3a766c5751050736546a266db0749aaa7adf23795c0f283d"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "0876a6d3e635861b63162bed1ac7d2f21fae7ab13a4066a250fc039953709688",
+                    "397b262716645020be95699b18fbe713d0e44f07814672f02fa2c7f4e7402987"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "674c56dfb7a7e1de5cf746b5ba61ea886249348853fc390d55955730487d02b0",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "71e2f197086567b9d18f08568d7e6259f84c84e4a4c762728927314f3febd564"
+                },
+                "claim": 4,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "0d70361bff2d2f15e156c487d94e75925fca9321c8583b70a75bbb57ac6b86f6",
+                    "e0b7ee5bdaac25f46bb84f90a02a9d721eeda1ea082f8941fea922506d4619c1"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "674c56dfb7a7e1de5cf746b5ba61ea886249348853fc390d55955730487d02b0",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "bd59c8906ef6822d1eae6d28a41ec8eb42fb6d584e4ef0a3f6af6434c6c5962b"
+                },
+                "claim": 5,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "retracted": [],
+            "successors": [
+              [
+                4,
+                5
+              ]
+            ],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "bdf2a6305a738ae97c5a0d42c45fa1eea63be67da3d0fde59265e8bb377300ad",
+                    "2a48dbfc12443be7690866692ea74759004880387154aff8bed4bc7dddb9c8bc"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "57a1dc5e7f16290c6fdf629d5269055eaddf13fbcf59310b7f4478b0877e44c1"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "bdf2642902a06370251890bb71e8e7de50b018936ff89cf2f5f6e7c5e3fa421c",
+                    "ed4ef818e22f3e36b39f068a6a31cc648cee336e9034522d0e782d2256a28fa5"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "500bd228be33572477d0aefa4172092872652109f88fb8704fcee94bbddb3362"
+                },
+                "claim": 2,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "21f2c447f55136348f59c4b389666b642a673d8a694283df95bd132ecd3ead24",
+                    "5c3510c5da678437c4bd7f382d12e275ddb23bde60d23d1cab5791bc7091baa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "a4bb5bd5cbf9d932a65b835d1b0ca8de50f62d2a4eb1dcaafd596c635fc75783",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "8a4cc4132119213d3a766c5751050736546a266db0749aaa7adf23795c0f283d"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "0876a6d3e635861b63162bed1ac7d2f21fae7ab13a4066a250fc039953709688",
+                    "397b262716645020be95699b18fbe713d0e44f07814672f02fa2c7f4e7402987"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "674c56dfb7a7e1de5cf746b5ba61ea886249348853fc390d55955730487d02b0",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "71e2f197086567b9d18f08568d7e6259f84c84e4a4c762728927314f3febd564"
+                },
+                "claim": 4,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 4,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "0d70361bff2d2f15e156c487d94e75925fca9321c8583b70a75bbb57ac6b86f6",
+                    "e0b7ee5bdaac25f46bb84f90a02a9d721eeda1ea082f8941fea922506d4619c1"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "674c56dfb7a7e1de5cf746b5ba61ea886249348853fc390d55955730487d02b0",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "bd59c8906ef6822d1eae6d28a41ec8eb42fb6d584e4ef0a3f6af6434c6c5962b"
+                },
+                "claim": 5,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 5,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        },
+        "new_then_old": {
+          "admission": "refuseAll",
+          "held": [],
+          "held_queries": [
+            {
+              "claim": 1,
+              "held": false
+            },
+            {
+              "claim": 2,
+              "held": false
+            },
+            {
+              "claim": 3,
+              "held": false
+            },
+            {
+              "claim": 4,
+              "held": false
+            },
+            {
+              "claim": 5,
+              "held": false
+            }
+          ],
+          "live_warrants": [
+            1,
+            2,
+            3,
+            5
+          ],
+          "resolve_fold_snapshot_equal": true,
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "bdf2a6305a738ae97c5a0d42c45fa1eea63be67da3d0fde59265e8bb377300ad",
+                    "2a48dbfc12443be7690866692ea74759004880387154aff8bed4bc7dddb9c8bc"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "57a1dc5e7f16290c6fdf629d5269055eaddf13fbcf59310b7f4478b0877e44c1"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "bdf2642902a06370251890bb71e8e7de50b018936ff89cf2f5f6e7c5e3fa421c",
+                    "ed4ef818e22f3e36b39f068a6a31cc648cee336e9034522d0e782d2256a28fa5"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "500bd228be33572477d0aefa4172092872652109f88fb8704fcee94bbddb3362"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "21f2c447f55136348f59c4b389666b642a673d8a694283df95bd132ecd3ead24",
+                    "5c3510c5da678437c4bd7f382d12e275ddb23bde60d23d1cab5791bc7091baa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "a4bb5bd5cbf9d932a65b835d1b0ca8de50f62d2a4eb1dcaafd596c635fc75783",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "8a4cc4132119213d3a766c5751050736546a266db0749aaa7adf23795c0f283d"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "0876a6d3e635861b63162bed1ac7d2f21fae7ab13a4066a250fc039953709688",
+                    "397b262716645020be95699b18fbe713d0e44f07814672f02fa2c7f4e7402987"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "674c56dfb7a7e1de5cf746b5ba61ea886249348853fc390d55955730487d02b0",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "71e2f197086567b9d18f08568d7e6259f84c84e4a4c762728927314f3febd564"
+                },
+                "claim": 4,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "0d70361bff2d2f15e156c487d94e75925fca9321c8583b70a75bbb57ac6b86f6",
+                    "e0b7ee5bdaac25f46bb84f90a02a9d721eeda1ea082f8941fea922506d4619c1"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "674c56dfb7a7e1de5cf746b5ba61ea886249348853fc390d55955730487d02b0",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "bd59c8906ef6822d1eae6d28a41ec8eb42fb6d584e4ef0a3f6af6434c6c5962b"
+                },
+                "claim": 5,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "retracted": [],
+            "successors": [
+              [
+                4,
+                5
+              ]
+            ],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "bdf2a6305a738ae97c5a0d42c45fa1eea63be67da3d0fde59265e8bb377300ad",
+                    "2a48dbfc12443be7690866692ea74759004880387154aff8bed4bc7dddb9c8bc"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "57a1dc5e7f16290c6fdf629d5269055eaddf13fbcf59310b7f4478b0877e44c1"
+                },
+                "claim": 1,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "bdf2642902a06370251890bb71e8e7de50b018936ff89cf2f5f6e7c5e3fa421c",
+                    "ed4ef818e22f3e36b39f068a6a31cc648cee336e9034522d0e782d2256a28fa5"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "77306c7f66cfc537d12830f175714aaed5469f423a67f9b0f3644eb869deee2f",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "500bd228be33572477d0aefa4172092872652109f88fb8704fcee94bbddb3362"
+                },
+                "claim": 2,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "21f2c447f55136348f59c4b389666b642a673d8a694283df95bd132ecd3ead24",
+                    "5c3510c5da678437c4bd7f382d12e275ddb23bde60d23d1cab5791bc7091baa9"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "a4bb5bd5cbf9d932a65b835d1b0ca8de50f62d2a4eb1dcaafd596c635fc75783",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "8a4cc4132119213d3a766c5751050736546a266db0749aaa7adf23795c0f283d"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "0876a6d3e635861b63162bed1ac7d2f21fae7ab13a4066a250fc039953709688",
+                    "397b262716645020be95699b18fbe713d0e44f07814672f02fa2c7f4e7402987"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "674c56dfb7a7e1de5cf746b5ba61ea886249348853fc390d55955730487d02b0",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "71e2f197086567b9d18f08568d7e6259f84c84e4a4c762728927314f3febd564"
+                },
+                "claim": 4,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 4,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "gp50-inert-lifecycle-custody",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "7f4c5784c556da361cf5e322c31dcec19937d3b3da8aee9d648a4781e459063c",
+                    "0d70361bff2d2f15e156c487d94e75925fca9321c8583b70a75bbb57ac6b86f6",
+                    "e0b7ee5bdaac25f46bb84f90a02a9d721eeda1ea082f8941fea922506d4619c1"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "674c56dfb7a7e1de5cf746b5ba61ea886249348853fc390d55955730487d02b0",
+                  "scopeHash": "6f968da0113a572d16d7e5f9e17dedee2d48c0b49e80683ef3d5ee2f5f42207d",
+                  "statementHash": "bd59c8906ef6822d1eae6d28a41ec8eb42fb6d584e4ef0a3f6af6434c6c5962b"
+                },
+                "claim": 5,
+                "evidence": {
+                  "kind": "assertion"
+                },
+                "id": 5,
+                "version": 1
+              }
+            ]
+          },
+          "status": "OK",
+          "supports": []
+        }
+      },
+      "both_orders_equal": true,
+      "mathematical_authority_admitted": false
+    }
+  ],
+  "binding_boundary": "Host canonical JSON and SHA-256 bind every literal source object and replacement annotation; Lean compares opaque identities.",
+  "verdict_boundary": "ACCEPT answers branch resolution only. All source entities are inert assertion custody records; held and support remain empty."
+}

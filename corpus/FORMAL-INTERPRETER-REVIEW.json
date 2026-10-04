@@ -1,0 +1,61 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "lean/GrandPortage/CertificateInterpreter.lean",
+      "sha256": "3824a47e2e7f8abb75a9dcb09c2ccbbfaeb6e5143949c66de0a239d324a9eda5",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/ExpressionTransport.lean",
+      "sha256": "015901fb41122ce9e4bad1409686ee569eb3e4d1a92b992dd781cad2c19b92e7",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "lean/GrandPortage/CancellationInterpreter.lean",
+      "sha256": "3c0aaf042810f36e323ba83f40b84fd99e5aeec4e7bcd5501cfca1c823b133ac",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "scripts/check_interpreter_parity.py",
+      "sha256": "fb7b7dfc9c3299fe4a6c736bbdd98477b439f6b6cd5a619cc0cbac9ab2a770d8",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "lean/InterpreterParity.lean",
+      "sha256": "db12fe38f73b21e79ad2812477bf273a47a7229c4ab7956b415f2d8b31068604",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_certificate_composition.py",
+      "sha256": "663c30e473bdbc76a3d0374e9d4531502d38c81f2290e37ca82fc377771e8b7c",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "tests": {
+    "passed": 7,
+    "report": "reports/oracle-interpreter-review.xml",
+    "lean_compiled": false,
+    "singular_invoked": false
+  },
+  "findings": [
+    "Derivation is an explicit restricted equational calculus. Induction establishes eval equality under precisely its Laws; it is not a normalizer or a complete commutative-ring calculus. Rational constants, divisions and parser correctness remain outside Expr.",
+    "Ordered certificate interpretation uses derivation_sound, vanishing of each paired generator/cofactor term and the Atlas ordered contradiction lemma. The supplied integer instance discharges Laws/Ordering. Gaussian evaluation exhibits a root and the same equality while refuting Ordering; it is not a formalization of the complex field.",
+    "OperationMap explicitly preserves zero, one, add, multiply and negation. Syntax induction proves eval_map without injectivity, order or ring laws; roots travel forward and emptiness pulls backward. Integer-to-Gaussian transport supplies a concrete counterexample to forward emptiness from operation preservation alone.",
+    "Cancellation derives c*g=0 from the derivation/equation and uses no-zero-divisors plus c nonzero to infer g=0. The Fin4 witness c=g=2 retains the other premises and refutes cancellation. Fin2, the zero algebra and a product of integers establish distinct profile separations. Ordering here is an SOS nonnegative cone, not a total ordered-domain interface.",
+    "The catalog links reviewed in Batch 81 have the expected bounded interpretation: unit nontriviality, SOS ordering and cancellation no-zero-divisors each have a retained deletion countermodel. This source review does not certify an automatic dictionary or formally check the current build.",
+    "InterpreterParity serializes expressions from the actual sample, while its Python comparator replays candidate and fixture with the same exact SOS verifier and compares receipts. It binds one example; it does not prove the renderer, decoder or normalizer correct for arbitrary expressions.",
+    "Seven offline tests pass with native SOS verification, persisted verdicts and graph reload. They cover declaration versus replay, ordered reach across a two-step prefix, refusal at C/F2, structural refusal for changed point universes, false cofactors, stale input and a different valid square rejected by sample comparison. No Singular or Lean executable was invoked."
+  ],
+  "remaining": [
+    "Review imported Atlas semantic lemmas and remaining formal model files.",
+    "Map distinct corpus coverage for interpreter deletion controls without promoting composite-ring examples into field-only runtime claims.",
+    "General rational normalization, parser/decoder correctness and current Lean feasibility remain unproved here."
+  ]
+}

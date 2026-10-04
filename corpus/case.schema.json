@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GP neutral must case",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "seed",
+    "title",
+    "situation",
+    "inputs",
+    "attempted_conclusion",
+    "expected",
+    "scope_or_region",
+    "sources"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^GP-[ACX][0-9]{2}[A-Za-z0-9-]*$"
+    },
+    "seed": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "situation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "inputs": {
+      "type": "object"
+    },
+    "attempted_conclusion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verdict",
+        "reason"
+      ],
+      "properties": {
+        "verdict": {
+          "enum": [
+            "REFUSE",
+            "ACCEPT"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "scope_or_region": {
+      "enum": [
+        "SCOPE",
+        "REGION",
+        "BOTH",
+        "N/A"
+      ]
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "repository",
+          "path",
+          "line",
+          "anchor"
+        ],
+        "properties": {
+          "repository": {
+            "enum": [
+              "gp-v037",
+              "rework-packet",
+              "gp-history",
+              "post-g2-handoff"
+            ]
+          },
+          "commit": {
+            "enum": [
+              "ac4155787207e2847d248cffed7be871d5dcd577",
+              "7991c9052f13e8dcaa78b5eae36f31663e080c1e"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "line": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "anchor": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "GP-X319",
+  "seed": null,
+  "title": "Finite quotient unit witness replays",
+  "situation": "A pinned residual/fiber witness specifies the finite quotient K[Z]/(r_final), with K=Q[t]/(15*t^3+1). Exact quotient arithmetic checks the image of Omega8 against its modulus.",
+  "inputs": {
+    "control": "finite_unit",
+    "fixture_sha256": "ce082feccd226db1bd8e0749b652ae806e896a79053a0ed7454c5a1288e686b6",
+    "quotient": "K[Z]/(r_final)",
+    "base_field": "Q[t]/(15*t^3+1)",
+    "unit_element": "Omega8",
+    "claimed_gcd_degree": 0
+  },
+  "attempted_conclusion": "Accept that Omega8 is a unit on this specified finite witness algebra.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The exact quotient gcd of Omega8 and r_final is one."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "line": 43,
+      "anchor": "def test_explicit_residual_pullback_and_finite_unit_replay("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_b0_free_plane/depth8_residual_adapter.py",
+      "line": 809,
+      "anchor": "omega_gcd = kpoly_gcd(omega_image, modulus)"
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_b0_free_plane/depth8_residual_adapter.py",
+      "line": 813,
+      "anchor": "== witness[\"Omega8_in_R\"] and len(omega_gcd) - 1 =="
+    }
+  ]
+}

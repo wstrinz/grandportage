@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "GP-A05",
+  "seed": "A5",
+  "title": "Nonintegral ambient identity cannot reduce modulo two",
+  "situation": "The coordinate definition uses coefficient 3/8.",
+  "inputs": {
+    "identity": "d2=h2-(3/8)*h1^2",
+    "target_characteristic": 2
+  },
+  "attempted_conclusion": "Reduce that identity modulo 2.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The coefficient denominator is not invertible modulo 2."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 545,
+      "anchor": "| A5 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 3881,
+      "anchor": "def test_a_declared_integral_is_checked_against_the_prime("
+    }
+  ]
+}

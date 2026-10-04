@@ -1,0 +1,34 @@
+{
+  "status": "encoded_conditional_contract_with_explicit_oracle_expressiveness_limit",
+  "case_ids": [
+    "GP-A27-drop-GRH",
+    "GP-A27-full",
+    "GP-A27-heuristic",
+    "GP-A27-keep-GRH",
+    "GP-A27-label",
+    "GP-A27-partial"
+  ],
+  "expected_counts": {
+    "ACCEPT": 2,
+    "REFUSE": 4
+  },
+  "new_status": "UNSUPPORTED for all6; not executed acceptance/refusal checks",
+  "baseline": "reports/oracle-runs/20260929T120626698944Z.json",
+  "replay": "reports/oracle-runs/20260929T121944186483Z.json",
+  "prior_case_hashes_expectations_outcomes_layers_routes_preserved": 410,
+  "new_total": 416,
+  "summary": {
+    "AGREES": 393,
+    "DIAGNOSTIC_OBSERVED": 1,
+    "KNOWN_DIFFERENCE": 14,
+    "PENDING": 1,
+    "UNSUPPORTED": 7
+  },
+  "independent_review": "mapping_gate_review accepted mathematical scope distinctions and conditional positives; no real receipt or arithmetic execution. Unsupported positives do not pass an executable positive-control gate.",
+  "limitations": [
+    "Positive admission/check premises are supplied assumptions, not verified by metadata.",
+    "No real PARI/Magma run, receipt bytes, new checker admission or class-group arithmetic implementation.",
+    "Future abstract-profile tests must exercise the six different outcomes; current unsupported route does not."
+  ],
+  "contract": "docs/A27-CORRECTED-CONTRACT.md"
+}

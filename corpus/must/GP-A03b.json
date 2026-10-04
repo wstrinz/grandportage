@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "GP-A03b",
+  "seed": "A3",
+  "title": "A point witness survives the same containment",
+  "situation": "The point x=0 satisfies both x^2=0 and x=0.",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "source_ideal": [
+      "x^2"
+    ],
+    "target_ideal": [
+      "x"
+    ],
+    "point": {
+      "x": "0"
+    }
+  },
+  "attempted_conclusion": "Transport this witness from V(x^2) to V(x).",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Substitution validates the point on both sides."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 543,
+      "anchor": "| A3 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_kernel.py",
+      "line": 22,
+      "anchor": "def test_point_cells_are_compiled_from_relational_capabilities("
+    }
+  ]
+}

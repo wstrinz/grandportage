@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "GP-X325",
+  "seed": null,
+  "title": "Changed raw coefficient cannot retain native commitment",
+  "situation": "One raw native coefficient changes while its certificate commitment remains fixed.",
+  "inputs": {
+    "control": "raw_coefficient",
+    "fixture_sha256": "7c26a7fdcfd12321997beb259f73388db654b3aff1cfbb83f30ccfa11017b82c",
+    "mutation": {
+      "op": "set",
+      "path": [
+        "raw_columns",
+        "E[2,19]",
+        "c8_5",
+        0,
+        1
+      ],
+      "original": "-5",
+      "value": "-4"
+    }
+  },
+  "attempted_conclusion": "Retain the checked block receipt under the changed raw coefficient.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The changed raw coefficient no longer matches its native commitment."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "line": 87,
+      "anchor": "def test_arithmetic_and_scope_mutations_refuse("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_b0_free_plane/depth8_adapter.py",
+      "line": 366,
+      "anchor": "require(hashes == certificate[\"coefficients_sha256\"], \"A2\","
+    }
+  ]
+}

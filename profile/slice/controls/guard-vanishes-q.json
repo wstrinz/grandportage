@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "CTRL-GUARD-VANISHES-Q",
+  "title": "Contrast: the same witness over Q",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "generators": [
+      "x-1"
+    ],
+    "guards": [
+      "x+2"
+    ],
+    "point": {
+      "x": "1"
+    },
+    "characteristic": 0
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Over Q the guard value is 3; the computed reach excludes 3."
+  },
+  "control": "adversarial admission control (post-G2 \u00a73.3); not a corpus case"
+}

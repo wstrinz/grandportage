@@ -1,0 +1,40 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "grandportage/number_field.py",
+      "sha256": "bb815c2cfe03feb2eaae94756e5d41fcf8d5b836ba50d97c750fd52a7cad877e",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_number_field_witness.py",
+      "sha256": "cd8a0a172d4e4af3bf57c3f8ea8df5c3a456a1cb56d5064de10e518b924858e0",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "caller_slices": [
+    "grandportage/verify.py:point_witness extension branch and preflight, lines 1901-1975",
+    "grandportage/store.py:_apply_verdict extension witness native replay branch, lines 1302-1320"
+  ],
+  "tests": {
+    "passed": 9,
+    "deselected": 1,
+    "report": "reports/oracle-number-field-review.xml",
+    "exclusion": "Singular-labeled empty trace test probes live binary identity."
+  },
+  "diagnostics": "reports/NUMBER-FIELD-BOUNDARIES.json",
+  "soundness_argument": "For monic degree-two/three rational f, exhaustive rational-root exclusion proves irreducibility over Q. Thus Q[a]/(f) is a field embedding into an algebraic closure of Q. Extended Euclid licenses denominator inversion; exact quotient evaluation proves each equation zero and guard nonzero. The resulting coordinates give an algebraic-closure point. This assumes parser/exact arithmetic correctness and binding to the declared model; it does not establish a chosen real embedding or a Q-rational point.",
+  "findings": [
+    "Degree, rational-root candidate and exponent limits refuse unsupported inputs; they are implementation limits, not nonexistence proofs.",
+    "Native fold recomputes arithmetic from model, field and point, then compares full receipt and verdict. Reissued tampered coordinate receipts refuse in retained test.",
+    "Four additional controls accept a cubic root and its inverse, refute a vanishing guard and refuse reducible cubic field declarations.",
+    "No selected real/complex embedding certification is performed. Contract requires ALGEBRAIC_CLOSURE and rational characteristic-zero model.",
+    "Rational-root search is bounded but this does not establish a global bit-complexity/memory bound for all coordinate arithmetic."
+  ],
+  "remaining": [
+    "Whole-request resource budgets, malformed inputs and all caller preconditions remain partial review questions.",
+    "Portable corpus extraction where not already represented; no new checker admission or implementation approved here."
+  ]
+}

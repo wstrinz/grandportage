@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "seed": null,
+  "scope_or_region": "N/A",
+  "id": "GP-X359",
+  "title": "Target emptiness pulls back through an operation map",
+  "situation": "The constant polynomial 1 has no Gaussian-integer root. Its pullback has no integer root under the integer-to-Gaussian operation map.",
+  "inputs": {
+    "control": "empty_pullback",
+    "map": "Z_to_Zi_inclusion",
+    "polynomial": "1",
+    "target_empty_proved": true
+  },
+  "attempted_conclusion": "Infer source EMPTY from target EMPTY.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Target EMPTY and forward root transport justify EMPTY pullback."
+  },
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/ExpressionTransport.lean",
+      "line": 47,
+      "anchor": "theorem emptiness_pullback (h : OperationMap source target) (c : Certificate)",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/ExpressionTransport.lean",
+      "line": 64,
+      "anchor": "def integerToGaussian : OperationMap integers gaussian where",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

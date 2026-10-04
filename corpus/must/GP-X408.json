@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "GP-X408",
+  "seed": null,
+  "title": "Exact contraction alone does not provide a valid evaluation lift",
+  "situation": "Abstract conditional point semantics over identity-related integer rings with zero ideals; admissible evaluations are an additional premise. This is not a standard algebraic-point elimination theorem.",
+  "inputs": {
+    "source_ring": "Int",
+    "target_ring": "Int",
+    "embedding": "identity",
+    "source_ideal": "zero ideal",
+    "target_ideal": "zero ideal",
+    "exact_contraction": {
+      "formula": "For every g, g = 0 iff identity(g) = 0",
+      "justification": "identity embedding and the same zero ideal at both endpoints"
+    },
+    "evaluation_codomain": "Unit",
+    "target_valid_evaluation_predicate": "always True",
+    "source_valid_evaluation_predicate": "always False",
+    "target_evaluation": "constant Unit evaluation",
+    "ideal_vanishing": "Every value equals the distinguished Unit zero",
+    "valid_evaluation_lift": null
+  },
+  "attempted_conclusion": "Infer that every valid target point has a valid source lift solely from exact ideal contraction.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The target constant Unit point exists, while every source point would require the always-False validity predicate. Ideal equality supplies no valid evaluation lift."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "lean/GrandPortage/OperationContract.lean",
+      "line": 778,
+      "anchor": "theorem exact_contraction_does_not_imply_point_surjectivity :"
+    }
+  ]
+}

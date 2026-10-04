@@ -1,0 +1,20 @@
+{
+  "id": "deleted-dm4-prior-proof-spine",
+  "status": "explicitly_withdrawn_intermediate_claim_no_new_case",
+  "source_blob": "36e9e90cecee7209ef1098ca8f79118c02381bb6",
+  "source_lines": [
+    45,
+    72
+  ],
+  "evidence": "reports/PHASE-0A-DELETED-DOCUMENT-REVIEW.json#/findings/2",
+  "parent_check": {
+    "alpha": 2,
+    "beta": 1,
+    "gamma": 0,
+    "delta": -1,
+    "two_balances": true,
+    "withdrawn_gamma_gt_2beta": false,
+    "replacement_unique_minimum_inequalities": true
+  },
+  "reason": "The document explicitly withdraws the informal inequality; the integer check demonstrates why that intermediate conclusion is unavailable and supports the corrected conditional spine. It is not a polynomial solution to G1-G3, a runtime admission failure or a counterexample to the corrected theorem. The distinct universal zero-chart overclaim is already extracted as X341/X342. No new case for a withdrawn intermediate proof step under narrowed correction dispositions."
+}

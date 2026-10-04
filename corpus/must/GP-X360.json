@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "seed": null,
+  "scope_or_region": "N/A",
+  "id": "GP-X360",
+  "title": "Source emptiness does not travel forward without surjectivity",
+  "situation": "No integer solves x^2+1=0, but Gaussian i=(0,1) does. The integer-to-Gaussian inclusion preserves the expression operations and is not surjective.",
+  "inputs": {
+    "control": "empty_forward",
+    "map": "Z_to_Zi_inclusion",
+    "polynomial": "x^2+1",
+    "gaussian_point": [
+      0,
+      1
+    ]
+  },
+  "attempted_conclusion": "Infer target EMPTY from source EMPTY using only operation preservation.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The Gaussian root i refutes the forward EMPTY conclusion."
+  },
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/ExpressionTransport.lean",
+      "line": 64,
+      "anchor": "def integerToGaussian : OperationMap integers gaussian where",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/ExpressionTransport.lean",
+      "line": 80,
+      "anchor": "theorem forward_emptiness_counterexample :",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "GP-X89",
+  "seed": null,
+  "title": "Remove the chain report restriction against H3 promotion",
+  "situation": "The frozen report contract must preserve its excluded conclusion.",
+  "inputs": {
+    "ordered_steps": 23,
+    "input_values": 10,
+    "faces": 25,
+    "residuals": 2,
+    "pin": "15*t^3+1",
+    "proposal": "drop_refusal"
+  },
+  "attempted_conclusion": "Remove the chain report restriction against H3 promotion.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The frozen report contract must preserve its excluded conclusion."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_source_depth6_chain.py",
+      "line": 115,
+      "anchor": "def test_dropped_scope_refusal_is_rejected_after_resigning("
+    }
+  ]
+}

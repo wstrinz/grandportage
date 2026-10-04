@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "GP-X57",
+  "seed": null,
+  "title": "Unit base values do not recover deleted displacements",
+  "situation": "A coordinate projection is not reversible merely because the deleted coordinates have unit base-point values.",
+  "inputs": {
+    "source_object": "Seven-coordinate local presentation at x0",
+    "target_object": "Obsolete five-coordinate marked reduction",
+    "information_lost": [
+      "z1 displacement",
+      "z4 displacement",
+      "derivative information in both unit coordinates"
+    ],
+    "source_context": "QQ",
+    "claim": "NONEMPTY",
+    "direction": "AGAINST",
+    "supplied_lift_warrant": null
+  },
+  "attempted_conclusion": "Lift a displayed point of the five-coordinate projection closure to the full seven-coordinate local presentation.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Projecting out unit coordinates still loses their derivative information; a closure point need not lift."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_formalization_transport.py",
+      "line": 70,
+      "anchor": "def test_non_affine_lifts_and_slice_reversal_fail_closed("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "fixtures/jc_formalization_transport/v0.json",
+      "line": 587,
+      "anchor": "\"id\": \"JC.ASSAY.F.DELETE_DISPLACEMENTS\""
+    }
+  ]
+}

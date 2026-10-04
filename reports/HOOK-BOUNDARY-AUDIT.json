@@ -1,0 +1,29 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "27454f4d78436c6f878c6f27fae8c84562bb674e57decb86e69608c5e0b3a5d5",
+  "observations": [
+    {
+      "control": "nonobject_baseline",
+      "exception": "AttributeError"
+    },
+    {
+      "control": "nonobject_hook_input",
+      "exception": "AttributeError"
+    },
+    {
+      "control": "changed_malformed_graph",
+      "outputs": [
+        {
+          "evaluate_message": "the graph at tmp/hook-boundary-6n5h8lgm/.portage/graph.jsonl does not fold:\n  tmp/hook-boundary-6n5h8lgm/.portage/graph.jsonl:1: not valid JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)\n\nA log that cannot be folded is worse than a rejected write -- nothing downstream of it can be trusted.",
+          "hook_message": "the graph at tmp/hook-boundary-6n5h8lgm/.portage/graph.jsonl does not fold:\n  tmp/hook-boundary-6n5h8lgm/.portage/graph.jsonl:1: not valid JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)\n\nA log that cannot be folded is worse than a rejected write -- nothing downstream of it can be trusted."
+        },
+        {
+          "evaluate_message": "the graph at tmp/hook-boundary-6n5h8lgm/.portage/graph.jsonl does not fold:\n  tmp/hook-boundary-6n5h8lgm/.portage/graph.jsonl:1: not valid JSON: Expecting value: line 1 column 2 (char 1)\n\nA log that cannot be folded is worse than a rejected write -- nothing downstream of it can be trusted.",
+          "hook_message": "GRAND PORTAGE: still refused, unchanged -- see gp check.\nFull detail and the discharge move were printed above, or run `gp check`.\n"
+        }
+      ],
+      "blocking_exit_preserved": true
+    }
+  ],
+  "scope": "Synthetic local hook calls only. No installed host hook behavior or proof admission tested."
+}

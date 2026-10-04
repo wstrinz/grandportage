@@ -1,0 +1,2346 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "status": "reviewable candidate inventory; final AppendixB unknown-field decision and GP consolidation pending",
+  "rows": [
+    {
+      "id": "JC-C001",
+      "campaign": "JC",
+      "origin": "own",
+      "class": "SCOPE",
+      "scope_or_region": "SCOPE",
+      "sources": [
+        {
+          "repo": "$DEV/math-stuff",
+          "ref": "d2_plane_72_108/FIELD_SPLIT_AUDIT.md:13-59",
+          "date": "2026-07-21",
+          "harvest_sha256": "db4d7a74aa30e6fcbe3e810c98f25e78073f5dcc15e7548710f299c6ceee6e00",
+          "related_history_commit": "9b7d13123c4ae55b7005b2f0ac9c03bc3ee31bbb"
+        }
+      ],
+      "claimed": "Rational irreducibility of a quartic was used for the arbitrary characteristic-zero coefficient-field ledger.",
+      "problem": "Over an algebraic closure partial support at individual roots is possible; the single quartic valuation omits branches.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "The source records withdrawal of geometric survivor-count authority and a later split-place repair. Repair proof not independently verified. GP catch assessment is conditional: explicit scope/guard/bridge requirements could prevent promotion, but GP cannot discover the missing premise or correct interpretation automatically; no campaign replay was run.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "JC-C002",
+      "campaign": "JC",
+      "origin": "own",
+      "class": "SCOPE",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "repo": "$DEV/math-stuff",
+          "ref": "d2_plane_72_108/PASSPORT_75_125_REPAIR.md:11-63",
+          "date": "2026-07-26",
+          "harvest_sha256": "4bde9e54296c02bad2fda8417c55a5b89085482dffbe49acf80cc399cd8633d1",
+          "related_history_commit": "2adb92af93871490c924486a942835ab65e42127"
+        }
+      ],
+      "claimed": "A final-chain-corner dictionary was used at (5,20) outside its required retraction shape.",
+      "problem": "The dictionary supplied exponent 5 instead of 4; checking existence of some exponent hides the failed guard for the actual chart exponent.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Independent elementary check: ceil(20/5)=4 and 4*(5-1)=16, not20; choosing5 only satisfies a different existential guard. This checks the stated guard mismatch, not the chart theorem. GP catch assessment is conditional: explicit scope/guard/bridge requirements could prevent promotion, but GP cannot discover the missing premise or correct interpretation automatically; no campaign replay was run.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "JC-C003",
+      "campaign": "JC",
+      "origin": "own",
+      "class": "JOIN",
+      "scope_or_region": "BOTH",
+      "sources": [
+        {
+          "repo": "$DEV/math-stuff",
+          "ref": "d2_plane_72_108/F2_TOWER.md:75-114",
+          "date": "2026-07-26",
+          "harvest_sha256": "624b38c92fea86b74e875d77a074f583623e0d12d207787503bc644723ac10b9",
+          "related_history_commit": "fff0cc897bcdba7f849fe3c3085b2c441d0ac245"
+        }
+      ],
+      "claimed": "An exact base-case kill and exact period arithmetic were joined to claim that the period jump explains failure of tower transfer.",
+      "problem": "The source withdraws that explanation: the claimed link was printed prose connecting disjoint calculations, without the required derivation.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Distinct from the incorrect chart constants: the repaired constants do not establish the missing bridge. No assertion that the weaker obstruction conclusion itself is refuted. GP catch assessment is conditional: explicit scope/guard/bridge requirements could prevent promotion, but GP cannot discover the missing premise or correct interpretation automatically; no campaign replay was run.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "JC-B001",
+      "campaign": "JC",
+      "origin": "own",
+      "class": "MEANING",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-stuff/d2_plane_72_108/GAUGE_LEAK.md",
+          "lines": "10-31;35-62;68-90",
+          "sha256": "e6b932757a9f82b7e59a5af60f856fc5668f321e31fb03ba29e11bfa32d80d8a"
+        }
+      ],
+      "claimed": "Shifted/window survivors were carried without source liftability conditions.",
+      "problem": "WINDOW omitted the t=y+1 lattice component; a10_b0000_T1 had no polygon-supported P lift. P-positive slices, lambda row and Q-positive slices witness the gap.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One omitted lift/place incident, three witnesses; MEANING versus COVER provisional. Explicit source-lift obligations could block witness promotion; GP cannot discover missing t conditions.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "JC-B002",
+      "campaign": "JC",
+      "origin": "own",
+      "class": "COVER",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-stuff/whetstone/MODELLING_GAPS.md",
+          "lines": "72-79;97-113;399-409;435-447",
+          "sha256": "155804b33a822dcf2d4ae4e2b274f718d01d0ccd1bc740c4aea0147740609dfe"
+        }
+      ],
+      "claimed": "Pipeline consumed only M<0 slices of P and Q.",
+      "problem": "Necessary conditions on the M>=0 half-line were omitted without a stopping certificate; an ORDER omission, not a j<=5 magnitude cutoff.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Distinct ORDER half-line omission from B001 PLACE/lift omission; no statistical independence claim or duplicate witness count. A declared full family and justified truncation obligation could reveal incompleteness; correct finite equations alone cannot.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "JC-B003",
+      "campaign": "JC",
+      "origin": "own",
+      "class": "SCOPE",
+      "scope_or_region": "SCOPE",
+      "sources": [
+        {
+          "path": "$DEV/math-stuff/d2_plane_72_108/FIELD_SCOPE_AUDIT.md",
+          "lines": "12-47;76-100",
+          "sha256": "7f1ec681a0a3f61a837ecacc433873bfb9d5e28afb371adc2d61c1254835e605"
+        }
+      ],
+      "claimed": "C08/C20 Q or splitting-field emptiness was consumed as geometric emptiness over arbitrary char-0 K.",
+      "problem": "KILL authority withdrawn: larger-field points exist and no descent into Q(sqrt17) is established. Source reports 11341 returning states, not a changed independently audited kill.",
+      "discovered_by": "unknown",
+      "cost": "high",
+      "shipped": true,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Shipping and high cost source-reported; public release artifact not inspected. Explicit Q/L/K scopes and certificate reach could prevent promotion; GP cannot discover missing descent or a falsely declared scope.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "JC-B004",
+      "campaign": "JC",
+      "origin": "own",
+      "class": "ADAPTER",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-stuff/d2_plane_72_108/PASSPORT_75_125_REPAIR.md",
+          "lines": "248-278;381-382",
+          "sha256": "4bde9e54296c02bad2fda8417c55a5b89085482dffbe49acf80cc399cd8633d1"
+        }
+      ],
+      "claimed": "Full rank/nullity zero was used as the no-Phi-relation criterion.",
+      "problem": "Pure G1/G2 syzygy at weight43 lowers rank without a Phi relation; old test misfires on repaired data. Replaced by Phi-column dependence modulo others.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Accept reported criterion defect; corrected graded search and modular quotient-rank certification not audited. Admitted checker contract and discriminating controls may prevent admission; custody cannot repair the predicate.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "JC-B005",
+      "campaign": "JC",
+      "origin": "own",
+      "class": "BINDING",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-stuff/d2_plane_72_108/F2_TOWER.md",
+          "lines": "305-312",
+          "sha256": "624b38c92fea86b74e875d77a074f583623e0d12d207787503bc644723ac10b9"
+        }
+      ],
+      "claimed": "Later lane recommended recomputing an already repaired F2 tower delta.",
+      "problem": "Stale prose beneath a banner was consumed instead of repaired module. History says external reviewer inherited the wrong recommendation.",
+      "discovered_by": "unknown",
+      "cost": "high",
+      "shipped": true,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Operational recommendation error; shipping/high cost source-reported in exact history narrative, external handoff artifact not inspected. Pinned evidence version and supersession relations could flag stale evidence; GP cannot prevent prose-only reading errors.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "JC-B006",
+      "campaign": "JC",
+      "origin": "own",
+      "class": "MEANING",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-stuff/d2_plane_72_108/F2_TOWER.md",
+          "lines": "123-154",
+          "sha256": "624b38c92fea86b74e875d77a074f583623e0d12d207787503bc644723ac10b9"
+        }
+      ],
+      "claimed": "Coprime rational lattices were called incommensurate, overstating obstruction reach.",
+      "problem": "July24 correction acknowledges common finite-index refinement and leaves refined-lattice towers open.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Retain reported incident and unknowns; no fresh campaign/checker execution. Explicit period-preserving operation scope could stop broader obstruction promotion; GP cannot infer intended prose meaning.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "JC-B007",
+      "campaign": "JC",
+      "origin": "own",
+      "class": "ADAPTER",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-stuff/d2_plane_72_108/PASSPORT_75_125_REPAIR.md",
+          "lines": "164-185",
+          "sha256": "4bde9e54296c02bad2fda8417c55a5b89085482dffbe49acf80cc399cd8633d1"
+        }
+      ],
+      "claimed": "Substring check purported to validate reopened residual-gauge status.",
+      "problem": "REOPENED matched inside was REOPENED ... now DISSOLVED and misleadingly passed.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Retain reported incident and unknowns; no fresh campaign/checker execution. Structured status checking and checker controls address this; GP cannot interpret a substring receipt semantically.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "JC-B008",
+      "campaign": "JC",
+      "origin": "own",
+      "class": "ADAPTER",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-stuff/whetstone/MODELLING_GAPS.md",
+          "lines": "146-162",
+          "sha256": "155804b33a822dcf2d4ae4e2b274f718d01d0ccd1bc740c4aea0147740609dfe"
+        }
+      ],
+      "claimed": "Lower-bound checker asserted A_T_MIN>=1 where 9 was intended.",
+      "problem": "Source explicitly records this self-caught weak-bound check.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Retain reported incident and unknowns; no fresh campaign/checker execution. A correct admitted bound predicate plus controls could refuse unsupported authority; GP cannot discover intended 9 from a passing >=1 receipt.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "JC-B009",
+      "campaign": "JC",
+      "origin": "own",
+      "class": "ADAPTER",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-stuff/whetstone/MODELLING_GAPS.md",
+          "lines": "146-162",
+          "sha256": "155804b33a822dcf2d4ae4e2b274f718d01d0ccd1bc740c4aea0147740609dfe"
+        }
+      ],
+      "claimed": "Riemann-Hurwitz test purported to supply discriminating validation.",
+      "problem": "Source records the test was an identity for all inputs.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Retain reported incident and unknowns; no fresh campaign/checker execution. Checker admission/controls might reveal identity; custody cannot make a tautology discriminating.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "JC-B010",
+      "campaign": "JC",
+      "origin": "own",
+      "class": "ADAPTER",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-stuff/whetstone/whetstone_dag.py",
+          "lines": "851-865",
+          "sha256": "627749285c45566edddd05b01ae1f44c2488b29564b1ea98cc663099aad4992c"
+        }
+      ],
+      "claimed": "Four first-draft Whetstone checks were validation, including false monotonicity.",
+      "problem": "Removed checks were tautological/filter-guaranteed or compared scope to itself. MONO-CONTRADICTION also asserted a false claim.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Retain reported incident and unknowns; no fresh campaign/checker execution. Fixed independent expectations and mutation controls might block admission; GP itself cannot detect vacuous checks or wrong semantics.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "JC-B011",
+      "campaign": "JC",
+      "origin": "tool",
+      "class": "ADAPTER",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-stuff/whetstone/whetstone_dag.py",
+          "lines": "836-842",
+          "sha256": "627749285c45566edddd05b01ae1f44c2488b29564b1ea98cc663099aad4992c"
+        }
+      ],
+      "claimed": "Modular triage produced UNIT verdicts.",
+      "problem": "Source records poly g0 shadowed ring variable and manufactured false UNIT verdicts for months.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Recorded shadowing defect; own versus tool origin provisional without original command responsibility. Months of persistence is not work lost. No direct catch of shadowing. Admitted sound replay may protect authority; char-p edge typing cannot fix backend code.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "JC-B012",
+      "campaign": "JC",
+      "origin": "own",
+      "class": "SCOPE",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-stuff/d2_plane_72_108/AT_LE9_AUDIT.md",
+          "lines": "35-68",
+          "sha256": "c4be3c3d4272ac32d504e8f2c962b7bdb0eb5662799613541fe95ccd290c176d"
+        }
+      ],
+      "claimed": "slice_phi_yplace transferred unshifted divisibility/cascade bounds into shifted chart as a proof of a_t<=9.",
+      "problem": "Audit records genuine-polynomial control violating shifted bound; this leg not established as written, while unshifted syzygy leg remains.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Includes B013 common-input evidence-grade subfinding; conclusion a_t<=9 not refuted. Common inputs alone are not a general criterion against independent proofs. Explicit chart and direction/premise contracts could refuse transfer; GP cannot derive missing divisibility or discover a falsely encoded chart.",
+      "subfindings": [
+        "JC-B013 WARRANT subfinding, same episode"
+      ],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "JC-B014",
+      "campaign": "JC",
+      "origin": "own",
+      "class": "BINDING",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-stuff/d2_plane_72_108/FIELD_SCOPE_AUDIT.md",
+          "lines": "49-74",
+          "sha256": "7f1ec681a0a3f61a837ecacc433873bfb9d5e28afb371adc2d61c1254835e605"
+        }
+      ],
+      "claimed": "Frontier reconciliation quoted withdrawn 1090/135 draft figures as committed audit inconsistency.",
+      "problem": "Audit records consistent committed 11341 and stale compiler literal/prose; recomputed column was already correct.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Retain reported incident and unknowns; no fresh campaign/checker execution. Source/version binding could prevent draft misattribution; GP cannot reconcile arbitrary prose.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B001",
+      "campaign": "DK",
+      "origin": "own",
+      "class": "COVER",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/results/accepted/2026-08-31-c2-b11-shallow-canonicalization-audit-closeout.md",
+          "lines": "35-53",
+          "sha256": "08d8757ad384bf27679f62715a5d7bc9264d32c15f016d0a6e0943d3ea9b196f"
+        }
+      ],
+      "claimed": "Depth-6 final count351 and 13,610/13,610 shallow-replay completion were accepted.",
+      "problem": "After526/1361 controls,352 keys already exist, with VF2-confirmed counterexample. Independent whole-graph implementation finishes159931 nodes, withdrawing literal200001 cap trigger.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One producer-table incident; cap metric is a related implementation-dependent subfinding. CHECKPOINT26-47 and FRONTIER50-55 repeat it; no three counts. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B002",
+      "campaign": "DK",
+      "origin": "own",
+      "class": "SCOPE",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "527-530",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "CT1 capstone said31 scalar chart guards were combinatorially redundant.",
+      "problem": "Scalar restrictions were confused with vector nonvanishing. Repaired accepted proof uses five genuine factors and covered boundaries.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One rejected capstone, repeated at FRONTIER378-390 and accepted nonrealizability13-19. Conclusion not refuted; original proof authority withheld. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B003",
+      "campaign": "DK",
+      "origin": "own",
+      "class": "SCOPE",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/results/accepted/2026-08-25-compatible-matroid-completion-intake.md",
+          "lines": "7-36",
+          "sha256": "6ca9d7b31a2e8dfd6105b8a68def16d28687ccf867f8aeba1e1f0b404d020cd6"
+        }
+      ],
+      "claimed": "CT1/Type-A Bland–Jensen and two Poncelet-surgery negatives were used as bare-incidence negatives.",
+      "problem": "Adapters impose CLEAN_MINIMAL: unspecified triples are bases. UNSAT initially excludes only that completion unless independent coverage/backstop applies.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One shared missing-completion premise with multiple consumers. Later clean-deformation scope is separate supporting theorem, not retrospective proof of the original inference. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B004",
+      "campaign": "DK",
+      "origin": "tool",
+      "class": "ADAPTER",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/results/accepted/2026-08-25-compatible-matroid-completion-intake.md",
+          "lines": "70-87",
+          "sha256": "6ca9d7b31a2e8dfd6105b8a68def16d28687ccf867f8aeba1e1f0b404d020cd6"
+        }
+      ],
+      "claimed": "Custom Levi checker supported non-isomorphism and a0/1847 self-dual statement.",
+      "problem": "39/40 cyclic17 relabelings false-negative due to free greedy line choices. Repaired correspondence is checked against full incidence. Historical Stokes verdicts retained; trade self-duality statement withdrawn.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One checker-completeness incident, repeated FRONTIER892-894;931-933. No claim historical Stokes conclusions changed. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B005",
+      "campaign": "DK",
+      "origin": "own",
+      "class": "MEANING",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "1112-1124",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "CFG23 greedy objective had attainable zero as a candidate-search target.",
+      "problem": "It counts all253 line pairs but23 multiplicity-four points account for only138; zero is impossible. Old zero-hit pilot supplies no candidate-search evidence.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Separate original wrong objective from corrected-core n-scope defect B006. No deduction of geometric nonexistence. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B006",
+      "campaign": "DK",
+      "origin": "tool",
+      "class": "SCOPE",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/results/accepted/2026-08-28-cuntz23-search-core-intake.md",
+          "lines": "11-24;31-46",
+          "sha256": "851041ec756ec300d43495cfea901fa558c83345376b2309cb9654af95a0b2a3"
+        }
+      ],
+      "claimed": "Generic n,k core calls could label a non23 state as CFG23 success.",
+      "problem": "Pre-repair22_4 false success reproduced; all public CFG23 decision surfaces now require exactly23 lines; generic controls separated.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Distinct tested scope bug in replacement core, not a repeated original objective failure B005. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B007",
+      "campaign": "DK",
+      "origin": "tool",
+      "class": "ADAPTER",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "1207-1212;1235-1247",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "Capped local-optimum sweeps were classified as dedup failures.",
+      "problem": "Healthy truncation needs partial receipt status; repaired independent classification preserves complete-certificate strength and true failure labels.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Repeated FRONTIER1134-1148; one disposition bug. No wrong emptiness promotion asserted. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B008",
+      "campaign": "DK",
+      "origin": "tool",
+      "class": "COVER",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "1184-1199",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "One-color same-orbit V4 canonicalizer established coherent action equivalence.",
+      "problem": "Local relabeling can ignore one globally coupled r/s/sr labelling and false-merge; initial literal counterexample anchor also needed correction.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One pairwise-coherence incident with corrected counterexample witness; not the later role-byte omission B009. No census promoted from defective form. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B009",
+      "campaign": "DK",
+      "origin": "tool",
+      "class": "COVER",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "1252-1276",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "Intrinsic V4 leaf bytes were a canonical form for isomorph-free use.",
+      "problem": "Point/line role omitted; audit reproduced five cross-split false merges. Silent None on budget exhaustion and missing validation were associated hazards.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One role-byte implementation episode; budget/validation subfindings retained, not separate hypothetical python-O incidents. Later accepted deployment preconditions remain explicit. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B010",
+      "campaign": "DK",
+      "origin": "tool",
+      "class": "ADAPTER",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/results/accepted/2026-08-28-v4-coherent-canonical-form-intake.md",
+          "lines": "59-66",
+          "sha256": "75975c3cf4dd9fee14c0b1f3e2c668f23b65b84d1b9456c0b9b2fd54fd23a547"
+        }
+      ],
+      "claimed": "Cuntz coherent Aut(V4) stabilizer was{id,(s t)}.",
+      "problem": "Earlier routine intersected decoupled point/line necessary conditions; incidence-coupled stabilizer is{id}. No canonical verdict changes.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Distinct descriptive audit error from B008/B009; group related audit episode if final inventory counts repair chains. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B011",
+      "campaign": "DK",
+      "origin": "tool",
+      "class": "COVER",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "659-664;697-702",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "Fixed-candidate positive histories and negative search had faithful global topology authority.",
+      "problem": "Positive controls omit working-line crossing; base-point selection is hash-seed-dependent and negative completeness silently single-base-point. Repaired positives cold-check; global sweep theorem still open.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One fixed-oracle episode with three named defects/limits; repeated FRONTIER568-578;605-611. Honest17/18 INCONCLUSIVE remains unchanged. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B012",
+      "campaign": "DK",
+      "origin": "tool",
+      "class": "ADAPTER",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "665-706",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "Modernization generator terminal/width certificates correctly represented initialized crossing.",
+      "problem": "It marked a k-fold crossing without reversing its block. Terminal/width authority rejected; later bounded prototype passes controls but BP12 equivalence/canonical augmentation remain open.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Separate generator from fixed-candidate oracle B011. Named Pappus identification/shard-disjointness not promoted, not extra known wrong theorem counts. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B013",
+      "campaign": "DK",
+      "origin": "own",
+      "class": "WARRANT",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/FRONTIER.md",
+          "lines": "714-729",
+          "sha256": "122718f3c2313f334fa8b9e6b00c64e7eb90c1cc181182f1bad5d0a5faa54e34"
+        }
+      ],
+      "claimed": "Five rank35 germs' exact order16 jets established branch/non-isolation.",
+      "problem": "Finite jets do not establish infinite formal/convergent arc; DKC rejects the inference. Five branch questions and45 repairs remain INCONCLUSIVE.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Separate stopping/authority gap from rank-IFT B014; CHECKPOINT822-824 repeats. No need for unbounded proof audit. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B014",
+      "campaign": "DK",
+      "origin": "own",
+      "class": "SCOPE",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/FRONTIER.md",
+          "lines": "412-416",
+          "sha256": "122718f3c2313f334fa8b9e6b00c64e7eb90c1cc181182f1bad5d0a5faa54e34"
+        }
+      ],
+      "claimed": "Jacobian repair-transversality inference licensed parent repair geometry.",
+      "problem": "Added repair equations do not vanish at parent point; tangent-rank/local-IFT premise fails.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One local-locus premise defect; CHECKPOINT773-789 repeats. Rank36/44 computations themselves not declared false. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B015",
+      "campaign": "DK",
+      "origin": "own",
+      "class": "MEANING",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "211-225",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "Downstairs orbit-square audit refuted producer's upstairs signed action unit ideals.",
+      "problem": "Raw quotient points need not choose globally coherent twists; these are different loci. Claimed contradiction rejected; portable cofactors also missing.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One invalid cross-layer comparison. FRONTIER222-230 repeats; no additional false theorem from lack of cofactors alone. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B018",
+      "campaign": "DK",
+      "origin": "tool",
+      "class": "BINDING",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "510-548;594-597",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "Embedding RFC fixtures and required-map checks supplied authentic typed map coverage.",
+      "problem": "Versions v1-v1.3 had inconsistent fixtures, missing inverse/ideal validation, reversed ideals/wrong-variable skip, reducible algebra mislabeled field, and ID borrowing. v1.4 authenticates semantic edge/endpoint digests and rejects duplicates.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One staged validation repair series with distinct listed subfindings; not independent incident counts for every mutation. Design/handoff artifact, not implemented GP proof. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B019",
+      "campaign": "DK",
+      "origin": "own",
+      "class": "BINDING",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "729-748",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "BGS recovered panel had24 point markers and source decode was terminally blocked.",
+      "problem": "24th raster marker belongs to adjacent19_4 panel; obsolete parser mirror/block diagnosis corrected. Target native vector group has23 points; final numerical source reconciliation still not exact incidence custody.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One source-recovery episode; parser/block explanation is operational subfinding. Do not identify endpoint-picked abstract type with source diagram. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B020",
+      "campaign": "DK",
+      "origin": "own",
+      "class": "OTHER",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "443-447",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "E1-prime gluing report's rank histogram and blob hashes described the exhaustive sweep.",
+      "problem": "Producer rank prose corrected to{8:16521,7:604,6:7}; committed-blob hashes repaired. Retained rational-component sweep still zero survivors.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One report/custody correction episode; no changed exact negative verdict. FRONTIER432-444 repeats. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B021",
+      "campaign": "DK",
+      "origin": "tool",
+      "class": "COVER",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/FRONTIER.md",
+          "lines": "445-450",
+          "sha256": "122718f3c2313f334fa8b9e6b00c64e7eb90c1cc181182f1bad5d0a5faa54e34"
+        }
+      ],
+      "claimed": "Secondary general-valence Superposition enumeration had569 unordered menus.",
+      "problem": "Split-aware corrected menu count is9090. Secondary capped experiment remains reconnaissance.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One secondary split-enumeration correction, not an error in accepted2041/1091 source-attested two-block gate. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B022",
+      "campaign": "DK",
+      "origin": "own",
+      "class": "SCOPE",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "1092-1107",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "A-0003 witness disagreed with SAT orientation under global-sign comparison.",
+      "problem": "Element-wise reorientation restores agreement; global-sign-only false field superseded.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Distinct equivalence relation error from CLEAN_MINIMAL B003; FRONTIER1054-1056 repeats. No rational witness refutation. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B023",
+      "campaign": "DK",
+      "origin": "own",
+      "class": "MEANING",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "1021-1033",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "Compact symmetric three-term relation was nonredundant across24 orderings.",
+      "problem": "Count concerned directed syntactic implications; mathematical symmetric relation invariant under all24. CHI1 remains unresolved.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One false nonredundancy claim; counts of raw clauses are not certified compression. FRONTIER964-976 repeats. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B024",
+      "campaign": "DK",
+      "origin": "tool",
+      "class": "BINDING",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "374-391",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "Class122 union verifier expected81+11 rows.",
+      "problem": "Current chart regenerates82+10=92; hardcoded split caused false negative. Certificate unchanged.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Distinct legacy-input-version check defect; no change to class122 negative theorem. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B025",
+      "campaign": "DK",
+      "origin": "own",
+      "class": "WARRANT",
+      "scope_or_region": "SCOPE",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "759-763",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "Cuntz's Galois remark implied CT1 real emptiness.",
+      "problem": "Intake removed attempted real-emptiness inference; remark alone supplies no such proof.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Source-reported withdrawn inference; primary Galois text not inspected. Accepted CT1 theorem has separate explicit proof, no conclusion refuted. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B026",
+      "campaign": "DK",
+      "origin": "own",
+      "class": "MEANING",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/FRONTIER.md",
+          "lines": "1200-1214",
+          "sha256": "122718f3c2313f334fa8b9e6b00c64e7eb90c1cc181182f1bad5d0a5faa54e34"
+        }
+      ],
+      "claimed": "Frozen5299 corpus elements were5299 coherent-action classes.",
+      "problem": "Storage is5299 distinct bare types,5371 cell-tagged memberships with72 repeats; final action-pair universe elsewhere becomes5395.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Distinct counted-object wording correction; don't sum bare types, memberships and actions or treat evolving scopes as contradictory arithmetic. No new census case admitted. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B027",
+      "campaign": "DK",
+      "origin": "own",
+      "class": "SCOPE",
+      "scope_or_region": "SCOPE",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "510-512",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "Orbit retrodiction could diagnose direct Q→F19 specialization.",
+      "problem": "Invalid direct-field specialization diagnosis removed; 1-WL stabilization helper also repaired.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Scope-diagnosis incident with a separate tool subfinding noted but not counted independently without source detail; integral model/suitable prime needed. Finite-field controls are not char0 proof. accept attributed recorded correction/defect for extraction; unknowns retained",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "DK-B028",
+      "campaign": "DK",
+      "origin": "own",
+      "class": "WARRANT",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+          "lines": "737-748;1289-1293;1342-1353",
+          "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+        }
+      ],
+      "claimed": "SAT controls/Trade37 UNSAT calculations could be promoted from retained receipts alone.",
+      "problem": "Four positive sign assignments not retained; ephemeral prefix LRAT bytes lost. Outcomes quarantined pending witness retention and bounded regeneration/cold check.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Two distinct custody failures kept as subfindings under one summary register; no false promotion asserted. Source records withheld authority and later repair, not necessarily wrong mathematics. retain two custody near-miss subfindings; authority was withheld, no false theorem promotion asserted",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "CQ-C01",
+      "campaign": "Cloquet",
+      "origin": "literature",
+      "class": "SCOPE",
+      "scope_or_region": "BOTH",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/cq-scouting.md",
+          "lines": [
+            259,
+            327
+          ],
+          "sha256": "22ef379cb247595c62740a539b2997d7276aa0733a7b228af32b5aea7a44fcaa"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            25,
+            77
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            41,
+            45
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "claimed": "Use the printed stronger angle row as a necessary condition, and treat reported survivor counts as a certification gate.",
+      "problem": "Source reports Lemma 6 gives adjacent-angle sum > pi/2, while LP uses x_u+x_v-y >= pi. Scouting supplies a unit pentagon with angle sum about134.76 degrees. No complete falsely rejected4-regular graph or disproof of34 is supplied.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One discrepancy across scouting, LSA and checkpoint, not three incidents. Retain as attributed source statement: this worker did not open the primary PDF or execute pentagon code. No GP case asserted to certify LP-to-geometry validity. Classification provisional; literature claims remain attributed to campaign.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "CQ-C02",
+      "campaign": "Cloquet",
+      "origin": "own",
+      "class": "SCOPE",
+      "scope_or_region": "SCOPE",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            81,
+            108
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            354,
+            363
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            41,
+            45
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "claimed": "Read arXiv:1401.4375 as proof of the general m(4)>=34 bound.",
+      "problem": "LSA traces the general bound citation to a2011 Geombinatorics article absent from its files; the arXiv paper is scoped to3-connected graphs. Similar titles do not establish identical sources.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Proposal for a source/scope correction, not evidence general34 is false. No direct primary read here; no native GP reuse for bibliography fact. Classification provisional; literature claims remain attributed to campaign.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "CQ-C03",
+      "campaign": "Cloquet",
+      "origin": "own",
+      "class": "WARRANT",
+      "scope_or_region": "SCOPE",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/CQ-PLAN.md",
+          "lines": [
+            108,
+            112
+          ],
+          "sha256": "b7bd2ef6f7f934855af47e8ccc0d37c314addc522f4003e56ad196cfb5acf080"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            110,
+            129
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            364,
+            368
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            41,
+            45
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "claimed": "Attribute uniqueness of the8-vertex3-regular graph to Kurz-Pinchasi.",
+      "problem": "LSA reports that the paper states m(3)=8 as an exercise and never asserts uniqueness. Lack of that attribution does not prove nonuniqueness.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One corrected attribution episode; unknown original author/cost/reliance. No distinct GP mathematical defect. Classification provisional; literature claims remain attributed to campaign.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "CQ-C04",
+      "campaign": "Cloquet",
+      "origin": "own",
+      "class": "BINDING",
+      "scope_or_region": "BOTH",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/cq-scouting.md",
+          "lines": [
+            36,
+            60
+          ],
+          "sha256": "22ef379cb247595c62740a539b2997d7276aa0733a7b228af32b5aea7a44fcaa"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            279,
+            350
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            369,
+            375
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            41,
+            45
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "claimed": "Attribute the mirror-symmetric one-angle53 target to arXiv:1906.11908 rather than calculator record100.",
+      "problem": "LSA says PDF text did not establish symmetry/angle; calculator record100 supplies the explicit source. The lane could not render the figure. Its phrase 'not in this PDF' is not adopted as proof geometric objects differ.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Source-binding correction proposal, with paper symmetry still inconclusive. Do not infer an exact graph exclusion from separated numerical closure roots. Classification provisional; literature claims remain attributed to campaign.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "ARR-C01",
+      "campaign": "ARR15",
+      "origin": "own",
+      "class": "MEANING",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-22-n15-realization-triage.md",
+          "lines": [
+            46,
+            68
+          ],
+          "sha256": "b3526e4af20b5da2729740719911f56bfff52b7ae5d37e341db0b8ff72359a79",
+          "latest_path_history": "b78dbc257e0c7c19eba89abea72b94db88a26bfe|2026-08-22T15:59:12-05:00|Accept GP v0.25 and prepare full realization wave"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            135,
+            141
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "claimed": "Promote the 64-class assay to full matroid representability and complete realization-space dimensions.",
+      "problem": "Selected collinearity equations and at most four basis guards allow extra dependencies. The accepted object is a partial-incidence principal-open scheme, not the full determinant-pattern open.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Concrete own-campaign near miss with recovery. Source records a stronger inbound report; actual downstream reliance unknown. The 64 cases form one flawed formulation episode, not 64 incidents. Primary-class choices are parent provisional; core catch remains null.",
+      "subfindings": [
+        {
+          "id": "ARR-C02",
+          "class": "SCOPE",
+          "problem": "Proper ideal gives a geometric point after field extension, not necessarily a Q-rational point. The accepted statement uses algebraic closure.",
+          "sources": [
+            {
+              "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-22-n15-realization-triage.md",
+              "lines": [
+                53,
+                65
+              ],
+              "sha256": "b3526e4af20b5da2729740719911f56bfff52b7ae5d37e341db0b8ff72359a79",
+              "latest_path_history": "b78dbc257e0c7c19eba89abea72b94db88a26bfe|2026-08-22T15:59:12-05:00|Accept GP v0.25 and prepare full realization wave"
+            }
+          ]
+        }
+      ],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "ARR-C03",
+      "campaign": "ARR15",
+      "origin": "literature",
+      "class": "BINDING",
+      "scope_or_region": "BOTH",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-22-m13-1-source-discrepancy.md",
+          "lines": [
+            22,
+            49
+          ],
+          "sha256": "62bcb6ce703435ac3299b939d61aa848f6cee6fae78152f02f102454254910b4",
+          "latest_path_history": "b78dbc257e0c7c19eba89abea72b94db88a26bfe|2026-08-22T15:59:12-05:00|Accept GP v0.25 and prepare full realization wave"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            114,
+            147
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "claimed": "Treat printed paper matrix as the database M13^1 arrangement under presentation equivalence.",
+      "problem": "Accepted receipt says original arXiv v1 TeX prints (1,-1,0) instead of (a1,-1,0) in column5. Literal matrix has41 versus45 dependent triples and different characteristic polynomial; correction restores all286 triple decisions.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One mismatch-to-forensics-to-correction episode. Worker did not read TeX, PDF, database or determinant output; published arXiv error is attributed to the accepted receipt, not independently established here. Primary-class choices are parent provisional; core catch remains null.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "ARR-C04",
+      "campaign": "ARR15",
+      "origin": "own",
+      "class": "BINDING",
+      "scope_or_region": "SCOPE",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            430,
+            450
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "claimed": "Use unrelated Barakat-Kuehne M12 objects for singular M1/M2 calibration, or search the generation paper for later M13 naming.",
+      "problem": "FRONTIER attributes singular M1/M2 to Kuehne-Luber-Pokora/Corey-Luber and exceptional M13 naming to the nonfree-locus paper.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Attribution correction grounded only in summary, no new theorem or independent primary verification. M12 and M13 confusions are distinguished subitems, not counted as proved mathematical failures. Primary-class choices are parent provisional; core catch remains null.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "ARR-C05",
+      "campaign": "ARR15",
+      "origin": "own",
+      "class": "MEANING",
+      "scope_or_region": "BOTH",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            247,
+            257
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/RESULTS_SO_FAR.md",
+          "lines": [
+            27,
+            31
+          ],
+          "sha256": "ee7e588c0eaa2da55ed5eb0f4cce67564f939b01ef923fc44685021508fad1bc",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/RESULTS_SO_FAR.md",
+          "lines": [
+            175,
+            186
+          ],
+          "sha256": "ee7e588c0eaa2da55ed5eb0f4cce67564f939b01ef923fc44685021508fad1bc",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-22-n15-realization-triage.md",
+          "lines": [
+            30,
+            44
+          ],
+          "sha256": "b3526e4af20b5da2729740719911f56bfff52b7ae5d37e341db0b8ff72359a79",
+          "latest_path_history": "b78dbc257e0c7c19eba89abea72b94db88a26bfe|2026-08-22T15:59:12-05:00|Accept GP v0.25 and prepare full realization wave"
+        }
+      ],
+      "claimed": "Treat9591+3473+18 as divisional-freeness split, or universal nonfree lanes as first proof of family constancy.",
+      "problem": "Source distinguishes Proposition5.2 disposition from13064+18 divisional split, and known fixed-matroid nonfreeness from constructive Fitting re-derivation. Triage had left primary Abe hypotheses uninspected.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Recorded corrective warning, not evidence of a wrong public census. Different predicates must remain distinct; no audit of Abe or Proposition5.2 conducted. Primary-class choices are parent provisional; core catch remains null.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "ARR-C06",
+      "campaign": "ARR15",
+      "origin": "own",
+      "class": "SCOPE",
+      "scope_or_region": "SCOPE",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            378,
+            400
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/RESULTS_SO_FAR.md",
+          "lines": [
+            117,
+            138
+          ],
+          "sha256": "ee7e588c0eaa2da55ed5eb0f4cce67564f939b01ef923fc44685021508fad1bc",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/RESULTS.md",
+          "lines": [
+            63,
+            79
+          ],
+          "sha256": "55b0ce7699dd8e6bfc21e870a8deec16b7b818a38670dbd86d19af6d3a1bff55",
+          "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/CHECKPOINT.md",
+          "lines": [
+            61,
+            70
+          ],
+          "sha256": "8313ea3bfb2ccabfc7f01abcfe239fd5b3ca1d4caaa619947a3c324ae531bfb1",
+          "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+        }
+      ],
+      "claimed": "Present idx001 representability, freeness or exponents as discovery of a new arrangement.",
+      "problem": "Exact identification is reported with G(5,5,3); freeness/exponents are known. Arithmetic geometry remains plausible-new, not proven novel.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Preventive novelty correction; no source shows the wrong new-arrangement claim publicly shipped. Cuntz absence and bounded search cannot prove global novelty. Primary-class choices are parent provisional; core catch remains null.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "ARR-C07",
+      "campaign": "ARR15",
+      "origin": "own",
+      "class": "WARRANT",
+      "scope_or_region": "SCOPE",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-publication-readiness-closeout.md",
+          "lines": [
+            31,
+            35
+          ],
+          "sha256": "d001f6a941c3d64f9262dfece1d8db6dfdb01f07826df690540db66af975a0c6",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-publication-readiness-closeout.md",
+          "lines": [
+            81,
+            94
+          ],
+          "sha256": "d001f6a941c3d64f9262dfece1d8db6dfdb01f07826df690540db66af975a0c6",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            402,
+            409
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "claimed": "Assert a specific Bresciani/nonabelian-H1 obstruction from the directly computed field gap.",
+      "problem": "Source says required normalizer, quotient and lifting data were not constructed; primary inspection led to omission.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Concrete framing near miss, not refutation of the direct gap or of Bresciani's theorem. Original primary text not read by worker. Primary-class choices are parent provisional; core catch remains null.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "ARR-O08",
+      "campaign": "ARR15",
+      "origin": "own",
+      "class": "BINDING",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/CHECKPOINT.md",
+          "lines": [
+            86,
+            96
+          ],
+          "sha256": "8313ea3bfb2ccabfc7f01abcfe239fd5b3ca1d4caaa619947a3c324ae531bfb1",
+          "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-publication-readiness-closeout.md",
+          "lines": [
+            69,
+            77
+          ],
+          "sha256": "d001f6a941c3d64f9262dfece1d8db6dfdb01f07826df690540db66af975a0c6",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/REPRODUCIBILITY.md",
+          "lines": [
+            25,
+            27
+          ],
+          "sha256": "31b1522dc743b6627f9fa15db25a532a0e593a01e6780e0a4d4d3664fca9d347",
+          "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop"
+        }
+      ],
+      "claimed": "Mark the cold publication-positioning attempt SUPPORTED despite incorrect declared base-blob hash.",
+      "problem": "Packet declared wrong SHA for RESULTS_SO_FAR at base628c24e; trial stays PARTIAL and mandated replay exits FAIL_PACKET_INPUT_MISMATCH. Later checkpoint expects precisely this regression failure.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Concrete packet identity defect; failing literal trial and passing wrapper assertion are different observations, neither rerun here. Primary-class choices are parent provisional; core catch remains null.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "ARR-T13",
+      "campaign": "ARR15",
+      "origin": "tool",
+      "class": "ADAPTER",
+      "scope_or_region": "SCOPE",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            215,
+            225
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            495,
+            499
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "claimed": "Treat every Singular D(A) resolution as independent authority for all18 module baselines.",
+      "problem": "Source rejects ten high-generator D(A) outputs; Macaulay2 QQ remains authoritative. Singular Jacobian/D0 data over verified-generic large prime has narrower support.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Source-reported tool-output issue, not ten verified mathematical mistakes or proof of current Singular defect. No output/log/code examined here. Primary-class choices are parent provisional; core catch remains null.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "PR-O01",
+      "campaign": "Pigeon River",
+      "origin": "own",
+      "class": "BINDING",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/PRC-ERRATUM.md",
+          "lines": [
+            3,
+            17
+          ],
+          "sha256": "b05c3144ad0d35642a95512b0aaace66a2b7893452a18b18f2357942e961b158"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-11-CLOSEOUT.md",
+          "lines": [
+            36,
+            44
+          ],
+          "sha256": "916af9c821dfa20a169e2c21ce606cf111efd3533c9ed783009ad39f29d96e96"
+        }
+      ],
+      "claimed": "Manifest names executable checks; summary is byte deterministic; ten withdrawal exercises ran.",
+      "problem": "Two named scripts did not exist, real shear replay was understated; wall time in stored summary contradicted determinism and made hash table stale; actual receipt has eleven withdrawals.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Three defect dimensions in one packaging intake. No mathematical outcome altered. This worker did not read original script or hash-table bytes or rerun package. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "PR-O02",
+      "campaign": "Pigeon River",
+      "origin": "own",
+      "class": "OTHER",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/PRC-ERRATUM.md",
+          "lines": [
+            19,
+            22
+          ],
+          "sha256": "b05c3144ad0d35642a95512b0aaace66a2b7893452a18b18f2357942e961b158"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-11-CLOSEOUT.md",
+          "lines": [
+            38,
+            44
+          ],
+          "sha256": "916af9c821dfa20a169e2c21ce606cf111efd3533c9ed783009ad39f29d96e96"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            3,
+            8
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/coordination/PRG-E11-CLOSEOUT-REVIEW.md",
+          "lines": [
+            32,
+            35
+          ],
+          "sha256": "efd6e4e8cb82d12bb5f5355b6feff5181571551200c5a6b4a3f93ddddccb46c7"
+        }
+      ],
+      "claimed": "Treat producer graph append as authorized campaign state.",
+      "problem": "Raw receipt records graph_effect APPENDED and changed before/after hashes in producer worktree. PRC excluded append from integration and preserved raw event evidence.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "No copying/folding of event stream here. Receipt before/after hashes are not hashes of current authoritative graph. No wrong mathematical license established. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "PR-C04",
+      "campaign": "Pigeon River",
+      "origin": "own",
+      "class": "WARRANT",
+      "scope_or_region": "BOTH",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            95,
+            112
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            153,
+            169
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/RETROSPECTIVE.md",
+          "lines": [
+            59,
+            71
+          ],
+          "sha256": "f0cd169ebbf77ea32c6479a5777371a4cb370da04c1cab7c7f93d918d872ea2e"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-6-CLOSEOUT.md",
+          "lines": [
+            56,
+            65
+          ],
+          "sha256": "6e973688a7b4ea86cdbcc6ca8c723ecfcdf433063bf89efa897dd35dc7f0ed36"
+        }
+      ],
+      "claimed": "'Stalls at30%' and50% coverage appears unreachable by small finite quotients.",
+      "problem": "Of1363 UNKNOWN orientation cells,770 never reached S7 and593 exhausted four run families; three SL2 families and S7 positive control not attempted.491 two-sided negatives combine Britton+sieve.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Repeated prose/erratum/retrospective one episode. Budget null cannot certify algorithm saturation. Raw sweep/control receipts not read; source counts remain attributed. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "PR-C05",
+      "campaign": "Pigeon River",
+      "origin": "own",
+      "class": "WARRANT",
+      "scope_or_region": "BOTH",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-6-CLOSEOUT.md",
+          "lines": [
+            72,
+            100
+          ],
+          "sha256": "6e973688a7b4ea86cdbcc6ca8c723ecfcdf433063bf89efa897dd35dc7f0ed36"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/RETROSPECTIVE.md",
+          "lines": [
+            26,
+            32
+          ],
+          "sha256": "f0cd169ebbf77ea32c6479a5777371a4cb370da04c1cab7c7f93d918d872ea2e"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-7-CLOSEOUT.md",
+          "lines": [
+            95,
+            103
+          ],
+          "sha256": "6e458537eac2f2fbbd007c6db50064b712cc8f97be51f8833bd211d6d9dcc6dd"
+        }
+      ],
+      "claimed": "Promote Lane C to requested exact site-sequencing DP and n8 no-path as exact negative.",
+      "problem": "Implemented level-synchronous heuristic beam; n8 budget-limited, n9/10 not attempted; bases113/212/406 not known optimal. Later Epoch7 exact scheduler likewise absent.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Epoch6 method mislabel is one episode; Epoch7 later bounded search is honest non-delivery, not another proved false exact output. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "PR-T06",
+      "campaign": "Pigeon River",
+      "origin": "own",
+      "class": "ADAPTER",
+      "scope_or_region": "SCOPE",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            105,
+            112
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            128,
+            136
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/RETROSPECTIVE.md",
+          "lines": [
+            26,
+            32
+          ],
+          "sha256": "f0cd169ebbf77ea32c6479a5777371a4cb370da04c1cab7c7f93d918d872ea2e"
+        }
+      ],
+      "claimed": "Use packet heuristic as admissible A* lower bound.",
+      "problem": "Inversion negates e_a; source says heuristic violated admissibility and Lane E corrected it.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Detailed heuristic/code not among five pointers; no concrete falsely claimed optimum or published wrong path inferred. GP arithmetic is not automatically a search admissibility checker. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "PR-T07",
+      "campaign": "Pigeon River",
+      "origin": "own",
+      "class": "ADAPTER",
+      "scope_or_region": "BOTH",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            46,
+            59
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/RETROSPECTIVE.md",
+          "lines": [
+            26,
+            32
+          ],
+          "sha256": "f0cd169ebbf77ea32c6479a5777371a4cb370da04c1cab7c7f93d918d872ea2e"
+        }
+      ],
+      "claimed": "Treat inversion as free in exact SL2(Fp) conjugacy comparison.",
+      "problem": "At p congruent3 mod4, unipotent classes at trace±2 swap under inversion; retrospective identifies unsound draft comparison, closeout says sieve handles this.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "No literal code or bad-output receipt read. Retrospective's Epoch6-draft reference and Epoch5 closeout chronology are both retained without inventing one exact first-discovery date. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "PR-C08",
+      "campaign": "Pigeon River",
+      "origin": "own",
+      "class": "MEANING",
+      "scope_or_region": "BOTH",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            311,
+            364
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            288,
+            296
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "claimed": "Promote compiled witness label, family conjugator and negative multiseam verdict using unchecked conventions.",
+      "problem": "First producer had fail-open right-side byte check, t=a rather than A, unsupported formula and missing max-rank traces. Correction v1 kept520 unlifted grid cells labeled compiled and only forward representative replays. Later multiseam had reversed Aff(Q) scaling, wrong forced exponents and invalid JSON.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Grouped chronology with two subepisode keys: relative-HNN sign/lift correction and multiseam affine-scaling correction. Forty local grid lifts are not forty official certificates. Only summary grounding, no original payload/source read. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "PR-T09",
+      "campaign": "Pigeon River",
+      "origin": "tool",
+      "class": "ADAPTER",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            149,
+            157
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            185,
+            197
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "claimed": "Reject three n6 quotient conjugacy witnesses by structural equality of noncanonical expressions.",
+      "problem": "Audit falsely refutes due to noncanonical Britton-reduced comparison; PRC confirms C*residual*C^-1=anchor for three named rows.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One audit-test error, not three independent mathematical nonconjugacy results. Known valid quotient witnesses still required lift/replay before AC authority; local paths not competitive and not uploaded. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "PR-C10",
+      "campaign": "Pigeon River",
+      "origin": "own",
+      "class": "COVER",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            230,
+            237
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            250,
+            275
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            185,
+            192
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "claimed": "Treat a claimed checker matrix as exhaustive direct developing_map comparison.",
+      "problem": "One repair omitted outside18 real rotations; later n7 producer/audit both missed direct matrix and audit mislabeled self-rotations as compatible pair rotations; n6 producer missed105-position matrix.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Distinct n6/n7/multiseam conformance episodes grouped, not one count. Missing checks alone do not prove every mathematical verdict false. No matrix bodies read. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "PR-C11",
+      "campaign": "Pigeon River",
+      "origin": "own",
+      "class": "OTHER",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            250,
+            276
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "claimed": "Report181 missing rows as161 shard/benchmark plus20 metered-wave.",
+      "problem": "Correct split142+39; zero-hit totals retained.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "One numeric split correction; no exact literal prefix was in custody, so GP dispatch remained blocked. Not a failed semantic proof or new GP execution. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "PR-C12",
+      "campaign": "Pigeon River",
+      "origin": "own",
+      "class": "BINDING",
+      "scope_or_region": "BOTH",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e4-stable-ak3-intake-v1/PRC-ERRATUM.md",
+          "lines": [
+            1,
+            29
+          ],
+          "sha256": "736a5125f5e217ae9fdbf6f4cb6038529bbf639d24bb20650a40412449003c96"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            72,
+            103
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "claimed": "Receipt says endpoint total31, automorphism x->xy in Prop1.2, Carreras inherits stable AK3 claim, and Lisitsa never revisits it.",
+      "problem": "Erratum gives total32, x->xy^-1 for Prop1.2; xy belongs to another proof. Carreras only bibliography citation; publisher indexed Lisitsa abstract later retracts basis and leaves AK3 unresolved, unlike arXivv1.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Four source claims in one admitted-receipt erratum. Original primary papers, indexed abstract and chain receipt not read by worker. No stable AK3 proof/certificate or journal theorem verdict supplied. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "PR-C13",
+      "campaign": "Pigeon River",
+      "origin": "own",
+      "class": "SCOPE",
+      "scope_or_region": "BOTH",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            105,
+            112
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            171,
+            173
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-6-CLOSEOUT.md",
+          "lines": [
+            89,
+            100
+          ],
+          "sha256": "6e973688a7b4ea86cdbcc6ca8c723ecfcdf433063bf89efa897dd35dc7f0ed36"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-7-CLOSEOUT.md",
+          "lines": [
+            93,
+            106
+          ],
+          "sha256": "6e458537eac2f2fbbd007c6db50064b712cc8f97be51f8833bd211d6d9dcc6dd"
+        }
+      ],
+      "claimed": "Use Epoch4 bound/residual prose globally; count only8 k1 rows; use mixed Epoch5/6 F3 or stale records as current gates.",
+      "problem": "Sources record overstated121 bound/misstated mates,16 rather than8 k1 members, mixed F3 units needing split, missing3 base rows in frontier, and dated record207/402 rather than209/403.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Grouped distinct subepisodes, not an independent incident count. Exact Epoch4 lower-bound erratum and F3 repair body not opened due pointer cap. Literal witness validity not refuted by dated comparator change. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "PR-T15",
+      "campaign": "Pigeon River",
+      "origin": "own",
+      "class": "BINDING",
+      "scope_or_region": "REGION",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            393,
+            398
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            25,
+            112
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            405,
+            413
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "claimed": "Use normalized matching_key interchangeably with literal row for checkpoint history replay.",
+      "problem": "Source assay attributes ac00174 edge-history failure to normalized source, recovering only with literal source bytes; Epoch1 exact4776-edge149-history review reported.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Historical source correction not independently re-executed; later P1 is a probe repeating the same boundary, not a second wrong mathematical result. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    },
+    {
+      "id": "PR-T16",
+      "campaign": "Pigeon River",
+      "origin": "tool",
+      "class": "ADAPTER",
+      "scope_or_region": "N/A",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            456,
+            466
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            531,
+            558
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "claimed": "Infer complete loop removal/optimality or unqualified descriptive assay source correspondence.",
+      "problem": "Loop erasure drops cut-state lookup after repeat, potentially missing later loops; emitted paths all replay. Later PRC repairs runner accounting, cap-classification tests and payload aliasing/source correspondence.",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "notes": "Distinct subepisodes loop-erasure, metered accounting, payload/source binding grouped. No code/details read; no invalid accepted AC path inferred. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+      "subfindings": [],
+      "status": "qualified draft; not an approved AppendixB record or independent statistical unit"
+    }
+  ],
+  "excluded_or_separate_register": [
+    {
+      "id": "DK-B016",
+      "disposition": "retain summary-supported defect lead with exact-output/version limit; not reproduced counterexample",
+      "source": {
+        "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+        "lines": "71-83",
+        "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+      },
+      "limit": "Grouped certificate-repair lead with three concrete defect types. Summary-supported; detailed counterexamples unknown, no claim42 closed."
+    },
+    {
+      "id": "DK-B017",
+      "disposition": "retain summary-supported defect lead with exact-output/version limit; not reproduced counterexample",
+      "source": {
+        "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+        "lines": "302-318",
+        "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d"
+      },
+      "limit": "Recorded backend-unsoundness lead, not independently reproduced here. Exact false output/source identity needs bounded later source extraction; no accusation about arbitrary library releases."
+    },
+    {
+      "id": "DK-B029",
+      "disposition": "retain documented positional-binding trap and rejected reasoning; exact actual wrong-instance outcome unestablished, no incident count yet",
+      "source": {
+        "path": "$DEV/math-research/campaigns/cfg23/FRONTIER.md",
+        "lines": "246-255",
+        "sha256": "122718f3c2313f334fa8b9e6b00c64e7eb90c1cc181182f1bad5d0a5faa54e34"
+      },
+      "limit": "Summary-supported source-binding lead only. Reject one-contact-conic-coincidence explanation as separate unsupported reasoning subfinding, not automatic separate incident."
+    },
+    {
+      "id": "CQ-P05",
+      "disposition": "Reuse parent A24 source grounding; do not duplicate extraction or edit seed. Current A24 attempted conclusion is no-realization, and parent clarification remains pending Will. No wrong GP verdict shown.",
+      "kind": "deliberate mathematical misuse control; no actual campaign error demonstrated",
+      "category": "deliberate misuse control; not wrong campaign claim"
+    },
+    {
+      "id": "CQ-P06",
+      "disposition": "Not a newly observed wrong campaign conclusion. A10-R/C reuse the ordered-versus-complex reach decision, not M2's particular model or literal cofactor.",
+      "kind": "deliberate misuse control",
+      "category": "deliberate misuse control; not wrong campaign claim"
+    },
+    {
+      "id": "CQ-P07",
+      "disposition": "Existing A16 covered/missing captures required exhaustion but has Boolean cover inputs. It does not encode these circle opens, graph family reconstruction or all sign/degenerate branches.",
+      "kind": "deliberate misuse control",
+      "category": "deliberate misuse control; not wrong campaign claim"
+    },
+    {
+      "id": "CQ-P08",
+      "disposition": "No distinct actual mathematical incident demonstrated. No exact existing case selected: affine rank/existence or Jacobian sampling examples are not the same higher-order flex assertion. Parser diagnostic is separately CQ-G03 with same dedup episode.",
+      "kind": "deliberate misuse control",
+      "category": "deliberate misuse control; not wrong campaign claim"
+    },
+    {
+      "id": "CQ-P09",
+      "disposition": "X96/X106 reuse the unfinished-search authority boundary but concern JC extraction/search, not the literal work sidecar or family-declaration path. Count refusal is a successful defense within same exercise.",
+      "kind": "deliberate misuse control",
+      "category": "deliberate misuse control; not wrong campaign claim"
+    },
+    {
+      "id": "CQ-G01",
+      "disposition": "A13 ambient/derived distinction is relevant semantic reuse but does not test zero quotient or message wording. Retain specific presentation probe only if parent needs it; do not count legitimate derived identity as mathematical incident.",
+      "kind": "GP mechanics interpretation observation",
+      "category": "GP historical observation"
+    },
+    {
+      "id": "CQ-G02",
+      "disposition": "A18/X160 supply stale evidence/retired context decision reuse, but neither includes unrelated later supersession plus default-vs-history display. Candidate defect remains historical0.32 observation, not confirmed at frozen0.37.",
+      "kind": "GP mechanics candidate visibility defect",
+      "category": "GP historical observation"
+    },
+    {
+      "id": "CQ-G03",
+      "disposition": "Diagnostic-quality proposal only. No exact corpus reuse selected for wording. No backend invoked in this pass.",
+      "kind": "GP mechanics diagnostic observation",
+      "category": "GP historical observation"
+    },
+    {
+      "id": "ARR-G09",
+      "disposition": "Hostile probes discovered a literal historical implementation defect; not an actual ARR15 theorem falsely accepted. Recovery report is attributed, not frozen0.37 verification.",
+      "category": "historical GP/tool subepisodes require finite GP consolidation"
+    },
+    {
+      "id": "ARR-G10",
+      "disposition": "Two related but not proven-identical failure mechanisms; do not deduplicate as one bug or count each repeated summary. No mathematical false EMPTY inferred from crash/cap.",
+      "category": "historical GP/tool subepisodes require finite GP consolidation"
+    },
+    {
+      "id": "ARR-G11",
+      "disposition": "Product acceptance with qualified extended-row refutation, not mathematical nonsquare result refuted. Final implementation debt remains source-recorded; no current code inspected.",
+      "category": "historical GP/tool subepisodes require finite GP consolidation"
+    },
+    {
+      "id": "ARR-O12",
+      "disposition": "Grouped operational dispositions with distinct subepisode keys: native-cas-host, e10-encoding-conflicts, old-manifest-schema, mac-v026-binding. Do not merge them into one incident count or invent wrong theorem shipping.",
+      "category": "historical GP/tool subepisodes require finite GP consolidation"
+    },
+    {
+      "id": "PR-Q03",
+      "disposition": "One candidate-family refutation, not458 independent incidents. It refutes specified exact quotient; no automatic claim that every abstraction fails or every separately justified relaxation bound is impossible. No actual incorrect n6 result was delivered.",
+      "category": "refuted design candidate"
+    },
+    {
+      "id": "PR-G14",
+      "disposition": "Do not promote producer labels ACCEPT_AUTHENTIC/REFUSE_OVERCLAIM to runtime authority. Baseline0/6 is only source closeout report, not read raw plain-baseline body; no superiority/cost conclusion. P6 totals differ slightly even while both adapter gaps, so uniform wording is only a category summary.",
+      "category": "intentional GP assay; no earned license"
+    }
+  ],
+  "descriptive_row_counts": {
+    "by_campaign": {
+      "JC": 16,
+      "DK": 26,
+      "Cloquet": 4,
+      "ARR15": 8,
+      "Pigeon River": 14
+    },
+    "by_primary_class": {
+      "SCOPE": 14,
+      "JOIN": 1,
+      "MEANING": 9,
+      "COVER": 7,
+      "ADAPTER": 15,
+      "BINDING": 12,
+      "WARRANT": 7,
+      "OTHER": 3
+    },
+    "by_provisional_origin": {
+      "own": 51,
+      "tool": 15,
+      "literature": 2
+    },
+    "cost_known": 2,
+    "shipping_known": 2
+  },
+  "counting_limits": [
+    "Counts describe primary draft rows; multi-mechanism subepisodes and secondary classes are not expanded independent samples.",
+    "JC-B013 grouped under B012; ARR-C02 grouped under C01; repeated witness/control/repair occurrences do not add rows.",
+    "Summary-attributed tool/literature allegations remain source reports, not independently verified arbitrary version defects.",
+    "GP-only historical incidents remain in finite GP consolidation, not silently omitted from eventual inventory.",
+    "High-cost/MEANING percentage gate not evaluated: most costs unknown, origin/class provisional and composites need final counting disposition."
+  ],
+  "pending_decisions": [
+    "Permit explicit unknown cost/shipping/GP-catch instead of inventing AppendixB categories; direct user answer pending",
+    "A24 semantic clarification separately pending; not inferred from this inventory work"
+  ]
+}

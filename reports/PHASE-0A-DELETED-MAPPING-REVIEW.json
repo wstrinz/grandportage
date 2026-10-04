@@ -1,0 +1,3203 @@
+{
+  "schema_version": 1,
+  "scope": "Exactly the 42 closure-matrix deleted_test_functions rows with prior_disposition=covered_by_existing_cases.",
+  "baseline_commit": "2b4f149",
+  "oracle_history_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+  "method_note": "Existing cases are evaluated as neutral mechanism coverage. A hash or digest refusal is marked outer-hash-only unless the test independently reaches an arithmetic or semantic check.",
+  "counts": {
+    "unresolved": 9,
+    "partial": 22,
+    "mapped_outer_hash_only": 10,
+    "mapped": 1
+  },
+  "reviews": [
+    {
+      "source_path": "tests/test_jc_h3_adjoint_recurrence.py",
+      "test": "test_changed_jump_schedule_is_refused",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_adjoint_recurrence.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 86,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/5/tests/3"
+      },
+      "exact_test_assertion": "def test_changed_jump_schedule_is_refused():\n    module = _load()\n    value = _fixture(module)\n    value[\"native_certificate\"][\"operator_jumps\"][\"nonzero_at\"] = [7, 8, 11, 13]\n\n    with pytest.raises(module.RecurrenceEvidenceError, match=\"J2\"):\n        module.validate_fixture_value(value)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X110",
+          "pointer": "corpus/must/GP-X110.json",
+          "attempted_conclusion": "Reuse a unilateral cutoff theorem for a bilateral sequence.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Changing the index domain changes the recurrence statement."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_adjoint_recurrence.py",
+              "line": 67,
+              "anchor": "def test_scope_widening_mutations_are_refused("
+            }
+          ]
+        },
+        {
+          "id": "GP-X118",
+          "pointer": "corpus/must/GP-X118.json",
+          "attempted_conclusion": "Check the finite zero tail and nonzero depth-13 endpoint.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "On indices starting at six the eighth shift annihilates the checked sequence while the seventh does not. The generic Lean theorem is not recompiled here."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_adjoint_recurrence.py",
+              "line": 25,
+              "anchor": "def test_corrected_unilateral_annihilator_is_lean_backed_and_scoped("
+            }
+          ]
+        }
+      ],
+      "classification": "unresolved",
+      "equivalence_argument": "The test changes the checked jump set from the pinned schedule and expects recurrence validation to reject it. X118 checks the unmodified finite tail/end-point and X110 rejects a domain widening; neither reproduces a changed jump schedule.",
+      "unmatched_distinction": "The candidate pair does not make the altered-J2 premise or its validator error independent.",
+      "confidence": "low"
+    },
+    {
+      "source_path": "tests/test_jc_h3_adjoint_recurrence.py",
+      "test": "test_zeroing_depth13_endpoint_refuses_minimal_shift_claim",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_adjoint_recurrence.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 95,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/5/tests/4"
+      },
+      "exact_test_assertion": "def test_zeroing_depth13_endpoint_refuses_minimal_shift_claim():\n    module = _load()\n    value = _fixture(module)\n    zero = copy.deepcopy(\n        value[\"native_certificate\"][\"regimes\"][0][\"matrix\"][0][\"value\"])\n    assert zero[\"terms\"] == 0\n    for entry in value[\"native_certificate\"][\"regimes\"][3][\"matrix\"]:\n        entry[\"value\"] = copy.deepcopy(zero)\n\n    with pytest.raises(module.RecurrenceEvidenceError, match=\"J4|A2\"):\n        module.validate_fixture_value(value)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X110",
+          "pointer": "corpus/must/GP-X110.json",
+          "attempted_conclusion": "Reuse a unilateral cutoff theorem for a bilateral sequence.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Changing the index domain changes the recurrence statement."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_adjoint_recurrence.py",
+              "line": 67,
+              "anchor": "def test_scope_widening_mutations_are_refused("
+            }
+          ]
+        },
+        {
+          "id": "GP-X118",
+          "pointer": "corpus/must/GP-X118.json",
+          "attempted_conclusion": "Check the finite zero tail and nonzero depth-13 endpoint.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "On indices starting at six the eighth shift annihilates the checked sequence while the seventh does not. The generic Lean theorem is not recompiled here."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_adjoint_recurrence.py",
+              "line": 25,
+              "anchor": "def test_corrected_unilateral_annihilator_is_lean_backed_and_scoped("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The test destroys the nonzero depth-13 endpoint and expects the finite-tail/minimal-shift validation to refuse. X118 has the same endpoint-versus-zero-tail invariant, though it is a positive replay of the intact finite sequence.",
+      "unmatched_distinction": "X118 does not mutate the depth-13 matrix entries or exercise this adapter error path.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_compatibility.py",
+      "test": "test_exact_affine_and_quotient_replay_classifies_phi_narrowly",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_compatibility.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 36,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/6/tests/0"
+      },
+      "exact_test_assertion": "def test_exact_affine_and_quotient_replay_classifies_phi_narrowly(checked):\n    assert checked == {\n        \"phi_terms\": 3137,\n        \"chart_determinant\": \"VERIFIED_DET5\",\n        \"clearing_exponent\": 2,\n        \"power_one_refuted\": True,\n        \"resultant_degree\": 26,\n        \"nonzero_observation_dimension\": 2,\n        \"zero_observation_dimension\": 14,\n        \"zero_witness_guards\": [\n            \"c2_3\", \"p\", \"det5\", \"OB-pivot\", \"S11\"],\n        \"module_rendezvous\": \"BOUND_FROZEN_SAME_PHI\",\n    }\n    assert hashlib.sha256(FIXTURE_RAW).hexdigest() == (\n        MODULE.EXPECTED_FIXTURE_SHA256)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X119",
+          "pointer": "corpus/must/GP-X119.json",
+          "attempted_conclusion": "An element may be both nonzero and nonunit.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "In Q[z]/(z^2-z), z maps to 1 at z=1 and to 0 at z=0."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_b0_compatibility.py",
+              "line": 53,
+              "anchor": "def test_report_keeps_ring_class_separate_from_graph_and_geometry("
+            }
+          ]
+        },
+        {
+          "id": "GP-X120",
+          "pointer": "corpus/must/GP-X120.json",
+          "attempted_conclusion": "Infer nonzerodivisor from nonzero and nonunit observations.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The same element has the nonzero annihilator z-1. Nonzero and nonunit do not establish nonzerodivisor."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_b0_compatibility.py",
+              "line": 82,
+              "anchor": "def test_scope_and_direction_mutations_refuse_before_expensive_replay("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The checked fixture separates nonzero, nonunit, and still-open nonzerodivisor information. X119/X120 isolate precisely that logical separation in a small quotient.",
+      "unmatched_distinction": "The 3,137-term phi fixture, determinant/resultant counts, and module rendezvous are not replayed by the neutral quotient.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_compatibility.py",
+      "test": "test_changed_native_binding_refuses_before_replay",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_compatibility.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 89,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/6/tests/3"
+      },
+      "exact_test_assertion": "def test_changed_native_binding_refuses_before_replay():\n    changed = copy.deepcopy(FIXTURE)\n    changed[\"source_bindings\"][\"f2_h3_b0_uniform_lambda.json\"] = \"0\" * 64\n    with pytest.raises(MODULE.CompatibilityEvidenceError, match=\"F3\"):\n        MODULE.validate_fixture_value(changed)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X40",
+          "pointer": "corpus/must/GP-X40.json",
+          "attempted_conclusion": "Accept a changed first-row digest against the unchanged bound polynomial rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The native row commitments must match the frozen GP rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_original_pair_seam.py",
+              "line": 107,
+              "anchor": "def test_changed_native_row_commitment_breaks_the_gp_weld("
+            }
+          ]
+        },
+        {
+          "id": "GP-X44",
+          "pointer": "corpus/must/GP-X44.json",
+          "attempted_conclusion": "Accept changed fixture bytes under the original content binding.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A frozen receipt cannot silently accept changed bytes."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+              "line": 256,
+              "anchor": "\"frozen seam fixture digest changed\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 206,
+              "anchor": "def test_scope_or_source_binding_mutation_stales_old_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X72",
+          "pointer": "corpus/must/GP-X72.json",
+          "attempted_conclusion": "Accept the supplied native parent bytes as the frozen source.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The supplied bytes do not match the frozen native parent digest."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 228,
+              "anchor": "def test_adapter_refuses_any_change_to_the_native_parent_bytes("
+            }
+          ]
+        }
+      ],
+      "classification": "mapped_outer_hash_only",
+      "equivalence_argument": "The changed source-binding digest is rejected before replay, matching the stale-binding rule in X40/X71/X72.",
+      "unmatched_distinction": "This is an outer binding refusal only; it does not independently validate or refute the changed arithmetic/semantics.",
+      "confidence": "high_for_binding_only"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_compatibility.py",
+      "test": "test_changed_witness_polynomial_refuses_by_frozen_artifact_digest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_compatibility.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 96,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/6/tests/4"
+      },
+      "exact_test_assertion": "def test_changed_witness_polynomial_refuses_by_frozen_artifact_digest(tmp_path):\n    changed = copy.deepcopy(FIXTURE)\n    changed[\"slice\"][\"final_modulus\"][0][0] = \"1\"\n    path = tmp_path / \"changed.json\"\n    path.write_bytes(MODULE.encoded(changed))\n    with pytest.raises(MODULE.CompatibilityEvidenceError, match=\"F4\"):\n        MODULE.verify_fixture(path)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X40",
+          "pointer": "corpus/must/GP-X40.json",
+          "attempted_conclusion": "Accept a changed first-row digest against the unchanged bound polynomial rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The native row commitments must match the frozen GP rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_original_pair_seam.py",
+              "line": 107,
+              "anchor": "def test_changed_native_row_commitment_breaks_the_gp_weld("
+            }
+          ]
+        },
+        {
+          "id": "GP-X44",
+          "pointer": "corpus/must/GP-X44.json",
+          "attempted_conclusion": "Accept changed fixture bytes under the original content binding.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A frozen receipt cannot silently accept changed bytes."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+              "line": 256,
+              "anchor": "\"frozen seam fixture digest changed\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 206,
+              "anchor": "def test_scope_or_source_binding_mutation_stales_old_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X72",
+          "pointer": "corpus/must/GP-X72.json",
+          "attempted_conclusion": "Accept the supplied native parent bytes as the frozen source.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The supplied bytes do not match the frozen native parent digest."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 228,
+              "anchor": "def test_adapter_refuses_any_change_to_the_native_parent_bytes("
+            }
+          ]
+        }
+      ],
+      "classification": "mapped_outer_hash_only",
+      "equivalence_argument": "Changing a witness polynomial changes fixture bytes and the frozen outer digest rejects it, as in X44.",
+      "unmatched_distinction": "The rejection happens at the outer hash; no candidate establishes an arithmetic failure of the changed polynomial.",
+      "confidence": "high_for_binding_only"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "test": "test_arithmetic_and_scope_mutations_refuse",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 87,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/7/tests/2"
+      },
+      "exact_test_assertion": "def test_arithmetic_and_scope_mutations_refuse(frozen, mutator, check):\n    changed = copy.deepcopy(frozen[1])\n    mutator(changed)\n    with pytest.raises(MODULE.Depth8BlockEvidenceError, match=check):\n        MODULE.validate_fixture_value(changed)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X121",
+          "pointer": "corpus/must/GP-X121.json",
+          "attempted_conclusion": "Infer existence from a rank-two affine coefficient block alone.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The equations x=0, y=0 and x=1 have a rank-two coefficient matrix but inconsistent right-hand side."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+              "line": 53,
+              "anchor": "def test_report_stops_at_necessary_block_with_no_graph_effect("
+            }
+          ]
+        },
+        {
+          "id": "GP-X122",
+          "pointer": "corpus/must/GP-X122.json",
+          "attempted_conclusion": "Accept a displayed solution after affine compatibility is satisfied.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The rank-two system x=1, y=2, x=1 has the displayed solution."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+              "line": 39,
+              "anchor": "def test_rank_two_block_and_symbolic_compatibility_replay("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The parametrized test rejects altered affine rows, semantic/graph promotions, closed obligations, and an altered localization ledger. X121/X122 cover the rank/compatibility part of the affine-block policy.",
+      "unmatched_distinction": "The candidate cases do not individually cover every listed mutation, especially graph-effect and source/semantic-layer claims.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "test": "test_changed_previous_gp_prerequisite_refuses",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 94,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/7/tests/3"
+      },
+      "exact_test_assertion": "def test_changed_previous_gp_prerequisite_refuses(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"gp_prerequisite\"][\"sha256\"] = \"0\" * 64\n    with pytest.raises(MODULE.Depth8BlockEvidenceError, match=\"C1\"):\n        MODULE.validate_fixture_value(changed)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X121",
+          "pointer": "corpus/must/GP-X121.json",
+          "attempted_conclusion": "Infer existence from a rank-two affine coefficient block alone.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The equations x=0, y=0 and x=1 have a rank-two coefficient matrix but inconsistent right-hand side."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+              "line": 53,
+              "anchor": "def test_report_stops_at_necessary_block_with_no_graph_effect("
+            }
+          ]
+        },
+        {
+          "id": "GP-X122",
+          "pointer": "corpus/must/GP-X122.json",
+          "attempted_conclusion": "Accept a displayed solution after affine compatibility is satisfied.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The rank-two system x=1, y=2, x=1 has the displayed solution."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+              "line": 39,
+              "anchor": "def test_rank_two_block_and_symbolic_compatibility_replay("
+            }
+          ]
+        }
+      ],
+      "classification": "unresolved",
+      "equivalence_argument": "The pinned prior-GP prerequisite hash is changed and validation rejects it.",
+      "unmatched_distinction": "X121/X122 concern affine compatibility, not prerequisite receipt identity or its binding.",
+      "confidence": "low"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "test": "test_changed_native_binding_refuses",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 101,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/7/tests/4"
+      },
+      "exact_test_assertion": "def test_changed_native_binding_refuses(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"source_bindings\"][\n        \"f2_h3_b0_depth8_free_plane_coefficients.json\"] = \"0\" * 64\n    with pytest.raises(MODULE.Depth8BlockEvidenceError, match=\"F3\"):\n        MODULE.validate_fixture_value(changed)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X40",
+          "pointer": "corpus/must/GP-X40.json",
+          "attempted_conclusion": "Accept a changed first-row digest against the unchanged bound polynomial rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The native row commitments must match the frozen GP rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_original_pair_seam.py",
+              "line": 107,
+              "anchor": "def test_changed_native_row_commitment_breaks_the_gp_weld("
+            }
+          ]
+        },
+        {
+          "id": "GP-X44",
+          "pointer": "corpus/must/GP-X44.json",
+          "attempted_conclusion": "Accept changed fixture bytes under the original content binding.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A frozen receipt cannot silently accept changed bytes."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+              "line": 256,
+              "anchor": "\"frozen seam fixture digest changed\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 206,
+              "anchor": "def test_scope_or_source_binding_mutation_stales_old_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X72",
+          "pointer": "corpus/must/GP-X72.json",
+          "attempted_conclusion": "Accept the supplied native parent bytes as the frozen source.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The supplied bytes do not match the frozen native parent digest."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 228,
+              "anchor": "def test_adapter_refuses_any_change_to_the_native_parent_bytes("
+            }
+          ]
+        }
+      ],
+      "classification": "mapped_outer_hash_only",
+      "equivalence_argument": "The changed native source-binding digest is rejected before replay, matching the stale-binding mechanism in X40/X71/X72.",
+      "unmatched_distinction": "This outer binding refusal does not independently validate or refute the changed arithmetic or semantics.",
+      "confidence": "high_for_binding_only"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "test": "test_changed_fixture_refuses_by_digest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 109,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/7/tests/5"
+      },
+      "exact_test_assertion": "def test_changed_fixture_refuses_by_digest(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"authority_boundary\"] = \"widened\"\n    with tempfile.TemporaryDirectory(prefix=\"gp-depth8-block-\", dir=ROOT) as temp:\n        path = Path(temp) / \"changed.json\"\n        path.write_bytes(MODULE.encoded(changed))\n        with pytest.raises(MODULE.Depth8BlockEvidenceError, match=\"F4\"):\n            MODULE.verify_fixture(path)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X40",
+          "pointer": "corpus/must/GP-X40.json",
+          "attempted_conclusion": "Accept a changed first-row digest against the unchanged bound polynomial rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The native row commitments must match the frozen GP rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_original_pair_seam.py",
+              "line": 107,
+              "anchor": "def test_changed_native_row_commitment_breaks_the_gp_weld("
+            }
+          ]
+        },
+        {
+          "id": "GP-X44",
+          "pointer": "corpus/must/GP-X44.json",
+          "attempted_conclusion": "Accept changed fixture bytes under the original content binding.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A frozen receipt cannot silently accept changed bytes."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+              "line": 256,
+              "anchor": "\"frozen seam fixture digest changed\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 206,
+              "anchor": "def test_scope_or_source_binding_mutation_stales_old_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X72",
+          "pointer": "corpus/must/GP-X72.json",
+          "attempted_conclusion": "Accept the supplied native parent bytes as the frozen source.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The supplied bytes do not match the frozen native parent digest."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 228,
+              "anchor": "def test_adapter_refuses_any_change_to_the_native_parent_bytes("
+            }
+          ]
+        }
+      ],
+      "classification": "mapped_outer_hash_only",
+      "equivalence_argument": "Widening the authority boundary changes serialized fixture bytes and verification rejects the outer digest, matching X44.",
+      "unmatched_distinction": "It does not show that widened scope is semantically invalid; refusal precedes semantic validation.",
+      "confidence": "high_for_binding_only"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "test": "test_explicit_residual_pullback_and_finite_unit_replay",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 43,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/8/tests/0"
+      },
+      "exact_test_assertion": "def test_explicit_residual_pullback_and_finite_unit_replay(checked, frozen):\n    assert checked == {\n        \"r8_terms\": [552, 704],\n        \"psi8_terms\": 709,\n        \"psi8_class\": \"NONZERO_NONUNIT_FIBER_AFFINE\",\n        \"omega8_terms\": 4123,\n        \"exceptional_content\": \"c2_3^26*c3_5^2\",\n        \"witness\": {\n            \"dimension\": 14,\n            \"slice_codimension\": 7,\n            \"omega_image_degree\": 13,\n            \"gcd_degree\": 0,\n            \"omega_unit\": True,\n        },\n    }\n    assert hashlib.sha256(frozen[0]).hexdigest() == (\n        MODULE.EXPECTED_FIXTURE_SHA256)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X123",
+          "pointer": "corpus/must/GP-X123.json",
+          "attempted_conclusion": "Promote one excluded fiber to exclusion of the whole parent.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "For the family a=0 with free x, the fiber at a=1 is empty while (a,x)=(0,0) lies in the parent."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_b0_depth8_residual.py",
+              "line": 62,
+              "anchor": "def test_report_excludes_only_the_frozen_witness("
+            }
+          ]
+        },
+        {
+          "id": "GP-X124",
+          "pointer": "corpus/must/GP-X124.json",
+          "attempted_conclusion": "Every point satisfying z*x=0 also satisfies x=0.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The point z=0, x=1 is an exact counterexample; cancelling z discards the exceptional component."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_b0_depth8_residual.py",
+              "line": 103,
+              "anchor": "def test_exceptional_factor_cancellation_mutation_refuses("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The fixture records a residual/fiber witness, finite quotient unit, and exceptional content without promoting it to component exclusion. X123/X124 isolate the same one-fiber and no-cancellation limits.",
+      "unmatched_distinction": "The exact residual pullback, term counts, and finite-algebra witness are not neutral-case replays.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "test": "test_scope_pin_order_digest_middle_and_slice_mutations_refuse",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 88,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/8/tests/2"
+      },
+      "exact_test_assertion": "def test_scope_pin_order_digest_middle_and_slice_mutations_refuse(\n        frozen, mutator, check):\n    changed = copy.deepcopy(frozen[1])\n    mutator(changed)\n    with pytest.raises(MODULE.Depth8ResidualEvidenceError, match=check):\n        MODULE.validate_fixture_value(changed)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X40",
+          "pointer": "corpus/must/GP-X40.json",
+          "attempted_conclusion": "Accept a changed first-row digest against the unchanged bound polynomial rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The native row commitments must match the frozen GP rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_original_pair_seam.py",
+              "line": 107,
+              "anchor": "def test_changed_native_row_commitment_breaks_the_gp_weld("
+            }
+          ]
+        },
+        {
+          "id": "GP-X44",
+          "pointer": "corpus/must/GP-X44.json",
+          "attempted_conclusion": "Accept changed fixture bytes under the original content binding.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A frozen receipt cannot silently accept changed bytes."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+              "line": 256,
+              "anchor": "\"frozen seam fixture digest changed\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 206,
+              "anchor": "def test_scope_or_source_binding_mutation_stales_old_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X72",
+          "pointer": "corpus/must/GP-X72.json",
+          "attempted_conclusion": "Accept the supplied native parent bytes as the frozen source.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The supplied bytes do not match the frozen native parent digest."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 228,
+              "anchor": "def test_adapter_refuses_any_change_to_the_native_parent_bytes("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The parametrized mutations reject scope promotion, pin/order/source-digest changes, an unexplained middle object, and a changed witness slice. X123/X124 cover the fiber/cancellation policy.",
+      "unmatched_distinction": "Only one parameter is a digest failure and several premise-integrity mutations have no independent candidate replay.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "test": "test_changed_syzygy_body_refuses",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 96,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/8/tests/3"
+      },
+      "exact_test_assertion": "def test_changed_syzygy_body_refuses(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"psi8_certificate\"][\"r8_1\"][\"sparse\"][\"terms\"][0][1] = \"-449\"\n    with pytest.raises(MODULE.Depth8ResidualEvidenceError, match=\"A1\"):\n        MODULE.validate_fixture_value(changed)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X123",
+          "pointer": "corpus/must/GP-X123.json",
+          "attempted_conclusion": "Promote one excluded fiber to exclusion of the whole parent.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "For the family a=0 with free x, the fiber at a=1 is empty while (a,x)=(0,0) lies in the parent."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_b0_depth8_residual.py",
+              "line": 62,
+              "anchor": "def test_report_excludes_only_the_frozen_witness("
+            }
+          ]
+        },
+        {
+          "id": "GP-X124",
+          "pointer": "corpus/must/GP-X124.json",
+          "attempted_conclusion": "Every point satisfying z*x=0 also satisfies x=0.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The point z=0, x=1 is an exact counterexample; cancelling z discards the exceptional component."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_b0_depth8_residual.py",
+              "line": 103,
+              "anchor": "def test_exceptional_factor_cancellation_mutation_refuses("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "Changing the syzygy body invalidates the residual certificate; X123/X124 preserve the rule that a local residual witness cannot become a parent exclusion or cancel an exceptional factor.",
+      "unmatched_distinction": "Neither candidate mutates or replays this syzygy identity.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "test": "test_changed_finite_algebra_modulus_refuses",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 111,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/8/tests/5"
+      },
+      "exact_test_assertion": "def test_changed_finite_algebra_modulus_refuses(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"pullback_certificate\"][\"witness\"][\"r_final\"][0] = \"1\"\n    with pytest.raises(MODULE.Depth8ResidualEvidenceError, match=\"W3|W5\"):\n        MODULE.validate_fixture_value(changed)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X123",
+          "pointer": "corpus/must/GP-X123.json",
+          "attempted_conclusion": "Promote one excluded fiber to exclusion of the whole parent.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "For the family a=0 with free x, the fiber at a=1 is empty while (a,x)=(0,0) lies in the parent."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_b0_depth8_residual.py",
+              "line": 62,
+              "anchor": "def test_report_excludes_only_the_frozen_witness("
+            }
+          ]
+        },
+        {
+          "id": "GP-X124",
+          "pointer": "corpus/must/GP-X124.json",
+          "attempted_conclusion": "Every point satisfying z*x=0 also satisfies x=0.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The point z=0, x=1 is an exact counterexample; cancelling z discards the exceptional component."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_b0_depth8_residual.py",
+              "line": 103,
+              "anchor": "def test_exceptional_factor_cancellation_mutation_refuses("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "Changing the finite-algebra modulus invalidates the witness used for the residual claim; X123/X124 retain the related bounded/fiber and exceptional-factor refusal.",
+      "unmatched_distinction": "The candidate cases do not replay the changed quotient modulus or its W3/W5 checks.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_depth8_residual.py",
+      "test": "test_changed_fixture_refuses_by_digest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_residual.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 118,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/8/tests/6"
+      },
+      "exact_test_assertion": "def test_changed_fixture_refuses_by_digest(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"authority_boundary\"] = \"widened\"\n    with tempfile.TemporaryDirectory(\n            prefix=\"gp-depth8-residual-\", dir=ROOT) as temporary:\n        path = Path(temporary) / \"changed.json\"\n        path.write_bytes(MODULE.encoded(changed))\n        with pytest.raises(MODULE.Depth8ResidualEvidenceError, match=\"F4\"):\n            MODULE.verify_fixture(path)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X40",
+          "pointer": "corpus/must/GP-X40.json",
+          "attempted_conclusion": "Accept a changed first-row digest against the unchanged bound polynomial rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The native row commitments must match the frozen GP rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_original_pair_seam.py",
+              "line": 107,
+              "anchor": "def test_changed_native_row_commitment_breaks_the_gp_weld("
+            }
+          ]
+        },
+        {
+          "id": "GP-X44",
+          "pointer": "corpus/must/GP-X44.json",
+          "attempted_conclusion": "Accept changed fixture bytes under the original content binding.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A frozen receipt cannot silently accept changed bytes."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+              "line": 256,
+              "anchor": "\"frozen seam fixture digest changed\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 206,
+              "anchor": "def test_scope_or_source_binding_mutation_stales_old_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X72",
+          "pointer": "corpus/must/GP-X72.json",
+          "attempted_conclusion": "Accept the supplied native parent bytes as the frozen source.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The supplied bytes do not match the frozen native parent digest."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 228,
+              "anchor": "def test_adapter_refuses_any_change_to_the_native_parent_bytes("
+            }
+          ]
+        }
+      ],
+      "classification": "mapped_outer_hash_only",
+      "equivalence_argument": "Widening the authority boundary changes serialized fixture bytes and verification rejects the outer digest, matching X44.",
+      "unmatched_distinction": "It does not show that widened scope is semantically invalid; refusal precedes semantic validation.",
+      "confidence": "high_for_binding_only"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_free_plane.py",
+      "test": "test_complete_factor_ledger_and_affine_round_trip",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 38,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/9/tests/0"
+      },
+      "exact_test_assertion": "def test_complete_factor_ledger_and_affine_round_trip(checked, frozen):\n    assert checked == {\n        \"loaded_bodies\": 35,\n        \"distinct_bodies\": 31,\n        \"live_bodies\": [\n            \"E321\", \"VD\", \"d7rung:row1/c9_7\", \"d7rung:row4/c5_0\"],\n        \"ambient_factors\": [\"c5_7\", \"Delta\"],\n        \"S2_factors\": [\"c5_7\"],\n        \"affine_round_trip\": True,\n        \"downstream_equations\": 8,\n    }\n    assert hashlib.sha256(frozen[0]).hexdigest() == (\n        MODULE.EXPECTED_FIXTURE_SHA256)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X73",
+          "pointer": "corpus/must/GP-X73.json",
+          "attempted_conclusion": "Ordered top-face affine translations preserve the localized model.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Explicit inverse coordinates and checked triangular substitutions give a polynomial ring isomorphism."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_ladder_authority.py",
+              "line": 37,
+              "anchor": "def test_chain_compiles_to_exact_algebraized_localization_models("
+            }
+          ]
+        },
+        {
+          "id": "GP-X74",
+          "pointer": "corpus/must/GP-X74.json",
+          "attempted_conclusion": "The normalization equation supplies an inverse for t.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Modulo 15*t^3+1, -15*t^2 is an inverse for t; no extra inverse coordinate is needed."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_ladder_authority.py",
+              "line": 96,
+              "anchor": "def test_exact_certificate_verifies_normalization_bearing_second_face("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The assertion includes an affine round trip with declared ambient/stratum factors. X73/X74 are exact small isomorphism/normalization controls for that transport mechanism.",
+      "unmatched_distinction": "The 35-body ledger and its particular factors/equations are fixture-specific.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_free_plane.py",
+      "test": "test_report_has_no_graph_or_research_promotion",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 53,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/9/tests/1"
+      },
+      "exact_test_assertion": "def test_report_has_no_graph_or_research_promotion(checked, frozen):\n    report = MODULE.report_from_checked_fixture(frozen[1], checked)\n    assert report[\"verdict\"] == \"VERIFIED_EXCEPTIONAL_FACTOR_LEDGER\"\n    assert report[\"graph_effect\"] == \"NONE\"\n    assert report[\"evidence_envelope\"][\"graph_effect\"] == \"NONE\"\n    assert \"six coefficients\" in report[\"first_open_obligation\"]\n    refused = \" \".join(report[\"does_not_license\"])\n    assert \"R=0\" in refused and \"component\" in refused\n    assert \"source\" in refused and \"H3\" in refused",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X73",
+          "pointer": "corpus/must/GP-X73.json",
+          "attempted_conclusion": "Ordered top-face affine translations preserve the localized model.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Explicit inverse coordinates and checked triangular substitutions give a polynomial ring isomorphism."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_ladder_authority.py",
+              "line": 37,
+              "anchor": "def test_chain_compiles_to_exact_algebraized_localization_models("
+            }
+          ]
+        },
+        {
+          "id": "GP-X74",
+          "pointer": "corpus/must/GP-X74.json",
+          "attempted_conclusion": "The normalization equation supplies an inverse for t.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Modulo 15*t^3+1, -15*t^2 is an inverse for t; no extra inverse coordinate is needed."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_ladder_authority.py",
+              "line": 96,
+              "anchor": "def test_exact_certificate_verifies_normalization_bearing_second_face("
+            }
+          ]
+        }
+      ],
+      "classification": "unresolved",
+      "equivalence_argument": "The report is asserted to have graph_effect NONE and explicit non-licenses. X73/X74 establish coordinate transport but do not test report-layer graph/research non-promotion.",
+      "unmatched_distinction": "No proposed case reproduces these report fields or their authority boundary.",
+      "confidence": "low"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_free_plane.py",
+      "test": "test_scope_and_arithmetic_mutations_refuse",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 82,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/9/tests/2"
+      },
+      "exact_test_assertion": "def test_scope_and_arithmetic_mutations_refuse(frozen, mutator, check):\n    changed = copy.deepcopy(frozen[1])\n    mutator(changed)\n    with pytest.raises(MODULE.FreePlaneEvidenceError, match=check):\n        MODULE.validate_fixture_value(changed)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X73",
+          "pointer": "corpus/must/GP-X73.json",
+          "attempted_conclusion": "Ordered top-face affine translations preserve the localized model.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Explicit inverse coordinates and checked triangular substitutions give a polynomial ring isomorphism."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_ladder_authority.py",
+              "line": 37,
+              "anchor": "def test_chain_compiles_to_exact_algebraized_localization_models("
+            }
+          ]
+        },
+        {
+          "id": "GP-X74",
+          "pointer": "corpus/must/GP-X74.json",
+          "attempted_conclusion": "The normalization equation supplies an inverse for t.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Modulo 15*t^3+1, -15*t^2 is an inverse for t; no extra inverse coordinate is needed."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_ladder_authority.py",
+              "line": 96,
+              "anchor": "def test_exact_certificate_verifies_normalization_bearing_second_face("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The parametrization rejects unjustified graph/compatibility promotion, dropped model equations, closed obligations, and changed pivot arithmetic. X73/X74 support only the checked affine-translation part.",
+      "unmatched_distinction": "The graph-effect, obligation, and dropped-equation premises are not independently represented by the candidate cases.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_free_plane.py",
+      "test": "test_changed_native_binding_refuses",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 89,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/9/tests/3"
+      },
+      "exact_test_assertion": "def test_changed_native_binding_refuses(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"source_bindings\"][\"f2_h3_b0_free_plane_receipt.json\"] = \"0\" * 64\n    with pytest.raises(MODULE.FreePlaneEvidenceError, match=\"F3\"):\n        MODULE.validate_fixture_value(changed)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X40",
+          "pointer": "corpus/must/GP-X40.json",
+          "attempted_conclusion": "Accept a changed first-row digest against the unchanged bound polynomial rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The native row commitments must match the frozen GP rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_original_pair_seam.py",
+              "line": 107,
+              "anchor": "def test_changed_native_row_commitment_breaks_the_gp_weld("
+            }
+          ]
+        },
+        {
+          "id": "GP-X44",
+          "pointer": "corpus/must/GP-X44.json",
+          "attempted_conclusion": "Accept changed fixture bytes under the original content binding.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A frozen receipt cannot silently accept changed bytes."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+              "line": 256,
+              "anchor": "\"frozen seam fixture digest changed\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 206,
+              "anchor": "def test_scope_or_source_binding_mutation_stales_old_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X72",
+          "pointer": "corpus/must/GP-X72.json",
+          "attempted_conclusion": "Accept the supplied native parent bytes as the frozen source.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The supplied bytes do not match the frozen native parent digest."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 228,
+              "anchor": "def test_adapter_refuses_any_change_to_the_native_parent_bytes("
+            }
+          ]
+        }
+      ],
+      "classification": "mapped_outer_hash_only",
+      "equivalence_argument": "The changed native source-binding digest is rejected before replay, matching the stale-binding mechanism in X40/X71/X72.",
+      "unmatched_distinction": "This outer binding refusal does not independently validate or refute the changed arithmetic or semantics.",
+      "confidence": "high_for_binding_only"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_free_plane.py",
+      "test": "test_changed_fixture_refuses_by_digest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 96,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/9/tests/4"
+      },
+      "exact_test_assertion": "def test_changed_fixture_refuses_by_digest(frozen):\n    changed = copy.deepcopy(frozen[1])\n    changed[\"authority_boundary\"] = \"widened\"\n    with tempfile.TemporaryDirectory(prefix=\"gp-free-plane-\", dir=ROOT) as temp:\n        path = Path(temp) / \"changed.json\"\n        path.write_bytes(MODULE.encoded(changed))\n        with pytest.raises(MODULE.FreePlaneEvidenceError, match=\"F4\"):\n            MODULE.verify_fixture(path)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X40",
+          "pointer": "corpus/must/GP-X40.json",
+          "attempted_conclusion": "Accept a changed first-row digest against the unchanged bound polynomial rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The native row commitments must match the frozen GP rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_original_pair_seam.py",
+              "line": 107,
+              "anchor": "def test_changed_native_row_commitment_breaks_the_gp_weld("
+            }
+          ]
+        },
+        {
+          "id": "GP-X44",
+          "pointer": "corpus/must/GP-X44.json",
+          "attempted_conclusion": "Accept changed fixture bytes under the original content binding.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A frozen receipt cannot silently accept changed bytes."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+              "line": 256,
+              "anchor": "\"frozen seam fixture digest changed\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 206,
+              "anchor": "def test_scope_or_source_binding_mutation_stales_old_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X72",
+          "pointer": "corpus/must/GP-X72.json",
+          "attempted_conclusion": "Accept the supplied native parent bytes as the frozen source.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The supplied bytes do not match the frozen native parent digest."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 228,
+              "anchor": "def test_adapter_refuses_any_change_to_the_native_parent_bytes("
+            }
+          ]
+        }
+      ],
+      "classification": "mapped_outer_hash_only",
+      "equivalence_argument": "Widening the authority boundary changes serialized fixture bytes and verification rejects the outer digest, matching X44.",
+      "unmatched_distinction": "It does not show that widened scope is semantically invalid; refusal precedes semantic validation.",
+      "confidence": "high_for_binding_only"
+    },
+    {
+      "source_path": "tests/test_jc_h3_depth8_fiber.py",
+      "test": "test_zeroed_omega_comb_is_refused",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_depth8_fiber.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 69,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/12/tests/2"
+      },
+      "exact_test_assertion": "def test_zeroed_omega_comb_is_refused():\n    module = _load()\n    value = _fixture(module)\n    value[\"native_certificate\"][\"witness_values\"][\"omega_comb\"] = [\n        [\"0\", \"0\", \"0\"], [\"0\", \"0\", \"0\"]]\n    with pytest.raises(module.FiberEvidenceError, match=\"N8\"):\n        module.validate_fixture_value(value)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X113",
+          "pointer": "corpus/must/GP-X113.json",
+          "attempted_conclusion": "Turn first-order fiber exclusion into a nonlinear lift obstruction.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A separately checked sound linearization bridge has not been instantiated."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_depth8_fiber.py",
+              "line": 61,
+              "anchor": "def test_scope_widening_mutations_are_refused("
+            }
+          ]
+        },
+        {
+          "id": "GP-X114",
+          "pointer": "corpus/must/GP-X114.json",
+          "attempted_conclusion": "Exclude every base point from one empty named fiber.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The report covers all free fiber values over one base point, not all base points."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_depth8_fiber.py",
+              "line": 61,
+              "anchor": "def test_scope_widening_mutations_are_refused("
+            }
+          ]
+        },
+        {
+          "id": "GP-X115",
+          "pointer": "corpus/must/GP-X115.json",
+          "attempted_conclusion": "Treat an affinely determined coordinate as a free rescue direction.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The solved coordinate is constrained by the zero block."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_depth8_fiber.py",
+              "line": 61,
+              "anchor": "def test_scope_widening_mutations_are_refused("
+            }
+          ]
+        }
+      ],
+      "classification": "unresolved",
+      "equivalence_argument": "The native omega combination is zeroed and first-order fiber validation rejects it. X113\u2013X115 refuse nonlinear or base-fiber overreach, but do not replay this arithmetic mutation.",
+      "unmatched_distinction": "The candidate mechanism is an inference refusal, whereas this test is a certificate-integrity rejection.",
+      "confidence": "low"
+    },
+    {
+      "source_path": "tests/test_jc_h3_depth8_fiber.py",
+      "test": "test_authorizing_depth9_pair_is_refused",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_depth8_fiber.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 78,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/12/tests/3"
+      },
+      "exact_test_assertion": "def test_authorizing_depth9_pair_is_refused():\n    module = _load()\n    value = _fixture(module)\n    value[\"native_certificate\"][\"verdict\"][\n        \"depth9_additive_pair_authorized\"] = True\n    with pytest.raises(module.FiberEvidenceError, match=\"N7\"):\n        module.validate_fixture_value(value)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X113",
+          "pointer": "corpus/must/GP-X113.json",
+          "attempted_conclusion": "Turn first-order fiber exclusion into a nonlinear lift obstruction.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A separately checked sound linearization bridge has not been instantiated."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_depth8_fiber.py",
+              "line": 61,
+              "anchor": "def test_scope_widening_mutations_are_refused("
+            }
+          ]
+        },
+        {
+          "id": "GP-X114",
+          "pointer": "corpus/must/GP-X114.json",
+          "attempted_conclusion": "Exclude every base point from one empty named fiber.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The report covers all free fiber values over one base point, not all base points."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_depth8_fiber.py",
+              "line": 61,
+              "anchor": "def test_scope_widening_mutations_are_refused("
+            }
+          ]
+        },
+        {
+          "id": "GP-X115",
+          "pointer": "corpus/must/GP-X115.json",
+          "attempted_conclusion": "Treat an affinely determined coordinate as a free rescue direction.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The solved coordinate is constrained by the zero block."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_depth8_fiber.py",
+              "line": 61,
+              "anchor": "def test_scope_widening_mutations_are_refused("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The test rejects adding depth-9 authorization to a first-order fiber report. X113 is the same policy boundary: no nonlinear lift obstruction without a checked bridge.",
+      "unmatched_distinction": "The exact depth-9 additive-pair flag and adapter check are not reproduced.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_h3_s4_scope.py",
+      "test": "test_sparse_body_mutation_is_refused",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_s4_scope.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 72,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/15/tests/2"
+      },
+      "exact_test_assertion": "def test_sparse_body_mutation_is_refused():\n    module = _load()\n    value = _fixture(module)\n    value[\"polynomials\"][\"C\"][\"terms\"][0][1] = \"2\"\n\n    with pytest.raises(module.S4ScopeError, match=\"P9\"):\n        module.validate_fixture_value(value)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X106",
+          "pointer": "corpus/must/GP-X106.json",
+          "attempted_conclusion": "Promote an unsuccessful 24-seed search to refutation.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Failure to find squares in a bounded search is not off-locus emptiness."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_s4_scope.py",
+              "line": 63,
+              "anchor": "def test_authority_widening_mutations_are_refused("
+            }
+          ]
+        },
+        {
+          "id": "GP-X107",
+          "pointer": "corpus/must/GP-X107.json",
+          "attempted_conclusion": "Close the cover after dropping its unresolved branch.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The complementary C2 nonzero piece is still an obligation."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_s4_scope.py",
+              "line": 63,
+              "anchor": "def test_authority_widening_mutations_are_refused("
+            }
+          ]
+        },
+        {
+          "id": "GP-X117",
+          "pointer": "corpus/must/GP-X117.json",
+          "attempted_conclusion": "Replay the exact K-point on the closed S4 branch.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Exact field arithmetic checks both polynomial equations and nonzero guards."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_h3_s4_scope.py",
+              "line": 24,
+              "anchor": "def test_frozen_scope_verifies_one_piece_and_keeps_other_open("
+            }
+          ]
+        }
+      ],
+      "classification": "unresolved",
+      "equivalence_argument": "A sparse coefficient in polynomial C is changed and the S4 fixture rejects it. X106/X107/X117 concern bounded search, cover completeness, and an exact point, not sparse-body integrity.",
+      "unmatched_distinction": "No candidate tests this binding/arithmetic mutation.",
+      "confidence": "low"
+    },
+    {
+      "source_path": "tests/test_jc_h3_s4_scope.py",
+      "test": "test_frozen_digest_is_a_checked_boundary",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_s4_scope.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 81,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/15/tests/3"
+      },
+      "exact_test_assertion": "def test_frozen_digest_is_a_checked_boundary(tmp_path):\n    module = _load()\n    value = _fixture(module)\n    path = tmp_path / \"scope.json\"\n    path.write_text(json.dumps(value, sort_keys=True), encoding=\"utf-8\")\n\n    with pytest.raises(module.S4ScopeError, match=\"F5\"):\n        module.verify_fixture(path)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X40",
+          "pointer": "corpus/must/GP-X40.json",
+          "attempted_conclusion": "Accept a changed first-row digest against the unchanged bound polynomial rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The native row commitments must match the frozen GP rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_original_pair_seam.py",
+              "line": 107,
+              "anchor": "def test_changed_native_row_commitment_breaks_the_gp_weld("
+            }
+          ]
+        },
+        {
+          "id": "GP-X44",
+          "pointer": "corpus/must/GP-X44.json",
+          "attempted_conclusion": "Accept changed fixture bytes under the original content binding.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A frozen receipt cannot silently accept changed bytes."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+              "line": 256,
+              "anchor": "\"frozen seam fixture digest changed\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 206,
+              "anchor": "def test_scope_or_source_binding_mutation_stales_old_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X72",
+          "pointer": "corpus/must/GP-X72.json",
+          "attempted_conclusion": "Accept the supplied native parent bytes as the frozen source.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The supplied bytes do not match the frozen native parent digest."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 228,
+              "anchor": "def test_adapter_refuses_any_change_to_the_native_parent_bytes("
+            }
+          ]
+        }
+      ],
+      "classification": "mapped_outer_hash_only",
+      "equivalence_argument": "Re-encoding the fixture fails its frozen digest boundary, the same content-binding refusal as X44.",
+      "unmatched_distinction": "The outer digest result gives no independent mathematical validation of the encoded S4 data.",
+      "confidence": "high_for_binding_only"
+    },
+    {
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_frozen_polynomials_compile_to_existing_localized_unit_identity",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 82,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/0"
+      },
+      "exact_test_assertion": "def test_frozen_polynomials_compile_to_existing_localized_unit_identity():\n    module, frozen, raw, report = (\n        MODULE, FROZEN, FROZEN_BYTES, VALIDATION_REPORT)\n\n    assert hashlib.sha256(raw).hexdigest() == module.EXPECTED_FROZEN_SHA256\n    assert report[\"verdict\"] == L.VERIFIED\n    assert report[\"checked\"][\"generator_count\"] == 3\n    assert len(frozen[\"polynomials\"][\"value_24_delta\"][\"terms\"]) == 502\n    assert len(frozen[\"polynomials\"][\"OB_ambient\"][\"terms\"]) == 499\n    assert frozen[\"scope\"][\"constructible_piece\"] == \"R=0 and OB!=0\"",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X63",
+          "pointer": "corpus/must/GP-X63.json",
+          "attempted_conclusion": "One belongs to the ideal after inverting p and t.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The displayed cofactors sum to p^2*t^4, a unit when both p and t are nonzero."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 141,
+              "anchor": "def test_factor_proof_compiles_to_existing_localized_unit_certificate("
+            }
+          ]
+        },
+        {
+          "id": "GP-X65",
+          "pointer": "corpus/must/GP-X65.json",
+          "attempted_conclusion": "The certificate name establishes local emptiness without a checked verdict.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "No current checked verdict is attached to the named certificate."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 168,
+              "anchor": "def test_certificate_name_without_verdict_grants_no_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X68",
+          "pointer": "corpus/must/GP-X68.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original localized proof requires the original open guards."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 190,
+              "anchor": "def test_equation_or_guard_mutation_refuses_old_authority("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The test checks the frozen hash, R=0 and OB!=0 scope, and a verified three-generator localized-unit result. X63 is the same unit-ideal conclusion under open guards.",
+      "unmatched_distinction": "The large polynomial sizes and on-wall fixture compilation are not replayed by X63.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_checked_in_authority_fixture_is_exact_adapter_output",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 94,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/1"
+      },
+      "exact_test_assertion": "def test_checked_in_authority_fixture_is_exact_adapter_output():\n    module, frozen = MODULE, FROZEN\n    assert module.DEFAULT_AUTHORITY.read_bytes() == module._encoded(\n        module.authority_spec(frozen))",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X40",
+          "pointer": "corpus/must/GP-X40.json",
+          "attempted_conclusion": "Accept a changed first-row digest against the unchanged bound polynomial rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The native row commitments must match the frozen GP rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_original_pair_seam.py",
+              "line": 107,
+              "anchor": "def test_changed_native_row_commitment_breaks_the_gp_weld("
+            }
+          ]
+        },
+        {
+          "id": "GP-X44",
+          "pointer": "corpus/must/GP-X44.json",
+          "attempted_conclusion": "Accept changed fixture bytes under the original content binding.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A frozen receipt cannot silently accept changed bytes."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+              "line": 256,
+              "anchor": "\"frozen seam fixture digest changed\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 206,
+              "anchor": "def test_scope_or_source_binding_mutation_stales_old_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X72",
+          "pointer": "corpus/must/GP-X72.json",
+          "attempted_conclusion": "Accept the supplied native parent bytes as the frozen source.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The supplied bytes do not match the frozen native parent digest."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 228,
+              "anchor": "def test_adapter_refuses_any_change_to_the_native_parent_bytes("
+            }
+          ]
+        }
+      ],
+      "classification": "unresolved",
+      "equivalence_argument": "It asserts byte-for-byte equality between a checked-in authority artifact and freshly encoded adapter output.",
+      "unmatched_distinction": "X40/X44/X71/X72 are mutation refusals; none establishes deterministic adapter-output equality.",
+      "confidence": "low"
+    },
+    {
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_graph_verdict_mints_only_local_empty_on_exact_consequence_model",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 100,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/2"
+      },
+      "exact_test_assertion": "def test_graph_verdict_mints_only_local_empty_on_exact_consequence_model():\n    module = MODULE\n    graph, event = _verified_graph(module)\n    claim = graph.claims[module.EMPTY_CLAIM]\n\n    assert claim[\"certificate_verdict\"] == V.CERT_VERIFIED\n    assert graph.verdicts[event[\"id\"]][\"current\"] is True\n    assert C.effective_certificate(claim) == \"LOCALIZED_UNIT_IDEAL_CERT\"\n    assert len(graph.models) == 1\n    assert \"no automatic nine-body\" in claim[\"caveat\"]",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X63",
+          "pointer": "corpus/must/GP-X63.json",
+          "attempted_conclusion": "One belongs to the ideal after inverting p and t.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The displayed cofactors sum to p^2*t^4, a unit when both p and t are nonzero."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 141,
+              "anchor": "def test_factor_proof_compiles_to_existing_localized_unit_certificate("
+            }
+          ]
+        },
+        {
+          "id": "GP-X65",
+          "pointer": "corpus/must/GP-X65.json",
+          "attempted_conclusion": "The certificate name establishes local emptiness without a checked verdict.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "No current checked verdict is attached to the named certificate."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 168,
+              "anchor": "def test_certificate_name_without_verdict_grants_no_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X68",
+          "pointer": "corpus/must/GP-X68.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original localized proof requires the original open guards."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 190,
+              "anchor": "def test_equation_or_guard_mutation_refuses_old_authority("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The asserted current verdict has a localized-unit certificate and exactly one local model, with an explicit no-nine-body caveat. X63/X65/X68 encode the same local-only, current-receipt policy.",
+      "unmatched_distinction": "The graph event and one-model facts are not reproduced in the neutral cases.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_certificate_name_without_current_verdict_has_no_authority",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 112,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/3"
+      },
+      "exact_test_assertion": "def test_certificate_name_without_current_verdict_has_no_authority():\n    module, frozen, raw = MODULE, FROZEN, FROZEN_BYTES\n    graph = module.graph_from_frozen(frozen, raw)\n    assert C.effective_certificate(graph.claims[module.EMPTY_CLAIM]) is None",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X63",
+          "pointer": "corpus/must/GP-X63.json",
+          "attempted_conclusion": "One belongs to the ideal after inverting p and t.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The displayed cofactors sum to p^2*t^4, a unit when both p and t are nonzero."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 141,
+              "anchor": "def test_factor_proof_compiles_to_existing_localized_unit_certificate("
+            }
+          ]
+        },
+        {
+          "id": "GP-X65",
+          "pointer": "corpus/must/GP-X65.json",
+          "attempted_conclusion": "The certificate name establishes local emptiness without a checked verdict.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "No current checked verdict is attached to the named certificate."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 168,
+              "anchor": "def test_certificate_name_without_verdict_grants_no_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X68",
+          "pointer": "corpus/must/GP-X68.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original localized proof requires the original open guards."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 190,
+              "anchor": "def test_equation_or_guard_mutation_refuses_old_authority("
+            }
+          ]
+        }
+      ],
+      "classification": "mapped",
+      "equivalence_argument": "The graph has a certificate name but no current verified verdict, so its effective certificate is None. X65 has the identical attempted conclusion and refusal mechanism.",
+      "unmatched_distinction": "Only the historical fixture and claim identifier differ.",
+      "confidence": "high"
+    },
+    {
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_removing_ob_guard_stales_old_authority",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 118,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/4"
+      },
+      "exact_test_assertion": "def test_removing_ob_guard_stales_old_authority():\n    module, frozen, raw = MODULE, FROZEN, FROZEN_BYTES\n    _original, event = _verified_graph(module)\n    events = module.graph_events(frozen, raw)\n    events[0][\"open_conditions\"] = [\"t\", \"p\", \"c2_3\", \"c5_7\"]\n    changed = S.Graph()\n    from grandportage import format as F\n    changed.apply(F.meta_event())\n    for item in events:\n        changed.apply(item)\n    changed.apply(copy.deepcopy(event))\n\n    assert changed.verdicts[event[\"id\"]][\"current\"] is False\n    assert changed.claims[module.EMPTY_CLAIM].get(\n        \"certificate_verdict\") is None",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X63",
+          "pointer": "corpus/must/GP-X63.json",
+          "attempted_conclusion": "One belongs to the ideal after inverting p and t.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The displayed cofactors sum to p^2*t^4, a unit when both p and t are nonzero."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 141,
+              "anchor": "def test_factor_proof_compiles_to_existing_localized_unit_certificate("
+            }
+          ]
+        },
+        {
+          "id": "GP-X65",
+          "pointer": "corpus/must/GP-X65.json",
+          "attempted_conclusion": "The certificate name establishes local emptiness without a checked verdict.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "No current checked verdict is attached to the named certificate."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 168,
+              "anchor": "def test_certificate_name_without_verdict_grants_no_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X68",
+          "pointer": "corpus/must/GP-X68.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original localized proof requires the original open guards."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 190,
+              "anchor": "def test_equation_or_guard_mutation_refuses_old_authority("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "Removing OB from the open conditions makes the old verdict noncurrent and clears certificate authority. X68 is the same stale-receipt-on-guard-change rule.",
+      "unmatched_distinction": "X68 changes t rather than OB and does not replay this event sequence.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_scope_refuses_parent_component_source_and_h3_promotion",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 135,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/5"
+      },
+      "exact_test_assertion": "def test_scope_refuses_parent_component_source_and_h3_promotion():\n    module, frozen = MODULE, FROZEN\n    boundary = frozen[\"authority_boundary\"]\n    assert \"exact R=0, OB!=0 dead-row consequence model\" in boundary\n    assert \"no automatic nine-body\" in boundary\n    assert \"component\" in boundary and \"actual-source\" in boundary\n    assert \"H3\" in boundary and \"verdict\" in boundary\n    assert \"complete nine-body parent\" in frozen[\"scope\"][\"not_materialized\"]",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X63",
+          "pointer": "corpus/must/GP-X63.json",
+          "attempted_conclusion": "One belongs to the ideal after inverting p and t.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The displayed cofactors sum to p^2*t^4, a unit when both p and t are nonzero."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 141,
+              "anchor": "def test_factor_proof_compiles_to_existing_localized_unit_certificate("
+            }
+          ]
+        },
+        {
+          "id": "GP-X65",
+          "pointer": "corpus/must/GP-X65.json",
+          "attempted_conclusion": "The certificate name establishes local emptiness without a checked verdict.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "No current checked verdict is attached to the named certificate."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 168,
+              "anchor": "def test_certificate_name_without_verdict_grants_no_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X68",
+          "pointer": "corpus/must/GP-X68.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original localized proof requires the original open guards."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 190,
+              "anchor": "def test_equation_or_guard_mutation_refuses_old_authority("
+            }
+          ]
+        }
+      ],
+      "classification": "unresolved",
+      "equivalence_argument": "The boundary text explicitly refuses parent-component, actual-source, and H3 promotion from the local consequence model. X63/X65/X68 establish only local-unit/current-receipt limits.",
+      "unmatched_distinction": "No candidate jointly represents parent, source-membership, and H3 non-promotion.",
+      "confidence": "low"
+    },
+    {
+      "source_path": "tests/test_jc_p_axis_authority.py",
+      "test": "test_checked_in_authority_fixture_is_exact_adapter_output",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_p_axis_authority.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 119,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/19/tests/2"
+      },
+      "exact_test_assertion": "def test_checked_in_authority_fixture_is_exact_adapter_output():\n    frozen, _raw = _frozen()\n    expected = ADAPTER._encoded(ADAPTER.authority_spec(frozen))\n\n    assert AUTHORITY_PATH.read_bytes() == expected",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X40",
+          "pointer": "corpus/must/GP-X40.json",
+          "attempted_conclusion": "Accept a changed first-row digest against the unchanged bound polynomial rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The native row commitments must match the frozen GP rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_original_pair_seam.py",
+              "line": 107,
+              "anchor": "def test_changed_native_row_commitment_breaks_the_gp_weld("
+            }
+          ]
+        },
+        {
+          "id": "GP-X44",
+          "pointer": "corpus/must/GP-X44.json",
+          "attempted_conclusion": "Accept changed fixture bytes under the original content binding.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A frozen receipt cannot silently accept changed bytes."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+              "line": 256,
+              "anchor": "\"frozen seam fixture digest changed\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 206,
+              "anchor": "def test_scope_or_source_binding_mutation_stales_old_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X72",
+          "pointer": "corpus/must/GP-X72.json",
+          "attempted_conclusion": "Accept the supplied native parent bytes as the frozen source.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The supplied bytes do not match the frozen native parent digest."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 228,
+              "anchor": "def test_adapter_refuses_any_change_to_the_native_parent_bytes("
+            }
+          ]
+        }
+      ],
+      "classification": "unresolved",
+      "equivalence_argument": "It asserts byte-for-byte equality between a checked-in authority artifact and freshly encoded adapter output.",
+      "unmatched_distinction": "X40/X44/X71/X72 are mutation refusals; none establishes deterministic adapter-output equality.",
+      "confidence": "low"
+    },
+    {
+      "source_path": "tests/test_jc_p_axis_authority.py",
+      "test": "test_verifier_input_fingerprint_contains_the_frozen_source_digest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_p_axis_authority.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 218,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/19/tests/9"
+      },
+      "exact_test_assertion": "def test_verifier_input_fingerprint_contains_the_frozen_source_digest():\n    frozen, raw = _frozen()\n    graph = ADAPTER.graph_from_frozen(frozen, raw)\n    payload = P.input_payload(graph, \"certificate\", ADAPTER.EMPTY_CLAIM)\n    encoded = json.dumps(payload, sort_keys=True)\n\n    assert ADAPTER.EXPECTED_NATIVE_SHA256 in encoded\n    assert \"5c682ad0b2f5212fd21aba723d094793a\" in encoded",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X40",
+          "pointer": "corpus/must/GP-X40.json",
+          "attempted_conclusion": "Accept a changed first-row digest against the unchanged bound polynomial rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The native row commitments must match the frozen GP rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_original_pair_seam.py",
+              "line": 107,
+              "anchor": "def test_changed_native_row_commitment_breaks_the_gp_weld("
+            }
+          ]
+        },
+        {
+          "id": "GP-X44",
+          "pointer": "corpus/must/GP-X44.json",
+          "attempted_conclusion": "Accept changed fixture bytes under the original content binding.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A frozen receipt cannot silently accept changed bytes."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+              "line": 256,
+              "anchor": "\"frozen seam fixture digest changed\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 206,
+              "anchor": "def test_scope_or_source_binding_mutation_stales_old_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X72",
+          "pointer": "corpus/must/GP-X72.json",
+          "attempted_conclusion": "Accept the supplied native parent bytes as the frozen source.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The supplied bytes do not match the frozen native parent digest."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 228,
+              "anchor": "def test_adapter_refuses_any_change_to_the_native_parent_bytes("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The verifier input payload is required to contain the frozen native source digest. X71/X72 require the same receipt-to-source binding.",
+      "unmatched_distinction": "The test does not mutate the payload or prove its digest is sufficient for semantic validity.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_authority.py",
+      "test": "test_checked_in_boundary_projection_is_canonical_and_scope_honest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_authority.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 45,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/22/tests/0"
+      },
+      "exact_test_assertion": "def test_checked_in_boundary_projection_is_canonical_and_scope_honest():\n    frozen = _frozen()\n    report = ADAPTER.verify_frozen(frozen)\n\n    assert report[\"verdict\"] == \"VERIFIED_FROZEN_DEPTH6_BOUNDARY\"\n    assert report[\"rung_commitments\"] == 33\n    assert report[\"R2B_terms\"] == 3262\n    assert report[\"beta_terms\"] == 6124\n    envelope = report[\"evidence_envelope\"]\n    assert envelope[\"graph_effect\"] == EV.GRAPH_EFFECT_NONE\n    assert envelope[\"licenses\"] == [\n        \"exact_boundary_polynomials_decoded\",\n        \"boundary_stratum_rewrites_may_be_checked\",\n    ]\n    assert \"does not expose\" in envelope[\"outstanding_premises\"][0]\n    assert frozen[\"source_binding\"] == \"UNBOUND_DIGEST_COMMITMENTS_ONLY\"",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X78",
+          "pointer": "corpus/must/GP-X78.json",
+          "attempted_conclusion": "Translate the affine boundary coordinate when alpha is invertible.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The explicit inverse equation supports both polynomial pullback identities."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_depth6_authority.py",
+              "line": 86,
+              "anchor": "def test_exact_generic_and_discriminant_equivalences_verify_without_cas("
+            }
+          ]
+        },
+        {
+          "id": "GP-X79",
+          "pointer": "corpus/must/GP-X79.json",
+          "attempted_conclusion": "On the discriminant replace the affine row by beta equals zero.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The coefficient alpha vanishes modulo the discriminant; c7_5 remains free."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_depth6_authority.py",
+              "line": 141,
+              "anchor": "def test_discriminant_target_keeps_beta_relation_and_free_c7_5("
+            }
+          ]
+        },
+        {
+          "id": "GP-X82",
+          "pointer": "corpus/must/GP-X82.json",
+          "attempted_conclusion": "Treat intermediate digest commitments as a checked source derivation.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A hash commitment supplies neither intermediate polynomials nor their derivation."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_depth6_authority.py",
+              "line": 73,
+              "anchor": "def test_intermediate_rung_commitment_is_not_promoted_to_polynomial_proof("
+            }
+          ]
+        },
+        {
+          "id": "GP-X83",
+          "pointer": "corpus/must/GP-X83.json",
+          "attempted_conclusion": "Obtain an actual-source edge from the frozen boundary alone.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The imported boundary is source-unbound and carries no source or parent-cover edge."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_depth6_authority.py",
+              "line": 103,
+              "anchor": "def test_boundary_model_has_no_silent_actual_source_or_cover_edge("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The frozen depth-6 projection is graph-effect NONE, permits only stratum rewrites, and is explicitly source-unbound. X78/X79 support rewrites; X82/X83 refuse digest-as-derivation/source-edge promotion.",
+      "unmatched_distinction": "The 33 commitments and exact R2B/beta bodies are not replayed.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_authority.py",
+      "test": "test_native_sparse_coefficient_mutation_breaks_roundtrip_digest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_authority.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 63,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/22/tests/1"
+      },
+      "exact_test_assertion": "def test_native_sparse_coefficient_mutation_breaks_roundtrip_digest():\n    frozen = _frozen()\n    term = frozen[\"residuals\"][\"beta\"][\"polynomial\"][\"terms\"][0]\n    term[\"coefficient\"] = \"1\" if term[\"coefficient\"] != \"1\" else \"2\"\n\n    with pytest.raises(ADAPTER.Depth6ReceiptError,\n                       match=\"exact native sparse-map binding\"):\n        ADAPTER.verify_frozen(frozen)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X40",
+          "pointer": "corpus/must/GP-X40.json",
+          "attempted_conclusion": "Accept a changed first-row digest against the unchanged bound polynomial rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The native row commitments must match the frozen GP rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_original_pair_seam.py",
+              "line": 107,
+              "anchor": "def test_changed_native_row_commitment_breaks_the_gp_weld("
+            }
+          ]
+        },
+        {
+          "id": "GP-X44",
+          "pointer": "corpus/must/GP-X44.json",
+          "attempted_conclusion": "Accept changed fixture bytes under the original content binding.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A frozen receipt cannot silently accept changed bytes."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+              "line": 256,
+              "anchor": "\"frozen seam fixture digest changed\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 206,
+              "anchor": "def test_scope_or_source_binding_mutation_stales_old_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X72",
+          "pointer": "corpus/must/GP-X72.json",
+          "attempted_conclusion": "Accept the supplied native parent bytes as the frozen source.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The supplied bytes do not match the frozen native parent digest."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 228,
+              "anchor": "def test_adapter_refuses_any_change_to_the_native_parent_bytes("
+            }
+          ]
+        }
+      ],
+      "classification": "mapped_outer_hash_only",
+      "equivalence_argument": "Changing one beta sparse coefficient causes exact native sparse-map binding failure. X40/X71/X72 cover the same source-commitment currency rule.",
+      "unmatched_distinction": "This is a binding failure; it does not independently check a mathematical consequence of the changed coefficient.",
+      "confidence": "high_for_binding_only"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_chain.py",
+      "test": "test_full_exact_face_replay",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_chain.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 127,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/23/tests/7"
+      },
+      "exact_test_assertion": "def test_full_exact_face_replay():\n    report = ADAPTER.verify_chain(full_replay=True)\n\n    assert report[\"verdict\"] == \"VERIFIED_DEPTH6_CHAIN_FULL_REPLAY\"\n    assert \"exact_ordered_depth2_6_face_replay\" in (\n        report[\"evidence_envelope\"][\"licenses\"])\n    assert report[\"evidence_envelope\"][\"graph_effect\"] == EV.GRAPH_EFFECT_NONE",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X84",
+          "pointer": "corpus/must/GP-X84.json",
+          "attempted_conclusion": "Accept the ordered reduced chain with its exact unit witnesses.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "The checked solve identities and endpoint commitments agree; source-face substitution is a separate replay tier."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_depth6_chain.py",
+              "line": 46,
+              "anchor": "def test_checked_in_chain_fast_gate_welds_both_gp_endpoints("
+            }
+          ]
+        },
+        {
+          "id": "GP-X86",
+          "pointer": "corpus/must/GP-X86.json",
+          "attempted_conclusion": "Accept the chain after exchanging its first two steps.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Each step is bound to the ordered prior state."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_depth6_chain.py",
+              "line": 84,
+              "anchor": "def test_reordered_steps_are_rejected_after_resigning("
+            }
+          ]
+        },
+        {
+          "id": "GP-X87",
+          "pointer": "corpus/must/GP-X87.json",
+          "attempted_conclusion": "Accept a doubled pivot inverse in the chain.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The inverse times the pivot must equal one modulo the pin."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_depth6_chain.py",
+              "line": 95,
+              "anchor": "def test_mutated_unit_witness_is_rejected_after_resigning("
+            }
+          ]
+        },
+        {
+          "id": "GP-X88",
+          "pointer": "corpus/must/GP-X88.json",
+          "attempted_conclusion": "Accept a changed solved polynomial under its old commitment.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The solved value no longer matches the committed intermediate result."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_depth6_chain.py",
+              "line": 105,
+              "anchor": "def test_mutated_solved_value_is_rejected_after_resigning("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "A full ordered depth-2-to-6 face replay is accepted while graph_effect remains NONE. X84 accepts the ordered reduced chain and X86\u2013X88 guard order, inverse, and committed result changes.",
+      "unmatched_distinction": "The full source-face substitution tier is explicitly separate from the neutral fast chain cases.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_face_extraction.py",
+      "test": "test_full_source_formula_replay_rederives_all_five_rows",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_face_extraction.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 60,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/24/tests/1"
+      },
+      "exact_test_assertion": "def test_full_source_formula_replay_rederives_all_five_rows():\n    report = ADAPTER.verify_fixture(full_source_replay=True)\n\n    assert report[\"verdict\"] == (\n        \"VERIFIED_GRADED_FACE_EXTRACTION_WITH_SOURCE_REPLAY\")\n    assert \"reduced_esystem_rows_rederived_from_defining_formula\" in (\n        report[\"evidence_envelope\"][\"licenses\"])\n    assert report[\"evidence_envelope\"][\"graph_effect\"] == EV.GRAPH_EFFECT_NONE",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X90",
+          "pointer": "corpus/must/GP-X90.json",
+          "attempted_conclusion": "Extract the 25 graded faces under the declared finite supports.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Exact sparse products reproduce the committed faces of five reduced rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_depth6_face_extraction.py",
+              "line": 42,
+              "anchor": "def test_fast_face_extraction_welds_all_landed_faces_without_graph_effect("
+            }
+          ]
+        },
+        {
+          "id": "GP-X91",
+          "pointer": "corpus/must/GP-X91.json",
+          "attempted_conclusion": "Accept a changed source row after recomputing its own digest.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Updating the row commitment does not make its extracted faces match the downstream commitments."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_depth6_face_extraction.py",
+              "line": 88,
+              "anchor": "def test_resigned_source_row_mutation_breaks_face_weld("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The full replay rederives all five reduced rows from a defining formula but grants no graph effect. X90 accepts the finite graded-face extraction and X91 rejects changed downstream commitments.",
+      "unmatched_distinction": "The exhaustive source-formula reconstruction is not replayed by X90/X91.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_face_extraction.py",
+      "test": "test_source_row_coefficient_mutation_breaks_its_digest",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_face_extraction.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 77,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/24/tests/3"
+      },
+      "exact_test_assertion": "def test_source_row_coefficient_mutation_breaks_its_digest(monkeypatch, tmp_path):\n    fixture = _fixture()\n    term = fixture[\"source_rows\"][0][\"sparse\"][\"terms\"][0]\n    term[1] = str(ADAPTER.Q(term[1]) + 1)\n    path = _repin_mutation(monkeypatch, tmp_path, fixture)\n\n    with pytest.raises(ADAPTER.FaceExtractionError,\n                       match=\"source row digest\"):\n        ADAPTER.verify_fixture(path)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X40",
+          "pointer": "corpus/must/GP-X40.json",
+          "attempted_conclusion": "Accept a changed first-row digest against the unchanged bound polynomial rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The native row commitments must match the frozen GP rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_original_pair_seam.py",
+              "line": 107,
+              "anchor": "def test_changed_native_row_commitment_breaks_the_gp_weld("
+            }
+          ]
+        },
+        {
+          "id": "GP-X44",
+          "pointer": "corpus/must/GP-X44.json",
+          "attempted_conclusion": "Accept changed fixture bytes under the original content binding.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A frozen receipt cannot silently accept changed bytes."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "experiments/jc_h3_source_depth6/original_pair_seam_adapter.py",
+              "line": 256,
+              "anchor": "\"frozen seam fixture digest changed\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "attempted_conclusion": "The existing local emptiness receipt remains current in the proposed context.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 206,
+              "anchor": "def test_scope_or_source_binding_mutation_stales_old_authority("
+            }
+          ]
+        },
+        {
+          "id": "GP-X72",
+          "pointer": "corpus/must/GP-X72.json",
+          "attempted_conclusion": "Accept the supplied native parent bytes as the frozen source.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The supplied bytes do not match the frozen native parent digest."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_p_axis_authority.py",
+              "line": 228,
+              "anchor": "def test_adapter_refuses_any_change_to_the_native_parent_bytes("
+            }
+          ]
+        }
+      ],
+      "classification": "mapped_outer_hash_only",
+      "equivalence_argument": "Changing a source-row coefficient, even after repinning its own fixture, fails the source-row digest. X40/X71 cover the same downstream-bound-row commitment rule.",
+      "unmatched_distinction": "The result is a digest refusal, not an independent symbolic comparison of the modified row.",
+      "confidence": "high_for_binding_only"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_face_extraction.py",
+      "test": "test_dropped_authority_refusal_is_rejected_after_resigning",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_face_extraction.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 142,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/24/tests/9"
+      },
+      "exact_test_assertion": "def test_dropped_authority_refusal_is_rejected_after_resigning(\n        monkeypatch, tmp_path):\n    fixture = _fixture()\n    fixture[\"refusals\"].remove(\"H3 promotion\")\n    path = _repin_mutation(monkeypatch, tmp_path, fixture)\n\n    with pytest.raises(ADAPTER.FaceExtractionError,\n                       match=\"required authority refusal\"):\n        ADAPTER.verify_fixture(path)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X90",
+          "pointer": "corpus/must/GP-X90.json",
+          "attempted_conclusion": "Extract the 25 graded faces under the declared finite supports.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Exact sparse products reproduce the committed faces of five reduced rows."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_depth6_face_extraction.py",
+              "line": 42,
+              "anchor": "def test_fast_face_extraction_welds_all_landed_faces_without_graph_effect("
+            }
+          ]
+        },
+        {
+          "id": "GP-X91",
+          "pointer": "corpus/must/GP-X91.json",
+          "attempted_conclusion": "Accept a changed source row after recomputing its own digest.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Updating the row commitment does not make its extracted faces match the downstream commitments."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_depth6_face_extraction.py",
+              "line": 88,
+              "anchor": "def test_resigned_source_row_mutation_breaks_face_weld("
+            }
+          ]
+        }
+      ],
+      "classification": "unresolved",
+      "equivalence_argument": "Deleting the required H3-promotion refusal and repinning the fixture is rejected. X90/X91 cover face extraction and changed-row commitments, not omission of a required refusal.",
+      "unmatched_distinction": "No proposed case makes retention of the H3 refusal an explicit premise.",
+      "confidence": "low"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_full_template.py",
+      "test": "test_complete_template_has_the_measured_finite_boundary",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_full_template.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 38,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/25/tests/0"
+      },
+      "exact_test_assertion": "def test_complete_template_has_the_measured_finite_boundary(campaign):\n    assert campaign[\"ring_variables\"] == 78\n    assert campaign[\"source_generators\"] == 147\n    assert campaign[\"selected_generators\"] == 25\n    assert campaign[\"dropped_generators\"] == 122\n    assert campaign[\"row_complete_depths\"] == {\n        1: 25, 2: 27, 3: 28, 4: 30, 5: 32,\n    }\n    assert campaign[\"sparse_terms\"] == 424934\n    assert campaign[\"selected_face_weld_verified\"] is True\n    assert campaign[\"generator_bundle_sha256\"] == (\n        \"739ea3abeb73a60db99dfa7712e596ecc13b2a2dea9460cb635638c3b8dca371\"\n    )",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X27",
+          "pointer": "corpus/must/GP-X27.json",
+          "attempted_conclusion": "Accept the requested implication between the polynomial identity and the supplied rows.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "All coefficients through the true degree are checked."
+          },
+          "sources": [
+            {
+              "repository": "gp-v037",
+              "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+              "path": "tests/test_coefficient_expansion.py",
+              "line": 45,
+              "anchor": "def test_complete_expansion_checks_pack_and_every_coefficient("
+            }
+          ]
+        },
+        {
+          "id": "GP-X28",
+          "pointer": "corpus/must/GP-X28.json",
+          "attempted_conclusion": "Accept the requested implication between the polynomial identity and the supplied rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The omitted quadratic row can be nonzero."
+          },
+          "sources": [
+            {
+              "repository": "gp-v037",
+              "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+              "path": "tests/test_coefficient_expansion.py",
+              "line": 60,
+              "anchor": "def test_selected_coefficients_are_necessary_only("
+            }
+          ]
+        },
+        {
+          "id": "GP-X51",
+          "pointer": "corpus/must/GP-X51.json",
+          "attempted_conclusion": "Conclude a relaxed summit point exists from a point with actual-source provenance.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "A point with actual-source provenance projects to the relaxed object; retaining provenance is not necessary for the weaker existence claim."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_formalization_transport.py",
+              "line": 52,
+              "anchor": "def test_actual_provenance_forgets_forward_but_cannot_be_recovered("
+            },
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "fixtures/jc_formalization_transport/v0.json",
+              "line": 527,
+              "anchor": "\"id\": \"JC.ASSAY.A.FORWARD_FORGET\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X52",
+          "pointer": "corpus/must/GP-X52.json",
+          "attempted_conclusion": "Conclude an actual originating pair and descent witness exist merely because a relaxed summit point exists.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A relaxed point does not carry the missing originating pair and descent witness."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_formalization_transport.py",
+              "line": 52,
+              "anchor": "def test_actual_provenance_forgets_forward_but_cannot_be_recovered("
+            },
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "fixtures/jc_formalization_transport/v0.json",
+              "line": 537,
+              "anchor": "\"id\": \"JC.ASSAY.A.REVERSE_REALIZATION\""
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The test fixes the 147-to-25 selected-generator boundary and verifies the selected-face weld. X27/X28 distinguish complete from selected coefficient evidence; X51/X52 distinguish forward projection from reverse recovery.",
+      "unmatched_distinction": "The measured source-generator counts, sparse size, and weld digest have no neutral replay.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_full_template.py",
+      "test": "test_complete_template_earns_selected_face_containment",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_full_template.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 53,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/25/tests/1"
+      },
+      "exact_test_assertion": "def test_complete_template_earns_selected_face_containment(campaign):\n    graph = ADAPTER.graph_from_campaign(campaign)\n\n    verdict, why = V.containment(\n        graph, ADAPTER.EDGE, _backend=_NoBackend())\n\n    assert verdict == V.VERIFIED\n    assert \"unit-cofactor inclusion\" in why\n    assert P._eligible_structural_containment(graph, ADAPTER.EDGE)",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X27",
+          "pointer": "corpus/must/GP-X27.json",
+          "attempted_conclusion": "Accept the requested implication between the polynomial identity and the supplied rows.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "All coefficients through the true degree are checked."
+          },
+          "sources": [
+            {
+              "repository": "gp-v037",
+              "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+              "path": "tests/test_coefficient_expansion.py",
+              "line": 45,
+              "anchor": "def test_complete_expansion_checks_pack_and_every_coefficient("
+            }
+          ]
+        },
+        {
+          "id": "GP-X28",
+          "pointer": "corpus/must/GP-X28.json",
+          "attempted_conclusion": "Accept the requested implication between the polynomial identity and the supplied rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The omitted quadratic row can be nonzero."
+          },
+          "sources": [
+            {
+              "repository": "gp-v037",
+              "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+              "path": "tests/test_coefficient_expansion.py",
+              "line": 60,
+              "anchor": "def test_selected_coefficients_are_necessary_only("
+            }
+          ]
+        },
+        {
+          "id": "GP-X51",
+          "pointer": "corpus/must/GP-X51.json",
+          "attempted_conclusion": "Conclude a relaxed summit point exists from a point with actual-source provenance.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "A point with actual-source provenance projects to the relaxed object; retaining provenance is not necessary for the weaker existence claim."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_formalization_transport.py",
+              "line": 52,
+              "anchor": "def test_actual_provenance_forgets_forward_but_cannot_be_recovered("
+            },
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "fixtures/jc_formalization_transport/v0.json",
+              "line": 527,
+              "anchor": "\"id\": \"JC.ASSAY.A.FORWARD_FORGET\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X52",
+          "pointer": "corpus/must/GP-X52.json",
+          "attempted_conclusion": "Conclude an actual originating pair and descent witness exist merely because a relaxed summit point exists.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A relaxed point does not carry the missing originating pair and descent witness."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_formalization_transport.py",
+              "line": 52,
+              "anchor": "def test_actual_provenance_forgets_forward_but_cannot_be_recovered("
+            },
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "fixtures/jc_formalization_transport/v0.json",
+              "line": 537,
+              "anchor": "\"id\": \"JC.ASSAY.A.REVERSE_REALIZATION\""
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "A unit-cofactor inclusion is verified only when structural eligibility holds. X27/X28 and X51/X52 support completeness and one-way provenance aspects of that conclusion.",
+      "unmatched_distinction": "The exact containment edge and eligibility predicate are not candidate-case fixtures.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_full_template.py",
+      "test": "test_mutated_selected_face_loses_structural_authority",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_full_template.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 64,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/25/tests/2"
+      },
+      "exact_test_assertion": "def test_mutated_selected_face_loses_structural_authority(campaign):\n    source, selected, edge = campaign[\"events\"]\n    selected = dict(selected)\n    selected[\"generators\"] = list(selected[\"generators\"])\n    changed = copy.deepcopy(selected[\"generators\"][0])\n    changed[\"terms\"][0][\"coefficient\"] = \"999\"\n    selected[\"generators\"][0] = changed\n    mutated = dict(campaign)\n    mutated[\"events\"] = [source, selected, edge]\n    graph = ADAPTER.graph_from_campaign(mutated)\n\n    assert not P._eligible_structural_containment(graph, ADAPTER.EDGE)\n    with pytest.raises(AssertionError, match=\"must remain structural\"):\n        V.containment(graph, ADAPTER.EDGE, _backend=_NoBackend())",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X27",
+          "pointer": "corpus/must/GP-X27.json",
+          "attempted_conclusion": "Accept the requested implication between the polynomial identity and the supplied rows.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "All coefficients through the true degree are checked."
+          },
+          "sources": [
+            {
+              "repository": "gp-v037",
+              "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+              "path": "tests/test_coefficient_expansion.py",
+              "line": 45,
+              "anchor": "def test_complete_expansion_checks_pack_and_every_coefficient("
+            }
+          ]
+        },
+        {
+          "id": "GP-X28",
+          "pointer": "corpus/must/GP-X28.json",
+          "attempted_conclusion": "Accept the requested implication between the polynomial identity and the supplied rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The omitted quadratic row can be nonzero."
+          },
+          "sources": [
+            {
+              "repository": "gp-v037",
+              "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+              "path": "tests/test_coefficient_expansion.py",
+              "line": 60,
+              "anchor": "def test_selected_coefficients_are_necessary_only("
+            }
+          ]
+        },
+        {
+          "id": "GP-X51",
+          "pointer": "corpus/must/GP-X51.json",
+          "attempted_conclusion": "Conclude a relaxed summit point exists from a point with actual-source provenance.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "A point with actual-source provenance projects to the relaxed object; retaining provenance is not necessary for the weaker existence claim."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_formalization_transport.py",
+              "line": 52,
+              "anchor": "def test_actual_provenance_forgets_forward_but_cannot_be_recovered("
+            },
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "fixtures/jc_formalization_transport/v0.json",
+              "line": 527,
+              "anchor": "\"id\": \"JC.ASSAY.A.FORWARD_FORGET\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X52",
+          "pointer": "corpus/must/GP-X52.json",
+          "attempted_conclusion": "Conclude an actual originating pair and descent witness exist merely because a relaxed summit point exists.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A relaxed point does not carry the missing originating pair and descent witness."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_formalization_transport.py",
+              "line": 52,
+              "anchor": "def test_actual_provenance_forgets_forward_but_cannot_be_recovered("
+            },
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "fixtures/jc_formalization_transport/v0.json",
+              "line": 537,
+              "anchor": "\"id\": \"JC.ASSAY.A.REVERSE_REALIZATION\""
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "Mutating one selected-face coefficient removes structural eligibility and makes containment assert. X28/X52 give the same loss-of-converse/reverse authority when required evidence is missing.",
+      "unmatched_distinction": "They do not alter this selected generator or call the structural eligibility guard.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_full_template.py",
+      "test": "test_authority_still_refuses_reverse_lift_and_h3",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_full_template.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 80,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/25/tests/3"
+      },
+      "exact_test_assertion": "def test_authority_still_refuses_reverse_lift_and_h3(campaign):\n    authority = campaign[\"authority\"]\n\n    assert \"selected_faces_empty_implies_reduced_esystem_empty\" in (\n        authority[\"licenses\"])\n    assert \"selected_faces_nonempty_implies_reduced_esystem_nonempty\" in (\n        authority[\"refuses\"])\n    assert \"original polynomial-pair membership\" in authority[\"refuses\"]\n    assert \"H3 promotion\" in authority[\"refuses\"]",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X27",
+          "pointer": "corpus/must/GP-X27.json",
+          "attempted_conclusion": "Accept the requested implication between the polynomial identity and the supplied rows.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "All coefficients through the true degree are checked."
+          },
+          "sources": [
+            {
+              "repository": "gp-v037",
+              "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+              "path": "tests/test_coefficient_expansion.py",
+              "line": 45,
+              "anchor": "def test_complete_expansion_checks_pack_and_every_coefficient("
+            }
+          ]
+        },
+        {
+          "id": "GP-X28",
+          "pointer": "corpus/must/GP-X28.json",
+          "attempted_conclusion": "Accept the requested implication between the polynomial identity and the supplied rows.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The omitted quadratic row can be nonzero."
+          },
+          "sources": [
+            {
+              "repository": "gp-v037",
+              "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+              "path": "tests/test_coefficient_expansion.py",
+              "line": 60,
+              "anchor": "def test_selected_coefficients_are_necessary_only("
+            }
+          ]
+        },
+        {
+          "id": "GP-X51",
+          "pointer": "corpus/must/GP-X51.json",
+          "attempted_conclusion": "Conclude a relaxed summit point exists from a point with actual-source provenance.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "A point with actual-source provenance projects to the relaxed object; retaining provenance is not necessary for the weaker existence claim."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_formalization_transport.py",
+              "line": 52,
+              "anchor": "def test_actual_provenance_forgets_forward_but_cannot_be_recovered("
+            },
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "fixtures/jc_formalization_transport/v0.json",
+              "line": 527,
+              "anchor": "\"id\": \"JC.ASSAY.A.FORWARD_FORGET\""
+            }
+          ]
+        },
+        {
+          "id": "GP-X52",
+          "pointer": "corpus/must/GP-X52.json",
+          "attempted_conclusion": "Conclude an actual originating pair and descent witness exist merely because a relaxed summit point exists.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A relaxed point does not carry the missing originating pair and descent witness."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_formalization_transport.py",
+              "line": 52,
+              "anchor": "def test_actual_provenance_forgets_forward_but_cannot_be_recovered("
+            },
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "fixtures/jc_formalization_transport/v0.json",
+              "line": 537,
+              "anchor": "\"id\": \"JC.ASSAY.A.REVERSE_REALIZATION\""
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The authority explicitly permits selected-face empty-to-reduced empty but refuses reverse nonempty lift, original membership, and H3 promotion. X52 exactly refuses reverse provenance recovery.",
+      "unmatched_distinction": "X52 does not include original-membership or H3 refusal.",
+      "confidence": "medium"
+    },
+    {
+      "source_path": "tests/test_jc_source_ladder_authority.py",
+      "test": "test_normalization_bearing_second_face_compiles_with_exact_context",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_ladder_authority.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 78,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/26/tests/3"
+      },
+      "exact_test_assertion": "def test_normalization_bearing_second_face_compiles_with_exact_context():\n    graph, compiled = ADAPTER.graph_from_spec(_second_specification())\n    source = graph.models[ADAPTER.SECOND_SOURCE_MODEL]\n    target = graph.models[ADAPTER.SECOND_TARGET_MODEL]\n\n    assert compiled[\"edge_id\"] == ADAPTER.SECOND_EDGE\n    assert compiled[\"chain_report\"][\"checked_steps\"] == 5\n    assert source[\"generators\"][0] == \"(15)*t^3+1\"\n    assert target[\"generators\"][0] == \"(15)*t^3+1\"\n    assert target[\"generators\"][1:6] == [\n        \"c3_4\", \"c6_8\", \"c9_13\", \"c5_6\", \"c4_4\"]\n    assert compiled[\"inverse_variables\"] == []\n    assert compiled[\"inverse_witnesses\"] == {\"t\": \"(-15)*t^2\"}\n    assert \"GP_INV_t\" not in source[\"ring_vars\"]\n    assert \"GP_INV_t\" not in target[\"ring_vars\"]\n    assert C.run(graph) == []",
+      "essential_premises": "The exact fixture mutation/replay and expected assertion are preserved verbatim above; the historical review calls this a mechanism-level analogue, never identical fixture coverage.",
+      "proposed_existing_cases": [
+        {
+          "id": "GP-X73",
+          "pointer": "corpus/must/GP-X73.json",
+          "attempted_conclusion": "Ordered top-face affine translations preserve the localized model.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Explicit inverse coordinates and checked triangular substitutions give a polynomial ring isomorphism."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_ladder_authority.py",
+              "line": 37,
+              "anchor": "def test_chain_compiles_to_exact_algebraized_localization_models("
+            }
+          ]
+        },
+        {
+          "id": "GP-X74",
+          "pointer": "corpus/must/GP-X74.json",
+          "attempted_conclusion": "The normalization equation supplies an inverse for t.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Modulo 15*t^3+1, -15*t^2 is an inverse for t; no extra inverse coordinate is needed."
+          },
+          "sources": [
+            {
+              "repository": "gp-history",
+              "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+              "path": "tests/test_jc_source_ladder_authority.py",
+              "line": 96,
+              "anchor": "def test_exact_certificate_verifies_normalization_bearing_second_face("
+            }
+          ]
+        }
+      ],
+      "classification": "partial",
+      "equivalence_argument": "The compiled second face retains the normalization polynomial and proves t's inverse without adding an inverse variable. X73/X74 are the same isomorphism/normalization mechanism.",
+      "unmatched_distinction": "The five named target generators and exact compiled-chain metadata are fixture-specific.",
+      "confidence": "medium"
+    }
+  ]
+}

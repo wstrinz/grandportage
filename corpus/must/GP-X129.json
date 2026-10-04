@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "GP-X129",
+  "seed": null,
+  "title": "Explicit exponent-nine saturation witness",
+  "situation": "The exact identity x^9*y=1*(x^9*y) supplies the exponent beyond the producer bound.",
+  "inputs": {
+    "variables": [
+      "x",
+      "y"
+    ],
+    "generators": [
+      "x^9*y"
+    ],
+    "guards": [
+      "x"
+    ],
+    "numerator": "y",
+    "denominator_powers": [
+      0
+    ],
+    "localization_powers": [
+      9
+    ],
+    "membership_target": "x^9*y",
+    "cofactors": [
+      "1"
+    ]
+  },
+  "attempted_conclusion": "Accept y=0 on the locus x != 0.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The exact identity x^9*y=1*(x^9*y) supplies the exponent beyond the producer bound."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 5382,
+      "anchor": "def test_a_power_nine_saturation_witness_is_not_falsely_refuted("
+    }
+  ]
+}

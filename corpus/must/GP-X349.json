@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "GP-X349",
+  "seed": null,
+  "title": "Cubic root with vanishing open guard is not a point",
+  "situation": "A degree-three simple number-field witness is replayed against an exact equation and open guard; the declared quotient must be a field.",
+  "inputs": {
+    "control": "vanishing_guard",
+    "field": {
+      "base": "Q",
+      "symbol": "a",
+      "minimal_polynomial": "a^3-2"
+    },
+    "model": {
+      "characteristic": 0,
+      "coefficient_domain": "Q",
+      "point_universe": "ALGEBRAIC_CLOSURE",
+      "ring_vars": [
+        "x"
+      ],
+      "generators": [
+        "x^3-2"
+      ],
+      "open_conditions": [
+        "x^3-2"
+      ]
+    },
+    "coordinate": "a"
+  },
+  "attempted_conclusion": "Accept the displayed cubic witness as a valid point.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The candidate root satisfies the equation but its required open guard vanishes."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/number_field.py",
+      "line": 248,
+      "anchor": "def check_extension_witness(model, witness_field, witness_point):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "rework-packet",
+      "path": "reports/PHASE-0A-BATCH-70.md",
+      "line": 5,
+      "anchor": "Four additional controls accept a root of a^3-2"
+    }
+  ]
+}

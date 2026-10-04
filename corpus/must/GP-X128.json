@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "GP-X128",
+  "seed": null,
+  "title": "Reject false emptiness over F23",
+  "situation": "All three equations vanish at (13,0) over F23.",
+  "inputs": {
+    "variables": [
+      "x",
+      "y"
+    ],
+    "generators": [
+      "y^2-x^3+x-1",
+      "3*x^2-1",
+      "2*y"
+    ],
+    "characteristic": 23,
+    "point": {
+      "x": "13",
+      "y": "0"
+    },
+    "attempt": "empty"
+  },
+  "attempted_conclusion": "Declare this F23 variety empty.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "All three equations vanish at (13,0) over F23."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_boundary.py",
+      "line": 936,
+      "anchor": "def test_the_verifier_reads_the_model_characteristic("
+    }
+  ]
+}

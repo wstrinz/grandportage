@@ -1,0 +1,909 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "scope": "Selected lifecycle/provenance slices. Execution of a whole test file is not full semantic disposition of that source.",
+  "cases": [
+    {
+      "id": "GP-X142",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_store.py",
+        "line": 36,
+        "anchor": "def test_identical_redeclaration_is_idempotent("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X143",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_store.py",
+        "line": 43,
+        "anchor": "def test_conflicting_redeclaration_is_a_hard_error("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X144",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_adversarial.py",
+        "line": 3297,
+        "anchor": "def test_supersession_does_not_make_the_fold_order_dependent("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X145",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_adversarial.py",
+        "line": 3297,
+        "anchor": "def test_supersession_does_not_make_the_fold_order_dependent("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X146",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_adversarial.py",
+        "line": 3297,
+        "anchor": "def test_supersession_does_not_make_the_fold_order_dependent("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X147",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_supersession_noise.py",
+        "line": 92,
+        "anchor": "def test_minimal_inference_retract_is_not_a_live_successor("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X148",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_supersession_noise.py",
+        "line": 92,
+        "anchor": "def test_minimal_inference_retract_is_not_a_live_successor("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X149",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_supersession_noise.py",
+        "line": 123,
+        "anchor": "def test_edge_withdraw_retires_a_declaration_without_minting_an_edge("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X150",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_supersession_noise.py",
+        "line": 135,
+        "anchor": "def test_withdrawing_an_edge_does_not_hide_live_traffic("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X151",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_supersession_noise.py",
+        "line": 497,
+        "anchor": "def test_a_withdrawn_edge_whose_only_rider_was_withdrawn_too_is_gone("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X152",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_supersession_noise.py",
+        "line": 167,
+        "anchor": "def test_tombstone_and_live_successor_are_mutually_exclusive("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X153",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_adversarial.py",
+        "line": 3363,
+        "anchor": "def test_an_edge_cannot_supersede_itself_or_a_record_that_is_not_there("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X154",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_supersession_noise.py",
+        "line": 393,
+        "anchor": "def test_a_dangling_supersession_is_refused_by_the_FOLD("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X155",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_supersession_noise.py",
+        "line": 370,
+        "anchor": "def test_two_edges_superseding_each_other_withdraw_nothing("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X156",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_supersession_noise.py",
+        "line": 330,
+        "anchor": "def test_an_untyped_edge_that_was_retyped_stops_reporting_as_live_debt("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X157",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_supersession_noise.py",
+        "line": 348,
+        "anchor": "def test_a_replacement_that_is_also_untyped_is_still_caught("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X158",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_supersession_noise.py",
+        "line": 423,
+        "anchor": "def test_a_declared_chain_of_three_edges_is_one_edge("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X159",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_supersession_noise.py",
+        "line": 447,
+        "anchor": "def test_a_replacement_parallel_to_a_live_edge_is_still_reported("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X160",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_supersession_noise.py",
+        "line": 210,
+        "anchor": "def test_verify_declines_a_live_edge_with_a_superseded_endpoint("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X161",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_adversarial.py",
+        "line": 2345,
+        "anchor": "def test_a_claim_can_be_split_and_the_split_is_not_lost("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X162",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_adversarial.py",
+        "line": 1697,
+        "anchor": "def test_amend_is_computed_not_declared("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X163",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_adversarial.py",
+        "line": 1732,
+        "anchor": "def test_over_declaring_a_supersession_is_allowed("
+      },
+      "layer": "lifecycle_contract",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X164",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_verdict_provenance.py",
+        "line": 69,
+        "anchor": "def test_fresh_epoch1_verdict_is_active("
+      },
+      "layer": "provenance_binding",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X165",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_verdict_provenance.py",
+        "line": 508,
+        "anchor": "def test_mismatched_verifier_kernel_or_backend_is_stale("
+      },
+      "layer": "provenance_binding",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X166",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_verdict_provenance.py",
+        "line": 508,
+        "anchor": "def test_mismatched_verifier_kernel_or_backend_is_stale("
+      },
+      "layer": "provenance_binding",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X167",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_verdict_provenance.py",
+        "line": 508,
+        "anchor": "def test_mismatched_verifier_kernel_or_backend_is_stale("
+      },
+      "layer": "provenance_binding",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X168",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_verdict_provenance.py",
+        "line": 508,
+        "anchor": "def test_mismatched_verifier_kernel_or_backend_is_stale("
+      },
+      "layer": "provenance_binding",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X169",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_verdict_provenance.py",
+        "line": 488,
+        "anchor": "def test_verdict_for_different_semantic_input_is_stale("
+      },
+      "layer": "provenance_binding",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X170",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_verdict_provenance.py",
+        "line": 463,
+        "anchor": "def test_legacy_verified_remains_readable_but_inactive("
+      },
+      "layer": "provenance_binding",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X171",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_verdict_provenance.py",
+        "line": 69,
+        "anchor": "def test_fresh_epoch1_verdict_is_active("
+      },
+      "layer": "provenance_binding",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X172",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_verdict_provenance.py",
+        "line": 69,
+        "anchor": "def test_fresh_epoch1_verdict_is_active("
+      },
+      "layer": "provenance_binding",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X173",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_verdict_provenance.py",
+        "line": 679,
+        "anchor": "def test_rejected_section_does_not_erase_prior_exact_certificate("
+      },
+      "layer": "exact_section_and_provenance",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X174",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_verdict_provenance.py",
+        "line": 679,
+        "anchor": "def test_rejected_section_does_not_erase_prior_exact_certificate("
+      },
+      "layer": "exact_section_and_provenance",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X175",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_verdict_provenance.py",
+        "line": 731,
+        "anchor": "def test_mutating_stored_section_certificate_makes_verdict_stale("
+      },
+      "layer": "exact_section_and_provenance",
+      "disposition": "extracted"
+    },
+    {
+      "id": "GP-X176",
+      "source": {
+        "repository": "gp-v037",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "path": "tests/test_verdict_provenance.py",
+        "line": 706,
+        "anchor": "def test_verified_section_without_proof_object_is_refused("
+      },
+      "layer": "exact_section_and_provenance",
+      "disposition": "extracted"
+    }
+  ],
+  "regressions": {
+    "report": "reports/oracle-lifecycle-batch9.xml",
+    "passed": 93,
+    "tests": [
+      {
+        "file": "tests.test_store",
+        "name": "test_both_fixtures_fold",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_counts_match_the_answer_key",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_identical_redeclaration_is_idempotent",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_conflicting_redeclaration_is_a_hard_error",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_merging_the_two_domains_is_just_concatenation",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_merge_order_does_not_change_the_result",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_claim_in_an_undeclared_model_is_refused",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_disconnected_inference_path_is_refused",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_the_prototypes_fano_control_really_was_disconnected",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_inference_endpoints_are_derived_not_declared",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_untyped_edge_requires_a_stated_debt",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_severity_override_requires_a_reason",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_certificate_registration_requires_a_base_change_verdict_and_why",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_edge_requires_why",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_scope_error_surfaces_at_fold_time",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_domain_certificates_extend_the_registry_without_editing_the_kernel",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_append_refuses_to_write_a_log_it_cannot_fold",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_fold_is_deterministic",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_store",
+        "name": "test_comments_and_blank_lines_survive_the_reader",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_superseded_family_findings_are_historical_not_live_debt",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_minimal_inference_retract_is_not_a_live_successor",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_legacy_full_shaped_inference_retract_folds_as_a_tombstone",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_edge_withdraw_retires_a_declaration_without_minting_an_edge",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_withdrawing_an_edge_does_not_hide_live_traffic",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_unridden_untyped_failed_containment_is_debt_until_withdrawn",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_tombstone_and_live_successor_are_mutually_exclusive",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_lifecycle_tombstones_are_visible_on_cli_mcp_and_folded_json",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_verify_declines_a_live_edge_with_a_superseded_endpoint",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_retyped_edge_cites_predecessor_containment_when_endpoints_match",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_containment_evidence_does_not_follow_changed_endpoints_or_beat_direct",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_literal_containment_does_not_flow_into_a_mapped_successor",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_mapped_predecessor_does_not_suppress_a_literal_successor",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_an_untyped_edge_that_was_retyped_stops_reporting_as_live_debt",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_a_replacement_that_is_also_untyped_is_still_caught",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_two_edges_superseding_each_other_withdraw_nothing",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_a_dangling_supersession_is_refused_by_the_FOLD",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_a_declared_chain_of_three_edges_is_one_edge",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_a_replacement_parallel_to_a_live_edge_is_still_reported",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_an_edge_that_live_traffic_still_rides_is_not_withdrawn",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_a_withdrawn_edge_whose_only_rider_was_withdrawn_too_is_gone",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_superseding_something_else_entirely_buys_no_downgrade",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_withdrawal_is_computed_from_live_successors_only",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_a_live_inference_riding_a_withdrawn_edge_is_reported",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_a_stale_path_is_only_DEBT_when_nothing_licensing_moved",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_supersession_noise",
+        "name": "test_a_withdrawn_edge_carrying_live_traffic_keeps_its_own_findings",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_merge_assay",
+        "name": "test_real_fanout_merge_assay",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_fresh_epoch1_verdict_is_active",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_persisted_verdict_survives_reload_when_binary_is_unchanged",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_changed_binary_invalidates_persisted_verdict",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_unidentifiable_current_binary_invalidates_persisted_verdict",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_fresh_process_persists_exits_and_consumes_current_verdict",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_fresh_verdict_carries_detailed_backend_provenance",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_native_execution_manifest_is_closed_and_versioned",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_exact_ring_iso_certificate_allows_a_verifier_native_empty_trace",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_v050_reader_shape_accepts_m2_event_but_its_backend_rule_is_stale",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_trace_requirement_distinguishes_backend_and_structural_authority",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_pre_marker_singular_v1_verdict_is_readable_but_stale_under_v2",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_pre_artifact_singular_v2_verdict_is_readable_but_stale",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_pre_m2_epoch1_verdict_is_readable_but_stale",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_v2_verdict_refuses_fabricated_missing_execution_provenance",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_legacy_verified_remains_readable_but_inactive",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_verdict_for_different_semantic_input_is_stale",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_mismatched_verifier_kernel_or_backend_is_stale[verifier-verify.some_old_identity]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_mismatched_verifier_kernel_or_backend_is_stale[verifier_version-999]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_mismatched_verifier_kernel_or_backend_is_stale[kernel_epoch-13]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_mismatched_verifier_kernel_or_backend_is_stale[backend-not-singular]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_tampered_backend_descriptor_is_stale[implementation]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_tampered_backend_descriptor_is_stale[protocol]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_tampered_backend_descriptor_is_stale[trace]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_tampered_backend_descriptor_is_stale[version]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_tampered_backend_descriptor_is_stale[entry]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_tampered_backend_descriptor_is_stale[test-double]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_identity_declines_unknown_characteristic_before_cas",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_edge_verifiers_decline_unknown_characteristic_before_cas[containment]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_edge_verifiers_decline_unknown_characteristic_before_cas[ring_iso]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_edge_verifiers_decline_unknown_characteristic_before_cas[operation]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_partition_witness_and_certificate_decline_unknown_characteristic",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_verified_section_projects_distinct_contraction_authority",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_rejected_section_does_not_erase_prior_exact_certificate",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_elimination_authority_fields_are_not_declarable",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_verified_section_without_proof_object_is_refused",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_section_proof_object_must_match_its_exact_endpoints",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_contraction_representation_is_a_guarded_computed_field",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_mutating_stored_section_certificate_makes_verdict_stale",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_section_verdict_stamped_as_groebner_is_stale",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_verdict_provenance",
+        "name": "test_metadata_refuses_crossed_section_verifier_identity",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_adversarial",
+        "name": "test_supersession_does_not_make_the_fold_order_dependent[claim]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_adversarial",
+        "name": "test_supersession_does_not_make_the_fold_order_dependent[edge]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_adversarial",
+        "name": "test_supersession_does_not_make_the_fold_order_dependent[inference]",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_adversarial",
+        "name": "test_an_edge_cannot_supersede_itself_or_a_record_that_is_not_there",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_adversarial",
+        "name": "test_amend_is_computed_not_declared",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_adversarial",
+        "name": "test_over_declaring_a_supersession_is_allowed",
+        "status": "passed"
+      },
+      {
+        "file": "tests.test_adversarial",
+        "name": "test_a_claim_can_be_split_and_the_split_is_not_lost",
+        "status": "passed"
+      }
+    ]
+  },
+  "open_semantics": {
+    "report": "reports/RETRY-MERGE-AUDIT.json",
+    "status": "diagnostic_only_no_new_expected_verdict",
+    "finding": "Current identity projection depends on receipt arrival/merge order. Rejected section proposals preserve prior success. Independent warrant withdrawal remains a design question."
+  },
+  "remaining": [
+    "Full current-tree source disposition and imported implementation audit",
+    "Selective warrant retraction and failed-retry policy for GP 0.50",
+    "Transitive derived support with joint versus alternative premises",
+    "Conflict handling for current positive and negative receipts",
+    "Census-profile evidence before any kernel promotion"
+  ]
+}

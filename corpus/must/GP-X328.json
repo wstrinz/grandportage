@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "GP-X328",
+  "seed": null,
+  "title": "Changed D7 derivative transport invalidates projection binding",
+  "situation": "The checked projection uses the negative pivot-absorbed D7 transport. Its text is changed to the opposite sign while the native certificate is retained.",
+  "inputs": {
+    "control": "derivative_transport",
+    "fixture_sha256": "7c26a7fdcfd12321997beb259f73388db654b3aff1cfbb83f30ccfa11017b82c",
+    "mutation": {
+      "op": "set",
+      "path": [
+        "projection",
+        "transport",
+        "D7"
+      ],
+      "original": "d/dc7_4-(3/2)*c2_3*d/dc9_7",
+      "value": "d/dc7_4+(3/2)*c2_3*d/dc9_7"
+    }
+  },
+  "attempted_conclusion": "Reuse the same checked projection after changing its D7 transport sign.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The projection no longer matches the pinned D7 transport contract."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "line": 87,
+      "anchor": "def test_arithmetic_and_scope_mutations_refuse("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_b0_free_plane/depth8_adapter.py",
+      "line": 467,
+      "anchor": "require(fixture[\"projection\"] == _expected_projection(), \"M1\","
+    }
+  ]
+}

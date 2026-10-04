@@ -1,0 +1,9 @@
+$bindingRoot = 'spikes/mathlib-binding'
+$env:PATH = '$ELAN_HOME/toolchains/leanprover--lean4---v4.32.1/bin;' + $env:PATH
+$env:TEMP = "$bindingRoot/tmp"
+$env:TMP = "$bindingRoot/tmp"
+$env:XDG_CACHE_HOME = "$bindingRoot/cache"
+$env:MATHLIB_CACHE_DIR = "$bindingRoot/cache/mathlib"
+$env:LAKE_HOME = "$bindingRoot/cache/lake"
+$env:MATHLIB_NO_CACHE_ON_UPDATE = '1'
+$env:GIT_TERMINAL_PROMPT = '0'

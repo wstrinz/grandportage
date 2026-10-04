@@ -1,0 +1,236 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "14ec15b6a4a05dc5c4f9b26d70aa652f2a2b9382e16237bfc3abed90873d58a8",
+  "scope": "Native validated graph, no verifier receipt; zero-step transport profile is separate from earned premise authority.",
+  "report": {
+    "schema": "grand-portage-explain/v1",
+    "authority": "DERIVED_READ_MODEL_ONLY",
+    "graph_effect": "NONE",
+    "graph_format": 8,
+    "kernel_epoch": 12,
+    "tree": {
+      "id": "I",
+      "kind": "EMPTY",
+      "node_kind": "step",
+      "runtime_licensed": true,
+      "complete": false,
+      "obligations": {
+        "field_transport": {
+          "status": "REIFIED",
+          "fields": [
+            "inferences.I"
+          ],
+          "missing": null,
+          "interpretation": null,
+          "reason": "not required for this node's rule"
+        },
+        "selected_structure": {
+          "status": "REIFIED",
+          "fields": [
+            "inferences.I"
+          ],
+          "missing": null,
+          "interpretation": null,
+          "reason": "not required for this node's rule"
+        },
+        "expressibility": {
+          "status": "REIFIED",
+          "fields": [
+            "inferences.I"
+          ],
+          "missing": null,
+          "interpretation": null,
+          "reason": "not required for this node's rule"
+        },
+        "predicate_rewrite": {
+          "status": "REIFIED",
+          "fields": [
+            "inferences.I"
+          ],
+          "missing": null,
+          "interpretation": null,
+          "reason": "not required for this node's rule"
+        },
+        "preservation_evidence": {
+          "status": "REIFIED",
+          "fields": [
+            "inferences.I"
+          ],
+          "missing": null,
+          "interpretation": null,
+          "reason": "not required for this node's rule"
+        },
+        "interpreter_requirements": {
+          "status": "REIFIED",
+          "fields": [
+            "inferences.I"
+          ],
+          "missing": null,
+          "interpretation": null,
+          "reason": "not required for this node's rule"
+        },
+        "composition": {
+          "status": "REIFIED",
+          "fields": [
+            "inferences.I"
+          ],
+          "missing": null,
+          "interpretation": null,
+          "reason": "not required for this node's rule"
+        },
+        "current_binding": {
+          "status": "REIFIED",
+          "fields": [
+            "inferences.I.premises"
+          ],
+          "missing": null,
+          "interpretation": null,
+          "reason": "current full checker admission; child receipt bindings recorded separately"
+        },
+        "witness_custody": {
+          "status": "REIFIED",
+          "fields": [
+            "inferences.I"
+          ],
+          "missing": null,
+          "interpretation": null,
+          "reason": "not required for this node's rule"
+        }
+      },
+      "children": [
+        {
+          "id": "C",
+          "kind": "EMPTY",
+          "node_kind": "leaf",
+          "runtime_licensed": false,
+          "complete": false,
+          "obligations": {
+            "field_transport": {
+              "status": "REIFIED",
+              "fields": [
+                "models.M"
+              ],
+              "missing": null,
+              "interpretation": null,
+              "reason": null
+            },
+            "selected_structure": {
+              "status": "REIFIED",
+              "fields": [
+                "claims.C"
+              ],
+              "missing": null,
+              "interpretation": null,
+              "reason": "not required for this node's rule"
+            },
+            "expressibility": {
+              "status": "REIFIED",
+              "fields": [
+                "claims.C"
+              ],
+              "missing": null,
+              "interpretation": null,
+              "reason": "not required for this node's rule"
+            },
+            "predicate_rewrite": {
+              "status": "REIFIED",
+              "fields": [
+                "claims.C"
+              ],
+              "missing": null,
+              "interpretation": null,
+              "reason": "not required for this node's rule"
+            },
+            "preservation_evidence": {
+              "status": "REIFIED",
+              "fields": [
+                "claims.C"
+              ],
+              "missing": null,
+              "interpretation": null,
+              "reason": "not required for this node's rule"
+            },
+            "interpreter_requirements": {
+              "status": "DATA_GAP",
+              "fields": [
+                "claims.C"
+              ],
+              "missing": "retained interpreter receipt",
+              "interpretation": null,
+              "reason": null
+            },
+            "composition": {
+              "status": "REIFIED",
+              "fields": [
+                "claims.C"
+              ],
+              "missing": null,
+              "interpretation": null,
+              "reason": "not required for this node's rule"
+            },
+            "current_binding": {
+              "status": "DATA_GAP",
+              "fields": [
+                "claims.C"
+              ],
+              "missing": "current bound receipt",
+              "interpretation": null,
+              "reason": null
+            },
+            "witness_custody": {
+              "status": "REIFIED",
+              "fields": [
+                "claims.C"
+              ],
+              "missing": null,
+              "interpretation": null,
+              "reason": "not required for this node's rule"
+            }
+          },
+          "children": [],
+          "receipts": [],
+          "flags": [],
+          "parts": {},
+          "lost": {
+            "label": "unlicensed observations under available discharge",
+            "vocabulary": [],
+            "values": [],
+            "status": "NO_TRANSPORT_STEP",
+            "scope": "conditional runtime gate profile at the stated kind; independent of full tree completeness",
+            "profile_covered": null
+          }
+        }
+      ],
+      "receipts": [],
+      "flags": [],
+      "parts": {
+        "premises": [
+          {
+            "claim": "C",
+            "path": []
+          }
+        ],
+        "paths": []
+      },
+      "lost": {
+        "label": "unlicensed observations under available discharge",
+        "vocabulary": [
+          "EMPTY"
+        ],
+        "values": [],
+        "status": "COMPUTED",
+        "scope": "conditional runtime gate profile at the stated kind; independent of full tree completeness",
+        "profile_covered": true
+      }
+    },
+    "totals": {
+      "REIFIED": 16,
+      "DATA_GAP": 2
+    },
+    "data_gaps": {
+      "retained interpreter receipt": 1,
+      "current bound receipt": 1
+    },
+    "loaded_state_issue": null
+  }
+}

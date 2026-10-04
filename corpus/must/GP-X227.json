@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "GP-X227",
+  "seed": null,
+  "title": "Missing raw artifact fails its storage audit",
+  "situation": "Separate replayable polynomial evidence from the availability and identity of its historical producer.",
+  "inputs": {
+    "model": {
+      "field": "Q",
+      "variables": [
+        "x"
+      ],
+      "equations": [
+        "x"
+      ]
+    },
+    "identity": {
+      "left": "x^2",
+      "right": "0"
+    },
+    "cofactors": [
+      "x"
+    ],
+    "local_backend": "matching",
+    "historical_identity": "identified",
+    "raw_artifact": "absent",
+    "question": "raw_artifact_audit"
+  },
+  "attempted_conclusion": "Accept the referenced raw execution as available and intact.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Missing raw artifact fails its storage audit"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_artifacts.py",
+      "line": 154,
+      "anchor": "def test_cli_audits_referenced_objects_without_changing_graph_fold("
+    }
+  ]
+}

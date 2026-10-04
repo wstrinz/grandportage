@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "GP-X52",
+  "seed": null,
+  "title": "Forgetting provenance does not supply reverse realization",
+  "situation": "Conservatively models the actual-realizable locus as tighter than the relaxed summit locus until Lean makes the projection definitional.",
+  "inputs": {
+    "source_object": "Summit retaining pair and descent provenance",
+    "target_object": "Relaxed seven-coordinate summit point",
+    "information_lost": [
+      "originating covered pair",
+      "triangular descent witness",
+      "actual-realizability index"
+    ],
+    "source_context": "characteristic zero",
+    "claim": "NONEMPTY",
+    "direction": "AGAINST",
+    "supplied_lift_warrant": null
+  },
+  "attempted_conclusion": "Conclude an actual originating pair and descent witness exist merely because a relaxed summit point exists.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A relaxed point does not carry the missing originating pair and descent witness."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_formalization_transport.py",
+      "line": 52,
+      "anchor": "def test_actual_provenance_forgets_forward_but_cannot_be_recovered("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "fixtures/jc_formalization_transport/v0.json",
+      "line": 537,
+      "anchor": "\"id\": \"JC.ASSAY.A.REVERSE_REALIZATION\""
+    }
+  ]
+}

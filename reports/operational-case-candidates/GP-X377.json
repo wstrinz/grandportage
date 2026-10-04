@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "GP-X377",
+  "seed": null,
+  "title": "Operational 58.2: handoff api contract boundary",
+  "situation": "Two synthetic Q models with x^2+1 and point universes BASE and ALGEBRAIC_CLOSURE.",
+  "inputs": {
+    "incident_row": "58.2",
+    "vector": {
+      "models": [
+        {
+          "point_universe": "BASE",
+          "equation": "x^2+1"
+        },
+        {
+          "point_universe": "ALGEBRAIC_CLOSURE",
+          "equation": "x^2+1"
+        }
+      ],
+      "output": "compact handoff text"
+    },
+    "retained_evidence_refs": [
+      "reports/MCP-HANDOFF-CONTEXT-BOUNDARY.json#/controls/0",
+      "reports/MCP-HANDOFF-CONTEXT-BOUNDARY.json#/controls/1"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Use compact handoff text as sufficient model context.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Different point universes should be distinguishable in a handoff."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/mcp.py",
+      "line": 1187,
+      "anchor": "\"about=%s\" % m[\"about\"] if m.get(\"about\") else None,",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

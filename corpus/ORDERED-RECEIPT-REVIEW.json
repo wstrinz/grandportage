@@ -1,0 +1,50 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "grandportage/ordered.py",
+      "sha256": "f34cfbe57349335e3d46460335fda6b1150ac94759559ee9a2d1397b3266d28f",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "grandportage/ordered_receipt.py",
+      "sha256": "159da2efcdd6024325fa32fe4050772401d50c48cbd244a4b5d126abe3d66ac9",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_ordered_real_semantics.py",
+      "sha256": "94a74580265e851d9ced55b866eada76c427f5570dc87140664da09b1c2ac348",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "caller_slices": [
+    "grandportage/store.py:REAL interval validation lines 166-184",
+    "grandportage/store.py:ordered condition receipt replay lines 1346-1374"
+  ],
+  "tests": {
+    "passed": 26,
+    "report": "reports/oracle-ordered-real-review.xml",
+    "scope": "Offline exact arithmetic, native recording and supplied/mock provenance; no live CAS requested."
+  },
+  "diagnostics": "reports/ORDERED-RECEIPT-BOUNDARIES.json",
+  "soundness_argument": "Assuming ordered endpoints and exact rational polynomial interpretation, Sturm variations certify one selected real root. A common gcd with a root in that interval proves zero there. Otherwise interval Horner bounds after root-preserving bisection establish strict sign, or exact evaluation handles a rational root. Endpoint roots require removal of full multiplicity and exclusion of other roots. Complete receipt recomputation plus relation/sign comparison binds the conclusion to the declared expression and selected embedding.",
+  "findings": [
+    "Producer/checker dense arithmetic is separately authored but shares the groebner parser, rational arithmetic platform and Sturm theorem premise; this is not fully independent TCBs.",
+    "Repeated interior roots, gcd-zero and repeated endpoint roots agree in direct controls.",
+    "Both direct APIs accept a reversed interval when an endpoint is a root. Native model validation refuses lo>=hi, so no native-log admission bypass demonstrated.",
+    "Producer validates max_refinements in 0..256; expected_receipt lacks that direct parameter guard, while verify always uses the default.",
+    "Degree/coefficient limits and refinement cap do not establish a whole-request arithmetic bit-growth bound.",
+    "Receipts retain embedding by reference; mutation tests use deepcopy. Full recomputation remains necessary, not stored object immutability."
+  ],
+  "proposed_repairs": [
+    "Validate ordered interval endpoints and refinement bounds at both standalone API boundaries, retaining native validation too.",
+    "Describe checker independence precisely and preserve shared-parser assumptions in the TCB inventory."
+  ],
+  "remaining": [
+    "Portable extraction of uncovered repeated-root/direct API controls and broader malformed/budget behavior remain.",
+    "No Lean soundness implementation or new checker admission performed."
+  ]
+}

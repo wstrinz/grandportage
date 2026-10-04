@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "GP-X24",
+  "seed": null,
+  "title": "Extension-valued witness 3",
+  "situation": "The equation x^2+1=0 and guard x!=0 are tested over the algebraic closure of Q using Q[a]/(a^2+1).",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "generators": [
+      "x^2+1"
+    ],
+    "guards": [
+      "x"
+    ],
+    "point_universe": "ALGEBRAIC_CLOSURE",
+    "field_polynomial": "a^2+1",
+    "coordinate": {
+      "numerator": "1",
+      "denominator": "a^2+1"
+    }
+  },
+  "attempted_conclusion": "Accept the displayed extension-valued point.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The proposed denominator is zero in the extension; an unverified attempt supplies no existence warrant."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_number_field_witness.py",
+      "line": 79,
+      "anchor": "def test_bad_field_and_unlicensed_denominator_are_inconclusive("
+    }
+  ]
+}

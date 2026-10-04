@@ -1,0 +1,51 @@
+{
+  "schema": "gp-freeze-publication/v1",
+  "date": "2026-09-30",
+  "authority": "docs/GP-0.50-PHASE-2-HANDOFF.md section 1 decision 7",
+  "repository": "https://github.com/wstrinz/grandportage",
+  "branch": "master",
+  "base_commit": "8ccc38ed1780b56cf8eacfd58ae16e93d7886c4a",
+  "published_commit": "6f38e96b8e18a726ff97cdde20daeaa34a6e15b5",
+  "patch_sha256": "69d252096f463dead1b8b8c4e68af05e933c7e4ad16a4c3b4b84d619dcf56fb1",
+  "files": [
+    {
+      "path": "README.md",
+      "prepared_sha256": "2eb600072de5d92e383ff753ccb05795df343d0c3ec9050f76be106cd9a9d64f",
+      "published_sha256": "2a057435d32933fd744905b49147ee49c0f05d41bd70850c8be492c573c52d93",
+      "prepared_equals_published_after_declared_LF_normalization": true
+    },
+    {
+      "path": "SPEC.md",
+      "prepared_sha256": "e7c4b2c423110fc1555d4c3c751a95b936b922b29cf0b53ab3a47db952bda411",
+      "published_sha256": "008b42df2616b5f6df1638a1ca40cd0b89a803f36599df817a146a7aa9fdde97",
+      "prepared_equals_published_after_declared_LF_normalization": true
+    },
+    {
+      "path": "review/v0.37/KNOWN-ISSUES.md",
+      "prepared_sha256": "c07bfb0364d677cb788dcb168116b847ab68707a7732fe6d69706a3596d6faba",
+      "published_sha256": "18d2e33197568e6dc43c13f52b1953db64b641b69a38111bd8e0a71128b6ae64",
+      "prepared_equals_published_after_declared_LF_normalization": true
+    }
+  ],
+  "checks": {
+    "git_apply_check": true,
+    "exact_prepared_patch_applied": true,
+    "only_three_documents_changed": true,
+    "documentation_public_boundary_tests_passed": 8,
+    "tests_deselected": 15,
+    "public_snapshot_status": "READY",
+    "public_snapshot_sha256": "4e9a73040ab58479e846561348a13a9b46c71df9ebc2a2af218af1723c56a352",
+    "public_files": 357,
+    "diff_check": true,
+    "remote_head_verified": true
+  },
+  "preserved_tag": {
+    "name": "v0.37.0",
+    "type": "commit",
+    "target": "8ccc38ed1780b56cf8eacfd58ae16e93d7886c4a",
+    "remote_target_verified_unchanged": true
+  },
+  "historical_audit_note": "The prepared AUDIT.json existing_tag.commit field contains a URL due to variable shadowing. It is retained historically; this receipt independently records the actual public base/tag. Prepared files have CRLF bytes; public .gitattributes prescribes LF. Published Git blobs match the prepared text exactly after that normalization.",
+  "release_or_tag_created": false,
+  "executable_or_version_files_changed": false
+}

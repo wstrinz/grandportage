@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "GP-X371",
+  "seed": null,
+  "title": "Operational 54.3: source format schema boundary",
+  "situation": "Numeric source_commit in otherwise current metadata.",
+  "inputs": {
+    "incident_row": "54.3",
+    "vector": {
+      "operation": "validate_meta_for_read",
+      "source_commit": 42,
+      "other_metadata": "current valid fixture",
+      "contrast": "string source_commit"
+    },
+    "retained_evidence_refs": [
+      "reports/IMPLEMENTATION-IDENTITY-BOUNDARY.json#/controls/2"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Infer that numeric source_commit receives the documented structured GraphError response.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Malformed field must fail through GraphError, while valid string commit validates."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/format.py",
+      "line": 314,
+      "anchor": "commit = implementation[\"source_commit\"]",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

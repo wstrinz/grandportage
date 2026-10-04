@@ -1,0 +1,224 @@
+{
+  "files": [
+    {
+      "path": "grandportage/localization.py",
+      "sha256": "3ce9420869dc687b8aa623cfaa3caf55b80af8aca0c6eb0fbafe2eccd73bd9ac",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "definitions": [
+        {
+          "name": "LocalizationError",
+          "start": 23,
+          "end": 24
+        },
+        {
+          "name": "_require",
+          "start": 27,
+          "end": 29
+        },
+        {
+          "name": "_closed",
+          "start": 32,
+          "end": 39
+        },
+        {
+          "name": "_canonical",
+          "start": 42,
+          "end": 46
+        },
+        {
+          "name": "_powers",
+          "start": 49,
+          "end": 56
+        },
+        {
+          "name": "_multiply",
+          "start": 59,
+          "end": 65
+        },
+        {
+          "name": "verify",
+          "start": 68,
+          "end": 182
+        },
+        {
+          "name": "verify_guard_reduction_chain",
+          "start": 185,
+          "end": 309
+        }
+      ]
+    },
+    {
+      "path": "grandportage/ordered_sos.py",
+      "sha256": "c56edaf60f4dd210ff65c6198eb8df4b5314c3d263f28d910994e30620e88eb2",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "definitions": [
+        {
+          "name": "OrderedSOSError",
+          "start": 10,
+          "end": 11
+        },
+        {
+          "name": "verify",
+          "start": 14,
+          "end": 78
+        }
+      ]
+    },
+    {
+      "path": "tests/test_localization.py",
+      "sha256": "d810b9823c6dbbb052dea80b17670dd0846b651b2a54d2fd1e89b95367b57efb",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "definitions": [
+        {
+          "name": "_spec",
+          "start": 19,
+          "end": 35
+        },
+        {
+          "name": "test_exact_guard_monomial_certifies_localized_membership_only",
+          "start": 38,
+          "end": 52
+        },
+        {
+          "name": "test_same_identity_without_the_needed_guard_power_is_rejected",
+          "start": 55,
+          "end": 60
+        },
+        {
+          "name": "test_wrong_cofactor_is_rejected_by_exact_expansion",
+          "start": 63,
+          "end": 68
+        },
+        {
+          "name": "test_certificate_surface_is_closed_and_bounded",
+          "start": 84,
+          "end": 88
+        },
+        {
+          "name": "test_denominator_scope_is_bound_into_the_report_fingerprint",
+          "start": 91,
+          "end": 97
+        },
+        {
+          "name": "test_cli_prints_narrow_authority_and_can_emit_json",
+          "start": 100,
+          "end": 117
+        },
+        {
+          "name": "test_mutating_the_recorded_target_does_not_survive",
+          "start": 120,
+          "end": 125
+        },
+        {
+          "name": "test_sparse_generator_and_target_verify_without_infix_reparsing",
+          "start": 128,
+          "end": 139
+        },
+        {
+          "name": "test_sparse_zero_guard_is_still_refused",
+          "start": 142,
+          "end": 148
+        },
+        {
+          "name": "_LocalizedMembershipBackend",
+          "start": 151,
+          "end": 161
+        },
+        {
+          "name": "_localized_empty_graph",
+          "start": 164,
+          "end": 182
+        },
+        {
+          "name": "test_localized_unit_certificate_promotes_only_the_exact_open_model",
+          "start": 185,
+          "end": 201
+        },
+        {
+          "name": "test_localized_unit_bounded_miss_is_typed_ignorance_not_refutation",
+          "start": 204,
+          "end": 215
+        },
+        {
+          "name": "test_factorized_guard_chain_checks_without_materializing_guard_product",
+          "start": 218,
+          "end": 232
+        },
+        {
+          "name": "test_factorized_guard_chain_scales_past_v1_guard_limit",
+          "start": 235,
+          "end": 247
+        },
+        {
+          "name": "test_supplied_factorized_chain_mints_replayable_open_model_authority",
+          "start": 250,
+          "end": 276
+        },
+        {
+          "name": "test_localization_budget_failure_does_not_abort_unrelated_witness",
+          "start": 279,
+          "end": 319
+        },
+        {
+          "name": "test_factorized_guard_chain_rejects_false_or_nonterminating_rows",
+          "start": 322,
+          "end": 340
+        },
+        {
+          "name": "_execution_manifest",
+          "start": 342,
+          "end": 362
+        },
+        {
+          "name": "test_localized_unit_verdict_replays_and_projects_current_authority",
+          "start": 365,
+          "end": 388
+        },
+        {
+          "name": "test_localized_unit_verdict_refuses_or_stales_on_exact_model_change",
+          "start": 399,
+          "end": 418
+        },
+        {
+          "name": "test_local_empty_does_not_transport_to_its_parent_without_coverage",
+          "start": 421,
+          "end": 447
+        },
+        {
+          "name": "test_localized_unit_name_alone_grants_no_effective_authority",
+          "start": 450,
+          "end": 487
+        }
+      ]
+    }
+  ],
+  "additional_complete_definitions": [
+    "grandportage/verify.py:localized_unit_ideal",
+    "grandportage/verify.py:ordered_sos",
+    "grandportage/cli.py:cmd_verify_localization_membership"
+  ],
+  "evidence": [
+    "reports/LOCALIZATION-REPRESENTATION-BOUNDARY.json",
+    "reports/oracle-localization-review.xml"
+  ],
+  "tests": {
+    "passed": 29,
+    "scope": "Complete test_localization.py; fake backend/provenance where supplied by source tests, not live CAS."
+  },
+  "soundness_arguments": {
+    "membership": "If a guard monomial times n is in I, it is zero in R/I. Inverting every declared guard makes that monomial a unit, so n and n divided by any recorded guard powers are zero in the localization. This does not establish ambient vanishing.",
+    "chain": "Inductively r_k equals the product of the first k selected guards modulo I, since each checked row states r_(k-1)*g-r_k in I and r_0=1. Final r_k=0 gives a guard monomial in I, hence the declared localization is the zero ring. No parent emptiness follows without coverage.",
+    "ordered_sos": "Over any ordered field, squares are nonnegative. At a common zero of generators the checked identity -1=sum squares+sum cofactors*generators is impossible. Rational arithmetic replay is a premise; no algebraically closed-field emptiness follows."
+  },
+  "limitations": [
+    "Arguments explain checker mathematics, not a formal proof of implementation soundness.",
+    "Fresh budgets per normalization, multiplication and chain row do not constitute a single request-wide budget; generators have no explicit count cap here.",
+    "Localization lacks elimination-style JSON preflight; native Python object error totality remains unproved.",
+    "Sparse/text formatting crashes and mixed-representation guard uniqueness reproduced; both separate from false mathematical authority.",
+    "Ordered SOS file and graph wrapper read, but its complete tests and downstream ordered-scope admission remain for next review.",
+    "Distinct neutral corpus extraction and other helper callers remain."
+  ]
+}

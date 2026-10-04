@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "GP-X385",
+  "seed": null,
+  "title": "Operational 64.3b: packet attempt binding boundary",
+  "situation": "Old ledger and changed proposition under the same packet ID with refreshed manifest hashes.",
+  "inputs": {
+    "incident_row": "64.3b",
+    "vector": {
+      "packet_id": "same stable ID",
+      "ledger_packet": "old proposition",
+      "current_packet": "changed proposition",
+      "manifest_hashes": "refreshed",
+      "controls": [
+        "matching packet",
+        "explicit prior-ledger mismatch"
+      ]
+    },
+    "retained_evidence_refs": [
+      "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/0",
+      "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/1",
+      "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/2"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Overlay old ledger onto new packet by matching ID alone.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Overlay should bind packet content identity; matching packet or explicit prior-ledger mismatch controls differ."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/campaign.py",
+      "line": 585,
+      "anchor": "def build_overlay(packet_set, ledger):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

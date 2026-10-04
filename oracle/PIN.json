@@ -1,0 +1,32 @@
+{
+  "tag": "v0.37.0",
+  "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "source_path": "$DEV/grand-portage",
+  "mode": "pinned local oracle copy on F; original source unchanged",
+  "verified_on": "2026-09-27",
+  "note": "The F oracle has its own Git metadata and detached HEAD at the pinned revision. The replay runner checks the revision and tracked cleanliness.",
+  "checkout_path": "oracle/checkout",
+  "public_tag": "v0.37.0",
+  "public_repository": "https://github.com/wstrinz/grandportage",
+  "public_commit": "8ccc38ed1780b56cf8eacfd58ae16e93d7886c4a",
+  "public_equivalence": {
+    "verified_on": "2026-10-04",
+    "method": "git diff --name-status <commit> <public_commit>",
+    "differs_only_in": [
+      "D .codex/config.toml",
+      "D CURRENT.md",
+      "D DESIGN_DIRECTION.md",
+      "D EXPERIMENT-B.md",
+      "D HANDOFF.md",
+      "D HISTORY/README.md",
+      "D HISTORY/REVIEW-through-v0.18.md",
+      "D KILL-CRITERIA.md",
+      "D SCOPE.md",
+      "D TESTPLAN.md",
+      "D docs/portagecommandconceptv2.md",
+      "D review/v0.32/SOL-HANDOFF.md",
+      "A PUBLIC-SNAPSHOT-RECEIPT.json"
+    ],
+    "note": "Post-G3a decision 2. The public tag is the v0.37 snapshot of this commit: every other file is byte-identical, and no harness reads a differing path. The corpus keeps citing `commit`; harnesses accept a checkout at either commit and read files from HEAD."
+  }
+}

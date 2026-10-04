@@ -1,0 +1,123 @@
+{
+  "id": "CQ-C02",
+  "campaign": "Cloquet",
+  "origin": "own",
+  "class": "SCOPE",
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+      "lines": [
+        81,
+        108
+      ],
+      "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+    },
+    {
+      "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+      "lines": [
+        354,
+        363
+      ],
+      "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+    },
+    {
+      "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+      "lines": [
+        41,
+        45
+      ],
+      "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+    }
+  ],
+  "claimed": "Read arXiv:1401.4375 as proof of the general m(4)>=34 bound.",
+  "problem": "LSA traces the general bound citation to a2011 Geombinatorics article absent from its files; the arXiv paper is scoped to3-connected graphs. Similar titles do not establish identical sources.",
+  "discovered_by": "unknown",
+  "cost": null,
+  "shipped": null,
+  "gp_v037_would_catch": null,
+  "core_expressible": null,
+  "core_would_refuse": null,
+  "notes": "Proposal for a source/scope correction, not evidence general34 is false. No direct primary read here; no native GP reuse for bibliography fact. Classification provisional; literature claims remain attributed to campaign.",
+  "subfindings": [],
+  "status": "final retained source-backed record under ratified unknown policy; observation and counting limits remain explicit",
+  "primary_class": "SCOPE",
+  "primary_origin": "own",
+  "record_kind": "source-attributed correction/group",
+  "final_disposition": "retain qualified source-backed Appendix B candidate",
+  "owner_id": "CQ-C02",
+  "original_pointer": {
+    "report": "reports/PHASE-0B-INVENTORY-DRAFT.json",
+    "pointer": "/rows/43",
+    "sha256": "ab1a7c4728bf5ff36129df136adb9c2f612181662ef29ee23358323d866a8ab2",
+    "review_date": "2026-09-29",
+    "date_kind": "retained report review date; not incident date or source publication date"
+  },
+  "source": {
+    "repo": "$WORKSPACE",
+    "ref": "reports/PHASE-0B-INVENTORY-DRAFT.json#/rows/43",
+    "date": "2026-09-29",
+    "review_date": "2026-09-29",
+    "date_kind": "review-source date of retained report; not incident date or original primary-source date"
+  },
+  "incident_date": null,
+  "source_date_qualification": "No incident date invented; original source dates/history metadata remain unchanged in sources.",
+  "cost_note": "Source evidence does not establish incident-specific work lost/cost class.",
+  "shipped_note": "Source evidence does not establish publication or handoff of a wrong claim; unknown is neither false nor n/a.",
+  "gp_v037_would_catch_note": "No supported frozen-GP catch verdict for this episode. Conditional design/reuse commentary in notes is not a yes/no/partial assessment; no fresh campaign replay.",
+  "counting_qualification": {
+    "record_count": 1,
+    "independent_sample": null,
+    "mathematical_incident_count": null,
+    "rule": "Count this owner record once. Repeated summaries, witnesses, consumers and children do not add independent samples.",
+    "source_detail": "Proposal for a source/scope correction, not evidence general34 is false. No direct primary read here; no native GP reuse for bibliography fact. Classification provisional; literature claims remain attributed to campaign."
+  },
+  "classification_qualification": "Proposed primary class and origin retained from accepted inventory; uncertainty and secondary dimensions remain in evidence. Not a statistically adjudicated incident population.",
+  "parent_adjudications": [
+    {
+      "decision": "retain attributed campaign source correction/near-miss; primary literature not verified; no new GP case",
+      "qualifications": "Proposal for a source/scope correction, not evidence general34 is false. No direct primary read here; no native GP reuse for bibliography fact.",
+      "source": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            81,
+            108
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            354,
+            363
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            41,
+            45
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "pointer": {
+        "report": "reports/PHASE-0B-CLOQUET-PARENT-INTAKE.json",
+        "pointer": "/dispositions/1",
+        "sha256": "c4933f1e0d357603d81e0221edf2a78b5d51943f4b1e6db95720fbdd0375847d",
+        "review_date": "2026-09-29",
+        "date_kind": "retained report review date; not incident date or source publication date"
+      }
+    }
+  ],
+  "linked_cross_occurrence": null,
+  "children": [],
+  "evidence_level": "retained source-backed report; no new source read, execution, or authentication",
+  "parent_integration": {
+    "worker_report": "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "worker_report_sha256": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849",
+    "register": "incident/correction/group"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-C03",
+  "seed": null,
+  "title": "Repeated identical declaration is idempotent",
+  "situation": "The same declaration appears twice in concatenated logs.",
+  "inputs": {
+    "id": "A",
+    "description": "same normalization",
+    "repetitions": 2
+  },
+  "attempted_conclusion": "Retain one unambiguous object.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Identical redeclaration need not create a conflict."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_store.py",
+      "line": 36,
+      "anchor": "def test_identical_redeclaration_is_idempotent("
+    }
+  ]
+}

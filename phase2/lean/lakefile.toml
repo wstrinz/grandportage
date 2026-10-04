@@ -1,0 +1,84 @@
+name = "gp_kernel"
+version = "0.1.0"
+defaultTargets = ["Kernel", "Stub", "Run", "gp_events_tests", "gp_closure_tests", "gp_completeness_tests", "gp_order_tests", "gp_decoder_tests", "gp_runtime_tests", "gp_poly_tests", "gp_span_runner", "ProofControls", "gp_bound_tests", "gp_lifecycle_runner", "gp_narrow_tests", "gp_query_tests", "gp_scoped_runner", "gp_cover_tests", "gp_conflict_tests", "gp_conditional_cover_fixture", "gp_conditional_partition_fixture", "gp_conditional_routes_fixture"]
+# Pinned kernel: domain-independent and soundness-critical (rev 3 §6.4); see KERNEL-PIN.json.
+[[lean_lib]]
+name = "Kernel"
+roots = ["GP50.AdmissionProofs", "GP50.Closure", "GP50.ClosureCompleteness", "GP50.ClosureOrderProofs", "GP50.ClosureProofs", "GP50.Conflict", "GP50.ConflictProofs", "GP50.ConflictSoundnessProofs", "GP50.Cover", "GP50.CoverProofs", "GP50.Decoder", "GP50.Entry", "GP50.EventOrderProofs", "GP50.Events", "GP50.LifecycleProofs", "GP50.Narrowing", "GP50.NarrowingAdmissionProofs", "GP50.NarrowingProofs", "GP50.ResolveProofs", "GP50.Runtime", "GP50.RuntimeProofs", "GP50.Semantics"]
+
+# Stub checker and test profiles (PolyStub, Span family).
+[[lean_lib]]
+name = "Stub"
+roots = ["GP50.BoundReplay", "GP50.BoundReplayProofs", "GP50.CoverAdmissionProofs", "GP50.CoveredDecoder", "GP50.CoveredSpan", "GP50.PolyStub", "GP50.PolyStubProofs", "GP50.ScopedDecoder", "GP50.ScopedSpan", "GP50.ScopedSpanProofs", "GP50.SpanDecoder", "GP50.SpanSoundnessProofs"]
+
+# JSON presentation, query surfaces and runner mains; cannot affect held.
+[[lean_lib]]
+name = "Run"
+roots = ["GP50.LifecycleRunner", "GP50.Presentation", "GP50.Queries", "GP50.QueryDecoder", "GP50.Runner", "GP50.ScopedRunner"]
+[[lean_exe]]
+name = "gp_events_tests"
+root = "Tests.Events"
+[[lean_exe]]
+name = "gp_closure_tests"
+root = "Tests.Closure"
+[[lean_exe]]
+name = "gp_completeness_tests"
+root = "Tests.ClosureCompleteness"
+[[lean_exe]]
+name = "gp_order_tests"
+root = "Tests.ClosureOrder"
+[[lean_exe]]
+name = "gp_decoder_tests"
+root = "Tests.Decoder"
+[[lean_exe]]
+name = "gp_runtime_tests"
+root = "Tests.Runtime"
+[[lean_exe]]
+name = "gp_poly_tests"
+root = "Tests.PolyStub"
+[[lean_exe]]
+name = "gp_span_runner"
+root = "GP50.Runner"
+[[lean_lib]]
+name = "ProofControls"
+roots = ["Tests.AdmissionProofs", "Tests.SpanSoundness", "Tests.NarrowingAdmission", "Tests.ScopedSpanSoundness", "Tests.CoverAdmission", "Tests.EventOrderProofs"]
+
+[[lean_exe]]
+name = "gp_bound_tests"
+root = "Tests.BoundReplay"
+
+[[lean_exe]]
+name = "gp_lifecycle_runner"
+root = "GP50.LifecycleRunner"
+
+[[lean_exe]]
+name = "gp_narrow_tests"
+root = "Tests.Narrowing"
+
+[[lean_exe]]
+name = "gp_query_tests"
+root = "Tests.Queries"
+
+[[lean_exe]]
+name = "gp_scoped_runner"
+root = "GP50.ScopedRunner"
+
+[[lean_exe]]
+name = "gp_cover_tests"
+root = "Tests.Cover"
+
+[[lean_exe]]
+name = "gp_conflict_tests"
+root = "Tests.Conflict"
+
+[[lean_exe]]
+name = "gp_conditional_cover_fixture"
+root = "Tests.ConditionalCover"
+
+[[lean_exe]]
+name = "gp_conditional_partition_fixture"
+root = "Tests.ConditionalPartition"
+
+[[lean_exe]]
+name = "gp_conditional_routes_fixture"
+root = "Tests.ConditionalRoutes"

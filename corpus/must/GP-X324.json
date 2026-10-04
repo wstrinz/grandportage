@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "GP-X324",
+  "seed": null,
+  "title": "Checked rank-two necessary block",
+  "situation": "The pinned depth-eight fixture contains committed raw columns, a transported 3x2 block, and a bounded projection that leaves residual export open.",
+  "inputs": {
+    "control": "baseline",
+    "fixture_sha256": "7c26a7fdcfd12321997beb259f73388db654b3aff1cfbb83f30ccfa11017b82c"
+  },
+  "attempted_conclusion": "Accept the exact necessary affine-block receipt at its stated scope.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The pinned adapter checks the rank-two necessary block with no graph effect."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "line": 39,
+      "anchor": "def test_rank_two_block_and_symbolic_compatibility_replay("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "line": 53,
+      "anchor": "def test_report_stops_at_necessary_block_with_no_graph_effect("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_b0_free_plane/depth8_adapter.py",
+      "line": 456,
+      "anchor": "def validate_fixture_value(fixture):"
+    }
+  ]
+}

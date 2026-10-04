@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "GP-A14",
+  "seed": "A14",
+  "title": "Wrong-object inference path",
+  "situation": "A claim about C is sent along an inclusion from A to B.",
+  "inputs": {
+    "claim_object": "C",
+    "map_source": "A",
+    "map_target": "B"
+  },
+  "attempted_conclusion": "Conclude a point of B using that path.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The path does not start at the claim's object."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 554,
+      "anchor": "| A14 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_store.py",
+      "line": 74,
+      "anchor": "def test_disconnected_inference_path_is_refused("
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_store.py",
+      "line": 91,
+      "anchor": "def test_the_prototypes_fano_control_really_was_disconnected("
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "id": "GP-X106",
+  "seed": null,
+  "title": "Promote an unsuccessful 24-seed search to refutation",
+  "situation": "Failure to find squares in a bounded search is not off-locus emptiness.",
+  "inputs": {
+    "contract_section": "projection",
+    "baseline_contract": {
+      "closed_piece": {
+        "claim": "NONEMPTY",
+        "equations": [
+          "C",
+          "C2"
+        ],
+        "id": "S4_C_ZERO__C2_ZERO",
+        "relation": "CLOSED_RESTRICTION",
+        "status": "VERIFIED_EXACT_K_POINT"
+      },
+      "coefficient_domain": "K = QQ[t]/(15*t^3 + 1)",
+      "cover": {
+        "branches": [
+          "S4_C_ZERO__C2_ZERO",
+          "S4_C_ZERO__C2_NONZERO"
+        ],
+        "graph_effect": "NONE",
+        "kind": "ZERO_NONZERO_CONSTRUCTIBLE_COVER",
+        "status": "VERIFIED_STRUCTURAL_DICHOTOMY",
+        "union_claim": null
+      },
+      "graph_effect": "NONE",
+      "guards": {
+        "c3_5": "-3/2",
+        "c3_5_nonzero": true,
+        "no_coordinate_inverted": true
+      },
+      "open_piece": {
+        "claim": null,
+        "equations": [
+          "C"
+        ],
+        "id": "S4_C_ZERO__C2_NONZERO",
+        "open_conditions": [
+          "C2"
+        ],
+        "relation": "PRINCIPAL_OPEN_RESTRICTION",
+        "search_evidence": {
+          "authority": "BOUNDED_PROVENANCE_ONLY",
+          "graph_effect": "NONE",
+          "inconclusive": 0,
+          "provably_non_square_discriminant": 24,
+          "seeds": 24,
+          "squares_found": 0
+        },
+        "status": "OPEN"
+      },
+      "parent": {
+        "equations": [
+          "C"
+        ],
+        "id": "S4_C_ZERO",
+        "sort": "NECESSARY_BOUNDARY_MODEL",
+        "status": "NONEMPTY_WITNESSED_ON_C2_ZERO_PIECE"
+      },
+      "point_universe": "BASE",
+      "refusals": [
+        "source-image sufficiency",
+        "actual-source membership",
+        "q-chart membership",
+        "p-chart membership",
+        "H3 promotion",
+        "(75,125) verdict change",
+        "new source depth",
+        "S2 and the other S4 branches",
+        "Groebner basis / primary decomposition / singular-locus computation",
+        "any claim that this point is a source point, or that C = 0 is irreducible, or anything about the dimension of C = 0",
+        "off-locus emptiness",
+        "all K-points lie on C2 = 0",
+        "24-seed search promoted to a theorem",
+        "claim about the union beyond its structural cover"
+      ]
+    },
+    "operations": [
+      {
+        "op": "set",
+        "path": [
+          "projection",
+          "open_piece",
+          "search_evidence",
+          "authority"
+        ],
+        "value": "REFUTATION"
+      }
+    ]
+  },
+  "attempted_conclusion": "Promote an unsuccessful 24-seed search to refutation.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Failure to find squares in a bounded search is not off-locus emptiness."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_s4_scope.py",
+      "line": 63,
+      "anchor": "def test_authority_widening_mutations_are_refused("
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "id": "PR-T15",
+  "campaign": "Pigeon River",
+  "origin": "own",
+  "class": "BINDING",
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+      "lines": [
+        393,
+        398
+      ],
+      "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+    },
+    {
+      "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+      "lines": [
+        25,
+        112
+      ],
+      "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+    },
+    {
+      "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+      "lines": [
+        405,
+        413
+      ],
+      "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+    }
+  ],
+  "claimed": "Use normalized matching_key interchangeably with literal row for checkpoint history replay.",
+  "problem": "Source assay attributes ac00174 edge-history failure to normalized source, recovering only with literal source bytes; Epoch1 exact4776-edge149-history review reported.",
+  "discovered_by": "unknown",
+  "cost": null,
+  "shipped": null,
+  "gp_v037_would_catch": null,
+  "core_expressible": null,
+  "core_would_refuse": null,
+  "notes": "Historical source correction not independently re-executed; later P1 is a probe repeating the same boundary, not a second wrong mathematical result. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+  "subfindings": [],
+  "status": "final retained source-backed record under ratified unknown policy; observation and counting limits remain explicit",
+  "primary_class": "BINDING",
+  "primary_origin": "own",
+  "record_kind": "documented incident",
+  "final_disposition": "retain qualified source-backed Appendix B candidate",
+  "owner_id": "PR-T15",
+  "original_pointer": {
+    "report": "reports/PHASE-0B-INVENTORY-DRAFT.json",
+    "pointer": "/rows/66",
+    "sha256": "ab1a7c4728bf5ff36129df136adb9c2f612181662ef29ee23358323d866a8ab2",
+    "review_date": "2026-09-29",
+    "date_kind": "retained report review date; not incident date or source publication date"
+  },
+  "source": {
+    "repo": "$WORKSPACE",
+    "ref": "reports/PHASE-0B-INVENTORY-DRAFT.json#/rows/66",
+    "date": "2026-09-29",
+    "review_date": "2026-09-29",
+    "date_kind": "review-source date of retained report; not incident date or original primary-source date"
+  },
+  "incident_date": null,
+  "source_date_qualification": "No incident date invented; original source dates/history metadata remain unchanged in sources.",
+  "cost_note": "Source evidence does not establish incident-specific work lost/cost class.",
+  "shipped_note": "Source evidence does not establish publication or handoff of a wrong claim; unknown is neither false nor n/a.",
+  "gp_v037_would_catch_note": "No supported frozen-GP catch verdict for this episode. Conditional design/reuse commentary in notes is not a yes/no/partial assessment; no fresh campaign replay.",
+  "counting_qualification": {
+    "record_count": 1,
+    "independent_sample": null,
+    "mathematical_incident_count": null,
+    "rule": "Count this owner record once. Repeated summaries, witnesses, consumers and children do not add independent samples.",
+    "source_detail": "Historical source correction not independently re-executed; later P1 is a probe repeating the same boundary, not a second wrong mathematical result. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional."
+  },
+  "classification_qualification": "Proposed primary class and origin retained from accepted inventory; uncertainty and secondary dimensions remain in evidence. Not a statistically adjudicated incident population.",
+  "parent_adjudications": [
+    {
+      "decision": "accept qualified recorded correction/defect for descriptive inventory; preserve subepisodes, summary/primary-source limitations and unknown metadata",
+      "qualifications": "Historical source correction not independently re-executed; later P1 is a probe repeating the same boundary, not a second wrong mathematical result.",
+      "source": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            393,
+            398
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            25,
+            112
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            405,
+            413
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "pointer": {
+        "report": "reports/PHASE-0B-PIGEON-RIVER-PARENT-INTAKE.json",
+        "pointer": "/dispositions/14",
+        "sha256": "fda1430feb9c8900c7a239f168d1cd1f132e9796ee51ab68746dff7dc6ff85dc",
+        "review_date": "2026-09-29",
+        "date_kind": "retained report review date; not incident date or source publication date"
+      }
+    }
+  ],
+  "linked_cross_occurrence": {
+    "id": "PR-T15",
+    "campaign": "Pigeon River",
+    "origin": "own",
+    "class": "BINDING",
+    "scope_or_region": "REGION",
+    "sources": [
+      {
+        "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+        "lines": [
+          393,
+          398
+        ],
+        "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+        "lines": [
+          25,
+          112
+        ],
+        "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+        "lines": [
+          405,
+          413
+        ],
+        "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+      }
+    ],
+    "claimed": "Use normalized matching_key interchangeably with literal row for checkpoint history replay.",
+    "problem": "Source assay attributes ac00174 edge-history failure to normalized source, recovering only with literal source bytes; Epoch1 exact4776-edge149-history review reported.",
+    "discovered_by": "unknown",
+    "cost": null,
+    "shipped": null,
+    "gp_v037_would_catch": null,
+    "core_expressible": null,
+    "core_would_refuse": null,
+    "notes": "Historical source correction not independently re-executed; later P1 is a probe repeating the same boundary, not a second wrong mathematical result. Grouped subepisodes remain composite, not independent incidents; primary class/origin provisional.",
+    "subfindings": [],
+    "status": "qualified draft; not an approved AppendixB record or independent statistical unit",
+    "inventory_role": "existing_campaign_owned_gp_cross_occurrence",
+    "owner_id": "PR-T15",
+    "new_inventory_row": false,
+    "secondary_classes": [],
+    "class_qualification": "Retain existing draft provisional class/origin; do not re-adjudicate it.",
+    "related_gp_ids": [
+      "GP-SRC-PR-G14"
+    ],
+    "related_occurrence_limit": "The campaign draft explicitly calls later P1 a probe repeating the literal-versus-normalized boundary. Retain PR-T15's historical replay incident as owner; P1 remains an adapter-gap challenge. Exact full attempted conclusion/premise/failure equivalence is unestablished, so no independent mathematical incident and no claim of exact implementation reuse.",
+    "source_pointer": {
+      "report": "reports/PHASE-0B-INVENTORY-DRAFT.json",
+      "sha256": "ab1a7c4728bf5ff36129df136adb9c2f612181662ef29ee23358323d866a8ab2",
+      "pointer": "/rows/66"
+    },
+    "observed_vs_attributed": "Existing source-attributed campaign draft only; no new campaign/source content or execution.",
+    "current_gp_catch": null
+  },
+  "children": [],
+  "evidence_level": "retained source-backed report; no new source read, execution, or authentication",
+  "parent_integration": {
+    "worker_report": "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "worker_report_sha256": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849",
+    "register": "incident/correction/group"
+  }
+}

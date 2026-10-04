@@ -1,0 +1,133 @@
+{
+  "schema": "gp-phase2-conditional-cover-slice/v1",
+  "case_count": 2,
+  "cases": [
+    {
+      "id": "GP-A16-missing",
+      "source_sha256": "96f56221f276fc151ea0a7debc09633ceb915a9eb64e4f1619ce7c6a2fd75107",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "All branches must be settled and the cover must be checked exhaustive."
+      },
+      "observed": "REFUSE",
+      "full_fixture_contract": true,
+      "conditional_conclusion_only": true,
+      "native_result": {
+        "case": "GP-A16-missing",
+        "conclusion": "the parent is empty",
+        "conditional": true,
+        "given": [
+          "all_listed_branches_empty"
+        ],
+        "literal_inputs": {
+          "all_listed_branches_empty": true,
+          "checked_exhaustive_cover": false
+        },
+        "source_digest": "96f56221f276fc151ea0a7debc09633ceb915a9eb64e4f1619ce7c6a2fd75107",
+        "state": {
+          "current_count": 3,
+          "domain": [
+            1,
+            2,
+            3
+          ],
+          "held": [
+            1
+          ],
+          "live_warrants": [
+            10,
+            20,
+            30
+          ],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [
+            10
+          ],
+          "warrant_count": 3
+        }
+      },
+      "native_input_sha256": "96f56221f276fc151ea0a7debc09633ceb915a9eb64e4f1619ce7c6a2fd75107",
+      "translation_fidelity": "Original parent-emptiness formula and collective listed-branch premise; no concrete parent, branches or points invented. Named premise hypotheses delimit authority."
+    },
+    {
+      "id": "GP-A16-covered",
+      "source_sha256": "4194049d120bb7c8da1aabf435104231f17e653e3589845332a2c5172e81f68d",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "All branches must be settled and the cover must be checked exhaustive."
+      },
+      "observed": "ACCEPT",
+      "full_fixture_contract": true,
+      "conditional_conclusion_only": true,
+      "native_result": {
+        "case": "GP-A16-covered",
+        "conclusion": "the parent is empty",
+        "conditional": true,
+        "given": [
+          "all_listed_branches_empty",
+          "checked_exhaustive_cover"
+        ],
+        "literal_inputs": {
+          "all_listed_branches_empty": true,
+          "checked_exhaustive_cover": true
+        },
+        "source_digest": "4194049d120bb7c8da1aabf435104231f17e653e3589845332a2c5172e81f68d",
+        "state": {
+          "current_count": 3,
+          "domain": [
+            1,
+            2,
+            3
+          ],
+          "held": [
+            1,
+            2,
+            3
+          ],
+          "live_warrants": [
+            10,
+            20,
+            30
+          ],
+          "retracted": [],
+          "status": "OK",
+          "successors": [],
+          "supports": [
+            10,
+            20,
+            30
+          ],
+          "warrant_count": 3
+        }
+      },
+      "native_input_sha256": "4194049d120bb7c8da1aabf435104231f17e653e3589845332a2c5172e81f68d",
+      "translation_fidelity": "Original parent-emptiness formula and collective listed-branch premise; no concrete parent, branches or points invented. Named premise hypotheses delimit authority."
+    }
+  ],
+  "source_contract": {
+    "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+    "path": "grandportage/kernel.py",
+    "line": 1252,
+    "file_sha256": "6e0c4701cfc4ffc4dd3824d33966ed0a09c8603447b000ee43d29c0a70e59cf4",
+    "function_sha256": "379e6a99a1847dea80b21e620a3f41db3cbc91b2937b0e9c841c40a24b11c42c",
+    "packet_sha256": "949cc271a0a353e593961974349aa99711d2dd7bde1b26a51a5e8260ed1c2110"
+  },
+  "runner_sha256": "82b94ed6773220a3a1ab5deb36bc90737937e04439b036394333ed18eb80d4f2",
+  "adapter_sha256": "a4c4b03af225122ac680df292c151bd669b0d456e963e25b6b3db55131970407",
+  "harness_sha256": "2ff6cd4633bb924537b264fe9d612c179732a4199629f1e9943f94f563901f76",
+  "guarantee": "For every point type and every parent/branch interpretation satisfying the explicitly given premises, held conclusions have their literal stated meaning.",
+  "proofs": [
+    "ConditionalCover.actual_validator_sound",
+    "ConditionalCover.actual_fold_held_sound"
+  ],
+  "axioms": [
+    "propext",
+    "Quot.sound"
+  ],
+  "production_profile_adoption": false,
+  "underlying_algebraic_truth_certified": false,
+  "binding_boundary": "Host SHA-256 binds the complete unchanged UTF-8 fixture to expected warrant input/scope identities. Lean compares that identity; host byte-to-digest fidelity is explicit.",
+  "g2_pass": false
+}

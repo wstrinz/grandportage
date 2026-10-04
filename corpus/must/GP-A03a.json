@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "GP-A03a",
+  "seed": "A3",
+  "title": "Point containment does not establish quotient-ring identity",
+  "situation": "V(x^2) and V(x) have the same field-valued points; x is not zero modulo (x^2).",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "source_ideal": [
+      "x^2"
+    ],
+    "target_ideal": [
+      "x"
+    ],
+    "point_containment_proof": "x^2 lies in (x^2)",
+    "identity": "x=0"
+  },
+  "attempted_conclusion": "Pull x=0 back from the reduced model to Q[x]/(x^2) using radical containment.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Point-level containment does not supply the needed ideal-level pullback."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 543,
+      "anchor": "| A3 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/check.py",
+      "line": 2985,
+      "anchor": "\"Establish it another way and record how -- a radical-membership \""
+    }
+  ]
+}

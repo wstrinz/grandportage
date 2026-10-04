@@ -1,0 +1,19 @@
+{
+  "schema": "gp-kernel-axioms/v1",
+  "toolchain": "leanprover/lean4:v4.34.0-rc2",
+  "module_count": 22,
+  "leanchecker": {
+    "modules_replayed": 22,
+    "all_exit_zero": true
+  },
+  "constants_audited": 1054,
+  "axiom_usage": {
+    "Classical.choice": 56,
+    "Quot.sound": 164,
+    "propext": 374
+  },
+  "axiom_free_constants": 680,
+  "nonstandard_axioms": [],
+  "pass": true,
+  "elapsed_seconds": 277.0
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "id": "GP-X375",
+  "seed": null,
+  "title": "Operational 56.2: health request commit boundary",
+  "situation": "Syntactically valid JSON array request followed by a ping, contrasted with malformed syntax followed by ping.",
+  "inputs": {
+    "incident_row": "56.2",
+    "vector": {
+      "requests": [
+        {
+          "json_shape": "array",
+          "syntax": "valid"
+        },
+        {
+          "method": "ping"
+        }
+      ],
+      "control_requests": [
+        {
+          "syntax": "malformed JSON"
+        },
+        {
+          "method": "ping"
+        }
+      ]
+    },
+    "retained_evidence_refs": [
+      "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/0",
+      "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/1"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Infer that a valid-JSON array request is contained and the following ping is processed.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Wrong request shape should get a structured error without ending the serve invocation."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/mcp.py",
+      "line": 1438,
+      "anchor": "def serve(stdin=None, stdout=None, root=None):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

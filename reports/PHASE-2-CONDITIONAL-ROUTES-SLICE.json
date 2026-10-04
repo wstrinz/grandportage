@@ -1,0 +1,1938 @@
+{
+  "schema": "gp-phase2-conditional-routes-slice/v1",
+  "case_count": 2,
+  "native_executions": 6,
+  "cases": [
+    {
+      "id": "GP-X177",
+      "source_sha256": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "Both reverse routes restrict universal properties to the same context. Premise truth is assumed."
+      },
+      "sources": [
+        {
+          "repository": "gp-v037",
+          "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+          "path": "tests/test_adversarial.py",
+          "line": 1429,
+          "anchor": "def test_an_argument_can_now_combine_two_premises("
+        }
+      ],
+      "layer_entry": {
+        "id": "GP-X177",
+        "path": "corpus/must/GP-X177.json",
+        "sha256": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27",
+        "primary_layer": "kernel",
+        "candidate_layers": [
+          "kernel"
+        ],
+        "g2_kernel_eligible": true,
+        "status": "resolved",
+        "rationale": "The full fixture assumes mathematical premises or supplies only declaration/claim data; registered rule, exact context, dependency and scope obligations decide authority.",
+        "review_group": "supplied-premise-authority",
+        "full_contract_required": true,
+        "secondary_layers": [],
+        "secondary_duties": [],
+        "evidence_pointers": [
+          "/title",
+          "/inputs",
+          "/attempted_conclusion",
+          "/expected/reason"
+        ]
+      },
+      "legacy_route": {
+        "kind": "joint_premises",
+        "layer": "conditional_premise_routes",
+        "limitation": "Legacy transport/coverage rule under declared premises; not logical entailment or GP 0.50 held authority. Partition verification is explicitly assumed for rule isolation. Whole checker and renderer also execute without an external CAS."
+      },
+      "observed": "ACCEPT",
+      "executed": true,
+      "full_fixture_contract": true,
+      "conditional_conclusion_only": true,
+      "literal_inputs": {
+        "contexts": [
+          "tight",
+          "loose",
+          "side"
+        ],
+        "relations": [
+          {
+            "name": "first",
+            "source": "tight",
+            "target": "loose",
+            "relation": "equations_forgotten"
+          },
+          {
+            "name": "second",
+            "source": "tight",
+            "target": "side",
+            "relation": "equations_forgotten"
+          }
+        ],
+        "premises": [
+          {
+            "context": "loose",
+            "statement_class": "universal_property",
+            "statement": "a universal property",
+            "route": [
+              {
+                "relation": "first",
+                "direction": "reverse"
+              }
+            ]
+          },
+          {
+            "context": "side",
+            "statement_class": "universal_property",
+            "statement": "a universal property",
+            "route": [
+              {
+                "relation": "second",
+                "direction": "reverse"
+              }
+            ]
+          }
+        ],
+        "conclusion_class": "universal_property",
+        "conclusion_text": "both premises have licensed routes to the tight context"
+      },
+      "native_results": {
+        "normal": {
+          "argument_dependency_ids": [
+            110,
+            120
+          ],
+          "case": "GP-X177",
+          "conclusion": "both premises have licensed routes to the tight context",
+          "conditional": true,
+          "literal_inputs": {
+            "conclusion_class": "universal_property",
+            "conclusion_text": "both premises have licensed routes to the tight context",
+            "contexts": [
+              "tight",
+              "loose",
+              "side"
+            ],
+            "premises": [
+              {
+                "context": "loose",
+                "route": [
+                  {
+                    "direction": "reverse",
+                    "relation": "first"
+                  }
+                ],
+                "statement": "a universal property",
+                "statement_class": "universal_property"
+              },
+              {
+                "context": "side",
+                "route": [
+                  {
+                    "direction": "reverse",
+                    "relation": "second"
+                  }
+                ],
+                "statement": "a universal property",
+                "statement_class": "universal_property"
+              }
+            ],
+            "relations": [
+              {
+                "name": "first",
+                "relation": "equations_forgotten",
+                "source": "tight",
+                "target": "loose"
+              },
+              {
+                "name": "second",
+                "relation": "equations_forgotten",
+                "source": "tight",
+                "target": "side"
+              }
+            ]
+          },
+          "mode": "normal",
+          "named_hypotheses": [
+            "loose: a universal property (first selected predicate)",
+            "side: a universal property (second selected predicate)",
+            "first: tight subset loose (equations_forgotten)",
+            "second: tight subset side (equations_forgotten)"
+          ],
+          "narrow_checker": "GP50.Semantic.acceptsNarrow",
+          "route_endpoints": [
+            "tight",
+            "tight"
+          ],
+          "route_licensed": [
+            true,
+            true
+          ],
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:loose",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:side",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:conditional-route-licensing",
+                  "statementHash": "both premises have licensed routes to the tight context"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:tight",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 11,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:tight",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 12,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              11,
+              12
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:loose",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 1,
+                "evidence": {
+                  "data": "given:loose:a universal property:first",
+                  "kind": "receipt"
+                },
+                "id": 10,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:side",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 2,
+                "evidence": {
+                  "data": "given:side:a universal property:second",
+                  "kind": "receipt"
+                },
+                "id": 20,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:conditional-route-licensing",
+                  "statementHash": "both premises have licensed routes to the tight context"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "derived",
+                  "premises": [
+                    110,
+                    120
+                  ],
+                  "sideReceipt": "exact-named-route-join"
+                },
+                "id": 30,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:tight",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 11,
+                "evidence": {
+                  "kind": "narrow",
+                  "premise": 10
+                },
+                "id": 110,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:tight",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 12,
+                "evidence": {
+                  "kind": "narrow",
+                  "premise": 20
+                },
+                "id": 120,
+                "version": 1
+              }
+            ]
+          },
+          "source_digest": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27",
+          "state": {
+            "current_count": 5,
+            "domain": [
+              1,
+              2,
+              3,
+              11,
+              12
+            ],
+            "held": [
+              1,
+              2,
+              3,
+              11,
+              12
+            ],
+            "live_warrants": [
+              10,
+              20,
+              30,
+              110,
+              120
+            ],
+            "retracted": [],
+            "status": "OK",
+            "successors": [],
+            "supports": [
+              10,
+              20,
+              110,
+              120,
+              30
+            ],
+            "warrant_count": 5
+          }
+        },
+        "reverse": {
+          "argument_dependency_ids": [
+            110,
+            120
+          ],
+          "case": "GP-X177",
+          "conclusion": "both premises have licensed routes to the tight context",
+          "conditional": true,
+          "literal_inputs": {
+            "conclusion_class": "universal_property",
+            "conclusion_text": "both premises have licensed routes to the tight context",
+            "contexts": [
+              "tight",
+              "loose",
+              "side"
+            ],
+            "premises": [
+              {
+                "context": "loose",
+                "route": [
+                  {
+                    "direction": "reverse",
+                    "relation": "first"
+                  }
+                ],
+                "statement": "a universal property",
+                "statement_class": "universal_property"
+              },
+              {
+                "context": "side",
+                "route": [
+                  {
+                    "direction": "reverse",
+                    "relation": "second"
+                  }
+                ],
+                "statement": "a universal property",
+                "statement_class": "universal_property"
+              }
+            ],
+            "relations": [
+              {
+                "name": "first",
+                "relation": "equations_forgotten",
+                "source": "tight",
+                "target": "loose"
+              },
+              {
+                "name": "second",
+                "relation": "equations_forgotten",
+                "source": "tight",
+                "target": "side"
+              }
+            ]
+          },
+          "mode": "reverse",
+          "named_hypotheses": [
+            "loose: a universal property (first selected predicate)",
+            "side: a universal property (second selected predicate)",
+            "first: tight subset loose (equations_forgotten)",
+            "second: tight subset side (equations_forgotten)"
+          ],
+          "narrow_checker": "GP50.Semantic.acceptsNarrow",
+          "route_endpoints": [
+            "tight",
+            "tight"
+          ],
+          "route_licensed": [
+            true,
+            true
+          ],
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:loose",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:side",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:conditional-route-licensing",
+                  "statementHash": "both premises have licensed routes to the tight context"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:tight",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 11,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:tight",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 12,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              11,
+              12
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:loose",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 1,
+                "evidence": {
+                  "data": "given:loose:a universal property:first",
+                  "kind": "receipt"
+                },
+                "id": 10,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:side",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 2,
+                "evidence": {
+                  "data": "given:side:a universal property:second",
+                  "kind": "receipt"
+                },
+                "id": 20,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:conditional-route-licensing",
+                  "statementHash": "both premises have licensed routes to the tight context"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "derived",
+                  "premises": [
+                    110,
+                    120
+                  ],
+                  "sideReceipt": "exact-named-route-join"
+                },
+                "id": 30,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:tight",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 11,
+                "evidence": {
+                  "kind": "narrow",
+                  "premise": 10
+                },
+                "id": 110,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:tight",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 12,
+                "evidence": {
+                  "kind": "narrow",
+                  "premise": 20
+                },
+                "id": 120,
+                "version": 1
+              }
+            ]
+          },
+          "source_digest": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27",
+          "state": {
+            "current_count": 5,
+            "domain": [
+              1,
+              2,
+              3,
+              11,
+              12
+            ],
+            "held": [
+              1,
+              2,
+              3,
+              11,
+              12
+            ],
+            "live_warrants": [
+              10,
+              20,
+              30,
+              110,
+              120
+            ],
+            "retracted": [],
+            "status": "OK",
+            "successors": [],
+            "supports": [
+              10,
+              20,
+              110,
+              120,
+              30
+            ],
+            "warrant_count": 5
+          }
+        },
+        "duplicates": {
+          "argument_dependency_ids": [
+            110,
+            120
+          ],
+          "case": "GP-X177",
+          "conclusion": "both premises have licensed routes to the tight context",
+          "conditional": true,
+          "literal_inputs": {
+            "conclusion_class": "universal_property",
+            "conclusion_text": "both premises have licensed routes to the tight context",
+            "contexts": [
+              "tight",
+              "loose",
+              "side"
+            ],
+            "premises": [
+              {
+                "context": "loose",
+                "route": [
+                  {
+                    "direction": "reverse",
+                    "relation": "first"
+                  }
+                ],
+                "statement": "a universal property",
+                "statement_class": "universal_property"
+              },
+              {
+                "context": "side",
+                "route": [
+                  {
+                    "direction": "reverse",
+                    "relation": "second"
+                  }
+                ],
+                "statement": "a universal property",
+                "statement_class": "universal_property"
+              }
+            ],
+            "relations": [
+              {
+                "name": "first",
+                "relation": "equations_forgotten",
+                "source": "tight",
+                "target": "loose"
+              },
+              {
+                "name": "second",
+                "relation": "equations_forgotten",
+                "source": "tight",
+                "target": "side"
+              }
+            ]
+          },
+          "mode": "duplicates",
+          "named_hypotheses": [
+            "loose: a universal property (first selected predicate)",
+            "side: a universal property (second selected predicate)",
+            "first: tight subset loose (equations_forgotten)",
+            "second: tight subset side (equations_forgotten)"
+          ],
+          "narrow_checker": "GP50.Semantic.acceptsNarrow",
+          "route_endpoints": [
+            "tight",
+            "tight"
+          ],
+          "route_licensed": [
+            true,
+            true
+          ],
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:loose",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:side",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:conditional-route-licensing",
+                  "statementHash": "both premises have licensed routes to the tight context"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:tight",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 11,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:tight",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 12,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              11,
+              12
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:loose",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 1,
+                "evidence": {
+                  "data": "given:loose:a universal property:first",
+                  "kind": "receipt"
+                },
+                "id": 10,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:side",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 2,
+                "evidence": {
+                  "data": "given:side:a universal property:second",
+                  "kind": "receipt"
+                },
+                "id": 20,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:conditional-route-licensing",
+                  "statementHash": "both premises have licensed routes to the tight context"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "derived",
+                  "premises": [
+                    110,
+                    120
+                  ],
+                  "sideReceipt": "exact-named-route-join"
+                },
+                "id": 30,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:tight",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 11,
+                "evidence": {
+                  "kind": "narrow",
+                  "premise": 10
+                },
+                "id": 110,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27:tight",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 12,
+                "evidence": {
+                  "kind": "narrow",
+                  "premise": 20
+                },
+                "id": 120,
+                "version": 1
+              }
+            ]
+          },
+          "source_digest": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27",
+          "state": {
+            "current_count": 5,
+            "domain": [
+              1,
+              2,
+              3,
+              11,
+              12
+            ],
+            "held": [
+              1,
+              2,
+              3,
+              11,
+              12
+            ],
+            "live_warrants": [
+              10,
+              20,
+              30,
+              110,
+              120
+            ],
+            "retracted": [],
+            "status": "OK",
+            "successors": [],
+            "supports": [
+              10,
+              20,
+              110,
+              120,
+              30
+            ],
+            "warrant_count": 5
+          }
+        }
+      },
+      "native_input_sha256": {
+        "normal": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27",
+        "reverse": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27",
+        "duplicates": "11bed549fcac8804b86b0926812855b2c93232699e567c67a99c9e3c1a0a3b27"
+      },
+      "named_hypotheses": [
+        "loose: a universal property (first selected predicate)",
+        "side: a universal property (second selected predicate)",
+        "first: tight subset loose (equations_forgotten)",
+        "second: tight subset side (equations_forgotten)"
+      ],
+      "translation_fidelity": "Distinct arbitrary selected predicates for both identically worded premises survive scope restriction. Empty routes stay empty and retain their source endpoint. The conclusion asserts licensed routes, not only semantic property truth."
+    },
+    {
+      "id": "GP-X178",
+      "source_sha256": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "The routes end at tight and side; a shared conclusion context has not been established."
+      },
+      "sources": [
+        {
+          "repository": "gp-v037",
+          "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+          "path": "tests/test_adversarial.py",
+          "line": 1465,
+          "anchor": "def test_premises_that_never_meet_are_a_fold_error("
+        }
+      ],
+      "layer_entry": {
+        "id": "GP-X178",
+        "path": "corpus/must/GP-X178.json",
+        "sha256": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85",
+        "primary_layer": "kernel",
+        "candidate_layers": [
+          "kernel"
+        ],
+        "g2_kernel_eligible": true,
+        "status": "resolved",
+        "rationale": "The full fixture assumes mathematical premises or supplies only declaration/claim data; registered rule, exact context, dependency and scope obligations decide authority.",
+        "review_group": "supplied-premise-authority",
+        "full_contract_required": true,
+        "secondary_layers": [],
+        "secondary_duties": [],
+        "evidence_pointers": [
+          "/title",
+          "/inputs",
+          "/attempted_conclusion",
+          "/expected/reason"
+        ]
+      },
+      "legacy_route": {
+        "kind": "joint_premises",
+        "layer": "conditional_premise_routes",
+        "limitation": "Legacy transport/coverage rule under declared premises; not logical entailment or GP 0.50 held authority. Partition verification is explicitly assumed for rule isolation. Whole checker and renderer also execute without an external CAS."
+      },
+      "observed": "REFUSE",
+      "executed": true,
+      "full_fixture_contract": true,
+      "conditional_conclusion_only": true,
+      "literal_inputs": {
+        "contexts": [
+          "tight",
+          "loose",
+          "side"
+        ],
+        "relations": [
+          {
+            "name": "first",
+            "source": "tight",
+            "target": "loose",
+            "relation": "equations_forgotten"
+          },
+          {
+            "name": "second",
+            "source": "tight",
+            "target": "side",
+            "relation": "equations_forgotten"
+          }
+        ],
+        "premises": [
+          {
+            "context": "loose",
+            "statement_class": "universal_property",
+            "statement": "a universal property",
+            "route": [
+              {
+                "relation": "first",
+                "direction": "reverse"
+              }
+            ]
+          },
+          {
+            "context": "side",
+            "statement_class": "universal_property",
+            "statement": "a universal property",
+            "route": []
+          }
+        ],
+        "conclusion_class": "universal_property",
+        "conclusion_text": "both premises have licensed routes to the tight context"
+      },
+      "native_results": {
+        "normal": {
+          "argument_dependency_ids": [
+            110,
+            20
+          ],
+          "case": "GP-X178",
+          "conclusion": "both premises have licensed routes to the tight context",
+          "conditional": true,
+          "literal_inputs": {
+            "conclusion_class": "universal_property",
+            "conclusion_text": "both premises have licensed routes to the tight context",
+            "contexts": [
+              "tight",
+              "loose",
+              "side"
+            ],
+            "premises": [
+              {
+                "context": "loose",
+                "route": [
+                  {
+                    "direction": "reverse",
+                    "relation": "first"
+                  }
+                ],
+                "statement": "a universal property",
+                "statement_class": "universal_property"
+              },
+              {
+                "context": "side",
+                "route": [],
+                "statement": "a universal property",
+                "statement_class": "universal_property"
+              }
+            ],
+            "relations": [
+              {
+                "name": "first",
+                "relation": "equations_forgotten",
+                "source": "tight",
+                "target": "loose"
+              },
+              {
+                "name": "second",
+                "relation": "equations_forgotten",
+                "source": "tight",
+                "target": "side"
+              }
+            ]
+          },
+          "mode": "normal",
+          "named_hypotheses": [
+            "loose: a universal property (first selected predicate)",
+            "side: a universal property (second selected predicate)",
+            "first: tight subset loose (equations_forgotten)",
+            "second: tight subset side (equations_forgotten)"
+          ],
+          "narrow_checker": "GP50.Semantic.acceptsNarrow",
+          "route_endpoints": [
+            "tight",
+            "side"
+          ],
+          "route_licensed": [
+            true,
+            false
+          ],
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:loose",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:side",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:conditional-route-licensing",
+                  "statementHash": "both premises have licensed routes to the tight context"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:tight",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 11,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              11
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:loose",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 1,
+                "evidence": {
+                  "data": "given:loose:a universal property:first",
+                  "kind": "receipt"
+                },
+                "id": 10,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:side",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 2,
+                "evidence": {
+                  "data": "given:side:a universal property:second",
+                  "kind": "receipt"
+                },
+                "id": 20,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:conditional-route-licensing",
+                  "statementHash": "both premises have licensed routes to the tight context"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "derived",
+                  "premises": [
+                    110,
+                    20
+                  ],
+                  "sideReceipt": "exact-named-route-join"
+                },
+                "id": 30,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:tight",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 11,
+                "evidence": {
+                  "kind": "narrow",
+                  "premise": 10
+                },
+                "id": 110,
+                "version": 1
+              }
+            ]
+          },
+          "source_digest": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85",
+          "state": {
+            "current_count": 4,
+            "domain": [
+              1,
+              2,
+              3,
+              11
+            ],
+            "held": [
+              1,
+              2,
+              11
+            ],
+            "live_warrants": [
+              10,
+              20,
+              30,
+              110
+            ],
+            "retracted": [],
+            "status": "OK",
+            "successors": [],
+            "supports": [
+              10,
+              20,
+              110
+            ],
+            "warrant_count": 4
+          }
+        },
+        "reverse": {
+          "argument_dependency_ids": [
+            110,
+            20
+          ],
+          "case": "GP-X178",
+          "conclusion": "both premises have licensed routes to the tight context",
+          "conditional": true,
+          "literal_inputs": {
+            "conclusion_class": "universal_property",
+            "conclusion_text": "both premises have licensed routes to the tight context",
+            "contexts": [
+              "tight",
+              "loose",
+              "side"
+            ],
+            "premises": [
+              {
+                "context": "loose",
+                "route": [
+                  {
+                    "direction": "reverse",
+                    "relation": "first"
+                  }
+                ],
+                "statement": "a universal property",
+                "statement_class": "universal_property"
+              },
+              {
+                "context": "side",
+                "route": [],
+                "statement": "a universal property",
+                "statement_class": "universal_property"
+              }
+            ],
+            "relations": [
+              {
+                "name": "first",
+                "relation": "equations_forgotten",
+                "source": "tight",
+                "target": "loose"
+              },
+              {
+                "name": "second",
+                "relation": "equations_forgotten",
+                "source": "tight",
+                "target": "side"
+              }
+            ]
+          },
+          "mode": "reverse",
+          "named_hypotheses": [
+            "loose: a universal property (first selected predicate)",
+            "side: a universal property (second selected predicate)",
+            "first: tight subset loose (equations_forgotten)",
+            "second: tight subset side (equations_forgotten)"
+          ],
+          "narrow_checker": "GP50.Semantic.acceptsNarrow",
+          "route_endpoints": [
+            "tight",
+            "side"
+          ],
+          "route_licensed": [
+            true,
+            false
+          ],
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:loose",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:side",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:conditional-route-licensing",
+                  "statementHash": "both premises have licensed routes to the tight context"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:tight",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 11,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              11
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:loose",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 1,
+                "evidence": {
+                  "data": "given:loose:a universal property:first",
+                  "kind": "receipt"
+                },
+                "id": 10,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:side",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 2,
+                "evidence": {
+                  "data": "given:side:a universal property:second",
+                  "kind": "receipt"
+                },
+                "id": 20,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:conditional-route-licensing",
+                  "statementHash": "both premises have licensed routes to the tight context"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "derived",
+                  "premises": [
+                    110,
+                    20
+                  ],
+                  "sideReceipt": "exact-named-route-join"
+                },
+                "id": 30,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:tight",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 11,
+                "evidence": {
+                  "kind": "narrow",
+                  "premise": 10
+                },
+                "id": 110,
+                "version": 1
+              }
+            ]
+          },
+          "source_digest": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85",
+          "state": {
+            "current_count": 4,
+            "domain": [
+              1,
+              2,
+              3,
+              11
+            ],
+            "held": [
+              1,
+              2,
+              11
+            ],
+            "live_warrants": [
+              10,
+              20,
+              30,
+              110
+            ],
+            "retracted": [],
+            "status": "OK",
+            "successors": [],
+            "supports": [
+              10,
+              20,
+              110
+            ],
+            "warrant_count": 4
+          }
+        },
+        "duplicates": {
+          "argument_dependency_ids": [
+            110,
+            20
+          ],
+          "case": "GP-X178",
+          "conclusion": "both premises have licensed routes to the tight context",
+          "conditional": true,
+          "literal_inputs": {
+            "conclusion_class": "universal_property",
+            "conclusion_text": "both premises have licensed routes to the tight context",
+            "contexts": [
+              "tight",
+              "loose",
+              "side"
+            ],
+            "premises": [
+              {
+                "context": "loose",
+                "route": [
+                  {
+                    "direction": "reverse",
+                    "relation": "first"
+                  }
+                ],
+                "statement": "a universal property",
+                "statement_class": "universal_property"
+              },
+              {
+                "context": "side",
+                "route": [],
+                "statement": "a universal property",
+                "statement_class": "universal_property"
+              }
+            ],
+            "relations": [
+              {
+                "name": "first",
+                "relation": "equations_forgotten",
+                "source": "tight",
+                "target": "loose"
+              },
+              {
+                "name": "second",
+                "relation": "equations_forgotten",
+                "source": "tight",
+                "target": "side"
+              }
+            ]
+          },
+          "mode": "duplicates",
+          "named_hypotheses": [
+            "loose: a universal property (first selected predicate)",
+            "side: a universal property (second selected predicate)",
+            "first: tight subset loose (equations_forgotten)",
+            "second: tight subset side (equations_forgotten)"
+          ],
+          "narrow_checker": "GP50.Semantic.acceptsNarrow",
+          "route_endpoints": [
+            "tight",
+            "side"
+          ],
+          "route_licensed": [
+            true,
+            false
+          ],
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:loose",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:side",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:conditional-route-licensing",
+                  "statementHash": "both premises have licensed routes to the tight context"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:tight",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 11,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              11
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:loose",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 1,
+                "evidence": {
+                  "data": "given:loose:a universal property:first",
+                  "kind": "receipt"
+                },
+                "id": 10,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:side",
+                  "statementHash": "premise:second;a universal property;selected-predicate:second"
+                },
+                "claim": 2,
+                "evidence": {
+                  "data": "given:side:a universal property:second",
+                  "kind": "receipt"
+                },
+                "id": 20,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:conditional-route-licensing",
+                  "statementHash": "both premises have licensed routes to the tight context"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "derived",
+                  "premises": [
+                    110,
+                    20
+                  ],
+                  "sideReceipt": "exact-named-route-join"
+                },
+                "id": 30,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-route-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[tight,loose,side];first:tight->loose:equations_forgotten;second:tight->side:equations_forgotten",
+                  "scopeHash": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85:tight",
+                  "statementHash": "premise:first;a universal property;selected-predicate:first"
+                },
+                "claim": 11,
+                "evidence": {
+                  "kind": "narrow",
+                  "premise": 10
+                },
+                "id": 110,
+                "version": 1
+              }
+            ]
+          },
+          "source_digest": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85",
+          "state": {
+            "current_count": 4,
+            "domain": [
+              1,
+              2,
+              3,
+              11
+            ],
+            "held": [
+              1,
+              2,
+              11
+            ],
+            "live_warrants": [
+              10,
+              20,
+              30,
+              110
+            ],
+            "retracted": [],
+            "status": "OK",
+            "successors": [],
+            "supports": [
+              10,
+              20,
+              110
+            ],
+            "warrant_count": 4
+          }
+        }
+      },
+      "native_input_sha256": {
+        "normal": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85",
+        "reverse": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85",
+        "duplicates": "898649e2bf114370e452ea0537b0afc3a952aa654216f57e661bb6a97050bc85"
+      },
+      "named_hypotheses": [
+        "loose: a universal property (first selected predicate)",
+        "side: a universal property (second selected predicate)",
+        "first: tight subset loose (equations_forgotten)",
+        "second: tight subset side (equations_forgotten)"
+      ],
+      "translation_fidelity": "Distinct arbitrary selected predicates for both identically worded premises survive scope restriction. Empty routes stay empty and retain their source endpoint. The conclusion asserts licensed routes, not only semantic property truth."
+    }
+  ],
+  "source_contract": {
+    "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+    "path": "tests/test_adversarial.py",
+    "file_sha256": "1150aa49c0596af1a9816a71f44694838e6fef17370a2fc8337b453b3d43c9f8",
+    "pin_file_sha256": "85220bebac5cec09103926f5ff25e8d54ed9dda3cc338c1a9e7499c08d56f4a7",
+    "functions": {
+      "GP-X177": {
+        "line": 1429,
+        "anchor": "def test_an_argument_can_now_combine_two_premises(",
+        "function_sha256": "3cf78f503159da30dee12a6d801ab2f1c78cad6facf2fa94aab941c711ce9bce"
+      },
+      "GP-X178": {
+        "line": 1465,
+        "anchor": "def test_premises_that_never_meet_are_a_fold_error(",
+        "function_sha256": "4b2d799d1e6dc97f9af0beaf981813649b24854fda59d2a0fe95fb237e9adca9"
+      }
+    },
+    "boundary": "Literal unchanged fixture abstraction, not reconstruction of historical graph statements/routes or renderer behavior."
+  },
+  "registry_sha256": {
+    "layer_tags": "046b353edf02f2e6972d00c2ee4fe974cb3bef1fc7062cede0d36ec4c1c83838",
+    "routes": "cce1e91123d58b6c3a452cd911b129a21e6d4fad3e9042b1d0ff43e73e6e7750",
+    "baseline": "5e7f8b32338a845ccef9015f62ecc5da750681a33cb945d2ef4d3763380a3bb9",
+    "pin": "85220bebac5cec09103926f5ff25e8d54ed9dda3cc338c1a9e7499c08d56f4a7"
+  },
+  "runner_path": "phase2/lean/.lake/build/bin/gp_conditional_routes_fixture.exe",
+  "runner_sha256": "d11b83c6160ec28ef2960ae009bed40b3fae4d1568268a18c502195c3d585c57",
+  "adapter_sha256": "716f0ca5a9781830232cf5d0590a896a28435735b190d2081c85f668f4dce050",
+  "harness_sha256": "e014880195c7425431b7fb55a1d47719cd5fd4706757ce315be42f1a4aee2f00",
+  "test_source_sha256": "40928efa2384d445538d8c83deb3af2bcb7cbb24f342e363a09da2a8853807ca",
+  "proofs": [
+    "ConditionalRoutes.subset_sound",
+    "ConditionalRoutes.routes_composition_sound",
+    "ConditionalRoutes.actual_validator_sound",
+    "ConditionalRoutes.actual_fold_held_sound",
+    "ConditionalRoutes.native_fold_held_sound"
+  ],
+  "axioms": [
+    "propext",
+    "Quot.sound"
+  ],
+  "production_profile_adoption": false,
+  "underlying_algebraic_truth_certified": false,
+  "g2_pass": false,
+  "mechanism": "Existing GP50.Semantic.acceptsNarrow executes individual K2 restrictions; an exact K3 rule joins the two supplied licensed routes. Parent review qualifies the required K2 example through actual acceptsNarrow execution, fixed selected predicates/model and proved inclusion, under the approved conditional hypotheses.",
+  "guarantee": "For every Point type and every named tight/loose/side interpretation with two fixed predicate identities satisfying the four explicit theory hypotheses, actual held claims have their registered meanings. Licensing is global, including when regions are empty.",
+  "binding_boundary": "Exact selected-predicate/statement/model data plus host SHA-256 of unchanged fixture bytes bind registered warrants and clauses. The same executable admission is point-type independent; assumptions certify conditional conclusions only."
+}

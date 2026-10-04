@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "id": "GP-X163",
+  "seed": null,
+  "title": "Amend a citation without changing licensing",
+  "situation": "A citation-only amendment changes no transport-determining field.",
+  "inputs": {
+    "vocabulary": "lifecycle-scenario/v1",
+    "objects": {
+      "object-1": {
+        "category": "context",
+        "name": "M",
+        "properties": {
+          "description": "m"
+        }
+      },
+      "object-2": {
+        "category": "context",
+        "name": "N",
+        "properties": {
+          "description": "n"
+        }
+      },
+      "object-3": {
+        "category": "assertion",
+        "name": "C",
+        "properties": {
+          "context": "M",
+          "statement_class": "universal_property",
+          "statement": "P"
+        }
+      },
+      "object-4": {
+        "category": "assertion",
+        "name": "C2",
+        "properties": {
+          "context": "M",
+          "statement_class": "universal_property",
+          "statement": "P",
+          "citation": "better citation"
+        }
+      }
+    },
+    "history": [
+      {
+        "object": "object-1"
+      },
+      {
+        "object": "object-2"
+      },
+      {
+        "object": "object-3"
+      },
+      {
+        "object": "object-4",
+        "replacement": {
+          "prior": "C",
+          "change": "annotation_only"
+        }
+      }
+    ],
+    "question": {}
+  },
+  "attempted_conclusion": "Amend a citation without changing licensing.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "A citation-only amendment changes no transport-determining field."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 1732,
+      "anchor": "def test_over_declaring_a_supersession_is_allowed("
+    }
+  ]
+}

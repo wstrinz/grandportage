@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "status": "integrated_and_full_replay_verified",
+  "cases": [
+    "GP-X408",
+    "GP-X409"
+  ],
+  "total_cases": 456,
+  "expectations": {
+    "REFUSE": 319,
+    "ACCEPT": 137
+  },
+  "replay": "reports/oracle-runs/20260929T223158210969Z.json",
+  "replay_sha256": "767890d97762dae1edf617aba87cd5380ea74c240d1d7283231a2b05807c893d",
+  "summary": {
+    "AGREES": 402,
+    "DIAGNOSTIC_OBSERVED": 1,
+    "KNOWN_DIFFERENCE": 14,
+    "PENDING": 1,
+    "UNSUPPORTED": 9,
+    "RETAINED_DIAGNOSTIC": 29
+  },
+  "preservation": {
+    "prior_case_bytes_unchanged": 454,
+    "prior_routes_semantically_unchanged": 454,
+    "prior_outcomes_unchanged": 454,
+    "comparison_fields": [
+      "case_sha256",
+      "expected",
+      "observed_verdict",
+      "status",
+      "layer",
+      "route",
+      "historical_commit",
+      "limitation",
+      "difference_class"
+    ],
+    "prior_immutable_replays_unchanged": 60,
+    "new_cases_only": [
+      "GP-X408",
+      "GP-X409"
+    ]
+  },
+  "source": {
+    "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+    "path": "lean/GrandPortage/OperationContract.lean",
+    "sha256": "7c9afad6ba96f38f352554b778d2e9e01a1cb37f540a477da12e8f2042838196",
+    "negative_anchor_line": 778,
+    "positive_anchor_line": 799
+  },
+  "independent_argument": {
+    "negative": "With identity and zero ideals, contraction is equality of identical predicates. Constant Unit evaluation gives a target point. Every source point requires False, so a lift is impossible.",
+    "positive": "When both validity predicates are True, reuse each target evaluation; identity preserves coordinates and zero-ideal vanishing. This supplies the added lift, not a derivation from contraction alone."
+  },
+  "observation": "Both new cases explicitly null/UNSUPPORTED. Generic reporting route checks bound case bytes and returns no invented oracle verdict. No reference checker, campaign run or Lean compilation.",
+  "positive_control_limit": "ACCEPT expectation is a conditional logical contrast, not an executed admitted-checker positive control.",
+  "nonduplicates": "X07 attempts closure, X360 lacks exact contraction, X05/X06 consume supplied point-surjectivity. Premises cannot be pooled across them to cover this countermodel.",
+  "remaining_0a": [
+    "A24 semantic clarification pending direct user answer",
+    "Final bounded source/neutrality/exception closeout with X53/A27 unsupported and A03a diagnostic limits; no broad predecessor soundness audit"
+  ],
+  "limits": [
+    "All454existing expectations and sources unchanged.",
+    "No0a/G0 completion or kernel/Lean-spike authorization inferred."
+  ]
+}

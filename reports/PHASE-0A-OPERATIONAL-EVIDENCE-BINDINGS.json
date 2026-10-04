@@ -1,0 +1,785 @@
+{
+  "schema_version": 1,
+  "binding_kind": "gp-operational-retained-observation-bindings/v1",
+  "status": "preparation_only_not_oracle_route",
+  "frozen_source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "candidate_count": 29,
+  "evidence_pointer_count": 50,
+  "evidence_file_count": 16,
+  "canonicalization": "JSON UTF-8 with sorted keys, compact separators, ensure_ascii false, allow_nan false",
+  "trust_boundary": "The caller must pin this manifest whole-file SHA-256; an unpinned replacement manifest could rebind changed content.",
+  "candidates": [
+    {
+      "id": "GP-X370",
+      "incident_row": "53.2",
+      "candidate_path": "reports/operational-case-candidates/GP-X370.json",
+      "candidate_file_sha256": "ca4c4a6225b577a12a737841f3a0d044087d48ba47a547bc4df8789f627a5e14",
+      "candidate_canonical_sha256": "6f6b214aa0b446fd1e659851035ac241b96e9b0ff4b9fe21d3944a0bbbdee1d0",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/migration.py",
+        "line": 130,
+        "anchor": "def migrate_kernel_epoch(paths, dry_run=False, output=None):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "a3e18bafa29af7b3ba4f5b7c3dee609009eacbacd3849179494f6a1dada3a4da"
+      },
+      "evidence": [
+        {
+          "ref": "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/0",
+          "file_sha256": "a73aecf0dc50c08c0487e1eb5a7dc43bc548c6f885272aa204831c698127a628",
+          "pointer_canonical_sha256": "14b4bca254359296c091dee77b7518afbf064fb970274afaeb3d5248e27a42b1"
+        },
+        {
+          "ref": "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/1",
+          "file_sha256": "a73aecf0dc50c08c0487e1eb5a7dc43bc548c6f885272aa204831c698127a628",
+          "pointer_canonical_sha256": "18c2cc71da68e82e7807f030ba89605cf039a236a612fcbcee39bde8075fbd80"
+        },
+        {
+          "ref": "reports/MIGRATION-CUSTODY-BOUNDARY.json#/controls/2",
+          "file_sha256": "a73aecf0dc50c08c0487e1eb5a7dc43bc548c6f885272aa204831c698127a628",
+          "pointer_canonical_sha256": "3d235122615718af2602c8efba68fb756995ac164aa88c23e9fad110698839bd"
+        }
+      ]
+    },
+    {
+      "id": "GP-X371",
+      "incident_row": "54.3",
+      "candidate_path": "reports/operational-case-candidates/GP-X371.json",
+      "candidate_file_sha256": "403eb3068528e43cea031aaf40b0f7a0e16264647dd6ab64d8fc72d0c970706d",
+      "candidate_canonical_sha256": "ed270809a8a56e802fd4a18a665ac93b0cf24135b77e7b6d856bed9abb594cd2",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/format.py",
+        "line": 314,
+        "anchor": "commit = implementation[\"source_commit\"]",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "9d7ad6885285b2e55de9bbf6dea62d428d1f68a3b7180728a1651365c82c171e"
+      },
+      "evidence": [
+        {
+          "ref": "reports/IMPLEMENTATION-IDENTITY-BOUNDARY.json#/controls/2",
+          "file_sha256": "8dcb40e7067cbaf2800e75346a7400bc10b36941c63be121b945d9a422b1aaee",
+          "pointer_canonical_sha256": "d34ab013b9573c7088088d907e2b1a611c56360c3c58d146fc16960627357c72"
+        }
+      ]
+    },
+    {
+      "id": "GP-X372",
+      "incident_row": "55.2a",
+      "candidate_path": "reports/operational-case-candidates/GP-X372.json",
+      "candidate_file_sha256": "2fd4b78aee0c50fcf87002be7b801bbd0cb1cf1317f5cf982eafcd07b0a32775",
+      "candidate_canonical_sha256": "1e956a7c766e6486d674c34270fc7757e8b7e58324d1fbe4fa4a232a94de577a",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/cli.py",
+        "line": 2125,
+        "anchor": "def native_schema_document():",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308"
+      },
+      "evidence": [
+        {
+          "ref": "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/0",
+          "file_sha256": "0a6b9a3f6d3db563ae6069ec4222095a444d9c08da4826506608e5de9263e776",
+          "pointer_canonical_sha256": "da503385af6b40895df60aaf77df43a239c06bbed9578c4c353717dffaae7106"
+        }
+      ]
+    },
+    {
+      "id": "GP-X373",
+      "incident_row": "55.2b",
+      "candidate_path": "reports/operational-case-candidates/GP-X373.json",
+      "candidate_file_sha256": "826093f90577a5b8bc000e2b53064140a6ad719f421970e243cd9386dd874813",
+      "candidate_canonical_sha256": "cd08dcb2fd10830cd4f70473ff6f47dd6e4c92189d9faef610fdad39b4b1f1d2",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/mcp.py",
+        "line": 232,
+        "anchor": "def _event_schema(kind):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "evidence": [
+        {
+          "ref": "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/1",
+          "file_sha256": "0a6b9a3f6d3db563ae6069ec4222095a444d9c08da4826506608e5de9263e776",
+          "pointer_canonical_sha256": "69f5776cccafc4a38190cded8a8066c5550d70e1e15d85b62de6b001217da299"
+        }
+      ]
+    },
+    {
+      "id": "GP-X374",
+      "incident_row": "55.3",
+      "candidate_path": "reports/operational-case-candidates/GP-X374.json",
+      "candidate_file_sha256": "0f404d01883cf283356d49fb57fc7ab40632315bd5366a93c9d555d4d5e7744c",
+      "candidate_canonical_sha256": "b242ca1d4fa7f3bca00374f69e9cea503d09fc7df9319571fa5f17784fef31ba",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/mcp.py",
+        "line": 823,
+        "anchor": "def h_cas_health(args, root):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "evidence": [
+        {
+          "ref": "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/2",
+          "file_sha256": "0a6b9a3f6d3db563ae6069ec4222095a444d9c08da4826506608e5de9263e776",
+          "pointer_canonical_sha256": "04d55fae183d31451b0841a706f98eb35279947f5268783037ac18765c592118"
+        },
+        {
+          "ref": "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/3",
+          "file_sha256": "0a6b9a3f6d3db563ae6069ec4222095a444d9c08da4826506608e5de9263e776",
+          "pointer_canonical_sha256": "09ed29598b32b31316246b2242a1e78ca867893103e4b7a30c520ab64be9e7ed"
+        }
+      ]
+    },
+    {
+      "id": "GP-X375",
+      "incident_row": "56.2",
+      "candidate_path": "reports/operational-case-candidates/GP-X375.json",
+      "candidate_file_sha256": "c63f33c5ccfd154621eded7712b2d0e002d7b9e1ccedf3816bc637595ec83db2",
+      "candidate_canonical_sha256": "60a1d50c072a5a218cf53cb525cd0cef3fe06841cf0e49b7d9e1127d52de3dde",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/mcp.py",
+        "line": 1438,
+        "anchor": "def serve(stdin=None, stdout=None, root=None):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "evidence": [
+        {
+          "ref": "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/0",
+          "file_sha256": "06a91c234253688af679fc7cbc7ba25d409f0b2effe81092bb2d9eaf146432fa",
+          "pointer_canonical_sha256": "8285775923f1df0169283eb596e17945ae06aaa8212ee1a54b79eec82163e11d"
+        },
+        {
+          "ref": "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/1",
+          "file_sha256": "06a91c234253688af679fc7cbc7ba25d409f0b2effe81092bb2d9eaf146432fa",
+          "pointer_canonical_sha256": "4a6f070e032cb2a27b83e485b96c470342353838e0e333a735070f9c637247eb"
+        }
+      ]
+    },
+    {
+      "id": "GP-X376",
+      "incident_row": "56.3",
+      "candidate_path": "reports/operational-case-candidates/GP-X376.json",
+      "candidate_file_sha256": "71ce30e8a1c94c140a892c31a0c69ee35238333a87c9a9a04304925e712d079f",
+      "candidate_canonical_sha256": "d761548afa9f7e1d6444416b0772c6a4ff4790987c185fcd44fde6122cdde04d",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/mcp.py",
+        "line": 1359,
+        "anchor": "def dispatch(request, root=ROOT):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "evidence": [
+        {
+          "ref": "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/2",
+          "file_sha256": "06a91c234253688af679fc7cbc7ba25d409f0b2effe81092bb2d9eaf146432fa",
+          "pointer_canonical_sha256": "ee36f6a3678f7418189ee7997b9278401b5361e5efa6854b73fac2fa3adc5ff2"
+        },
+        {
+          "ref": "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/3",
+          "file_sha256": "06a91c234253688af679fc7cbc7ba25d409f0b2effe81092bb2d9eaf146432fa",
+          "pointer_canonical_sha256": "20ae04459a897a97ba0439d8950ba4126c3b5951a6faa958e8b7814a97a550fd"
+        },
+        {
+          "ref": "reports/MCP-REQUEST-COMMIT-BOUNDARY.json#/controls/4",
+          "file_sha256": "06a91c234253688af679fc7cbc7ba25d409f0b2effe81092bb2d9eaf146432fa",
+          "pointer_canonical_sha256": "38a45375925de49272c1732ee654d0b662efb961deea7cd6deabd2c691f6de7a"
+        }
+      ]
+    },
+    {
+      "id": "GP-X377",
+      "incident_row": "58.2",
+      "candidate_path": "reports/operational-case-candidates/GP-X377.json",
+      "candidate_file_sha256": "c1d4cf9c3c29d8b321987fd4fe587f8b0922b56a2d291255f859dde2312fd951",
+      "candidate_canonical_sha256": "fc1cbb8bafe74cc2c7eac9e837d21a40096d5423e8f519ce4795eca3cbad1d9d",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/mcp.py",
+        "line": 1187,
+        "anchor": "\"about=%s\" % m[\"about\"] if m.get(\"about\") else None,",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "evidence": [
+        {
+          "ref": "reports/MCP-HANDOFF-CONTEXT-BOUNDARY.json#/controls/0",
+          "file_sha256": "cf17908f7d49257c0190605534f80f22fcf6b15f0ecdc15c5359fcdfddf8cbe3",
+          "pointer_canonical_sha256": "a69c7a80c2820e5dcb2f583333f87743fe2334c14f976cff1c7fb88d6910ffc7"
+        },
+        {
+          "ref": "reports/MCP-HANDOFF-CONTEXT-BOUNDARY.json#/controls/1",
+          "file_sha256": "cf17908f7d49257c0190605534f80f22fcf6b15f0ecdc15c5359fcdfddf8cbe3",
+          "pointer_canonical_sha256": "785b9aecc422b71667502b6f73cb69d39258a3fb0f05317107515c00f37335a3"
+        }
+      ]
+    },
+    {
+      "id": "GP-X378",
+      "incident_row": "58.3a",
+      "candidate_path": "reports/operational-case-candidates/GP-X378.json",
+      "candidate_file_sha256": "95edbc7d911d9dbb2c65f14c15ee70d79619aadceba3d3cb3de10590a174a6c2",
+      "candidate_canonical_sha256": "12c38c593067cdf2aa3244ee4bf71098b70d3f74fcd2b84d18aa074563da1833",
+      "observation_layer": "offline_direct_bounded_control",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/mcp.py",
+        "line": 923,
+        "anchor": "def h_portage_check(args, root):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb"
+      },
+      "evidence": [
+        {
+          "ref": "reports/PHASE-0A-OPERATIONAL-CASE-CONVERSION.json#/new_bounded_controls/58.3a",
+          "file_sha256": "725ac2c87af65abba6b2c680c393acd58df4dc6689e824501e02214589b92b9e",
+          "pointer_canonical_sha256": "5fb91f21f6409b6897398f8ba0030e6fb89c6a99c9241083b8f4914f6a181c2c"
+        }
+      ]
+    },
+    {
+      "id": "GP-X379",
+      "incident_row": "61.3",
+      "candidate_path": "reports/operational-case-candidates/GP-X379.json",
+      "candidate_file_sha256": "879325895238b338ad87036d9e0455ed54c24caa30d5939d48db70617e879506",
+      "candidate_canonical_sha256": "6262ac90fbd50808c6c745ce26777971f0a8db20309cf65a7aea793ff8dda8c2",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/dossier.py",
+        "line": 500,
+        "anchor": "def _audit_source(source, artifacts, source_root, source_ref=None):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "6b81486e77377d76971059b2cb3789803152945af4e938de2013ee5f0f527e11"
+      },
+      "evidence": [
+        {
+          "ref": "reports/DOSSIER-BOUNDARIES-AUDIT.json#/controls/2",
+          "file_sha256": "1e5ddda5f4bbfbdf6b60be0ea2a58009481d072302275c8f1c1be9e5b868ea93",
+          "pointer_canonical_sha256": "5773d9a3a4f2d68e82a73984186fa5139bb6d94a34a591d4b4214c5c585924b1"
+        },
+        {
+          "ref": "reports/DOSSIER-BOUNDARIES-AUDIT.json#/controls/3",
+          "file_sha256": "1e5ddda5f4bbfbdf6b60be0ea2a58009481d072302275c8f1c1be9e5b868ea93",
+          "pointer_canonical_sha256": "04903000e3467d5c320c66e3e6a08524df82d37667f7f9b37d56eba73d73354a"
+        }
+      ]
+    },
+    {
+      "id": "GP-X380",
+      "incident_row": "63.2",
+      "candidate_path": "reports/operational-case-candidates/GP-X380.json",
+      "candidate_file_sha256": "67bee3eae3a3ba675b38c09b1f0b9685acebe9f806b3dd8645e90d5d3f0ad308",
+      "candidate_canonical_sha256": "abef81d3dc1edc3795b16c7be370e2014864faac4c1055ff96bfe454c0e0155f",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/cli.py",
+        "line": 2558,
+        "anchor": "def _write_named_derived_output(args, content, protected=()):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308"
+      },
+      "evidence": [
+        {
+          "ref": "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/3",
+          "file_sha256": "7dba85e62dae570a81622bbcdadee68a672bf5183df246599368a011ad3a97de",
+          "pointer_canonical_sha256": "4da92abace617e19ac5f3fa74ebb4c5480974879aeb1bb025cfe87547cbf2949"
+        },
+        {
+          "ref": "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/5",
+          "file_sha256": "7dba85e62dae570a81622bbcdadee68a672bf5183df246599368a011ad3a97de",
+          "pointer_canonical_sha256": "12b7b2a6318f2307a7e0b50d5273671a92189047ed92c2d64d8d9a3efc8cf58c"
+        }
+      ]
+    },
+    {
+      "id": "GP-X381",
+      "incident_row": "63.3",
+      "candidate_path": "reports/operational-case-candidates/GP-X381.json",
+      "candidate_file_sha256": "83a610cb07fb83c0a64832d9feb19199979b57bda83ebd10486a2fbd9e0efcc9",
+      "candidate_canonical_sha256": "edbb9df707354d2c634c25772af2ec2cd5d2edd7e24bd790cef22694a71aa201",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/cli.py",
+        "line": 2558,
+        "anchor": "def _write_named_derived_output(args, content, protected=()):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "2ba4179346f0275f8e6a912d6f8fef8a37f9a64a3d434e568bea6a3b0f5d2308"
+      },
+      "evidence": [
+        {
+          "ref": "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/2",
+          "file_sha256": "7dba85e62dae570a81622bbcdadee68a672bf5183df246599368a011ad3a97de",
+          "pointer_canonical_sha256": "8543dd36fbe896c2a8e2a84aa6c6e653bdece40226003c0e3ee6c1eac276b8b6"
+        },
+        {
+          "ref": "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/4",
+          "file_sha256": "7dba85e62dae570a81622bbcdadee68a672bf5183df246599368a011ad3a97de",
+          "pointer_canonical_sha256": "f3676def2fb69bc97b06f2dc36e272eb602ae41afc3e3e758bfe473c2eacab37"
+        }
+      ]
+    },
+    {
+      "id": "GP-X382",
+      "incident_row": "63.4",
+      "candidate_path": "reports/operational-case-candidates/GP-X382.json",
+      "candidate_file_sha256": "3007ef3368fe053547cad6ff35363d6b1aa1d7a0bac0a456eeefee9f5e448652",
+      "candidate_canonical_sha256": "ab33619decca267f0d6821b8b4cf0426e0fcf99dd92761e255f4e921002c7361",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/release.py",
+        "line": 803,
+        "anchor": "def _materialize(release, source_root, output_dir, *, replay_only):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "65c3cead208858bf26cd9441288c14c1c473ac35d27640ad7561c9809a11cd9c"
+      },
+      "evidence": [
+        {
+          "ref": "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/0",
+          "file_sha256": "7dba85e62dae570a81622bbcdadee68a672bf5183df246599368a011ad3a97de",
+          "pointer_canonical_sha256": "1e52d1c33bbac4c7be8cf80ebe221eeb0929a9054689c1d98bca72680af8b695"
+        }
+      ]
+    },
+    {
+      "id": "GP-X383",
+      "incident_row": "65.4",
+      "candidate_path": "reports/operational-case-candidates/GP-X383.json",
+      "candidate_file_sha256": "7fe639490cdcf284936249f81a7a898db976cbc7cce9c9a282b2974f6e12282c",
+      "candidate_canonical_sha256": "17a2801f4bab9f0cd8a349c8aeac31322513d39176b8638bac0d82236763d91f",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/frontier_bundle.py",
+        "line": 360,
+        "anchor": "def emit_review_receipt(report, path):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "acb4d823eaee9d39d1494374cb20d6153763ab2689a898bb537d56fe2ff71103"
+      },
+      "evidence": [
+        {
+          "ref": "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/3",
+          "file_sha256": "064f437fe37f2721c0386676e4daea305c0563f3a4aeb6fc07d56d976c85f36f",
+          "pointer_canonical_sha256": "0bb583b4c3e0ddee01ad09e646a691ca890862e9b45ee9b374ab6c94a476873e"
+        },
+        {
+          "ref": "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/4",
+          "file_sha256": "064f437fe37f2721c0386676e4daea305c0563f3a4aeb6fc07d56d976c85f36f",
+          "pointer_canonical_sha256": "4bade60d4db5c299be8a8cd4b6f2b7419276a53355969d5f9bcb92d6567226f3"
+        }
+      ]
+    },
+    {
+      "id": "GP-X384",
+      "incident_row": "69.3",
+      "candidate_path": "reports/operational-case-candidates/GP-X384.json",
+      "candidate_file_sha256": "1d40aeb8cbe4f0f14a50c53b547f2d9a5ac4ee60056d73b7fc69eb21954b2a34",
+      "candidate_canonical_sha256": "c78aa3c0cc6288785cad19f8080238f7a122ec85e820ab1fe1baddbc1b00f0f3",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "scripts/corpus_check.py",
+        "line": 66,
+        "anchor": "(destination / \"export-manifest.json\").write_text(json.dumps(manifest, indent=2)+\"\\n\", encoding=\"utf-8\")",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "fed263a3f2b933e7d371b1dbe83c7f42e80379ea42e305fd107dfbe951b33f89"
+      },
+      "evidence": [
+        {
+          "ref": "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/2",
+          "file_sha256": "beaac8f643eab4e0a9a0a4a81cf92f362a3f1102a998752c2be010718bea94bb",
+          "pointer_canonical_sha256": "931ac2683cf546162c7b1342cb4a6c3fa49094f9626d2c50fcd339c6234f1c1b"
+        }
+      ]
+    },
+    {
+      "id": "GP-X385",
+      "incident_row": "64.3b",
+      "candidate_path": "reports/operational-case-candidates/GP-X385.json",
+      "candidate_file_sha256": "8c3874f93b23ebf98bb4894438d715d578a648f7f35ccb35d785ba694b12bd02",
+      "candidate_canonical_sha256": "4bb530366cad9b8a5b86d39a6c7e281dc9f10b73d18a0698d992d5f285c71411",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/campaign.py",
+        "line": 585,
+        "anchor": "def build_overlay(packet_set, ledger):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "aa7143280c0869a28761942ec3faf9f0c7da4d872b017dd7fffeb6716eb3cdf4"
+      },
+      "evidence": [
+        {
+          "ref": "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/0",
+          "file_sha256": "def6d942d6342ee483ff73d5c2042521ffe70fb64ea4e91dd62a04368b94f9d1",
+          "pointer_canonical_sha256": "aa867f6b8975bf3b97cff23fd5da41934a6785df10de983e81173e182d4c0491"
+        },
+        {
+          "ref": "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/1",
+          "file_sha256": "def6d942d6342ee483ff73d5c2042521ffe70fb64ea4e91dd62a04368b94f9d1",
+          "pointer_canonical_sha256": "8df5597951a9f0b0c6b539f656f83956680a248b1377efcb5c7d412d5957ace5"
+        },
+        {
+          "ref": "reports/PACKET-ATTEMPT-BINDING-AUDIT.json#/controls/2",
+          "file_sha256": "def6d942d6342ee483ff73d5c2042521ffe70fb64ea4e91dd62a04368b94f9d1",
+          "pointer_canonical_sha256": "2015f773c908d33a729e2dbcd21fb8cf5e14f1ad269745cde8d062c60ec26789"
+        }
+      ]
+    },
+    {
+      "id": "GP-X386",
+      "incident_row": "65.3a",
+      "candidate_path": "reports/operational-case-candidates/GP-X386.json",
+      "candidate_file_sha256": "f4b25607766e1b92af855908d6be026e7d48725ba3d4ef55ef86fe28fea6e3c2",
+      "candidate_canonical_sha256": "8564a03aa6776a2f2d212426432a679280ea78595900096d247f505485a15798",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/frontier_bundle.py",
+        "line": 166,
+        "anchor": "declared_open = document.get(\"open_items\")",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "acb4d823eaee9d39d1494374cb20d6153763ab2689a898bb537d56fe2ff71103"
+      },
+      "evidence": [
+        {
+          "ref": "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/0",
+          "file_sha256": "064f437fe37f2721c0386676e4daea305c0563f3a4aeb6fc07d56d976c85f36f",
+          "pointer_canonical_sha256": "017a6f6f9eff870927780f028b7863317a64bd672d2f5d2c53b57ac408b51b21"
+        }
+      ]
+    },
+    {
+      "id": "GP-X387",
+      "incident_row": "65.3b",
+      "candidate_path": "reports/operational-case-candidates/GP-X387.json",
+      "candidate_file_sha256": "c590d974d9843791713f87103c69fe93dedb7a27ccc29ca8294f4555fd18f97d",
+      "candidate_canonical_sha256": "897e10b3a47c3c838d87f9308c21fb5b42c91d39387c3110f89ee6b9cce83044",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/frontier_bundle.py",
+        "line": 37,
+        "anchor": "def _stable_id(value, label):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "acb4d823eaee9d39d1494374cb20d6153763ab2689a898bb537d56fe2ff71103"
+      },
+      "evidence": [
+        {
+          "ref": "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/1",
+          "file_sha256": "064f437fe37f2721c0386676e4daea305c0563f3a4aeb6fc07d56d976c85f36f",
+          "pointer_canonical_sha256": "0496501732f0335ea237a26551ceddab046c237b06b7c752d1c33380bc72bf0d"
+        }
+      ]
+    },
+    {
+      "id": "GP-X388",
+      "incident_row": "66.2",
+      "candidate_path": "reports/operational-case-candidates/GP-X388.json",
+      "candidate_file_sha256": "7f22eda80ba664f526966e4133ac3261a253972b2a80872d7f7aeef9b11a09a5",
+      "candidate_canonical_sha256": "6f6afe4abd2e810a1fd18558f2f28e7c3c7b7fa626653df438a502a24d3201aa",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/frontier.py",
+        "line": 290,
+        "anchor": "if (item.get(\"frontier_state\") == \"OPEN\"",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "04bde7fe30865018c6ed461f793a446756c7d8a0901c820e16bd47484079d5ae"
+      },
+      "evidence": [
+        {
+          "ref": "reports/FRONTIER-PROJECTION-BOUNDARIES.json#/controls/0",
+          "file_sha256": "229dbd424a60b8bb4cbe79dc125e47eb1bdf8fbb8f14d853a9cde2e4829f7b02",
+          "pointer_canonical_sha256": "f340d7d516240d5f2cef2d8e9df19cdc3fd7ed5eed52d9d7f92a3c1fefc67c7c"
+        },
+        {
+          "ref": "reports/FRONTIER-PROJECTION-BOUNDARIES.json#/controls/1",
+          "file_sha256": "229dbd424a60b8bb4cbe79dc125e47eb1bdf8fbb8f14d853a9cde2e4829f7b02",
+          "pointer_canonical_sha256": "9a3194a9e29d8647198ec34a109d951aab7b13864d4ded4578620e5458e25fef"
+        }
+      ]
+    },
+    {
+      "id": "GP-X389",
+      "incident_row": "69.2",
+      "candidate_path": "reports/operational-case-candidates/GP-X389.json",
+      "candidate_file_sha256": "0589127123bd6f60dd98b4e8cfba3659b0f1046bcdd8b6251a73e40e474aacbf",
+      "candidate_canonical_sha256": "4195f266f161d764d7eca99798149c70ab4d3b9cf5593fe7ec88d0855886fef0",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "scripts/project_ir_corpus.py",
+        "line": 129,
+        "anchor": "graph=S.load(str(Path(corpus_root)/campaign/\"graph.jsonl\"))",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "195b65281c8f80596ccc085cedde42b58cc8e0ce4a433cfd82c90203b5bd5616"
+      },
+      "evidence": [
+        {
+          "ref": "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/0",
+          "file_sha256": "beaac8f643eab4e0a9a0a4a81cf92f362a3f1102a998752c2be010718bea94bb",
+          "pointer_canonical_sha256": "2af91d2ac8231edfa73fd350e66f3f4fddca7da9af35dd77ffe61dbf0f74befd"
+        },
+        {
+          "ref": "reports/CORPUS-INTAKE-BOUNDARIES.json#/controls/1",
+          "file_sha256": "beaac8f643eab4e0a9a0a4a81cf92f362a3f1102a998752c2be010718bea94bb",
+          "pointer_canonical_sha256": "584af31fd52a4c43528b520b459f76f8d3da9cfb57f548b057ed1f4ecf17db31"
+        }
+      ]
+    },
+    {
+      "id": "GP-X390",
+      "incident_row": "74.3",
+      "candidate_path": "reports/operational-case-candidates/GP-X390.json",
+      "candidate_file_sha256": "5e8a68d338424b86dfb500e1a0812d897c0528d3e8f0d2e864d9b6b79553d581",
+      "candidate_canonical_sha256": "ce9655c65164e55d04c3116b24a83269bcb453d49217e7b0f213e37f07fde991",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/cas.py",
+        "line": 963,
+        "anchor": "stdout = bytes(buffers[\"stdout\"]).decode(\"utf-8\", errors=\"ignore\")",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "evidence": [
+        {
+          "ref": "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/0",
+          "file_sha256": "67c62aa081705686dd2a52400b834c8cd42c35321e01dc6219549ab01ac9161c",
+          "pointer_canonical_sha256": "cabe962e9766c2e942367502d2706b93d9aa9a1e4fee195d610148a0c50e82dd"
+        },
+        {
+          "ref": "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/1",
+          "file_sha256": "67c62aa081705686dd2a52400b834c8cd42c35321e01dc6219549ab01ac9161c",
+          "pointer_canonical_sha256": "2c545606c07662acb09f2dcea8e6d52006f7a3661dca88efc78ba1b196b73127"
+        }
+      ]
+    },
+    {
+      "id": "GP-X391",
+      "incident_row": "74.5",
+      "candidate_path": "reports/operational-case-candidates/GP-X391.json",
+      "candidate_file_sha256": "36c82fc827409afd4013c869ba46bab3feca49fca6f9a068b43922ce14af2add",
+      "candidate_canonical_sha256": "d7982fc9d5018f504750310e22c05a1512c6fc58b7afab323f8a8cec2024a211",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/backend.py",
+        "line": 132,
+        "anchor": "abort_reason: object",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "8a2cbb4c617e2e76b4a346bb0cabfaf583e7ebfe150207e4889eaf593e4dd03f"
+      },
+      "evidence": [
+        {
+          "ref": "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/3",
+          "file_sha256": "67c62aa081705686dd2a52400b834c8cd42c35321e01dc6219549ab01ac9161c",
+          "pointer_canonical_sha256": "a460a3f31b893f645059262b1df1ca50e07ef0085fa784138509c51380e4e95e"
+        }
+      ]
+    },
+    {
+      "id": "GP-X392",
+      "incident_row": "76.2",
+      "candidate_path": "reports/operational-case-candidates/GP-X392.json",
+      "candidate_file_sha256": "19e0349b5f2c4c401b19feec80b900935c27d94f9a249d41ea4954ce86defaff",
+      "candidate_canonical_sha256": "be6a3c8b30de582f6f68438303f8fb5bffc597bc9adf70d480f1b093e9ea0bf5",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/cas.py",
+        "line": 329,
+        "anchor": "class CASProgram(object):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "evidence": [
+        {
+          "ref": "reports/CAS-PROGRAM-CUSTODY.json#/observations/0",
+          "file_sha256": "48066692fdd7df7b6b128d5f5aca26b03441f3dccea072d7bfda4d9f131d31e6",
+          "pointer_canonical_sha256": "69ea87eef8a9ce469c5355464fbab8029dc172825c71df0cd36263529f12c6e1"
+        },
+        {
+          "ref": "reports/CAS-PROGRAM-CUSTODY.json#/observations/1",
+          "file_sha256": "48066692fdd7df7b6b128d5f5aca26b03441f3dccea072d7bfda4d9f131d31e6",
+          "pointer_canonical_sha256": "761f5c687a21a7595a9be13a62bf5017177899b92f8adef7c209dc5fda8867a6"
+        }
+      ]
+    },
+    {
+      "id": "GP-X393",
+      "incident_row": "74.4",
+      "candidate_path": "reports/operational-case-candidates/GP-X393.json",
+      "candidate_file_sha256": "f5fd96fc0e1dab577b1e362dce688a150f558a56bfc43c3653e65b20d07fbe91",
+      "candidate_canonical_sha256": "79afbff2825260e6466598bca28d1e1c8a85d0bbef409b5a922de373ec26b90a",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/backend.py",
+        "line": 48,
+        "anchor": "def valid_fingerprint(value):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "8a2cbb4c617e2e76b4a346bb0cabfaf583e7ebfe150207e4889eaf593e4dd03f"
+      },
+      "evidence": [
+        {
+          "ref": "reports/BACKEND-TRANSCRIPT-BOUNDARY.json#/observations/2",
+          "file_sha256": "67c62aa081705686dd2a52400b834c8cd42c35321e01dc6219549ab01ac9161c",
+          "pointer_canonical_sha256": "3f239ea7f80d7dc9cc43eb8fa73d7b860f02005476304f4065cf22e9fcbd82c1"
+        }
+      ]
+    },
+    {
+      "id": "GP-X394",
+      "incident_row": "76.8b",
+      "candidate_path": "reports/operational-case-candidates/GP-X394.json",
+      "candidate_file_sha256": "49a69f970614083193cacbd07374e4171e767a2ab0ef1005480e92339c7adca8",
+      "candidate_canonical_sha256": "68e8b0461713700620c71940284ce128b3098983a21ae2eba696c0c01d562f18",
+      "observation_layer": "offline_direct_bounded_control",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/cas.py",
+        "line": 183,
+        "anchor": "def assert_is_identifier(dialect, name, field):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "evidence": [
+        {
+          "ref": "reports/PHASE-0A-OPERATIONAL-CASE-CONVERSION.json#/new_bounded_controls/76.8b",
+          "file_sha256": "725ac2c87af65abba6b2c680c393acd58df4dc6689e824501e02214589b92b9e",
+          "pointer_canonical_sha256": "75af20a6e2c04ca56ac0ece053dc0da9440b40b517f889ea9be140dca96f188e"
+        }
+      ]
+    },
+    {
+      "id": "GP-X395",
+      "incident_row": "76.3",
+      "candidate_path": "reports/operational-case-candidates/GP-X395.json",
+      "candidate_file_sha256": "bd6c61a0c621db56169eacab69b521f62ff16764582875ca43b4ea86156eb6e3",
+      "candidate_canonical_sha256": "ff4cebcd525c9e5abf446cb4143649be15dd608096fbe2684fdef3b71ab5f9cb",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/cas.py",
+        "line": 735,
+        "anchor": "def run_cas(program, *, edge, produces, describes, root=\".\", timeout=300,",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "evidence": [
+        {
+          "ref": "reports/CAS-PROGRAM-CUSTODY.json#/observations/2",
+          "file_sha256": "48066692fdd7df7b6b128d5f5aca26b03441f3dccea072d7bfda4d9f131d31e6",
+          "pointer_canonical_sha256": "2d73c0f790a87baeba387d89efa0a88c8c45b794ffb5a4fe63e197e43178f499"
+        }
+      ]
+    },
+    {
+      "id": "GP-X396",
+      "incident_row": "76.7",
+      "candidate_path": "reports/operational-case-candidates/GP-X396.json",
+      "candidate_file_sha256": "3fb81cd8b132347c09de4cb49ec1db42888db9c8e5620535130142b6ecb17017",
+      "candidate_canonical_sha256": "6170ea9a1b915eaeeca0486a4d88596c9c7cafc454192342e5af6d74ff3b0a05",
+      "observation_layer": "accepted_injected_persistence_contrast",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/cas.py",
+        "line": 439,
+        "anchor": "def semantic_fingerprint(self):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453"
+      },
+      "evidence": [
+        {
+          "ref": "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/method",
+          "file_sha256": "515f8759fc6d8122e4496fa7a76d023233c02b0d73b0e7a281c99d481de0b4c0",
+          "pointer_canonical_sha256": "4f2e5bc3d156feefa7cfa5d835a1eebc21574e21afbf7d95b3164d23f7cda470"
+        },
+        {
+          "ref": "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/observations/0",
+          "file_sha256": "515f8759fc6d8122e4496fa7a76d023233c02b0d73b0e7a281c99d481de0b4c0",
+          "pointer_canonical_sha256": "6a1a3ae1a14bb9184e72257517a9e0539f03a74b105178a2131c0f01b97bb3d0"
+        },
+        {
+          "ref": "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/observations/1",
+          "file_sha256": "515f8759fc6d8122e4496fa7a76d023233c02b0d73b0e7a281c99d481de0b4c0",
+          "pointer_canonical_sha256": "14217e763296de55a41e413da39df47f387a2b613471ca6de7b0e62537edb1c3"
+        },
+        {
+          "ref": "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json#/comparison",
+          "file_sha256": "515f8759fc6d8122e4496fa7a76d023233c02b0d73b0e7a281c99d481de0b4c0",
+          "pointer_canonical_sha256": "60331eb82b147418ac7bad0a7c04cfd540e8a9f8a45eba2731a69c4ff0eb436a"
+        }
+      ]
+    },
+    {
+      "id": "GP-X397",
+      "incident_row": "77.3",
+      "candidate_path": "reports/operational-case-candidates/GP-X397.json",
+      "candidate_file_sha256": "6b7edb4ff9b502b1540c788cb7087e67987d6bf0a29be61da5c141f1fd6243cf",
+      "candidate_canonical_sha256": "427c451cc44eeecaab0d224a5c1e8b399e5b282e0651833c4378ace40e954681",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/hook.py",
+        "line": 84,
+        "anchor": "def read_baseline(root=\".\"):",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "679f181223aa7796c94c1c4248d74c698afe990817bad615fe1b1696a5a4c9aa"
+      },
+      "evidence": [
+        {
+          "ref": "reports/HOOK-BOUNDARY-AUDIT.json#/observations/0",
+          "file_sha256": "a17469ccc412422b96121535167b4b9428155503d177fbdf642f86b906778c34",
+          "pointer_canonical_sha256": "1fa153e4ffedd34c2a1fcc0af1c91b1e4fb71781ccfe43ca4fe7c240fca68585"
+        },
+        {
+          "ref": "reports/HOOK-BOUNDARY-AUDIT.json#/observations/1",
+          "file_sha256": "a17469ccc412422b96121535167b4b9428155503d177fbdf642f86b906778c34",
+          "pointer_canonical_sha256": "9108843c689ae3cda780a4cab267dba96abc38ee332092f3080f291d57e29d30"
+        }
+      ]
+    },
+    {
+      "id": "GP-X398",
+      "incident_row": "77.4",
+      "candidate_path": "reports/operational-case-candidates/GP-X398.json",
+      "candidate_file_sha256": "13732d12cfb7e26ef8a24a20a57d6f484aad369eaeb613ec4002cd5e7f081568",
+      "candidate_canonical_sha256": "07a7a30265d357dd80a2316c215bcffd8356137c262392a9f1b9bd72e249d0ba",
+      "observation_layer": "retained_bounded_diagnostic",
+      "primary_source": {
+        "repository": "gp-v037",
+        "path": "grandportage/hook.py",
+        "line": 355,
+        "anchor": "block, message = evaluate(root)",
+        "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+        "file_sha256": "679f181223aa7796c94c1c4248d74c698afe990817bad615fe1b1696a5a4c9aa"
+      },
+      "evidence": [
+        {
+          "ref": "reports/HOOK-BOUNDARY-AUDIT.json#/observations/2",
+          "file_sha256": "a17469ccc412422b96121535167b4b9428155503d177fbdf642f86b906778c34",
+          "pointer_canonical_sha256": "758b8c34d9a75a288c83757a2cac259985db8eebc6afe114fab2a920a85e2bac"
+        }
+      ]
+    }
+  ]
+}

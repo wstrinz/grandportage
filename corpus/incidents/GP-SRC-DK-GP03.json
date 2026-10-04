@@ -1,0 +1,255 @@
+{
+  "id": "GP-SRC-DK-GP03",
+  "source_row_id": "DK-GP03",
+  "campaign": "GP",
+  "related_campaign": "DK",
+  "inventory_role": "mixed_historical_defects_and_product_limits",
+  "origin": "tool",
+  "origin_qualification": "Primary responsibility classification is provisional; first discoverer unknown.",
+  "class": "SCOPE",
+  "secondary_classes": [
+    "ADAPTER",
+    "WARRANT"
+  ],
+  "classification_status": "proposed qualified supplement; not approved AppendixB record",
+  "scope_or_region": "SCOPE",
+  "claimed": "Typed models, field-relative EMPTY and certificate evidence should respect scope and eligibility.",
+  "problem": "Field-string and model-scope repairs are historical; certificate-content compatibility remains open; retry selection is only an applicability observation.",
+  "composite": true,
+  "grouping_limit": "Four dispositions: two source-reported defects, one design gap and one unconfirmed retry-selection observation.",
+  "sources": [
+    {
+      "path": "$DEV/math-research/campaigns/cfg23/CHECKPOINT.md",
+      "lines": "434-456;916-925",
+      "sha256": "7af6de6b1c8c1d359e268293caac18c11123547b2c62629c70947b52b3be434d",
+      "reading_status": "Campaign pointer/hash inherited from accepted bounded reconciliation; not newly read or independently verified this pass."
+    }
+  ],
+  "report_evidence": [
+    {
+      "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+      "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+      "pointer": "/named_row_register/2"
+    },
+    {
+      "report": "reports/PHASE-0B-GP-REUSE-PARENT-REVIEW.json",
+      "sha256": "6ed2cc1f7b9b4236c3d6e62a463c51784ef92f43a1695959be9571d584ec82d7",
+      "pointer": "/limits"
+    }
+  ],
+  "discovered_by": "unknown",
+  "cost": null,
+  "shipped": null,
+  "gp_v037_would_catch": null,
+  "core_expressible": null,
+  "core_would_refuse": null,
+  "observed_vs_attributed": {
+    "current_observation": null,
+    "historical": "Source-attributed only. Exact fixture reuse and retained diagnostic assertions do not establish literal current campaign outcomes.",
+    "current_catch_assessment": null
+  },
+  "related_occurrences": [
+    {
+      "existing_owner_id": "DK-B018",
+      "relation": "existing_gp_design_occurrence",
+      "reason": "Embedding RFC fixture/map authenticity repair is a separate existing design/handoff episode, explicitly not implemented GP proof. Do not merge map validation with false descent or field/model scope admission.",
+      "new_row": false
+    }
+  ],
+  "subepisodes": [
+    {
+      "id": "GP-DISP-DK-GP03/arbitrary-field-strings",
+      "source_disposition_id": "DK-GP03/arbitrary-field-strings",
+      "source_pointer": {
+        "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+        "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+        "pointer": "/dispositions/4"
+      },
+      "disposition": "historical_defect_not_reproduced",
+      "primary_class": "SCOPE",
+      "secondary_classes": [
+        "ADAPTER",
+        "WARRANT"
+      ],
+      "origin": "tool",
+      "summary": "Field-relative transport A01 assumes a named scope and NONSQUARE_CLASS; A26 rejects VIBES certificate names. Neither validates an arbitrary field string. Source-stated repair remains historical.",
+      "case_reuse": [
+        {
+          "id": "GP-A01",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-A26",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "evidence_reports": [],
+      "missing_behavior_or_premise": "Extract field-string admission with invalid and valid field values, independent of certificate-name rejection.",
+      "admission": "not commissioned by this inventory pass",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "inventory_role": "source_attributed_historical_mechanism",
+      "owner_id": "GP-SRC-DK-GP03",
+      "record_kind": "source-attributed correction/group",
+      "counting_qualification": "Nested disposition of GP-SRC-DK-GP03; zero additional owner records and no presumed independent sample."
+    },
+    {
+      "id": "GP-DISP-DK-GP03/model-scope-omission",
+      "source_disposition_id": "DK-GP03/model-scope-omission",
+      "source_pointer": {
+        "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+        "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+        "pointer": "/dispositions/5"
+      },
+      "disposition": "related_rule_control",
+      "primary_class": "SCOPE",
+      "secondary_classes": [
+        "ADAPTER",
+        "WARRANT"
+      ],
+      "origin": "tool",
+      "summary": "These cases omit point-universe/model typing for combinatorial emptiness and diagnose the missing anchor. Their routes do not execute the combinatorial checker. They cover the missing-binding rule, not proof that the historical scope repair has been replayed.",
+      "case_reuse": [
+        {
+          "id": "GP-X13",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X14",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "evidence_reports": [],
+      "missing_behavior_or_premise": null,
+      "admission": "not commissioned by this inventory pass",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "inventory_role": "source_attributed_historical_mechanism",
+      "owner_id": "GP-SRC-DK-GP03",
+      "record_kind": "source-attributed correction/group",
+      "counting_qualification": "Nested disposition of GP-SRC-DK-GP03; zero additional owner records and no presumed independent sample."
+    },
+    {
+      "id": "GP-DISP-DK-GP03/certificate-content-compatibility",
+      "source_disposition_id": "DK-GP03/certificate-content-compatibility",
+      "source_pointer": {
+        "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+        "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+        "pointer": "/dispositions/6"
+      },
+      "disposition": "design_backlog",
+      "primary_class": "SCOPE",
+      "secondary_classes": [
+        "ADAPTER",
+        "WARRANT"
+      ],
+      "origin": "tool",
+      "summary": "Source leaves combinatorial/orientability certificate-content compatibility open. Missing-model anchor diagnostics and descriptive authority registry provide no semantic compatibility verifier.",
+      "case_reuse": [
+        {
+          "id": "GP-X13",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X14",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "evidence_reports": [
+        "reports/AUTHORITY-SCOPE-RELEASE-HISTORY-REVIEW.json"
+      ],
+      "missing_behavior_or_premise": "A typed model with a syntactically admitted but semantically incompatible orientability/combinatorial certificate needs a checker-owned contract and positive compatible contrast; no such executed/admitted checker is established here.",
+      "admission": "not commissioned by this inventory pass",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "inventory_role": "product_contract_gap",
+      "owner_id": "GP-SRC-DK-GP03",
+      "record_kind": "design",
+      "counting_qualification": "Nested disposition of GP-SRC-DK-GP03; zero additional owner records and no presumed independent sample."
+    },
+    {
+      "id": "GP-DISP-DK-GP03/retry-selection",
+      "source_disposition_id": "DK-GP03/retry-selection",
+      "source_pointer": {
+        "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+        "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+        "pointer": "/dispositions/7"
+      },
+      "disposition": "historical_defect_not_reproduced",
+      "primary_class": "ADAPTER",
+      "secondary_classes": [
+        "WARRANT"
+      ],
+      "origin": "tool",
+      "summary": "A17 constructs UNVERIFIED without current warrant and refuses authority; no backend timeout is simulated. It does not select retry work.",
+      "case_reuse": [
+        {
+          "id": "GP-A17",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "evidence_reports": [],
+      "missing_behavior_or_premise": "A retryable-looking record and selection filters/eligibility must be preserved together to distinguish rightful no-work from an erroneous omission.",
+      "admission": "not commissioned by this inventory pass",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "inventory_role": "unconfirmed_selection_observation",
+      "owner_id": "GP-SRC-DK-GP03",
+      "record_kind": "source-attributed correction/group",
+      "counting_qualification": "Nested disposition of GP-SRC-DK-GP03; zero additional owner records and no presumed independent sample."
+    }
+  ],
+  "status": "final retained source-backed record under ratified unknown policy; observation and counting limits remain explicit",
+  "primary_class": "SCOPE",
+  "primary_origin": "tool",
+  "record_kind": "source-attributed correction/group",
+  "final_disposition": "retain qualified source-attributed group record with nested subdispositions",
+  "owner_id": "GP-SRC-DK-GP03",
+  "original_pointer": {
+    "report": "reports/PHASE-0B-GP-INVENTORY-SUPPLEMENT-DRAFT.json",
+    "pointer": "/named_gp_source_groups/2",
+    "sha256": "1ea12da51790d7b0f3beb8c26586a921537b120df20a9730c8c8826344a3c55a",
+    "review_date": "2026-09-29",
+    "date_kind": "retained report review date; not incident date or source publication date"
+  },
+  "source": {
+    "repo": "$WORKSPACE",
+    "ref": "reports/PHASE-0B-GP-INVENTORY-SUPPLEMENT-DRAFT.json#/named_gp_source_groups/2",
+    "date": "2026-09-29",
+    "review_date": "2026-09-29",
+    "date_kind": "review-source date of retained report; not incident date or original primary-source date"
+  },
+  "incident_date": null,
+  "cost_note": "Incident-specific cost unestablished at this group scope. Any source-reported timing/effort remains attribution in retained subdispositions; do not convert test/search effort to work lost.",
+  "shipped_note": "Wrong-claim publication/handoff unestablished; source code release, commit or fixture existence alone is insufficient.",
+  "gp_v037_would_catch_note": "Historical failure, exact fixture reuse, present diagnostic observations and hypothetical core behavior are different evidence/version layers; no group-wide frozen catch verdict established.",
+  "counting_qualification": {
+    "record_count": 1,
+    "independent_sample": null,
+    "mathematical_incident_count": null,
+    "rule": "One source-group record organizing existing subdispositions; do not count each subdisposition, fixture, repair or repeated source as an independent incident.",
+    "source_detail": "Four dispositions: two source-reported defects, one design gap and one unconfirmed retry-selection observation."
+  },
+  "notes": "Qualified retained source-attributed correction/group. Four dispositions: two source-reported defects, one design gap and one unconfirmed retry-selection observation. No new source read or execution. Source dates/hashes and attribution are preserved; no independent sample or shipping authentication inferred.",
+  "parent_integration": {
+    "worker_report": "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "worker_report_sha256": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849",
+    "register": "incident/correction/group"
+  }
+}

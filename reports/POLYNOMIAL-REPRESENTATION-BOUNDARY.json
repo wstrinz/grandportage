@@ -1,0 +1,78 @@
+{
+  "controls": [
+    {
+      "id": "ordinary",
+      "input": "x^2",
+      "rendered": "x^2",
+      "sparse": {
+        "schema": "sparse_polynomial_v1",
+        "terms": [
+          {
+            "coefficient": "1",
+            "powers": [
+              [
+                "x",
+                2
+              ]
+            ]
+          }
+        ]
+      },
+      "reparse": {
+        "accepted": true,
+        "equal": true
+      }
+    },
+    {
+      "id": "derived_above_sparse_limit",
+      "input": "x^100000*x",
+      "rendered": "x^100001",
+      "sparse": {
+        "schema": "sparse_polynomial_v1",
+        "terms": [
+          {
+            "coefficient": "1",
+            "powers": [
+              [
+                "x",
+                100001
+              ]
+            ]
+          }
+        ]
+      },
+      "reparse": {
+        "accepted": false,
+        "message": "sparse term 0 exponent must be between 1 and 100000"
+      }
+    },
+    {
+      "id": "internal_negative_power",
+      "internal_constructor_accepted": true,
+      "native_object_parse_accepted": true,
+      "sparse_parse_refusal": "sparse term 0 exponent must be between 1 and 100000",
+      "scope": "Direct trusted-process Python object construction, not JSON/infix admission."
+    },
+    {
+      "id": "cross_ring_scalar_method",
+      "division_rendered": "x",
+      "addition_refusal": "polynomials belong to different rings",
+      "scope": "Direct method call; infix parser creates both operands in the same validated ring and budget."
+    },
+    {
+      "id": "distinct_budget_operands",
+      "equality": true,
+      "addition_refusal": "polynomials belong to different checker invocations"
+    }
+  ],
+  "source_sha256": "239d045e28c7ee672905dac4c9b0214661ec33d7b10d29e8038c4a8088f16ce2",
+  "script_sha256": "5571e06a80ce90e2b1cfac05ad1efa21a39f20e25956893e08087e520d303bc9",
+  "findings": [
+    "Valid infix arithmetic can generate exponent 100001; sparse encoding emits it but sparse parsing refuses it. Bounded encoding/roundtrip claims need this qualification.",
+    "Internal Polynomial objects do not independently enforce nonnegative exponents; passing a native object through parse preserves that assumption.",
+    "divide_by_scalar does not use _same_ring on its argument; no external parser bypass reproduced.",
+    "Equality intentionally ignores invocation budget while arithmetic requires a shared budget."
+  ],
+  "proposed_fix": "Define limits on intermediate/result exponents versus syntax explicitly and validate output encoding against its advertised input contract. Either validate internal constructor and scalar-operation invariants or mark/enforce their trusted-caller preconditions. No silent expansion of limits.",
+  "scope": "Tiny exact synthetic controls; no high-memory expansion, CAS, graph mutation, campaign source or frozen source edits. No false JSON/text proof admission demonstrated."
+}

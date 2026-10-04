@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "id": "GP-X184",
+  "seed": null,
+  "title": "Recombine all empty branches with explicit exhaustiveness",
+  "situation": "Under the stated exhaustive-cover verification assumption, both branches have emptiness premises and the exhaustiveness claim is included.",
+  "inputs": {
+    "contexts": [
+      "parent",
+      "left",
+      "right"
+    ],
+    "premises": [
+      {
+        "context": "left",
+        "statement_class": "empty",
+        "statement": "left branch is empty"
+      },
+      {
+        "context": "right",
+        "statement_class": "empty",
+        "statement": "right branch is empty"
+      }
+    ],
+    "conclusion_class": "empty",
+    "conclusion_text": "the parent is empty",
+    "cover": {
+      "parent": "parent",
+      "branches": [
+        "left",
+        "right"
+      ],
+      "include_exhaustiveness_premise": true,
+      "verification_assumption": "exhaustive"
+    }
+  },
+  "attempted_conclusion": "Accept the stated conditional premise-route or cover-composition step.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Under the stated exhaustive-cover verification assumption, both branches have emptiness premises and the exhaustiveness claim is included."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 1348,
+      "anchor": "def test_a_case_split_is_licensed_by_the_partition_not_by_an_edge("
+    }
+  ]
+}

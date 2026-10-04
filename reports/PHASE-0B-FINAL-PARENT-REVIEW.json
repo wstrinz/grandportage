@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "status": "final parent review accepted with five classification corrections",
+  "worker": {
+    "path": "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "sha256": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849"
+  },
+  "checks": {
+    "input_hashes": 16,
+    "inherited_input_hashes": 7,
+    "unique_report_pointers": 323,
+    "source_claim_problem_class_origin_campaign_fields_unchanged": true,
+    "main_ids_unique_and_complete": 115,
+    "auxiliary_ids_preserved": 17,
+    "subepisode_old_fields_and47ids_preserved": true,
+    "children_owned_without_expansion": 2,
+    "four_existing_cross_occurrence_owners_preserved": true,
+    "appendixB_schemas_validated": 115,
+    "private_harvest_files_hash_size_ignore_checked": 89
+  },
+  "classification_decisions": [
+    "Accept preserved source-backed primary classifications with their uncertainty; labels are descriptive and not a statistical adjudication.",
+    "Retain all29operational mechanisms as complete separate-register records, not production mathematical incidents; no dropped source intake.",
+    "Keep deliberate controls, legitimate derived identities, design comparisons and bare unresolved leads separate.",
+    "Five explicitly recorded PigeonRiver correction groups retained with source attribution, not demoted solely for lack of original-code/paper execution.",
+    "Old floor/persistence gap labels remain historical, with current closeout overlays; A24 current observation comes from parent replay.",
+    "D2historical threshold/frozen fixture and PR-G14unearned license limitations retained."
+  ],
+  "parent_changes": [
+    {
+      "id": "PR-C08",
+      "change": "separate summary-only lead to source-attributed correction/group",
+      "original_parent_adjudication": {
+        "report": "reports/PHASE-0B-PIGEON-RIVER-PARENT-INTAKE.json",
+        "pointer": "/dispositions/7",
+        "sha256": "fda1430feb9c8900c7a239f168d1cd1f132e9796ee51ab68746dff7dc6ff85dc",
+        "review_date": "2026-09-29",
+        "date_kind": "retained report review date; not incident date or source publication date"
+      }
+    },
+    {
+      "id": "PR-C10",
+      "change": "separate summary-only lead to source-attributed correction/group",
+      "original_parent_adjudication": {
+        "report": "reports/PHASE-0B-PIGEON-RIVER-PARENT-INTAKE.json",
+        "pointer": "/dispositions/9",
+        "sha256": "fda1430feb9c8900c7a239f168d1cd1f132e9796ee51ab68746dff7dc6ff85dc",
+        "review_date": "2026-09-29",
+        "date_kind": "retained report review date; not incident date or source publication date"
+      }
+    },
+    {
+      "id": "PR-C12",
+      "change": "separate summary-only lead to source-attributed correction/group",
+      "original_parent_adjudication": {
+        "report": "reports/PHASE-0B-PIGEON-RIVER-PARENT-INTAKE.json",
+        "pointer": "/dispositions/11",
+        "sha256": "fda1430feb9c8900c7a239f168d1cd1f132e9796ee51ab68746dff7dc6ff85dc",
+        "review_date": "2026-09-29",
+        "date_kind": "retained report review date; not incident date or source publication date"
+      }
+    },
+    {
+      "id": "PR-C13",
+      "change": "separate summary-only lead to source-attributed correction/group",
+      "original_parent_adjudication": {
+        "report": "reports/PHASE-0B-PIGEON-RIVER-PARENT-INTAKE.json",
+        "pointer": "/dispositions/12",
+        "sha256": "fda1430feb9c8900c7a239f168d1cd1f132e9796ee51ab68746dff7dc6ff85dc",
+        "review_date": "2026-09-29",
+        "date_kind": "retained report review date; not incident date or source publication date"
+      }
+    },
+    {
+      "id": "PR-T16",
+      "change": "separate summary-only lead to source-attributed correction/group",
+      "original_parent_adjudication": {
+        "report": "reports/PHASE-0B-PIGEON-RIVER-PARENT-INTAKE.json",
+        "pointer": "/dispositions/15",
+        "sha256": "fda1430feb9c8900c7a239f168d1cd1f132e9796ee51ab68746dff7dc6ff85dc",
+        "review_date": "2026-09-29",
+        "date_kind": "retained report review date; not incident date or source publication date"
+      }
+    }
+  ],
+  "counts": {
+    "unit": "descriptive records, not independent incident samples",
+    "main_records": 115,
+    "incident_correction_group_records": 76,
+    "separate_main_records": 39,
+    "auxiliary_index_entries": 17,
+    "nested_gp_subdispositions": 47,
+    "child_corrections": 2,
+    "cross_occurrences_already_owned": 4,
+    "all_by_class": {
+      "SCOPE": 19,
+      "JOIN": 1,
+      "MEANING": 11,
+      "COVER": 7,
+      "ADAPTER": 34,
+      "BINDING": 29,
+      "WARRANT": 11,
+      "OTHER": 3
+    },
+    "all_by_origin": {
+      "own": 53,
+      "tool": 60,
+      "literature": 2
+    },
+    "all_by_campaign": {
+      "JC": 16,
+      "DK": 26,
+      "Cloquet": 4,
+      "ARR15": 8,
+      "Pigeon River": 14,
+      "GP": 47
+    },
+    "incident_by_class": {
+      "SCOPE": 16,
+      "JOIN": 1,
+      "MEANING": 9,
+      "COVER": 7,
+      "ADAPTER": 20,
+      "BINDING": 13,
+      "WARRANT": 8,
+      "OTHER": 2
+    },
+    "incident_by_origin": {
+      "own": 50,
+      "tool": 24,
+      "literature": 2
+    },
+    "incident_by_campaign": {
+      "JC": 16,
+      "DK": 25,
+      "Cloquet": 4,
+      "ARR15": 8,
+      "Pigeon River": 13,
+      "GP": 10
+    },
+    "separate_by_class": {
+      "BINDING": 16,
+      "OTHER": 1,
+      "ADAPTER": 14,
+      "SCOPE": 3,
+      "WARRANT": 3,
+      "MEANING": 2
+    },
+    "separate_by_origin": {
+      "tool": 36,
+      "own": 3
+    },
+    "separate_by_campaign": {
+      "DK": 1,
+      "Pigeon River": 1,
+      "GP": 37
+    },
+    "all_by_kind": {
+      "documented incident": 25,
+      "source-attributed correction/group": 51,
+      "design": 2,
+      "operational diagnostic": 33,
+      "deliberate control": 4
+    },
+    "cost_unknown_main_records": 113,
+    "shipping_unknown_main_records": 113,
+    "source_attributed_high_shipped": [
+      "JC-B003",
+      "JC-B005"
+    ],
+    "independent_incident_population": null
+  },
+  "pivot_screen": {
+    "status": "indeterminate",
+    "high_cost_denominator": null,
+    "independent_incident_denominator": null,
+    "MEANING_high_cost_percentage": null,
+    "MEANING_plus_ADAPTER_high_cost_percentage": null,
+    "thresholds": {
+      "MEANING": "approximately30% of high-cost incidents",
+      "MEANING_plus_ADAPTER": "approximately40% of high-cost incidents"
+    },
+    "reason": "Only two main records retain source-attributed high cost/shipping. Most cost fields are unknown; composites, historical controls/designs/diagnostics and leads do not define independent incident samples. Main register size is not the denominator. No pass or fail can be inferred.",
+    "qualitative_MEANING_risk": "Wrong objectives, omitted lift or encoding premises, mismatched loci/count objects, partial-incidence formulation and compiled/sign-convention labels can provide well-bound evidence about the wrong intended statement. Custody or a small core cannot discover intended meaning.",
+    "qualitative_ADAPTER_risk": "Vacuous/weak checks, variable shadowing, incomplete canonicalizers/oracles, heuristic admissibility, noncanonical comparisons and schema/custody/encoding defects can manufacture misleading receipts. Checker soundness admission, adversarial controls and adapter meaning obligations remain essential.",
+    "review_before_Phase1": true,
+    "screen_passed": false
+  },
+  "accepted_manifest": {
+    "path": "corpus/incident-registers/MANIFEST.json",
+    "sha256": "e8bb858d7cc6a397c56fb76ec7dc669e3600e2142d18e73a537ec89dc6ff260f"
+  },
+  "no_fresh_campaign_execution_or_repair": true,
+  "g0_complete": false
+}

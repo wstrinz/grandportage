@@ -1,0 +1,31 @@
+{
+  "status": "parent_review_completed_for_named_deliverables_not_phase_closure",
+  "reuse_accepted": 15,
+  "diagnostic_mappings_retained": 2,
+  "reuse_rejected": [
+    "84.8"
+  ],
+  "operational_register": {
+    "rows": 29,
+    "mechanisms": 11,
+    "source_blobs_hash_checked": 14,
+    "json_pointers_resolved": 56,
+    "accepted_as": "incident evidence consolidation, not neutral corpus/schema coverage",
+    "remaining_contrast": null,
+    "source_only": [
+      "58.3a",
+      "76.8b"
+    ],
+    "76.7_parent_review": {
+      "source_pins_checked": 7,
+      "actual_graph_hashes_and_events_checked": 2,
+      "accepted_at": "declaration identity only",
+      "evidence": "reports/PHASE-0A-GENERATOR-IDENTITY-CONTRAST.json"
+    }
+  },
+  "unchanged_case_hashes_and_expectations": 408,
+  "replay": "reports/oracle-runs/20260929T013956101499Z.json",
+  "replay_repeated": false,
+  "reason": "No case/adapter changes; existing immutable replay retained.",
+  "corpus_validation": "408 cases, anchors and pin passed"
+}

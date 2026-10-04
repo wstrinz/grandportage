@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "GP-X293",
+  "seed": null,
+  "title": "Maximum declared exponent verifies",
+  "situation": "Check a bounded exact power identity or composed affine pattern. No equations are bound to a geometric model and no emptiness inference is requested.",
+  "inputs": {
+    "variables": [
+      "x",
+      "u"
+    ],
+    "characteristic": 0,
+    "declared_units": [
+      "u"
+    ],
+    "exponent_limit": 64,
+    "power_identity": {
+      "equation": "x^64",
+      "scalar": "1",
+      "base": "x",
+      "exponent": 64
+    },
+    "question": "check_power_identity"
+  },
+  "attempted_conclusion": "Validate the requested exact identity/pattern under the explicitly supplied exponent limit; retain all model and interpretation obligations.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Maximum declared exponent verifies"
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/factor_power.py",
+      "line": 62,
+      "anchor": "def verify(spec):"
+    }
+  ]
+}

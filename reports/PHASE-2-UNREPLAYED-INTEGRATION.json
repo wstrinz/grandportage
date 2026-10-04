@@ -1,0 +1,113 @@
+{
+ "schema": "gp-phase2-batch-integration/v1",
+ "date": "2026-10-01",
+ "parent_base_commit": "0b2922068d07461178d7fd1b92fff2c40bfd1d80",
+ "author": "GPC directly (single-chat operation)",
+ "previous_integration": "PHASE-2-GUARD-INTEGRATION.json",
+ "review": {
+  "X229": "Native Span admission with real univariate cofactor replay in the contrast; historical execution metadata is never a registered receipt (unregistered_name_refused).",
+  "X65": "Named checked verdict bound to exact canonical stratum data; name-only and mutated-stratum verdicts refuse with countermodels.",
+  "parser": "Small native univariate parser for fixture polynomial strings, mirrored independently on the host.",
+  "boundary": "Multivariate localized certificate not replayed."
+ },
+ "verdicts": {
+  "GP-X229": "REFUSE",
+  "GP-X65": "REFUSE"
+ },
+ "controls": {
+  "X229_replayed_cofactor": "ACCEPT",
+  "X229_wrong_cofactor": "REFUSE",
+  "X229_false_identity_with_cofactor": "REFUSE",
+  "X229_identified_historical_backend": "REFUSE",
+  "X229_unknown_question": "MALFORMED",
+  "X229_unsupported_variable": "MALFORMED",
+  "X65_checked_verdict": "ACCEPT",
+  "X65_stale_after_generator_mutation": "REFUSE",
+  "X65_stale_after_guard_mutation": "REFUSE",
+  "X65_extra_input_field": "MALFORMED"
+ },
+ "counts": {
+  "previous_corpus_passes": 66,
+  "new_corpus_passes": 2,
+  "corpus_passes": 68,
+  "kernel_tagged_total": 79,
+  "remaining_kernel_cases": 11,
+  "new_corpus_cases": 0,
+  "fresh_corpus_folds": 8,
+  "separate_controls": 10,
+  "new_host_tests": 10,
+  "new_host_subtests": 21,
+  "fresh_prior_regression_tests": 229,
+  "fresh_prior_regression_subtests": 678,
+  "unchanged_retained_tests": 95,
+  "unchanged_retained_subtests": 250,
+  "total_current_test_coverage": 334,
+  "total_current_subtest_coverage": 949,
+  "new_audited_proof_declarations": 7
+ },
+ "validation": {
+  "new_suite": "10 passed, 21 subtests passed in 112.50s (0:01:52)",
+  "prior_suite": "229 passed, 678 subtests passed in 122.95s (0:02:02)",
+  "retained_suites": "Earlier phase-2 suites are byte-identical to the parent commit; not re-executed.",
+  "build": {
+   "harness_sha256": "ec35a6a1523ce7e2230586883aa01426be24f14b840857241954f9b06393093d",
+   "olean_sha256": "241c15ac75a25e5cf3bb5d62b1b59a0d6e778bc3873029859d95516b5546cbc4",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "compile_exit_code": 0,
+   "checker_exit_code": 0,
+   "kernel_checked": true,
+   "axiom_declarations": [
+    "unregistered_name_refused",
+    "held_identity_is_formal_span",
+    "current_verdict_sound",
+    "actual_base_sound",
+    "actual_fold_held_sound",
+    "name_alone_no_meaning",
+    "stale_verdict_not_current"
+   ]
+  },
+  "legacy_preservation": {
+   "case_count": 459,
+   "summary": {
+    "AGREES": 403,
+    "DIAGNOSTIC_OBSERVED": 4,
+    "KNOWN_DIFFERENCE": 14,
+    "UNSUPPORTED": 9,
+    "RETAINED_DIAGNOSTIC": 29
+   },
+   "protected_count": 67,
+   "receipt_sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f"
+  }
+ },
+ "source_hashes": {
+  "STATUS.md": "d9445e2308f26bf9d88974662cd25dfb0303a9cfd932fce71ba79ad02a1ea16e",
+  "TCB.md": "9d173ce090ad8d18ee3c8f7fc316e384db78f56e94075da78f460c2af5c9675a",
+  "tools/run-phase2-slice.py": "869ff80c055397bce456a7921c97cb9bb9b926ee59c5a141cfcde6ccd05d8d11",
+  "reports/PHASE-2-SLICE.json": "78a912205ca64c6e1ffd1a265c0556b08f5429fe819f4db8de6f5d3fbe0ad5f7",
+  "reports/PHASE-2-SLICE.md": "32891b6f31035a464f236a1f5a2b72ec849ff627d2a53a433ebb3296f81b953e",
+  "reports/PHASE-2-UNREPLAYED-EVIDENCE.json": "07f029f7a46108d698f6863d1d98f97a18bb624bf6f6a74cbfc34fc394ea23c6"
+ },
+ "remaining_queue": {
+  "supplied-premise-authority": [
+   "GP-A14",
+   "GP-X04",
+   "GP-X09"
+  ],
+  "native-event-lifecycle": [
+   "GP-X149",
+   "GP-X150",
+   "GP-X151",
+   "GP-X156",
+   "GP-X157",
+   "GP-X160",
+   "GP-X162",
+   "GP-X163"
+  ]
+ },
+ "g2_pass": false,
+ "public_push": false
+}

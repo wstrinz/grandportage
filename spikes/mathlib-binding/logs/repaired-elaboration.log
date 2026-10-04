@@ -1,0 +1,27 @@
+Binding.lean:26:24: warning: Try `simp at h` instead of `simpa using h`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+Binding.lean:26:8: error: typeclass instance problem is stuck
+  NeZero 1
+
+Note: Lean will not try to resolve this typeclass instance problem because the first, second, and third type arguments to `NeZero` contain metavariables. These arguments must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+Binding.lean:56:4: warning: Try `simp at hc` instead of `simpa using hc`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+Binding.lean:75:37: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HDiv (ZMod 2) (ZMod 2) ?m.13
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Binding.lean:75:72: error: unsolved goals
+⊢ sorry ()
+'Binding.integral_unit_identity' depends on axioms: [propext]
+'Binding.integral_system_empty' depends on axioms: [propext, sorryAx]
+'Binding.gp_a08b_F3' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'Binding.denominator_eight_zero' depends on axioms: [propext]
+'Binding.denominator_eight_not_unit' depends on axioms: [propext]
+'Binding.gp_a05_no_coefficient' depends on axioms: [propext]
+'Binding.gp_a05_F2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Binding.gp_a05_no_rat_ring_hom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Binding.totalized_division_is_zero' does not depend on any axioms

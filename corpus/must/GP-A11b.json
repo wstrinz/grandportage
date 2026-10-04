@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "GP-A11b",
+  "seed": "A11",
+  "title": "Identities may travel by checked substitution",
+  "situation": "A checked ring automorphism changes variables and a selected embedding.",
+  "inputs": {
+    "substitution": {
+      "w": "-7-w",
+      "x": "-x"
+    },
+    "evidence": "both ring pullbacks and inverse compositions checked"
+  },
+  "attempted_conclusion": "Transport an identity with the checked substitution applied.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "A ring isomorphism supports transformed identities."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 551,
+      "anchor": "| A11 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_kernel.py",
+      "line": 99,
+      "anchor": "def test_equivalence_licenses_identity_only_across_a_ring_isomorphism("
+    }
+  ]
+}

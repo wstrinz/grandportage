@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "GP-X322",
+  "seed": null,
+  "title": "Named first-order fiber has a checked nonzero obstruction",
+  "situation": "The pinned first-order fiber receipt provides an exact L-valued omega_comb at one landed base witness. Replay its required nonzero premise at that named witness.",
+  "inputs": {
+    "control": "omega_nonzero",
+    "fixture_sha256": "070de7693f7d0b8044f3a91e3a00147407f474ff333d69a8cfa18b1028b6477c",
+    "witness_value": "omega_comb",
+    "point_universe": "L = K[y]/(y^2-d)"
+  },
+  "attempted_conclusion": "Accept the nonzero omega_comb premise for this one named first-order fiber.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Exact coefficient replay finds a nonzero omega_comb at the landed witness."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_depth8_fiber.py",
+      "line": 69,
+      "anchor": "def test_zeroed_omega_comb_is_refused():"
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_depth8_fiber/adapter.py",
+      "line": 164,
+      "anchor": "require(_element_nonzero(values.get(\"omega_comb\"), \"Omega_comb\"), \"N8\","
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_depth8_fiber/adapter.py",
+      "line": 177,
+      "anchor": "require(actual_digests == EXPECTED_OBJECT_DIGESTS, \"N10\","
+    }
+  ]
+}

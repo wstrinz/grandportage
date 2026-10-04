@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "GP-X58",
+  "seed": null,
+  "title": "A truncated transfer slice is not the full tower",
+  "situation": "The slice drops higher equations and cannot be treated as equivalent to the full tower.",
+  "inputs": {
+    "source_object": "Full marked PowerSeries transfer tower",
+    "target_object": "Emitted degree-three-through-seven transfer slice",
+    "information_lost": [
+      "transfer terms of degree eight and above",
+      "automatic remainder control"
+    ],
+    "source_context": "QQ",
+    "claim": "NONEMPTY",
+    "direction": "AGAINST",
+    "supplied_lift_warrant": null
+  },
+  "attempted_conclusion": "Conclude that the full transfer tower has a solution from a solution of its degree-three-through-seven slice.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The omitted higher-degree equations and remainder bound are not provided by a finite slice solution."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_formalization_transport.py",
+      "line": 70,
+      "anchor": "def test_non_affine_lifts_and_slice_reversal_fail_closed("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "fixtures/jc_formalization_transport/v0.json",
+      "line": 599,
+      "anchor": "\"id\": \"JC.ASSAY.G.SLICE_TO_FULL\""
+    }
+  ]
+}

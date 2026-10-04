@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "CTRL-WRONG-COFACTOR",
+  "title": "A08b with a wrong cofactor",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "generators": [
+      "2*x",
+      "1-2*x"
+    ],
+    "cofactors": [
+      "1",
+      "2"
+    ],
+    "characteristic": 0
+  },
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "1*(2x) + 2*(1-2x) = 2 - 2x is not 1."
+  },
+  "control": "adversarial admission control (post-G2 \u00a73.3); not a corpus case"
+}

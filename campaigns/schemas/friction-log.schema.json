@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "gp-friction-log/v1",
+  "title": "Campaign friction log entry (one JSON object per line)",
+  "description": "Post-G3a handoff §3: every refusal the campaign agent meets, classified. useful: stopped a real error. false: a sound claim was refused. ergonomic: the right refusal with an unhelpful message. Makes KILL-CRITERIA A5 prospective.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["at", "task", "command", "claim", "refusal", "class", "rationale"],
+  "properties": {
+    "at": {"type": "string", "format": "date-time"},
+    "task": {"type": "string", "minLength": 1, "description": "The cost-log task this refusal belongs to."},
+    "command": {"type": "string", "description": "The gp command that was refused, verbatim."},
+    "claim": {"type": ["string", "null"]},
+    "refusal": {"type": "object", "additionalProperties": false, "required": ["message", "rule", "scope"],
+      "properties": {"message": {"type": "string"}, "rule": {"type": "string"}, "scope": {"type": "string"},
+        "smallest_fix": {"type": "string"}}},
+    "class": {"enum": ["useful", "false", "ergonomic"]},
+    "rationale": {"type": "string", "minLength": 1},
+    "reported_to_builder": {"type": "boolean"},
+    "builder_fix": {"type": ["string", "null"], "description": "The builder commit that fixed a false or ergonomic refusal."}
+  }
+}

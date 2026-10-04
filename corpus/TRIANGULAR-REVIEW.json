@@ -1,0 +1,50 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "grandportage/triangular.py",
+      "sha256": "a8f1226150c59fdad723a16097b07cb905b451ccf60e49e76e60308cc66f7f2e",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_triangular.py",
+      "sha256": "7453337802a64d38e7ef65806b69d414b78e7b3a8733605ffa7cae049965de9a",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "fixtures/algebraic_contracts/localized_triangular_solve_chain_v1.json",
+      "sha256": "deb4b7fcc2ab004bc62767f4130b0dc4ca88061481195ea5d983f32aacacf133",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "fixtures/algebraic_contracts/localized_triangular_solve_chain_v2.json",
+      "sha256": "23ab77e64e73b200f5e923c5e9ce5930e31698bbb4f06a8c0b811d2682821067",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "caller_slices": [
+    "grandportage/cli.py:cmd_verify_localized_triangular_chain"
+  ],
+  "tests": {
+    "passed": 20,
+    "report": "reports/oracle-triangular-review.xml"
+  },
+  "soundness_argument": "Each selected equation is checked as c*(pivot-solution), or that expression plus an exact combination of persistent normalization equations. Where c is a unit and normalization equations vanish, its zero locus determines pivot=solution. Exact substitution into every remaining ordered generator preserves the remaining constraints. Pivots are distinct, no solution or normalization equation uses any pivot, and localization variables are not eliminated. The standalone report still requires graph binding and interpretation of these hypotheses before any point-map/equivalence claim.",
+  "findings": [
+    "Source receipt ID/digest are shape-checked metadata only, not resolved or authenticated. State fingerprints bind ordered normalized lists and context labels, not geometric equivalence or source provenance.",
+    "V2 normalization equations are persistent declared hypotheses, not proven members of the initial ideal. They may be absent from initial_generators; this is intentional conditional semantics, with an explicit open obligation.",
+    "Every step binds current state and selected equation index, checks unit-monomial coefficient and affine identity, and compares complete ordered nonzero substituted output.",
+    "Solutions cannot reference any chain pivot, including future pivots; this supports a restricted independent-solution form, not arbitrary triangular dependency chains.",
+    "The variable list remains unchanged after solving. Final_generators alone must not be mistaken for the same locus in the original ambient ring; solved coordinates and reconstruction maps matter.",
+    "A shared arithmetic budget spans verification. Public state_fingerprint helper canonicalizes polynomials but does not perform all verify context validation.",
+    "Text CLI states no graph authority; structured report lists detailed unit/normalization/map obligations. No new graph admission route established by this review."
+  ],
+  "remaining": [
+    "Extract uncovered portable controls and review whole-request parse/error/budget behavior.",
+    "Any later point-equivalence adapter needs exact graph context and localization/normalization binding plus forward/reverse map proof."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "new_cases": [
+    "GP-X292",
+    "GP-X293",
+    "GP-X294",
+    "GP-X295",
+    "GP-X296",
+    "GP-X297",
+    "GP-X298",
+    "GP-X299",
+    "GP-X300",
+    "GP-X301"
+  ],
+  "prior_cases_verified": 332,
+  "prior_case_bytes": "Matched HEAD with git cat-file --batch before additions; all previous replay hashes and expected/observed/status values unchanged.",
+  "replay": "reports/oracle-runs/20260928T141913475576Z.json",
+  "summary": {
+    "AGREES": 328,
+    "DIAGNOSTIC_OBSERVED": 1,
+    "KNOWN_DIFFERENCE": 11,
+    "PENDING": 1,
+    "UNSUPPORTED": 1
+  },
+  "expected_counts": {
+    "REFUSE": 238,
+    "ACCEPT": 104
+  },
+  "adapter_sha256": "7a03492949cbdb8ffb088c45610d06a28bef1c62c07aaca6b15ad5bac9956cee",
+  "scope": "Explicit bounded identity/pattern profile only; no model emptiness or interpretation proof."
+}

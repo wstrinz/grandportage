@@ -1,0 +1,60 @@
+{
+  "schema": "gp-local-path-migration/v1",
+  "rules": "Rewrite absolute local machine paths to portable forms and re-bind the SHA-256s that bound them.\n\nusage: python tools/neutralize-local-paths.py [--dry-run] [--receipt reports/LOCAL-PATH-MIGRATION.json]\n\nPath tokens (any separator style, including JSON-escaped backslashes) are rewritten by root:\n  <drive>:/repos/grandportage-0.50/X   -> X            (the workspace itself; bare root -> $WORKSPACE)\n  <drive>:/repos/OTHER/X               -> $REPOS/OTHER/X\n  <drive>:/Users/<user>/dev/X          -> $DEV/X       (predecessor and campaign repositories)\n  <drive>:/Users/<user>/.elan/X        -> $ELAN_HOME/X\n  <drive>:/Users/<user>/AppData/X      -> $APPDATA/X\n  <drive>:/Users/<user>/X, /c/Users/<user>/X -> $HOME/X",
+  "rewritten": [
+    "HANDOFF.md",
+    "review/LSEM-COLD-RETEST-PACKET-2026-08-03.md",
+    "review/v0.28/cold-trial-failure-matrix.md",
+    "review/v0.32-preflight/README.md",
+    "review/v0.32/SOL-HANDOFF.md",
+    "review/v0.32/guard-replay.json",
+    "review/v0.32/validation.txt",
+    "review/v0.33/validation.txt",
+    "review/v0.34/validation.txt"
+  ],
+  "rebound": [
+    "review/v0.28/cold-trial-report.md"
+  ],
+  "digests": {
+    "HANDOFF.md": {
+      "old": "15bec9c02503ecf2cb5a4f1f648acfdfe416f0712bf7287afd07da47999fd3b9",
+      "new": "055615b222ebc9875fc257590f08c99fca6460746ac5867a145ce41a193a8f0b"
+    },
+    "review/LSEM-COLD-RETEST-PACKET-2026-08-03.md": {
+      "old": "e24a657a6ecbe3953b99555465c36d5832c7e916df0e0f3439ba9150f7ca294d",
+      "new": "903a2f8cc7e0007cc32b96ef6ebc316646009c66731f134f53a2951c26806190"
+    },
+    "review/v0.28/cold-trial-failure-matrix.md": {
+      "old": "ffb05ef7e2f1c4d8561aa75c27a8b270028db879600df7d7875e7467835e8432",
+      "new": "a5860138e638a7526e0e0da9ffd16aa30c851a82b814c3a23034f16940c1fc9c"
+    },
+    "review/v0.28/cold-trial-report.md": {
+      "old": "89a1a5819707a6818dbff97904e3a6071b60a88758e24d65871da0038d5cc3db",
+      "new": "c35d0bf55aa455fa1848570ba5f6e3bfc96bc3686d2f33bbbc1b4cef04a66665"
+    },
+    "review/v0.32-preflight/README.md": {
+      "old": "bde02ea0fab6e52dea8a94784221f0a4f234979811a8c9438bd01c6e09f8f90c",
+      "new": "14897bde7a279c884a2118345a8a977a4595fa3543e92e75961622119cca0ef7"
+    },
+    "review/v0.32/SOL-HANDOFF.md": {
+      "old": "594b8927e6b02899eaa27854df6af2a025ee30db77f5f874cd77236a2dccd91a",
+      "new": "d187b7b43af9912b8b37e2201a75cf61b1e9786a7d36a50d9a82ace873bb62a1"
+    },
+    "review/v0.32/guard-replay.json": {
+      "old": "9302f3e16b90f2602c2efca43746292ccfae1cde0ef28dc60f1e166cb9db00dc",
+      "new": "123eee63d54df1256cd1ec83977de6d3dc387ee7fdd696943acc123d7461d545"
+    },
+    "review/v0.32/validation.txt": {
+      "old": "5034ad34c6b9d8d10d5cbf51213a5dd92071c39aaaffca8bd1b0c1b88cfe9530",
+      "new": "448db36cebb05ec9d98cd104480d185a6ac5c2c82c35a7adc0f06505d98554d8"
+    },
+    "review/v0.33/validation.txt": {
+      "old": "623a7e20b6f5787ffe43272f930effc2493c0b548d566249bffa0fc17228ef45",
+      "new": "9c7188bf51c5754b0c846c765d62c7aa3ae3be08990ff5a090a408ac45a75139"
+    },
+    "review/v0.34/validation.txt": {
+      "old": "e798d67d9ec308a57105498213f349004d5e378198d3e9c356dd4aaa35bb4d0e",
+      "new": "561e8e350d8bf612691a3fc2b3144b60466364d051579a55268804d5cd4d20d1"
+    }
+  }
+}

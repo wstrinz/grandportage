@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "id": "GP-X26",
+  "seed": null,
+  "title": "Bounded JC source witness with dm4 cap 1",
+  "situation": "All other retained template polynomials are zero.",
+  "inputs": {
+    "source_variables": [
+      "d0",
+      "d1",
+      "d2",
+      "dm1",
+      "dm2",
+      "dm3",
+      "dm4",
+      "Phi"
+    ],
+    "source_equations": [
+      "3/2*d1*dm1^2+3*d2*dm1*dm2+3*dm1*dm4+3*dm2*dm3",
+      "-3/2*d0*dm1^2+3/2*d2*dm2^2+3*dm2*dm4+3/2*dm3^2",
+      "-3*d0*dm1*dm2-3/2*d1*dm2^2-1/2*dm1^3+3*dm3*dm4",
+      "Phi-3*d0*dm1*dm4-3*d0*dm2*dm3-3*d1*dm2*dm4-3/2*d1*dm3^2-3*d2*dm3*dm4-3/2*dm1^2*dm3-3/2*dm1*dm2^2"
+    ],
+    "parameter": "y",
+    "point": {
+      "d0": "0",
+      "d1": "0",
+      "d2": "1",
+      "dm1": "0",
+      "dm2": "y",
+      "dm3": "0",
+      "dm4": "-y/2",
+      "Phi": "0"
+    },
+    "caps": {
+      "d0": 1,
+      "d1": 1,
+      "d2": 1,
+      "dm1": 1,
+      "dm2": 1,
+      "dm3": 1,
+      "dm4": 1,
+      "Phi": 1
+    }
+  },
+  "attempted_conclusion": "Accept the displayed bounded polynomial source solution.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Every source equation vanishes exactly and every polynomial obeys its declared degree cap."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_groebner_producer.py",
+      "line": 615,
+      "anchor": "def test_real_jc_dm4_materializer_discovers_17_retained_relations("
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "OPERATION-CONTRACTS.md",
+      "line": 193,
+      "anchor": "The first live JC assay puts cap 1"
+    }
+  ]
+}

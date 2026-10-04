@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "GP-X399",
+  "seed": null,
+  "title": "Family PREDICATE cannot be used as a model inference premise without a checked family bridge",
+  "situation": "A two-member family has a PREDICATE count-style claim, but the inference supplies it as a premise without a model-level checked family_bridge.",
+  "inputs": {
+    "fixture": "fixtures/D1-inference-on-family-claim/input.json",
+    "fixture_lf_sha256": "023ae70cb544e795fa78710a629886d4f25e0193b50f41c4df30938ebd97e591",
+    "fixture_manifest_source_commit": "b876fe4ed5c8963a0e8c19e18c829821c0686654",
+    "family": {"id": "F", "count": 2, "enumeration": "C-COUNT"},
+    "claim": {"id": "C-COUNT", "kind": "PREDICATE", "family": "F", "asserts_count": 2},
+    "inference": {"id": "INF", "premises": ["C-COUNT"], "concludes_kind": "PREDICATE"},
+    "missing_premise": "A checked family_bridge from an exhibited proved member to a model-level premise."
+  },
+  "attempted_conclusion": "Use the family PREDICATE claim directly to derive a model conclusion.",
+  "expected": {"verdict": "REFUSE", "reason": "The frozen guard rejects a family premise at the DISCHARGE family gate; no checked bridge is supplied."},
+  "scope_or_region": "N/A",
+  "sources": [
+    {"repository": "gp-v037", "commit": "ac4155787207e2847d248cffed7be871d5dcd577", "path": "tests/test_guard_release.py", "line": 26, "anchor": "def test_family_premise_refuses_with_discharge_without_crashing("}
+  ]
+}

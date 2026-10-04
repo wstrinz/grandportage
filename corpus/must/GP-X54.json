@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "GP-X54",
+  "seed": null,
+  "title": "A finite witness does not establish a formal arc",
+  "situation": "Lean constructs the canonical witness, while GP records the cross-representation binding and refuses the converse.",
+  "inputs": {
+    "source_object": "Genuine marked formal arc",
+    "target_object": "Canonical finite exact marked witness",
+    "information_lost": [
+      "the unbounded power-series tail beyond the finite witness interface"
+    ],
+    "source_context": "QQ",
+    "claim": "NONEMPTY",
+    "direction": "AGAINST",
+    "supplied_lift_warrant": null
+  },
+  "attempted_conclusion": "Conclude that a genuine formal arc exists from a finite exact marked witness.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The finite witness omits the unbounded tail and no converse lifting warrant is supplied."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_formalization_transport.py",
+      "line": 70,
+      "anchor": "def test_non_affine_lifts_and_slice_reversal_fail_closed("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "fixtures/jc_formalization_transport/v0.json",
+      "line": 557,
+      "anchor": "\"id\": \"JC.ASSAY.C.FINITE_TO_FORMAL\""
+    }
+  ]
+}

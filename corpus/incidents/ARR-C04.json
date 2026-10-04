@@ -1,0 +1,93 @@
+{
+  "id": "ARR-C04",
+  "campaign": "ARR15",
+  "origin": "own",
+  "class": "BINDING",
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+      "lines": [
+        430,
+        450
+      ],
+      "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+      "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+    }
+  ],
+  "claimed": "Use unrelated Barakat-Kuehne M12 objects for singular M1/M2 calibration, or search the generation paper for later M13 naming.",
+  "problem": "FRONTIER attributes singular M1/M2 to Kuehne-Luber-Pokora/Corey-Luber and exceptional M13 naming to the nonfree-locus paper.",
+  "discovered_by": "unknown",
+  "cost": null,
+  "shipped": null,
+  "gp_v037_would_catch": null,
+  "core_expressible": null,
+  "core_would_refuse": null,
+  "notes": "Attribution correction grounded only in summary, no new theorem or independent primary verification. M12 and M13 confusions are distinguished subitems, not counted as proved mathematical failures. Primary-class choices are parent provisional; core catch remains null.",
+  "subfindings": [],
+  "status": "final retained source-backed record under ratified unknown policy; observation and counting limits remain explicit",
+  "primary_class": "BINDING",
+  "primary_origin": "own",
+  "record_kind": "source-attributed correction/group",
+  "final_disposition": "retain qualified source-backed Appendix B candidate",
+  "owner_id": "ARR-C04",
+  "original_pointer": {
+    "report": "reports/PHASE-0B-INVENTORY-DRAFT.json",
+    "pointer": "/rows/48",
+    "sha256": "ab1a7c4728bf5ff36129df136adb9c2f612181662ef29ee23358323d866a8ab2",
+    "review_date": "2026-09-29",
+    "date_kind": "retained report review date; not incident date or source publication date"
+  },
+  "source": {
+    "repo": "$WORKSPACE",
+    "ref": "reports/PHASE-0B-INVENTORY-DRAFT.json#/rows/48",
+    "date": "2026-09-29",
+    "review_date": "2026-09-29",
+    "date_kind": "review-source date of retained report; not incident date or original primary-source date"
+  },
+  "incident_date": null,
+  "source_date_qualification": "No incident date invented; original source dates/history metadata remain unchanged in sources.",
+  "cost_note": "Source evidence does not establish incident-specific work lost/cost class.",
+  "shipped_note": "Source evidence does not establish publication or handoff of a wrong claim; unknown is neither false nor n/a.",
+  "gp_v037_would_catch_note": "No supported frozen-GP catch verdict for this episode. Conditional design/reuse commentary in notes is not a yes/no/partial assessment; no fresh campaign replay.",
+  "counting_qualification": {
+    "record_count": 1,
+    "independent_sample": null,
+    "mathematical_incident_count": null,
+    "rule": "Count this owner record once. Repeated summaries, witnesses, consumers and children do not add independent samples.",
+    "source_detail": "Attribution correction grounded only in summary, no new theorem or independent primary verification. M12 and M13 confusions are distinguished subitems, not counted as proved mathematical failures. Primary-class choices are parent provisional; core catch remains null."
+  },
+  "classification_qualification": "Proposed primary class and origin retained from accepted inventory; uncertainty and secondary dimensions remain in evidence. Not a statistically adjudicated incident population.",
+  "parent_adjudications": [
+    {
+      "decision": "retain bounded terminology/source/theorem-application or novelty correction; no global literature/theorem verification or wrong public census inferred",
+      "qualifications": "Attribution correction grounded only in summary, no new theorem or independent primary verification. M12 and M13 confusions are distinguished subitems, not counted as proved mathematical failures.",
+      "source": [
+        {
+          "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+          "lines": [
+            430,
+            450
+          ],
+          "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+          "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout"
+        }
+      ],
+      "pointer": {
+        "report": "reports/PHASE-0B-ARR15-PARENT-INTAKE.json",
+        "pointer": "/dispositions/3",
+        "sha256": "b0f5939999ceecf8ad1b62f268c73245cc103bfabea4e5299204d22f1ea21df8",
+        "review_date": "2026-09-29",
+        "date_kind": "retained report review date; not incident date or source publication date"
+      }
+    }
+  ],
+  "linked_cross_occurrence": null,
+  "children": [],
+  "evidence_level": "retained source-backed report; no new source read, execution, or authentication",
+  "parent_integration": {
+    "worker_report": "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "worker_report_sha256": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849",
+    "register": "incident/correction/group"
+  }
+}

@@ -1,0 +1,150 @@
+{
+ "schema": "gp-phase2-transport-integration/v1",
+ "date": "2026-10-01",
+ "parent_base_commit": "88104dfb36953ba1a88e88ba29bcca3b21aaaf9e",
+ "source_hashes": {
+  "STATUS.md": "a256a7cb689a1095f7db27277ef25bc7a85f588b04ed7a9f023e590e25f31908",
+  "TCB.md": "21ebbed7cee44f4666705eb82311d49f820f1c1cf31f5291ba7ec968aad19c59",
+  "DECISIONS.md": "d87677e9fd7a0de28fdc18ff922b0f7c10546c1964c9df65d188f7a81249cbb2",
+  "phase2/lean/Tests/ConditionalTheoremTransport.lean": "44b7be4519a826129b2a9bc300cbb170b081ca1033b4c5dd8c4daeb07e237a41",
+  "tools/run-phase2-conditional-theorem-transport.py": "fde2fae6e64f9590dca591302511ab3030a92a59da3645be5e5a1c082dde55d0",
+  "tests/test_phase2_conditional_theorem_transport.py": "b77cecddc125a4badd714c32b32e6afa23d9373cd6d05a4e59fe3d2f7685df03",
+  "reports/PHASE-2-CONDITIONAL-THEOREM-TRANSPORT.json": "4764506343f891bfa01c79ab1eadbd5e09b6e5b0ac0101fa2a8045a89e1fbdd8",
+  "tools/run-phase2-slice.py": "1ef525313dfbe73334012624960448f8d271bc3d9c399335edaa88cc35a5371c",
+  "reports/PHASE-2-SLICE.json": "581fbd3b1c7fcf10da2ad44bd87ea204014c11eb44a9915414ef53bce903cb3f",
+  "reports/PHASE-2-SLICE.md": "257c2cfb50920884f8986e7d07c58294d1052f4de9926b8c82ec86e828786c62",
+  "reports/PHASE-2-PROVENANCE-SLICE.json": "41f3d85b5217d2c1f17dd683fa929601fdb5cba920ef07f0da0dc9b54b44a0e3",
+  "reports/PHASE-2-CHECKED-LIFECYCLE-SUPPLEMENT.json": "8dae8b1cde885c7fce0b8e6d92903fc069e10610355080d06bb74eeb769abe93",
+  "reports/PHASE-2-MISSING-AUTHORITY.json": "65297dcc86efd7811a6e0b8ee0fc50e573399eeebd8c28de2f203b4d79472a46"
+ },
+ "author": "GPC directly (single-chat operation; no separate worker)",
+ "review": {
+  "semantics": "Authority and consumer edge each mean only that their premise statements imply their source-to-target reach. The named theorem is an explicit hypothesis; status is custody metadata and no premise is discharged.",
+  "licensing_policy": "Exact equality of endpoints and ordered premise records including status, matching pinned EDG6/EDG7. Proofs depend only on licensed_sound (equal endpoints, every authority premise retained).",
+  "countermodels": [
+   "omitted_premise_not_transported",
+   "rebound_target_not_transported",
+   "open_premises_not_discharged"
+  ],
+  "pinned_binding": "Fixture premises, statuses, source and target equal the pinned ledger records and lowercased object labels; X62 rebinds the authority to JC.SEM.RELAXED_SUMMIT_POINT while the consumer edge keeps its endpoint.",
+  "verdicts": {
+   "GP-X60": "ACCEPT",
+   "GP-X61": "REFUSE",
+   "GP-X62": "REFUSE"
+  },
+  "controls": {
+   "reorder_edge_premises": "REFUSE",
+   "duplicate_edge_premise": "REFUSE",
+   "invent_edge_premise": "REFUSE",
+   "discharge_open_premises": "REFUSE",
+   "omit_gauge_premise": "REFUSE",
+   "rebind_edge_source": "REFUSE",
+   "rebind_edge_target": "REFUSE",
+   "withheld_authority": "REFUSE",
+   "wrong_binding": "REFUSE",
+   "theorem_pointer": "REFUSE",
+   "citation_only": "REFUSE",
+   "unknown_premise_status": "MALFORMED",
+   "unknown_proposal": "MALFORMED",
+   "extra_input_field": "MALFORMED"
+  },
+  "theorem_replayed": false,
+  "production_profile_adoption": false
+ },
+ "integration_changes": "Promote the fresh receipt to the primary report. Append three execution rows to the aggregate, retaining the previous 52 verbatim. Add a main-driver stage for future complete refresh. Refresh aggregator identity fields only in three earlier reports, with no claim of fresh prior native execution.",
+ "counts": {
+  "previous_corpus_passes": 52,
+  "new_corpus_passes": 3,
+  "corpus_passes": 55,
+  "kernel_tagged_total": 79,
+  "remaining_kernel_cases": 24,
+  "new_corpus_cases": 0,
+  "fresh_corpus_folds": 12,
+  "separate_controls": 14,
+  "new_host_tests": 14,
+  "new_host_subtests": 38,
+  "fresh_prior_regression_tests": 229,
+  "fresh_prior_regression_subtests": 678,
+  "unchanged_retained_tests": 43,
+  "unchanged_retained_subtests": 109,
+  "total_current_test_coverage": 286,
+  "total_current_subtest_coverage": 825,
+  "new_audited_proof_declarations": 11
+ },
+ "validation": {
+  "new_suite": "14 passed, 38 subtests passed in 217.78s",
+  "prior_suite": "229 passed, 678 subtests passed in 146.05s",
+  "retained_suites": "Point, recorded-use and A27 tests, harnesses, adapters and reports are byte-identical to 88104df; not re-executed.",
+  "build": {
+   "harness_sha256": "44b7be4519a826129b2a9bc300cbb170b081ca1033b4c5dd8c4daeb07e237a41",
+   "olean_sha256": "420c60a439e78fb352c735ebd84d9fc901985b749f58358bf03b0d57b291a005",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "compile_exit_code": 0,
+   "checker_exit_code": 0,
+   "kernel_checked": true,
+   "axiom_declarations": [
+    "licensed_sound",
+    "transport_sound",
+    "named_theorem_given",
+    "edge_from_licensed_authority",
+    "actual_base_sound",
+    "actual_validator_sound",
+    "actual_fold_held_sound",
+    "held_edge_is_conditional",
+    "open_premises_not_discharged",
+    "omitted_premise_not_transported",
+    "rebound_target_not_transported"
+   ]
+  },
+  "legacy_preservation": {
+   "case_count": 459,
+   "summary": {
+    "AGREES": 403,
+    "DIAGNOSTIC_OBSERVED": 4,
+    "KNOWN_DIFFERENCE": 14,
+    "UNSUPPORTED": 9,
+    "RETAINED_DIAGNOSTIC": 29
+   },
+   "protected_count": 67,
+   "receipt_sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f"
+  }
+ },
+ "remaining_queue": {
+  "supplied-premise-authority": [
+   "GP-A01",
+   "GP-A08a",
+   "GP-A14",
+   "GP-X04",
+   "GP-X09",
+   "GP-X14",
+   "GP-X173",
+   "GP-X174",
+   "GP-X176",
+   "GP-X229",
+   "GP-X283",
+   "GP-X399",
+   "GP-X402",
+   "GP-X403",
+   "GP-X65"
+  ],
+  "native-event-lifecycle": [
+   "GP-X149",
+   "GP-X150",
+   "GP-X151",
+   "GP-X156",
+   "GP-X157",
+   "GP-X160",
+   "GP-X162",
+   "GP-X163"
+  ],
+  "stored-certificate-binding": [
+   "GP-X175"
+  ]
+ },
+ "g2_pass": false,
+ "public_push": false
+}

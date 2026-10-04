@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X97",
+  "seed": null,
+  "title": "Aggregate overlapping reports with explicit compatible resolutions",
+  "situation": "Report overlap is resolved by declared receipt identities and exact scopes.",
+  "inputs": {
+    "receipts": 7,
+    "proposal": "retain",
+    "proposed_scope": "JC.H3.B0.NOT_THE_SCOPE"
+  },
+  "attempted_conclusion": "Aggregate overlapping reports with explicit compatible resolutions.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Report overlap is resolved by declared receipt identities and exact scopes."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_current_frontier_bundle.py",
+      "line": 18,
+      "anchor": "def test_current_bundle_has_one_explicit_research_boundary("
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "grandportage/release.py",
+      "sha256": "65c3cead208858bf26cd9441288c14c1c473ac35d27640ad7561c9809a11cd9c",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "grandportage/publication.py",
+      "sha256": "ae219cb3ecfac233b4f3626338d12f81568428455d4a9af201623b54d0e9c1b4",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_release.py",
+      "sha256": "ded9d5d7ec7dd8cd3ae6d2450d380db950e75e8a517fcf03e4de18874df2d550",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_publication.py",
+      "sha256": "831e7ed55719316ea146a28203fb1544348f7bbcb56eb7d181c53aca2ee694c5",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "fixtures/release/synthetic/release.json",
+      "sha256": "075039c7129fc7d928e55f130dfadcd556c7bc2bd91823fa1bfc831251870a4f",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "docs/CAMPAIGN-RELEASE-V0.md",
+      "sha256": "cd6e122cd6605d133632cdbd688e757187b498cd2c2e114f3a39703052ff04cf",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "docs/CAMPAIGN-PUBLICATION-V0.md",
+      "sha256": "8fdafc3c7643dc16a31a59a58156c657fbdb89f98df4f827e954fac67320a72e",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "caller_slices": [
+    "grandportage/cli.py:cmd_campaign_release",
+    "grandportage/cli.py:cmd_campaign_publication",
+    "grandportage/cli.py:_write_named_derived_output (2558-2584)",
+    "grandportage/cli.py:_write_derived_output (2587-2588)"
+  ],
+  "tests": {
+    "passed": 20,
+    "report": "reports/oracle-release-publication-review.xml",
+    "scope": "Offline tests; clean Git identity is mocked in materialization tests. Actual archived Python replay executes in full-release and replay-kit tests."
+  },
+  "findings": [
+    "Release planning independently requires CURRENT_CLEAN and audited selected files even without SOURCE_FRESH in the dossier profile. Coverage unconditionally includes canonical sources.",
+    "Replay lane command equality, declared resource/receipt roles and hashes are checked. Neither planner nor materializer executes replay commands; NOT_APPLICABLE bypasses load-bearing replay debt by explicit policy. This is packaging, not mathematical admission.",
+    "Generated artifacts can remove only ARTIFACTS_PRESENT blockers for missing PUBLICATION placeholders with matching generator contracts. They do not prove claims or discharge replay criteria.",
+    "Replay kit intentionally ignores profile/publication-only coverage blockers, but retains selected payload and resource custody checks.",
+    "Publication retains declared grades/scopes; release_covered means selected evidence, not proven or even independently executed evidence. Output includes editorial authority boundaries.",
+    "Materializer takes an evaluated mutable dict, checks its readiness flag and source bytes/commit/dirt, but does not recompute its plan fingerprint or re-run full normalization. CLI builds the plan immediately; arbitrary direct API plans require a separate trust-boundary assessment.",
+    "Source hashes are checked before copyfile; output is not rehashed after copying. Atomic directory rename is not a source snapshot guarantee. Concurrent source modification and hostile-plan controls remain untested.",
+    "Publication uses shallow references for nested metadata; stored fingerprints are not continuously refreshed following caller mutation.",
+    "Synthetic verifier is intentionally relocated into archive/replay with sibling authority and receipts. Archived replay passes: prior source-directory failure is not an established packaging defect.",
+    "Six synthetic controls verify a copy-time source change yields an archive digest mismatch, mutable direct-API plan licensing is not rechecked, ordinary writer refusals work, preexisting PID temporary files are deleted on exclusive-open failure, and case-alias protected paths overwrite on Windows. See exact scope qualifications in boundary audit."
+  ],
+  "remaining": [
+    "Broader path/resource and concurrency controls remain; these bounded controls do not exhaust materializer semantics.",
+    "Historical campaign paragraphs are retained claims, not independently verified live campaign evidence."
+  ],
+  "boundary_audit": "reports/MATERIALIZATION-BOUNDARY-AUDIT.json"
+}

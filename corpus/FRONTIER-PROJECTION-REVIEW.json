@@ -1,0 +1,43 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "grandportage/frontier.py",
+      "sha256": "04bde7fe30865018c6ed461f793a446756c7d8a0901c820e16bd47484079d5ae",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_frontier.py",
+      "sha256": "75b86b7194c85771709a772da858c107b86de029b6e4706779a82c1a55f3e5de",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "caller_slices": [
+    "grandportage/cli.py:cmd_frontier"
+  ],
+  "tests": {
+    "passed": 8,
+    "report": "reports/oracle-frontier-projection-review.xml"
+  },
+  "diagnostics": "reports/FRONTIER-PROJECTION-BOUNDARIES.json",
+  "findings": [
+    "Accepts supplied item/discharge records; does not load the graph or execute evidence. Source descriptors and evidence strings are descriptive.",
+    "Explicit discharges use exact premise/scope ID pairs; item propagation requires an explicit export scope and literal effective status DISCHARGED. VERIFIED alone does not propagate.",
+    "Absent explicit frontier_state, arbitrary nonempty statuses outside the open heuristic become CLOSED in item_observations. FAILED reproduces this default; explicit OPEN avoids it.",
+    "history.input_fingerprint binds normalized historical items only. Different discharge overlays can produce different open sets with identical history fingerprints; this is not a complete current-observation identity.",
+    "Historical records are deep-normalized and projection copies preserve input objects. Stored immutable flags do not prevent later caller mutation of returned dictionaries.",
+    "does_not_discharge is descriptive and not used as a separate constraint. No geometric containment or scope weakening is inferred.",
+    "The fixed-point loop has a len(items)+1 bound and refuses nonconvergence. General status transition/cycle semantics are not proven; do not adopt this as the proposed kernel."
+  ],
+  "proposed_repairs": [
+    "Require explicit OPEN/CLOSED state or a typed exhaustive status mapping when producing shared observations; unknown statuses should not silently close work.",
+    "Expose distinct historical-input and complete-observation fingerprints where consumers require both.",
+    "Keep supplied discharge assertions separate from admitted warrants; require replay/binding at any future authority boundary."
+  ],
+  "remaining": [
+    "Adversarial cycle/status-transition controls and consumer fingerprint use need further semantic review.",
+    "Neutral source/history extraction remains incomplete; no gate completion claimed."
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Phase0b incident record with ratified explicit unknowns",
+  "type": "object",
+  "required": [
+    "id",
+    "campaign",
+    "origin",
+    "source",
+    "claimed",
+    "problem",
+    "class",
+    "scope_or_region",
+    "discovered_by",
+    "cost",
+    "cost_note",
+    "shipped",
+    "gp_v037_would_catch",
+    "core_expressible",
+    "core_would_refuse",
+    "notes"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$"
+    },
+    "campaign": {
+      "type": "string",
+      "minLength": 1
+    },
+    "origin": {
+      "enum": [
+        "own",
+        "literature",
+        "tool"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "repo",
+        "ref",
+        "date"
+      ],
+      "properties": {
+        "repo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "additionalProperties": true
+    },
+    "claimed": {
+      "type": "string",
+      "minLength": 1
+    },
+    "problem": {
+      "type": "string",
+      "minLength": 1
+    },
+    "class": {
+      "enum": [
+        "SCOPE",
+        "WARRANT",
+        "COVER",
+        "BINDING",
+        "JOIN",
+        "MEANING",
+        "ADAPTER",
+        "OTHER"
+      ]
+    },
+    "scope_or_region": {
+      "enum": [
+        "SCOPE",
+        "REGION",
+        "BOTH",
+        "N/A"
+      ]
+    },
+    "discovered_by": {
+      "enum": [
+        "self-review",
+        "checker",
+        "independent replication",
+        "external",
+        "GP",
+        "unknown"
+      ]
+    },
+    "cost": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        null
+      ]
+    },
+    "cost_note": {
+      "type": "string",
+      "minLength": 1
+    },
+    "shipped": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "gp_v037_would_catch": {
+      "enum": [
+        "yes",
+        "no",
+        "partial",
+        "n/a",
+        null
+      ]
+    },
+    "core_expressible": {
+      "const": null
+    },
+    "core_would_refuse": {
+      "const": null
+    },
+    "notes": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": true,
+  "$comment": "DECISIONS.md ratification2026-09-29 permits null cost/shipped/GP-catch. Records retain additional original sources/evidence/counting qualifications. source.date identifies its cited source/report date, never silently inferred incident date. No statistical denominator or Phase1 core result inferred."
+}

@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "id": "GP-A24",
+  "seed": "A24",
+  "title": "A collapsed edge-equation witness is not an injective realization",
+  "situation": "The displayed K_2,2,2 placement satisfies all twelve unit-edge equations in Q[s]/(s^2-3), but each same-class pair has identical coordinates. The target also requires the supplied nonzero separation guard.",
+  "inputs": {
+    "object": "K_2,2,2",
+    "vertices": [
+      "a1",
+      "a2",
+      "b1",
+      "b2",
+      "c1",
+      "c2"
+    ],
+    "classes": [
+      [
+        "a1",
+        "a2"
+      ],
+      [
+        "b1",
+        "b2"
+      ],
+      [
+        "c1",
+        "c2"
+      ]
+    ],
+    "edges": [
+      [
+        "a1",
+        "b1"
+      ],
+      [
+        "a1",
+        "b2"
+      ],
+      [
+        "a2",
+        "b1"
+      ],
+      [
+        "a2",
+        "b2"
+      ],
+      [
+        "a1",
+        "c1"
+      ],
+      [
+        "a1",
+        "c2"
+      ],
+      [
+        "a2",
+        "c1"
+      ],
+      [
+        "a2",
+        "c2"
+      ],
+      [
+        "b1",
+        "c1"
+      ],
+      [
+        "b1",
+        "c2"
+      ],
+      [
+        "b2",
+        "c1"
+      ],
+      [
+        "b2",
+        "c2"
+      ]
+    ],
+    "coefficient_domain": "Q",
+    "point_universe": "ALGEBRAIC_CLOSURE",
+    "variables": [
+      "a1x",
+      "a1y",
+      "a2x",
+      "a2y",
+      "b1x",
+      "b1y",
+      "b2x",
+      "b2y",
+      "c1x",
+      "c1y",
+      "c2x",
+      "c2y"
+    ],
+    "equations": [
+      "(a1x-b1x)^2+(a1y-b1y)^2-1",
+      "(a1x-b2x)^2+(a1y-b2y)^2-1",
+      "(a2x-b1x)^2+(a2y-b1y)^2-1",
+      "(a2x-b2x)^2+(a2y-b2y)^2-1",
+      "(a1x-c1x)^2+(a1y-c1y)^2-1",
+      "(a1x-c2x)^2+(a1y-c2y)^2-1",
+      "(a2x-c1x)^2+(a2y-c1y)^2-1",
+      "(a2x-c2x)^2+(a2y-c2y)^2-1",
+      "(b1x-c1x)^2+(b1y-c1y)^2-1",
+      "(b1x-c2x)^2+(b1y-c2y)^2-1",
+      "(b2x-c1x)^2+(b2y-c1y)^2-1",
+      "(b2x-c2x)^2+(b2y-c2y)^2-1"
+    ],
+    "point": {
+      "a1x": "0",
+      "a1y": "0",
+      "a2x": "0",
+      "a2y": "0",
+      "b1x": "1",
+      "b1y": "0",
+      "b2x": "1",
+      "b2y": "0",
+      "c1x": "1/2",
+      "c1y": "s/2",
+      "c2x": "1/2",
+      "c2y": "s/2"
+    },
+    "witness_field": {
+      "kind": "simple_number_field_v1",
+      "base": "Q",
+      "symbol": "s",
+      "minimal_polynomial": "s^2-3"
+    },
+    "nonzero_guards": [
+      "((a1x-a2x)^2+(a1y-a2y)^2)*((b1x-b2x)^2+(b1y-b2y)^2)*((c1x-c2x)^2+(c1y-c2y)^2)"
+    ],
+    "interpretation_limit": "The native projection checks exact algebraic point equations/guards. The point is collapsed in every embedding; no real-embedding selection or global model emptiness is asserted."
+  },
+  "attempted_conclusion": "Promote this collapsed edge-equation witness to an injective realization.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Each same-class pair coincides, so the injectivity separation guard vanishes. Satisfying the edge equations does not make this offered point an injective realization; rejecting it does not prove no realization exists."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 564,
+      "anchor": "| A24 |"
+    },
+    {
+      "repository": "rework-packet",
+      "path": "docs/A24-CORRECTED-CONTRACT.md",
+      "line": 3,
+      "anchor": "Approval:"
+    }
+  ]
+}

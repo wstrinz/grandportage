@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "GP-X100",
+  "seed": null,
+  "title": "Promote generic-J exclusion to every exceptional fiber",
+  "situation": "A generic result leaves finite exceptional fibers undecided.",
+  "inputs": {
+    "contract_section": "generic_j",
+    "baseline_contract": {
+      "field": "K = QQ[t]/(15*t**3 + 1)",
+      "invariant": "J = a*c^(-3)",
+      "generic_scope": "J != 0 and P_y(J)*P_z(J) != 0 on the named invariant divisor and inherited guarded stratum",
+      "verdict": "C710_DIVISOR_FACE_IDEAL_UNIT_GENERIC_IN_J",
+      "route_y_exceptional_degree": 37,
+      "route_z_exceptional_degree": 37,
+      "exceptional_fiber_semantics": "UNDECIDED_FIBER_NOT_SOURCE_WITNESS",
+      "full_chart_status": "RESOLVED_TO_GENERIC_AND_FINITE_REMAINDER",
+      "source_witness_licensed": false,
+      "all_fibers_licensed": false
+    },
+    "operations": [
+      {
+        "op": "set",
+        "path": [
+          "generic_j",
+          "all_fibers_licensed"
+        ],
+        "value": true
+      }
+    ]
+  },
+  "attempted_conclusion": "Promote generic-J exclusion to every exceptional fiber.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A generic result leaves finite exceptional fibers undecided."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_source_support_handback.py",
+      "line": 116,
+      "anchor": "def test_generic_to_all_fibres_mutation_refuses("
+    }
+  ]
+}

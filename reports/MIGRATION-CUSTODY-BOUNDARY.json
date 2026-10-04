@@ -1,0 +1,52 @@
+{
+  "controls": [
+    {
+      "id": "historical_missing_identity",
+      "accepted": false,
+      "error": "tmp/migration-audit-7728p4zt/historical_missing_identity.jsonl:1: historical meta event has the wrong fields; missing: implementation; extra: (none)",
+      "source_sha256": "5800550caa436fc88610eb360b45014b3fafa150f5a97862d7407ac4086a35e8",
+      "source_unchanged": true,
+      "dry_run": true
+    },
+    {
+      "id": "current_format_old_epoch_missing_identity",
+      "accepted": true,
+      "error": null,
+      "source_sha256": "aa46d78d6bd39c609482fce572030ac1c86d8407b08458944b5da0ef6209838c",
+      "source_unchanged": true,
+      "dry_run": true
+    },
+    {
+      "id": "current_format_old_epoch_valid_identity",
+      "accepted": true,
+      "error": null,
+      "source_sha256": "16eef2bffdd9e29167173a4b56a20ef13a5abd5f2aa3cfac1814a373b205194c",
+      "source_unchanged": true,
+      "dry_run": true
+    },
+    {
+      "id": "legacy_partition_migration",
+      "accepted": false,
+      "error": "inference 'JOIN': its premises do not meet.  They arrive at EA -> A, EB -> B, COVER -> M respectively, so there is no single model at which they can be combined.  Transport them to a common model first, or they are separate statements joined by prose.",
+      "conversion_actions": [
+        {
+          "field": "via_partition",
+          "action": "dropped; not in the closed epoch-1 schema"
+        }
+      ],
+      "source_unchanged": true,
+      "dry_run": true
+    }
+  ],
+  "script_sha256": "4809527e81630508985d455135250033be268748d40e5b922ef122a1e4f8af43",
+  "source_sha256": {
+    "grandportage/format.py": "9d7ad6885285b2e55de9bbf6dea62d428d1f68a3b7180728a1651365c82c171e",
+    "grandportage/migration.py": "a3e18bafa29af7b3ba4f5b7c3dee609009eacbacd3849179494f6a1dada3a4da"
+  },
+  "findings": [
+    "Historical format missing identity refuses, but current-format/older-epoch missing identity passes migration dry-run because header validation is skipped on that branch. New output header would describe the current writer; malformed source custody is not independently validated.",
+    "Legacy partition conversion drops via_partition, then strict graph validation rejects noncolocated premises. It does not make the legacy case split native."
+  ],
+  "proposed_fix": "Validate current-format/older-epoch source header shape and internal identity consistency under its recorded epoch before replacing it. Keep arithmetic authority/replay separate. Handle unsupported semantic fields through explicit refusal or approved conversion, not silent rule erasure.",
+  "scope": "Three header controls and one partition migration; dry-run only, original bytes unchanged, no old campaign files read or modified."
+}

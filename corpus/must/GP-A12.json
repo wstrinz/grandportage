@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "GP-A12",
+  "seed": "A12",
+  "title": "Point equivalence does not certify a ring isomorphism",
+  "situation": "A saturation is declared to preserve all solutions, without ring-isomorphism evidence.",
+  "inputs": {
+    "evidence": "point equivalence only",
+    "ring_isomorphism": false
+  },
+  "attempted_conclusion": "Transport an arbitrary quotient-ring identity.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The identity needs a checked ring map with the required laws."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 552,
+      "anchor": "| A12 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_kernel.py",
+      "line": 99,
+      "anchor": "def test_equivalence_licenses_identity_only_across_a_ring_isomorphism("
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "fe249bfd83c5a1b6c0ba78a56dd5cb989cd4cbd82e2427efded18f1c13f44f3d",
+  "sources": {
+    "grandportage/authority.py": "6efbd8f0c7393362ef47e8e69a8631a36190d06c2b2d388bfb209a2e7e1d2402",
+    "grandportage/authority_registry.py": "b376e62b9e6dd8cff23ab2acf491d1c7ea5da44c7111ab652ffec41400cfe364",
+    "tests/test_authority_binding.py": "9720cdf5d4d7090ab5c224d92441ed32e92c8b62fe9cfd647ca6972ccedcbb49",
+    "tests/test_authority_registry.py": "ecbf9aba9d5e99bb15f25418b01d7d382e962a540b736ec5c682018f30c695a2",
+    "grandportage/store.py": "900da33d1b8e3ae045533b3ae8ed67317a3bc56a35861d2bcd604ae6adb7e755"
+  },
+  "controls": [
+    {
+      "control": "target_identity_is_callers_obligation",
+      "evidence_object": "OBJECT",
+      "projected_target": {
+        "id": "OTHER",
+        "identity_verdict": "VERIFIED_AMBIENT",
+        "identity_why": "characterization"
+      },
+      "scope": "Direct internal API under explicitly patched freshness. No persisted event or graph validation bypass established."
+    },
+    {
+      "control": "duplicate_projection_refused",
+      "passed": true
+    },
+    {
+      "control": "receipt_is_shallow_frozen",
+      "projected_payload": {
+        "cofactors": [
+          "0"
+        ]
+      },
+      "scope": "Synthetic extra projection passed directly by trusted caller; not a malformed proof admitted by store."
+    },
+    {
+      "control": "refused_evidence_cannot_bind",
+      "passed": true
+    }
+  ],
+  "conclusion": "Internal API preconditions measured, not an end-to-end authority flaw. Store chooses target[of] and runs subject replay before bind; full subject coverage remains partial. Proposed successor design: explicit target/context validation at projection and immutable proof payloads, evaluated against corpus before adoption."
+}

@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "scope": "Pinned historical offline recurrence and finite-quotient checks only. No Lean compilation, live CAS, companion bindings, campaign, graph admission or parent exclusion.",
+  "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+  "baseline_run": "reports/oracle-runs/20260928T192507564841Z.json",
+  "baseline_run_sha256": "d9e6cec9f57ee5de06a14c8a5489770dcf4ba0fafd6e03925dd1da634f94ba69",
+  "replay_run": "reports/oracle-runs/20260928T195529039969Z.json",
+  "replay_run_sha256": "b73197949b3545e48361a2c5101cf64d3bea07ce97823a4a1bd1e5640dd16d70",
+  "runner_sha256": "d007bcef14902d659cc4369440b1895ed957c27387c3fcf2be77b2378eca4fd0",
+  "adapter_sha256": "41db6d5a589915ff4ca81a2ac447437444cedff4775d504ac50bed56d9f0f5fb",
+  "routes_sha256": "3d713378a596b58bd4890aa241b5796d0078944b16b44af2f0e56a4ad2b1c423",
+  "historical_recurrence_fixture_sha256": "8b9cf56ca0faad4dbeeb57593c2612ed408521df3a9d62c34bcd838e8189cd58",
+  "historical_finite_witness_fixture_sha256": "ce082feccd226db1bd8e0749b652ae806e896a79053a0ed7454c5a1288e686b6",
+  "old_case_count": 358,
+  "new_case_count": 361,
+  "old_case_bytes_unchanged": true,
+  "old_case_expectations_observations_statuses_routes_layers_unchanged": true,
+  "old_diagnostic_completion_markers_regenerated": [
+    "GP-X236",
+    "GP-X237"
+  ],
+  "new_summary": {
+    "AGREES": 346,
+    "DIAGNOSTIC_OBSERVED": 1,
+    "KNOWN_DIFFERENCE": 12,
+    "PENDING": 1,
+    "UNSUPPORTED": 1
+  },
+  "new_cases": [
+    {
+      "id": "GP-X318",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "d9c393ef536281d51db9cb6023ce5f11e8b73e5e59629a296b80c9b8006c9f61",
+      "observation": {
+        "reason": "J4: padded operator jumps do not reproduce the frozen records",
+        "baseline_minimal_eighth_shift_checked": true,
+        "mutated_endpoint_nonzero": false,
+        "mutated_tail_zero": true,
+        "mutated_seventh_shift_annihilates": true,
+        "graph_effect": "NONE",
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X319",
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "case_sha256": "911c33b61ac98444edcf969f210d131a8e6130f76c374e30a899b5da5f578910",
+      "observation": {
+        "reason": "Historical exact quotient replay verifies gcd degree zero.",
+        "checked_witness": {
+          "dimension": 14,
+          "slice_codimension": 7,
+          "omega_image_degree": 13,
+          "gcd_degree": 0,
+          "omega_unit": true
+        },
+        "graph_effect": "NONE",
+        "parent_exclusion": false,
+        "external_execution": false
+      }
+    },
+    {
+      "id": "GP-X320",
+      "expected": "REFUSE",
+      "observed_verdict": "REFUSE",
+      "status": "AGREES",
+      "case_sha256": "cae1e4e0ff2bf1b4f9616904da04ff76564bb96cc26866adfd27e012729fe539",
+      "observation": {
+        "reason": "W5: Omega8 coprimality/unit witness failed",
+        "claimed_gcd_degree": 1,
+        "actual_gcd_degree": 0,
+        "arithmetic_replay_reached": true,
+        "outer_fixture_digest_rejection": false,
+        "graph_effect": "NONE",
+        "parent_exclusion": false,
+        "external_execution": false
+      }
+    }
+  ],
+  "related_existing_cases": {
+    "endpoint_positive": [
+      "GP-X118"
+    ],
+    "finite_witness_boundaries": [
+      "GP-X123",
+      "GP-X124",
+      "GP-X63"
+    ]
+  }
+}

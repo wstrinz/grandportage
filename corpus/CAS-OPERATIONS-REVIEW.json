@@ -1,0 +1,31 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "source": "grandportage/cas.py",
+  "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453",
+  "read_slices": [
+    "691-734 output block parser",
+    "1286-end execution parsing and all operation helper implementations"
+  ],
+  "full_text_read": false,
+  "semantic_status": "partial",
+  "diagnostics": "reports/CAS-MEMBERSHIP-PARSER-BOUNDARY.json",
+  "findings": [
+    "Membership and unit-ideal producers first ask for reduction/basis, then request lift only on a positive answer. Their attached certificates are candidates: no local arithmetic replay is performed in these producer functions.",
+    "Three injected transcript controls verify a valid membership certificate and two malformed matrices. Missing first row is padded with zero; duplicate first row uses its first value. Both malformed cases return is_member true and attach a false candidate identity; the independent exact checker rejects both. Test backends cannot record verdicts. No native bypass or actual Singular defect is claimed.",
+    "The older cofactor expansion helpers still execute Singular for arithmetic; avoiding Buchberger does not by itself remove the backend from their trusted computation. Consumers with native exact replay have a stronger boundary.",
+    "Membership canonicalizes sparse/infix polynomials before emitting CAS text; several older unit/witness/substitution helpers construct text directly under CASProgram validation. Shared total arithmetic budgets and one overall deadline are not established across these multi-call routines.",
+    "Ideal generator and decomposition parsers remain permissive about row labels. Decomposition rejects missing/empty components but its output is not an independently checked cover proof. The docstring claim that it carries its own exhaustiveness proof overstates the returned data.",
+    "Partition coverage implements radical containment using branch-ideal intersection and Rabinowitsch unit tests. The algebraic-closure argument is sound conditional on correct backend results and appropriate branch/model hypotheses, but yields no replayable intersection or radical certificates. It also omits open guards and selected embeddings, as already demonstrated in Batches 28-31.",
+    "classify_identity tests equality in the coordinate ring, not merely pointwise vanishing on the reduced locus. Witness evaluation demands constant complete coordinates but its statement that no field subtlety exists is too broad; field and embedding handling live in higher-level verification.",
+    "non_integral_denominators and foreign_symbols are syntactic reporting helpers, not complete definedness or coefficient-domain proofs. Their comments explicitly limit their role."
+  ],
+  "proposed_fixes": [
+    "Use strict complete indexed matrix parsing shared with the newer producer; reject duplicate/unknown rows.",
+    "Label attached producer certificates as unchecked until exact replay succeeds.",
+    "Replace claims of self-contained cover proof with precise backend-dependent evidence descriptions; require independently replayed radical/intersection witnesses for future authority."
+  ],
+  "remaining": [
+    "Complete remaining CASProgram/transport/run_cas source reading and launch regression dispositions.",
+    "Extract uncovered neutral controls without duplicating the existing producer-trust and partition cases."
+  ]
+}

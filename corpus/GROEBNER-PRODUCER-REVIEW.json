@@ -1,0 +1,39 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "grandportage/groebner_producer.py",
+      "sha256": "a424f2ea42231c91c1ff264aaa5ab30e4edf0b9cdcc778cd003215fabb7bcd73",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_groebner_producer.py",
+      "sha256": "ace224400c762dd754841c8937a3e619a00a3ce68dce0835a6c2050d5581f910",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "caller_slices": [
+    "grandportage/verify.py:2475-2634 materialize_elimination_groebner"
+  ],
+  "tests": {
+    "passed": 28,
+    "deselected_live": 3,
+    "report": "reports/oracle-groebner-producer-review.xml"
+  },
+  "soundness_argument": "The exact Groebner checker establishes I intersect S contained in J by source inclusion, a lex Groebner basis and retained-basis inclusion. The independent no-invention check establishes J contained in I intersect S. Together they establish ideal equality in the recorded coefficient domain, not geometric image completeness. Backend discovery alone grants neither direction.",
+  "findings": [
+    "Indexed basis rows and every matrix cell must be explicit, contiguous and unique. Polynomial canonicalization precedes reuse in generated programs; basis size is bounded before parsing.",
+    "The certificate proves contraction completeness only: source generators belong to the candidate basis ideal, critical pairs reduce to zero, and retained basis belongs to the target ideal. It omits basis-in-source witnesses. This is the intentional one-way boundary previously tested in Batch 47.",
+    "Materialization independently checks target generators in the source ideal through operation_output before recording both verdicts. Its invented-generator regression refuses without graph append. Legacy native operation-output replay still has the producer-trust weakness documented in Batches 24-25; this producer review does not repair it.",
+    "Artifact certificate is attached only after the exact checker accepts. Phase-two failure leaves no certificate. Graph-bound and producer checker summaries must agree.",
+    "Producer deadline spans both subprocess stages and host checkpoints with a shared arithmetic budget. Individual host operations may overrun before the next deadline check; timeout positivity does not explicitly reject NaN or infinity. These are resource-boundary follow-ups, not reproduced proof admissions.",
+    "Recording persists content-addressed objects before appending the prevalidated graph batch, reloads source and checks target IDs. Source-race checks are narrow; the append is explicitly not a crash-atomic transaction.",
+    "Offline tests include actual bounded Python subprocess output/blocked-input controls, but Singular responses and materializer recording identity are mocked. Three live Singular tests remain unexecuted."
+  ],
+  "remaining": [
+    "Extract distinct uncovered neutral controls; preserve existing one-way completeness and producer-trust cases.",
+    "Review backend process and error boundaries, concurrency and live execution separately."
+  ]
+}

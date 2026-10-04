@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "GP-A24",
+  "seed": "A24",
+  "title": "Collapsed solutions require nondegeneracy guards",
+  "situation": "A K_2,2,2 realization calculation omits the nondegeneracy guards.",
+  "inputs": {
+    "object": "K_2,2,2",
+    "guards": [],
+    "known_issue": "collapsed solutions"
+  },
+  "attempted_conclusion": "Conclude no realization exists.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "An unguarded calculation does not justify the intended nondegenerate statement."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 564,
+      "anchor": "| A24 |"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "efabfadf8a210bbcacf0247d6ab8072eed944e3f80fe7bc51e3bd4ade024dfde",
+  "observations": [
+    {
+      "control": "constructor_shadowing",
+      "refused": true
+    },
+    {
+      "control": "post_constructor_mutation",
+      "runner_received_shadowing_statement": true,
+      "complete_mock_transcript_parsed": true,
+      "scope": "Direct Python object mutation; no live CAS or graph admission."
+    },
+    {
+      "control": "generator_metadata_not_output",
+      "stored_generators": [
+        "1"
+      ],
+      "parsed_output": {
+        "GP_I": "GP_I[1]=x"
+      },
+      "scope": "Model declaration copies caller-supplied program.generators, not output. No verified operation/contraction verdict was created."
+    }
+  ]
+}

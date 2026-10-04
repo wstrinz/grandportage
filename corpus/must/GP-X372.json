@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "GP-X372",
+  "seed": null,
+  "title": "Operational 55.2a: source format schema boundary",
+  "situation": "Exported authoring JSON has integral as string false.",
+  "inputs": {
+    "incident_row": "55.2a",
+    "vector": {
+      "event_kind": "model",
+      "integral": "false",
+      "integral_type": "string",
+      "validators": [
+        "exported authoring JSON schema",
+        "native event shape"
+      ]
+    },
+    "retained_evidence_refs": [
+      "reports/SCHEMA-HEALTH-BOUNDARY.json#/controls/0"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Treat exported schema validation as matching native Boolean integral validation.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: A published schema and native shape validator should agree on field type."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/cli.py",
+      "line": 2125,
+      "anchor": "def native_schema_document():",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

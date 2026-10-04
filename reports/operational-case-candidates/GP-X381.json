@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "GP-X381",
+  "seed": null,
+  "title": "Operational 63.3: digest filesystem custody boundary",
+  "situation": "Preexisting output.PID.tmp placed before an exclusive temporary open.",
+  "inputs": {
+    "incident_row": "63.3",
+    "vector": {
+      "preexisting_file": "output.PID.tmp",
+      "operation": "exclusive temporary open for named derived output",
+      "file_owner": "not current invocation"
+    },
+    "retained_evidence_refs": [
+      "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/2",
+      "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/4"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Cleanup may remove the temporary path after failed creation.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: A file not created by this invocation should remain untouched."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/cli.py",
+      "line": 2558,
+      "anchor": "def _write_named_derived_output(args, content, protected=()):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

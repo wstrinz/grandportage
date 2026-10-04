@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "GP-X133",
+  "seed": null,
+  "title": "Zero ideal is not the unit ideal",
+  "situation": "An explicitly empty generator list denotes (0); only the zero polynomial has a zero-sum membership identity.",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "generators": [],
+    "target": "1",
+    "cofactors": [],
+    "characteristic": 0
+  },
+  "attempted_conclusion": "Accept the supplied ideal-membership identity.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "An explicitly empty generator list denotes (0); only the zero polynomial has a zero-sum membership identity."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_operations.py",
+      "line": 249,
+      "anchor": "def test_execute_treats_the_zero_ideal_as_no_generators("
+    }
+  ]
+}

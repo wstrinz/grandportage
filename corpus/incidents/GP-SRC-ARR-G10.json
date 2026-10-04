@@ -1,0 +1,190 @@
+{
+  "id": "GP-SRC-ARR-G10",
+  "source_row_id": "ARR-G10",
+  "campaign": "GP",
+  "related_campaign": "ARR15",
+  "inventory_role": "historical_operational_scale_group",
+  "origin": "tool",
+  "origin_qualification": "Primary responsibility classification is provisional; first discoverer unknown.",
+  "class": "ADAPTER",
+  "secondary_classes": [
+    "WARRANT"
+  ],
+  "classification_status": "proposed qualified supplement; not approved AppendixB record",
+  "scope_or_region": "N/A",
+  "claimed": "Large localized route and up-to64-guard search should complete supported packaging.",
+  "problem": "Earlier realistic localized route crash and later MAX_GUARDS16 packaging block are not proved-identical failures.",
+  "composite": true,
+  "grouping_limit": "Two mechanisms in one presentation group; no false EMPTY inferred from crash or packaging limit.",
+  "sources": [
+    {
+      "path": "$DEV/math-research/campaigns/arr15/FRONTIER.md",
+      "lines": [
+        199,
+        213
+      ],
+      "sha256": "4ac9de20b8e330b9ee5595ed6ab7398fe3f2b6a074ce7f239870712970f5929d",
+      "latest_path_history": "ae1d9bcff7665cdd2d767574d93df9f0c1c87b8e|2026-08-23T12:37:14-05:00|Checkpoint ARR15 after publication closeout",
+      "reading_status": "Campaign pointer/hash inherited from accepted bounded reconciliation; not newly read or independently verified this pass."
+    },
+    {
+      "path": "$DEV/math-research/campaigns/arr15/results/accepted/2026-08-23-gp-v026-live-acceptance-r2.md",
+      "lines": [
+        14,
+        26
+      ],
+      "sha256": "555929ced4ae8bccead89ab2be6b35725a9e154aaf2c3fa38a2db8794c674931",
+      "latest_path_history": "791f962c778bb77584a1984482728bdd8169d5f9|2026-08-23T09:12:44-05:00|Accept cyclotomic summit and close post-68 intake",
+      "reading_status": "Campaign pointer/hash inherited from accepted bounded reconciliation; not newly read or independently verified this pass."
+    },
+    {
+      "path": "$DEV/math-research/campaigns/arr15/CHECKPOINT.md",
+      "lines": [
+        134,
+        144
+      ],
+      "sha256": "8313ea3bfb2ccabfc7f01abcfe239fd5b3ca1d4caaa619947a3c324ae531bfb1",
+      "latest_path_history": "619744193411d40a0f37f01b76e4f0c9bf96c86a|2026-08-23T14:13:48-05:00|Add reader package and Lean backstop",
+      "reading_status": "Campaign pointer/hash inherited from accepted bounded reconciliation; not newly read or independently verified this pass."
+    }
+  ],
+  "report_evidence": [
+    {
+      "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+      "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+      "pointer": "/named_row_register/14"
+    },
+    {
+      "report": "reports/PHASE-0B-GP-REUSE-PARENT-REVIEW.json",
+      "sha256": "6ed2cc1f7b9b4236c3d6e62a463c51784ef92f43a1695959be9571d584ec82d7",
+      "pointer": "/limits"
+    }
+  ],
+  "discovered_by": "unknown",
+  "cost": null,
+  "shipped": null,
+  "gp_v037_would_catch": null,
+  "core_expressible": null,
+  "core_would_refuse": null,
+  "observed_vs_attributed": {
+    "current_observation": null,
+    "historical": "Source-attributed only. Exact fixture reuse and retained diagnostic assertions do not establish literal current campaign outcomes.",
+    "current_catch_assessment": null
+  },
+  "related_occurrences": [
+    {
+      "left": "GP-SRC-ARR-G09",
+      "right": "GP-SRC-ARR-G10",
+      "match": "related_not_merged",
+      "basis": "Ordinary-point guard soundness versus localized producer crash/guard packaging capacity; ARR summary proximity does not equate predicates or failures."
+    }
+  ],
+  "subepisodes": [
+    {
+      "id": "GP-DISP-ARR-G10/large-localized-route-crash",
+      "source_disposition_id": "ARR-G10/large-localized-route-crash",
+      "source_pointer": {
+        "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+        "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+        "pointer": "/dispositions/30"
+      },
+      "disposition": "historical_defect_not_reproduced",
+      "primary_class": "ADAPTER",
+      "secondary_classes": [
+        "WARRANT"
+      ],
+      "origin": "tool",
+      "summary": "Small controls worked before a realistic localized-unit-ideal route crashed. No false EMPTY follows from a crash. Generic unfinished/budget controls do not exercise this localized producer.",
+      "case_reuse": [
+        {
+          "id": "GP-A17",
+          "equivalence": "related only; no literal campaign equivalence established"
+        },
+        {
+          "id": "GP-X96",
+          "equivalence": "related only; no literal campaign equivalence established"
+        }
+      ],
+      "evidence_reports": [],
+      "missing_behavior_or_premise": "Retain realistic localized input and failing route/trace with successful small contrast; sizes and mechanism cannot be reconstructed from summaries alone.",
+      "admission": "not commissioned by this inventory pass",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "inventory_role": "source_attributed_historical_mechanism",
+      "owner_id": "GP-SRC-ARR-G10",
+      "record_kind": "source-attributed correction/group",
+      "counting_qualification": "Nested disposition of GP-SRC-ARR-G10; zero additional owner records and no presumed independent sample."
+    },
+    {
+      "id": "GP-DISP-ARR-G10/16-64-packaging-cap",
+      "source_disposition_id": "ARR-G10/16-64-packaging-cap",
+      "source_pointer": {
+        "report": "reports/PHASE-0B-GP-REUSE-CONSOLIDATION.json",
+        "sha256": "e6c9ff6a6dad54e6933b8cabe9ca6f77765c078f4041bea22101aa9d658e4dc8",
+        "pointer": "/dispositions/31"
+      },
+      "disposition": "historical_defect_not_reproduced",
+      "primary_class": "ADAPTER",
+      "secondary_classes": [
+        "WARRANT"
+      ],
+      "origin": "tool",
+      "summary": "r2 search accepts up to64 guards but MAX_GUARDS16 packaging prevents success above16. This is distinct from the earlier localized route crash.",
+      "case_reuse": [],
+      "evidence_reports": [],
+      "missing_behavior_or_premise": "Preserve search-to-certificate packaging at16 and17 guards and a supported64-guard input, binding search success to packaging refusal. No selected case encodes this boundary.",
+      "admission": "not commissioned by this inventory pass",
+      "discovered_by": "unknown",
+      "cost": null,
+      "shipped": null,
+      "gp_v037_would_catch": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "inventory_role": "source_attributed_historical_mechanism",
+      "owner_id": "GP-SRC-ARR-G10",
+      "record_kind": "source-attributed correction/group",
+      "counting_qualification": "Nested disposition of GP-SRC-ARR-G10; zero additional owner records and no presumed independent sample."
+    }
+  ],
+  "status": "final retained source-backed record under ratified unknown policy; observation and counting limits remain explicit",
+  "primary_class": "ADAPTER",
+  "primary_origin": "tool",
+  "record_kind": "source-attributed correction/group",
+  "final_disposition": "retain qualified source-attributed group record with nested subdispositions",
+  "owner_id": "GP-SRC-ARR-G10",
+  "original_pointer": {
+    "report": "reports/PHASE-0B-GP-INVENTORY-SUPPLEMENT-DRAFT.json",
+    "pointer": "/named_gp_source_groups/14",
+    "sha256": "1ea12da51790d7b0f3beb8c26586a921537b120df20a9730c8c8826344a3c55a",
+    "review_date": "2026-09-29",
+    "date_kind": "retained report review date; not incident date or source publication date"
+  },
+  "source": {
+    "repo": "$WORKSPACE",
+    "ref": "reports/PHASE-0B-GP-INVENTORY-SUPPLEMENT-DRAFT.json#/named_gp_source_groups/14",
+    "date": "2026-09-29",
+    "review_date": "2026-09-29",
+    "date_kind": "review-source date of retained report; not incident date or original primary-source date"
+  },
+  "incident_date": null,
+  "cost_note": "Incident-specific cost unestablished at this group scope. Any source-reported timing/effort remains attribution in retained subdispositions; do not convert test/search effort to work lost.",
+  "shipped_note": "Wrong-claim publication/handoff unestablished; source code release, commit or fixture existence alone is insufficient.",
+  "gp_v037_would_catch_note": "Historical failure, exact fixture reuse, present diagnostic observations and hypothetical core behavior are different evidence/version layers; no group-wide frozen catch verdict established.",
+  "counting_qualification": {
+    "record_count": 1,
+    "independent_sample": null,
+    "mathematical_incident_count": null,
+    "rule": "One source-group record organizing existing subdispositions; do not count each subdisposition, fixture, repair or repeated source as an independent incident.",
+    "source_detail": "Two mechanisms in one presentation group; no false EMPTY inferred from crash or packaging limit."
+  },
+  "notes": "Qualified retained source-attributed correction/group. Two mechanisms in one presentation group; no false EMPTY inferred from crash or packaging limit. No new source read or execution. Source dates/hashes and attribution are preserved; no independent sample or shipping authentication inferred.",
+  "parent_integration": {
+    "worker_report": "reports/PHASE-0B-FINAL-RECORD-CANDIDATES.json",
+    "worker_report_sha256": "f5e7db279905a97d921020215f20fd102c42a49147d78c63c54f28986d2eb849",
+    "register": "incident/correction/group"
+  }
+}

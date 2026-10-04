@@ -1,0 +1,26 @@
+{
+  "prior_replay": "20260928T142458952693Z",
+  "new_replay": "20260928T145035306827Z",
+  "unchanged_prior_cases": 348,
+  "compared_fields": [
+    "case_sha256",
+    "expected",
+    "observed_verdict",
+    "status"
+  ],
+  "new_cases": [
+    "GP-X308",
+    "GP-X309",
+    "GP-X310",
+    "GP-X311"
+  ],
+  "new_outcomes": {
+    "GP-X308": "AGREES",
+    "GP-X309": "KNOWN_DIFFERENCE",
+    "GP-X310": "AGREES",
+    "GP-X311": "AGREES"
+  },
+  "adapter_sha256": "c2f2ddbcf899f8623cc44d43a19c1f06d47f67016c5e7b1e7b5e17bcf0b7db4e",
+  "validation_note": "Initial run stopped at source-anchor validation: new ordered_sos definition pointer was 15 instead of 14. Corrected pointer only; full replay then completed. No expectations changed.",
+  "semantic_contract": "An exact valid model-bound ordered proof must remain recordable across equivalent polynomial spelling; separate false cofactor and genuinely changed-equation controls refuse."
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "GP-X254",
+  "seed": null,
+  "title": "Comment-free assignment remains constructible",
+  "situation": "A program has named compiler slots; unchecked source in any slot can invalidate the intended ring and calculation.",
+  "inputs": {
+    "ring_name": "R",
+    "variables": [
+      "g0",
+      "x"
+    ],
+    "temporaries": [
+      {
+        "name": "I",
+        "type": "ideal",
+        "expression": "g0*x"
+      }
+    ],
+    "statements": [
+      "I = std(I);"
+    ],
+    "requested_outputs": [
+      "I"
+    ]
+  },
+  "attempted_conclusion": "Accept this bounded program construction without introducing unchecked declarations or bypassing the identifier guard.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Comment-free assignment remains constructible"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 159,
+      "anchor": "def test_a_comment_prefix_does_not_defeat_the_statement_rules("
+    }
+  ]
+}

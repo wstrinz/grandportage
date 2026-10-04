@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "GP-X61",
+  "seed": null,
+  "title": "Dropping the remainder-bound premise is refused",
+  "situation": "The block-one vanishing theorem is conditional on three load-bearing premises, not an unconditional campaign conclusion.",
+  "inputs": {
+    "premises": [
+      {
+        "statement": "Every omitted transfer term is zero below stage eight times the first live block.",
+        "status": "OPEN"
+      },
+      {
+        "statement": "The block family solves every stage of the exact emitted degree-three-through-seven slice plus the declared remainder.",
+        "status": "ASSUMED"
+      },
+      {
+        "statement": "The all-orders reparametrization gauge vanishes in every block.",
+        "status": "OPEN"
+      }
+    ],
+    "source": "emitted degree-three-through-seven transfer slice",
+    "target": "first marked block vanishes",
+    "proposal": "omit_premise"
+  },
+  "attempted_conclusion": "Retain the proposed derivation as correctly bound conditional evidence.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The consuming derivation no longer has the premise list bound to the theorem."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_formalization_transport.py",
+      "line": 111,
+      "anchor": "def test_omitting_a_formal_premise_is_refused("
+    }
+  ]
+}

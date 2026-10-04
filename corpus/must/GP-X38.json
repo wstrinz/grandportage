@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X38",
+  "seed": null,
+  "title": "A serialization assertion does not materialize a source pair",
+  "situation": "An exact reduced-row binding is conditional on normalized-root inputs; the original-pair to normalized-root map remains unmaterialized.",
+  "inputs": {
+    "source_pair_materialized": false,
+    "source_map_materialized": false,
+    "proposed_value": true
+  },
+  "attempted_conclusion": "Treat the hypothetical source pair as exactly serialized.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The fixture has no serialized original pair to bind."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_original_pair_seam.py",
+      "line": 85,
+      "anchor": "def test_claiming_an_exact_serialized_pair_is_rejected("
+    }
+  ]
+}

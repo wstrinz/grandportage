@@ -1,0 +1,95 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "1fb321fadb4b3c3b196f2f057466d05c087787daaa68866e1f9652f7b46fd67e",
+  "sources": {
+    "grandportage/store.py": "900da33d1b8e3ae045533b3ae8ed67317a3bc56a35861d2bcd604ae6adb7e755",
+    "grandportage/verify.py": "51ee50fd4be7e8f0f6b2cdd10f680ac7060ef8f91f1f424290a342e3c7ce9c03"
+  },
+  "controls": [
+    {
+      "mismatched_selection": false,
+      "verdict": "VERIFIED",
+      "reason": "every point of M lies on one of B1, B2 -- identical branch and parent ideals. The case analysis is COMPLETE, and that is now a computed fact rather than a declared one.",
+      "intervals": {
+        "M": [
+          "1",
+          "2"
+        ],
+        "B1": [
+          "1",
+          "2"
+        ],
+        "B2": [
+          "1",
+          "2"
+        ]
+      },
+      "point_scopes": {
+        "M": [
+          null,
+          "Q",
+          "REAL_CLOSURE"
+        ],
+        "B1": [
+          null,
+          "Q",
+          "REAL_CLOSURE"
+        ],
+        "B2": [
+          null,
+          "Q",
+          "REAL_CLOSURE"
+        ]
+      },
+      "backend_calls": [
+        "unit membership in proper ideal",
+        "identical closed ideals cover"
+      ],
+      "actual_cover": true
+    },
+    {
+      "mismatched_selection": true,
+      "verdict": "VERIFIED",
+      "reason": "every point of M lies on one of B1, B2 -- identical branch and parent ideals. The case analysis is COMPLETE, and that is now a computed fact rather than a declared one.",
+      "intervals": {
+        "M": [
+          "1",
+          "2"
+        ],
+        "B1": [
+          "-2",
+          "-1"
+        ],
+        "B2": [
+          "-2",
+          "-1"
+        ]
+      },
+      "point_scopes": {
+        "M": [
+          null,
+          "Q",
+          "REAL_CLOSURE"
+        ],
+        "B1": [
+          null,
+          "Q",
+          "REAL_CLOSURE"
+        ],
+        "B2": [
+          null,
+          "Q",
+          "REAL_CLOSURE"
+        ]
+      },
+      "backend_calls": [
+        "unit membership in proper ideal",
+        "identical closed ideals cover"
+      ],
+      "actual_cover": false
+    }
+  ],
+  "scope": "Actual native model/partition validation and verifier with exact identical-ideal backend stub; no live CAS or persisted verdict.",
+  "finding": "point_scope omits selected embedding. Two negative-root branches of x^2-2 do not cover its positive-root parent, yet identical ideal-only coverage returns VERIFIED.",
+  "proposal": "Bind selected-point context in cover checking. Require compatible selections or an explicit checked map/locus coverage theorem; do not treat equal polynomial ideals as equal selected models."
+}

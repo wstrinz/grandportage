@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "id": "GP-X269",
+  "seed": null,
+  "title": "Closed branches cover the affine line",
+  "situation": "A cover concerns the declared loci, including nonvanishing conditions, rather than their closed ideal varieties alone.",
+  "inputs": {
+    "parent": {
+      "field": "Q",
+      "variables": [
+        "x"
+      ],
+      "equations": [],
+      "nonzero": []
+    },
+    "branches": [
+      {
+        "field": "Q",
+        "variables": [
+          "x"
+        ],
+        "equations": [],
+        "nonzero": []
+      },
+      {
+        "field": "Q",
+        "variables": [
+          "x"
+        ],
+        "equations": [],
+        "nonzero": []
+      }
+    ]
+  },
+  "attempted_conclusion": "Every point of the parent lies in at least one declared branch.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Closed branches cover the affine line"
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/verify.py",
+      "line": 1516,
+      "anchor": "def partition_exhaustiveness(graph, pid, timeout=300, _runner=None, _backend=None):"
+    }
+  ]
+}

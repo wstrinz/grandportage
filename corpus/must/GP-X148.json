@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "id": "GP-X148",
+  "seed": null,
+  "title": "Retain a separate inference after retracting its neighbor",
+  "situation": "The separate inference has no dependency on I. This tests lifecycle isolation, not independent checked warrants.",
+  "inputs": {
+    "vocabulary": "lifecycle-scenario/v1",
+    "objects": {
+      "object-1": {
+        "category": "context",
+        "name": "M",
+        "properties": {
+          "description": "m"
+        }
+      },
+      "object-2": {
+        "category": "context",
+        "name": "N",
+        "properties": {
+          "description": "n"
+        }
+      },
+      "object-3": {
+        "category": "assertion",
+        "name": "C",
+        "properties": {
+          "context": "M",
+          "statement_class": "universal_property",
+          "statement": "P"
+        }
+      },
+      "object-4": {
+        "category": "argument",
+        "name": "I",
+        "properties": {
+          "premise": "C",
+          "transport_route": [],
+          "conclusion_class": "universal_property",
+          "conclusion": "P at M"
+        }
+      },
+      "object-5": {
+        "category": "argument",
+        "name": "I2",
+        "properties": {
+          "premise": "C",
+          "transport_route": [],
+          "conclusion_class": "universal_property",
+          "conclusion": "P at M"
+        }
+      },
+      "object-6": {
+        "category": "argument",
+        "name": "R-I",
+        "properties": {
+          "justification": "argument withdrawn"
+        }
+      }
+    },
+    "history": [
+      {
+        "object": "object-1"
+      },
+      {
+        "object": "object-2"
+      },
+      {
+        "object": "object-3"
+      },
+      {
+        "object": "object-4"
+      },
+      {
+        "object": "object-5"
+      },
+      {
+        "object": "object-6",
+        "replacement": {
+          "prior": "I",
+          "change": "argument_retraction"
+        }
+      }
+    ],
+    "question": {
+      "object": "I2"
+    }
+  },
+  "attempted_conclusion": "Retain a separate inference after retracting its neighbor.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The separate inference has no dependency on I. This tests lifecycle isolation, not independent checked warrants."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_supersession_noise.py",
+      "line": 92,
+      "anchor": "def test_minimal_inference_retract_is_not_a_live_successor("
+    }
+  ]
+}

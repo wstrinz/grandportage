@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "GP-X382",
+  "seed": null,
+  "title": "Operational 63.4: digest filesystem custody boundary",
+  "situation": "Deterministic injected write changes proof.txt after digest check but before release copyfile.",
+  "inputs": {
+    "incident_row": "63.4",
+    "vector": {
+      "operation": "materialize release",
+      "source_file": "proof.txt",
+      "injected_change": "write after digest check before copyfile",
+      "comparison": "archived bytes versus checked digest"
+    },
+    "retained_evidence_refs": [
+      "reports/MATERIALIZATION-BOUNDARY-AUDIT.json#/controls/0"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Treat materialized archive bytes as bound by the checked source digest.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Archived bytes must match the bound digest or the operation should refuse."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/release.py",
+      "line": 803,
+      "anchor": "def _materialize(release, source_root, output_dir, *, replay_only):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

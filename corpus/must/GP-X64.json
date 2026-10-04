@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "id": "GP-X64",
+  "seed": null,
+  "title": "Local emptiness cannot be promoted to the ambient model",
+  "situation": "A frozen p-axis stratum has a localized unit-ideal certificate. Its equations, guards and source binding delimit the result.",
+  "inputs": {
+    "variables": [
+      "p",
+      "t",
+      "c9_11",
+      "I4"
+    ],
+    "generators": [
+      "15*t^3+1",
+      "10*c9_11*t + 15*p*t**2",
+      "5*c9_11**2 + 10*c9_11*p*t + 5*p**2*t**2"
+    ],
+    "guards": [
+      "p",
+      "t"
+    ],
+    "denominator_powers": [
+      0,
+      0
+    ],
+    "numerator": "1",
+    "cofactors": [
+      "0",
+      "-2/5*t*c9_11-1/5*p*t^2",
+      "4/5*t^2"
+    ],
+    "localization_powers": [
+      2,
+      4
+    ],
+    "membership_target": "p^2*t^4",
+    "coefficient_field": "Q",
+    "point_universe": "ALGEBRAIC_CLOSURE",
+    "chart": "p",
+    "parent_generators": [
+      "15*t^3+1"
+    ]
+  },
+  "attempted_conclusion": "The ambient model defined only by 15*t^3+1=0 and guards p,t is empty.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Forgetting two equations enlarges the model and does not transport emptiness forward."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_p_axis_authority.py",
+      "line": 154,
+      "anchor": "def test_graph_verdict_mints_only_local_empty_authority("
+    }
+  ]
+}

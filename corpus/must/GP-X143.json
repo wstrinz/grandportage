@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "id": "GP-X143",
+  "seed": null,
+  "title": "Merge conflicting descriptions under one identifier",
+  "situation": "A shared identifier cannot silently blend conflicting declarations.",
+  "inputs": {
+    "vocabulary": "lifecycle-scenario/v1",
+    "objects": {
+      "object-1": {
+        "category": "context",
+        "name": "M",
+        "properties": {
+          "description": "model"
+        }
+      },
+      "object-2": {
+        "category": "context",
+        "name": "M",
+        "properties": {
+          "description": "different"
+        }
+      }
+    },
+    "history": [
+      {
+        "object": "object-1"
+      },
+      {
+        "object": "object-2"
+      }
+    ],
+    "question": {}
+  },
+  "attempted_conclusion": "Merge conflicting descriptions under one identifier.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A shared identifier cannot silently blend conflicting declarations."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_store.py",
+      "line": 43,
+      "anchor": "def test_conflicting_redeclaration_is_a_hard_error("
+    }
+  ]
+}

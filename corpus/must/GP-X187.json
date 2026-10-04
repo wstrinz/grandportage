@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "GP-X187",
+  "seed": null,
+  "title": "Second-generation construction provenance inherits a refused lift",
+  "situation": "A licensed final transport does not erase a refused construction dependency. Removing that dependency is the positive control; the separate refused lift remains reported.",
+  "inputs": {
+    "scenario": "construction_dependency",
+    "first_context_depends_on_refused_lift": true
+  },
+  "attempted_conclusion": "Treat the final context as free of construction-provenance taint.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "A licensed final transport does not erase a refused construction dependency. Removing that dependency is the positive control; the separate refused lift remains reported."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 556,
+      "anchor": "def test_taint_reaches_the_second_generation("
+    }
+  ]
+}

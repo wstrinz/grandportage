@@ -1,0 +1,2302 @@
+{
+  "schema": "gp-phase2-conditional-partition-slice/v1",
+  "case_count": 3,
+  "native_executions": 9,
+  "cases": [
+    {
+      "id": "GP-X183",
+      "source_sha256": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "Even assuming the cover is exhaustive, the right branch has no emptiness premise."
+      },
+      "sources": [
+        {
+          "repository": "gp-v037",
+          "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+          "path": "tests/test_adversarial.py",
+          "line": 3149,
+          "anchor": "def test_a_partition_reports_when_it_FAILS_not_only_when_it_succeeds("
+        }
+      ],
+      "layer_entry": {
+        "id": "GP-X183",
+        "path": "corpus/must/GP-X183.json",
+        "sha256": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+        "primary_layer": "kernel",
+        "candidate_layers": [
+          "kernel"
+        ],
+        "g2_kernel_eligible": true,
+        "status": "resolved",
+        "rationale": "The full fixture assumes mathematical premises or supplies only declaration/claim data; registered rule, exact context, dependency and scope obligations decide authority.",
+        "review_group": "supplied-premise-authority",
+        "full_contract_required": true,
+        "secondary_layers": [],
+        "secondary_duties": [],
+        "evidence_pointers": [
+          "/title",
+          "/inputs",
+          "/attempted_conclusion",
+          "/expected/reason"
+        ]
+      },
+      "legacy_route": {
+        "kind": "joint_premises",
+        "layer": "conditional_premise_routes",
+        "limitation": "Legacy transport/coverage rule under declared premises; not logical entailment or GP 0.50 held authority. Partition verification is explicitly assumed for rule isolation. Whole checker and renderer also execute without an external CAS."
+      },
+      "observed": "REFUSE",
+      "executed": true,
+      "full_fixture_contract": true,
+      "conditional_conclusion_only": true,
+      "literal_inputs": {
+        "contexts": [
+          "parent",
+          "left",
+          "right"
+        ],
+        "premises": [
+          {
+            "context": "left",
+            "statement_class": "empty",
+            "statement": "left branch is empty"
+          }
+        ],
+        "conclusion_class": "empty",
+        "conclusion_text": "the parent is empty",
+        "cover": {
+          "parent": "parent",
+          "branches": [
+            "left",
+            "right"
+          ],
+          "include_exhaustiveness_premise": true,
+          "verification_assumption": "exhaustive"
+        }
+      },
+      "native_results": {
+        "normal": {
+          "argument_dependency_ids": [
+            10,
+            40
+          ],
+          "case": "GP-X183",
+          "conclusion": "the parent is empty",
+          "conditional": true,
+          "given": [
+            "left branch is empty",
+            "exhaustive parent:[left,right]"
+          ],
+          "literal_inputs": {
+            "conclusion_class": "empty",
+            "conclusion_text": "the parent is empty",
+            "contexts": [
+              "parent",
+              "left",
+              "right"
+            ],
+            "cover": {
+              "branches": [
+                "left",
+                "right"
+              ],
+              "include_exhaustiveness_premise": true,
+              "parent": "parent",
+              "verification_assumption": "exhaustive"
+            },
+            "premises": [
+              {
+                "context": "left",
+                "statement": "left branch is empty",
+                "statement_class": "empty"
+              }
+            ]
+          },
+          "mode": "normal",
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              3,
+              4
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "evidence": {
+                  "data": "given:left branch is empty",
+                  "kind": "receipt"
+                },
+                "id": 10,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "derived",
+                  "premises": [
+                    10,
+                    40
+                  ],
+                  "sideReceipt": "named-partition-composition"
+                },
+                "id": 30,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "evidence": {
+                  "data": "given:exhaustive parent:[left,right]",
+                  "kind": "receipt"
+                },
+                "id": 40,
+                "version": 1
+              }
+            ]
+          },
+          "source_digest": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+          "state": {
+            "current_count": 3,
+            "domain": [
+              1,
+              3,
+              4
+            ],
+            "held": [
+              1,
+              4
+            ],
+            "live_warrants": [
+              10,
+              30,
+              40
+            ],
+            "retracted": [],
+            "status": "OK",
+            "successors": [],
+            "supports": [
+              10,
+              40
+            ],
+            "warrant_count": 3
+          }
+        },
+        "reverse": {
+          "argument_dependency_ids": [
+            10,
+            40
+          ],
+          "case": "GP-X183",
+          "conclusion": "the parent is empty",
+          "conditional": true,
+          "given": [
+            "left branch is empty",
+            "exhaustive parent:[left,right]"
+          ],
+          "literal_inputs": {
+            "conclusion_class": "empty",
+            "conclusion_text": "the parent is empty",
+            "contexts": [
+              "parent",
+              "left",
+              "right"
+            ],
+            "cover": {
+              "branches": [
+                "left",
+                "right"
+              ],
+              "include_exhaustiveness_premise": true,
+              "parent": "parent",
+              "verification_assumption": "exhaustive"
+            },
+            "premises": [
+              {
+                "context": "left",
+                "statement": "left branch is empty",
+                "statement_class": "empty"
+              }
+            ]
+          },
+          "mode": "reverse",
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              3,
+              4
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "evidence": {
+                  "data": "given:left branch is empty",
+                  "kind": "receipt"
+                },
+                "id": 10,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "derived",
+                  "premises": [
+                    10,
+                    40
+                  ],
+                  "sideReceipt": "named-partition-composition"
+                },
+                "id": 30,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "evidence": {
+                  "data": "given:exhaustive parent:[left,right]",
+                  "kind": "receipt"
+                },
+                "id": 40,
+                "version": 1
+              }
+            ]
+          },
+          "source_digest": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+          "state": {
+            "current_count": 3,
+            "domain": [
+              1,
+              3,
+              4
+            ],
+            "held": [
+              1,
+              4
+            ],
+            "live_warrants": [
+              10,
+              30,
+              40
+            ],
+            "retracted": [],
+            "status": "OK",
+            "successors": [],
+            "supports": [
+              10,
+              40
+            ],
+            "warrant_count": 3
+          }
+        },
+        "duplicates": {
+          "argument_dependency_ids": [
+            10,
+            40
+          ],
+          "case": "GP-X183",
+          "conclusion": "the parent is empty",
+          "conditional": true,
+          "given": [
+            "left branch is empty",
+            "exhaustive parent:[left,right]"
+          ],
+          "literal_inputs": {
+            "conclusion_class": "empty",
+            "conclusion_text": "the parent is empty",
+            "contexts": [
+              "parent",
+              "left",
+              "right"
+            ],
+            "cover": {
+              "branches": [
+                "left",
+                "right"
+              ],
+              "include_exhaustiveness_premise": true,
+              "parent": "parent",
+              "verification_assumption": "exhaustive"
+            },
+            "premises": [
+              {
+                "context": "left",
+                "statement": "left branch is empty",
+                "statement_class": "empty"
+              }
+            ]
+          },
+          "mode": "duplicates",
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              3,
+              4
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "evidence": {
+                  "data": "given:left branch is empty",
+                  "kind": "receipt"
+                },
+                "id": 10,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "derived",
+                  "premises": [
+                    10,
+                    40
+                  ],
+                  "sideReceipt": "named-partition-composition"
+                },
+                "id": 30,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "evidence": {
+                  "data": "given:exhaustive parent:[left,right]",
+                  "kind": "receipt"
+                },
+                "id": 40,
+                "version": 1
+              }
+            ]
+          },
+          "source_digest": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+          "state": {
+            "current_count": 3,
+            "domain": [
+              1,
+              3,
+              4
+            ],
+            "held": [
+              1,
+              4
+            ],
+            "live_warrants": [
+              10,
+              30,
+              40
+            ],
+            "retracted": [],
+            "status": "OK",
+            "successors": [],
+            "supports": [
+              10,
+              40
+            ],
+            "warrant_count": 3
+          }
+        }
+      },
+      "native_input_sha256": {
+        "normal": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+        "reverse": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78",
+        "duplicates": "ba3e44a5b86e20f60e50a25b3fd0fc9c6aab4c5e93e00bfed9d9f187cdf28c78"
+      },
+      "theory_hypotheses": [
+        "left branch is empty",
+        "exhaustive parent:[left,right]"
+      ],
+      "translation_fidelity": "Literal parent/left/right region predicates over arbitrary Point types. Only supplied emptiness roots exist; verified coverage is a separate registered root and must appear in the actual argument dependencies."
+    },
+    {
+      "id": "GP-X184",
+      "source_sha256": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+      "expected": {
+        "verdict": "ACCEPT",
+        "reason": "Under the stated exhaustive-cover verification assumption, both branches have emptiness premises and the exhaustiveness claim is included."
+      },
+      "sources": [
+        {
+          "repository": "gp-v037",
+          "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+          "path": "tests/test_adversarial.py",
+          "line": 1348,
+          "anchor": "def test_a_case_split_is_licensed_by_the_partition_not_by_an_edge("
+        }
+      ],
+      "layer_entry": {
+        "id": "GP-X184",
+        "path": "corpus/must/GP-X184.json",
+        "sha256": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+        "primary_layer": "kernel",
+        "candidate_layers": [
+          "kernel"
+        ],
+        "g2_kernel_eligible": true,
+        "status": "resolved",
+        "rationale": "The full fixture assumes mathematical premises or supplies only declaration/claim data; registered rule, exact context, dependency and scope obligations decide authority.",
+        "review_group": "supplied-premise-authority",
+        "full_contract_required": true,
+        "secondary_layers": [],
+        "secondary_duties": [],
+        "evidence_pointers": [
+          "/title",
+          "/inputs",
+          "/attempted_conclusion",
+          "/expected/reason"
+        ]
+      },
+      "legacy_route": {
+        "kind": "joint_premises",
+        "layer": "conditional_premise_routes",
+        "limitation": "Legacy transport/coverage rule under declared premises; not logical entailment or GP 0.50 held authority. Partition verification is explicitly assumed for rule isolation. Whole checker and renderer also execute without an external CAS."
+      },
+      "observed": "ACCEPT",
+      "executed": true,
+      "full_fixture_contract": true,
+      "conditional_conclusion_only": true,
+      "literal_inputs": {
+        "contexts": [
+          "parent",
+          "left",
+          "right"
+        ],
+        "premises": [
+          {
+            "context": "left",
+            "statement_class": "empty",
+            "statement": "left branch is empty"
+          },
+          {
+            "context": "right",
+            "statement_class": "empty",
+            "statement": "right branch is empty"
+          }
+        ],
+        "conclusion_class": "empty",
+        "conclusion_text": "the parent is empty",
+        "cover": {
+          "parent": "parent",
+          "branches": [
+            "left",
+            "right"
+          ],
+          "include_exhaustiveness_premise": true,
+          "verification_assumption": "exhaustive"
+        }
+      },
+      "native_results": {
+        "normal": {
+          "argument_dependency_ids": [
+            10,
+            20,
+            40
+          ],
+          "case": "GP-X184",
+          "conclusion": "the parent is empty",
+          "conditional": true,
+          "given": [
+            "left branch is empty",
+            "right branch is empty",
+            "exhaustive parent:[left,right]"
+          ],
+          "literal_inputs": {
+            "conclusion_class": "empty",
+            "conclusion_text": "the parent is empty",
+            "contexts": [
+              "parent",
+              "left",
+              "right"
+            ],
+            "cover": {
+              "branches": [
+                "left",
+                "right"
+              ],
+              "include_exhaustiveness_premise": true,
+              "parent": "parent",
+              "verification_assumption": "exhaustive"
+            },
+            "premises": [
+              {
+                "context": "left",
+                "statement": "left branch is empty",
+                "statement_class": "empty"
+              },
+              {
+                "context": "right",
+                "statement": "right branch is empty",
+                "statement_class": "empty"
+              }
+            ]
+          },
+          "mode": "normal",
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "right branch is empty"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "evidence": {
+                  "data": "given:left branch is empty",
+                  "kind": "receipt"
+                },
+                "id": 10,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "right branch is empty"
+                },
+                "claim": 2,
+                "evidence": {
+                  "data": "given:right branch is empty",
+                  "kind": "receipt"
+                },
+                "id": 20,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "derived",
+                  "premises": [
+                    10,
+                    20,
+                    40
+                  ],
+                  "sideReceipt": "named-partition-composition"
+                },
+                "id": 30,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "evidence": {
+                  "data": "given:exhaustive parent:[left,right]",
+                  "kind": "receipt"
+                },
+                "id": 40,
+                "version": 1
+              }
+            ]
+          },
+          "source_digest": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+          "state": {
+            "current_count": 4,
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "held": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "live_warrants": [
+              10,
+              20,
+              30,
+              40
+            ],
+            "retracted": [],
+            "status": "OK",
+            "successors": [],
+            "supports": [
+              10,
+              20,
+              40,
+              30
+            ],
+            "warrant_count": 4
+          }
+        },
+        "reverse": {
+          "argument_dependency_ids": [
+            10,
+            20,
+            40
+          ],
+          "case": "GP-X184",
+          "conclusion": "the parent is empty",
+          "conditional": true,
+          "given": [
+            "left branch is empty",
+            "right branch is empty",
+            "exhaustive parent:[left,right]"
+          ],
+          "literal_inputs": {
+            "conclusion_class": "empty",
+            "conclusion_text": "the parent is empty",
+            "contexts": [
+              "parent",
+              "left",
+              "right"
+            ],
+            "cover": {
+              "branches": [
+                "left",
+                "right"
+              ],
+              "include_exhaustiveness_premise": true,
+              "parent": "parent",
+              "verification_assumption": "exhaustive"
+            },
+            "premises": [
+              {
+                "context": "left",
+                "statement": "left branch is empty",
+                "statement_class": "empty"
+              },
+              {
+                "context": "right",
+                "statement": "right branch is empty",
+                "statement_class": "empty"
+              }
+            ]
+          },
+          "mode": "reverse",
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "right branch is empty"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "evidence": {
+                  "data": "given:left branch is empty",
+                  "kind": "receipt"
+                },
+                "id": 10,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "right branch is empty"
+                },
+                "claim": 2,
+                "evidence": {
+                  "data": "given:right branch is empty",
+                  "kind": "receipt"
+                },
+                "id": 20,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "derived",
+                  "premises": [
+                    10,
+                    20,
+                    40
+                  ],
+                  "sideReceipt": "named-partition-composition"
+                },
+                "id": 30,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "evidence": {
+                  "data": "given:exhaustive parent:[left,right]",
+                  "kind": "receipt"
+                },
+                "id": 40,
+                "version": 1
+              }
+            ]
+          },
+          "source_digest": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+          "state": {
+            "current_count": 4,
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "held": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "live_warrants": [
+              10,
+              20,
+              30,
+              40
+            ],
+            "retracted": [],
+            "status": "OK",
+            "successors": [],
+            "supports": [
+              10,
+              20,
+              40,
+              30
+            ],
+            "warrant_count": 4
+          }
+        },
+        "duplicates": {
+          "argument_dependency_ids": [
+            10,
+            20,
+            40
+          ],
+          "case": "GP-X184",
+          "conclusion": "the parent is empty",
+          "conditional": true,
+          "given": [
+            "left branch is empty",
+            "right branch is empty",
+            "exhaustive parent:[left,right]"
+          ],
+          "literal_inputs": {
+            "conclusion_class": "empty",
+            "conclusion_text": "the parent is empty",
+            "contexts": [
+              "parent",
+              "left",
+              "right"
+            ],
+            "cover": {
+              "branches": [
+                "left",
+                "right"
+              ],
+              "include_exhaustiveness_premise": true,
+              "parent": "parent",
+              "verification_assumption": "exhaustive"
+            },
+            "premises": [
+              {
+                "context": "left",
+                "statement": "left branch is empty",
+                "statement_class": "empty"
+              },
+              {
+                "context": "right",
+                "statement": "right branch is empty",
+                "statement_class": "empty"
+              }
+            ]
+          },
+          "mode": "duplicates",
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "right branch is empty"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "evidence": {
+                  "data": "given:left branch is empty",
+                  "kind": "receipt"
+                },
+                "id": 10,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "right branch is empty"
+                },
+                "claim": 2,
+                "evidence": {
+                  "data": "given:right branch is empty",
+                  "kind": "receipt"
+                },
+                "id": 20,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "derived",
+                  "premises": [
+                    10,
+                    20,
+                    40
+                  ],
+                  "sideReceipt": "named-partition-composition"
+                },
+                "id": 30,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "evidence": {
+                  "data": "given:exhaustive parent:[left,right]",
+                  "kind": "receipt"
+                },
+                "id": 40,
+                "version": 1
+              }
+            ]
+          },
+          "source_digest": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+          "state": {
+            "current_count": 4,
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "held": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "live_warrants": [
+              10,
+              20,
+              30,
+              40
+            ],
+            "retracted": [],
+            "status": "OK",
+            "successors": [],
+            "supports": [
+              10,
+              20,
+              40,
+              30
+            ],
+            "warrant_count": 4
+          }
+        }
+      },
+      "native_input_sha256": {
+        "normal": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+        "reverse": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6",
+        "duplicates": "97e0917f7e524cff1db7f2371b952b766f883e03da754ce4fe6b82fbee4d59f6"
+      },
+      "theory_hypotheses": [
+        "left branch is empty",
+        "right branch is empty",
+        "exhaustive parent:[left,right]"
+      ],
+      "translation_fidelity": "Literal parent/left/right region predicates over arbitrary Point types. Only supplied emptiness roots exist; verified coverage is a separate registered root and must appear in the actual argument dependencies."
+    },
+    {
+      "id": "GP-X186",
+      "source_sha256": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+      "expected": {
+        "verdict": "REFUSE",
+        "reason": "The case split requires its completeness premise in the argument even when the partition itself has the assumed verification status."
+      },
+      "sources": [
+        {
+          "repository": "gp-v037",
+          "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+          "path": "tests/test_adversarial.py",
+          "line": 1372,
+          "anchor": "def test_a_case_split_without_exhaustiveness_is_refused("
+        }
+      ],
+      "layer_entry": {
+        "id": "GP-X186",
+        "path": "corpus/must/GP-X186.json",
+        "sha256": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+        "primary_layer": "kernel",
+        "candidate_layers": [
+          "kernel"
+        ],
+        "g2_kernel_eligible": true,
+        "status": "resolved",
+        "rationale": "The full fixture assumes mathematical premises or supplies only declaration/claim data; registered rule, exact context, dependency and scope obligations decide authority.",
+        "review_group": "supplied-premise-authority",
+        "full_contract_required": true,
+        "secondary_layers": [],
+        "secondary_duties": [],
+        "evidence_pointers": [
+          "/title",
+          "/inputs",
+          "/attempted_conclusion",
+          "/expected/reason"
+        ]
+      },
+      "legacy_route": {
+        "kind": "joint_premises",
+        "layer": "conditional_premise_routes",
+        "limitation": "Legacy transport/coverage rule under declared premises; not logical entailment or GP 0.50 held authority. Partition verification is explicitly assumed for rule isolation. Whole checker and renderer also execute without an external CAS."
+      },
+      "observed": "REFUSE",
+      "executed": true,
+      "full_fixture_contract": true,
+      "conditional_conclusion_only": true,
+      "literal_inputs": {
+        "contexts": [
+          "parent",
+          "left",
+          "right"
+        ],
+        "premises": [
+          {
+            "context": "left",
+            "statement_class": "empty",
+            "statement": "left branch is empty"
+          },
+          {
+            "context": "right",
+            "statement_class": "empty",
+            "statement": "right branch is empty"
+          }
+        ],
+        "conclusion_class": "empty",
+        "conclusion_text": "the parent is empty",
+        "cover": {
+          "parent": "parent",
+          "branches": [
+            "left",
+            "right"
+          ],
+          "include_exhaustiveness_premise": false,
+          "verification_assumption": "exhaustive"
+        }
+      },
+      "native_results": {
+        "normal": {
+          "argument_dependency_ids": [
+            10,
+            20
+          ],
+          "case": "GP-X186",
+          "conclusion": "the parent is empty",
+          "conditional": true,
+          "given": [
+            "left branch is empty",
+            "right branch is empty",
+            "exhaustive parent:[left,right]"
+          ],
+          "literal_inputs": {
+            "conclusion_class": "empty",
+            "conclusion_text": "the parent is empty",
+            "contexts": [
+              "parent",
+              "left",
+              "right"
+            ],
+            "cover": {
+              "branches": [
+                "left",
+                "right"
+              ],
+              "include_exhaustiveness_premise": false,
+              "parent": "parent",
+              "verification_assumption": "exhaustive"
+            },
+            "premises": [
+              {
+                "context": "left",
+                "statement": "left branch is empty",
+                "statement_class": "empty"
+              },
+              {
+                "context": "right",
+                "statement": "right branch is empty",
+                "statement_class": "empty"
+              }
+            ]
+          },
+          "mode": "normal",
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "right branch is empty"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "evidence": {
+                  "data": "given:left branch is empty",
+                  "kind": "receipt"
+                },
+                "id": 10,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "right branch is empty"
+                },
+                "claim": 2,
+                "evidence": {
+                  "data": "given:right branch is empty",
+                  "kind": "receipt"
+                },
+                "id": 20,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "derived",
+                  "premises": [
+                    10,
+                    20
+                  ],
+                  "sideReceipt": "named-partition-composition"
+                },
+                "id": 30,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "evidence": {
+                  "data": "given:exhaustive parent:[left,right]",
+                  "kind": "receipt"
+                },
+                "id": 40,
+                "version": 1
+              }
+            ]
+          },
+          "source_digest": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+          "state": {
+            "current_count": 4,
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "held": [
+              1,
+              2,
+              4
+            ],
+            "live_warrants": [
+              10,
+              20,
+              30,
+              40
+            ],
+            "retracted": [],
+            "status": "OK",
+            "successors": [],
+            "supports": [
+              10,
+              20,
+              40
+            ],
+            "warrant_count": 4
+          }
+        },
+        "reverse": {
+          "argument_dependency_ids": [
+            10,
+            20
+          ],
+          "case": "GP-X186",
+          "conclusion": "the parent is empty",
+          "conditional": true,
+          "given": [
+            "left branch is empty",
+            "right branch is empty",
+            "exhaustive parent:[left,right]"
+          ],
+          "literal_inputs": {
+            "conclusion_class": "empty",
+            "conclusion_text": "the parent is empty",
+            "contexts": [
+              "parent",
+              "left",
+              "right"
+            ],
+            "cover": {
+              "branches": [
+                "left",
+                "right"
+              ],
+              "include_exhaustiveness_premise": false,
+              "parent": "parent",
+              "verification_assumption": "exhaustive"
+            },
+            "premises": [
+              {
+                "context": "left",
+                "statement": "left branch is empty",
+                "statement_class": "empty"
+              },
+              {
+                "context": "right",
+                "statement": "right branch is empty",
+                "statement_class": "empty"
+              }
+            ]
+          },
+          "mode": "reverse",
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "right branch is empty"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "evidence": {
+                  "data": "given:left branch is empty",
+                  "kind": "receipt"
+                },
+                "id": 10,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "right branch is empty"
+                },
+                "claim": 2,
+                "evidence": {
+                  "data": "given:right branch is empty",
+                  "kind": "receipt"
+                },
+                "id": 20,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "derived",
+                  "premises": [
+                    10,
+                    20
+                  ],
+                  "sideReceipt": "named-partition-composition"
+                },
+                "id": 30,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "evidence": {
+                  "data": "given:exhaustive parent:[left,right]",
+                  "kind": "receipt"
+                },
+                "id": 40,
+                "version": 1
+              }
+            ]
+          },
+          "source_digest": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+          "state": {
+            "current_count": 4,
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "held": [
+              1,
+              2,
+              4
+            ],
+            "live_warrants": [
+              10,
+              20,
+              30,
+              40
+            ],
+            "retracted": [],
+            "status": "OK",
+            "successors": [],
+            "supports": [
+              10,
+              20,
+              40
+            ],
+            "warrant_count": 4
+          }
+        },
+        "duplicates": {
+          "argument_dependency_ids": [
+            10,
+            20
+          ],
+          "case": "GP-X186",
+          "conclusion": "the parent is empty",
+          "conditional": true,
+          "given": [
+            "left branch is empty",
+            "right branch is empty",
+            "exhaustive parent:[left,right]"
+          ],
+          "literal_inputs": {
+            "conclusion_class": "empty",
+            "conclusion_text": "the parent is empty",
+            "contexts": [
+              "parent",
+              "left",
+              "right"
+            ],
+            "cover": {
+              "branches": [
+                "left",
+                "right"
+              ],
+              "include_exhaustiveness_premise": false,
+              "parent": "parent",
+              "verification_assumption": "exhaustive"
+            },
+            "premises": [
+              {
+                "context": "left",
+                "statement": "left branch is empty",
+                "statement_class": "empty"
+              },
+              {
+                "context": "right",
+                "statement": "right branch is empty",
+                "statement_class": "empty"
+              }
+            ]
+          },
+          "mode": "duplicates",
+          "snapshot": {
+            "currents": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "right branch is empty"
+                },
+                "claim": 2,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "version": 1
+              }
+            ],
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "retracted": [],
+            "successors": [],
+            "warrants": [
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "left branch is empty"
+                },
+                "claim": 1,
+                "evidence": {
+                  "data": "given:left branch is empty",
+                  "kind": "receipt"
+                },
+                "id": 10,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "right branch is empty"
+                },
+                "claim": 2,
+                "evidence": {
+                  "data": "given:right branch is empty",
+                  "kind": "receipt"
+                },
+                "id": 20,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "the parent is empty"
+                },
+                "claim": 3,
+                "evidence": {
+                  "kind": "derived",
+                  "premises": [
+                    10,
+                    20
+                  ],
+                  "sideReceipt": "named-partition-composition"
+                },
+                "id": 30,
+                "version": 1
+              },
+              {
+                "binding": {
+                  "authority": "test-only-named-partition-assumptions",
+                  "authorityVersion": 1,
+                  "inputHashes": [
+                    "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+                  ],
+                  "kernelVersion": 1,
+                  "modelHash": "contexts=[parent,left,right];partition=parent:[left,right]",
+                  "scopeHash": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+                  "statementHash": "parent is covered by [left,right]"
+                },
+                "claim": 4,
+                "evidence": {
+                  "data": "given:exhaustive parent:[left,right]",
+                  "kind": "receipt"
+                },
+                "id": 40,
+                "version": 1
+              }
+            ]
+          },
+          "source_digest": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+          "state": {
+            "current_count": 4,
+            "domain": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "held": [
+              1,
+              2,
+              4
+            ],
+            "live_warrants": [
+              10,
+              20,
+              30,
+              40
+            ],
+            "retracted": [],
+            "status": "OK",
+            "successors": [],
+            "supports": [
+              10,
+              20,
+              40
+            ],
+            "warrant_count": 4
+          }
+        }
+      },
+      "native_input_sha256": {
+        "normal": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+        "reverse": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980",
+        "duplicates": "6e1ce28a406c4590fe7e17445cccb25d7f5f2c9f4699191064dcee7a1a8e0980"
+      },
+      "theory_hypotheses": [
+        "left branch is empty",
+        "right branch is empty",
+        "exhaustive parent:[left,right]"
+      ],
+      "translation_fidelity": "Literal parent/left/right region predicates over arbitrary Point types. Only supplied emptiness roots exist; verified coverage is a separate registered root and must appear in the actual argument dependencies."
+    }
+  ],
+  "source_contract": {
+    "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+    "path": "tests/test_adversarial.py",
+    "file_sha256": "1150aa49c0596af1a9816a71f44694838e6fef17370a2fc8337b453b3d43c9f8",
+    "pin_file_sha256": "85220bebac5cec09103926f5ff25e8d54ed9dda3cc338c1a9e7499c08d56f4a7",
+    "functions": {
+      "GP-X183": {
+        "line": 3149,
+        "anchor": "def test_a_partition_reports_when_it_FAILS_not_only_when_it_succeeds(",
+        "function_sha256": "8d738d24be0a9a30a1950b9c8c1e0bcd9a1cf59a8ea28c24a907f00b3d0b5d6e"
+      },
+      "GP-X184": {
+        "line": 1348,
+        "anchor": "def test_a_case_split_is_licensed_by_the_partition_not_by_an_edge(",
+        "function_sha256": "e2809e14df601bfb091bbf59755a7b90848de6e817250aa7ff773b8f60dd6930"
+      },
+      "GP-X186": {
+        "line": 1372,
+        "anchor": "def test_a_case_split_without_exhaustiveness_is_refused(",
+        "function_sha256": "cd44119f7a05636fdf00b2896c5df40227c2f07b8e1d2703000d0d69af4a6901"
+      }
+    },
+    "boundary": "Execute the literal fixture abstraction and its stated conditional conclusion; no predecessor graph reconstruction or renderer claim."
+  },
+  "registry_sha256": {
+    "layer_tags": "046b353edf02f2e6972d00c2ee4fe974cb3bef1fc7062cede0d36ec4c1c83838",
+    "routes": "cce1e91123d58b6c3a452cd911b129a21e6d4fad3e9042b1d0ff43e73e6e7750",
+    "baseline": "5e7f8b32338a845ccef9015f62ecc5da750681a33cb945d2ef4d3763380a3bb9",
+    "pin": "85220bebac5cec09103926f5ff25e8d54ed9dda3cc338c1a9e7499c08d56f4a7"
+  },
+  "runner_path": "phase2/lean/.lake/build/bin/gp_conditional_partition_fixture.exe",
+  "runner_sha256": "451edc2c6d0d362103992d9670297b3f5eb38ecd45107d871a22ad32302708a0",
+  "adapter_sha256": "9951da0686828cfa283547e0d41f86ae4d045164246514ebef25989613b36e6e",
+  "harness_sha256": "eaccf4bd739c67879eea2f6d231bee8e8cbfca684a82a228680ae052bf1344a4",
+  "test_source_sha256": "b7155eae95880d38358f955eae82861e987bcea004e42d0b166aeae1a069d401",
+  "kernel_source_sha256": {
+    "Events": "1e3d7497baaff4015d4706bccef0a62bdbf99d92ae64d7e2069907a221d091f3",
+    "Runtime": "f4c52eee8deaa575a0baa52e92fffb8c436eab9a281834ba1f0897f5af8626c3",
+    "Closure": "623d2368841f8278a007129faac79d498c1010523e9552a1dd2d3fa0201f5403",
+    "Decoder": "de8460f9839582d8df489266fe2e8306d327257520fb562262a995a337e0ea51",
+    "AdmissionProofs": "7947e809e5e2978c33ae77ee86e9aab550c0e755dcefb58889695321ceaaf6f6",
+    "SpanSoundnessProofs": "64090f5391df269067e2b2fc0989da9c16bcabc96d90434ab98ec478b2693a08"
+  },
+  "proofs": [
+    "ConditionalPartition.partition_composition_sound",
+    "ConditionalPartition.actual_validator_sound",
+    "ConditionalPartition.actual_fold_held_sound"
+  ],
+  "axioms": [
+    "propext",
+    "Quot.sound"
+  ],
+  "production_profile_adoption": false,
+  "underlying_algebraic_truth_certified": false,
+  "g2_pass": false,
+  "guarantee": "Every actual held claim has its named meaning for every Point type and every parent/left/right interpretation satisfying precisely the explicit theory hypotheses. Semantic truth alone never seeds closure.",
+  "binding_boundary": "Exact literal statement/model identities plus host SHA-256 of the unchanged UTF-8 fixture bind the registered records. Byte-to-digest fidelity is a host contract. Source premise assumptions are conditional theory hypotheses, not certified underlying region emptiness."
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X233",
+  "seed": null,
+  "title": "Computation recording: untyped_with_reason, structured, success",
+  "situation": "A computation must declare its relation and complete without execution errors before recording a produced model.",
+  "inputs": {
+    "declaration": "untyped_with_reason",
+    "request_form": "structured",
+    "process_outcome": "success"
+  },
+  "attempted_conclusion": "Accept the attempted computation as a completed operation and record its output model. No mathematical claim is inferred.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Computation recording: untyped_with_reason, structured, success"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_boundary.py",
+      "line": 95,
+      "anchor": "def test_untyped_is_a_legal_declaration_but_silence_is_not("
+    }
+  ]
+}

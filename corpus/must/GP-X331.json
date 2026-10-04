@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "GP-X331",
+  "seed": null,
+  "title": "Removing R from no-inversion ledger grants no unit authority",
+  "situation": "The native localization ledger expressly records R among the factors never inverted. Its entry is deleted without a unit witness.",
+  "inputs": {
+    "control": "no_inversion_ledger",
+    "fixture_sha256": "7c26a7fdcfd12321997beb259f73388db654b3aff1cfbb83f30ccfa11017b82c",
+    "mutation": {
+      "op": "remove",
+      "path": [
+        "native_certificate",
+        "localization_ledger",
+        "never_inverted"
+      ],
+      "value": "R"
+    }
+  },
+  "attempted_conclusion": "Reuse the same receipt after removing R from the no-inversion boundary.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The ledger no longer matches the checked no-inversion contract; deletion does not establish R as a unit."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "line": 87,
+      "anchor": "def test_arithmetic_and_scope_mutations_refuse("
+    },
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "experiments/jc_h3_b0_free_plane/depth8_adapter.py",
+      "line": 436,
+      "anchor": "localization[\"never_inverted\"] =="
+    }
+  ]
+}

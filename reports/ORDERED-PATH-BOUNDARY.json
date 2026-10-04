@@ -1,0 +1,199 @@
+{
+  "controls": [
+    {
+      "typed": false,
+      "target": "unspecified_about",
+      "recorded": false,
+      "reach": null,
+      "zero_path": {
+        "licensed": true,
+        "trace": []
+      },
+      "one_step": {
+        "licensed": false,
+        "trace": [
+          [
+            "EDGE",
+            "ALONG",
+            false,
+            "BASE_EXTENSION licenses EMPTY along the extension only at scope SCHEME; this claim has scope 'R' (certificate ORDERED_SOS_CERT, which does not base-change)"
+          ]
+        ]
+      },
+      "findings": [
+        {
+          "id": "TRANSPORT:STEP",
+          "detail": "no ordered-field zero\n  asserted: carry the emptiness premise\n  refused : BASE_EXTENSION licenses EMPTY along the extension only at scope SCHEME; this claim has scope 'R' (certificate ORDERED_SOS_CERT, which does not base-change)"
+        },
+        {
+          "id": "CONTAINMENT:EDGE",
+          "detail": "edge EDGE asserts V(M) subset V(N) and both models carry ideals, so the containment is CHECKABLE and unchecked.\n  This is the assertion every cell on this edge rests on, and it is currently the author's word."
+        }
+      ]
+    },
+    {
+      "typed": false,
+      "target": "unspecified_about",
+      "recorded": true,
+      "reach": {
+        "kind": "ORDERED"
+      },
+      "zero_path": {
+        "licensed": true,
+        "trace": []
+      },
+      "one_step": {
+        "licensed": false,
+        "trace": [
+          [
+            "EDGE",
+            "ALONG",
+            false,
+            "BASE_EXTENSION licenses EMPTY along the extension only at scope SCHEME; this claim has scope 'R' (certificate ORDERED_SOS_CERT, which does not base-change)"
+          ]
+        ]
+      },
+      "findings": [
+        {
+          "id": "TRANSPORT:STEP",
+          "detail": "no ordered-field zero\n  asserted: carry the emptiness premise\n  refused : BASE_EXTENSION licenses EMPTY along the extension only at scope SCHEME; this claim has scope 'R' (certificate ORDERED_SOS_CERT, which does not base-change)"
+        },
+        {
+          "id": "CONTAINMENT:EDGE",
+          "detail": "edge EDGE asserts V(M) subset V(N) and both models carry ideals, so the containment is CHECKABLE and unchecked.\n  This is the assertion every cell on this edge rests on, and it is currently the author's word."
+        }
+      ]
+    },
+    {
+      "typed": true,
+      "target": "R",
+      "recorded": false,
+      "reach": null,
+      "zero_path": {
+        "licensed": true,
+        "trace": []
+      },
+      "one_step": {
+        "licensed": false,
+        "trace": [
+          [
+            "EDGE",
+            "ALONG",
+            false,
+            "epoch-12 field-context refusal: the EMPTY claim has no current verifier-earned certificate reach"
+          ]
+        ]
+      },
+      "findings": [
+        {
+          "id": "TRANSPORT:STEP",
+          "detail": "no ordered-field zero\n  asserted: carry the emptiness premise\n  refused : epoch-12 field-context refusal: the EMPTY claim has no current verifier-earned certificate reach"
+        },
+        {
+          "id": "CONTAINMENT:EDGE",
+          "detail": "edge EDGE asserts V(M) subset V(N) and both models carry ideals, so the containment is CHECKABLE and unchecked.\n  This is the assertion every cell on this edge rests on, and it is currently the author's word."
+        }
+      ]
+    },
+    {
+      "typed": true,
+      "target": "R",
+      "recorded": true,
+      "reach": {
+        "kind": "ORDERED"
+      },
+      "zero_path": {
+        "licensed": true,
+        "trace": []
+      },
+      "one_step": {
+        "licensed": true,
+        "trace": [
+          [
+            "EDGE",
+            "ALONG",
+            true,
+            "licensed: the emptiness is certificate-backed (ORDERED_SOS_CERT), so it base-changes"
+          ]
+        ]
+      },
+      "findings": [
+        {
+          "id": "CONTAINMENT:EDGE",
+          "detail": "edge EDGE asserts V(M) subset V(N) and both models carry ideals, so the containment is CHECKABLE and unchecked.\n  This is the assertion every cell on this edge rests on, and it is currently the author's word."
+        }
+      ]
+    },
+    {
+      "typed": true,
+      "target": "C",
+      "recorded": false,
+      "reach": null,
+      "zero_path": {
+        "licensed": true,
+        "trace": []
+      },
+      "one_step": {
+        "licensed": false,
+        "trace": [
+          [
+            "EDGE",
+            "ALONG",
+            false,
+            "epoch-12 field-context refusal: the EMPTY claim has no current verifier-earned certificate reach"
+          ]
+        ]
+      },
+      "findings": [
+        {
+          "id": "TRANSPORT:STEP",
+          "detail": "no ordered-field zero\n  asserted: carry the emptiness premise\n  refused : epoch-12 field-context refusal: the EMPTY claim has no current verifier-earned certificate reach"
+        },
+        {
+          "id": "CONTAINMENT:EDGE",
+          "detail": "edge EDGE asserts V(M) subset V(N) and both models carry ideals, so the containment is CHECKABLE and unchecked.\n  This is the assertion every cell on this edge rests on, and it is currently the author's word."
+        }
+      ]
+    },
+    {
+      "typed": true,
+      "target": "C",
+      "recorded": true,
+      "reach": {
+        "kind": "ORDERED"
+      },
+      "zero_path": {
+        "licensed": true,
+        "trace": []
+      },
+      "one_step": {
+        "licensed": false,
+        "trace": [
+          [
+            "EDGE",
+            "ALONG",
+            false,
+            "epoch-12 field-context refusal: ORDERED reach does not apply to this target"
+          ]
+        ]
+      },
+      "findings": [
+        {
+          "id": "TRANSPORT:STEP",
+          "detail": "no ordered-field zero\n  asserted: carry the emptiness premise\n  refused : epoch-12 field-context refusal: ORDERED reach does not apply to this target"
+        },
+        {
+          "id": "CONTAINMENT:EDGE",
+          "detail": "edge EDGE asserts V(M) subset V(N) and both models carry ideals, so the containment is CHECKABLE and unchecked.\n  This is the assertion every cell on this edge rests on, and it is currently the author's word."
+        }
+      ]
+    }
+  ],
+  "script_sha256": "c44a119b627af2f9eb34f28b7664526cb4669cbe8341ab3b76b8449f8a877ccc",
+  "source_sha256": {
+    "grandportage/check.py": "00d979f20fe53e6ce15877d7fe19ba7a1b73bff14c414fb811c345104e4d5ad5",
+    "grandportage/kernel.py": "6e0c4701cfc4ffc4dd3824d33966ed0a09c8603447b000ee43d29c0a70e59cf4",
+    "grandportage/store.py": "900da33d1b8e3ae045533b3ae8ed67317a3bc56a35861d2bcd604ae6adb7e755"
+  },
+  "scope": "Six graphs, each audited with zero and one transport step; actual native receipt when recorded. No CAS, campaign data or implementation changes. A route audit is not a held-claim verdict."
+}

@@ -1,0 +1,84 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "sources": [
+    {
+      "path": "grandportage/dossier.py",
+      "sha256": "6b81486e77377d76971059b2cb3789803152945af4e938de2013ee5f0f527e11",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "tests/test_dossier.py",
+      "sha256": "0d9978bad1e9100b7f3673b9eec4f6b2cb8650430c2a34ef247d825ae07caf98",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "docs/CAMPAIGN-DOSSIER-V0.md",
+      "sha256": "b6fdfb3efb48562b9796dd24f4655c9cc71fac7016b471a42e573d00cdf16c52",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "fixtures/dossier/synthetic/dossier.json",
+      "sha256": "4344e2439ccaccca39fb9e478e1e1a7aa43f546370dd9cf4178dd8ce463eb739",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "fixtures/dossier/synthetic/authority.md",
+      "sha256": "46cf451fffb0b6cbaecd5a11851288c79efebc01dcf5eff66bff8ef4c4ebe09a",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "fixtures/dossier/synthetic/proof.txt",
+      "sha256": "c107518bc5cd0067a8bf325a10f7cf796c9d44daa81cf89f25ede4f19552a6a1",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "fixtures/dossier/synthetic/synthetic-receipt.json",
+      "sha256": "8cb1d819e6756e8f97240917431bfc8ffc20538b1c4a47c73c815d4642e49bad",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    },
+    {
+      "path": "fixtures/dossier/synthetic/verify_synthetic.py",
+      "sha256": "074bc83d664ccc7d29ec59f754a0d1acd8249ba6acacf7d106e43a430d9a58b7",
+      "full_text_read": true,
+      "semantic_status": "partial"
+    }
+  ],
+  "caller_slices": [
+    {
+      "path": "grandportage/cli.py",
+      "definition": "cmd_campaign_dossier",
+      "lines": [
+        2672,
+        2685
+      ]
+    }
+  ],
+  "tests": {
+    "passed": 15,
+    "report": "reports/oracle-dossier-review.xml"
+  },
+  "diagnostics": "reports/DOSSIER-BOUNDARIES-AUDIT.json",
+  "findings": [
+    "READY evaluates authored criteria; replay PASS is metadata, not executed evidence. SOURCE_FRESH must be required explicitly by the profile. No theorem or graph mutation is admitted.",
+    "Working-tree digest normalizes CRLF but pinned git-show digest hashes raw bytes despite the same declared algorithm. Synthetic real-Git controls give CURRENT_CLEAN versus STALE for identical committed CRLF content.",
+    "Source status can be STALE while a profile lacking SOURCE_FRESH is READY. Documentation blanket drift-as-blocker wording needs that qualification.",
+    "Documentation references graph format 5/kernel epoch 10 and companion preview status; these are historical statements, not current pinned format/epoch or externally verified campaign facts.",
+    "The script is intended for the materialized archive layout declared by fixtures/release/synthetic/release.json. Actual archived replay passes in test_release.py. Source-directory FileNotFoundError does not establish a broken package."
+  ],
+  "proposed_repairs": [
+    "Use one LF-normalized digest implementation for checkout and git blobs; retain CRLF and LF controls.",
+    "Label replay states as recorded assertions and readiness as profile-specific; require source freshness and replay binding in any later policy that needs them."
+  ],
+  "remaining": [
+    "Trace release/publication consumers before assessing downstream admission or archival behavior.",
+    "Extract portable cases where warranted; complete broader semantic/history review."
+  ],
+  "correction": "reports/DOSSIER-FIXTURE-INTERPRETATION-CORRECTION.json"
+}

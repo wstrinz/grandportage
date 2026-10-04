@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "GP-X37",
+  "seed": null,
+  "title": "A completion label does not supply the missing map",
+  "situation": "An exact reduced-row binding is conditional on normalized-root inputs; the original-pair to normalized-root map remains unmaterialized.",
+  "inputs": {
+    "source_pair_materialized": false,
+    "source_map_materialized": false,
+    "proposed_value": {
+      "status": "COMPLETE",
+      "implementation": "invented.py"
+    }
+  },
+  "attempted_conclusion": "Treat an asserted implementation name and completion label as the missing source-map proof.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Changing a declaration is not a checked map or source binding."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_original_pair_seam.py",
+      "line": 73,
+      "anchor": "def test_promoting_the_missing_source_map_is_rejected("
+    }
+  ]
+}

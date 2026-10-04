@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "id": "GP-X105",
+  "seed": null,
+  "title": "Use an S2 low-jet exclusion on S1 S3 and S4",
+  "situation": "The scoped S2 cover does not cover the other pieces.",
+  "inputs": {
+    "contract_section": "closeout",
+    "baseline_contract": {
+      "wall": "b = 0, R = 0, Delta = 0 (S2 substituted)",
+      "scope": "declared S2 low-jet cover universe only",
+      "verdict": "SIGMA_FULLY_SOURCE_EXCLUDED_INVARIANT_J",
+      "corollary": "LOWJET_COVER_COMPLETE",
+      "residual_degree": 15,
+      "residual_squarefree": true,
+      "candidate_count": 15,
+      "terminal_guard": "det5 = 0",
+      "checks": 31,
+      "new_localization": false,
+      "source_sufficiency_licensed": false,
+      "global_b0_licensed": false,
+      "s1_s3_s4_licensed": false,
+      "h3_licensed": false,
+      "verdict_75125_licensed": false
+    },
+    "operations": [
+      {
+        "op": "set",
+        "path": [
+          "closeout",
+          "s1_s3_s4_licensed"
+        ],
+        "value": true
+      }
+    ]
+  },
+  "attempted_conclusion": "Use an S2 low-jet exclusion on S1 S3 and S4.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The scoped S2 cover does not cover the other pieces."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_s2_lowjet_guard_peel_handback.py",
+      "line": 17,
+      "anchor": "def test_scope_promotions_refuse("
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "path": "grandportage/groebner.py",
+  "sha256": "239d045e28c7ee672905dac4c9b0214661ec33d7b10d29e8038c4a8088f16ce2",
+  "full_text_read": true,
+  "complete_read_range": [
+    1,
+    1247
+  ],
+  "definitions": [
+    {
+      "name": "CertificateError",
+      "start": 22,
+      "end": 23
+    },
+    {
+      "name": "_valid_characteristic",
+      "start": 44,
+      "end": 47
+    },
+    {
+      "name": "_prime_characteristic",
+      "start": 51,
+      "end": 61
+    },
+    {
+      "name": "_coefficient",
+      "start": 63,
+      "end": 73
+    },
+    {
+      "name": "_coefficient_bits",
+      "start": 76,
+      "end": 79
+    },
+    {
+      "name": "_add",
+      "start": 82,
+      "end": 83
+    },
+    {
+      "name": "_mul",
+      "start": 86,
+      "end": 87
+    },
+    {
+      "name": "_inverse",
+      "start": 90,
+      "end": 100
+    },
+    {
+      "name": "_ArithmeticBudget",
+      "start": 103,
+      "end": 115
+    },
+    {
+      "name": "Polynomial",
+      "start": 118,
+      "end": 306
+    },
+    {
+      "name": "_parse_sparse_polynomial",
+      "start": 309,
+      "end": 412
+    },
+    {
+      "name": "parse_polynomial",
+      "start": 415,
+      "end": 508
+    },
+    {
+      "name": "_coefficient_text",
+      "start": 511,
+      "end": 516
+    },
+    {
+      "name": "render_polynomial",
+      "start": 519,
+      "end": 552
+    },
+    {
+      "name": "encode_sparse_polynomial",
+      "start": 554,
+      "end": 568
+    },
+    {
+      "name": "portable_polynomial",
+      "start": 571,
+      "end": 586
+    },
+    {
+      "name": "canonical_polynomial_value",
+      "start": 589,
+      "end": 593
+    },
+    {
+      "name": "canonical_polynomial",
+      "start": 597,
+      "end": 602
+    },
+    {
+      "name": "substitute_polynomial",
+      "start": 605,
+      "end": 660
+    },
+    {
+      "name": "substitute_polynomial_between",
+      "start": 663,
+      "end": 697
+    },
+    {
+      "name": "guarded_rational_substitute",
+      "start": 700,
+      "end": 775
+    },
+    {
+      "name": "multiply_polynomial_power",
+      "start": 778,
+      "end": 791
+    },
+    {
+      "name": "check_membership_identity",
+      "start": 794,
+      "end": 829
+    },
+    {
+      "name": "_reference_membership_status",
+      "start": 832,
+      "end": 842
+    },
+    {
+      "name": "s_polynomial",
+      "start": 844,
+      "end": 868
+    },
+    {
+      "name": "standard_representation",
+      "start": 871,
+      "end": 919
+    },
+    {
+      "name": "retained_basis",
+      "start": 922,
+      "end": 933
+    },
+    {
+      "name": "_parse_vector",
+      "start": 936,
+      "end": 944
+    },
+    {
+      "name": "_check_rows",
+      "start": 947,
+      "end": 979
+    },
+    {
+      "name": "_monomial_lcm",
+      "start": 982,
+      "end": 983
+    },
+    {
+      "name": "_monomial_quotient",
+      "start": 986,
+      "end": 989
+    },
+    {
+      "name": "_term",
+      "start": 992,
+      "end": 995
+    },
+    {
+      "name": "_enforce_certificate_budget",
+      "start": 998,
+      "end": 1037
+    },
+    {
+      "name": "preflight_certificate",
+      "start": 1040,
+      "end": 1045
+    },
+    {
+      "name": "check_elimination_certificate",
+      "start": 1048,
+      "end": 1247
+    }
+  ],
+  "diagnostic": "reports/POLYNOMIAL-REPRESENTATION-BOUNDARY.json",
+  "semantic_status": "partial",
+  "remaining": [
+    "Disposition generated exponent/encoding mismatch under an explicit portable resource contract.",
+    "Complete caller-by-caller reachability and resource accounting; elimination preflight rejects native objects, but this is not a blanket guarantee for all helpers.",
+    "General arithmetic soundness and cumulative work/error totality remain open.",
+    "Extract distinct neutral boundary cases where not already covered; retain completeness-only versus exact-contraction distinction."
+  ],
+  "certificate_diagnostic": "reports/ELIMINATION-PREFLIGHT-BOUNDARY.json",
+  "tests": {
+    "path": "tests/test_groebner.py",
+    "sha256": "b560b0a73e548325f930e1155f64828f54fcf722e2ca47ab8d487619f4ca5eec",
+    "full_text_read": true,
+    "offline_passed": 43,
+    "live_deselected": 1,
+    "evidence": "reports/oracle-groebner-review.xml"
+  }
+}

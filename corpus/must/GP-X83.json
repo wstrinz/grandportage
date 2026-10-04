@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "GP-X83",
+  "seed": null,
+  "title": "Obtain an actual-source edge from the frozen boundary alone",
+  "situation": "The imported boundary is source-unbound and carries no source or parent-cover edge.",
+  "inputs": {
+    "equation": "alpha*c7_5+beta=0",
+    "alpha": "5/2*t*(c2_3^2-4*c4_5)",
+    "pin": "15*t^3+1",
+    "source_binding": "digest commitments only",
+    "proposal": "source_edge"
+  },
+  "attempted_conclusion": "Obtain an actual-source edge from the frozen boundary alone.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The imported boundary is source-unbound and carries no source or parent-cover edge."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_source_depth6_authority.py",
+      "line": 103,
+      "anchor": "def test_boundary_model_has_no_silent_actual_source_or_cover_edge("
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "e65da2235d783e9667f44793fef589c541f807fd6a86e0a9b55d5049b2bfb798",
+  "authority": "DIAGNOSTIC_ONLY",
+  "external_execution": false,
+  "observations": [
+    {
+      "conclusion_text": "0=0 and 1=1",
+      "transport_audit": true,
+      "trace": [],
+      "clean_inferences": [
+        "JOIN"
+      ]
+    },
+    {
+      "conclusion_text": "0=1",
+      "transport_audit": true,
+      "trace": [],
+      "clean_inferences": [
+        "JOIN"
+      ]
+    },
+    {
+      "scenario": "explicit_missing_premise",
+      "transport_audit": false,
+      "trace": [
+        [
+          "(missing)",
+          "PREMISE",
+          false,
+          "this argument needs a PREDICATE claim at M and the graph has none: second premise unavailable"
+        ]
+      ]
+    }
+  ],
+  "transitive_inference_reference": {
+    "supported": false,
+    "reason": "inference 'NEXT' premise 0 cites undeclared claim 'JOIN'"
+  },
+  "interpretation": "Legacy join acceptance checks route compatibility, not logical entailment. Accepting both conclusion strings is documented scope, not a demonstrated false checked theorem. An inference is not itself a claim premise in this vocabulary.",
+  "source": "grandportage/store.py::_apply_inference",
+  "remaining": "Extract neutral premise/transport cases separately; total closure, alternative warrant support and admitted derivation semantics cannot be inferred from this oracle."
+}

@@ -1,0 +1,219 @@
+{
+  "rows": [
+    {
+      "id": "P13",
+      "verdict": "imitate",
+      "guarantee_piece": "M1 satisfaction-preserving context/model translation",
+      "unknowns": [
+        "Original2007PDF unavailable; related primary papers read",
+        "No current exporter/implementation qualification"
+      ]
+    },
+    {
+      "id": "P14",
+      "verdict": "imitate",
+      "guarantee_piece": "Exact selected-root identity and guarded substitution",
+      "unknowns": [
+        "Selected sections only",
+        "Live AFP not immutable-pinned/compiled",
+        "Future Lean binding remains"
+      ]
+    },
+    {
+      "id": "P15",
+      "verdict": "ignore",
+      "guarantee_piece": "Record bounded numerical evidence mechanisms for M6 afterG5",
+      "unknowns": [
+        "Record-only, no compatibility/admission or deep dive"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "HETS2011",
+      "url": "https://kwarc.info/people/frabe/Research/CHKMRS_lfhets_11.pdf",
+      "extent": "section2.1 definitions and implementation limitations",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "HETS2019",
+      "url": "https://drops.dagstuhl.de/storage/00lipics/lipics-vol139-calco2019/LIPIcs.CALCO.2019.17/LIPIcs.CALCO.2019.17.pdf",
+      "extent": "section2 and introduction",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "AFPENTRY",
+      "url": "https://isa-afp.org/entries/Algebraic_Numbers.html",
+      "extent": "abstract/licence/history",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "AFPDOC",
+      "url": "https://isa-afp.org/browser_info/current/AFP/Algebraic_Numbers/document.pdf",
+      "extent": "selected introduction,Sturm interface,real representation; not254page fullread",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "AFPREAL",
+      "url": "https://isa-afp.org/browser_info/current/AFP/Algebraic_Numbers/Real_Algebraic_Numbers.html",
+      "extent": "unique_root and invariant_1 declarations",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "ALPHA",
+      "url": "https://arxiv.org/abs/1011.1091v2",
+      "extent": "abstract/identity only",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "INTERVAL",
+      "url": "https://coqinterval.gitlabpages.inria.fr/",
+      "extent": "overview only",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "FLYSPECK",
+      "url": "https://arxiv.org/html/1501.02155",
+      "extent": "sections5–8 independently corroborated",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "GRAPH6",
+      "url": "https://users.cecs.anu.edu.au/~bdm/data/formats.txt",
+      "extent": "graph6 encoding definition",
+      "retrieved_utc_date": "2026-09-30"
+    },
+    {
+      "id": "DRAT",
+      "url": "https://github.com/marijnheule/drat-trim/blob/master/README.md",
+      "extent": "format/CNF proof distinction; mutablemaster",
+      "retrieved_utc_date": "2026-09-30"
+    }
+  ],
+  "worker_review": {
+    "report": "reports/PHASE-0E-CERTIFICATE-CAMPAIGN-REVIEW.json",
+    "accepted": "bounded reading, no execution/adoption",
+    "charge_minutes": 16,
+    "completion_observed_utc": "2026-09-30T01:41:49Z",
+    "checks": [
+      {
+        "source_id": "S03",
+        "sha256": "e32f4967445d497d18ce13d3244f639426d7b50569b9ead7a63cedd42dd8761c",
+        "bytes": 2139,
+        "url": "https://github.com/leanprover-community/mathlib4/blob/58554a33d40f0f4c33fd0256dfecbc5b706480a3/Mathlib/Tactic/Polyrith.lean",
+        "path": "Mathlib/Tactic/Polyrith.lean",
+        "commit": "58554a33d40f0f4c33fd0256dfecbc5b706480a3"
+      },
+      {
+        "source_id": "S18",
+        "sha256": "2c88e71b2faf8acabf39fef38cadeb0f18e2f1020f6cf055867baaeee1a9db82",
+        "bytes": 2404,
+        "url": "https://github.com/bsubercaseaux/EmptyHexagonLean/blob/d7f798ffc8deabc2f3ca1ae36e92e0250e57c205/Lean/Geo/Hexagon/TheMainTheorem.lean",
+        "path": "Lean/Geo/Hexagon/TheMainTheorem.lean",
+        "commit": "d7f798ffc8deabc2f3ca1ae36e92e0250e57c205"
+      },
+      {
+        "source_id": "S24",
+        "sha256": "30b7c18485bdb819a5cb4832a6a337c650ba09d7ce15b19e07248661dec07e30",
+        "bytes": 4520,
+        "url": "https://github.com/leanprover/lean4/blob/470d5ce1400764999581fd26d5d72b00d990b0f4/src/Lean/Meta/Tactic/BVDecide/Prover/Bitblast.lean",
+        "path": "src/Lean/Meta/Tactic/BVDecide/Prover/Bitblast.lean",
+        "commit": "470d5ce1400764999581fd26d5d72b00d990b0f4"
+      },
+      {
+        "source_id": "S26",
+        "sha256": "8727f45e690665c2a56620bf6711fd8efe8d30e0fa256147470b003e61ba802a",
+        "bytes": 8090,
+        "url": "https://github.com/teorth/equational_theories/blob/1aec8a7acf223b7c56e4830977b6e90d4ef1924b/equational_theories/EquationalResult.lean",
+        "path": "equational_theories/EquationalResult.lean",
+        "commit": "1aec8a7acf223b7c56e4830977b6e90d4ef1924b"
+      },
+      {
+        "source_id": "S27",
+        "sha256": "cbdc428e69c0a7fb01bd6b8b4ff86de701fb7b3b5ddc87a027f177fe1eb74863",
+        "bytes": 246,
+        "url": "https://github.com/YuanheZ/LeanMarathon/blob/e2febe2ce717ef5d8410909683f6f5b301bda4c2/agents/Target-Reviewer/docs/inputs.yml",
+        "path": "agents/Target-Reviewer/docs/inputs.yml",
+        "commit": "e2febe2ce717ef5d8410909683f6f5b301bda4c2"
+      },
+      {
+        "source_id": "S29",
+        "sha256": "e1d0c6b5be42f492810a12281fc0d8ff4c981e421397c3ec00e165a255ed09c1",
+        "bytes": 3207,
+        "url": "https://github.com/leanprover/lean4/blob/470d5ce1400764999581fd26d5d72b00d990b0f4/src/Lean/Meta/Native.lean",
+        "path": "src/Lean/Meta/Native.lean",
+        "commit": "470d5ce1400764999581fd26d5d72b00d990b0f4"
+      }
+    ]
+  },
+  "timing": {
+    "start_utc": "2026-09-30T01:39:16Z",
+    "reserved_max_minutes": 15,
+    "source_reading_end_utc": "2026-09-30T01:42:40Z",
+    "charge_minutes": 14,
+    "serialization_allowance_end_utc": "2026-09-30T01:53:11.027691+00:00",
+    "accounting": "Continuous elapsed reading, review and synthesis through serialization plus30seconds, rounded upward. Subsequent administrative checks excluded; encoding repair latency included."
+  },
+  "execution": false,
+  "adoption_approved": false,
+  "failures": [
+    "OriginalHets2007PDF502",
+    "Initially guessed interval URL unavailable; officialcoqinterval overview succeeded",
+    "AFP wrapper contained navigation, followed to actual theoryHTML"
+  ],
+  "global_gate_effect": "Bounded0ereport only;0a/0b/0c/G1/G0notclosed",
+  "reviewed_reports": [
+    {
+      "path": "reports/PHASE-0E-P1-P2-P17-REVIEW.json",
+      "sha256": "7eda5077c9d6244c070c110ad4208eb0681c0ffcda3f61ea7a60d2998f0db55a"
+    },
+    {
+      "path": "reports/PHASE-0E-P12-P16-P18-REVIEW.json",
+      "sha256": "9757180040d132ff0e1046084552908af4dc432e00aa10f6d8f375b26af0e022"
+    },
+    {
+      "path": "reports/PHASE-0E-TRANSFER-REVIEW.json",
+      "sha256": "ef3b5f85bae5beae40037b0e377408c120011136dbb3fbd71b18f3a936dd6e88"
+    },
+    {
+      "path": "reports/PHASE-0E-TRANSFER-PARENT-REVIEW.json",
+      "sha256": "884b6d6c7a73616e819fbb56c1b74063ad2678cf8fe750c3369b3106fe5b685f"
+    },
+    {
+      "path": "reports/PHASE-0E-CERTIFICATE-CAMPAIGN-REVIEW.json",
+      "sha256": "2d45369edc4932a61d61f882c5df36fd6b233be109fd8b01ed63606edeba0c83"
+    }
+  ],
+  "row_coverage": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7",
+    "P8",
+    "P9",
+    "P10",
+    "P11",
+    "P12",
+    "P13",
+    "P14",
+    "P15",
+    "P16",
+    "P17",
+    "P18"
+  ],
+  "validation": {
+    "review_reports_json_parsed": 5,
+    "bound_review_hashes_verified": 5,
+    "row_ids_unique_and_complete": 18,
+    "root_proposal_rows": 18,
+    "independently_checked_source_hashes": 6,
+    "shared_minutes_sum": 75,
+    "remaining_unspent_minutes": 45,
+    "case_adapter_replay_changes": false,
+    "git_diff_check": "passed",
+    "automation_pause_confirmed": true
+  }
+}

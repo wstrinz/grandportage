@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X237",
+  "seed": null,
+  "title": "Computation recording: typed, structured, nonzero_exit",
+  "situation": "A computation must declare its relation and complete without execution errors before recording a produced model.",
+  "inputs": {
+    "declaration": "typed",
+    "request_form": "structured",
+    "process_outcome": "nonzero_exit"
+  },
+  "attempted_conclusion": "Accept the attempted computation as a completed operation and record its output model. No mathematical claim is inferred.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Computation recording: typed, structured, nonzero_exit"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 445,
+      "anchor": "def test_a_nonzero_exit_is_not_a_verdict("
+    }
+  ]
+}

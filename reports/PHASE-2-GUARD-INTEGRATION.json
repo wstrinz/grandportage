@@ -1,0 +1,117 @@
+{
+ "schema": "gp-phase2-batch-integration/v1",
+ "date": "2026-10-01",
+ "parent_base_commit": "0d14bbfb87e181c4211f75bbc94c7cbf0720b87b",
+ "author": "GPC directly (single-chat operation)",
+ "previous_integration": "PHASE-2-REACH-INTEGRATION.json",
+ "review": {
+  "semantics": "Inference conclusion under its supplied premises; admitted only when every frozen premise slot is filled by a model-level claim.",
+  "binding": "Frozen v0.37 dk_retrodiction frames passed to Lean, bound by manifest LF SHA-256; stated premises must equal the selected inference filled slots.",
+  "countermodels": [
+   "open_slot_blocks",
+   "family_fact_is_not_model_fact"
+  ],
+  "contrasts": "INF-X9 and filled-slot controls accept only at their supplied, possibly declared-but-unproved, authority."
+ },
+ "verdicts": {
+  "GP-X399": "REFUSE",
+  "GP-X402": "REFUSE",
+  "GP-X403": "REFUSE"
+ },
+ "controls": {
+  "INF-X9_declared_E5_contrast": "ACCEPT",
+  "X8_supplied_E5_slot": "ACCEPT",
+  "X10_supplied_E5_gap_slot": "ACCEPT",
+  "D1_checked_family_bridge": "ACCEPT",
+  "X10_dangling_reference": "REFUSE",
+  "INF-X9_dangling_reference": "REFUSE",
+  "X402_wrong_available_premise": "MALFORMED",
+  "X403_partial_available_premises": "MALFORMED",
+  "X399_wrong_family": "MALFORMED"
+ },
+ "counts": {
+  "previous_corpus_passes": 63,
+  "new_corpus_passes": 3,
+  "corpus_passes": 66,
+  "kernel_tagged_total": 79,
+  "remaining_kernel_cases": 13,
+  "new_corpus_cases": 0,
+  "fresh_corpus_folds": 12,
+  "separate_controls": 9,
+  "new_host_tests": 11,
+  "new_host_subtests": 31,
+  "fresh_prior_regression_tests": 229,
+  "fresh_prior_regression_subtests": 678,
+  "unchanged_retained_tests": 84,
+  "unchanged_retained_subtests": 219,
+  "total_current_test_coverage": 324,
+  "total_current_subtest_coverage": 928,
+  "new_audited_proof_declarations": 7
+ },
+ "validation": {
+  "new_suite": "11 passed, 31 subtests passed in 151.54s (0:02:31)",
+  "prior_suite": "229 passed, 678 subtests passed in 114.97s (0:01:54)",
+  "retained_suites": "Earlier phase-2 suites are byte-identical to the parent commit; not re-executed.",
+  "build": {
+   "harness_sha256": "ea04032554736c9598d655ce6982ccff192f027f6cae5f5fdda5c8864437db03",
+   "olean_sha256": "db5f7458f98f0b707a31e235cd5eb3dd5c80bdd280e7a0a524e5bad2762f299d",
+   "axioms": [
+    "Quot.sound",
+    "propext"
+   ],
+   "compile_exit_code": 0,
+   "checker_exit_code": 0,
+   "kernel_checked": true,
+   "axiom_declarations": [
+    "licensed_slots",
+    "licensed_conclusion_sound",
+    "actual_base_sound",
+    "actual_validator_sound",
+    "actual_fold_held_sound",
+    "open_slot_blocks",
+    "family_fact_is_not_model_fact"
+   ]
+  },
+  "legacy_preservation": {
+   "case_count": 459,
+   "summary": {
+    "AGREES": 403,
+    "DIAGNOSTIC_OBSERVED": 4,
+    "KNOWN_DIFFERENCE": 14,
+    "UNSUPPORTED": 9,
+    "RETAINED_DIAGNOSTIC": 29
+   },
+   "protected_count": 67,
+   "receipt_sha256": "8774e53aa556deddc0f568bcdcbe2d603f75258ccb36d8aa3fbf75ed5237be4f"
+  }
+ },
+ "source_hashes": {
+  "STATUS.md": "e5ddf8de994dbde675e64bef46c5a235bd867b46a7e8a808f9536c02f1af479f",
+  "TCB.md": "cc7e52f349d7e5e469968d7bd7a7cb6dd5bb04675780b10984b93fa36962efbf",
+  "tools/run-phase2-slice.py": "622a15112d5089a46c5bdc3c8c8c604e61bbc2e648dbaad010808b6a31708f47",
+  "reports/PHASE-2-SLICE.json": "42b13f6d181aae76641761c76b5f0e230a693acf1c30ef9a262716261afa94b3",
+  "reports/PHASE-2-SLICE.md": "63342d5aea5c86752cb5f556e00db4317e56618712bfe0300c8c05698e1e89ac",
+  "reports/PHASE-2-OPEN-PREMISE-GUARD.json": "aaffb95a91f85ad9ccb1b8d9c753dc6e0cc2a09f27211588cb052e89d58b27ba"
+ },
+ "remaining_queue": {
+  "supplied-premise-authority": [
+   "GP-A14",
+   "GP-X04",
+   "GP-X09",
+   "GP-X229",
+   "GP-X65"
+  ],
+  "native-event-lifecycle": [
+   "GP-X149",
+   "GP-X150",
+   "GP-X151",
+   "GP-X156",
+   "GP-X157",
+   "GP-X160",
+   "GP-X162",
+   "GP-X163"
+  ]
+ },
+ "g2_pass": false,
+ "public_push": false
+}

@@ -1,0 +1,21 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "source_sha256": "ace224400c762dd754841c8937a3e619a00a3ce68dce0835a6c2050d5581f910",
+  "xml_sha256": "ab18a97125e6df1603f1c91a1d77bb6e88ad0f21b43efd3324c53d322753495c",
+  "platform": "Windows",
+  "controls": [
+    {
+      "name": "test_windows_wsl_command_places_singular_under_an_inner_timeout",
+      "seconds": "0.000"
+    },
+    {
+      "name": "test_backend_output_is_bounded_and_overflow_aborts",
+      "seconds": "0.465"
+    },
+    {
+      "name": "test_blocked_stdin_is_inside_the_process_timeout",
+      "seconds": "0.500"
+    }
+  ],
+  "scope": "Two real small Python child processes and one WSL argv wrapping check. No Singular process. Does not prove all descendants terminate or all timeout/output races are covered."
+}

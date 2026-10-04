@@ -1,0 +1,110 @@
+{
+  "schema": "gp-local-path-migration/v1",
+  "rules": "Rewrite absolute local machine paths to portable forms and re-bind the SHA-256s that bound them.\n\nusage: python tools/neutralize-local-paths.py [--dry-run] [--receipt reports/LOCAL-PATH-MIGRATION.json]\n\nPath tokens (any separator style, including JSON-escaped backslashes) are rewritten by root:\n  <drive>:/repos/grandportage-0.50/X   -> X            (the workspace itself; bare root -> $WORKSPACE)\n  <drive>:/repos/OTHER/X               -> $REPOS/OTHER/X\n  <drive>:/Users/<user>/dev/X          -> $DEV/X       (predecessor and campaign repositories)\n  <drive>:/Users/<user>/.elan/X        -> $ELAN_HOME/X\n  <drive>:/Users/<user>/AppData/X      -> $APPDATA/X\n  <drive>:/Users/<user>/X, /c/Users/<user>/X -> $HOME/X",
+  "rewritten": [
+    "reports/PHASE-2-CHECKED-LIFECYCLE-SUPPLEMENT.json",
+    "reports/PHASE-2-CONDITIONAL-ADMISSION-SCOPE.json",
+    "reports/PHASE-2-CONDITIONAL-PARTITION-SLICE.json",
+    "reports/PHASE-2-CONDITIONAL-POINT-ROUTES.json",
+    "reports/PHASE-2-CONDITIONAL-ROUTES-SLICE.json",
+    "reports/PHASE-2-CONDITIONAL-THEOREM-TRANSPORT.json",
+    "reports/PHASE-2-CONTEXT-REACH.json",
+    "reports/PHASE-2-DECLARATION-SLICE.json",
+    "reports/PHASE-2-LIFECYCLE-CONCERNS.json",
+    "reports/PHASE-2-LIFECYCLE-SLICE.json",
+    "reports/PHASE-2-MISSING-AUTHORITY.json",
+    "reports/PHASE-2-OPEN-PREMISE-GUARD.json",
+    "reports/PHASE-2-RECORDED-USE-COVERAGE.json",
+    "reports/PHASE-2-RESIDUAL-SUCCESSORS.json",
+    "reports/PHASE-2-RETRACTION-SLICE.json",
+    "reports/PHASE-2-RULE-SHAPE.json",
+    "reports/PHASE-2-SECTION-PROVENANCE.json",
+    "reports/PHASE-2-SUPERSESSION-GUARDS.json",
+    "reports/PHASE-2-UNREPLAYED-EVIDENCE.json"
+  ],
+  "rebound": [
+    "reports/PHASE-2-SLICE.json"
+  ],
+  "digests": {
+    "reports/PHASE-2-CHECKED-LIFECYCLE-SUPPLEMENT.json": {
+      "old": "c72dd54bf75cfe51afb562136e3533f26579c521ea5482b2ea3a0bbef3c99c7d",
+      "new": "7d24fa8947d940022929363fcae4e7e71a9c24a48a73c2777d494aecfcc140db"
+    },
+    "reports/PHASE-2-CONDITIONAL-ADMISSION-SCOPE.json": {
+      "old": "2ff16cdda2cb51b7dd8c71c4b86b7f3e11622b7cef031cde11bac58fc018ac71",
+      "new": "ae7774184dd1d52a5280ada23f671efc12678bc3219189f660c1d7fe25bf24c8"
+    },
+    "reports/PHASE-2-CONDITIONAL-PARTITION-SLICE.json": {
+      "old": "78c213faf63d1bccd5b4717177f6e0f6906eb00190929c6c1b6181bda0192ddd",
+      "new": "8380766e289261bef6775593bb1195ff1bac7728331f04c94826fbfde33d3d35"
+    },
+    "reports/PHASE-2-CONDITIONAL-POINT-ROUTES.json": {
+      "old": "c9b6a25bbf28f52fee4a30b49a7d634534467141427fc987feaa62fb9c23561d",
+      "new": "1da4f965e5cff2b73c3ce19d4190507a7c086e5be6f6d2c724c3547cd4b0a4cf"
+    },
+    "reports/PHASE-2-CONDITIONAL-ROUTES-SLICE.json": {
+      "old": "7f3f88819056af43771d3ba859c4a3d3663c60fcdfa3df8cf293d1da565cd66e",
+      "new": "6f8d5341406ad462c27370c244f280a3603dfaf4f8dc05036b1c7f8375e01f9b"
+    },
+    "reports/PHASE-2-CONDITIONAL-THEOREM-TRANSPORT.json": {
+      "old": "89a3df7ab4db68724fb4cd3a75d11f3dafd87dce4035cd7957feb7a96e2b325e",
+      "new": "c1b2fb8f105f8a9c2f48da6bca947e4af252205e466a1890ace3a1b656d8841b"
+    },
+    "reports/PHASE-2-CONTEXT-REACH.json": {
+      "old": "d1975d4d31e8658fbecbf8cc0c2ed26171349a7668bf048aa8357edb05c8b223",
+      "new": "4e21334bad473fc645c183e4302bf8bbc148f1a742c556756845d86c7d893279"
+    },
+    "reports/PHASE-2-DECLARATION-SLICE.json": {
+      "old": "eb00948be59f82e9122565f71d77c87a513e66cb4752f4252bc127e91731f26b",
+      "new": "e2594368764a6b362e983073854b34c4752ab2586d6735b4cf7d3ded858aa65c"
+    },
+    "reports/PHASE-2-LIFECYCLE-CONCERNS.json": {
+      "old": "c2c1cf29039ed4e26441961ea82930ab5e0815951b967402ca40319fb882b420",
+      "new": "ed80d61e1f2b2bd99722f3f14568439f7df76ef0099b4c744c9078fb80b36777"
+    },
+    "reports/PHASE-2-LIFECYCLE-SLICE.json": {
+      "old": "2f9700c681aa6f383fd0c445b9a967a174bfb9e3c6321605d4e5bbf07163ab14",
+      "new": "7361493b126143b04ac4a3ac0ffdabe69171b5256138214d4053ff2fe58fa32c"
+    },
+    "reports/PHASE-2-MISSING-AUTHORITY.json": {
+      "old": "c9a26001404e34dc697174464f4ad021ae07c6995aa957a263c01d6268aaa3e8",
+      "new": "668e6295307788fdffc7e22da7c7506fb533afa57ed413bf23abe0a1c16bc39f"
+    },
+    "reports/PHASE-2-OPEN-PREMISE-GUARD.json": {
+      "old": "02fda1c0a2ae2e3a9ceb64e4c6e4d75f6a7525e4d7de448af8ea67004a86dbd9",
+      "new": "ccb1793ba4597a81ee1915eac7c63fc5abab7f67d34c319a1e83d3e8b9ca52a5"
+    },
+    "reports/PHASE-2-RECORDED-USE-COVERAGE.json": {
+      "old": "66f55ff2d5aa75de5e044f2a0158d2b988e046b28caed3d3dabeb2e5252cdfd7",
+      "new": "8e38cf3f67543b03c8f1aba8b59afbe819ca9b6bb5c0fa7dc567193e6ef0efbf"
+    },
+    "reports/PHASE-2-RESIDUAL-SUCCESSORS.json": {
+      "old": "9f712778e2b37edf55609cf53201ad2cf0c9bef58849a0f057252d4a4f52e854",
+      "new": "a8f8965185ca160a3607f0e8b308b8c1e519169e623f1d80cc2bdb821b4ec3ea"
+    },
+    "reports/PHASE-2-RETRACTION-SLICE.json": {
+      "old": "50342b2d6994595928f6ac2ff88e924bd920c5b753835d50717513538eeb003f",
+      "new": "e4c81186c41c7fb3f82a5aebd4958eb5818672b77a85544e3a55e6ef01514bc0"
+    },
+    "reports/PHASE-2-RULE-SHAPE.json": {
+      "old": "f53796b7f272703783fe8faf8cd2a72ff1071649ec18c8452047e05ab1458e87",
+      "new": "fa12e1a4d6d2927b6779f2460f353d9916805ed0103e21ba361725b43b33103b"
+    },
+    "reports/PHASE-2-SECTION-PROVENANCE.json": {
+      "old": "4e1ef00198cc0a4086d94804f5611d5350873ddc89a751440cf7b047482353ef",
+      "new": "ac43240086e0086948817398065a2a7b015cb4a0c6024f0961d817422eab9e66"
+    },
+    "reports/PHASE-2-SLICE.json": {
+      "old": "b906c679fa672bdac40d74d944eb74acf5da8315a5d38eb2bce23bb0288cb7d8",
+      "new": "825a5a9c4f9f133578958ebb302e5989d327896abed5bdfcd5c659b0ce515a27"
+    },
+    "reports/PHASE-2-SUPERSESSION-GUARDS.json": {
+      "old": "9407ea0d45b7ed78dd34beda62f09eace0d51e3b314de5c9d90a7842366ab1d6",
+      "new": "15613203c59e513d3b3dbd48b333dd65181ccf2ba14d7f9c26252c7d61d20549"
+    },
+    "reports/PHASE-2-UNREPLAYED-EVIDENCE.json": {
+      "old": "c29240ca4af94def903cac860f3164ac4a6b455f754fd145195e1f0611a65b7b",
+      "new": "186831127ff14ead1e0c0636198d632229da098367eaca428c65572a7b04367d"
+    }
+  }
+}

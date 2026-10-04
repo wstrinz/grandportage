@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "GP-A20a",
+  "seed": "A20",
+  "title": "Polynomial quotient cannot be read as rational division",
+  "situation": "A raw rational expression with a nonconstant denominator reaches a polynomial CAS interface.",
+  "inputs": {
+    "variables": [
+      "T"
+    ],
+    "lhs": "1/T",
+    "rhs": "0"
+  },
+  "attempted_conclusion": "Accept the quotient computation as a rational identity.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The remainder cannot be discarded; the expression is outside the supported input language."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 560,
+      "anchor": "| A20 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_scalar_division.py",
+      "line": 24,
+      "anchor": "def test_rational_claims_refuse_before_execution("
+    }
+  ]
+}

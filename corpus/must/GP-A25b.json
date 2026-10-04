@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "GP-A25b",
+  "seed": "A25",
+  "title": "Two identifiers do not establish an alias",
+  "situation": "Two separately named objects look alike but have no checked alias relation.",
+  "inputs": {
+    "identifiers": [
+      "A",
+      "B"
+    ],
+    "alias_evidence": null
+  },
+  "attempted_conclusion": "Use a receipt bound to A as evidence for B.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Aliasing requires explicit binding evidence."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 565,
+      "anchor": "| A25 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/provenance.py",
+      "line": 180,
+      "anchor": "def input_payload("
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_merge_assay.py",
+      "line": 14,
+      "anchor": "def test_real_fanout_merge_assay("
+    }
+  ]
+}

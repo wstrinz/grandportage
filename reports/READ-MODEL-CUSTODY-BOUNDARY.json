@@ -1,0 +1,46 @@
+{
+  "size_control": {
+    "records": 5500,
+    "compact_bytes": 697859,
+    "actual_cli_bytes": 1060945,
+    "limit": 1000000,
+    "source_digest_verified": true,
+    "graph_effect": "NONE"
+  },
+  "omitted_invalid_record_control": {
+    "rule": "BOUNDED_FIRST_AND_LAST_RECORD_COMMITMENTS",
+    "selected": 2,
+    "omitted": 1,
+    "invalid_json": 1
+  },
+  "path_controls": [
+    {
+      "path": "experiments/arr15_ranker/adapter.py",
+      "public": false,
+      "message": "CAMP1: campaign-domain paths require an explicit custody allowlist: experiments/arr15_ranker/adapter.py"
+    },
+    {
+      "path": "experiments/neutral_campaign/adapter.py",
+      "public": true,
+      "message": "classified public"
+    },
+    {
+      "path": "fixtures/arr15/new.json",
+      "public": true,
+      "message": "classified public"
+    }
+  ],
+  "scope": "Synthetic F scratch only; no snapshot materialization, publication, campaign contents, graph mutation or CAS. Path classifications use pinned manifest and synthetic candidate lists.",
+  "findings": [
+    "CLI output exceeds the advertised 1 MB bound because it serializes pretty JSON after a compact-size check.",
+    "Campaign marker detection is lexical; neutral names pass broad public prefixes and existing allowed roots accept new files. This is documented custody policy, not content inspection or secrecy."
+  ],
+  "proposed_fix": "Enforce the byte bound on the actual serialized output, or write exactly the checked compact bytes. Keep path custody rules explicitly distinct from content/security review.",
+  "source_hashes": {
+    "oracle/checkout/grandportage/projection.py": "b984352c331e29ce8292c93302a7dbf826c518c5fa3ad515c7afd8bcefd2d099",
+    "oracle/checkout/scripts/compact_review_projection.py": "61d1c8538275209a948ba1ecfd8cc6b39b47cd8141fc5382871ac04f62d85ac8",
+    "oracle/checkout/scripts/public_snapshot.py": "92bb275a6398db2477159b0f69eeea1312e1a0959ef7bf5ca3a93a1152ad2616",
+    "oracle/checkout/public-snapshot-v1.json": "53ed4140816d3a399b0ded93c4e5e85471ccb7925193b6543399c682b36caa58"
+  },
+  "script_sha256": "a025c70897acebc4bb8e3532288acf3db6e546dea4ff5f9e88da541aeb61cd28"
+}

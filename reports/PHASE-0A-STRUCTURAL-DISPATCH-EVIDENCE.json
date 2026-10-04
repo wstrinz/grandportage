@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "title": "Phase 0a structural containment eligibility and fallback extraction",
+  "boundary": "Pinned operational P/V dispatch in frozen v0.37 checkout; neutral one-variable sparse graphs.",
+  "source_anchors": [
+    {
+      "repository": "gp-history",
+      "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "path": "tests/test_jc_source_depth6_full_template.py",
+      "positive_line": 53,
+      "negative_line": 64
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/provenance.py",
+      "eligibility_lines": "318-351"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/verify.py",
+      "dispatch_lines": "208-236"
+    }
+  ],
+  "cases": {
+    "GP-X337": {
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "operational_structural_shortcut",
+      "route": "structural_dispatch",
+      "structurally_eligible": true,
+      "native_containment_verdict": "VERIFIED",
+      "injected_backend_calls": 0,
+      "external_execution": false,
+      "reason": "every generator of SELECTED's ideal occurs exactly among SOURCE's generators, so unit-cofactor inclusion gives I(SELECTED) inside I(SOURCE) and V(SOURCE) inside V(SELECTED) without backend search."
+    },
+    "GP-X338": {
+      "expected": "ACCEPT",
+      "observed_verdict": "ACCEPT",
+      "status": "AGREES",
+      "layer": "operational_backend_fallback",
+      "route": "structural_dispatch",
+      "structurally_eligible": false,
+      "native_containment_verdict": null,
+      "injected_backend_calls": 1,
+      "external_execution": false,
+      "mathematical_noncontainment_established": false,
+      "independent_exact_membership": {
+        "target": {
+          "schema": "sparse_polynomial_v1",
+          "terms": [
+            {
+              "coefficient": "999",
+              "powers": [
+                [
+                  "x",
+                  1
+                ]
+              ]
+            }
+          ]
+        },
+        "generator_count": 1,
+        "reference_oracle": "REFERENCE_CHECKED"
+      },
+      "backend_exception": "injected fallback backend called",
+      "reason": "Literal structural inclusion failed and the injected backend path was called."
+    }
+  },
+  "preservation": {
+    "baseline_case_count": 377,
+    "all_prior_case_bytes_unchanged": true,
+    "all_prior_expected_observed_status_layer_route_unchanged": true,
+    "reason_only_ids": [
+      "GP-X236",
+      "GP-X237"
+    ],
+    "reason_change_only_ephemeral_completion_marker": true
+  },
+  "replay": {
+    "baseline_run": "reports/oracle-runs/20260928T203130963441Z.json",
+    "new_run": "reports/oracle-runs/20260928T211311262604Z.json",
+    "summary": {
+      "AGREES": 364,
+      "DIAGNOSTIC_OBSERVED": 1,
+      "KNOWN_DIFFERENCE": 12,
+      "PENDING": 1,
+      "UNSUPPORTED": 1
+    },
+    "new_case_ids": [
+      "GP-X337",
+      "GP-X338"
+    ]
+  },
+  "limitations": [
+    "GP-X338 proves dispatch into an injected raising backend stub. It does not return a native containment verdict or establish mathematical noncontainment.",
+    "The independent exact membership control verifies 999*x lies in (x); it is separate from the containment verifier.",
+    "The full 78-variable/147-source/25-selected historical fixture was inspected as source but not replayed for these new cases. The cases are minimal projections of the same pinned eligibility and dispatch branches.",
+    "No external CAS execution."
+  ],
+  "sha256": {
+    "reports/oracle-runs/20260928T203130963441Z.json": "1018b58dd2da15b21aa4558ad6aea512a6c8f6c8efa31c983a233b6aa3c9deeb",
+    "reports/oracle-runs/20260928T211311262604Z.json": "02a18337674b39ae1322b413d7c546a5c20763f2393fe2dcec6bc36279cf1af1",
+    "oracle/ROUTES.json": "3d193806a51fca54f229c87b8de21812b86f82d2bb73aac7db7071057ff29fa2",
+    "tools/check-corpus.py": "3fc89c5e3b67f102634905f6aac0649a81bc24a141ff6967e3783bd784e89939",
+    "tools/structural_dispatch_probes.py": "bac050c684e638d7a0f38bf1da6422f9320706dcce70efd2da6295c0e6bb8109",
+    "corpus/must/GP-X337.json": "ebb041c8b1c23e5dc60ca956a7e3ec76524cc13866e42b62f3dfb6c739eae882",
+    "corpus/must/GP-X338.json": "14f69e539f8c3f842583c2e36c23d0bc50fdaf86e34cd1c7d54280282e00c5c8"
+  }
+}

@@ -1,0 +1,301 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "definition": "Text and selected-boundary review; not a claim of complete semantic extraction.",
+  "files": [
+    {
+      "path": "grandportage/authority.py",
+      "sha256": "6efbd8f0c7393362ef47e8e69a8631a36190d06c2b2d388bfb209a2e7e1d2402",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "review": "Fully text-read. Freshness delegated to provenance; subject replay delegated to store. Seal checks token identity, not a cryptographic or process security boundary. bind accepts caller-selected field names; project assumes target validation. Extra payloads remain mutable references. Four diagnostic controls calibrate these internal preconditions, not a persisted bypass.",
+      "definitions": [
+        {
+          "name": "ContextBinding",
+          "start_line": 20,
+          "end_line": 29
+        },
+        {
+          "name": "CheckedEvidence",
+          "start_line": 33,
+          "end_line": 48
+        },
+        {
+          "name": "AuthorityReceipt",
+          "start_line": 52,
+          "end_line": 61
+        },
+        {
+          "name": "AuthorityRefusal",
+          "start_line": 65,
+          "end_line": 68
+        },
+        {
+          "name": "_require_checked",
+          "start_line": 71,
+          "end_line": 74
+        },
+        {
+          "name": "check",
+          "start_line": 77,
+          "end_line": 99
+        },
+        {
+          "name": "projects_authority",
+          "start_line": 102,
+          "end_line": 115
+        },
+        {
+          "name": "bind",
+          "start_line": 118,
+          "end_line": 133
+        },
+        {
+          "name": "project",
+          "start_line": 136,
+          "end_line": 143
+        }
+      ],
+      "remaining": "Complete end-to-end subject/provenance controls and soundness review; passing characterization is not whole-system authority proof."
+    },
+    {
+      "path": "grandportage/authority_registry.py",
+      "sha256": "b376e62b9e6dd8cff23ab2acf491d1c7ea5da44c7111ab652ffec41400cfe364",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "review": "Fully text-read. Descriptive classification and exported runtime table; no admission or proof checking. Legacy certificate scope names are explicitly historical, not epoch-12 reach. Consumer classification and nonempty authority descriptions do not prove semantic correctness.",
+      "definitions": [
+        {
+          "name": "VerifierDeclaration",
+          "start_line": 69,
+          "end_line": 83
+        },
+        {
+          "name": "_v",
+          "start_line": 86,
+          "end_line": 90
+        },
+        {
+          "name": "transport_rows",
+          "start_line": 196,
+          "end_line": 204
+        },
+        {
+          "name": "classification_rows",
+          "start_line": 207,
+          "end_line": 219
+        },
+        {
+          "name": "manifest",
+          "start_line": 222,
+          "end_line": 244
+        }
+      ],
+      "remaining": "Complete end-to-end subject/provenance controls and soundness review; passing characterization is not whole-system authority proof."
+    },
+    {
+      "path": "tests/test_authority_binding.py",
+      "sha256": "9720cdf5d4d7090ab5c224d92441ed32e92c8b62fe9cfd647ca6972ccedcbb49",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "review": "Fully text-read. Twenty matrix instances patch freshness true/false. Wrong-seal constructors refuse. Invalid exact-derived representation refuses before bind with freshness patched true. No positive proof replay for all ten subjects or real provenance coverage follows from this suite.",
+      "definitions": [
+        {
+          "name": "_graph_with_target",
+          "start_line": 30,
+          "end_line": 33
+        },
+        {
+          "name": "_event",
+          "start_line": 36,
+          "end_line": 52
+        },
+        {
+          "name": "test_current_verdict_projection_matrix",
+          "start_line": 57,
+          "end_line": 82
+        },
+        {
+          "name": "test_stale_verdicts_are_history_only",
+          "start_line": 87,
+          "end_line": 100
+        },
+        {
+          "name": "test_checked_evidence_and_receipts_cannot_be_caller_minted",
+          "start_line": 103,
+          "end_line": 107
+        },
+        {
+          "name": "test_binding_happens_only_after_subject_specific_replay",
+          "start_line": 110,
+          "end_line": 131
+        }
+      ],
+      "remaining": "Complete end-to-end subject/provenance controls and soundness review; passing characterization is not whole-system authority proof."
+    },
+    {
+      "path": "tests/test_authority_registry.py",
+      "sha256": "ecbf9aba9d5e99bb15f25418b01d7d382e962a540b736ec5c682018f30c695a2",
+      "full_text_read": true,
+      "semantic_status": "partial",
+      "review": "Fully text-read. Nine drift checks compare runtime-exported rows, command and schema sets, description presence, legacy scope classifications and CLI wording. Lean declaration names are searched as text, not compiled or proved. Registry rows are generated from the same kernel table they are compared against.",
+      "definitions": [
+        {
+          "name": "_commands",
+          "start_line": 14,
+          "end_line": 18
+        },
+        {
+          "name": "test_registry_transport_rows_match_every_kernel_cell",
+          "start_line": 21,
+          "end_line": 31
+        },
+        {
+          "name": "test_every_verify_command_has_a_complete_declaration",
+          "start_line": 34,
+          "end_line": 43
+        },
+        {
+          "name": "test_every_evidence_schema_is_classified_once",
+          "start_line": 46,
+          "end_line": 50
+        },
+        {
+          "name": "test_graph_authority_contracts_are_named_by_verifier_registry",
+          "start_line": 53,
+          "end_line": 55
+        },
+        {
+          "name": "test_classification_has_zero_unclassified_rows",
+          "start_line": 58,
+          "end_line": 62
+        },
+        {
+          "name": "test_every_builtin_certificate_names_a_lean_stability_decision",
+          "start_line": 65,
+          "end_line": 72
+        },
+        {
+          "name": "test_runtime_certificate_scopes_match_the_named_lean_derivations",
+          "start_line": 75,
+          "end_line": 89
+        },
+        {
+          "name": "test_table_and_evidence_commands_share_the_registry",
+          "start_line": 92,
+          "end_line": 99
+        },
+        {
+          "name": "test_table_describes_epoch12_policy_without_granting_authority",
+          "start_line": 102,
+          "end_line": 112
+        }
+      ],
+      "remaining": "Complete end-to-end subject/provenance controls and soundness review; passing characterization is not whole-system authority proof."
+    },
+    {
+      "path": "grandportage/store.py",
+      "sha256": "900da33d1b8e3ae045533b3ae8ed67317a3bc56a35861d2bcd604ae6adb7e755",
+      "full_text_read": false,
+      "semantic_status": "partial",
+      "reviewed_ranges": [
+        [
+          707,
+          1435
+        ]
+      ],
+      "review": "Complete _apply_verdict text read. Groebner, point lift, derived identity, unit/localized/SOS certificates, extension witnesses and condition branches have subject-specific arithmetic replay. Section branch checks shape and exact input binding but not row arithmetic; operation branch checks field/list shape. Other trust may reside in provenance/verifier paths and must be traced separately. Stale history projects nothing; negative elimination/lift results preserve earlier authority.",
+      "remaining": "Complete subject-by-subject producer/provenance trust analysis and portable corpus extraction. Full store file remains partially read. Section diagnostic demonstrates trusted-producer reliance, not all subjects."
+    }
+  ],
+  "evidence": [
+    "reports/AUTHORITY-BINDER-BOUNDARY.json",
+    "reports/oracle-authority-review.xml",
+    "reports/SECTION-REPLAY-BOUNDARY.json",
+    "reports/PHASE-0A-BATCH-23.md",
+    "reports/OPERATION-REPLAY-BOUNDARY.json",
+    "reports/PHASE-0A-BATCH-25.md",
+    "reports/MAPPED-RING-REPLAY-BOUNDARY.json",
+    "reports/PHASE-0A-BATCH-27.md",
+    "reports/PARTITION-OPEN-GUARD-BOUNDARY.json",
+    "reports/oracle-partition-scope-review.xml",
+    "reports/PHASE-0A-BATCH-29.md",
+    "reports/PARTITION-EMBEDDING-BOUNDARY.json",
+    "reports/PHASE-0A-BATCH-31.md"
+  ],
+  "cases": [
+    "GP-X255",
+    "GP-X256",
+    "GP-X257",
+    "GP-X258",
+    "GP-X259",
+    "GP-X260",
+    "GP-X261",
+    "GP-X262",
+    "GP-X263",
+    "GP-X264",
+    "GP-X265",
+    "GP-X266",
+    "GP-X267",
+    "GP-X268",
+    "GP-X269",
+    "GP-X270",
+    "GP-X271",
+    "GP-X272",
+    "GP-X273",
+    "GP-X274"
+  ],
+  "producer_boundary_followups": [
+    "Section controls extracted as GP-X255-257",
+    "Operation-output controls extracted as GP-X258-262",
+    "Mapped-ring paired cases extracted as GP-X263-268; partition review remains"
+  ],
+  "mapped_ring_review": {
+    "source": "grandportage/verify.py",
+    "read_range": [
+      505,
+      754
+    ],
+    "review": "Exact shared-ring certificate verifier checks ideal pullbacks and polynomial inverse laws. Cross-ring path uses a distinct generator-image convention and backend membership; not tested in this diagnostic. Native provenance eligibility checks schema and map presence, not arithmetic.",
+    "remaining": "Remaining solver-backed map branch, cross-ring cases and complete producer/fold extraction."
+  },
+  "partition_review": {
+    "verifier_range": [
+      1516,
+      1684
+    ],
+    "backend_range": [
+      2012,
+      2106
+    ],
+    "tests": "Four point-universe controls read and passed; live hole/unit-parent tests read but not run.",
+    "finding": "Branch open_conditions are omitted from ideal-only coverage queries. Two D(x) branches in A1 miss zero but partition verifier returns VERIFIED on exact zero-ideal backend responses.",
+    "remaining": "Extract selected-root counterexample and matched-selection positive control; review further partition context and branch inclusion requirements.",
+    "cases": [
+      "GP-X269",
+      "GP-X270",
+      "GP-X271",
+      "GP-X272",
+      "GP-X273",
+      "GP-X274"
+    ],
+    "additional_finding": "Selected embedding is absent from point_scope. Positive-root parent and two negative-root branches of x^2-2 validate and receive VERIFIED coverage under exact identical-ideal backend answers.",
+    "additional_source_ranges": {
+      "grandportage/store.py": [
+        [
+          221,
+          247
+        ],
+        [
+          1689,
+          1813
+        ]
+      ],
+      "tests/test_embedding_semantics.py": [
+        [
+          1,
+          150
+        ]
+      ]
+    }
+  }
+}

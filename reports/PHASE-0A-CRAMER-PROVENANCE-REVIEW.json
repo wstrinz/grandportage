@@ -1,0 +1,71 @@
+{
+  "scope": "Bounded provenance review requested by reports/PHASE-0A-RECURRENCE-CRAMER-PARENT-NOTES.json: pinned compatibility adapter generator lines 550-610, validator lines 743-794, and directly adjacent custody/validation slices needed to answer their relationship.",
+  "pinned_source": {
+    "repository": "$DEV/grand-portage",
+    "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+    "path": "experiments/jc_h3_b0_compatibility/adapter.py",
+    "blob": "e00b1f667f38fd5bbfcf015c346c54c11290da21",
+    "access": "read-only git cat-file/show"
+  },
+  "reading_extent": [
+    "adapter.py lines 35-61 (fixture identity and native binding constants)",
+    "adapter.py lines 500-555 (projection boundary and native capture)",
+    "adapter.py lines 561-610 (fixture construction and power-one fields)",
+    "adapter.py lines 719-902 (fixture validation, Cramer reconstruction, supplied power-one remainder check, and quotient observations)",
+    "adapter.py lines 905-976 (optional binding check, frozen fixture digest verification, and native-replay summary check)"
+  ],
+  "answer": {
+    "generator_derivation": "At fixture construction, yes for the numerator but only from captured native values: build_fixture runs the native producer, profiles module.main return locals into value, and computes power1_numerator as module.spec(value[PHI], value[FIX] plus c7_8=1 and c8_10=1), then serializes the result in c8_11. The same captured value[PHI] is separately serialized as full_model.Phi_b0_compat.",
+    "generator_denominator": "No derivation of the denominator appears in the adapter: build_fixture serializes power1_denominator directly from captured value[sD]. The bounded adapter text does not derive sD from the full model, the Cramer matrix, or a persisted slice identity.",
+    "frozen_validator": "No independent derivation occurs during ordinary fixture validation. A6 recomputes the Cramer reconstruction of full Phi from the stored matrix/RHS/Lambda data. A7 then decodes the stored power1 numerator and denominator and only proves their univariate division remainder is nonzero. There is no check equating those fields to a specialization of full_model.Phi_b0_compat, to slice fields, to det5, or to a recomputed sD.",
+    "custody": "Before fixture creation B1 hashes native bindings and captures native output. Afterwards F4 binds the whole serialized fixture by SHA-256; optional B3/B4 rehash current native files. Those controls preserve byte/input identity, but neither recomputes the power-one pair from the retained fixture nor compares a fresh native capture to the serialized pair. Optional native_replay checks the native process return code and summary text only.",
+    "mathematical_denominator_necessity": "A7 proves the narrow supplied-polynomial statement D does not divide N in the decoded univariate ring. It does not, from this adapter alone, prove that D is the mathematically required specialized det5 denominator, that N/D is the relevant full-model specialization, or that a det5-square is wall-wide necessary. A6 establishes a different stored-data Cramer identity using det5 squared; the missing equality/link prevents combining A6 and A7 into a replayed wall-wide necessity theorem."
+  },
+  "evidence": [
+    {
+      "claim": "Native generator execution and captured-local provenance",
+      "source_pointer": "7991c9052f13e8dcaa78b5eae36f31663e080c1e:experiments/jc_h3_b0_compatibility/adapter.py:532-555",
+      "detail": "_capture_native imports and runs f2_h3_b0_uniform_lambda.py, profiles module.main return locals, and requires a zero native return code."
+    },
+    {
+      "claim": "Numerator computed from captured Phi/FIX; denominator supplied as captured sD",
+      "source_pointer": "7991c9052f13e8dcaa78b5eae36f31663e080c1e:experiments/jc_h3_b0_compatibility/adapter.py:561-604",
+      "detail": "Lines 580-582 compute numerator from value[PHI] and value[FIX]; line 583 serializes value[sD] directly. Lines 591-596 serialize full_model including the same captured PHI."
+    },
+    {
+      "claim": "Stored full-model Cramer identity is independently replayed",
+      "source_pointer": "7991c9052f13e8dcaa78b5eae36f31663e080c1e:experiments/jc_h3_b0_compatibility/adapter.py:745-782",
+      "detail": "A3 checks stored matrix determinant equals stored det5 and A6 reconstructs stored Phi_b0_compat using det5 squared and stored Lambda parts."
+    },
+    {
+      "claim": "Power-one check is supplied-pair nondivisibility only",
+      "source_pointer": "7991c9052f13e8dcaa78b5eae36f31663e080c1e:experiments/jc_h3_b0_compatibility/adapter.py:783-790",
+      "detail": "A7 decodes push.power1_numerator and push.power1_denominator and requires a nonzero _udivmod remainder; no recomputation or binding equality follows."
+    },
+    {
+      "claim": "Full-model/slice relation exists for other fields but not the power-one pair",
+      "source_pointer": "7991c9052f13e8dcaa78b5eae36f31663e080c1e:experiments/jc_h3_b0_compatibility/adapter.py:794-830",
+      "detail": "S2 specializes full A/OB/Phi/det5 to stored slice fields and S7 checks a stored guard product. This block has no equation involving push.power1_numerator or push.power1_denominator."
+    },
+    {
+      "claim": "Fixture/source hash custody versus fresh derivation",
+      "source_pointer": "7991c9052f13e8dcaa78b5eae36f31663e080c1e:experiments/jc_h3_b0_compatibility/adapter.py:905-976",
+      "detail": "B3/B4 optionally rehash files; F4 fixes the serialized fixture digest; native_replay checks native summary text. None compare fresh native power-one values with stored fields."
+    }
+  ],
+  "possible_neutral_case_scope": {
+    "supported_now": "A narrow exact-arithmetic case may state: for explicitly supplied univariate N and D, refuse the assertion that one D power clears the numerator when divmod(N,D) has nonzero remainder. Its positive control supplies N=D*Q and accepts divisibility.",
+    "not_supported_now": "Do not label that case full-model, Cramer-derived, det5-specific, wall-wide, or a proof that square clearing is mathematically necessary. The bounded adapter does not replay those provenance links.",
+    "existing_case_mapping": "No current neutral case is an exact match for the supplied-power-one Cramer provenance distinction. GP-X119/X120 cover nonzero/nonunit versus nonzerodivisor and are not substitutes."
+  },
+  "concrete_unresolved_provenance": [
+    "The source/derivation of captured native value[sD] is absent from the bounded adapter material.",
+    "Ordinary frozen-fixture validation has no equation recomputing the power-one numerator from retained full Phi/FIX or the denominator from retained slice/Cramer data.",
+    "No checked identity connects the A7 denominator to specialized det5 or connects A7 nondivisibility to the A6 det5-squared Cramer reconstruction."
+  ],
+  "validation": {
+    "adapter_blob_exists": true,
+    "report_only": true,
+    "external_campaign_material_read": false
+  }
+}

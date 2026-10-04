@@ -1,0 +1,138 @@
+{
+  "status": "bounded_source_to_case_mapping",
+  "source": {
+    "path": "lean/GrandPortage/OperationContract.lean",
+    "pin": "ac4155787207e2847d248cffed7be871d5dcd577",
+    "sha256": "7c9afad6ba96f38f352554b778d2e9e01a1cb37f540a477da12e8f2042838196",
+    "execution": "No Lean compilation or runtime execution."
+  },
+  "families": [
+    {
+      "family": "saturation_at_2",
+      "concrete_occurrences": [
+        {
+          "anchor": "OperationContract.lean:664 checked_does_not_imply_saturation_semantics",
+          "model": "source and recorded output are both the ideal (6); f=2; the local checks hold, while 3 is in (6):2^infinity and not in (6).",
+          "attempted_conclusion": "Promote the local no-invention envelope to exact saturation."
+        },
+        {
+          "anchor": "OperationContract.lean:672 exact_saturation_does_not_transport_identity_along",
+          "model": "the exact output is (6):2^infinity; 3=0 holds there but not in the ambient ideal (6).",
+          "attempted_conclusion": "Transport an identity ALONG from exact saturation back to the ambient ideal."
+        }
+      ],
+      "mappings": [
+        {
+          "occurrence": "missing completeness: unchanged (6) misses 3",
+          "case": "GP-X141",
+          "payload": "corpus/must/GP-X141.json",
+          "oracle": {"layer": "exact_replay_and_operation_boundary", "route": "current_algebra", "status": "AGREES"},
+          "result": "logically_equivalent",
+          "reason": "X141 has an empty output with vacuous no-invention evidence and an explicit missing element. Its x^2*y/y fixture is incidental: its attempted promotion is exactly checked-output soundness to operation completeness."
+        },
+        {
+          "occurrence": "exact saturation identity 3=0 does not return to ambient (6)",
+          "case": null,
+          "result": "missing",
+          "reason": "X129/X130/X138 concern membership in a localization; X141 concerns completeness. None asks whether an identity valid after exact saturation can travel back to the unsaturated ideal.",
+          "proposal": "Extract one minimal REFUSE control with ideal (6), f=2, exact saturation witness 3=0, and ambient countercheck 3 notin (6). Its conclusion must be the refused ALONG transport, not a completeness claim."
+        }
+      ]
+    },
+    {
+      "family": "empty_target_no_invention_vs_completeness",
+      "concrete_occurrences": [
+        {
+          "anchor": "OperationContract.lean:730 incomplete_elimination_checked; :747 incomplete_elimination_has_no_completeness; :756 checked_elimination_does_not_transport_identity_along",
+          "model": "identity embedding, source ideal (2), recorded target ideal (0), and empty recorded generator set.",
+          "attempted_conclusions": [
+            "Treat vacuous no-invention for the empty target as contraction completeness.",
+            "Transport source identity 2=0 ALONG to the incomplete zero target."
+          ]
+        }
+      ],
+      "mappings": [
+        {
+          "case": "GP-X262",
+          "payload": "corpus/must/GP-X262.json",
+          "oracle": {"layer": "output_evidence_admission", "route": "output_membership", "status": "AGREES"},
+          "result": "partial_only",
+          "reason": "X262 accepts the narrow premise that an empty output has vacuous no-invention evidence, and explicitly claims no completeness. It supplies the positive half but no source-(2), target-(0) missed-element or failed-ALONG assertion."
+        },
+        {
+          "case": "GP-X315, GP-X316, GP-X317",
+          "payload": "corpus/must/GP-X315.json; corpus/must/GP-X316.json; corpus/must/GP-X317.json",
+          "oracle": {"layer": "elimination_and_reverse_identity", "route": "membership_contraction", "status": "AGREES"},
+          "result": "opposite_inclusion_not_equivalent",
+          "reason": "These cases prove/refuse exact contraction when a strict upper target (1) satisfies forward completeness but fails reverse no-invention. The Lean example has a strict lower target (0), so no-invention holds and completeness fails."
+        },
+        {
+          "case": null,
+          "result": "missing",
+          "proposal": "Extract one paired minimal control: ACCEPT the empty target's vacuous no-invention premise, then REFUSE exact contraction and ALONG transport of 2=0 using source (2), target (0), identity embedding, and the witness 2. Keep it distinct from X315-X317's strict-upper-target direction."
+        }
+      ]
+    },
+    {
+      "family": "exact_contraction_without_valid_evaluation_lift",
+      "concrete_occurrences": [
+        {
+          "anchor": "OperationContract.lean:778 exact_contraction_does_not_imply_point_surjectivity",
+          "model": "identity embedding and exact contraction between zero ideals over Int -> Unit, with noValidEvaluation on the source and anyValidEvaluation on the target.",
+          "attempted_conclusion": "Infer point-surjectivity from exact contraction alone."
+        }
+      ],
+      "mappings": [
+        {
+          "case": "GP-X07",
+          "payload": "corpus/must/GP-X07.json",
+          "oracle": {"layer": "conditional_rule", "route": "transport", "status": "AGREES"},
+          "result": "candidate_not_equivalent",
+          "reason": "X07 refuses geometric closure from exact contraction, but it has no source/target evaluation predicates, no inhabited-target versus empty-source model, and does not ask point-surjectivity. A geometric illustration must not replace this abstract logical countermodel."
+        },
+        {
+          "case": null,
+          "result": "missing",
+          "proposal": "Extract one abstract-model-only REFUSE case with exact contraction, source_valid_evaluations=none, target_valid_evaluations=one, and a target point. Mark its legacy oracle observation UNSUPPORTED if the oracle cannot represent evaluation predicates; do not substitute a hyperbola or another geometric instance."
+        }
+      ]
+    },
+    {
+      "family": "surjective_map_with_unrelated_predicates",
+      "concrete_occurrences": [
+        {
+          "anchor": "OperationContract.lean:799 point_surjectivity_needs_retained_expressibility",
+          "model": "identity point map with anyValidEvaluation at both ends, source predicate True and target predicate False.",
+          "attempted_conclusion": "Use point-surjectivity and a source-wide predicate to conclude the unrelated target predicate."
+        }
+      ],
+      "mappings": [
+        {
+          "case": "GP-X05",
+          "payload": "corpus/must/GP-X05.json",
+          "oracle": {"layer": "conditional_rule", "route": "transport", "status": "AGREES"},
+          "result": "logically_equivalent",
+          "reason": "X05 assumes checked point-surjectivity and refuses transport when target expressibility is false. The concrete True/False predicates are an incidental witness of that missing premise."
+        },
+        {
+          "case": "GP-X06",
+          "payload": "corpus/must/GP-X06.json",
+          "oracle": {"layer": "conditional_rule", "route": "transport", "status": "AGREES"},
+          "result": "paired_positive_control",
+          "reason": "X06 accepts the same transport shape once point lifting and target expressibility are supplied; it also confirms closedness is not the missing condition."
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "exact_or_logical_existing_matches": ["GP-X141", "GP-X05", "GP-X06"],
+    "partial_or_topic_only_cases": ["GP-X262", "GP-X315", "GP-X316", "GP-X317", "GP-X07", "GP-X129", "GP-X130", "GP-X138"],
+    "finite_missing_extractions": 3,
+    "proposed_controls": [
+      "exact saturation does not return an identity to the ambient ideal",
+      "empty target's vacuous no-invention does not establish contraction completeness or ALONG transport",
+      "exact contraction without a valid-evaluation lift does not establish point-surjectivity"
+    ],
+    "adjudication_note": "This report maps evidence only; it does not alter expectations, cases, source ledgers, or global gates."
+  }
+}

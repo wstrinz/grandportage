@@ -1,0 +1,626 @@
+{
+  "schema_version": "1.0",
+  "title": "Phase 0e bounded P1/P2/P17 review",
+  "scope": [
+    "P1",
+    "P2",
+    "P17"
+  ],
+  "global_0e_complete": false,
+  "territory_verdict": null,
+  "package_adoption_authorized": false,
+  "native_receipt": null,
+  "method": {
+    "primary_sources_only": true,
+    "execution": false,
+    "install": false,
+    "clone": false,
+    "code_import": false,
+    "prototype": false,
+    "delegation": false,
+    "author_contact": false,
+    "external_message": false,
+    "writes": "Only PHASE-0E-P1-P2-P17-REVIEW.md/json"
+  },
+  "timing": {
+    "global_cap_minutes": 120,
+    "slice_cap_minutes": 25,
+    "start_utc": "2026-09-30T00:39:53Z",
+    "source_reading_end_utc": "2026-09-30T00:47:04Z",
+    "source_reading_elapsed_seconds": 431,
+    "source_reading_minutes": 7.183333333333334,
+    "accounting": "Conservative uninterrupted source-reading session includes constraint reading, all tool latency, failed web fetches, memory-only HTTP fallback and synthesis between reads. Entire slice including authoring and verification is charged by rounded elapsed time plus 20 seconds for final serialization/tool return. Parent independently reported another nonoverlapping slice; parent reconciles the shared remaining budget.",
+    "end_utc": "2026-09-30T00:52:55Z",
+    "whole_slice_elapsed_seconds": 783,
+    "charge_minutes": 14,
+    "remaining_global_minutes_if_no_other_0e_usage": null
+  },
+  "constraints": [
+    {
+      "path": "DECISIONS.md",
+      "sha256": "ac49781336f5dd6cd3f525c85f94f9982c37a1b60db163fee24fc6883905a134",
+      "lines": "19-27",
+      "authority": "approved 120-minute amendment; supersedes conflicting rev3 wording"
+    },
+    {
+      "path": "docs/GP-0.50-REWORK-PACKET-rev3.md",
+      "sha256": "c718b9f2905520da658ba5cd9accc957fa3f5d4407419b10de68833de0118983",
+      "sections": [
+        "7.1",
+        "7.3",
+        "7.4",
+        "G.2 P1/P2/P17"
+      ]
+    },
+    {
+      "path": "reports/PACKET-REV3-REVIEW.md",
+      "sha256": "e8c6b9d96b8305438561b83c70526d20dc7082a289f2d0bb1c376f2f86b97640",
+      "lines": "29-66",
+      "authority": "approved A27 and review constraints"
+    }
+  ],
+  "rows": [
+    {
+      "id": "P1",
+      "recommendation": "IMITATE candidate binding and contract discipline; retain ADOPT as an unapproved G1 option",
+      "status": "bounded primary-source review complete with explicit unknowns",
+      "source_revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "commit_utc": "2026-08-27T19:28:49Z",
+      "license": "Apache-2.0 text verified at pinned revision",
+      "toolchain": "leanprover/lean4:v4.14.0",
+      "mathlib_revision": "4bbdccd9c5f862bf90ff12f0a9e2c8be032b9a84",
+      "compatibility": "UNRESOLVED; GP future Lean pin and 0c experiment pending",
+      "declared_cr_eligible": [
+        "algebra.ideal_membership_witness",
+        "algebra.linear_algebra",
+        "logic.finite_counterexample",
+        "algebra.formal_rational_calculus",
+        "analysis.analytic_calculus"
+      ],
+      "not_theorem_cr_eligible": [
+        "algebra.rational_equality",
+        "logic.sat_unsat",
+        "logic.pseudo_boolean",
+        "logic.smt"
+      ],
+      "reach": "Contract-specific mathematical domains and hypotheses observed; no general GP reach computation established",
+      "campaign_overlap": "Conjecture Campaign/Episode/state/precision types and condition lattice exist; packet blanket absence corrected. No whole-territory verdict.",
+      "maturity": "Experimental; registry semantic/trust review absent, offline kernel maturity false. Registry bits are declarations, not this review's executions.",
+      "findings": [
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5"
+      ],
+      "unresolved": [
+        "No Lean or checker execution; no release-CI attestation verified.",
+        "Generalized algebraic reach, cross-world carrying and cover/completeness correspondence not established.",
+        "Reconcile stale pointer and descriptive metadata with authoritative assurancePolicy before adoption.",
+        "GP corpus fit, elaboration costs, future pin compatibility, license/dependency adoption review and author coordination remain pending."
+      ]
+    },
+    {
+      "id": "P2",
+      "recommendation": "IMITATE per-conclusion bundles, dependency roles and ancestry; DIFFER on rank as held authority; runtime READ_ONLY",
+      "status": "bounded primary-source review complete with explicit unknowns",
+      "source_revision": "272a1644011b1a7f325f580fa96cbe3ef8fe27bb",
+      "commit_utc": "2026-09-15T20:33:10Z",
+      "license": "MIT header; pyproject agrees",
+      "package_version": "1.3.1.dev3; Beta classifier",
+      "lean_workspace_pin": "leanprover/lean4:v4.33.0",
+      "compatibility": "UNRESOLVED; no runtime or GP compatibility test",
+      "findings": [
+        "F6",
+        "F7"
+      ],
+      "unresolved": [
+        "No independent adoption/maturity assessment; minimal adoption not established by counters.",
+        "No backend correctness audit, formal checker qualification or test execution.",
+        "Typed scope semantics and GP reach/carrying/completeness coverage not established."
+      ]
+    },
+    {
+      "id": "P17",
+      "recommendation": "IMITATE conditional-hypothesis and configuration disclosure; CAS output stays READ_ONLY until separate checker admission",
+      "status": "bounded documentation/paper review complete with explicit unknowns",
+      "findings": [
+        "F8",
+        "F9",
+        "F10"
+      ],
+      "unresolved": [
+        "No Magma/PARI computation or implementation audit; no admissible GP receipt produced.",
+        "Moving PARI manual was not byte-bound to the listed release; historical heuristic case lacks a pinned executable release.",
+        "Formalizable is not formalized. Specific field/order, maximality, effective bounds, cached history and successful certification must be bound later."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "row": "P1",
+      "kind": "declared contracts with selected checker code inspected",
+      "summary": "Exact contract table and exclusions are in Markdown; certification eligibility is narrower than checker existence.",
+      "sources": [
+        "P1-MATURITY",
+        "P1-IDEAL",
+        "P1-IDEAL-CHECK",
+        "P1-IDEAL-SOUND",
+        "P1-LA",
+        "P1-LA-CHECK",
+        "P1-LA-SPEC",
+        "P1-LA-IR",
+        "P1-CEX",
+        "P1-FORMAL",
+        "P1-ANALYTIC",
+        "P1-RATIONAL"
+      ]
+    },
+    {
+      "id": "F2",
+      "row": "P1",
+      "kind": "design plus static implementation",
+      "summary": "Policy gates promotion; replay binds candidate bundle, generated declaration, environment, type/proof identities and axiom policy. Not executed here.",
+      "sources": [
+        "P1-ADR",
+        "P1-POLICY",
+        "P1-REPLAY",
+        "P1-BUNDLE",
+        "P1-TESTS"
+      ]
+    },
+    {
+      "id": "F3",
+      "row": "P1",
+      "kind": "configuration observation",
+      "summary": "License/toolchain/dependency pins verified; pin agreement with GP remains unknown.",
+      "sources": [
+        "P1-LICENSE",
+        "P1-PIN",
+        "P1-LAKE"
+      ]
+    },
+    {
+      "id": "F4",
+      "row": "P1",
+      "kind": "static state structures and inference",
+      "summary": "Existing conjecture/campaign and hypothesis-lattice structures contradict blanket no-campaign-state wording; they do not establish GP territory coverage.",
+      "sources": [
+        "P1-CAMPAIGN",
+        "P1-STATES",
+        "P1-PRECISION",
+        "P1-LATTICE",
+        "P1-LEVELS"
+      ]
+    },
+    {
+      "id": "F5",
+      "row": "P1",
+      "kind": "metadata discrepancy",
+      "summary": "Thin Lean pointer calls ideal membership external while authoritative capability policy owns exact replay; descriptive metadata also retains older bridge/maturity descriptions. Reconcile before adoption.",
+      "sources": [
+        "P1-POINTERS",
+        "P1-IDEAL",
+        "P1-LA",
+        "P1-STATUS",
+        "P1-MATURITY"
+      ]
+    },
+    {
+      "id": "F6",
+      "row": "P2",
+      "kind": "static implementation",
+      "summary": "Six evidence categories, per-claim bundles, support_path and required/cross_check/diagnostic roles observed. MathResult caps summary trust; context and condition records exist.",
+      "sources": [
+        "P2-EVIDENCE",
+        "P2-MODELS",
+        "P2-CONTEXT",
+        "P2-TESTS"
+      ]
+    },
+    {
+      "id": "F7",
+      "row": "P2",
+      "kind": "GP design inference",
+      "summary": "Ordinal rank cannot determine a proposition's scope, necessary hypotheses or permitted carrying. Preserve provenance but require separate admitted semantics.",
+      "sources": [
+        "P2-EVIDENCE",
+        "P2-MODELS"
+      ]
+    },
+    {
+      "id": "F8",
+      "row": "P17",
+      "kind": "authors' algorithm account",
+      "summary": "Paper distinguishes five regimes, not formalized proofs; default class/unit procedures differ and V2.29 repairs matter.",
+      "sources": [
+        "P17-PAPER",
+        "P17-PAPER-ID"
+      ]
+    },
+    {
+      "id": "F9",
+      "row": "P17",
+      "kind": "official Magma contracts",
+      "summary": "Local Full label alone is insufficient; global settings and independent unit proof phase matter. See bounded Markdown mapping.",
+      "sources": [
+        "P17-CLASS",
+        "P17-UNIT"
+      ]
+    },
+    {
+      "id": "F10",
+      "row": "P17",
+      "kind": "official PARI contract and historical correction",
+      "summary": "Current GRH result and full versus partial certification differ; historical cheating wording cannot establish current defaults. See A27 prerequisites in Markdown.",
+      "sources": [
+        "P17-PARI",
+        "P17-HISTORY",
+        "P17-PARI-RELEASE"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "P1-LICENSE",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/LICENSE",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "LICENSE",
+      "evidence_kind": "license text",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-PIN",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/lean-toolchain",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "lean-toolchain",
+      "evidence_kind": "configuration",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-LAKE",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/lakefile.toml",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "lakefile.toml",
+      "evidence_kind": "configuration",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-STATUS",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/docs/STATUS.md",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "docs/STATUS.md",
+      "evidence_kind": "maintainer status claim",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-MATURITY",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/registry/maturity-inventory.json",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "registry/maturity-inventory.json",
+      "evidence_kind": "registry declaration",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-ADR",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/docs/adr/0005-exact-candidate-binding.md",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "docs/adr/0005-exact-candidate-binding.md",
+      "evidence_kind": "design decision",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-POLICY",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/agent/api/assurance_policy.py",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "agent/api/assurance_policy.py",
+      "evidence_kind": "static code inspection",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-REPLAY",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/adapters/common/kernel_replay.py",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "adapters/common/kernel_replay.py",
+      "evidence_kind": "selected static code inspection",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-BUNDLE",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/MathEvidence/Core/Bundle.lean",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "MathEvidence/Core/Bundle.lean",
+      "evidence_kind": "static code inspection",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-IDEAL",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/registry/capabilities/algebra.ideal_membership_witness.json",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "registry/capabilities/algebra.ideal_membership_witness.json",
+      "evidence_kind": "capability declaration",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-IDEAL-CHECK",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/MathEvidence/Checkers/IdealMembership/Check.lean",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "MathEvidence/Checkers/IdealMembership/Check.lean",
+      "evidence_kind": "static code inspection",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-IDEAL-SOUND",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/MathEvidence/Checkers/IdealMembership/Soundness.lean",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "MathEvidence/Checkers/IdealMembership/Soundness.lean",
+      "evidence_kind": "unexecuted Lean theorem source",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-LA",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/registry/capabilities/algebra.linear_algebra.json",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "registry/capabilities/algebra.linear_algebra.json",
+      "evidence_kind": "capability declaration",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-LA-CHECK",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/MathEvidence/Checkers/LinearAlgebra/Check.lean",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "MathEvidence/Checkers/LinearAlgebra/Check.lean",
+      "evidence_kind": "static code inspection",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-LA-SPEC",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/MathEvidence/Checkers/LinearAlgebra/Spec.lean",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "MathEvidence/Checkers/LinearAlgebra/Spec.lean",
+      "evidence_kind": "static code inspection",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-LA-IR",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/MathEvidence/IR/MatrixExpr/Syntax.lean",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "MathEvidence/IR/MatrixExpr/Syntax.lean",
+      "evidence_kind": "static code inspection",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-CEX",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/registry/capabilities/logic.finite_counterexample.json",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "registry/capabilities/logic.finite_counterexample.json",
+      "evidence_kind": "capability declaration",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-FORMAL",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/registry/capabilities/algebra.formal_rational_calculus.json",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "registry/capabilities/algebra.formal_rational_calculus.json",
+      "evidence_kind": "capability declaration",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-ANALYTIC",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/registry/capabilities/analysis.analytic_calculus.json",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "registry/capabilities/analysis.analytic_calculus.json",
+      "evidence_kind": "capability declaration",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-RATIONAL",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/registry/capabilities/algebra.rational_equality.json",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "registry/capabilities/algebra.rational_equality.json",
+      "evidence_kind": "capability declaration",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-CAMPAIGN",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/MathEvidence/Conjecture/Engine.lean",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "MathEvidence/Conjecture/Engine.lean",
+      "evidence_kind": "static code inspection",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-STATES",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/MathEvidence/Conjecture/States.lean",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "MathEvidence/Conjecture/States.lean",
+      "evidence_kind": "static code inspection",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-PRECISION",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/MathEvidence/Conjecture/Precision.lean",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "MathEvidence/Conjecture/Precision.lean",
+      "evidence_kind": "static code inspection",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-LATTICE",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/MathEvidence/Hypothesis/Lattice.lean",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "MathEvidence/Hypothesis/Lattice.lean",
+      "evidence_kind": "static code inspection",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-LEVELS",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/docs/assurance/CONTRACT_LEVELS.md",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "docs/assurance/CONTRACT_LEVELS.md",
+      "evidence_kind": "packaging checklist",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-POINTERS",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/MathEvidence/Registry/Basic.lean",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "MathEvidence/Registry/Basic.lean",
+      "evidence_kind": "static code inspection",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-TESTS",
+      "url": "https://github.com/fraware/MathEvidence/blob/ea04be1a2935991758661f943a18d857ad16fafa/tests/forensic/test_exact_candidate_binding.py",
+      "revision": "ea04be1a2935991758661f943a18d857ad16fafa",
+      "path": "tests/forensic/test_exact_candidate_binding.py",
+      "evidence_kind": "test names read; not executed",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P2-EVIDENCE",
+      "url": "https://github.com/Staatsgeheim/MathKernel/blob/272a1644011b1a7f325f580fa96cbe3ef8fe27bb/src/mathkernel_artifacts/evidence.py",
+      "revision": "272a1644011b1a7f325f580fa96cbe3ef8fe27bb",
+      "path": "src/mathkernel_artifacts/evidence.py",
+      "evidence_kind": "static code inspection",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P2-MODELS",
+      "url": "https://github.com/Staatsgeheim/MathKernel/blob/272a1644011b1a7f325f580fa96cbe3ef8fe27bb/src/mathkernel/models.py",
+      "revision": "272a1644011b1a7f325f580fa96cbe3ef8fe27bb",
+      "path": "src/mathkernel/models.py",
+      "evidence_kind": "static code inspection",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P2-CONTEXT",
+      "url": "https://github.com/Staatsgeheim/MathKernel/blob/272a1644011b1a7f325f580fa96cbe3ef8fe27bb/src/mathkernel/context.py",
+      "revision": "272a1644011b1a7f325f580fa96cbe3ef8fe27bb",
+      "path": "src/mathkernel/context.py",
+      "evidence_kind": "static code inspection",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P2-TESTS",
+      "url": "https://github.com/Staatsgeheim/MathKernel/blob/272a1644011b1a7f325f580fa96cbe3ef8fe27bb/tests/test_evidence_composition_hardening.py",
+      "revision": "272a1644011b1a7f325f580fa96cbe3ef8fe27bb",
+      "path": "tests/test_evidence_composition_hardening.py",
+      "evidence_kind": "unexecuted test source",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P2-PACKAGE",
+      "url": "https://github.com/Staatsgeheim/MathKernel/blob/272a1644011b1a7f325f580fa96cbe3ef8fe27bb/pyproject.toml",
+      "revision": "272a1644011b1a7f325f580fa96cbe3ef8fe27bb",
+      "path": "pyproject.toml",
+      "evidence_kind": "package configuration",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P2-LICENSE",
+      "url": "https://github.com/Staatsgeheim/MathKernel/blob/272a1644011b1a7f325f580fa96cbe3ef8fe27bb/LICENSE",
+      "revision": "272a1644011b1a7f325f580fa96cbe3ef8fe27bb",
+      "path": "LICENSE",
+      "evidence_kind": "license header",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P2-PIN",
+      "url": "https://github.com/Staatsgeheim/MathKernel/blob/272a1644011b1a7f325f580fa96cbe3ef8fe27bb/src/mathkernel/lean_workspace/lean-toolchain",
+      "revision": "272a1644011b1a7f325f580fa96cbe3ef8fe27bb",
+      "path": "src/mathkernel/lean_workspace/lean-toolchain",
+      "evidence_kind": "configuration",
+      "access": "primary public source text, read in memory only"
+    },
+    {
+      "id": "P1-PUBLIC",
+      "url": "https://github.com/fraware/MathEvidence",
+      "revision": null,
+      "evidence_kind": "floating README orientation; pinned detailed sources govern"
+    },
+    {
+      "id": "P2-PUBLIC",
+      "url": "https://github.com/Staatsgeheim/MathKernel",
+      "revision": null,
+      "evidence_kind": "floating README orientation; pinned detailed sources govern"
+    },
+    {
+      "id": "P17-PAPER",
+      "url": "https://jvoight.github.io/articles/clgpunitgp-magma-02Oct25.pdf",
+      "revision": "author PDF filename 02Oct25; Magma V2.29; arXiv v1 submitted 2025-10-07",
+      "evidence_kind": "authors' paper, selected introduction/takeaways"
+    },
+    {
+      "id": "P17-PAPER-ID",
+      "url": "https://arxiv.org/abs/2510.05501v1",
+      "revision": "v1, 2025-10-07T01:42:00Z",
+      "evidence_kind": "publication identity"
+    },
+    {
+      "id": "P17-CLASS",
+      "url": "https://magma.maths.usyd.edu.au/magma/handbook/text/416",
+      "revision": "live handbook V2.29, 3 August 2026; no immutable page hash",
+      "evidence_kind": "official function contract"
+    },
+    {
+      "id": "P17-UNIT",
+      "url": "https://magma.maths.usyd.edu.au/magma/handbook/text/417",
+      "revision": "live handbook V2.29, 3 August 2026; no immutable page hash",
+      "evidence_kind": "official function contract"
+    },
+    {
+      "id": "P17-PARI",
+      "url": "https://pari.math.u-bordeaux.fr/dochtml/html-stable/General_number_fields.html",
+      "revision": "stable moving manual observed 2026-09-30 UTC; not independently byte-bound to release",
+      "evidence_kind": "official bnfinit/bnfcertify contract"
+    },
+    {
+      "id": "P17-PARI-RELEASE",
+      "url": "https://pari.math.u-bordeaux.fr/download.html",
+      "revision": "lists stable 2.19.0, 2026-09-28",
+      "evidence_kind": "release identity only; no download"
+    },
+    {
+      "id": "P17-HISTORY",
+      "url": "https://pari.math.u-bordeaux.fr/archives/pari-users-0312/msg00020.html",
+      "revision": "2003-12-21 archive quoting Bill Allombert 2003-12-20",
+      "evidence_kind": "historical developer correspondence"
+    }
+  ],
+  "quotes": [
+    {
+      "source": "P1-POLICY",
+      "text": "Fixture keys and OfflineFixtures are never CR authority."
+    },
+    {
+      "source": "P2-EVIDENCE",
+      "text": "Required evidence in one ``support_path`` is conjunctive."
+    },
+    {
+      "source": "P17-PARI",
+      "text": "The result is conditional on the GRH"
+    },
+    {
+      "source": "P17-PAPER",
+      "text": "One step beyond formalizable would be formalized"
+    }
+  ],
+  "adoption_proposals": {
+    "G1_1": "Explore combined theorem/receipt interface preserving exact statement, hypotheses and authority; no decision made.",
+    "G1_2": "Imitate binding now as design evidence; exact ideal/LA code adoption remains conditional on corpus fit, metadata reconciliation, 0c and admitted authority.",
+    "G1_3": "No canonical Mathlib scope-vocabulary decision from these three rows."
+  },
+  "A27_proposed_prerequisites": [
+    "Bind number-field polynomial/order and exact requested claim.",
+    "Record tool version, effective bound source/value, flags, cache/history and precision/units data relevant to method.",
+    "GRH must be an explicit assumption, not removed by exact representation or local Proof label.",
+    "Full PARI certification requires flag 0, fundamental-unit data and successful result 1 for this bnf; flag 1 supports only its weaker claim.",
+    "Keep heuristic evidence distinct; pin historical examples to an identified release.",
+    "Bind successful checks and separately admitted GP checker authority; docs or CAS labels alone mint no held claim."
+  ],
+  "A27_cases_written": false,
+  "other_rows_reviewed": [],
+  "unresolved_global": "Other 15 P rows, consumer list, both territory claims, final 0e gate and all three G1 sign-offs remain parent work."
+}

@@ -1,0 +1,476 @@
+{
+  "schema_version": 1,
+  "scope": "Exactly the nine rows classified unresolved in reports/PHASE-0A-DELETED-MAPPING-REVIEW.json.",
+  "baseline_commit": "74e815a",
+  "method_note": "A source/prerequisite binding, deterministic-output equality, and a required non-promotion clause are assessed at their actual adapter/report gate. Metadata-only checks are not represented as mathematical replay authority.",
+  "counts": {
+    "unresolved": 2,
+    "covered": 5,
+    "partially_covered": 2
+  },
+  "records": [
+    {
+      "source_path": "tests/test_jc_h3_adjoint_recurrence.py",
+      "test": "test_changed_jump_schedule_is_refused",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_adjoint_recurrence.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 86,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/5/tests/3"
+      },
+      "validation_gate_reached": "Adapter gate J2: exact equality of the declared jump set [7,9,11,13] and the depth-9 non-jump correction. The altered input fails before any transport conclusion.",
+      "logically_distinct_assertions": [
+        "The recurrence certificate must bind the precise set of nonzero jump indices.",
+        "A minimal-shift/annihilator conclusion cannot use a certificate with a different jump schedule."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X118",
+          "pointer": "corpus/must/GP-X118.json",
+          "premise_conclusion_failure_equivalence": "Positive control for the intact zero-tail/nonzero-endpoint recurrence premises.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "On indices starting at six the eighth shift annihilates the checked sequence while the seventh does not. The generic Lean theorem is not recompiled here."
+          }
+        },
+        {
+          "id": "GP-X110",
+          "pointer": "corpus/must/GP-X110.json",
+          "premise_conclusion_failure_equivalence": "Refuses a changed recurrence domain, but not a changed jump schedule.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Changing the index domain changes the recurrence statement."
+          }
+        }
+      ],
+      "genuinely_missing_minimal_mechanism_and_controls": [
+        "Minimal negative: retain the correct unilateral domain, zero tail, and nonzero endpoint, alter one declared jump index, and refuse the recurrence certificate. Positive control: the same intact schedule is accepted (X118)."
+      ],
+      "disposition": "unresolved"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_depth8_free_plane.py",
+      "test": "test_changed_previous_gp_prerequisite_refuses",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_depth8_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 94,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/7/tests/3"
+      },
+      "validation_gate_reached": "Adapter gate C1 in _check_previous_prerequisite: the prerequisite fixture path and SHA-256 must equal the pinned predecessor binding; the all-zero SHA fails before loading/replaying the prerequisite adapter.",
+      "logically_distinct_assertions": [
+        "A downstream affine-block receipt may use a predecessor result only when its prerequisite artifact identity matches.",
+        "A changed prerequisite binding cannot be silently substituted."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X164",
+          "pointer": "corpus/must/GP-X164.json",
+          "premise_conclusion_failure_equivalence": "Matching provenance is the positive current-receipt control.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Only matching provenance can project current identity authority; stale history must not overwrite a current result."
+          }
+        },
+        {
+          "id": "GP-X169",
+          "pointer": "corpus/must/GP-X169.json",
+          "premise_conclusion_failure_equivalence": "Evidence for another semantic input is stale.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Only matching provenance can project current identity authority; stale history must not overwrite a current result."
+          }
+        },
+        {
+          "id": "GP-X71",
+          "pointer": "corpus/must/GP-X71.json",
+          "premise_conclusion_failure_equivalence": "A changed source digest stales a receipt.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The original source binding must match the receipt fingerprint."
+          }
+        },
+        {
+          "id": "GP-X305",
+          "pointer": "corpus/must/GP-X305.json",
+          "premise_conclusion_failure_equivalence": "A missing intermediate binding refuses a composed result.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Missing intermediate binding refuses composition"
+          }
+        }
+      ],
+      "genuinely_missing_minimal_mechanism_and_controls": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_h3_b0_free_plane.py",
+      "test": "test_report_has_no_graph_or_research_promotion",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_b0_free_plane.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 53,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/9/tests/1"
+      },
+      "validation_gate_reached": "No validation gate is reached by this test. report_from_checked_fixture copies a previously validated projection and explicitly emits graph_effect NONE and its evidence-envelope/does_not_license contract; this is a report-level normative boundary, not a new arithmetic replay.",
+      "logically_distinct_assertions": [
+        "A checked exceptional-factor ledger is not graph authority.",
+        "It cannot license component, actual-source, R=0 freeness, or H3 conclusions; its unresolved obligation remains visible."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X298",
+          "pointer": "corpus/must/GP-X298.json",
+          "premise_conclusion_failure_equivalence": "Exact affine arithmetic can verify while retaining all model/interpretation obligations.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Affine unit contradiction pattern verifies without model authority"
+          }
+        },
+        {
+          "id": "GP-X35",
+          "pointer": "corpus/must/GP-X35.json",
+          "premise_conclusion_failure_equivalence": "Conditional evidence remains usable with its obligations.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "A conditional report can be retained without granting unconditional source authority."
+          }
+        },
+        {
+          "id": "GP-X37",
+          "pointer": "corpus/must/GP-X37.json",
+          "premise_conclusion_failure_equivalence": "A completion label cannot close a missing obligation.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Changing a declaration is not a checked map or source binding."
+          }
+        },
+        {
+          "id": "GP-X43",
+          "pointer": "corpus/must/GP-X43.json",
+          "premise_conclusion_failure_equivalence": "Conditional row evidence does not prove original-source membership.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The verified metadata report explicitly preserves the missing source-map obligation."
+          }
+        },
+        {
+          "id": "GP-X41",
+          "pointer": "corpus/must/GP-X41.json",
+          "premise_conclusion_failure_equivalence": "Deleting a stated refusal does not earn the excluded theorem.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The report does not establish the stronger theorem; erasing its boundary cannot create a warrant."
+          }
+        },
+        {
+          "id": "GP-X64",
+          "pointer": "corpus/must/GP-X64.json",
+          "premise_conclusion_failure_equivalence": "Local evidence cannot be promoted to ambient authority.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Forgetting two equations enlarges the model and does not transport emptiness forward."
+          }
+        }
+      ],
+      "genuinely_missing_minimal_mechanism_and_controls": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_h3_depth8_fiber.py",
+      "test": "test_zeroed_omega_comb_is_refused",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_depth8_fiber.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 69,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/12/tests/2"
+      },
+      "validation_gate_reached": "Adapter gate N8: _element_nonzero is evaluated on omega_comb at the landed witness. The all-zero replacement fails the arithmetic nonzero premise before the subsequent digest N10 check.",
+      "logically_distinct_assertions": [
+        "The first-order fiber conclusion needs a nonzero omega_comb at its named witness.",
+        "A zero value must refuse that certificate rather than merely restrict promotion."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X113",
+          "pointer": "corpus/must/GP-X113.json",
+          "premise_conclusion_failure_equivalence": "Refuses a first-order-to-nonlinear promotion, which is a later and different gate.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "A separately checked sound linearization bridge has not been instantiated."
+          }
+        },
+        {
+          "id": "GP-X118",
+          "pointer": "corpus/must/GP-X118.json",
+          "premise_conclusion_failure_equivalence": "Positive control for a checked nonzero endpoint, but not a zero-witness refusal.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "On indices starting at six the eighth shift annihilates the checked sequence while the seventh does not. The generic Lean theorem is not recompiled here."
+          }
+        }
+      ],
+      "genuinely_missing_minimal_mechanism_and_controls": [
+        "Minimal negative: an exact witness with the required omega-like value set to zero must be refused by a nonzero-premise replay. Positive control: the same witness with a checked nonzero value is accepted. The existing non-promotion cases do not reach this arithmetic gate."
+      ],
+      "disposition": "unresolved"
+    },
+    {
+      "source_path": "tests/test_jc_h3_s4_scope.py",
+      "test": "test_sparse_body_mutation_is_refused",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_s4_scope.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 72,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/15/tests/2"
+      },
+      "validation_gate_reached": "Adapter gate P9: the decoded sparse C polynomial's digest must equal the native receipt's reconstructed fitting-condition digest. Changing a coefficient fails this source/body binding check; it does not replay a new mathematical consequence.",
+      "logically_distinct_assertions": [
+        "A native reconstructed polynomial body must match the receipt to which the report is bound."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X40",
+          "pointer": "corpus/must/GP-X40.json",
+          "premise_conclusion_failure_equivalence": "A changed row commitment cannot reuse the old binding.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The native row commitments must match the frozen GP rows."
+          }
+        },
+        {
+          "id": "GP-X213",
+          "pointer": "corpus/must/GP-X213.json",
+          "premise_conclusion_failure_equivalence": "Changed output fails its retained inner hash.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Changed output fails its retained inner hash"
+          }
+        },
+        {
+          "id": "GP-X214",
+          "pointer": "corpus/must/GP-X214.json",
+          "premise_conclusion_failure_equivalence": "Rehashing changed content does not repair the retained object address.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Rehashed output still fails the retained object address"
+          }
+        }
+      ],
+      "genuinely_missing_minimal_mechanism_and_controls": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_checked_in_authority_fixture_is_exact_adapter_output",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 94,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/1"
+      },
+      "validation_gate_reached": "No mathematical validation gate is reached. The test checks a deterministic serialization contract: DEFAULT_AUTHORITY bytes equal canonical _encoded(authority_spec(frozen)) bytes. It establishes reproducibility/custody, not localized-unit correctness or graph authority.",
+      "logically_distinct_assertions": [
+        "The checked-in authority artifact must be the canonical deterministic encoding of the adapter's authority specification."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X215",
+          "pointer": "corpus/must/GP-X215.json",
+          "premise_conclusion_failure_equivalence": "Negative canonical-byte control: equivalent JSON formatting does not match canonical stored bytes.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Equivalent JSON formatting does not match canonical stored bytes"
+          }
+        },
+        {
+          "id": "GP-X302",
+          "pointer": "corpus/must/GP-X302.json",
+          "premise_conclusion_failure_equivalence": "Positive canonical-export composition control, showing a canonical intermediate is bound across valid passes.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Exact canonical export binds two valid passes"
+          }
+        }
+      ],
+      "genuinely_missing_minimal_mechanism_and_controls": [
+        "Shared metadata-only positive control for both authority-spec adapters: encode the same frozen specification twice and require byte equality with the checked-in canonical artifact; paired negative: a changed semantic field or noncanonical encoding is rejected (X215 already supplies the latter)."
+      ],
+      "disposition": "partially_covered"
+    },
+    {
+      "source_path": "tests/test_jc_h3_wall_ob_open.py",
+      "test": "test_scope_refuses_parent_component_source_and_h3_promotion",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_h3_wall_ob_open.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 135,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/17/tests/5"
+      },
+      "validation_gate_reached": "No arithmetic gate is reached by this test; it checks the frozen authority_boundary text. The text is normative because validate_frozen binds it into the evidence envelope, but this assertion itself is a metadata-contract check.",
+      "logically_distinct_assertions": [
+        "Local R=0, OB!=0 consequence evidence does not establish parent emptiness/component claims.",
+        "It does not establish actual-source membership, H3 promotion, or a global verdict."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-A23",
+          "pointer": "corpus/must/GP-A23.json",
+          "premise_conclusion_failure_equivalence": "Open-locus emptiness does not establish parent emptiness.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The omitted closed locus is not covered."
+          }
+        },
+        {
+          "id": "GP-X64",
+          "pointer": "corpus/must/GP-X64.json",
+          "premise_conclusion_failure_equivalence": "Local emptiness cannot be promoted to the ambient model.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Forgetting two equations enlarges the model and does not transport emptiness forward."
+          }
+        },
+        {
+          "id": "GP-X83",
+          "pointer": "corpus/must/GP-X83.json",
+          "premise_conclusion_failure_equivalence": "An unbound boundary cannot supply an actual-source edge.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The imported boundary is source-unbound and carries no source or parent-cover edge."
+          }
+        },
+        {
+          "id": "GP-X43",
+          "pointer": "corpus/must/GP-X43.json",
+          "premise_conclusion_failure_equivalence": "Conditional row evidence does not prove original-source membership.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The verified metadata report explicitly preserves the missing source-map obligation."
+          }
+        },
+        {
+          "id": "GP-X41",
+          "pointer": "corpus/must/GP-X41.json",
+          "premise_conclusion_failure_equivalence": "Deleting an H3 refusal does not earn the theorem.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The report does not establish the stronger theorem; erasing its boundary cannot create a warrant."
+          }
+        },
+        {
+          "id": "GP-X89",
+          "pointer": "corpus/must/GP-X89.json",
+          "premise_conclusion_failure_equivalence": "The chain report must preserve its H3 restriction.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The frozen report contract must preserve its excluded conclusion."
+          }
+        },
+        {
+          "id": "GP-X65",
+          "pointer": "corpus/must/GP-X65.json",
+          "premise_conclusion_failure_equivalence": "A certificate name without a current verdict has no authority.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "No current checked verdict is attached to the named certificate."
+          }
+        }
+      ],
+      "genuinely_missing_minimal_mechanism_and_controls": [],
+      "disposition": "covered"
+    },
+    {
+      "source_path": "tests/test_jc_p_axis_authority.py",
+      "test": "test_checked_in_authority_fixture_is_exact_adapter_output",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_p_axis_authority.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 119,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/19/tests/2"
+      },
+      "validation_gate_reached": "No mathematical validation gate is reached. The test checks a deterministic serialization contract: DEFAULT_AUTHORITY bytes equal canonical _encoded(authority_spec(frozen)) bytes. It establishes reproducibility/custody, not localized-unit correctness or graph authority.",
+      "logically_distinct_assertions": [
+        "The checked-in authority artifact must be the canonical deterministic encoding of the adapter's authority specification."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X215",
+          "pointer": "corpus/must/GP-X215.json",
+          "premise_conclusion_failure_equivalence": "Negative canonical-byte control: equivalent JSON formatting does not match canonical stored bytes.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Equivalent JSON formatting does not match canonical stored bytes"
+          }
+        },
+        {
+          "id": "GP-X302",
+          "pointer": "corpus/must/GP-X302.json",
+          "premise_conclusion_failure_equivalence": "Positive canonical-export composition control, showing a canonical intermediate is bound across valid passes.",
+          "expected": {
+            "verdict": "ACCEPT",
+            "reason": "Exact canonical export binds two valid passes"
+          }
+        }
+      ],
+      "genuinely_missing_minimal_mechanism_and_controls": [
+        "Shared metadata-only positive control for both authority-spec adapters: encode the same frozen specification twice and require byte equality with the checked-in canonical artifact; paired negative: a changed semantic field or noncanonical encoding is rejected (X215 already supplies the latter)."
+      ],
+      "disposition": "partially_covered"
+    },
+    {
+      "source_path": "tests/test_jc_source_depth6_face_extraction.py",
+      "test": "test_dropped_authority_refusal_is_rejected_after_resigning",
+      "source_pointer": {
+        "historical_checkout": "oracle/history/checkout/tests/test_jc_source_depth6_face_extraction.py",
+        "commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+        "line": 142,
+        "evidence_record": "corpus/history/DELETED-TEST-REVIEW.json#/sources/24/tests/9"
+      },
+      "validation_gate_reached": "Face-extraction adapter required_refusals subset check: H3 promotion is required in the frozen refusal list. Re-signing the changed fixture cannot satisfy the semantic authority contract.",
+      "logically_distinct_assertions": [
+        "Removing an explicit H3 refusal cannot create the excluded authority even if the edited fixture is rehashed/re-signed."
+      ],
+      "case_mappings": [
+        {
+          "id": "GP-X41",
+          "pointer": "corpus/must/GP-X41.json",
+          "premise_conclusion_failure_equivalence": "Direct refusal-retention control for removing H3 refusal.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The report does not establish the stronger theorem; erasing its boundary cannot create a warrant."
+          }
+        },
+        {
+          "id": "GP-X89",
+          "pointer": "corpus/must/GP-X89.json",
+          "premise_conclusion_failure_equivalence": "Same required H3 restriction in the chain report.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "The frozen report contract must preserve its excluded conclusion."
+          }
+        },
+        {
+          "id": "GP-X94",
+          "pointer": "corpus/must/GP-X94.json",
+          "premise_conclusion_failure_equivalence": "Changing a formula contract cannot be repaired by reuse.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Changing the source window changes the defining formula contract."
+          }
+        },
+        {
+          "id": "GP-X91",
+          "pointer": "corpus/must/GP-X91.json",
+          "premise_conclusion_failure_equivalence": "Recomputing a local digest does not repair downstream face authority.",
+          "expected": {
+            "verdict": "REFUSE",
+            "reason": "Updating the row commitment does not make its extracted faces match the downstream commitments."
+          }
+        }
+      ],
+      "genuinely_missing_minimal_mechanism_and_controls": [],
+      "disposition": "covered"
+    }
+  ]
+}

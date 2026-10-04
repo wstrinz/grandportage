@@ -1,0 +1,41 @@
+{
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "script_sha256": "8a46d46057ea1ccb574341113438711f01bea50b779a706914d262e829d259a9",
+  "sources": {
+    "grandportage/verify.py": "51ee50fd4be7e8f0f6b2cdd10f680ac7060ef8f91f1f424290a342e3c7ce9c03",
+    "grandportage/store.py": "900da33d1b8e3ae045533b3ae8ed67317a3bc56a35861d2bcd604ae6adb7e755",
+    "grandportage/provenance.py": "79440d816d0217e6cd9297a0b81d742ed83984007355c21013839df8c3a7828a"
+  },
+  "controls": [
+    {
+      "control": "valid",
+      "actual_verifier": "VERIFIED",
+      "verifier_reason": "the mapped_ring_iso_v1 certificate exactly expands both ideal pullbacks and both polynomial map compositions are the identity. This backend-free proof establishes an isomorphism of the exact endpoint COORDINATE RINGS; it grants no authority outside them.",
+      "asserted_verdict": "VERIFIED",
+      "fold_current": true,
+      "fold_reason": "current",
+      "active": "VERIFIED"
+    },
+    {
+      "control": "false_cofactor",
+      "actual_verifier": "UNVERIFIED",
+      "verifier_reason": "the exact ring-isomorphism certificate was rejected: membership cofactors expand to the wrong polynomial: -x. The authored maps may still be an isomorphism, but this proof does not establish it; invalid evidence is not a mathematical refutation.",
+      "asserted_verdict": "VERIFIED",
+      "fold_current": true,
+      "fold_reason": "current",
+      "active": "VERIFIED"
+    },
+    {
+      "control": "false_inverse",
+      "actual_verifier": "UNVERIFIED",
+      "verifier_reason": "the exact certificate maps fail the left inverse law at x. The authored maps may still be an isomorphism, but this proof does not establish it; invalid evidence is not a mathematical refutation.",
+      "asserted_verdict": "VERIFIED",
+      "fold_current": true,
+      "fold_reason": "current",
+      "active": "VERIFIED"
+    }
+  ],
+  "scope": "Actual verifier and native graph fold, no CAS and no patched freshness. Invalid positive verdicts intentionally fabricated after the actual verifier refused; not a claim that verify_all emits them.",
+  "finding": "The native producer performs exact certificate and composition checks; fold-time eligibility tests schema/maps but does not repeat them. A matching synthetic positive event activates invalid mapped evidence.",
+  "proposal": "Replay mapped certificate and inverse laws at admission, binding exact endpoint conventions; retain invalid-proof refusal distinct from map refutation."
+}

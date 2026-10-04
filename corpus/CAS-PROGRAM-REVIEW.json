@@ -1,0 +1,36 @@
+{
+  "source_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "source": "grandportage/cas.py",
+  "sha256": "b33ed86b25361eb9c6e8993b96f12ae5359fe12c20bf4d729cbc29374cdab453",
+  "read_this_batch": [
+    "1-690",
+    "735-835"
+  ],
+  "full_text_read_across_batches": true,
+  "supporting_batches": [
+    74,
+    75,
+    76
+  ],
+  "semantic_status": "partial",
+  "diagnostics": "reports/CAS-PROGRAM-CUSTODY.json",
+  "findings": [
+    "CASProgram validates constructor inputs, but stores mutable lists and renders them again at execution. A shadowing statement rejected in the constructor reaches the injected runner after body mutation and its mock complete transcript parses. This contradicts the absolute non-bypassable wording for direct Python callers; no live CAS or external-input exploit is claimed.",
+    "run_cas persists caller-supplied program.generators, not parsed output generators. A synthetic run emitting x records a model with supplied generators [1]. This creates a declaration, not an operation or contraction verdict; output-to-model provenance wording is stronger than the enforced binding.",
+    "Transport validates type and selected field relationships, but does not resolve source or prove maps before execution. Source existence and graph structural compatibility are checked later during append, as previously tested in Batch 16. Mapped substitutions and drops also retain caller-owned data until event construction.",
+    "Aborted runs persist an artifact plus an attempt note and mint no model. CAS errors, nonzero non-abort exits and parsing errors raise before run_cas persistence; those failure classes do not receive the same durable attempt record.",
+    "Successful recording persists objects before fold-validated append, so failed append can leave content-addressed orphans. This is not crash-atomic graph persistence or proof of relation semantics.",
+    "Program semantic fingerprints include rendered text, ordering and outputs but omit generators metadata used to declare the resulting model. A fingerprint therefore binds the execution request, not every model declaration field.",
+    "GP_SINGULAR_ARGV uses whitespace split, so quoted executable paths/arguments with spaces are not preserved. Identifier matching uses dollar rather than fullmatch and the expression/body guard remains an acknowledged denylist, not a typed language proof."
+  ],
+  "proposed_fixes": [
+    "Freeze a validated typed program snapshot and revalidate at execution if mutation remains supported.",
+    "Bind recorded model algebra to an explicit parsed-output contract or label it as an independent caller declaration.",
+    "Unify durable failure-attempt recording and document append atomicity separately.",
+    "Use structured argv and full lexical matching."
+  ],
+  "remaining": [
+    "Complete remaining boundary/hook tests and history dispositions.",
+    "Extract distinct neutral cases and assess consumer binding without treating direct API controls as native proof bypasses."
+  ]
+}

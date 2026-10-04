@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "GP-A21",
+  "seed": "A21",
+  "title": "Symbolic Laurent terms cannot be dropped",
+  "situation": "Terms 6*y^2*G and -3*y^2*G^2 are replaced by zero while G remains symbolic.",
+  "inputs": {
+    "terms": [
+      "6*y^2*G",
+      "-3*y^2*G^2"
+    ],
+    "counterexample": {
+      "G": "y^(-5)"
+    }
+  },
+  "attempted_conclusion": "Accept the depressed row.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The legal substitution leaves nonzero terms."
+  },
+  "scope_or_region": "BOTH",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 561,
+      "anchor": "| A21 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_laurent_lowering.py",
+      "line": 205,
+      "anchor": "def test_covered_chart_zero_rhs_is_rejected_for_symbolic_G("
+    }
+  ]
+}

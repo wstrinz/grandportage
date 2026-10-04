@@ -1,0 +1,2249 @@
+{
+  "schema_version": 1,
+  "timestamp_utc": "20260928T001144487626Z",
+  "oracle_commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "oracle_path": "oracle/checkout",
+  "runner_sha256": "89287aa2ee5f6693b6280ad6b0c21ec3f5e88d495ef8537f79e70e823ce6c17c",
+  "routes_sha256": "41cf34267cc3770ea9d09b8a2c57e14d6e6c069223414e2334914026b3db6a7d",
+  "historical_manifest_sha256": "bd38095b5213386d1eeeb07200e2fdddc25517d50a18643de6e05095a7508b03",
+  "schema_sha256": "76029f1faf4265c01e711e32ea255d5ca6e16811fa2e174fc7ba62454a9c782b",
+  "python": "3.12.9 (main, Feb 12 2025, 14:52:31) [MSC v.1942 64 bit (AMD64)]",
+  "summary": {
+    "AGREES": 106,
+    "DIAGNOSTIC_OBSERVED": 1,
+    "KNOWN_DIFFERENCE": 4,
+    "PENDING": 1,
+    "UNSUPPORTED": 1
+  },
+  "scope": "Layer-specific legacy observations, not GP 0.50 held claims or a completed G0 gate.",
+  "results": [
+    {
+      "id": "GP-A01",
+      "case_sha256": "7344ab02090d0a57ae055ae0dd21187c6ad9d06b80fb19b76cf1585f50bc1b7e",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "BASE_EXTENSION licenses EMPTY along the extension only at scope SCHEME; this claim has scope 'Q(sqrt 17)' (certificate NONSQUARE_CLASS, which does not base-change)",
+      "rule": "scheme_scope",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A02",
+      "case_sha256": "955ca1387988dd23de8fb8aa3808ccecab1fcb246a83dba459e2dee0dda48416",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "descending a rewriting to a smaller coefficient field needs both sides DEFINED OVER that field, and this claim does not declare it.  x^2 + 1 = (x + i)(x - i) is valid over Q(i); at the Q-model `i` is not merely unproved, it is not expressible, so the descended statement is not a claim at all",
+      "rule": "coefficients_in_base",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A03a",
+      "case_sha256": "91a8f08f093496df10a78d41b043b3ff7e82ecf7a6e01dd0591bff2d1fcfaf71",
+      "expected": "REFUSE",
+      "layer": "diagnostic",
+      "route": "advice_audit",
+      "historical_commit": null,
+      "limitation": "Records the problematic advice, not an executed false held claim.",
+      "observed_verdict": null,
+      "status": "DIAGNOSTIC_OBSERVED",
+      "needles_found": {
+        "Every cell this edge licenses rests on that containment": true,
+        "a radical-membership": true
+      },
+      "reason": "Diagnostic wording reproduced from pinned source; no false held claim asserted."
+    },
+    {
+      "id": "GP-A03b",
+      "case_sha256": "6e01c8513bfd9ebbd1face50790fb5ce03676f27c23a9d4bf12fcaaf3614e0eb",
+      "expected": "ACCEPT",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "ACCEPT",
+      "reason": "licensed by NECESSARY_CONDITION/ALONG/NONEMPTY",
+      "rule": "table",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A04",
+      "case_sha256": "b74fa68359529b0457c20da58da31cae3a74f07b24f75faadfa8eac2c8b6be5c",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "this identity's COEFFICIENTS are integral at p, but it is DERIVED rather than AMBIENT, and for a rewriting that follows from the model's own equations the coefficients are not the whole question -- its DERIVATION must be p-integral too.  In Z_(p)[x]/(px), `x = 0` holds on the generic fibre with coefficient 1, and is false mod p: you get it from x = (1/p)*(px), and that 1/p never appears in the identity itself.  Equivalently x is p-torsion.  This kernel cannot see the certificate, so it refuses",
+      "rule": "integral_identity",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A05",
+      "case_sha256": "469b5e4060a64295eaaa170e8957d282404d6fc68445408e9255a430fa6170a4",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "reducing an identity mod p needs its coefficients to be INTEGRAL AT p, which is a property of the CLAIM and not of the map.  This claim does not declare integrality",
+      "rule": "integral_identity",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A06",
+      "case_sha256": "f85bc7c919e405a2c76f7cf084f80a06fa1114953604fb007839adb0f4ae418c",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "RESTRICTION does NOT license PREDICATE in the ALONG direction",
+      "rule": "table",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A07a",
+      "case_sha256": "652fb8f47086ea4c50e5a0c40370a491d0132942287fb650098c805bdfb959ba",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "a point of the Zariski closure need not lift to the image (Chevalley): 0 lies in the closure of G_m and not in G_m.  That is decisive for a WITNESS -- a claim holding a specific point -- and it is NOT decisive for an existence proof, because cl(empty) = empty, so a nonempty closure does force a nonempty image.  If this claim exhibits a point, the refusal stands and the discharge is to lift it.  If it only proves one EXISTS, declare `existential: true` and say how existence was established without a witness",
+      "rule": "existential",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A07b",
+      "case_sha256": "b109d95c833775ba48be0db564fb8bdfe953b6f7ea212425539e17fa58e926f7",
+      "expected": "ACCEPT",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "ACCEPT",
+      "reason": "licensed: this NONEMPTY is EXISTENTIAL -- it asserts a point exists without holding one -- and the closure of the empty set is empty, so a nonempty closure forces a nonempty image",
+      "rule": "existential",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A08a",
+      "case_sha256": "1b1c035dbd18a9551b6828a250e757f0af21bdc54c2e434c3d4b3efb9745e41e",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "SPECIALIZATION does NOT license EMPTY in the ALONG direction",
+      "rule": "table",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A08b",
+      "case_sha256": "6a390a0fbd25371e8aca0cf64fb69d892c694cb0a142a21787d4c179abf745bd",
+      "expected": "ACCEPT",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "SPECIALIZATION does NOT license EMPTY in the ALONG direction",
+      "rule": "table",
+      "independent_control": {
+        "rational_identity_replayed": true,
+        "mod_three_identity": {
+          "target": "1",
+          "generator_count": 2,
+          "reference_oracle": "REFERENCE_CHECKED"
+        }
+      },
+      "status": "KNOWN_DIFFERENCE",
+      "difference_class": "specialization_conservatism"
+    },
+    {
+      "id": "GP-A08c",
+      "case_sha256": "93d7cbe25a5e7017a0a22fd2abebccc4608a2952db06b4df8e3286751770aa67",
+      "expected": "ACCEPT",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "SPECIALIZATION does NOT license NONEMPTY in the ALONG direction",
+      "rule": "table",
+      "independent_control": {
+        "rational_substitution": true,
+        "mod_three_substitution": true
+      },
+      "status": "KNOWN_DIFFERENCE",
+      "difference_class": "specialization_conservatism"
+    },
+    {
+      "id": "GP-A09",
+      "case_sha256": "55c3e488afa11025b16fdb5e601f159db2a3fdafe11a33be0fc0374f0a6406d3",
+      "expected": "REFUSE",
+      "layer": "graph_diagnostic",
+      "route": "expressibility",
+      "historical_commit": null,
+      "limitation": "Pinned regression graph explicitly records eliminated y; no CAS is run.",
+      "observed_verdict": "REFUSE",
+      "reason": "inference INF carries IDENTITY CL across E to IMG, whose ring is k[x] -- and the rewriting names `y`.\n  `y` was ELIMINATED to build IMG, so this is not a guess from names. The transported statement is not a false claim at IMG -- it is not a claim there, and every cell downstream of it is reasoning about a sentence that does not parse in its own ring.",
+      "findings": [
+        {
+          "rule": "INEXPRESSIBLE-CONCLUSION",
+          "severity": "UNSOUND_CONCLUSION"
+        }
+      ],
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A10-C",
+      "case_sha256": "0dc4eb08bb12e4e52d0cc3dafeff73d99f16618b11bf93d1531fab19b6ffe3f3",
+      "expected": "REFUSE",
+      "layer": "receipt_and_reach",
+      "route": "sos",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": "REFUSE",
+      "reason": "ORDERED reach does not apply to this target",
+      "receipt_checked": true,
+      "receipt": {
+        "method": "rational_sos_cofactor_v1",
+        "ring_vars": [
+          "x"
+        ],
+        "generators": [
+          "x^2+1"
+        ],
+        "squares": [
+          "x"
+        ],
+        "cofactors": [
+          "-1"
+        ]
+      },
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A10-Q",
+      "case_sha256": "25e90f5cb2bcee31e14d8899d8e82f1e0d8a921cc7c68515c670ef9fd5ea46d9",
+      "expected": "ACCEPT",
+      "layer": "receipt_and_reach",
+      "route": "sos",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": "ACCEPT",
+      "reason": "the target is ordered",
+      "receipt_checked": true,
+      "receipt": {
+        "method": "rational_sos_cofactor_v1",
+        "ring_vars": [
+          "x"
+        ],
+        "generators": [
+          "x^2+1"
+        ],
+        "squares": [
+          "x"
+        ],
+        "cofactors": [
+          "-1"
+        ]
+      },
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A10-R",
+      "case_sha256": "d7981457ee62ff3f7da445a328072c04b5c0ad66b09b3d5af2101665764f4cd8",
+      "expected": "ACCEPT",
+      "layer": "receipt_and_reach",
+      "route": "sos",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": "ACCEPT",
+      "reason": "the target is ordered",
+      "receipt_checked": true,
+      "receipt": {
+        "method": "rational_sos_cofactor_v1",
+        "ring_vars": [
+          "x"
+        ],
+        "generators": [
+          "x^2+1"
+        ],
+        "squares": [
+          "x"
+        ],
+        "cofactors": [
+          "-1"
+        ]
+      },
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A11a",
+      "case_sha256": "5c7ab9c4b020ae47c3bfdc4b8bb2e93d85b466512fc8509e0ed3e5c38558c5c7",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "this EQUIVALENCE relates abstract coordinate rings but does not identify the endpoints' selected embeddings. A nontrivial field automorphism can carry identities through substitution, but an embedding-sensitive predicate cannot be copied unchanged to a different selected root",
+      "rule": "selected_embedding_identity",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A11b",
+      "case_sha256": "d39e3cc6bb1990044a9a9cc354819c1cf1f0b262bd1508658a664bddbfd27e33",
+      "expected": "ACCEPT",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "ACCEPT",
+      "reason": "licensed: the equivalence is declared an ISOMORPHISM OF COORDINATE RINGS, so a rewriting valid at one end is valid at the other",
+      "rule": "ring_isomorphism",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A12",
+      "case_sha256": "d19ea5fcd43fa34535a1f278d895d745d57c26640ccda952fe32ac79739694a5",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "this EQUIVALENCE is not declared a ring isomorphism.  The converse that earns an EQUIVALENCE is evidence about POINTS, and an identity is a statement about FUNCTIONS: V(x^2) and V(x) have the same single point and any converse you like, yet `x = 0` holds in one coordinate ring and is false in the other.  Saturation and radicalization are exactly this step",
+      "rule": "ring_isomorphism",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A13-ambient",
+      "case_sha256": "d87ce328f3574714483c7dc9b952a7ba6391d207b20e68bb9646c347b283ba3e",
+      "expected": "ACCEPT",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "ACCEPT",
+      "reason": "licensed: the rewriting is AMBIENT -- it holds in the shared coordinate ring and never depended on the source model's equations, so it survives forgetting them",
+      "rule": "ambient_identity",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A13-derived",
+      "case_sha256": "808bdb2f8759c114c8bb52aae7371a3d275c074a0f2c404e379eb0fe8a100a61",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "an identity DERIVED from the source model's own equations does not push forward across NECESSARY_CONDITION: the pullback O(dst) -> O(src) is not injective, so the relation need not hold in the looser model (x = 0 is valid in k[x]/(x) and false in k[x]).  Only an AMBIENT rewriting travels this way",
+      "rule": "ambient_identity",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A14",
+      "case_sha256": "e5861cacc4fd93f44bfecf22b11cbb91122a14d280353e1614cd772c1c81f2a6",
+      "expected": "REFUSE",
+      "layer": "graph_validation",
+      "route": "disconnected",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": "REFUSE",
+      "reason": "inference 'I' premise 0: path is not connected.  The claim has reached model 'C', but edge 'E' read ALONG starts at 'A'.",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A15",
+      "case_sha256": "35279974aaa5fd8a1c1c7471bfa03b044fd50659888eda3e3ff3efc0925f5b68",
+      "expected": "REFUSE",
+      "layer": "graph_diagnostic",
+      "route": "join_fixture",
+      "historical_commit": null,
+      "limitation": "Replays the pinned gamma-window historical fixture.",
+      "observed_verdict": "REFUSE",
+      "reason": "the period jumps 17 -> 29 between the a=2 and a=3 towers\n  asserted: therefore the a=2 kill lives entirely in this layer, and the BLOCK-OBSTRUCTION verdict follows\n  refused : the edge is declared UNTYPED: no transport is licensed across a step whose relaxation type has not been named; inference GI-BRIDGE concludes a PREDICATE at model F2T_A2_CERT, and the graph carries an EMPTY claim at that same model (GC-A2-KILL).\n  asserted: therefore the a=2 kill lives entirely in this layer, and the BLOCK-OBSTRUCTION verdict follows\n  Every predicate holds of the empty set, so this conclusion is true and says nothing -- but it reads as a result and counts as a clean inference.",
+      "findings": [
+        {
+          "rule": "TRANSPORT",
+          "severity": "UNSOUND_PREMISE"
+        },
+        {
+          "rule": "VACUOUS-CONCLUSION",
+          "severity": "TRIAGE"
+        }
+      ],
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A16-covered",
+      "case_sha256": "4194049d120bb7c8da1aabf435104231f17e653e3589845332a2c5172e81f68d",
+      "expected": "ACCEPT",
+      "layer": "conditional_rule",
+      "route": "partition",
+      "historical_commit": null,
+      "limitation": "Tests the partition rule assuming checked prerequisites, not exhaustiveness replay.",
+      "observed_verdict": "ACCEPT",
+      "reason": "licensed: every branch carries EMPTY and the partition is declared exhaustive, so the parent is covered",
+      "rule": "partition",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A16-missing",
+      "case_sha256": "96f56221f276fc151ea0a7debc09633ceb915a9eb64e4f1619ce7c6a2fd75107",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "partition",
+      "historical_commit": null,
+      "limitation": "Tests the partition rule assuming checked prerequisites, not exhaustiveness replay.",
+      "observed_verdict": "REFUSE",
+      "reason": "the partition does not carry a claim that its branches COVER the parent, so a result on every branch is a result about a union that may not be the whole",
+      "rule": "partition",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A17",
+      "case_sha256": "b7f3bf4e3244f91945f521d9b1a2d8eb244504a57166457bcc127012ee4de965",
+      "expected": "REFUSE",
+      "layer": "graph_authority",
+      "route": "unverified_attempt",
+      "historical_commit": null,
+      "limitation": "Constructed UNVERIFIED event; no backend timeout is simulated. Receipt wrappers are not positive authority.",
+      "observed_verdict": "REFUSE",
+      "reason": "UNVERIFIED remains visible but provides no positive verification.",
+      "projected_verdict": "UNVERIFIED",
+      "receipt_wrapper_verdicts": [
+        "UNVERIFIED"
+      ],
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A18",
+      "case_sha256": "61d7e0ce789d2cc6c469f2bd29e6e1d8b28a733347f0731e79c59e8141d93817",
+      "expected": "REFUSE",
+      "layer": "graph_authority",
+      "route": "stale_input",
+      "historical_commit": null,
+      "limitation": "Uses the oracle's pinned regression helper to construct a receipt; tests binding, not backend execution.",
+      "observed_verdict": "REFUSE",
+      "reason": "verifier input fingerprint does not match",
+      "receipt_current": false,
+      "claim_has_active_identity": false,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A19",
+      "case_sha256": "801eb1325dabba003b5a5ca3e00806a157f9eda575b9c00668d62f01d3c36796",
+      "expected": "REFUSE",
+      "layer": "adapter_validation",
+      "route": "identifier",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": "REFUSE",
+      "reason": "emitted identifier 'g0' SHADOWS the ring variable 'g0'.  The declaration would redefine the variable, and any ideal operation naming it afterwards silently means something else -- this is the `poly g0 = ...` defect that manufactured false UNIT verdicts at every prime.",
+      "executed": false,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A20a",
+      "case_sha256": "6d568ec6ecd19b513b71139d4294f961fec3c0a40ee6c75312d5292e915bee17",
+      "expected": "REFUSE",
+      "layer": "adapter_validation",
+      "route": "division",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": "REFUSE",
+      "reason": "unsupported division: divisors must be nonzero scalar coefficients; nonconstant divisors require an explicit checked rational-function interpretation. A denominator guard does not make polynomial quotient sound. No CAS was run. (unknown variable 'T'; expected one of )",
+      "executed": false,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A20b",
+      "case_sha256": "afa86f1a1fed349608685403ba2a8be3f6c15d2cbccac8500a8d499b5b479cb0",
+      "expected": "ACCEPT",
+      "layer": "receipt_replay",
+      "route": "exact_ambient",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": "ACCEPT",
+      "reason": "Exact polynomial equality replayed with scalar denominators.",
+      "receipt": {
+        "target": "0",
+        "generator_count": 0,
+        "reference_oracle": "REFERENCE_CHECKED"
+      },
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A21",
+      "case_sha256": "e1392bbcff300880ceeff4036fbf0c5f9e10026cb875a5ca3fb31ec18896cf53",
+      "expected": "REFUSE",
+      "layer": "receipt_replay",
+      "route": "laurent_zero",
+      "historical_commit": null,
+      "limitation": "Pinned rows 7-8 receipt with the first equality replaced by zero; no kernel authority is inferred.",
+      "observed_verdict": "REFUSE",
+      "reason": "equality 0 is false; left-right is {'-3': '(6)*g5', '0': '(6)*g2'}",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A22",
+      "case_sha256": "19f9c90eb6bc289242b66095f3c5024c45792833944b2aa27862df9344ee3f08",
+      "expected": "REFUSE",
+      "layer": "exact_replay",
+      "route": "jc_cap_obstruction",
+      "historical_commit": null,
+      "limitation": "Recovery projection from the pinned four-equation fixture: exact unrestricted source substitution, complete bounded coefficient expansion and unit replay. The projected source point establishes all retained polynomial consequences by substitution; the historical 17-generator elimination run is not repeated.",
+      "observed_verdict": "REFUSE",
+      "reason": "The unrestricted source point verifies, but the complete cap-zero coefficient fiber contains 1.",
+      "unrestricted_residuals": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "coefficient_expansion": {
+        "schema": "coefficient_expansion_v1",
+        "verdict": "VERIFIED_COEFFICIENT_EXPANSION",
+        "licenses": [
+          "polynomial_identity_iff_all_rows_zero"
+        ],
+        "coefficient_variables": [
+          "c"
+        ],
+        "bounded_variables": {
+          "dm4": {
+            "cap": 0,
+            "coefficients": [
+              "c"
+            ]
+          }
+        },
+        "equations": [
+          {
+            "id": "G1",
+            "coverage": "complete",
+            "degree": 1,
+            "checked_coefficients": {
+              "0": "0",
+              "1": "0"
+            }
+          },
+          {
+            "id": "G2",
+            "coverage": "complete",
+            "degree": 1,
+            "checked_coefficients": {
+              "0": "(3)*c",
+              "1": "3/2"
+            }
+          },
+          {
+            "id": "G3",
+            "coverage": "complete",
+            "degree": 1,
+            "checked_coefficients": {
+              "0": "0",
+              "1": "0"
+            }
+          },
+          {
+            "id": "G5",
+            "coverage": "complete",
+            "degree": 1,
+            "checked_coefficients": {
+              "0": "0",
+              "1": "0"
+            }
+          }
+        ],
+        "spec_fingerprint": "51a588732cb905d90db8bab65fac1585706847893e4ca1e5b32ad8fb41116087"
+      },
+      "unit_receipt": {
+        "target": "1",
+        "generator_count": 2,
+        "reference_oracle": "REFERENCE_CHECKED"
+      },
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A23",
+      "case_sha256": "7922cc07ec6077aab9d5a65d718073c5db0a106fffbc6d5cca7ccc364a14e69a",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "RESTRICTION does NOT license EMPTY in the ALONG direction",
+      "rule": "table",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A24",
+      "case_sha256": "1e8c599b53e2a18a03938271eb84eba4c641ea0793f2014b7d136a3cd7a906a1",
+      "expected": "REFUSE",
+      "layer": "none",
+      "route": "pending",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": null,
+      "status": "PENDING",
+      "reason": "Requires an additional checked oracle projection; no verdict inferred from prose."
+    },
+    {
+      "id": "GP-A25a",
+      "case_sha256": "c9c6ae9adecb86d5b2f1dca8ce4a657742bff99f9e1f29363e336861a54bcabd",
+      "expected": "REFUSE",
+      "layer": "graph_validation",
+      "route": "redeclaration",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": "REFUSE",
+      "reason": "<log>:0: conflicting redeclaration of model 'A'.\n  already: {\"desc\":\"normalization one\",\"ev\":\"model\",\"id\":\"A\"}\n  now    : {\"desc\":\"normalization two\",\"ev\":\"model\",\"id\":\"A\"}\nTwo branches declared the same entity differently.  Resolve it in the source graphs; the fold will not blend them.\n\n  IF YOU ARE NOT MERGING -- and in a single session you are almost certainly not -- this is the wrong advice for what you are doing.  The common case is wanting to ADD or CORRECT a field on something already declared, and the move for that is SUPERSESSION, not redeclaration: send the new version with `supersedes: 'A'` and a `discharge_kind`.\n  The old record stays in the log with every argument that used it still attached, which is the point -- a redeclaration would silently retarget them.  `gp why supersession` lists which kind to use; briefly, AMEND adds without changing what the record licenses, RESTATE changes what it says, RELICENSE changes what it permits, RETRACT withdraws it.",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A25b",
+      "case_sha256": "12ee5721170301eefa342cbed9a02442f536906c1a3dc7444543ee45262d9e01",
+      "expected": "REFUSE",
+      "layer": "receipt_binding",
+      "route": "alias_binding",
+      "historical_commit": null,
+      "limitation": "Uses the pinned test helper fabricated backend descriptor only to test receipt input binding. No backend execution or proof of x=0 is claimed.",
+      "observed_verdict": "REFUSE",
+      "reason": "verifier input fingerprint does not match",
+      "original_current": true,
+      "destination_has_active_identity": false,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-A26",
+      "case_sha256": "32ee1d0bb8fa8bb6c5222312652709942a195eec905a7f5a3f8ad241311de6af",
+      "expected": "REFUSE",
+      "layer": "declaration_validation",
+      "route": "unknown_certificate",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": "REFUSE",
+      "reason": "EMPTY claim <claim> cites unknown certificate kind 'VIBES'.  Register it with a `certificate` event declaring whether it base-changes.",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-C01",
+      "case_sha256": "f50a0d596bbd8eae25ba363e207267150abba2e2231ef1444ce21e75d9708e36",
+      "expected": "ACCEPT",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "ACCEPT",
+      "reason": "licensed: the emptiness is certificate-backed (UNIT_IDEAL_CERT), so it base-changes",
+      "rule": "scheme_scope",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-C02",
+      "case_sha256": "516a355117d0dd089ac70420438db3e0c45ccb6db1844eb83697bf9b23d3bd52",
+      "expected": "ACCEPT",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "ACCEPT",
+      "reason": "licensed by NECESSARY_CONDITION/AGAINST/EMPTY",
+      "rule": "table",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-C03",
+      "case_sha256": "d81d7dcead2a1e42fba49d4a2017c2b2257a468bb6c99c344667bc442f0a8b16",
+      "expected": "ACCEPT",
+      "layer": "graph_validation",
+      "route": "redeclaration",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": "ACCEPT",
+      "reason": "Fold retained one object.",
+      "model_count": 1,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-C04",
+      "case_sha256": "d55fe545c80a302211d5530621ef876a8149c721c2ea85192333bbb7c2832d34",
+      "expected": "ACCEPT",
+      "layer": "adapter_validation",
+      "route": "identifier",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": "ACCEPT",
+      "reason": "Identifier validation accepted; program was not executed.",
+      "executed": false,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X01",
+      "case_sha256": "5a5112dbd4720a78079e22b223f47961aee04afd5eb0fd775d7166c9d8c300a9",
+      "expected": "REFUSE",
+      "layer": "receipt_and_reach",
+      "route": "sos",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": "REFUSE",
+      "reason": "ordered SOS/cofactor identity is invalid: membership cofactors expand to the wrong polynomial: (2)*x^2+2",
+      "receipt_checked": false,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X02",
+      "case_sha256": "79b589c8af454e7070861237896c437d9cd786bc141d194d4cf66da7b1df35ae",
+      "expected": "REFUSE",
+      "layer": "receipt_and_reach",
+      "route": "sos",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": "REFUSE",
+      "reason": "ordered certificate generators do not match the model",
+      "receipt_checked": false,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X03",
+      "case_sha256": "48f69368d7e6e672543954e7f5da26085426c1095b1b14232c08cce6c6b9900b",
+      "expected": "ACCEPT",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "IMAGE_CLOSURE does NOT license EMPTY in the ALONG direction",
+      "rule": "table",
+      "independent_control": {},
+      "status": "KNOWN_DIFFERENCE",
+      "difference_class": "registered_conservatism"
+    },
+    {
+      "id": "GP-X04",
+      "case_sha256": "66765d2d909ccc85ea5aae3bfb92b10e4227bf617e955df86f68ff2d86c3c7cf",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "partition",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": "REFUSE",
+      "reason": "not every branch carries this claim, and a case split reaches the parent only when no case is left open",
+      "rule": "partition",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X05",
+      "case_sha256": "708ae8f21e3cd6567d77910c7102500835ee017830d1bc0bc933b0b2f484a0b7",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "the map has point-lifting authority, but this predicate has no structured target-expressibility proof",
+      "rule": "closed_condition",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X06",
+      "case_sha256": "0bc7f85124ae1f8592973820d4de7cc52e7c7ea5e49a5eefc6dbf9130e865a16",
+      "expected": "ACCEPT",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "ACCEPT",
+      "reason": "licensed: every target point has a checked lift and the structured predicate is expressible entirely in the target coordinates; closedness is not required",
+      "rule": "closed_exact_image",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X07",
+      "case_sha256": "f004925fcf97c23f058d5a5e33b57ae3ab3861b3efaf069dbf98ae5b2bff9882",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Tests the legacy transport rule assuming its prerequisites. Does not mint or replay a graph warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "a closed condition extends to the actual closure, but this elimination has no independent geometric point-closure certificate; exact contraction alone does not settle base-relative image closure",
+      "rule": "closed_exact_image",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X08",
+      "case_sha256": "04ebcf5cecab1d822b256003adbfb067b355fb79acce49547f07d5e3be6851af",
+      "expected": "ACCEPT",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "The legacy table refuses despite independently replayed target membership; no claim about other verifier routes.",
+      "observed_verdict": "REFUSE",
+      "reason": "an identity DERIVED from the source model's own equations does not push forward across NECESSARY_CONDITION: the pullback O(dst) -> O(src) is not injective, so the relation need not hold in the looser model (x = 0 is valid in k[x]/(x) and false in k[x]).  Only an AMBIENT rewriting travels this way",
+      "rule": "ambient_identity",
+      "independent_control": {
+        "target_membership": {
+          "target": "x",
+          "generator_count": 1,
+          "reference_oracle": "REFERENCE_CHECKED"
+        }
+      },
+      "status": "KNOWN_DIFFERENCE",
+      "difference_class": "registered_conservatism"
+    },
+    {
+      "id": "GP-X09",
+      "case_sha256": "a96cadd2b19933b83f7bfd83483e3d7323d78c43a32e5049bd74a3c9f1049230",
+      "expected": "REFUSE",
+      "layer": "declaration_validation",
+      "route": "kind_composition",
+      "historical_commit": null,
+      "limitation": null,
+      "observed_verdict": "REFUSE",
+      "reason": "inference <inference> declares it concludes NONEMPTY, but its premises are PREDICATE and transport does not change a claim's kind.\n  Reading the kinds as quantifiers: NONEMPTY is 'there exists a point', PREDICATE is 'every point satisfies', EMPTY is 'there is no point'.  You cannot derive an existence statement from a universal one, and crossing an edge does not turn one into the other.\n  If the conclusion really is NONEMPTY, it needs a premise that IS NONEMPTY.  If the premise is what you have, then PREDICATE is what you may conclude -- and saying so keeps the weaker statement from being consumed downstream as the stronger one.",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X10",
+      "case_sha256": "a01f0329a349f497b365c15dd1835283ec5bfaf0eef3055b446b20f5236447d3",
+      "expected": "REFUSE",
+      "layer": "graph_validation",
+      "route": "point_universe",
+      "historical_commit": null,
+      "limitation": "Checks the declared relation boundary; no ring-isomorphism or held-claim assertion.",
+      "observed_verdict": "REFUSE",
+      "reason": "edge 'E' is EQUIVALENCE from 'A' (point_universe='BASE') to 'B' (point_universe='ALGEBRAIC_CLOSURE'). A coordinate-ring identity or isomorphism says nothing about points if the two endpoints select different point functors: Q[x]/(x^2+1) has no point over BASE and a point over ALGEBRAIC_CLOSURE, so identifying those models would license the false inference that closure-nonemptiness descends to the base field. Once either endpoint declares `point_universe`, both must, and they must be equal; leaving one unstated is not a lesser claim, it is not a claim. If the two universes genuinely differ and no typed operation for that change exists yet, record the step UNTYPED with `debt_why` instead.",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X11",
+      "case_sha256": "d1209221a0c7f1321bf17c92219326d67b6cb087b7efb4fd52e9aef12a5b9ed9",
+      "expected": "REFUSE",
+      "layer": "graph_validation",
+      "route": "point_universe",
+      "historical_commit": null,
+      "limitation": "Checks the declared relation boundary; no ring-isomorphism or held-claim assertion.",
+      "observed_verdict": "REFUSE",
+      "reason": "edge 'E' is EQUIVALENCE from 'A' (point_universe='ALGEBRAIC_CLOSURE') to 'B' (point_universe='BASE'). A coordinate-ring identity or isomorphism says nothing about points if the two endpoints select different point functors: Q[x]/(x^2+1) has no point over BASE and a point over ALGEBRAIC_CLOSURE, so identifying those models would license the false inference that closure-nonemptiness descends to the base field. Once either endpoint declares `point_universe`, both must, and they must be equal; leaving one unstated is not a lesser claim, it is not a claim. If the two universes genuinely differ and no typed operation for that change exists yet, record the step UNTYPED with `debt_why` instead.",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X12",
+      "case_sha256": "a879d13391494a5a367fa66294a4abf6911aefedebd87236141783dc2d5eedb9",
+      "expected": "REFUSE",
+      "layer": "graph_validation",
+      "route": "point_universe",
+      "historical_commit": null,
+      "limitation": "Checks the declared relation boundary; no ring-isomorphism or held-claim assertion.",
+      "observed_verdict": "REFUSE",
+      "reason": "edge 'E' is EQUIVALENCE from 'A' (point_universe='ALGEBRAIC_CLOSURE') to 'B' (point_universe=None). A coordinate-ring identity or isomorphism says nothing about points if the two endpoints select different point functors: Q[x]/(x^2+1) has no point over BASE and a point over ALGEBRAIC_CLOSURE, so identifying those models would license the false inference that closure-nonemptiness descends to the base field. Once either endpoint declares `point_universe`, both must, and they must be equal; leaving one unstated is not a lesser claim, it is not a claim. If the two universes genuinely differ and no typed operation for that change exists yet, record the step UNTYPED with `debt_why` instead.",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X13",
+      "case_sha256": "e519a0002aa516e0e969a28ff78ff9a5fff9ef611f6858b5d6e8eab4488778d4",
+      "expected": "REFUSE",
+      "layer": "graph_diagnostic",
+      "route": "empty_anchor",
+      "historical_commit": null,
+      "limitation": "Audits the missing model anchor; does not run or admit the combinatorial checker.",
+      "observed_verdict": "REFUSE",
+      "reason": "field-relative EMPTY claim CL declares scope R at model M, but that model does not declare BOTH a coefficient domain and a point universe. A field name on the claim cannot turn a bare combinatorial model into a space of field-valued points.\n  no straight-line realization over the reals",
+      "findings": [
+        {
+          "rule": "FIELD-EMPTY-MODEL-SCOPE",
+          "severity": "UNSOUND_PREMISE"
+        }
+      ],
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X14",
+      "case_sha256": "8fb9507f532fded8e382eb118d0788a574a8ca86f6b1e735133c66d647b98fff",
+      "expected": "REFUSE",
+      "layer": "graph_diagnostic",
+      "route": "empty_anchor",
+      "historical_commit": null,
+      "limitation": "Audits the missing model anchor; does not run or admit the combinatorial checker.",
+      "observed_verdict": "REFUSE",
+      "reason": "field-relative EMPTY claim CL declares scope Q at model M, but that model does not declare BOTH a coefficient domain and a point universe. A field name on the claim cannot turn a bare combinatorial model into a space of field-valued points.\n  no straight-line realization over the reals",
+      "findings": [
+        {
+          "rule": "FIELD-EMPTY-MODEL-SCOPE",
+          "severity": "UNSOUND_PREMISE"
+        }
+      ],
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X15",
+      "case_sha256": "5cacefcea36b409a38e78bc522bc4361b4f1ed3aed05778e13eb3b839ce96dfc",
+      "expected": "ACCEPT",
+      "layer": "exact_replay",
+      "route": "membership",
+      "historical_commit": null,
+      "limitation": "Exact cofactor replay; no live CAS containment query is claimed.",
+      "observed_verdict": "ACCEPT",
+      "reason": "Exact membership identity replayed.",
+      "receipt": {
+        "target": "y^2+1",
+        "generator_count": 2,
+        "reference_oracle": "REFERENCE_CHECKED"
+      },
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X16",
+      "case_sha256": "777f98d452c788a476fb5eea6ccd9637affbd4f2a406a7be0c547d79c63e056a",
+      "expected": "REFUSE",
+      "layer": "exact_replay",
+      "route": "membership",
+      "historical_commit": null,
+      "limitation": "Exact cofactor replay; no live CAS containment query is claimed.",
+      "observed_verdict": "REFUSE",
+      "reason": "membership cofactors expand to the wrong polynomial: (2)*y",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X17",
+      "case_sha256": "f63ca141f0d520474b840dc4647ed591561bcfa4d9ab4b7cfc60afab6b60e70e",
+      "expected": "ACCEPT",
+      "layer": "exact_replay",
+      "route": "localization",
+      "historical_commit": null,
+      "limitation": "Native exact replay with narrow localization authority; grants no identity or emptiness on the parent.",
+      "observed_verdict": "ACCEPT",
+      "reason": "Localization checker replayed.",
+      "receipt": {
+        "schema": "localization_membership_v1",
+        "verdict": "VERIFIED_LOCALIZATION_MEMBERSHIP",
+        "licenses": [
+          "identity_in_declared_localization_only"
+        ],
+        "normalized": {
+          "schema": "localization_membership_v1",
+          "characteristic": 0,
+          "ring_vars": [
+            "q",
+            "t",
+            "y"
+          ],
+          "generators": [
+            "q*t*y"
+          ],
+          "guards": [
+            "q",
+            "t"
+          ],
+          "expression": {
+            "numerator": "y",
+            "denominator_powers": [
+              2,
+              1
+            ]
+          },
+          "certificate": {
+            "localization_powers": [
+              1,
+              1
+            ],
+            "membership_target": "q*t*y",
+            "cofactors": [
+              "1"
+            ]
+          }
+        },
+        "checked": {
+          "target": "q*t*y",
+          "generator_count": 1,
+          "reference_oracle": "REFERENCE_CHECKED"
+        },
+        "spec_fingerprint": "7abd3be3ebace8e761d78a1bbb9efe0feb1a56c29b016859fdf518c0a3d2cd78"
+      },
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X18",
+      "case_sha256": "1fe2fd4685038ac65ef692d2522f98d70f5883198ce98cd9ae85790825d91fd5",
+      "expected": "REFUSE",
+      "layer": "exact_replay",
+      "route": "localization",
+      "historical_commit": null,
+      "limitation": "Native exact replay with narrow localization authority; grants no identity or emptiness on the parent.",
+      "observed_verdict": "REFUSE",
+      "reason": "membership_target is not numerator times the declared guard powers: expected t*y",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X19",
+      "case_sha256": "d016fecb69efc68039b79bf9d000e1eef6a628d46d38de9b3df08890cde4765b",
+      "expected": "REFUSE",
+      "layer": "exact_replay",
+      "route": "localization",
+      "historical_commit": null,
+      "limitation": "Native exact replay with narrow localization authority; grants no identity or emptiness on the parent.",
+      "observed_verdict": "REFUSE",
+      "reason": "membership cofactors expand to the wrong polynomial: q*t*y",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X20",
+      "case_sha256": "f48e9276395f0dea89962845117dfb5e78cf8407531cceef879219bc386f2857",
+      "expected": "ACCEPT",
+      "layer": "exact_replay",
+      "route": "ring_iso",
+      "historical_commit": null,
+      "limitation": "Native exact coordinate-ring proof; does not grant a point-universe change or an arbitrary transported claim.",
+      "observed_verdict": "ACCEPT",
+      "reason": "the mapped_ring_iso_v1 certificate exactly expands both ideal pullbacks and both polynomial map compositions are the identity. This backend-free proof establishes an isomorphism of the exact endpoint COORDINATE RINGS; it grants no authority outside them.",
+      "raw_verdict": "VERIFIED",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X21",
+      "case_sha256": "f8fea55229fd8265411f13ed6a5bf16702bc514952479e7463635c4c012afba5",
+      "expected": "REFUSE",
+      "layer": "exact_replay",
+      "route": "ring_iso",
+      "historical_commit": null,
+      "limitation": "Native exact coordinate-ring proof; does not grant a point-universe change or an arbitrary transported claim.",
+      "observed_verdict": "REFUSE",
+      "reason": "the exact ring-isomorphism certificate was rejected: membership cofactors expand to the wrong polynomial: x. The authored maps may still be an isomorphism, but this proof does not establish it; invalid evidence is not a mathematical refutation.",
+      "raw_verdict": "UNVERIFIED",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X22",
+      "case_sha256": "ab24917ffa2dc649c38c5300d159f17fabaf8fa23f07ac57c098d816ac6ecd22",
+      "expected": "ACCEPT",
+      "layer": "exact_replay",
+      "route": "extension_witness",
+      "historical_commit": null,
+      "limitation": "Native bounded quadratic-extension replay; REFUSE means no accepted witness, not global emptiness.",
+      "observed_verdict": "ACCEPT",
+      "reason": "the structured point evaluates every equation to zero and every open guard to a nonzero element of the checked simple number field",
+      "raw_verdict": "VERIFIED",
+      "receipt": {
+        "method": "simple_number_field_v1",
+        "field": {
+          "base": "Q",
+          "symbol": "a",
+          "minimal_polynomial": "a^2+1",
+          "modulus_coefficients": [
+            "1",
+            "0",
+            "1"
+          ],
+          "degree": 2
+        },
+        "coordinates": {
+          "x": [
+            "0",
+            "1"
+          ]
+        },
+        "equations": [
+          {
+            "expression": "x^2+1",
+            "value": []
+          }
+        ],
+        "guards": [
+          {
+            "expression": "x",
+            "value": [
+              "0",
+              "1"
+            ]
+          }
+        ]
+      },
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X23",
+      "case_sha256": "e380b214b542ac48c9f021a250898a4b903d316307255519153e7a303e134289",
+      "expected": "REFUSE",
+      "layer": "exact_replay",
+      "route": "extension_witness",
+      "historical_commit": null,
+      "limitation": "Native bounded quadratic-extension replay; REFUSE means no accepted witness, not global emptiness.",
+      "observed_verdict": "REFUSE",
+      "reason": "the extension-valued coordinates do not define a point of M: equation x^2+1 does not vanish",
+      "raw_verdict": "NOT_A_POINT",
+      "receipt": {
+        "method": "simple_number_field_v1",
+        "field": {
+          "base": "Q",
+          "symbol": "a",
+          "minimal_polynomial": "a^2+1",
+          "modulus_coefficients": [
+            "1",
+            "0",
+            "1"
+          ],
+          "degree": 2
+        },
+        "coordinates": {
+          "x": [
+            "1"
+          ]
+        },
+        "equations": [
+          {
+            "expression": "x^2+1",
+            "value": [
+              "2"
+            ]
+          }
+        ],
+        "guards": [
+          {
+            "expression": "x",
+            "value": [
+              "1"
+            ]
+          }
+        ]
+      },
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X24",
+      "case_sha256": "473723e3e853a7e354d6fd00ba01a7557fec9504e29592981ece174ede6893fd",
+      "expected": "REFUSE",
+      "layer": "exact_replay",
+      "route": "extension_witness",
+      "historical_commit": null,
+      "limitation": "Native bounded quadratic-extension replay; REFUSE means no accepted witness, not global emptiness.",
+      "observed_verdict": "REFUSE",
+      "reason": "the algebraic-extension witness could not be checked: coordinate denominator is not invertible modulo the minimal polynomial",
+      "raw_verdict": "UNVERIFIED",
+      "receipt": null,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X25",
+      "case_sha256": "7ff5359fecc19392d5fea9e4b3786bb348bb9096112fee43c1338ca28f184f6e",
+      "expected": "ACCEPT",
+      "layer": "exact_replay",
+      "route": "bounded_source_point",
+      "historical_commit": null,
+      "limitation": "Exact substitution and degree checks only; no full JC realization or original-source lift is claimed.",
+      "observed_verdict": "ACCEPT",
+      "reason": "Exact source substitution and polynomial degree caps checked.",
+      "residuals": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "degrees": {
+        "d0": -1,
+        "d1": -1,
+        "d2": 0,
+        "dm1": -1,
+        "dm2": 0,
+        "dm3": -1,
+        "dm4": 0,
+        "Phi": -1
+      },
+      "caps": {
+        "d0": 1,
+        "d1": 1,
+        "d2": 1,
+        "dm1": 1,
+        "dm2": 1,
+        "dm3": 1,
+        "dm4": 0,
+        "Phi": 1
+      },
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X26",
+      "case_sha256": "030151c70337fba96ca79b93d50bd1e84c7b947a9e490c2184879b7e945e17f2",
+      "expected": "ACCEPT",
+      "layer": "exact_replay",
+      "route": "bounded_source_point",
+      "historical_commit": null,
+      "limitation": "Exact substitution and degree checks only; no full JC realization or original-source lift is claimed.",
+      "observed_verdict": "ACCEPT",
+      "reason": "Exact source substitution and polynomial degree caps checked.",
+      "residuals": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "degrees": {
+        "d0": -1,
+        "d1": -1,
+        "d2": 0,
+        "dm1": -1,
+        "dm2": 1,
+        "dm3": -1,
+        "dm4": 1,
+        "Phi": -1
+      },
+      "caps": {
+        "d0": 1,
+        "d1": 1,
+        "d2": 1,
+        "dm1": 1,
+        "dm2": 1,
+        "dm3": 1,
+        "dm4": 1,
+        "Phi": 1
+      },
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X27",
+      "case_sha256": "5eb042116551da47c1336b587c5f12d5144c447b13d45ea8943871a372bfe271",
+      "expected": "ACCEPT",
+      "layer": "exact_replay",
+      "route": "coefficient_expansion",
+      "historical_commit": null,
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority.",
+      "observed_verdict": "ACCEPT",
+      "reason": "Requested implication compared with the replayed license.",
+      "receipt": {
+        "schema": "coefficient_expansion_v1",
+        "verdict": "VERIFIED_COEFFICIENT_EXPANSION",
+        "licenses": [
+          "polynomial_identity_iff_all_rows_zero"
+        ],
+        "coefficient_variables": [
+          "a0",
+          "a1",
+          "b0",
+          "b1"
+        ],
+        "bounded_variables": {
+          "p": {
+            "cap": 1,
+            "coefficients": [
+              "a0",
+              "a1"
+            ]
+          },
+          "q": {
+            "cap": 1,
+            "coefficients": [
+              "b0",
+              "b1"
+            ]
+          }
+        },
+        "equations": [
+          {
+            "id": "PRODUCT",
+            "coverage": "complete",
+            "degree": 2,
+            "checked_coefficients": {
+              "0": "a0*b0",
+              "1": "a0*b1+a1*b0",
+              "2": "a1*b1"
+            }
+          }
+        ],
+        "spec_fingerprint": "6419f2ed63e54a23dd6b28d2aedcc37c2641669f67739e5a787b4696d5dae66a"
+      },
+      "counterexample": null,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X28",
+      "case_sha256": "7b46abec3cf557b92c1eae1d3f9ec55dae827c9d494e4ef9c805d810b7823dbe",
+      "expected": "REFUSE",
+      "layer": "exact_replay",
+      "route": "coefficient_expansion",
+      "historical_commit": null,
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority.",
+      "observed_verdict": "REFUSE",
+      "reason": "Requested implication compared with the replayed license.",
+      "receipt": {
+        "schema": "coefficient_expansion_v1",
+        "verdict": "VERIFIED_COEFFICIENT_SELECTION",
+        "licenses": [
+          "polynomial_identity_implies_selected_rows_zero"
+        ],
+        "coefficient_variables": [
+          "a0",
+          "a1",
+          "b0",
+          "b1"
+        ],
+        "bounded_variables": {
+          "p": {
+            "cap": 1,
+            "coefficients": [
+              "a0",
+              "a1"
+            ]
+          },
+          "q": {
+            "cap": 1,
+            "coefficients": [
+              "b0",
+              "b1"
+            ]
+          }
+        },
+        "equations": [
+          {
+            "id": "PRODUCT",
+            "coverage": "selected",
+            "degree": 2,
+            "checked_coefficients": {
+              "0": "a0*b0",
+              "1": "a0*b1+a1*b0"
+            }
+          }
+        ],
+        "spec_fingerprint": "8a5c61f59816a9381ad49507c5db20e97c6f79c7d5791cb436292807cfc08f66"
+      },
+      "counterexample": {
+        "selected_rows": [
+          "0",
+          "0"
+        ],
+        "omitted_quadratic_row": "1"
+      },
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X29",
+      "case_sha256": "fe2c7db2772ed5d24810e7af157648a02665dd4b138026cb07281fd53e6df6e3",
+      "expected": "ACCEPT",
+      "layer": "exact_replay",
+      "route": "coefficient_expansion",
+      "historical_commit": null,
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority.",
+      "observed_verdict": "ACCEPT",
+      "reason": "Requested implication compared with the replayed license.",
+      "receipt": {
+        "schema": "coefficient_expansion_v1",
+        "verdict": "VERIFIED_COEFFICIENT_SELECTION",
+        "licenses": [
+          "polynomial_identity_implies_selected_rows_zero"
+        ],
+        "coefficient_variables": [
+          "a0",
+          "a1",
+          "b0",
+          "b1"
+        ],
+        "bounded_variables": {
+          "p": {
+            "cap": 1,
+            "coefficients": [
+              "a0",
+              "a1"
+            ]
+          },
+          "q": {
+            "cap": 1,
+            "coefficients": [
+              "b0",
+              "b1"
+            ]
+          }
+        },
+        "equations": [
+          {
+            "id": "PRODUCT",
+            "coverage": "selected",
+            "degree": 2,
+            "checked_coefficients": {
+              "0": "a0*b0",
+              "1": "a0*b1+a1*b0"
+            }
+          }
+        ],
+        "spec_fingerprint": "8a5c61f59816a9381ad49507c5db20e97c6f79c7d5791cb436292807cfc08f66"
+      },
+      "counterexample": null,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X30",
+      "case_sha256": "d8dac28e27289ae3fdd8f0bee61725efdc6588ace04585bfc11eeff4aa4f093e",
+      "expected": "REFUSE",
+      "layer": "exact_replay",
+      "route": "coefficient_expansion",
+      "historical_commit": null,
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority.",
+      "observed_verdict": "REFUSE",
+      "reason": "equation 0 omitted overflow coefficient y^2 above declared degree 1",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X31",
+      "case_sha256": "c0642a5643bb98fe0619e3c4c808107b0f9ad2630905be75ca3b1aada004b335",
+      "expected": "REFUSE",
+      "layer": "exact_replay",
+      "route": "coefficient_expansion",
+      "historical_commit": null,
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority.",
+      "observed_verdict": "REFUSE",
+      "reason": "equation 0 coefficient 1 is wrong: expected a0*b1+a1*b0+1, computed a0*b1+a1*b0",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X32",
+      "case_sha256": "fae0f56e3f679c25fe092ea1e1864013404fe476176f7e2fb361574400accf93",
+      "expected": "REFUSE",
+      "layer": "exact_replay",
+      "route": "coefficient_expansion",
+      "historical_commit": null,
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority.",
+      "observed_verdict": "REFUSE",
+      "reason": "cap 1 for p requires exactly 2 coefficient coordinates",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X33",
+      "case_sha256": "6bf8e03fa5d3514e5ec2aa10b2d30adafac061e35ba8bfce3f3ada5a9c9c97ef",
+      "expected": "REFUSE",
+      "layer": "exact_replay",
+      "route": "coefficient_expansion",
+      "historical_commit": null,
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority.",
+      "observed_verdict": "REFUSE",
+      "reason": "image of p does not exactly pack its declared 0..1 coefficient coordinates",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X34",
+      "case_sha256": "4d269eaf89a6db132478109f9390a9b85b23db6f48988a21a93eaa60cbf9826b",
+      "expected": "REFUSE",
+      "layer": "exact_replay",
+      "route": "coefficient_expansion",
+      "historical_commit": null,
+      "limitation": "Translation validation only; no graph, elimination, point-surjectivity or original-source authority.",
+      "observed_verdict": "REFUSE",
+      "reason": "equation 0 coefficient 0 must be a scalar-ring polynomial",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X35",
+      "case_sha256": "57cb1cffdfaa1eb8d204d772621046d1fd85e894f2fb48f5cf519ac9dd123070",
+      "expected": "ACCEPT",
+      "layer": "historical_metadata_audit",
+      "route": "historical_seam",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash.",
+      "observed_verdict": "ACCEPT",
+      "reason": "Historical conditional boundary inspected.",
+      "raw_report": {
+        "verdict": "VERIFIED_CONDITIONAL_ESYSTEM_SEAM",
+        "native_commit": "d4a18b476b8bb8366e6c4505f03294f098dfb589",
+        "rows": 5,
+        "strict_original_source_supported": false,
+        "missing_stage": "target_pair_to_normalized_laurent_root",
+        "evidence_envelope": {
+          "schema": "jc-f2-original-pair-to-esystem-manifest/v1",
+          "context": {
+            "characteristic": 0,
+            "coefficient_domain": "characteristic-zero field K",
+            "point_universe": null,
+            "ring_vars": [
+              "z2",
+              "z3",
+              "z4",
+              "z5",
+              "z6",
+              "z7",
+              "z8",
+              "z9",
+              "a2",
+              "a4",
+              "a1",
+              "am1",
+              "lam"
+            ],
+            "unit_generators": [],
+            "generators": []
+          },
+          "source_bindings": [
+            {
+              "id": "JC original-pair seam manifest",
+              "sha256": "sha256:44e96e9423a8e0187910774d6db9057f660445d8d7078af5516d787c181489dd"
+            },
+            {
+              "id": "JC original-pair seam verifier",
+              "sha256": "sha256:080e0c398bec1b5d60ade3ed1fedfe02537c8720e94c3e4d7c5432c8adb8e08f"
+            },
+            {
+              "id": "GP graded face fixture",
+              "sha256": "sha256:6c8887034321884b6bb0aa7cd8cf04d90e472a36f4a6ba4035a53e7eda1aa8a1"
+            }
+          ],
+          "checked_proposition": "conditional normalized Laurent-root data imply the five exact reduced polynomiality rows",
+          "certificate_payload": {
+            "native_commit": "d4a18b476b8bb8366e6c4505f03294f098dfb589",
+            "rows": [
+              {
+                "row": 1,
+                "terms": 39,
+                "sha256": "2c10ee773d3f951460edebb2233ef6f1a95d8686f416e45395b112d64cb13d95"
+              },
+              {
+                "row": 2,
+                "terms": 38,
+                "sha256": "705fc43f2dabfbd5bbde70ed7a6614ac8e740893f86beebc792fd5e3633a9e5c"
+              },
+              {
+                "row": 3,
+                "terms": 49,
+                "sha256": "a2edcf00b3f3e6d93a8616dbd5fcb451a310ec86f00e9d239de6b831dc042c9b"
+              },
+              {
+                "row": 4,
+                "terms": 66,
+                "sha256": "c6a4358296522f05950be2b0ccd3deca2f3fd029222a558888694de8d991d216"
+              },
+              {
+                "row": 5,
+                "terms": 81,
+                "sha256": "bdd15bb06fdf12e06dd3365541f593d240712e94526be47b28d297f03e818ce8"
+              }
+            ],
+            "missing_stage": "target_pair_to_normalized_laurent_root",
+            "strict_original_source_supported": false
+          },
+          "licenses": [
+            "five_reduced_rows_replayed_from_conditional_normalized_root_data",
+            "native_row_commitments_welded_to_gp_exact_source_rows",
+            "strict_original_source_promotion_refused"
+          ],
+          "outstanding_premises": [
+            "serialize or universally bind the exact original source pair",
+            "materialize the coefficient-level target-pair to normalized-root map",
+            "prove any source-image sufficiency or reverse lift separately"
+          ],
+          "graph_effect": "NONE",
+          "authority_boundary": "Conditional normalized-root to reduced-row replay only. The original-pair to normalized-root coefficient map remains open; no graph, membership, reverse-lift, coverage, H3, or verdict authority."
+        }
+      },
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X36",
+      "case_sha256": "71eedba0cee617fff451fd501a87d5c1aebcc479260e1bddec4d899774636359",
+      "expected": "REFUSE",
+      "layer": "historical_metadata_audit",
+      "route": "historical_seam",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash.",
+      "observed_verdict": "REFUSE",
+      "reason": "strict original-source authority was promoted",
+      "baseline_verdict": "VERIFIED_CONDITIONAL_ESYSTEM_SEAM",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X37",
+      "case_sha256": "4972ca3396981f344e56498de663b0a93a0029f71adf95f51e9e8c03f3f6c3de",
+      "expected": "REFUSE",
+      "layer": "historical_metadata_audit",
+      "route": "historical_seam",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash.",
+      "observed_verdict": "REFUSE",
+      "reason": "missing source map was promoted",
+      "baseline_verdict": "VERIFIED_CONDITIONAL_ESYSTEM_SEAM",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X38",
+      "case_sha256": "2f1a073ac01b5b350c3620683532e661e0ced8cedebbf9a357f1d3881cc2270b",
+      "expected": "REFUSE",
+      "layer": "historical_metadata_audit",
+      "route": "historical_seam",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash.",
+      "observed_verdict": "REFUSE",
+      "reason": "unmaterialized source pair was promoted",
+      "baseline_verdict": "VERIFIED_CONDITIONAL_ESYSTEM_SEAM",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X39",
+      "case_sha256": "038d868aeb5f23f1896190db159b46d064bf913319a0c9edb5f79b8ef0083097",
+      "expected": "REFUSE",
+      "layer": "historical_metadata_audit",
+      "route": "historical_seam",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash.",
+      "observed_verdict": "REFUSE",
+      "reason": "downstream pin semantics changed",
+      "baseline_verdict": "VERIFIED_CONDITIONAL_ESYSTEM_SEAM",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X40",
+      "case_sha256": "2d13f6ae91cbd35846903231b1a59d47b79c5b8c7bf2c335b2095b6d5e876412",
+      "expected": "REFUSE",
+      "layer": "historical_metadata_audit",
+      "route": "historical_seam",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash.",
+      "observed_verdict": "REFUSE",
+      "reason": "native reduced-row commitments changed",
+      "baseline_verdict": "VERIFIED_CONDITIONAL_ESYSTEM_SEAM",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X41",
+      "case_sha256": "16847a93350e6b373afdd5ea2fbb7bc50502b7d83b27c9f6d18b70aedeb57275",
+      "expected": "REFUSE",
+      "layer": "historical_metadata_audit",
+      "route": "historical_seam",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash.",
+      "observed_verdict": "REFUSE",
+      "reason": "required authority refusal was dropped",
+      "baseline_verdict": "VERIFIED_CONDITIONAL_ESYSTEM_SEAM",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X42",
+      "case_sha256": "744671fc9378621b78a6ed1a7e1f29e0686687c71368d4fe1ff7790b9326d1b3",
+      "expected": "REFUSE",
+      "layer": "historical_metadata_audit",
+      "route": "historical_seam",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash.",
+      "observed_verdict": "REFUSE",
+      "reason": "native seam commit binding changed",
+      "baseline_verdict": "VERIFIED_CONDITIONAL_ESYSTEM_SEAM",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X43",
+      "case_sha256": "00a1995d4abfc22f9d59d3c5a7cce141e9ab980e02d42309953f7f77298e27e6",
+      "expected": "REFUSE",
+      "layer": "historical_metadata_audit",
+      "route": "historical_seam",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash.",
+      "observed_verdict": "REFUSE",
+      "reason": "Historical conditional boundary inspected.",
+      "raw_report": {
+        "verdict": "VERIFIED_CONDITIONAL_ESYSTEM_SEAM",
+        "native_commit": "d4a18b476b8bb8366e6c4505f03294f098dfb589",
+        "rows": 5,
+        "strict_original_source_supported": false,
+        "missing_stage": "target_pair_to_normalized_laurent_root",
+        "evidence_envelope": {
+          "schema": "jc-f2-original-pair-to-esystem-manifest/v1",
+          "context": {
+            "characteristic": 0,
+            "coefficient_domain": "characteristic-zero field K",
+            "point_universe": null,
+            "ring_vars": [
+              "z2",
+              "z3",
+              "z4",
+              "z5",
+              "z6",
+              "z7",
+              "z8",
+              "z9",
+              "a2",
+              "a4",
+              "a1",
+              "am1",
+              "lam"
+            ],
+            "unit_generators": [],
+            "generators": []
+          },
+          "source_bindings": [
+            {
+              "id": "JC original-pair seam manifest",
+              "sha256": "sha256:44e96e9423a8e0187910774d6db9057f660445d8d7078af5516d787c181489dd"
+            },
+            {
+              "id": "JC original-pair seam verifier",
+              "sha256": "sha256:080e0c398bec1b5d60ade3ed1fedfe02537c8720e94c3e4d7c5432c8adb8e08f"
+            },
+            {
+              "id": "GP graded face fixture",
+              "sha256": "sha256:6c8887034321884b6bb0aa7cd8cf04d90e472a36f4a6ba4035a53e7eda1aa8a1"
+            }
+          ],
+          "checked_proposition": "conditional normalized Laurent-root data imply the five exact reduced polynomiality rows",
+          "certificate_payload": {
+            "native_commit": "d4a18b476b8bb8366e6c4505f03294f098dfb589",
+            "rows": [
+              {
+                "row": 1,
+                "terms": 39,
+                "sha256": "2c10ee773d3f951460edebb2233ef6f1a95d8686f416e45395b112d64cb13d95"
+              },
+              {
+                "row": 2,
+                "terms": 38,
+                "sha256": "705fc43f2dabfbd5bbde70ed7a6614ac8e740893f86beebc792fd5e3633a9e5c"
+              },
+              {
+                "row": 3,
+                "terms": 49,
+                "sha256": "a2edcf00b3f3e6d93a8616dbd5fcb451a310ec86f00e9d239de6b831dc042c9b"
+              },
+              {
+                "row": 4,
+                "terms": 66,
+                "sha256": "c6a4358296522f05950be2b0ccd3deca2f3fd029222a558888694de8d991d216"
+              },
+              {
+                "row": 5,
+                "terms": 81,
+                "sha256": "bdd15bb06fdf12e06dd3365541f593d240712e94526be47b28d297f03e818ce8"
+              }
+            ],
+            "missing_stage": "target_pair_to_normalized_laurent_root",
+            "strict_original_source_supported": false
+          },
+          "licenses": [
+            "five_reduced_rows_replayed_from_conditional_normalized_root_data",
+            "native_row_commitments_welded_to_gp_exact_source_rows",
+            "strict_original_source_promotion_refused"
+          ],
+          "outstanding_premises": [
+            "serialize or universally bind the exact original source pair",
+            "materialize the coefficient-level target-pair to normalized-root map",
+            "prove any source-image sufficiency or reverse lift separately"
+          ],
+          "graph_effect": "NONE",
+          "authority_boundary": "Conditional normalized-root to reduced-row replay only. The original-pair to normalized-root coefficient map remains open; no graph, membership, reverse-lift, coverage, H3, or verdict authority."
+        }
+      },
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X44",
+      "case_sha256": "fea18058cdabc2b711e0e5428e9cbe59877349f8cbc16325731072a87fb63221",
+      "expected": "REFUSE",
+      "layer": "historical_metadata_audit",
+      "route": "historical_seam",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Verbatim pre-extraction GP adapter on the pinned v0.37 runtime. Checks frozen bindings and conditional-report boundaries, not the native mathematical derivation or a new held claim. Semantic mutations intentionally enter the inner validator so an outer file hash cannot mask the premise check; revision mutation mirrors the historical test by repinning only its outer fixture hash.",
+      "observed_verdict": "REFUSE",
+      "reason": "frozen seam fixture digest changed",
+      "baseline_verdict": "VERIFIED_CONDITIONAL_ESYSTEM_SEAM",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X45",
+      "case_sha256": "28a347f67fb44db7b0760539bdf4ddb10833f6953021849d262a8bcd24a4ef4e",
+      "expected": "ACCEPT",
+      "layer": "native_receipt_binding",
+      "route": "native_witness_binding",
+      "historical_commit": null,
+      "limitation": "Pinned native exact witness replay plus graph-fold currentness. No fabricated backend trace; these are minimal binding controls, not a replay of the deleted p-axis fixture.",
+      "observed_verdict": "ACCEPT",
+      "reason": "None",
+      "baseline_current": true,
+      "receipt_current": true,
+      "active_witness": true,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X46",
+      "case_sha256": "ab4baefa595b71af4f0267559d99e26e1617cbfb6f04399ceb839da7e2bb9994",
+      "expected": "REFUSE",
+      "layer": "native_receipt_binding",
+      "route": "native_witness_binding",
+      "historical_commit": null,
+      "limitation": "Pinned native exact witness replay plus graph-fold currentness. No fabricated backend trace; these are minimal binding controls, not a replay of the deleted p-axis fixture.",
+      "observed_verdict": "REFUSE",
+      "reason": "verifier input fingerprint does not match",
+      "baseline_current": true,
+      "receipt_current": false,
+      "active_witness": false,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X47",
+      "case_sha256": "c05534db44710bd3d61b56494818746f586719b9ce24055b07c6c730fe87df5d",
+      "expected": "REFUSE",
+      "layer": "native_receipt_binding",
+      "route": "native_witness_binding",
+      "historical_commit": null,
+      "limitation": "Pinned native exact witness replay plus graph-fold currentness. No fabricated backend trace; these are minimal binding controls, not a replay of the deleted p-axis fixture.",
+      "observed_verdict": "REFUSE",
+      "reason": "verifier input fingerprint does not match",
+      "baseline_current": true,
+      "receipt_current": false,
+      "active_witness": false,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X48",
+      "case_sha256": "f1fa5b7fdc11ce8c7571d8fe84ea5454a31eaff05ee6a0bf1bafa2d7a938870b",
+      "expected": "REFUSE",
+      "layer": "native_receipt_binding",
+      "route": "native_witness_binding",
+      "historical_commit": null,
+      "limitation": "Pinned native exact witness replay plus graph-fold currentness. No fabricated backend trace; these are minimal binding controls, not a replay of the deleted p-axis fixture.",
+      "observed_verdict": "REFUSE",
+      "reason": "verifier input fingerprint does not match",
+      "baseline_current": true,
+      "receipt_current": false,
+      "active_witness": false,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X49",
+      "case_sha256": "59b139554c571fce38c4eed5b0659b4c340026b0b367025011b21f8eb72c9454",
+      "expected": "REFUSE",
+      "layer": "native_receipt_binding",
+      "route": "native_witness_binding",
+      "historical_commit": null,
+      "limitation": "Pinned native exact witness replay plus graph-fold currentness. No fabricated backend trace; these are minimal binding controls, not a replay of the deleted p-axis fixture.",
+      "observed_verdict": "REFUSE",
+      "reason": "verifier version does not match",
+      "baseline_current": true,
+      "receipt_current": false,
+      "active_witness": false,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X50",
+      "case_sha256": "9c87250374cbc81a8e37066b776b19c87a306d0a6b434e3651314ebf4527fc44",
+      "expected": "REFUSE",
+      "layer": "native_receipt_binding",
+      "route": "native_witness_binding",
+      "historical_commit": null,
+      "limitation": "Pinned native exact witness replay plus graph-fold currentness. No fabricated backend trace; these are minimal binding controls, not a replay of the deleted p-axis fixture.",
+      "observed_verdict": "REFUSE",
+      "reason": "<log>:0: extension witness verdict 'v.C.418a1502dedc6feb' does not replay against the declared field, model, and coordinates.",
+      "baseline_current": true,
+      "refused_at": "graph_fold",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X51",
+      "case_sha256": "d4a55ba66e5804d91ffdac48b86a4e16782d8998a9daee657a8ca1c96d003f3f",
+      "expected": "ACCEPT",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Direct pinned-kernel table observation with relation prerequisites assumed. The historical ledger expected-verdict comparison is not consulted; no declaration or theorem name is treated as a warrant.",
+      "observed_verdict": "ACCEPT",
+      "reason": "licensed by NECESSARY_CONDITION/ALONG/NONEMPTY",
+      "rule": "table",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X52",
+      "case_sha256": "3bc15113af291c4fbcb136c95fded4a212e92d3c3896e05da6bda23938b54d79",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Direct pinned-kernel table observation with relation prerequisites assumed. The historical ledger expected-verdict comparison is not consulted; no declaration or theorem name is treated as a warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "NECESSARY_CONDITION does NOT license NONEMPTY in the AGAINST direction",
+      "rule": "table",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X53",
+      "case_sha256": "f30144b4b168bcb6125b7342cbb2284c9c5d59ec33be04165736d1607cedf57b",
+      "expected": "REFUSE",
+      "layer": "legacy_expressiveness",
+      "route": "formalization_ledger",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Historical ledger vocabulary outcome, not replay of a native theorem or a new held claim. An INEXPRESSIBLE result is recorded as UNSUPPORTED, not counted as a mathematical refusal.",
+      "observed_verdict": null,
+      "status": "UNSUPPORTED",
+      "reason": "current GP has no dimension/rank-credit claim kind",
+      "raw_verdict": "INEXPRESSIBLE"
+    },
+    {
+      "id": "GP-X54",
+      "case_sha256": "41cca97683b07c33d0bf31eaa9a2d83999adfa6a8c621b5d0c4e7a3c58428816",
+      "expected": "REFUSE",
+      "layer": "historical_vocabulary_guard",
+      "route": "formalization_ledger",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Historical ledger vocabulary outcome, not replay of a native theorem or a new held claim. An INEXPRESSIBLE result is recorded as UNSUPPORTED, not counted as a mathematical refusal.",
+      "observed_verdict": "REFUSE",
+      "reason": "OUT_OF_KERNEL edge fails closed",
+      "raw_verdict": "REFUSED",
+      "graph_effect": "NONE",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X55",
+      "case_sha256": "4125c43a4262d73909a663f0a6930cf80ae64f42e41943d2cee056eeea3c55bd",
+      "expected": "REFUSE",
+      "layer": "historical_vocabulary_guard",
+      "route": "formalization_ledger",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Historical ledger vocabulary outcome, not replay of a native theorem or a new held claim. An INEXPRESSIBLE result is recorded as UNSUPPORTED, not counted as a mathematical refusal.",
+      "observed_verdict": "REFUSE",
+      "reason": "OUT_OF_KERNEL edge fails closed",
+      "raw_verdict": "REFUSED",
+      "graph_effect": "NONE",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X56",
+      "case_sha256": "70759a834159d957bc2eb284c720aa28067b488ce83dd6ce8f2cc1349341f253",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Direct pinned-kernel table observation with relation prerequisites assumed. The historical ledger expected-verdict comparison is not consulted; no declaration or theorem name is treated as a warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "BASE_EXTENSION licenses EMPTY along the extension only at scope SCHEME; this claim has scope 'QQ' (certificate None, which does not base-change)",
+      "rule": "scheme_scope",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X57",
+      "case_sha256": "5e8e80be1171c0921058f1d9521fde509eecec170d59e76b7f95f730c579d258",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Direct pinned-kernel table observation with relation prerequisites assumed. The historical ledger expected-verdict comparison is not consulted; no declaration or theorem name is treated as a warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "a point of the Zariski closure need not lift to the image (Chevalley): 0 lies in the closure of G_m and not in G_m.  That is decisive for a WITNESS -- a claim holding a specific point -- and it is NOT decisive for an existence proof, because cl(empty) = empty, so a nonempty closure does force a nonempty image.  If this claim exhibits a point, the refusal stands and the discharge is to lift it.  If it only proves one EXISTS, declare `existential: true` and say how existence was established without a witness",
+      "rule": "existential",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X58",
+      "case_sha256": "f3e7db5e9a1d9a79a4abe1cb9fbfe045736fbcabf4aa04d2a318425a5ecc3d30",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Direct pinned-kernel table observation with relation prerequisites assumed. The historical ledger expected-verdict comparison is not consulted; no declaration or theorem name is treated as a warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "NECESSARY_CONDITION does NOT license NONEMPTY in the AGAINST direction",
+      "rule": "table",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X59",
+      "case_sha256": "867bdb80920f5c721659e5ca3228176ecbb35666c231799d3c2fcfacac321282",
+      "expected": "REFUSE",
+      "layer": "conditional_rule",
+      "route": "transport",
+      "historical_commit": null,
+      "limitation": "Direct pinned-kernel table observation with relation prerequisites assumed. The historical ledger expected-verdict comparison is not consulted; no declaration or theorem name is treated as a warrant.",
+      "observed_verdict": "REFUSE",
+      "reason": "NECESSARY_CONDITION does NOT license PREDICATE in the ALONG direction",
+      "rule": "table",
+      "independent_control": {},
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X60",
+      "case_sha256": "403f25ddb8e0501c84b5a87ba58ae7f5b109bd44a70d210290cb1efd64515ad2",
+      "expected": "ACCEPT",
+      "layer": "historical_metadata_audit",
+      "route": "formalization_ledger",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Calls only the historical endpoint/premise normalizer, before any expected-verdict comparison. Acceptance preserves conditional metadata; it does not discharge premises or mint mathematical authority.",
+      "observed_verdict": "ACCEPT",
+      "reason": "The theorem endpoints and all conditional premises remain bound.",
+      "premise_ids": [
+        "JC.PREM.ORDER_EIGHT_BOUNDED",
+        "JC.PREM.SLICE_IS_SOLUTION",
+        "JC.PREM.ALL_ORDERS_GAUGE"
+      ],
+      "graph_effect": "NONE",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X61",
+      "case_sha256": "4fd5df164768d81f71f3846c48135b68b253a2ae205f0bff35bf6a79ae3c624d",
+      "expected": "REFUSE",
+      "layer": "historical_metadata_audit",
+      "route": "formalization_ledger",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Calls only the historical endpoint/premise normalizer, before any expected-verdict comparison. Acceptance preserves conditional metadata; it does not discharge premises or mint mathematical authority.",
+      "observed_verdict": "REFUSE",
+      "reason": "EDG7: JC.EDGE.SLICE_TO_BLOCK_ONE_ZERO omitted or invented a formal premise",
+      "graph_effect": "NONE",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X62",
+      "case_sha256": "e01e2677a02ec11e9729aec4d74fed863141b75d11c52edf6294ceb0bea09846",
+      "expected": "REFUSE",
+      "layer": "historical_metadata_audit",
+      "route": "formalization_ledger",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Calls only the historical endpoint/premise normalizer, before any expected-verdict comparison. Acceptance preserves conditional metadata; it does not discharge premises or mint mathematical authority.",
+      "observed_verdict": "REFUSE",
+      "reason": "EDG6: JC.EDGE.SLICE_TO_BLOCK_ONE_ZERO authority endpoint binding does not match",
+      "graph_effect": "NONE",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X63",
+      "case_sha256": "8ed986fe5049ebb26a3621bdd416c2274f90ae97e8c712012fd962636d45efab",
+      "expected": "ACCEPT",
+      "layer": "exact_replay",
+      "route": "localization",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Exact cofactor replay on the declared localization; no parent-wide conclusion.",
+      "observed_verdict": "ACCEPT",
+      "reason": "Localization checker replayed.",
+      "receipt": {
+        "schema": "localization_membership_v1",
+        "verdict": "VERIFIED_LOCALIZATION_MEMBERSHIP",
+        "licenses": [
+          "identity_in_declared_localization_only"
+        ],
+        "normalized": {
+          "schema": "localization_membership_v1",
+          "characteristic": 0,
+          "ring_vars": [
+            "p",
+            "t",
+            "c9_11",
+            "I4"
+          ],
+          "generators": [
+            "(15)*t^3+1",
+            "(15)*p*t^2+(10)*t*c9_11",
+            "(5)*p^2*t^2+(10)*p*t*c9_11+(5)*c9_11^2"
+          ],
+          "guards": [
+            "p",
+            "t"
+          ],
+          "expression": {
+            "numerator": "1",
+            "denominator_powers": [
+              0,
+              0
+            ]
+          },
+          "certificate": {
+            "localization_powers": [
+              2,
+              4
+            ],
+            "membership_target": "p^2*t^4",
+            "cofactors": [
+              "0",
+              "-2/5*t*c9_11-1/5*p*t^2",
+              "4/5*t^2"
+            ]
+          }
+        },
+        "checked": {
+          "target": "p^2*t^4",
+          "generator_count": 3,
+          "reference_oracle": "REFERENCE_CHECKED"
+        },
+        "spec_fingerprint": "900fc3989dc79851340708dc1e1f9121ed03c0dfb6e88ca0e2c6f68e1f3685ae"
+      },
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X64",
+      "case_sha256": "cd6791055697be3ad7e898e2cf4569e26de768579457e18cf4c5a8abfe147814",
+      "expected": "REFUSE",
+      "layer": "historical_receipt_binding",
+      "route": "historical_paxis",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted.",
+      "observed_verdict": "REFUSE",
+      "reason": "Parent transport audited.",
+      "trace": [
+        [
+          "JC-P-C9-AXIS-IN-AMBIENT",
+          "ALONG",
+          false,
+          "NECESSARY_CONDITION does NOT license EMPTY in the ALONG direction"
+        ]
+      ],
+      "baseline_current": true,
+      "execution_descriptor": "fabricated_historical_test_trace",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X65",
+      "case_sha256": "64a3d188feba3c23337c590efc67f4f950af984f0674041f7a67b120daf20cbe",
+      "expected": "REFUSE",
+      "layer": "historical_receipt_binding",
+      "route": "historical_paxis",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted.",
+      "observed_verdict": "REFUSE",
+      "reason": "Effective certificate: None",
+      "backend_executed": false,
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X66",
+      "case_sha256": "98bbcab1f8c7bc2c6bb4252555efa71c86d1cee91cdbe6c1aa7b9f080793c753",
+      "expected": "ACCEPT",
+      "layer": "historical_receipt_binding",
+      "route": "historical_paxis",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted.",
+      "observed_verdict": "ACCEPT",
+      "reason": "None",
+      "receipt_current": true,
+      "effective_certificate": "LOCALIZED_UNIT_IDEAL_CERT",
+      "baseline_current": true,
+      "execution_descriptor": "fabricated_historical_test_trace",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X67",
+      "case_sha256": "48274e73e8ef6a26c94e29d0bff5df76cd031180089791f08082b958f5e4b5de",
+      "expected": "REFUSE",
+      "layer": "historical_receipt_binding",
+      "route": "historical_paxis",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted.",
+      "observed_verdict": "REFUSE",
+      "reason": "verifier input fingerprint does not match",
+      "receipt_current": false,
+      "effective_certificate": null,
+      "baseline_current": true,
+      "execution_descriptor": "fabricated_historical_test_trace",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X68",
+      "case_sha256": "875c5b712981ccf664aee84c9d8006a3dc0f788371111d7eccd7ef754b6e24e8",
+      "expected": "REFUSE",
+      "layer": "historical_receipt_binding",
+      "route": "historical_paxis",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted.",
+      "observed_verdict": "REFUSE",
+      "reason": "verifier input fingerprint does not match",
+      "receipt_current": false,
+      "effective_certificate": null,
+      "baseline_current": true,
+      "execution_descriptor": "fabricated_historical_test_trace",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X69",
+      "case_sha256": "ebe7287bf8c4761873781da46f4135f86912e1187f4723baebf4389f6bb52358",
+      "expected": "REFUSE",
+      "layer": "historical_receipt_binding",
+      "route": "historical_paxis",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted.",
+      "observed_verdict": "REFUSE",
+      "reason": "verifier input fingerprint does not match",
+      "receipt_current": false,
+      "effective_certificate": null,
+      "baseline_current": true,
+      "execution_descriptor": "fabricated_historical_test_trace",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X70",
+      "case_sha256": "719fbf724394c2d76ea51737213124e2aeb56f52e1ff622cd2988046e3630219",
+      "expected": "REFUSE",
+      "layer": "historical_receipt_binding",
+      "route": "historical_paxis",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted.",
+      "observed_verdict": "REFUSE",
+      "reason": "verifier input fingerprint does not match",
+      "receipt_current": false,
+      "effective_certificate": null,
+      "baseline_current": true,
+      "execution_descriptor": "fabricated_historical_test_trace",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X71",
+      "case_sha256": "902eb3d71ebff32369adc43013ec358d0f43bef81d70ebb37d91f513b0bd4095",
+      "expected": "REFUSE",
+      "layer": "historical_receipt_binding",
+      "route": "historical_paxis",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted.",
+      "observed_verdict": "REFUSE",
+      "reason": "verifier input fingerprint does not match",
+      "receipt_current": false,
+      "effective_certificate": null,
+      "baseline_current": true,
+      "execution_descriptor": "fabricated_historical_test_trace",
+      "status": "AGREES"
+    },
+    {
+      "id": "GP-X72",
+      "case_sha256": "1810d4de851621687761aaf5adb90f0f3b8521d8a57010b7822553e81352fe2a",
+      "expected": "REFUSE",
+      "layer": "source_digest_guard",
+      "route": "historical_paxis",
+      "historical_commit": "7991c9052f13e8dcaa78b5eae36f31663e080c1e",
+      "limitation": "Historical GP fixture and pinned runtime only. Binding probes use the historical fabricated Singular execution descriptor, not a real backend execution. Mutated contexts test receipt currency before structural graph validation; no new rework authority is minted.",
+      "observed_verdict": "REFUSE",
+      "reason": "native p-window receipt changed: expected sha256:77a110c9d5fc0ab47c67f86509f3d777d8d9602bad08a992244d3fd98d1b4dde, got sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "backend_executed": false,
+      "status": "AGREES"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "seed": null,
+  "scope_or_region": "N/A",
+  "id": "GP-X364",
+  "title": "Translation rewrites a source predicate through the backward map",
+  "situation": "Forward point translation sends 0 to 1. Source P(x) is x=0; on the target, P(backward(y)) is y-1=0.",
+  "inputs": {
+    "control": "backward_rewrite",
+    "source_point": 0,
+    "target_point": 1,
+    "forward": "x+1",
+    "backward": "y-1",
+    "source_predicate": "x=0"
+  },
+  "attempted_conclusion": "Preserve the predicate under backward substitution.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "At the transported point 1, backward substitution recovers source point 0."
+  },
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/MappedEquivalence.lean",
+      "line": 45,
+      "anchor": "def MappedEquivalence.rewriteAlong",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/MappedEquivalence.lean",
+      "line": 58,
+      "anchor": "theorem MappedEquivalence.rewriteAlong_forward",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/MappedEquivalence.lean",
+      "line": 118,
+      "anchor": "def zero_one_translation : MappedEquivalence onlyZeroInt onlyOneInt where",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

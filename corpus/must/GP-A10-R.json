@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "GP-A10-R",
+  "seed": "A10",
+  "title": "SOS contradiction reach in R",
+  "situation": "The identity 1+x^2+(-1)*(x^2+1)=0 is an ordered contradiction certificate.",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "generators": [
+      "x^2+1"
+    ],
+    "squares": [
+      "x"
+    ],
+    "cofactors": [
+      "-1"
+    ],
+    "target_context": "R"
+  },
+  "attempted_conclusion": "Conclude x^2+1=0 has no points in R.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The contradiction interpretation requires an ordered field; equality replay alone is insufficient."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 550,
+      "anchor": "| A10 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_epoch12_contract.py",
+      "line": 126,
+      "anchor": "def test_rational_sos_replays_without_search_and_earns_ordered_answer_key("
+    }
+  ]
+}

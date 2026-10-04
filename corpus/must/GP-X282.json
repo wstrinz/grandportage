@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "GP-X282",
+  "seed": null,
+  "title": "Untyped context change records explicit debt",
+  "situation": "A coordinate-ring relation does not identify different point universes. Recording an unanswered step must remain distinct from licensing transport.",
+  "inputs": {
+    "variables": [
+      "x"
+    ],
+    "equations": [
+      "x^2+1"
+    ],
+    "source_universe": "BASE",
+    "target_universe": "ALGEBRAIC_CLOSURE",
+    "relation": "UNTYPED",
+    "question": "record_step",
+    "debt_reason": "No admitted operation accounts for this point-universe change."
+  },
+  "attempted_conclusion": "Record the supplied step or license nonemptiness along it, as specified by question.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "Untyped context change records explicit debt"
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_adversarial.py",
+      "line": 5229,
+      "anchor": "def test_untyped_remains_the_escape_valve_for_a_real_point_universe_change("
+    }
+  ]
+}

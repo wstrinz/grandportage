@@ -1,0 +1,182 @@
+{
+  "path": "grandportage/mcp.py",
+  "sha256": "238e678e9655d59e1607a14150c2fb12c9ceaaca0b485ebd7103fb8723d024fb",
+  "full_text_read": true,
+  "complete_definitions": [
+    {
+      "name": "_event_schema",
+      "start": 232,
+      "end": 350
+    },
+    {
+      "name": "_tool",
+      "start": 364,
+      "end": 368
+    },
+    {
+      "name": "_text",
+      "start": 770,
+      "end": 771
+    },
+    {
+      "name": "_err",
+      "start": 774,
+      "end": 775
+    },
+    {
+      "name": "h_cas_ideal_is_unit",
+      "start": 778,
+      "end": 820
+    },
+    {
+      "name": "h_cas_health",
+      "start": 823,
+      "end": 863
+    },
+    {
+      "name": "h_portage_declare",
+      "start": 866,
+      "end": 920
+    },
+    {
+      "name": "h_portage_check",
+      "start": 923,
+      "end": 952
+    },
+    {
+      "name": "h_portage_schema",
+      "start": 955,
+      "end": 958
+    },
+    {
+      "name": "h_portage_baseline_read",
+      "start": 961,
+      "end": 982
+    },
+    {
+      "name": "h_portage_baseline_accept",
+      "start": 985,
+      "end": 1015
+    },
+    {
+      "name": "h_portage_graph_receipt",
+      "start": 1018,
+      "end": 1026
+    },
+    {
+      "name": "h_portage_export_tail",
+      "start": 1029,
+      "end": 1037
+    },
+    {
+      "name": "h_portage_merge_assay",
+      "start": 1040,
+      "end": 1074
+    },
+    {
+      "name": "h_portage_verify",
+      "start": 1077,
+      "end": 1104
+    },
+    {
+      "name": "h_portage_verify_elimination",
+      "start": 1107,
+      "end": 1125
+    },
+    {
+      "name": "h_portage_verify_elimination_point_lift",
+      "start": 1127,
+      "end": 1145
+    },
+    {
+      "name": "h_portage_verify_elimination_groebner",
+      "start": 1147,
+      "end": 1163
+    },
+    {
+      "name": "_render",
+      "start": 1164,
+      "end": 1174
+    },
+    {
+      "name": "h_portage_show",
+      "start": 1177,
+      "end": 1277
+    },
+    {
+      "name": "h_portage_transport_table",
+      "start": 1280,
+      "end": 1298
+    },
+    {
+      "name": "h_cas_classify_identity",
+      "start": 1301,
+      "end": 1330
+    },
+    {
+      "name": "dispatch",
+      "start": 1359,
+      "end": 1426
+    },
+    {
+      "name": "_ok",
+      "start": 1429,
+      "end": 1430
+    },
+    {
+      "name": "_fail",
+      "start": 1433,
+      "end": 1435
+    },
+    {
+      "name": "serve",
+      "start": 1438,
+      "end": 1455
+    },
+    {
+      "name": "main",
+      "start": 1458,
+      "end": 1464
+    }
+  ],
+  "test_read_range": {
+    "path": "tests/test_mcp.py",
+    "start": 1,
+    "end": 771,
+    "full_text_read": true,
+    "sha256": "44c7c558a23466411be991f6a17207d0beb38e0cfc6db26b09f66116a06cd37c"
+  },
+  "evidence": [
+    "reports/MCP-REQUEST-COMMIT-BOUNDARY.json",
+    "reports/oracle-mcp-boundary-review.xml",
+    "reports/oracle-mcp-full-review.xml",
+    "reports/MCP-HANDOFF-CONTEXT-BOUNDARY.json"
+  ],
+  "tests": {
+    "passed": 42,
+    "deselected": 0,
+    "scope": "Entire test_mcp.py; backend tests inject transcripts or verifier functions, no live backend."
+  },
+  "findings": [
+    "Dispatch performs request/parameter lookups before handler exception containment; a JSON array aborts the stream in the bounded control.",
+    "Declaration validation failure leaves graph unchanged; reporting exceptions after append do not undo committed records.",
+    "Per-call root overrides are explicit caller inputs; root isolation tests are not a filesystem capability or access-control proof.",
+    "Merge assay COMPOSES indicates structural graph composition; actionable findings are counted separately and may remain. No mutation or mathematical conjunction theorem is implied.",
+    "Baseline acceptance validates selected current finding IDs and records a rationale; it is debt accounting, not proof discharge.",
+    "Verifier handlers pass record=not dry_run and describe outcomes, while exact replay remains downstream. Their success text is not independent validation.",
+    "Source test comment claiming open-slot declaration crashes _first_refusal is stale relative to the currently read get-based helper; the show test only tests rendering.",
+    "Model handoff text omits point_universe and embedding; Q BASE versus ALGEBRAIC_CLOSURE for x^2+1 render identically despite distinct stored contexts.",
+    "portage_check advertises floor but the handler never reads it; only full/history/seam are applied.",
+    "Producing tool description suggests attaching certificate kind derives a kill scope; narrow authority requires actual replay and context, as the newer table renderer correctly states.",
+    "Finite-characteristic description calls every nonzero computation reconnaissance; distinguish claims over that exact field from unjustified characteristic-zero transfer."
+  ],
+  "remaining": [
+    "Disposition presentation/contract findings and extract distinct neutral cases where applicable.",
+    "Whole-file text reading does not establish complete semantic review or proof soundness.",
+    "Continue unreviewed modules/history; retain recorded protocol, schema and commit-status diagnostics."
+  ],
+  "complete_read_range": [
+    1,
+    1468
+  ]
+}

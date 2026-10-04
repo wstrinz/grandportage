@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "GP-X392",
+  "seed": null,
+  "title": "Operational 76.2: transcript postvalidation boundary",
+  "situation": "Validated CASProgram body later mutated to a shadowing statement before injected execution.",
+  "inputs": {
+    "incident_row": "76.2",
+    "vector": {
+      "program_body_initial": "validated body",
+      "program_body_at_execution": "shadowing statement",
+      "runner": "injected",
+      "mutation_timing": "after constructor validation"
+    },
+    "retained_evidence_refs": [
+      "reports/CAS-PROGRAM-CUSTODY.json#/observations/0",
+      "reports/CAS-PROGRAM-CUSTODY.json#/observations/1"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Trust constructor validation as non-bypassable for the executed body.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Executed body must be snapshot-bound or revalidated after mutation."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/cas.py",
+      "line": 329,
+      "anchor": "class CASProgram(object):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

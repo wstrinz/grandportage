@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "GP-A02",
+  "seed": "A2",
+  "title": "Coefficient expressions must exist in the target field",
+  "situation": "The identity x^2+1=(x+i)(x-i) is written over Q(i).",
+  "inputs": {
+    "identity": [
+      "x^2+1",
+      "(x+i)*(x-i)"
+    ],
+    "source_context": "Q(i)",
+    "target_context": "Q"
+  },
+  "attempted_conclusion": "Copy the same unexpanded expression into Q.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The symbol i is not defined in the target context."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "rework-packet",
+      "path": "docs/GP-0.50-REWORK-PACKET.md",
+      "line": 542,
+      "anchor": "| A2 |"
+    },
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "grandportage/kernel.py",
+      "line": 1090,
+      "anchor": "if rule == _COEFFICIENTS_IN_BASE:"
+    }
+  ]
+}

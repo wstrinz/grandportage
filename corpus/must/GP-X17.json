@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "id": "GP-X17",
+  "seed": null,
+  "title": "Localized identity with valid evidence",
+  "situation": "A rational expression is tested in a localization with explicit inverted guards.",
+  "inputs": {
+    "variables": [
+      "q",
+      "t",
+      "y"
+    ],
+    "generators": [
+      "q*t*y"
+    ],
+    "guards": [
+      "q",
+      "t"
+    ],
+    "numerator": "y",
+    "denominator_powers": [
+      2,
+      1
+    ],
+    "localization_powers": [
+      1,
+      1
+    ],
+    "membership_target": "q*t*y",
+    "cofactors": [
+      "1"
+    ]
+  },
+  "attempted_conclusion": "Accept y/(q^2*t)=0 only in the declared localization.",
+  "expected": {
+    "verdict": "ACCEPT",
+    "reason": "The exact guard multiple belongs to the ideal, so the identity holds on that declared open."
+  },
+  "scope_or_region": "REGION",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_localization.py",
+      "line": 38,
+      "anchor": "def test_exact_guard_monomial_certifies_localized_membership_only("
+    }
+  ]
+}

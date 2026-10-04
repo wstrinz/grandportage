@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "GP-X368",
+  "seed": null,
+  "title": "BASE cover is not refuted by a geometric hole",
+  "situation": "The rational parent x^2+1=0 has no Q-point, so the empty family covers it vacuously. Over the algebraic closure i is a point missed by the empty family. The native partition encoding uses two branches with equation 1=0 because the frozen graph requires two branches.",
+  "inputs": {
+    "control": "base_refutation",
+    "coefficient_domain": "Q",
+    "variables": [
+      "x"
+    ],
+    "parent_equations": [
+      "x^2+1"
+    ],
+    "semantic_branches": [],
+    "native_empty_union_encoding": [
+      [
+        "1"
+      ],
+      [
+        "1"
+      ]
+    ],
+    "geometric_test": "explicitly_assumed_injected",
+    "point_universe": "BASE"
+  },
+  "attempted_conclusion": "Infer REFUTED exhaustiveness in the Q BASE point universe from the failed geometric cover test.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The geometric hole does not refute BASE coverage; this case does not claim a checked BASE cover."
+  },
+  "scope_or_region": "SCOPE",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/Exhaustive.lean",
+      "line": 63,
+      "anchor": "theorem geometric_hole_does_not_refute_base_cover :",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "lean/GrandPortage/Exhaustive.lean",
+      "line": 99,
+      "anchor": "theorem base_cover_failure_remains_debt :",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/verify.py",
+      "line": 1516,
+      "anchor": "def partition_exhaustiveness(graph, pid, timeout=300, _runner=None, _backend=None):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    },
+    {
+      "repository": "gp-v037",
+      "path": "tests/test_adversarial.py",
+      "line": 5020,
+      "anchor": "def test_geometric_hole_remains_debt_over_the_base_point_universe():",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

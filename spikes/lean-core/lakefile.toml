@@ -1,0 +1,11 @@
+name = "gp_spike_core"
+version = "0.1.0"
+defaultTargets = ["gp_spike", "gp_check_spike"]
+[[lean_lib]]
+name = "Spike"
+[[lean_exe]]
+name = "gp_spike"
+root = "Main"
+[[lean_exe]]
+name = "gp_check_spike"
+root = "CheckerMain"

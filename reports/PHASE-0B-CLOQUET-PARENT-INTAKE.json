@@ -1,0 +1,639 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "status": "bounded Cloquet intake integrated;0b not complete",
+  "worker_report": "reports/PHASE-0B-CLOQUET-BOUNDED-REVIEW.json",
+  "source_hashes_verified": 10,
+  "local_reference_hashes_verified": 13,
+  "private_harvest_files": 19,
+  "source_head": "a343801c9af4bb06f1cb514dfecdc745a8f5ac64",
+  "proposal_shape": {
+    "attributed_source_corrections_or_near_misses": 4,
+    "deliberate_misuse_controls": 5,
+    "gp_mechanics_observations": 3,
+    "independent_incident_count": null
+  },
+  "dispositions": [
+    {
+      "id": "CQ-C01",
+      "dedup_key": "kurz-angle-row",
+      "decision": "retain attributed campaign source correction/near-miss; primary literature not verified; no new GP case",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/cq-scouting.md",
+          "lines": [
+            259,
+            327
+          ],
+          "sha256": "22ef379cb247595c62740a539b2997d7276aa0733a7b228af32b5aea7a44fcaa"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            25,
+            77
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            41,
+            45
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "worker_detail": "One discrepancy across scouting, LSA and checkpoint, not three incidents. Retain as attributed source statement: this worker did not open the primary PDF or execute pentagon code. No GP case asserted to certify LP-to-geometry validity."
+    },
+    {
+      "id": "CQ-C02",
+      "dedup_key": "general34-provenance",
+      "decision": "retain attributed campaign source correction/near-miss; primary literature not verified; no new GP case",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            81,
+            108
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            354,
+            363
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            41,
+            45
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "worker_detail": "Proposal for a source/scope correction, not evidence general34 is false. No direct primary read here; no native GP reuse for bibliography fact."
+    },
+    {
+      "id": "CQ-C03",
+      "dedup_key": "m3-uniqueness",
+      "decision": "retain attributed campaign source correction/near-miss; primary literature not verified; no new GP case",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/CQ-PLAN.md",
+          "lines": [
+            108,
+            112
+          ],
+          "sha256": "b7bd2ef6f7f934855af47e8ccc0d37c314addc522f4003e56ad196cfb5acf080"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            110,
+            129
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            364,
+            368
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            41,
+            45
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "worker_detail": "One corrected attribution episode; unknown original author/cost/reliance. No distinct GP mathematical defect."
+    },
+    {
+      "id": "CQ-C04",
+      "dedup_key": "calculator100-versus-paper53",
+      "decision": "retain attributed campaign source correction/near-miss; primary literature not verified; no new GP case",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/cq-scouting.md",
+          "lines": [
+            36,
+            60
+          ],
+          "sha256": "22ef379cb247595c62740a539b2997d7276aa0733a7b228af32b5aea7a44fcaa"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            279,
+            350
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+          "lines": [
+            369,
+            375
+          ],
+          "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            41,
+            45
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "worker_detail": "Source-binding correction proposal, with paper symmetry still inconclusive. Do not infer an exact graph exclusion from separated numerical closure roots."
+    },
+    {
+      "id": "CQ-P05",
+      "dedup_key": "M5-collapsed",
+      "decision": "retain deliberate challenge/control as scope evidence; not an observed wrong campaign claim; rule-level reuse is not literal fixture replay",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/cq-scouting.md",
+          "lines": [
+            221,
+            257
+          ],
+          "sha256": "22ef379cb247595c62740a539b2997d7276aa0733a7b228af32b5aea7a44fcaa"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M5.json",
+          "lines": [
+            8,
+            48
+          ],
+          "sha256": "08cc7b1b2b114f6be9557c1c2ff38e6b917f85bc7fc2bbedd1b4b30ee4ba974d"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            103,
+            110
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        }
+      ],
+      "worker_detail": "Reuse parent A24 source grounding; do not duplicate extraction or edit seed. Current A24 attempted conclusion is no-realization, and parent clarification remains pending Will. No wrong GP verdict shown."
+    },
+    {
+      "id": "CQ-P06",
+      "dedup_key": "M2-ordered-versus-complex",
+      "decision": "retain deliberate challenge/control as scope evidence; not an observed wrong campaign claim; rule-level reuse is not literal fixture replay",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/gp-cq-read.md",
+          "lines": [
+            191,
+            219
+          ],
+          "sha256": "385150a7cbb557efea315780acca1f7d5fc82ecd7fa2f35615ed7144fcd9623a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            89,
+            101
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        }
+      ],
+      "worker_detail": "Not a newly observed wrong campaign conclusion. A10-R/C reuse the ordered-versus-complex reach decision, not M2's particular model or literal cofactor."
+    },
+    {
+      "id": "CQ-P07",
+      "dedup_key": "M6-half-angle-cover",
+      "decision": "retain deliberate challenge/control as scope evidence; not an observed wrong campaign claim; rule-level reuse is not literal fixture replay",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/gp-cq-read.md",
+          "lines": [
+            235,
+            289
+          ],
+          "sha256": "385150a7cbb557efea315780acca1f7d5fc82ecd7fa2f35615ed7144fcd9623a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            80,
+            87
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        }
+      ],
+      "worker_detail": "Existing A16 covered/missing captures required exhaustion but has Boolean cover inputs. It does not encode these circle opens, graph family reconstruction or all sign/degenerate branches."
+    },
+    {
+      "id": "CQ-P08",
+      "dedup_key": "M7-finite-flex",
+      "decision": "retain deliberate challenge/control as scope evidence; not an observed wrong campaign claim; rule-level reuse is not literal fixture replay",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/cq-scouting.md",
+          "lines": [
+            361,
+            367
+          ],
+          "sha256": "22ef379cb247595c62740a539b2997d7276aa0733a7b228af32b5aea7a44fcaa"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/gp-cq-read.md",
+          "lines": [
+            306,
+            314
+          ],
+          "sha256": "385150a7cbb557efea315780acca1f7d5fc82ecd7fa2f35615ed7144fcd9623a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            112,
+            118
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        }
+      ],
+      "worker_detail": "No distinct actual mathematical incident demonstrated. No exact existing case selected: affine rank/existence or Jacobian sampling examples are not the same higher-order flex assertion. Parser diagnostic is separately CQ-G03 with same dedup episode."
+    },
+    {
+      "id": "CQ-P09",
+      "dedup_key": "M8-budget",
+      "decision": "retain deliberate challenge/control as scope evidence; not an observed wrong campaign claim; rule-level reuse is not literal fixture replay",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/packets/founding/CQ-PLAN.md",
+          "lines": [
+            229,
+            235
+          ],
+          "sha256": "b7bd2ef6f7f934855af47e8ccc0d37c314addc522f4003e56ad196cfb5acf080"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            120,
+            129
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            175,
+            179
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        }
+      ],
+      "worker_detail": "X96/X106 reuse the unfinished-search authority boundary but concern JC extraction/search, not the literal work sidecar or family-declaration path. Count refusal is a successful defense within same exercise."
+    },
+    {
+      "id": "CQ-G01",
+      "dedup_key": "M1-unit-quotient",
+      "decision": "retain presentation interpretation observation; zero quotient validates derived equality, no false algebraic acceptance",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            61,
+            71
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            137,
+            150
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            49,
+            53
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "worker_detail": "A13 ambient/derived distinction is relevant semantic reuse but does not test zero quotient or message wording. Retain specific presentation probe only if parent needs it; do not count legitimate derived identity as mathematical incident."
+    },
+    {
+      "id": "CQ-G02",
+      "dedup_key": "M1-stale-view",
+      "decision": "retain source-reported historical0.32 visibility defect; exact sequence not reproduced by A18/X160 or verified at0.37; custody preserved, no repair or new case inferred",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            73,
+            78
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            152,
+            165
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+          "lines": [
+            49,
+            53
+          ],
+          "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+        }
+      ],
+      "worker_detail": "A18/X160 supply stale evidence/retired context decision reuse, but neither includes unrelated later supersession plus default-vs-history display. Candidate defect remains historical0.32 observation, not confirmed at frozen0.37."
+    },
+    {
+      "id": "CQ-G03",
+      "dedup_key": "M7-finite-flex",
+      "decision": "retain diagnostic quality observation, same M7 episode as CQ-P08; no false VERIFIED",
+      "cost": null,
+      "shipped": null,
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "evidence": [
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            112,
+            118
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+          "lines": [
+            167,
+            173
+          ],
+          "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+        }
+      ],
+      "worker_detail": "Diagnostic-quality proposal only. No exact corpus reuse selected for wording. No backend invoked in this pass."
+    }
+  ],
+  "independent_math_checks": [
+    {
+      "model": "M2",
+      "check": "Exact fractions in Q[r]/(r²+5) verify all three unit norms and3u=v+w; ordered norm(v-w)²=2+2-9=-5 is impossible.",
+      "limit": "Parent arithmetic, not replay of the stored GP receipt."
+    },
+    {
+      "model": "M6",
+      "check": "Half coefficients sum1, x coefficients cancel; missing D(1-x) leaves(-1,0) satisfying circle and1+x=0.",
+      "limit": "Characteristic0/2invertible scope; no graph reconstruction."
+    },
+    {
+      "model": "M7",
+      "check": "Difference of anchored-bar equations gives4x; average minusx² givesy². Thus one geometric point over characteristic0 fields; Jacobian rank1 atorigin gives tangent dimension1 without a finite flex.",
+      "limit": "M7 parser result remains historical source observation."
+    }
+  ],
+  "no_distinct_incident_dispositions": [
+    {
+      "item": "Lane D signatures and53 angle scan",
+      "source": {
+        "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+        "lines": [
+          8,
+          20
+        ],
+        "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+      },
+      "reason": "Recorded reconnaissance/calibration and seed-branch numerical roots, no newly proved family/graph/order exclusion. No solver run in this pass."
+    },
+    {
+      "item": "Gerbracht polynomial and Winkler4x4 checks",
+      "source": {
+        "path": "$DEV/math-research/campaigns/match4/literature/READS.md",
+        "lines": [
+          187,
+          246
+        ],
+        "sha256": "e8687934f4e7176d42ccdcb5feb88402b526ecdadf1f71485ba734f8a78eaec5"
+      },
+      "reason": "Recorded transcription/compatibility controls. One coordinate polynomial is not full Harborth reconstruction; rank checks are not nonlinear closure. No error episode identified."
+    },
+    {
+      "item": "M3 selected root; M4 nonedge; degeneration controls",
+      "source": {
+        "path": "$DEV/math-research/campaigns/match4/packets/founding/CQ-PLAN.md",
+        "lines": [
+          142,
+          160
+        ],
+        "sha256": "b7bd2ef6f7f934855af47e8ccc0d37c314addc522f4003e56ad196cfb5acf080"
+      },
+      "reason": "Prewritten proposed positive/negative contract controls; Tier(c) deposit, not implemented by Lane G. No adverse actual verdict demonstrated."
+    },
+    {
+      "item": "Laman/degree/rational-coordinate/uniqueness advice",
+      "source": {
+        "path": "$DEV/math-research/campaigns/match4/packets/founding/cq-scouting.md",
+        "lines": [
+          361,
+          367
+        ],
+        "sha256": "22ef379cb247595c62740a539b2997d7276aa0733a7b228af32b5aea7a44fcaa"
+      },
+      "reason": "Conceptual corrections with no traced run or published wrong conclusion in this bounded record. Retain risk guidance; no fabricated independent incidents."
+    },
+    {
+      "item": "Custody and intake fixes",
+      "source": {
+        "path": "$DEV/math-research/campaigns/match4/CHECKPOINT.md",
+        "lines": [
+          44,
+          54
+        ],
+        "sha256": "4d95f847321459056c9930104128e4688d4e7f9681838ffe8e8eb48630266b51"
+      },
+      "reason": "Mailbox dirt, parser bullet-list requirements, stale blocked tempo and CRLF handling are process fixes. No mathematical contamination or wrong shipping established."
+    },
+    {
+      "item": "verdict schema promotion clauses",
+      "source": {
+        "path": "$DEV/math-research/campaigns/match4/verdicts/SCHEMA.md",
+        "lines": [
+          17,
+          23
+        ],
+        "sha256": "60d6ee65e0d2cde670985d2bccb8e9e430f77827801c2418febdd930ae76a8dc"
+      },
+      "reason": "Scope policy read and recorded, including a stated Whitney promotion with3-connectivity premise. This worker did not audit its sufficiency for geometric realizations; no blanket theorem endorsement or new incident finding."
+    }
+  ],
+  "remaining": [
+    "A24 semantic clarification requires direct user answer; no modification made.",
+    "Other campaigns and GP reuse/final descriptive inventory remain."
+  ],
+  "limits": [
+    "No primary PDF verification or theorem endorsement for attributed literature discrepancies.",
+    "No campaign/backend/Lean execution, graph fold or prefix recomputation.",
+    "Costs/shipping remain unknown; approximate710k wave tokens and M8fixture2core-hours are not incident costs.",
+    "No new case expansion warranted merely by prewritten misuse controls."
+  ],
+  "worker_scope_and_custody_context": {
+    "formats": "Markdown scoped reports and schemas; JSON miniatures and construction records; hash-pinned immutable raw HTML/PDF fetch manifests; JSONL GP graph/work ledgers and verdict index; SHA256-addressed JSON artifacts.",
+    "receipt_contract": "Canonical sorted u<v LF adjacency SHA; cyclic ccw rotation/outer-face listing SHA; raw source version/hash/record index/branch; equations/guards/domain; selected-root f/interval; point/family/population quantifiers; evidence/verifier version; reviewed graph effect.",
+    "scope_policy": "PARAMETER_BOX, ASSEMBLY_BRANCH, CONSTRUCTION_FAMILY, PLANE_EMBEDDING, ABSTRACT_GRAPH, COMPLETE_VERTEX_ORDER; no numerical-failure verdict, no automatic linear hierarchy. Positive receipt may use POINT.",
+    "lane_graph_identity_reported": {
+      "gp": "0.32.0",
+      "source": {
+        "path": "$DEV/math-research/campaigns/match4/lanes/G/RESULTS.md",
+        "lines": [
+          9,
+          34
+        ],
+        "sha256": "2e0f9e5028cacf0a93150a566b6b86d85c8378e4d7cdabcafa00da5f5fd80736"
+      },
+      "format": 7,
+      "epoch": 11,
+      "backend": "SingularBackend implementation4/protocol2; Singular4.2.1 under WSL",
+      "events": 43,
+      "prefix_sha256": "ed83e8f4164492f77ac0b87c93d5c0630f5caea25b7fe6b5704541b136db2927",
+      "limit": "Reported final identity, not independently folded or recomputed. Raw JSONL hash must not be confused with prefix digest.",
+      "gp_source_commit": "cca5b05d1d74df68d2fb8eb0e13429d3d6fe85ee"
+    },
+    "graph_fence": "Lane G separate graph; root empty by design per checkpoint. New campaign receipts effect NONE until binding/reach review. No campaign root proof inferred from miniatures.",
+    "selected_existing_paths_for_parent_private_harvest": [
+      {
+        "path": "$DEV/math-research/campaigns/match4/lanes/G/.portage/graph.jsonl",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/lanes/G/.portage/work.jsonl",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/lanes/G/.portage/artifacts/sha256/",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M1.json",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M2.json",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M5.json",
+        "status": "content read, SHA in source table"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M6.json",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M7.json",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/fixtures/gp-miniatures/M8.json",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/data/raw/MANIFEST.json",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/data/raw/mikematics_matchstick-graphs-calculator_2019-06-25.htm",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/data/graphs/calculator_records_2019-06-25.json",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/verdicts/INDEX.jsonl",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/results/inbox/p05-source-reads-v1.md",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/results/inbox/lane-g-tier-ab-v1.md",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/results/intake/2026-09-11-wave1-intake.md",
+        "status": "path located by filename inventory; contents not read or harvested"
+      },
+      {
+        "path": "$DEV/math-research/campaigns/match4/results/intake/2026-09-11-wave1-intake-laneG.md",
+        "status": "path located by filename inventory; contents not read or harvested"
+      }
+    ],
+    "limits": "receipts inventory showed only SCHEMA.md. Verdict INDEX path exists; no claim about its entries. rg inventory does not list ignored PDFs; this pass does not assert current PDF presence/absence. Historical LSA PDF hashes in READS are not newly verified PDF bytes. Literature/scouting bundle sandbox links not fetched."
+  },
+  "current_harvest_manifest": "reports/PHASE-0B-CLOQUET-HARVEST-MANIFEST.json"
+}

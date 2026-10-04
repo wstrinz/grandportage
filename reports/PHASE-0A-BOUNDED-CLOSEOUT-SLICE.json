@@ -1,0 +1,46 @@
+{
+  "status": "integrated_and_full_replay_verified",
+  "cases": [
+    "GP-X399",
+    "GP-X400",
+    "GP-X401",
+    "GP-X402",
+    "GP-X403",
+    "GP-X404",
+    "GP-X405",
+    "GP-X406",
+    "GP-X407"
+  ],
+  "total_cases": 454,
+  "expectations": {
+    "ACCEPT": 136,
+    "REFUSE": 318
+  },
+  "replay": "reports/oracle-runs/20260929T150216350486Z.json",
+  "summary": {
+    "AGREES": 402,
+    "DIAGNOSTIC_OBSERVED": 1,
+    "KNOWN_DIFFERENCE": 14,
+    "PENDING": 1,
+    "UNSUPPORTED": 7,
+    "RETAINED_DIAGNOSTIC": 29
+  },
+  "preservation": {
+    "prior_cases_unchanged": 445,
+    "prior_immutable_replays_unchanged": 59
+  },
+  "dispositions": [
+    "Four leftover findings: three bounded reuse/wording deferrals plus interval pair.",
+    "Twelve interpretation holds explicitly deferred under approved scope.",
+    "Two release-document path diffs dispositioned; SPEC body relocation verified.",
+    "Withdrawn DM4 proof-step correction checked independently.",
+    "Fixed42 deleted-test assertions dispositioned; eleven apparent residual mutations reduce to existing binding/fixed-record gates."
+  ],
+  "limits": [
+    "Guard ACCEPT means declaration acceptance with FAMILY:C-SPLIT debt, not completed coverage.",
+    "X8/X10 are explicit missing-premise findings; INF-X9 is a limited declared-premise contrast.",
+    "Cramer result is exact frozen arithmetic, not source equivalence or graph authority.",
+    "A24 still PENDING; X53 and six A27 remain UNSUPPORTED.",
+    "Remaining grouped document/source and OperationContract successor dispositions still need completion; no Phase0a closure claimed."
+  ]
+}

@@ -1,0 +1,1220 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "assignment": "finite Pigeon River Phase0b source review",
+  "status": "bounded pass complete; parent retains mathematics, admission, integration and sweep completion",
+  "source_root": "$DEV/math-research/campaigns/ac-2gen",
+  "source_head": "9202e7ea12a75dac38eaa980c88008b41a4a16c0",
+  "workspace": "$WORKSPACE",
+  "frozen_GP_source": "ac4155787207e2847d248cffed7be871d5dcd577",
+  "bounds": {
+    "required_full_documents": 7,
+    "missing_named_documents": [],
+    "incident_pointer_full_documents": 5,
+    "total_content_documents": 12,
+    "pointer_limit": 5,
+    "no_additional_content_reads": true,
+    "campaign_or_GP_or_official_code_executed": false,
+    "tests_or_imports_or_installs": false,
+    "harvest_executed": false,
+    "case_route_tracker_edits": 0,
+    "commits": 0,
+    "external_reads_or_messages_or_delegation": false,
+    "source_instructions_are_evidence_only": true
+  },
+  "evidence_policy": {
+    "source_claims": "All official pass/submission/board/count claims and historical independent replays remain attributed source reports. This pass newly verifies only byte identities and report structure; it neither executes verifier code nor certifies historical events.",
+    "history": "Raw SHA identifies current actual bytes; Git blob and latest path commit/date are separate history pins. Source HEAD is not launch base. Read provenance from source commit histories and quoted packet/job pins, not from elapsed wall time.",
+    "shipping": "Wrong claim published or handed off for reliance, not a local commit or private push. Errata may show an admitted receipt/closeout needed correction, but downstream reliance and public wrong shipping are unknown.",
+    "unknowns": "Every proposal has null cost/shipping/reliance/core expressibility/core refusal/GP catch. Conditional commentary does not create a verdict.",
+    "classification": "Corrected claim, literal defect, rejected candidate design, intentional challenge, narrow structural refusal, positive result and unresolved work are separate.16 rows are issue dispositions, not16 independent incidents.",
+    "dedup": "Repeated README/checkpoint/closeout/retrospective/assay references add no independent incidents. Quotient458 counterexamples are one family refutation. Packaging3 dimensions are one intake. Grouped historical rows identify subepisodes without a fabricated total."
+  },
+  "sources": [
+    {
+      "relative_path": "README.md",
+      "path": "$DEV/math-research/campaigns/ac-2gen/README.md",
+      "sha256": "2bb5c53b227efc528bb78b25cf3d5ce2b2712403f47b0d36c438e16080e51596",
+      "lines": 118,
+      "bytes": 6450,
+      "git_blob": "c64a47c18661bd03fe5da17e17ba3c488cf280ab",
+      "latest_path_history": "9202e7ea12a75dac38eaa980c88008b41a4a16c0|2026-09-20T09:39:58-05:00|Close Epoch 11 finite consolidation milestone",
+      "role": "required summary/closeout",
+      "read_extent": "full text, lines1-118",
+      "source_head": "9202e7ea12a75dac38eaa980c88008b41a4a16c0"
+    },
+    {
+      "relative_path": "CHECKPOINT.md",
+      "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+      "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a",
+      "lines": 565,
+      "bytes": 34213,
+      "git_blob": "264c799f2b33e41a83c936c1dc728b7d5b48faa5",
+      "latest_path_history": "9202e7ea12a75dac38eaa980c88008b41a4a16c0|2026-09-20T09:39:58-05:00|Close Epoch 11 finite consolidation milestone",
+      "role": "required summary/closeout",
+      "read_extent": "full text, lines1-565",
+      "source_head": "9202e7ea12a75dac38eaa980c88008b41a4a16c0"
+    },
+    {
+      "relative_path": "EPOCH-11-CLOSEOUT.md",
+      "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-11-CLOSEOUT.md",
+      "sha256": "916af9c821dfa20a169e2c21ce606cf111efd3533c9ed783009ad39f29d96e96",
+      "lines": 55,
+      "bytes": 3006,
+      "git_blob": "8c15418340da963b721f7665bea4ee36304ede78",
+      "latest_path_history": "9202e7ea12a75dac38eaa980c88008b41a4a16c0|2026-09-20T09:39:58-05:00|Close Epoch 11 finite consolidation milestone",
+      "role": "required summary/closeout",
+      "read_extent": "full text, lines1-55",
+      "source_head": "9202e7ea12a75dac38eaa980c88008b41a4a16c0"
+    },
+    {
+      "relative_path": "coordination/PRG-E11-CLOSEOUT-REVIEW.md",
+      "path": "$DEV/math-research/campaigns/ac-2gen/coordination/PRG-E11-CLOSEOUT-REVIEW.md",
+      "sha256": "efd6e4e8cb82d12bb5f5355b6feff5181571551200c5a6b4a3f93ddddccb46c7",
+      "lines": 42,
+      "bytes": 2486,
+      "git_blob": "ed329f8ed2529f875c67ea15bb45ebfa64e49e46",
+      "latest_path_history": "9202e7ea12a75dac38eaa980c88008b41a4a16c0|2026-09-20T09:39:58-05:00|Close Epoch 11 finite consolidation milestone",
+      "role": "required summary/closeout",
+      "read_extent": "full text, lines1-42",
+      "source_head": "9202e7ea12a75dac38eaa980c88008b41a4a16c0"
+    },
+    {
+      "relative_path": "EPOCH-7-CLOSEOUT.md",
+      "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-7-CLOSEOUT.md",
+      "sha256": "6e458537eac2f2fbbd007c6db50064b712cc8f97be51f8833bd211d6d9dcc6dd",
+      "lines": 143,
+      "bytes": 8615,
+      "git_blob": "c01c1995218174dc1ed5522333328ab586b29041",
+      "latest_path_history": "57429f01b4af7ca8c2202d5c50d9f5e9b6abfa48|2026-09-19T11:46:41-05:00|Close Epoch 7",
+      "role": "required summary/closeout",
+      "read_extent": "full text, lines1-143",
+      "source_head": "9202e7ea12a75dac38eaa980c88008b41a4a16c0"
+    },
+    {
+      "relative_path": "EPOCH-6-CLOSEOUT.md",
+      "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-6-CLOSEOUT.md",
+      "sha256": "6e973688a7b4ea86cdbcc6ca8c723ecfcdf433063bf89efa897dd35dc7f0ed36",
+      "lines": 132,
+      "bytes": 7636,
+      "git_blob": "7eb3e7a8c74c237787adbe106bc9b76f0cc32050",
+      "latest_path_history": "60852c45823e88a00fc93d8516992edf129f7d06|2026-09-19T08:25:09-05:00|Close Epoch 6 at fifth place",
+      "role": "required summary/closeout",
+      "read_extent": "full text, lines1-132",
+      "source_head": "9202e7ea12a75dac38eaa980c88008b41a4a16c0"
+    },
+    {
+      "relative_path": "EPOCH-5-CLOSEOUT.md",
+      "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+      "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4",
+      "lines": 173,
+      "bytes": 10236,
+      "git_blob": "ba1539e5b418e3cd1256ba038b618248b266891d",
+      "latest_path_history": "cb9e7e319a4cb208fcfa1e91dfb7a61c8fe8e504|2026-09-18T14:06:58-05:00|Open Epoch 6: Pro packet cross-checked, shear bridge improved 3n+10 -> n+8, 28 class members below record (CLI ok), plan and Wave 1 packets",
+      "role": "required summary/closeout",
+      "read_extent": "full text, lines1-173",
+      "source_head": "9202e7ea12a75dac38eaa980c88008b41a4a16c0"
+    },
+    {
+      "relative_path": "results/inbox/e11-consolidation-gp-v1/RETROSPECTIVE.md",
+      "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/RETROSPECTIVE.md",
+      "sha256": "f0cd169ebbf77ea32c6479a5777371a4cb370da04c1cab7c7f93d918d872ea2e",
+      "lines": 170,
+      "bytes": 9951,
+      "git_blob": "0cc8ddceba1a26824358979ae67e097c743c2674",
+      "latest_path_history": "676803900036614c3b8e0dde07df22633a1ee159|2026-09-20T09:22:34-05:00|Integrate Epoch 11 consolidation producer",
+      "role": "bounded incident pointer",
+      "read_extent": "full text, lines1-170",
+      "source_head": "9202e7ea12a75dac38eaa980c88008b41a4a16c0"
+    },
+    {
+      "relative_path": "results/inbox/e11-consolidation-gp-v1/PRC-ERRATUM.md",
+      "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/PRC-ERRATUM.md",
+      "sha256": "b05c3144ad0d35642a95512b0aaace66a2b7893452a18b18f2357942e961b158",
+      "lines": 22,
+      "bytes": 1222,
+      "git_blob": "3b81d768a818963bb875ff9f4439477a4aad652c",
+      "latest_path_history": "10906d7a720981bc56d50565edffa3c9f89a578e|2026-09-20T09:32:27-05:00|Review Epoch 11 consolidation and correct replay package",
+      "role": "bounded incident pointer",
+      "read_extent": "full text, lines1-22",
+      "source_head": "9202e7ea12a75dac38eaa980c88008b41a4a16c0"
+    },
+    {
+      "relative_path": "results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+      "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+      "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b",
+      "lines": 1081,
+      "bytes": 53278,
+      "git_blob": "7792562826f5bc7b684d7c9d9054030a14ddbee5",
+      "latest_path_history": "676803900036614c3b8e0dde07df22633a1ee159|2026-09-20T09:22:34-05:00|Integrate Epoch 11 consolidation producer",
+      "role": "bounded incident pointer",
+      "read_extent": "full text, lines1-1081",
+      "source_head": "9202e7ea12a75dac38eaa980c88008b41a4a16c0"
+    },
+    {
+      "relative_path": "results/inbox/e7-symbolic-quotient-v1/PRC-REVIEW.md",
+      "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e7-symbolic-quotient-v1/PRC-REVIEW.md",
+      "sha256": "9c5f3f36959134dca381defeb5bb3b2603f61f2a140f2a98cc59c95aadae969d",
+      "lines": 44,
+      "bytes": 2052,
+      "git_blob": "cd5998f9f2114dcf414274db1fd81429cc91cb1c",
+      "latest_path_history": "ce8fc1d9131c215fb7c52e1ee0179ec7e1c14958|2026-09-19T11:32:18-05:00|Review Epoch 7 symbolic quotient refutation",
+      "role": "bounded incident pointer",
+      "read_extent": "full text, lines1-44",
+      "source_head": "9202e7ea12a75dac38eaa980c88008b41a4a16c0"
+    },
+    {
+      "relative_path": "results/inbox/e4-stable-ak3-intake-v1/PRC-ERRATUM.md",
+      "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e4-stable-ak3-intake-v1/PRC-ERRATUM.md",
+      "sha256": "736a5125f5e217ae9fdbf6f4cb6038529bbf639d24bb20650a40412449003c96",
+      "lines": 29,
+      "bytes": 1759,
+      "git_blob": "0569dac60cc51f431ccd7e656fe892bd36731a49",
+      "latest_path_history": "314cdd5d4f15f319993d2fc666a68672d56dfa38|2026-09-17T16:49:00-05:00|Close Wave 2, admit the primitive exit, open Wave 3",
+      "role": "bounded incident pointer",
+      "read_extent": "full text, lines1-29",
+      "source_head": "9202e7ea12a75dac38eaa980c88008b41a4a16c0"
+    }
+  ],
+  "proposals": [
+    {
+      "id": "PR-O01",
+      "title": "Consolidation replay pointers, determinism and withdrawal count",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "corrected producer packaging claims",
+      "episode_key": "e11-packaging",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/PRC-ERRATUM.md",
+          "lines": [
+            3,
+            17
+          ],
+          "sha256": "b05c3144ad0d35642a95512b0aaace66a2b7893452a18b18f2357942e961b158"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-11-CLOSEOUT.md",
+          "lines": [
+            36,
+            44
+          ],
+          "sha256": "916af9c821dfa20a169e2c21ce606cf111efd3533c9ed783009ad39f29d96e96"
+        }
+      ],
+      "claim_at_risk": "Manifest names executable checks; summary is byte deterministic; ten withdrawal exercises ran.",
+      "recorded_problem": "Two named scripts did not exist, real shear replay was understated; wall time in stored summary contradicted determinism and made hash table stale; actual receipt has eleven withdrawals.",
+      "discovery_recovery_as_recorded": "PRC corrected manifest, moved elapsed timing outside deterministic receipt, and corrected count. Closeout reports two identical rerun summaries after repair.",
+      "disposition_limits": "Three defect dimensions in one packaging intake. No mathematical outcome altered. This worker did not read original script or hash-table bytes or rerun package.",
+      "scope_or_region": "N/A",
+      "gp_catch": null,
+      "gp_conditional_comment": "No newly executed GP catch is claimed; explicit source/model/scope binding and independent replay would be prerequisites.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    },
+    {
+      "id": "PR-O02",
+      "title": "Producer assay graph append outside authorized write scope",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "literal custody/process deviation",
+      "episode_key": "e11-out-of-bound-append",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/PRC-ERRATUM.md",
+          "lines": [
+            19,
+            22
+          ],
+          "sha256": "b05c3144ad0d35642a95512b0aaace66a2b7893452a18b18f2357942e961b158"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-11-CLOSEOUT.md",
+          "lines": [
+            38,
+            44
+          ],
+          "sha256": "916af9c821dfa20a169e2c21ce606cf111efd3533c9ed783009ad39f29d96e96"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            3,
+            8
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/coordination/PRG-E11-CLOSEOUT-REVIEW.md",
+          "lines": [
+            32,
+            35
+          ],
+          "sha256": "efd6e4e8cb82d12bb5f5355b6feff5181571551200c5a6b4a3f93ddddccb46c7"
+        }
+      ],
+      "claim_at_risk": "Treat producer graph append as authorized campaign state.",
+      "recorded_problem": "Raw receipt records graph_effect APPENDED and changed before/after hashes in producer worktree. PRC excluded append from integration and preserved raw event evidence.",
+      "discovery_recovery_as_recorded": "Closeout records authoritative campaign graph byte-identical to launch base; PRG accepts custody repair without erasing deviation.",
+      "disposition_limits": "No copying/folding of event stream here. Receipt before/after hashes are not hashes of current authoritative graph. No wrong mathematical license established.",
+      "scope_or_region": "N/A",
+      "gp_catch": null,
+      "gp_conditional_comment": "No newly executed GP catch is claimed; explicit source/model/scope binding and independent replay would be prerequisites.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    },
+    {
+      "id": "PR-Q03",
+      "title": "Signed-BIG run-length abstraction is not transition faithful",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "rejected design conjecture / literal candidate defect",
+      "episode_key": "e7-signed-BIG",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e7-symbolic-quotient-v1/PRC-REVIEW.md",
+          "lines": [
+            3,
+            35
+          ],
+          "sha256": "9c5f3f36959134dca381defeb5bb3b2603f61f2a140f2a98cc59c95aadae969d"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-7-CLOSEOUT.md",
+          "lines": [
+            68,
+            87
+          ],
+          "sha256": "6e458537eac2f2fbbd007c6db50064b712cc8f97be51f8833bd211d6d9dcc6dd"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            381,
+            483
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        }
+      ],
+      "claim_at_risk": "Treat hard-threshold symbolic classes as an exact move quotient supporting exact n6 distance.",
+      "recorded_problem": "At donor bAABa, a^4ba^3 and a^5ba^3 share a class; admissible conj1-X gives a^3ba^4 versus a^4ba^4, different classes. Source reports458 violations.",
+      "discovery_recovery_as_recorded": "PRC reproduced calibration counts and all violations, then independently replayed smallest witness against pinned official core. No n6 continuation after failure.",
+      "disposition_limits": "One candidate-family refutation, not458 independent incidents. It refutes specified exact quotient; no automatic claim that every abstraction fails or every separately justified relaxation bound is impossible. No actual incorrect n6 result was delivered.",
+      "scope_or_region": "BOTH",
+      "gp_catch": null,
+      "gp_conditional_comment": "No newly executed GP catch is claimed; explicit source/model/scope binding and independent replay would be prerequisites.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    },
+    {
+      "id": "PR-C04",
+      "title": "Budget-limited sieve described as saturation/unreachable",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "corrected own closeout overclaim",
+      "episode_key": "e5-sieve-saturation",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            95,
+            112
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            153,
+            169
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/RETROSPECTIVE.md",
+          "lines": [
+            59,
+            71
+          ],
+          "sha256": "f0cd169ebbf77ea32c6479a5777371a4cb370da04c1cab7c7f93d918d872ea2e"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-6-CLOSEOUT.md",
+          "lines": [
+            56,
+            65
+          ],
+          "sha256": "6e973688a7b4ea86cdbcc6ca8c723ecfcdf433063bf89efa897dd35dc7f0ed36"
+        }
+      ],
+      "claim_at_risk": "'Stalls at30%' and50% coverage appears unreachable by small finite quotients.",
+      "recorded_problem": "Of1363 UNKNOWN orientation cells,770 never reached S7 and593 exhausted four run families; three SL2 families and S7 positive control not attempted.491 two-sided negatives combine Britton+sieve.",
+      "discovery_recovery_as_recorded": "Erratum at Epoch6 opening re-read Lane F evidence, separated structural blindness, tested cells and not-reached cells; later four-label accounting retained.",
+      "disposition_limits": "Repeated prose/erratum/retrospective one episode. Budget null cannot certify algorithm saturation. Raw sweep/control receipts not read; source counts remain attributed.",
+      "scope_or_region": "BOTH",
+      "gp_catch": null,
+      "gp_conditional_comment": "No newly executed GP catch is claimed; explicit source/model/scope binding and independent replay would be prerequisites.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    },
+    {
+      "id": "PR-C05",
+      "title": "Beam labeled exact DP; exact scheduler not delivered",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "corrected method/authority claim",
+      "episode_key": "e6-beam-versus-DP",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-6-CLOSEOUT.md",
+          "lines": [
+            72,
+            100
+          ],
+          "sha256": "6e973688a7b4ea86cdbcc6ca8c723ecfcdf433063bf89efa897dd35dc7f0ed36"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/RETROSPECTIVE.md",
+          "lines": [
+            26,
+            32
+          ],
+          "sha256": "f0cd169ebbf77ea32c6479a5777371a4cb370da04c1cab7c7f93d918d872ea2e"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-7-CLOSEOUT.md",
+          "lines": [
+            95,
+            103
+          ],
+          "sha256": "6e458537eac2f2fbbd007c6db50064b712cc8f97be51f8833bd211d6d9dcc6dd"
+        }
+      ],
+      "claim_at_risk": "Promote Lane C to requested exact site-sequencing DP and n8 no-path as exact negative.",
+      "recorded_problem": "Implemented level-synchronous heuristic beam; n8 budget-limited, n9/10 not attempted; bases113/212/406 not known optimal. Later Epoch7 exact scheduler likewise absent.",
+      "discovery_recovery_as_recorded": "PRC corrects method name and completes missing base transport before G2. Distinguish successful literal certificates from missing optimum proof.",
+      "disposition_limits": "Epoch6 method mislabel is one episode; Epoch7 later bounded search is honest non-delivery, not another proved false exact output.",
+      "scope_or_region": "BOTH",
+      "gp_catch": null,
+      "gp_conditional_comment": "No newly executed GP catch is claimed; explicit source/model/scope binding and independent replay would be prerequisites.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    },
+    {
+      "id": "PR-T06",
+      "title": "A* heuristic not admissible under inversion",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "literal packet/search-method defect corrected",
+      "episode_key": "e5-astar-heuristic",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            105,
+            112
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            128,
+            136
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/RETROSPECTIVE.md",
+          "lines": [
+            26,
+            32
+          ],
+          "sha256": "f0cd169ebbf77ea32c6479a5777371a4cb370da04c1cab7c7f93d918d872ea2e"
+        }
+      ],
+      "claim_at_risk": "Use packet heuristic as admissible A* lower bound.",
+      "recorded_problem": "Inversion negates e_a; source says heuristic violated admissibility and Lane E corrected it.",
+      "discovery_recovery_as_recorded": "Correction before accepted scoped search results, with independently replayed lane output reported.",
+      "disposition_limits": "Detailed heuristic/code not among five pointers; no concrete falsely claimed optimum or published wrong path inferred. GP arithmetic is not automatically a search admissibility checker.",
+      "scope_or_region": "SCOPE",
+      "gp_catch": null,
+      "gp_conditional_comment": "No newly executed GP catch is claimed; explicit source/model/scope binding and independent replay would be prerequisites.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    },
+    {
+      "id": "PR-T07",
+      "title": "Finite SL2 sieve comparison must include inversion classes",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "summary-reported corrected soundness issue",
+      "episode_key": "SL2-inversion-class",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            46,
+            59
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/RETROSPECTIVE.md",
+          "lines": [
+            26,
+            32
+          ],
+          "sha256": "f0cd169ebbf77ea32c6479a5777371a4cb370da04c1cab7c7f93d918d872ea2e"
+        }
+      ],
+      "claim_at_risk": "Treat inversion as free in exact SL2(Fp) conjugacy comparison.",
+      "recorded_problem": "At p congruent3 mod4, unipotent classes at trace±2 swap under inversion; retrospective identifies unsound draft comparison, closeout says sieve handles this.",
+      "discovery_recovery_as_recorded": "Producer/reviewer discipline recorded correction.",
+      "disposition_limits": "No literal code or bad-output receipt read. Retrospective's Epoch6-draft reference and Epoch5 closeout chronology are both retained without inventing one exact first-discovery date.",
+      "scope_or_region": "BOTH",
+      "gp_catch": null,
+      "gp_conditional_comment": "No newly executed GP catch is claimed; explicit source/model/scope binding and independent replay would be prerequisites.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    },
+    {
+      "id": "PR-C08",
+      "title": "Relative-HNN convention and unlifted-grid claims overpromoted",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "corrected own producer claims",
+      "episode_key": "e2-relative-HNN-corrections",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            311,
+            364
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            288,
+            296
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "claim_at_risk": "Promote compiled witness label, family conjugator and negative multiseam verdict using unchecked conventions.",
+      "recorded_problem": "First producer had fail-open right-side byte check, t=a rather than A, unsupported formula and missing max-rank traces. Correction v1 kept520 unlifted grid cells labeled compiled and only forward representative replays. Later multiseam had reversed Aff(Q) scaling, wrong forced exponents and invalid JSON.",
+      "discovery_recovery_as_recorded": "Correction v2 accepted scoped quotient/lift separation, five panel paths and representative tests. Multiseam corrected separately then195 direct comparisons accepted.",
+      "disposition_limits": "Grouped chronology with two subepisode keys: relative-HNN sign/lift correction and multiseam affine-scaling correction. Forty local grid lifts are not forty official certificates. Only summary grounding, no original payload/source read.",
+      "scope_or_region": "BOTH",
+      "gp_catch": null,
+      "gp_conditional_comment": "No newly executed GP catch is claimed; explicit source/model/scope binding and independent replay would be prerequisites.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    },
+    {
+      "id": "PR-T09",
+      "title": "Noncanonical Britton expressions falsely refuted valid quotient witnesses",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "recorded reviewer false negative",
+      "episode_key": "e2-n6-equality-test",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            149,
+            157
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            185,
+            197
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "claim_at_risk": "Reject three n6 quotient conjugacy witnesses by structural equality of noncanonical expressions.",
+      "recorded_problem": "Audit falsely refutes due to noncanonical Britton-reduced comparison; PRC confirms C*residual*C^-1=anchor for three named rows.",
+      "discovery_recovery_as_recorded": "Correction repairs equality test and105-position rotation matrix; subsequent literal-lift lane provides three official local AC certificates as source-reported.",
+      "disposition_limits": "One audit-test error, not three independent mathematical nonconjugacy results. Known valid quotient witnesses still required lift/replay before AC authority; local paths not competitive and not uploaded.",
+      "scope_or_region": "REGION",
+      "gp_catch": null,
+      "gp_conditional_comment": "No newly executed GP catch is claimed; explicit source/model/scope binding and independent replay would be prerequisites.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    },
+    {
+      "id": "PR-C10",
+      "title": "Incomplete or mislabeled direct rotation/checker matrix",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "recorded conformance-coverage correction",
+      "episode_key": "e2-direct-checker-matrices",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            230,
+            237
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            250,
+            275
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            185,
+            192
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "claim_at_risk": "Treat a claimed checker matrix as exhaustive direct developing_map comparison.",
+      "recorded_problem": "One repair omitted outside18 real rotations; later n7 producer/audit both missed direct matrix and audit mislabeled self-rotations as compatible pair rotations; n6 producer missed105-position matrix.",
+      "discovery_recovery_as_recorded": "Scoped corrections followed by recorded195,304 or105-position comparisons depending on packet.",
+      "disposition_limits": "Distinct n6/n7/multiseam conformance episodes grouped, not one count. Missing checks alone do not prove every mathematical verdict false. No matrix bodies read.",
+      "scope_or_region": "N/A",
+      "gp_catch": null,
+      "gp_conditional_comment": "No newly executed GP catch is claimed; explicit source/model/scope binding and independent replay would be prerequisites.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    },
+    {
+      "id": "PR-C11",
+      "title": "GP prefix-custody missing-row split misstated",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "corrected accounting claim",
+      "episode_key": "e2-prefix-count-split",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            250,
+            276
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "claim_at_risk": "Report181 missing rows as161 shard/benchmark plus20 metered-wave.",
+      "recorded_problem": "Correct split142+39; zero-hit totals retained.",
+      "discovery_recovery_as_recorded": "GP custody count correction reported independently reproduced aggregate1076/895/181/494461/0/0.",
+      "disposition_limits": "One numeric split correction; no exact literal prefix was in custody, so GP dispatch remained blocked. Not a failed semantic proof or new GP execution.",
+      "scope_or_region": "N/A",
+      "gp_catch": null,
+      "gp_conditional_comment": "No newly executed GP catch is claimed; explicit source/model/scope binding and independent replay would be prerequisites.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    },
+    {
+      "id": "PR-C12",
+      "title": "Epoch4 source chain misquoted and attribution overstated",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "corrected own source-reading claims; literature version status attributed",
+      "episode_key": "e4-ak3-source-erratum",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e4-stable-ak3-intake-v1/PRC-ERRATUM.md",
+          "lines": [
+            1,
+            29
+          ],
+          "sha256": "736a5125f5e217ae9fdbf6f4cb6038529bbf639d24bb20650a40412449003c96"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            72,
+            103
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "claim_at_risk": "Receipt says endpoint total31, automorphism x->xy in Prop1.2, Carreras inherits stable AK3 claim, and Lisitsa never revisits it.",
+      "recorded_problem": "Erratum gives total32, x->xy^-1 for Prop1.2; xy belongs to another proof. Carreras only bibliography citation; publisher indexed Lisitsa abstract later retracts basis and leaves AK3 unresolved, unlike arXivv1.",
+      "discovery_recovery_as_recorded": "Second outside review; original receipt preserved, manifest and conjecture scope corrected. Lane D already had correct length/sign.",
+      "disposition_limits": "Four source claims in one admitted-receipt erratum. Original primary papers, indexed abstract and chain receipt not read by worker. No stable AK3 proof/certificate or journal theorem verdict supplied.",
+      "scope_or_region": "BOTH",
+      "gp_catch": null,
+      "gp_conditional_comment": "No newly executed GP catch is claimed; explicit source/model/scope binding and independent replay would be prerequisites.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    },
+    {
+      "id": "PR-C13",
+      "title": "Historical closeout, frontier and fixture scope corrections",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "recorded own scope/custody corrections",
+      "episode_key": "closeout-and-frontier-repairs",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            105,
+            112
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            171,
+            173
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-6-CLOSEOUT.md",
+          "lines": [
+            89,
+            100
+          ],
+          "sha256": "6e973688a7b4ea86cdbcc6ca8c723ecfcdf433063bf89efa897dd35dc7f0ed36"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-7-CLOSEOUT.md",
+          "lines": [
+            93,
+            106
+          ],
+          "sha256": "6e458537eac2f2fbbd007c6db50064b712cc8f97be51f8833bd211d6d9dcc6dd"
+        }
+      ],
+      "claim_at_risk": "Use Epoch4 bound/residual prose globally; count only8 k1 rows; use mixed Epoch5/6 F3 or stale records as current gates.",
+      "recorded_problem": "Sources record overstated121 bound/misstated mates,16 rather than8 k1 members, mixed F3 units needing split, missing3 base rows in frontier, and dated record207/402 rather than209/403.",
+      "discovery_recovery_as_recorded": "Errata and fresh dated frontier repairs; historical F3 remains immutable.",
+      "disposition_limits": "Grouped distinct subepisodes, not an independent incident count. Exact Epoch4 lower-bound erratum and F3 repair body not opened due pointer cap. Literal witness validity not refuted by dated comparator change.",
+      "scope_or_region": "BOTH",
+      "gp_catch": null,
+      "gp_conditional_comment": "No newly executed GP catch is claimed; explicit source/model/scope binding and independent replay would be prerequisites.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    },
+    {
+      "id": "PR-G14",
+      "title": "Six-pair assay does not establish AC semantic catch or licensed withdrawal",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "intentional hostile challenge with narrowly qualified observations",
+      "episode_key": "e11-GP-sixpair",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            10,
+            224
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            227,
+            378
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            381,
+            559
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            562,
+            713
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            715,
+            832
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            835,
+            1081
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/coordination/PRG-E11-CLOSEOUT-REVIEW.md",
+          "lines": [
+            18,
+            30
+          ],
+          "sha256": "efd6e4e8cb82d12bb5f5355b6feff5181571551200c5a6b4a3f93ddddccb46c7"
+        }
+      ],
+      "claim_at_risk": "Claim GP caught three AC reasoning mistakes, licensed authentic conclusions, or revoked them on withdrawal.",
+      "recorded_problem": "P2/P4/P5 EMPTY refused only for missing certificate; P1/P3/P6 bilateral adapter gaps. Authentic runtime_licensed=false in all6. Eleven exercises summarize unchanged false licenses; P1/P3 witness-removal declarations refused because live replacement already exists.",
+      "discovery_recovery_as_recorded": "Raw receipt includes commands, records, returncodes, explanation summaries and final8 findings. Doubts on P1/P3/P6 explicitly by hand; P6 also generic ASSERTED-WITNESS debt.",
+      "disposition_limits": "Do not promote producer labels ACCEPT_AUTHENTIC/REFUSE_OVERCLAIM to runtime authority. Baseline0/6 is only source closeout report, not read raw plain-baseline body; no superiority/cost conclusion. P6 totals differ slightly even while both adapter gaps, so uniform wording is only a category summary.",
+      "scope_or_region": "SCOPE",
+      "gp_catch": null,
+      "gp_conditional_comment": "Known recorded catch is structural missing-certificate refusal, not AC semantics. Any AC adapter proof or licensed revocation behavior requires distinct evidence; unknown catch remains null.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    },
+    {
+      "id": "PR-T15",
+      "title": "Normalized matching identity not literal checkpoint source",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "recorded representation/custody defect plus later intentional probe",
+      "episode_key": "e1-ac00174-literal-frame",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            393,
+            398
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+          "lines": [
+            25,
+            112
+          ],
+          "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            405,
+            413
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "claim_at_risk": "Use normalized matching_key interchangeably with literal row for checkpoint history replay.",
+      "recorded_problem": "Source assay attributes ac00174 edge-history failure to normalized source, recovering only with literal source bytes; Epoch1 exact4776-edge149-history review reported.",
+      "discovery_recovery_as_recorded": "Epoch1 repaired source binding; Epoch11 P1 reifies authentic/hostile prose and manually records doubt, without runtime authority.",
+      "disposition_limits": "Historical source correction not independently re-executed; later P1 is a probe repeating the same boundary, not a second wrong mathematical result.",
+      "scope_or_region": "REGION",
+      "gp_catch": null,
+      "gp_conditional_comment": "No newly executed GP catch is claimed; explicit source/model/scope binding and independent replay would be prerequisites.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    },
+    {
+      "id": "PR-T16",
+      "title": "Loop-erasure and metrics/binding repairs limit completeness claims",
+      "origin": "own campaign/tool unless explicitly attributed to literature",
+      "kind": "summary-reported tool/process defects",
+      "episode_key": "e1-postprocessing-repairs",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            456,
+            466
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            531,
+            558
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "claim_at_risk": "Infer complete loop removal/optimality or unqualified descriptive assay source correspondence.",
+      "recorded_problem": "Loop erasure drops cut-state lookup after repeat, potentially missing later loops; emitted paths all replay. Later PRC repairs runner accounting, cap-classification tests and payload aliasing/source correspondence.",
+      "discovery_recovery_as_recorded": "Historical review retains valid certificates while narrowing completeness/metrics claims.",
+      "disposition_limits": "Distinct subepisodes loop-erasure, metered accounting, payload/source binding grouped. No code/details read; no invalid accepted AC path inferred.",
+      "scope_or_region": "N/A",
+      "gp_catch": null,
+      "gp_conditional_comment": "No newly executed GP catch is claimed; explicit source/model/scope binding and independent replay would be prerequisites.",
+      "core_expressible": null,
+      "core_would_refuse": null,
+      "cost": null,
+      "shipping_wrong_claim": null,
+      "shipping_reliance": null,
+      "execution_status": "historical source evidence only; not newly replayed"
+    }
+  ],
+  "assay_read_assessment": {
+    "source": {
+      "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+      "lines": [
+        1,
+        1081
+      ],
+      "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b"
+    },
+    "reported_build": "GP0.37.0 / ac4155787207e2847d248cffed7be871d5dcd577 / dirtyfalse / format8 / epoch12 / MCP2025-06-18 / SingularBackend implementation5 protocol2",
+    "schema": "pigeon-river-e11-gp-six-pair-assay/v1",
+    "reported_script_sha256": "2bac9ab0028996ee7481802f4bf60553eb426ae95260030d6a7792c9d1783425",
+    "reported_worktree_graph_before": "f5d42a56016a8ec42e2d0fd70e930a216f1016ccfead87e0df76d4fd61640e54",
+    "reported_worktree_graph_after": "9e8eb60a76aa97f001e31fc8f493034123de8ac744034024391353e6c4111fea",
+    "worktree_graph_effect": "APPENDED; excluded from authoritative integration per erratum/closeout",
+    "structural_refusals": [
+      "P2 restricted obstruction -> global noAC",
+      "P4 complete label accounting -> every test ran",
+      "P5 declared reduced-filter enumeration -> nonthickenability"
+    ],
+    "structural_limit": "All3 are missing-certificate EMPTY refusals. No source-specific AC reasoning inspection demonstrated.",
+    "bilateral_adapter_gaps": [
+      "P1 literal source versus normalized identity",
+      "P3 quotient-faithfulness counterexample versus exact distance",
+      "P6 bridge endpoint versus complete solve"
+    ],
+    "runtime_licensed_authentic": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "withdrawal_exercises": 11,
+    "unchanged_summary_exercises": 11,
+    "refused_removal_exercises": [
+      "P1 removed_witness returncode2: replacement already live",
+      "P3 removed_witness returncode2: replacement already live"
+    ],
+    "withdrawal_limit": "No prior runtime license. Sequential exercises are not11 demonstrated successful withdrawals or semantic revocations. Unchanged summaries therefore do not establish stale licensed-conclusion retention.",
+    "manual_judgments": "Final DOUBT findings for hostileP1/P3/P6 say 'raised ... by hand'; scope doubts likewise. P6 also generic ASSERTED-WITNESS debt. Finding persistence is not native proof of AC overclaim.",
+    "final_check_reported": {
+      "returncode": 1,
+      "findings": 8,
+      "models": 0,
+      "edges": 0,
+      "claims": 23,
+      "inferences": 0
+    },
+    "pair_labels_limit": "P2/P4/P5 producer labels ACCEPT_AUTHENTIC and REFUSE_OVERCLAIM do not imply runtime license or semantic classification. P6 authentic totals differ from hostile totals while both are adapter gaps.",
+    "baseline_limit": "Closeout/PRG report identical plain-baseline0/6, but raw plain-baseline.json not read. No competent AC-specific checker comparison or favorable engineering cost established."
+  },
+  "cost_context": {
+    "incident_cost": null,
+    "recovery_cost": null,
+    "attributed_examples": [
+      {
+        "source": {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            495,
+            503
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        },
+        "reported": "Epoch1 baseline11/12 search1149.58CPU seconds/1244.23wall seconds; cause of difference unknown.",
+        "limit": "Search workload, not cost of a correction or shipping episode."
+      },
+      {
+        "source": {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            126,
+            149
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        "reported": "Six lanes within budget; replay entrypoint timing estimates4s,11min,24min,2min,6min,5min,30s,25min.",
+        "limit": "Published source estimates, not measured by this pass or incident-cost attribution."
+      },
+      {
+        "source": {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/RETROSPECTIVE.md",
+          "lines": [
+            112,
+            118
+          ],
+          "sha256": "f0cd169ebbf77ea32c6479a5777371a4cb370da04c1cab7c7f93d918d872ea2e"
+        },
+        "reported": "Review cheap relative to errors and Epoch8 about229CPU seconds versus larger design/review effort.",
+        "limit": "Retrospective opinion/resource context; token/money/incident recovery cost unknown."
+      }
+    ]
+  },
+  "no_distinct_incident_dispositions": [
+    {
+      "item": "Official submissions, competition standing and bridge positives",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-6-CLOSEOUT.md",
+          "lines": [
+            16,
+            24
+          ],
+          "sha256": "6e973688a7b4ea86cdbcc6ca8c723ecfcdf433063bf89efa897dd35dc7f0ed36"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-6-CLOSEOUT.md",
+          "lines": [
+            43,
+            70
+          ],
+          "sha256": "6e973688a7b4ea86cdbcc6ca8c723ecfcdf433063bf89efa897dd35dc7f0ed36"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            436,
+            484
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "disposition": "Historical accepted submissions and dated standing attributed, no live board/API read. A valid certificate above record is not invalid; no ordinary/stable/Proof-track promotion inferred."
+    },
+    {
+      "item": "Arbitrary-mate compiler and priced null panel",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-7-CLOSEOUT.md",
+          "lines": [
+            38,
+            59
+          ],
+          "sha256": "6e458537eac2f2fbbd007c6db50064b712cc8f97be51f8833bd211d6d9dcc6dd"
+        }
+      ],
+      "disposition": "Admitted compiler and73977 official-core replays source-reported.52 already-held paths and1997 NO_WITNESSED_BRIDGE classify only declared frames/q range/held suffix panel. No global nonexistence or new endpoint."
+    },
+    {
+      "item": "Exact211-move tightening",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-7-CLOSEOUT.md",
+          "lines": [
+            61,
+            66
+          ],
+          "sha256": "6e458537eac2f2fbbd007c6db50064b712cc8f97be51f8833bd211d6d9dcc6dd"
+        }
+      ],
+      "disposition": "Source says literal whole-file control at work8558 passes, four moves above frozen207; not known optimal and not uploaded. No wrong claim episode inferred."
+    },
+    {
+      "item": "Fixed-donor exits, C7 and geometry null results",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            46,
+            59
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-6-CLOSEOUT.md",
+          "lines": [
+            62,
+            80
+          ],
+          "sha256": "6e973688a7b4ea86cdbcc6ca8c723ecfcdf433063bf89efa897dd35dc7f0ed36"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/RETROSPECTIVE.md",
+          "lines": [
+            34,
+            85
+          ],
+          "sha256": "f0cd169ebbf77ea32c6479a5777371a4cb370da04c1cab7c7f93d918d872ea2e"
+        }
+      ],
+      "disposition": "Scoped quotient obstructions/bounded no-exit results do not settle global AC. C7 consistent on sample; reduced geometry predicate without completeness/export witness cannot establish nonthickenability. Epoch9/10 originals not read."
+    },
+    {
+      "item": "Wider shear, literature attribution and stable AK3",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/RETROSPECTIVE.md",
+          "lines": [
+            120,
+            144
+          ],
+          "sha256": "f0cd169ebbf77ea32c6479a5777371a4cb370da04c1cab7c7f93d918d872ea2e"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e4-stable-ak3-intake-v1/PRC-ERRATUM.md",
+          "lines": [
+            16,
+            29
+          ],
+          "sha256": "736a5125f5e217ae9fdbf6f4cb6038529bbf639d24bb20650a40412449003c96"
+        }
+      ],
+      "disposition": "Unverified novelty/replay debt and primary attribution gaps remain. Neither lack of retrieved source nor normal-closure witnesses prove or disprove stable AK3. No general proof audit conducted."
+    },
+    {
+      "item": "Epoch3 interchange mismatch",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            117,
+            135
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "disposition": "Summary-reported fixed-order run loses to baseline; auditor rejects raw1792-versus-submitted366 block mapping and13-versus9 input binding. Preserve as unexpanded custody issue, not a new inspected12th+ dependency or general algorithm refutation."
+    },
+    {
+      "item": "Other process notices",
+      "sources": [
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/EPOCH-5-CLOSEOUT.md",
+          "lines": [
+            105,
+            112
+          ],
+          "sha256": "2fd2be7a735437a10f8686d2d771c667feeb8d00fd82b5cb4afcbfceb0bb1dd4"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            263,
+            283
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        },
+        {
+          "path": "$DEV/math-research/campaigns/ac-2gen/CHECKPOINT.md",
+          "lines": [
+            488,
+            538
+          ],
+          "sha256": "006cd2976fae0457e5162411668791b98d52611a9c98a1235f27960f7e66cf2a"
+        }
+      ],
+      "disposition": "Import finder shadowing, stale assay receipt swept by commit-a, Windows path length, stale session/login/reservation and metering issues reported. No mutation/credential/source-log audit or mathematical consequence invented."
+    }
+  ],
+  "custody": {
+    "read_formats": "Markdown closeout/review/erratum/retrospective; actual JSON command receipt with raw argv/returncode/stdout/stderr/declaration records, explanation authority/totals/license, withdrawal before/after, graph hashes/build identity and final findings.",
+    "receipt_contract": "Literal source bytes and official commit/move table; donor/target words and orientation; move sequence versus quotient witness/lift; accepted endpoint/shared suffix; declared grammar, finite-quotient family and state/time/work cap; source/build/configuration/hash identity. Matching keys are identity aids, not literal replay substitutes.",
+    "authority_layers": "Local compiled path -> literal official-core/whole-file verification -> dated record comparison -> server submission outcome. Quotient decision, lift, literal AC, stable rank budget, family coverage and competition acceptance are distinct gates.",
+    "scope_contract": "Fixed donor/orientation, selected mate, signed frame/q range, bounded panel and held anchors, quotient family/field and normalization, target move grammar and declared abstraction, reduced geometry/export interface; null search remains cap/domain-specific.",
+    "consolidation_limit": "Ten-entry manifest and selected replay package reported admitted with errata, not proof of every parameterized claim or publication-ready theorem. PRG strategic acceptance is explicitly not another independent replay.",
+    "manifest_format_limit": "CLAIM-EVIDENCE-MANIFEST.json is a selected harvest pointer only. Its raw bytes/hash/size were inspected as metadata but its content/schema was not opened within12-document cap.",
+    "determinism": "Stored replay summary repaired to exclude wall time; timing printed separately. Before/after identical summaries are historical PRC reports, not this worker reruns.",
+    "harvest_pointers": [
+      {
+        "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/gp/receipts/six-pair-assay.json",
+        "exists": true,
+        "bytes": 53278,
+        "sha256": "753d7c910df9720c6b449c0dff33b069234f74489ebe3ed9850975671e7f348b",
+        "content_status": "full content read in pointer allowance",
+        "copied": false
+      },
+      {
+        "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/CLAIM-EVIDENCE-MANIFEST.json",
+        "exists": true,
+        "bytes": 22884,
+        "sha256": "e1595c666091e291196fcf929e73fcf73b10c9055d1b6b98c2d5efd8de982172",
+        "content_status": "metadata only; content not read",
+        "copied": false
+      },
+      {
+        "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e11-consolidation-gp-v1/replay/receipts/run-all-summary.json",
+        "exists": true,
+        "bytes": 270,
+        "sha256": "ec5c8425513f05cbb58c91e52df10a70121061dba54654ef4672ffd9337d866f",
+        "content_status": "metadata only; content not read",
+        "copied": false
+      },
+      {
+        "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e7-symbolic-quotient-v1/receipts/counterexample-search.json",
+        "exists": true,
+        "bytes": 36582,
+        "sha256": "c9a771478caec21d6c8c5f15832db34e155f449441ac8067dfbc02ce480d42da",
+        "content_status": "metadata only; content not read",
+        "copied": false
+      },
+      {
+        "path": "$DEV/math-research/campaigns/ac-2gen/results/inbox/e4-stable-ak3-intake-v1/receipts/chain.json",
+        "exists": true,
+        "bytes": 8441,
+        "sha256": "2b67f60cdf10334d9ff409ba6290b68a3385a79ee0b557d4f38a4c36e50e751c",
+        "content_status": "metadata only; content not read",
+        "copied": false
+      }
+    ],
+    "harvest_count": 5,
+    "harvest_executed": false
+  },
+  "necessary_remaining": [
+    "Parent integrates these bounded dispositions and chooses whether grouped summary-only historical corrections need later exact neutral-case evidence. No cases or expectations proposed/admitted here.",
+    "Exact unread dependency for the Epoch4 bound/residual correction: $DEV/math-research/campaigns/ac-2gen/EPOCH-4-CLOSEOUT.md (located by inventory; not read under12-document cap). The Epoch5 summary alone does not identify its exact corrected bound statement. For any independent Epoch2 equality/convention diagnosis, the original checker/body and accepted e2-n6-multiseam-v1 receipt must be scoped separately; they were not opened here.",
+    "Primary literature texts/versioned indexed abstract are required before upgrading the stableAK3/source-attribution statements beyond attributed erratum. No external fetch/render lead commissioned.",
+    "Any broader GP semantic or revocation assertion needs an AC interpretation contract, earned license and successful scoped dependency withdrawal; existing assay does not supply them. No rerun or kernel expansion authorized.",
+    "Parent harvest may use only the five selected pointers with sizes/byte hashes. Costs, reliance and wrong shipping may remain unknown; metadata gaps do not authorize an unbounded followup."
+  ]
+}

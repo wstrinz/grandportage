@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "GP-X383",
+  "seed": null,
+  "title": "Operational 65.4: digest filesystem custody boundary",
+  "situation": "CLI --emit-review output names its own bound manifest or receipt; separate-path output is the control.",
+  "inputs": {
+    "incident_row": "65.4",
+    "vector": {
+      "operation": "--emit-review",
+      "output_targets": [
+        "bound manifest path",
+        "bound receipt path"
+      ],
+      "control": "separate output path"
+    },
+    "retained_evidence_refs": [
+      "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/3",
+      "reports/FRONTIER-BUNDLE-BOUNDARIES.json#/controls/4"
+    ],
+    "observation_layer": "retained_bounded_diagnostic"
+  },
+  "attempted_conclusion": "Allow emitting review to a protected input path.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "The operational inference is unsupported by the bounded control: Bound source input bytes must remain unchanged."
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "path": "grandportage/frontier_bundle.py",
+      "line": 360,
+      "anchor": "def emit_review_receipt(report, path):",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577"
+    }
+  ]
+}

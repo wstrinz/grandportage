@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "GP-X239",
+  "seed": null,
+  "title": "Computation recording: missing_source, structured, success",
+  "situation": "A computation must declare its relation and complete without execution errors before recording a produced model.",
+  "inputs": {
+    "declaration": "missing_source",
+    "request_form": "structured",
+    "process_outcome": "success"
+  },
+  "attempted_conclusion": "Accept the attempted computation as a completed operation and record its output model. No mathematical claim is inferred.",
+  "expected": {
+    "verdict": "REFUSE",
+    "reason": "Computation recording: missing_source, structured, success"
+  },
+  "scope_or_region": "N/A",
+  "sources": [
+    {
+      "repository": "gp-v037",
+      "commit": "ac4155787207e2847d248cffed7be871d5dcd577",
+      "path": "tests/test_boundary.py",
+      "line": 239,
+      "anchor": "def test_recording_a_step_whose_source_does_not_exist_is_refused("
+    }
+  ]
+}
