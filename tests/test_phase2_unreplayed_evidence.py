@@ -8,6 +8,15 @@ ROOT=Path(__file__).resolve().parents[1]
 spec=importlib.util.spec_from_file_location("unreplayed_evidence",ROOT/"tools/run-phase2-unreplayed-evidence.py")
 m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 
+
+# The historical oracle (oracle/history/checkout) is private custody material. A public snapshot
+# (marked by PUBLIC-SNAPSHOT-RECEIPT.json) excludes it, and workspace CI replays it; anywhere else
+# its absence fails.
+HISTORY_PRIVATE = ((ROOT / "PUBLIC-SNAPSHOT-RECEIPT.json").exists()
+                   and not (ROOT / "oracle/history/checkout").is_dir())
+
+
+@unittest.skipIf(HISTORY_PRIVATE, "public snapshot: the historical oracle is private")
 class UnreplayedEvidenceTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
