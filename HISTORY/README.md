@@ -17,3 +17,5 @@ valuable but whose statements are no longer safe as current-state guidance.
 
 `CURRENT.md` is the cold-start source for current facts. `HANDOFF.md` retains
 the longer chronological implementation narrative until it is split further.
+
+- `LIMITS-pre-0.50.md` is the Phase 2-era `LIMITS.md`, moved here verbatim on 2026-10-12.

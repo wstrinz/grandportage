@@ -29217,6 +29217,887 @@
    "shard": "Source000",
    "statement_sha256": "350de897d2c8798a32728ab2015542ca305029274d5e255428e239ca98f475d3",
    "theorem": "root_src_Q1_0_1"
+  },
+  {
+   "class": "empty",
+   "encoding": "947c989e574d50cb58bf5e9ea5b305908dcc413818d7834d18b25bc0e189f691",
+   "key": 1,
+   "label": "F7-empty-outside2",
+   "matroid": "F7",
+   "premise_key": null,
+   "receipt_sha256": "c3296a4f87fa303fd3738d4e7ff4fe398b4f7846c09383488244c90a885b3694",
+   "scope": {
+    "outside": [
+     2
+    ]
+   },
+   "shard": "Empty000",
+   "statement_sha256": "115ac06483cac7c30e0af24f435a3010ce5482266a4e92de5dde23e14ca57929",
+   "theorem": "unrealizable_F7_empty_outside2"
+  },
+  {
+   "class": "empty",
+   "encoding": "711efc153abcef03a98ffaf5aebb9c06436b7fab2b73ab843b66c809ffff018b",
+   "key": 10,
+   "label": "F7m-empty-2",
+   "matroid": "F7-",
+   "premise_key": null,
+   "receipt_sha256": "cb4a55b4711f6daf1e30819075211c33066c7828788ea13697801286ed00211c",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "f2098aca361ce60fb22b07bc3ff466a174653b586bc1bfbe9c8f6f06827a646e",
+   "theorem": "unrealizable_F7m_empty_2"
+  },
+  {
+   "class": "empty",
+   "encoding": "8e19641ec820810de65bd5ee7fe757cf7da816318fa2936d5b35bcd0b2c8bac8",
+   "key": 46,
+   "label": "NonPappus-empty",
+   "matroid": "NonPappus",
+   "premise_key": null,
+   "receipt_sha256": "6f10b6b9bec8146b45b7d3e571cd647333050b7bc871e3a1f4a472fa5a44260f",
+   "scope": {
+    "outside": []
+   },
+   "shard": "Empty000",
+   "statement_sha256": "4eb4a68b5221ffb61f98c812c1d0bedbc1505ab29e86d4e0fe868b9ece14c8a5",
+   "theorem": "unrealizable_NonPappus_empty"
+  },
+  {
+   "class": "empty",
+   "encoding": "a8d8e43c60c854747a8fb92e797854bbf622fb5a0c3c0243989c5aaf115087d7",
+   "key": 47,
+   "label": "NonDesargues-empty",
+   "matroid": "NonDesargues",
+   "premise_key": null,
+   "receipt_sha256": "6044c5fd3f5a1564104b4a0cdade79e6d14c533ba25d0447c3e90740f01a166d",
+   "scope": {
+    "outside": []
+   },
+   "shard": "Empty000",
+   "statement_sha256": "a09a2841ae8e4e778f6c3461c38ab0942f1a2dcb01b9e2e91ea36f506e5bbb99",
+   "theorem": "unrealizable_NonDesargues_empty"
+  },
+  {
+   "class": "empty",
+   "encoding": "dc3306a8cdf2e542e181693c6200db74febef6b75ad173148d0160493472ef24",
+   "key": 48,
+   "label": "PG23-empty",
+   "matroid": "PG23",
+   "premise_key": null,
+   "receipt_sha256": "8d60653d62d2f57eb6c28aa6f8fae9396816fe0d3cc7b425ee4718a632b3b93f",
+   "scope": {
+    "outside": [
+     3
+    ]
+   },
+   "shard": "Empty000",
+   "statement_sha256": "c6d62e500e8c441002c1944b5de78f73e07e0cd37d79659a9d827c0a6a83ba5d",
+   "theorem": "unrealizable_PG23_empty"
+  },
+  {
+   "class": "empty",
+   "encoding": "528bcc4cbbbee0ea005b5efa0987e743445e409737cdfbf6ce65154f8287ab08",
+   "key": 361,
+   "label": "C8-54-e2",
+   "matroid": "C8-54",
+   "premise_key": null,
+   "receipt_sha256": "60300b518dc783266bae0c931e49fdb7e026aa2f147592aff1d8c9e5f10ddcb6",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "30e2c5be69c0d6562ba0f86939d483589d58d43febfb8bc094d3c3f6f5e1cccf",
+   "theorem": "unrealizable_C8_54_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "30f0a2d5a359155eff5986aa08e3c57b9b82ebaca14350d39f1676cd7f4f13f7",
+   "key": 364,
+   "label": "C8-61-e2",
+   "matroid": "C8-61",
+   "premise_key": null,
+   "receipt_sha256": "3d54d307e7dcaed02e106e2956723d7cdf6499b014e355fe50583f26d874560d",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "166ca95bc8b5ce4daaf91dc4803c989db84f2959dcedc5d2f7949bc27191e96c",
+   "theorem": "unrealizable_C8_61_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "7841c4adcc1e4d9d9fa4b5c4fd8bdf9e1540256ac9790a6c2a1157c8926d9655",
+   "key": 367,
+   "label": "C8-62-e",
+   "matroid": "C8-62",
+   "premise_key": null,
+   "receipt_sha256": "0e38a9b60dc31d51848c0f8652093d3e44260cbd3fae159e4c27591a22e3501c",
+   "scope": {
+    "outside": [
+     2
+    ]
+   },
+   "shard": "Empty000",
+   "statement_sha256": "68d92199c64e70d85babf5f4b74d6a3762ef735aff6158904daaabee37d8dda3",
+   "theorem": "unrealizable_C8_62_e"
+  },
+  {
+   "class": "empty",
+   "encoding": "5907bb813ca6fcbffd6af5a0556e5fe9d1b24b5caeec3fd226092b2a2ee9c366",
+   "key": 370,
+   "label": "C8-63-e2",
+   "matroid": "C8-63",
+   "premise_key": null,
+   "receipt_sha256": "a02314e9c26985b59cdec065edac333efd5fababa79629c65c220e54583317b2",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "93b781494a33b0048a8e6d45f48ea737bbd8ed024a94089b2c0e3184ebfd92e7",
+   "theorem": "unrealizable_C8_63_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "bd8cda8bca38d98d79ccf28104895727eb1ada1f1b32619a5fc7aa5986ae9646",
+   "key": 372,
+   "label": "C8-65-e2",
+   "matroid": "C8-65",
+   "premise_key": null,
+   "receipt_sha256": "9fe1465beb0cdb617bf85f51da6f3b4dc491ef78acc04f61ccfb4d83a08b9f00",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "7b2ac163b026b2b4fbe7377d1208d403c75669eeec507b41e955d90583bd01b0",
+   "theorem": "unrealizable_C8_65_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "6328e16a9d25bf6cfed773db81f9a4ba7579bddadfa99c0d23cfb6b6f6acb807",
+   "key": 374,
+   "label": "C8-67-e",
+   "matroid": "C8-67",
+   "premise_key": null,
+   "receipt_sha256": "795baf19aa85500f4e7802b39f13ebf555bfd9decedc4bc84fb3d1e69e73e280",
+   "scope": {
+    "outside": [
+     2
+    ]
+   },
+   "shard": "Empty000",
+   "statement_sha256": "673e37dc5e9a6222d77204d16631c0ee2d79d9f377f995af19f323f1670b75a5",
+   "theorem": "unrealizable_C8_67_e"
+  },
+  {
+   "class": "empty",
+   "encoding": "576f0363da58156b31ef4f3bc8725df3122a6bc35a1396d14e4f8023b9829264",
+   "key": 1631,
+   "label": "C9-159-e2",
+   "matroid": "C9-159",
+   "premise_key": null,
+   "receipt_sha256": "d5fb42aa31430cace56547f27fabcbb807c92216d6354470c518929803d5ec40",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "2df873b56f7047134471be69334e9b6fd5d916adb0d69e64183bf733ac2ad5b4",
+   "theorem": "unrealizable_C9_159_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "170f22f9953984a656d0d87d9b05e2f73afd35f42d7520bceff004298262b029",
+   "key": 1635,
+   "label": "C9-231-e2",
+   "matroid": "C9-231",
+   "premise_key": null,
+   "receipt_sha256": "54d9610c1235784cdf9ee8ee362ae7e74fbe00de9ef6f4d238e37a23a74e008b",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "bd6776a24313afa8bdd05716734827541d9b3f16ade20d13a76ab3fad80ba24b",
+   "theorem": "unrealizable_C9_231_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "437292116a641a908590b502b2b787cc0ab559d0cadb7cc7f3cff294a1cacb21",
+   "key": 1638,
+   "label": "C9-237-e2",
+   "matroid": "C9-237",
+   "premise_key": null,
+   "receipt_sha256": "3aa37693c4b78228315a87d3872c4a4c3fa3c05cfc70b5854f076201d7bf3950",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "931519896987167b585eeb779857fa0ca27c870e3d08f12c24d7c2bfc8bc5d3a",
+   "theorem": "unrealizable_C9_237_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "47bf2e144e3c93c283e1d6e6ec10d7b2432a084d533db31cb0136c73b6141b02",
+   "key": 1641,
+   "label": "C9-243-e2",
+   "matroid": "C9-243",
+   "premise_key": null,
+   "receipt_sha256": "d79f2b1d4156fa15cb6a9d82901b3f2fe2269794b5401f0401443140cb8e8d0d",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "e7c0410a4f670f9fe22867608abbd9da85adeeec3efbbd11a230033e54ac1e55",
+   "theorem": "unrealizable_C9_243_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "0f98d2f07efb36a4ee6090414e4f46fb98009ad56fe34aaaeffb3b58445186f4",
+   "key": 1644,
+   "label": "C9-249-e2",
+   "matroid": "C9-249",
+   "premise_key": null,
+   "receipt_sha256": "38b1ecc859be2b090c771d9465a4085cfa66a2ecc55447e9190d77c853824c5d",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "738819bacb603c260ccc7bfd02653677d5473b8878e19a243f5b31dd8458aebf",
+   "theorem": "unrealizable_C9_249_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "9046c2c02436b90af6bffaaebc70c72eeec4e5ae1475f341182425614f5d8fac",
+   "key": 1648,
+   "label": "C9-273-e2",
+   "matroid": "C9-273",
+   "premise_key": null,
+   "receipt_sha256": "9978d0773b9260890491bd12a085307407b961a104807ec84a785d9fa41e3882",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "932c272bb43e4dcd9a3aa85a1a8b0524217f9a08cab638c91c6cd32aaf38e080",
+   "theorem": "unrealizable_C9_273_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "af6e45a8ae6c4faba610b23bef472d492f30a4213dc68453e34be49ffc6970da",
+   "key": 1735,
+   "label": "C9-148-e2",
+   "matroid": "C9-148",
+   "premise_key": null,
+   "receipt_sha256": "7d79946d54771262a7e2dfd94e141995609a8b4091c2bde5420635baf6241663",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "a6327a38fa057d353357fd63c2b762437c031b519b8e307d282c6c1541222d42",
+   "theorem": "unrealizable_C9_148_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "fb60b6d7a2b00e68c1e25b05b0a9b6bb02661963ae71644dd5ce4e5620b2be0d",
+   "key": 1738,
+   "label": "C9-238-e2",
+   "matroid": "C9-238",
+   "premise_key": null,
+   "receipt_sha256": "bc0088f151005dfeac233c0060e2d6072d91c163250b9d66bd3c3da18c63b16b",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "85582bbc9f7de7b690bd47f43ed78a8a67ba3826a0ca777bfe6143d47b75e4e0",
+   "theorem": "unrealizable_C9_238_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "e13beba2096ebb4d754c864e3d84e418e4669965f4ff9f7f442fd12551c70f85",
+   "key": 1741,
+   "label": "C9-280-e2",
+   "matroid": "C9-280",
+   "premise_key": null,
+   "receipt_sha256": "9d09a5b1dcdfc5fb8ced75f050095175c56f6e07a723eb3124412033b4477b1f",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "d9e913301038c69575a457214355d1208f26b0ad145f59ea02708d4434b4d3a3",
+   "theorem": "unrealizable_C9_280_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "15f88d444d247cab485520e3ed65d7e44db0cc5bb8d283bccab4485736927c28",
+   "key": 1745,
+   "label": "C9-155-e2",
+   "matroid": "C9-155",
+   "premise_key": null,
+   "receipt_sha256": "605f3f5f3704adab180fe4709887934df6e431180f56797c68da3772e9f77f14",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "f2f0815b1d960c651d323323c9a8dbebf72d1f1357e9bb369ee112519f901ced",
+   "theorem": "unrealizable_C9_155_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "b7a12be914cce6a61436f209f69d584b1b9ad6bf2e804dffba743955524c4995",
+   "key": 1748,
+   "label": "C9-233-e2",
+   "matroid": "C9-233",
+   "premise_key": null,
+   "receipt_sha256": "d75cbeadfc946b5937f3e4c61059ed058b1c5114c9fdc0333e7015c5801d559c",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "d13ebd03cf80fd68067d4a5ef6953d04ac7c6ceca5b6d3aa4550dea79eaef7bd",
+   "theorem": "unrealizable_C9_233_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "dae27b37f5bc4af631678e4b3784676eeebdf58bac2430ed4d255beeff34c154",
+   "key": 1750,
+   "label": "C9-239-e2",
+   "matroid": "C9-239",
+   "premise_key": null,
+   "receipt_sha256": "fc1fd33a640374361f9c567b3f024ba1564740a911dc6b0c90129ea953369ff0",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "d9fda92d05a184291d937062188031e885c19a852b32c2f53b5a18125e5c368c",
+   "theorem": "unrealizable_C9_239_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "c2a902525b53a30c0d25a490bebca8f2ed8d7e975d693eb68529bad1f5e1e229",
+   "key": 1753,
+   "label": "C9-293-e2",
+   "matroid": "C9-293",
+   "premise_key": null,
+   "receipt_sha256": "99c3ff469d7e5a7b253cc0cf081282e428696edfeecc101bf8983649c888dd60",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "b20bd6dd019061a37ba29eab704737b607c186cb04b9d8187f622e80fc0236ce",
+   "theorem": "unrealizable_C9_293_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "18cfd98877f0498019683931c8f51b36d7bbf6002c97f868edc87884236cd285",
+   "key": 1757,
+   "label": "C9-329-e2",
+   "matroid": "C9-329",
+   "premise_key": null,
+   "receipt_sha256": "ec7f76feb0d2656a728b4dbe63b8a09d1648724668ab4e85ef192c02b161e964",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "bba65c8d9069d0f33b989e5c4a2cad7d7307ae6abc48a00b27cf8a995224e321",
+   "theorem": "unrealizable_C9_329_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "fc1bbcc2f18a3d24843dcd16c9043e24870a740718f99f0348002a79f7b1f3be",
+   "key": 1765,
+   "label": "C9-366-e2",
+   "matroid": "C9-366",
+   "premise_key": null,
+   "receipt_sha256": "7cd3e01739861958fdc07a77183b25760d66aaf1f8f07600258762787a94a36d",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "8c2dbf8b7c25567f8bafab7d29b553edef10f9352fe4cafb94c26e6f978c273a",
+   "theorem": "unrealizable_C9_366_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "815a836d71f90ec15f0b1940d050981e71d7bae536d979e3f82703bbd2aa0479",
+   "key": 1768,
+   "label": "C9-264-e2",
+   "matroid": "C9-264",
+   "premise_key": null,
+   "receipt_sha256": "7b3bec85d34fcce3d4ae08cd1096224cded3337b5cba245d5ad58c934063a7b7",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "055a1a3ebb602c22022196643af7e94f34fb20d9643fed44ac4dac5c1d39bdee",
+   "theorem": "unrealizable_C9_264_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "65293256a0bc52fdae39fb878df4547c431c95108f3b5782be29738c407bab1f",
+   "key": 1777,
+   "label": "C9-374-e2",
+   "matroid": "C9-374",
+   "premise_key": null,
+   "receipt_sha256": "18b6c88569c9027131051b908971aab359d145271586e533e773efebc167c39e",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "d54ecaec9e614f650dbf39a79776d4feafc0a2079b316c0619a940e354263744",
+   "theorem": "unrealizable_C9_374_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "1e9f62ab108217c79117c5fdf804f8ac37ab0568da6a8c78f29bbe6f51398f78",
+   "key": 1780,
+   "label": "C9-229-e2",
+   "matroid": "C9-229",
+   "premise_key": null,
+   "receipt_sha256": "6fc98e2833786f543f6e60162ee31865f458e6ffaa1e659614be1bdb84a3d417",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "ca946d342404020070d2c46052f34c8562bf94e0f7bdf2b237ff1074cc26521e",
+   "theorem": "unrealizable_C9_229_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "1cf6680d7f7b6e58563eb3d36a5506815c17a6b4b7f038153b10cf43876c487b",
+   "key": 1785,
+   "label": "C9-241-e2",
+   "matroid": "C9-241",
+   "premise_key": null,
+   "receipt_sha256": "128a24636600cee2374e8f99e8c2a6e66c4c9fab84cf5a225a1b4c2306d83e2d",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "dd0231cec3b2c20999955fca2e862378b58965461f582101f054525cd252c448",
+   "theorem": "unrealizable_C9_241_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "ac0afbae8aa33c9fcfc2aca9e09da1c6cbb4dd1fdd46d8d46bcc430cff8052ad",
+   "key": 1788,
+   "label": "C9-271-e2",
+   "matroid": "C9-271",
+   "premise_key": null,
+   "receipt_sha256": "0b30047750df00452cbd301576b8b1023d9d20c0857b0e5ba7b9679bb408a954",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "39146fcba2256877108888b1450d7f399fb4a1e35d4d697680b1404b27e498d8",
+   "theorem": "unrealizable_C9_271_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "78792f327df8a9b5cf73a35c209439fb238ba0796c4fdec1da3352f80d98803e",
+   "key": 1792,
+   "label": "C9-325-e2",
+   "matroid": "C9-325",
+   "premise_key": null,
+   "receipt_sha256": "47ce7e5b01706675bc45d84d15d6219495c14789e8a8acbc391c410bdf56d8af",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "2c336e6e879b69ee90bbe0048d41855e9e233d809aa7d0b0d7ff8c15a83a55a5",
+   "theorem": "unrealizable_C9_325_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "74c84c0b130c2374df12a209fc9e324bcf72806fe6d1acba111957dae4291d17",
+   "key": 1795,
+   "label": "C9-194-e2",
+   "matroid": "C9-194",
+   "premise_key": null,
+   "receipt_sha256": "38b59719f7bb2a6bdb6afb7878046915c35466a539998baa76b47f67b5da1a09",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "8b38d47d3d236b6c880250195e0d394b1f7426360d325a0cfc914570d621a96a",
+   "theorem": "unrealizable_C9_194_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "e6f262014f61b734223a5c6285f8d24740813923d7195e096d29ce7f224546cc",
+   "key": 1799,
+   "label": "C9-236-e2",
+   "matroid": "C9-236",
+   "premise_key": null,
+   "receipt_sha256": "83b5ee961ef2e47e517fe61a500936413488a20db11c71a56210d931223060c1",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "3882327bc9216b317ca4388f808bdd8adf063484d17309bf31269bdffe58e911",
+   "theorem": "unrealizable_C9_236_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "d6c47cab58620646b4a25e1a9691e4a257c31ba78815f5b3a5a879540dd26be8",
+   "key": 1802,
+   "label": "C9-266-e2",
+   "matroid": "C9-266",
+   "premise_key": null,
+   "receipt_sha256": "88f2e04a3a8cf84e384e6cee319a25c6fddd79330c0306bab96b6b8e598a7005",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "c394eb35b0d782910a197c521d50d5c8b78788cd2924ee30af69d8ec929247cb",
+   "theorem": "unrealizable_C9_266_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "38f7215bae82d8129b96d2460168b699ac85b9072a8639bf64d7ded325b20c86",
+   "key": 1806,
+   "label": "C9-316-e2",
+   "matroid": "C9-316",
+   "premise_key": null,
+   "receipt_sha256": "e0f0a3c3487ddabe7b820eeb1ffc730a9f6a71d0f63a9a48ceefe3ee4de9e3f2",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "20d89c614039ea138cd0c0cb72775fab080ff07cdd8d29d06566a6b400669e2f",
+   "theorem": "unrealizable_C9_316_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "38f7215bae82d8129b96d2460168b699ac85b9072a8639bf64d7ded325b20c86",
+   "key": 1807,
+   "label": "C9-316-e3",
+   "matroid": "C9-316",
+   "premise_key": null,
+   "receipt_sha256": "c29f290b964082bb025e11b012ee9f8fe026d6d7140c6eedb83d1d2368122f3f",
+   "scope": {
+    "characteristic": 3
+   },
+   "shard": "Empty000",
+   "statement_sha256": "e3f75af19f6d069ce108cef509cda36c71f53c0640e1d4ffb5c9cc777806dae1",
+   "theorem": "unrealizable_C9_316_e3"
+  },
+  {
+   "class": "empty",
+   "encoding": "0499eba4b51aaeb10199111a3e2eaadd2f2a9f77c05deeb48a2e092a02d4303e",
+   "key": 1809,
+   "label": "C9-373-e2",
+   "matroid": "C9-373",
+   "premise_key": null,
+   "receipt_sha256": "40538574580eb455ba46aa37c91a59f980ecccef4168ff69657af1fd546f21ee",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "5b9a2e3931a89fa3bda74b6dcde27324395823a3dbe0ee9e5a7dfc7651ecac9c",
+   "theorem": "unrealizable_C9_373_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "7940d26cf8882cc39eb99b1c580955fa0e06993c22609f505e3a148df14aa16e",
+   "key": 1820,
+   "label": "C9-371-e2",
+   "matroid": "C9-371",
+   "premise_key": null,
+   "receipt_sha256": "e475022ab0638aca7a3aedfe9881494970b252f9c7bd5f1675b58f29fb1e39c1",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "d09406c5dec44c1aab03bf00035017f839cacf1d56f43342f98c88e69c20990a",
+   "theorem": "unrealizable_C9_371_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "cc3fa85fc1ab169beb08c1cb18c7acdfbc73da4718e3f3d5cae9bab38a4bfa4d",
+   "key": 1823,
+   "label": "C9-322-e2",
+   "matroid": "C9-322",
+   "premise_key": null,
+   "receipt_sha256": "da9915a7ca7d0c8e9eeb22eb5d374428b922bb612f8f90c292385c1d06b281c8",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "7677597264228090bb57039e999439500d30b33fc9632a9ef287ec0c12621bb1",
+   "theorem": "unrealizable_C9_322_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "f2291f95ded61057258c1fa89e79cb4b70b391492a6a8a97c0799844ee14353a",
+   "key": 1826,
+   "label": "C9-365-e2",
+   "matroid": "C9-365",
+   "premise_key": null,
+   "receipt_sha256": "242c1d807c06000c618b40ae9c30bae21b2b53f29c647c50ab0ff3d359034cdb",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "b5cbd2d78b792f983806bd3b7f38967694a3c2315d1175212fd42e82a0b16379",
+   "theorem": "unrealizable_C9_365_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "f2291f95ded61057258c1fa89e79cb4b70b391492a6a8a97c0799844ee14353a",
+   "key": 1827,
+   "label": "C9-365-e3",
+   "matroid": "C9-365",
+   "premise_key": null,
+   "receipt_sha256": "157f843785bb1e98646f3f9f59e324693d53fd9d652e4430b7ee8ce43b256419",
+   "scope": {
+    "characteristic": 3
+   },
+   "shard": "Empty000",
+   "statement_sha256": "a33f9ce47757eee3fa21e691f0ce80c432bf7d24845fa7f2ddfe9c0227dc4729",
+   "theorem": "unrealizable_C9_365_e3"
+  },
+  {
+   "class": "empty",
+   "encoding": "7a8de8bd3d7296ba53bc347fe6ac40ee42737d58546942b409f4aba0c0630868",
+   "key": 1832,
+   "label": "C9-230-e",
+   "matroid": "C9-230",
+   "premise_key": null,
+   "receipt_sha256": "ae7b85fff27dac9ea36edb35ec5420c7641c9c3fcdba7fc827ff99acd57b03b9",
+   "scope": {
+    "outside": [
+     2
+    ]
+   },
+   "shard": "Empty000",
+   "statement_sha256": "7c7c1c57a0193b7d626b2b45d064d9e04c67cdd452a795a774c06927d7797cca",
+   "theorem": "unrealizable_C9_230_e"
+  },
+  {
+   "class": "empty",
+   "encoding": "5f245cec461aa6e2ecd550fde103d00e1e79eea2adf833760b8208808ddb78eb",
+   "key": 1834,
+   "label": "C9-235-e",
+   "matroid": "C9-235",
+   "premise_key": null,
+   "receipt_sha256": "0d47a05bd75d9cc2b02f90df52c997ef5ae2511eb5df4c6375cf050cd26925f2",
+   "scope": {
+    "outside": [
+     2
+    ]
+   },
+   "shard": "Empty000",
+   "statement_sha256": "70b6e0587e41995a0287ddf7b7d4c3b9b11e39e5e7b3d8f6131a3db822f8ebc7",
+   "theorem": "unrealizable_C9_235_e"
+  },
+  {
+   "class": "empty",
+   "encoding": "95ef35dcaa9cffb5e1cdbe21f38f400c4c8a514de9a63e217443d76ad0b24d54",
+   "key": 1836,
+   "label": "C9-272-e",
+   "matroid": "C9-272",
+   "premise_key": null,
+   "receipt_sha256": "9f1abd5be982c454b3720e48becbc477e0e1f3d16e67559288052d37beab264d",
+   "scope": {
+    "outside": [
+     2
+    ]
+   },
+   "shard": "Empty000",
+   "statement_sha256": "ef069647992d885f62a478cd8e3124c80efc1f93c69badbe80208a83a2937e4a",
+   "theorem": "unrealizable_C9_272_e"
+  },
+  {
+   "class": "empty",
+   "encoding": "05bee86af1ee34d969db0ae0734d588bb71b02a0c420413a55704abf1e9bc97f",
+   "key": 1838,
+   "label": "C9-314-e",
+   "matroid": "C9-314",
+   "premise_key": null,
+   "receipt_sha256": "4bc50e1e0fa409416273017ecfa107f994578031a4b6ad7e97a6f9e737ec0b0c",
+   "scope": {
+    "outside": [
+     2
+    ]
+   },
+   "shard": "Empty000",
+   "statement_sha256": "a7e783db204f88a8714f5633e41bd5fcb6d74b0a78d0ea2d7b6d882148dd349a",
+   "theorem": "unrealizable_C9_314_e"
+  },
+  {
+   "class": "empty",
+   "encoding": "ce1b7b2d81d1d32c774480cd757bf7b4c0a3122569d7387927e607bcba9c8b5f",
+   "key": 1840,
+   "label": "C9-315-e",
+   "matroid": "C9-315",
+   "premise_key": null,
+   "receipt_sha256": "c643d3b3012a9efa0c4cbdbbceb24577b41e6b748c90ecb8b364acccbdbf42f3",
+   "scope": {
+    "outside": [
+     2
+    ]
+   },
+   "shard": "Empty000",
+   "statement_sha256": "f5c8bbd37ccc954990f580ceb22330334647bf1ca4db8f4631a2153fe263e07e",
+   "theorem": "unrealizable_C9_315_e"
+  },
+  {
+   "class": "empty",
+   "encoding": "80f4cdbc44771c22bcad8edc6ebb3f1639c4b7cd5fe73985070e751e66f12d35",
+   "key": 1843,
+   "label": "C9-317-e3",
+   "matroid": "C9-317",
+   "premise_key": null,
+   "receipt_sha256": "575ef3f56c53977e06aded0fbc312407aa10a54376d118b1f3052860963f70d7",
+   "scope": {
+    "characteristic": 3
+   },
+   "shard": "Empty000",
+   "statement_sha256": "218d70c1c5cafe1347d8c63de3b3f8470379c5b4f25569d59307c264d8202fb1",
+   "theorem": "unrealizable_C9_317_e3"
+  },
+  {
+   "class": "empty",
+   "encoding": "5e9a658cf424a46ec548034b8c5247b79c0ab46fba40c30227bb62378d2e9a93",
+   "key": 1851,
+   "label": "C9-330-e",
+   "matroid": "C9-330",
+   "premise_key": null,
+   "receipt_sha256": "d2fe67c3968c238b0df6c61172e8f54918e43227a19ba821dea668ebf5699385",
+   "scope": {
+    "outside": [
+     2
+    ]
+   },
+   "shard": "Empty000",
+   "statement_sha256": "2c8a5735e9c871a9239b5ec47688e307fd9f08d59007d896740da1af3ddef620",
+   "theorem": "unrealizable_C9_330_e"
+  },
+  {
+   "class": "empty",
+   "encoding": "9e4c41364208691eaf2901cc307d9bbc5a997f19ad7b13ca5899e2080c6ee216",
+   "key": 1853,
+   "label": "C9-348-e",
+   "matroid": "C9-348",
+   "premise_key": null,
+   "receipt_sha256": "ac203f00f3cb7da5d18e2bb0a1a28c8d8d3f12a90e642e942187b27ba8c54c89",
+   "scope": {
+    "outside": [
+     2
+    ]
+   },
+   "shard": "Empty000",
+   "statement_sha256": "949c8b0d5a56119aada49703c3c98cec62c3f71796b0dce7c83eaf78147e46cf",
+   "theorem": "unrealizable_C9_348_e"
+  },
+  {
+   "class": "empty",
+   "encoding": "af8123296c48f43b88c924d1723f231393a3f0462c7a1226e8598be10861956b",
+   "key": 1868,
+   "label": "C9-362-e",
+   "matroid": "C9-362",
+   "premise_key": null,
+   "receipt_sha256": "6cce74f871284835a9420e890e96e51b4fc1f2860621c7de14c5e78627eecf65",
+   "scope": {
+    "outside": [
+     3
+    ]
+   },
+   "shard": "Empty000",
+   "statement_sha256": "cd81ce9a1d292c6c79300c0447d9d6b72b8191f4fc1b4d65245e6a94f57e15e3",
+   "theorem": "unrealizable_C9_362_e"
+  },
+  {
+   "class": "empty",
+   "encoding": "a82df5796568784b65d9202cf4c8d45c84e4efaecc808f39e7a9b63a86b43f7e",
+   "key": 1871,
+   "label": "C9-363-e3",
+   "matroid": "C9-363",
+   "premise_key": null,
+   "receipt_sha256": "86d1bd24a3f174c18f964374d7be0c4095b1629616bc5b17b99277fad9197747",
+   "scope": {
+    "characteristic": 3
+   },
+   "shard": "Empty000",
+   "statement_sha256": "b2b3df5e0403286def25ef54d6ee313f488effce842560e7f81f67584b09100e",
+   "theorem": "unrealizable_C9_363_e3"
+  },
+  {
+   "class": "empty",
+   "encoding": "db4356eca90ac8d1f3d42e2ab5c912137013ca22ee8b15323669e262092482e5",
+   "key": 1878,
+   "label": "C9-375-e",
+   "matroid": "C9-375",
+   "premise_key": null,
+   "receipt_sha256": "fec43db9f7dba6ed68bc0fbfcd14bf6159128635be33978acc21331a35ad20f0",
+   "scope": {
+    "outside": []
+   },
+   "shard": "Empty000",
+   "statement_sha256": "5e597ea594e31760845ee1a11170bdb6c6e1a13f18787d427d8a2f5b1b35e3a6",
+   "theorem": "unrealizable_C9_375_e"
+  },
+  {
+   "class": "empty",
+   "encoding": "a4ee3628fa13e256935a371e6d5cff1552c89dfbb2bbdaf919a64f21abef0bed",
+   "key": 1885,
+   "label": "C9-378-e2",
+   "matroid": "C9-378",
+   "premise_key": null,
+   "receipt_sha256": "6c2ef960bb5b0e650172a548b26005703efcda911943a989449159f437b37fe5",
+   "scope": {
+    "characteristic": 2
+   },
+   "shard": "Empty000",
+   "statement_sha256": "8b69d80dbf4d89ce7da96b4df567a14b9e9556443b4271fbe68a554599251192",
+   "theorem": "unrealizable_C9_378_e2"
+  },
+  {
+   "class": "empty",
+   "encoding": "1b80c3136167df8c8a3afdb92e6afaa95c3ea28ef63381314435e859cc1f59dd",
+   "key": 1888,
+   "label": "C9-379-e",
+   "matroid": "C9-379",
+   "premise_key": null,
+   "receipt_sha256": "05fe15385a9c89c1fd80eb50cfc2d224b994e582ada2b891747afe295530331b",
+   "scope": {
+    "outside": [
+     2
+    ]
+   },
+   "shard": "Empty000",
+   "statement_sha256": "6c68c75b65d1531e6a91dee9e8c22974d0fbef127c06f3d78e55b376f618d81d",
+   "theorem": "unrealizable_C9_379_e"
+  },
+  {
+   "class": "empty",
+   "encoding": "be212af8b954f911f1dbbb5631213669f05082c07bc02567029ecb0104897937",
+   "key": 1890,
+   "label": "C9-381-e",
+   "matroid": "C9-381",
+   "premise_key": null,
+   "receipt_sha256": "616a16005fe7e1e0eeb69850d9634872c9ec753fecf341f08e3db7d030e5e924",
+   "scope": {
+    "outside": []
+   },
+   "shard": "Empty000",
+   "statement_sha256": "67faab5a0b0bbfa440f45b2a81f1acc14b4b034b22e1ba6777fe93c7277b112f",
+   "theorem": "unrealizable_C9_381_e"
+  },
+  {
+   "class": "empty",
+   "encoding": "2f8c91fc5f27b6e14fe7e2f7e455c60ff2b64db04c4e3db0c343b6d9133aa237",
+   "key": 1891,
+   "label": "C9-382-e",
+   "matroid": "C9-382",
+   "premise_key": null,
+   "receipt_sha256": "e78079a3e8bee67ace8aefd25444c8da203d6dea073947829a169dccc93d91eb",
+   "scope": {
+    "outside": []
+   },
+   "shard": "Empty000",
+   "statement_sha256": "9ae6d0a44315a82e7e30ebe0925037bb15d23946516c2cdf8a75ff606c0ddc34",
+   "theorem": "unrealizable_C9_382_e"
   }
  ],
  "classes": {
@@ -29226,9 +30107,9 @@
    "refused": 0
   },
   "empty": {
-   "deferred": 62,
-   "emitted": 0,
-   "refused": 0
+   "deferred": 0,
+   "emitted": 57,
+   "refused": 5
   },
   "map-p": {
    "deferred": 0,
@@ -29258,391 +30139,19 @@
  },
  "counts": {
   "claims_in_ledger": 1891,
-  "coverage_percent": 96.51,
-  "deferred": 62,
-  "emitted": 1825,
-  "refused": 0,
-  "shards": 33,
+  "coverage_percent": 99.52,
+  "deferred": 0,
+  "emitted": 1882,
+  "refused": 5,
+  "shards": 34,
   "supported": 1887,
   "unsupported": 4
  },
- "deferred": [
-  {
-   "class": "empty",
-   "key": 1,
-   "label": "F7-empty-outside2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 10,
-   "label": "F7m-empty-2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 46,
-   "label": "NonPappus-empty",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 47,
-   "label": "NonDesargues-empty",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 48,
-   "label": "PG23-empty",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 361,
-   "label": "C8-54-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 364,
-   "label": "C8-61-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 367,
-   "label": "C8-62-e",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 370,
-   "label": "C8-63-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 372,
-   "label": "C8-65-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 374,
-   "label": "C8-67-e",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1631,
-   "label": "C9-159-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1635,
-   "label": "C9-231-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1638,
-   "label": "C9-237-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1641,
-   "label": "C9-243-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1644,
-   "label": "C9-249-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1648,
-   "label": "C9-273-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1735,
-   "label": "C9-148-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1738,
-   "label": "C9-238-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1741,
-   "label": "C9-280-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1745,
-   "label": "C9-155-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1748,
-   "label": "C9-233-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1750,
-   "label": "C9-239-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1753,
-   "label": "C9-293-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1757,
-   "label": "C9-329-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1761,
-   "label": "C9-347-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1765,
-   "label": "C9-366-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1768,
-   "label": "C9-264-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1772,
-   "label": "C9-312-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1777,
-   "label": "C9-374-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1780,
-   "label": "C9-229-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1785,
-   "label": "C9-241-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1788,
-   "label": "C9-271-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1792,
-   "label": "C9-325-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1795,
-   "label": "C9-194-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1799,
-   "label": "C9-236-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1802,
-   "label": "C9-266-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1806,
-   "label": "C9-316-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1807,
-   "label": "C9-316-e3",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1809,
-   "label": "C9-373-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1813,
-   "label": "C9-327-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1816,
-   "label": "C9-351-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1820,
-   "label": "C9-371-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1823,
-   "label": "C9-322-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1826,
-   "label": "C9-365-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1827,
-   "label": "C9-365-e3",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1829,
-   "label": "C9-332-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1832,
-   "label": "C9-230-e",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1834,
-   "label": "C9-235-e",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1836,
-   "label": "C9-272-e",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1838,
-   "label": "C9-314-e",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1840,
-   "label": "C9-315-e",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1843,
-   "label": "C9-317-e3",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1851,
-   "label": "C9-330-e",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1853,
-   "label": "C9-348-e",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1868,
-   "label": "C9-362-e",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1871,
-   "label": "C9-363-e3",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1878,
-   "label": "C9-375-e",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1885,
-   "label": "C9-378-e2",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1888,
-   "label": "C9-379-e",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1890,
-   "label": "C9-381-e",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  },
-  {
-   "class": "empty",
-   "key": 1891,
-   "label": "C9-382-e",
-   "reason": "deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)"
-  }
- ],
+ "deferred": [],
  "inputs": {
   "encoder_sha256": "46385c4faa548395a449da32016b6ad0328f88266f3b8787b3a423f2853d01c5",
   "ledger_sha256": "3beaf79a1dbafd1fd94389cd3e708fa79af377eae69c9bdd94252d3603051238",
+  "prelude_empty_sha256": "b1884e08845ec67094cc23b9f773023eccd929c441e37b65f700b7f2b2c8da70",
   "prelude_sha256": "f0f5fdd4cf967e2cd684b9fd365dabfa2828f9c251927c39b22e2f5e388c087a",
   "realizes_def_sha256": "da2199458a55b7de5311ff8d0c2de593bfd6b5228847dcac9c70c5b202b1d115"
  },
@@ -29651,7 +30160,38 @@
   "Quot.sound",
   "Classical.choice"
  ],
- "refused": [],
+ "refused": [
+  {
+   "class": "empty",
+   "key": 1761,
+   "label": "C9-347-e2",
+   "reason": "certificate too large for the linear_combination route (size 8664 > 3600); needs a kernel ideal-certificate checker"
+  },
+  {
+   "class": "empty",
+   "key": 1772,
+   "label": "C9-312-e2",
+   "reason": "certificate too large for the linear_combination route (size 53496 > 3600); needs a kernel ideal-certificate checker"
+  },
+  {
+   "class": "empty",
+   "key": 1813,
+   "label": "C9-327-e2",
+   "reason": "certificate too large for the linear_combination route (size 4950 > 3600); needs a kernel ideal-certificate checker"
+  },
+  {
+   "class": "empty",
+   "key": 1816,
+   "label": "C9-351-e2",
+   "reason": "certificate too large for the linear_combination route (size 25608 > 3600); needs a kernel ideal-certificate checker"
+  },
+  {
+   "class": "empty",
+   "key": 1829,
+   "label": "C9-332-e2",
+   "reason": "certificate too large for the linear_combination route (size 5110 > 3600); needs a kernel ideal-certificate checker"
+  }
+ ],
  "root": "GPComparator",
  "schema": "gp-comparator-emit/v1",
  "shard_size": 64,
@@ -30018,6 +30558,17 @@
    "shard": "Source000",
    "solution": "GPComparator/Source000/Solution.lean",
    "solution_sha256": "697dc754ca35df4cd3217722c1d6a0298689a59f5955169f08e325fdde53077f"
+  },
+  {
+   "challenge": "GPComparator/Empty000/Challenge.lean",
+   "challenge_sha256": "1ddc35d6f8d6e87401c85c0d4c13f90f5313aa8f471a202ab1b7c31a63dc803d",
+   "claims": 57,
+   "class": "empty",
+   "config": "comparator/empty000.json",
+   "config_sha256": "5b59c88c6c739630f000d80661046963a6a0de9aadee680635f0ce0f63da94ce",
+   "shard": "Empty000",
+   "solution": "GPComparator/Empty000/Solution.lean",
+   "solution_sha256": "b20d68491b6bb433a9a795d56b669769660550472f1f8b4d6f2fae458561f2cf"
   }
  ],
  "unsupported": [

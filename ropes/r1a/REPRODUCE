@@ -2,9 +2,10 @@
 # Rope R1a: one command, from the rope directory, on Linux (Landlock kernel, non-root user; elan, git, Go >= 1.24 on PATH):
 #   bash REPRODUCE
 # Builds pinned Comparator, lean4export and landrun for the rope's toolchain, fetches the Mathlib cache, builds the
-# rope, runs stock Comparator on the 9 challenges (each must print "Your solution is okay") and on the 4 controls
-# (each must be refused with its expected reason). Exit 0 iff all 13 behave. Tools go to $R1A_TOOLS
-# (default ./.lake/r1a-tools); logs go to ./.lake/r1a-logs.
+# rope, runs stock Comparator on the 10 challenges (each must print "Your solution is okay") and on the 7 controls
+# (each must be refused with its expected reason), and elaborates the wrong-coordinate control
+# R1aFail/WrongCoordGadget0.lean, which must fail at the two broken edges. Exit 0 iff all 18 behave. Tools go to
+# $R1A_TOOLS (default ./.lake/r1a-tools); logs go to ./.lake/r1a-logs, with one line per run in summary.txt.
 set -u
 cd "$(dirname "$0")"
 step() { echo "[$(date -u +%H:%M:%S)] $*"; }
@@ -58,9 +59,16 @@ run() {  # Comparator under systemd-run --user when available (Comparator's READ
   fi
 }
 fail=0
-for n in rhombus gadget0 gadget1 gadget2 gadget3 gadget4 gadget5 heredity schade; do
+: >"$LOGS/summary.txt"
+comparator_run() {  # comparator_run NAME: run comparator/NAME.json, log it, and record exit code and seconds
+  local t0=$SECONDS rc
+  run "comparator/$1.json" >"$LOGS/$1.log" 2>&1
+  rc=$?
+  echo "$1 exit=$rc secs=$((SECONDS - t0)) :: $(tail -n 1 "$LOGS/$1.log")" >>"$LOGS/summary.txt"
+}
+for n in rhombus gadget0 gadget1 gadget2 gadget3 gadget4 gadget5 embeds heredity schade; do
   step "comparator $n"
-  run "comparator/$n.json" >"$LOGS/$n.log" 2>&1
+  comparator_run "$n"
   if grep -q "Your solution is okay" "$LOGS/$n.log"; then echo "  accepted  $n"
   else echo "  FAILED    $n (expected acceptance; see $LOGS/$n.log)"; fail=1; fi
 done
@@ -68,13 +76,28 @@ done
 for spec in "ctl-sorrygadget0|Illegal axiom detected: 'sorryAx'" \
             "ctl-axiomgadget1|Illegal axiom detected: 'UDGRope.cheat'" \
             "ctl-weakerrhombus|statement do not match: 'UDGRope.rhombus'" \
-            "ctl-redefschade|Const does not match between challenge and target 'UDGRope.maxUnitDistances'"; do
+            "ctl-redefschade|Const does not match between challenge and target 'UDGRope.maxUnitDistances'" \
+            "ctl-sorryembeds|Illegal axiom detected: 'sorryAx'" \
+            "ctl-weakerembeds|statement do not match: 'UDGRope.gadget0_embeds'" \
+            "ctl-redefembeds|Const does not match between challenge and target 'UDGRope.gadget0'"; do
   n=${spec%%|*}; reason=${spec#*|}
   step "comparator $n (control)"
-  run "comparator/$n.json" >"$LOGS/$n.log" 2>&1
+  comparator_run "$n"
   if grep -q "Your solution is okay" "$LOGS/$n.log"; then echo "  FAILED    $n (control accepted)"; fail=1
   elif grep -qF "$reason" "$LOGS/$n.log"; then echo "  refused   $n: $reason"
   else echo "  FAILED    $n (no expected refusal reason; see $LOGS/$n.log)"; fail=1; fi
 done
-[ $fail -eq 0 ] && step "all 13 as expected" || step "FAILURES above"
+# Wrong coordinate: gadget 0's embedding with vertex 3 moved to x = -1/2. It must fail to elaborate, at the two
+# edges this breaks (2 3 and 3 4) and nowhere else: exactly two errors, both `linarith failed`.
+step "elaborating R1aFail/WrongCoordGadget0.lean (control: must fail)"
+t0=$SECONDS
+lake env lean R1aFail/WrongCoordGadget0.lean >"$LOGS/wrong-coord.log" 2>&1
+rc=$?
+errs=$(grep -c ": error" "$LOGS/wrong-coord.log")
+lin=$(grep -c ": error: linarith failed to find a contradiction" "$LOGS/wrong-coord.log")
+echo "wrong-coord exit=$rc secs=$((SECONDS - t0)) :: $errs errors, $lin linarith failed" >>"$LOGS/summary.txt"
+if [ $rc -ne 0 ] && [ "$errs" -eq 2 ] && [ "$lin" -eq 2 ]; then
+  echo "  refused   WrongCoordGadget0: linarith failed at the 2 broken edges"
+else echo "  FAILED    WrongCoordGadget0 (rc $rc, $errs errors, $lin linarith; see $LOGS/wrong-coord.log)"; fail=1; fi
+[ $fail -eq 0 ] && step "all 18 as expected" || step "FAILURES above"
 exit $fail

@@ -76,6 +76,13 @@ def stmt3Canon : Stmt3 → String
       Json.arr (b.guards.map sparseCanon).toArray,
       Json.arr (b.signs.map fun (p, σ) => Json.arr #[sparseCanon p, toJson σ]).toArray]
     (Json.arr #["REAL_COVER", realCanon r .nonempty, Json.arr (bs.map branch).toArray]).compress
+  | .goal g =>
+    let graphs (L : List EdgeList) : Json :=
+      Json.arr (L.map fun l => Json.arr (l.map fun (i, j) => Json.arr #[toJson i, toJson j]).toArray).toArray
+    match g with
+    | .goal n m v => (Json.arr #["GOAL", toJson n, toJson m, toJson v]).compress
+    | .cover n m L => (Json.arr #["GOAL_COVER", toJson n, toJson m, graphs L]).compress
+    | .spine n m L => (Json.arr #["GOAL_SPINE", toJson n, toJson m, graphs L]).compress
 
 def scope3Canon : Scope3 → String
   | .alg sc => (Json.arr #["ALG", Json.str (scopeCanon sc)]).compress

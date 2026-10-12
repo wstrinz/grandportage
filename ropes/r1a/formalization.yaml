@@ -14,10 +14,13 @@ project:
     is at distance 1. (3) Heredity: unit-distance embeddability passes to
     subgraph copies (Mathlib's UnitDistEmbedding.copy). (4) Schade averaging
     over formal-conjectures' maxUnitDistances: u(n) <= floor(n u(n-1)/(n-2))
-    for n >= 3. The nine main theorems depend on propext, Classical.choice and
-    Quot.sound only. The only sorries are the deliberate placeholder in each
-    Comparator challenge and the deliberate sorry in the control
-    R1aControl/SorryGadget0, which Comparator must refuse.
+    for n >= 3. (5) Non-vacuity of (2): each gadget has an injective
+    unit-distance embedding with exact coordinates in Q(sqrt 3), taken from
+    PROOFS.md's diagrams D0-D2, and the distinguished pair is at distance 1 in
+    it. The fifteen main theorems depend on propext, Classical.choice and
+    Quot.sound only. The only sorries are the deliberate placeholders in each
+    Comparator challenge and in the controls R1aControl/SorryGadget0 and
+    R1aControl/SorryEmbeds, which Comparator must refuse.
   authors:
     - "Grand Portage builder and campaign agents (Claude models; see automation)"
   license: "Apache-2.0"
@@ -28,7 +31,7 @@ sources:
       - "Artificial Wasteland"
     id: "https://github.com/artwasteland/Maths/tree/ba1c76fd4abbd776315621ab85b7381e05352985/unit-distance-22"
     type: "repository"
-    location: "research/unit-distance-22/check/PROOFS.md (rhombus fact, gadget combinations); data/tu-gadgets.json"
+    location: "research/unit-distance-22/check/PROOFS.md (rhombus fact, gadget combinations, coordinate diagrams D0-D2 for the gadget embeddings); data/tu-gadgets.json"
     relationship: "formalizes"
     license: "MIT"
     author_endorsement: "not-contacted"
@@ -76,11 +79,11 @@ automation:
     - method: "agent"
       models: ["claude-opus-5-5"]
       framework: "Claude Code"
-      tool_setup: "Grand Portage (GP) builder agent wrote the Lean sources in GP's binding package; a separate campaign agent assembled this package, generated the Comparator challenges and controls, and ran the checks."
+      tool_setup: "Grand Portage (GP) builder agent wrote the Lean sources in GP's binding package; a separate campaign agent assembled this package, generated the Comparator challenges and controls, and ran the checks. A builder worker wrote UDGRope/Embeds.lean, its challenge and controls in the rope directly (release item D2)."
   notes: "Agent-produced. No human has reviewed the proofs or this file."
 
 status:
-  scope: "Nine lemmas; no hypotheses beyond each theorem's own."
+  scope: "Nine lemmas and six gadget-existence theorems; no hypotheses beyond each theorem's own."
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -120,6 +123,36 @@ status:
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator/gadget5.json"
+    - declaration: "UDGRope.gadget0_embeds"
+      file: "UDGRope/Embeds.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/embeds.json"
+    - declaration: "UDGRope.gadget1_embeds"
+      file: "UDGRope/Embeds.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/embeds.json"
+    - declaration: "UDGRope.gadget2_embeds"
+      file: "UDGRope/Embeds.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/embeds.json"
+    - declaration: "UDGRope.gadget3_embeds"
+      file: "UDGRope/Embeds.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/embeds.json"
+    - declaration: "UDGRope.gadget4_embeds"
+      file: "UDGRope/Embeds.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/embeds.json"
+    - declaration: "UDGRope.gadget5_embeds"
+      file: "UDGRope/Embeds.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/embeds.json"
     - declaration: "UDGRope.heredity_nonempty"
       file: "UDGRope/Basic.lean"
       sorry_count: 0
@@ -139,10 +172,11 @@ fidelity:
     embedding, as in PROOFS.md, which invokes injectivity explicitly. FC's
     constants live in namespace Erdos90 (unitDistNum at the root) and FC pins
     Mathlib v4.33.1 while this rope uses v4.34.1, so the match with FC is
-    textual, up to renamed constants. See FIDELITY.md.
+    textual, up to renamed constants. Gadget 4 is gadget 3's graph with another
+    pair, so gadget4_embeds has gadget3_embeds's statement. See FIDELITY.md.
 
 review:
   status: "agent-reviewed"
-  notes: "Self-assessed by the assembling agent (FIDELITY.md), then reviewed at gate GR1 by a non-builder agent: all 9 statements faithful, no statement defects (2026-10-10). No human review."
+  notes: "Self-assessed by the assembling agent (FIDELITY.md), then reviewed at gate GR1 by a non-builder agent: all 9 statements faithful, no statement defects (2026-10-10). The six gadget-existence theorems (release item D2, 2026-10-12) are self-assessed only. No human review."
 
 acknowledgements: "Mathlib (UnitDistEmbedding); formal-conjectures (definitions); Artificial Wasteland (gadget data and proofs); leanprover/comparator."

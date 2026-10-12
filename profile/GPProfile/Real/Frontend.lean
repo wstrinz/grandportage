@@ -364,6 +364,10 @@ def explain3 : Stmt3 → Scope3 → Cert3 → String
     match caseTreeExplain (orderFreeSys s) c with
     | .ok _ => "case tree replay accepted"
     | .error e => s!"case tree replay refused ({e})"
+  | .goal (.cover n m L), .real, .coverAll =>
+    if coverAllCheck n m L then "exhaustive cover accepted: every graph with at least m edges is listed"
+    else if coverLimit < coverCount n m then s!"too many graphs to list ({coverCount n m}); completeness needs another warrant"
+    else "not exhaustive: a graph on n vertices with at least m edges is not listed"
   | _, _, .caseTree _ => "a case tree is admitted only for EMPTY claims at real scope (over ℝ)"
   | _, _, .ordered _ => "an ordered certificate is admitted only for real-system EMPTY claims at real scope"
   | _, _, .sos _ => "an SOS certificate is admitted only for order-free claims at semireal or real scope"
@@ -371,7 +375,8 @@ def explain3 : Stmt3 → Scope3 → Cert3 → String
 
 def familyName : Stmt3 → String
   | .alg _ => "alg" | .orderFree _ => "orderFree" | .real _ _ => "real" | .nf _ => "nf"
-  | .realCover _ _ => "realCover"
+  | .realCover _ _ => "realCover" | .goal (.goal ..) => "goal" | .goal (.cover ..) => "cover"
+  | .goal (.spine ..) => "spine"
 
 def scopeName : Scope3 → String
   | .alg sc => s!"alg {scopeCanon sc}" | .semireal => "semireal" | .real => "real"
@@ -381,7 +386,7 @@ def certName : Cert3 → String
   | .alg _ => "3a receipt" | .sos _ => "SOS receipt" | .point _ => "point receipt" | .algPoint _ => "algPoint receipt"
   | .nf _ => "number-field receipt" | .ratRoot => "rational-root receipt"
   | .rootCover _ => "selected-root cover receipt" | .ordered _ => "ordered Positivstellensatz receipt"
-  | .caseTree _ => "case-tree receipt"
+  | .caseTree _ => "case-tree receipt" | .coverAll => "exhaustive cover receipt"
 
 def supportName3 : Support3 → String
   | .none => "none"
@@ -390,6 +395,9 @@ def supportName3 : Support3 → String
   | .rule (.lift _) _ => "lifted 3a rule"
   | .rule .k1Empty _ => "rule K1a"
   | .rule .k1Nonempty _ => "rule K1b"
+  | .rule (.realize ..) _ => "rule realize"
+  | .rule .spine _ => "rule spine"
+  | .rule .decide _ => "rule decide"
   | .narrow k => s!"narrowing (K2) from claim {k}"
   | .route steps => s!"route audit ({steps.length} steps)"
 
@@ -405,6 +413,12 @@ def refusal (p : Plan3) (state : RuntimeState) (i : Item3) : String :=
     if ps.any fun k => (p.items.find? (·.key == k)).any fun j => familyName j.stmt != "alg" then
       "rule refused: a lifted 3a rule binds only alg premises"
     else (liftNoRow p i d ps).getD "rule refused"
+  | .rule (.realize ..) _ => "rule realize refused: its premise must be an order-free NONEMPTY claim over ℝ whose " ++
+    "statement is exactly the Lean encoder's for the rule's graph, on the goal's n vertices with at least its m edges"
+  | .rule .spine _ => "rule spine refused: it needs one order-free EMPTY claim over ℝ per cover graph, in order, " ++
+    "each exactly the Lean encoder's statement for that graph"
+  | .rule .decide _ => "rule decide refused: it needs spine n m L and cover n m L over ℝ, with the goal's n and m and " ++
+    "the same graphs L"
   | .rule _ _ => "rule refused"
   | .narrow k =>
     if !held state k then s!"narrowing from unheld claim {k}" else

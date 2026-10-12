@@ -4,6 +4,8 @@ import GPProfile.Diagnose
 import GPProfile.Real.Frontend
 import GPProfile.Real.Memo3
 import GPProfile.UDG
+import GPProfile.Real.GoalSurface
+import GP50.Decoder
 
 /-!
 The 3b campaign ledger runner (`gp_ledger3`, behind `tools/gp.py`). It reads the 3b part of a
@@ -23,7 +25,8 @@ A claim names its `family`:
   characteristic 0.
 
 Certificates (`type`): `sos`, `ordered`, `real_point`, `alg_point`, `nf`, `rational_root`,
-`root_cover`, `case_tree`. Rules: `k1a`, `k1b`, `narrow`. Untrusted searches (`algPointPropose`, `nfPropose`)
+`root_cover`, `case_tree`, `cover_all`. Rules: `k1a`, `k1b`, `narrow`, and the goal rules `realize`, `spine`,
+`decide` (A2; the goal family `goal`, `cover`, `spine` is read by `GoalSurface`). Untrusted searches (`algPointPropose`, `nfPropose`)
 fill what a receipt leaves out; their output is replayed by the checkers like any receipt.
 
 `udgFrames` (optional, HW61 G-2): entries `{key, n, edges, gauge}` for graph-bound (`gp claim --udg`)
@@ -118,12 +121,13 @@ def stmtOf (fam : String) (c : Json) : Except String Stmt3 := do
   | "real" => pure (.real (← sysOf c) (← existOf c))
   | "realCover" => let r ← sysOf c; pure (.realCover r (← branchesOf r.vars c))
   | "nf" => pure (.nf (← nfOf c))
-  | f => throw s!"unknown family {f}"
+  | f => (GoalSurface.stmtOf? f c).getD (throw s!"unknown family {f}")
 
 def Stmt3.vars : Stmt3 → List String
   | .alg s | .orderFree s => s.vars
   | .real r _ | .realCover r _ => r.vars
   | .nf p => p.vars
+  | .goal _ => []
 
 /-! ## Certificates and rules -/
 
@@ -295,6 +299,7 @@ def certOf (stmt : Stmt3) (c : Json) : Except String Cert3 := do
     | .nf p => pure (.nf (nfPropose p ((nats c "gcd_degrees").toOption.filter (!·.isEmpty))))
     | _ => throw "an nf certificate is for a number-field point claim"
   | "rational_root" => pure .ratRoot
+  | "cover_all" => pure .coverAll
   | "root_cover" =>
     let [lo, hi] ← rats c "interval" | throw "interval must be [lo, hi]"
     let w ← match obj? c "point", stmt with
@@ -312,7 +317,7 @@ def ruleOf (rule : Json) (premises : List Nat) : Except String Support3 :=
   | some "k1b", _ => pure (.rule .k1Nonempty premises)
   | some "narrow", [k] => pure (.narrow k)
   | some "narrow", _ => throw "narrow has exactly one premise"
-  | _, _ => throw "unknown rule type"
+  | _, _ => (GoalSurface.ruleOf? rule premises).getD (throw "unknown rule type")
 
 /-- A 3a item as an `alg` item of the summed profile. -/
 def liftItem (i : Item) : Except String Item3 := do
@@ -343,7 +348,7 @@ def keyOf (c : Json) : Except String Nat := need ((obj? c "key").bind (·.getNat
 
 def claimKeys : List String :=
   ["key", "family", "variables", "equations", "nonzero", "signs", "branches", "kind", "context", "characteristic",
-   "outside", "symbol", "minimal_polynomial", "point", "inputs", "certificate", "rule", "premises"]
+   "outside", "symbol", "minimal_polynomial", "point", "inputs", "certificate", "rule", "premises"] ++ GoalSurface.keys
 
 /-- A claim's statement, for premise lookups (`alg` claims through the 3a surface head). -/
 def headStmt (c : Json) : Except String (Nat × Stmt3) := do
@@ -395,6 +400,7 @@ def kindName3 : Stmt3 → String
   | .real _ e => existCanon e
   | .nf _ => "NF_POINT"
   | .realCover _ _ => "COVER"
+  | .goal (.goal ..) => "GOAL" | .goal (.cover ..) => "COVER_COMPLETE" | .goal (.spine ..) => "SPINE"
 
 /-- Scopes that share a field: 3a's overlap within `alg`, else one inside the other (reporting). -/
 def overlaps3 : Scope3 → Scope3 → Bool
@@ -463,6 +469,19 @@ def runLedger3 (inputs : Json) : Json :=
     | .ok o => Json.mkObj [("schema", "gp-ledger3-run/v1"), ("items", toJson (p.items.map (itemJson3 p o))),
       ("earned", toJson o.earned),
       ("udgFrames", udgFrameChecks ((obj? inputs "udgFrames").getD (Json.arr #[])) p.items)]
+
+/-- `gp_ledger3 --guard`, the merge guard for the 3b part (`GPProfile.LedgerRun.guardLedger`'s twin): every
+claim is filed as `Plan3.run` files it, unguarded (`Ledger3.fileRaw`), the `lifecycle` events (Kernel event
+JSON) are appended, and the Kernel's `resolve` decides once (`guard`). No receipt is replayed. -/
+def guardLedger3 (inputs : Json) : Json :=
+  let lifecycle := match obj? inputs "lifecycle" with | some (.arr es) => es.toList | _ => []
+  match plan3 inputs, lifecycle.mapM Decoder.decodeEvent with
+  | .error e, _ => Json.mkObj [("error", toJson e)]
+  | .ok _, .error e => Json.mkObj [("error", toJson s!"lifecycle event: {e}")]
+  | .ok p, .ok extra =>
+    match guard ((p.items.foldl Ledger3.fileRaw {}).events ++ extra) with
+    | .ok _ => Json.mkObj [("guard", "ok")]
+    | .error e => Json.mkObj [("error", toJson e)]
 
 /-! ## Fast paths (each `@[csimp]`, proved equal to the definition it replaces) -/
 
@@ -565,7 +584,8 @@ def runLedger3Fast (inputs : Json) : Json :=
 
 end GPProfile.Real.LedgerRun3
 
-def main (_args : List String) : IO UInt32 := do
+open GPProfile.Real in
+def main (args : List String) : IO UInt32 := do
   let stdin ← IO.getStdin
   let mut text := ""
   repeat
@@ -574,4 +594,6 @@ def main (_args : List String) : IO UInt32 := do
     text := text ++ line
   match Lean.Json.parse text with
   | .error e => IO.eprintln s!"gp_ledger3: input is not JSON: {e}"; return 2
-  | .ok plan => IO.println (GPProfile.Real.LedgerRun3.runLedger3 plan).compress; return 0
+  | .ok plan =>
+    let run := if args.contains "--guard" then LedgerRun3.guardLedger3 else LedgerRun3.runLedger3
+    IO.println (run plan).compress; return 0

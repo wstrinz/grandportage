@@ -15,8 +15,9 @@ python tools/gp.py --campaign campaigns/3p-matroids <command> ...
 | `cover <label> --candidates FILE --n N --m M [--premise NAME[=data] ...] [--supports L1,L2]` | Records a candidate cover for the DECIDE goal's spine rule. It is a ledger record, not a claim. See [Graph-bound claims and the spine rule](#graph-bound-claims-and-the-spine-rule). |
 | `submit <label> <receipt.json>` | GP replays the receipt. If the claim becomes held, the receipt is its support. Otherwise the refusal is logged. |
 | `submit-batch <batch.json>` | The same for many receipts in one fold. `batch.json` is a JSON list of `{"label": ..., "receipt": PATH}`. Each item gets the record a single `submit` would write. If any item is refused, GP refolds without the refused receipts, so every support it appends is held by the ledger it leaves. Items held only alongside other batch receipts are resubmitted one at a time. File claims first with `claim`, which does not fold. |
+| `restate --reason TEXT` | Binds an edited `campaign.json`. Every other command first checks that the statement's SHA-256 equals the bound one (set at `init`, or by the latest `restate`), parses those same bytes, and refuses otherwise. `restate` appends a versioned event carrying the old and new hashes and the reason. A merge requires both branches to bind the same statement. |
 | `status` | Starts with one line per matroid giving χ(M), built only from held claims ("fully held", or what is still unknown). Then it lists held, open and refused claims, with earned-but-unclaimed reach. |
-| `explain <label>` | Shows the licence tree: certificates, rules, premises, reach and named premises. On a cover, it shows the candidates, each one's exclusion and its state, the premises and the theorems. |
+| `explain <label>` | Shows the licence tree: certificates, rules, premises, reach and named premises. Each certificate names its `stored receipt` (the SHA-256 of `receipts/<sha256>.json`, or of an inline receipt's canonical JSON) and, when it differs, the `submitted file`'s. On a cover, it shows the candidates, each one's exclusion and its state, the premises and the theorems. |
 | `frontier` | Lists open claims, each with its last refusal and smallest fix, then any DECIDE goal with OPEN cover premises, missing candidate exclusions and held claims or covers that do not count for its parameters. It uses the same bridges and spine join as `status`; an undecided goal stays open. "Frontier empty" requires every claim held and, when present, the goal decided. |
 | `tailings --export [FILE]` | Exports refused attempts, earned widenings, open items and open premises (source, reliability, completeness). |
 | `emit-lean <label>` | Emits a Lean theorem for a held claim inside the warrant generator's coverage. Otherwise it says why not. |
@@ -77,12 +78,12 @@ A point over F_p[a]/(m) works in three steps:
 A branch is a copy of the campaign directory. Work on each copy with `gp` as usual, then run `gp --campaign A merge B` to bring B's records into A. B is never written.
 
 - **Keys are branch-safe.** A new claim's key is a hash of its label and statement, mapped into [2³², 2³² + 2⁵²). Two branches never give one key to different claims, barring a hash collision, which the guard refuses like any tie. The same claim filed on both branches gets one key and is merged as one record. Keys filed before this scheme stay as filed.
-- **The guard.** The merged ledger is A's records, then each of B's that A lacks. Records equal except for their timestamp count as one. The merge lands only if the Kernel's `resolve` accepts the merged log. If it does not, `gp` refuses with the Kernel's reason, and neither ledger changes.
+- **The guard.** The merged ledger is A's records, then each of B's that A lacks. Records equal except for their timestamp count as one. The merge lands only if the Kernel's `resolve` accepts the merged log of each runner: the characteristic claims (`gp_ledger --guard`) and the ℝ, ℚ, semireal, number-field and goal claims with the claims they rest on (`gp_ledger3 --guard`). Every key is in one part, and conflicts are per claim and warrant id, so the two checks see every collision. If either refuses, `gp` refuses with the Kernel's reason, and neither ledger changes.
 - **Conflicts.** Resolve them on one branch, then merge again:
   - `conflicting current bindings: k`: one key bound to different statements or scopes.
   - `conflicting warrant contents: k`: one claim supported differently on the two branches, where neither branch has seen the other's support. Submit one receipt on both branches; the later support wins.
   - `withdrawal and replacement: k`: one branch retracts a warrant the other supersedes.
-  - The adapter also refuses one label naming different claims.
+  - The adapter also refuses one label naming different claims, and two different receipts for one claim (`conflicting warrant contents: k (the branches support … by different receipts)`): receipts are named per claim, so their Kernel warrants are equal.
 - **Retraction and supersession** are Kernel events that `gp` does not write yet: the profile files only declarations, currents and warrants. The guard reads `retract` and `supersede` ledger records, but a merge that would land one is refused until the profile applies them.
 
 ## 3b claims
@@ -250,3 +251,7 @@ Keep `cost-log.jsonl` and `friction-log.jsonl` in the campaign directory, follow
 ## Roles
 
 Search tools such as Singular, Macaulay2 and Sage are untrusted. GP replays everything they propose. The ledger is written only by `gp`. The builder fixes CLI and checker problems you report and never writes campaign claims.
+
+### Runner freshness
+
+`gp` rebuilds a Lean runner (`gp_ledger`, `gp_ledger3`) unless the stamp next to it (`<runner>.gpstamp`) records the SHA-256 identity of the sources it was built from: the profile and Kernel `.lean` files, their lakefiles, the manifest and the toolchain pin. Modification times play no part. A build is announced on stderr; a failed build is refused with the target and the last lines of lake's output, and a missing toolchain with the elan install hint.

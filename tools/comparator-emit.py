@@ -15,18 +15,21 @@ in the challenge and compared by value, never as `definition_names` holes):
            in scope realizes M (solved from the premise's point)
   source   NOT_IN_IDEAL(1) of a monic one-variable source system: f has a root in every
            algebraically closed K in scope
-EMPTY claims (ideal certificates) need frame normalization; that class is listed as deferred
-(reprioritised 2026-10-09), not refused.
+  empty    EMPTY by an ideal certificate, at p or outside S: no field K in scope realizes M
 
 Solutions: the route B prelude (`GPCert`), per claim the checker data and
-`GPCert.realizes…_of_certOk … (by decide +kernel)`; sources use `GPCert.exists_rootZ`.
+`GPCert.realizes…_of_certOk … (by decide +kernel)`; sources use `GPCert.exists_rootZ`. EMPTY
+solutions use the frame-normalization prelude (`GPEmpty`, release plan D1): `GPEmpty.frame4` moves any
+realization to the encoder's frame, `GPEmpty.det_zero_iff` gives the framed equations and guards, and
+the ideal certificate is one `linear_combination` (no kernel evaluation).
 
 Fidelity checks (a claim failing any of them is refused and listed with its reason, never guessed):
 kind, target, scope, rule and premises match the class; characteristics are prime and every receipt
 certificate is at the claim's characteristic; the encoder's output reproduces the claim's encoding
 digest and system; the matroid is simple rank 3; an independent frame reconstruction equals the
 encoder's; the map or point covers exactly the system's variables, every equation vanishes and every
-guard is a unit in scope; every triple has the certificate the Lean checker re-checks.
+guard is a unit in scope; every triple has the certificate the Lean checker re-checks; for EMPTY, every
+system equation and guard is its triple's framed determinant and the ideal identity holds in scope.
 Soundness does not depend on these checks (the kernel checks the certificates); fidelity does.
 
 Writes <out>/<root>/<Shard>/{Challenge,Solution}.lean, <out>/comparator/<shard>.json and the
@@ -56,8 +59,12 @@ AXIOMS = ["propext", "Quot.sound", "Classical.choice"]
 PART2 = "/-! ## GPCert part 2"
 # class id -> shard name prefix (map-p keeps the first run's shard names)
 CLASSES = {"map-p": "Shard", "map-s": "MapOut", "point-p": "PointChar", "point-s": "PointOut",
-           "bridge": "Bridge", "source": "Source"}
+           "bridge": "Bridge", "source": "Source", "empty": "Empty"}
 LEDGER_TOTAL_KEY = "claims_in_ledger"
+# EMPTY: the largest `linear_combination` emitted, as (cofactor + remainder monomials) x (their largest
+# degree). At 3,570 one claim elaborates in about 6.5 min and 3.8 GB (D1 measurements); larger ones are
+# refused with the reason, pending a kernel ideal-certificate checker.
+EMPTY_MAX_WORK = 3600
 
 
 class Refuse(Exception):
@@ -378,8 +385,7 @@ def classify(key, claims, sup):
     rule, cert = r.get("rule", {}).get("type"), r.get("certificate", {}).get("type")
     sc = set(c["scope"])
     if c.get("kind") == "EMPTY":
-        raise Deferred("deferred (reprioritised 2026-10-09): EMPTY by ideal certificate needs frame "
-                       "normalization (GPBinding.Matroid.frame_iff bridged to RealizesRank3)")
+        return "empty"
     if rule == "map":
         return "map-p" if sc == {"characteristic"} else "map-s"
     if cert == "point":
@@ -605,6 +611,219 @@ def point_record(key, claims, sup, camp, encoder):
     return c, kind, val, m, data
 
 
+# ---- EMPTY by ideal certificate: sparse multivariate polynomials (dict exponent tuple -> coefficient) ----
+def m_add(a, b, s=1):
+    out = dict(a)
+    for k, v in b.items():
+        out[k] = out.get(k, 0) + s * v
+        if out[k] == 0:
+            del out[k]
+    return out
+
+
+def m_mul(a, b):
+    out = {}
+    for ka, va in a.items():
+        for kb, vb in b.items():
+            k = tuple(x + y for x, y in zip(ka, kb))
+            out[k] = out.get(k, 0) + va * vb
+            if out[k] == 0:
+                del out[k]
+    return out
+
+
+def m_scale(a, c):
+    return {k: v * c for k, v in a.items() if v * c != 0}
+
+
+def parse_multi(s, names):
+    """A polynomial string in the system's variables ('-1/2*y5*x7+x4^2', '3') over Q."""
+    s = s.replace(" ", "").replace("**", "^")
+    if s in ("", "0"):
+        return {}
+    if not re.fullmatch(r"[0-9a-z^*/+-]+", s) or s.endswith(("+", "-")):
+        raise Refuse(f"unparsed certificate polynomial {s!r}")
+    idx = {v: i for i, v in enumerate(names)}
+    out = {}
+    for t in re.findall(r"[+-]?[^+-]+", s):
+        coef, exps = Fraction(-1 if t.startswith("-") else 1), [0] * len(names)
+        for f in t.lstrip("+-").split("*"):
+            name, _, e = f.partition("^")
+            if re.fullmatch(r"[0-9]+/[0-9]+", f) and int(f.split("/")[1]):
+                coef *= Fraction(*map(int, f.split("/")))
+            elif f.isdigit():
+                coef *= int(f)
+            elif name in idx and (e == "" or e.isdigit()):
+                exps[idx[name]] += int(e) if e else 1
+            else:
+                raise Refuse(f"unparsed factor {f!r} in {s!r}")
+        out = m_add(out, {tuple(exps): coef})
+    return out
+
+
+def m_det(col, t):
+    """`GPEmpty.d3` of the columns of triple `t` (rows in the triple's order)."""
+    a, b, c = (col[i] for i in t)
+    d = {}
+    for s, (i, j, k) in [(1, (0, 1, 2)), (-1, (0, 2, 1)), (-1, (1, 0, 2)), (1, (1, 2, 0)), (1, (2, 0, 1)),
+                         (-1, (2, 1, 0))]:
+        d = m_add(d, m_mul(m_mul(a[i], b[j]), c[k]), s)
+    return d
+
+
+def lean_poly(a, names):
+    """An integer polynomial as Lean text over the framed vectors `w` (`x4` is `w 3 0`)."""
+    atom = [f"w {int(v[1:]) - 1} {'xyz'.index(v[0])}" for v in names]
+    parts = []
+    for k in sorted(a, key=lambda k: (-sum(k), [-e for e in k])):
+        c = a[k]
+        fac = [atom[i] + (f" ^ {e}" if e > 1 else "") for i, e in enumerate(k) if e]
+        body = " * ".join(([str(abs(c))] if abs(c) != 1 or not fac else []) + fac)
+        parts.append((c < 0, body))
+    if not parts:
+        return "0"
+    s = ("-" if parts[0][0] else "") + parts[0][1]
+    for neg, body in parts[1:]:
+        s += (" - " if neg else " + ") + body
+    return s
+
+
+def empty_record(key, claims, sup, camp, encoder):
+    """Fidelity and data for an EMPTY claim by an ideal certificate, Σ qᵢ·eqᵢ = (∏ selected guards)^k.
+    Every equation and guard is matched to its triple's framed determinant, and the identity is
+    re-checked here (modulo p, or exactly after clearing denominators made of primes in S)."""
+    c, r = claims[key], sup[key]["receipt"]
+    if c.get("kind") != "EMPTY" or c.get("target") is not None or c.get("matroid") is None:
+        raise Refuse(f"kind/target {c.get('kind')}/{c.get('target')} is not a matroid EMPTY")
+    if set(r) != {"certificate"}:
+        raise Refuse("EMPTY receipt carries a rule or premises")
+    kind, val = check_scope(c)
+    if kind == "0":
+        raise Refuse("EMPTY at characteristic 0 has no emitter route")
+    cert = r["certificate"]
+    if cert.get("type") != "ideal":
+        raise Refuse("receipt certificate is not an ideal certificate")
+    check_cert_chars([cert], kind, val)
+    m = frame_of(c, camp, encoder)
+    if len(m["frame"]) != 4:
+        raise Refuse("frame has no fourth element (GPEmpty.frame4 needs one)")
+    names, sysc = m["vars"], m["system"]
+    nv = len(names)
+    k, mm = cert.get("k"), cert.get("m")
+    if mm != 0 or not isinstance(k, int) or isinstance(k, bool) or k < 0:
+        raise Refuse(f"certificate exponents m={mm!r}, k={k!r} are not EMPTY's (m = 0, k >= 0)")
+    cof = cert.get("cofactors")
+    if not isinstance(cof, list) or len(cof) != len(sysc["equations"]) or not all(isinstance(q, str) for q in cof):
+        raise Refuse("cofactors are not one string per equation")
+    sel = cert.get("guards", list(range(len(sysc["nonzero"]))))
+    if not isinstance(sel, list) or len(set(sel)) != len(sel) or not all(
+            isinstance(i, int) and not isinstance(i, bool) and 0 <= i < len(sysc["nonzero"]) for i in sel):
+        raise Refuse(f"guard selection {sel!r} is not distinct guard indices")
+    unit_mono = (0,) * nv
+    col = [[({unit_mono: Fraction(e[0])} if e else {}) for e in m["frame"][j]] if j in m["frame"] else
+           [{tuple(int(i == names.index(f"{ch}{j + 1}")) for i in range(nv)): Fraction(1)} for ch in "xyz"]
+           for j in range(m["n"])]
+    eqt, grt = [], []
+    for t in m["triples"]:
+        d = m_det(col, t)
+        if m["on"](t) and d:
+            eqt.append((t, d))
+        elif not m["on"](t) and any(sum(e) for e in d):
+            grt.append((t, d))
+    sign = {}
+    for what, ts, polys in (("equation", eqt, sysc["equations"]), ("guard", grt, sysc["nonzero"])):
+        if len(ts) != len(polys):
+            raise Refuse(f"system {what}s are not the framed determinants")
+        for i, ((t, d), s) in enumerate(zip(ts, polys)):
+            e = parse_multi(s, names)
+            if e == d or e == m_scale(d, -1):
+                sign[what, i] = 1 if e == d else -1
+            else:
+                raise Refuse(f"system {what} {s!r} is not the determinant of triple {[m['els'][x] for x in t]}")
+    tau = 1
+    for i in sel:
+        tau *= sign["guard", i] ** k
+    cs = [m_scale(parse_multi(q, names), tau * sign["equation", i]) for i, q in enumerate(cof)]
+    Gk = {unit_mono: Fraction(1)}
+    for _ in range(k):
+        for i in sel:
+            Gk = m_mul(Gk, grt[i][1])
+    if kind == "p":
+        p = val
+        ci = []
+        for i, q in enumerate(cs):
+            if any(v.denominator % p == 0 for v in q.values()):
+                raise Refuse(f"cofactor {i} has a denominator divisible by {p}")
+            red = {mono: (v.numerator * pow(v.denominator, -1, p) + p // 2) % p - p // 2 for mono, v in q.items()}
+            ci.append({mono: x for mono, x in red.items() if x})
+        lhs = {}
+        for i, q in enumerate(ci):
+            lhs = m_add(lhs, m_mul(q, eqt[i][1]))
+        diff = m_add(Gk, lhs, -1)
+        if any(v.denominator != 1 or v.numerator % p for v in diff.values()):
+            raise Refuse(f"the ideal identity fails modulo {p}")
+        R, unit = {mono: int(v) // p for mono, v in diff.items()}, []
+    else:
+        D = 1
+        for q in cs:
+            for v in q.values():
+                D = lcm(D, v.denominator)
+        es = factor_over(D, val)
+        if es is None:
+            raise Refuse(f"cofactor denominators {D} have a prime outside {val}")
+        ci = [{mono: int(v * D) for mono, v in q.items()} for q in cs]
+        lhs = {}
+        for i, q in enumerate(ci):
+            lhs = m_add(lhs, m_mul(q, eqt[i][1]))
+        if m_add(m_scale(Gk, D), lhs, -1):
+            raise Refuse("the ideal identity fails over Q")
+        R, unit = {}, [(s, e) for s, e in zip(val, es) if e]
+    used = [q for q in ci if q] + [R]
+    work = sum(len(q) for q in used) * max([sum(mono) for q in used for mono in q] + [0])
+    if work > EMPTY_MAX_WORK:
+        raise Refuse(f"certificate too large for the linear_combination route (size {work} > {EMPTY_MAX_WORK}); "
+                     "needs a kernel ideal-certificate checker")
+    return c, kind, val, m, dict(names=names, k=k, frame=list(m["frame"]), R=R, unit=unit,
+                                 eqs=[(eqt[i][0], q) for i, q in enumerate(ci) if q], guards=[grt[i][0] for i in sel])
+
+
+def empty_block(x):
+    """The EMPTY solution: frame normalization, the used equations and guards as determinant facts at the
+    framed vectors, and the certificate as one `linear_combination`."""
+    d = x["data"]
+    dec = "(by decide)"
+    det = lambda t: f"(GPEmpty.det_zero_iff hw (a := {t[0]}) (b := {t[1]}) (c := {t[2]}) {dec} {dec} {dec})"
+    out = [f"{doc(x)}{statement(x)} := by", "  rintro ⟨v, hv⟩",
+           "  obtain ⟨w, hw, h₀, h₁, h₂, h₃⟩ := GPEmpty.frame4 hv {} {} {} {} ".format(*d["frame"]) +
+           " ".join([dec] * 10)]
+    names = []
+    for i, (t, _) in enumerate(d["eqs"]):
+        out.append(f"  have e{i} := {det(t)}.mpr {dec}")
+        names.append(f"e{i}")
+    for j, t in enumerate(d["guards"]):
+        out.append(f"  have g{j} := mt {det(t)}.mp {dec}")
+        names.append(f"g{j}")
+    if x["kind"] == "p":
+        out.append(f"  have hp : ({x['val']} : K) = 0 := by exact_mod_cast CharP.cast_eq_zero K {x['val']}")
+    for s, _ in d["unit"]:
+        out.append(f"  have u{s} : ({s} : K) ≠ 0 := by exact_mod_cast GPEmpty.prime_ne_zero (K := K) hK (s := {s}) "
+                   f"(by norm_num) {dec}")
+    if names:
+        out.append("  simp only [GPEmpty.d3, h₀, h₁, h₂, h₃, Matrix.cons_val_zero, Matrix.cons_val_one, "
+                   "Matrix.cons_val_two, Matrix.head_cons, Matrix.tail_cons] at " + " ".join(names))
+    nz = "one_ne_zero" if not d["guards"] else "g0"
+    for j in range(1, len(d["guards"])):
+        nz = f"(mul_ne_zero {nz} g{j})"
+    nz = f"(pow_ne_zero {d['k']} {nz})"
+    for s, e in reversed(d["unit"]):
+        nz = f"(mul_ne_zero (pow_ne_zero {e} u{s}) {nz})"
+    combo = [f"({lean_poly(q, d['names'])}) * e{i}" for i, (_, q) in enumerate(d["eqs"])]
+    if d["R"]:
+        combo.append(f"({lean_poly(d['R'], d['names'])}) * hp")
+    out.append(f"  exact {nz[1:-1]} (by linear_combination {' + '.join(combo) if combo else '0'})")
+    return "\n".join(out) + "\n"
+
+
 def build(key, cls, claims, sup, camp, encoder):
     """Return the claim's emission record, or raise Refuse with the reason."""
     c, s = claims[key], sup[key]
@@ -689,6 +908,9 @@ def build(key, cls, claims, sup, camp, encoder):
             raise Refuse("receipt certificate is not proper_coefficient")
         check_cert_chars([cert], kind, val)
         x.update(m=None, kind=kind, val=val, f=source_poly(c, val), algclosed=True, point=False)
+    elif cls == "empty":
+        _, kind, val, m, data = empty_record(key, claims, sup, camp, encoder)
+        x.update(m=m, kind=kind, val=val, data=data, algclosed=False, point=False)
     else:
         raise Refuse(f"unknown class {cls}")
     if x.get("m"):
@@ -730,9 +952,13 @@ MEANING = {
               "every algebraically closed field in scope.",
     "source": "Each is NOT_IN_IDEAL(1) of a one-variable source\nsystem `f(a) = 0`, stated in Mathlib "
               "vocabulary: `f` has a root in every algebraically closed field\nin scope.",
+    "empty": "Each is EMPTY of the framed realization system\nin its scope, by an ideal certificate, "
+             "stated in Mathlib vocabulary: no field K of characteristic\np (or with `ringChar K ∉ S`) "
+             "realizes the matroid.",
 }
 TITLE = {"map-s": "map-rule claims outside S", "point-p": "point claims at p",
-         "point-s": "point claims outside S", "bridge": "bridge claims", "source": "source claims"}
+         "point-s": "point claims outside S", "bridge": "bridge claims", "source": "source claims",
+         "empty": "EMPTY claims"}
 
 
 def header(cls, sid, keys):
@@ -783,8 +1009,9 @@ def statement(x):
         return (f"theorem {x['thm']} (K : Type*) [Field K] {binders(x)} :\n"
                 f"    ∃ a : K, {poly_text(x['f'])} = 0")
     m = x["m"]
+    neg = "¬ " if x["cls"] == "empty" else ""
     return (f"theorem {x['thm']} (K : Type*) [Field K] {binders(x)} :\n"
-            f"    ∃ v : Fin {m['n']} → Fin 3 → K, RealizesRank3 lines_{san(m['matroid'])} v")
+            f"    {neg}∃ v : Fin {m['n']} → Fin 3 → K, RealizesRank3 lines_{san(m['matroid'])} v")
 
 
 def doc(x):
@@ -805,6 +1032,8 @@ def solution_block(x):
                 f"  simp only [List.cons_append, List.nil_append, GPCert.evZ] at hr\n"
                 f"  push_cast at hr\n"
                 f"  linear_combination hr\n")
+    if x["cls"] == "empty":
+        return empty_block(x)
     d, m = x["data"], x["m"]
     ns = f"W{x['key']}"
     lname = f"lines_{san(m['matroid'])}"
@@ -895,6 +1124,7 @@ def main(argv=None):
     ap.add_argument("--shard-size", type=int, default=64)
     ap.add_argument("--encoder", type=Path, default=here / "encode-matroid.py")
     ap.add_argument("--prelude", type=Path, default=here / "comparator-prelude.lean")
+    ap.add_argument("--prelude-empty", type=Path, default=here / "comparator-prelude-empty.lean")
     ap.add_argument("--root", default="GPComparator")
     ap.add_argument("--manifest", type=Path, help="manifest path (default <out>/MANIFEST.json)")
     ap.add_argument("--clean", action="store_true", help="remove earlier <root>/ and comparator/ outputs")
@@ -917,6 +1147,7 @@ def main(argv=None):
     if PART2 not in prelude:
         ap.error("prelude has no part 2 marker")
     prelude1 = prelude[:prelude.index(PART2)]
+    prelude_empty = args.prelude_empty.read_bytes().decode("utf-8")
 
     emitted, refused, deferred = [], [], []
     for k in sorted(sup):
@@ -932,7 +1163,7 @@ def main(argv=None):
             except Refuse:
                 refused[-1]["class"] = "empty" if claims[k].get("kind") == "EMPTY" else "none"
     for x in emitted:
-        x["thm"] = ("root_" if x["cls"] == "source" else "realizable_") + san(x["label"])
+        x["thm"] = {"source": "root_", "empty": "unrealizable_"}.get(x["cls"], "realizable_") + san(x["label"])
     for field, what in (("thm", "theorem name"), ("matroid", "matroid identifier")):
         seen = {}
         for x in emitted:
@@ -961,7 +1192,7 @@ def main(argv=None):
             if not defs:
                 prefix_text = head + "\n"
             chal = prefix_text + "\n".join(doc(x) + statement(x) + " := by\n  sorry\n" for x in xs)
-            pre = prelude1 if cls == "map-p" else prelude
+            pre = {"map-p": prelude1, "empty": prelude_empty}.get(cls, prelude)
             sol = prefix_text + pre.rstrip("\n") + "\n\n" + "\n".join(solution_block(x) for x in xs)
             mod = f"{args.root}.{sid}"
             cfg = {"challenge_module": f"{mod}.Challenge", "solution_module": f"{mod}.Solution",
@@ -996,6 +1227,7 @@ def main(argv=None):
         "schema": EMITTER, "shard_size": args.shard_size, "root": args.root, "permitted_axioms": AXIOMS,
         "inputs": {"ledger_sha256": sha(raw), "encoder_sha256": sha(args.encoder.read_bytes()),
                    "prelude_sha256": sha(args.prelude.read_bytes()),
+                   "prelude_empty_sha256": sha(args.prelude_empty.read_bytes()),
                    "realizes_def_sha256": sha(realizes.encode("utf-8"))},
         "counts": {LEDGER_TOTAL_KEY: total, "supported": len(sup), "unsupported": total - len(sup),
                    "emitted": len(manifest_claims), "refused": len(refused), "deferred": len(deferred),

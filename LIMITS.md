@@ -1,14 +1,55 @@
 # Standing limits
-Phase 2 decisions and acceptance criteria live in the handoff and STATUS.md. These limits apply throughout the work and are not repeated in each report.
 
-- Soundness concerns the accurately encoded statement, model and scope, under stated admitted checker/rule contracts. Intended meaning, source interpretation, host permissions/availability and faithful rendering require their own verification.
-- Completeness means finite reachability under the declared admitted instances. It is not all logical consequences, exhaustive campaign search or checker acceptance completeness.
-- A proved conflict blocks release separately from held closure. Unknown overlap is unresolved. Empty scopes are vacuous; they do not supply an existence witness.
-- Standard kernel axioms are propext, Quot.sound and Classical.choice. No sorry, native_decide or custom kernel axioms. Native LRAT is a candidate whose external compiler/runtime/Boolean-result trust is explicit; admission still requires an argument and controls.
-- The Phase 2 algebraic checker is a specified test stub. It does not constitute production algebraic profile or package/checker adoption.
-- All 459 case expectations, source pins and immutable replay history remain fixed. Layer tags are a separate sidecar; ambiguous tags require Will's decision. Other layers remain accounted for even though G2 tests kernel cases.
-- The seven unresolved Phase 1 owners remain open and are revisited only when a Phase 3 profile touches them. Retrospective cost percentages remain indeterminate; prospective cost logging belongs to the live campaign work later.
-- The Mathlib timing measurements use this toolchain, cached imports and the observed host. They support a policy choice, not a general per-proof cost claim.
-- Private harvests, oracle checkout, caches and builds remain outside Git. New work/scratch stays on F:. Existing sources remain read-only except the exact public freeze patch separately authorized for wstrinz/grandportage.
-- The review shadow wstrinz/grand-portage-workspace is public by Will's direct confirmation. This reviewed checkpoint push and the exact predecessor freeze patch are authorized. Private harvests remain excluded. Unsolicited external contact, new corpus cases, broader predecessor audits and scheduling restart remain outside scope.
-- New Markdown targets 10,000 words and stops at 15,000; reports 800, slice 500, decision entries 150. Logic/decoding/statement targets are 500/400/80 lines with 1.5x stop thresholds. Proofs cannot conceal executable code to evade accounting.
+The current limits of GP 0.50 (2026-10-12), which apply throughout. Guarantees are in [GUARANTEES.md](GUARANTEES.md); sound refusals stronger than necessary are in [KNOWN-CONSERVATISM.md](KNOWN-CONSERVATISM.md); the Phase 2-era limits are in [HISTORY/LIMITS-pre-0.50.md](HISTORY/LIMITS-pre-0.50.md).
+
+## Meaning
+
+- **Soundness concerns the registered statement, model and scope.** Intended meaning, source interpretation and faithful rendering each need their own review.
+- **Completeness means finite reachability** under the admitted instances. It is not every logical consequence, exhaustive search or checker acceptance completeness.
+- **Empty scopes are vacuous.** They do not supply an existence witness.
+- **A proved conflict blocks release** separately from held closure. Unknown overlap stays unresolved.
+- **Named OPEN premises are metadata.** No checker is admitted for them, and the Kernel does not see them.
+
+## Mathematical reach
+
+- **ℝ only, not every real closed field.** Selected-root signs mean "some root in the interval".
+- **Number fields of degree ≤ 3.** Irreducibility uses the rational-root test.
+- **No `≥ 0` sign atom.** Use slack squares instead.
+- **No map rule between Gram and coordinate forms.**
+- **5 of 62 3P EMPTY claims have no Comparator warrant.** Their certificates are too large to emit (keys 1761, 1772, 1813, 1816, 1829), so they are held by the belay only.
+- **Census** counts rest on named premises (V4-NORMAL-FORM, CELL-COMPLETE for the DK slice); fidelity to the source's predicate is checked differentially, not proved.
+
+## Evidence and trust
+
+- **Axioms.** Only `propext`, `Quot.sound` and `Classical.choice` are allowed. There is no `sorry`, `native_decide`, `Lean.ofReduceBool` or custom axiom.
+- **Compiled checkers.** Checkers run as compiled code. The proofs are about the source, so the compiler and runtime are trusted ([TCB.md](TCB.md)).
+- **Axiom audits.** The Kernel is audited constant by constant at each promotion. CI (`tests/test_gp50_axiom_audit.py`) checks the main soundness theorems on every run, including a control that must flag a custom axiom. Other binding constants are covered by the phase reports, not CI.
+
+## Kernel pin and promotion
+
+- `KERNEL-PIN.json` binds the 22 Kernel files and the toolchain, Lean `v4.34.0-rc2` (a release candidate, adopted for Hex v0.6.0).
+- **Changes** go through [PROMOTIONS.md](PROMOTIONS.md) with Will's approval. Each entry needs re-check evidence, and the pin is rewritten in the same commit.
+- **The corpus is fixed:** case bytes, expectations, source pins and replay history. Receipts bind test and harness bytes, so changing an executed harness requires re-execution.
+
+## Campaign ledgers
+
+- **No withdrawal.** `gp` cannot withdraw a claim, refused or held: the profile files no retraction or supersession events yet, so a refused claim stays on the frontier and `merge` refuses a log that carries lifecycle records. File the corrected claim under a new label.
+
+## Public snapshot boundaries
+
+- **Building a release.** `scripts/public_snapshot.py` builds public releases from `public-snapshot-v2.json`. Every tracked path is public, private or generated, and an unclassified path stops the build. Exact paths override prefixes; otherwise the longest matching prefix decides.
+- **Withheld:**
+  - `campaigns/`, except `campaigns/3p-matroids/` and `campaigns/schemas/`;
+  - `ropes/`, except `ropes/r1a/`;
+  - `docs/private/`;
+  - `DECISIONS-PRIVATE.md`;
+  - a few exactly named files;
+  - the oracle checkouts.
+
+  Some public documents link to withheld files.
+- **Repositories.** The workspace is private (since 2026-10-10). Nothing goes to the public `wstrinz/grandportage` without Will's explicit OK.
+- **Public tests.** Suites that need private data skip in the public snapshot.
+
+## Resources
+
+- Every fold replays every receipt; there is no cross-run result cache. `decide +kernel` never runs over Hex-based checkers. A 3P Comparator shard peaks near 7 GB.

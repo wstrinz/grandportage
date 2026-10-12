@@ -1,6 +1,7 @@
 import GPProfile.Algebra
 import GPProfile.Real.RealPoint
 import GPProfile.Real.NumberField
+import GPProfile.Real.Goal
 
 /-!
 The 3b profile's executable operations ([3B-PROFILE-DESIGN.md](../../../docs/3B-PROFILE-DESIGN.md)).
@@ -13,7 +14,9 @@ One profile sums three statement families over field contexts:
 - `nf p`: a point of a finite algebra over a number field `ℚ[t]/(m)` (post-G2 §5), at an `alg`
   scope inside characteristic 0; it quantifies over the roots of `m` (C4, C5).
 
-A fourth form, `realCover r bs`, is 3a's cover kind for real systems, at `real` scope.
+A fourth form, `realCover r bs`, is 3a's cover kind for real systems, at `real` scope. A fifth,
+`goal g`, is the DECIDE goal family (release plan A2, `GPProfile.Real.Goal`): Q(n, m), its negation,
+a cover and the spine implication, at `real` scope.
 
 Scopes order within a family, plus `real ≤ semireal` and `ratField ≤ semireal` (ℝ and ℚ are
 semireal). No scope relates the `alg`
@@ -50,6 +53,8 @@ inductive Stmt3 where
   | nf (p : NFPoint)
   /-- Every point of `r` is a point of one of the branches (3a's `cover` kind, real family). -/
   | realCover (r : RealSys) (branches : List RBranch)
+  /-- The DECIDE goal family (A2): `goal n m v`, `cover n m L`, `spine n m L` (`GoalStmt`). -/
+  | goal (g : GoalStmt)
   deriving Repr, DecidableEq
 
 inductive Scope3 where
@@ -83,6 +88,7 @@ def Stmt3.contra : Stmt3 → Stmt3 → Bool
   | .orderFree a, .orderFree b =>
     sameSys a b && ((a.kind == .empty && b.kind == .nonempty) || (a.kind == .nonempty && b.kind == .empty))
   | .real a ea, .real b eb => decide (a = b) && ea != eb
+  | .goal a, .goal b => a.contra b
   | _, _ => false
 
 def ops3 : GP50.Semantic.ProfileOps where

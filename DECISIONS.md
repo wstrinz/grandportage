@@ -590,3 +590,26 @@ Work now lands on master directly; the workspace checkout tracks `origin/master`
 2026-10-11 **Campaign decision withheld from public releases.** It is recorded in `DECISIONS-PRIVATE.md`, which ships after the related outreach.
 
 2026-10-11 **Campaign decision withheld from public releases.** It is recorded in `DECISIONS-PRIVATE.md`, which ships after the related outreach.
+
+2026-10-12 **`v0.50.0-alpha.2` published** on public `wstrinz/grandportage` (Will: tool-focused, with campaign narrative withheld until outreach). Receipt: [ALPHA-2-PUBLICATION.json](reports/ALPHA-2-PUBLICATION.json).
+- The public commit `f0bc8b3` is the audited snapshot of workspace tag `v0.50.0-alpha.2` (`b1f63e3`), and it includes rope R1a (Will's GR1 call).
+- Follow-up commit `aaa0727` skips the 3b corpus replay in public snapshots.
+- Public CI is green: the test suite, R1a's `REPRODUCE`, and the 3P Comparator shards.
+- From now on, campaign-sensitive decisions go in `DECISIONS-PRIVATE.md`.
+
+2026-10-12 **v0.50.0 stable scope** (Will, after an external review). Plan: [RELEASE-PLAN-0.50.0.md](docs/RELEASE-PLAN-0.50.0.md).
+- **Must:**
+  - **A, claim authority:** bind the campaign statement; a Kernel-held goal statement with admitted *realize* and *spine* rules, design note first; content-hash runner freshness.
+  - **B, honest documentation:** a guarantees page, current LIMITS and TCB, coverage by conclusion kind, manifests without withheld names, reproduction pinned to the release commit.
+  - **C, outside usability:** a guide for using GP in your own project, `gp --version`, a ledger-schema stability promise, and a test outside the workspace.
+- **Should:** D1, one EMPTY exclusion Comparator-checked in Mathlib vocabulary; D2, public exact gadget embeddings in R1a.
+- **After stable:** the Larson exchange-cut matched assay, then the hyperbolicity determinant-factor transport.
+- **Owners:** the builder (Claude) takes A; the Codex pool takes B, C and D; the builder integrates.
+
+2026-10-12 **A2 design approved; the builder takes B, C and D too** (Will: "looks great lets proceed … you can handle things rather than reserve for codex").
+- [A2-GOAL-STATEMENT-DESIGN.md](docs/A2-GOAL-STATEMENT-DESIGN.md) is adopted as written.
+  - Four profile statements: `goal` true, `goal` false, `cover` and `spine`.
+  - Three admitted rules: `realize`, `spine` and `decide`.
+  - `spine` is a held implication, and a cover is held only by a completeness proof.
+  - Legacy cover records are display-only notices to refile.
+- The release plan's B, C and D items move from the Codex pool to the builder and its workers.

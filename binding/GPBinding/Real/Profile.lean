@@ -1,6 +1,7 @@
 import GPBinding.Admission.Profile
 import GPProfile.Real.Profile
 import GPBinding.Real.NumberFieldSound
+import GPBinding.Real.Goal
 import Mathlib.Algebra.Ring.Semireal.Defs
 import Mathlib.Data.Real.Basic
 
@@ -19,6 +20,8 @@ executable `GPProfile.Real.ops3`. Contexts are 3a's `FieldCtx`.
 
 - `realCover r bs` means that every point of `r` in the context field is a point of some branch
   (3a's `cover` kind, with sign atoms read through squares).
+- `goal g` means `GoalHolds g` (`GPBinding.Real.Goal`, release plan A2): Q(n, m) over the Euclidean
+  plane, its negation, a complete cover, or the spine implication, in every context.
 
 Scope `semireal` is `IsSemireal`; scope `real` is a field isomorphic to ℝ; scope `ratField` is a
 field isomorphic to ℚ.
@@ -87,6 +90,7 @@ def Holds3 : Stmt3 → Spike.FieldCtx → Prop
   | .real r e, K => RealHolds K.carrier r e
   | .nf p, K => NumberField.NFHolds K.carrier p
   | .realCover r bs, K => RealCoverHolds K.carrier r bs
+  | .goal g, _ => GoalHolds g
 
 theorem le3_sound (a b : Scope3) (K : Spike.FieldCtx) (h : Scope3.le a b = true) (hm : Scope3.mem K a) :
     Scope3.mem K b := by
@@ -121,6 +125,7 @@ theorem contra3_sound (a b : Stmt3) (K : Spike.FieldCtx) (h : Stmt3.contra a b =
     | real _ _ => simp [Stmt3.contra] at h
     | nf _ => simp [Stmt3.contra] at h
     | realCover _ _ => simp [Stmt3.contra] at h
+    | goal _ => simp [Stmt3.contra] at h
   | orderFree a =>
     cases b with
     | orderFree b =>
@@ -135,6 +140,7 @@ theorem contra3_sound (a b : Stmt3) (K : Spike.FieldCtx) (h : Stmt3.contra a b =
     | real _ _ => simp [Stmt3.contra] at h
     | nf _ => simp [Stmt3.contra] at h
     | realCover _ _ => simp [Stmt3.contra] at h
+    | goal _ => simp [Stmt3.contra] at h
   | real r e =>
     cases b with
     | real r' e' =>
@@ -147,8 +153,13 @@ theorem contra3_sound (a b : Stmt3) (K : Spike.FieldCtx) (h : Stmt3.contra a b =
     | orderFree _ => simp [Stmt3.contra] at h
     | nf _ => simp [Stmt3.contra] at h
     | realCover _ _ => simp [Stmt3.contra] at h
+    | goal _ => simp [Stmt3.contra] at h
   | nf _ => cases b <;> simp [Stmt3.contra] at h
   | realCover _ _ => cases b <;> simp [Stmt3.contra] at h
+  | goal a =>
+    cases b with
+    | goal b => exact goal_contra_sound h ha hb
+    | _ => simp [Stmt3.contra] at h
 
 /-- The semantic 3b profile. -/
 def profile3 : GP50.Semantic.Profile.{1} where

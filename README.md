@@ -1,10 +1,12 @@
-# Grand Portage 0.50 (alpha)
+# Grand Portage 0.50
 
 Grand Portage holds a mathematical claim only through current, bound evidence and sound admitted rules, and only throughout the scope that evidence earns. When a certificate divides by 2, GP does not let the claim it supports reach characteristic 2.
 
 0.50 is a rework of the [v0.37 line](#v037). A small Lean kernel decides which claims are held. Profiles supply the statement language and the checkers, and their soundness is proved in Lean against Mathlib.
 
-**Status: `v0.50.0-alpha.2` (2026-10-11); gates through GE ratified.** This is a research alpha, not a production release. See [STATUS.md](STATUS.md) and the [release notes](reports/RELEASE-NOTES-v0.50.0-alpha.2.md).
+**Status: `v0.50.0`, the first stable 0.50 release.** It is research software, so read [GUARANTEES.md](GUARANTEES.md) for exactly what it guarantees and [LIMITS.md](LIMITS.md) for what it does not. See [STATUS.md](STATUS.md) and the [release notes](reports/RELEASE-NOTES-v0.50.0.md).
+
+**What GP guarantees, under which assumptions, and what it does not claim: [GUARANTEES.md](GUARANTEES.md).**
 
 GP is our **belay**: it keeps our own work honest. What we hand to others is a **rope**: a Lean theorem checked by stock Comparator that needs no trust in GP. The first rope is [`ropes/r1a`](ropes/r1a/README.md).
 
@@ -22,15 +24,28 @@ Since the first alpha, this release adds:
 - semireal, ℚ and ℝ claims (3b);
 - the census profile;
 - a pilot campaign;
-- Comparator warrants for 1,825 pilot claims;
+- Comparator warrants for 1,882 of 1,887 supported pilot claims, including 57 of 62 EMPTY exclusions;
 - the unit-distance theorems;
 - rope R1a.
 
-See the [release notes](reports/RELEASE-NOTES-v0.50.0-alpha.2.md) and the [review guide](REVIEW.md). [LIMITS.md](LIMITS.md) and [KNOWN-CONSERVATISM.md](KNOWN-CONSERVATISM.md) list what GP refuses that it could, in principle, accept.
+See the [release notes](reports/RELEASE-NOTES-v0.50.0.md), the [guarantees](GUARANTEES.md), the [usage guide](docs/USING-GP.md) and the [review guide](REVIEW.md).
+
+**Coverage by kind of conclusion.** Of the pilot campaign's 1,887 supported claims, only the Comparator-warranted ones need no trust in GP ([Track E report](reports/TRACK-E-REPORT.md#coverage-by-kind-of-conclusion)):
+
+| Kind | Comparator-warranted | Trust needed |
+|---|---|---|
+| Map rule (at p, or outside S) | 1,250 | Lean, Mathlib and Comparator |
+| Point (at p, or outside S / characteristic 0) | 553 | Lean, Mathlib and Comparator |
+| Bridge and source (NOT_IN_IDEAL(1)) | 22 | Lean, Mathlib and Comparator |
+| **EMPTY** (no field in scope realizes M) | **57 of 62** | Lean, Mathlib and Comparator. The other 5, whose certificates are too large to emit, are held by the belay only (GP's [TCB](TCB.md)). |
+
+[LIMITS.md](LIMITS.md) and [KNOWN-CONSERVATISM.md](KNOWN-CONSERVATISM.md) list what GP refuses that it could, in principle, accept.
 
 ## Try it
 
 You need [elan](https://github.com/leanprover/elan); each package's `lean-toolchain` selects its Lean version. You also need Python 3.10 or later.
+
+**Reproduce from the release tag.** `v0.50.0` is tagged on the exact commit on which CI passed; `reports/STABLE-PUBLICATION.json` records it. To use GP on your own problem, start with [docs/USING-GP.md](docs/USING-GP.md).
 
 ```bash
 cd profile && lake build gp_corpus_run && cd ..

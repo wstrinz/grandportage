@@ -1,0 +1,56 @@
+{
+ "schema": "gp-alpha-publication/v1",
+ "date": "2026-10-12",
+ "authority": "Will, 2026-10-11: tool-focused public alpha; campaign narrative withheld until outreach (DECISIONS-PRIVATE.md)",
+ "prevents": "an unverifiable claim that the public tree is the audited snapshot of the tagged workspace commit",
+ "workspace": {
+  "repository": "https://github.com/wstrinz/grand-portage-workspace (private)",
+  "tag": "v0.50.0-alpha.2",
+  "tag_object": "30cbf405c4d10b650b8effa87b5ea3217cce1819",
+  "commit": "b1f63e35556ba59c8a0abf6d67d22c7dfd45b9cc",
+  "ci_run": 38154498004,
+  "ci": "success on all jobs at checkpoint/2026-10-11-codex; later snapshot-relevant changes are docs, manifests and the receipt tool, tested locally"
+ },
+ "snapshot": {
+  "manifest": "public-snapshot-v2.json",
+  "receipt_schema": "grand-portage-public-snapshot-receipt/v2",
+  "sha256": "d70a729900e1b0faa5b9f8d0b0fe4541fa9891ae8d13e053b1227632835c079b",
+  "files": 4814,
+  "regenerated_at_tag_equals_audited": true,
+  "audit": {
+   "sensitive_terms": 0,
+   "withheld_files_absent": true,
+   "private_path_names_in_receipt": 0,
+   "residual": "the snapshot manifests name withheld paths (codenames only, no content)",
+   "secrets": 0,
+   "machine_paths": 0,
+   "v037_fast_selection_in_snapshot": "1748 passed",
+   "licensing": "Apache-2.0; NOTICE attributes verbatim formal-conjectures definitions (Apache-2.0) and vendored LRAT-Catcher (MIT)"
+  }
+ },
+ "public": {
+  "repository": "https://github.com/wstrinz/grandportage",
+  "branch": "master",
+  "base_commit": "a350fe4",
+  "published_commit": "f0bc8b385821ef0944cfd7d9a42425c40fce226b",
+  "fast_forward": true,
+  "index_entries": 4814,
+  "blobs_equal_snapshot_bytes": 4813,
+  "receipt_file": 1,
+  "tag": "v0.50.0-alpha.2",
+  "tag_object": "f851c1ba7acea0f1410e7344cea93bf4be3ec683",
+  "release": "https://github.com/wstrinz/grandportage/releases/tag/v0.50.0-alpha.2 (pre-release)",
+  "follow_up": {
+   "commit": "aaa0727",
+   "workspace_commit": "7997197",
+   "snapshot_sha256": "474a6e7a772dad1340ec97966cda41dc32870fbb18ae33ddfddafd6376db94f9",
+   "change": "skip the 3b corpus replay in public snapshots (historical-oracle inputs are private), as the Phase 2 replays already do"
+  },
+  "ci": {
+   "test": "run 38198560542 at aaa0727: all jobs pass; gp50 486 passed, 62 skipped (private-oracle suites)",
+   "first_run": "run 38195965402 at f0bc8b3: gp50 486 passed, 8 errors, all tests/test_gp50_corpus_3b.py (fixed by aaa0727)",
+   "rope_r1a": "run 38195967610: REPRODUCE passes on a fresh public runner (11m51s)",
+   "comparator": "run 38195969917: all 3P shards pass stock Comparator"
+  }
+ }
+}

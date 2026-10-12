@@ -1,6 +1,6 @@
 # R1a fidelity note
 
-This note checks the nine main statements of rope R1a against the M5 pitfall list. The vocabulary is `UDGRope/Defs.lean`, which every challenge repeats verbatim. Each item below says how it was checked.
+This note checks the nine main statements of rope R1a, and the six gadget-existence statements added for release item D2, against the M5 pitfall list. The vocabulary is `UDGRope/Defs.lean`, which every challenge repeats verbatim. Each item below says how it was checked.
 
 ## Sources
 
@@ -13,6 +13,7 @@ This note checks the nine main statements of rope R1a against the M5 pitfall lis
 - **artwaste `data/tu-gadgets.json`** at `ba1c76fd`, LF bytes `a904487c…`. The gadgets `gadget0`, `gadget1`, `gadget2`, `gadget3` and `gadget5` use the same vertex numbers and edge sets. Gadget 4 is gadget 3's graph with the pair (6, 7). This was checked by script against the JSON (`campaigns/ud22/search/check_patterns.py` reads the same file). The GR1 reviewer matched the six JSON gadgets, with their pairs, to AMP's figure of TU graphs 1–6 by brute-force isomorphism. That mapping is **not** checked inside the rope.
 - `gadget4_tu` also follows from `gadget5_tu` and heredity, because gadget 5 is a subgraph of gadget 3. It is proved directly here.
 - **artwaste `check/PROOFS.md`** for the rhombus fact and the rhombus combinations that prove the gadgets.
+- **The gadget embeddings** come from PROOFS.md's coordinate diagrams D0, D1 and D2, exact in ℚ(√3), at commit `ba1c76fd4abbd776315621ab85b7381e05352985` (MIT). They are relabelled to the JSON's vertex numbers. `UDGRope/Embeds.lean` tabulates them, and the Lean proofs check every coordinate from scratch.
 
 ## Pitfalls
 
@@ -24,7 +25,7 @@ This note checks the nine main statements of rope R1a against the M5 pitfall lis
 | Faithful vs non-faithful | `UnitDistEmbedding` constrains edges only. Non-edges may be at distance 1, which is exactly what TU gadgets exploit. Each `gadget*_tu` states `¬ G.Adj a b` together with `dist (f.p a) (f.p b) = 1` for **every** embedding. |
 | `sSup` junk values | `maxUnitDistances n = sSup (unitDistanceCounts n)` in ℕ. `unitDistanceCounts_bddAbove` proves boundedness by C(n+1, 2), which is what `le_csSup` needs. The set is nonempty for every `n` (any n-point set), so `schade` speaks about the true maximum and not ℕ's junk `sSup ∅ = 0`. Nonemptiness is not needed by the proof: `csSup_le'` holds in ℕ either way. |
 | ℕ subtraction and division | `schade` states `u(n) ≤ n * u(n - 1) / (n - 2)` for `3 ≤ n`. Under that hypothesis `n - 1` and `n - 2` are true differences. The `/` is ℕ floor division, which matches ⌊n·u(n−1)/(n−2)⌋ as used in P8 (⌊22·57/20⌋ = 62). |
-| Vacuity | The six gadget lemmas are non-vacuous: each gadget has an embedding. **This is not proved in the rope.** It rests on the PROOFS.md coordinates in ℚ(√3), which the GR1 reviewer checked numerically, and on Grand Portage's internal exact records `P2-gadget*-embeds`, which outsiders cannot inspect. `rhombus` is non-vacuous (a unit square). `schade` has no hypotheses beyond `3 ≤ n`. `heredity_nonempty` takes a `Copy`, which every subgraph inclusion gives. |
+| Vacuity | The six gadget lemmas are non-vacuous, **proved in the rope** (`UDGRope/Embeds.lean`): `gadget0_embeds` … `gadget5_embeds` give each gadget an exact injective unit-distance embedding, with coordinates in ℚ(√3) (`√3` is `Real.sqrt 3`). Gadget 4 is gadget 3's graph, so `gadget4_embeds` has `gadget3_embeds`'s statement. The proofs check injectivity using only `1.7 < √3 < 1.8`, and each edge using only `√3 ^ 2 = 3`. Stock Comparator accepts the six statements (`comparator/embeds.json`). It refuses a `sorry` proof, a weakened statement (an injective map with no edge condition) and a redefined `gadget0`. A wrong coordinate fails to build (`R1aFail/`). `gadget0_pair` … `gadget5_pair` compute, from the coordinates and not from the TU lemmas, that each distinguished pair is at distance 1, so the TU conclusion is realized. `rhombus` is non-vacuous (a unit square). `schade` has no hypotheses beyond `3 ≤ n`. `heredity_nonempty` takes a `Copy`, which every subgraph inclusion gives. |
 
 ## Definitions budget
 
@@ -32,4 +33,4 @@ The statement vocabulary is 21 non-comment lines (`Defs.lean`), within the 40-li
 
 ## Review
 
-Self-assessed by the assembling agent. At gate GR1 (2026-10-10) a non-builder agent reviewed it and found all nine statements faithful, with no statement defects. Its documentation notes are addressed above. There has been no human review.
+Self-assessed by the assembling agent. The D2 statements and witnesses (2026-10-12) have had no non-builder review yet. At gate GR1 (2026-10-10) a non-builder agent reviewed it and found all nine statements faithful, with no statement defects. Its documentation notes are addressed above. There has been no human review.

@@ -3,11 +3,12 @@
 usage: python tools/gp.py --campaign <dir> <command> ...
 
   init                                  start a ledger for the campaign statement in <dir>/campaign.json
+  restate --reason TEXT                 bind an edited campaign.json (a versioned event; edits are refused until then)
   claim <label> (--matroid M | --system FILE | --nf FILE | --udg GRAPH [--gauge]) --kind KIND [--target POLY]
         (--char P | --char0 | --outside P,Q | --real | --semireal | --rat-field) [--premise NAME]
                                         file a claim; it is open until a receipt supports it
   cover <label> --candidates FILE --n N --m M [--premise NAME[=data] ...] [--supports L1,L2]
-                                        a candidate cover for the goal's spine rule (a ledger record, no claim)
+                                        a candidate cover: the Kernel claims cover n m L and spine n m L
   submit <label> <receipt.json>         offer a certificate or a rule instance; GP replays it
   status                                held, open, refused and earned, per claim and per matroid
   explain <label>                       the licence tree of one claim, or a cover's join
@@ -37,9 +38,11 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = ROOT / "profile"
+GP_VERSION = "0.50.0"  # the release version; recorded in each ledger's init record
 EXE = PROFILE / (".lake/build/bin/gp_ledger" + (".exe" if os.name == "nt" else ""))
 ELAN_HOME = Path(os.environ.get("ELAN_HOME") or Path.home() / ".elan")
 SCHEMA = "gp-ledger/v1"
+SCHEMAS = (SCHEMA,)  # ledger schemas this gp reads (within v1, the compatible changes USING-GP.md lists)
 KINDS = ["EMPTY", "NONEMPTY", "IN_IDEAL", "VANISHES_ON", "NOT_IN_IDEAL"]
 # What a held kind says about a matroid's realization system.
 MEANING = {"EMPTY": "not realizable", "NONEMPTY": "realizable, with a point over the prime field",
@@ -56,9 +59,10 @@ _spec_udg.loader.exec_module(udg_encoder)
 class Refusal(Exception):
     """A CLI-level refusal: what was refused, under which rule and scope, and the smallest fix."""
 
-    def __init__(self, what, rule, scope, fix):
+    def __init__(self, what, rule, scope, fix, detail=None):
         super().__init__(what)
         self.body = {"message": what, "rule": rule, "scope": scope, "smallest_fix": fix}
+        self.detail = list(detail or [])  # lines printed after the refusal (a failed build's output)
 
 
 def now():
@@ -110,8 +114,51 @@ class Ledger:
         # Where receipt files are looked up, in order (a merge adds the other branch's directory).
         # Files are content-addressed and checked on every read, so no directory is trusted.
         self.receipt_dirs = [self.dir]
+        self._statement = None
         if self.path.exists():
             self.records = [json.loads(l) for l in self.path.read_text(encoding="utf-8").splitlines() if l.strip()]
+
+    def check_schema(self):
+        """The ledger's init record must name a schema this gp reads; a newer or foreign ledger is refused."""
+        first = self.records[0] if self.records else {}
+        if not isinstance(first, dict) or first.get("op") != "init":
+            raise Refusal(f"{self.path} does not start with an init record", "ledger schema", "-",
+                          "a gp ledger starts with `gp init`; restore the ledger from its branch")
+        schema = first.get("schema")
+        if schema not in SCHEMAS:
+            raise Refusal((f"the ledger's schema is {schema!r}" if schema else "the ledger's init record names no schema") +
+                          f"; gp {GP_VERSION} reads {', '.join(SCHEMAS)}",
+                          "ledger schema", "-", "use a gp release that reads this schema" if schema else
+                          f"an init record names its schema ({SCHEMA}); restore the ledger from its branch")
+
+    def bound_statement_sha(self):
+        """The statement hash the ledger binds: the init record's, or the latest explicit restatement."""
+        bound = None
+        for r in self.records:
+            if r["op"] == "init":
+                bound = r.get("statement_sha256")
+            elif r["op"] == "restate":
+                bound = r["new_sha256"]
+        return bound
+
+    def verify_statement(self):
+        """Read campaign.json once, check its bytes against the bound hash and parse those same bytes.
+        Every statement read in this command uses the result (the reviewed receipt discipline)."""
+        path = self.dir / "campaign.json"
+        if not path.exists():
+            raise Refusal("the campaign statement is missing", "statement binding", "-", f"restore {path}")
+        data = path.read_bytes()
+        bound, current = self.bound_statement_sha(), sha(data)
+        if bound is not None and current != bound:
+            raise Refusal(f"the campaign statement changed since it was bound (bound {bound[:12]}, now {current[:12]})",
+                          "statement binding", "-",
+                          "restore campaign.json, or record the change with `gp restate --reason ...`")
+        self._statement = json.loads(data.decode("utf-8"))
+        return self._statement
+
+    @property
+    def statement(self):
+        return self._statement if self._statement is not None else self.verify_statement()
 
     def append(self, record):
         record = dict(record, at=now())
@@ -197,7 +244,8 @@ class Ledger:
         return [cs[i] for i in sorted(i for k in set(keys) for i in pos.get(k, []))]
 
     def covers(self):
-        """Candidate covers (`gp cover`): ledger records the spine view reads, never Kernel claims."""
+        """Legacy cover records (`op` "cover", written by `gp cover` before release plan A2). Views show them as
+        refile notices; they are never read as a verdict. Covers are now Kernel claims (family "cover")."""
         return [r for r in self.records if r["op"] == "cover"]
 
     def claim(self, label):
@@ -228,12 +276,18 @@ class Ledger:
         return list(self._refused.get(label, []))
 
 
-def matroid_file(campaign, name):
-    """A matroid the statement lists, or one the campaign agent added under matroids/ with a source."""
-    statement = json.loads((Path(campaign) / "campaign.json").read_text(encoding="utf-8"))
-    for stage in statement["family"]:
+def matroid_file(campaign, name, statement=None):
+    """A matroid the statement lists, or one the campaign agent added under matroids/ with a source.
+    Callers with a ledger pass its verified statement."""
+    if statement is None:
+        statement = json.loads((Path(campaign) / "campaign.json").read_text(encoding="utf-8"))
+    family = statement.get("family") if isinstance(statement, dict) else None
+    if family is not None and not (isinstance(family, list) and all(isinstance(s, dict) for s in family)):
+        raise Refusal("the campaign statement's family is not a list of stages", "campaign statement", "-",
+                      'write "family": [{"matroids": [{"name": ..., "elements": [...], "lines": [...]}]}]')
+    for stage in family or []:
         for m in stage.get("matroids", []):
-            if m["name"] == name:
+            if isinstance(m, dict) and m.get("name") == name:
                 return m
     added = Path(campaign) / "matroids" / f"{name}.json"
     if added.exists():
@@ -242,6 +296,10 @@ def matroid_file(campaign, name):
             raise Refusal(f"{added.name} needs its own name and a cited source", "campaign statement: F1",
                           "-", "add \"name\" and \"source\" (tagged [VERIFY] until checked)")
         return m
+    if family is None:
+        raise Refusal(f"--matroid {name}: the campaign statement has no family", "campaign statement", "-",
+                      'list the matroid under "family": [{"matroids": [...]}] in campaign.json (then `gp restate`), '
+                      f"or add matroids/{name}.json with a cited source")
     raise Refusal(f"matroid {name!r} is not in the campaign family", "campaign statement", "-",
                   f"use a listed matroid, or add matroids/{name}.json with a cited source")
 
@@ -254,6 +312,11 @@ def scope_of(args):
     return {"char0": True}
 
 
+def prime_set(ps):
+    """A set of primes as every view prints it: {2, 3}."""
+    return "{" + ", ".join(str(p) for p in sorted(ps)) + "}"
+
+
 def show_scope(scope):
     """A requested scope, as filed."""
     if "context" in scope:
@@ -261,7 +324,7 @@ def show_scope(scope):
     if "characteristic" in scope:
         return f"characteristic {scope['characteristic']}"
     if "outside" in scope:
-        return "characteristic 0 and every prime" + (f" except {scope['outside']}" if scope["outside"] else "")
+        return "characteristic 0 and every prime" + (f" except {prime_set(scope['outside'])}" if scope["outside"] else "")
     return "characteristic 0"
 
 
@@ -274,7 +337,7 @@ def show_reach(r):
         parts += [str(p) for p in r["primes"]["finite"]]
         return "{" + ", ".join(parts) + "}" if parts else "{}"
     ex = r["primes"]["cofinite"]
-    return ("0 and " if r["char0"] else "") + "every prime" + (f" except {{{', '.join(map(str, ex))}}}" if ex else "")
+    return ("0 and " if r["char0"] else "") + "every prime" + (f" except {prime_set(ex)}" if ex else "")
 
 
 # --- the profile ------------------------------------------------------------------------------
@@ -308,7 +371,7 @@ def frames(ledger):
     out = []
     for c in ledger.claims():
         if c["matroid"]:
-            m, _ = encoder.canonical(matroid_file(ledger.dir, c["matroid"]))
+            m, _ = encoder.canonical(matroid_file(ledger.dir, c["matroid"], ledger.statement))
             index = {e: i for i, e in enumerate(m["elements"])}
             out.append({"key": c["key"], "n": len(m["elements"]),
                         "lines": [[index[e] for e in line] for line in m["lines"]]})
@@ -336,26 +399,56 @@ def framed(c):
 _built = False
 
 
+def runner_sources():
+    """Every file a runner is built from: the profile and Kernel sources, their build files and the toolchain pin."""
+    files = [PROFILE / "lakefile.toml", PROFILE / "lake-manifest.json", PROFILE / "lean-toolchain",
+             ROOT / "phase2/lean/lakefile.toml"]
+    files += sorted((PROFILE / "GPProfile").rglob("*.lean")) + sorted((ROOT / "phase2/lean/GP50").rglob("*.lean"))
+    return [f for f in files if f.exists()]
+
+
+def tree_identity(files, base=ROOT):
+    """The content identity of a source set: SHA-256 over each file's relative path and content hash
+    (release plan A3). Modification times play no part, so a touch is not a change and an edit is
+    detected whatever its timestamp."""
+    lines = []
+    for f in sorted(files, key=lambda f: f.as_posix()):
+        try:
+            rel = f.resolve().relative_to(Path(base).resolve()).as_posix()
+        except ValueError:
+            rel = f.as_posix()
+        lines.append(f"{sha(f.read_bytes())}  {rel}\n")
+    return sha("".join(lines).encode("utf-8"))
+
+
+def stamp_path(exe):
+    return exe.with_name(exe.name + ".gpstamp")
+
+
 def stale(exe=EXE):
-    """The runner is older than some profile source (or missing): never run a stale checker."""
+    """A runner is fresh only if its stamp records the current source identity: never run a stale checker."""
     if not exe.exists():
         return True
-    built = exe.stat().st_mtime
-    sources = [PROFILE / "lakefile.toml", PROFILE / "lake-manifest.json", ROOT / "phase2/lean/lakefile.toml"]
-    sources += list((PROFILE / "GPProfile").rglob("*.lean")) + list((ROOT / "phase2/lean/GP50").rglob("*.lean"))
-    return any(f.exists() and f.stat().st_mtime > built for f in sources)
+    stamp = stamp_path(exe)
+    if not stamp.exists():
+        return True
+    try:
+        recorded = json.loads(stamp.read_text(encoding="utf-8")).get("sources_sha256")
+    except (ValueError, OSError):
+        return True
+    return recorded != tree_identity(runner_sources())
+
+
+def write_stamp(exe, identity):
+    stamp_path(exe).write_text(json.dumps({"sources_sha256": identity}) + "\n", encoding="utf-8")
 
 
 def run_profile(plan, candidates=False, guard=False):
     global _built
     if "_3b" in plan:
-        return run_mixed(plan, candidates)
+        return run_guard(plan) if guard else run_mixed(plan, candidates)
     if not _built and stale():
-        toolchain = ELAN_HOME / "toolchains" / (PROFILE / "lean-toolchain").read_text(
-            encoding="utf-8").strip().replace("/", "--").replace(":", "---")
-        env = dict(os.environ, PATH=str(toolchain / "bin") + os.pathsep + os.environ["PATH"])
-        subprocess.run([str(toolchain / ("bin/lake" + (".exe" if os.name == "nt" else ""))), "build", "gp_ledger"],
-                       cwd=PROFILE, env=env, check=True, capture_output=True)
+        lake_build("gp_ledger", EXE)
         _built = True
     _built = True
     out = subprocess.run([str(EXE)] + (["--candidates"] if candidates else []) + (["--guard"] if guard else []),
@@ -387,9 +480,11 @@ OPEN_PREMISES = {
     "ENUM-COMPLETE": "the enumeration{of} lists every candidate graph",
     FRAME: "a point set is a unit-distance embedding of the claim's graph, and back",
 }
-FAMILIES3 = ("orderFree", "real", "realCover", "nf")
-CERTS3 = ("alg_point", "sos", "ordered", "real_point", "nf", "rational_root", "root_cover", "case_tree")
-RULES3 = ("k1a", "k1b", "narrow")
+# The DECIDE goal family (release plan A2): goal n m true|false, cover n m L, spine n m L, all over ℝ.
+GOAL_FAMILIES = ("goal", "cover", "spine")
+FAMILIES3 = ("orderFree", "real", "realCover", "nf") + GOAL_FAMILIES
+CERTS3 = ("alg_point", "sos", "ordered", "real_point", "nf", "rational_root", "root_cover", "case_tree", "cover_all")
+RULES3 = ("k1a", "k1b", "narrow", "realize", "spine", "decide")
 CONTEXTS = {"real": "the field ℝ", "semireal": "every semireal field", "rat_field": "the field ℚ"}
 WHERE = {"real": "over ℝ", "semireal": "in any semireal field", "rat_field": "over ℚ"}
 SIGNS = {1: 1, -1: -1, 0: 0, "1": 1, "-1": -1, "0": 0, ">0": 1, "<0": -1, "=0": 0, "+": 1, "-": -1}
@@ -432,6 +527,8 @@ def claim_surface3(c, receipt=None):
         if c.get("target") is not None:
             s["target"] = c["target"]
         s.update({k: v for k, v in c["scope"].items() if k in ("characteristic", "outside")})
+    elif fam in GOAL_FAMILIES:
+        s["context"] = c["scope"]["context"]
     elif fam != "nf":
         s["context"] = c["scope"]["context"]
         if fam != "realCover":
@@ -464,23 +561,76 @@ def udg_frames(claims):
              "gauge": c["udg"].get("gauge") is True} for c in claims if isinstance(c.get("udg"), dict)]
 
 
-def lake_build(target):
-    toolchain = ELAN_HOME / "toolchains" / (PROFILE / "lean-toolchain").read_text(
-        encoding="utf-8").strip().replace("/", "--").replace(":", "---")
+_announced = False
+BUILD_TAIL = 12  # lines of lake's output a failed build's refusal shows
+
+
+def toolchain_lake():
+    """The pinned toolchain's directory and its `lake`, or a refusal saying how to install it."""
+    pin = (PROFILE / "lean-toolchain").read_text(encoding="utf-8").strip()
+    toolchain = ELAN_HOME / "toolchains" / pin.replace("/", "--").replace(":", "---")
+    lake = toolchain / ("bin/lake" + (".exe" if os.name == "nt" else ""))
+    if not lake.is_file():
+        raise Refusal(f"the GP runners need the Lean toolchain {pin}, which is not installed (no {lake})",
+                      "runner build", "-", "install elan (https://github.com/leanprover/elan), then run `lake build "
+                      f"gp_ledger gp_ledger3` in {PROFILE}: elan installs the pinned toolchain first")
+    return toolchain, lake
+
+
+def lake_build(target, exe=None):
+    """Build a runner, then stamp it with the source identity it was built from (computed first, so an
+    edit made during the build is caught by the next freshness check). The first build of a command says
+    so on stderr; a failed build is a refusal naming the target, with the last lines of lake's output."""
+    global _announced
+    identity = tree_identity(runner_sources())
+    toolchain, lake = toolchain_lake()
+    if not _announced:
+        _announced = True
+        print("building the GP runners (one-time, several minutes)…" if exe is None or not exe.exists() else
+              f"checking the GP runners: lake build {target} (no stamp yet)…" if not stamp_path(exe).exists() else
+              f"rebuilding the GP runners: their sources changed (lake build {target})…", file=sys.stderr, flush=True)
     env = dict(os.environ, PATH=str(toolchain / "bin") + os.pathsep + os.environ["PATH"])
-    subprocess.run([str(toolchain / ("bin/lake" + (".exe" if os.name == "nt" else ""))), "build", target],
-                   cwd=PROFILE, env=env, check=True, capture_output=True)
+    p = subprocess.run([str(lake), "build", target], cwd=PROFILE, env=env, capture_output=True)
+    if p.returncode != 0:
+        text = ((p.stdout or b"") + b"\n" + (p.stderr or b"")).decode("utf-8", "replace").replace("\r\n", "\n")
+        tail = [line for line in text.splitlines() if line.strip()][-BUILD_TAIL:]
+        raise Refusal(f"building the runner {target} failed (lake build exited {p.returncode})", "runner build", "-",
+                      f"run `lake build {target}` in {PROFILE} for Lean's full message",
+                      detail=["lake's last lines:"] + ["  " + line for line in tail])
+    if exe is not None:
+        write_stamp(exe, identity)
 
 
-def run_ledger3(plan):
+def run_ledger3(plan, guard=False):
     global _built3
     if not _built3 and stale(EXE3):
-        lake_build("gp_ledger3")
+        lake_build("gp_ledger3", EXE3)
     _built3 = True
-    out = subprocess.run([str(EXE3)], input=json.dumps(plan), capture_output=True, text=True, encoding="utf-8")
+    out = subprocess.run([str(EXE3)] + (["--guard"] if guard else []), input=json.dumps(plan), capture_output=True,
+                         text=True, encoding="utf-8")
     if out.returncode != 0:
         raise RuntimeError(out.stderr.strip() or "gp_ledger3 failed")
     return json.loads(out.stdout)
+
+
+def run_guard(plan):
+    """The merge guard on a ledger with 3b claims (post-G2 §1.5): the Kernel's `resolve` decides the merged log of
+    each runner. gp_ledger --guard files the 3a part; gp_ledger3 --guard files the 3b part: its routed claims, the 3a
+    premises they rest on (one `alg` copy each) and each split claim's two warrants (`merge_plan`). Conflicts are per
+    claim id and warrant id, and each key's records all go to the one part that owns it (`routed_3b`; the copies
+    are single entries and cannot conflict), so the two checks see every collision a merge can make. A lifecycle
+    event goes with its target's part."""
+    plan = dict(plan)
+    part3 = dict(plan.pop("_3b"))
+    life = plan.pop("lifecycle", [])
+    mine3 = set(part3["requested"])
+    part3["lifecycle"] = [e for e in life if e.get("target") in mine3 or not plan["claims"]]
+    if plan["claims"]:
+        plan["lifecycle"] = [e for e in life if e not in part3["lifecycle"]]
+        out = run_profile(plan, guard=True)
+        if out.get("error") or out.get("elaboration"):
+            return out
+    return run_ledger3(part3, guard=True)
 
 
 def run_mixed(plan, candidates=False):
@@ -532,8 +682,7 @@ def named_premises3(args):
 
 def goal_of(ledger):
     """The campaign statement's DECIDE goal, if it has one (a dict with "kind": "DECIDE")."""
-    statement = json.loads((ledger.dir / "campaign.json").read_text(encoding="utf-8"))
-    goal = statement.get("goal")
+    goal = ledger.statement.get("goal")
     return goal if isinstance(goal, dict) and goal.get("kind") == "DECIDE" else None
 
 
@@ -559,20 +708,26 @@ def check_goal_side(ledger, args, family, scope, kind, udg=None):
         raise Refusal(gap, "DECIDE goal", show_scope(scope), GOAL_FIX[args.goal])
 
 
-# HW61 G-1, G-2. A goal side is decided only through an admitted bridge from held claims to the goal's
-# meaning Q(n, m) := ∃ P : Finset ℝ², P.card = n ∧ m ≤ unitDistNum P, with (n, m) the goal's "udg" parameters.
-# - Q: a held graph-bound (--udg) NONEMPTY claim over ℝ whose system the Lean encoder re-derives
-#   (`udg_frame_iff`), on n vertices with at least m edges (`realize_sound`; together `udg_realize`).
-# - not Q: the spine view (`spine_verdict`): a cover (`gp cover`, CoverComplete n m L) whose every candidate
-#   has a held, frame-equal --udg EMPTY claim over ℝ (`candidate_isEmpty`), then `spine_sound`. A claim
-#   filed --goal no never decides.
-# The Python join (graph matching, the n and m comparisons, the exhaustive-cover check) is trusted (TCB.md).
+# HW61 G-1, G-2 and release plan A2. The DECIDE goal's verdict is the Kernel's. For a goal with graph parameters
+# ("udg": {"n": n, "m": m}) and Q(n, m) := ∃ P : Finset ℝ², P.card = n ∧ m ≤ unitDistNum P, the ledger carries two goal
+# claims (family "goal": `goal n m true`, `goal n m false`), filed at init or by an older ledger's first filing command,
+# and `gp cover` files `cover n m L` and `spine n m L`. gp_ledger3 admits; the fold decides:
+# - realize (`GPBinding.Real.realizeRuleOk_sound`): a held --udg NONEMPTY claim over ℝ whose statement equals the Lean
+#   encoder's for its graph, on n vertices with at least m canonical edges, holds `goal n m true`;
+# - spine (`spineRuleOk_sound`): one held encoder-exact --udg EMPTY claim over ℝ per cover graph holds `spine n m L`;
+# - cover_all (`coverAllCheck_sound`): an exhaustive list holds `cover n m L`; a named premise never does;
+# - decide (`decideRuleOk_sound`): spine and cover with the same n, m and L hold `goal n m false`.
+# This file proposes rule instances (`goal_sync`: untrusted, each folded) and renders fold results. `goal_bridge`
+# stays as G-1's filing pre-check and as display text; it decides nothing.
 GOAL_FIX = {"yes": "file the realization with --udg GRAPH --kind NONEMPTY --real, for a graph on the goal's n "
                    "vertices with at least its m edges",
             "no": "file each exclusion without --goal (--udg GRAPH --kind EMPTY --real); not Q is held only "
                   "through a candidate cover (`gp cover`)"}
 SPINE = "GPBinding.UDG.spine_sound"
-YES_BRIDGE = "GPBinding.UDG.udg_frame_iff, GPBinding.UDG.realize_sound"
+RULE_THEOREMS = {"realize": "GPBinding.Real.realizeRuleOk_sound: udg_frame_iff, realize_sound",
+                 "spine": "GPBinding.Real.spineRuleOk_sound: spine_sound, candidate_isEmpty",
+                 "decide": "GPBinding.Real.decideRuleOk_sound",
+                 "cover_all": "GPBinding.Real.coverAllCheck_sound"}
 
 
 def goal_udg(goal):
@@ -610,8 +765,9 @@ def graph_text(g):
 
 
 def goal_bridge(claim, goal=None, out=None):
-    """None when a goal claim stands for its side; otherwise why it does not. Only Q has a claim-level bridge;
-    `out` (the runner's output) supplies the frame check, which filing does in its own elaboration run."""
+    """G-1's filing pre-check, and display text: None when a goal-tagged claim could stand for its side; otherwise
+    why not. It decides nothing: the Kernel's rule realize does (A2). `out` (the runner's output) supplies the frame
+    check, which filing does in its own elaboration run."""
     if claim.get("goal") == "no":
         return ("one exclusion cannot show not Q: not Q is held only by the spine rule, a candidate cover "
                 "(`gp cover`) with a held exclusion over ℝ for every candidate")
@@ -634,6 +790,142 @@ def goal_bridge(claim, goal=None, out=None):
     if out is not None and premise_state(out, claim) != "discharged":
         return "the claim's system is not the Lean encoder's for its graph (ENCODING-FRAME unequal)"
     return None
+
+
+def goal_labels(goal):
+    name = (goal or {}).get("name", "Q")
+    return {True: f"goal:{name}", False: f"goal:not-{name}"}
+
+
+def family_claims(ledger, fam):
+    return [c for c in ledger.claims() if c.get("family") == fam]
+
+
+def goal_claims(ledger):
+    """The Kernel's goal statements for the campaign's DECIDE goal: {True: Q(n, m), False: not Q(n, m)}, each the first
+    such claim in the ledger, or None when not filed (always None when the goal has no graph parameters)."""
+    params = goal_udg(goal_of(ledger))
+    out = {True: None, False: None}
+    for c in family_claims(ledger, "goal") if params else []:
+        st = c["system"]
+        if (st.get("n"), st.get("m")) == params and st.get("value") in out and out[st["value"]] is None:
+            out[st["value"]] = c
+    return out
+
+
+def file_goal_family(ledger, label, family, system, kind, premises=(), **meta):
+    """Append one goal-family claim (A2), at scope ℝ; its statement is profile data that gp_ledger3 reads."""
+    body = {"label": label, "matroid": None, "system": system, "kind": kind, "target": None,
+            "scope": {"context": "real"}, "family": family, "named_premises": list(premises),
+            "inputs": [f"{family}:{sha(json.dumps(system, sort_keys=True).encode())}"]}
+    body.update({k: v for k, v in meta.items() if v})
+    return ledger.append(dict({"op": "claim", "key": new_key(ledger, body)}, **body))
+
+
+def ensure_goal_claims(ledger):
+    """File the DECIDE goal's two claims, Q(n, m) and not Q(n, m), when the goal has graph parameters and the ledger
+    lacks them: at init, or on an older ledger's first filing command. Idempotent."""
+    goal = goal_of(ledger)
+    params = goal_udg(goal)
+    if params is None:
+        return
+    have = goal_claims(ledger)
+    taken = {c["label"] for c in ledger.claims()} | {r["label"] for r in ledger.covers()}
+    for value, label in goal_labels(goal).items():
+        if have[value] is None:
+            while label in taken:
+                label += "'"
+            file_goal_family(ledger, label, "goal", {"n": params[0], "m": params[1], "value": value}, "GOAL")
+            print(f"goal claim {label} filed: {'' if value else 'not '}{goal.get('name', 'Q')} (n = {params[0]}, "
+                  f"m = {params[1]}) over ℝ; open until the Kernel holds it")
+
+
+def rule_premises(ledger, c):
+    """The premise keys of a claim's accepted rule support ([] otherwise)."""
+    sup = ledger.supports().get(c["key"]) if c else None
+    return list(((sup or {}).get("receipt") or {}).get("premises", []))
+
+
+def realize_receipt(c):
+    """Rule realize from a graph-bound claim: its graph is rule data, and Lean compares the statements."""
+    return {"rule": {"type": "realize", "edges": c["udg"]["edges"], "gauge": c["udg"].get("gauge") is True},
+            "premises": [c["key"]]}
+
+
+def goal_attempt(ledger, claim, receipt, why):
+    """Offer one receipt for a goal-family claim exactly as `gp submit` does: an untrusted proposal that the fold
+    checks. A proposal already refused on its merits (not merely for unheld premises) is not offered again."""
+    digest = sha(receipt_bytes(receipt))
+    if any(r.get("receipt_sha256") == digest and "needs held premises" not in r["refusal"]["message"]
+           for r in ledger.attempts(claim["label"])):
+        return None
+    line, body = submit_one(ledger, claim["label"], claim, receipt, digest)
+    print(f"{line} ({why})" if line else f"goal: {claim['label']} not held ({why}): {body['message']}")
+    return line
+
+
+def exclusion_choice(ledger, out, items, cond, n, g):
+    """A held graph-bound EMPTY claim over ℝ on graph g, for a spine proposal (frame-equal first, then fewest OPEN
+    premises). Matching only proposes: rule spine compares statements in Lean."""
+    cg = canon({"n": n, "edges": g})
+    cs = [c for c in ledger.claims() if isinstance(c.get("udg"), dict) and cg is not None and canon(c["udg"]) == cg
+          and c["kind"] == "EMPTY" and c["scope"].get("context") == "real" and items[c["key"]]["held"]]
+    return min(cs, key=lambda c: (premise_state(out, c) != "discharged", len(cond[c["key"]])), default=None)
+
+
+def goal_proposals(ledger, out, items):
+    """Rule instances worth offering now, as (claim, receipt, why): spines whose every graph has a held exclusion,
+    decide from the goal's held spine and cover, realize from held --goal yes graph-bound claims."""
+    cond = conditional(ledger, out)
+    for sp in family_claims(ledger, "spine"):
+        if not items[sp["key"]]["held"]:
+            st = sp["system"]
+            picks = [exclusion_choice(ledger, out, items, cond, st["n"], g) for g in st["graphs"]]
+            if all(picks):
+                yield sp, {"rule": {"type": "spine"}, "premises": [c["key"] for c in picks]}, \
+                    "rule spine from " + (", ".join(c["label"] for c in picks) or "no graphs")
+    gc, params = goal_claims(ledger), goal_udg(goal_of(ledger))
+    no, yes = gc[False], gc[True]
+    if no and not items[no["key"]]["held"]:
+        for cv in family_claims(ledger, "cover"):
+            sp = spine_for(ledger, cv)
+            if (cv["system"]["n"], cv["system"]["m"]) == params and sp and items[cv["key"]]["held"] and \
+                    items[sp["key"]]["held"]:
+                yield no, {"rule": {"type": "decide"}, "premises": [sp["key"], cv["key"]]}, \
+                    f"rule decide from {sp['label']} and {cv['label']}"
+    if yes and not items[yes["key"]]["held"]:
+        for c in ledger.claims():
+            if c.get("goal") == "yes" and isinstance(c.get("udg"), dict) and items[c["key"]]["held"]:
+                yield yes, realize_receipt(c), f"rule realize from {c['label']}"
+
+
+def goal_pending(ledger):
+    """A cheap pre-check without a fold (supports stand in for held): could any goal proposal be new?"""
+    if goal_udg(goal_of(ledger)) is None:
+        return False
+    sup = ledger.supports()
+    gc = goal_claims(ledger)
+    if any(c is None or c["key"] in sup for c in gc.values()):
+        return False
+    excl = {canon(c["udg"]) for c in ledger.claims() if isinstance(c.get("udg"), dict) and c["kind"] == "EMPTY"
+            and c["scope"].get("context") == "real" and c["key"] in sup}
+    if any(c["key"] not in sup and all(canon({"n": c["system"]["n"], "edges": g}) in excl for g in c["system"]["graphs"])
+           for c in family_claims(ledger, "spine")):
+        return True
+    if any(c.get("goal") == "yes" and isinstance(c.get("udg"), dict) and c["key"] in sup for c in ledger.claims()):
+        return True
+    held_spines = [c["system"] for c in family_claims(ledger, "spine") if c["key"] in sup]
+    return any(cv["key"] in sup and cv["system"] in held_spines for cv in family_claims(ledger, "cover"))
+
+
+def goal_sync(ledger):
+    """After a filing command: offer the goal rules the ledger now supports (A2). Proposals only; the fold decides."""
+    for _ in range(8):
+        if not goal_pending(ledger):
+            return
+        out, items = state(ledger)
+        if not any(goal_attempt(ledger, *prop) for prop in list(goal_proposals(ledger, out, items))):
+            return
 
 
 def read_graph(spec, what="graph"):
@@ -665,6 +957,18 @@ def read_json(path, what):
         return json.loads(Path(path).read_text(encoding="utf-8"))
     except (OSError, ValueError) as e:
         raise Refusal(f"cannot read the {what} file: {e}", "statement surface", "-", f"write {path} as JSON")
+
+
+def system3a(raw):
+    """A characteristic-scoped system: variables and equations, and `nonzero` guards (none if absent)."""
+    if not isinstance(raw, dict) or not isinstance(raw.get("variables"), list) or \
+            not isinstance(raw.get("equations"), list) or not isinstance(raw.get("nonzero", []), list):
+        raise Refusal("the system file needs variables and equations (lists), and optionally nonzero",
+                      "statement surface", "-", 'write {"variables": ["x"], "equations": ["x - 1"], "nonzero": []}')
+    if raw.get("signs"):
+        raise Refusal("sign conditions are read only over ℝ", "statement surface", "-",
+                      "claim it with --real, or drop the sign conditions")
+    return {"variables": raw["variables"], "equations": raw["equations"], "nonzero": raw.get("nonzero", [])}
 
 
 def signs3(atoms):
@@ -758,13 +1062,12 @@ def cmd_claim3(ledger, args):
             raise Refusal(f"unknown kind {args.kind}", "statement kinds", "-", f"one of {', '.join(KINDS)}")
         scope, kind = scope_of(args), args.kind
         if args.matroid:
-            enc = encoder.encode(matroid_file(ledger.dir, args.matroid))
+            enc = encoder.encode(matroid_file(ledger.dir, args.matroid, ledger.statement))
             system = {k: enc[k] for k in ("variables", "equations", "nonzero")}
             inputs = [f"encoding:{enc['digest']}"]
             premises = [enc["premise"]["name"]] + premises
         else:
-            raw = read_json(args.system, "system")
-            system = {k: raw[k] for k in ("variables", "equations", "nonzero")}
+            system = system3a(read_json(args.system, "system"))
     if udg:
         inputs = [f"udg:{udg['sha256']}"]
     elif not args.matroid:
@@ -794,6 +1097,9 @@ def cmd_claim3(ledger, args):
     if udg:
         note += f" [graph {graph_text(udg)}; {FRAME}: equal to the Lean encoder's]"
     print(f"claim {args.label} (key {key}) filed: {kind} at {show_scope(scope)}{note}; open")
+    yes = goal_claims(ledger)[True] if args.goal == "yes" and udg else None
+    if yes is not None:  # A2: the realize attempt; it is offered again once this claim is held (`goal_sync`)
+        goal_attempt(ledger, yes, realize_receipt(record), f"rule realize from {args.label}")
 
 
 # --- 3b views ---
@@ -812,6 +1118,14 @@ def conditions(c):
 
 def meaning3(c):
     """What a held claim says, in the claim's own terms."""
+    if c.get("family") in GOAL_FAMILIES:
+        st = c["system"]
+        if c["family"] == "goal":
+            return (f"some {st['n']} points in the plane have at least {st['m']} unit distances" if st["value"] else
+                    f"no {st['n']} points in the plane have at least {st['m']} unit distances")
+        cover = (f"every {st['n']}-point set with at least {st['m']} unit distances contains a unit-distance copy of "
+                 f"one of {len(st['graphs'])} candidate graph{'s' if len(st['graphs']) != 1 else ''}")
+        return cover if c["family"] == "cover" else f"if {cover}, then no {st['n']} points have at least {st['m']} unit distances"
     fam, k, conds = c.get("family"), c["kind"], conditions(c)
     if fam in ("orderFree", "real"):
         where = WHERE[c["scope"]["context"]]
@@ -918,126 +1232,210 @@ def exclusion_gap(out, items, c):
     return None
 
 
+def cover_claims(ledger):
+    """Cover claims (`gp cover`, family "cover"): Kernel claims since release plan A2."""
+    return family_claims(ledger, "cover")
+
+
+def spine_for(ledger, cover):
+    """The spine claim filed with a cover (`<label>:spine`), else another with the same n, m and graphs."""
+    same = [c for c in family_claims(ledger, "spine") if c["system"] == cover["system"]]
+    return next((c for c in same if c["label"] == f"{cover['label']}:spine"), same[0] if same else None)
+
+
+def last_refusal(ledger, c):
+    attempts = ledger.attempts(c["label"]) if c else []
+    return attempts[-1]["refusal"]["message"] if attempts else None
+
+
 def cover_join(ledger, out, items, cover):
-    """One cover's join (trusted Python, TCB.md): each candidate's best exclusion, the completeness warrant,
-    and the OPEN premises a not-Q verdict through this cover rests on."""
+    """Display only: a cover claim as the fold holds it, with its spine and, per candidate, the exclusion the held spine
+    rests on (else the graph-bound claims a reader could use). Nothing here decides."""
     cond = conditional(ledger, out)
+    st = cover["system"]
+    sp = spine_for(ledger, cover)
+    sp_held = bool(sp) and items[sp["key"]]["held"]
+    used = rule_premises(ledger, sp) if sp_held else []
     graphs = [c for c in ledger.claims() if isinstance(c.get("udg"), dict)]
+    names = cover.get("candidates") or []
     rows = []
-    for g in cover.get("candidates", []):
-        cg = canon(g)
-        if cg is not None and cg[0] != cover.get("n"):
-            cg = None
+    for k, g in enumerate(st["graphs"]):
+        cg = canon({"n": st["n"], "edges": g})
         same = [c for c in graphs if cg is not None and canon(c["udg"]) == cg]
         ok = [c for c in same if exclusion_gap(out, items, c) is None]
-        best = min(ok, key=lambda c: len(cond[c["key"]]), default=None)
-        rows.append({"graph": g, "canon": cg, "exclusion": best, "others": [c for c in same if c not in ok]})
-    exh = exhaustive(cover["n"], cover["m"], [r["canon"] for r in rows if r["canon"]]) \
-        if type(cover.get("n")) is int and type(cover.get("m")) is int else None
-    opens = list(cover.get("named_premises", []))
-    if not exh and not opens:
-        opens.append(UNWARRANTED)
-    inherited = set().union(*(cond[r["exclusion"]["key"]] for r in rows if r["exclusion"])) - set(opens)
-    return {"rows": rows, "exhaustive": exh, "open": opens + sorted(inherited),
-            "missing": [r for r in rows if not r["exclusion"]]}
+        ex = ledger.claim_by_key(used[k]) if k < len(used) else min(ok, key=lambda c: len(cond[c["key"]]), default=None)
+        rows.append({"graph": names[k] if k < len(names) else {"n": st["n"], "edges": g}, "canon": cg,
+                     "exclusion": ex, "others": [c for c in same if c not in ok]})
+    held = items[cover["key"]]["held"]
+    opens = [] if held else (list(cover.get("named_premises", [])) or [UNWARRANTED])
+    inherited = sorted(cond[sp["key"]] - set(opens)) if sp_held else []
+    return {"rows": rows, "held": held, "spine": sp, "spine_held": sp_held, "open": opens + inherited,
+            "missing": [] if sp_held else [r for r in rows if not r["exclusion"]]}
+
+
+def goal_rule_text(ledger, c):
+    """How the Kernel holds a goal-family claim: its rule and premises, or its receipt."""
+    r = (ledger.supports().get(c["key"]) or {}).get("receipt") or {}
+    if "rule" in r:
+        t = r["rule"].get("type")
+        labels = ", ".join(ledger.claim_by_key(k)["label"] for k in r.get("premises", [])) or "no premises"
+        return f"rule {t} from {labels}; {RULE_THEOREMS.get(t, 'no theorem')}"
+    t = (r.get("certificate") or {}).get("type")
+    return f"{t} receipt; {RULE_THEOREMS.get(t, 'no theorem')}"
 
 
 def spine_verdict(ledger, out, items, goal):
-    """not Q through the spine rule: ("held" | "conditional" | "open" | None, cover, join, mismatched covers)."""
+    """Display only: ("held" | "spine" | "open" | None, cover, join, covers for other parameters), read from the fold:
+    held when the Kernel holds not Q by rule decide from this cover; spine when it holds the cover's spine while the
+    cover is open; open otherwise."""
     params = goal_udg(goal)
-    covers = ledger.covers()
+    covers = cover_claims(ledger)
     if params is None:
         return None, None, None, covers
-    match = [cv for cv in covers if (cv.get("n"), cv.get("m")) == params]
+    match = [cv for cv in covers if (cv["system"]["n"], cv["system"]["m"]) == params]
     other = [cv for cv in covers if cv not in match]
-    joins = [(cv, cover_join(ledger, out, items, cv)) for cv in match]
-    for state, test in (("held", lambda j: not j["missing"] and not j["open"]),
-                        ("conditional", lambda j: not j["missing"]), ("open", lambda j: True)):
-        for cv, j in sorted(joins, key=lambda x: len(x[1]["open"])):
-            if test(j):
-                return state, cv, j, other
+    no = goal_claims(ledger)[False]
+    by = rule_premises(ledger, no) if no and items[no["key"]]["held"] else []
+    joins = sorted(((cv, cover_join(ledger, out, items, cv)) for cv in match), key=lambda x: len(x[1]["open"]))
+    for verdict, test in (("held", lambda cv, j: cv["key"] in by), ("spine", lambda cv, j: j["spine_held"]),
+                          ("open", lambda cv, j: True)):
+        for cv, j in joins:
+            if test(cv, j):
+                return verdict, cv, j, other
     return None, None, None, other
 
 
+def goal_side_held(ledger, out, items, g):
+    """Display only: (the fold holds the goal claim, the OPEN named premises it inherits)."""
+    if g is None or not items[g["key"]]["held"]:
+        return False, set()
+    return True, conditional(ledger, out)[g["key"]]
+
+
+def yes_gap(ledger, out, items, c):
+    """Display only: why a held --goal yes claim does not hold Q: G-1's pre-check, else the Kernel's refusal of rule
+    realize from it."""
+    gap = goal_bridge(c, goal_of(ledger), out)
+    if gap:
+        return gap
+    g = goal_claims(ledger)[True]
+    if g is None:
+        return "no goal claim is filed yet"
+    digest = sha(receipt_bytes(realize_receipt(c)))
+    refused = [r for r in ledger.attempts(g["label"]) if r.get("receipt_sha256") == digest]
+    return (f"the Kernel refused rule realize from it: {refused[-1]['refusal']['message']}" if refused
+            else "no realize attempt from it yet")
+
+
+def legacy_notes(ledger):
+    return [f"legacy cover record {r['label']} (n = {r.get('n')}, m = {r.get('m')}): refile with `gp cover`; "
+            "it decides nothing" for r in ledger.covers()]
+
+
+def other_cover_text(o, params):
+    mismatch = ("the goal states no graph parameters" if params is None else
+                "not the goal's n = {}, m = {}".format(*params))
+    return f"cover {o['label']} is for n = {o['system']['n']}, m = {o['system']['m']}; {mismatch}; it does not count"
+
+
 def status_goal(ledger, out, items):
-    """The DECIDE goal: Q by a held, bridged goal claim on no OPEN premise; not Q only by the spine rule."""
+    """Display only: the DECIDE goal as the fold holds it (release plan A2). Q and not Q are the Kernel's goal claims;
+    nothing here makes either held. A held one that rests on claims tagged with OPEN named premises (metadata the
+    Kernel does not read) is shown with them and not counted as decided."""
     goal = goal_of(ledger)
     if goal is None:
         return
-    cond = conditional(ledger, out)
     name = goal.get("name", "Q")
     print(f"Goal: DECIDE {name}" + (f" := {goal['statement']}" if goal.get("statement") else ""))
     if goal.get("readings"):
         print(f"  readings: {'; '.join(goal['readings'])}")
-    firm_side = {}
+    params = goal_udg(goal)
+    gc = goal_claims(ledger)
+    if params is not None and None in gc.values():
+        print("  the goal claims are not filed yet: the next claim, submit or cover command files them")
     negation = f"not {name}" + (f" ({goal['negation']})" if goal.get("negation") else "")
-    for side, title in (("yes", name), ("no", negation)):
-        cs = [c for c in ledger.claims() if c.get("goal") == side and items[c["key"]]["held"]]
-        bridged = [c for c in cs if not goal_bridge(c, goal, out)]
-        firm = [c for c in bridged if not cond[c["key"]]]
-        firm_side[side] = bool(firm)
-        if side == "no":
-            state, cv, j, other = spine_verdict(ledger, out, items, goal)
-            firm_side["no"] = state == "held"
-            for o in other:
-                print(f"  (cover {o['label']} is for n = {o.get('n')}, m = {o.get('m')}; " +
-                      ("the goal states no graph parameters" if goal_udg(goal) is None else
-                       "not the goal's n = {}, m = {}".format(*goal_udg(goal))) + "; it does not count)")
-            if state == "held":
-                print(f"  {title}: held by cover {cv['label']} ({SPINE}; every candidate excluded over ℝ)")
-                continue
-            if state == "conditional":
-                print(f"  {title}: conditional on {', '.join(j['open'])} ({SPINE}; cover {cv['label']}), "
-                      f"so not held")
-                continue
-        if firm:
-            print(f"  {title}: held by {', '.join(c['label'] for c in firm)} ({YES_BRIDGE})")
-        elif cs and not bridged:
-            print(f"  {title}: not held ({', '.join(c['label'] for c in cs)} held, but unbridged: "
-                  f"{goal_bridge(cs[0], goal, out)})")
-        elif cs:
-            print(f"  {title}: conditional only (" + "; ".join(
-                f"{c['label']} modulo {', '.join(sorted(cond[c['key']]))}" for c in cs) + f"), so not held")
-        elif side == "no" and state == "open":
+    firm = {}
+    for side, title in ((True, name), (False, negation)):
+        held, cond = goal_side_held(ledger, out, items, gc[side])
+        firm[side] = held and not cond
+        if held:
+            print(f"  {title}: held by the Kernel ({gc[side]['label']}: {goal_rule_text(ledger, gc[side])})" +
+                  (f", modulo the OPEN premise{'s' if len(cond) > 1 else ''} {', '.join(sorted(cond))}, so not decided"
+                   if cond else ""))
+            continue
+        cs = [c for c in ledger.claims() if c.get("goal") == ("yes" if side else "no") and items[c["key"]]["held"]]
+        if side:
+            print(f"  {title}: not held" + (f" ({', '.join(c['label'] for c in cs)} held, but unbridged: "
+                                            f"{yes_gap(ledger, out, items, cs[0])})" if cs else ""))
+            continue
+        if cs:  # a --goal no tag from before G-1
+            print(f"  ({', '.join(c['label'] for c in cs)} filed --goal no: {goal_bridge(cs[0], goal, out)})")
+        for line in legacy_notes(ledger):
+            print(f"  ({line})")
+        verdict, cv, j, other = spine_verdict(ledger, out, items, goal)
+        for o in other:
+            print(f"  ({other_cover_text(o, params)})")
+        if verdict == "spine" and j["held"]:
+            why = last_refusal(ledger, gc[False])
+            print(f"  {title}: open; the Kernel holds spine {j['spine']['label']} and cover {cv['label']}, but not "
+                  f"rule decide" + (f": {why}" if why else ""))
+        elif verdict == "spine":
+            print(f"  {title}: open; the Kernel holds spine {j['spine']['label']} (if cover {cv['label']} is complete "
+                  f"then not {name}); the cover is open, resting on the named premises {', '.join(j['open'])}")
+        elif verdict == "open" and j["missing"]:
             print(f"  {title}: open (cover {cv['label']}: no held exclusion over ℝ for " +
                   ", ".join(graph_text(r["graph"]) for r in j["missing"]) + ")")
+        elif verdict == "open":
+            why = last_refusal(ledger, j["spine"])
+            print(f"  {title}: open (cover {cv['label']}: spine {j['spine']['label'] if j['spine'] else '-'} not held" +
+                  (f": {why}" if why else "") + ")")
         else:
-            print(f"  {title}: not held")
-    verdict = ("CONFLICT between held goal claims (report to the builder)" if firm_side["yes"] and firm_side["no"]
-               else f"decided: {name}" if firm_side["yes"] else f"decided: not {name}" if firm_side["no"]
+            print(f"  {title}: not held" + ("; the goal states no graph parameters" if params is None else ""))
+    verdict = ("CONFLICT between held goal claims (report to the builder)" if firm[True] and firm[False]
+               else f"decided: {name}" if firm[True] else f"decided: not {name}" if firm[False]
                else "undecided")
     print(f"  verdict: {verdict}\n")
 
 
 def explain_cover(ledger, out, items, cv):
-    """`explain` on a cover: its candidates with each exclusion's state, its premises, and the theorems."""
+    """`explain` on a cover claim (display only): completeness, its spine, each candidate's exclusion, the theorems."""
     j = cover_join(ledger, out, items, cv)
     goal = goal_of(ledger)
-    print(f"cover {cv['label']}: CoverComplete {cv.get('n')} {cv.get('m')} L, L = {len(cv.get('candidates', []))} "
-          f"candidate graph{'s' if len(cv.get('candidates', [])) != 1 else ''} (GPBinding.UDG.CoverComplete)")
-    print(f"  means: every set of {cv.get('n')} points in the plane with at least {cv.get('m')} unit distances "
-          f"contains a unit-distance copy of a candidate")
-    if j["exhaustive"]:
-        print("  completeness: exhaustive, every labelled graph on n vertices with at least m edges is listed "
-              "(GPBinding.UDG.coverComplete_of_all)")
-    elif cv.get("named_premises"):
-        print(f"  completeness: rests on the named premises below "
-              f"({'not exhaustive' if j['exhaustive'] is False else 'too many graphs to check exhaustively'})")
+    n, m, graphs = cv["system"]["n"], cv["system"]["m"], cv["system"]["graphs"]
+    print(f"cover {cv['label']}: CoverComplete {n} {m} L, L = {len(graphs)} candidate graph{'s' if len(graphs) != 1 else ''} "
+          f"(GPBinding.UDG.CoverComplete): {'held by the Kernel' if j['held'] else 'open'}")
+    print(f"  means: every set of {n} points in the plane with at least {m} unit distances contains a unit-distance "
+          f"copy of a candidate")
+    if j["held"]:
+        print(f"  completeness: exhaustive, every labelled graph on n vertices with at least m edges is listed; the "
+              f"Kernel's check holds it ({RULE_THEOREMS['cover_all']}, GPBinding.UDG.coverComplete_of_all)")
     else:
-        print(f"  completeness: no warrant ({UNWARRANTED} is OPEN)")
+        e = exhaustive(n, m, [r["canon"] for r in j["rows"] if r["canon"]])
+        why = ("not exhaustive" if e is False else "too many graphs to check exhaustively" if e is None
+               else "the list is exhaustive, but it was filed on named premises: file it again without them for the "
+                    "Kernel's check")
+        print(f"  completeness: open, resting on the named premises below ({why}); a named premise never holds a cover")
+        if last_refusal(ledger, cv):
+            print(f"  last attempt refused: {last_refusal(ledger, cv)}")
     for p in cv.get("named_premises", []):
         data = (cv.get("premise_notes") or {}).get(p)
         what = OPEN_PREMISES[p].format(of=f" of {', '.join(data)}" if data else "")
         print(f"  premise {p}: OPEN ({what}; no admitted checker yet)")
+    sp = j["spine"]
+    if sp:
+        why = last_refusal(ledger, sp)
+        print(f"  spine {sp['label']}: " + (f"held by the Kernel ({goal_rule_text(ledger, sp)})" if j["spine_held"] else
+                                             "not held" + (f" (last attempt refused: {why})" if why else "")))
     for r in j["rows"]:
         print(f"  candidate {graph_text(r['graph'])}:")
         if r["canon"] is None:
-            print(f"    not a canonical graph on {cv.get('n')} vertices: it cannot be excluded")
+            print(f"    not a canonical graph on {n} vertices: it cannot be excluded")
         c = r["exclusion"]
         if c:
             cond = sorted(conditional(ledger, out)[c["key"]])
             print(f"    excluded by {c['label']}: held, EMPTY over ℝ, ENCODING-FRAME discharged "
                   f"(GPBinding.UDG.candidate_isEmpty, {UDG_FRAME_THEOREM}, GPBinding.UDG.holds_iff_holdsE_udg)" +
+                  ("" if j["spine_held"] else "; not yet used by a held spine") +
                   (f"; modulo {', '.join(cond)}" if cond else ""))
         elif r["canon"] is not None:
             print("    no held exclusion over ℝ")
@@ -1048,18 +1446,24 @@ def explain_cover(ledger, out, items, cv):
         st = "missing" if c is None else ("held" if items[c["key"]]["held"] else "not held")
         print(f"  supports (shown, not used by the rule): {label} ({st})")
     print(f"  rule: {SPINE} (CoverComplete n m L and no candidate embeds give not Q(n, m)), each candidate by "
-          f"GPBinding.UDG.candidate_isEmpty")
+          f"GPBinding.UDG.candidate_isEmpty; in the Kernel, rules spine and decide ({RULE_THEOREMS['spine']}; "
+          f"{RULE_THEOREMS['decide']})")
     params = goal_udg(goal)
+    no = goal_claims(ledger)[False]
     if params is None:
         print("  goal: the campaign goal states no graph parameters; this cover decides nothing")
-    elif (cv.get("n"), cv.get("m")) != params:
+    elif (n, m) != params:
         print("  goal: n = {}, m = {}; this cover is for other parameters and does not count".format(*params))
+    elif no and items[no["key"]]["held"] and cv["key"] in rule_premises(ledger, no):
+        cond = sorted(conditional(ledger, out)[no["key"]])
+        print("  for the goal: held, not Q, with no OPEN premise" if not cond else
+              f"  for the goal: held by the Kernel, modulo {', '.join(cond)}, so not decided")
     elif j["missing"]:
         print(f"  for the goal: open, {len(j['missing'])} candidate{'s' if len(j['missing']) > 1 else ''} not excluded")
-    elif j["open"]:
-        print(f"  for the goal: conditional on {', '.join(j['open'])}")
+    elif j["spine_held"] and not j["held"]:
+        print(f"  for the goal: open; the Kernel holds the spine, and the cover rests on {', '.join(j['open'])}")
     else:
-        print("  for the goal: held, not Q, with no OPEN premise")
+        print("  for the goal: open; the Kernel does not hold " + ("rule decide" if j["spine_held"] else "the spine"))
 
 
 def case_tree_meaning(cert):
@@ -1103,10 +1507,18 @@ def explain3_head(ledger, out, c, i, pad):
               f"{', '.join(inherited)}")
     if c.get("goal"):
         goal = goal_of(ledger) or {}
+        name = goal.get("name", "the goal")
+        g = goal_claims(ledger)[True]
+        via = (c["goal"] == "yes" and g is not None and c["key"] in rule_premises(ledger, g) and
+               any(x["key"] == g["key"] and x["held"] for x in out["items"]))
         gap = goal_bridge(c, goal, out)
-        print(f"{pad}  filed as {'' if c['goal'] == 'yes' else 'not '}{goal.get('name', 'the goal')}" +
-              (f" (unbridged: {gap})" if gap else " (conditional: it cannot show the goal held)" if cond else
-               f" (bridged: {YES_BRIDGE})"))
+        if via:
+            print(f"{pad}  filed as {name}: the Kernel holds {g['label']} through it (rule realize; "
+                  f"{RULE_THEOREMS['realize']})" + (" (modulo its OPEN premises: not decided)" if cond else ""))
+        else:
+            print(f"{pad}  filed as {'' if c['goal'] == 'yes' else 'not '}{name}" +
+                  (f" (unbridged: {gap})" if gap else " (conditional: it cannot show the goal held)" if cond else
+                   " (the Kernel does not hold the goal through it yet)"))
 
 
 FAIL_WORDS = {
@@ -1146,6 +1558,8 @@ FIX3 = {
           "guards be invertible modulo it",
     "rational_root": "one variable and an integer equation with no rational root; it proves EMPTY over ℚ only",
     "root_cover": "the interval must isolate the parent's root (Descartes) and one branch must hold at that root",
+    "cover_all": "list every labelled graph on n vertices with at least m edges (at most 100000 of them); otherwise the "
+                 "cover stays open on its named premises, which never hold it",
     "case_tree": "every split needs all its branches and every leaf must close its branch: an L1a collision cites "
                  "each rhombus's four unit edges and both diagonal distinctness guards (injectivity is never "
                  "assumed), and its weighted relations must sum exactly to p_u - p_v for a guarded pair; an L1b "
@@ -1154,7 +1568,8 @@ FIX3 = {
 }
 SUPPORT_TYPE = {"SOS receipt": "sos", "ordered Positivstellensatz receipt": "ordered", "point receipt": "real_point",
                 "algPoint receipt": "alg_point", "number-field receipt": "nf", "rational-root receipt": "rational_root",
-                "selected-root cover receipt": "root_cover", "case-tree receipt": "case_tree"}
+                "selected-root cover receipt": "root_cover", "case-tree receipt": "case_tree",
+                "exhaustive cover receipt": "cover_all"}
 RULE_FIX3 = {
     "narrowing": "narrowing keeps the statement and narrows only from every semireal field to ℝ or ℚ; nothing "
                  "narrows from a characteristic (ℂ) scope into ℝ: certify the real claim directly",
@@ -1162,6 +1577,11 @@ RULE_FIX3 = {
     "rule K1b": "K1b needs one held 3a NONEMPTY claim (a rational point) on the same system at a scope containing "
                 "characteristic 0; a complex point (NOT_IN_IDEAL(1)) does not give a real one",
     "lifted": "3a rules bind only 3a premises held at 3a scopes",
+    "rule realize": "offer one held --udg NONEMPTY claim over ℝ on the goal's n vertices with at least its m edges, with "
+                    "that claim's own graph as the rule's edges: its statement must be the Lean encoder's for that graph",
+    "rule spine": "offer one held --udg EMPTY claim over ℝ per cover graph, in the cover's order, each on exactly that "
+                  "graph (narrow a semireal exclusion to ℝ first; a characteristic-0 claim does not reach ℝ)",
+    "rule decide": "offer the spine and the cover that `gp cover` filed together, for the goal's n and m",
 }
 
 
@@ -1222,7 +1642,8 @@ def refusal_of(item, claim, ledger, items):
                 "rule": f"{support}: exact replay", "scope": scope,
                 "smallest_fix": "recompute the certificate in exact arithmetic for this exact system"}
     if result == "ill-formed":
-        return {"message": f"the requested scope meets the statement's denominator primes {chk.get('primes')}",
+        return {"message": "the requested scope meets the statement's denominator primes "
+                           f"{prime_set(chk.get('primes') or [])}",
                 "rule": "statement well-formedness", "scope": scope,
                 "smallest_fix": "exclude those primes from the requested scope"}
     if support.startswith("rule"):
@@ -1244,10 +1665,14 @@ COVER_PREMISES = ("AMP-THM1", "GP74-NON-UD", "ENUM-COMPLETE")
 
 
 def cmd_cover(ledger, args):
-    """Append a candidate cover: CoverComplete N M L for the listed graphs L, resting on named premises (or
-    exhaustive). A ledger record the spine view reads (G-2 staging), never a Kernel claim."""
-    if any(c["label"] == args.label for c in ledger.claims()) or any(r["label"] == args.label for r in ledger.covers()):
-        raise Refusal(f"label {args.label!r} is taken", "ledger", "-", "choose a new label")
+    """File a candidate cover as two Kernel claims (release plan A2): `cover n m L` (CoverComplete n m L, held only by an
+    exhaustive list: the cover_all receipt) and `spine n m L` (if the cover is complete then not Q(n, m), held by rule
+    spine from one held exclusion over ℝ per graph). Named premises are metadata on an open cover: never evidence."""
+    spine_label = f"{args.label}:spine"
+    taken = {c["label"] for c in ledger.claims()} | {r["label"] for r in ledger.covers()}
+    for label in (args.label, spine_label):
+        if label in taken:
+            raise Refusal(f"label {label!r} is taken", "ledger", "-", "choose a new label")
     if args.n < 0 or args.m < 0:
         raise Refusal("n and m are nonnegative", "spine rule", "-", "give --n N --m M with N, M >= 0")
     premises, notes = [], {}
@@ -1286,14 +1711,18 @@ def cmd_cover(ledger, args):
         raise Refusal("a cover's completeness needs a warrant", "spine rule", "-",
                       f"name the premise it rests on (--premise ENUM-COMPLETE=<manifest-sha256>), or list every "
                       f"labelled graph on {args.n} vertices with at least {args.m} edges")
-    record = {"op": "cover", "label": args.label, "n": args.n, "m": args.m, "candidates": cands,
-              "named_premises": premises, "supports": supports, "exhaustive": exh}
-    if notes:
-        record["premise_notes"] = notes
-    ledger.append(record)
-    tag = "".join(f" [premise {p}: OPEN]" for p in premises)
+    system = {"n": args.n, "m": args.m, "graphs": [c["edges"] for c in cands]}
+    # Named premises say the cover rests on them: it stays open. Without them the list must be exhaustive, and the
+    # Kernel's own check (cover_all) is offered as its evidence.
+    cover = file_goal_family(ledger, args.label, "cover", system, "COVER_COMPLETE", premises,
+                             candidates=cands, supports=supports, premise_notes=notes)
+    spine = file_goal_family(ledger, spine_label, "spine", system, "SPINE")
+    tag = "".join(f" [premise {p}: OPEN]" for p in cover["named_premises"])
     print(f"cover {args.label} filed: {len(cands)} candidate{'s' if len(cands) != 1 else ''} for n = {args.n}, "
-          f"m = {args.m}" + ("; exhaustive" if exh else "") + tag)
+          f"m = {args.m}" + ("; exhaustive" if exh and not premises else "") + tag + f"; spine {spine['label']} filed")
+    if not premises:  # the Kernel's check, not this one, holds the cover
+        goal_attempt(ledger, cover, {"certificate": {"type": "cover_all"}}, "the exhaustive list")
+    goal_sync(ledger)
 
 
 def read_json_or_text(path):
@@ -1314,8 +1743,23 @@ def cmd_init(ledger, args):
         raise Refusal("no campaign statement", "campaign", "-", f"write {statement}")
     if ledger.records:
         raise Refusal("the ledger already exists", "append-only ledger", "-", "keep using it")
-    ledger.append({"op": "init", "schema": SCHEMA, "statement_sha256": sha(statement.read_bytes())})
+    ledger.append({"op": "init", "schema": SCHEMA, "gp_version": GP_VERSION,
+                   "statement_sha256": sha(statement.read_bytes())})
     print(f"ledger started for {statement}")
+    ensure_goal_claims(ledger)
+
+
+def cmd_restate(ledger, args):
+    """Record a deliberate change to campaign.json as a ledger event carrying both hashes."""
+    path = ledger.dir / "campaign.json"
+    data = path.read_bytes()
+    old, new = ledger.bound_statement_sha(), sha(data)
+    if new == old:
+        raise Refusal("the campaign statement is unchanged", "statement binding", "-", "nothing to restate")
+    json.loads(data.decode("utf-8"))  # a restated statement must still parse
+    ledger.append({"op": "restate", "old_sha256": old, "new_sha256": new, "reason": args.reason})
+    version = sum(r["op"] == "restate" for r in ledger.records) + 1
+    print(f"statement restated (version {version}): {old[:12]} -> {new[:12]}")
 
 
 def cmd_claim(ledger, args):
@@ -1334,14 +1778,13 @@ def cmd_claim(ledger, args):
     if args.kind not in KINDS:
         raise Refusal(f"unknown kind {args.kind}", "statement kinds", "-", f"one of {', '.join(KINDS)}")
     if args.matroid:
-        m = matroid_file(ledger.dir, args.matroid)
+        m = matroid_file(ledger.dir, args.matroid, ledger.statement)
         enc = encoder.encode(m)
         system = {k: enc[k] for k in ("variables", "equations", "nonzero")}
         inputs = [f"encoding:{enc['digest']}"]
         premises = [enc["premise"]["name"]]
     else:
-        raw = json.loads(Path(args.system).read_text(encoding="utf-8"))
-        system = {k: raw[k] for k in ("variables", "equations", "nonzero")}
+        system = system3a(read_json(args.system, "system"))
         inputs = [f"system:{sha(json.dumps(system, sort_keys=True).encode())}"]
         premises = []
     body = {"label": args.label, "matroid": args.matroid, "system": system, "kind": args.kind,
@@ -1419,6 +1862,7 @@ def cmd_submit(ledger, args):
     line, body = submit_one(ledger, args.label, claim, receipt, digest)
     if line:
         print(line)
+        goal_sync(ledger)
         return
     raise Refusal(body["message"], body["rule"], body["scope"], body["smallest_fix"])
 
@@ -1502,6 +1946,7 @@ def cmd_submit_batch(ledger, args):
                   file=sys.stderr)
             one_at_a_time(retry)
     print(f"batch: {len(entries) - refused} held, {refused} refused, in {folds} folds")
+    goal_sync(ledger)
     if refused:
         raise Refusal(f"{refused} of {len(entries)} batch items refused (listed above)", "batch", "-",
                       "fix each refused item and resubmit it")
@@ -1556,10 +2001,9 @@ class CharSet:
         return bool(self.primes & o.primes)
 
     def text(self):
-        ps = ", ".join(map(str, sorted(self.primes)))
         if self.cofinite:
             head = "every characteristic" if self.char0 else "every prime characteristic"
-            return head + (f" except {{{ps}}}" if ps else "")
+            return head + (f" except {prime_set(self.primes)}" if self.primes else "")
         items = (["0"] if self.char0 else []) + sorted(map(str, self.primes), key=int)
         return "{" + ", ".join(items) + "}" if items else "∅"
 
@@ -1625,10 +2069,8 @@ def cmd_status(ledger, args):
         earned = f"; earned, unclaimed: {show_reach(widened[c['key']])}" if c["key"] in widened else ""
         rows.append(f"{st:8} {c['label']:28} {c['kind']:12} {show_scope(c['scope'])}{earned}{premise}")
     print("\n".join(rows) if rows else "no claims")
-    for cv in ledger.covers():
-        tag = "".join(f" [premise {p}: OPEN]" for p in cv.get("named_premises", []))
-        print(f"{'cover':8} {cv['label']:28} n = {cv.get('n')}, m = {cv.get('m')}, "
-              f"{len(cv.get('candidates', []))} candidates{tag}")
+    for line in legacy_notes(ledger):
+        print(f"{'legacy':8} {line}")
     by = {}
     for c in ledger.claims():
         if c["matroid"] and items[c["key"]]["held"]:
@@ -1644,11 +2086,23 @@ def cmd_status(ledger, args):
     status3(ledger, out, items)
 
 
+def receipt_ids(support):
+    """A support's receipt identities for `explain`: the stored receipt (the SHA-256 of receipts/<sha256>.json, or of
+    an inline receipt's canonical bytes), and the submitted file's SHA-256 when it differs."""
+    stored, submitted = receipt_digest(support), support.get("receipt_sha256")
+    return f"stored receipt {stored[:12]}" + (f", submitted file {submitted[:12]}" if submitted and submitted != stored
+                                              else "")
+
+
 def cmd_explain(ledger, args):
     out, items = state(ledger)
-    cover = next((r for r in ledger.covers() if r["label"] == args.label), None)
-    if cover is not None:
-        return explain_cover(ledger, out, items, cover)
+    legacy = next((r for r in ledger.covers() if r["label"] == args.label), None)
+    if legacy is not None:
+        print(f"{args.label}: legacy cover record (filed before release plan A2): refile with `gp cover`; "
+              "it decides nothing")
+        return
+    if ledger.claim(args.label).get("family") == "cover":
+        return explain_cover(ledger, out, items, ledger.claim(args.label))
     claims = {c["key"]: c for c in ledger.claims()}
     supports = ledger.supports()
 
@@ -1675,13 +2129,13 @@ def cmd_explain(ledger, args):
             print(f"{pad}  no admitted support")
             return
         if "certificate" in s["receipt"] and "family" in i:
-            print(f"{pad}  by {s['receipt']['certificate'].get('type')} certificate (receipt "
-                  f"{s['receipt_sha256'][:12]}): {humane(i.get('diagnosis', i.get('mechanism', '')))}")
+            print(f"{pad}  by {s['receipt']['certificate'].get('type')} certificate ({receipt_ids(s)}): "
+                  f"{humane(i.get('diagnosis', i.get('mechanism', '')))}")
             if s["receipt"]["certificate"].get("type") == "case_tree":
                 print(f"{pad}  meaning: {case_tree_meaning(s['receipt']['certificate'])}")
         elif "certificate" in s["receipt"]:
             cert = s["receipt"]["certificate"]
-            print(f"{pad}  by {cert.get('type')} certificate (receipt {s['receipt_sha256'][:12]}), reach "
+            print(f"{pad}  by {cert.get('type')} certificate ({receipt_ids(s)}), reach "
                   f"{show_reach((i.get('check') or {}).get('reach'))}")
         else:
             print(f"{pad}  by rule {s['receipt']['rule'].get('type')} from:")
@@ -1691,25 +2145,29 @@ def cmd_explain(ledger, args):
 
 
 def frontier_goal(ledger, out, items):
-    """Render DECIDE obligations from the existing goal bridges and spine join; no admission or writes.
-    Return whether the goal remains unresolved, even when every filed claim is held."""
+    """Display only: the DECIDE goal's obligations, read from the fold (no admission, no writes). Return whether the
+    goal remains unresolved, even when every filed claim is held."""
     goal = goal_of(ledger)
     if goal is None:
         return False
     name = goal.get("name", "Q")
     params = goal_udg(goal)
     cond = conditional(ledger, out)
-    yes = [c for c in ledger.claims() if c.get("goal") == "yes" and items[c["key"]]["held"]]
-    bridged = [c for c in yes if not goal_bridge(c, goal, out)]
-    firm = [c for c in bridged if not cond[c["key"]]]
-    no_state, selected, selected_join, other = spine_verdict(ledger, out, items, goal)
-    no_held = no_state == "held"
-    conflict = bool(firm) and no_held
+    gc = goal_claims(ledger)
+    yes_held, yes_cond = goal_side_held(ledger, out, items, gc[True])
+    no_held, no_cond = goal_side_held(ledger, out, items, gc[False])
+    firm_yes, firm_no = yes_held and not yes_cond, no_held and not no_cond
+    conflict = firm_yes and firm_no
     verdict = ("CONFLICT between held goal claims (report to the builder)" if conflict
-               else f"decided: {name}" if firm else f"decided: not {name}" if no_held else "undecided")
+               else f"decided: {name}" if firm_yes else f"decided: not {name}" if firm_no else "undecided")
     print(f"\nGoal: DECIDE {name}")
-    if firm:
-        print(f"  {name}: held by {', '.join(c['label'] for c in firm)} ({YES_BRIDGE})")
+    if params is not None and None in gc.values():
+        print("  the goal claims are not filed yet: the next claim, submit or cover command files them")
+    via = rule_premises(ledger, gc[True]) if yes_held else []
+    if yes_held:
+        print(f"  {name}: held by {', '.join(ledger.claim_by_key(k)['label'] for k in via)} (Kernel: "
+              f"{gc[True]['label']}, rule realize; {RULE_THEOREMS['realize']})" +
+              (f", modulo {', '.join(sorted(yes_cond))}, so not decided" if yes_cond else ""))
     else:
         print(f"  {name}: not held")
     candidates = [c for c in ledger.claims() if items[c["key"]]["held"] and
@@ -1720,21 +2178,30 @@ def frontier_goal(ledger, out, items):
             print(f"  held claim {c['label']} does not count for {name}: {gap}")
         elif c.get("goal") != "yes":
             print(f"  held claim {c['label']} does not count for {name}: not filed --goal yes")
+        elif c["key"] not in via:
+            print(f"  held claim {c['label']} does not count for {name}: {yes_gap(ledger, out, items, c)}")
         for p in sorted(cond[c["key"]]):
             print(f"  claim {c['label']}: premise {p}: OPEN")
-    if selected:
-        print(f"  not {name}: {no_state} by cover {selected['label']}")
+    state_, selected, selected_join, other = spine_verdict(ledger, out, items, goal)
+    if no_held:
+        print(f"  not {name}: held by cover {selected['label'] if selected else '-'} (Kernel: {gc[False]['label']}, "
+              f"rule decide; {RULE_THEOREMS['decide']})" +
+              (f", modulo {', '.join(sorted(no_cond))}, so not decided" if no_cond else ""))
+    elif selected and state_ == "spine":
+        print(f"  not {name}: open; the Kernel holds spine {selected_join['spine']['label']} (if cover "
+              f"{selected['label']} is complete then not {name}); the cover is open")
+    elif selected:
+        print(f"  not {name}: open by cover {selected['label']}")
     elif params is None:
         print(f"  not {name}: not held; the goal states no graph parameters")
     else:
         print(f"  not {name}: not held; no cover for n = {params[0]}, m = {params[1]}")
-    for cv in ledger.covers():
+    for line in legacy_notes(ledger):
+        print(f"  {line}")
+    for cv in cover_claims(ledger):
         j = selected_join if cv is selected else cover_join(ledger, out, items, cv)
         if cv in other:
-            mismatch = ("the goal states no graph parameters" if params is None else
-                        f"not the goal's n = {params[0]}, m = {params[1]}")
-            print(f"  cover {cv['label']} is for n = {cv.get('n')}, m = {cv.get('m')}; "
-                  f"{mismatch}; it does not count")
+            print(f"  {other_cover_text(cv, params)}")
         elif cv is not selected:
             print(f"  cover {cv['label']}: alternative cover for the goal")
         for p in j["open"]:
@@ -1744,8 +2211,11 @@ def frontier_goal(ledger, out, items):
             for c in row["others"]:
                 if items[c["key"]]["held"]:
                     print(f"    held claim {c['label']} does not count: {exclusion_gap(out, items, c)}")
+        if j["spine"] and not j["spine_held"] and not j["missing"]:
+            why = last_refusal(ledger, j["spine"])
+            print(f"  cover {cv['label']}: spine {j['spine']['label']} not held" + (f": {why}" if why else ""))
     print(f"  verdict: {verdict}")
-    unresolved = conflict or not (firm or no_held)
+    unresolved = conflict or not (firm_yes or firm_no)
     if unresolved:
         print("  goal frontier remains open")
     return unresolved
@@ -1753,7 +2223,8 @@ def frontier_goal(ledger, out, items):
 
 def cmd_frontier(ledger, args):
     out, items = state(ledger)
-    open_ = [c for c in ledger.claims() if not items[c["key"]]["held"]]
+    # Goal-family claims (A2) are the goal section's obligations, rendered by `frontier_goal`.
+    open_ = [c for c in ledger.claims() if not items[c["key"]]["held"] and c.get("family") not in GOAL_FAMILIES]
     # Re-check each refused claim's last receipt in one pass, so the reason reads in today's terms;
     # the recorded refusal stays in the ledger and is shown when the wording has changed.
     last = {c["key"]: ledger.attempts(c["label"])[-1] for c in open_ if ledger.attempts(c["label"])}
@@ -1801,9 +2272,11 @@ def tailings(ledger):
             rows.append({"kind": "open premise", "claim": c["label"], "source": c["inputs"][0],
                          "reliability": "held modulo premise", "completeness": f"{', '.join(c['named_premises'])} OPEN"})
     for cv in ledger.covers():
-        if cv.get("named_premises"):
-            rows.append({"kind": "open premise", "claim": cv["label"], "source": "cover",
-                         "reliability": "cover modulo premise",
+        rows.append({"kind": "legacy cover record", "claim": cv["label"], "source": "cover", "reliability":
+                     "decides nothing", "completeness": "refile with `gp cover`"})
+    for cv in cover_claims(ledger):
+        if cv.get("named_premises") and not items[cv["key"]]["held"]:
+            rows.append({"kind": "open premise", "claim": cv["label"], "source": "cover", "reliability": "cover open",
                          "completeness": f"{', '.join(cv['named_premises'])} OPEN"})
     return rows
 
@@ -2057,12 +2530,23 @@ def merge_plan(ours, theirs):
     late = merged.supports()
     new += [as_filed(chosen[k]) for k in sorted(chosen) if content(late[k]) != content(chosen[k])]
     merged.records = ours.records + new
-    plan = surface(merged)
+    # A split claim whose receipts are 3a on one branch and 3b on the other goes to gp_ledger3, which reads both.
+    trial = {k: r for k in split for r in (ours_s[k]["receipt"], theirs_s[k]["receipt"]) if is_3b_receipt(r)}
+    plan = surface(merged, trial)
     plan["lifecycle"] = lifecycle_events(merged.records)
-    entries = {c["key"]: c for c in plan["claims"]}
+    part3 = plan.get("_3b")
+    if part3:
+        # `surface3` offers the first claim per key; the guard also sees every other claim filed under a 3b key.
+        routed, first = set(part3["requested"]), {}
+        supports = merged.supports()
+        for c in merged.claims():
+            if c["key"] in routed and first.setdefault(c["key"], c) is not c:
+                part3["claims"].append(claim_surface3(c, receipt_of(supports, c, trial)))
     for k in sorted(split):
-        head = {x: v for x, v in entries[k].items() if x not in ("certificate", "rule", "premises")}
-        plan["claims"] += [dict(head, **ours_s[k]["receipt"]), dict(head, **theirs_s[k]["receipt"])]
+        where = part3 if part3 and k in part3["requested"] else plan
+        entry = next(c for c in where["claims"] if c["key"] == k)
+        head = {x: v for x, v in entry.items() if x not in ("certificate", "rule", "premises")}
+        where["claims"] += [dict(head, **ours_s[k]["receipt"]), dict(head, **theirs_s[k]["receipt"])]
     return merged, new, plan, split
 
 
@@ -2071,6 +2555,10 @@ def cmd_merge(ledger, args):
     other = Ledger(args.other)
     if not other.records:
         raise merge_refusal(f"no ledger at {args.other}", "merge from a campaign directory with a ledger")
+    other.check_schema()
+    if other.bound_statement_sha() != ledger.bound_statement_sha():
+        raise merge_refusal("the branches bind different versions of the campaign statement",
+                            "restate on one branch so both bind the same statement, then merge again")
     if other.records[0].get("statement_sha256") != ledger.records[0].get("statement_sha256"):
         raise merge_refusal("the branches are ledgers of different campaign statements",
                             "merge only branches of one campaign")
@@ -2118,9 +2606,12 @@ def cmd_merge(ledger, args):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="gp", description=__doc__.splitlines()[0])
+    ap.add_argument("--version", action="version", version=f"gp {GP_VERSION}")
     ap.add_argument("--campaign", required=True)
     sub = ap.add_subparsers(dest="command", required=True)
     sub.add_parser("init")
+    rs = sub.add_parser("restate", help="record a deliberate change to campaign.json as a versioned ledger event")
+    rs.add_argument("--reason", required=True, help="why the statement changed")
     c = sub.add_parser("claim")
     c.add_argument("label")
     src = c.add_mutually_exclusive_group()
@@ -2140,7 +2631,7 @@ def main(argv=None):
     sc.add_argument("--rat-field", action="store_true", help="over the field Q itself (3b)")
     c.add_argument("--premise", action="append", help=f"a named OPEN premise, e.g. {KUMMER}[=q1,q2,...]")
     c.add_argument("--goal", choices=["yes", "no"], help="file the claim as the DECIDE goal (yes) or its negation (no)")
-    cv = sub.add_parser("cover", help="a candidate cover for the goal's spine rule (a ledger record)")
+    cv = sub.add_parser("cover", help="a candidate cover: the Kernel claims cover n m L and spine n m L")
     cv.add_argument("label")
     cv.add_argument("--candidates", required=True, help="JSON list of graphs (graph6 or {n, edges}), or graph6 lines")
     cv.add_argument("--n", type=int, required=True)
@@ -2172,7 +2663,13 @@ def main(argv=None):
         print("refused: no ledger here [rule: ledger; scope: -]; smallest fix: run `gp init`", file=sys.stderr)
         return 2
     try:
-        {"init": cmd_init, "claim": cmd_claim, "cover": cmd_cover, "submit": cmd_submit,
+        if args.command != "init":
+            ledger.check_schema()  # before any record is read as v1
+        if args.command not in ("init", "restate"):
+            ledger.verify_statement()  # every command runs against the bound statement (release plan A1)
+        if args.command in ("claim", "cover", "submit", "submit-batch"):
+            ensure_goal_claims(ledger)  # an older ledger's first filing command files the goal claims (A2)
+        {"init": cmd_init, "restate": cmd_restate, "claim": cmd_claim, "cover": cmd_cover, "submit": cmd_submit,
          "submit-batch": cmd_submit_batch, "status": cmd_status,
          "explain": cmd_explain, "frontier": cmd_frontier, "tailings": cmd_tailings,
          "emit-lean": cmd_emit_lean, "merge": cmd_merge}[args.command](ledger, args)
@@ -2180,6 +2677,8 @@ def main(argv=None):
         b = r.body
         print(f"refused: {b['message']} [rule: {b['rule']}; scope: {b['scope']}]; smallest fix: {b['smallest_fix']}",
               file=sys.stderr)
+        for line in r.detail:
+            print(line, file=sys.stderr)
         return 1
     return 0
 

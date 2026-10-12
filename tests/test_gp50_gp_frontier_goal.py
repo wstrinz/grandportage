@@ -98,10 +98,14 @@ class GoalFrontier(unittest.TestCase):
         self.claim("P11-c0", P11_GRAPH, "EMPTY", receipt=P11_RECEIPT)
         identity = self.cover("one-p11", [P11_GRAPH], 22, 61, premises=["ENUM-COMPLETE"])
         ledger = gp.Ledger(self.directory)
-        self.assertEqual(ledger.covers()[0]["premise_notes"], {"ENUM-COMPLETE": [identity]})
+        self.assertEqual(ledger.claim("one-p11")["premise_notes"], {"ENUM-COMPLETE": [identity]})
+        out, items = gp.state(ledger)
+        self.assertTrue(items[ledger.claim("one-p11:spine")["key"]]["held"])  # the Kernel checked the 22-vertex frame
+        self.assertFalse(items[ledger.claim("one-p11")["key"]]["held"])
         status, explanation = self.cli("status"), self.cli("explain", "one-p11")
         text = self.frontier()
-        self.assertIn("not Q: conditional by cover one-p11", text)
+        self.assertIn("not Q: open; the Kernel holds spine one-p11:spine (if cover one-p11 is complete then not Q); "
+                      "the cover is open", text)
         self.assertIn("cover one-p11: premise ENUM-COMPLETE: OPEN", text)
         self.assertIn("verdict: undecided", text)
         self.assertIn("goal frontier remains open", text)
@@ -152,7 +156,8 @@ class GoalFrontier(unittest.TestCase):
         self.assertIn("verdict: decided: not Q", text)
         self.assertIn("frontier empty", text)
         self.assertNotIn("OPEN", text)
-        self.assertEqual(gp.Ledger(self.directory).claims(), [])
+        claims = gp.Ledger(self.directory).claims()
+        self.assertEqual({c["family"] for c in claims}, {"goal", "cover", "spine"})
 
     def test_all_cover_and_inherited_premises_are_named(self):
         self.campaign(22, 61)

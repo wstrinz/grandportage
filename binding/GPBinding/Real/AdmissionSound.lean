@@ -5,6 +5,7 @@ import GPBinding.Real.AlgPointSound
 import GPBinding.Real.RootCoverSound
 import GPBinding.Real.OrderedSound
 import GPBinding.Real.CaseTreeSound
+import GPBinding.Real.GoalSound
 import GPBinding.Admission.RuleSound
 import GPProfile.Real.Admission
 import Mathlib.Analysis.Real.Sqrt
@@ -29,6 +30,9 @@ statement (`fold_held_meaning3`).
   (`CaseTreeSound`), for real systems and for order-free EMPTY claims at `real`.
 - Kind-1: every semireal field has characteristic 0, so a 3a claim held at a scope containing
   characteristic 0 holds in it (K1a); ℝ-scope fields are semireal (K1b).
+- The DECIDE goal family (A2, `GoalSound`): `cover_all` receipts by `coverAllCheck_sound`; rules
+  `realize`, `spine` and `decide` by `realizeRuleOk_sound`, `spineRuleOk_sound`, `decideRuleOk_sound`.
+  `fold_held_goal` reads a held goal-family claim as its meaning over the Euclidean plane.
 -/
 
 noncomputable section
@@ -113,6 +117,7 @@ theorem certOk3_sound {s : Stmt3} {sc : Scope3} {c : Cert3} (h : certOk3 s sc c 
       | rootCover _ => simp [certOk3] at h
       | ordered _ => simp [certOk3] at h
       | caseTree _ => simp [certOk3] at h
+      | coverAll => simp [certOk3] at h
     | semireal => cases c <;> simp [certOk3] at h
     | real => cases c <;> simp [certOk3] at h
     | ratField => cases c <;> simp [certOk3] at h
@@ -177,6 +182,16 @@ theorem certOk3_sound {s : Stmt3} {sc : Scope3} {c : Cert3} (h : certOk3 s sc c 
           exact CaseTree.caseTreeCheck_holds h (Classical.choice hK)
         | _ => simp [certOk3] at h
     | _ => cases c <;> cases e <;> simp [certOk3] at h
+  | goal g =>
+    cases sc with
+    | real =>
+      cases c with
+      | coverAll =>
+        cases g with
+        | cover n m L => exact means_goal (coverAllCheck_sound h)
+        | _ => simp [certOk3] at h
+      | _ => cases g <;> simp [certOk3] at h
+    | _ => cases c <;> cases g <;> simp [certOk3] at h
   | nf p =>
     cases sc with
     | alg sc =>
@@ -243,6 +258,7 @@ theorem k1Ok_sound {k : Kind} {target : Scope3} (ht : Scope3.le target .semireal
         | real _ _ => simp [k1Ok] at h
         | nf _ => simp [k1Ok] at h
         | realCover _ _ => simp [k1Ok] at h
+        | goal _ => simp [k1Ok] at h
       | semireal => cases cs <;> simp [k1Ok] at h
       | real => cases cs <;> simp [k1Ok] at h
       | ratField => cases cs <;> simp [k1Ok] at h
@@ -250,6 +266,7 @@ theorem k1Ok_sound {k : Kind} {target : Scope3} (ht : Scope3.le target .semireal
     | real _ _ => cases psc <;> cases cs <;> simp [k1Ok] at h
     | nf _ => cases psc <;> cases cs <;> simp [k1Ok] at h
     | realCover _ _ => cases psc <;> cases cs <;> simp [k1Ok] at h
+    | goal _ => cases psc <;> cases cs <;> simp [k1Ok] at h
 
 /-! ## 3a rules on the `alg` projection -/
 
@@ -267,6 +284,7 @@ theorem toAlg_spec {c : Clause3} {a : Clause} (h : c.toAlg = some a) :
   | real _ _ => cases sc <;> cases h
   | nf _ => cases sc <;> cases h
   | realCover _ _ => cases sc <;> cases h
+  | goal _ => cases sc <;> cases h
 
 theorem claim_alg_of_claim3 {clauses : List Clause3} {k : ℕ}
     (h : Semantic.ClaimMeaning profile3 clauses k) (hex : ∃ a ∈ algClauses clauses, a.key = k) :
@@ -359,6 +377,33 @@ theorem k1_claim_meaning {clauses : List Clause3} {k : Kind} {target : Scope3}
       have := key_unique_of_nodup clauses (·.key) unique c' c hc' present (hkey'.trans key.symm)
       exact this ▸ means
 
+/-- A 3b rule whose clause-level check is sound gives its conclusion's claim meaning (the shape of
+`k1_claim_meaning`, for the goal rules). -/
+theorem rule3_claim_meaning {clauses : List Clause3} (ok : Clause3 → List Clause3 → Bool)
+    (sound : ∀ c ps, ok c ps = true → (∀ p ∈ ps, Semantic.Means profile3 p.stmt p.scope) →
+      Semantic.Means profile3 c.stmt c.scope)
+    (w : Warrant) (premises : List Warrant)
+    (hok : (match boundWith3 (keysUnique3 clauses) clauses w,
+        premises.mapM (boundWith3 (keysUnique3 clauses) clauses) with
+      | some c, some ps => ok c ps
+      | _, _ => false) = true)
+    (truth : ∀ p ∈ premises, Semantic.ClaimMeaning profile3 clauses p.claim) :
+    Semantic.ClaimMeaning profile3 clauses w.claim := by
+  rw [boundWith3_fun] at hok
+  cases hc : Semantic.boundClause ops3 clauses w with
+  | none => simp [hc] at hok
+  | some c =>
+    cases hps : premises.mapM (Semantic.boundClause ops3 clauses) with
+    | none => simp [hc, hps] at hok
+    | some ps =>
+      simp only [hc, hps] at hok
+      have premiseMeans := Semantic.boundClauses_mapM_means profile3 clauses premises ps hps truth
+      rcases Semantic.boundClause_registered profile3 clauses w c hc with ⟨unique, present, key⟩
+      have means := sound c ps hok premiseMeans
+      refine ⟨⟨c, present, key⟩, fun c' hc' hkey' => ?_⟩
+      have := key_unique_of_nodup clauses (·.key) unique c' c hc' present (hkey'.trans key.symm)
+      exact this ▸ means
+
 theorem acceptsRule3_claim_meaning (clauses : List Clause3) (rules : List RuleInst3) (w : Warrant)
     (premises : List Warrant) (name : String)
     (accepted : acceptsRule3With (namesDistinct3 rules) (keysUnique3 clauses)
@@ -375,6 +420,15 @@ theorem acceptsRule3_claim_meaning (clauses : List Clause3) (rules : List RuleIn
   | lift d => rw [hd] at hok; exact lift_claim_meaning hnd r d w premises hok truth
   | k1Empty => rw [hd] at hok; exact k1_claim_meaning rfl w premises hok truth
   | k1Nonempty => rw [hd] at hok; exact k1_claim_meaning rfl w premises hok truth
+  | realize e g =>
+    rw [hd] at hok
+    exact rule3_claim_meaning (realizeRuleOk e g) (fun _ _ => realizeRuleOk_sound) w premises hok truth
+  | spine =>
+    rw [hd] at hok
+    exact rule3_claim_meaning spineRuleOk (fun _ _ => spineRuleOk_sound) w premises hok truth
+  | decide =>
+    rw [hd] at hok
+    exact rule3_claim_meaning decideRuleOk (fun _ _ => decideRuleOk_sound) w premises hok truth
 
 /-! ## The fold -/
 
@@ -425,5 +479,25 @@ theorem fold_held_real (clauses : List Clause3) (receipts : List Receipt3) (rule
   have := (fold_held_meaning3 clauses receipts rules events state claim folded heldClaim).2 c hc hk
   rw [hs] at this
   exact this ⟨ℝ⟩ ⟨RingEquiv.refl ℝ⟩
+
+/-- **The DECIDE goal, held by the Kernel (A2).** A held goal-family claim at `real` scope means its
+statement over the Euclidean plane: Q(n, m), ¬Q(n, m), a complete cover, or the spine implication. -/
+theorem fold_held_goal (clauses : List Clause3) (receipts : List Receipt3) (rules : List RuleInst3)
+    (events : List Event) (state : RuntimeState) (claim : Nat)
+    (folded : fold (admission3 clauses receipts rules) events = .ok state)
+    (heldClaim : held state claim = true) :
+    ∀ c ∈ clauses, c.key = claim → c.scope = .real → ∀ g, c.stmt = .goal g → GoalHolds g := by
+  intro c hc hk hs g hg
+  have := fold_held_real clauses receipts rules events state claim folded heldClaim c hc hk hs
+  rw [hg] at this
+  exact this
+
+/-- A held `goal n m false` at `real`: no `n` points of the plane have `m` unit distances. -/
+theorem fold_held_not_Q (clauses : List Clause3) (receipts : List Receipt3) (rules : List RuleInst3)
+    (events : List Event) (state : RuntimeState) (claim : Nat)
+    (folded : fold (admission3 clauses receipts rules) events = .ok state)
+    (heldClaim : held state claim = true) {n m : ℕ} :
+    ∀ c ∈ clauses, c.key = claim → c.scope = .real → c.stmt = .goal (.goal n m false) → ¬ GoalQ n m :=
+  fun c hc hk hs hg => fold_held_goal clauses receipts rules events state claim folded heldClaim c hc hk hs _ hg
 
 end GPBinding.Real

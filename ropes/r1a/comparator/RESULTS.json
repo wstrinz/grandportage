@@ -1,6 +1,6 @@
 {
  "schema": "r1a-comparator-results/v1",
- "date": "2026-10-10",
+ "date": "2026-10-12",
  "comparator": {
   "repo": "https://github.com/leanprover/comparator",
   "rev": "d03acab154d269c06e60e4de7e4cc85deebff94b",
@@ -17,16 +17,35 @@
  },
  "landrun": {
   "repo": "https://github.com/Zouuup/landrun",
-  "binary_sha256": "f285904401d407544a2b7b6d745849ee2b44778cef47251a06bf20cd13e4e8d9"
+  "binary_sha256": "150616f33710221959d84d2037256bdc92d6b2cf888e598ac2f469dac8b223da"
  },
- "host": "WSL2 Ubuntu (kernel 6.18), systemd-run --user with RestrictAddressFamilies=~AF_UNIX",
+ "host": "WSL2 Ubuntu (kernel 6.18), systemd-run --user with RestrictAddressFamilies=~AF_UNIX; fresh copy, bash REPRODUCE",
  "runs": [
+  {
+   "config": "R1aFail/WrongCoordGadget0.lean",
+   "control": true,
+   "kind": "must fail to elaborate",
+   "exit": 1,
+   "seconds": 16,
+   "message": "2 errors, 2 linarith failed",
+   "accepted": false,
+   "as_expected": true
+  },
   {
    "config": "comparator/ctl-axiomgadget1.json",
    "control": true,
    "exit": 1,
-   "seconds": 37,
+   "seconds": 55,
    "message": "uncaught exception: Illegal axiom detected: 'UDGRope.cheat'",
+   "accepted": false,
+   "as_expected": true
+  },
+  {
+   "config": "comparator/ctl-redefembeds.json",
+   "control": true,
+   "exit": 1,
+   "seconds": 80,
+   "message": "uncaught exception: Const does not match between challenge and target 'UDGRope.gadget0'",
    "accepted": false,
    "as_expected": true
   },
@@ -34,8 +53,17 @@
    "config": "comparator/ctl-redefschade.json",
    "control": true,
    "exit": 1,
-   "seconds": 26,
+   "seconds": 45,
    "message": "uncaught exception: Const does not match between challenge and target 'UDGRope.maxUnitDistances'",
+   "accepted": false,
+   "as_expected": true
+  },
+  {
+   "config": "comparator/ctl-sorryembeds.json",
+   "control": true,
+   "exit": 1,
+   "seconds": 63,
+   "message": "uncaught exception: Illegal axiom detected: 'sorryAx'",
    "accepted": false,
    "as_expected": true
   },
@@ -43,8 +71,17 @@
    "config": "comparator/ctl-sorrygadget0.json",
    "control": true,
    "exit": 1,
-   "seconds": 53,
+   "seconds": 66,
    "message": "uncaught exception: Illegal axiom detected: 'sorryAx'",
+   "accepted": false,
+   "as_expected": true
+  },
+  {
+   "config": "comparator/ctl-weakerembeds.json",
+   "control": true,
+   "exit": 1,
+   "seconds": 74,
+   "message": "uncaught exception: Challenge and solution theorem statement do not match: 'UDGRope.gadget0_embeds'",
    "accepted": false,
    "as_expected": true
   },
@@ -52,16 +89,25 @@
    "config": "comparator/ctl-weakerrhombus.json",
    "control": true,
    "exit": 1,
-   "seconds": 57,
+   "seconds": 46,
    "message": "uncaught exception: Challenge and solution theorem statement do not match: 'UDGRope.rhombus'",
    "accepted": false,
+   "as_expected": true
+  },
+  {
+   "config": "comparator/embeds.json",
+   "control": false,
+   "exit": 0,
+   "seconds": 97,
+   "message": "Your solution is okay!",
+   "accepted": true,
    "as_expected": true
   },
   {
    "config": "comparator/gadget0.json",
    "control": false,
    "exit": 0,
-   "seconds": 80,
+   "seconds": 59,
    "message": "Your solution is okay!",
    "accepted": true,
    "as_expected": true
@@ -70,7 +116,7 @@
    "config": "comparator/gadget1.json",
    "control": false,
    "exit": 0,
-   "seconds": 79,
+   "seconds": 64,
    "message": "Your solution is okay!",
    "accepted": true,
    "as_expected": true
@@ -79,7 +125,7 @@
    "config": "comparator/gadget2.json",
    "control": false,
    "exit": 0,
-   "seconds": 82,
+   "seconds": 62,
    "message": "Your solution is okay!",
    "accepted": true,
    "as_expected": true
@@ -88,7 +134,7 @@
    "config": "comparator/gadget3.json",
    "control": false,
    "exit": 0,
-   "seconds": 77,
+   "seconds": 58,
    "message": "Your solution is okay!",
    "accepted": true,
    "as_expected": true
@@ -106,7 +152,7 @@
    "config": "comparator/gadget5.json",
    "control": false,
    "exit": 0,
-   "seconds": 88,
+   "seconds": 79,
    "message": "Your solution is okay!",
    "accepted": true,
    "as_expected": true
@@ -115,7 +161,7 @@
    "config": "comparator/heredity.json",
    "control": false,
    "exit": 0,
-   "seconds": 37,
+   "seconds": 46,
    "message": "Your solution is okay!",
    "accepted": true,
    "as_expected": true
@@ -124,7 +170,7 @@
    "config": "comparator/rhombus.json",
    "control": false,
    "exit": 0,
-   "seconds": 78,
+   "seconds": 57,
    "message": "Your solution is okay!",
    "accepted": true,
    "as_expected": true
@@ -133,7 +179,7 @@
    "config": "comparator/schade.json",
    "control": false,
    "exit": 0,
-   "seconds": 89,
+   "seconds": 99,
    "message": "Your solution is okay!",
    "accepted": true,
    "as_expected": true

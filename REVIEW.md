@@ -1,57 +1,44 @@
-# Review guide: v0.50.0-alpha.2
+# Review guide: v0.50.0
 
-2026-10-11. This alpha covers everything since `v0.50.0-alpha` (2026-10-04, at gate G3a). Current progress: [STATUS.md](STATUS.md); rulings: [DECISIONS.md](DECISIONS.md). Review does not imply production soundness.
+2026-10-12. The first stable 0.50 release. The earlier guides are in [HISTORY/](HISTORY/). Start with [GUARANTEES.md](GUARANTEES.md), then the [release notes](reports/RELEASE-NOTES-v0.50.0.md). Review does not imply production soundness.
 
-**Withheld from this release.** Active campaign material is withheld until the related outreach to other researchers is done. That covers:
-- the campaign packets and ledgers;
-- the campaign-sensitive decision entries (pointers remain in `DECISIONS.md`);
-- one rope in preparation;
-- the builder's working handoff.
+Active campaign material is withheld until outreach is done (see the release notes). Some links in retained documents point to withheld files.
 
-Some links in retained documents point to withheld files.
+## What changed since alpha.2, and why
 
-## What GP is
-- **A Kernel.** A small, Mathlib-free Kernel folds an append-only ledger of claims, warrants and lifecycle events. It holds exactly the claims whose evidence is admitted, and refuses the rest with a reason.
-- **Profiles.** Profiles decide what evidence means, through checkers over exact algebra, each proved sound against Mathlib. The main theorems are `fold_held_meaning` (3a) and `fold_held_meaning3` (3b).
-- **Axioms.** Everything uses only `propext`, `Quot.sound` and `Classical.choice`.
-- **GP is the belay, not the deliverable.** What we hand to others is a **rope**: a Lean theorem that stock Comparator checks, needing no trust in GP. See [ROPE-CHECKLIST.md](docs/ROPE-CHECKLIST.md).
+An external review of alpha.2 found that the remaining risks were places where **the sentence GP prints could outrun what the Kernel established**. This release closes them:
 
-## New since the first alpha
-
-| Area | What to look at |
-|---|---|
-| A real pilot campaign (G3P) | `campaigns/3p-matroids/`: χ held for 493 matroids. [F2 report](campaigns/3p-matroids/F2-REPORT.md) |
-| Census profile (G4) | `census/`: EXISTS/NONE/EXHAUSTIVE/COUNT; extension covers with a Lean-side generator ([meaning note](docs/CENSUS-EXTENSION-COVERS.md)) |
-| Fold performance (GK) | [Track K report](reports/TRACK-K-REPORT.md). Every speedup is proved equal to the code it replaces. A later round on 3b receipts (`profile/GPProfile/PolyFast.lean`, `Real/Memo3.lean`, `Real/OrderedPar.lean`, `Real/CaseTreePar.lean`) cut a 58-minute status to 30–60 s. |
-| Semireal, ℚ and ℝ contexts (G3b) | [Phase 3b report](reports/PHASE-3B-REPORT.md): SOS and ordered certificates (with guard selection), real points, root covers, number fields, `case_tree` refutations (collision and forced-unit-distance steps) |
-| Comparator warrants (GE) | [Track E report](reports/TRACK-E-REPORT.md): 1,825 of 1,891 3P claims pass stock Comparator in CI. The non-builder [fidelity audit](reports/GE-AUDIT.md) found zero defects. |
-| CLI (`tools/gp.py`) | See [GP-CLI.md](docs/GP-CLI.md) for each: 3b claims; the merge guard; graph-bound unit-distance claims (`udg_frame_iff`); DECIDE goals with admitted bridges (`realize_sound`, `spine_sound`); receipt references verified on every fold; `frontier` showing goal obligations |
-| Unit-distance theorems | `binding/GPBinding/UDG/`: the rhombus lemma, TU gadget lemmas, Schade averaging, the UDG encoding frame, `spine_sound`, with Comparator challenges |
-| **Rope R1a** | [`ropes/r1a/`](ropes/r1a/README.md), a T1 candidate meeting GR1:<br>• stock Comparator in CI on a fresh runner;<br>• a fresh-agent reproduction in 13.2 min;<br>• a non-builder fidelity review. |
+| Concern raised | What v0.50.0 does | Where to check |
+|---|---|---|
+| The goal verdict came from a Python join over proved pieces | The goal is a Kernel-held profile statement, reached only through admitted rules proved sound. Graph matching is a Lean admission check. | `profile/GPProfile/Real/Goal.lean`, `binding/GPBinding/Real/GoalSound.lean`, [A2 design](docs/A2-GOAL-STATEMENT-DESIGN.md), `tests/test_gp50_gp_cli_udg.py` |
+| Edits to `campaign.json` after `init` went undetected | The statement is bound by hash, and every command verifies it; a deliberate change is a `restate` event | `tests/test_gp50_statement_binding.py` |
+| Runner freshness used file modification times | Content-hash stamps | `tests/test_gp50_runner_freshness.py` |
+| 3b claims bypassed the merge guard | `gp_ledger3 --guard` runs the Kernel's `resolve` | `tests/test_gp50_merge_guard_3b.py` |
+| Coverage hid the 62 EMPTY exclusions | Coverage is reported by kind of conclusion; 57 of 62 EMPTY claims now pass Comparator | [Track E report](reports/TRACK-E-REPORT.md#coverage-by-kind-of-conclusion) |
+| R1a's non-vacuity rested on private records | Exact gadget embeddings are Lean theorems in the rope | `ropes/r1a/UDGRope/Embeds.lean` |
+| Standard-axiom status was asserted, not checked | A CI axiom audit of every theorem GUARANTEES cites, with a negative control | `tests/test_gp50_axiom_audit.py` |
+| The docs mixed history with current limits | GUARANTEES, a current LIMITS and a TCB summary; history kept in `HISTORY/` | [GUARANTEES.md](GUARANTEES.md), [LIMITS.md](LIMITS.md), [TCB.md](TCB.md) |
+| Hard to use outside this repo | A usage guide with a replayed worked example, a compatibility statement, and an outside-repo test | [docs/USING-GP.md](docs/USING-GP.md) |
 
 ## Questions for review
 
-- **Belay vs rope.** Is the split right? Does anything a rope says depend on GP after all?
-- **Goal bridges.** A DECIDE goal is decided only through an admitted bridge: a graph-bound frame for the yes side, a `gp cover` spine for the no side. The Python join between them is named in `TCB.md`. Is that join small and obviously right?
-- **Receipt references.** Supports may point to `receipts/<sha256>.json`, re-hashed on every fold. Any way to make a fold use bytes other than the ones checked?
-- **R1a fidelity.** Do the statements in `ropes/r1a/R1aChallenge/` say exactly what [FIDELITY.md](ropes/r1a/FIDELITY.md) claims? In particular, check the formal-conjectures definitions, which are copied verbatim with attribution in [NOTICE](NOTICE).
-- **Scope order in 3b.** Can a ℂ or characteristic-0 fact reach an ℝ claim by any route other than the stated kind-1 rules?
+- **The goal rules.** Do `realize`, `spine` and `decide` admit exactly what `fold_held_goal` needs? Is "a cover is held only by an exhaustive list" the right bar?
+- **The remaining Python.** `TCB.md` says the Python now only serialises claims, proposes rule instances and renders fold results. Is anything it still decides missing from that list?
+- **EMPTY warrants.** Does `GPEmpty.frame4` (frame normalization) faithfully reduce "no field in scope realizes M" to the framed system?
+- **The compatibility promise.** Is the `gp-ledger/v1` statement in USING-GP something we can keep?
 
 ## Known limits
 
-- **ℝ, not every real closed field.** Selected-root signs mean "some root in the interval".
-- **Number-field irreducibility** uses the rational-root test (degree ≤ 3).
-- **62 3P EMPTY claims** have no Comparator warrant yet.
-- **The goal bridges' Python join** is trusted code (`TCB.md`).
-- **There is no `≥ 0` sign atom** (use slack squares) and no map rule between Gram and coordinate forms.
+See [LIMITS.md](LIMITS.md):
+- ℝ only, not every real closed field;
+- number fields of degree ≤ 3;
+- 5 EMPTY claims without a warrant (their certificates are too large);
+- no `≥ 0` sign atom;
+- no Gram↔coordinate map rule;
+- no withdrawal of refused claims.
+
+No published result has yet been independently re-established outright.
 
 ## Reproduction
 
-- **Tests:** `python -m pytest -q -k gp50 tests/` runs the 0.50 suite.
-- **Lean packages:**
-  - `phase2/lean` (the Kernel);
-  - `profile` (no Mathlib);
-  - `binding` (pinned Mathlib, including `UDGRope`);
-  - `census`.
-- **R1a:** `cd ropes/r1a && bash REPRODUCE` (Linux; about 16 min plus the Mathlib cache download).
-- **Excluded, as before:** private campaign harvests and the oracle checkout. Their suites skip.
+See the release notes. Tests: `python -m pytest -q -k gp50 tests/`. R1a: `cd ropes/r1a && bash REPRODUCE`.

@@ -1,3 +1,56 @@
+# Trusted computing base
+
+## Current summary (0.50 stable)
+
+This is what a held claim rests on, as of 2026-10-12. The guarantees themselves are in [GUARANTEES.md](GUARANTEES.md).
+
+### Trusted
+
+| Component | Pin | Trusted for |
+|---|---|---|
+| The Lean 4 kernel, with `propext`, `Quot.sound` and `Classical.choice` | the toolchain below | checking every Kernel, profile and binding proof |
+| The toolchain | `leanprover/lean4:v4.34.0-rc2` for the Kernel, profile, binding and census (`KERNEL-PIN.json` for the Kernel); R1a uses `v4.34.1` | elaboration, and the compiler and runtime behind every compiled runner |
+| Hex arithmetic, as compiled | `HexMvPoly`, `HexPoly` and `HexBasic` v0.6.0; GMP-backed `Rat` and `Int` | the profile runners (`gp_ledger`, `gp_ledger3`, `gp_corpus_run`) running the code the soundness proofs describe. `HexMvPolyMathlib` relates that arithmetic to Mathlib by theorem. |
+| The census LRAT checker | vendored LRAT-Catcher (`vendor/lrat-catcher/`) | compiled replay inside the census runner. `native_decide` theorems are not admitted. |
+| Mathlib | `85e3a25e` (binding) | its definitions saying what the meanings intend |
+| The Python CLI, `tools/gp.py` | the release commit | See below. The fold, not the CLI, decides what is held. |
+| The matroid file reader | `encode-matroid.py`'s `canonical` | reading a matroid file into `(n, index lines)`. The Lean encoder re-derives the system from that. |
+| The binder export | the `gp-binder/v2` receipt | the `RecordsSound` hypothesis of `fold_held_meaning_rules` (theorem warrants only) |
+| Comparator | Comparator, `lean4export` and `landrun`, pinned by commit in `comparator.yml` (3P) and `ropes/r1a/REPRODUCE` | rope and warrant checks. A pass needs no trust in GP, but it does need trust that the challenge statement is faithful. |
+
+The CLI is trusted to:
+- write the append-only ledger;
+- serialise each claim's statement and scope as asked;
+- split the ledger between the 3a and 3b runners, and merge their results by claim key; on `merge`, give each runner's guard (`--guard`) its part of the merged log;
+- print what the fold returned.
+
+It also checks the receipt SHA-256s and the bound `campaign.json` before folding, which is custody.
+
+### The goal verdict
+
+A DECIDE goal's verdict is a Kernel-held claim of the 3b profile, held only through the admitted `realize`, `spine` and `decide` rules and the `cover_all` check. All are proved sound in the binding (`realizeRuleOk_sound`, `spineRuleOk_sound`, `decideRuleOk_sound`, `coverAllCheck_sound`, `fold_held_goal`). Graph matching is a Lean admission check: exact statement equality against the encoder's `UDG.Data.stmt`.
+
+**What the Python still does:**
+- `goal_sync` proposes `realize`/`spine`/`decide` instances. It is untrusted: the fold accepts or refuses each one.
+- `status_goal`, `spine_verdict`, `cover_join` and `frontier_goal` print fold results. They may *withhold* "decided" when a held goal claim inherits OPEN named premises, but they never assert a verdict.
+
+The Python goal join is no longer trusted.
+
+### Not trusted
+
+- **Certificate producers:** CAS runs, SAT solvers, search scripts and AutoGeneralization. Every certificate is replayed.
+- **The systems the Python encoders produce** (`encode-matroid.py`, `encode-udg.py`). The Lean encoders re-derive them, and a mismatch leaves ENCODING-FRAME OPEN.
+- **Comparator emitters.** Comparator checks what they emit. Their fidelity is reviewed separately ([GE-AUDIT](reports/GE-AUDIT.md)).
+- **The commit guard** (`fold_ok_admission`). The final fold with the real admission is authoritative.
+- **Modification times.** Runner freshness compares content hashes.
+- **Expected-verdict metadata, named OPEN premises, the frontend's infix parser and `Scope.overlaps` labels.**
+
+---
+
+## Historical record (pre-0.50 stable)
+
+The sections below are unchanged from before the 0.50 stable summary. Statements in them about trusted Python joins, test stubs or toolchains describe the state on their date.
+
 # Phase 0c trust observations
 This is a feasibility record, not checker admission or a Phase1 kernel contract.
 

@@ -20,6 +20,10 @@ _FIELDS = {
     "public_paths", "public_prefixes", "required_public_paths",
     "campaign_path_allowlist",
 }
+# Optional: {"path": ..., "sha256": ...} naming a withheld file that lists further private paths, so
+# the public manifest need not name them. Declared by hash, so a missing or altered overlay refuses.
+OVERLAY_FIELD = "private_overlay"
+OVERLAY_SCHEMA = "grand-portage-public-snapshot-private-overlay/v1"
 
 
 class PublicSnapshotError(ValueError):
@@ -69,11 +73,18 @@ def load_manifest_bytes(payload):
         value = json.loads(payload.decode("utf-8"))
     except (UnicodeDecodeError, json.JSONDecodeError) as exc:
         raise PublicSnapshotError("MAN4: invalid manifest: %s" % exc)
-    _require(isinstance(value, dict) and set(value) == _FIELDS, "MAN5",
+    _require(isinstance(value, dict) and set(value) - {OVERLAY_FIELD} == _FIELDS, "MAN5",
              "manifest has unknown or missing fields")
     _require(value["schema"] == SCHEMA, "MAN6",
              "unsupported public snapshot schema")
     result = {"schema": SCHEMA}
+    if OVERLAY_FIELD in value:
+        overlay = value[OVERLAY_FIELD]
+        _require(isinstance(overlay, dict) and set(overlay) == {"path", "sha256"} and
+                 isinstance(overlay["sha256"], str) and len(overlay["sha256"]) == 64,
+                 "MAN8", "private_overlay must be {path, sha256}")
+        result[OVERLAY_FIELD] = {"path": _safe_path(overlay["path"], OVERLAY_FIELD),
+                                 "sha256": overlay["sha256"]}
     for field in ("generated_paths", "private_paths", "public_paths",
                   "required_public_paths", "campaign_path_allowlist"):
         result[field] = _path_list(value[field], field)
@@ -88,8 +99,55 @@ def load_manifest(path):
     return load_manifest_bytes(Path(path).read_bytes())
 
 
+def apply_private_overlay(manifest, paths, read):
+    """The manifest with its declared overlay's paths added to private_paths.
+
+    `read(path)` returns a tracked file's bytes. The overlay may be absent only from a tree with
+    no private files (a public snapshot). Otherwise it must be present, match its declared SHA-256
+    and be private itself."""
+    declared = manifest.get(OVERLAY_FIELD)
+    if declared is None:
+        return manifest
+    path = declared["path"]
+
+    def by_prefix(item):
+        return (_longest_prefix(item, manifest["private_prefixes"]) >
+                _longest_prefix(item, manifest["public_prefixes"]))
+
+    _require(by_prefix(path) and path not in manifest["public_paths"], "OVL2",
+             "the private overlay would itself be public")
+    if path not in paths:
+        withheld = [item for item in paths
+                    if item in manifest["private_paths"] or by_prefix(item)]
+        _require(not withheld, "OVL1",
+                 "the declared private overlay is absent from a tree with private files")
+        return manifest
+    payload = read(path)
+    _require(digest_bytes(payload) == declared["sha256"], "OVL3",
+             "the private overlay does not match its declared SHA-256")
+    try:
+        value = json.loads(payload.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise PublicSnapshotError("OVL4: invalid private overlay: %s" % exc)
+    _require(isinstance(value, dict) and set(value) == {"schema", "private_paths"} and
+             value["schema"] == OVERLAY_SCHEMA, "OVL4", "invalid private overlay")
+    extra = _path_list(value["private_paths"], "private_overlay.private_paths")
+    named = set(manifest["private_paths"]) | set(manifest["public_paths"]) | set(
+        manifest["generated_paths"])
+    _require(not set(extra) & named, "OVL5", "the private overlay repeats a manifest path")
+    result = dict(manifest)
+    result["private_paths"] = sorted(manifest["private_paths"] + extra)
+    return result
+
+
 def _matches(path, exact, prefixes):
     return path in exact or any(path.startswith(prefix) for prefix in prefixes)
+
+
+def _longest_prefix(path, prefixes):
+    """Length of the longest prefix in `prefixes` that `path` starts with, or -1."""
+    return max((len(prefix) for prefix in prefixes if path.startswith(prefix)),
+               default=-1)
 
 
 def _campaign_domain_path(path):
@@ -132,10 +190,14 @@ def classify_paths(manifest, paths):
             is_public = exact_public
             is_private = exact_private
         else:
-            is_public = any(
-                path.startswith(prefix) for prefix in manifest["public_prefixes"])
-            is_private = any(
-                path.startswith(prefix) for prefix in manifest["private_prefixes"])
+            # The longest matching prefix decides, so a private directory can
+            # hold public subdirectories (and the reverse) without the
+            # manifest naming any private subdirectory.  The same prefix
+            # declared on both sides stays an overlap.
+            public_length = _longest_prefix(path, manifest["public_prefixes"])
+            private_length = _longest_prefix(path, manifest["private_prefixes"])
+            is_public = public_length >= 0 and public_length >= private_length
+            is_private = private_length >= 0 and private_length >= public_length
         count = sum((is_public, is_private, is_generated))
         if count > 1:
             overlaps.append(path)
@@ -234,6 +296,8 @@ def compile_snapshot(source_root=ROOT, revision="HEAD",
              "manifest is absent from the source revision")
     manifest_payload = revision_blob(root, commit, manifest_path)
     manifest = load_manifest_bytes(manifest_payload)
+    manifest = apply_private_overlay(manifest, paths,
+                                     lambda path: revision_blob(root, commit, path))
     classifications = classify_paths(manifest, paths)
     blobs = {
         path: revision_blob(root, commit, path)

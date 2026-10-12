@@ -3,7 +3,7 @@
 ## Read first
 Before substantive work, read:
 - `STATUS.md`, the single current human status (top summary ≤ 300 words);
-- `docs/HANDOFF-2026-10-11.md`, the current state of every track and where to start;
+- `docs/private/HANDOFF-2026-10-11.md`, the current state of every track and where to start;
 - `DECISIONS.md`, the binding rulings, newest last, and `DECISIONS-PRIVATE.md`, the campaign-sensitive entries withheld from public releases;
 - `LIMITS.md` and `SPEC-CORE.md`.
 

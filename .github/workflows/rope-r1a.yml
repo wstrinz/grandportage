@@ -32,7 +32,7 @@ jobs:
           sudo loginctl enable-linger "$USER"
           echo "XDG_RUNTIME_DIR=/run/user/$(id -u)" >> "$GITHUB_ENV"
           sleep 2
-      - name: bash REPRODUCE (9 challenges accepted, 4 controls refused)
+      - name: bash REPRODUCE (10 challenges accepted, 7 controls refused, wrong coordinate fails)
         working-directory: ropes/r1a
         run: |
           start=$(date +%s)

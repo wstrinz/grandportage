@@ -28,7 +28,9 @@ Receipt acceptance, by family and scope:
 - `real r .empty` at `real` with an ordered Positivstellensatz certificate: `orderedCheck r c`
   (C7; never at `semireal`, whose fields have no fixed ordering);
 - `real r .empty` at `real`, or `orderFree s` (EMPTY) at `real`, with a refutation case tree:
-  `caseTreeCheck` (G-6: splits, L1a collision and ordered leaves; ℝ only).
+  `caseTreeCheck` (G-6: splits, L1a collision and ordered leaves; ℝ only);
+- `goal (cover n m L)` at `real` with a `cover_all` receipt: `coverAllCheck n m L` (A2: every graph on
+  `n` vertices with at least `m` edges is listed).
 
 Everything else refuses. In particular an SOS certificate never supports an `alg` statement or
 anything at an `alg` scope (GP-A10-C, GP-X345).
@@ -37,6 +39,10 @@ Rules: 3a's rules act on `alg` clauses through 3a's own `acceptsRule`, on the pr
 clause list to its `alg` clauses (`algClauses`). The kind-1 rules K1a and K1b carry a 3a EMPTY or
 NONEMPTY claim, held at a scope containing characteristic 0, to `orderFree` at `semireal` (K1a) or
 `real` (K1b): every semireal field, ℝ included, has characteristic 0.
+
+The goal rules (A2, `GPProfile.Real.Goal`), each concluding at `real` from premises at `real`:
+`realize` (one encoder-exact NONEMPTY claim ⇒ `goal n m true`), `spine` (one encoder-exact EMPTY claim
+per graph of `L` ⇒ `spine n m L`) and `decide` (`spine n m L` and `cover n m L` ⇒ `goal n m false`).
 -/
 
 namespace GPProfile.Real
@@ -67,6 +73,8 @@ inductive Cert3 where
   | ordered (c : OCert)
   /-- A refutation case tree (`caseTreeCheck`, G-6): EMPTY over ℝ. -/
   | caseTree (c : CaseTreeCert)
+  /-- An exhaustive cover (`coverAllCheck`, A2): every graph with at least `m` edges is listed. -/
+  | coverAll
 
 structure Receipt3 where
   name : String
@@ -92,6 +100,7 @@ def certOk3 : Stmt3 → Scope3 → Cert3 → Bool
   | .nf p, .alg sc, .nf c => sc.le Scope.char0Only && nfCheck p c
   | .orderFree s, .ratField, .ratRoot => ratRootCheck s
   | .realCover r bs, .real, .rootCover c => rootCoverCheck r bs c
+  | .goal (.cover n m L), .real, .coverAll => coverAllCheck n m L
   | _, _, _ => false
 
 def wellFormed3 (clauses : List Clause3) (receipts : List Receipt3) : Bool :=
@@ -115,6 +124,13 @@ inductive RuleData3 where
   | k1Empty
   /-- K1b: `alg s` NONEMPTY at a scope with characteristic 0 ⇒ `orderFree s` NONEMPTY at `real`. -/
   | k1Nonempty
+  /-- A2 `realize`: a graph's encoder-exact NONEMPTY claim over ℝ ⇒ `goal n m true` (the graph's
+  edges and gauge are data; the check compares statements). -/
+  | realize (edges : EdgeList) (gauge : Bool)
+  /-- A2 `spine`: one encoder-exact EMPTY claim over ℝ per graph of `L` ⇒ `spine n m L`. -/
+  | spine
+  /-- A2 `decide`: `spine n m L` and `cover n m L` ⇒ `goal n m false`. -/
+  | decide
   deriving Repr, DecidableEq
 
 structure RuleInst3 where
@@ -153,6 +169,42 @@ def k1Ok (k : Kind) (target : Scope3) (c : Clause3) : List Clause3 → Bool
     | _, _, _ => false
   | _ => false
 
+/-! ### The goal rules (A2) -/
+
+/-- `realize`: the conclusion is `goal n m true` at `real`; the one premise is an order-free claim at
+`real` whose statement passes `realizeOk` for the rule's graph. -/
+def realizeRuleOk (edges : EdgeList) (gauge : Bool) (c : Clause3) : List Clause3 → Bool
+  | [p] =>
+    match c.stmt, c.scope, p.stmt, p.scope with
+    | .goal (.goal n m true), .real, .orderFree s, .real => realizeOk n m edges gauge s
+    | _, _, _, _ => false
+  | _ => false
+
+/-- One premise per graph, in order: each an order-free claim at `real` passing `exclusionOk`. -/
+def spinePremisesOk (n : Nat) : List EdgeList → List Clause3 → Bool
+  | [], [] => true
+  | l :: L, p :: ps =>
+    (match p.stmt, p.scope with
+      | .orderFree s, .real => exclusionOk n l s
+      | _, _ => false) && spinePremisesOk n L ps
+  | _, _ => false
+
+/-- `spine`: the conclusion is `spine n m L` at `real`. -/
+def spineRuleOk (c : Clause3) (ps : List Clause3) : Bool :=
+  match c.stmt, c.scope with
+  | .goal (.spine n _ L), .real => spinePremisesOk n L ps
+  | _, _ => false
+
+/-- `decide`: the conclusion is `goal n m false` at `real`; the premises are `spine n m L` and
+`cover n m L` at `real`, with identical `n`, `m` and `L`. -/
+def decideRuleOk (c : Clause3) : List Clause3 → Bool
+  | [sp, cv] =>
+    match c.stmt, c.scope, sp.stmt, sp.scope, cv.stmt, cv.scope with
+    | .goal (.goal n m false), .real, .goal (.spine n₁ m₁ L₁), .real, .goal (.cover n₂ m₂ L₂), .real =>
+      n₁ == n && m₁ == m && n₂ == n && m₂ == m && decide (L₁ = L₂)
+    | _, _, _, _, _, _ => false
+  | _ => false
+
 /-- The 3a rule instance a lifted rule names. -/
 def RuleInst3.lift (r : RuleInst3) (d : RuleData) : RuleInst := ⟨r.name, r.conclusion, r.premises, d⟩
 
@@ -168,6 +220,18 @@ def ruleOk3 (unique uniqueAlg : Bool) (clauses : List Clause3) (algCl : List Cla
   | .k1Nonempty =>
     match boundWith3 unique clauses w, premises.mapM (boundWith3 unique clauses) with
     | some c, some ps => k1Ok .nonempty .real c ps
+    | _, _ => false
+  | .realize edges gauge =>
+    match boundWith3 unique clauses w, premises.mapM (boundWith3 unique clauses) with
+    | some c, some ps => realizeRuleOk edges gauge c ps
+    | _, _ => false
+  | .spine =>
+    match boundWith3 unique clauses w, premises.mapM (boundWith3 unique clauses) with
+    | some c, some ps => spineRuleOk c ps
+    | _, _ => false
+  | .decide =>
+    match boundWith3 unique clauses w, premises.mapM (boundWith3 unique clauses) with
+    | some c, some ps => decideRuleOk c ps
     | _, _ => false
 
 def namesDistinct3 (rules : List RuleInst3) : Bool := (rules.map (·.name)).eraseDups.length == rules.length

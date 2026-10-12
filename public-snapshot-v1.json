@@ -14,7 +14,6 @@
     "tests/test_arr15_"
   ],
   "private_paths": [
-    ".codex/config.toml",
     "CURRENT.md",
     "DESIGN_DIRECTION.md",
     "EXPERIMENT-B.md",
@@ -223,24 +222,7 @@
     "tools/test_operational_retained_observation.py",
     "tools/universe_boundary_probes.py",
     "tools/zero_regime_probes.py",
-    "DECISIONS-PRIVATE.md",
-    "docs/HANDOFF-2026-10-11.md",
-    "docs/HW61-REVISITED-PACKET.md",
-    "docs/TWO-HARBORS-PACKET.md",
-    "docs/AGATE-BAY-PACKET.md",
-    "docs/GP-0.50-FIXED-ROPES-HANDOFF.md",
-    "docs/R1B-STATEMENT-DESIGN.md",
-    "reports/M5-U22-MEANING-AUDIT.md",
-    "reports/M5-U22-SOURCES.json",
-    "ropes/README.md",
-    "HISTORY/REVIEW-0.50-pre-u22.md",
-    "tests/test_gp50_emit_r1b.py",
-    "tests/test_gp50_emit_r1b2.py",
-    "tools/emit-r1b.py",
-    "tools/emit_r1b2.py",
-    "tools/emit_r1b_census.py",
-    "tools/emit_r1b_chal.py",
-    ".github/workflows/rope-r1b.yml"
+    "DECISIONS-PRIVATE.md"
   ],
   "private_prefixes": [
     "binding/",
@@ -254,10 +236,10 @@
     "phase1/",
     "phase2/",
     "reports/",
-    "ropes/r1b/",
-    "spikes/",
-    "campaigns/rp2-9/",
-    "campaigns/ud22/"
+    "campaigns/",
+    "ropes/",
+    "docs/private/",
+    "spikes/"
   ],
   "public_paths": [
     ".gitattributes",
@@ -267,6 +249,7 @@
     "ADAPTER-CONTRACT.md",
     "COMPATIBILITY.md",
     "DESIGN.md",
+    "GUARANTEES.md",
     "LICENSE",
     "OPERATION-CONTRACTS.md",
     "QUICKSTART.md",
@@ -309,5 +292,9 @@
     "scripts/public_snapshot.py",
     "tests/test_adapter_conformance.py",
     "tests/test_public_snapshot.py"
-  ]
+  ],
+  "private_overlay": {
+    "path": "docs/private/PUBLIC-SNAPSHOT-OVERLAY.json",
+    "sha256": "78a93ecaf94071d11e06b600fb3be5027308a8a4cf22c92246239ebfb6bfc578"
+  }
 }

@@ -19,7 +19,8 @@ spec = importlib.util.spec_from_file_location("comparator_emit", ROOT / "tools/c
 E = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(E)
 
-COUNTS = {"map-p": 1241, "map-s": 9, "point-p": 86, "point-s": 467, "bridge": 12, "source": 10}
+COUNTS = {"map-p": 1241, "map-s": 9, "point-p": 86, "point-s": 467, "bridge": 12, "source": 10, "empty": 57}
+EMPTY_TOO_LARGE = {1761, 1772, 1813, 1816, 1829}  # refused: certificate above EMPTY_MAX_WORK
 
 
 def emit(out):
@@ -56,20 +57,22 @@ class ComparatorEmitTests(unittest.TestCase):
     def test_counts_per_class_and_coverage(self):
         m = self.manifest
         self.assertEqual({k: v["emitted"] for k, v in m["classes"].items() if v["emitted"]}, COUNTS)
-        self.assertEqual(m["classes"]["empty"], {"emitted": 0, "refused": 0, "deferred": 62})
-        self.assertEqual(m["counts"]["refused"], 0)
+        self.assertEqual(m["classes"]["empty"], {"emitted": 57, "refused": 5, "deferred": 0})
+        self.assertEqual(m["counts"]["refused"], 5)
+        self.assertEqual(m["counts"]["deferred"], 0)
         self.assertEqual(m["counts"]["claims_in_ledger"], 1891)
         self.assertEqual(m["counts"]["unsupported"], 4)
         self.assertEqual(m["counts"]["emitted"], sum(COUNTS.values()))
         self.assertEqual(len(m["claims"]), sum(COUNTS.values()))
         self.assertGreaterEqual(m["counts"]["coverage_percent"], 95.0)
-        self.assertEqual(m["counts"]["coverage_percent"], round(100 * 1825 / 1891, 2))
+        self.assertEqual(m["counts"]["coverage_percent"], round(100 * 1882 / 1891, 2))
         # every gap is listed with its reason
         gaps = m["refused"] + m["deferred"]
         self.assertEqual(len(gaps) + len(m["unsupported"]) + len(m["claims"]), 1891)
         self.assertTrue(all(r["reason"] for r in gaps))
-        self.assertTrue(all(r["reason"].startswith("deferred (reprioritised 2026-10-09): EMPTY")
-                            for r in m["deferred"]))
+        self.assertEqual({r["key"] for r in m["refused"]}, EMPTY_TOO_LARGE)
+        self.assertTrue(all(r["class"] == "empty" and r["reason"].startswith(
+            "certificate too large for the linear_combination route") for r in m["refused"]))
 
     def test_shapes(self):
         realizes = E.REALIZES
@@ -94,7 +97,8 @@ class ComparatorEmitTests(unittest.TestCase):
     def test_map_p_solutions_use_part_one_only(self):
         for s in self.manifest["shards"]:
             sol = self.files[s["solution"]].decode("utf-8")
-            self.assertEqual(E.PART2 in sol, s["class"] != "map-p", s["shard"])
+            self.assertEqual(E.PART2 in sol, s["class"] not in ("map-p", "empty"), s["shard"])
+            self.assertEqual("namespace GPEmpty" in sol, s["class"] == "empty", s["shard"])
 
     def refuse(self, key, cls, mutate, expect):
         c2, s2 = copy.deepcopy(self.claims), copy.deepcopy(self.sup)
@@ -153,16 +157,9 @@ class ComparatorEmitTests(unittest.TestCase):
             (8, lambda c, s: pt(s, 8).update(y5="2"), "at the point"),
             (8, lambda c, s: s[8]["receipt"]["certificate"].update(characteristic=2), "receipt certificate"),
             (7, lambda c, s: pt(s, 7).update(x5="1"), "at the point"),
-            (8, lambda c, s: c[8].update(kind="EMPTY"), "deferred (reprioritised"),
+            (8, lambda c, s: c[8].update(kind="EMPTY"), "not an ideal certificate"),
         ]:
-            if expect == "deferred (reprioritised":
-                c2, s2 = copy.deepcopy(self.claims), copy.deepcopy(self.sup)
-                mutate(c2, s2)
-                with self.assertRaises(E.Refuse) as cm:
-                    E.classify(K, c2, s2)
-                self.assertIn(expect, str(cm.exception))
-            else:
-                self.refuse(K, None, mutate, expect)
+            self.refuse(K, None, mutate, expect)
 
     def test_bridge_and_source_fidelity_mutants(self):
         E.build(5, "bridge", self.claims, self.sup, CAMPAIGN, self.enc)
@@ -186,6 +183,46 @@ class ComparatorEmitTests(unittest.TestCase):
                 self.assertIn(expect, str(cm.exception))
             else:
                 self.refuse(K, None, mutate, expect)
+
+    def test_empty_statement_and_solution(self):
+        x = E.build(10, "empty", self.claims, self.sup, CAMPAIGN, self.enc)  # F7m-empty-2: non-Fano at 2
+        x["thm"] = "unrealizable_F7m_empty_2"
+        self.assertEqual(E.statement(x), "theorem unrealizable_F7m_empty_2 (K : Type*) [Field K] [CharP K 2] :\n"
+                         "    ¬ ∃ v : Fin 7 → Fin 3 → K, RealizesRank3 lines_F7_ v")
+        sol = E.solution_block(x)
+        self.assertIn("GPEmpty.frame4 hv 0 1 2 5 ", sol)
+        self.assertIn("(a := 3) (b := 4) (c := 6)", sol)  # the guard: 4, 5, 7 are independent
+        self.assertIn("by linear_combination ", sol)
+        self.assertNotIn("decide +kernel", sol)
+        x1 = E.build(1, "empty", self.claims, self.sup, CAMPAIGN, self.enc)  # F7 outside [2]: cofactors / 2
+        self.assertEqual(x1["data"]["unit"], [(2, 1)])
+        self.assertIn("hK : ringChar K ∉ ([2] : List ℕ)", E.statement(dict(x1, thm="t")))
+
+    def test_empty_fidelity_mutants(self):
+        cert = lambda s, k: s[k]["receipt"]["certificate"]
+        for K, mutate, expect in [
+            (10, lambda c, s: cert(s, 10)["cofactors"].__setitem__(0, "x5*y7"), "fails modulo 2"),
+            (10, lambda c, s: cert(s, 10).update(k=2), "fails modulo 2"),
+            (10, lambda c, s: cert(s, 10).update(guards=[21]), "fails modulo 2"),
+            (10, lambda c, s: cert(s, 10).update(m=1), "not EMPTY's"),
+            (10, lambda c, s: cert(s, 10).update(guards=[22, 22]), "guard selection"),
+            (10, lambda c, s: cert(s, 10).update(guards=[99]), "guard selection"),
+            (10, lambda c, s: cert(s, 10)["cofactors"].pop(), "one string per equation"),
+            (10, lambda c, s: cert(s, 10)["cofactors"].__setitem__(0, "y5*w9"), "unparsed factor"),
+            (10, lambda c, s: cert(s, 10).update(type="point"), "not an ideal certificate"),
+            (10, lambda c, s: cert(s, 10).update(characteristic=3), "receipt certificate"),
+            (10, lambda c, s: c[10].update(scope={"characteristic": 3}), "receipt certificate"),
+            (10, lambda c, s: c[10].update(scope={"char0": True}), "characteristic 0"),
+            (10, lambda c, s: s[10]["receipt"].update(premises=[4]), "rule or premises"),
+            (10, lambda c, s: c[10]["system"]["equations"].append("x4"), "differs from the encoder"),
+            (10, lambda c, s: c[10].update(matroid="F7"), "encoding digest"),
+            (1, lambda c, s: cert(s, 1)["cofactors"].__setitem__(6, "-1/3"), "have a prime outside [2]"),
+            (1, lambda c, s: cert(s, 1)["cofactors"].__setitem__(6, "1/2"), "fails over Q"),
+            (1, lambda c, s: c[1].update(scope={"outside": []}), "have a prime outside []"),
+            (1, lambda c, s: c[1].update(scope={"outside": [4]}), "not a list of distinct primes"),
+        ]:
+            self.refuse(K, None, mutate, expect)
+        self.refuse(1816, None, lambda c, s: None, "certificate too large")
 
 
 if __name__ == "__main__":

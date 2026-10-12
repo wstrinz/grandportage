@@ -5,6 +5,8 @@
 - a non-builder agent found all nine statements faithful;
 - a fresh agent reproduced the result.
 
+The D2 gadget embeddings (2026-10-12) have not had these checks yet.
+
 Delivery at GR1 is Will's call.
 
 ## Main theorems (verbatim; vocabulary in `UDGRope/Defs.lean`)
@@ -22,7 +24,7 @@ theorem schade (n : ℕ) (hn : 3 ≤ n) :
     maxUnitDistances n ≤ n * maxUnitDistances (n - 1) / (n - 2)
 ```
 
-`gadget1_tu` … `gadget5_tu` have the same shape (`Gadgets.lean`).
+`gadget1_tu` … `gadget5_tu` have the same shape (`Gadgets.lean`). The gadgets exist (`Embeds.lean`): `gadget0_embeds : Nonempty (gadget0.UnitDistEmbedding ℝ²)`, likewise for 1–5 (gadget 4 uses gadget 3's graph), in exact ℚ(√3) coordinates from PROOFS.md's D0–D2; `gadget*_pair` put each distinguished pair at distance 1.
 
 - `ℝ²` is `EuclideanSpace ℝ (Fin 2)`.
 - `UnitDistEmbedding` is Mathlib's injective, not necessarily faithful, embedding.
@@ -32,12 +34,9 @@ theorem schade (n : ℕ) (hn : 3 ≤ n) :
 ## Check
 
 - Pinned to Lean and Mathlib **v4.34.1**.
-- Stock Comparator accepts all 9 challenges.
-- It refuses all 4 controls, each with the expected reason:
-  - a `sorry` proof;
-  - a custom axiom;
-  - a weaker statement;
-  - a redefined `maxUnitDistances`.
+- Stock Comparator accepts all 10 challenges.
+- It refuses all 7 controls with their expected reasons: two `sorry`, a custom axiom, two weaker statements, redefined `maxUnitDistances` and `gadget0`.
+- A wrong coordinate fails to build (`R1aFail/`).
 - The only axioms are `propext`, `Classical.choice` and `Quot.sound`.
 
 ## Reproduce
@@ -47,7 +46,7 @@ bash REPRODUCE
 ```
 
 Prerequisites:
-- Linux 5.13 or later with Landlock enabled (where securityfs is mounted, `/sys/kernel/security/lsm` lists `landlock`) and a non-root user;
+- Linux 5.13 or later with Landlock enabled (`/sys/kernel/security/lsm` lists `landlock`) and a non-root user;
 - elan (https://github.com/leanprover/elan), Go 1.24 or later (https://go.dev/dl/) and git, all on `PATH`.
 
 Notes:
@@ -55,8 +54,8 @@ Notes:
 - A fresh checkout needs no `.lake/`.
 - Tools are built under `$R1A_TOOLS` (default `.lake/r1a-tools`).
 - Comparator and lean4export are tag `v4.34.0` built with v4.34.1, since no v4.34.1 tag exists.
-- It takes about 16 minutes and 8 GB of disk.
-- Exit 0 means all 13 runs behaved as expected.
+- It takes about 25 minutes and 8 GB of disk.
+- Exit 0 means all 18 runs behaved as expected.
 
 ## Independence
 
@@ -64,12 +63,11 @@ These are the same lemmas artwaste and AMP rely on. What is added is a kernel ch
 
 ## Provenance
 
-The Lean proofs were written by Grand Portage's builder agent. The ud22 campaign agent (Claude Opus 5.5, Claude Code) did the assembly, the challenges, the controls and these documents. **No human has reviewed any of it.**
+The Lean proofs were written by Grand Portage's builder agent and, for `Embeds.lean`, a builder worker. The ud22 campaign agent (Claude Opus 5.5, Claude Code) did the assembly, the challenges, the controls and these documents. **No human has reviewed any of it.**
 
 ## Not checked
 
-- That these constants equal formal-conjectures'. The bodies match textually, up to renamed constants (namespaces `UDGRope` and `Erdos90`). Formal-conjectures pins Mathlib v4.33.1 and this rope uses v4.34.1, so equality of the elaborated terms is unchecked.
-- **Gadget non-vacuity.** The rope does not prove that the gadgets embed. That rests on PROOFS.md's coordinates in ℚ(√3) and on Grand Portage-internal exact records (`P2-gadget*-embeds`), which outsiders cannot inspect.
+- That these constants equal formal-conjectures'. The bodies match textually, up to renamed constants. Formal-conjectures pins Mathlib v4.33.1 and this rope uses v4.34.1, so equality of the elaborated terms is unchecked.
 - The mapping from the JSON gadgets to the Globus–Parshall and AMP figures. The GR1 reviewer matched them by brute force, but the rope does not check it.
 - Anything about u(22). That is rope R1b.
 
