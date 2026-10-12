@@ -1,0 +1,42 @@
+{
+  "schema": "gp-instantiation/v1",
+  "policy": "3b sidecar to corpus/INSTANTIATIONS.json, same policy (G3a review section 7, ruling 6): minimal instances of schematic 3b-owned cases, keyed by case id and the FNV-1a of the case bytes; case bytes and expectations are unchanged; REFUSE fixtures make the attempted conclusion false. Read only by the 3b runner (gp_corpus_3b). Signed in corpus/CHANGES.md.",
+  "fixtures": [
+    {
+      "id": "GP-X56",
+      "case_path": "corpus/must/GP-X56.json",
+      "case_fnv1a": "6578407095326592588",
+      "note": "Will, 2026-10-09 (3b stop-and-ask calls): x^2-2 is EMPTY over Q, held at the ratField scope by a rational-root certificate (candidates +-1, +-2 all evaluate nonzero). The attempted conclusion, EMPTY in every characteristic-0 field, is false (sqrt 2 is in R) and refuses: no scope order or rule carries ratField EMPTY to an alg characteristic-0 scope.",
+      "inputs": {
+        "variables": [
+          "x"
+        ],
+        "equations": [
+          "x^2-2"
+        ],
+        "source_context": "Q",
+        "claim": "EMPTY",
+        "certificate": "rational_root",
+        "target": "char0_extensions"
+      }
+    },
+    {
+      "id": "GP-A11a",
+      "case_path": "corpus/must/GP-A11a.json",
+      "case_fnv1a": "13026112653121579753",
+      "note": "Will, 2026-10-09 (3b stop-and-ask calls): sqrt 2 selected positive (m = x^2-2, interval [1, 2], sign atom x > 0) is held at real by a point receipt. The automorphism x -> -x carries the selection to the root in [-2, -1]; the attempted conclusion copies the sign atom unchanged (that root is positive), which is false, and refuses: no rule moves sign atoms across a conjugation.",
+      "inputs": {
+        "generator": "x^2-2",
+        "interval": [
+          "1",
+          "2"
+        ],
+        "expression": "x",
+        "claimed_sign": 1,
+        "substitution": {
+          "x": "-x"
+        }
+      }
+    }
+  ]
+}

@@ -45,7 +45,9 @@ def test_every_current_path_has_exactly_one_public_boundary_classification():
     receipt_path = ROOT / module.RECEIPT_PATH
     if receipt_path.is_file():
         receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
-        assert "HANDOFF.md" in receipt["private_paths"]
+        assert len(receipt["private_paths_sha256"]) == 64
+        assert receipt["counts"]["private_files"] > 0
+        assert "private_paths" not in receipt
         assert "uv.lock" in manifest["private_paths"]
         assert not (ROOT / "uv.lock").exists()
         assert result["generated"] == [module.RECEIPT_PATH]

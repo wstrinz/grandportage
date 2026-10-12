@@ -1,0 +1,81 @@
+{
+ "name": "C9-382",
+ "elements": [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9"
+ ],
+ "lines": [
+  [
+   "1",
+   "4",
+   "5"
+  ],
+  [
+   "1",
+   "6",
+   "7"
+  ],
+  [
+   "1",
+   "8",
+   "9"
+  ],
+  [
+   "2",
+   "4",
+   "6"
+  ],
+  [
+   "2",
+   "5",
+   "8"
+  ],
+  [
+   "2",
+   "7",
+   "9"
+  ],
+  [
+   "3",
+   "4",
+   "9"
+  ],
+  [
+   "3",
+   "5",
+   "7"
+  ],
+  [
+   "3",
+   "6",
+   "8"
+  ],
+  [
+   "4",
+   "7",
+   "8"
+  ],
+  [
+   "5",
+   "6",
+   "9"
+  ]
+ ],
+ "source": {
+  "generator": "campaigns/3p-matroids/catalog/generate.py",
+  "generator_sha256": "76206a403bf56dda88b251cd97f97060c21d2d2ebdf1a3d73765d29accae5bcf",
+  "catalog_index": [
+   9,
+   382
+  ],
+  "trust": "trusted generator",
+  "premise": "catalog completeness OPEN (CATALOG-COMPLETE)"
+ }
+}

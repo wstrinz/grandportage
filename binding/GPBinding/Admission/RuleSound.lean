@@ -946,6 +946,8 @@ theorem fold_held_meaning_rules (clauses : List GPProfile.Clause) (receipts : Li
         Except.ok.inj folded
       subst state
       exact resolve_warrant_ids_nodup events snapshot resolved
+  -- The admission tables its verdicts (post-G4 Track K); `admissionWithRules_eq` restores the literal.
+  rw [admissionWithRules_eq] at folded
   have h := Semantic.fold_held_meaning profile clauses _ events state claim
     (base_validator_sound_rules clauses receipts rules records hrec state.snapshot unique) folded heldClaim
   exact ⟨h.1, fun c hc hk => means_iff.mp (h.2 c hc hk)⟩

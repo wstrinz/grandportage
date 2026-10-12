@@ -4,7 +4,9 @@ Grand Portage holds a mathematical claim only through current, bound evidence an
 
 0.50 is a rework of the [v0.37 line](#v037). A small Lean kernel decides which claims are held. Profiles supply the statement language and the checkers, and their soundness is proved in Lean against Mathlib.
 
-**Status: `v0.50.0-alpha`; G3a ratified 2026-10-03.** This is a research alpha, not a production release. See [STATUS.md](STATUS.md).
+**Status: `v0.50.0-alpha.2` (2026-10-11); gates through GE ratified.** This is a research alpha, not a production release. See [STATUS.md](STATUS.md) and the [release notes](reports/RELEASE-NOTES-v0.50.0-alpha.2.md).
+
+GP is our **belay**: it keeps our own work honest. What we hand to others is a **rope**: a Lean theorem checked by stock Comparator that needs no trust in GP. The first rope is [`ropes/r1a`](ropes/r1a/README.md).
 
 ## What is in this release
 
@@ -16,7 +18,15 @@ Grand Portage holds a mathematical claim only through current, bound evidence an
 - **Soundness binding** ([`binding/`](binding), Mathlib). Every claim the kernel fold holds means its statement in every field of its scope, through checkers, rules or generated theorem warrants. See [TCB.md](TCB.md) for what is trusted.
 - **Corpus** ([`corpus/`](corpus)). 462 source-linked cases with fixed expectations. All 105 cases owned by the 3a profile agree. There are zero false ACCEPTs across the 242 profile cases.
 
-Not yet covered: real and number-field claims (Phase 3b), census and combinatorial certificates (Phase 4), and campaign operations. [LIMITS.md](LIMITS.md) and [KNOWN-CONSERVATISM.md](KNOWN-CONSERVATISM.md) list what GP refuses that it could, in principle, accept.
+Since the first alpha, this release adds:
+- semireal, ℚ and ℝ claims (3b);
+- the census profile;
+- a pilot campaign;
+- Comparator warrants for 1,825 pilot claims;
+- the unit-distance theorems;
+- rope R1a.
+
+See the [release notes](reports/RELEASE-NOTES-v0.50.0-alpha.2.md) and the [review guide](REVIEW.md). [LIMITS.md](LIMITS.md) and [KNOWN-CONSERVATISM.md](KNOWN-CONSERVATISM.md) list what GP refuses that it could, in principle, accept.
 
 ## Try it
 
@@ -38,10 +48,11 @@ The 0.50 tests are `tests/test_phase2_*.py`, `tests/test_gp50_*.py` and `tests/t
 ## Reading order
 
 1. [STATUS.md](STATUS.md): the current checkpoint.
-2. [Phase 3a report](reports/PHASE-3A-REPORT.md): the profile, its gate and its findings.
-3. [SPEC-CORE.md](SPEC-CORE.md): the core contract.
-4. [TCB.md](TCB.md), [LIMITS.md](LIMITS.md), [KNOWN-CONSERVATISM.md](KNOWN-CONSERVATISM.md).
-5. [DECISIONS.md](DECISIONS.md): every ratified decision, in order.
+2. [REVIEW.md](REVIEW.md): what is new and what to scrutinise.
+3. [Phase 3a report](reports/PHASE-3A-REPORT.md) and [Phase 3b report](reports/PHASE-3B-REPORT.md): the profiles, their gates and their findings.
+4. [SPEC-CORE.md](SPEC-CORE.md): the core contract.
+5. [TCB.md](TCB.md), [LIMITS.md](LIMITS.md), [KNOWN-CONSERVATISM.md](KNOWN-CONSERVATISM.md).
+6. [DECISIONS.md](DECISIONS.md): every ratified decision, in order. Campaign-sensitive entries are withheld until outreach.
 
 ## v0.37
 

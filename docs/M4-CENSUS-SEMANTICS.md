@@ -78,6 +78,9 @@ The options below are ranked from strongest trust to weakest.
   - *What exists:* verified generators, namely Marić's Isabelle Faradžev–Read scheme (IJCAR 2020, LNCS 12167: https://link.springer.com/chapter/10.1007/978-3-030-51054-1_16) and Nipkow's plane-graph enumeration. Also certificates for single canonical labellings (arXiv 2112.14303: https://arxiv.org/abs/2112.14303).
   - *SMS:* gives a checkable enumeration with nc-certificates, DRAT and blocking clauses. Its checkers are DRAT-trim plus a polynomial permutation check, neither verified in Lean (SMS survey §3.3).
   - *For GP:* SMS output feeds (c′). Its nc-certificate clauses are G-orbit-meeting by construction, so they satisfy condition (iii) once a Lean permutation checker replays them.
+  - *Erratum (2026-10-09, [HW61 packet](HW61-REVISITED-PACKET.md) G-7):* "neither verified in Lean" is out of date. LeanSMS (Kirchweger, Manrique and Szeider, `github.com/leansolving/leansms`) verifies in Lean the CNF encoding's completeness, SMS's symmetry-breaking clauses (against recorded permutations) and the LRAT proof.
+    - It warrants **nonexistence (UNSAT) only**, not COUNT or EXHAUSTIVE. So SMS is re-ranked for NONE warrants only.
+    - Caveats: its instance theorems use `native_decide`, which GP does not admit, and the demonstrated instances are small.
 - **(b) Independent double enumeration (the DK E5 pattern).**
   - *Artifact:* two lists or counts from disjoint pipelines. GP can check exactly that both lists are equal as sets of canonical forms.
   - *Proves:* agreement only. That is evidence, not a warrant for completeness.

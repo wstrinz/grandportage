@@ -1,0 +1,141 @@
+{
+ "schema": "gp-dk-v4-receipt/v1",
+ "design": "docs/DK-V4-DESIGN.md",
+ "decision": "DECISIONS.md 2026-10-04 (G4's DK condition)",
+ "sources": {
+  "type_files": "cfg23 commit 858589eb36b2606460f1cb25966b490d857e0e77 artifacts/v4-cell-census-v1",
+  "audit_lane": "cfg23 commit 5538685491ad210dcef5dcf3df37c2f24380ff54",
+  "custody": "the builder reran v4census.py: all 5,299 type files regenerated, JSON-equal to the commit (bytes differ only by CRLF); per-cell staging from that rerun carries each cell's labelling"
+ },
+ "runner_sha256": "130969c167ea00c9d08614742a86fd9b672aed6d6249816d89bf8e8161468585",
+ "census_commit": "9f211427ceb12b87acca123baefe8a59a1ccfc0e",
+ "n19_control": {
+  "claim": "V4_COUNT = 9 at n = 38 (19 points, 19 lines), DK's normal-form action Sys(19, [1,1,3], 3), no line inventory (both admissible line cells)",
+  "held": true,
+  "reach": [
+   38
+  ],
+  "claim_sha256": "a3577b4304c3fc7d1ec90c929510bef802dd9bae2f3f882c25ae5937dc8da12b",
+  "certificate_sha256": "d2d0e272203053962d1011346fcab9c17f4dd62cf441d1151752a21bc3e786a2",
+  "models": 3840,
+  "representatives": 9,
+  "labels": 218,
+  "cnf_header": "p cnf 1999482 5962571",
+  "cnf_sha256": "ed9e66e0ffe3b113644bbee1b6145425b63f5822b675c059e7aa1eb744bdbbb9",
+  "lrat_sha256": "1d3cbb8595a062b2dcb1b0feaed4e4fc690337ba2a0e6c98ca6b0ba050b6d548",
+  "lrat_bytes": 592310132,
+  "premise": "none (V4-NORMAL-FORM bridges to DK's wording, outside the claim)"
+ },
+ "n23_cells": {
+  "n23-fence-b01-bs01": {
+   "count": 1361,
+   "held": true,
+   "point_inventory": [
+    2,
+    0,
+    1
+   ],
+   "line_inventory": [
+    2,
+    0,
+    1
+   ],
+   "statement_sha256": "cd64875f79807cf9a6f93e1a62bafe7a96b4ed7e6eb0444385fb7f823f060e09",
+   "catalog_digests_sha256": "f99ae675f48645bd0f714a853ffb92c66103da8eab0c20829655294594f46315",
+   "premise": "CELL-COMPLETE"
+  },
+  "n23-fence-b01-bs10": {
+   "count": 1286,
+   "held": true,
+   "point_inventory": [
+    2,
+    0,
+    1
+   ],
+   "line_inventory": [
+    2,
+    1,
+    0
+   ],
+   "statement_sha256": "bc5a16c80574e474e21ed096c03596315ea4a2500f71e49fc5affb93883541b4",
+   "catalog_digests_sha256": "858ce3ae414095b4fa334275f641f84bb2c021431a66c467468d0545445e8cff",
+   "premise": "CELL-COMPLETE"
+  },
+  "n23-fence-b01-bs12": {
+   "count": 693,
+   "held": true,
+   "point_inventory": [
+    2,
+    0,
+    1
+   ],
+   "line_inventory": [
+    2,
+    1,
+    2
+   ],
+   "statement_sha256": "056c63407d456eee24e31e79bd82bd409144f9dfa55d506b82503d6527cb00d6",
+   "catalog_digests_sha256": "f3796bdaf90dbc7df570c35d84e8febd123730f9191d94b1a525180ce058553e",
+   "premise": "CELL-COMPLETE"
+  },
+  "n23-fence-b01-bs21": {
+   "count": 669,
+   "held": true,
+   "point_inventory": [
+    2,
+    0,
+    1
+   ],
+   "line_inventory": [
+    2,
+    2,
+    1
+   ],
+   "statement_sha256": "95f74135090a43d244158ce18863b0e8272282f9a38e99fb3aa014ee86cb0ebb",
+   "catalog_digests_sha256": "94055835f6a4df5cd1812e99e6ac61a444fc358a2a508518bfe6efb06e3bb5fc",
+   "premise": "CELL-COMPLETE"
+  },
+  "n23-fence-b12-bs01": {
+   "count": 693,
+   "held": true,
+   "point_inventory": [
+    2,
+    1,
+    2
+   ],
+   "line_inventory": [
+    2,
+    0,
+    1
+   ],
+   "statement_sha256": "0cd327b042c860514396ca49b6e5af60afbcf0189e973a27931f4c090ed8ad5a",
+   "catalog_digests_sha256": "02c45fa1da72cce8fa031fd1e3d306b228918a4f679c9f2314eae25d6be76257",
+   "premise": "CELL-COMPLETE"
+  },
+  "n23-fence-b12-bs10": {
+   "count": 669,
+   "held": true,
+   "point_inventory": [
+    2,
+    1,
+    2
+   ],
+   "line_inventory": [
+    2,
+    1,
+    0
+   ],
+   "statement_sha256": "56f9ccb016e06228957d8f7af866df5e237a517fcef7fcbc74aa7c8a261e2587",
+   "catalog_digests_sha256": "754eda72bce28f7c125750abded0988433ac0f8f03830a63cb7483fb7486c34e",
+   "premise": "CELL-COMPLETE"
+  }
+ },
+ "premises": {
+  "V4-NORMAL-FORM": "a type admits a V4 action with point inventory I iff it is isomorphic to a member with DK's normal-form action a0(I) (classification of V4-sets); standard, closable in principle",
+  "CELL-COMPLETE": "DK's direct enumerator (v4census.py) and the audit lane's indep_enum.py agree; NOT independent for the b12 cells, derived by duality in the shared join.py"
+ },
+ "difftests": {
+  "n19": "2,000 V4-invariant n = 19 structures (287 fence-valid, 1,713 not): GP membership = DK necessary_conditions on all; 0 mismatches",
+  "n23": "all 32,226 labelled (type, cell) pairs (5,371 staged memberships x 6 cells): held exactly in the home cell; 0 mismatches"
+ }
+}

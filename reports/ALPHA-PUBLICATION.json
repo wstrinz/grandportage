@@ -1,0 +1,45 @@
+{
+  "schema": "gp-alpha-publication/v1",
+  "date": "2026-10-04",
+  "authority": "docs/GP-0.50-POST-G3A-HANDOFF.md §1 decision 1; reports/ALPHA-STAGING.md steps 1-4",
+  "prevents": "an unverifiable claim that the public tree is the audited snapshot of the tagged workspace commit",
+  "workspace": {
+    "repository": "https://github.com/wstrinz/grand-portage-workspace",
+    "tag": "v0.50.0-alpha",
+    "tag_object": "a4b94bca9691343a134cd9d920c36a7f4215522b",
+    "commit": "9e4f05ee1c29c34967c88de1aa050e84127dbfb9",
+    "ci_run": 37222409426,
+    "ci": "success on all jobs (fast, gp50, witness-boundary, lean-atlas)",
+    "local_path_ratchet": 0
+  },
+  "snapshot": {
+    "manifest": "public-snapshot-v2.json",
+    "sha256": "2ea63c52b4d8a955dbe6235b3ea94818d029a1fbf4ac9fb7fbae849d6a6e04ca",
+    "files": 1996,
+    "regenerated_at_tag_equals_audited": true,
+    "audit": {
+      "private_paths_present": 0,
+      "machine_paths": "none outside the ratchet test's synthetic examples",
+      "secrets": 0,
+      "email_addresses": ["phase0@example.invalid"],
+      "v037_fast_selection_in_snapshot": "1748 passed"
+    }
+  },
+  "public": {
+    "repository": "https://github.com/wstrinz/grandportage",
+    "branch": "master",
+    "base_commit": "6f38e96b8e18a726ff97cdde20daeaa34a6e15b5",
+    "published_commit": "d2b1826bb8926cc838bcad40e795d2e609c7dcbb",
+    "fast_forward": true,
+    "index_entries": 1996,
+    "blobs_equal_snapshot_bytes": 1996,
+    "tag": "v0.50.0-alpha",
+    "tag_object": "c8244d5ce88a81720f18ab8c9ac5bca9c49991ec",
+    "preserved_tag": {"v0.37.0": "8ccc38ed1780b56cf8eacfd58ae16e93d7886c4a"},
+    "ci_run": 37223409746,
+    "ci": "fast, witness-boundary and lean-atlas pass; gp50 materialized the oracle from the public v0.37.0 tag and built everything, then 363 passed and 54 errored",
+    "ci_errors": "tests/test_phase2_{conditional_theorem_transport,missing_authority,provenance_slice,unreplayed_evidence}.py replay against oracle/history/checkout, which the manifest keeps private; the staging audit ran only the v0.37 selection in the snapshot, not gp50",
+    "prepared_fix": "skip those four suites in a public snapshot only (commit prepared, not pushed: a public push beyond the alpha needs Will)",
+    "release": "draft prerelease from reports/RELEASE-NOTES-v0.50.0-alpha.md, unpublished"
+  }
+}

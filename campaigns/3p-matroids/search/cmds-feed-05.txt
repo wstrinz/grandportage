@@ -1,0 +1,8 @@
+claim C9-332-q --matroid C9-332 --kind NONEMPTY --outside "2,3,5"
+submit C9-332-q receipts/f2/C9-332-point-q.json
+claim C9-332-e2 --matroid C9-332 --kind EMPTY --char 2
+submit C9-332-e2 receipts/f2/C9-332-empty-mod2.json
+claim C9-332-x3 --matroid C9-332 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C9-332-x3 receipts/f2/C9-332-map-F3^2.json
+claim C9-332-x5 --matroid C9-332 --kind NOT_IN_IDEAL --target 1 --char 5
+submit C9-332-x5 receipts/f2/C9-332-map-F5^2.json

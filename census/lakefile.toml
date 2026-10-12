@@ -1,0 +1,27 @@
+name = "gp_census"
+version = "0.1.0"
+defaultTargets = ["GPCensus"]
+
+# The Phase 4 census profile (post-G2 §4, M4): the second real profile on the unchanged Kernel.
+# Objects are HexGraphIso coloured graphs; Mathlib is not a dependency.
+
+[[require]]
+name = "gp_kernel"
+path = "../phase2/lean"
+
+[[require]]
+name = "HexGraphIso"
+git = "https://github.com/leanprover/hex-graph-iso.git"
+rev = "v0.4.0"
+
+[[lean_lib]]
+name = "GPCensus"
+
+# LRAT-Catcher v0.2.0, ported to the v4.34.0-rc2 pin (post-G3a decision 4; vendor/lrat-catcher/PROVENANCE.md).
+[[require]]
+name = "LRATCatcher"
+path = "../vendor/lrat-catcher"
+
+[[lean_exe]]
+name = "gp_census"
+root = "GPCensus.Run"

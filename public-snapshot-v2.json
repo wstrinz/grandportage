@@ -24,14 +24,35 @@
     "TESTPLAN.md",
     "docs/portagecommandconceptv2.md",
     "review/v0.32/SOL-HANDOFF.md",
-    "uv.lock"
+    "uv.lock",
+    "DECISIONS-PRIVATE.md",
+    "docs/HANDOFF-2026-10-11.md",
+    "docs/HW61-REVISITED-PACKET.md",
+    "docs/TWO-HARBORS-PACKET.md",
+    "docs/AGATE-BAY-PACKET.md",
+    "docs/GP-0.50-FIXED-ROPES-HANDOFF.md",
+    "docs/R1B-STATEMENT-DESIGN.md",
+    "reports/M5-U22-MEANING-AUDIT.md",
+    "reports/M5-U22-SOURCES.json",
+    "ropes/README.md",
+    "HISTORY/REVIEW-0.50-pre-u22.md",
+    "tests/test_gp50_emit_r1b.py",
+    "tests/test_gp50_emit_r1b2.py",
+    "tools/emit-r1b.py",
+    "tools/emit_r1b2.py",
+    "tools/emit_r1b_census.py",
+    "tools/emit_r1b_chal.py",
+    ".github/workflows/rope-r1b.yml"
   ],
   "private_prefixes": [
     ".claude/",
     ".codex/",
     ".portage/",
     "oracle/checkout/",
-    "oracle/history/checkout/"
+    "oracle/history/checkout/",
+    "ropes/r1b/",
+    "campaigns/rp2-9/",
+    "campaigns/ud22/"
   ],
   "public_paths": [
     ".gitattributes",
@@ -70,13 +91,16 @@
     "public-snapshot-v2.json",
     "pyproject.toml",
     "requirements-dev.txt",
-    "tools/replay_arr15_e10.py"
+    "tools/replay_arr15_e10.py",
+    "NOTICE"
   ],
   "public_prefixes": [
     ".github/",
     "HISTORY/",
     "binding/",
-    "campaigns/",
+    "campaigns/3p-matroids/",
+    "campaigns/schemas/",
+    "census/",
     "corpus/",
     "docs/",
     "examples/",
@@ -93,7 +117,9 @@
     "scripts/",
     "spikes/",
     "tests/",
-    "tools/"
+    "tools/",
+    "vendor/",
+    "ropes/r1a/"
   ],
   "required_public_paths": [
     ".gitattributes",

@@ -370,3 +370,223 @@ Source: docs/GP-0.50-POST-G3A-HANDOFF.md §1, copied verbatim as that handoff di
 - The custody budget starts at Step 0. The alpha-prerequisite work before it (portability, the local-path migration, staging) was explicitly requested.
 
 2026-10-04 Oracle home (post-G3a decision 2), as a dual pin. `oracle/PIN.json` keeps `commit` (ac41557), which 462 corpus cases cite, and adds `public_tag` v0.37.0 with `public_commit` 8ccc38e. The public tag is the v0.37 snapshot of that commit: it deletes only the 12 private paths and adds the snapshot receipt, and no harness reads any of them. The 20 Phase 2 harnesses accept a checkout at either commit and read sources from `HEAD`. CI clones the public tag when workspace history lacks the commit, so the workspace may go private. A literal repin was rejected because it would break the corpus citations. The regenerated Phase 2 receipts differ only in harness digests and timings; `reports/LOCAL-PATH-MIGRATION-ORACLE.json` records their neutralization.
+
+2026-10-04 3P checker gaps (post-G3a §4.4), settled by the controls in `tests/test_gp50_gp_cli.py`:
+1. **Mod-p-only emptiness was already in 3a.** Non-Fano is EMPTY at 2 with reach exactly {2}: the rational residual is −2·y4·z5·z7.
+2. **Points over F_p[a]/(m) needed a checker at p = 2.** `proper` needs two F_p points where m takes different values, and every rootless polynomial is 1 on F_2. Admitted `properCoeff`: a nonzero (mod p: unit) coefficient at a non-constant monomial makes m non-constant, hence not a unit. No irreducibility certificate is needed, because NOT_IN_IDEAL(1) is ideal-level. Realizability over some field of characteristic p is therefore NOT_IN_IDEAL(1) at p. NONEMPTY at p would claim a point in F_p itself.
+3. **New gap: guard products.** C1/C3 multiplies every guard, and a matroid system has one guard per basis: Fano has 24, whose product has about 40,000 terms, and Pappus about 70. Admitted `idealSel`, which runs C1/C3 on guards the certificate selects.
+
+Both are profile checkers on standard axioms, with entries in `TCB.md`. No Kernel change and no new statement kind. The `gp` CLI, the matroid encoder (frame premise ENCODING-FRAME, OPEN), the campaign statement and `docs/GP-CLI.md` complete the builder's 3P preparation.
+
+2026-10-04 `v0.50.0-alpha` published (post-G3a decision 1, staging steps 1–4). The workspace tag is on `9e4f05e`, where CI is green and the ratchet is at zero. The snapshot SHA-256 is 2ea63c52…, the same audited and regenerated at the tag. Public master fast-forwarded to `d2b1826`, every blob equal to the snapshot bytes, and `v0.37.0` is untouched. Public `gp50` cloned the oracle from the public tag and built, but four suites error: they replay against `oracle/history/checkout`, which the manifest keeps private. The workspace now skips them only inside a public snapshot. The same change, as a public commit, awaits Will, since it is a public push beyond the alpha. The GitHub release stays a draft until then.
+
+2026-10-04 Will, on the DK slice for G4 ("sounds good on rec"). Rev 3's premise that DK's V4-sector counts were matched independently by Lu's cell counts is wrong: DK's receipts deny any comparison of intermediate counts, and Lu agrees only on the final two classes. G4's DK condition is therefore two things:
+1. Reproduce the n = 19 control fully: 9 types, each checked directly, with GP canonical forms.
+2. Hold the six V4-sector cell counts (1361, 1286, 693, 669, 693, 669; union 5,299) as COUNT claims under a visible two-route premise, labelled not independent for the b12 cells, which are derived by duality in a shared `join.py`.
+
+The type lists are not local yet. They come either from rerunning DK's enumerator from the archive or from the private commit.
+
+2026-10-04 Phase 4, first slice. Will allowed vendored packages.
+- **LRAT-Catcher port:** clean, well inside the one-day timebox. The changes are two `rfl` steps and the toolchain pin, vendored at `vendor/lrat-catcher` (see PROVENANCE.md), so the core-LRAT fallback is not needed. HexGraphIso v0.4.0 already targets the pin.
+- **The census profile (`census/`, Mathlib-free)** instantiates the Kernel's `Profile` unchanged:
+  - `Ctx := Nat` is the vertex count, and scopes are exact parameter lists.
+  - Predicates are first-order over adjacency, equality and colour, with counting quantifiers. One theorem (`eval_iso`) makes them all invariant under colour-preserving isomorphism.
+  - EXISTS holds by direct witness.
+  - NONE holds by LRAT, or by a checked cube-and-conquer cover, against the CNF Lean emits. Model expansion is proved (`ground_eval`), and core's `toCNF_equisat` supplies the CNF step.
+  - `fold_held_meaning` rests on standard axioms only.
+- **Controls:** R(3,3) = 6 is held in both halves. The timeout, up-to-n, truncated-proof and failing-witness traps are refused.
+
+2026-10-05 Will, on the 3P trial run (F0 and F1: 11 matroids, every χ held modulo ENCODING-FRAME; 17 refusals, 10 useful, 7 ergonomic, 0 false; replayed independently by the builder). Will: "sounds great lets do it".
+1. **Lean-warrant coverage** is its own G3P metric, not friction. The run gave 4 of 44 (9%).
+2. **The run was not perfectly cold.** The agent also read `AGENTS.md`, the top of `STATUS.md` and the 3P commit message. This is accepted, with the disclosure recorded at G3P.
+3. **Where the campaign lives.** The campaign ran in `$DEV/grand-portage`. The campaign agent commits its files on a `campaign/3p` branch, and the builder merges only after a replay matches. The builder never edits campaign files.
+4. **Citations.** The F1 citations stay `[VERIFY]` until Will checks them against Oxley or the agent re-cites each to a source it can open. This does not block the cold read.
+5. **Order:** surface fixes, then Will's G3P cold read, then F2 as the first customer of the Phase 4 catalog premise. A COUNT over the F2 catalog still waits for G4.
+6. **ENCODING-FRAME** is discharged in Lean as part of the warrant work. Lean-warrant coverage moves ahead of the DK V4 extension.
+
+2026-10-05 **G3P ratified** by Will ("yep well within 10 minutes! we can ratify and proceed"). Will read the F1 ledger cold, through `status`, `frontier`, `explain` and `tailings`, well inside 10 minutes.
+- **Autonomy** is met. The agent's extra reads are disclosed and accepted.
+- **Correctness:** F0 is exact, all 11 χ agree with the stated answers, and nothing contradicts the Rado–Vámos dichotomy.
+- **Safety:** zero false ACCEPTs, and the Kernel pin is unchanged.
+- **Measurement:** the logs are complete and every refusal is classified.
+
+Recorded with the gate:
+- Lean-warrant coverage is 4 of 44 (9%).
+- The F1 citations remain `[VERIFY]`.
+- ENCODING-FRAME remains OPEN, to be discharged in Lean.
+
+Next: `frontier` re-diagnoses refusals recorded before the surface fixes, followed by warrant coverage with the ENCODING-FRAME proof, then F2 and the DK slice.
+
+2026-10-05 **ENCODING-FRAME discharged; Lean-warrant coverage 77%** (Will's decision 6 on the 3P trial run).
+- `GPBinding.Matroid.frame_iff` proves that a rank-3 matroid is realizable over a field `K` exactly when the Lean encoder's framed system has a `K`-point, on standard axioms only.
+- `gp` checks that each matroid claim's system equals the Lean encoder's. On the 3P ledger, 43 of 43 are equal. `status`, `explain` and `tailings` now show the premise as discharged, and the χ verdicts are no longer modulo it.
+- Lean-warrant coverage on the 3P ledger rose from 4 of 44 (9%) to 34 of 44 (77%), using generic warrants (`TCB.md`). The 10 remaining are 9 map-rule claims and 1 mod-p emptiness claim.
+
+Next: F2 for the campaign agent, and the DK V4-action extension for Phase 4.
+
+2026-10-06 **Commit guard without certificate replay** (Will: "yep approved let's try the fix"). The F2 ledger slowed to about 300 s per submit, quadratic in claims: the commit guard in `Plan.lean` refolded with the full admission after every append, replaying every certificate filed so far.
+- `fold` can fail only in `resolve`, so the guard's verdict never depends on the admission (`GPProfile.fold_ok_admission`). The guard now folds with `Admission.refuseAll`.
+- The final fold still decides with the real admission, so held verdicts are unchanged. On the 349-claim F2 snapshot the runner's output is byte-identical, and the fold took 7.7 s instead of 530 s.
+- Profile-only: no Kernel change and no re-pin.
+- Still open: the Kernel `closure` is cubic in list operations, and a batch or incremental submit would be needed for n = 9.
+
+2026-10-06 **Batch submit and cheaper folds** (Will: "can we see about speeding up the batch situation"). n = 9 needs about 1,400 more submits, and every submit folds the whole ledger (about 40 s at 600 claims).
+- `gp submit-batch` folds once per batch. It writes the same records as single submits. Every support it appends is held by the ledger it leaves.
+- The commit guard now only resolves the log (`fold_ok_resolve`), and the per-warrant uniqueness checks run once per fold (`admissionWithRules_eq`, by `rfl`).
+- Runner output is byte-identical on the 620-claim snapshot, and one fold dropped from 38.9 s to 31.8 s.
+- Still open: `Plan.run` folds twice, and the Kernel `closure` is cubic (about 75 s per fold at 2,000 claims). Changing the closure is a Kernel change, for Will.
+
+2026-10-06 **F2 replayed and merged** (`campaign/3p-f2` at `455fdec`, verbatim). The builder's fold of the 1,891-claim ledger took 216 s.
+- All 1,887 supports are held, and nothing is held without a support.
+- 1,881 of 1,881 frames equal the Lean encoder's.
+- The χ roll-up of 493 matroids matches `F2-REPORT.md`.
+- Every refusal belongs to F1. The F1 ledger is an exact prefix, and the campaign logs check.
+- The branch touches only `campaigns/3p-matroids/`.
+
+2026-10-06 **DK V4 slice held** (G4's DK condition, DECISIONS 2026-10-04; `reports/DK-V4-RECEIPT.json`).
+- **n = 19 control:** COUNT = 9 is held outright, by listing. 3,840 labelled models in DK's normal form; a Lean CNF of 2.0 M variables and 6.0 M clauses; a 592 MB LRAT proof checked by GP.
+- **n = 23:** all six cell counts (1361, 1286, 693, 669, 693, 669) are held under CELL-COMPLETE. GP checked every member, its action, the line inventory and distinct canonical forms.
+- **Premises:**
+  - V4-NORMAL-FORM bridges DK's wording, "admits some V4 action", to GP's normal-form claims.
+  - CELL-COMPLETE labels b12 as not independent.
+- **Differential tests:** 0 mismatches against DK's Python (2,000 n = 19 structures; all 32,226 n = 23 type × cell pairs).
+- Profile-only: no Kernel change. Data stays in the private harvest.
+
+2026-10-06 **G4 closed; narrow profiles frozen; direction under review** (Will: "yep lets do C"). This follows OpenAI's mathematics release (github.com/openai/math: 722 manuscripts in 372 families, 405 Comparator challenges, review "unchecked").
+- **G4 conditions are met** ([report](reports/PHASE-4-REPORT.md)): the Kernel pin is unchanged, the split is used unchanged by the census, the traps are refused, and the DK slice is held with premises. The 3P ledger replays unchanged: 1,887 of 1,887.
+- **The algebraic and census profiles are frozen.** No extension without a new decision. Map-rule warrants and the Kernel `closure` rewrite are paused.
+- **Next:** a stepped-back review of overall direction, likely including some GP work on the OpenAI corpus.
+
+2026-10-07 **Post-G4 handoff received** ([docs/GP-0.50-POST-G4-HANDOFF.md](docs/GP-0.50-POST-G4-HANDOFF.md)). It amends the post-G3a handoff. Its decisions are PROVISIONAL until Will confirms or revises each by the point it names. The section below is copied verbatim.
+
+## 1. Decisions (provisional, Will, 2026-10-06)
+
+Nine decisions. Copy this section into `DECISIONS.md` verbatim, marked provisional. Each names the point by which Will confirms or revises it.
+
+1. **The OpenAI corpus is not a GP campaign.** It fails decision 8 on (i): Comparator verifies the formalized families, and GP has no checker for the rest, so every GP claim would land OPEN. Its evidence ledger runs as Lane O (§9), outside the GP repo and timeboxed. GP gains no profile, statement kind or surface for it. *Confirm by:* the start of Lane O.
+2. **Comparator-shaped warrants.** Decision 9's emitter emits, for each held claim within coverage, a Comparator challenge (statement only, Mathlib imports, standard axioms) and a solution. Tailings are then checkable by stock `comparator` with no GP installed. *Confirm by:* gate GE (§4).
+3. **Map-rule warrants unpaused**, under Track E. This is emitter work, not a profile extension. The algebraic and census profiles otherwise stay frozen. *Confirm by:* the start of Track E.
+4. **Kernel `closure` rewrite approved**, before any 3b code. It is the one Kernel change in this handoff. It must keep every Kernel theorem and leave fold output byte-identical on the 3P ledger, the DK slice and the corpus. *Confirm by:* the re-pin, which is a stop-and-ask (§10).
+5. **A fold performance budget becomes a G5 precondition** (§5). The numbers are provisional and Will may revise them at GK. *Confirm by:* gate GK.
+6. **The foreign-incident window stays open until 2026-11-06**, so confirmed errata from the OpenAI release can be candidates. 3b design work may proceed before the freeze; 3b code waits for it. Will may close the window early if it blocks code. *Confirm by:* the freeze.
+7. **The 3b → G3b → Phase 5 (u(22)) sequence is unchanged.** u(22) is untouched by the release and passes all three parts of decision 8. *Confirm by:* G3b.
+8. **Custody share is stated in every phase report**, including retroactive lines for the Phase 4 and F2 reports (§3). *Confirm by:* Step 0′.
+9. **Any public push of Comparator-checkable tailings is Will's call.** It goes beyond the approved alpha. *Confirm by:* before the push.
+
+2026-10-07 **Will's calls on the post-G4 de-risking** ("agreed with recs so far"; "approved go for it").
+- **Custody rule:** the narrow rule, custody = CI, manifests, pins and receipts. Governance is reported as its own line. The rule is in `tools/custody-share.py`.
+- **Non-builder agents:** Will starts each as a fresh session. The briefs are in `docs/briefs/` (the Track F selector and the GE auditor). Lane O's brief comes from its own author.
+- **Toolchain:** stays on Lean `v4.34.0-rc2`. Comparator is pinned at `2312244ac7`, the last commit on rc2, after which only toolchain bumps landed. `lean4export` is pinned at tag `v4.34.0-rc2`. Will is fine with a later bump on its own merits.
+- **Runner and local host:** an `ubuntu-24.04` runner has Landlock ABI 7, a non-root user and a working `systemd-run --user`, so CI runs Comparator as documented. WSL Ubuntu here has Landlock ABI 7 too.
+- **GK budget:** kept as written. Measured fold profile at 1,891 claims: guards 96 s, `closure` 73 s twice, checks 26 s twice, reporting 20 s.
+
+2026-10-08 **GK ratified** (Will: "great ratified"). This confirms provisional decisions 4 and 5.
+- **Budget met** ([Track K report](reports/TRACK-K-REPORT.md), `b19ea60`):
+  - 3P: fold 8.2 s, `gp status` 11.4 s.
+  - 10,000 claims: fold 44.7 s, `gp status` 51.9 s.
+  - Growth is about linear to 20,000 claims.
+  - Kernel on standard axioms; leanchecker passes.
+- **Two Kernel promotions**, both `csimp` twins with definitions and theorems unchanged ([PROMOTIONS.md](PROMOTIONS.md)). Will approved both re-pins on 2026-10-07.
+- **Next, per Will ("lets keep going"):**
+  - P1, checking each certificate once per run (profile-level);
+  - Track E emitter and generic-lemma prototype;
+  - Phase 3b design.
+
+2026-10-09 **Phase 3b direction** (Will, via the builder's 3b questions).
+- **Contexts adopted:** option (b), narrowed to two field classes, semireal (`IsSemireal`) and real closed (`IsRealClosed`). No statement quantifies over orderings ([note](docs/3B-CONTEXT-TRUTH-NOTE.md)). The M1 worker confirms that the u(22) and Cloquet moves fit.
+- **The foreign-incident set freezes early.** This amends provisional decision 6: the Track F selector finishes its list now; Will approves the six (at most two from the OpenAI release); the list is hashed and frozen; then 3b code may start.
+- **Parallel work approved:**
+  - the M1 analysis worker (reading-only, approved);
+  - the Track F finalizer;
+  - scratch checker prototypes (real algebraic points, exact SOS) outside the repo until the freeze;
+  - the Track E route B prototype.
+- **Builder recommendations carried:**
+  - Kummer square-class independence starts as an OPEN premise;
+  - 3b code may run alongside GE.
+
+2026-10-09 **Foreign-incident set approved and frozen** (Will: "Approve as-is"). This closes provisional decision 6 early.
+- [`reports/FOREIGN-SET.json`](reports/FOREIGN-SET.json), frozen 2026-10-09T11:43:41Z. SHA-256 `6a40c6868e51978debc47bb4aca1e15920029143f507d72dc80043973863208d`.
+- **The six:**
+  - F01 Erdős #124 (statement fidelity);
+  - F10 DeepSeek-Prover-V2 `apply?` bug (checker defect);
+  - F06 Erdős #7 (false axiom);
+  - F14 bbchallenge decider (wrong search);
+  - F03 Löbbing–Wegener knight's tours (wrong count);
+  - F05 Mathematica `Det` (wrong exact computation).
+- None comes from the OpenAI release: its errata are informal and fail the criteria.
+- Alternates: F15, F08, F04.
+- 3b code may now start (post-G4 §7).
+
+2026-10-09 **3b real contexts: ℝ first** (Will). Stage 1 has two contexts:
+- the semireal class, for order-free SOS refutations;
+- the field ℝ, for real algebraic witnesses, selected-root signs and ordered EMPTY claims.
+
+The class of all real closed fields is deferred until a case needs it. The real-point prototype showed that proving witnesses valid in every RCF needs about 800–1,500 lines of Galois and Sylow theory, while ℝ uses Mathlib's IVT. M1's corrections are folded into the [note](docs/3B-CONTEXT-TRUTH-NOTE.md). 3b is one profile that sums 3a's statements and scopes (unchanged) with the real ones, so kind-1 rules act within it.
+
+2026-10-09 **3b stop-and-ask calls** (Will, on the builder's three questions). 35 of 51 3b cases are decided, all agreeing, with 0 false ACCEPTs.
+- **X56:** add a scope for the field ℚ itself (`K ≅ ℚ`, like the ℝ scope), plus an instantiation fixture (x² − 2 with a rational-root certificate) under G3a ruling 6. The claim refuses because no rule carries ℚ-emptiness to other characteristic-0 fields.
+- **A11a:** an instantiation fixture (√2 selected positive, automorphism x → −x). It refuses because no rule moves sign atoms across conjugation.
+- **X273/X274:** a real-family `cover` statement mirroring 3a's cover kind, with a trusted same-root check proved from Mathlib's Descartes sign-variation bound. Cloquet's ordered exclusions (C7) reuse it.
+
+2026-10-09 **G3b ratified** (Will: "looks good, ratified!"). This confirms provisional decision 7's sequence through G3b.
+- [Phase 3b report](reports/PHASE-3B-REPORT.md), `223087a`.
+- All 51 3b-owned cases are decided and agree, with 0 false ACCEPTs; 3a's safety receipt is unchanged; the Kernel pin is unchanged.
+- The Cloquet and u(22) realization moves have admitted checker paths. Kummer is a named OPEN premise.
+- **Next is Phase 5 (u(22)) preparation, per the report:**
+  - the 3b CLI surface;
+  - the GK re-measure on a u(22)-shaped ledger;
+  - 3b emitter paths;
+  - the Phase 5 entry items.
+
+2026-10-09 **Phase 5 preparation approved** (Will: "lets do all the prep"). The items:
+1. 3b claims in the `gp` CLI, with Kummer as a named OPEN premise;
+2. finishing Track E (emitter, CI job, GE audit);
+3. the merge-guard collision controls (post-G2 §6);
+4. the cost-log schema;
+5. the M5 meaning audit of the u(22) goal (a reading worker, approved);
+6. the GK re-measure on a u(22)-shaped ledger;
+7. 3b emitter paths.
+
+**When u(22) is ready to launch, everything is pushed and work pauses for external review** before the campaign starts. The exact push targets are confirmed with Will then.
+
+2026-10-09 **Campaign decision withheld from public releases.** It is recorded in `DECISIONS-PRIVATE.md`, which ships after the related outreach.
+
+2026-10-09 **One branch: master** (Will: "dispense with any codex/phase-0 or other branching there and just have it on master"). The shadow repo now has only `master`. All nine other branches were already merged into it. Each is kept as an `archive/<branch>` tag at its tip and was then deleted:
+- `codex/phase-0`;
+- the `campaign/*`, `atlas/*`, `fix/*` and `release/*` branches.
+
+Work now lands on master directly; the workspace checkout tracks `origin/master`. The pre-launch review goes to the shadow (Will, 2026-10-09).
+
+2026-10-09 **Campaign decision withheld from public releases.** It is recorded in `DECISIONS-PRIVATE.md`, which ships after the related outreach.
+
+2026-10-09 **Campaign decision withheld from public releases.** It is recorded in `DECISIONS-PRIVATE.md`, which ships after the related outreach.
+
+2026-10-09 **Campaign decision withheld from public releases.** It is recorded in `DECISIONS-PRIVATE.md`, which ships after the related outreach.
+
+2026-10-09 **Gate GE ratified** (Will). 1,825 of 1,891 3P claims (96.5%) are emitted. All 33 shards pass stock Comparator in CI, and the non-builder audit found zero defects ([Track E report](reports/TRACK-E-REPORT.md)). The auditor's three points are accepted as non-defects, and `GP-CLI.md`'s NOT_IN_IDEAL(1) wording now matches the challenges. CI runners are pinned to `ubuntu-24.04`. The housekeeping recorded with this decision is in the private campaign log.
+
+2026-10-09 **Campaign decision withheld from public releases.** It is recorded in `DECISIONS-PRIVATE.md`, which ships after the related outreach.
+
+2026-10-09 **R1a meets every GR1 condition; Will's GR1 calls are open.**
+- **Stock Comparator in CI on a fresh runner:** run 38021319596 passes. All 9 challenges are accepted, and each of the 4 controls is refused with its expected reason. Exit 0 in 463 s.
+- **A fresh agent reproduced the rope from the README** in 13.2 min, excluding the cache step.
+- **A non-builder fidelity review found all 9 statements faithful,** and formal-conjectures' definitions are copied verbatim. The README and `REPRODUCE` fixes from these reviews are in `49d2a19`.
+- **Will's calls at GR1:**
+  - whether `ropes/` goes public, and where. Recommended: a separate public repo;
+  - whether to open a formal-conjectures PR for the Schade and rhombus lemmas. Recommended: FC first, sent by Will.
+
+2026-10-10 **ud22 performance: careful, proved engineering, with no result caching** (Will: "careful proven engineering ... not incautious caching").
+- **The problem:** on the Phase A ledger (about 100 claims) every `gp` command takes about 20 min, against GK's 60 s. The 11 case-tree receipts (51–452 KB) are replayed in full each time.
+- **This amends "3b fast paths held":** the trigger is per-receipt cost, not claim count.
+- **The work:** proved-equal speedups in the profile, Track K style (`@[csimp]` or `_eq` theorems, outputs byte-identical), with receipts stored by reference (path plus SHA-256, verified on every fold) for new supports.
+- **Not done:** no cross-run result cache. Every fold still replays every receipt.
+
+2026-10-10 **Campaign decision withheld from public releases.** It is recorded in `DECISIONS-PRIVATE.md`, which ships after the related outreach.
+
+2026-10-10 **Campaign decision withheld from public releases.** It is recorded in `DECISIONS-PRIVATE.md`, which ships after the related outreach.
+
+2026-10-10 **Campaign decision withheld from public releases.** It is recorded in `DECISIONS-PRIVATE.md`, which ships after the related outreach.
+
+2026-10-11 **Campaign decision withheld from public releases.** It is recorded in `DECISIONS-PRIVATE.md`, which ships after the related outreach.
+
+2026-10-11 **Campaign decision withheld from public releases.** It is recorded in `DECISIONS-PRIVATE.md`, which ships after the related outreach.

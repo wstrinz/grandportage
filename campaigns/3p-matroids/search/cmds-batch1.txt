@@ -1,0 +1,50 @@
+claim C3-01-q --matroid C3-01 --kind NONEMPTY --outside ""
+submit C3-01-q receipts/f2/C3-01-point-q.json
+claim C4-01-q --matroid C4-01 --kind NONEMPTY --outside ""
+submit C4-01-q receipts/f2/C4-01-point-q.json
+claim C4-02-q --matroid C4-02 --kind NONEMPTY --outside ""
+submit C4-02-q receipts/f2/C4-02-point-q.json
+claim C5-01-q --matroid C5-01 --kind NONEMPTY --outside "2,3"
+submit C5-01-q receipts/f2/C5-01-point-q.json
+claim C5-01-x2 --matroid C5-01 --kind NOT_IN_IDEAL --target 1 --char 2
+submit C5-01-x2 receipts/f2/C5-01-map-F2^2.json
+claim C5-01-x3 --matroid C5-01 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C5-01-x3 receipts/f2/C5-01-map-F3^2.json
+claim C5-02-q --matroid C5-02 --kind NONEMPTY --outside "2"
+submit C5-02-q receipts/f2/C5-02-point-q.json
+claim C5-02-x2 --matroid C5-02 --kind NOT_IN_IDEAL --target 1 --char 2
+submit C5-02-x2 receipts/f2/C5-02-map-F2^2.json
+claim C5-03-q --matroid C5-03 --kind NONEMPTY --outside "2"
+submit C5-03-q receipts/f2/C5-03-point-q.json
+claim C5-03-x2 --matroid C5-03 --kind NOT_IN_IDEAL --target 1 --char 2
+submit C5-03-x2 receipts/f2/C5-03-map-F2^2.json
+claim C5-04-q --matroid C5-04 --kind NONEMPTY --outside ""
+submit C5-04-q receipts/f2/C5-04-point-q.json
+claim C6-02-q --matroid C6-02 --kind NONEMPTY --outside "2,3"
+submit C6-02-q receipts/f2/C6-02-point-q.json
+claim C6-02-x2 --matroid C6-02 --kind NOT_IN_IDEAL --target 1 --char 2
+submit C6-02-x2 receipts/f2/C6-02-map-F2^2.json
+claim C6-02-x3 --matroid C6-02 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C6-02-x3 receipts/f2/C6-02-map-F3^2.json
+claim C6-03-q --matroid C6-03 --kind NONEMPTY --outside "2,3"
+submit C6-03-q receipts/f2/C6-03-point-q.json
+claim C6-03-x2 --matroid C6-03 --kind NOT_IN_IDEAL --target 1 --char 2
+submit C6-03-x2 receipts/f2/C6-03-map-F2^2.json
+claim C6-03-x3 --matroid C6-03 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C6-03-x3 receipts/f2/C6-03-map-F3^2.json
+claim C6-04-q --matroid C6-04 --kind NONEMPTY --outside "2,3"
+submit C6-04-q receipts/f2/C6-04-point-q.json
+claim src-F2^3 --system systems/F2^3.json --kind NOT_IN_IDEAL --target 1 --char 2
+submit src-F2^3 receipts/f2/F2^3-proper.json
+claim C6-04-x2 --matroid C6-04 --kind NOT_IN_IDEAL --target 1 --char 2
+submit C6-04-x2 receipts/f2/C6-04-map-F2^3.json
+claim C6-04-x3 --matroid C6-04 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C6-04-x3 receipts/f2/C6-04-map-F3^2.json
+claim C6-05-q --matroid C6-05 --kind NONEMPTY --outside "2"
+submit C6-05-q receipts/f2/C6-05-point-q.json
+claim C6-05-x2 --matroid C6-05 --kind NOT_IN_IDEAL --target 1 --char 2
+submit C6-05-x2 receipts/f2/C6-05-map-F2^2.json
+claim C6-06-q --matroid C6-06 --kind NONEMPTY --outside "2"
+submit C6-06-q receipts/f2/C6-06-point-q.json
+claim C6-06-x2 --matroid C6-06 --kind NOT_IN_IDEAL --target 1 --char 2
+submit C6-06-x2 receipts/f2/C6-06-map-F2^2.json

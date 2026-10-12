@@ -1,19 +1,44 @@
 # Working instructions
 
-Read STATUS.md, LIMITS.md, docs/GP-0.50-POST-G2-HANDOFF.md, docs/GP-0.50-POST-G2-ADDENDUM-A.md, DECISIONS.md and SPEC-CORE.md before substantive work. Addendum A (Lean-first, on the Hex substrate) wins over the post-G2 handoff where they conflict. The post-G2 handoff (2026-10-02) authorizes Phase 2.5 and Phase 3a and wins over earlier packets and handoffs where they conflict. Will's 2026-09-30 Phase 2 handoff closes G1 by an explicit coverage exception and authorizes implementation; it supersedes conflicting revision 3 text. Will ratified G2 on 2026-10-02 (all 79 kernel cases execute); Phase 3 follows the handoff's §5. Deferred Phase 2 items are listed in reports/PHASE-2-CLOSEOUT.md. Retained packets and historical reports preserve their original wording.
+## Read first
+Before substantive work, read:
+- `STATUS.md`, the single current human status (top summary ≤ 300 words);
+- `docs/HANDOFF-2026-10-11.md`, the current state of every track and where to start;
+- `DECISIONS.md`, the binding rulings, newest last, and `DECISIONS-PRIVATE.md`, the campaign-sensitive entries withheld from public releases;
+- `LIMITS.md` and `SPEC-CORE.md`.
 
-Use $WORKSPACE explicitly for commands. Keep practical writes, builds, downloads, caches and scratch on F:. $DEV/grand-portage and confirmed campaign sources remain read-only.
+**Authority, newest wins where they conflict:**
+1. Will's decisions in `DECISIONS.md`.
+2. `docs/GP-0.50-FIXED-ROPES-HANDOFF.md` (ropes are the deliverable; GP is the belay) and `docs/ROPE-CHECKLIST.md`.
+3. Campaign packets in `docs/` (withheld from public releases until their gates and outreach).
+4. `docs/GP-0.50-POST-G4-HANDOFF.md`.
+5. The post-G3a and post-G2 handoffs and Addendum A.
 
-STATUS.md is the single current human status, with a top summary of at most 300 words. Standing limits live in LIMITS.md. Phase reports cap at 800 words, slice report at 500, decision entries at 150. New Phase 2 Markdown targets 10,000 words; stop at 15,000. Preserve required verbatim source records and count them conservatively.
+Retained packets and historical reports keep their original wording.
 
-The hash-bound layer registry covers all 459 cases; do not alter case bytes, expectations, source pins or replay history. Ambiguous layers require Will's judgment. The Mathlib-free kernel, slice, least-fixpoint completeness and soundness are implemented and proved; receipts bind tests and harness bytes, so changing an executed harness or test requires re-execution. Event-set semantics use explicit versions and targeted retractions. Will confirmed complete held closure with proved-overlap conflicts freezing release separately.
+## Roles
+- **Builder.** Owns GP code: `tools/gp.py`, `profile/`, `binding/`, `census/`, `phase2/`, the emitters and CI. Writes code directly and raises genuine unknowns to Will with a recommendation. Workers may take finite code, proof or test assignments in their own worktrees and hand back patches. The builder integrates them.
+- **Campaign agents.** Use GP; never modify it. Each writes only in its campaign directory (`campaigns/<id>/`) and its rope directory (`ropes/<id>/`).
+- **Independent reviewers.** Read-only, unless Will hands them a bounded implementation, as with the frontier fix. Their patches are integrated by the builder.
 
-New 0.50 tests are named `tests/test_gp50_*.py` so the v0.37 suite on workspace `master` can exclude them by glob; every new tracked path also needs a `public-snapshot-v1.json` classification on `master`.
+## Repository and custody
+- **The workspace** (`wstrinz/grand-portage-workspace`) is **PRIVATE** as of 2026-10-10. Work lands directly on `master`; former branches are `archive/*` tags. Never force-push; pull with `--rebase` if a push is rejected. `wstrinz/grandportage` is public: nothing goes there, and nothing is sent to anyone outside, without Will's explicit OK.
+- **Outreach** is drafted by agents and sent only by Will.
+- **New tracked paths** need a classification in `public-snapshot-v2.json` (the test reads v2), and should be mirrored in v1. Campaign directories are private until their gates.
+- **Kernel and corpus.** The Mathlib-free Kernel is pinned by `KERNEL-PIN.json`; changes go only through PROMOTIONS with Will's approval. Do not alter corpus case bytes, expectations, source pins or replay history. Receipts bind test and harness bytes, so changing an executed harness requires re-execution.
 
-Logic/decoder/statement targets are 500/400/80 lines; stop at 750/600/120. Only standard propext, Quot.sound and Classical.choice are allowed; no sorry, native_decide or custom kernel axioms. Checker admission requires soundness arguments and adversarial controls. Receipts are default; bound Lean proofs are upgrades. Native LRAT is a candidate, not admitted.
+## Engineering rules
+- **Proofs.** Only `propext`, `Quot.sound` and `Classical.choice`. No `sorry`, `native_decide`, `Lean.ofReduceBool` or custom axioms. Never run `decide +kernel` over Hex-based checkers: kernel replay has wedged this machine. Kernel-checked data uses small plain-list checkers in memory-capped shards.
+- **Speedups.** Profile speedups must be proved equal to the code they replace (`@[csimp]` or `_eq`), with byte-identical outputs. There is no cross-run result cache: every fold replays every receipt.
+- **Checker admission** needs a soundness proof and adversarial controls. A negative control must show its expected refusal reason.
+- **Line endings.** The tree is `* -text`: keep each file's line endings, and count CR bytes with Python, not Git-Bash grep.
+- **Size limits.** Lean files target 500 lines, stop at 750. Phase reports ≤ 800 words, rope READMEs ≤ 600, decision entries ≤ 150.
+- **Host.**
+  - Keep writes, builds and caches on F: (WSL Lean builds may use WSL's own disk).
+  - Run heavy jobs at BelowNormal priority, one Lean build at a time.
+  - Run WSL commands via script files with `MSYS_NO_PATHCONV=1`.
+  - Before removing a worktree, delete its `.lake/packages` junctions with `cmd /c rmdir` only.
+  - Never permanently delete user data; hand Will the command.
+- **Tests.** New 0.50 tests are named `tests/test_gp50_*.py`. CI (`.github/workflows/ci.yml`, plus the Comparator and rope workflows) runs only on dispatch.
 
-Since 2026-10-01 GPC both coordinates and builds; the GPB Builder chat (01a0eeca-572e-7202-a708-c730d410b901) is retired. GPC writes code directly and raises genuine unknowns to Will with a recommendation. Workers remain authorized for finite code/proof/test assignments with separate outputs. Reading-only assignments need Will's approval. No new corpus cases, general predecessor audits, package adoption, further profiles or surfaces beyond why-not/earned in Phase 2.
-
-The review shadow is https://github.com/wstrinz/grand-portage-workspace.git; use the wstrinz account, preserve predecessor branches and history, never force-push. Work lands on codex/phase-0; on 2026-10-02 Will authorized pushing it and merging it into the shadow's master, which keeps the v0.37 history (unrelated-history merge). The handoff separately authorized only the prepared freeze patch to wstrinz/grandportage. No other public action is authorized. Private verbatim harvests, source checkouts, caches and scratch remain ignored.
-
-Heartbeats remain PAUSED; permission to use workers/heartbeats does not request restart. Do not recreate the cleared goal.
+Heartbeats remain PAUSED. Do not recreate the cleared goal.

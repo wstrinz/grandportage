@@ -1,0 +1,48 @@
+name: rope-r1a
+
+# Rope R1a (ropes/r1a): stock Comparator on a fresh runner, by the rope's own one-command reproduction.
+# The rope is pinned to its own toolchain (v4.34.1), independent of GP's. Dispatch-only, like the other jobs.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - name: Free runner disk (private-repo runners have a smaller disk)
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost || true
+          df -h /
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+          cache: false
+      - name: Install elan; add swap
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          sudo fallocate -l 8G /gp-swapfile && sudo chmod 600 /gp-swapfile && sudo mkswap /gp-swapfile && sudo swapon /gp-swapfile
+      - name: Enable the systemd user session (Comparator runs under systemd-run --user)
+        run: |
+          sudo loginctl enable-linger "$USER"
+          echo "XDG_RUNTIME_DIR=/run/user/$(id -u)" >> "$GITHUB_ENV"
+          sleep 2
+      - name: bash REPRODUCE (9 challenges accepted, 4 controls refused)
+        working-directory: ropes/r1a
+        run: |
+          start=$(date +%s)
+          bash REPRODUCE | tee ../../reproduce.log
+          code=${PIPESTATUS[0]}
+          echo "REPRODUCE exit $code in $(( $(date +%s) - start )) s" | tee -a ../../reproduce.log
+          { echo '```'; cat ../../reproduce.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rope-r1a-reproduce
+          path: reproduce.log

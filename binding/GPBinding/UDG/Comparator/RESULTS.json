@@ -1,0 +1,187 @@
+{
+ "schema": "gp-udg-comparator-results/v1",
+ "comparator": "stock leanprover/comparator (WSL, landrun), ~/bin/comparator",
+ "manifest_sha256": "08376af2057aea287de3efe7c5a139c8548850a5d69230db295735a17b375d66",
+ "runs": [
+  {
+   "name": "Rhombus",
+   "theorem": "UDGRope.rhombus",
+   "challenge": {
+    "exit": 0,
+    "accepted": true,
+    "message": "okay"
+   },
+   "control": {
+    "kind": "weaker",
+    "exit": 1,
+    "accepted": false,
+    "message": "uncaught exception: Challenge and solution theorem statement do not match: 'UDGRope.rhombus'"
+   }
+  },
+  {
+   "name": "Gadget0",
+   "theorem": "UDGRope.gadget0_tu",
+   "challenge": {
+    "exit": 0,
+    "accepted": true,
+    "message": "okay"
+   },
+   "control": {
+    "kind": "sorry",
+    "exit": 1,
+    "accepted": false,
+    "message": "uncaught exception: Illegal axiom detected: 'sorryAx'"
+   }
+  },
+  {
+   "name": "Gadget1",
+   "theorem": "UDGRope.gadget1_tu",
+   "challenge": {
+    "exit": 0,
+    "accepted": true,
+    "message": "okay"
+   },
+   "control": {
+    "kind": "axiom",
+    "exit": 1,
+    "accepted": false,
+    "message": "uncaught exception: Illegal axiom detected: 'UDGRope.udg_cheat'"
+   }
+  },
+  {
+   "name": "Gadget2",
+   "theorem": "UDGRope.gadget2_tu",
+   "challenge": {
+    "exit": 0,
+    "accepted": true,
+    "message": "okay"
+   },
+   "control": {
+    "kind": "sorry",
+    "exit": 1,
+    "accepted": false,
+    "message": "uncaught exception: Illegal axiom detected: 'sorryAx'"
+   }
+  },
+  {
+   "name": "Gadget3",
+   "theorem": "UDGRope.gadget3_tu",
+   "challenge": {
+    "exit": 0,
+    "accepted": true,
+    "message": "okay"
+   },
+   "control": {
+    "kind": "weaker",
+    "exit": 1,
+    "accepted": false,
+    "message": "uncaught exception: Challenge and solution theorem statement do not match: 'UDGRope.gadget3_tu'"
+   }
+  },
+  {
+   "name": "Gadget4",
+   "theorem": "UDGRope.gadget4_tu",
+   "challenge": {
+    "exit": 0,
+    "accepted": true,
+    "message": "okay"
+   },
+   "control": {
+    "kind": "sorry",
+    "exit": 1,
+    "accepted": false,
+    "message": "uncaught exception: Illegal axiom detected: 'sorryAx'"
+   }
+  },
+  {
+   "name": "Gadget5",
+   "theorem": "UDGRope.gadget5_tu",
+   "challenge": {
+    "exit": 0,
+    "accepted": true,
+    "message": "okay"
+   },
+   "control": {
+    "kind": "axiom",
+    "exit": 1,
+    "accepted": false,
+    "message": "uncaught exception: Illegal axiom detected: 'UDGRope.udg_cheat'"
+   }
+  },
+  {
+   "name": "Schade",
+   "theorem": "UDGRope.schade",
+   "challenge": {
+    "exit": 0,
+    "accepted": true,
+    "message": "okay"
+   },
+   "control": {
+    "kind": "redef",
+    "exit": 1,
+    "accepted": false,
+    "message": "uncaught exception: Const does not match between challenge and target 'UDGRope.maxUnitDistances'"
+   }
+  },
+  {
+   "name": "Hereditary",
+   "theorem": "GPBinding.UDG.tu_hereditary",
+   "challenge": {
+    "exit": 0,
+    "accepted": true,
+    "message": "okay"
+   },
+   "control": {
+    "kind": "weaker",
+    "exit": 1,
+    "accepted": false,
+    "message": "uncaught exception: Challenge and solution theorem statement do not match: 'GPBinding.UDG.tu_hereditary'"
+   }
+  },
+  {
+   "name": "SystemIff",
+   "theorem": "GPBinding.UDG.udg_system_iff",
+   "challenge": {
+    "exit": 0,
+    "accepted": true,
+    "message": "okay"
+   },
+   "control": {
+    "kind": "weaker",
+    "exit": 1,
+    "accepted": false,
+    "message": "uncaught exception: Challenge and solution theorem statement do not match: 'GPBinding.UDG.udg_system_iff'"
+   }
+  },
+  {
+   "name": "Spine",
+   "theorem": "GPBinding.UDG.spine_sound",
+   "challenge": {
+    "exit": 0,
+    "accepted": true,
+    "message": "okay"
+   },
+   "control": {
+    "kind": "redef",
+    "exit": 1,
+    "accepted": false,
+    "message": "uncaught exception: Const does not match between challenge and target 'GPBinding.UDG.CoverComplete'"
+   }
+  },
+  {
+   "name": "Realize",
+   "theorem": "GPBinding.UDG.realize_sound",
+   "challenge": {
+    "exit": 0,
+    "accepted": true,
+    "message": "okay"
+   },
+   "control": {
+    "kind": "weaker",
+    "exit": 1,
+    "accepted": false,
+    "message": "uncaught exception: Challenge and solution theorem statement do not match: 'GPBinding.UDG.realize_sound'"
+   }
+  }
+ ]
+}

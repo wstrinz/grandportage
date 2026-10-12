@@ -1,0 +1,49 @@
+{
+  "schema": "gp-campaign/v0",
+  "name": "3P: characteristic sets of rank-3 matroids",
+  "authority": "docs/GP-0.50-POST-G3A-HANDOFF.md §4",
+  "goal": "For each matroid M in the family, chi(M) fully held: its characteristic-0 status, its exceptional prime set, and a held status at each exceptional prime.",
+  "profile": "3a",
+  "admitted_moves": [
+    "C1/C3 ideal certificates over Q, or mod p (a rational identity whose residual vanishes mod p), optionally on selected guards",
+    "C2 points over Q, or over F_p",
+    "proper_coefficient: a single equation with a nonzero (mod p: unit) coefficient at a non-constant monomial",
+    "rules r1, inclusion, map, split, cover, bridge"
+  ],
+  "encoding": {
+    "tool": "tools/encode-matroid.py",
+    "schema": "gp-matroid-encoding/v1",
+    "premise": "ENCODING-FRAME (OPEN): M is realizable over K iff the framed system is nonempty over K",
+    "note": "M is realizable over some field of characteristic p iff the system is geometrically nonempty there: NOT_IN_IDEAL(1) at characteristic p (ACF_p). EMPTY at p means realizable over no field of characteristic p. NONEMPTY at p is stronger: a point in every field of characteristic p, so it needs a point over the prime field; the bridge rule turns NONEMPTY into NOT_IN_IDEAL(1)."
+  },
+  "done": "Every M has chi(M) fully held, or each open item is tagged `closable in principle` or `no complete method`.",
+  "family": [
+    {
+      "stage": "F0",
+      "purpose": "tutorial",
+      "matroids": [
+        {"name": "F7", "elements": ["1", "2", "3", "4", "5", "6", "7"],
+         "lines": [["1", "2", "4"], ["2", "3", "5"], ["3", "4", "6"], ["4", "5", "7"], ["5", "6", "1"], ["6", "7", "2"], ["7", "1", "3"]],
+         "answer_key": "chi = {2}"},
+        {"name": "F7-", "elements": ["1", "2", "3", "4", "5", "6", "7"],
+         "lines": [["1", "2", "4"], ["2", "3", "5"], ["3", "4", "6"], ["5", "6", "1"], ["6", "7", "2"], ["7", "1", "3"]],
+         "answer_key": "chi = every characteristic except 2"}
+      ]
+    },
+    {
+      "stage": "F1",
+      "purpose": "about 10 named rank-3 matroids whose characteristic sets a primary source states",
+      "selection": "The campaign agent chooses them, writes each to matroids/<name>.json with \"name\", \"elements\", \"lines\" and \"source\" (citation and stated answer, tagged [VERIFY] until checked). Include non-Pappus, whose characteristic set should be empty."
+    },
+    {
+      "stage": "F2",
+      "purpose": "stretch: all simple rank-3 matroids on at most 8 elements from a catalog",
+      "selection": "The generator is labelled trusted and catalog completeness is an OPEN premise. Go to 9 elements only if F2 is cheap. No COUNT claim over the catalog before G4."
+    }
+  ],
+  "logs": {
+    "cost": "cost-log.jsonl (campaigns/schemas/cost-log.schema.json), one entry per task, from day one",
+    "friction": "friction-log.jsonl (campaigns/schemas/friction-log.schema.json), every refusal classified useful, false or ergonomic",
+    "check": "python tools/check-campaign-logs.py campaigns/3p-matroids"
+  }
+}

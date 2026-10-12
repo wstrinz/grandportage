@@ -133,19 +133,41 @@ inductive Cert where
   | proper (field : Field) (a b : List Rat)
   /-- COVER: every point of the locus lies in some branch, by a split tree. -/
   | cover (tree : SplitTree)
+  /-- C1/C3 on selected guards (3P): `h^m · (∏ selected guards)^k = Σ qᵢ·eqᵢ`. The guards where
+  `mask` is true form a sublist; fewer guards give a larger locus, so the certificate is sound for
+  the whole system, and its cost no longer grows with the product of every guard. -/
+  | idealSel (mask : List Bool) (field : Field) (cofactors : List Sparse) (m k : Nat)
+  /-- Geometric nonemptiness of `{m = 0}` by a coefficient (3P): the single equation has a
+  nonzero coefficient at the non-constant monomial `mono`, so it is not constant, hence not a unit.
+  Unlike `proper`, this sees polynomials that are constant on the prime field (`a² + a + 1` mod 2). -/
+  | properCoeff (field : Field) (mono : List Nat)
   deriving Repr, DecidableEq
+
+/-- The guards a mask selects: a sublist. -/
+def pick : List Sparse → List Bool → List Sparse
+  | g :: gs, true :: bs => g :: pick gs bs
+  | _ :: gs, false :: bs => pick gs bs
+  | _, _ => []
+
+/-- The statement with only the selected guards. -/
+def Stmt.selectGuards (s : Stmt) (mask : List Bool) : Stmt := { s with guards := pick s.guards mask }
+
+/-- The coefficient of a polynomial at an exponent vector of the right arity, else 0. -/
+def coeffAt (n : Nat) (P : P n Rat) (mono : List Nat) : Rat :=
+  if h : mono.length = n then Hex.MvPoly.coeff ⟨mono.toArray, by simpa using h⟩ P else 0
 
 def IdealCert.toCert (c : IdealCert) : Cert := .ideal c.field c.cofactors c.m c.k
 
 def Cert.field : Cert → Field
-  | .ideal f .. | .point f _ | .proper f _ _ => f
+  | .ideal f .. | .point f _ | .proper f _ _ | .idealSel _ f .. | .properCoeff f _ => f
   | .cover .. => .rat
 
 def Cert.primes : Cert → List Nat
   | .ideal _ qs .. => denominatorPrimes (qs.flatMap Sparse.coeffs)
   | .point _ vs => denominatorPrimes vs
   | .proper _ a b => denominatorPrimes (a ++ b)
-  | .cover .. => []
+  | .idealSel _ _ qs .. => denominatorPrimes (qs.flatMap Sparse.coeffs)
+  | .cover .. | .properCoeff .. => []
 
 /-- Exponents beyond this bound are refused rather than expanded. -/
 def maxExponent : Nat := 64
@@ -234,6 +256,23 @@ def reachBase (s : Stmt) (c : Cert) : Option Scope :=
           if !isPrime p || bad.contains p then none
           else if unitMod p (va - vb) then some (.only p) else none
       | _, _ => none
+  -- `reach` replays a selection on the selected system.
+  | .idealSel .. => none
+  | .properCoeff field mono =>
+    if s.kind != .notInIdeal (oneP n) || !s.guards.isEmpty || mono.length != n || mono.all (· == 0) then none
+    else
+      match s.eqs with
+      | [e] => do
+        let E ← toHexQ n e
+        let c := coeffAt n E mono
+        match field with
+        | .rat =>
+          if c != 0 then some (.outside (union bad (union (primeFactors c.num.natAbs) (primeFactors c.den))))
+          else none
+        | .prime p =>
+          if !isPrime p || bad.contains p then none
+          else if unitMod p c then some (.only p) else none
+      | _ => none
   | .cover .. => none
 
 /-- C4 inclusion `locus_T ⊆ locus_L` as C1/C3 obligations on the tight system. -/
@@ -265,7 +304,7 @@ def reachAllBase (obs : List (Stmt × Cert)) : Option (List Scope) :=
 def reach (s : Stmt) (c : Cert) : Option Scope :=
   match c with
   -- Points certify NONEMPTY only; NOT_IN_IDEAL comes from NONEMPTY by the bridge rule.
-  | .point .. | .proper .. => reachBase s c
+  | .point .. | .proper .. | .properCoeff .. => reachBase s c
   | .cover t =>
     match s.kind with
     | .cover bs => do
@@ -275,6 +314,7 @@ def reach (s : Stmt) (c : Cert) : Option Scope :=
       pure (rs.foldl (fun a b => ⟨a.char0 && b.char0, meetPrimes a.primes b.primes⟩) (.outside []))
     | _ => none
   | .ideal .. => reachBase s c
+  | .idealSel mask field qs m k => reachBase (s.selectGuards mask) (.ideal field qs m k)
 
 /-! ## Profile operations and receipt admission -/
 
@@ -347,6 +387,12 @@ def check (stmt : Stmt) (scope : Scope) (cert : Cert) : Check :=
           | some r => .outsideReach r
           | none => .replayFailed
         else .replayFailed
+      | .idealSel mask (.prime p) qs m k =>
+        if (union stmt.primes cert.primes).contains p then
+          match reach stmt (.idealSel mask .rat qs m k) with
+          | some r => .outsideReach r
+          | none => .replayFailed
+        else .replayFailed
       | _ => .replayFailed
 
 def Check.ok : Check → Bool
@@ -362,6 +408,18 @@ def accepts (clauses : List Clause) (receipts : List Receipt) (w : Warrant) (nam
     clauses.any fun c => c.key == w.claim && c.version == w.version && decide (c.binding = w.binding) &&
       receipts.any fun r => r.name == name && r.claim == c.key && r.version == c.version &&
         decide (r.binding = c.binding) && (check c.stmt c.scope r.cert).ok
+
+/-- `accepts` with its well-formedness check passed in, so an admission computes it once per fold
+rather than once per warrant (3P F2). -/
+def acceptsWith (wf : Bool) (clauses : List Clause) (receipts : List Receipt) (w : Warrant) (name : String) :
+    Bool :=
+  wf &&
+    clauses.any fun c => c.key == w.claim && c.version == w.version && decide (c.binding = w.binding) &&
+      receipts.any fun r => r.name == name && r.claim == c.key && r.version == c.version &&
+        decide (r.binding = c.binding) && (check c.stmt c.scope r.cert).ok
+
+theorem accepts_eq_acceptsWith (clauses : List Clause) (receipts : List Receipt) :
+    accepts clauses receipts = acceptsWith (wellFormed clauses receipts) clauses receipts := rfl
 
 def admission (clauses : List Clause) (receipts : List Receipt) : Admission :=
   Semantic.withNarrowing ops clauses { Admission.refuseAll with receipt := accepts clauses receipts }

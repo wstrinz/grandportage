@@ -1,0 +1,258 @@
+{
+  "frozen_at": "2026-10-09T11:43:41Z",
+  "picks": [
+    {
+      "id": "F01-erdos124-aristotle",
+      "title": "Erdős #124: Aristotle's Lean proof settled a weaker formal statement, not the BEGL96 problem",
+      "claim": "Aristotle (Harmonic), run by Boris Alexeev, produced a Lean proof of the Formal Conjectures statement erdos_124, publicised as solving Erdős Problem #124.",
+      "inputs": [
+        {
+          "url": "https://github.com/google-deepmind/formal-conjectures/blob/61e026091f/FormalConjectures/ErdosProblems/124.lean",
+          "desc": "Original Lean challenge statement (commit 61e0260, 2025-11-12) with '= 1' where the docstring says '>= 1'"
+        },
+        {
+          "url": "https://github.com/google-deepmind/formal-conjectures/blob/334d86cb32/FormalConjectures/ErdosProblems/124.lean",
+          "desc": "Corrected statement after PR #1307"
+        },
+        {
+          "url": "https://www.erdosproblems.com/forum/thread/124",
+          "desc": "Forum thread with Alexeev's Aristotle proof and the scope discussion"
+        }
+      ],
+      "error": "The formal statement was weaker than intended (typo '= 1' for '>= 1', and the erdosproblems wording omitted BEGL96 hypotheses), so the checked proof does not settle the BEGL96 conjecture.",
+      "confirmation": {
+        "url": "https://www.erdosproblems.com/forum/thread/124",
+        "quote": "Aristotle solved 'a' version of this problem ... but not 'the' version."
+      },
+      "confirmed_by": "Independent party and maintainers: Thomas Bloom (erdosproblems.com), Boris Alexeev; Formal Conjectures maintainer mo271 merged fix PR #1307 for issue #1306",
+      "date_confirmed": "2025-11-30",
+      "from_openai_release": false,
+      "criteria_met": {
+        "computational_claim": [
+          true,
+          "A Lean computer-checked proof claimed to settle Erdős #124."
+        ],
+        "replayable_inputs": [
+          true,
+          "Lean statement pinned by commit in a public repo; proof posted publicly."
+        ],
+        "error_confirmed_primary": [
+          true,
+          "Issue #1306 and fix PR #1307 by maintainers; Bloom's forum summary."
+        ]
+      }
+    },
+    {
+      "id": "F10-deepseek-prover-v2-apply-bug",
+      "title": "DeepSeek-Prover-V2: showcased Putnam 'proofs' accepted only through a Lean apply? synthetic-sorry bug",
+      "claim": "DeepSeek-Prover-V2's technical report (first release, 2025-04-30) presented Lean 4 proofs of PutnamBench problems (e.g. putnam_2005_a4, putnam_2007_b4) as machine-verified solutions.",
+      "inputs": [
+        {
+          "url": "https://github.com/deepseek-ai/DeepSeek-Prover-V2/blob/36acbf5/DeepSeek_Prover_V2.pdf",
+          "desc": "Tech report at the first commit; Appendix B shows the proof"
+        },
+        {
+          "url": "https://github.com/leanprover/lean4/issues/8212",
+          "desc": "Minimal reproduction of the apply? synthetic-sorry bug, with the Lean version"
+        },
+        {
+          "url": "https://arxiv.org/abs/2606.29493",
+          "desc": "Ammanamanchi-Bhat-Biderman (ICML 2026), Appendix D: full buggy proofs of putnam_2005_a4 and putnam_2007_b4 (Lean 4.9.0)"
+        },
+        {
+          "url": "https://github.com/trishullab/PutnamBench",
+          "desc": "Benchmark statements"
+        }
+      ],
+      "error": "The proofs contain apply? steps that leave a synthetic sorry; with a universe-level elaboration error the theorem is silently never added to the environment, so Lean reported success without kernel verification.",
+      "confirmation": {
+        "url": "https://github.com/leanprover/lean4/issues/8212",
+        "quote": "DeepSeek-Prover-V2 produced an obviously wrong proof of a Putnam problem"
+      },
+      "confirmed_by": "Independent party (issue by hanwenzhu, closed by Lean maintainer kim-em via fix PR #8231) and the ICML 2026 audit by Ammanamanchi, Bhat and Biderman",
+      "date_confirmed": "2025-05-03 (issue); fixed 2025-05-05 (PR #8231)",
+      "from_openai_release": false,
+      "criteria_met": {
+        "computational_claim": [
+          true,
+          "Claimed machine-checked Lean proofs of benchmark theorems."
+        ],
+        "replayable_inputs": [
+          true,
+          "Proof text is public (report at pinned commit; full text in the ICML paper) and the Lean version is stated."
+        ],
+        "error_confirmed_primary": [
+          true,
+          "Lean issue accepted and fixed by maintainers; peer-reviewed audit reproduces it."
+        ]
+      }
+    },
+    {
+      "id": "F06-erdos7-false-axiom",
+      "title": "Erdős #7 (Erdős-Selfridge odd covering): AI-assisted 'sorry-free' Lean proof rests on a provably false axiom",
+      "claim": "A May 2026 AI-assisted (Aristotle) Lean 4/Mathlib development claimed a sorry-free proof of the Erdős-Selfridge odd covering conjecture, modulo three axioms said to encode BBMST (2019) results.",
+      "inputs": [
+        {
+          "url": "https://github.com/axxen95/Lean-4-formalization-of-the-Erd-s-Selfridge-odd-covering-system-conjecture/tree/0edac82252",
+          "desc": "Original upload (commit 0edac82, 2026-05-02) with ErdosSelfridge_v11.lean; later commits replace files"
+        },
+        {
+          "url": "https://www.erdosproblems.com/forum/thread/7",
+          "desc": "Forum thread with the claim, the refutation and the author's acknowledgement"
+        }
+      ],
+      "error": "The axiom bbmst_sf_lt_one asserts sieveProd(...) < 1, but sieveProd as defined is a product of factors 1 + x/s > 1, so the axiom is false (a mistranslation omitting BBMST's c_0 factor).",
+      "confirmation": {
+        "url": "https://www.erdosproblems.com/forum/thread/7",
+        "quote": "My formalization omitted c_0 entirely, making the axiom provably false."
+      },
+      "confirmed_by": "Author (jinooklee) acknowledging an independent party's refutation (Nat Sothanaphan); Thomas Bloom then restricted the thread to axiom-free Lean proofs",
+      "date_confirmed": "2026-05-06",
+      "from_openai_release": false,
+      "criteria_met": {
+        "computational_claim": [
+          true,
+          "A Lean-checked proof claim (sorry-free, with custom axioms)."
+        ],
+        "replayable_inputs": [
+          true,
+          "Lean source pinned at a public commit; the axiom's falsity is checkable by evaluating/proving sieveProd >= 1."
+        ],
+        "error_confirmed_primary": [
+          true,
+          "Author's public acknowledgement on the erdosproblems forum."
+        ]
+      }
+    },
+    {
+      "id": "F14-bbchallenge-backward-reasoning",
+      "title": "bbchallenge (2022): backward-reasoning decider ignored tape writes; 1,253,418 'decided' BB(5) machines reverted",
+      "claim": "The Busy Beaver Challenge's backward-reasoning decider (Feb 2022) declared 1,253,418 machines of the 5-state seed database non-halting.",
+      "inputs": [
+        {
+          "url": "https://github.com/bbchallenge/bbchallenge-deciders/blob/c4a4596c54/decider-backward-reasoning/main.go",
+          "desc": "Decider source at the buggy commit c4a4596 (2022-02-09)"
+        },
+        {
+          "url": "https://github.com/bbchallenge/bbchallenge-undecided-index",
+          "desc": "Index of undecided machines, created when the results were cancelled"
+        },
+        {
+          "url": "https://bbchallenge.org/55897188",
+          "desc": "Machine #55897188 used in the bug report; the seed database is public"
+        }
+      ],
+      "error": "The decider ignored the symbol written on each transition, which can produce false positives and false negatives, so its decisions were unsound and were cancelled.",
+      "confirmation": {
+        "url": "https://github.com/bbchallenge/bbchallenge-deciders/issues/1",
+        "quote": "However you example proves me wrong."
+      },
+      "confirmed_by": "Maintainer (tcosmo, bbchallenge) acknowledging the report by milomg/atticuscull; fixed via PR #5",
+      "date_confirmed": "2022-04-01",
+      "from_openai_release": false,
+      "criteria_met": {
+        "computational_claim": [
+          true,
+          "A decider's classification of over a million Turing machines as non-halting."
+        ],
+        "replayable_inputs": [
+          true,
+          "Seed database and decider source at a pinned commit are public."
+        ],
+        "error_confirmed_primary": [
+          true,
+          "Maintainer acknowledged the bug and cancelled all the decider's results."
+        ]
+      }
+    },
+    {
+      "id": "F03-knights-tours-bdd",
+      "title": "Löbbing-Wegener (1996): wrong BDD count of closed knight's tours on the 8x8 board",
+      "claim": "Löbbing and Wegener computed with binary decision diagrams that the number of (undirected closed) knight's tours on an 8x8 board is 33,439,123,484,294.",
+      "inputs": [
+        {
+          "url": "https://www.combinatorics.org/ojs/index.php/eljc/article/view/v3i1r5",
+          "desc": "EJC 3 (1996) R5 paper giving the method; input is the 8x8 knight graph, fully specified"
+        },
+        {
+          "url": "https://oeis.org/A001230",
+          "desc": "OEIS entry for undirected closed knight's tours on 2n x 2n boards (8x8 value 13267364410532)"
+        }
+      ],
+      "error": "The published count is wrong (it is not divisible by 4 as symmetry requires); the correct count, computed independently by McKay, is 13,267,364,410,532.",
+      "confirmation": {
+        "url": "https://emis.dsd.sztaki.hu/journals/EJC/Volume_3/Comments/v3i1r5.html",
+        "quote": "The number of knight's tours given in the paper is incorrect"
+      },
+      "confirmed_by": "Authors (Löbbing and Wegener comment, 1996-05-15) and independent party (B. D. McKay comment, 1997-02-18)",
+      "date_confirmed": "1996-05-15",
+      "from_openai_release": false,
+      "criteria_met": {
+        "computational_claim": [
+          true,
+          "An exact count produced by a BDD computation."
+        ],
+        "replayable_inputs": [
+          true,
+          "The input (8x8 knight graph, closed undirected tours) is exact and public; counting can be re-run by BDD/ZDD or McKay's method."
+        ],
+        "error_confirmed_primary": [
+          true,
+          "Authors' own comment on the journal page plus McKay's independent recount."
+        ]
+      }
+    },
+    {
+      "id": "F05-mathematica-det",
+      "title": "Mathematica 8-9.0.1 returns wrong (and non-repeatable) determinants of explicit 14x14 big-integer matrices",
+      "claim": "Mathematica's Det, used by Durán, Pérez and Varona to test conjectures on Casorati determinants of orthogonal polynomials, returned stated exact determinant values for explicit 14x14 integer matrices.",
+      "inputs": [
+        {
+          "url": "https://arxiv.org/abs/1312.3270",
+          "desc": "Durán-Pérez-Varona, 'The misfortunes of a trio of mathematicians using computer algebra systems. Can we trust in them?' (Notices AMS 61(10), 2014): full explicit matrices and the wrong outputs"
+        },
+        {
+          "url": "https://www.ams.org/notices/201410/rnoti-p1249.pdf",
+          "desc": "Published Notices AMS version"
+        }
+      ],
+      "error": "The determinants Mathematica returned were wrong, and differed between evaluations of the same matrix; exact recomputation (e.g. in PARI, Sage, Maple) gives a different value.",
+      "confirmation": {
+        "url": "https://arxiv.org/abs/1312.3270",
+        "quote": "It does appear there is a serious mistake on the determinant operation"
+      },
+      "confirmed_by": "Authors and the software vendor (Wolfram Technical Support reply quoted in the paper); bug fixed in Mathematica 10.0.2",
+      "date_confirmed": "2013-12-11 (arXiv v1, which quotes Wolfram's reply); Notices AMS 2014-11",
+      "from_openai_release": false,
+      "criteria_met": {
+        "computational_claim": [
+          true,
+          "An exact integer determinant computed by a CAS."
+        ],
+        "replayable_inputs": [
+          true,
+          "The exact matrices are printed in the paper; exact determinants are cheap to recompute."
+        ],
+        "error_confirmed_primary": [
+          true,
+          "Peer-published by the authors, with vendor acknowledgement and a later fix."
+        ]
+      }
+    }
+  ],
+  "alternates": [
+    {
+      "id": "F15-etp-677-prover9-scope",
+      "reason": "Distinct ATP input-encoding class, seconds to replay, author-acknowledged; ranked below F06 because the original claim was hedged."
+    },
+    {
+      "id": "F08-bohman-pi-1e13",
+      "reason": "Cleanest independent refutation and trivial replay; same wrong-count class as F03."
+    },
+    {
+      "id": "F04-lam-A2-counts",
+      "reason": "Certified (DRAT) refutation of search counts; heavier replay and the 1989 program is lost."
+    }
+  ],
+  "selection_notes": "Six error classes, one each: formal statement weaker than the claimed problem (F01); checker defect that accepted claimed AI proofs (F10); Lean proof resting on a provably false axiom (F06); unsound decider behind a large classification (F14); wrong exhaustive count (F03); wrong exact result from a trusted CAS (F05). Each has public pinned inputs and an author, maintainer or vendor acknowledgement, not only a third-party claim. Three are AI-assisted (2025-2026), three are not (1996-2022). None comes from openai/math: its 2026-10-07 withdrawals and fixes concern informal, unformalized arguments and fail criteria 1-2. F11 (unrefereed, unacknowledged) and F12 (likely a deliberate exploit) were left out on confirmation strength."
+}

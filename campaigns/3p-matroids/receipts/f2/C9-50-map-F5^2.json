@@ -1,0 +1,816 @@
+{
+ "rule": {
+  "type": "map",
+  "map": {
+   "x5": "-2*a - 2",
+   "y5": "a + 2",
+   "z5": "a + 2",
+   "x6": "-2*a",
+   "y6": "1 - a",
+   "z6": "-2*a",
+   "x7": "-1",
+   "y7": "-1",
+   "z7": "2*a - 2",
+   "x8": "-a - 2",
+   "y8": "a + 2",
+   "z8": "a - 2",
+   "x9": "-2*a - 2",
+   "y9": "2",
+   "z9": "2 - a"
+  },
+  "eq_certificates": [
+   {
+    "type": "ideal",
+    "cofactors": [
+     "0"
+    ],
+    "m": 1,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "0"
+    ],
+    "m": 1,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "0"
+    ],
+    "m": 1,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2 - 2*a"
+    ],
+    "m": 1,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "1 - a"
+    ],
+    "m": 1,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2*a"
+    ],
+    "m": 1,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2*a - 2"
+    ],
+    "m": 1,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "a"
+    ],
+    "m": 1,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "a"
+    ],
+    "m": 1,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "a - 1"
+    ],
+    "m": 1,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2 - a"
+    ],
+    "m": 1,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "a + 1"
+    ],
+    "m": 1,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-a - 2"
+    ],
+    "m": 1,
+    "k": 0,
+    "characteristic": 5
+   }
+  ],
+  "guard_certificates": [
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "2*a + 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2",
+     "a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-1",
+     "-2*a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "2*a - 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "1 - 2*a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "-2*a - 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-1",
+     "a + 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "0",
+     "1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "-2*a - 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "0",
+     "2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-1",
+     "1 - a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "0",
+     "1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2",
+     "2*a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "a",
+     "a + 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "a",
+     "2*a + 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "2*a + 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2*a + 2",
+     "2*a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2*a - 1",
+     "a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "a + 2",
+     "-a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-a - 2",
+     "a + 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "a - 2",
+     "2 - 2*a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-1",
+     "2 - 2*a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-a",
+     "2 - a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-1",
+     "2*a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2",
+     "a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "0",
+     "-1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "-2*a - 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-1",
+     "2*a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "a + 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "2 - a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2",
+     "a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-1",
+     "-a - 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2 - 2*a",
+     "-2*a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2*a - 1",
+     "1 - 2*a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "a - 2",
+     "1 - a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2 - 2*a",
+     "2*a + 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2*a + 2",
+     "2*a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2",
+     "2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2*a + 2",
+     "-a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "a + 1",
+     "-2*a - 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2*a - 1",
+     "-2*a - 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-a",
+     "2 - 2*a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "-a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-1",
+     "a - 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-a - 2",
+     "-a - 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "-a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2*a + 2",
+     "2*a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2 - 2*a",
+     "a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-1",
+     "a - 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "1 - a",
+     "2*a - 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "2 - a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "2 - a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2*a + 2",
+     "1 - a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2 - 2*a",
+     "a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-2",
+     "-a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2 - 2*a",
+     "a + 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "a",
+     "2*a - 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "2 - 2*a",
+     "a - 2"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "-1",
+     "1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "a",
+     "-a - 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "a",
+     "-a - 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "a",
+     "1 - 2*a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 5
+   }
+  ]
+ },
+ "premises": [
+  "src-F5^2"
+ ]
+}

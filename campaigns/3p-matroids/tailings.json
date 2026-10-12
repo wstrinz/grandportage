@@ -1,0 +1,432 @@
+{
+  "schema": "gp-tailings/v1",
+  "tailings": [
+    {
+      "kind": "refused attempt",
+      "claim": "F7-empty-2",
+      "source": "receipt c3296a4f87fa",
+      "reliability": "refused by GP",
+      "completeness": "the certificate reaches 0 and every prime except {2}, which does not cover the requested characteristic 2"
+    },
+    {
+      "kind": "refused attempt",
+      "claim": "F7-nonempty-q",
+      "source": "receipt 8cac00d2823c",
+      "reliability": "refused by GP",
+      "completeness": "unexpected character '.'"
+    },
+    {
+      "kind": "refused attempt",
+      "claim": "F7-nonempty-q",
+      "source": "receipt e461344781c5",
+      "reliability": "refused by GP",
+      "completeness": "the certificate does not replay exactly: the identity has a nonzero residual, the point misses an equation, or a guard vanishes there"
+    },
+    {
+      "kind": "refused attempt",
+      "claim": "F7m-nonempty-2",
+      "source": "receipt 669cc8aeb4cb",
+      "reliability": "refused by GP",
+      "completeness": "the certificate reaches 0 and every prime except {2}, which does not cover the requested characteristic 2"
+    },
+    {
+      "kind": "refused attempt",
+      "claim": "F7m-empty-char0",
+      "source": "receipt 40634b7655da",
+      "reliability": "refused by GP",
+      "completeness": "the certificate does not replay exactly: the identity has a nonzero residual, the point misses an equation, or a guard vanishes there"
+    },
+    {
+      "kind": "refused attempt",
+      "claim": "src-F3^2",
+      "source": "receipt e927b692beef",
+      "reliability": "refused by GP",
+      "completeness": "the certificate does not replay exactly: the identity has a nonzero residual, the point misses an equation, or a guard vanishes there"
+    },
+    {
+      "kind": "refused attempt",
+      "claim": "U36-in-chi-3",
+      "source": "receipt 7a29c1cec01c",
+      "reliability": "refused by GP",
+      "completeness": "rule R3 needs held premises; not held: src-F3^2"
+    },
+    {
+      "kind": "refused attempt",
+      "claim": "Pappus-in-chi-3",
+      "source": "receipt 3fcb61584855",
+      "reliability": "refused by GP",
+      "completeness": "rule R3 needs held premises; not held: src-F3^2"
+    },
+    {
+      "kind": "refused attempt",
+      "claim": "src-F5^2",
+      "source": "receipt 8830a60e6bc2",
+      "reliability": "refused by GP",
+      "completeness": "the certificate does not replay exactly: the identity has a nonzero residual, the point misses an equation, or a guard vanishes there"
+    },
+    {
+      "kind": "refused attempt",
+      "claim": "Pappus-in-chi-5",
+      "source": "receipt 9729ef5fd2cc",
+      "reliability": "refused by GP",
+      "completeness": "rule R3 needs held premises; not held: src-F5^2"
+    },
+    {
+      "kind": "refused attempt",
+      "claim": "Desargues-in-chi-3",
+      "source": "receipt 649aea92d0cd",
+      "reliability": "refused by GP",
+      "completeness": "rule R3 needs held premises; not held: src-F3^2"
+    },
+    {
+      "kind": "earned widening",
+      "claim": "F7m-real-q",
+      "source": "re-replay of the held receipt",
+      "reliability": "held by GP",
+      "completeness": "earned at 0 and every prime except {2}, not claimed"
+    },
+    {
+      "kind": "earned widening",
+      "claim": "src-F2^2",
+      "source": "re-replay of the held receipt",
+      "reliability": "held by GP",
+      "completeness": "earned at 0 and every prime, not claimed"
+    },
+    {
+      "kind": "earned widening",
+      "claim": "src-F3^2",
+      "source": "re-replay of the held receipt",
+      "reliability": "held by GP",
+      "completeness": "earned at 0 and every prime, not claimed"
+    },
+    {
+      "kind": "earned widening",
+      "claim": "U36-nonempty-5",
+      "source": "re-replay of the held receipt",
+      "reliability": "held by GP",
+      "completeness": "earned at 0 and every prime except {2, 3}, not claimed"
+    },
+    {
+      "kind": "earned widening",
+      "claim": "U36-nonempty-7",
+      "source": "re-replay of the held receipt",
+      "reliability": "held by GP",
+      "completeness": "earned at 0 and every prime except {2, 3, 5, 31}, not claimed"
+    },
+    {
+      "kind": "earned widening",
+      "claim": "src-F5^2",
+      "source": "re-replay of the held receipt",
+      "reliability": "held by GP",
+      "completeness": "earned at 0 and every prime, not claimed"
+    },
+    {
+      "kind": "earned widening",
+      "claim": "src-F2^4",
+      "source": "re-replay of the held receipt",
+      "reliability": "held by GP",
+      "completeness": "earned at 0 and every prime, not claimed"
+    },
+    {
+      "kind": "open premise",
+      "claim": "F7-empty-outside2",
+      "source": "encoding:947c989e574d50cb58bf5e9ea5b305908dcc413818d7834d18b25bc0e189f691",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open item",
+      "claim": "F7-empty-2",
+      "source": "ledger",
+      "reliability": "open",
+      "completeness": "untagged"
+    },
+    {
+      "kind": "open item",
+      "claim": "F7-nonempty-q",
+      "source": "ledger",
+      "reliability": "open",
+      "completeness": "untagged"
+    },
+    {
+      "kind": "open premise",
+      "claim": "F7-nonempty-2",
+      "source": "encoding:947c989e574d50cb58bf5e9ea5b305908dcc413818d7834d18b25bc0e189f691",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "F7-in-chi-2",
+      "source": "encoding:947c989e574d50cb58bf5e9ea5b305908dcc413818d7834d18b25bc0e189f691",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open item",
+      "claim": "F7m-nonempty-2",
+      "source": "ledger",
+      "reliability": "open",
+      "completeness": "untagged"
+    },
+    {
+      "kind": "open premise",
+      "claim": "F7m-real-q",
+      "source": "encoding:711efc153abcef03a98ffaf5aebb9c06436b7fab2b73ab843b66c809ffff018b",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "F7m-nonempty",
+      "source": "encoding:711efc153abcef03a98ffaf5aebb9c06436b7fab2b73ab843b66c809ffff018b",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "F7m-in-chi",
+      "source": "encoding:711efc153abcef03a98ffaf5aebb9c06436b7fab2b73ab843b66c809ffff018b",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "F7m-empty-2",
+      "source": "encoding:711efc153abcef03a98ffaf5aebb9c06436b7fab2b73ab843b66c809ffff018b",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open item",
+      "claim": "F7m-empty-char0",
+      "source": "ledger",
+      "reliability": "open",
+      "completeness": "untagged"
+    },
+    {
+      "kind": "open premise",
+      "claim": "U36-in-chi-2",
+      "source": "encoding:5680db612a51bb3bbce414b202225d1c7390c7b811e34e75ee4c7c0cfa0205c3",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "AG23-in-chi",
+      "source": "encoding:bd0bf422c3917f665c46a3e4f0749f5a12de7ff62fec6c502c3e62f72438cd83",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "AG23-e-in-chi",
+      "source": "encoding:4cc27eaef9fc7b06a60e12bdc122b9fed0015110457c9d2286b5dba3ccf566a9",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "MK4-nonempty-q",
+      "source": "encoding:b33cf03dc511ba5cc520696f7d2aeb936e49e5bc596a0290b3896c07646b9770",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "MK4-in-chi",
+      "source": "encoding:b33cf03dc511ba5cc520696f7d2aeb936e49e5bc596a0290b3896c07646b9770",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "U36-nonempty-q",
+      "source": "encoding:5680db612a51bb3bbce414b202225d1c7390c7b811e34e75ee4c7c0cfa0205c3",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "U36-in-chi",
+      "source": "encoding:5680db612a51bb3bbce414b202225d1c7390c7b811e34e75ee4c7c0cfa0205c3",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "U36-in-chi-3",
+      "source": "encoding:5680db612a51bb3bbce414b202225d1c7390c7b811e34e75ee4c7c0cfa0205c3",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "U36-nonempty-5",
+      "source": "encoding:5680db612a51bb3bbce414b202225d1c7390c7b811e34e75ee4c7c0cfa0205c3",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "U36-in-chi-5",
+      "source": "encoding:5680db612a51bb3bbce414b202225d1c7390c7b811e34e75ee4c7c0cfa0205c3",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "U36-nonempty-7",
+      "source": "encoding:5680db612a51bb3bbce414b202225d1c7390c7b811e34e75ee4c7c0cfa0205c3",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "U36-in-chi-7",
+      "source": "encoding:5680db612a51bb3bbce414b202225d1c7390c7b811e34e75ee4c7c0cfa0205c3",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "Pappus-nonempty-q",
+      "source": "encoding:4382ebf7e98752eba5be028795b306ca347c75c02aaea263cc77b000aa32db42",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "Pappus-in-chi",
+      "source": "encoding:4382ebf7e98752eba5be028795b306ca347c75c02aaea263cc77b000aa32db42",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "Pappus-in-chi-2",
+      "source": "encoding:4382ebf7e98752eba5be028795b306ca347c75c02aaea263cc77b000aa32db42",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "Pappus-in-chi-3",
+      "source": "encoding:4382ebf7e98752eba5be028795b306ca347c75c02aaea263cc77b000aa32db42",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "Pappus-in-chi-5",
+      "source": "encoding:4382ebf7e98752eba5be028795b306ca347c75c02aaea263cc77b000aa32db42",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "Desargues-nonempty-q",
+      "source": "encoding:aced2437fdb42368576619d222bfb21a7aa5fc21e7cebc4548bbe54e23af2105",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "Desargues-in-chi",
+      "source": "encoding:aced2437fdb42368576619d222bfb21a7aa5fc21e7cebc4548bbe54e23af2105",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "Desargues-in-chi-2",
+      "source": "encoding:aced2437fdb42368576619d222bfb21a7aa5fc21e7cebc4548bbe54e23af2105",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "Desargues-in-chi-3",
+      "source": "encoding:aced2437fdb42368576619d222bfb21a7aa5fc21e7cebc4548bbe54e23af2105",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "Desargues-nonempty-5",
+      "source": "encoding:aced2437fdb42368576619d222bfb21a7aa5fc21e7cebc4548bbe54e23af2105",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "Desargues-in-chi-5",
+      "source": "encoding:aced2437fdb42368576619d222bfb21a7aa5fc21e7cebc4548bbe54e23af2105",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "AG23-nonempty-3",
+      "source": "encoding:bd0bf422c3917f665c46a3e4f0749f5a12de7ff62fec6c502c3e62f72438cd83",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "AG23-in-chi-3",
+      "source": "encoding:bd0bf422c3917f665c46a3e4f0749f5a12de7ff62fec6c502c3e62f72438cd83",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "AG23-e-nonempty-3",
+      "source": "encoding:4cc27eaef9fc7b06a60e12bdc122b9fed0015110457c9d2286b5dba3ccf566a9",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "AG23-e-in-chi-3",
+      "source": "encoding:4cc27eaef9fc7b06a60e12bdc122b9fed0015110457c9d2286b5dba3ccf566a9",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "PG23-nonempty-3",
+      "source": "encoding:dc3306a8cdf2e542e181693c6200db74febef6b75ad173148d0160493472ef24",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "PG23-in-chi-3",
+      "source": "encoding:dc3306a8cdf2e542e181693c6200db74febef6b75ad173148d0160493472ef24",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "NonPappus-empty",
+      "source": "encoding:8e19641ec820810de65bd5ee7fe757cf7da816318fa2936d5b35bcd0b2c8bac8",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "NonDesargues-empty",
+      "source": "encoding:a8d8e43c60c854747a8fb92e797854bbf622fb5a0c3c0243989c5aaf115087d7",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    },
+    {
+      "kind": "open premise",
+      "claim": "PG23-empty",
+      "source": "encoding:dc3306a8cdf2e542e181693c6200db74febef6b75ad173148d0160493472ef24",
+      "reliability": "held modulo premise",
+      "completeness": "ENCODING-FRAME OPEN"
+    }
+  ]
+}

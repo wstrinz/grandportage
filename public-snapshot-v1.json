@@ -48,6 +48,10 @@
     "requirements-dev.txt",
     "tests/test_layer_tags.py",
     "tests/test_gp50_binder.py",
+    "tests/test_gp50_udg_encoding.py",
+    "tests/test_gp50_udg_rope.py",
+    "tools/emit-udg-comparator.py",
+    "tools/encode-udg.py",
     "tests/test_gp50_fixtures.py",
     "tools/gen-3a-expressiveness.py",
     "tools/run-binder.py",
@@ -218,7 +222,25 @@
     "tools/tag-corpus-layers.py",
     "tools/test_operational_retained_observation.py",
     "tools/universe_boundary_probes.py",
-    "tools/zero_regime_probes.py"
+    "tools/zero_regime_probes.py",
+    "DECISIONS-PRIVATE.md",
+    "docs/HANDOFF-2026-10-11.md",
+    "docs/HW61-REVISITED-PACKET.md",
+    "docs/TWO-HARBORS-PACKET.md",
+    "docs/AGATE-BAY-PACKET.md",
+    "docs/GP-0.50-FIXED-ROPES-HANDOFF.md",
+    "docs/R1B-STATEMENT-DESIGN.md",
+    "reports/M5-U22-MEANING-AUDIT.md",
+    "reports/M5-U22-SOURCES.json",
+    "ropes/README.md",
+    "HISTORY/REVIEW-0.50-pre-u22.md",
+    "tests/test_gp50_emit_r1b.py",
+    "tests/test_gp50_emit_r1b2.py",
+    "tools/emit-r1b.py",
+    "tools/emit_r1b2.py",
+    "tools/emit_r1b_census.py",
+    "tools/emit_r1b_chal.py",
+    ".github/workflows/rope-r1b.yml"
   ],
   "private_prefixes": [
     "binding/",
@@ -232,7 +254,10 @@
     "phase1/",
     "phase2/",
     "reports/",
-    "spikes/"
+    "ropes/r1b/",
+    "spikes/",
+    "campaigns/rp2-9/",
+    "campaigns/ud22/"
   ],
   "public_paths": [
     ".gitattributes",
@@ -250,7 +275,8 @@
     "SPEC.md",
     "public-snapshot-v1.json",
     "pyproject.toml",
-    "tools/replay_arr15_e10.py"
+    "tools/replay_arr15_e10.py",
+    "NOTICE"
   ],
   "public_prefixes": [
     ".github/",
@@ -263,7 +289,8 @@
     "lean/",
     "review/",
     "scripts/",
-    "tests/"
+    "tests/",
+    "ropes/r1a/"
   ],
   "required_public_paths": [
     ".gitattributes",

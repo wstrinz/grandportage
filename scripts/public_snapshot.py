@@ -13,7 +13,7 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFEST = "public-snapshot-v2.json"
 SCHEMA = "grand-portage-public-snapshot/v1"
-RECEIPT_SCHEMA = "grand-portage-public-snapshot-receipt/v1"
+RECEIPT_SCHEMA = "grand-portage-public-snapshot-receipt/v2"
 RECEIPT_PATH = "PUBLIC-SNAPSHOT-RECEIPT.json"
 _FIELDS = {
     "schema", "generated_paths", "private_paths", "private_prefixes",
@@ -216,7 +216,10 @@ def build_receipt(commit, manifest_path, manifest_payload, blobs,
             "private_files": len(classifications["private"]),
             "generated_files": 1,
         },
-        "private_paths": classifications["private"],
+        # v2: a commitment, not the list. Withheld paths can name unpublished work; the workspace
+        # recomputes this digest to show which paths were withheld.
+        "private_paths_sha256": digest_bytes(
+            "".join("%s\n" % path for path in classifications["private"]).encode("utf-8")),
         "files": files,
     }
 

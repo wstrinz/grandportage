@@ -1,6 +1,6 @@
 name = "gp_binding"
 version = "0.1.0"
-defaultTargets = ["GPBinding"]
+defaultTargets = ["GPBinding", "UDGRope"]
 
 # Binding package (post-G2 handoff §3.9, Addendum A §2.5e): Mathlib and Hex's Mathlib
 # bridges at the Addendum A2 pins. Never imported by Kernel or any runtime executable.
@@ -21,8 +21,15 @@ rev = "v0.6.0"
 
 [[lean_lib]]
 name = "GPBinding"
+globs = ["GPBinding", "GPBinding.Real.+", "GPBinding.UDG.System", "GPBinding.UDG.Spine", "GPBinding.UDG.Frame"]
 
 [[require]]
 name = "AutoGeneralization"
 git = "https://github.com/pelicanhere/AutoGeneralization.git"
 rev = "07ed6f917b2cc8b0c29ef6dcb852e8beb9fbd2d1"
+
+# Rope R1a (HW61 G-4): Mathlib-only unit-distance lemmas, movable to their own package.
+[[lean_lib]]
+name = "UDGRope"
+srcDir = "GPBinding/UDG/Rope"
+globs = ["UDGRope", "UDGRope.+"]

@@ -1,0 +1,61 @@
+{
+ "name": "C9-281",
+ "elements": [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9"
+ ],
+ "lines": [
+  [
+   "1",
+   "2",
+   "6"
+  ],
+  [
+   "2",
+   "3",
+   "7"
+  ],
+  [
+   "3",
+   "8",
+   "9"
+  ],
+  [
+   "4",
+   "5",
+   "8"
+  ],
+  [
+   "4",
+   "6",
+   "9"
+  ],
+  [
+   "5",
+   "7",
+   "9"
+  ],
+  [
+   "6",
+   "7",
+   "8"
+  ]
+ ],
+ "source": {
+  "generator": "campaigns/3p-matroids/catalog/generate.py",
+  "generator_sha256": "76206a403bf56dda88b251cd97f97060c21d2d2ebdf1a3d73765d29accae5bcf",
+  "catalog_index": [
+   9,
+   281
+  ],
+  "trust": "trusted generator",
+  "premise": "catalog completeness OPEN (CATALOG-COMPLETE)"
+ }
+}

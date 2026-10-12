@@ -120,6 +120,14 @@ A context's truth is truth in every field of its characteristic (`means_iff`), s
 
 Overlapping tool (§1.7): Mathlib's `linear_combination` checks the same identities but computes no reach. The §3.6a shadow slice measured it at 19–25 s per claim. The frontend's infix parser stays untrusted and echoes the canonical form.
 
+## Phase 3P checker admission — 2026-10-04
+
+Two certificate forms for the matroid pilot (post-G3a handoff §4.4), proved under `check_sound`, on standard axioms only (`#print axioms`: `propext`, `Classical.choice`, `Quot.sound`):
+- **`idealSel`: C1/C3 on selected guards.** The identity uses only the guards a mask selects. `holds_of_select` lifts the selected system's truth to the whole system: the selection is a sublist (`pick_sublist`), so the locus only grows and the selected product divides the full one (`List.Sublist.prod_dvd_prod`). It prevents no new failure; it makes matroid emptiness checkable at all. Fano's 24 basis guards already expand to about 40,000 terms, and Pappus has about 70.
+- **`properCoeff`: geometric nonemptiness by a coefficient.** The single equation has a nonzero coefficient, a unit mod p for F_p, at a non-constant monomial. A unit of `K[x]` is a constant (`MvPolynomial.isUnit_iff_eq_C_of_isReduced`), so `(m)` is proper (`reach_properCoeff_sound`). Over ℚ the reach excludes the primes of the coefficient's numerator and denominator. It closes gap 1 of §4.4: `proper` cannot certify a polynomial that is constant on F_p, and every rootless polynomial is 1 on F_2. No irreducibility certificate is needed, because NOT_IN_IDEAL(1) is ideal-level.
+
+Controls: `tests/test_gp50_gp_cli.py`. They cover the Fano F_2 point, Fano EMPTY over ℚ with reach outside {2} and its refusal at 2, non-Fano EMPTY mod 2 only (reach exactly {2}), and a point over F_2[a]/(a² + a + 1) carried by R3.
+
 ## Phase 3a binder and theorem warrants — 2026-10-03
 
 Theorem warrants (A4) are generated for held claims of supported shapes (`tools/gen-warrants.py`: C1 emptiness over Q with integer statement coefficients). Each states `Warranted stmt scope`: the explicit statement holds in every field of the scope. `means_of_warranted` proves, on standard axioms, that this gives the Kernel's `Means` for well-formed statements; it uses `meaning_eq_elabQ`, which relates the Hex meaning to the explicit monomial sum. No Hex code is evaluated in the kernel.
@@ -132,3 +140,59 @@ The binder (`binding/GPBinding/Binder/Export.lean`) checks each registry theorem
 - **(c)** the receipt (schema `gp-binder/v2`) carries an environment block: toolchain, Mathlib pin, binding commit, and the FNV-1a of `Warrants/Generated.lean`. The runtime drops every record from a different environment and reports `binder_refused`.
 
 In the binding, `fold_held_meaning_rules` takes the binder's guarantee as the explicit hypothesis `RecordsSound`. Warrants are generated at the receipt's widest computed reach.
+
+## Generic theorem warrants — 2026-10-05
+
+`binding/GPBinding/Warrants/Generic.lean` (post-G3a decision 9) proves, once each, the warrants for:
+- integer points (NONEMPTY, over ℚ or mod p);
+- the bridge to NOT_IN_IDEAL(1);
+- `proper_coefficient`;
+- scope narrowing.
+
+`gp emit-lean` applies them to held claims. The side conditions are structural integer computations: polynomial values at an integer point, products of supplied prime factors, and list membership. `decide +kernel` checks them. Primality is never decided in the kernel; the emitter supplies factorizations and `norm_num` proves the primes.
+
+Kernel-mode `decide` is used only here, never on Hex replay (the Phase 3a memory hazard). On the 3P ledger, all 34 warrants compiled in 402 s with a 4.2 GB peak, under a memory guard. Each distinct polynomial is one `def`: inlining the statement literals took 44 minutes and timed out on PG(2,3).
+
+## ENCODING-FRAME — 2026-10-05
+
+`binding/GPBinding/Matroid/` proves the frame premise (post-G3a §4.3), on standard axioms only:
+- `Realizes M vec` is the meaning: a triple of vectors in `K³` is dependent exactly when the triple is a non-basis of `M` (it lies on a listed line).
+- `frame_iff`: for every field `K`, `M` is realizable over `K` exactly when the Lean encoder's framed system `M.system` has a `K`-point. `holdsE_nonempty_iff` and `holdsE_empty_iff` restate this for the statement kinds.
+- The proof moves any realization to the encoder's frame by the Cramer map of its first basis and nonzero rescalings (`normalize`). In the other direction, a point's columns realize `M` (`realizes_of_point`).
+
+The Python encoder is no longer trusted for matroid claims. `gp` sends each claim's matroid as `(n, index lines)` to `gp_ledger`, which re-derives the system with the Lean encoder (`GPProfile.Matroid`) and compares it to the filed statement. ENCODING-FRAME shows as discharged only when they are equal; otherwise it stays OPEN. Still trusted: `encode-matroid.py`'s `canonical`, which reads the matroid file into `(n, index lines)`, and the native comparison in `gp_ledger` (the same runner as the profile fold). On the 3P ledger, 43 of 43 matroid claims are equal.
+
+## Commit guard — 2026-10-06
+
+The profile's commit guard (`GPProfile.guard`) folds with `Admission.refuseAll`. `fold_ok_admission` proves that whether a log folds is independent of the admission, so the guard accepts and refuses exactly as before. The trusted verdict is still the final fold with the real admission.
+
+The guard now resolves the log without running the closure. `fold_ok_resolve` proves that a log folds exactly when it resolves, with the same error. `admissionWithRules` computes its uniqueness checks once per fold, through `acceptsWith` and `acceptsRuleWith`. `admissionWithRules_eq` proves by `rfl` that the admission is the one the soundness proofs are about.
+
+## Census V4 statements (DK slice) — 2026-10-06
+
+- **New kinds:** `v4Count` and `v4CountGiven` count isomorphism classes among labelled Levi graphs that carry DK's normal-form point action `a0`, extended to lines by injective maps that preserve sides and adjacency (`InS`).
+- **Action atoms:** `act g i j` are read from that action. Plain statements use the identity action, so their meaning and CNFs are unchanged.
+- **Checks:** `memberB` checks a member with its action (`memberB_sound`). `v4_listed_of_unsat` proves listing complete when the CNF fixes the point action and breaks only relabellings that commute with it. Both are on standard axioms, and LRAT replay keeps its admitted native trust.
+- **Outside the claims:**
+  - V4-NORMAL-FORM: DK's "admits some action" means the same as "isomorphic to a normal-form member".
+  - CELL-COMPLETE: the open premise of the n = 23 counts.
+  - The predicate's fidelity to DK's fences, which is checked differentially, not proved.
+
+## G-2 spine view — 2026-10-09
+
+The DECIDE goal's two bridges are view rules in `tools/gp.py`, not Kernel claims (G-2 staging). The Lean side is
+proved on standard axioms:
+- `udg_frame_iff` and `candidate_isEmpty`;
+- `realize_sound` and `udg_realize`;
+- `spine_sound` and `coverComplete_of_all`.
+
+`gp_ledger3` checks each `--udg` claim's frame by re-deriving the system with `GPProfile.UDG.Data.stmt` (`udgFrames`).
+
+**Trusted:** the Python join in `status_goal`, `spine_verdict` and `cover_join`. It:
+- canonicalises graph records;
+- matches each cover candidate to held, frame-equal `--udg` EMPTY claims over ℝ on the identical labelled graph;
+- compares a claim's or cover's n and m with the goal's, and counts edges;
+- checks that an `exhaustive` cover lists every labelled graph with at least m edges.
+
+Its errors would mis-state held(goal) without any checker refusing it. Before Phase B, a Kernel-held goal statement
+kind with an admitted spine rule should replace it.

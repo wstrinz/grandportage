@@ -18,6 +18,7 @@ rev = "v0.6.0"
 
 [[lean_lib]]
 name = "GPProfile"
+globs = ["GPProfile", "GPProfile.Real.+"]
 
 [[lean_exe]]
 name = "gp_profile_layout"
@@ -29,4 +30,18 @@ root = "GPProfile.Slice"
 
 [[lean_exe]]
 name = "gp_corpus_run"
-root = "GPProfile.Corpus"
+root = "GPProfile.CorpusMain"
+
+# The 3P campaign ledger runner behind `tools/gp.py` (post-G3a §4.6).
+[[lean_exe]]
+name = "gp_ledger"
+root = "GPProfile.Ledger"
+
+[[lean_exe]]
+name = "gp_corpus_3b"
+root = "GPProfile.Real.CorpusMain"
+
+# The 3b part of a campaign ledger behind `tools/gp.py` (Phase 5 preparation).
+[[lean_exe]]
+name = "gp_ledger3"
+root = "GPProfile.Real.Ledger3"

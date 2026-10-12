@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   lean-atlas:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -30,7 +30,7 @@ jobs:
         run: python scripts/check_interpreter_parity.py
 
   fast:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -47,8 +47,12 @@ jobs:
   gp50:
     # GP 0.50: the Lean kernel, the 3a profile and its Mathlib soundness binding, then the 0.50 suite.
     timeout-minutes: 180
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
+      - name: Free runner disk (private-repo runners have a smaller disk)
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost || true
+          df -h /
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -77,7 +81,14 @@ jobs:
           (cd phase2/lean && lake build)
           (cd profile && lake build)
       - name: Build the soundness binding
-        run: cd binding && lake exe cache get && lake build GPBinding
+        run: cd binding && lake exe cache get && lake build GPBinding UDGRope
+      - name: Cache the census dependencies (HexGraphIso builds every module natively)
+        uses: actions/cache@v4
+        with:
+          path: census/.lake
+          key: census-${{ runner.os }}-${{ hashFiles('census/lean-toolchain', 'census/lake-manifest.json') }}
+      - name: Build the census profile
+        run: cd census && lake build GPCensus gp_census
       - name: Run the 0.50 suite
         run: python -m pytest -q tests/test_phase2_*.py tests/test_gp50_*.py tests/test_layer_tags.py
 

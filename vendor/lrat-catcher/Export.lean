@@ -1,0 +1,65 @@
+import LRATCatcher.Cover
+
+/-!
+  # `lratcatch-export` — generate solver input files for a cube-and-conquer run
+
+  Usage: `lratcatch-export base.cnf cubes.icnf outdir`
+
+  Writes `outdir/leaf{i}.cnf` for each cube of the iCNF file (cube unit
+  clauses first, then base — the clause order `lrat_cover_reflect` assumes
+  for LRAT clause IDs), and `outdir/negcubes.cnf` (the cover-completeness
+  CNF, to be refuted by the solver, producing `cover.lrat`).
+
+  Files are printed with `Std.Sat.CNF.dimacs`, whose +1 variable shift inverts
+  `LRATCatcher.parseDimacs`, so the Lean-side CNFs match the files byte-for-byte
+  in clause structure.
+-/
+
+open Std.Sat
+
+/-- Read a file, exiting cleanly instead of with a raw exception if it is
+    missing or unreadable. -/
+def readInput (path : String) : IO String := do
+  try
+    IO.FS.readFile path
+  catch e =>
+    IO.eprintln s!"lratcatch-export: cannot read '{path}': {e}"
+    IO.Process.exit 1
+
+/-- Write a file, exiting cleanly if the path is not writable. -/
+def writeOutput (path content : String) : IO Unit := do
+  try
+    IO.FS.writeFile path content
+  catch e =>
+    IO.eprintln s!"lratcatch-export: cannot write '{path}': {e}"
+    IO.Process.exit 1
+
+def main (args : List String) : IO UInt32 := do
+  match args with
+  | [baseFile, icnfFile, outDir] =>
+    let baseStr ← readInput baseFile
+    let icnfStr ← readInput icnfFile
+    let base := LRATCatcher.parseDimacs baseStr
+    let cubes := LRATCatcher.parseICnf icnfStr
+    if cubes.isEmpty then
+      IO.eprintln "lratcatch-export: no cubes found in iCNF file"
+      return 1
+    IO.FS.createDirAll outDir
+    let mut i := 1
+    for c in cubes do
+      let leaf := LRATCatcher.Cube.leafCNF c base
+      unless LRATCatcher.dimacsRoundTrip leaf do
+        IO.eprintln s!"lratcatch-export: round-trip self-check failed for leaf {i}"
+        return 1
+      writeOutput s!"{outDir}/leaf{i}.cnf" leaf.dimacs
+      i := i + 1
+    let negcubes := LRATCatcher.negCubesCNF cubes
+    unless LRATCatcher.dimacsRoundTrip negcubes do
+      IO.eprintln "lratcatch-export: round-trip self-check failed for negcubes.cnf"
+      return 1
+    writeOutput s!"{outDir}/negcubes.cnf" negcubes.dimacs
+    IO.println s!"lratcatch-export: wrote {cubes.length} leaf CNFs and negcubes.cnf to {outDir}"
+    return 0
+  | _ =>
+    IO.eprintln "usage: lratcatch-export base.cnf cubes.icnf outdir"
+    return 1

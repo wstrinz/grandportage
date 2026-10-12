@@ -1,0 +1,98 @@
+claim C9-229-q --matroid C9-229 --kind NONEMPTY --outside "2,3,5,7"
+submit C9-229-q receipts/f2/C9-229-point-q.json
+claim C9-229-e2 --matroid C9-229 --kind EMPTY --char 2
+submit C9-229-e2 receipts/f2/C9-229-empty-mod2.json
+claim C9-229-x3 --matroid C9-229 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C9-229-x3 receipts/f2/C9-229-map-F3^2.json
+claim C9-229-x5 --matroid C9-229 --kind NOT_IN_IDEAL --target 1 --char 5
+submit C9-229-x5 receipts/f2/C9-229-map-F5^2.json
+claim C9-229-p7 --matroid C9-229 --kind NONEMPTY --char 7
+submit C9-229-p7 receipts/f2/C9-229-point-f7.json
+claim C9-241-q --matroid C9-241 --kind NONEMPTY --outside "2,3"
+submit C9-241-q receipts/f2/C9-241-point-q.json
+claim C9-241-e2 --matroid C9-241 --kind EMPTY --char 2
+submit C9-241-e2 receipts/f2/C9-241-empty-mod2.json
+claim C9-241-x3 --matroid C9-241 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C9-241-x3 receipts/f2/C9-241-map-F3^2.json
+claim C9-271-q --matroid C9-271 --kind NONEMPTY --outside "2,3,5"
+submit C9-271-q receipts/f2/C9-271-point-q.json
+claim C9-271-e2 --matroid C9-271 --kind EMPTY --char 2
+submit C9-271-e2 receipts/f2/C9-271-empty-mod2.json
+claim C9-271-x3 --matroid C9-271 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C9-271-x3 receipts/f2/C9-271-map-F3^2.json
+claim C9-271-x5 --matroid C9-271 --kind NOT_IN_IDEAL --target 1 --char 5
+submit C9-271-x5 receipts/f2/C9-271-map-F5^2.json
+claim C9-325-q --matroid C9-325 --kind NONEMPTY --outside "2,3"
+submit C9-325-q receipts/f2/C9-325-point-q.json
+claim C9-325-e2 --matroid C9-325 --kind EMPTY --char 2
+submit C9-325-e2 receipts/f2/C9-325-empty-mod2.json
+claim C9-325-x3 --matroid C9-325 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C9-325-x3 receipts/f2/C9-325-map-F3^2.json
+claim C9-194-q --matroid C9-194 --kind NONEMPTY --outside "2,3,5"
+submit C9-194-q receipts/f2/C9-194-point-q.json
+claim C9-194-e2 --matroid C9-194 --kind EMPTY --char 2
+submit C9-194-e2 receipts/f2/C9-194-empty-mod2.json
+claim C9-194-x3 --matroid C9-194 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C9-194-x3 receipts/f2/C9-194-map-F3^2.json
+claim C9-194-x5 --matroid C9-194 --kind NOT_IN_IDEAL --target 1 --char 5
+submit C9-194-x5 receipts/f2/C9-194-map-F5^2.json
+claim C9-236-q --matroid C9-236 --kind NONEMPTY --outside "2,3"
+submit C9-236-q receipts/f2/C9-236-point-q.json
+claim C9-236-e2 --matroid C9-236 --kind EMPTY --char 2
+submit C9-236-e2 receipts/f2/C9-236-empty-mod2.json
+claim C9-236-x3 --matroid C9-236 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C9-236-x3 receipts/f2/C9-236-map-F3^2.json
+claim C9-266-q --matroid C9-266 --kind NONEMPTY --outside "2,3,5"
+submit C9-266-q receipts/f2/C9-266-point-q.json
+claim C9-266-e2 --matroid C9-266 --kind EMPTY --char 2
+submit C9-266-e2 receipts/f2/C9-266-empty-mod2.json
+claim C9-266-x3 --matroid C9-266 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C9-266-x3 receipts/f2/C9-266-map-F3^2.json
+claim C9-266-x5 --matroid C9-266 --kind NOT_IN_IDEAL --target 1 --char 5
+submit C9-266-x5 receipts/f2/C9-266-map-F5^2.json
+claim C9-316-q --matroid C9-316 --kind NONEMPTY --outside "2,3"
+submit C9-316-q receipts/f2/C9-316-point-q.json
+claim C9-316-e2 --matroid C9-316 --kind EMPTY --char 2
+submit C9-316-e2 receipts/f2/C9-316-empty-mod2.json
+claim C9-316-e3 --matroid C9-316 --kind EMPTY --char 3
+submit C9-316-e3 receipts/f2/C9-316-empty-mod3.json
+claim C9-373-q --matroid C9-373 --kind NONEMPTY --outside "2,3,5"
+submit C9-373-q receipts/f2/C9-373-point-q.json
+claim C9-373-e2 --matroid C9-373 --kind EMPTY --char 2
+submit C9-373-e2 receipts/f2/C9-373-empty-mod2.json
+claim C9-373-x3 --matroid C9-373 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C9-373-x3 receipts/f2/C9-373-map-F3^2.json
+claim C9-373-x5 --matroid C9-373 --kind NOT_IN_IDEAL --target 1 --char 5
+submit C9-373-x5 receipts/f2/C9-373-map-F5^2.json
+claim C9-327-q --matroid C9-327 --kind NONEMPTY --outside "2,3"
+submit C9-327-q receipts/f2/C9-327-point-q.json
+claim C9-327-e2 --matroid C9-327 --kind EMPTY --char 2
+submit C9-327-e2 receipts/f2/C9-327-empty-mod2.json
+claim C9-327-x3 --matroid C9-327 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C9-327-x3 receipts/f2/C9-327-map-F3^2.json
+claim C9-351-q --matroid C9-351 --kind NONEMPTY --outside "2,3,5"
+submit C9-351-q receipts/f2/C9-351-point-q.json
+claim C9-351-e2 --matroid C9-351 --kind EMPTY --char 2
+submit C9-351-e2 receipts/f2/C9-351-empty-mod2.json
+claim C9-351-x3 --matroid C9-351 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C9-351-x3 receipts/f2/C9-351-map-F3^2.json
+claim C9-351-x5 --matroid C9-351 --kind NOT_IN_IDEAL --target 1 --char 5
+submit C9-351-x5 receipts/f2/C9-351-map-F5^2.json
+claim C9-371-q --matroid C9-371 --kind NONEMPTY --outside "2,3"
+submit C9-371-q receipts/f2/C9-371-point-q.json
+claim C9-371-e2 --matroid C9-371 --kind EMPTY --char 2
+submit C9-371-e2 receipts/f2/C9-371-empty-mod2.json
+claim C9-371-x3 --matroid C9-371 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C9-371-x3 receipts/f2/C9-371-map-F3^2.json
+claim C9-322-q --matroid C9-322 --kind NONEMPTY --outside "2,3"
+submit C9-322-q receipts/f2/C9-322-point-q.json
+claim C9-322-e2 --matroid C9-322 --kind EMPTY --char 2
+submit C9-322-e2 receipts/f2/C9-322-empty-mod2.json
+claim C9-322-x3 --matroid C9-322 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C9-322-x3 receipts/f2/C9-322-map-F3^2.json
+claim C9-365-q --matroid C9-365 --kind NONEMPTY --outside "2,3"
+submit C9-365-q receipts/f2/C9-365-point-q.json
+claim C9-365-e2 --matroid C9-365 --kind EMPTY --char 2
+submit C9-365-e2 receipts/f2/C9-365-empty-mod2.json
+claim C9-365-e3 --matroid C9-365 --kind EMPTY --char 3
+submit C9-365-e3 receipts/f2/C9-365-empty-mod3.json

@@ -1,0 +1,76 @@
+{
+ "rule": {
+  "type": "map",
+  "map": {
+   "x5": "a",
+   "y5": "a + 1",
+   "z5": "1"
+  },
+  "eq_certificates": [],
+  "guard_certificates": [
+   {
+    "type": "ideal",
+    "cofactors": [
+     "0",
+     "1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 2
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "1",
+     "a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 2
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "1",
+     "a + 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 2
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "1",
+     "a + 1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 2
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "1",
+     "a"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 2
+   },
+   {
+    "type": "ideal",
+    "cofactors": [
+     "0",
+     "1"
+    ],
+    "m": 0,
+    "k": 0,
+    "characteristic": 2
+   }
+  ]
+ },
+ "premises": [
+  "src-F2^2"
+ ]
+}

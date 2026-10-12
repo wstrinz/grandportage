@@ -130,6 +130,65 @@ theorem mem_denominatorPrimes_flatMap {ps qs : List Sparse} (hsub : ∀ p ∈ ps
   obtain ⟨p, hp, hc⟩ := List.mem_flatMap.mp hc
   exact mem_denominatorPrimes_iff.mpr ⟨c, List.mem_flatMap.mpr ⟨p, hsub p hp, hc⟩, h⟩
 
+/-! ## Guard selection and nonzero casts (3P certificates) -/
+
+theorem pick_sublist : ∀ (gs : List Sparse) (mask : List Bool), (pick gs mask).Sublist gs
+  | [], _ => by simp [pick]
+  | _ :: _, [] => by simp [pick]
+  | g :: gs, true :: bs => by simp only [pick]; exact (pick_sublist gs bs).cons_cons g
+  | _ :: gs, false :: bs => by simp only [pick]; exact (pick_sublist gs bs).cons _
+
+/-- Fewer guards, larger locus. -/
+theorem locus_select {s : Stmt} {mask : List Bool} {x : Fin s.vars.length → K}
+    (hx : Locus (K := K) s x) : Locus (K := K) (s.selectGuards mask) x := by
+  unfold Locus at hx ⊢
+  exact ⟨hx.1, fun g hg => hx.2 g ((pick_sublist s.guards mask).subset hg)⟩
+
+/-- The selected guards' product divides the full guard product. -/
+theorem guardProd_dvd (s : Stmt) (mask : List Bool) :
+    ((pick s.guards mask).map fun g => toK (K := K) (meaning s.vars.length g)).prod ∣
+      (s.guards.map fun g => toK (K := K) (meaning s.vars.length g)).prod :=
+  ((pick_sublist s.guards mask).map _).prod_dvd_prod
+
+/-- A certificate for the selected system is a certificate for the whole system. -/
+theorem holds_of_select {s : Stmt} {mask : List Bool} (H : Holds K (s.selectGuards mask))
+    (hk : s.kind = .empty ∨ (∃ h, s.kind = .vanishesOn h) ∨ ∃ h, s.kind = .inIdeal h) : Holds K s := by
+  have hk' : (s.selectGuards mask).kind = s.kind := rfl
+  unfold Holds at H ⊢
+  rw [hk'] at H
+  rcases hk with hk | ⟨h, hk⟩ | ⟨h, hk⟩ <;> rw [hk] at H ⊢
+  · exact fun x hx => H x (locus_select hx)
+  · exact fun x hx => H x (locus_select hx)
+  · obtain ⟨k, hk⟩ := H
+    refine ⟨k, ?_⟩
+    obtain ⟨c, hc⟩ := pow_dvd_pow_of_dvd (guardProd_dvd (K := K) s mask) k
+    rw [hc, ← mul_assoc]
+    exact Ideal.mul_mem_right _ _ hk
+
+/-- A rational whose numerator and denominator primes the field avoids casts to a nonzero element. -/
+theorem cast_ne_zero_of_avoids {c : Rat} (hc : c ≠ 0)
+    (h : Avoids K (union (primeFactors c.num.natAbs) (primeFactors c.den))) : (c : K) ≠ 0 := by
+  rw [Rat.cast_def]
+  refine div_ne_zero (intCast_ne_zero_of_primes (Rat.num_ne_zero.mpr hc) fun p hp hd => ?_)
+    (den_ne_zero_of_primes fun p hp hd => ?_)
+  · exact h.ne hp (mem_union_left (mem_primeFactors hp (Int.natAbs_pos.mpr (Rat.num_ne_zero.mpr hc)) hd))
+  · exact h.ne hp (mem_union_right (mem_primeFactors hp c.den_pos hd))
+
+/-- A rational that is a unit mod `ringChar K` casts to a nonzero element. -/
+theorem cast_ne_zero_of_unitMod {c : Rat} {p : ℕ} (hK : ringChar K = p) (hu : unitMod p c = true) :
+    (c : K) ≠ 0 := by
+  simp only [unitMod, Bool.and_eq_true, bne_iff_ne, ne_eq] at hu
+  rw [Rat.cast_def]
+  refine div_ne_zero ?_ ?_
+  · intro hn
+    have := (CharP.intCast_eq_zero_iff K (ringChar K) c.num).mp hn
+    rw [hK] at this
+    exact hu.2 (Int.emod_eq_zero_of_dvd this)
+  · intro hd
+    have := (ringChar.spec K c.den).mp hd
+    rw [hK] at this
+    exact hu.1 (Nat.mod_eq_zero_of_dvd this)
+
 /-! ## Reach soundness -/
 
 theorem reach_ideal_spec {s : Stmt} {field : Field} {qs : List Sparse}
@@ -258,7 +317,24 @@ theorem reach_empty_ideal {s : Stmt} {c : Cert} {r : Scope} (hs : s.kind = .empt
   cases c with
   | point f vs => simp [reach, reachBase, hs] at hr
   | proper f a b => simp [reach, reachBase, hs] at hr
+  | properCoeff f mono => simp [reach, reachBase, hs] at hr
   | cover t => simp [reach, hs] at hr
+  | idealSel mask field qs m k =>
+    have h' : reach (s.selectGuards mask) (.ideal field qs m k) = some r := by simpa only [reach] using hr
+    obtain ⟨h, ht, I⟩ := reach_ideal_identity h' hK
+    simp only [idealTarget, Stmt.selectGuards, hs] at ht
+    split_ifs at ht with hm
+    simp only [beq_iff_eq] at hm
+    subst hm
+    have I' : (List.zipWith (· * ·) (qs.map fun q => toK (K := K) (meaning s.vars.length q))
+        (s.eqs.map fun e => toK (K := K) (meaning s.vars.length e))).sum =
+        toK (meaning s.vars.length h) ^ 0 *
+          ((pick s.guards mask).map fun g => toK (K := K) (meaning s.vars.length g)).prod ^ k := I
+    rw [pow_zero, one_mul] at I'
+    refine ⟨k, ?_⟩
+    obtain ⟨c, hc⟩ := pow_dvd_pow_of_dvd (guardProd_dvd (K := K) s mask) k
+    rw [hc, ← I']
+    exact Ideal.mul_mem_right _ _ (zipWith_sum_mem_span _ _)
   | ideal field qs m k =>
     obtain ⟨h, ht, I⟩ := reach_ideal_identity hr hK
     simp only [idealTarget, hs] at ht
@@ -282,7 +358,23 @@ theorem reach_vanishes_ideal {s : Stmt} {c : Cert} {r : Scope} {h : Sparse}
   cases c with
   | point f vs => simp [reach, reachBase, hs] at hr
   | proper f a b => simp [reach, reachBase, hs] at hr
+  | properCoeff f mono => simp [reach, reachBase, hs] at hr
   | cover t => simp [reach, hs] at hr
+  | idealSel mask field qs m k =>
+    have h' : reach (s.selectGuards mask) (.ideal field qs m k) = some r := by simpa only [reach] using hr
+    obtain ⟨h'', ht, I⟩ := reach_ideal_identity h' hK
+    simp only [idealTarget, Stmt.selectGuards, hs] at ht
+    split_ifs at ht
+    simp only [Option.some.injEq] at ht
+    subst ht
+    have I' : (List.zipWith (· * ·) (qs.map fun q => toK (K := K) (meaning s.vars.length q))
+        (s.eqs.map fun e => toK (K := K) (meaning s.vars.length e))).sum =
+        toK (meaning s.vars.length h) ^ m *
+          ((pick s.guards mask).map fun g => toK (K := K) (meaning s.vars.length g)).prod ^ k := I
+    refine ⟨m, k, ?_⟩
+    obtain ⟨c, hc⟩ := pow_dvd_pow_of_dvd (guardProd_dvd (K := K) s mask) k
+    rw [hc, ← mul_assoc, ← I']
+    exact Ideal.mul_mem_right _ _ (zipWith_sum_mem_span _ _)
   | ideal field qs m k =>
     obtain ⟨h', ht, I⟩ := reach_ideal_identity hr hK
     simp only [idealTarget, hs] at ht
@@ -431,6 +523,66 @@ theorem reachBase_proper_spec {s : Stmt} {field : Field} {a b : List Rat}
         rw [hc] at this
         exact hu.1 (Nat.mod_eq_zero_of_dvd this)
   · simp at hr
+
+theorem reach_properCoeff_spec {s : Stmt} {field : Field} {mono : List ℕ} {r : Scope}
+    (hr : reach s (.properCoeff field mono) = some r) (hK : r.mem K) :
+    s.kind = .notInIdeal (oneP s.vars.length) ∧ s.guards = [] ∧ mono.length = s.vars.length ∧
+      (∃ x ∈ mono, x ≠ 0) ∧ ∃ e E, s.eqs = [e] ∧ toHexQ s.vars.length e = some E ∧
+        ((coeffAt s.vars.length E mono : Rat) : K) ≠ 0 := by
+  simp only [reach, reachBase, Cert.primes] at hr
+  split_ifs at hr with h1
+  simp only [Bool.or_eq_true, bne_iff_ne, ne_eq, not_or, not_not, List.all_eq_true, beq_iff_eq,
+    not_forall] at h1
+  obtain ⟨⟨⟨hk, hg⟩, hlen⟩, ⟨x, hx, hx0⟩⟩ := h1
+  refine ⟨hk, by simpa using hg, hlen, ⟨x, hx, hx0⟩, ?_⟩
+  split at hr
+  · rename_i e he
+    cases hE : toHexQ s.vars.length e with
+    | none => simp [hE] at hr
+    | some E =>
+      refine ⟨e, E, he, hE, ?_⟩
+      simp only [hE, Option.bind_eq_bind, Option.bind_some] at hr
+      cases field with
+      | rat =>
+        simp only at hr
+        split_ifs at hr with hc
+        simp only [Option.some.injEq] at hr
+        subst hr
+        simp only [bne_iff_ne, ne_eq] at hc
+        exact cast_ne_zero_of_avoids hc ((mem_outside hK).mono fun x hx => mem_union_right hx)
+      | prime p =>
+        simp at hr
+        obtain ⟨-, hu, rfl⟩ := hr
+        exact cast_ne_zero_of_unitMod (mem_only hK) hu
+  · simp at hr
+
+/-- A `proper_coefficient` certificate: the equation has a nonzero coefficient at a non-constant
+monomial in `K`, so it is not constant, not a unit, and `(m)` is proper: NOT_IN_IDEAL(1). -/
+theorem reach_properCoeff_sound {s : Stmt} {field : Field} {mono : List ℕ} {r : Scope}
+    (hr : reach s (.properCoeff field mono) = some r) (hK : r.mem K) : Holds K s := by
+  obtain ⟨hk, hg, hlen, ⟨x, hx, hx0⟩, e, E, he, hE, hne⟩ := reach_properCoeff_spec hr hK
+  obtain ⟨v, eqs, g, kd⟩ := s
+  simp only at hk hg hlen he hE hne
+  subst hk hg he
+  unfold Holds
+  rintro ⟨k, hk'⟩
+  simp only [List.map_nil, List.prod_nil, one_pow, mul_one, GPBinding.Binder.toK_meaning_one,
+    List.map_cons, List.mem_singleton, Set.ofPred_eq_eq_singleton] at hk'
+  have hu : IsUnit (toK (K := K) (meaning v.length e)) :=
+    isUnit_of_dvd_one (Ideal.mem_span_singleton.mp hk')
+  obtain ⟨c, -, hc⟩ := MvPolynomial.isUnit_iff_eq_C_of_isReduced.mp hu
+  let M : Hex.Mono v.length := ⟨mono.toArray, by simpa using hlen⟩
+  have hM : monoEquiv M ≠ 0 := by
+    intro h0
+    obtain ⟨i, hi, rfl⟩ := List.getElem_of_mem hx
+    have := congrArg (fun d => d ⟨i, hlen ▸ hi⟩) h0
+    simp only [monoEquiv_apply, Finsupp.coe_zero, Pi.zero_apply] at this
+    exact hx0 (by simpa [M] using this)
+  have hcoeff := congrArg (coeff (monoEquiv M)) hc
+  rw [coeff_toK, meaning_of hE, coeff_toMvPolynomial, coeff_C] at hcoeff
+  rw [ite_eq_right_of_eq_false _ _ (eq_false fun h => hM h.symm)] at hcoeff
+  simp only [coeffAt, hlen, ↓reduceDIte] at hne
+  exact hne hcoeff
 
 theorem pointFn_good {vs : List Rat} {n : ℕ} {bad : List ℕ} (havoid : Avoids K bad)
     (hsub : ∀ x ∈ denominatorPrimes vs, x ∈ bad) : ∀ i, pointFn vs n i ∈ Good K := by
@@ -686,6 +838,18 @@ theorem reach_sound {s : Stmt} {c : Cert} {r : Scope}
     (hr : reach s c = some r) (hK : r.mem K) : Holds K s := by
   cases c with
   | ideal field qs m k => exact reach_ideal_sound hr hK
+  | idealSel mask field qs m k =>
+    have h' : reach (s.selectGuards mask) (.ideal field qs m k) = some r := by simpa only [reach] using hr
+    refine holds_of_select (reach_ideal_sound h' hK) ?_
+    have ht := h'
+    simp only [reach, reachBase] at ht
+    split_ifs at ht
+    cases hk : s.kind with
+    | empty => exact Or.inl rfl
+    | vanishesOn h => exact Or.inr (Or.inl ⟨h, rfl⟩)
+    | inIdeal h => exact Or.inr (Or.inr ⟨h, rfl⟩)
+    | nonempty | notInIdeal _ | cover _ => simp [idealTarget, Stmt.selectGuards, hk] at ht
+  | properCoeff field mono => exact reach_properCoeff_sound hr hK
   | point field vs => exact reach_point_sound hr hK
   | proper field a b => exact reach_proper_sound hr hK
   | cover t => exact reach_cover_sound hr hK

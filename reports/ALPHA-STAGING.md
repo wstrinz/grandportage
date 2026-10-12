@@ -1,6 +1,8 @@
 # v0.50.0-alpha staging
 
-2026-10-03. Prepared per [PUBLIC-INTEGRATION-PLAN.md](PUBLIC-INTEGRATION-PLAN.md). Will's decisions: release gate G3a, corpus and source-pinned reports public, label `v0.50.0-alpha`. **Nothing has been pushed to the public `wstrinz/grandportage`; publication needs Will's explicit approval.** Will, 2026-10-03: hold in the workspace; removing all local machine paths, so that everything is CI-capable, is a prerequisite for moving work to the public repository.
+2026-10-03. Prepared per [PUBLIC-INTEGRATION-PLAN.md](PUBLIC-INTEGRATION-PLAN.md). Will's decisions: release gate G3a, corpus and source-pinned reports public, label `v0.50.0-alpha`. Will, 2026-10-03: hold in the workspace; removing all local machine paths, so that everything is CI-capable, is a prerequisite for moving work to the public repository.
+
+**Published 2026-10-04** (post-G3a decision 1). Public master `d2b1826` carries the tag `v0.50.0-alpha`, and the workspace tag is on `9e4f05e`. [ALPHA-PUBLICATION.json](ALPHA-PUBLICATION.json) is the receipt. Public CI: everything passes except four `gp50` suites, which replay against the private historical oracle (`oracle/history/checkout`). A fix that skips them in public snapshots only is prepared but not pushed. The GitHub release is a draft. **Audit lesson:** run the 0.50 suite inside the materialized snapshot, not only the v0.37 selection.
 
 ## Prerequisites
 

@@ -1,0 +1,206 @@
+name: comparator
+
+# Track E (docs/TRACK-E-EMITTER-DESIGN.md): stock Comparator on every emitted 3P challenge.
+# Manual dispatch only; it never runs on push or pull requests. The challenges, solutions and
+# configs are emitted here from the committed ledger (tools/comparator-emit.py) and are not
+# committed; the committed manifest (campaigns/3p-matroids/warrants/comparator-MANIFEST.json)
+# must match the emission byte for byte. Only challenges are built outside the sandbox: Comparator
+# builds each solution itself under landrun inside `systemd-run --user`, as its README requires.
+
+on:
+  workflow_dispatch:
+    inputs:
+      groups:
+        description: "Parallel jobs (the shards are dealt to them round-robin)"
+        default: "6"
+      shards:
+        description: "Comma-separated shard names, or 'all'"
+        default: "all"
+
+permissions:
+  contents: read
+
+env:
+  COMPARATOR_REPO: https://github.com/leanprover/comparator.git
+  COMPARATOR_REV: 2312244ac716564a61cc0bf4e107d9abf1757a61
+  LEAN4EXPORT_REPO: https://github.com/leanprover/lean4export.git
+  LEAN4EXPORT_REV: cacf989bd75f608700820f6afc595f32e7a99a4d  # tag v4.34.0-rc2
+  LANDRUN_REPO: https://github.com/Zouuup/landrun.git
+  LANDRUN_REV: 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4  # main, as Comparator's README asks
+
+jobs:
+  emit:
+    runs-on: ubuntu-24.04
+    outputs:
+      groups: ${{ steps.plan.outputs.groups }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Emit challenges, solutions and configs from the committed ledger
+        run: python tools/comparator-emit.py --campaign campaigns/3p-matroids --out emitted
+      - name: The committed manifest is current
+        run: cmp emitted/MANIFEST.json campaigns/3p-matroids/warrants/comparator-MANIFEST.json
+      - name: Plan shard groups
+        id: plan
+        env:
+          N_GROUPS: ${{ inputs.groups }}
+          SHARD_PICK: ${{ inputs.shards }}
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os
+          m = json.load(open("emitted/MANIFEST.json", encoding="utf-8"))
+          names = [s["shard"] for s in m["shards"]]
+          want = os.environ["SHARD_PICK"].strip()
+          if want != "all":
+              pick = [w.strip() for w in want.split(",") if w.strip()]
+              unknown = sorted(set(pick) - set(names))
+              assert not unknown, "unknown shards: %s" % unknown
+              names = [n for n in names if n in pick]
+          g = max(1, min(int(os.environ["N_GROUPS"]), len(names)))
+          print("groups=" + json.dumps([" ".join(names[i::g]) for i in range(g)]))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: comparator-MANIFEST
+          path: emitted/MANIFEST.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: emitted
+          path: emitted/
+
+  tools:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: tools-bin
+          key: comparator-tools-${{ env.COMPARATOR_REV }}-${{ env.LEAN4EXPORT_REV }}-${{ env.LANDRUN_REV }}
+      - name: Install elan
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - uses: actions/setup-go@v5
+        if: steps.cache.outputs.cache-hit != 'true'
+        with:
+          go-version: "1.24"
+      - name: Build the pinned Comparator, lean4export and landrun
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p tools-bin src
+          for t in COMPARATOR LEAN4EXPORT LANDRUN; do
+            repo=${t}_REPO; rev=${t}_REV; dir=src/${t,,}
+            git clone --quiet "${!repo}" "$dir"
+            git -C "$dir" checkout --quiet "${!rev}"
+          done
+          (cd src/comparator && lake build comparator) && cp src/comparator/.lake/build/bin/comparator tools-bin/
+          (cd src/lean4export && lake build lean4export) && cp src/lean4export/.lake/build/bin/lean4export tools-bin/
+          (cd src/landrun && go build -o ../../tools-bin/landrun cmd/landrun/main.go)
+          ls -l tools-bin
+      - uses: actions/upload-artifact@v4
+        with:
+          name: comparator-tools
+          path: tools-bin/
+
+  check:
+    needs: [emit, tools]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix:
+        shards: ${{ fromJSON(needs.emit.outputs.groups) }}
+    steps:
+      - name: Free runner disk (private-repo runners have a smaller disk)
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost || true
+          df -h /
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: emitted
+          path: emitted
+      - uses: actions/download-artifact@v4
+        with:
+          name: comparator-tools
+          path: tools-bin
+      - name: Install elan and GNU time; add swap (a shard peaks near 7 GB)
+        run: |
+          chmod +x tools-bin/*
+          echo "$GITHUB_WORKSPACE/tools-bin" >> "$GITHUB_PATH"
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          sudo apt-get install -y --no-install-recommends time
+          sudo fallocate -l 8G /gp-swapfile && sudo chmod 600 /gp-swapfile && sudo mkswap /gp-swapfile && sudo swapon /gp-swapfile
+          free -g
+      - name: A small Lean project pinned to the binding's Mathlib, with the Mathlib cache
+        run: |
+          mkdir -p cmp
+          cp binding/lean-toolchain cmp/
+          MATHLIB_REV=$(python3 -c 'import json; print(next(p["rev"] for p in json.load(open("binding/lake-manifest.json"))["packages"] if p["name"] == "mathlib"))')
+          cat > cmp/lakefile.toml <<EOF
+          name = "gp_comparator"
+
+          [[require]]
+          name = "mathlib"
+          git = "https://github.com/leanprover-community/mathlib4.git"
+          rev = "$MATHLIB_REV"
+
+          [[lean_lib]]
+          name = "GPComparator"
+          globs = ["GPComparator.+"]
+          EOF
+          cd cmp
+          lake update
+          lake exe cache get
+          python3 - <<'PY'
+          import json
+          b = {p["name"]: p.get("rev") for p in json.load(open("../binding/lake-manifest.json"))["packages"]}
+          c = {p["name"]: p.get("rev") for p in json.load(open("lake-manifest.json"))["packages"]}
+          bad = {k: (v, b.get(k)) for k, v in c.items() if b.get(k) != v}
+          assert not bad, "pins differ from the binding: %s" % bad
+          print("every package matches the binding's pin:", sorted(c))
+          PY
+          cp -r ../emitted/GPComparator ../emitted/comparator .
+      - name: Enable the systemd user session
+        run: |
+          sudo loginctl enable-linger "$USER"
+          echo "XDG_RUNTIME_DIR=/run/user/$(id -u)" >> "$GITHUB_ENV"
+          sleep 2
+      - name: Comparator on each shard (one at a time)
+        working-directory: cmp
+        env:
+          SHARDS: ${{ matrix.shards }}
+        run: |
+          set +e
+          mkdir -p ../logs
+          fail=0
+          echo "| shard | claims | challenge build s | Comparator s | peak RSS MB | result |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| --- | --- | --- | --- | --- | --- |" >> "$GITHUB_STEP_SUMMARY"
+          secs() { awk -F': ' '/Elapsed \(wall/{split($2,t,":"); if (length(t)==3) print t[1]*3600+t[2]*60+t[3]; else print t[1]*60+t[2]}' "$1"; }
+          rss() { awk -F': ' '/Maximum resident/{print int($2/1024)}' "$1"; }
+          for S in $SHARDS; do
+            cfg=comparator/${S,,}.json
+            n=$(python3 -c 'import json,sys; print(len(json.load(open(sys.argv[1]))["theorem_names"]))' "$cfg")
+            /usr/bin/time -v lake build "GPComparator.$S.Challenge" > "../logs/chal-$S.log" 2>&1
+            ce=$?
+            if [ $ce -ne 0 ]; then
+              fail=1; echo "| $S | $n | failed | | | challenge build failed |" >> "$GITHUB_STEP_SUMMARY"; continue
+            fi
+            systemd-run --property=RestrictAddressFamilies=~AF_UNIX --user --wait --pipe -q \
+              -E PATH="$PATH" -E HOME="$HOME" --working-directory "$PWD" \
+              -- bash -c "/usr/bin/time -v lake env comparator $cfg" > "../logs/cmp-$S.log" 2>&1
+            e=$?
+            if [ $e -eq 0 ] && grep -q "Your solution is okay" "../logs/cmp-$S.log"; then r=passed; else r="FAILED (exit $e)"; fail=1; fi
+            echo "| $S | $n | $(secs ../logs/chal-$S.log) | $(secs ../logs/cmp-$S.log) | $(rss ../logs/cmp-$S.log) | $r |" >> "$GITHUB_STEP_SUMMARY"
+            echo "$S: $r"
+          done
+          exit $fail
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: comparator-logs-${{ strategy.job-index }}
+          path: logs/

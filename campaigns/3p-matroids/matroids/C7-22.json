@@ -1,0 +1,66 @@
+{
+ "name": "C7-22",
+ "elements": [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7"
+ ],
+ "lines": [
+  [
+   "1",
+   "4",
+   "5"
+  ],
+  [
+   "1",
+   "6",
+   "7"
+  ],
+  [
+   "2",
+   "4",
+   "6"
+  ],
+  [
+   "2",
+   "5",
+   "7"
+  ],
+  [
+   "3",
+   "4",
+   "7"
+  ],
+  [
+   "3",
+   "5",
+   "6"
+  ]
+ ],
+ "source": {
+  "generator": "campaigns/3p-matroids/catalog/generate.py",
+  "generator_sha256": "76206a403bf56dda88b251cd97f97060c21d2d2ebdf1a3d73765d29accae5bcf",
+  "catalog_index": [
+   7,
+   22
+  ],
+  "trust": "trusted generator",
+  "premise": "catalog completeness OPEN (CATALOG-COMPLETE)",
+  "isomorphic_to": {
+   "matroid": "F7-",
+   "map": {
+    "1": "4",
+    "2": "5",
+    "3": "7",
+    "4": "1",
+    "5": "2",
+    "6": "6",
+    "7": "3"
+   }
+  }
+ }
+}

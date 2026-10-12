@@ -1,0 +1,49 @@
+{
+ "name": "C7-20",
+ "elements": [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7"
+ ],
+ "lines": [
+  [
+   "1",
+   "2",
+   "3"
+  ],
+  [
+   "1",
+   "4",
+   "7"
+  ],
+  [
+   "2",
+   "5",
+   "7"
+  ],
+  [
+   "3",
+   "6",
+   "7"
+  ],
+  [
+   "4",
+   "5",
+   "6"
+  ]
+ ],
+ "source": {
+  "generator": "campaigns/3p-matroids/catalog/generate.py",
+  "generator_sha256": "76206a403bf56dda88b251cd97f97060c21d2d2ebdf1a3d73765d29accae5bcf",
+  "catalog_index": [
+   7,
+   20
+  ],
+  "trust": "trusted generator",
+  "premise": "catalog completeness OPEN (CATALOG-COMPLETE)"
+ }
+}

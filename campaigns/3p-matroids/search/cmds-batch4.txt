@@ -1,0 +1,32 @@
+claim C8-54-q --matroid C8-54 --kind NONEMPTY --outside "2,3"
+submit C8-54-q receipts/f2/C8-54-point-q.json
+claim C8-54-e2 --matroid C8-54 --kind EMPTY --char 2
+submit C8-54-e2 receipts/f2/C8-54-empty-mod2.json
+claim C8-54-x3 --matroid C8-54 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C8-54-x3 receipts/f2/C8-54-map-F3^2.json
+claim C8-61-q --matroid C8-61 --kind NONEMPTY --outside "2,3,5"
+submit C8-61-q receipts/f2/C8-61-point-q.json
+claim C8-61-e2 --matroid C8-61 --kind EMPTY --char 2
+submit C8-61-e2 receipts/f2/C8-61-empty-mod2.json
+claim C8-61-x3 --matroid C8-61 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C8-61-x3 receipts/f2/C8-61-map-F3^2.json
+claim C8-61-x5 --matroid C8-61 --kind NOT_IN_IDEAL --target 1 --char 5
+submit C8-61-x5 receipts/f2/C8-61-map-F5^2.json
+claim C8-62-e --matroid C8-62 --kind EMPTY --outside "2"
+submit C8-62-e receipts/f2/C8-62-empty-q.json
+claim C8-62-x2 --matroid C8-62 --kind NOT_IN_IDEAL --target 1 --char 2
+submit C8-62-x2 receipts/f2/C8-62-map-F2^2.json
+claim C8-63-q --matroid C8-63 --kind NONEMPTY --outside "2"
+submit C8-63-q receipts/f2/C8-63-point-q.json
+claim C8-63-e2 --matroid C8-63 --kind EMPTY --char 2
+submit C8-63-e2 receipts/f2/C8-63-empty-mod2.json
+claim C8-65-q --matroid C8-65 --kind NONEMPTY --outside "2,3"
+submit C8-65-q receipts/f2/C8-65-point-q.json
+claim C8-65-e2 --matroid C8-65 --kind EMPTY --char 2
+submit C8-65-e2 receipts/f2/C8-65-empty-mod2.json
+claim C8-65-x3 --matroid C8-65 --kind NOT_IN_IDEAL --target 1 --char 3
+submit C8-65-x3 receipts/f2/C8-65-map-F3^2.json
+claim C8-67-e --matroid C8-67 --kind EMPTY --outside "2"
+submit C8-67-e receipts/f2/C8-67-empty-q.json
+claim C8-67-x2 --matroid C8-67 --kind NOT_IN_IDEAL --target 1 --char 2
+submit C8-67-x2 receipts/f2/C8-67-map-F2^3.json

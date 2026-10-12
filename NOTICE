@@ -1,0 +1,24 @@
+Grand Portage
+Copyright 2026 Will Strinz
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This repository includes material from third parties:
+
+1. formal-conjectures (https://github.com/google-deepmind/formal-conjectures),
+   Apache License, Version 2.0, Copyright Google DeepMind and contributors.
+   The definitions `unitDistNum`, `unitDistanceCounts` and `maxUnitDistances`, and the
+   notation `ℝ²`, are copied verbatim (commit b3f26411f06b0b0ec1923da80b62585f23288d39,
+   files FormalConjecturesForMathlib/Geometry/Metric.lean, FormalConjecturesForMathlib/Geometry/2d.lean
+   and FormalConjectures/ErdosProblems/90.lean) into:
+     - ropes/r1a/UDGRope/Defs.lean
+     - binding/GPBinding/UDG/Rope/UDGRope/Defs.lean
+     - the Comparator challenge and control files under ropes/r1a/ and
+       binding/GPBinding/UDG/Comparator/ that restate them.
+   Each copy cites its source and commit.
+
+2. LRAT-Catcher, vendored under vendor/lrat-catcher/, MIT License,
+   Copyright (c) 2026 Stefan Szeider (see vendor/lrat-catcher/LICENSE).
+
+3. Published mathematical data is cited by source and pinned by SHA-256 where it is used.
+   This includes graph lists from arXiv ancillary files and public research repositories.

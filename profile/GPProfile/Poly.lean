@@ -1,4 +1,5 @@
 import HexMvPoly
+import GPProfile.PolyFast
 
 /-!
 Canonical sparse polynomials (the 3a wire/AST form, post-G2 §3.1) and their conversion to
@@ -177,5 +178,48 @@ def parse (vars : List String) (text : String) (params : List (String × Nat) :=
   let (p, rest) ← expr vars.length vars (2 * toks.length + 2) toks
   if !rest.isEmpty then throw s!"trailing input in '{text}'"
   pure (ofHex p)
+
+/-! ## `parse` output is already canonical -/
+
+theorem mono?_toList {n : Nat} (m : Mono n) : mono? n m.toList = some m := by
+  unfold mono?
+  simp [Vector.toList]
+
+theorem ofTerms_termsList {n : Nat} (q : P n Rat) : (MvPoly.ofTerms q.termsList : P n Rat) = q := by
+  apply MvPoly.ext
+  intro m
+  rw [MvPoly.coeff_ofTerms, MvPoly.coeff_terms]
+
+/-- `canonical` is the identity on `ofHex` output. -/
+theorem canonical_ofHex {n : Nat} (q : P n Rat) : canonical n (ofHex q) = some (ofHex q) := by
+  have hmap : ∀ ts : List (Mono n × Rat),
+      (ts.map fun (m, c) => (m.toList, c)).mapM
+        (fun (e, c) => do pure (← mono? n e, ← (some c : Option Rat))) = some ts := by
+    intro ts
+    induction ts with
+    | nil => rfl
+    | cons t ts ih =>
+      simp only [List.map_cons, List.mapM_cons, ih, mono?_toList]
+      rfl
+  unfold canonical toHex ofHex
+  simp only [hmap]
+  simp [ofTerms_termsList]
+
+/-- Whatever `parse` returns is fixed by `canonical` over the declared variables. -/
+theorem canonical_parse {vars : List String} {text : String} {params : List (String × Nat)}
+    {s : Sparse} (h : parse vars text params = .ok s) : canonical vars.length s = some s := by
+  unfold parse at h
+  cases ht : tokenize text with
+  | error e => simp [ht, bind, Except.bind] at h
+  | ok toks =>
+    simp only [ht, bind, Except.bind] at h
+    split at h
+    · cases h
+    · rename_i r _
+      split at h
+      · cases h
+      · simp only [pure, Except.pure, Except.ok.injEq] at h
+        subst h
+        exact canonical_ofHex _
 
 end GPProfile

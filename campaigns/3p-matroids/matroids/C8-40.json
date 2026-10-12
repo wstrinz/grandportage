@@ -1,0 +1,52 @@
+{
+ "name": "C8-40",
+ "elements": [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8"
+ ],
+ "lines": [
+  [
+   "1",
+   "2",
+   "3"
+  ],
+  [
+   "1",
+   "4",
+   "5"
+  ],
+  [
+   "1",
+   "6",
+   "7"
+  ],
+  [
+   "2",
+   "4",
+   "6",
+   "8"
+  ],
+  [
+   "3",
+   "5",
+   "7",
+   "8"
+  ]
+ ],
+ "source": {
+  "generator": "campaigns/3p-matroids/catalog/generate.py",
+  "generator_sha256": "76206a403bf56dda88b251cd97f97060c21d2d2ebdf1a3d73765d29accae5bcf",
+  "catalog_index": [
+   8,
+   40
+  ],
+  "trust": "trusted generator",
+  "premise": "catalog completeness OPEN (CATALOG-COMPLETE)"
+ }
+}

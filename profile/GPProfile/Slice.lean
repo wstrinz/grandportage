@@ -45,6 +45,8 @@ def _root_.GPProfile.Cert.withField : Cert → Field → Cert
   | .ideal _ qs m k, f => .ideal f qs m k
   | .point _ vs, f => .point f vs
   | .proper _ a b, f => .proper f a b
+  | .idealSel mask _ qs m k, f => .idealSel mask f qs m k
+  | .properCoeff _ mono, f => .properCoeff f mono
   | c, _ => c
 
 /-- The widest strictly wider reach among re-replays of a held receipt's certificate. -/

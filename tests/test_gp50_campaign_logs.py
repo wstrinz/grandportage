@@ -37,6 +37,16 @@ class CampaignLogTests(unittest.TestCase):
     def test_friction_needs_a_cost_task(self):
         self.assertTrue(run([COST], [dict(FRICTION, task="F1-unknown")]))
 
+    def test_phase5_arm_entry_passes(self):
+        arm = dict(COST, task="A-F05-gp", stage="arm", arm="gp", incident="F05", incident_set="foreign",
+                   outcome="caught", time_to_first_held_seconds=300, obligations_resolved=4)
+        self.assertEqual(run([arm], []), [])
+
+    def test_phase5_arm_entry_needs_its_arm(self):
+        arm = dict(COST, task="A-F05-gp", stage="arm", incident="F05", incident_set="foreign",
+                   outcome="caught", time_to_first_held_seconds=300, obligations_resolved=4)
+        self.assertTrue(run([arm], []))
+
     def test_unknown_fields_are_refused(self):
         self.assertTrue(run([dict(COST, mood="good")], []))
 
