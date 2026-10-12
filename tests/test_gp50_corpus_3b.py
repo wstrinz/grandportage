@@ -17,7 +17,14 @@ TOOLCHAIN = ELAN_HOME / "toolchains" / (PROFILE / "lean-toolchain").read_text(
 # deliberately: a case leaves it when its checker lands and its verdict then has to agree.
 PENDING = {}
 
+# Some 3b cases read inputs from the historical oracle (oracle/history/checkout), which is private
+# custody material. A public snapshot (marked by PUBLIC-SNAPSHOT-RECEIPT.json) excludes it, and workspace
+# CI runs this suite; anywhere else its absence fails.
+HISTORY_PRIVATE = ((ROOT / "PUBLIC-SNAPSHOT-RECEIPT.json").exists()
+                   and not (ROOT / "oracle/history/checkout").is_dir())
 
+
+@unittest.skipIf(HISTORY_PRIVATE, "public snapshot: the historical oracle is private")
 class Corpus3bTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
