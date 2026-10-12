@@ -6,7 +6,7 @@ Adopted 2026-10-12 (Will; DECISIONS "v0.50.0 stable scope"). The base is master 
 
 **Ownership:** Will moved every item to the builder (Claude, GPC) on 2026-10-12, working with workers.
 
-**Status, 2026-10-12: every item is done.** A1/A3 `dc5288f`, A2 `45ce867`, B1–B6 `e0f520c`, C1/C2 `c97a40f` and `67e56f6`, D2 `2b80dfb`, D1 `eb22adb` (57 of 62 EMPTY claims; 5 refused by size). Additions beyond the plan: a CI axiom audit (`48ef999`) and CLI hardening (`665d842`). Gate step 2 is next.
+**Status, 2026-10-12: every item is done.** A1/A3 `dc5288f`, A2 `45ce867`, B1–B6 `e0f520c`, C1/C2 `c97a40f` and `67e56f6`, D2 `2b80dfb`, D1 `eb22adb` (57 of 62 EMPTY claims; 5 refused by size). Additions beyond the plan: a CI axiom audit (`48ef999`) and CLI hardening (`665d842`). **Published 2026-10-12** as `v0.50.0` ([receipt](../reports/STABLE-PUBLICATION.json)).
 
 ## A. Claim authority (builder; must)
 

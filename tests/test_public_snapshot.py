@@ -237,9 +237,11 @@ def test_manifests_name_no_withheld_campaign_rope_or_private_doc():
         manifest = module.load_manifest(manifest_path)
         # The overlay's own (generic) name is declared; the paths it withholds are not named.
         private_docs.discard(manifest["private_overlay"]["path"].rsplit("/", 1)[1])
-        overlay = _manifest(module, manifest_path)
-        for path in set(overlay["private_paths"]) - set(manifest["private_paths"]):
-            assert path not in text, (manifest_path.name, path)
+        # A public snapshot has no overlay (it is withheld); this check runs in the workspace.
+        if (ROOT / manifest["private_overlay"]["path"]).is_file():
+            overlay = _manifest(module, manifest_path)
+            for path in set(overlay["private_paths"]) - set(manifest["private_paths"]):
+                assert path not in text, (manifest_path.name, path)
         assert {"campaigns/", "ropes/", "docs/private/"} <= set(
             manifest["private_prefixes"])
         for prefix in manifest["private_prefixes"]:

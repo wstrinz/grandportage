@@ -613,3 +613,8 @@ Work now lands on master directly; the workspace checkout tracks `origin/master`
   - `spine` is a held implication, and a cover is held only by a completeness proof.
   - Legacy cover records are display-only notices to refile.
 - The release plan's B, C and D items move from the Codex pool to the builder and its workers.
+
+2026-10-12 **`v0.50.0` published as the first stable 0.50 release** (Will: "looks great approved and lets ship it!"). Receipt: [STABLE-PUBLICATION.json](reports/STABLE-PUBLICATION.json).
+- Public commit `0be8e52` is the audited snapshot of workspace tag `v0.50.0` (`1f75a16`), whose workspace CI passed on all jobs.
+- Public CI on the tag: R1a `REPRODUCE` and all 34 Comparator shards pass; gp50 passes. One snapshot test failed only in the public tree (it applied the private overlay under the retired v1 manifest); a follow-up commit fixes it.
+- The after-stable assays stay named as written (Will).

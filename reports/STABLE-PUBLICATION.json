@@ -1,0 +1,54 @@
+{
+ "schema": "gp-alpha-publication/v1",
+ "date": "2026-10-12",
+ "authority": "Will, 2026-10-12: \"looks great approved and lets ship it!\" (v0.50.0 stable sign-off, after the release-gate audit)",
+ "prevents": "an unverifiable claim that the public tree is the audited snapshot of the tagged workspace release commit",
+ "workspace": {
+  "repository": "https://github.com/wstrinz/grand-portage-workspace (private)",
+  "tag": "v0.50.0",
+  "tag_object": "fd70a5a04c269fb0bcb4ceff4bc77eeed41049ef",
+  "commit": "1f75a1603afaa3e039d42bc913beda004777bbd5",
+  "ci_run": 38296416905,
+  "ci": "success on all jobs (gp50, fast, lean-atlas, witness-boundary) at the tagged commit itself",
+  "comparator_empty_run": 38291818323
+ },
+ "snapshot": {
+  "manifest": "public-snapshot-v2.json",
+  "receipt_schema": "grand-portage-public-snapshot-receipt/v2",
+  "sha256": "5f544becd72db5e14e851bba631d0fa52bcbc7973036f97349f4a89f7f567412",
+  "files": 4859,
+  "regenerated_at_tag_equals_audited": true,
+  "audit": {
+   "method": "every changed or added line since the published alpha.2 tree, scanned for withheld campaign terms, machine paths and secrets",
+   "new_campaign_references_scrubbed": "the A2 design note's worked example and a release-plan campaign step (a37d4d3)",
+   "remaining_hits": "forms alpha.2 already published: R1a file headers and source credit, HW61 code-comment codenames; plus the after-stable assay name (Will kept it)",
+   "withheld_files_absent": true,
+   "manifest_names_withheld_paths": 0,
+   "private_path_names_in_receipt": 0,
+   "secrets": 0,
+   "machine_paths": 0
+  }
+ },
+ "public": {
+  "repository": "https://github.com/wstrinz/grandportage",
+  "branch": "master",
+  "base_commit": "aaa0727",
+  "published_commit": "0be8e5212a71bf6dd44c7a14441b0f538cd56641",
+  "fast_forward": true,
+  "index_entries": 4860,
+  "blobs_equal_snapshot_bytes": 4859,
+  "receipt_file": 1,
+  "tag": "v0.50.0",
+  "tag_object": "873cb6b333c3a232dd65a2e5f7c5562a4622851a",
+  "release": "https://github.com/wstrinz/grandportage/releases/tag/v0.50.0 (full release, published 2026-10-12T20:49:05Z)",
+  "ci": {
+   "test": "run 38306664706 at 0be8e52: gp50 525 passed, 62 skipped (private-oracle suites); lean-atlas and witness-boundary pass; fast 1752 passed, 1 failed (tests/test_public_snapshot.py applied the private overlay under the retired v1 manifest, where public files count as private; fixed by the follow-up)",
+   "rope_r1a": "run 38306667876: REPRODUCE passes on a fresh public runner",
+   "comparator": "run 38306671433: all 34 3P shards pass stock Comparator, including Empty000 (57 EMPTY claims)"
+  },
+  "follow_up": {
+   "change": "test_public_snapshot.py checks overlay-withheld names only where the overlay exists (the workspace); a public snapshot has none by design",
+   "status": "pending at the time this receipt was first written"
+  }
+ }
+}
