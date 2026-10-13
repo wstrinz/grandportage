@@ -38,7 +38,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = ROOT / "profile"
-GP_VERSION = "0.50.0"  # the release version; recorded in each ledger's init record
+GP_VERSION = "0.50.1"  # the release version; recorded in each ledger's init record
 EXE = PROFILE / (".lake/build/bin/gp_ledger" + (".exe" if os.name == "nt" else ""))
 ELAN_HOME = Path(os.environ.get("ELAN_HOME") or Path.home() / ".elan")
 SCHEMA = "gp-ledger/v1"
@@ -279,6 +279,10 @@ class Ledger:
 def matroid_file(campaign, name, statement=None):
     """A matroid the statement lists, or one the campaign agent added under matroids/ with a source.
     Callers with a ledger pass its verified statement."""
+    if "/" in name or "\\" in name or name.endswith(".json"):
+        stem = Path(name).name.removesuffix(".json")
+        raise Refusal(f"--matroid takes a family name, not a path: {name!r}", "campaign statement", "-",
+                      f"pass the name, for example --matroid {stem}")
     if statement is None:
         statement = json.loads((Path(campaign) / "campaign.json").read_text(encoding="utf-8"))
     family = statement.get("family") if isinstance(statement, dict) else None
@@ -288,20 +292,44 @@ def matroid_file(campaign, name, statement=None):
     for stage in family or []:
         for m in stage.get("matroids", []):
             if isinstance(m, dict) and m.get("name") == name:
-                return m
+                return checked_matroid(m, f"--matroid {name}")
     added = Path(campaign) / "matroids" / f"{name}.json"
     if added.exists():
         m = json.loads(added.read_text(encoding="utf-8"))
         if m.get("name") != name or not m.get("source"):
             raise Refusal(f"{added.name} needs its own name and a cited source", "campaign statement: F1",
                           "-", "add \"name\" and \"source\" (tagged [VERIFY] until checked)")
-        return m
+        return checked_matroid(m, f"matroids/{added.name}")
     if family is None:
         raise Refusal(f"--matroid {name}: the campaign statement has no family", "campaign statement", "-",
                       'list the matroid under "family": [{"matroids": [...]}] in campaign.json (then `gp restate`), '
                       f"or add matroids/{name}.json with a cited source")
     raise Refusal(f"matroid {name!r} is not in the campaign family", "campaign statement", "-",
                   f"use a listed matroid, or add matroids/{name}.json with a cited source")
+
+
+MATROID_KEYS = {"name", "elements", "lines", "source", "answer_key"}
+
+
+def checked_matroid(m, where):
+    """A matroid record the encoder reads in full: a simple rank-3 matroid given by its lines. Keys the
+    encoder would ignore (a rank, a matrix) are refused, so a record is never filed as another matroid
+    (C3a: a rank-9 record was once filed as U(3,18))."""
+    extra = sorted(set(m) - MATROID_KEYS)
+    if extra:
+        raise Refusal(f"{where}: {', '.join(extra)} {'is' if len(extra) == 1 else 'are'} not read: --matroid "
+                      "takes simple rank-3 matroids given by \"elements\" and \"lines\" only",
+                      "matroid statement", "-",
+                      "remove the extra keys, or state other matroids (any rank, a matrix) as a --system claim")
+    missing = [k for k in ("elements", "lines") if k not in m]
+    if missing:
+        raise Refusal(f"{where}: the record has no {' or '.join(missing)}", "matroid statement", "-",
+                      'give "elements" and "lines" (write "lines": [] for the uniform matroid U(3, n))')
+    try:
+        encoder.canonical(m)
+    except (ValueError, KeyError, TypeError) as err:
+        raise Refusal(f"{where}: {err}", "matroid statement", "-", "fix the record: a simple rank-3 matroid")
+    return m
 
 
 def scope_of(args):
@@ -367,11 +395,17 @@ def surface(ledger, extra=None):
 
 
 def frames(ledger):
-    """Each matroid claim's matroid as index lines, for the Lean encoder to re-derive its system."""
+    """Each matroid claim's matroid as index lines, for the Lean encoder to re-derive its system. A claim
+    whose record is not read in full is left out, so its ENCODING-FRAME stays OPEN (matroid_notes says why);
+    the rest of the ledger stays usable."""
     out = []
     for c in ledger.claims():
         if c["matroid"]:
-            m, _ = encoder.canonical(matroid_file(ledger.dir, c["matroid"], ledger.statement))
+            try:
+                record = matroid_file(ledger.dir, c["matroid"], ledger.statement)
+            except Refusal:
+                continue
+            m, _ = encoder.canonical(record)
             index = {e: i for i, e in enumerate(m["elements"])}
             out.append({"key": c["key"], "n": len(m["elements"]),
                         "lines": [[index[e] for e in line] for line in m["lines"]]})
@@ -1327,6 +1361,19 @@ def yes_gap(ledger, out, items, c):
             else "no realize attempt from it yet")
 
 
+def matroid_notes(ledger):
+    """Matroid claims whose record is no longer read in full (filed before v0.50.1, or edited since)."""
+    notes = []
+    for c in ledger.claims():
+        if c["matroid"]:
+            try:
+                matroid_file(ledger.dir, c["matroid"], ledger.statement)
+            except Refusal as r:
+                notes.append(f"{c['label']}: {r.body['message']}; its ENCODING-FRAME stays OPEN, so it is not a "
+                             f"claim about matroid {c['matroid']!r}")
+    return notes
+
+
 def legacy_notes(ledger):
     return [f"legacy cover record {r['label']} (n = {r.get('n')}, m = {r.get('m')}): refile with `gp cover`; "
             "it decides nothing" for r in ledger.covers()]
@@ -2071,6 +2118,8 @@ def cmd_status(ledger, args):
     print("\n".join(rows) if rows else "no claims")
     for line in legacy_notes(ledger):
         print(f"{'legacy':8} {line}")
+    for line in matroid_notes(ledger):
+        print(f"{'unread':8} {line}")
     by = {}
     for c in ledger.claims():
         if c["matroid"] and items[c["key"]]["held"]:

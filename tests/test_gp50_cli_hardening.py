@@ -187,6 +187,53 @@ class Hardening(unittest.TestCase):
         err = self.no("claim", "m", "--matroid", "Fano", "--kind", "EMPTY", "--char0")
         self.assertIn("the campaign statement's family is not a list of stages", err)
 
+    def test_matroid_path_refused(self):
+        # 3P friction (F0-fano): a path where a family name belongs; the fix names the matroid, not a path.
+        self.ok("init")
+        err = self.no("claim", "m", "--matroid", "matroids/F7.json", "--kind", "EMPTY", "--char0")
+        self.assertIn("--matroid takes a family name, not a path: 'matroids/F7.json'", err)
+        self.assertIn("pass the name, for example --matroid F7", err)
+        self.assertNotIn(".json.json", err)
+
+    def test_matroid_record_read_in_full(self):
+        # 0.50 Trials C3a: a rank-9 record (a rank and an F2 matrix) was filed as U(3,18), its extra keys
+        # ignored. Keys the encoder would not read are refused; U(3, n) needs an explicit "lines": [].
+        self.ok("init")
+        (self.dir / "matroids").mkdir()
+        self.write("larson.json", {"name": "larson", "source": "arXiv 2607.02208", "rank": 9,
+                                   "matrix": ["111"], "elements": [str(i) for i in range(1, 19)]},
+                   where=self.dir / "matroids")
+        err = self.no("claim", "l", "--matroid", "larson", "--kind", "EMPTY", "--char", "2")
+        self.assertIn("matrix, rank are not read: --matroid takes simple rank-3 matroids", err)
+        self.assertIn("as a --system claim", err)
+        self.write("u34.json", {"name": "u34", "source": "uniform", "elements": ["1", "2", "3", "4"]},
+                   where=self.dir / "matroids")
+        err = self.no("claim", "u", "--matroid", "u34", "--kind", "NONEMPTY", "--char0")
+        self.assertIn("the record has no lines", err)
+        self.write("u34.json", {"name": "u34", "source": "uniform", "elements": ["1", "2", "3", "4"], "lines": []},
+                   where=self.dir / "matroids")
+        self.ok("claim", "u", "--matroid", "u34", "--kind", "NONEMPTY", "--char0")
+        # A record that stops being read in full (filed before v0.50.1, or edited since) does not take the
+        # ledger down: that claim's ENCODING-FRAME stays OPEN, with a notice, and the rest stays usable.
+        self.ok("claim", "two", "--system", self.write("two.json", TWO_POINTS), "--kind", "EMPTY", "--char0")
+        self.write("u34.json", {"name": "u34", "source": "uniform", "elements": ["1", "2", "3", "4"], "lines": [],
+                                "rank": 3}, where=self.dir / "matroids")
+        out = self.ok("status")
+        self.assertIn("two", out)
+        self.assertIn("unread   u: matroids/u34.json: rank is not read", out)
+        self.assertIn("its ENCODING-FRAME stays OPEN, so it is not a claim about matroid 'u34'", out)
+
+    def test_real_point_names_the_failing_condition(self):
+        # A campaign's friction log: a refused real point names the system file's entry that fails.
+        self.ok("init")
+        system = self.write("neg.json", {"variables": ["x"], "equations": ["x^2 - 2"], "signs": [["x", "<0"]]})
+        self.ok("claim", "neg-root", "--system", system, "--kind", "NONEMPTY", "--real")
+        receipt = self.write("pos.json", {"certificate": {"type": "real_point", "symbol": "w", "polynomial": "w^2 - 2",
+                                                          "interval": ["1", "2"], "point": {"x": "w"}}})
+        code, out, err = self.gp("submit", "neg-root", receipt)
+        self.assertEqual(code, 1, out + err)
+        self.assertIn("signs[0] is positive at the point; it must be negative", out + err)
+
     def test_system_files(self):
         self.ok("init")
         out = self.ok("claim", "two", "--system", self.write("two.json", TWO_POINTS), "--kind", "EMPTY", "--char0")

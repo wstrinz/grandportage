@@ -1,8 +1,8 @@
 {
   "counts": {
     "generated_files": 1,
-    "private_files": 709,
-    "public_files": 4860
+    "private_files": 722,
+    "public_files": 4863
   },
   "files": [
     {
@@ -55,7 +55,7 @@
     },
     {
       "path": "DECISIONS.md",
-      "sha256": "4444e67fdeccc803660762eec186e43f897765094ae451a2ffcababa19bdf9a9"
+      "sha256": "8f8ba307eae2ed55e517bc3507505a13a341ee5b5c1276d83750ffe5e777078a"
     },
     {
       "path": "DESIGN.md",
@@ -135,7 +135,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "bfbe7678cd259f4d59eceb49b403ebaeecbfe6219348f83dae8ee0228338d8e3"
+      "sha256": "6779b040c2cf40a130842e60faa81387411aa5d7c1851ebbf580af9c38a01df1"
     },
     {
       "path": "REVIEW.md",
@@ -151,7 +151,7 @@
     },
     {
       "path": "STATUS.md",
-      "sha256": "3067732bc8eb8700e0b910f50b2a966ab656328adbc56e7a798f1d510ee33681"
+      "sha256": "0c562f6b90a229facc41287a2a6e87a5ce7367a7dbaad91d1241b04aa25a7c13"
     },
     {
       "path": "SWEEP-SOURCES.md",
@@ -13211,7 +13211,7 @@
     },
     {
       "path": "docs/USING-GP.md",
-      "sha256": "124dbd65e33ae6859dc22f357fe7608ba0c4ad33354c72109d407dc3a7cdc119"
+      "sha256": "9f1184fa1f35632aab76e8fca9e48d07a01312e373885419384c2e18a33b3900"
     },
     {
       "path": "docs/V0.27-JC-EXTRACTION-INVENTORY.md",
@@ -13328,6 +13328,14 @@
     {
       "path": "docs/first-run/campaign-graph.jsonl",
       "sha256": "baa804b4c92ac633096ad33f520b8a6ff3b704a8a027ca73f95d96f3f1f7788c"
+    },
+    {
+      "path": "docs/research/HEX-ADOPTION-MAP.md",
+      "sha256": "164f0b3bfc536c2cb367117da957215113cd929421032350e4ab49cd506d0b32"
+    },
+    {
+      "path": "docs/research/PIN-PROMOTION-REQUEST-HEX09.md",
+      "sha256": "86cde7050b66f953e257768481255b3dcf0e99510a88b65f1264844c59184df7"
     },
     {
       "path": "examples/.mcp.json",
@@ -14399,7 +14407,7 @@
     },
     {
       "path": "profile/GPProfile/Real/RealPoint.lean",
-      "sha256": "a42764320b9937cd63494010f712d4560b4d0796aff8daf3889524d211c99222"
+      "sha256": "9991e63467ebe8851b4da865d880fcd9021759b15fcd0d8e0f8a57367c7a7e2f"
     },
     {
       "path": "profile/GPProfile/Real/RootCover.lean",
@@ -16346,6 +16354,10 @@
       "sha256": "7964353818eb90fb8dede00c30799d165f7460e024a788107834f70576c8ebe8"
     },
     {
+      "path": "reports/RELEASE-NOTES-v0.50.1.md",
+      "sha256": "af18f8b3bd92e4de502098ec319be3c6e6372cbb7a9fdb55bcb010d250ff74db"
+    },
+    {
       "path": "reports/RETRY-MERGE-AUDIT.json",
       "sha256": "38a5be23c17183134e28fbce4e8c8ed60346905dbb7dd91fe0697bc540d6b3cb"
     },
@@ -16367,7 +16379,7 @@
     },
     {
       "path": "reports/STABLE-PUBLICATION.json",
-      "sha256": "2fef2992b5ca8b1cd1bbc4f56fd7d38306467762ee92fe269a5e1c3ff0f663e5"
+      "sha256": "6b1bd5edf2c8b0ab3ae81452c18771c55cc120fef9b282e9d4c1497d9daba72e"
     },
     {
       "path": "reports/TRACK-E-REPORT.md",
@@ -18131,7 +18143,7 @@
     },
     {
       "path": "tests/test_gp50_cli_hardening.py",
-      "sha256": "38f8f3a7603f78d2f90067d125c93a7632b72735d51be6e51c76c8e2f03c813d"
+      "sha256": "2f6d16f28a4c8782b04b542147e904ce4f5777c892818b0d31be6c41a08464dd"
     },
     {
       "path": "tests/test_gp50_comparator_emit.py",
@@ -18839,7 +18851,7 @@
     },
     {
       "path": "tools/gp.py",
-      "sha256": "0f8d57a12fe4af0e29e478b02f2837d1d0fb979eec6d065754d68e68889cf7f2"
+      "sha256": "754713720eaa919acb5982ef29d5a265a67309750bafed945e441b94f98614ec"
     },
     {
       "path": "tools/gp50_extcover.py",
@@ -19450,8 +19462,8 @@
     "path": "public-snapshot-v2.json",
     "sha256": "f3eb4d69dd439cbda115d55bff5a0bd94948c944a9f6b46a7c813a650e705ca8"
   },
-  "private_paths_sha256": "22c44f412e021a1efcb7738ec27f415e12d0885f4f9c2b11e982d20e09cd6e81",
+  "private_paths_sha256": "d12996b76d2b0d3f1d243559cc3bfdd0d78b7407490bc8b6c60036c03cc5d10e",
   "schema": "grand-portage-public-snapshot-receipt/v2",
-  "snapshot_sha256": "b49dc05507244a73a0ae8c9aef7a48fa7910fce48bc1b2b92623bc69602a9d52",
-  "source_commit": "a9f4fb52f6306a37c107fabd963254966510d02c"
+  "snapshot_sha256": "cf9df833f22a33fa0d2733fa63546250a21a6c769e86d3411072ca13986d5e87",
+  "source_commit": "841c38e6a5d550b05d553495f321116701a98930"
 }

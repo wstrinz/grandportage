@@ -1,6 +1,6 @@
 # Grand Portage status
 
-Updated 2026-10-12: **v0.50.0, the first stable 0.50 release, is published** on public `wstrinz/grandportage` ([release](https://github.com/wstrinz/grandportage/releases/tag/v0.50.0), [receipt](reports/STABLE-PUBLICATION.json)). Next: the after-stable assays in the [release plan](docs/RELEASE-PLAN-0.50.0.md). Rulings: [DECISIONS](DECISIONS.md).
+Updated 2026-10-13: **v0.50.1** (a fix release; [notes](reports/RELEASE-NOTES-v0.50.1.md)) follows **v0.50.0, the first stable release**, published on public `wstrinz/grandportage` ([release](https://github.com/wstrinz/grandportage/releases/tag/v0.50.0), [receipt](reports/STABLE-PUBLICATION.json)). **Now: 0.50 Trials** (DECISIONS 2026-10-13). Stage 1 runs quick, matched trials on the released tool before anything new is built. Rulings: [DECISIONS](DECISIONS.md).
 
 **In plain language.**
 - GP is our private **belay**. It is a small proved Kernel with checkers that are sound against Mathlib. It tracks what is held, what rests on OPEN premises, and what is refused.

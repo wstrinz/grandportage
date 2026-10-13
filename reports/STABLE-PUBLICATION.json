@@ -47,8 +47,11 @@
    "comparator": "run 38306671433: all 34 3P shards pass stock Comparator, including Empty000 (57 EMPTY claims)"
   },
   "follow_up": {
-   "change": "test_public_snapshot.py checks overlay-withheld names only where the overlay exists (the workspace); a public snapshot has none by design",
-   "status": "pending at the time this receipt was first written"
+   "commit": "2ea6bf78449597a1453d17c8e0f7778d0960f858",
+   "workspace_commit": "a9f4fb52f6306a37c107fabd963254966510d02c",
+   "snapshot_sha256": "b49dc05507244a73a0ae8c9aef7a48fa7910fce48bc1b2b92623bc69602a9d52",
+   "change": "adds this receipt; test_public_snapshot.py checks overlay-withheld names only where the overlay exists (the workspace), since a public snapshot has none by design",
+   "ci": "run 38310586667 at 2ea6bf7: all jobs pass; fast 1753 passed; gp50 525 passed, 62 skipped (private-oracle suites)"
   }
  }
 }

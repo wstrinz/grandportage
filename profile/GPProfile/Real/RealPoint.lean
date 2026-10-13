@@ -42,6 +42,21 @@ def Req.ok : Req → Int → Bool
 def RealSys.obligations (s : RealSys) : List (Sparse × Req) :=
   s.eqs.map (·, .zero) ++ s.guards.map (·, .nonzero) ++ s.signs.map fun (p, σ) => (p, .sign σ)
 
+def signWord (σ : Int) : String :=
+  if σ > 0 then "positive" else if σ < 0 then "negative" else "zero"
+
+/-- Obligation `i` in the system file's own terms: `equations[i]`, `nonzero[j]` or `signs[k]`. -/
+def RealSys.obligationName (s : RealSys) (i : Nat) : String :=
+  let e := s.eqs.length
+  let g := s.guards.length
+  if i < e then s!"equations[{i}]" else if i < e + g then s!"nonzero[{i - e}]" else s!"signs[{i - e - g}]"
+
+/-- Why a certified sign fails its obligation, for the refusal message. -/
+def failureText (s : RealSys) (i : Nat) (r : Req) (σ : Int) : String :=
+  let need := match r with
+    | .zero => "zero" | .nonzero => "nonzero" | .sign τ => signWord τ
+  s!"{s.obligationName i} is {signWord σ} at the point; it must be {need}"
+
 /-- Every exponent vector has the system's arity. -/
 def sparseArity (n : Nat) (p : Sparse) : Bool := p.all fun t => t.1.length == n
 
@@ -73,8 +88,8 @@ def pointCertify (sys : RealSys) (w : RealWitness) :
   match certify sel gs with
   | none => throw "sign refinement did not converge"
   | some (a, ws) =>
-    match (sys.obligations.zip ws).find? (fun (o, w) => !o.2.ok w.1) with
-    | some (_, w) => throw s!"obligation fails: certified sign {w.1}"
+    match ((sys.obligations.zip ws).zipIdx).find? (fun ((o, w), _) => !o.2.ok w.1) with
+    | some ((o, w), i) => throw (failureText sys i o.2 w.1)
     | none => pure (sel.s, a, ws)
 
 /-- Trusted replay of a point certificate (what `pointCheck_sound` is about). -/

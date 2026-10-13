@@ -618,3 +618,26 @@ Work now lands on master directly; the workspace checkout tracks `origin/master`
 - Public commit `0be8e52` is the audited snapshot of workspace tag `v0.50.0` (`1f75a16`), whose workspace CI passed on all jobs.
 - Public CI on the tag: R1a `REPRODUCE` and all 34 Comparator shards pass; gp50 passes. One snapshot test failed only in the public tree (it applied the private overlay under the retired v1 manifest); a follow-up commit fixes it.
 - The after-stable assays stay named as written (Will).
+
+2026-10-13 **0.50 Trials: evidence before building** (Will, on the post-stable review packet).
+- **Stage 1** runs quick trials on v0.50.0 as released:
+  - the after-stable assays, as matched GP-versus-direct pairs;
+  - a retrodiction over public data;
+  - a desk map of what Hex v0.9 would replace;
+  - a refusal-message pass.
+- **Every catch is classified** by kind (real, planted or cascade) and by what caught it (ledger, exactness, Lean or human).
+- **Stage 2 builds only where stage 1 points.** Then gate G-ARR decides the next version.
+- **The packet's demotion trigger is adopted as written:** if the trials show no real catch and no measurable save, and GP's overhead exceeds about 20% of a direct baseline, GP stays a personal campaign notebook.
+- Research reading for these trials is approved.
+
+2026-10-13 **Hex alignment and the toolchain promotion approved** (Will: "move forward with getting aligned with Hex, including the C side and acquiring a cc. good time to update the toolchain").
+- **The promotion:** execute [PIN-PROMOTION-REQUEST-HEX09.md](docs/research/PIN-PROMOTION-REQUEST-HEX09.md). All four packages move to Lean `v4.35.0-rc3`, Hex `v0.9.0` and its Mathlib pin, with Kernel sources unchanged; it is recorded in PROMOTIONS.md. If any Kernel file must change, the request lapses.
+- **The C side:** `cc` is a shim to the toolchain's own `leanc` (clang), with mingw-w64 msvcrt headers and no other compiler.
+- **Sequencing:** a scratch build in a detached worktree first. It lands on master after the running Larson trial arms finish, so no trial changes toolchain mid-run.
+- **Checker swaps** follow the adoption map's order: version-only first, then HexPrimality and `xgcd`. The irreducibility swap (degree > 3) stays Will's call.
+
+2026-10-13 **v0.50.1 approved** (Will: "get a 0.50.1 out with a fix").
+- A fix release from master: the matroid-record fix (an internal trial found that a rank-9 record was filed as U(3,18)), clearer refusals, and the Hex research notes.
+- No Kernel, toolchain or soundness change. The Hex v0.9 promotion is not in it; it lands later.
+- Published by the v0.50.0 procedure: tag on a green workspace CI commit, audit the snapshot against the published tree, fast-forward, and run public CI on the tag.
+- The trials' stage 1 brief reports outcomes by kind, not only the demotion verdict (Will: "more interesting outcomes than just promotion demotion").

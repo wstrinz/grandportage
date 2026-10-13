@@ -42,6 +42,13 @@ Blocks are captured output, replayed by `tests/test_gp50_using_gp_example.py`; `
 
 `campaign.json` is free-form JSON; `gp` reads only `family` (matroids, for `--matroid` claims) and a DECIDE `goal`.
 
+**Matroid records.** `--matroid NAME` takes a simple rank-3 matroid given by its lines. It is listed under `"family"` in `campaign.json`, or kept as `matroids/NAME.json` with a cited `"source"`:
+```json
+{"name": "F7", "source": "...", "elements": ["1", "2", "3", "4", "5", "6", "7"],
+ "lines": [["1", "2", "4"], ["2", "3", "5"], ["3", "4", "6"], ["4", "5", "7"], ["1", "5", "6"], ["2", "6", "7"], ["1", "3", "7"]]}
+```
+Only `name`, `elements`, `lines`, `source` and `answer_key` are read; any other key is refused, so a record is never filed as a different matroid. `"lines": []` is the uniform matroid U(3, n). State matroids of other ranks, or ones given by a matrix, as `--system` claims.
+
 ```console
 $ mkdir demo
 $ cp campaign.json demo/campaign.json
@@ -290,7 +297,7 @@ Keep two JSON Lines logs in the campaign ([schemas](../campaigns/schemas)):
 
 ## Compatibility: `gp-ledger/v1`
 
-- **Version:** `gp --version` prints the release (`gp 0.50.0`). `init` records it as `gp_version`, beside `"schema": "gp-ledger/v1"` and the statement's SHA-256.
+- **Version:** `gp --version` prints the release (`gp 0.50.1`). `init` records it as `gp_version`, beside `"schema": "gp-ledger/v1"` and the statement's SHA-256.
 - **The ledger** is append-only JSON Lines, written only by `gp`; each record has an `op` (`init`, `claim`, `support`, `refused`, `cover`, `restate`, `merge`) and a time `at`.
 - **Within v1,** records may gain optional fields, new ops may appear, and profiles may add statement kinds, certificates and rules.
 - **Old ledgers keep folding:** supports with an inline receipt (before receipt references), ledgers without `restate` (the `init` hash binds), `init` records without `gp_version`, and claim keys from the older counter scheme. Tests: `test_gp50_receipt_ref.py`, `test_gp50_merge_guard.py`, `test_gp50_outside_repo.py`.
