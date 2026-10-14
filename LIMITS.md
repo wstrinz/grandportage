@@ -1,12 +1,18 @@
 # Standing limits
 
-The current limits of GP 0.50 (2026-10-12), which apply throughout. Guarantees are in [GUARANTEES.md](GUARANTEES.md); sound refusals stronger than necessary are in [KNOWN-CONSERVATISM.md](KNOWN-CONSERVATISM.md); the Phase 2-era limits are in [HISTORY/LIMITS-pre-0.50.md](HISTORY/LIMITS-pre-0.50.md).
+The current limits of GP 0.50 (2026-10-13), which apply throughout. Guarantees are in [GUARANTEES.md](GUARANTEES.md); sound refusals stronger than necessary are in [KNOWN-CONSERVATISM.md](KNOWN-CONSERVATISM.md); the Phase 2-era limits are in [HISTORY/LIMITS-pre-0.50.md](HISTORY/LIMITS-pre-0.50.md).
 
 ## Meaning
 
 - **Soundness concerns the registered statement, model and scope.** Intended meaning, source interpretation and faithful rendering each need their own review.
 - **Completeness means finite reachability** under the admitted instances. It is not every logical consequence, exhaustive search or checker acceptance completeness.
 - **Empty scopes are vacuous.** They do not supply an existence witness.
+- **Only zero guards are refused as vacuous.** `gp` refuses a guard whose canonical form is the zero polynomial (DECISIONS 2026-10-13). It does not detect subtler vacuity:
+  - a nonzero guard that vanishes wherever the equations do;
+  - guards that are jointly vacuous with the system;
+  - a guard whose coefficients all vanish modulo a characteristic in the claim's scope.
+
+  A guarded EMPTY claim is then true vacuously, and `status`, `explain` and `frontier` do not say so. **Convention:** every guarded EMPTY used as a FAIL certificate (a refutation that others rely on) is paired with an E2 non-vacuity claim. E2 is `NOT_IN_IDEAL --target 1` on the same equations plus gᵢ·wᵢ − 1 for each guard gᵢ, with a fresh variable wᵢ per guard, at the same scope. Held, it shows that the guarded locus has a point over an algebraically closed field of the scope.
 - **A proved conflict blocks release** separately from held closure. Unknown overlap stays unresolved.
 - **Named OPEN premises are metadata.** No checker is admitted for them, and the Kernel does not see them.
 

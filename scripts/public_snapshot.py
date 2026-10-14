@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path, PurePosixPath
+import re
 import subprocess
 
 
@@ -129,14 +130,20 @@ def apply_private_overlay(manifest, paths, read):
         value = json.loads(payload.decode("utf-8"))
     except (UnicodeDecodeError, json.JSONDecodeError) as exc:
         raise PublicSnapshotError("OVL4: invalid private overlay: %s" % exc)
-    _require(isinstance(value, dict) and set(value) == {"schema", "private_paths"} and
+    _require(isinstance(value, dict) and "private_paths" in value and
+             set(value) <= {"schema", "private_paths", "guarded_names"} and
              value["schema"] == OVERLAY_SCHEMA, "OVL4", "invalid private overlay")
     extra = _path_list(value["private_paths"], "private_overlay.private_paths")
+    guarded = value.get("guarded_names", [])
+    _require(isinstance(guarded, list) and all(
+        isinstance(g, str) and g and g == g.lower() for g in guarded), "OVL4",
+        "guarded_names must be non-empty lowercase strings")
     named = set(manifest["private_paths"]) | set(manifest["public_paths"]) | set(
         manifest["generated_paths"])
     _require(not set(extra) & named, "OVL5", "the private overlay repeats a manifest path")
     result = dict(manifest)
     result["private_paths"] = sorted(manifest["private_paths"] + extra)
+    result["guarded_names"] = sorted(guarded)
     return result
 
 
@@ -159,10 +166,30 @@ def _campaign_domain_path(path):
     } for part in parts)
 
 
+def _guarded_name_path(path, names):
+    """A path naming a withheld campaign the private overlay guards (N7). A plain name matches a whole
+    token of the path; a name with separators matches as a substring, with - and _ alike."""
+    lowered = path.lower()
+    tokens = set(re.split(r"[^a-z0-9]+", lowered))
+    flat = lowered.replace("_", "-")
+    return any((name in tokens) if re.fullmatch(r"[a-z0-9]+", name)
+               else name.replace("_", "-") in flat for name in names)
+
+
+def _withheld_by_prefix(manifest, path):
+    """A path a private prefix withholds (and no exact public declaration ships)."""
+    return path not in manifest["public_paths"] and (
+        _longest_prefix(path, manifest["private_prefixes"]) >
+        _longest_prefix(path, manifest["public_prefixes"]))
+
+
 def refuse_new_campaign_paths(manifest, paths):
     allowlist = manifest["campaign_path_allowlist"]
+    guarded = manifest.get("guarded_names", [])
     violations = sorted(path for path in paths
-                        if _campaign_domain_path(path)
+                        if (_campaign_domain_path(path) or
+                            (_guarded_name_path(path, guarded) and
+                             not _withheld_by_prefix(manifest, path)))
                         and not any(path == allowed or path.startswith(allowed)
                                     for allowed in allowlist))
     _require(not violations, "CAMP1",

@@ -293,3 +293,42 @@ def test_private_overlay_fails_closed():
                                              "sha256": module.digest_bytes(payload)})
     with pytest.raises(module.PublicSnapshotError, match="OVL2"):
         module.apply_private_overlay(public, paths, lambda path: payload)
+
+
+def test_overlay_guarded_names_fail_closed():
+    # N7: a public path naming a campaign the private overlay guards needs a custody decision, unless
+    # a private prefix withholds it. The names live only in the (withheld) overlay.
+    module = _load()
+    overlay_path = "private/OVERLAY.json"
+    payload = (b'{"schema": "%s", "private_paths": [], "guarded_names": ["zebu", "red-fox"]}'
+               % module.OVERLAY_SCHEMA.encode())
+    manifest = _synthetic_manifest(
+        module, private_prefixes=["private/", "campaigns/"], public_prefixes=["docs/", "tools/"],
+        private_overlay={"path": overlay_path, "sha256": module.digest_bytes(payload)})
+    base = ["docs/a.md", overlay_path, module.RECEIPT_PATH]
+    applied = module.apply_private_overlay(manifest, base, lambda path: payload)
+    for path in ["docs/zebu-note.md", "tools/ZEBU_probe.py", "docs/red_fox/README.md"]:
+        with pytest.raises(module.PublicSnapshotError, match="CAMP1"):
+            module.classify_paths(applied, base + [path])
+    # Whole tokens only for plain names; withheld paths need no custody entry.
+    result = module.classify_paths(applied, base + ["docs/zebus.md", "campaigns/zebu/campaign.json"])
+    assert "docs/zebus.md" in result["public"]
+    assert "campaigns/zebu/campaign.json" in result["private"]
+    with pytest.raises(module.PublicSnapshotError, match="OVL4"):
+        bad = payload.replace(b'"zebu"', b'"Zebu"')
+        module.apply_private_overlay(dict(manifest, private_overlay={
+            "path": overlay_path, "sha256": module.digest_bytes(bad)}), base, lambda path: bad)
+
+
+def test_workspace_guarded_names_are_live():
+    # In the workspace, every name the overlay guards refuses a public path built from it.
+    module = _load()
+    manifest = module.load_manifest(MANIFEST)
+    overlay = ROOT / manifest["private_overlay"]["path"]
+    if not overlay.is_file():
+        pytest.skip("public snapshot: the overlay is withheld")
+    applied = _manifest(module)
+    assert applied["guarded_names"], "the overlay guards no names"
+    for name in applied["guarded_names"]:
+        with pytest.raises(module.PublicSnapshotError, match="CAMP1"):
+            module.classify_paths(applied, _candidate_paths() + [f"docs/{name}-note.md"])

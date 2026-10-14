@@ -25,6 +25,7 @@ A refused submission is logged with the refusal and never becomes support.
 """
 import argparse
 import datetime
+from fractions import Fraction
 import hashlib
 import importlib.util
 import itertools
@@ -38,7 +39,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = ROOT / "profile"
-GP_VERSION = "0.50.1"  # the release version; recorded in each ledger's init record
+GP_VERSION = "0.50.2"  # the release version; recorded in each ledger's init record
 EXE = PROFILE / (".lake/build/bin/gp_ledger" + (".exe" if os.name == "nt" else ""))
 ELAN_HOME = Path(os.environ.get("ELAN_HOME") or Path.home() / ".elan")
 SCHEMA = "gp-ledger/v1"
@@ -115,6 +116,7 @@ class Ledger:
         # Files are content-addressed and checked on every read, so no directory is trusted.
         self.receipt_dirs = [self.dir]
         self._statement = None
+        self.set_aside = None  # {key: why}: claims whose text does not parse, once a fold has failed (fold_ledger)
         if self.path.exists():
             self.records = [json.loads(l) for l in self.path.read_text(encoding="utf-8").splitlines() if l.strip()]
 
@@ -375,8 +377,9 @@ def surface(ledger, extra=None):
     supports = ledger.supports()
     routed = routed_3b(ledger, extra)  # decided by gp_ledger3 (`surface3`), not by gp_ledger
     claims = []
+    aside = ledger.set_aside or {}
     for c in ledger.claims():
-        if c["key"] in routed:
+        if c["key"] in routed or c["key"] in aside:
             continue
         s = {"key": c["key"], "variables": c["system"]["variables"], "equations": c["system"]["equations"],
              "nonzero": c["system"]["nonzero"], "kind": c["kind"], "inputs": c["inputs"]}
@@ -387,8 +390,10 @@ def surface(ledger, extra=None):
         if receipt:
             s.update(receipt)
         claims.append(s)
-    plan = {"claims": claims, "requested": [c["key"] for c in ledger.claims() if c["key"] not in routed],
+    plan = {"claims": claims, "requested": [c["key"] for c in ledger.claims()
+                                            if c["key"] not in routed and c["key"] not in aside],
             "frames": frames(ledger)}
+    routed = {k for k in routed if k not in aside}
     if routed:
         plan["_3b"] = surface3(ledger, routed, extra)
     return plan
@@ -575,7 +580,7 @@ def claim_surface3(c, receipt=None):
 def surface3(ledger, routed, extra=None):
     """The routed claims and every premise they rest on, in ledger order."""
     supports = ledger.supports()
-    claims = ledger.claims()
+    claims = [c for c in ledger.claims() if c["key"] not in (ledger.set_aside or {})]
     by = {}
     for c in claims:
         by.setdefault(c["key"], c)
@@ -1110,8 +1115,11 @@ def cmd_claim3(ledger, args):
     if bad:
         raise Refusal(f"decimals are not exact numbers: {', '.join(bad[:3])}", "exact statements", show_scope(scope),
                       "write each value as an integer or a fraction p/q")
+    refuse_zero_guards(system, show_scope(scope))
     if args.goal:
         check_goal_side(ledger, args, family, scope, kind, udg)
+    args.target = target_of(args)
+    refuse_unparsable(system, args.target, show_scope(scope))
     body = {"label": args.label, "matroid": args.matroid, "system": system, "kind": kind, "target": args.target,
             "scope": scope, "inputs": inputs, "named_premises": premises}
     body.update({k: v for k, v in (("family", family), ("goal", args.goal), ("premise_notes", notes), ("udg", udg))
@@ -1834,6 +1842,9 @@ def cmd_claim(ledger, args):
         system = system3a(read_json(args.system, "system"))
         inputs = [f"system:{sha(json.dumps(system, sort_keys=True).encode())}"]
         premises = []
+    refuse_zero_guards(system, show_scope(scope_of(args)))
+    args.target = target_of(args)
+    refuse_unparsable(system, args.target, show_scope(scope_of(args)))
     body = {"label": args.label, "matroid": args.matroid, "system": system, "kind": args.kind,
             "target": args.target, "scope": scope_of(args), "inputs": inputs, "named_premises": premises}
     key = new_key(ledger, body)
@@ -1854,9 +1865,370 @@ def decimals(x):
     return []
 
 
+# --- zero guards (DECISIONS 2026-10-13, N6a) --------------------------------------------------
+#
+# A guard that is the zero polynomial holds nowhere: an EMPTY claim over it ("no point with every guard
+# nonzero") is true vacuously, and a NONEMPTY claim over it is false. `gp` refuses such a claim when it is
+# filed and when a receipt is submitted for it. Zero is decided on the guard's canonical form over ℚ: the
+# text is read by a mirror of the runner's parser, `GPProfile.Poly.parse` (the same tokens, precedence,
+# unary minus, literal exponents and division by nonzero constants), so `0` and `(x+1)^2 - x^2 - 2*x - 1`
+# are both zero. A guard this reader does not read is left to the runner, which refuses it on elaboration.
+# Subtler vacuity (a guard vanishing wherever the equations do) is not detected: see LIMITS.md.
+
+class _Unread(Exception):
+    """A guard the zero test does not read; the runner decides it."""
+
+
+ZERO_TEST_TERMS = 100_000  # the largest intermediate polynomial the zero test expands
+ZERO_TEST_EXPONENT = 4096  # the largest exponent it expands
+
+
+def _guard_tokens(text):
+    """`GPProfile.Poly.tokenize`: ASCII numerals, identifiers and the operators + - * / ^ ( ), with ** as ^."""
+    out, i = [], 0
+    while i < len(text):
+        c = text[i]
+        if c in " \t\r\n":
+            i += 1
+        elif "0" <= c <= "9":
+            j = i
+            while j < len(text) and "0" <= text[j] <= "9":
+                j += 1
+            out.append(("num", int(text[i:j])))
+            i = j
+        elif c.isascii() and (c.isalpha() or c == "_"):
+            j = i
+            while j < len(text) and text[j].isascii() and (text[j].isalnum() or text[j] == "_"):
+                j += 1
+            out.append(("ident", text[i:j]))
+            i = j
+        elif c == "*" and text[i + 1:i + 2] == "*":
+            out.append(("op", "^"))
+            i += 2
+        elif c in "+-*/^()":
+            out.append(("op", c))
+            i += 1
+        else:
+            raise _Unread(f"unexpected character {c!r}")
+    return out
+
+
+def _p_add(a, b, sign=1):
+    out = dict(a)
+    for m, c in b.items():
+        v = out.get(m, 0) + sign * c
+        if v:
+            out[m] = v
+        else:
+            out.pop(m, None)
+    return out
+
+
+def _p_mul(a, b):
+    if len(a) * len(b) > ZERO_TEST_TERMS * 10:
+        raise _Unread("too large to expand")
+    out = {}
+    for ma, ca in a.items():
+        for mb, cb in b.items():
+            m = tuple(x + y for x, y in zip(ma, mb))
+            v = out.get(m, 0) + ca * cb
+            if v:
+                out[m] = v
+            else:
+                out.pop(m, None)
+    if len(out) > ZERO_TEST_TERMS:
+        raise _Unread("too large to expand")
+    return out
+
+
+def guard_canonical(variables, text):
+    """The canonical form over ℚ of one polynomial text in `variables`, as {exponents: Fraction}; {} is zero.
+    Raises _Unread where `GPProfile.Poly.parse` would refuse the text (or it is too large to expand here)."""
+    n = len(variables)
+    toks = _guard_tokens(text)
+    pos = 0
+    one = (0,) * n
+
+    def peek(kind, value=None):
+        return pos < len(toks) and toks[pos][0] == kind and (value is None or toks[pos][1] == value)
+
+    def take():
+        nonlocal pos
+        pos += 1
+        return toks[pos - 1]
+
+    def expr():  # a leading - or + applies to the first term
+        if peek("op", "-"):
+            take()
+            acc = _p_add({}, term(), -1)
+        elif peek("op", "+"):
+            take()
+            acc = term()
+        else:
+            acc = term()
+        while peek("op", "+") or peek("op", "-"):
+            sign = 1 if take()[1] == "+" else -1
+            acc = _p_add(acc, term(), sign)
+        return acc
+
+    def term():
+        acc = power()
+        while peek("op", "*") or peek("op", "/"):
+            if take()[1] == "*":
+                acc = _p_mul(acc, power())
+            else:
+                d = power()
+                if set(d) - {one}:
+                    raise _Unread("division by a nonconstant polynomial")
+                if not d:
+                    raise _Unread("division by zero")
+                acc = {m: c / d[one] for m, c in acc.items()}
+        return acc
+
+    def power():  # one literal exponent, as in the runner: x^2^3 is refused
+        base = atom()
+        if peek("op", "^"):
+            take()
+            if not peek("num"):
+                raise _Unread("exponent must be a natural literal")
+            k = take()[1]
+            if k == 0:
+                return {one: Fraction(1)}
+            if not base:
+                return {}
+            if k > ZERO_TEST_EXPONENT:
+                raise _Unread("exponent too large to expand")
+            out = {one: Fraction(1)}
+            for _ in range(k):
+                out = _p_mul(out, base)
+            return out
+        return base
+
+    def atom():  # a unary minus here binds tighter than ^: in x - -y^2 the square is of -y
+        if peek("num"):
+            v = take()[1]
+            return {one: Fraction(v)} if v else {}
+        if peek("ident"):
+            name = take()[1]
+            if name not in variables:
+                raise _Unread(f"undeclared variable: {name}")
+            i = variables.index(name)
+            return {tuple(1 if j == i else 0 for j in range(n)): Fraction(1)}
+        if peek("op", "("):
+            take()
+            e = expr()
+            if not peek("op", ")"):
+                raise _Unread("missing ')'")
+            take()
+            return e
+        if peek("op", "-"):
+            take()
+            return _p_add({}, atom(), -1)
+        raise _Unread("unexpected token")
+
+    try:
+        p = expr()
+    except RecursionError:
+        raise _Unread("nested too deeply")
+    if pos != len(toks):
+        raise _Unread("trailing input")
+    return p
+
+
+def zero_guards(system):
+    """The guards of a claim's system that are the zero polynomial: [(where, index, text)], where `where` is ""
+    for the system's own `nonzero` list and "branch b " for a cover branch's."""
+    variables = system.get("variables") if isinstance(system, dict) else None
+    if not isinstance(variables, list) or not all(isinstance(v, str) for v in variables):
+        return []
+    groups = [("", system.get("nonzero"))]
+    branches = system.get("branches")
+    if isinstance(branches, list):
+        groups += [(f"branch {b} ", br.get("nonzero")) for b, br in enumerate(branches) if isinstance(br, dict)]
+    found = []
+    for where, guards in groups:
+        for i, g in enumerate(guards if isinstance(guards, list) else []):
+            try:
+                zero = isinstance(g, str) and guard_canonical(variables, g) == {}
+            except _Unread:
+                zero = False
+            if zero:
+                found.append((where, i, g))
+    return found
+
+
+def refuse_zero_guards(system, scope_text):
+    """N6a: refuse a claim whose guard is the zero polynomial, naming the guard by its index."""
+    found = zero_guards(system)
+    if not found:
+        return
+    where, i, g = found[0]
+    shown = g if len(g) <= 60 else g[:57] + "..."
+    more = f" ({len(found) - 1} more guard{'s' if len(found) > 2 else ''} {'are' if len(found) > 2 else 'is'} " \
+           f"zero too)" if len(found) > 1 else ""
+    raise Refusal(f"{where}guard {i} ({shown}) is the zero polynomial{more}: no point makes it nonzero, so the "
+                  f"claim's conditions hold nowhere", "nonzero guards", scope_text,
+                  f"drop {where}guard {i}, or write the condition you meant (a nonzero constant guard is allowed)")
+
+
+# --- polynomial text that does not parse (0.50 Trials C3b) ------------------------------------
+#
+# The runner parses every claim's polynomial text at each fold, so one unparsable text (say `--target @f`)
+# used to stop the whole ledger from folding. `claim` now refuses such text, and a ledger that already holds
+# one sets that claim aside (not held, with a notice) and folds the rest.
+
+def poly_syntax_error(variables, text):
+    """Why `GPProfile.Poly.parse` would refuse `text` on syntax alone, or None. It mirrors the runner's grammar
+    (see guard_canonical) without expanding, so it is cheap on large text; a division by a nonconstant is
+    left to the runner."""
+    if not isinstance(text, str):
+        return "not a polynomial text"
+    try:
+        toks = _guard_tokens(text)
+    except _Unread as err:
+        return str(err)
+    pos = 0
+
+    def peek(kind, value=None):
+        return pos < len(toks) and toks[pos][0] == kind and (value is None or toks[pos][1] == value)
+
+    def take():
+        nonlocal pos
+        pos += 1
+
+    def expr():
+        if peek("op", "-") or peek("op", "+"):
+            take()
+        term()
+        while peek("op", "+") or peek("op", "-"):
+            take()
+            term()
+
+    def term():
+        power()
+        while peek("op", "*") or peek("op", "/"):
+            take()
+            power()
+
+    def power():
+        atom()
+        if peek("op", "^"):
+            take()
+            if not peek("num"):
+                raise _Unread("exponent must be a natural literal")
+            take()
+
+    def atom():
+        if peek("num"):
+            take()
+        elif peek("ident"):
+            if toks[pos][1] not in variables:
+                raise _Unread(f"undeclared variable: {toks[pos][1]}")
+            take()
+        elif peek("op", "("):
+            take()
+            expr()
+            if not peek("op", ")"):
+                raise _Unread("missing ')'")
+            take()
+        elif peek("op", "-"):
+            take()
+            atom()
+        else:
+            raise _Unread("unexpected token" if pos < len(toks) else "unexpected end of text")
+
+    try:
+        expr()
+    except _Unread as err:
+        return str(err)
+    except RecursionError:
+        return "nested too deeply"
+    return "trailing input" if pos != len(toks) else None
+
+
+def claim_texts(system, target=None):
+    """Every polynomial text of a claim, with where it sits: equations[i], nonzero[i], signs[i], branch b's, target."""
+    out = []
+    if not isinstance(system, dict):
+        return out
+
+    def group(prefix, s):
+        for name in ("equations", "nonzero"):
+            for i, t in enumerate(s.get(name) or []):
+                out.append((f"{prefix}{name}[{i}]", t))
+        for i, sg in enumerate(s.get("signs") or []):
+            out.append((f"{prefix}signs[{i}]", sg[0] if isinstance(sg, (list, tuple)) and sg else sg))
+
+    group("", system)
+    for b, br in enumerate(system.get("branches") or []):
+        if isinstance(br, dict):
+            group(f"branch {b} ", br)
+    if target is not None:
+        out.append(("target", target))
+    return out
+
+
+def text_error(system, target=None):
+    """The first polynomial text of a claim that does not parse, as 'where: why', or None."""
+    variables = system.get("variables") if isinstance(system, dict) else None
+    if not isinstance(variables, list):
+        return None
+    for where, text in claim_texts(system, target):
+        why = poly_syntax_error(variables, text)
+        if why:
+            return f"{where}: {why}"
+    return None
+
+
+def refuse_unparsable(system, target, scope_text):
+    why = text_error(system, target)
+    if why:
+        raise Refusal(f"a polynomial text does not parse ({why})", "exact statements", scope_text,
+                      "fix that text: integers, fractions p/q, declared variables, + - * / ^ and parentheses")
+
+
+def target_of(args):
+    """--target TEXT, or --target @FILE for a long target read from a file."""
+    t = args.target
+    if isinstance(t, str) and t.startswith("@"):
+        path = Path(t[1:])
+        if not path.is_file():
+            raise Refusal(f"--target {t}: no such file", "exact statements", "-", "give an existing file after @")
+        return path.read_text(encoding="utf-8").strip()
+    return t
+
+
+def unparsable_claims(ledger):
+    """Claims whose polynomial text does not parse: {key: 'where: why'}."""
+    return {c["key"]: why for c in ledger.claims()
+            if (why := text_error(c.get("system"), c.get("target")))}
+
+
+def fold_ledger(ledger, extra=None, candidates=False):
+    """One fold of the ledger (with trial receipts swapped in). If it fails, claims whose text does not parse are
+    set aside, not held and with a notice, and the rest folds; the normal path parses nothing in Python."""
+    out = run_profile(surface(ledger, extra), candidates)
+    if out.get("error") and ledger.set_aside is None:
+        ledger.set_aside = unparsable_claims(ledger)
+        if ledger.set_aside:
+            out = run_profile(surface(ledger, extra), candidates)
+    if ledger.set_aside and not out.get("error"):
+        out["items"] = out["items"] + [
+            {"key": k, "held": False, "support": "", "premises": [],
+             "check": {"result": "set aside", "diagnosis": why}} for k, why in ledger.set_aside.items()]
+    return out
+
+
+def set_aside_notes(ledger):
+    labels = {c["key"]: c["label"] for c in ledger.claims()}
+    return [f"{labels.get(k, k)}: {why} does not parse; it is not held, and the rest of the ledger folds without it"
+            for k, why in (ledger.set_aside or {}).items()]
+
+
 def prepare(ledger, label, receipt_path):
     """A receipt read and checked before any fold: its claim, its JSON and its exact numbers."""
     claim = ledger.claim(label)
+    refuse_zero_guards(claim.get("system"), show_scope(claim["scope"]))  # a claim filed before N6a
     path = Path(receipt_path)
     if not path.is_file():
         raise Refusal(f"no receipt file at {path}", "receipt", show_scope(claim["scope"]),
@@ -1898,7 +2270,7 @@ def record(ledger, label, claim, receipt, digest, out):
 
 def submit_one(ledger, label, claim, receipt, digest):
     """One receipt, one fold: (held line, None) or (None, refusal body)."""
-    out = run_profile(surface(ledger, {claim["key"]: receipt}))
+    out = fold_ledger(ledger, {claim["key"]: receipt})
     if out.get("error") or out.get("elaboration"):
         return None, elaboration_refusal(ledger, label, claim, receipt, digest, out)
     return record(ledger, label, claim, receipt, digest, out)
@@ -1945,7 +2317,7 @@ def cmd_submit_batch(ledger, args):
     def fold(batch):
         nonlocal folds
         folds += 1
-        return run_profile(surface(ledger, {c["key"]: rc for _, c, rc, _ in batch}))
+        return fold_ledger(ledger, {c["key"]: rc for _, c, rc, _ in batch})
 
     def one_at_a_time(batch):
         nonlocal refused, folds
@@ -2000,9 +2372,11 @@ def cmd_submit_batch(ledger, args):
 
 
 def state(ledger, candidates=False):
-    out = run_profile(surface(ledger), candidates)
+    out = fold_ledger(ledger, candidates=candidates)
     if out.get("error"):
-        raise RuntimeError(f"the ledger no longer folds: {out['error']}")
+        raise Refusal(f"the ledger does not fold: {out['error']}", "ledger fold", "-",
+                      "find the record it names; a claim whose text does not parse is set aside automatically, "
+                      "so this is a receipt or rule record")
     return out, {i["key"]: i for i in out["items"]}
 
 
@@ -2120,6 +2494,8 @@ def cmd_status(ledger, args):
         print(f"{'legacy':8} {line}")
     for line in matroid_notes(ledger):
         print(f"{'unread':8} {line}")
+    for line in set_aside_notes(ledger):
+        print(f"{'unparsed':8} {line}")
     by = {}
     for c in ledger.claims():
         if c["matroid"] and items[c["key"]]["held"]:
@@ -2279,7 +2655,7 @@ def cmd_frontier(ledger, args):
     last = {c["key"]: ledger.attempts(c["label"])[-1] for c in open_ if ledger.attempts(c["label"])}
     now = {}
     if last:
-        trial = run_profile(surface(ledger, {k: r["receipt"] for k, r in last.items()}))
+        trial = fold_ledger(ledger, {k: r["receipt"] for k, r in last.items()})
         if not (trial.get("error") or trial.get("elaboration")):
             titems = {i["key"]: i for i in trial["items"]}
             open_by_key = {}

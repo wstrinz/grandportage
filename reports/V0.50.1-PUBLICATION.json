@@ -1,0 +1,46 @@
+{
+ "schema": "gp-alpha-publication/v1",
+ "date": "2026-10-13",
+ "authority": "Will, 2026-10-13: \"get a 0.50.1 out with a fix\"",
+ "prevents": "an unverifiable claim that the public tree is the audited snapshot of the tagged workspace release commit",
+ "workspace": {
+  "repository": "https://github.com/wstrinz/grand-portage-workspace (private)",
+  "tag": "v0.50.1",
+  "tag_object": "2c851de443ed8ff8ad0a16329d2256f6db21f6f0",
+  "commit": "841c38e6a5d550b05d553495f321116701a98930",
+  "ci_run": 38411269161,
+  "ci": "success on all jobs (gp50, fast, lean-atlas, witness-boundary) at the tagged commit itself"
+ },
+ "snapshot": {
+  "manifest": "public-snapshot-v2.json",
+  "receipt_schema": "grand-portage-public-snapshot-receipt/v2",
+  "sha256": "cf9df833f22a33fa0d2733fa63546250a21a6c769e86d3411072ca13986d5e87",
+  "files": 4863,
+  "regenerated_at_tag": true,
+  "audit": {
+   "method": "every changed or added line since the published v0.50.0 tree (2ea6bf7), scanned for withheld campaign terms, machine paths and secrets",
+   "changed_or_added_files": 12,
+   "removed_files": 0,
+   "scrubbed_before_tagging": "two machine paths and a withheld campaign name in a test comment (a7468d1)",
+   "hits_at_tag": 0
+  }
+ },
+ "public": {
+  "repository": "https://github.com/wstrinz/grandportage",
+  "branch": "master",
+  "base_commit": "2ea6bf7",
+  "published_commit": "9c1f0aa7105e4ab55c9ee29abc3121e9aa717686",
+  "fast_forward": true,
+  "index_entries": 4864,
+  "blobs_equal_snapshot_bytes": 4863,
+  "receipt_file": 1,
+  "tag": "v0.50.1",
+  "tag_object": "534a4debc5d0630f8125f2831c231e62d62bc5e1",
+  "release": "https://github.com/wstrinz/grandportage/releases/tag/v0.50.1 (full release, latest)",
+  "ci": {
+   "test": "run 38418887898 at 9c1f0aa: all jobs pass; gp50 528 passed, 62 skipped (private-oracle suites); fast 1753 passed",
+   "rope_r1a": "run 38418897622: REPRODUCE passes on a fresh public runner",
+   "comparator": "run 38418903506: all 34 3P shards pass stock Comparator, including Empty000"
+  }
+ }
+}

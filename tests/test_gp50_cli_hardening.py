@@ -223,6 +223,41 @@ class Hardening(unittest.TestCase):
         self.assertIn("unread   u: matroids/u34.json: rank is not read", out)
         self.assertIn("its ENCODING-FRAME stays OPEN, so it is not a claim about matroid 'u34'", out)
 
+    def test_unparsable_text_refused_at_filing_and_target_from_file(self):
+        # 0.50 Trials C3b: `--target @file` was filed unparsed. Text that does not parse is refused at filing, and
+        # --target @FILE reads a long target from a file.
+        self.ok("init")
+        system = self.write("x.json", {"variables": ["x"], "equations": ["x^2 - 1"]})
+        err = self.no("claim", "t", "--system", system, "--kind", "IN_IDEAL", "--target", "x^4 @ 1", "--char0")
+        self.assertIn("a polynomial text does not parse (target: unexpected character '@')", err)
+        bad = self.write("y.json", {"variables": ["x"], "equations": ["x^2 - y"]})
+        err = self.no("claim", "u", "--system", bad, "--kind", "EMPTY", "--char0")
+        self.assertIn("(equations[0]: undeclared variable: y)", err)
+        (self.tmp / "target.txt").write_bytes(b"x^4 - 1\n")
+        self.ok("claim", "t", "--system", system, "--kind", "IN_IDEAL", "--target", "@" + str(self.tmp / "target.txt"),
+                "--char0")
+        self.assertEqual(gp.Ledger(self.dir).claim("t")["target"], "x^4 - 1")
+        err = self.no("claim", "v", "--system", system, "--kind", "IN_IDEAL", "--target", "@" + str(self.tmp / "no.txt"),
+                      "--char0")
+        self.assertIn("no such file", err)
+
+    def test_one_unparsable_claim_does_not_stop_the_ledger(self):
+        # A claim filed before that check (its text does not parse) is set aside: not held, with a notice; the
+        # rest folds, and a sound receipt for another claim is held (C3b: six sound receipts were refused).
+        self.ok("init")
+        self.ok("claim", "two", "--system", self.write("two.json", TWO_POINTS), "--kind", "EMPTY", "--char0")
+        body = {"label": "old", "matroid": None, "system": {"variables": ["x"], "equations": ["x^2 - 1"],
+                                                            "nonzero": []},
+                "kind": "IN_IDEAL", "target": "@target.txt", "scope": {"char0": True}, "inputs": ["system:0"],
+                "named_premises": []}
+        with (self.dir / "ledger.jsonl").open("a", encoding="utf-8", newline="\n") as f:
+            f.write(json.dumps(dict({"op": "claim", "key": 4242}, **body)) + "\n")
+        out = self.ok("status")
+        self.assertIn("unparsed old: target: unexpected character '@' does not parse; it is not held", out)
+        self.ok("frontier")
+        out = self.ok("submit", "two", self.write("q.json", EMPTY_Q))
+        self.assertIn("held", out)
+
     def test_real_point_names_the_failing_condition(self):
         # A campaign's friction log: a refused real point names the system file's entry that fails.
         self.ok("init")

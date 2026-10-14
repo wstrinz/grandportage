@@ -29,6 +29,7 @@ Every refusal states what was refused, the rule, the scope, and the smallest fix
 
 - **`--matroid M`** takes a matroid *name*: one listed in `campaign.json`, or one you added as `matroids/M.json`. It is not a path. It encodes M with `tools/encode-matroid.py`. The system has one column per element, with the first frame fixed. Non-bases give equations and bases give guards (`nonzero`). The claim binds the encoding digest and carries the named premise `ENCODING-FRAME`. The premise is proved in Lean (`GPBinding.Matroid.frame_iff`). `gp` shows it as discharged when the Lean encoder re-derives the claim's system exactly, and OPEN otherwise. Guards are numbered in the encoder's order, starting at 0.
 - **`--system FILE`** takes `{"variables": [...], "equations": [...], "nonzero": [...]}` directly.
+- **Zero guards are refused.** A guard whose canonical form over ℚ is the zero polynomial (`0`, or `(x+1)^2 - x^2 - 2*x - 1`) holds nowhere. `claim` refuses it under the rule `nonzero guards` and names the guard's index. This applies to every kind and scope, and to a cover's branches. `submit` refuses a receipt for a claim filed with one before this check. A nonzero constant guard is allowed. Subtler vacuity is not detected; see [LIMITS.md](../LIMITS.md).
 - **Kinds**, read in every field of the scope's characteristics:
   - `EMPTY`: no point.
   - `NONEMPTY`: a point in every such field, so it needs a point over the prime field or ℚ.

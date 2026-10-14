@@ -641,3 +641,49 @@ Work now lands on master directly; the workspace checkout tracks `origin/master`
 - No Kernel, toolchain or soundness change. The Hex v0.9 promotion is not in it; it lands later.
 - Published by the v0.50.0 procedure: tag on a green workspace CI commit, audit the snapshot against the published tree, fast-forward, and run public CI on the tag.
 - The trials' stage 1 brief reports outcomes by kind, not only the demotion verdict (Will: "more interesting outcomes than just promotion demotion").
+
+2026-10-13 **N6a: zero guards are refused; guarded EMPTY claims carry an E2 companion** (Will).
+- **N6a.** `gp` refuses, at `claim` and at `submit`, a claim with a guard whose canonical form over ℚ is the zero polynomial, and names the guard's index (rule `nonzero guards`). This applies to every kind and scope, and to a cover's branches. Refusing more cannot make GP unsound. A nonzero constant guard stays allowed.
+- **Found by** an internal fixture campaign (details in `DECISIONS-PRIVATE.md`). GP held EMPTY claims over a literal `0` guard and over a guard that expands to zero: true, but vacuous, and they read like refutations.
+- **LIMITS.** Subtler vacuity is not detected. By convention, every guarded EMPTY used as a FAIL certificate is paired with an E2 non-vacuity claim: `NOT_IN_IDEAL(1)` on the system with gᵢ·wᵢ − 1 for each guard.
+- No Kernel, profile, schema or version change.
+
+2026-10-13 **`v0.50.1` published** on public `wstrinz/grandportage`. Receipt: [V0.50.1-PUBLICATION.json](reports/V0.50.1-PUBLICATION.json).
+- Public commit `9c1f0aa` is the audited snapshot of workspace tag `v0.50.1` (`841c38e`), whose workspace CI passed on all jobs.
+- Public CI on the tag is green: the test suite, R1a's `REPRODUCE`, and all 34 Comparator shards.
+
+2026-10-13 **Post-0.50.1 calls** (Will).
+- **0.50.2** ships at the end of trials stage 1. It bundles the zero-guard refusals, the documentation fixes from the trials, and whatever the remaining trial turns up.
+- **Claim withdrawal** is designed for 0.51. A design note comes first: a Kernel lifecycle event that visibly un-holds everything reaching the withdrawn warrant. It is built only after Will approves the design.
+- **The snapshot refuses public paths that name guarded campaigns.** The names live only in the withheld overlay (`951fe69`).
+- **Public-facing work stays parked until the stage 1 brief:** upstream contributions, registry drafts and outreach.
+
+2026-10-13 **Claim withdrawal approved for 0.51** (Will; [design](docs/WITHDRAWAL-DESIGN.md)).
+- Withdrawal is permanent and claim-level, through the Kernel's existing `retract`, with no Kernel change. `goal` and `spine` claims are refused.
+- A withdrawal that would un-hold other held claims needs `--cascade`.
+- The W1–W3 lemmas are required before release.
+- **Older readers:** gp 0.50.x shows a withdrawn claim as before. This is accepted, and stated in the release notes, USING-GP and `withdraw`'s own output. A minimum-reader field comes at the next schema version.
+- It is built on master after trial C3b finishes, so the trial's tool does not change under it.
+
+2026-10-13 **Hex v0.9 / Lean v4.35.0-rc3 promotion: the scratch build passed; landing approved** (Will).
+- **Scratch build** (patch based on `7138a10`): all 22 Kernel files are byte-unchanged under rc3. `leanchecker` replay and the axiom audit are clean (1,190 constants, standard axioms only). Fold outputs are byte-identical to rc2 for 3P (1,891 claims), the 3a corpus, and the 3b campaign ledgers. DK difftest19 has 0 mismatches.
+- **Approved source changes:**
+  - three mechanical binding edits, because Mathlib's `MvPolynomial.coeff` argument order changed;
+  - LRAT-Catcher's kernel mode and streaming import are removed, because rc3 replaced core's LRAT internals. Its native mode is ported, and the census uses only native mode.
+- **Lands after trial C3b.** Before landing:
+  - rebase onto master;
+  - rerun `kernel-pin.py write` and `run-binder.py`;
+  - record DK difftest23;
+  - check Comparator's pin against rc3;
+  - run full workspace CI;
+  - write the PROMOTIONS.md entry.
+
+2026-10-14 **v0.50.2 cut now** (Will). Every trial that touches the tool is done, and the remaining one cannot change GP.
+- The release carries:
+  - the zero-guard refusals (`f811101`);
+  - the fix that stops one unparsable claim from stopping the ledger (`b80cd7f`);
+  - the snapshot's guarded-name check (`951fe69`);
+  - the documentation the trials asked for.
+- No Kernel, toolchain or soundness change.
+- The Hex v0.9 / rc3 promotion lands after it, as the start of 0.51.
+- The stage 1 brief is written now, with the remaining trial marked pending.

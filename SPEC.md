@@ -65,7 +65,7 @@ claims may exhibit points in a bounded simple quadratic/cubic extension of Q.
 ## Status
 
 Frozen reference: package version 0.37.0, graph format 8, kernel epoch 12.
-The release records <!--checks-->1816<!--/checks--> checks; this is a historical
+The release records <!--checks-->1818<!--/checks--> checks; this is a historical
 release count, not a new verification run. See
 [review/v0.37/README.md](review/v0.37/README.md) for the frozen boundary.
 [docs/first-run/](docs/first-run/) retains the first campaign record.
@@ -494,7 +494,7 @@ Three.js build by default; `--three-root` can point it at a local package.
 ## The retrodiction gate
 
 ```bash
-python -m pytest        # <!--checks-->1816<!--/checks--> checks
+python -m pytest        # <!--checks-->1818<!--/checks--> checks
 ```
 
 Grand Portage's credibility rests on reproducing, from **data**, what two

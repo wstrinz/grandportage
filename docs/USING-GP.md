@@ -23,7 +23,9 @@ A stamp beside each runner (`<runner>.gpstamp`) records the SHA-256 identity of 
 - **Evidence:** a receipt holds one **certificate** (an ideal identity, a point, a sum of squares, a real root in an interval, …) or one **rule** (map, inclusion, bridge, narrow, …) whose premises are held claims. GP replays it exactly; its producer (your CAS, say) is not trusted.
 - **Held, open, refused:** a claim is **held** when the Kernel fold over the whole ledger reaches a warrant for it, **open** until then, and **refused** when its last attempt failed, with the rule, the scope and the smallest fix.
 - **Reach:** a certificate holds a claim only where its arithmetic is valid; one that divides by 2 does not reach characteristic 2. Wider reach than claimed is reported as "earned, unclaimed".
-- **Named OPEN premises** (`--premise NAME`) are metadata: `gp` prints them ("modulo …"), and the Kernel neither sees nor checks them.
+- **Named OPEN premises** (`--premise NAME`) are metadata: `gp` prints them ("modulo …"), and the Kernel neither sees nor checks them. The names form a fixed list ([GP-CLI](GP-CLI.md)); a hypothesis of your own cannot be filed as a premise yet, so carry it as a named hypothesis in Lean.
+- **Identities:** a polynomial identity f = 0 is `IN_IDEAL --target f` on a system with no equations. A long target can come from a file (`--target @FILE`).
+- **What GP cannot state:** a claim must be a polynomial system with a kind and a scope. Determinants, matrix positivity, cones, reachability and other for-all statements are outside GP 0.50, as are matroids other than simple rank-3 ones given by their lines. The census profile in [GUARANTEES](../GUARANTEES.md) has no `gp` command; it runs from its own package.
 - **Belay and rope:** GP is a **belay**, keeping your own work honest; trusting a held claim means trusting GP's [TCB](../TCB.md). A **rope** is a Lean theorem in Mathlib vocabulary that stock Comparator checks, with no trust in GP.
 
 ## A worked example, end to end
@@ -276,6 +278,8 @@ For readers who do not trust GP:
 2. **State the result in Mathlib vocabulary** (verbatim from formal-conjectures where it has one) and prove it in its own Lake package `ropes/<id>/`.
 3. **Work through [ROPE-CHECKLIST.md](ROPE-CHECKLIST.md):** Comparator acceptance, controls refused for their expected reasons, named hypotheses, `FIDELITY.md`, `MANIFEST`, `REPRODUCE` and the tier. [`ropes/r1a`](../ropes/r1a/README.md) is a delivered rope.
 
+**When GP holds only fragments.** If the decisive statement is outside what GP can state (see Concepts), GP holds the polynomial pieces and the rope carries the rest in Lean. Say in `FIDELITY.md` which parts GP held and which only Lean checks. `emit-lean` covers neither `IN_IDEAL` claims nor mod-p certificates, so those pieces are restated in the rope.
+
 ```console
 $ gp --campaign demo emit-lean distinct-q
 import GPBinding.Binder.Registry
@@ -297,7 +301,7 @@ Keep two JSON Lines logs in the campaign ([schemas](../campaigns/schemas)):
 
 ## Compatibility: `gp-ledger/v1`
 
-- **Version:** `gp --version` prints the release (`gp 0.50.1`). `init` records it as `gp_version`, beside `"schema": "gp-ledger/v1"` and the statement's SHA-256.
+- **Version:** `gp --version` prints the release (`gp 0.50.2`). `init` records it as `gp_version`, beside `"schema": "gp-ledger/v1"` and the statement's SHA-256.
 - **The ledger** is append-only JSON Lines, written only by `gp`; each record has an `op` (`init`, `claim`, `support`, `refused`, `cover`, `restate`, `merge`) and a time `at`.
 - **Within v1,** records may gain optional fields, new ops may appear, and profiles may add statement kinds, certificates and rules.
 - **Old ledgers keep folding:** supports with an inline receipt (before receipt references), ledgers without `restate` (the `init` hash binds), `init` records without `gp_version`, and claim keys from the older counter scheme. Tests: `test_gp50_receipt_ref.py`, `test_gp50_merge_guard.py`, `test_gp50_outside_repo.py`.
@@ -310,6 +314,8 @@ Keep two JSON Lines logs in the campaign ([schemas](../campaigns/schemas)):
 - **"the campaign statement changed since it was bound":** restore `campaign.json`, or `gp restate --reason …`. A merge needs both branches to bind the same statement.
 - **"no ledger here"** (exit 2): run `gp init` beside `campaign.json`.
 - **"decimals are not exact numbers":** write integers or fractions `"p/q"`.
+- **"a polynomial text does not parse (…)":** the text named (`equations[i]`, `nonzero[i]`, `signs[i]`, `target`) has a character, variable or bracket the parser does not read. A long target can come from a file: `--target @FILE`. A ledger holding such a claim from before this check marks it `unparsed` in `status` (not held), and the rest of the ledger folds as usual.
+- **"guard i (…) is the zero polynomial":** the guard expands to 0, so the claim's conditions hold nowhere. Drop it or write the condition you meant. A claim filed with one before this check still folds as before, but `submit` refuses new receipts for it; file the corrected claim under a new label.
 - **Windows:** either slash works in paths. `campaign.json` is bound by its bytes, so a line-ending conversion makes every command refuse until you restore or restate. Output is UTF-8 (ℝ, ℚ, χ).
 - **Memory and time:** every command replays every receipt (no cache); the example takes about a second a command. Never run `decide +kernel` over the Hex checkers: it exhausts memory.
 - **A refusal you think wrong:** log it as `false`, report it, and see [KNOWN-CONSERVATISM.md](../KNOWN-CONSERVATISM.md).

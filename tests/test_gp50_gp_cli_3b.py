@@ -157,7 +157,8 @@ class GpCli3b(unittest.TestCase):
         code, out = self.gp("claim", "bad-3", "--system", self.file("undeclared", {"variables": ["x"], "equations": [
             "x - y"]}), "--kind", "EMPTY", "--real")
         self.assertEqual(code, 1)
-        self.assertIn("the claim does not elaborate", out)
+        # Refused at filing, before the runner, naming the text (0.50 Trials C3b).
+        self.assertIn("does not parse (equations[0]: undeclared variable: y)", out)
         code, out = self.gp("claim", "bad-4", "--system", sys_, "--kind", "EMPTY", "--real", "--premise", "OTHER")
         self.assertIn("unknown named premise OTHER", out)
         labels = {c["label"] for c in gp.Ledger(self.dir).claims()}
