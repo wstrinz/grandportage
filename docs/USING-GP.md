@@ -4,7 +4,7 @@ From a clone to a campaign of your own, in any directory. Guarantees: [GUARANTEE
 
 ## Install
 
-You need [elan](https://github.com/leanprover/elan) and Python 3.10 or later. `gp` uses only the standard library; the log checker needs `jsonschema` (`pip install -r requirements-dev.txt`).
+You need [elan](https://github.com/leanprover/elan), Python 3.10 or later, and a C compiler named `cc` on `PATH`. Hex v0.9 compiles a little C code (`HexModArith`, `HexArith`) into the runners. Linux and macOS have one. On Windows, a small `cc` that forwards to the toolchain's own `leanc` (clang) works, given mingw-w64 (msvcrt) C headers, since Lean ships none. `gp` uses only the standard library; the log checker needs `jsonschema` (`pip install -r requirements-dev.txt`).
 
 ```bash
 git clone https://github.com/wstrinz/grandportage.git
@@ -12,7 +12,7 @@ cd grandportage/profile
 lake build gp_ledger gp_ledger3   # elan installs the pinned toolchain first
 ```
 
-`gp` decides every status with two Lean runners in `profile/.lake/build/bin/`, `gp_ledger` and `gp_ledger3`. It builds a missing or stale runner on first use, once the pinned toolchain is installed (hence the `lake build` above). The Kernel, profile and both runners took about 6 minutes on the builder's Windows machine, with the Hex v0.6.0 packages prebuilt; a fresh clone also compiles Hex (not measured).
+`gp` decides every status with two Lean runners in `profile/.lake/build/bin/`, `gp_ledger` and `gp_ledger3`. It builds a missing or stale runner on first use, once the pinned toolchain is installed (hence the `lake build` above). The profile and both runners took about 30 minutes on a busy Windows machine under Lean `v4.35.0-rc3` with Hex v0.9.0; a fresh clone also compiles Hex and its C code.
 
 A stamp beside each runner (`<runner>.gpstamp`) records the SHA-256 identity of its sources (profile and Kernel `.lean` files, lakefiles, manifest, toolchain pin); a mismatch means a rebuild. A runner built by `lake` alone has no stamp, so the first `gp` command reruns `lake build` (a no-op) and writes it.
 
@@ -120,7 +120,15 @@ distinct-q: EMPTY at characteristic 0: held
   by ideal certificate (stored receipt a6cbc6d3c9e7, submitted file 3eb4beb2e655), reach 0 and every prime except {2}
 ```
 
-A refused claim stays on the frontier. `gp` cannot withdraw a claim yet: the profile does not apply retraction events (a known limit, [LIMITS.md](../LIMITS.md)). File the corrected claim under a new label.
+A refused claim stays on the frontier until you withdraw it (GP 0.51):
+
+```console
+$ gp --campaign demo withdraw distinct-all --reason "superseded by distinct-odd"
+withdrawn: distinct-all (key 2494852848739499): superseded by distinct-odd; was not held
+  note: readers older than 0.51 will not see this withdrawal: an older gp skips the record and shows the claim, and what rests on it, as held again
+```
+
+A withdrawal is permanent and claim-level. On every fold both runners retract the claim's support and theorem warrants, so the claim, and every claim whose only derivations pass through it, stop being held; nothing else changes (`GPProfile.Withdraw`: W1 `withdraw_antitone`, W2 `withdraw_resolves`, W3 `withdraw_unholds`). `withdraw` prints what it no longer holds and any change in the goal verdict. It is refused for an unknown label, a claim already withdrawn, an empty reason, a `goal` or `spine` claim (withdraw the cover or the exclusion instead) and a legacy cover record, and, unless you pass `--cascade`, when other held claims would lose their hold (they are listed). The label stays taken: `submit` refuses it, so file the corrected claim under a new label. `status` shows a `withdrawn` row with its time and reason, and a claim resting on it reads `not held: rests on withdrawn …`; `frontier` leaves withdrawn claims out, and `tailings` lists them.
 
 ### 7. Receipts by reference
 
@@ -167,6 +175,8 @@ merged 2 records (1 claims, 1 supports, 0 refusals); the merged log folds
 `meet-2` is the point x = 1 in characteristic 2. `x2p1-real` holds by the sum of squares 1 + x² − (x² + 1) = 0.
 
 The guard is the Kernel's `resolve` over the merged log, for the characteristic claims (`gp_ledger --guard`) and for the ℝ, ℚ, semireal and number-field claims (`gp_ledger3 --guard`). One key filed for two different claims is refused as `conflicting current bindings`; one claim held by a certificate on one branch and by a rule on the other, as `conflicting warrant contents`. Two different certificates for one claim give equal Kernel warrants, so `gp` refuses them itself (`... by different receipts`). Submit one receipt on both branches, then merge again.
+
+A withdrawal on one branch beats a support filed on the other, in either merge order; `merge` lists the claims withdrawn on the other branch and any claim here it no longer holds. Raw `retract` and `supersede` records are refused.
 
 ## DECIDE goals
 
@@ -301,10 +311,11 @@ Keep two JSON Lines logs in the campaign ([schemas](../campaigns/schemas)):
 
 ## Compatibility: `gp-ledger/v1`
 
-- **Version:** `gp --version` prints the release (`gp 0.50.2`). `init` records it as `gp_version`, beside `"schema": "gp-ledger/v1"` and the statement's SHA-256.
-- **The ledger** is append-only JSON Lines, written only by `gp`; each record has an `op` (`init`, `claim`, `support`, `refused`, `cover`, `restate`, `merge`) and a time `at`.
+- **Version:** `gp --version` prints the release (`gp 0.51.0`). `init` records it as `gp_version`, beside `"schema": "gp-ledger/v1"` and the statement's SHA-256.
+- **The ledger** is append-only JSON Lines, written only by `gp`; each record has an `op` (`init`, `claim`, `support`, `refused`, `cover`, `restate`, `merge`, and since 0.51 `withdraw`) and a time `at`.
 - **Within v1,** records may gain optional fields, new ops may appear, and profiles may add statement kinds, certificates and rules.
-- **Old ledgers keep folding:** supports with an inline receipt (before receipt references), ledgers without `restate` (the `init` hash binds), `init` records without `gp_version`, and claim keys from the older counter scheme. Tests: `test_gp50_receipt_ref.py`, `test_gp50_merge_guard.py`, `test_gp50_outside_repo.py`.
+- **Old ledgers keep folding:** supports with an inline receipt (before receipt references), ledgers without `restate` (the `init` hash binds), `init` records without `gp_version`, and claim keys from the older counter scheme. A ledger with no `withdraw` record gives the runners the same input as 0.50 and gets byte-identical output. Tests: `test_gp50_receipt_ref.py`, `test_gp50_merge_guard.py`, `test_gp50_outside_repo.py`, `test_gp50_withdraw.py`.
+- **Withdrawal and older readers (0.51).** `withdraw` is a v1 extension. **A `gp` older than 0.51 skips `withdraw` records, so it shows a withdrawn claim, and every claim resting on it, as held again.** That is still sound (W1: anything held after a withdrawal was held before), but it silently reverses the owner's decision. A v1 ledger cannot make an older `gp` refuse, so read a ledger with withdrawals only with gp 0.51 or newer; `withdraw` repeats this warning each time. The next schema version will let a ledger name its minimum reader.
 - **Not promised:** stable view text. `gp` skips unknown ops, so read a ledger with a `gp` at least as new as its writer. Every command except `init` checks the init record's `schema` and refuses one it does not read (this release reads `gp-ledger/v1`); `merge` checks the other branch's too.
 - **Breaking changes** get a new schema id, `gp-ledger/v2`, in new ledgers' `init` record: a new required field, a changed meaning for a field or op, or a different hash or key scheme.
 

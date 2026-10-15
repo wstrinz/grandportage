@@ -19,6 +19,7 @@ Profiles supply statements and checkers. The binding ([`binding/`](binding)) pro
 - **3b, semireal, ℚ and ℝ.** `fold_held_meaning3`: a held claim means its statement in every context its scope denotes, including SOS, ordered, real-point, case-tree and number-field evidence.
 - **Census.** `GPCensus.fold_held_meaning` (Mathlib-free): a held claim holds at every parameter its scope lists.
 - **Encodings.** The matroid frame is proved by `GPBinding.Matroid.frame_iff`, and the unit-distance frame by `GPBinding.UDG.udg_frame_iff`. In both cases `gp` re-derives the system with the Lean encoder.
+- **Withdrawal (0.51).** Both runners retract a withdrawn claim's warrants in every fold. The theorems above quantify over every event list, so what stays held keeps its meaning. `GPProfile.Withdraw` (Mathlib-free) proves that withdrawal only un-holds (`withdraw_antitone`), never breaks the fold or merge of a log without supersessions (`withdraw_resolves`), and leaves a withdrawn claim not held (`withdraw_unholds`; for every 3a and 3b run, `runWith_withdrawn` and `run3_withdrawn`).
 
 ## What "held" means
 
@@ -39,9 +40,9 @@ On every command the Kernel fold replays every receipt and reaches a warrant for
 | Trusted | For what |
 |---|---|
 | The Lean 4 kernel and the three axioms | every proof |
-| The pinned toolchain (`v4.34.0-rc2`; R1a uses `v4.34.1`) | elaboration and compiled code |
-| Compiled checkers: Hex v0.6.0 arithmetic, GMP-backed `Rat`/`Int`, and the vendored LRAT checker (census) | running the code the proofs describe |
-| Mathlib at the binding's pin (`85e3a25e`) | that its definitions say what the meanings intend |
+| The pinned toolchain (`v4.35.0-rc3`, a release candidate; R1a uses `v4.34.1`) | elaboration and compiled code |
+| Compiled checkers: Hex v0.9.0 arithmetic with the linked `HexModArith`/`HexArith` C code, GMP-backed `Rat`/`Int`, and the vendored LRAT checker (census) | running the code the proofs describe |
+| Mathlib at the binding's pin (`6b7abb3c`) | that its definitions say what the meanings intend |
 | `tools/gp.py` | serialising each claim's statement and scope faithfully, invoking the runners and merging their results |
 | Stock Comparator, `lean4export` and `landrun`, pinned by commit (`comparator.yml`, `ropes/r1a/REPRODUCE`) | rope and warrant checks |
 

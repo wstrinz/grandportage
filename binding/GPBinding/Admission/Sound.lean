@@ -108,7 +108,7 @@ theorem toK_residual_zero_mod {n : ℕ} {R : GPProfile.P n Rat} {p : ℕ} (hK : 
     (h : R.termsList.all (fun t => zeroMod p t.2) = true) : toK (K := K) (toMvPolynomial R) = 0 := by
   ext d
   obtain ⟨m, rfl⟩ := (monoEquiv (n := n)).surjective d
-  rw [coeff_toK, coeff_toMvPolynomial, coeff_zero]
+  rw [coeff_toK, coeff_toMvPolynomial, AddMonoidAlgebra.coeff_zero, Finsupp.zero_apply]
   by_cases hc : Hex.MvPoly.coeff m R = 0
   · rw [hc, Rat.cast_zero]
   · have hz := List.all_eq_true.mp h _ (mem_terms_of_coeff_ne R m hc)
@@ -578,7 +578,7 @@ theorem reach_properCoeff_sound {s : Stmt} {field : Field} {mono : List ℕ} {r 
     have := congrArg (fun d => d ⟨i, hlen ▸ hi⟩) h0
     simp only [monoEquiv_apply, Finsupp.coe_zero, Pi.zero_apply] at this
     exact hx0 (by simpa [M] using this)
-  have hcoeff := congrArg (coeff (monoEquiv M)) hc
+  have hcoeff := congrArg (fun p : MvPolynomial _ K => p.coeff (monoEquiv M)) hc
   rw [coeff_toK, meaning_of hE, coeff_toMvPolynomial, coeff_C] at hcoeff
   rw [ite_eq_right_of_eq_false _ _ (eq_false fun h => hM h.symm)] at hcoeff
   simp only [coeffAt, hlen, ↓reduceDIte] at hne

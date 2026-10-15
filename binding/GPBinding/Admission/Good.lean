@@ -52,10 +52,10 @@ variable {σ : Type*}
 
 /-- Coefficientwise `Rat.cast` of a rational polynomial. -/
 def toK (P : MvPolynomial σ Rat) : MvPolynomial σ K :=
-  ∑ d ∈ P.support, monomial d ((coeff d P : Rat) : K)
+  ∑ d ∈ P.support, monomial d ((P.coeff d : Rat) : K)
 
 @[simp] theorem coeff_toK (P : MvPolynomial σ Rat) (d : σ →₀ ℕ) :
-    coeff d (toK (K := K) P) = ((coeff d P : Rat) : K) := by
+    (toK (K := K) P).coeff d = ((P.coeff d : Rat) : K) := by
   classical
   rw [toK, coeff_sum]
   simp only [coeff_monomial]
@@ -70,7 +70,7 @@ def GoodPoly : Subring (MvPolynomial σ Rat) := (MvPolynomial.map (Good K).subty
 variable {K σ}
 
 theorem mem_goodPoly {P : MvPolynomial σ Rat} :
-    P ∈ GoodPoly K σ ↔ ∀ d, coeff d P ∈ Good K := by
+    P ∈ GoodPoly K σ ↔ ∀ d, P.coeff d ∈ Good K := by
   change P ∈ Set.range (MvPolynomial.map (Good K).subtype) ↔ _
   rw [MvPolynomial.mem_range_map_iff_coeffs_subset]
   constructor

@@ -9,10 +9,10 @@ This is what a held claim rests on, as of 2026-10-12. The guarantees themselves 
 | Component | Pin | Trusted for |
 |---|---|---|
 | The Lean 4 kernel, with `propext`, `Quot.sound` and `Classical.choice` | the toolchain below | checking every Kernel, profile and binding proof |
-| The toolchain | `leanprover/lean4:v4.34.0-rc2` for the Kernel, profile, binding and census (`KERNEL-PIN.json` for the Kernel); R1a uses `v4.34.1` | elaboration, and the compiler and runtime behind every compiled runner |
-| Hex arithmetic, as compiled | `HexMvPoly`, `HexPoly` and `HexBasic` v0.6.0; GMP-backed `Rat` and `Int` | the profile runners (`gp_ledger`, `gp_ledger3`, `gp_corpus_run`) running the code the soundness proofs describe. `HexMvPolyMathlib` relates that arithmetic to Mathlib by theorem. |
-| The census LRAT checker | vendored LRAT-Catcher (`vendor/lrat-catcher/`) | compiled replay inside the census runner. `native_decide` theorems are not admitted. |
-| Mathlib | `85e3a25e` (binding) | its definitions saying what the meanings intend |
+| The toolchain | `leanprover/lean4:v4.35.0-rc3`, a release candidate, for the Kernel, profile, binding and census (`KERNEL-PIN.json` for the Kernel); R1a uses `v4.34.1` | elaboration, and the compiler and runtime behind every compiled runner |
+| Hex arithmetic, as compiled | `HexMvPoly`, `HexPoly` and `HexBasic` v0.9.0; the C code of `HexModArith` and `HexArith` v0.9.0, linked into every profile runner (`zmod64_mul.c`, `wide_arith.c`, `extended_gcd.c`, compiled by `cc`, a shim to the toolchain's own clang, against the toolchain's GMP); GMP-backed `Rat` and `Int` | the profile runners (`gp_ledger`, `gp_ledger3`, `gp_corpus_run`) running the code the soundness proofs describe. `HexMvPolyMathlib` relates that arithmetic to Mathlib by theorem. A3 stands: GP's F_p replay is still exact rational replay with mod-p residuals, and no GP source calls `HexModArith` or `HexArith`; their code is linked because `HexMvPoly` v0.9.0 requires them. |
+| The census LRAT checker | vendored LRAT-Catcher (`vendor/lrat-catcher/`, native mode only since the rc3 port) over Lean core's `Std.Tactic.BVDecide.LRAT.check` | compiled replay inside the census runner. `native_decide` theorems are not admitted. |
+| Mathlib | `6b7abb3c` (binding), the Hex v0.9.0 pin | its definitions saying what the meanings intend |
 | The Python CLI, `tools/gp.py` | the release commit | See below. The fold, not the CLI, decides what is held. |
 | The matroid file reader | `encode-matroid.py`'s `canonical` | reading a matroid file into `(n, index lines)`. The Lean encoder re-derives the system from that. |
 | The binder export | the `gp-binder/v2` receipt | the `RecordsSound` hypothesis of `fold_held_meaning_rules` (theorem warrants only) |
@@ -142,6 +142,8 @@ Lifecycle-concern fixtures X149–X163 decode lifecycle-scenario/v1 natively int
 Lifecycle properties are proved over the actual support graph in Tests/LifecycleProperties.lean. retract_reachable_iff shows that after retracting a warrant, an id stays reachable exactly when it has a derivation avoiding that warrant; requirements_not_live ties this to runtime liveness. attempt_requirements and extra_nodes_keep_support show failed or timed-out attempts never revoke support, and no_bootstrap shows circular support without a requirement-free node supports nothing. fold_total, together with a source audit rejecting partial, unsafe, opaque, implemented_by, extern, sorry and native_decide in the kernel, gives totality and determinism.
 
 ## Phase 2.5 pins and libraries — 2026-10-02
+
+*Superseded on 2026-10-14 by the Lean `v4.35.0-rc3` / Hex v0.9.0 promotion (PROMOTIONS.md); the current pins are in the summary at the top. Kept as the record of the 0.50 pins.*
 
 Every package uses Lean `v4.34.0-rc2`, a release candidate adopted for Hex v0.6.0 (Addendum A2); compiler, runtime and kernel integrity at that toolchain are assumed. `KERNEL-PIN.json` binds the 22 Kernel files and the toolchain. `tools/check-kernel-axioms.py` replays each Kernel module with `leanchecker` and audits every Kernel constant's axioms.
 

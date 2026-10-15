@@ -12,12 +12,12 @@ path = "../phase2/lean"
 [[require]]
 name = "HexGraphIso"
 git = "https://github.com/leanprover/hex-graph-iso.git"
-rev = "v0.4.0"
+rev = "v0.9.0"
 
 [[lean_lib]]
 name = "GPCensus"
 
-# LRAT-Catcher v0.2.0, ported to the v4.34.0-rc2 pin (post-G3a decision 4; vendor/lrat-catcher/PROVENANCE.md).
+# LRAT-Catcher v0.2.0, ported to the v4.35.0-rc3 pin (post-G3a decision 4; vendor/lrat-catcher/PROVENANCE.md).
 [[require]]
 name = "LRATCatcher"
 path = "../vendor/lrat-catcher"

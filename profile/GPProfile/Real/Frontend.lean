@@ -403,6 +403,7 @@ def supportName3 : Support3 → String
 
 /-- Why a requested claim is not held. -/
 def refusal (p : Plan3) (state : RuntimeState) (i : Item3) : String :=
+  if p.withdrawn.contains i.key then "withdrawn by its owner (its warrants are retracted)" else
   match i.support with
   | .none => "unsupported"
   | .receipt _ (some s) =>

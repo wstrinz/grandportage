@@ -131,7 +131,7 @@ def apply_private_overlay(manifest, paths, read):
     except (UnicodeDecodeError, json.JSONDecodeError) as exc:
         raise PublicSnapshotError("OVL4: invalid private overlay: %s" % exc)
     _require(isinstance(value, dict) and "private_paths" in value and
-             set(value) <= {"schema", "private_paths", "guarded_names"} and
+             set(value) <= {"schema", "private_paths", "guarded_names", "audit_terms"} and
              value["schema"] == OVERLAY_SCHEMA, "OVL4", "invalid private overlay")
     extra = _path_list(value["private_paths"], "private_overlay.private_paths")
     guarded = value.get("guarded_names", [])
@@ -144,6 +144,10 @@ def apply_private_overlay(manifest, paths, read):
     result = dict(manifest)
     result["private_paths"] = sorted(manifest["private_paths"] + extra)
     result["guarded_names"] = sorted(guarded)
+    terms = value.get("audit_terms", [])
+    _require(isinstance(terms, list) and all(isinstance(x, str) and x for x in terms), "OVL4",
+             "audit_terms must be non-empty strings")
+    result["audit_terms"] = sorted(terms)
     return result
 
 
@@ -283,6 +287,35 @@ def revision_blob(root, commit, path):
     return _git(root, "show", "%s:%s" % (commit, path))
 
 
+def revision_blobs(root, commit, paths):
+    """{path: raw blob bytes} for every path, read through one `git cat-file --batch` process rather than one
+    `git show` each (thousands of processes were slow and hit the per-call timeout under load). A path with a
+    newline cannot be named in batch input, so it falls back to `git show`."""
+    batched = [path for path in paths if "\n" not in path]
+    request = "".join("%s:%s\n" % (commit, path) for path in batched).encode("utf-8")
+    process = subprocess.run(
+        ["git", "-c", "safe.directory=%s" % root.as_posix(), "-C", str(root), "cat-file", "--batch"],
+        input=request, capture_output=True, check=False)
+    _require(process.returncode == 0, "GIT5",
+             process.stderr.decode("utf-8", "replace").strip() or "git cat-file failed")
+    out, pos, blobs = process.stdout, 0, {}
+    for path in batched:
+        end = out.index(b"\n", pos)
+        header = out[pos:end].split()
+        _require(len(header) == 3 and header[1] == b"blob", "GIT6",
+                 "%s:%s is not a blob in the revision" % (commit, path))
+        size = int(header[2])
+        start = end + 1
+        blobs[path] = out[start:start + size]
+        _require(out[start + size:start + size + 1] == b"\n", "GIT6", "malformed cat-file output")
+        pos = start + size + 1
+    _require(pos == len(out), "GIT6", "unexpected trailing cat-file output")
+    for path in paths:
+        if path not in blobs:
+            blobs[path] = revision_blob(root, commit, path)
+    return blobs
+
+
 def build_receipt(commit, manifest_path, manifest_payload, blobs,
                   classifications):
     files = [
@@ -326,10 +359,7 @@ def compile_snapshot(source_root=ROOT, revision="HEAD",
     manifest = apply_private_overlay(manifest, paths,
                                      lambda path: revision_blob(root, commit, path))
     classifications = classify_paths(manifest, paths)
-    blobs = {
-        path: revision_blob(root, commit, path)
-        for path in classifications["public"]
-    }
+    blobs = revision_blobs(root, commit, classifications["public"])
     receipt = build_receipt(
         commit, manifest_path, manifest_payload, blobs, classifications)
     return blobs, receipt
@@ -361,16 +391,74 @@ def materialize(output_dir, blobs, receipt):
     return receipt
 
 
+# Generic patterns that must never reach the public tree; campaign terms live only in the withheld overlay.
+GENERIC_AUDIT = [
+    re.compile(r"[A-Za-z]:[\\/]+(?:Users|repos|caches|trials|tools)[\\/]", re.I),  # a local machine path
+    re.compile(r"/(?:home|Users)/[a-z][a-z0-9_-]*/", re.I),
+    re.compile(r"ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-ant-[A-Za-z0-9_-]{10,}|AKIA[0-9A-Z]{16}"),
+    re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
+]
+
+
+def audit_terms_for(source_root, revision, manifest_path=DEFAULT_MANIFEST):
+    """The guarded names and private audit terms of a revision's overlay ([] in a public tree)."""
+    root = Path(source_root).resolve()
+    commit = resolve_revision(root, revision)
+    paths = revision_paths(root, commit)
+    manifest = load_manifest_bytes(revision_blob(root, commit, manifest_path))
+    manifest = apply_private_overlay(manifest, paths, lambda path: revision_blob(root, commit, path))
+    return manifest.get("guarded_names", []) + manifest.get("audit_terms", [])
+
+
+def audit_snapshot(blobs, published_dir, terms):
+    """Lines new to the snapshot (absent from the same file in the published tree) that match a generic pattern,
+    a guarded name (as a whole token, or a hyphenated name as a substring) or a private audit term
+    (case-insensitive substring). Returns [(path, line_number, matched)]; unchanged lines are not re-reported."""
+    published = Path(published_dir)
+    plain = [n for n in terms if re.fullmatch(r"[a-z0-9]+", n)]
+    phrases = [n.lower() for n in terms if n not in plain]
+    hits = []
+    for path, payload in sorted(blobs.items()):
+        try:
+            lines = payload.decode("utf-8").splitlines()
+        except UnicodeDecodeError:
+            continue
+        old_file = published / path
+        old = set()
+        if old_file.is_file():
+            old = set(old_file.read_bytes().decode("utf-8", "replace").splitlines())
+        for number, line in enumerate(lines, 1):
+            if line in old:
+                continue
+            lowered = line.lower()
+            tokens = set(re.split(r"[^a-z0-9]+", lowered))
+            found = [pattern.pattern for pattern in GENERIC_AUDIT if pattern.search(line)]
+            found += [n for n in plain if n in tokens]
+            found += [n for n in phrases if n.replace("_", "-") in lowered.replace("_", "-")]
+            if found:
+                hits.append((path, number, found[0]))
+    return hits
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-root", type=Path, default=ROOT)
     parser.add_argument("--revision", default="HEAD")
     parser.add_argument("--manifest", default=DEFAULT_MANIFEST)
     parser.add_argument("--output-dir", type=Path)
+    parser.add_argument("--audit-against", type=Path,
+                        help="the published tree; refuse if a new line leaks a machine path, a secret or a "
+                             "withheld name")
     args = parser.parse_args(argv)
     try:
         blobs, receipt = compile_snapshot(
             args.source_root, args.revision, args.manifest)
+        if args.audit_against is not None:
+            hits = audit_snapshot(blobs, args.audit_against,
+                                  audit_terms_for(args.source_root, args.revision, args.manifest))
+            # The matched term is not printed: it may itself be a withheld name.
+            _require(not hits, "AUD1", "new lines leak a machine path, a secret or a withheld name: %s"
+                     % ", ".join("%s:%d" % (path, number) for path, number, _ in hits[:20]))
         if args.output_dir is not None:
             materialize(args.output_dir, blobs, receipt)
         print(canonical_json({

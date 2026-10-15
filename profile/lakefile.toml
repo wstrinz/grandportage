@@ -3,8 +3,8 @@ version = "0.1.0"
 defaultTargets = ["GPProfile", "gp_profile_layout", "gp_reach_slice"]
 
 # Executable algebraic profile (Addendum A §2.5e): Kernel plus Mathlib-free Hex libraries.
-# F_p replay uses core `Fin p` instead of HexModArith (A3 deviation, Will 2026-10-02): the
-# HexModArith FFI needs `cc` and gmp.h, which this Windows toolchain lacks.
+# F_p replay is exact rational replay with mod-p residuals, not HexModArith (A3 deviation, Will 2026-10-02).
+# HexMvPoly v0.9.0 requires HexModArith and HexArith, so their C code (built with `cc`) is linked; GP calls neither.
 # Mathlib must never appear in this package's dependency graph.
 
 [[require]]
@@ -14,7 +14,7 @@ path = "../phase2/lean"
 [[require]]
 name = "HexMvPoly"
 git = "https://github.com/leanprover/hex-mv-poly.git"
-rev = "v0.6.0"
+rev = "v0.9.0"
 
 [[lean_lib]]
 name = "GPProfile"

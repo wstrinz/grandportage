@@ -61,6 +61,8 @@ structure Plan where
   requested : List Nat
   /-- Refusals decided while elaborating the case (signature, malformed maps). -/
   elaboration : Option String := none
+  /-- Withdrawn claim keys (GP 0.51, docs/WITHDRAWAL-DESIGN.md): their warrants are retracted in both folds. -/
+  withdrawn : List Nat := []
   deriving Repr
 
 def bindingOf (stmt : Stmt) (scope : Scope) (extra : List String) : Binding :=
@@ -82,6 +84,11 @@ keys in [2^32, 2^32 + 2^52)), so a theorem warrant's id never meets another clai
 def theoremWarrantBase : Nat := 2 ^ 60
 
 def theoremWarrantId (key : Nat) : Nat := theoremWarrantBase + key
+
+/-- Withdrawing claim `k` retracts both warrants the profile files for it: the support warrant (id `k`) and the
+theorem warrant (`theoremWarrantId k`). The retracts are appended to the folded log only, never to `Ledger.events`,
+so filing stays `Guard.Simple` (docs/WITHDRAWAL-DESIGN.md §2; W1–W3 in `GPProfile.Withdraw`). -/
+def withdrawEvents (ks : List Nat) : List Event := ks.flatMap fun k => [.retract k, .retract (theoremWarrantId k)]
 
 /-- A4: mint a theorem warrant for a claim when the binder bound a theorem for exactly its
 statement and scope. The warrant is filed next to the receipt, through the commit guard. -/
@@ -373,7 +380,9 @@ def Plan.runWith (p : Plan) (m : CheckMemo) (records : List BinderRecord := []) 
         let (l, d) ← acc.1.mintTheorem i
         pure (l, acc.2 ++ (d.map (i.key, ·)).toList)
       | _ => pure acc) (ledger, [])
-  let state ← fold (ledger.admissionMemo m) ledger.events
+  -- Withdrawn claims: their warrants are retracted in both folds (`withdraw_unholds`).
+  let withdrawals := withdrawEvents p.withdrawn
+  let state ← fold (ledger.admissionMemo m) (ledger.events ++ withdrawals)
   -- `held state` as a set lookup (`Std.HashSet.contains_ofList`), not a scan of the claim list.
   let heldKeys := Std.HashSet.ofList state.claims
   let accepted := p.elaboration.isNone && !p.requested.isEmpty && p.requested.all heldKeys.contains
@@ -389,7 +398,7 @@ def Plan.runWith (p : Plan) (m : CheckMemo) (records : List BinderRecord := []) 
   let (ledger, theorems) ← widenedItems.foldlM (fun (acc : Ledger × List (Nat × String)) i => do
       let (l, d) ← acc.1.mintTheorem i
       pure (l, acc.2 ++ (d.map (i.key, ·)).toList)) (ledger, theorems)
-  let final ← fold (ledger.admissionMemo m) ledger.events
+  let final ← fold (ledger.admissionMemo m) (ledger.events ++ withdrawals)
   pure ⟨accepted, final, widened, (Queries.earned final (p.items.map (·.key)) [] []).map (·.claim), theorems⟩
 
 /-- `Plan.runWith` with a memo of this plan's checks. -/

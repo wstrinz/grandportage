@@ -687,3 +687,17 @@ Work now lands on master directly; the workspace checkout tracks `origin/master`
 - No Kernel, toolchain or soundness change.
 - The Hex v0.9 / rc3 promotion lands after it, as the start of 0.51.
 - The stage 1 brief is written now, with the remaining trial marked pending.
+
+2026-10-14 **`v0.50.2` published** on public `wstrinz/grandportage`. Receipt: [V0.50.2-PUBLICATION.json](reports/V0.50.2-PUBLICATION.json). Public commit `561af8c` is the audited snapshot of workspace tag `v0.50.2` (`08877e0`), and public CI on the tag is green.
+
+2026-10-14 **The Lean v4.35.0-rc3 / Hex v0.9.0 promotion has landed** (`518fdcc`), starting 0.51.
+- The Kernel is unchanged, and the pin moves only its toolchain.
+- Workspace CI is green on all jobs, and the Comparator workflow passes all 34 3P shards under rc3, with Comparator and lean4export pinned to their v4.35.0-rc3 tags.
+- The local checkout is rebuilt under rc3.
+
+2026-10-15 **Claim withdrawal has landed for 0.51**, as approved ([design](docs/WITHDRAWAL-DESIGN.md)).
+- `gp withdraw LABEL --reason ... [--cascade]` retracts the claim's support warrant and theorem warrant through the Kernel's existing `retract`, with no Kernel change.
+- The profile lemmas W1–W3 are in the CI axiom audit, with W3 carried through every 3a and 3b run.
+- `--cascade` is required when other held claims would lose their hold. `goal` and `spine` claims are refused.
+- Every withdrawal prints the older-reader warning.
+- Verified: full gp50 suite (264 passed), v0.37 fast suite, and the Kernel pin.

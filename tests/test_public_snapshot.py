@@ -332,3 +332,28 @@ def test_workspace_guarded_names_are_live():
     for name in applied["guarded_names"]:
         with pytest.raises(module.PublicSnapshotError, match="CAMP1"):
             module.classify_paths(applied, _candidate_paths() + [f"docs/{name}-note.md"])
+
+
+def test_audit_flags_new_leaks_only(tmp_path):
+    # A new line with a machine path, a guarded name or a private term is flagged; an unchanged line is not.
+    module = _load()
+    published = tmp_path / "published"
+    (published / "docs").mkdir(parents=True)
+    (published / "docs" / "a.md").write_bytes(b"old zebu line\n")
+    machine = ("F" + ":/repos/x").encode()  # built, so the file itself holds no local path
+    blobs = {"docs/a.md": b"old zebu line\nsee " + machine + b" for it\nthe zebu result\nred_fox notes\nfine\n",
+             "docs/b.md": b"a zebus plural is fine\n"}
+    hits = module.audit_snapshot(blobs, published, ["zebu", "red-fox"])
+    assert [(path, line) for path, line, _ in hits] == [("docs/a.md", 2), ("docs/a.md", 3), ("docs/a.md", 4)]
+
+
+def test_workspace_audit_terms_are_live(tmp_path):
+    # In the workspace, every guarded name and private audit term is flagged on a new line.
+    module = _load()
+    manifest = module.load_manifest(MANIFEST)
+    if not (ROOT / manifest["private_overlay"]["path"]).is_file():
+        pytest.skip("public snapshot: the overlay is withheld")
+    terms = module.audit_terms_for(ROOT, "HEAD")
+    assert terms, "the overlay carries no audit terms"
+    for term in terms:
+        assert module.audit_snapshot({"docs/n.md": ("note: %s here\n" % term).encode()}, tmp_path, terms), term

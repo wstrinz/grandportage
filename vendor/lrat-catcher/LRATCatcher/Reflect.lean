@@ -1,5 +1,4 @@
 import LRATCatcher.Basic
-import LRATCatcher.Kernel
 import Std.Tactic.BVDecide.LRAT
 import Lean
 
@@ -98,29 +97,8 @@ def validateDimacs (path : String) (s : String) : CommandElabM Unit := do
         throwError "{path}:{lineNo}: non-integer token '{tok.toString}' in clause line"
   unless lastTok.isNone || lastTok == some 0 do
     throwError "{path}: final clause is not terminated by 0"
-  if (parseDimacs s).clauses.any (·.isEmpty) then
+  if (parseDimacs s).clauses.any (·.size == 0) then
     logWarning m!"{path}: contains an empty clause — the CNF is trivially unsatisfiable"
-
-/-! ## Quoting pre-parsed LRAT actions (kernel mode)
-
-In kernel mode the certificate is parsed at elaboration time and embedded as
-a `List IntAction` term, so the kernel evaluates only the checker, never the
-ByteArray parser. Wrong actions can only make the check fail, so this is
-sound. Integers are quoted as `Int.ofNat`/`Int.negSucc` constructor literals,
-which the kernel consumes without `OfNat` unfolding. -/
-
-private instance : Quote Int where
-  quote
-    | .ofNat n => Syntax.mkCApp ``Int.ofNat #[quote n]
-    | .negSucc n => Syntax.mkCApp ``Int.negSucc #[quote n]
-
-private instance : Quote IntAction where
-  quote
-    | .addEmpty id rup => Syntax.mkCApp ``Action.addEmpty #[quote id, quote rup]
-    | .addRup id c rup => Syntax.mkCApp ``Action.addRup #[quote id, quote c, quote rup]
-    | .addRat id c p rup rat =>
-        Syntax.mkCApp ``Action.addRat #[quote id, quote c, quote p, quote rup, quote rat]
-    | .del ids => Syntax.mkCApp ``Action.del #[quote ids]
 
 /-! ## Commands -/
 
@@ -139,17 +117,6 @@ def loadLrat (cmdName : String) (lratFile : TSyntax `str) :
     throwError "{cmdName}: LRAT parse error in '{lratFile.getString}': {e}"
   | .ok proof => return (lratStr, proof)
 
-/-- Emit the kernel-mode theorem `name : cnfTerm.Unsat` with the pre-parsed
-    certificate embedded as a `List IntAction` literal. -/
-def emitKernelTheorem (n : Ident) (cnfT : Term) (proof : Array IntAction) :
-    CommandElabM Unit := do
-  let actions := quote proof.toList
-  elabCommand (← `(command|
-    set_option maxRecDepth 1000000 in
-    set_option maxHeartbeats 0 in
-    theorem $n : Std.Sat.CNF.Unsat ($cnfT : Std.Sat.CNF Nat) :=
-      LRATCatcher.checkKernel_sound $cnfT $actions (by decide +kernel)))
-
 /-- `lrat_reflect name "f.cnf" "f.lrat"`: import a DIMACS CNF + LRAT certificate
     as `name : (LRATCatcher.parseDimacs «cnf contents»).Unsat`. -/
 elab "lrat_reflect " n:ident ppSpace cnfFile:str ppSpace lratFile:str : command => do
@@ -161,18 +128,6 @@ elab "lrat_reflect " n:ident ppSpace cnfFile:str ppSpace lratFile:str : command 
     theorem $n : (LRATCatcher.parseDimacs $cnfLit).Unsat :=
       LRATCatcher.checkLrat_sound $cnfLit $lratLit (by native_decide)))
 
-/-- `lrat_reflect +kernel name "f.cnf" "f.lrat"`: as `lrat_reflect`, but the
-    check runs inside the Lean kernel (no compiler trust). The kernel cannot
-    evaluate the string parser, so the statement is
-    `name : «cnf as a literal term».Unsat`: the parsed CNF is embedded as an
-    explicit `CNF Nat` literal (inspect it with `#check`) instead of
-    appearing as `parseDimacs «file string»`. -/
-elab "lrat_reflect " "+" noWs &"kernel" ppSpace n:ident ppSpace cnfFile:str ppSpace lratFile:str : command => do
-  let cnfStr ← loadCnf cnfFile
-  let (_, proof) ← loadLrat "lrat_reflect" lratFile
-  let cnfT : Term := Syntax.mkCApp ``Std.Sat.CNF.mk #[quote (parseDimacs cnfStr).clauses]
-  emitKernelTheorem n cnfT proof
-
 /-- `lrat_reflect_cnf name (cnfTerm) "f.lrat"`: certify a Lean-defined
     `CNF Nat` as UNSAT via an LRAT certificate: `name : cnfTerm.Unsat`. -/
 elab "lrat_reflect_cnf " n:ident ppSpace "(" cnfTerm:term ")" ppSpace lratFile:str : command => do
@@ -181,14 +136,6 @@ elab "lrat_reflect_cnf " n:ident ppSpace "(" cnfTerm:term ")" ppSpace lratFile:s
   elabCommand (← `(command|
     theorem $n : Std.Sat.CNF.Unsat ($cnfTerm : Std.Sat.CNF Nat) :=
       LRATCatcher.checkLratCnf_sound $cnfTerm $lratLit (by native_decide)))
-
-/-- `lrat_reflect_cnf +kernel name (cnfTerm) "f.lrat"`: as `lrat_reflect_cnf`,
-    but the Boolean check is evaluated by the Lean kernel (`decide +kernel`
-    on `LRATCatcher.checkKernel`) instead of the compiled evaluator — slower,
-    but removes the compiler from the trust base. -/
-elab "lrat_reflect_cnf " "+" noWs &"kernel" ppSpace n:ident ppSpace "(" cnfTerm:term ")" ppSpace lratFile:str : command => do
-  let (_, proof) ← loadLrat "lrat_reflect_cnf" lratFile
-  emitKernelTheorem n cnfTerm proof
 
 /-! ## Solver invocation (`lrat_decide`) -/
 
@@ -235,23 +182,6 @@ elab "lrat_decide " n:ident ppSpace cnfFile:str : command => do
     elabCommand (← `(command|
       theorem $n : (LRATCatcher.parseDimacs $cnfLit).Unsat :=
         LRATCatcher.checkLrat_sound $cnfLit $lratLit (by native_decide)))
-  finally
-    IO.FS.removeDirAll tmpDir
-
-/-- `lrat_decide +kernel name "f.cnf"`: as `lrat_decide`, but kernel-mode
-    (statement embeds the CNF literal; `decide +kernel`, no compiler trust). -/
-elab "lrat_decide " "+" noWs &"kernel" ppSpace n:ident ppSpace cnfFile:str : command => do
-  let cnfStr ← loadCnf cnfFile
-  let tmpDir ← IO.FS.createTempDir
-  try
-    let lratPath := tmpDir / "proof.lrat"
-    runSolver cnfFile.getString lratPath.toString
-    let lratStr ← readFile' lratPath.toString
-    match parseLRATProof lratStr.toUTF8 with
-    | .error e => throwError "lrat_decide: LRAT parse error in solver output: {e}"
-    | .ok proof =>
-      let cnfT : Term := Syntax.mkCApp ``Std.Sat.CNF.mk #[quote (parseDimacs cnfStr).clauses]
-      emitKernelTheorem n cnfT proof
   finally
     IO.FS.removeDirAll tmpDir
 

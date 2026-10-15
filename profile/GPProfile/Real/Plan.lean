@@ -44,6 +44,8 @@ structure Plan3 where
   requested : List Nat
   /-- Refusals decided while elaborating the case. -/
   elaboration : Option String := none
+  /-- Withdrawn claim keys (GP 0.51): their warrants are retracted in the fold, as in 3a (`withdrawEvents`). -/
+  withdrawn : List Nat := []
 
 /-! ## Canonical binding text -/
 
@@ -147,7 +149,7 @@ structure Outcome3 where
 /-- Run a plan: file every item through the commit guard, fold with `admission3`, report. -/
 def Plan3.run (p : Plan3) : Except String Outcome3 := do
   let ledger ← fileAll3 p.items {}
-  let state ← fold ledger.admission ledger.events
+  let state ← fold ledger.admission (ledger.events ++ withdrawEvents p.withdrawn)
   let accepted := p.elaboration.isNone && !p.requested.isEmpty && p.requested.all (held state ·)
   pure ⟨accepted, state, ledger, (Queries.earned state (p.items.map (·.key)) [] []).map (·.claim)⟩
 

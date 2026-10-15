@@ -207,14 +207,15 @@ theorem expF_inj {n : ℕ} {a b : List ℕ} (ha : a.length = n) (hb : b.length =
 
 theorem coeff_elabK (n : ℕ) (p : Sparse) (mono : List ℕ) (harity : arityOk n p = true)
     (hlen : mono.length = n) (hint : intCoeffs p = true) :
-    coeff (expF n mono) (elabK K n p) = ((coeffZ p mono : ℤ) : K) := by
+    (elabK K n p).coeff (expF n mono) = ((coeffZ p mono : ℤ) : K) := by
   unfold elabK coeffZ
   induction p with
   | nil => simp
   | cons t p ih =>
     simp only [arityOk, List.all_cons, Bool.and_eq_true, beq_iff_eq] at harity
     simp only [intCoeffs, List.all_cons, Bool.and_eq_true, beq_iff_eq] at hint
-    simp only [List.map_cons, List.sum_cons, coeff_add, coeff_monomial, List.filter_cons]
+    simp only [List.map_cons, List.sum_cons, AddMonoidAlgebra.coeff_add, Finsupp.add_apply, coeff_monomial,
+      List.filter_cons]
     rw [ih harity.2 hint.2]
     by_cases ht : t.1 = mono
     · subst ht

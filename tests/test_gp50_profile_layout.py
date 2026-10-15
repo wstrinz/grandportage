@@ -32,7 +32,7 @@ class ProfileLayoutTests(unittest.TestCase):
         for name in sorted(shared):
             with self.subTest(package=name):
                 self.assertEqual(profile[name]["rev"], binding[name]["rev"])
-                self.assertEqual(profile[name]["inputRev"], "v0.6.0")
+                self.assertEqual(profile[name]["inputRev"], "v0.9.0")
 
     def test_binding_requires_profile(self):
         self.assertIn("gp_profile", manifest(BINDING))

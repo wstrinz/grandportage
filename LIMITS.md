@@ -33,13 +33,14 @@ The current limits of GP 0.50 (2026-10-13), which apply throughout. Guarantees a
 
 ## Kernel pin and promotion
 
-- `KERNEL-PIN.json` binds the 22 Kernel files and the toolchain, Lean `v4.34.0-rc2` (a release candidate, adopted for Hex v0.6.0).
+- `KERNEL-PIN.json` binds the 22 Kernel files and the toolchain, Lean `v4.35.0-rc3` (a release candidate, adopted for Hex v0.9.0). Lean `v4.35.0` is newer; moving to it is a later toolchain-only promotion, once Hex re-pins.
 - **Changes** go through [PROMOTIONS.md](PROMOTIONS.md) with Will's approval. Each entry needs re-check evidence, and the pin is rewritten in the same commit.
 - **The corpus is fixed:** case bytes, expectations, source pins and replay history. Receipts bind test and harness bytes, so changing an executed harness requires re-execution.
 
 ## Campaign ledgers
 
-- **No withdrawal.** `gp` cannot withdraw a claim, refused or held: the profile files no retraction or supersession events yet, so a refused claim stays on the frontier and `merge` refuses a log that carries lifecycle records. File the corrected claim under a new label.
+- **Withdrawal is permanent and claim-level** (GP 0.51, [docs/WITHDRAWAL-DESIGN.md](docs/WITHDRAWAL-DESIGN.md)). `gp withdraw` retracts a claim's warrants on every fold. There is no un-withdraw, and the label stays taken: file the corrected claim under a new label. A support cannot be withdrawn on its own (a better receipt replaces it), and `goal` and `spine` claims cannot be withdrawn. Raw retraction and supersession records are not applied: `merge` refuses a log that carries them.
+- **Readers older than 0.51 do not see withdrawals.** They skip `withdraw` records, so they show a withdrawn claim, and what rests on it, as held again. That is sound (anything held after a withdrawal was held before), but it reverses the owner's decision. A `gp-ledger/v1` ledger cannot make an older `gp` refuse; read ledgers with withdrawals only with 0.51 or newer.
 
 ## Public snapshot boundaries
 

@@ -34,6 +34,9 @@ claims. Each is reported `equal` exactly when the claim is order-free and its st
 encoder's (`GPProfile.UDG.Data.stmt`) for that graph, gauge and kind: ENCODING-FRAME's side
 condition, with `GPBinding.UDG.udg_frame_iff` the theorem. Reporting only; the fold is unchanged.
 
+`withdrawn` (optional, GP 0.51): withdrawn claim keys. The fold retracts their warrants (`Plan3.withdrawn`,
+`GPProfile.Withdraw.run3_withdrawn`), and their items carry `"withdrawn": true`.
+
 Fast paths (ud22 performance, 2026-10-10) are `@[csimp]` twins at the end of this file: the
 definitions above stay the specification. A run checks each receipt once (`CheckMemo3`, read by the
 fold and the report); each claim elaborates and is checked in its own task.
@@ -386,7 +389,7 @@ def plan3 (inputs : Json) : Except String Plan3 := do
   let heads ← claims.mapM fun c => named c (headStmt c)
   let stmts : Std.HashMap Nat Stmt3 := heads.foldl (fun m (k, s) => m.insertIfNew k s) {}
   let items ← claims.mapM fun c => named c (item3 stmts c)
-  pure { items, requested := ← nats inputs "requested" }
+  pure { items, requested := ← nats inputs "requested", withdrawn := ← nats inputs "withdrawn" }
 
 /-! ## Output -/
 
@@ -436,7 +439,8 @@ def itemJson3 (p : Plan3) (o : Outcome3) (i : Item3) : Json :=
   let base : List (String × Json) := [("key", toJson i.key), ("family", toJson (familyName i.stmt)),
     ("kind", toJson (kindName3 i.stmt)), ("scope", toJson (scopeName i.scope)),
     ("support", toJson (supportName3 i.support)), ("held", toJson h), ("refuter", toJson refuter),
-    ("mechanism", toJson (if h then s!"held by {supportName3 i.support}" else refusal p o.state i))]
+    ("mechanism", toJson (if h then s!"held by {supportName3 i.support}" else refusal p o.state i))] ++
+    (if p.withdrawn.contains i.key then [("withdrawn", toJson true)] else [])
   Json.mkObj (base ++ match i.support with
     | .receipt c _ => checkFields i c h
     | .rule _ ps => [("premises", toJson ps)]
@@ -471,15 +475,16 @@ def runLedger3 (inputs : Json) : Json :=
       ("udgFrames", udgFrameChecks ((obj? inputs "udgFrames").getD (Json.arr #[])) p.items)]
 
 /-- `gp_ledger3 --guard`, the merge guard for the 3b part (`GPProfile.LedgerRun.guardLedger`'s twin): every
-claim is filed as `Plan3.run` files it, unguarded (`Ledger3.fileRaw`), the `lifecycle` events (Kernel event
-JSON) are appended, and the Kernel's `resolve` decides once (`guard`). No receipt is replayed. -/
+claim is filed as `Plan3.run` files it, unguarded (`Ledger3.fileRaw`), the withdrawals' retracts and the
+`lifecycle` events (Kernel event JSON) are appended, and the Kernel's `resolve` decides once (`guard`). No receipt
+is replayed. -/
 def guardLedger3 (inputs : Json) : Json :=
   let lifecycle := match obj? inputs "lifecycle" with | some (.arr es) => es.toList | _ => []
   match plan3 inputs, lifecycle.mapM Decoder.decodeEvent with
   | .error e, _ => Json.mkObj [("error", toJson e)]
   | .ok _, .error e => Json.mkObj [("error", toJson s!"lifecycle event: {e}")]
   | .ok p, .ok extra =>
-    match guard ((p.items.foldl Ledger3.fileRaw {}).events ++ extra) with
+    match guard ((p.items.foldl Ledger3.fileRaw {}).events ++ withdrawEvents p.withdrawn ++ extra) with
     | .ok _ => Json.mkObj [("guard", "ok")]
     | .error e => Json.mkObj [("error", toJson e)]
 
@@ -496,7 +501,7 @@ def plan3Head (inputs : Json) : Except String (List Json × Std.HashMap Nat Stmt
 /-- `plan3` from each claim's elaborated item. -/
 def plan3From (inputs : Json) (its : List (Except String Item3)) : Except String Plan3 := do
   let items ← its.mapM id
-  pure { items, requested := ← nats inputs "requested" }
+  pure { items, requested := ← nats inputs "requested", withdrawn := ← nats inputs "withdrawn" }
 
 theorem plan3_split (inputs : Json) : plan3 inputs =
     (plan3Head inputs >>= fun h => plan3From inputs (h.1.map fun c => named c (item3 h.2 c))) := by
@@ -552,7 +557,8 @@ def itemJson3With (m : CheckMemo3) (p : Plan3) (o : Outcome3) (i : Item3) : Json
   let base : List (String × Json) := [("key", toJson i.key), ("family", toJson (familyName i.stmt)),
     ("kind", toJson (kindName3 i.stmt)), ("scope", toJson (scopeName i.scope)),
     ("support", toJson (supportName3 i.support)), ("held", toJson h), ("refuter", toJson refuter),
-    ("mechanism", toJson (if h then s!"held by {supportName3 i.support}" else refusal p o.state i))]
+    ("mechanism", toJson (if h then s!"held by {supportName3 i.support}" else refusal p o.state i))] ++
+    (if p.withdrawn.contains i.key then [("withdrawn", toJson true)] else [])
   Json.mkObj (base ++ match i.support with
     | .receipt c _ => checkFieldsWith m i c h
     | .rule _ ps => [("premises", toJson ps)]

@@ -258,6 +258,20 @@ class Hardening(unittest.TestCase):
         out = self.ok("submit", "two", self.write("q.json", EMPTY_Q))
         self.assertIn("held", out)
 
+    def test_undeclared_variable_claim_does_not_vanish(self):
+        # 0.51 (found by tests/test_gp50_parser_mirror.py): the runner reports an undeclared variable as
+        # `elaboration`, which the fold once took for an empty fold, so the ledger's claims vanished from views.
+        self.ok("init")
+        self.ok("claim", "two", "--system", self.write("two.json", TWO_POINTS), "--kind", "EMPTY", "--char0")
+        body = {"label": "old", "matroid": None, "system": {"variables": ["x"], "equations": ["x + w"], "nonzero": []},
+                "kind": "EMPTY", "target": None, "scope": {"char0": True}, "inputs": ["system:0"],
+                "named_premises": []}
+        with (self.dir / "ledger.jsonl").open("a", encoding="utf-8", newline="\n") as f:
+            f.write(json.dumps(dict({"op": "claim", "key": 4343}, **body)) + "\n")
+        out = self.ok("status")
+        self.assertIn("two", out)
+        self.assertIn("unparsed old: equations[0]: undeclared variable: w does not parse", out)
+
     def test_real_point_names_the_failing_condition(self):
         # A campaign's friction log: a refused real point names the system file's entry that fails.
         self.ok("init")

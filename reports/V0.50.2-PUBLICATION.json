@@ -1,0 +1,46 @@
+{
+ "schema": "gp-alpha-publication/v1",
+ "date": "2026-10-14",
+ "authority": "Will, 2026-10-14: cut v0.50.2 now (the remaining trial cannot change GP)",
+ "prevents": "an unverifiable claim that the public tree is the audited snapshot of the tagged workspace release commit",
+ "workspace": {
+  "repository": "https://github.com/wstrinz/grand-portage-workspace (private)",
+  "tag": "v0.50.2",
+  "tag_object": "8da40c002b710b5e47d6c3083b95d5b1068c9987",
+  "commit": "08877e062619856563b4c510b49fcde8468ee340",
+  "ci_run": 38551755916,
+  "ci": "success on all jobs (gp50, fast, lean-atlas, witness-boundary) at the tagged commit itself"
+ },
+ "snapshot": {
+  "manifest": "public-snapshot-v2.json",
+  "receipt_schema": "grand-portage-public-snapshot-receipt/v2",
+  "sha256": "00c43da2958fe3c272bd59fc79aed08232d78a0136af85f05654ba6b79cb216e",
+  "files": 4867,
+  "generated_from_tagged_commit": true,
+  "audit": {
+   "method": "every changed or added line since the published v0.50.1 tree (9c1f0aa), scanned for withheld campaign terms, guarded names, machine paths and secrets",
+   "changed_or_added_files": 21,
+   "removed_files": 0,
+   "scrubbed_before_tagging": "a campaign name in a public DECISIONS entry (08877e0)",
+   "hits_at_tag": 0
+  }
+ },
+ "public": {
+  "repository": "https://github.com/wstrinz/grandportage",
+  "branch": "master",
+  "base_commit": "9c1f0aa",
+  "published_commit": "561af8c01151d9ebb5458bcdd72f279a04968fdc",
+  "fast_forward": true,
+  "index_entries": 4868,
+  "blobs_equal_snapshot_bytes": 4867,
+  "receipt_file": 1,
+  "tag": "v0.50.2",
+  "tag_object": "f8a9492c0e85b741cbe3284974e6540977c43a71",
+  "release": "https://github.com/wstrinz/grandportage/releases/tag/v0.50.2 (full release, latest; published 2026-10-14T11:20:28Z)",
+  "ci": {
+   "test": "run 38555878878 at 561af8c: all jobs pass; gp50 544 passed, 63 skipped (private-oracle suites); fast 1754 passed, 1 skipped",
+   "rope_r1a": "run 38555883030: REPRODUCE passes on a fresh public runner",
+   "comparator": "run 38555887205: all 34 3P shards pass stock Comparator"
+  }
+ }
+}

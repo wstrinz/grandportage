@@ -10,7 +10,9 @@ usage: python tools/gp.py --campaign <dir> <command> ...
   cover <label> --candidates FILE --n N --m M [--premise NAME[=data] ...] [--supports L1,L2]
                                         a candidate cover: the Kernel claims cover n m L and spine n m L
   submit <label> <receipt.json>         offer a certificate or a rule instance; GP replays it
-  status                                held, open, refused and earned, per claim and per matroid
+  withdraw <label> --reason TEXT [--cascade]
+                                        withdraw a claim permanently; --cascade when other held claims rest on it
+  status                             held, open, refused and earned, per claim and per matroid
   explain <label>                       the licence tree of one claim, or a cover's join
   frontier                              open claims, each with its last refusal and smallest fix
   tailings --export [FILE]              by-products: refused attempts, earned widenings, open items
@@ -21,7 +23,8 @@ The ledger (<dir>/ledger.jsonl, gp-ledger/v1) is append-only and written only by
 binds its encoding digest; each support records the receipt it was replayed from, inline (as older
 supports are) or by reference: receipts/<sha256>.json, whose SHA-256 is checked on every command
 before anything folds. The Kernel fold over the whole ledger decides every status, on every command.
-A refused submission is logged with the refusal and never becomes support.
+A refused submission is logged with the refusal and never becomes support. A withdrawal (GP 0.51) is a
+`withdraw` record: both runners retract the claim's warrants, so it and what rests only on it are not held.
 """
 import argparse
 import datetime
@@ -39,7 +42,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = ROOT / "profile"
-GP_VERSION = "0.50.2"  # the release version; recorded in each ledger's init record
+GP_VERSION = "0.51.0"  # the release version; recorded in each ledger's init record
 EXE = PROFILE / (".lake/build/bin/gp_ledger" + (".exe" if os.name == "nt" else ""))
 ELAN_HOME = Path(os.environ.get("ELAN_HOME") or Path.home() / ".elan")
 SCHEMA = "gp-ledger/v1"
@@ -112,6 +115,7 @@ class Ledger:
         self._refused = None
         self._claims = None
         self._supports = None
+        self._withdrawn = None
         # Where receipt files are looked up, in order (a merge adds the other branch's directory).
         # Files are content-addressed and checked on every read, so no directory is trusted.
         self.receipt_dirs = [self.dir]
@@ -170,6 +174,7 @@ class Ledger:
         self._refused = None
         self._claims = None
         self._supports = None
+        self._withdrawn = None
         return record
 
     def store_receipt(self, receipt):
@@ -276,6 +281,18 @@ class Ledger:
                 if r.get("label") is not None:
                     self._refused.setdefault(r["label"], []).append(r)
         return list(self._refused.get(label, []))
+
+    def withdrawals(self):
+        """The withdraw records by claim key, the first per key (GP 0.51; docs/WITHDRAWAL-DESIGN.md). A withdrawal is
+        permanent: both runners retract the claim's support and theorem warrants on every fold."""
+        stamp = (id(self.records), len(self.records))
+        if self._withdrawn is None or self._withdrawn[0] != stamp:
+            out = {}
+            for r in self.records:
+                if r["op"] == "withdraw" and type(r.get("key")) is int:
+                    out.setdefault(r["key"], r)
+            self._withdrawn = (stamp, out)
+        return dict(self._withdrawn[1])
 
 
 def matroid_file(campaign, name, statement=None):
@@ -396,6 +413,14 @@ def surface(ledger, extra=None):
     routed = {k for k in routed if k not in aside}
     if routed:
         plan["_3b"] = surface3(ledger, routed, extra)
+    # Withdrawn keys go to both runners, which retract each one's warrants in their folds (GPProfile.Withdraw). A 3a
+    # premise copied into the 3b part is retracted there too; retracting an id a part lacks is harmless. Sent only
+    # when there is one, so a ledger with no withdrawal gives the runners exactly what 0.50 gave them.
+    withdrawn = sorted(ledger.withdrawals())
+    if withdrawn:
+        plan["withdrawn"] = withdrawn
+        if routed:
+            plan["_3b"]["withdrawn"] = withdrawn
     return plan
 
 
@@ -907,15 +932,19 @@ def exclusion_choice(ledger, out, items, cond, n, g):
     """A held graph-bound EMPTY claim over ℝ on graph g, for a spine proposal (frame-equal first, then fewest OPEN
     premises). Matching only proposes: rule spine compares statements in Lean."""
     cg = canon({"n": n, "edges": g})
+    wd = ledger.withdrawals()  # never proposed (they are not held either)
     cs = [c for c in ledger.claims() if isinstance(c.get("udg"), dict) and cg is not None and canon(c["udg"]) == cg
-          and c["kind"] == "EMPTY" and c["scope"].get("context") == "real" and items[c["key"]]["held"]]
+          and c["kind"] == "EMPTY" and c["scope"].get("context") == "real" and items[c["key"]]["held"]
+          and c["key"] not in wd]
     return min(cs, key=lambda c: (premise_state(out, c) != "discharged", len(cond[c["key"]])), default=None)
 
 
 def goal_proposals(ledger, out, items):
     """Rule instances worth offering now, as (claim, receipt, why): spines whose every graph has a held exclusion,
-    decide from the goal's held spine and cover, realize from held --goal yes graph-bound claims."""
+    decide from the goal's held spine and cover, realize from held --goal yes graph-bound claims. Withdrawn claims
+    are never offered and never premises."""
     cond = conditional(ledger, out)
+    wd = ledger.withdrawals()
     for sp in family_claims(ledger, "spine"):
         if not items[sp["key"]]["held"]:
             st = sp["system"]
@@ -929,12 +958,13 @@ def goal_proposals(ledger, out, items):
         for cv in family_claims(ledger, "cover"):
             sp = spine_for(ledger, cv)
             if (cv["system"]["n"], cv["system"]["m"]) == params and sp and items[cv["key"]]["held"] and \
-                    items[sp["key"]]["held"]:
+                    items[sp["key"]]["held"] and cv["key"] not in wd:
                 yield no, {"rule": {"type": "decide"}, "premises": [sp["key"], cv["key"]]}, \
                     f"rule decide from {sp['label']} and {cv['label']}"
     if yes and not items[yes["key"]]["held"]:
         for c in ledger.claims():
-            if c.get("goal") == "yes" and isinstance(c.get("udg"), dict) and items[c["key"]]["held"]:
+            if c.get("goal") == "yes" and isinstance(c.get("udg"), dict) and items[c["key"]]["held"] and \
+                    c["key"] not in wd:
                 yield yes, realize_receipt(c), f"rule realize from {c['label']}"
 
 
@@ -942,7 +972,9 @@ def goal_pending(ledger):
     """A cheap pre-check without a fold (supports stand in for held): could any goal proposal be new?"""
     if goal_udg(goal_of(ledger)) is None:
         return False
-    sup = ledger.supports()
+    # A withdrawn claim, and a support resting on one, is not held: it does not stand in for held here.
+    gone = withdrawn_roots(ledger)
+    sup = {k: s for k, s in ledger.supports().items() if k not in gone}
     gc = goal_claims(ledger)
     if any(c is None or c["key"] in sup for c in gc.values()):
         return False
@@ -1275,8 +1307,10 @@ def exclusion_gap(out, items, c):
 
 
 def cover_claims(ledger):
-    """Cover claims (`gp cover`, family "cover"): Kernel claims since release plan A2."""
-    return family_claims(ledger, "cover")
+    """Cover claims (`gp cover`, family "cover"): Kernel claims since release plan A2. Withdrawn covers are left out of
+    the goal views (their `status` row says they are withdrawn)."""
+    wd = ledger.withdrawals()
+    return [c for c in family_claims(ledger, "cover") if c["key"] not in wd]
 
 
 def spine_for(ledger, cover):
@@ -1640,6 +1674,11 @@ RULE_FIX3 = {
 }
 
 
+def unheld_label(ledger, c):
+    """An unheld premise's label, marked when the claim was withdrawn."""
+    return c["label"] + (" (withdrawn)" if c["key"] in ledger.withdrawals() else "")
+
+
 def refusal_of3(item, claim, ledger, items):
     """A 3b refusal: what, the rule, the scope and the smallest fix, from gp_ledger3's report."""
     scope = show_scope(claim["scope"])
@@ -1649,7 +1688,8 @@ def refusal_of3(item, claim, ledger, items):
         other = ledger.claim_by_key(item["refuter"])["label"]
         return {"message": f"{claim['label']} contradicts held claim {other} on an overlapping scope",
                 "rule": "contra", "scope": scope, "smallest_fix": f"retract one of {claim['label']} and {other}"}
-    open_ = [c["label"] for c in ledger.claims_with_keys(item.get("premises", [])) if not items[c["key"]]["held"]]
+    open_ = [unheld_label(ledger, c) for c in ledger.claims_with_keys(item.get("premises", []))
+             if not items[c["key"]]["held"]]
     if open_:
         return {"message": f"{support} needs held premises; not held: {', '.join(open_)}", "rule": support,
                 "scope": scope, "smallest_fix": "hold the premises first"}
@@ -1703,7 +1743,7 @@ def refusal_of(item, claim, ledger, items):
                 "smallest_fix": "exclude those primes from the requested scope"}
     if support.startswith("rule"):
         premises = item.get("premises", [])
-        open_ = [c["label"] for c in ledger.claims_with_keys(premises) if not items[c["key"]]["held"]]
+        open_ = [unheld_label(ledger, c) for c in ledger.claims_with_keys(premises) if not items[c["key"]]["held"]]
         if open_:
             return {"message": f"{support} needs held premises; not held: {', '.join(open_)}", "rule": support,
                     "scope": scope, "smallest_fix": "hold the premises first"}
@@ -1712,6 +1752,121 @@ def refusal_of(item, claim, ledger, items):
                 "smallest_fix": "check each obligation certificate against the premise and conclusion systems"}
     return {"message": "no admitted support", "rule": support or "none", "scope": scope,
             "smallest_fix": "submit a certificate or a rule instance"}
+
+
+# --- withdrawal (GP 0.51, docs/WITHDRAWAL-DESIGN.md) ------------------------------------------
+#
+# `gp withdraw` appends a `withdraw` record. On every fold both runners retract the claim's support warrant (id = key)
+# and theorem warrant (2^60 + key): the claim, and every claim whose only derivations pass through it, stop being
+# held (GPProfile.Withdraw: W1 withdraw_antitone, W2 withdraw_resolves, W3 withdraw_unholds). Nothing here decides;
+# the helpers below only render what the fold says.
+
+OLD_READERS = ("readers older than 0.51 will not see this withdrawal: an older gp skips the record and shows the claim, "
+               "and what rests on it, as held again")
+
+
+def withdrawn_roots(ledger):
+    """Display and pre-checks only: per claim key, the withdrawn claims its accepted support rests on through rule
+    premises (a withdrawn claim is its own root). Empty when nothing is withdrawn."""
+    wd = ledger.withdrawals()
+    if not wd:
+        return {}
+    roots = {k: {k} for k in wd}
+    deps = {k: (s.get("receipt") or {}).get("premises", []) for k, s in ledger.supports().items() if k not in wd}
+    grow = True
+    while grow:
+        grow = False
+        for k, ps in deps.items():
+            extra = set().union(*(roots.get(p, set()) for p in ps)) - roots.get(k, set())
+            if extra:
+                roots.setdefault(k, set()).update(extra)
+                grow = True
+    return roots
+
+
+def rests_on_withdrawn(ledger, items):
+    """Display only: {key: labels of the withdrawn claims it rests on} for claims that are not held and not withdrawn."""
+    roots, wd = withdrawn_roots(ledger), ledger.withdrawals()
+    return {c["key"]: sorted(ledger.claim_by_key(r)["label"] for r in roots[c["key"]])
+            for c in ledger.claims() if c["key"] in roots and c["key"] not in wd and not items[c["key"]]["held"]}
+
+
+def withdrawn_text(record):
+    return f"withdrawn {record.get('at', '-')}: {record.get('reason', '')}"
+
+
+def support_text(ledger, c):
+    """How a claim was supported: its rule and premises, or its certificate type."""
+    r = (ledger.supports().get(c["key"]) or {}).get("receipt") or {}
+    if "rule" in r:
+        labels = ", ".join(ledger.claim_by_key(k)["label"] for k in r.get("premises", []) if ledger.claim_by_key(k))
+        return f"rule {r['rule'].get('type')} from {labels or 'no premises'}"
+    return f"{(r.get('certificate') or {}).get('type')} certificate" if r else "no support"
+
+
+def goal_verdict(ledger, out, items):
+    """Display only: the DECIDE goal's verdict as `status` and `frontier` print it, or None without a goal."""
+    goal = goal_of(ledger)
+    if goal is None:
+        return None
+    name = goal.get("name", "Q")
+    gc = goal_claims(ledger)
+    yes_held, yes_cond = goal_side_held(ledger, out, items, gc[True])
+    no_held, no_cond = goal_side_held(ledger, out, items, gc[False])
+    firm_yes, firm_no = yes_held and not yes_cond, no_held and not no_cond
+    return ("CONFLICT between held goal claims (report to the builder)" if firm_yes and firm_no
+            else f"decided: {name}" if firm_yes else f"decided: not {name}" if firm_no else "undecided")
+
+
+def ledger_with(ledger, extra):
+    """An in-memory copy of the ledger with `extra` records appended; nothing is written."""
+    trial = Ledger.__new__(Ledger)
+    trial.__dict__.update(ledger.__dict__)
+    trial.records = ledger.records + list(extra)
+    trial._refused = trial._claims = trial._supports = trial._withdrawn = None
+    return trial
+
+
+def cmd_withdraw(ledger, args):
+    """Withdraw a claim, permanently: fold before and after, refuse if other held claims would lose their hold without
+    --cascade, then append the record and print what changed."""
+    if any(r["label"] == args.label for r in ledger.covers()):
+        raise Refusal(f"{args.label} is a legacy cover record, not a claim; it decides nothing", "withdrawal", "-",
+                      "nothing to withdraw: refile the cover with `gp cover` if it is still wanted")
+    claim = ledger.claim(args.label)
+    key, scope = claim["key"], show_scope(claim["scope"])
+    prior = ledger.withdrawals().get(key)
+    if prior:
+        raise Refusal(f"{args.label} is already {withdrawn_text(prior)}", "withdrawal", scope,
+                      "nothing to do: a withdrawal is permanent")
+    reason = (args.reason or "").strip()
+    if not reason:
+        raise Refusal("a withdrawal needs a reason", "withdrawal", scope, 'give --reason "why the claim is withdrawn"')
+    if claim.get("family") in ("goal", "spine"):
+        raise Refusal(f"{args.label} is a {claim['family']} claim, which gp files itself", "withdrawal", scope,
+                      "withdraw the cover or the exclusion it rests on instead")
+    record = {"op": "withdraw", "label": args.label, "key": key, "reason": reason}
+    before, items0 = state(ledger)
+    trial = ledger_with(ledger, [record])
+    after, items1 = state(trial)
+    lost, seen = [], {key}
+    for c in ledger.claims():
+        if c["key"] not in seen and items0[c["key"]]["held"] and not items1[c["key"]]["held"]:
+            seen.add(c["key"])
+            lost.append(c)
+    if lost and not args.cascade:
+        raise Refusal(f"withdrawing {args.label} would un-hold {len(lost)} other held "
+                      f"claim{'s' if len(lost) > 1 else ''}: " + ", ".join(c["label"] for c in lost), "withdrawal", scope,
+                      "rerun with --cascade to withdraw it anyway, or support those claims without it first")
+    v0, v1 = goal_verdict(ledger, before, items0), goal_verdict(trial, after, items1)
+    ledger.append(record)
+    was = f"was held at {scope}" if items0[key]["held"] else "was not held"
+    print(f"withdrawn: {args.label} (key {key}): {reason}; {was}")
+    if lost:
+        print("  no longer held: " + "; ".join(f"{c['label']} ({support_text(ledger, c)})" for c in lost))
+    if v0 != v1:
+        print(f"  goal verdict: {v0} -> {v1}")
+    print(f"  note: {OLD_READERS}")
 
 
 # --- commands ---------------------------------------------------------------------------------
@@ -2204,15 +2359,22 @@ def unparsable_claims(ledger):
             if (why := text_error(c.get("system"), c.get("target")))}
 
 
+def fold_failure(out):
+    """Why a runner's output is not a fold, or None. The runners report a parse or elaboration failure as
+    `elaboration` and a fold failure as `error`; either means the output has no items (0.51: a check of only
+    `error` once took an elaboration failure for an empty fold, and the ledger's claims vanished)."""
+    return out.get("error") or out.get("elaboration")
+
+
 def fold_ledger(ledger, extra=None, candidates=False):
     """One fold of the ledger (with trial receipts swapped in). If it fails, claims whose text does not parse are
     set aside, not held and with a notice, and the rest folds; the normal path parses nothing in Python."""
     out = run_profile(surface(ledger, extra), candidates)
-    if out.get("error") and ledger.set_aside is None:
+    if fold_failure(out) and ledger.set_aside is None:
         ledger.set_aside = unparsable_claims(ledger)
         if ledger.set_aside:
             out = run_profile(surface(ledger, extra), candidates)
-    if ledger.set_aside and not out.get("error"):
+    if ledger.set_aside and not fold_failure(out):
         out["items"] = out["items"] + [
             {"key": k, "held": False, "support": "", "premises": [],
              "check": {"result": "set aside", "diagnosis": why}} for k, why in ledger.set_aside.items()]
@@ -2228,6 +2390,10 @@ def set_aside_notes(ledger):
 def prepare(ledger, label, receipt_path):
     """A receipt read and checked before any fold: its claim, its JSON and its exact numbers."""
     claim = ledger.claim(label)
+    withdrawn = ledger.withdrawals().get(claim["key"])
+    if withdrawn:  # labels stay taken: a withdrawn claim is never supported again
+        raise Refusal(f"{label} was withdrawn ({withdrawn.get('at')}: {withdrawn.get('reason')})", "withdrawal",
+                      show_scope(claim["scope"]), "file the corrected claim under a new label")
     refuse_zero_guards(claim.get("system"), show_scope(claim["scope"]))  # a claim filed before N6a
     path = Path(receipt_path)
     if not path.is_file():
@@ -2373,8 +2539,8 @@ def cmd_submit_batch(ledger, args):
 
 def state(ledger, candidates=False):
     out = fold_ledger(ledger, candidates=candidates)
-    if out.get("error"):
-        raise Refusal(f"the ledger does not fold: {out['error']}", "ledger fold", "-",
+    if fold_failure(out):
+        raise Refusal(f"the ledger does not fold: {fold_failure(out)}", "ledger fold", "-",
                       "find the record it names; a claim whose text does not parse is set aside automatically, "
                       "so this is a receipt or rule record")
     return out, {i["key"]: i for i in out["items"]}
@@ -2467,6 +2633,8 @@ def chi_summary(ledger, items, widened):
 def label_status(item, ledger, claim):
     if item["held"]:
         return "held"
+    if claim["key"] in ledger.withdrawals():
+        return "withdrawn"
     return "refused" if ledger.attempts(claim["label"]) else "open"
 
 
@@ -2483,12 +2651,15 @@ def cmd_status(ledger, args):
         print("\n".join("  " + r for r in summary))
         print()
     rows = []
+    wd, rests = ledger.withdrawals(), rests_on_withdrawn(ledger, items)
     for c in ledger.claims():
         i = items[c["key"]]
         st = label_status(i, ledger, c)
         premise = premise_tag(out, c) if c["named_premises"] and st == "held" else ""
         earned = f"; earned, unclaimed: {show_reach(widened[c['key']])}" if c["key"] in widened else ""
-        rows.append(f"{st:8} {c['label']:28} {c['kind']:12} {show_scope(c['scope'])}{earned}{premise}")
+        gone = (f"; {withdrawn_text(wd[c['key']])}" if st == "withdrawn" else
+                f"; not held: rests on withdrawn {', '.join(rests[c['key']])}" if c["key"] in rests else "")
+        rows.append(f"{st:8} {c['label']:28} {c['kind']:12} {show_scope(c['scope'])}{earned}{premise}{gone}")
     print("\n".join(rows) if rows else "no claims")
     for line in legacy_notes(ledger):
         print(f"{'legacy':8} {line}")
@@ -2526,7 +2697,10 @@ def cmd_explain(ledger, args):
         print(f"{args.label}: legacy cover record (filed before release plan A2): refile with `gp cover`; "
               "it decides nothing")
         return
+    wd, rests = ledger.withdrawals(), rests_on_withdrawn(ledger, items)
     if ledger.claim(args.label).get("family") == "cover":
+        if ledger.claim(args.label)["key"] in wd:
+            print(f"{args.label}: {withdrawn_text(wd[ledger.claim(args.label)['key']])}; not held")
         return explain_cover(ledger, out, items, ledger.claim(args.label))
     claims = {c["key"]: c for c in ledger.claims()}
     supports = ledger.supports()
@@ -2535,7 +2709,9 @@ def cmd_explain(ledger, args):
         c = claims[key]
         i = items[key]
         pad = "  " * depth
-        line = f"{pad}{c['label']}: {c['kind']} at {show_scope(c['scope'])}: {'held' if i['held'] else 'not held'}"
+        verdict = ("held" if i["held"] else f"not held ({withdrawn_text(wd[key])})" if key in wd else
+                   f"not held (rests on withdrawn {', '.join(rests[key])})" if key in rests else "not held")
+        line = f"{pad}{c['label']}: {c['kind']} at {show_scope(c['scope'])}: {verdict}"
         print(line)
         names = [p for p in c["named_premises"] if p == FRAME and framed(c)]
         if c.get("udg"):
@@ -2648,8 +2824,11 @@ def frontier_goal(ledger, out, items):
 
 def cmd_frontier(ledger, args):
     out, items = state(ledger)
-    # Goal-family claims (A2) are the goal section's obligations, rendered by `frontier_goal`.
-    open_ = [c for c in ledger.claims() if not items[c["key"]]["held"] and c.get("family") not in GOAL_FAMILIES]
+    # Goal-family claims (A2) are the goal section's obligations, rendered by `frontier_goal`. Withdrawn claims are off
+    # the frontier; a claim that rests on one says so.
+    wd, rests = ledger.withdrawals(), rests_on_withdrawn(ledger, items)
+    open_ = [c for c in ledger.claims() if not items[c["key"]]["held"] and c.get("family") not in GOAL_FAMILIES
+             and c["key"] not in wd]
     # Re-check each refused claim's last receipt in one pass, so the reason reads in today's terms;
     # the recorded refusal stays in the ledger and is shown when the wording has changed.
     last = {c["key"]: ledger.attempts(c["label"])[-1] for c in open_ if ledger.attempts(c["label"])}
@@ -2664,6 +2843,10 @@ def cmd_frontier(ledger, args):
             now = {k: refusal_of(titems[k], open_by_key[k], ledger, titems)
                    for k in last if k in titems and not titems[k]["held"]}
     for c in open_:
+        if c["key"] in rests:
+            print(f"{c['label']}: not held: rests on withdrawn {', '.join(rests[c['key']])}; smallest fix: support it "
+                  "without the withdrawn claim, or file the corrected claim under a new label")
+            continue
         if c["key"] not in last:
             print(f"{c['label']}: open, no attempt yet")
             continue
@@ -2675,7 +2858,8 @@ def cmd_frontier(ledger, args):
             print(f"    (recorded then: {recorded['message']})")
     goal_open = frontier_goal(ledger, out, items)
     if not open_ and not goal_open:
-        print("frontier empty: every claim is held" + (" and the goal is decided" if goal_of(ledger) else ""))
+        print("frontier empty: every claim is held" + (f" or withdrawn ({len(wd)} withdrawn)" if wd else "") +
+              (" and the goal is decided" if goal_of(ledger) else ""))
 
 
 def tailings(ledger):
@@ -2689,8 +2873,13 @@ def tailings(ledger):
         rows.append({"kind": "earned widening", "claim": claims[w["key"]]["label"],
                      "source": "re-replay of the held receipt", "reliability": "held by GP",
                      "completeness": f"earned at {show_reach(w['reach'])}, not claimed"})
+    wd = ledger.withdrawals()
     for c in ledger.claims():
-        if not items[c["key"]]["held"]:
+        if c["key"] in wd:
+            w = wd[c["key"]]
+            rows.append({"kind": "withdrawn claim", "claim": c["label"], "source": f"withdraw {w.get('at', '-')}",
+                         "reliability": "withdrawn by its owner; not held", "completeness": w.get("reason", "")})
+        elif not items[c["key"]]["held"]:
             rows.append({"kind": "open item", "claim": c["label"], "source": "ledger",
                          "reliability": "open", "completeness": "untagged"})
         if c["named_premises"] and items[c["key"]]["held"] and premise_state(out, c) == "OPEN":
@@ -2700,7 +2889,7 @@ def tailings(ledger):
         rows.append({"kind": "legacy cover record", "claim": cv["label"], "source": "cover", "reliability":
                      "decides nothing", "completeness": "refile with `gp cover`"})
     for cv in cover_claims(ledger):
-        if cv.get("named_premises") and not items[cv["key"]]["held"]:
+        if cv.get("named_premises") and not items[cv["key"]]["held"] and cv["key"] not in wd:
             rows.append({"kind": "open premise", "claim": cv["label"], "source": "cover", "reliability": "cover open",
                          "completeness": f"{', '.join(cv['named_premises'])} OPEN"})
     return rows
@@ -2793,7 +2982,7 @@ def warrants(ledger):
         c, item = claims[key], items[key]
         name = lean_name(c["label"])
         if not item["held"]:
-            missing[key] = "not held"
+            missing[key] = "withdrawn" if key in ledger.withdrawals() else "not held"
             return False
         receipt = supports[key]["receipt"]
         if "certificate" in receipt:
@@ -2913,8 +3102,8 @@ def as_filed(record):
 
 
 def lifecycle_events(records):
-    """Ledger lifecycle records as Kernel events. `gp` writes none yet: the profile files only
-    declarations, currents and warrants (`Guard.Simple`), so these reach only the merge guard."""
+    """Raw ledger lifecycle records as Kernel events. `gp` writes none: a withdrawal is a `withdraw` record, sent to the
+    runners as a withdrawn key (`surface`). Raw records reach only the merge guard, and `merge` refuses them."""
     out = []
     for r in records:
         if r["op"] == "retract":
@@ -3009,11 +3198,20 @@ def cmd_merge(ledger, args):
         if by_label.setdefault(c["label"], c)["key"] != c["key"]:
             raise merge_refusal(f"label {c['label']!r} names different claims on the two branches",
                                 "relabel one of them on its branch")
+    for r in new:
+        c = by_key.get(r.get("key")) if r["op"] == "withdraw" else None
+        if r["op"] == "withdraw" and (c is None or c["label"] != r.get("label")):
+            raise merge_refusal(f"a withdraw record names no claim of the merged ledger ({r.get('label')!r}, key "
+                                f"{r.get('key')})", "restore the other branch's ledger from its history")
     if plan["lifecycle"]:
-        raise merge_refusal("the merged log folds, but it carries retraction or supersession records, which "
-                            "the profile does not apply yet", "merge without them")
+        raise merge_refusal("the merged log folds, but it carries raw retraction or supersession records, which "
+                            "the profile does not apply yet", "merge without them; withdraw a claim with `gp withdraw`")
+    # A withdrawal persists in the merged event set, so it beats a support filed on the other branch, in either merge
+    # order (W1, W2; the fold depends only on the set of records). Say what it un-holds here.
+    theirs_wd = [r for r in new if r["op"] == "withdraw"]
     try:
-        state(merged)
+        before = state(ledger)[1] if theirs_wd else None
+        _, after = state(merged)
     except RuntimeError as e:
         raise merge_refusal(str(e), "resolve the collision on one branch, then merge again")
     for r in new:  # their receipt files land here, each checked against its recorded SHA-256 first
@@ -3024,9 +3222,26 @@ def cmd_merge(ledger, args):
             f.write((json.dumps(r, ensure_ascii=False, sort_keys=True) + "\n").encode("utf-8"))
     ledger.records += new
     ledger.append({"op": "merge", "records": len(new), "from_sha256": sha(other.path.read_bytes())})
-    ops = {o: sum(r["op"] == o for r in new) for o in ("claim", "support", "refused")}
-    print(f"merged {len(new)} records ({ops['claim']} claims, {ops['support']} supports, {ops['refused']} refusals); "
-          "the merged log folds")
+    ops = {o: sum(r["op"] == o for r in new) for o in ("claim", "support", "refused", "withdraw")}
+    print(f"merged {len(new)} records ({ops['claim']} claims, {ops['support']} supports, {ops['refused']} refusals" +
+          (f", {ops['withdraw']} withdrawals" if ops["withdraw"] else "") + "); the merged log folds")
+    for r in theirs_wd:
+        print(f"  withdrawn on the other branch: {r['label']}: {r.get('reason', '')}")
+    rests = rests_on_withdrawn(merged, after)
+    if before is not None:
+        lost = [c for c in ledger.claims() if before.get(c["key"], {}).get("held") and not after[c["key"]]["held"]]
+        for c in {c["key"]: c for c in lost}.values():
+            why = rests.get(c["key"])
+            print(f"  no longer held here: {c['label']}" + (f" (rests on withdrawn {', '.join(why)})" if why else
+                                                          " (withdrawn)"))
+    theirs_keys = {r["key"] for r in new if r["op"] in ("claim", "support") and type(r.get("key")) is int}
+    mine_wd = set(merged.withdrawals()) - {r["key"] for r in theirs_wd}
+    for c in {c["key"]: c for c in merged.claims() if c["key"] in theirs_keys}.values():
+        if c["key"] in mine_wd:
+            print(f"  not held here: {c['label']}, supported on the other branch (withdrawn here)")
+        elif c["key"] in rests:
+            print(f"  not held here: {c['label']}, from the other branch (rests on withdrawn "
+                  f"{', '.join(rests[c['key']])})")
 
 
 def main(argv=None):
@@ -3068,6 +3283,10 @@ def main(argv=None):
     s.add_argument("receipt")
     sb = sub.add_parser("submit-batch", help='a JSON list of {"label", "receipt"}, folded once')
     sb.add_argument("batch")
+    wd = sub.add_parser("withdraw", help="withdraw a claim permanently; its warrants are retracted on every fold")
+    wd.add_argument("label")
+    wd.add_argument("--reason", required=True, help="why the claim is withdrawn (recorded in the ledger)")
+    wd.add_argument("--cascade", action="store_true", help="withdraw even if other held claims lose their hold")
     sub.add_parser("status")
     e = sub.add_parser("explain")
     e.add_argument("label")
@@ -3095,7 +3314,7 @@ def main(argv=None):
         if args.command in ("claim", "cover", "submit", "submit-batch"):
             ensure_goal_claims(ledger)  # an older ledger's first filing command files the goal claims (A2)
         {"init": cmd_init, "restate": cmd_restate, "claim": cmd_claim, "cover": cmd_cover, "submit": cmd_submit,
-         "submit-batch": cmd_submit_batch, "status": cmd_status,
+         "submit-batch": cmd_submit_batch, "withdraw": cmd_withdraw, "status": cmd_status,
          "explain": cmd_explain, "frontier": cmd_frontier, "tailings": cmd_tailings,
          "emit-lean": cmd_emit_lean, "merge": cmd_merge}[args.command](ledger, args)
     except Refusal as r:

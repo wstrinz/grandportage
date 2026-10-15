@@ -70,6 +70,15 @@ class AxiomAudit(unittest.TestCase):
         self.assertIn("auditCheat", found["auditControl"])
         self.assertFalse(found["auditControl"] <= STANDARD)
 
+    def test_profile_withdrawal(self):
+        # GP 0.51 claim withdrawal (docs/WITHDRAWAL-DESIGN.md §3): W1-W3 and W3 for every 3a and 3b run.
+        profile = ROOT / "profile"
+        self.check(profile, ["GPProfile.Withdraw"],
+                   ["GPProfile.Withdraw.withdraw_antitone", "GPProfile.Withdraw.withdraw_resolves",
+                    "GPProfile.Withdraw.withdraw_unholds", "GPProfile.Withdraw.runWith_withdrawn",
+                    "GPProfile.Withdraw.run3_withdrawn"],
+                   ".lake/build/lib/lean/GPProfile/Withdraw.olean")
+
     def test_census(self):
         census = ROOT / "census"
         self.check(census, ["GPCensus.Profile"], ["GPCensus.fold_held_meaning"],

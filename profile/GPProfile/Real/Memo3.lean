@@ -124,7 +124,8 @@ theorem admission3With_eq (m : CheckMemo3) (clauses : List Clause3) (receipts : 
 /-- `Plan3.run`, folding with `admission3With` (`Plan3.runWith_eq`). -/
 def Plan3.runWith (m : CheckMemo3) (p : Plan3) : Except String Outcome3 := do
   let ledger ← fileAll3 p.items {}
-  let state ← fold (admission3With m ledger.clauses ledger.receipts ledger.rules) ledger.events
+  let state ← fold (admission3With m ledger.clauses ledger.receipts ledger.rules)
+    (ledger.events ++ withdrawEvents p.withdrawn)
   let accepted := p.elaboration.isNone && !p.requested.isEmpty && p.requested.all (held state ·)
   pure ⟨accepted, state, ledger, (Queries.earned state (p.items.map (·.key)) [] []).map (·.claim)⟩
 
