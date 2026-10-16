@@ -247,6 +247,24 @@ n, m and edge counts.
 
 Exclusion systems must not carry "non-edge ≠ 1" guards. Extra unit distances are allowed, so excluding only faithful embeddings is unsound for NONE.
 
+## Lane P campaigns (0.52)
+
+A campaign whose `campaign.json` says `"profile": "P"` takes these commands (`tools/gp_lanep.py`); others are refused there, and the P commands are refused elsewhere. See [USING-GP](USING-GP.md#lean-proposition-claims-lane-p-052).
+
+| Command | Does |
+|---|---|
+| `register <Decl> [--as NAME]` | Binds a code to a campaign-local `def X : Prop`: its closure hash (SHA-256 over the canonical serialisation of every campaign-local constant it uses) and the environment stamp. `--prose TEXT --as NAME` registers a prose statement (a text hash, never holdable). |
+| `claim <label> (--lean X \| --prose X) [--premise H]... [--theorem T \| --from L]` | Files a claim of `X` (or `¬X`) under premises `H`. `--theorem T` is a `lean_theorem` warrant: the binder adds `H₁ → … → Hₙ → X := T` to the Lean kernel and audits `T`'s axioms. `--from L` weakens `L` (Kernel narrowing). |
+| `discharge <label> --premise H --by L2 [--as NEW]` | Files the claim `(s, S)` derived from `<label>` = `(s, S ∪ {H})` and `L2` = `(H, T)`, `T ⊆ S`. Refused on a statement mismatch (a code mismatch) or when `L2` has premises the result would drop. Not held while `L2` is not. |
+| `submit <label> --hand-proof F --state complete\|sketch [--condition H]...` | A recorded-only warrant (also `--script F`, `--numerical F`, `--external F --tier N`): file locator and SHA-256. It never holds; a reviewer's condition is an OPEN premise. |
+| `fidelity <X> --level L --by WHO --ref REF` | unaudited < LLM-audited < human-audited < anchored, attached to the code; "anchored" shows as asserted. |
+| `present <label> --venue V --tag TAG [--premise H]...` | A presentation (tags `COMPARATOR`, `LEAN`, `REPLAY`, `CERT`, `SCRIPT`, `HAND`, `NUMERICAL`, `PROBE`, `CONJECTURE`, `OPEN`). |
+| `bind [--replay]` | Builds the package and runs the binder; prints each code's freshness and each theorem's verdict. `--replay` (lean4checker) is phase P2. |
+| `status`, `explain <label>`, `frontier` | Per claim: held or open (or unbound, naming the changed constant), the tier (`tier 2 (unreplayed)`) or the best recorded tier, the OPEN premises, presentations (OVERSTATED) and the lowest fidelity. `explain` draws the warrant path and marks its weakest step; `frontier` ranks OPEN premises by the claims they would unlock. |
+| `withdraw <label> --reason TEXT [--cascade]`, `merge <dir>` | As for 3a/3b claims; a P withdrawal retracts all of the claim's warrant slots. |
+
+New `gp-ledger/v1` ops: `register`, `pclaim`, `discharge`, `pwarrant`, `fidelity`, `present`, `bind`, `pwithdraw` (and `pattempt` for a build timeout). Bind reports are stored as `receipts/<sha256>.json`, checked on every read.
+
 ## Logs
 
 Keep `cost-log.jsonl` and `friction-log.jsonl` in the campaign directory, following `campaigns/schemas/`. Classify every refusal as `useful`, `false` or `ergonomic`. Check them with `python tools/check-campaign-logs.py campaigns/3p-matroids`.

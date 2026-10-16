@@ -19,6 +19,18 @@ usage: python tools/gp.py --campaign <dir> <command> ...
   emit-lean (<label> | --all)           Lean theorem warrants for held claims the generator covers
   merge <other-campaign-dir>            land another branch's records here, only if the merged log folds
 
+Lane P campaigns (campaign.json "profile": "P"; tools/gp_lanep.py, GP 0.52 P1):
+  register <Decl> [--as NAME] | register --prose TEXT --as NAME
+                                        bind a statement code: declaration, closure hash, environment stamp
+  claim <label> (--lean X | --prose X) [--premise H]... [--theorem T | --from L]
+                                        a claim of X under premises H (X may be ¬Y); held by a lean_theorem
+  discharge <label> --premise H --by L2 [--as NEW]
+                                        from L = (s, S u {H}) and L2 = (H, T), T a subset of S: the claim (s, S)
+  submit <label> (--hand-proof P --state complete|sketch [--condition H]... | --script P | --numerical P
+                 | --external P --tier N)   a recorded-only warrant: it never holds a claim
+  fidelity <X> --level LEVEL --by WHO --ref REF; present <label> --venue V --tag TAG [--premise H]...
+  bind [--replay]                       build the package and run the P binder (drift is detected on every bind)
+
 The ledger (<dir>/ledger.jsonl, gp-ledger/v1) is append-only and written only by this CLI. Each claim
 binds its encoding digest; each support records the receipt it was replayed from, inline (as older
 supports are) or by reference: receipts/<sha256>.json, whose SHA-256 is checked on every command
@@ -42,7 +54,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = ROOT / "profile"
-GP_VERSION = "0.51.0"  # the release version; recorded in each ledger's init record
+GP_VERSION = "0.52.0"  # the release version; recorded in each ledger's init record
 EXE = PROFILE / (".lake/build/bin/gp_ledger" + (".exe" if os.name == "nt" else ""))
 ELAN_HOME = Path(os.environ.get("ELAN_HOME") or Path.home() / ".elan")
 SCHEMA = "gp-ledger/v1"
@@ -58,6 +70,9 @@ _spec.loader.exec_module(encoder)
 _spec_udg = importlib.util.spec_from_file_location("encode_udg", ROOT / "tools/encode-udg.py")
 udg_encoder = importlib.util.module_from_spec(_spec_udg)
 _spec_udg.loader.exec_module(udg_encoder)
+_spec_lanep = importlib.util.spec_from_file_location("gp_lanep", ROOT / "tools/gp_lanep.py")
+lanep = importlib.util.module_from_spec(_spec_lanep)  # Lane P (GP 0.52 P1): P campaigns only
+_spec_lanep.loader.exec_module(lanep)
 
 
 class Refusal(Exception):
@@ -3250,6 +3265,28 @@ def main(argv=None):
     ap.add_argument("--campaign", required=True)
     sub = ap.add_subparsers(dest="command", required=True)
     sub.add_parser("init")
+    rg = sub.add_parser("register", help="Lane P: bind a statement code to a declaration or a prose text")
+    rg.add_argument("decl", nargs="?")
+    rg.add_argument("--as", dest="as_", help="the statement's name in this ledger (default: the declaration's last component)")
+    rg.add_argument("--prose", help="a prose statement's text (never holdable)")
+    dc = sub.add_parser("discharge", help="Lane P: discharge a premise of a claim by a claim of that premise")
+    dc.add_argument("label")
+    dc.add_argument("--premise", required=True)
+    dc.add_argument("--by", required=True)
+    dc.add_argument("--as", dest="as_")
+    fd = sub.add_parser("fidelity", help="Lane P: record a statement's fidelity review")
+    fd.add_argument("name")
+    fd.add_argument("--level", required=True)
+    fd.add_argument("--by", required=True)
+    fd.add_argument("--ref", required=True)
+    pr = sub.add_parser("present", help="Lane P: record a presentation of a claim; views mark it OVERSTATED")
+    pr.add_argument("label")
+    pr.add_argument("--venue", required=True)
+    pr.add_argument("--tag", required=True)
+    pr.add_argument("--premise", action="append")
+    pr.add_argument("--locator")
+    bd = sub.add_parser("bind", help="Lane P: build the campaign package and run the P binder")
+    bd.add_argument("--replay", action="store_true", help="lean4checker replay (Lane P phase 2)")
     rs = sub.add_parser("restate", help="record a deliberate change to campaign.json as a versioned ledger event")
     rs.add_argument("--reason", required=True, help="why the statement changed")
     c = sub.add_parser("claim")
@@ -3260,9 +3297,13 @@ def main(argv=None):
     src.add_argument("--nf", help="a number-field point file (3b)")
     c.add_argument("--udg", help="a graph (graph6, or a file with graph6 or JSON {n, edges}): its unit-distance system")
     c.add_argument("--gauge", action="store_true", help="with --udg: pin the first edge at (0, 0), (1, 0)")
-    c.add_argument("--kind", required=True)
+    c.add_argument("--kind")
     c.add_argument("--target")
-    sc = c.add_mutually_exclusive_group(required=True)
+    c.add_argument("--lean", help="Lane P: a registered Lean statement (or ¬X)")
+    c.add_argument("--prose", help="Lane P: a registered prose statement")
+    c.add_argument("--theorem", help="Lane P: the lean_theorem that holds the claim")
+    c.add_argument("--from", dest="from_", help="Lane P: weaken this claim (same statement, more premises)")
+    sc = c.add_mutually_exclusive_group()
     sc.add_argument("--char", type=int)
     sc.add_argument("--char0", action="store_true")
     sc.add_argument("--outside")
@@ -3280,7 +3321,15 @@ def main(argv=None):
     cv.add_argument("--supports", help="labels of claims backing the cover's argument (shown, not used)")
     s = sub.add_parser("submit")
     s.add_argument("label")
-    s.add_argument("receipt")
+    s.add_argument("receipt", nargs="?")
+    s.add_argument("--hand-proof", dest="hand_proof", help="Lane P: a hand proof file (recorded only)")
+    s.add_argument("--state", help="Lane P: a hand proof's declared state, complete or sketch")
+    s.add_argument("--condition", action="append", help="Lane P: a reviewer's condition, a registered statement")
+    s.add_argument("--script", help="Lane P: an exact script's output (recorded only)")
+    s.add_argument("--numerical", help="Lane P: numerical evidence (recorded only)")
+    s.add_argument("--external", help="Lane P: a checker's log from another pin or repository (recorded only)")
+    s.add_argument("--tier", type=int, help="Lane P: the tier an --external checker earned")
+    s.add_argument("--what", help="Lane P: what checked an --external warrant")
     sb = sub.add_parser("submit-batch", help='a JSON list of {"label", "receipt"}, folded once')
     sb.add_argument("batch")
     wd = sub.add_parser("withdraw", help="withdraw a claim permanently; its warrants are retracted on every fold")
@@ -3299,6 +3348,14 @@ def main(argv=None):
     mg = sub.add_parser("merge", help="land another branch's ledger records here if the merged log folds")
     mg.add_argument("other", help="the other branch's campaign directory")
     args = ap.parse_args(argv)
+    p_flags = bool(args.command == "claim" and (args.lean or args.prose) or
+                   args.command == "submit" and (args.hand_proof or args.script or args.numerical or args.external))
+    if args.command == "claim" and not p_flags and (args.kind is None or not any(
+            getattr(args, k) not in (None, False) for k in ("char", "char0", "outside", "real", "semireal", "rat_field"))):
+        ap.error("the following arguments are required: --kind and one of --char --char0 --outside --real "
+                 "--semireal --rat-field")
+    if args.command == "submit" and not p_flags and args.receipt is None:
+        ap.error("the following arguments are required: receipt")
     for stream in (sys.stdout, sys.stderr):
         if hasattr(stream, "reconfigure"):
             stream.reconfigure(encoding="utf-8")  # Lean output and labels are not cp1252
@@ -3311,6 +3368,15 @@ def main(argv=None):
             ledger.check_schema()  # before any record is read as v1
         if args.command not in ("init", "restate"):
             ledger.verify_statement()  # every command runs against the bound statement (release plan A1)
+        if args.command not in ("init", "restate") and lanep.is_p(ledger):
+            if args.command not in lanep.COMMANDS:
+                raise Refusal(f"`gp {args.command}` is not a Lane P command", "lane P", "-",
+                              f"use one of {', '.join(sorted(lanep.COMMANDS))}")
+            lanep.COMMANDS[args.command](ledger, args)
+            return 0
+        if args.command in lanep.P_ONLY or p_flags:
+            raise Refusal(f"`gp {args.command}` with Lane P arguments needs a P campaign", "lane P", "-",
+                          'start a campaign whose campaign.json says "profile": "P"')
         if args.command in ("claim", "cover", "submit", "submit-batch"):
             ensure_goal_claims(ledger)  # an older ledger's first filing command files the goal claims (A2)
         {"init": cmd_init, "restate": cmd_restate, "claim": cmd_claim, "cover": cmd_cover, "submit": cmd_submit,
@@ -3325,6 +3391,15 @@ def main(argv=None):
             print(line, file=sys.stderr)
         return 1
     return 0
+
+
+class _Globals:
+    """This module's globals as attributes, for tools/gp_lanep.py (live: it sees later assignments)."""
+
+
+_globals = _Globals()
+_globals.__dict__ = globals()
+lanep.G = _globals
 
 
 if __name__ == "__main__":

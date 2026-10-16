@@ -16,6 +16,19 @@ The current limits of GP 0.50 (2026-10-13), which apply throughout. Guarantees a
 - **A proved conflict blocks release** separately from held closure. Unknown overlap stays unresolved.
 - **Named OPEN premises are metadata.** No checker is admitted for them, and the Kernel does not see them.
 
+## Lane P: Lean-proposition claims (0.52, phase P1)
+
+A P campaign states each claim as a registered `def X : Prop` of its own Lake package (or as prose), with premises as scope. What P1 does not do:
+- **Only `lean_theorem` holds (tier 2), and it shows as "tier 2 (unreplayed)".** A module that sets `debug.skipKernelTC` skips build-time kernel checks; the binder's `addDecl` checks only that the theorem's declared type is the claim's. Closing that needs the lean4checker replay (phase P2). Comparator receipts, profile replay of 3a/3b claims and `min_reader` are also P2.
+- **The soundness theorem quantifies over every interpretation of the codes.** `fold_held_meaningP` holds for any meaning of the registered codes under which the binder's accepted records are true; that the interpretation is the Lean meaning of the registered declarations (the bridge) is P2, and rests on the binder's report.
+- **Statement identity** is a SHA-256 over the campaign-local closure of the declaration (types and definition bodies, theorem types only) plus an environment stamp (toolchain and manifest revisions). Pinned dependencies are covered by the stamp alone, so any dependency bump unbinds every claim until the codes are registered again.
+- **Recorded-only warrants never hold.** Exact scripts (4), hand proofs (5), numerical evidence (6) and external checkers' logs from other pins or repositories (1–3, decision 3) are recorded and shown, never folded as support. GP cannot tell a sketch from a proof: it enforces the filer's declared state and the reviewer's conditions, which are OPEN premises.
+- **Fidelity is data.** "anchored" always shows as "anchored (asserted)" in P1: no anchor is checked.
+- **A vacuous premise (`False`) holds anything,** as with zero guards: a fidelity-review item. `contra` is `false`, so P detects no conflicts.
+- **Presentations are display-only records.** OVERSTATED marks a tag above the earned tier, or a presentation that drops a premise or a reviewer's condition; a tag of tier 7 asserts nothing.
+- **Cost.** A bind is one incremental `lake build` and one binder process that imports the package. On the reference Windows machine the withheld Mathlib-based fixture took 33–55 s per bind with three statements and six theorems: a no-op `lake build` of 13–20 s, then 20–43 s for `lake env` and the Mathlib import; the per-theorem checks are small. A Lean-core package binds in seconds. Views reuse a recorded bind keyed by the package's source tree and inputs (under 1 s a command).
+- **Readers older than 0.52 skip P records,** so P claims are invisible to them.
+
 ## Mathematical reach
 
 - **ℝ only, not every real closed field.** Selected-root signs mean "some root in the interval".

@@ -16,6 +16,7 @@ This is what a held claim rests on, as of 2026-10-12. The guarantees themselves 
 | The Python CLI, `tools/gp.py` | the release commit | See below. The fold, not the CLI, decides what is held. |
 | The matroid file reader | `encode-matroid.py`'s `canonical` | reading a matroid file into `(n, index lines)`. The Lean encoder re-derives the system from that. |
 | The binder export | the `gp-binder/v2` receipt | the `RecordsSound` hypothesis of `fold_held_meaning_rules` (theorem warrants only) |
+| The P binder (Lane P, 0.52) | `gp_bindp`, Lean core only, run in the campaign package by `lake env` | the `RecordsSoundP` hypothesis of `fold_held_meaningP`: its report of each code's declaration and campaign-local closure, each theorem's axioms, and the Lean kernel's `addDecl` verdict on `P₁ → … → Pₙ → S := T`. It elaborates nothing. |
 | Comparator | Comparator, `lean4export` and `landrun`, pinned by commit in `comparator.yml` (3P) and `ropes/r1a/REPRODUCE` | rope and warrant checks. A pass needs no trust in GP, but it does need trust that the challenge statement is faithful. |
 
 The CLI is trusted to:
@@ -43,6 +44,8 @@ The Python goal join is no longer trusted.
 - **Comparator emitters.** Comparator checks what they emit. Their fidelity is reviewed separately ([GE-AUDIT](reports/GE-AUDIT.md)).
 - **The commit guard** (`fold_ok_admission`). The final fold with the real admission is authoritative.
 - **Modification times.** Runner freshness compares content hashes.
+- **Elaboration of a P campaign's proofs.** It runs in `lake build` under heartbeats and a wall-clock cap (`GP_LANEP_BUILD_TIMEOUT`); the binder re-checks each theorem's type in the kernel. Until the lean4checker replay (P2), a module that sets `debug.skipKernelTC` is the residual gap, so tier 2 shows as unreplayed.
+- **Recorded-only P warrants** (scripts, hand proofs, numerical evidence, external checkers' logs) and presentations: data for the views, never support.
 - **Expected-verdict metadata, named OPEN premises, the frontend's infix parser and `Scope.overlaps` labels.**
 
 ---

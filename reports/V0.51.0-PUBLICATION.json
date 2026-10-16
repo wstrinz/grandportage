@@ -1,0 +1,45 @@
+{
+ "schema": "gp-alpha-publication/v1",
+ "date": "2026-10-15",
+ "authority": "Will, 2026-10-15: \"all clear to ship the rest of it when it lands!\"",
+ "prevents": "an unverifiable claim that the public tree is the audited snapshot of the tagged workspace release commit",
+ "workspace": {
+  "repository": "https://github.com/wstrinz/grand-portage-workspace (private)",
+  "tag": "v0.51.0",
+  "tag_object": "0c5a33ce16a44072f3ecebdbabfe65e0f835be21",
+  "commit": "25a2bea669da153ac7e46075e29c8386e1b6a626",
+  "ci_run": 38756654270,
+  "ci": "success on all jobs at the tagged commit itself",
+  "comparator_run": "38756352921 at d097c09 (differs from the tag by one documentation line): all 34 3P shards pass under Lean v4.35.0-rc3"
+ },
+ "snapshot": {
+  "manifest": "public-snapshot-v2.json",
+  "receipt_schema": "grand-portage-public-snapshot-receipt/v2",
+  "sha256": "59e524e20241398c92cf2de869233b651f0ee6f4a28355c479fbc033778f1daa",
+  "files": 4861,
+  "generated_from_tagged_commit": true,
+  "audit": {
+   "method": "scripts/public_snapshot.py --audit-against the published v0.50.2 tree (AUD1: machine paths, secrets, guarded names, private audit terms on new lines)",
+   "first_run": "refused: two withheld campaign names in PROMOTIONS.md, scrubbed in 25a2bea",
+   "at_tag": "READY, no hits"
+  }
+ },
+ "public": {
+  "repository": "https://github.com/wstrinz/grandportage",
+  "branch": "master",
+  "base_commit": "561af8c",
+  "published_commit": "614e68cc5b7ae0714c9bf83808ef30989f03b0f3",
+  "fast_forward": true,
+  "index_entries": 4862,
+  "blobs_equal_snapshot_bytes": 4861,
+  "receipt_file": 1,
+  "tag": "v0.51.0",
+  "tag_object": "77abca10705c9140ead7f46c95572f19e476c9f8",
+  "release": "https://github.com/wstrinz/grandportage/releases/tag/v0.51.0 (full release, latest)",
+  "ci": {
+   "test": "run 38762493593 at 614e68c: all jobs pass; gp50 559 passed, 63 skipped (private-oracle suites); fast 1755 passed, 2 skipped",
+   "rope_r1a": "run 38762506402: REPRODUCE passes on a fresh public runner",
+   "comparator": "run 38762516868: all 34 3P shards pass stock Comparator (v4.35.0-rc3 tag)"
+  }
+ }
+}

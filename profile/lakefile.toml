@@ -18,7 +18,7 @@ rev = "v0.9.0"
 
 [[lean_lib]]
 name = "GPProfile"
-globs = ["GPProfile", "GPProfile.Real.+"]
+globs = ["GPProfile", "GPProfile.Real.+", "GPProfile.LaneP.+"]
 
 [[lean_exe]]
 name = "gp_profile_layout"
@@ -45,3 +45,13 @@ root = "GPProfile.Real.CorpusMain"
 [[lean_exe]]
 name = "gp_ledger3"
 root = "GPProfile.Real.Ledger3"
+
+# Lane P (GP 0.52 P1): the P ledger runner, and the P binder (Lean core only; run inside a campaign
+# package with `lake env`, it imports the package's modules and elaborates nothing).
+[[lean_exe]]
+name = "gp_ledgerp"
+root = "GPProfile.LaneP.Run"
+
+[[lean_exe]]
+name = "gp_bindp"
+root = "GPProfile.LaneP.Binder"

@@ -65,6 +65,15 @@ Each item gets a line saying how it was checked:
 
 - [ ] A fresh agent, given only the README, reproduces the result: in at most 15 minutes for GR1, plus the Mathlib cache download.
 
+**Running Comparator under WSL.** Work on WSL's own ext4 filesystem, never on a Windows drive mounted at `/mnt/<drive>`. From the workspace root, inside WSL: `bash tools/rope-ext4.sh ropes/<id>`. It copies the rope to `~/gp-ropes/<id>`, keeping that copy's `.lake` (Mathlib cache, tools and builds) between runs, and runs its `REPRODUCE` there. The 0.50 trials measured why this matters, on `/mnt/f`:
+- unpacking the Mathlib cache took over 30 minutes;
+- each Comparator run took 21 to 86 minutes. Through this script on ext4, R1a's 17 Comparator runs took 40 to 90 seconds each, and its whole `REPRODUCE` (tools, Mathlib cache, build, 18 checks) took 24 minutes from a cold start;
+- landrun refuses tools stored on the mount;
+- `systemd-run --user` cannot see the mount, so Comparator ran without its AF_UNIX hardening;
+- CRLF checkouts made lake re-hash every package.
+
+If you must stay on the mount, run `git config core.autocrlf true` and `git update-index --refresh` in each package checkout, keep the tools on ext4, and say in `REPRODUCE`'s log which hardening was skipped. Run one Comparator job at a time; a large shard peaks near 7 GB.
+
 ## 7. Provenance and independence
 
 - [ ] The README states which parts were produced by AI agents, with which models and tools.

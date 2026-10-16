@@ -84,6 +84,19 @@ class AxiomAudit(unittest.TestCase):
         self.check(census, ["GPCensus.Profile"], ["GPCensus.fold_held_meaning"],
                    ".lake/build/lib/lean/GPCensus/Profile.olean")
 
+    def test_lane_p(self):
+        # GP 0.52 Lane P, phase P1 (premises as scope): the fold soundness theorem, the discharge (cut) rule, the
+        # meaning of a P scope, withdrawal W1P-W3P and W3P for every P run.
+        profile = ROOT / "profile"
+        self.check(profile, ["GPProfile.LaneP.Run"],
+                   ["GPProfile.LaneP.fold_held_meaningP", "GPProfile.LaneP.dischargeOk_sound",
+                    "GPProfile.LaneP.means_iff", "GPProfile.LaneP.acceptsProof_meaning",
+                    "GPProfile.LaneP.acceptsRule_meaning", "GPProfile.LaneP.base_validator_soundP",
+                    "GPProfile.LaneP.withdraw_antitoneP", "GPProfile.LaneP.withdraw_resolvesP",
+                    "GPProfile.LaneP.withdraw_unholdsP", "GPProfile.LaneP.Run.run_withdrawn",
+                    "GPProfile.LaneP.Run.events_ids", "GPProfile.LaneP.Run.events_noSupersede"],
+                   ".lake/build/lib/lean/GPProfile/LaneP/Run.olean")
+
 
 if __name__ == "__main__":
     unittest.main()

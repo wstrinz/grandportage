@@ -301,6 +301,46 @@ theorem w_distinct_q :
 end GPBinding.Campaign
 ```
 
+## Lean-proposition claims (Lane P, 0.52)
+
+A **P campaign** states its claims as Lean propositions. Its `campaign.json` names the profile, the Lake package and its library roots:
+
+```json
+{"name": "tiny", "profile": "P", "package": "lean", "roots": ["Tiny"]}
+```
+
+The package (`lean/`) is pinned to the binding's toolchain. A Mathlib package can share the binding's checkout with `packagesDir = "<path>/binding/.lake/packages"` and the binding's manifest revisions. Each statement is a `def X : Prop`:
+
+```lean
+namespace Tiny
+def base : Nat := 3
+def A : Prop := base = 3
+def B : Prop := 2 ≤ base
+theorem a_of_b : B → A := fun _ => rfl
+theorem b_holds : B := by unfold B base; decide
+end Tiny
+```
+
+```bash
+gp init
+gp register Tiny.A                    # code, closure hash, environment stamp
+gp register Tiny.B
+gp claim A-of-B --lean A --premise B --theorem Tiny.a_of_b
+gp claim B-held --lean B --theorem Tiny.b_holds
+gp discharge A-of-B --premise B --by B-held --as A
+gp status
+#   A: held; tier 2 (unreplayed); fidelity: unaudited
+#   A-of-B: held; tier 2 (unreplayed); open: B (dischargeable by B-held); fidelity: unaudited
+```
+
+- **Binding.** `gp bind` (run by every command that needs it) builds the package and runs the P binder, which imports it and elaborates nothing. It refuses a theorem with `sorryAx`, a `native_decide` axiom or a custom axiom, and one whose type is not `P₁ → … → Pₙ → S` for the claim's statement and premises.
+- **Drift.** Rename `A` and its claims are unbound ("Tiny.A is missing"); redefine `base` and they are unbound with the changed constant named. Register a new code (`gp register Tiny.A --as A2`) and refile.
+- **`¬X`** (or `not:X`) is the negation of a registered statement, registered on first use.
+- **Prose** statements (`gp register --prose TEXT --as NAME`, `gp claim L --prose NAME`) are never holdable. Reviewers' conditions and unwritten lemmas are prose premises.
+- **Recorded only:** `gp submit L --hand-proof FILE --state complete|sketch [--condition H]`, `--script FILE`, `--numerical FILE`, `--external FILE --tier N`. They show as the claim's best tier and never hold it.
+- **Fidelity and presentations:** `gp fidelity X --level LLM-audited --by WHO --ref REF`; `gp present L --venue V --tag HAND [--premise H]`. A presentation tagged above the earned tier, or dropping a premise, is OVERSTATED.
+- **Withdrawal** (`gp withdraw L --reason … [--cascade]`) lists the discharges that lose their hold. `merge` lands another branch's P records if the merged ledger folds; the status depends only on the set of records.
+
 ## Logs
 
 Keep two JSON Lines logs in the campaign ([schemas](../campaigns/schemas)):
@@ -311,8 +351,8 @@ Keep two JSON Lines logs in the campaign ([schemas](../campaigns/schemas)):
 
 ## Compatibility: `gp-ledger/v1`
 
-- **Version:** `gp --version` prints the release (`gp 0.51.0`). `init` records it as `gp_version`, beside `"schema": "gp-ledger/v1"` and the statement's SHA-256.
-- **The ledger** is append-only JSON Lines, written only by `gp`; each record has an `op` (`init`, `claim`, `support`, `refused`, `cover`, `restate`, `merge`, and since 0.51 `withdraw`) and a time `at`.
+- **Version:** `gp --version` prints the release (`gp 0.52.0`). `init` records it as `gp_version`, beside `"schema": "gp-ledger/v1"` and the statement's SHA-256.
+- **The ledger** is append-only JSON Lines, written only by `gp`; each record has an `op` (`init`, `claim`, `support`, `refused`, `cover`, `restate`, `merge`, since 0.51 `withdraw`, and in P campaigns since 0.52 `register`, `pclaim`, `discharge`, `pwarrant`, `fidelity`, `present`, `bind`, `pwithdraw` and `pattempt`) and a time `at`. A reader older than 0.52 skips the P ops, so P claims are invisible to it.
 - **Within v1,** records may gain optional fields, new ops may appear, and profiles may add statement kinds, certificates and rules.
 - **Old ledgers keep folding:** supports with an inline receipt (before receipt references), ledgers without `restate` (the `init` hash binds), `init` records without `gp_version`, and claim keys from the older counter scheme. A ledger with no `withdraw` record gives the runners the same input as 0.50 and gets byte-identical output. Tests: `test_gp50_receipt_ref.py`, `test_gp50_merge_guard.py`, `test_gp50_outside_repo.py`, `test_gp50_withdraw.py`.
 - **Withdrawal and older readers (0.51).** `withdraw` is a v1 extension. **A `gp` older than 0.51 skips `withdraw` records, so it shows a withdrawn claim, and every claim resting on it, as held again.** That is still sound (W1: anything held after a withdrawal was held before), but it silently reverses the owner's decision. A v1 ledger cannot make an older `gp` refuse, so read a ledger with withdrawals only with gp 0.51 or newer; `withdraw` repeats this warning each time. The next schema version will let a ledger name its minimum reader.

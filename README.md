@@ -4,7 +4,7 @@ Grand Portage holds a mathematical claim only through current, bound evidence an
 
 0.50 is a rework of the [v0.37 line](#v037). A small Lean kernel decides which claims are held. Profiles supply the statement language and the checkers, and their soundness is proved in Lean against Mathlib.
 
-**Status: `v0.51.0`, on Lean `v4.35.0-rc3` and Hex v0.9.0, with claim withdrawal.** It is research software, so read [GUARANTEES.md](GUARANTEES.md) for exactly what it guarantees and [LIMITS.md](LIMITS.md) for what it does not. See [STATUS.md](STATUS.md) and the release notes for [v0.51.0](reports/RELEASE-NOTES-v0.51.0.md), [v0.50.2](reports/RELEASE-NOTES-v0.50.2.md), [v0.50.1](reports/RELEASE-NOTES-v0.50.1.md) and [v0.50.0](reports/RELEASE-NOTES-v0.50.0.md).
+**Status: `v0.52.0`, adding Lean-proposition claims under named premises (Lane P, phase 1).** It is research software, so read [GUARANTEES.md](GUARANTEES.md) for exactly what it guarantees and [LIMITS.md](LIMITS.md) for what it does not. See [STATUS.md](STATUS.md) and the release notes for [v0.52.0](reports/RELEASE-NOTES-v0.52.0.md), [v0.51.0](reports/RELEASE-NOTES-v0.51.0.md), [v0.50.2](reports/RELEASE-NOTES-v0.50.2.md), [v0.50.1](reports/RELEASE-NOTES-v0.50.1.md) and [v0.50.0](reports/RELEASE-NOTES-v0.50.0.md).
 
 **What GP guarantees, under which assumptions, and what it does not claim: [GUARANTEES.md](GUARANTEES.md).**
 
@@ -45,7 +45,7 @@ See the [release notes](reports/RELEASE-NOTES-v0.50.0.md), the [guarantees](GUAR
 
 You need [elan](https://github.com/leanprover/elan); each package's `lean-toolchain` selects its Lean version. You also need Python 3.10 or later.
 
-**Reproduce from the release tag.** Each release (`v0.50.0` through `v0.51.0`) is tagged on the exact commit on which CI passed; `reports/STABLE-PUBLICATION.json` records v0.50.0. To use GP on your own problem, start with [docs/USING-GP.md](docs/USING-GP.md).
+**Reproduce from the release tag.** Each release (`v0.50.0` through `v0.52.0`) is tagged on the exact commit on which CI passed; `reports/STABLE-PUBLICATION.json` records v0.50.0. To use GP on your own problem, start with [docs/USING-GP.md](docs/USING-GP.md).
 
 ```bash
 cd profile && lake build gp_corpus_run && cd ..

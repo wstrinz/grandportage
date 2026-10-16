@@ -701,3 +701,34 @@ Work now lands on master directly; the workspace checkout tracks `origin/master`
 - `--cascade` is required when other held claims would lose their hold. `goal` and `spine` claims are refused.
 - Every withdrawal prints the older-reader warning.
 - Verified: full gp50 suite (264 passed), v0.37 fast suite, and the Kernel pin.
+
+2026-10-15 **`v0.51.0` published** on public `wstrinz/grandportage` (Will: "all clear to ship"). Receipt: [V0.51.0-PUBLICATION.json](reports/V0.51.0-PUBLICATION.json).
+- Public commit `614e68c` is the audited snapshot of workspace tag `v0.51.0` (`25a2bea`).
+- It carries Lean v4.35.0-rc3 / Hex v0.9.0, claim withdrawal, the elaboration-failure fix, and the snapshot tool's batching and leak audit.
+- The built-in audit's first real run refused two campaign names in PROMOTIONS.md; they were scrubbed before tagging.
+- Public CI on the tag is green: the test suite, R1a, and all 34 Comparator shards.
+
+2026-10-15 **G-ARR, after trials stage 1** (Will).
+- **Lane P goes ahead, design note first:** a Lean-proposition profile with warrant tiers, fidelity and premises-as-scope. Its acceptance test is a rerun of the hyperbolicity trial under P. The note comes to Will for approval before anything is built.
+- **The rope-infrastructure fix is done now,** independently of P: a documented fast path for Comparator.
+- **The demotion trigger did not fire.** The paper-ledger trial found a real overstatement in a published release, by ledger discipline.
+- **The retired zero-guard branch** is kept as tag `archive/gp/n6-zero-guard`.
+
+2026-10-16 **Lane P approved for 0.52; built in two phases** (Will; [design](docs/private/LANEP-DESIGN.md), all seven decisions as recommended).
+- It is a Lean-proposition profile with premises-as-scope; discharging a premise is a profile rule. No Kernel change.
+- **Phase P1:** statements and their identity, `lean_theorem` warrants, `discharge`, recorded-only tiers, fidelity, `present` with OVERSTATED, views, and withdrawal.
+  - Acceptance: the hyperbolicity trial rerun under P, the paper-ledger trial's rows encoded (its overstatement displayed as OVERSTATED), and the controls.
+- **Phase P2:** Comparator receipts, the 3a/3b bridge, the lean4checker replay, and `min_reader`.
+
+2026-10-16 **Rope infrastructure: a fast path for Comparator under WSL** (`tools/rope-ext4.sh`, ROPE-CHECKLIST). Ropes now run on WSL's ext4 instead of the 9p-mounted Windows drive. R1a's whole `REPRODUCE` passed all 18 checks in 24 minutes from a cold start, with 40–90 s per Comparator run, against 21–86 min per run on the mount.
+
+2026-10-16 **Lane P phase P1 has landed** (`1e2f294`; [design](docs/private/LANEP-DESIGN.md)).
+- Lean-proposition claims with premises as scope: kernel-checked `lean_theorem` warrants (no elaboration trusted), `discharge` as the cut rule, recorded-only tiers, fidelity, and `present` with OVERSTATED. No Kernel change.
+- `fold_held_meaningP` and the P1 lemmas are in the CI axiom audit.
+- **Acceptance:**
+  - The hyperbolicity rerun under P: GP itself refuses the hostile transport four ways.
+  - The paper-ledger rows: its overstatement displays as OVERSTATED, with its open premises.
+  - The controls pass.
+- **Verified:** gp50 has 288 passed and 1 skipped; v0.37 fast has 1,757 passed; the Kernel pin verifies; the leak audit is clean.
+- **Known limit, to tune in P2:** against that trial's own audit, OVERSTATED flags 9 of the 14 overstated presentations and 17 of the 53 matching ones. The false alarms come from open process conditions (reviews, merges) being encoded as premises. It caught the finding that mattered, and every miss errs toward warning.
+- **Ops for older readers:** the new ops are named `pclaim`, `pwarrant` and `pwithdraw`, so a 0.51 reader neither misparses nor refuses them.

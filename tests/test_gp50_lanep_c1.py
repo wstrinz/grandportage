@@ -1,0 +1,69 @@
+"""GP 0.52 Lane P, phase P1, acceptance (b): a 33-row claims ledger encoded as a P campaign (design §8(b)).
+
+The withheld fixture campaigns/lanep-c1 encodes every row (prose statements, recorded-only warrants at the rows'
+tiers, OPEN premises, fidelity and presentations) through the `gp` CLI. Its N1 row, SR-C34, must read: open; best: hand
+proof (sketch); open: second review, written proof; presented [HAND] in 5 venues: OVERSTATED. GP cannot tell a sketch
+from a proof: it enforces the filer's declared state and the reviewer's conditions. Nothing in the encoding is held:
+prose statements are never holdable and recorded-only warrants never support.
+
+Skipped where the withheld fixture or its source rows are absent.
+"""
+import importlib.util
+from pathlib import Path
+import shutil
+import tempfile
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+ENCODER = ROOT / "campaigns/lanep-c1/encode.py"
+
+
+def load_encoder():
+    spec = importlib.util.spec_from_file_location("lanep_c1_encode", ENCODER)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+@unittest.skipUnless(ENCODER.exists(), "the withheld C1 fixture is absent")
+class C1Encoding(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.enc = load_encoder()
+        if not cls.enc.SOURCE.exists():
+            raise unittest.SkipTest("the C1 source rows are absent")
+        cls.tmp = Path(tempfile.mkdtemp())
+        cls.dir = cls.tmp / "c1"
+        cls.rows, run = cls.enc.encode(cls.dir)
+        cls.gp = staticmethod(run)
+        cls.status = {l.split(": ", 1)[0]: l for l in run("status").splitlines() if ": " in l}
+
+    @classmethod
+    def tearDownClass(cls):
+        shutil.rmtree(cls.tmp, ignore_errors=True)
+
+    def test_all_rows_encoded_none_held(self):
+        self.assertEqual(len(self.rows), 33)
+        for r in self.rows:
+            self.assertIn(r["id"], self.status)
+            self.assertFalse(self.status[r["id"]].split(": ", 1)[1].startswith("held"), self.status[r["id"]])
+
+    def test_n1_overstated_with_open_premises(self):
+        self.assertIn("SR-C34: open; best: hand proof (sketch); open: second review, written proof; "
+                      "presented [HAND] in 5 venues: OVERSTATED", self.status["SR-C34"])
+
+    def test_explain_and_frontier(self):
+        out = self.gp("explain", "SR-C34")
+        self.assertIn("recorded only: hand proof (sketch)", out)
+        self.assertEqual(out.count(": OVERSTATED"), 6)  # the summary line and the five presentations
+        frontier = self.gp("frontier")
+        self.assertIn("second review: 2 claims (SR-C33, SR-C34)", frontier)
+
+    def test_tiers_and_complete_hand_proofs(self):
+        self.assertIn("best: tier 5 (hand proof (complete), recorded only)", self.status["PD"])
+        self.assertIn("best: tier 1 (external tier 1", self.status["A"])
+        self.assertNotIn("OVERSTATED", self.status["A"])
+
+
+if __name__ == "__main__":
+    unittest.main()
