@@ -21,14 +21,17 @@ Profiles supply statements and checkers. The binding ([`binding/`](binding)) pro
 - **Encodings.** The matroid frame is proved by `GPBinding.Matroid.frame_iff`, and the unit-distance frame by `GPBinding.UDG.udg_frame_iff`. In both cases `gp` re-derives the system with the Lean encoder.
 - **Withdrawal (0.51).** Both runners retract a withdrawn claim's warrants in every fold. The theorems above quantify over every event list, so what stays held keeps its meaning. `GPProfile.Withdraw` (Mathlib-free) proves that withdrawal only un-holds (`withdraw_antitone`), never breaks the fold or merge of a log without supersessions (`withdraw_resolves`), and leaves a withdrawn claim not held (`withdraw_unholds`; for every 3a and 3b run, `runWith_withdrawn` and `run3_withdrawn`).
 
-## Lane P: Lean-proposition claims (0.52, phase P1)
+## Lane P: Lean-proposition claims (0.52, phases P1 and P2)
 
 `GPProfile.LaneP` (Mathlib-free) is a profile on the unchanged Kernel: statements are registered codes, scopes are premise lists, and adding a premise is Kernel narrowing.
 - **Sound.** `GPProfile.LaneP.fold_held_meaningP`: for every interpretation `interp` of the codes under which the binder's accepted records hold (`RecordsSoundP`), every held claim satisfies `(∀ h ∈ scope, interp h) → interp stmt`. It rests on `Semantic.fold_held_meaning`.
 - **Discharge is the cut rule** (`dischargeOk_sound`): from `(s, S ∪ {h})` and `(h, T)` with `T ⊆ S`, conclude `(s, S)`. A premise claim that is not held leaves the derived claim unsupported.
 - **Theorem warrants** are accepted only for a binder record whose declaration, statement code and premises match, with every code's registered closure hash and stamp equal to the current bind's (`acceptsProof_meaning`). The binder builds `P₁ → … → Pₙ → S := T` and has the Lean kernel add it, elaborating nothing, and refuses any axiom beyond the standard three.
 - **Withdrawal** retracts all sixteen P warrant slots of a claim: `withdraw_antitoneP`, `withdraw_resolvesP`, `withdraw_unholdsP`, and `run_withdrawn` for every P run.
-- **Not claimed in P1:** the bridge to the Lean meanings, the lean4checker replay (tier 2 shows as unreplayed), Comparator receipts and profile replay. Tests: `tests/test_gp50_lanep*.py`.
+- **Comparator receipts (P2, tier 1)** are binder-class records: accepted at the pinned revisions only, for a challenge the binder found to have exactly the claim's type (`P₁ → … → Pₙ → S`, so the emitter is not trusted), and covered by `RecordsSoundP`.
+- **Bridges (P2, tier 3).** `fold_held_meaningP_bridged` (profile) and `GPBinding.LaneP.fold_held_meaningP_bridge3` (binding): given `RecordsSoundP` and, for each bridge, `BridgeSound` (the code is `meaning3` of its literal, `Iff.rfl` in the generated definition and re-checked by the binder in the kernel), every held claim's premises imply its statement. `bridgeOk_meaning`: an accepted bridge's literal meaning, `Semantic.Means profile3` of the literal's statement and scope, holds, by `fold_held_meaning3` over the re-folded 3a/3b part. A withdrawn bridged claim un-holds the bridge.
+- **The lean4checker replay (P2).** `gp bind --replay` replays the package's modules in the kernel; a failed replay withholds every theorem warrant of the package, and only a passing replay of the current tree drops "(unreplayed)".
+- **Not claimed:** that the interpretation of the codes is the Lean meaning of the registered declarations (it rests on the binder's report), or anything about process conditions, which are display data. Tests: `tests/test_gp50_lanep*.py`.
 
 ## What "held" means
 

@@ -16,6 +16,13 @@ registered statements, so a statement mismatch fails in the kernel. It also coll
 walking the constants themselves; anything beyond `propext`, `Quot.sound` and `Classical.choice`
 (`sorryAx`, `Lean.ofReduceBool`, a custom axiom) refuses the warrant.
 
+P2 (GP 0.52):
+- For each Comparator challenge it finds the challenge theorem in its emitted module and checks that its type is
+  exactly the claim's `P₁ → … → Pₙ → S` built from the registered codes (`Expr` equality up to binder names), so the
+  emitter is not trusted. The receipt's other checks (pins, log, challenge SHA-256) are gp's.
+- For each bridge code it asks the kernel to add `X ↔ GPBinding.LaneP.meaning3 "<literal>" := Iff.refl X`: the code's
+  definition is the literal 3a/3b meaning (`BridgeSound`), checked without elaborating anything.
+
 usage: gp_bindp <input.json>   (prints the report as JSON)
 -/
 
@@ -141,6 +148,17 @@ def theoremType (codes : List Code) (stmt : Nat) (premises : List Nat) : Except 
   let s ← codeExpr codes 8 stmt
   premises.foldrM (fun p acc => do pure (.forallE `h (← codeExpr codes 8 p) acc .default)) s
 
+def moduleOf (env : Environment) (n : Name) : String :=
+  match env.getModuleIdxFor? n with
+  | some idx => (env.header.moduleNames[idx.toNat]?.map (·.toString)).getD ""
+  | none => ""
+
+/-- Ask the kernel to add `name : type := value`; "ok" or its message. -/
+def kernelAdd (env : Environment) (name : Name) (lps : List Name) (type value : Expr) : IO String :=
+  match Environment.addDeclCore env 200000000 512 (.thmDecl (mkTheoremValEx name lps type value [name])) none with
+  | .ok _ => pure "ok"
+  | .error e => (e.toMessageData {}).toString
+
 def run (input : Json) : IO Json := do
   let get {α} [FromJson α] (j : Json) (k : String) : IO α := IO.ofExcept (j.getObjValAs? α k)
   let roots : List Name := (← get (α := List String) input "roots").map String.toName
@@ -161,6 +179,7 @@ def run (input : Json) : IO Json := do
       let isProp := info.type == .sort .zero && info.levelParams.isEmpty && isLocal env roots c.decl
       let cl := closure env roots c.decl
       return Json.mkObj [("code", toJson c.code), ("found", toJson true), ("prop", toJson isProp),
+        ("module", toJson (moduleOf env c.decl)),
         ("closure", Json.arr (cl.map fun (n, t) => Json.arr #[toJson n.toString, toJson t]))]
   let mut thmRows : Array Json := #[]
   let mut i := 0
@@ -177,16 +196,42 @@ def run (input : Json) : IO Json := do
     let kernel ← match theoremType codes stmt premises with
       | .error e => pure s!"type: {e}"
       | .ok ty =>
-        let name := Name.mkSimple s!"_gp_lanep_check_{i}"
         let lps := info.levelParams
-        let decl : Declaration := .thmDecl (mkTheoremValEx name lps ty (.const decl (lps.map Level.param)) [name])
-        match Environment.addDeclCore env 200000000 512 decl none with
-        | .ok _ => pure "ok"
-        | .error e => (e.toMessageData {}).toString
+        kernelAdd env (Name.mkSimple s!"_gp_lanep_check_{i}") lps ty (.const decl (lps.map Level.param))
     thmRows := thmRows.push (Json.mkObj [("id", toJson id), ("found", toJson true),
       ("axioms", toJson (axs.map (·.toString))), ("axiomsOk", toJson axiomsOk), ("kernel", toJson kernel)])
+  -- Comparator challenges: the emitted theorem's type is exactly the claim's (P2).
+  let mut chalRows : Array Json := #[]
+  for c in (input.getObjValAs? (List Json) "challenges").toOption.getD [] do
+    let id : String ← get c "id"
+    let decl : Name := (← get (α := String) c "decl").toName
+    let module : String ← get c "module"
+    let typeOk ← match env.find? decl, theoremType codes (← get c "stmt") (← get c "premises") with
+      | some info, .ok ty => pure (info.levelParams.isEmpty && info.type == ty)
+      | _, _ => pure false
+    chalRows := chalRows.push (Json.mkObj [("id", toJson id), ("found", toJson (env.contains decl)),
+      ("module", toJson (moduleOf env decl == module)), ("typeOk", toJson typeOk)])
+  -- Bridge codes: the definition is the literal 3a/3b meaning, `X ↔ meaning3 lit` by `Iff.refl` (P2).
+  let mut bridgeRows : Array Json := #[]
+  for b in (input.getObjValAs? (List Json) "bridges").toOption.getD [] do
+    let code : Nat ← get b "code"
+    let decl : Name := (← get (α := String) b "decl").toName
+    let lit : String ← get b "lit"
+    let meaning := mkApp (.const `GPBinding.LaneP.meaning3 []) (mkStrLit lit)
+    -- Syntactic first, so the kernel never has to evaluate `meaning3` on two different literals.
+    let kernel ← match env.find? `GPBinding.LaneP.meaning3, env.find? decl with
+      | none, _ => pure "GPBinding.LaneP.meaning3 is not imported"
+      | _, none => pure s!"{decl} is missing"
+      | some _, some info =>
+        if info.value?.map (· == meaning) != some true then
+          pure s!"{decl} is not `meaning3` of this literal"
+        else
+          let ty := mkApp2 (.const ``Iff []) (.const decl []) meaning
+          kernelAdd env (Name.mkSimple s!"_gp_lanep_bridge_{code}") [] ty (mkApp (.const ``Iff.refl []) (.const decl []))
+    bridgeRows := bridgeRows.push (Json.mkObj [("code", toJson code), ("kernel", toJson kernel)])
   return Json.mkObj [("schema", "gp-bindp/v1"), ("lean", toJson Lean.versionString),
-    ("githash", toJson Lean.githash), ("codes", Json.arr codeRows.toArray), ("theorems", Json.arr thmRows)]
+    ("githash", toJson Lean.githash), ("codes", Json.arr codeRows.toArray), ("theorems", Json.arr thmRows),
+    ("challenges", Json.arr chalRows), ("bridges", Json.arr bridgeRows)]
 
 end GPProfile.LaneP.Binder
 

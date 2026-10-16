@@ -21,7 +21,8 @@ rev = "v0.9.0"
 
 [[lean_lib]]
 name = "GPBinding"
-globs = ["GPBinding", "GPBinding.Real.+", "GPBinding.UDG.System", "GPBinding.UDG.Spine", "GPBinding.UDG.Frame"]
+globs = ["GPBinding", "GPBinding.Real.+", "GPBinding.UDG.System", "GPBinding.UDG.Spine", "GPBinding.UDG.Frame",
+  "GPBinding.LaneP.+"]
 
 [[require]]
 name = "AutoGeneralization"

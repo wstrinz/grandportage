@@ -732,3 +732,18 @@ Work now lands on master directly; the workspace checkout tracks `origin/master`
 - **Verified:** gp50 has 288 passed and 1 skipped; v0.37 fast has 1,757 passed; the Kernel pin verifies; the leak audit is clean.
 - **Known limit, to tune in P2:** against that trial's own audit, OVERSTATED flags 9 of the 14 overstated presentations and 17 of the 53 matching ones. The false alarms come from open process conditions (reviews, merges) being encoded as premises. It caught the finding that mattered, and every miss errs toward warning.
 - **Ops for older readers:** the new ops are named `pclaim`, `pwarrant` and `pwithdraw`, so a 0.51 reader neither misparses nor refuses them.
+
+2026-10-16 **CI paused; releases verified locally** (Will: "almost out of CI minutes so no more ci runs for now"). Workspace workflows are not dispatched. The release gate is local verification on the exact release commit: the Kernel pin, the full gp50 and v0.37 fast suites, the check count, and the snapshot leak audit. Revisit when the Mac runner is set up.
+
+2026-10-16 **`v0.52.0` published** (Lane P phase 1). Receipt: [V0.52.0-PUBLICATION.json](reports/V0.52.0-PUBLICATION.json).
+- Public commit `8fee8b5` is the audited snapshot of workspace tag `v0.52.0` (`db629bc`).
+- Verified locally: gp50 289 passed, v0.37 fast 1,757 passed, Kernel pin, leak audit.
+- Public CI is not dispatched, pending Will's call.
+
+2026-10-16 **Lane P phase P2 has landed** ([design](docs/private/LANEP-DESIGN.md)).
+- **Comparator receipts (tier 1):** a real receipt, checked locally by stock Comparator at the rc3 tags on WSL ext4, with full hardening. Pins are re-checked at view time.
+- **The 3a/3b bridge (tier 3):** `fold_held_meaningP_bridged` and `fold_held_meaningP_bridge3` are in the axiom audit. Control 8 passes.
+- **The lean4checker replay:** tier 2 is final once the replay passes, and a module that skips kernel checks is caught.
+- **`min_reader`** in new init records.
+- **Process conditions** are kept separate from premises. Against the paper-ledger audit, OVERSTATED now flags 8 of 14 overstated presentations (plus 1 "conditions open") and 6 of 53 matching ones, down from 17. Its overstatement still reads OVERSTATED.
+- Verified locally, with no CI: gp50 300 passed and 1 skipped, v0.37 fast 1,757 passed, the Kernel pin, the check count, and the leak audit READY.

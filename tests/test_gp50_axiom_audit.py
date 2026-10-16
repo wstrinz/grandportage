@@ -86,7 +86,7 @@ class AxiomAudit(unittest.TestCase):
 
     def test_lane_p(self):
         # GP 0.52 Lane P, phase P1 (premises as scope): the fold soundness theorem, the discharge (cut) rule, the
-        # meaning of a P scope, withdrawal W1P-W3P and W3P for every P run.
+        # meaning of a P scope, withdrawal W1P-W3P and W3P for every P run; P2: fold soundness with bridges.
         profile = ROOT / "profile"
         self.check(profile, ["GPProfile.LaneP.Run"],
                    ["GPProfile.LaneP.fold_held_meaningP", "GPProfile.LaneP.dischargeOk_sound",
@@ -94,8 +94,18 @@ class AxiomAudit(unittest.TestCase):
                     "GPProfile.LaneP.acceptsRule_meaning", "GPProfile.LaneP.base_validator_soundP",
                     "GPProfile.LaneP.withdraw_antitoneP", "GPProfile.LaneP.withdraw_resolvesP",
                     "GPProfile.LaneP.withdraw_unholdsP", "GPProfile.LaneP.Run.run_withdrawn",
-                    "GPProfile.LaneP.Run.events_ids", "GPProfile.LaneP.Run.events_noSupersede"],
+                    "GPProfile.LaneP.Run.events_ids", "GPProfile.LaneP.Run.events_noSupersede",
+                    "GPProfile.LaneP.fold_held_meaningP_bridged", "GPProfile.LaneP.records_bridges_sound",
+                    "GPProfile.LaneP.plan3_run_fold"],
                    ".lake/build/lib/lean/GPProfile/LaneP/Run.olean")
+
+    def test_lane_p_bridge(self):
+        # GP 0.52 Lane P, phase P2 (profile_replay): the bridge part of Lane P's fold soundness, in the binding.
+        binding = ROOT / "binding"
+        self.check(binding, ["GPBinding.LaneP.Bridge"],
+                   ["GPBinding.LaneP.bridgeOk_meaning", "GPBinding.LaneP.bridges_sound",
+                    "GPBinding.LaneP.fold_held_meaningP_bridge3"],
+                   ".lake/build/lib/lean/GPBinding/LaneP/Bridge.olean")
 
 
 if __name__ == "__main__":

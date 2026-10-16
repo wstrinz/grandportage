@@ -19,17 +19,26 @@ usage: python tools/gp.py --campaign <dir> <command> ...
   emit-lean (<label> | --all)           Lean theorem warrants for held claims the generator covers
   merge <other-campaign-dir>            land another branch's records here, only if the merged log folds
 
-Lane P campaigns (campaign.json "profile": "P"; tools/gp_lanep.py, GP 0.52 P1):
-  register <Decl> [--as NAME] | register --prose TEXT --as NAME
-                                        bind a statement code: declaration, closure hash, environment stamp
-  claim <label> (--lean X | --prose X) [--premise H]... [--theorem T | --from L]
-                                        a claim of X under premises H (X may be ¬Y); held by a lean_theorem
+Lane P campaigns (campaign.json "profile": "P"; tools/gp_lanep.py, GP 0.52 P1 and P2):
+  register <Decl> [--as NAME] | register --prose TEXT --as NAME [--process KIND]
+         | register --bridge DIR:LABEL --as NAME
+                                        bind a statement code: declaration, closure hash, environment stamp; a
+                                        process condition (review, merge, wording, fidelity-review); a bridge code,
+                                        generated as the literal 3a/3b meaning of claim LABEL of campaign DIR
+  claim <label> (--lean X | --prose X) [--premise H]... [--condition C]...
+        [--theorem T | --from L | --comparator T | --bridge DIR:LABEL]
+                                        a claim of X under premises H (X may be ¬Y), with open process conditions C;
+                                        held by a lean_theorem (tier 2), a Comparator receipt (tier 1: the challenge
+                                        is emitted into the package) or a bridge (tier 3)
   discharge <label> --premise H --by L2 [--as NEW]
                                         from L = (s, S u {H}) and L2 = (H, T), T a subset of S: the claim (s, S)
   submit <label> (--hand-proof P --state complete|sketch [--condition H]... | --script P | --numerical P
                  | --external P --tier N)   a recorded-only warrant: it never holds a claim
+  submit <label> --comparator RECEIPT [--log LOG]
+                                        a Comparator receipt (tools/lanep-comparator.sh); held only at the pins
   fidelity <X> --level LEVEL --by WHO --ref REF; present <label> --venue V --tag TAG [--premise H]...
-  bind [--replay]                       build the package and run the P binder (drift is detected on every bind)
+  bind [--replay]                       build the package and run the P binder (drift is detected on every bind);
+                                        --replay: replay the package with lean4checker (tier 2 is final after it)
 
 The ledger (<dir>/ledger.jsonl, gp-ledger/v1) is append-only and written only by this CLI. Each claim
 binds its encoding digest; each support records the receipt it was replayed from, inline (as older
@@ -54,11 +63,14 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = ROOT / "profile"
-GP_VERSION = "0.52.0"  # the release version; recorded in each ledger's init record
+GP_VERSION = "0.53.0"  # the release version; recorded in each ledger's init record
 EXE = PROFILE / (".lake/build/bin/gp_ledger" + (".exe" if os.name == "nt" else ""))
 ELAN_HOME = Path(os.environ.get("ELAN_HOME") or Path.home() / ".elan")
 SCHEMA = "gp-ledger/v1"
 SCHEMAS = (SCHEMA,)  # ledger schemas this gp reads (within v1, the compatible changes USING-GP.md lists)
+# A new campaign's init record names the oldest gp that may read it (`min_reader`, a v1 extension, GP 0.52 P2): the
+# version that started it. Readers from this one on refuse a ledger whose min_reader is newer than themselves; older
+# readers ignore the field.
 KINDS = ["EMPTY", "NONEMPTY", "IN_IDEAL", "VANISHES_ON", "NOT_IN_IDEAL"]
 # What a held kind says about a matroid's realization system.
 MEANING = {"EMPTY": "not realizable", "NONEMPTY": "realizable, with a point over the prime field",
@@ -71,7 +83,7 @@ _spec_udg = importlib.util.spec_from_file_location("encode_udg", ROOT / "tools/e
 udg_encoder = importlib.util.module_from_spec(_spec_udg)
 _spec_udg.loader.exec_module(udg_encoder)
 _spec_lanep = importlib.util.spec_from_file_location("gp_lanep", ROOT / "tools/gp_lanep.py")
-lanep = importlib.util.module_from_spec(_spec_lanep)  # Lane P (GP 0.52 P1): P campaigns only
+lanep = importlib.util.module_from_spec(_spec_lanep)  # Lane P (GP 0.52 P1, P2): P campaigns only
 _spec_lanep.loader.exec_module(lanep)
 
 
@@ -122,6 +134,12 @@ def receipt_ref_path(record):
     return rel, digest
 
 
+def version_key(text):
+    """A release version as a comparable tuple (0.52.0 -> (0, 52, 0)), or None if it is not one."""
+    m = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)", str(text))
+    return tuple(int(x) for x in m.groups()) if m else None
+
+
 class Ledger:
     def __init__(self, campaign):
         self.dir = Path(campaign)
@@ -146,6 +164,11 @@ class Ledger:
             raise Refusal(f"{self.path} does not start with an init record", "ledger schema", "-",
                           "a gp ledger starts with `gp init`; restore the ledger from its branch")
         schema = first.get("schema")
+        need = first.get("min_reader")
+        if need is not None and (version_key(need) is None or version_key(need) > version_key(GP_VERSION)):
+            raise Refusal(f"this ledger needs gp {need} or later to read it (its init record's min_reader); this is gp "
+                          f"{GP_VERSION}", "ledger schema", "-", f"use gp {need} or later" if version_key(need) else
+                          "restore the ledger's init record from its branch")
         if schema not in SCHEMAS:
             raise Refusal((f"the ledger's schema is {schema!r}" if schema else "the ledger's init record names no schema") +
                           f"; gp {GP_VERSION} reads {', '.join(SCHEMAS)}",
@@ -1968,7 +1991,7 @@ def cmd_init(ledger, args):
         raise Refusal("no campaign statement", "campaign", "-", f"write {statement}")
     if ledger.records:
         raise Refusal("the ledger already exists", "append-only ledger", "-", "keep using it")
-    ledger.append({"op": "init", "schema": SCHEMA, "gp_version": GP_VERSION,
+    ledger.append({"op": "init", "schema": SCHEMA, "gp_version": GP_VERSION, "min_reader": GP_VERSION,
                    "statement_sha256": sha(statement.read_bytes())})
     print(f"ledger started for {statement}")
     ensure_goal_claims(ledger)
@@ -3269,6 +3292,8 @@ def main(argv=None):
     rg.add_argument("decl", nargs="?")
     rg.add_argument("--as", dest="as_", help="the statement's name in this ledger (default: the declaration's last component)")
     rg.add_argument("--prose", help="a prose statement's text (never holdable)")
+    rg.add_argument("--process", help="with --prose: a process condition (review, merge, wording, fidelity-review)")
+    rg.add_argument("--bridge", help="DIR:LABEL: a bridge code, the literal 3a/3b meaning of that claim (P2)")
     dc = sub.add_parser("discharge", help="Lane P: discharge a premise of a claim by a claim of that premise")
     dc.add_argument("label")
     dc.add_argument("--premise", required=True)
@@ -3286,7 +3311,7 @@ def main(argv=None):
     pr.add_argument("--premise", action="append")
     pr.add_argument("--locator")
     bd = sub.add_parser("bind", help="Lane P: build the campaign package and run the P binder")
-    bd.add_argument("--replay", action="store_true", help="lean4checker replay (Lane P phase 2)")
+    bd.add_argument("--replay", action="store_true", help="replay the package with lean4checker (tier 2 final)")
     rs = sub.add_parser("restate", help="record a deliberate change to campaign.json as a versioned ledger event")
     rs.add_argument("--reason", required=True, help="why the statement changed")
     c = sub.add_parser("claim")
@@ -3303,6 +3328,9 @@ def main(argv=None):
     c.add_argument("--prose", help="Lane P: a registered prose statement")
     c.add_argument("--theorem", help="Lane P: the lean_theorem that holds the claim")
     c.add_argument("--from", dest="from_", help="Lane P: weaken this claim (same statement, more premises)")
+    c.add_argument("--comparator", help="Lane P: the theorem a Comparator solution applies (tier 1; emits the challenge)")
+    c.add_argument("--bridge", help="Lane P: DIR:LABEL (or LABEL), the bridged 3a/3b claim of a bridge code (tier 3)")
+    c.add_argument("--condition", action="append", help="Lane P: an open process condition (registered with --process)")
     sc = c.add_mutually_exclusive_group()
     sc.add_argument("--char", type=int)
     sc.add_argument("--char0", action="store_true")
@@ -3330,6 +3358,8 @@ def main(argv=None):
     s.add_argument("--external", help="Lane P: a checker's log from another pin or repository (recorded only)")
     s.add_argument("--tier", type=int, help="Lane P: the tier an --external checker earned")
     s.add_argument("--what", help="Lane P: what checked an --external warrant")
+    s.add_argument("--comparator", help="Lane P: a Comparator receipt (tools/lanep-comparator.sh)")
+    s.add_argument("--log", help="Lane P: the Comparator log, if not next to the receipt")
     sb = sub.add_parser("submit-batch", help='a JSON list of {"label", "receipt"}, folded once')
     sb.add_argument("batch")
     wd = sub.add_parser("withdraw", help="withdraw a claim permanently; its warrants are retracted on every fold")
@@ -3349,7 +3379,8 @@ def main(argv=None):
     mg.add_argument("other", help="the other branch's campaign directory")
     args = ap.parse_args(argv)
     p_flags = bool(args.command == "claim" and (args.lean or args.prose) or
-                   args.command == "submit" and (args.hand_proof or args.script or args.numerical or args.external))
+                   args.command == "submit" and (args.hand_proof or args.script or args.numerical or args.external or
+                                                 args.comparator))
     if args.command == "claim" and not p_flags and (args.kind is None or not any(
             getattr(args, k) not in (None, False) for k in ("char", "char0", "outside", "real", "semireal", "rat_field"))):
         ap.error("the following arguments are required: --kind and one of --char --char0 --outside --real "

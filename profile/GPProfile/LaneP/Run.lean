@@ -1,4 +1,4 @@
-import GPProfile.LaneP.Profile
+import GPProfile.LaneP.Bridge
 import GPProfile.LaneP.Withdraw
 import Lean.Data.Json
 
@@ -7,15 +7,18 @@ The Lane P runner behind `tools/gp_lanep.py` (`gp_ledgerp run <plan.json>`). Pyt
 ledger's registered codes, the current bind's report, the P claims and their records; this runner builds
 the clauses, bindings and Kernel events, folds under `LaneP.admission`, and computes the views:
 
-- **tier:** the held tier (theorem 2, a discharge the weaker of its two premises, a weakening its
-  source's), and the best tier along any path including recorded-only steps, which never hold;
+- **tier:** the held tier (Comparator receipt 1, theorem 2, bridge 3, a discharge the weaker of its two
+  premises, a weakening its source's), and the best tier along any path including recorded-only steps,
+  which never hold;
 - **fidelity:** the lowest over the statement and its premises;
-- **OVERSTATED:** a presentation whose tag is above the earned tier, or which drops a premise (a tag of
-  tier 7 asserts nothing and is never overstated);
+- **OVERSTATED:** a presentation whose tag is above the earned tier, or which drops a mathematical
+  premise (a tag of tier 7 asserts nothing and is never overstated). Leaving out an open *process*
+  condition (a pending review, merge, wording fix or fidelity review) is not OVERSTATED: it is reported
+  as `conditionsOpen` (GP 0.52 P2);
 - **frontier:** premise codes no held claim settles, ranked by the claims whose scope contains them.
 
-Every held verdict comes from the Kernel fold (`fold_held_meaningP`); withdrawn claims are not held
-(`run_withdrawn`). Mathlib-free.
+Every held verdict comes from the Kernel fold (`fold_held_meaningP`, with bridges
+`fold_held_meaningP_bridged`); withdrawn claims are not held (`run_withdrawn`). Mathlib-free.
 -/
 
 namespace GPProfile.LaneP.Run
@@ -28,6 +31,10 @@ inductive Support where
   | discharge (source by_ : Nat)
   /-- Weakening (Kernel narrowing) from the claim keyed `source`. -/
   | weaken (source : Nat)
+  /-- A Comparator receipt (tier 1), checked against the binder-class record `declaration`. -/
+  | cmp (declaration : String)
+  /-- A bridge (tier 3): the claim's statement code is a bridge code, held by its re-folded 3a/3b claim. -/
+  | bridge
   deriving Repr, BEq
 
 def Support.slot : Support → Option Nat
@@ -35,6 +42,8 @@ def Support.slot : Support → Option Nat
   | .thm _ => some 0
   | .discharge _ _ => some 1
   | .weaken _ => some 2
+  | .cmp _ => some 4
+  | .bridge => some 5
 
 /-- A recorded-only warrant: the tier it shows (0 when it earns none, as a sketch) and its digest. -/
 structure Recorded where
@@ -50,6 +59,8 @@ structure Item where
   recorded : List Recorded
   /-- Reviewers' conditions on recorded hand proofs: OPEN premises a presentation must state. -/
   conditions : List Nat
+  /-- Open process conditions (reviews, merges, wording, fidelity reviews): shown, never OVERSTATED. -/
+  process : List Nat
   /-- Each presentation's tag tier and the premises it states. -/
   presentations : List (Nat × List Nat)
 
@@ -65,6 +76,7 @@ structure Plan where
   records : List Record
   items : List Item
   withdrawn : List Nat
+  bridges : List Bridge := []
 
 /-! ## Clauses, bindings and events -/
 
@@ -99,12 +111,17 @@ def Plan.warrants (p : Plan) (i : Item) : List Warrant :=
     | .thm d => [⟨pWarrantId i.key 0, i.key, 1, b, .theoremWarrant d⟩]
     | .discharge k1 k2 => [⟨pWarrantId i.key 1, i.key, 1, b, .derived [p.primary k1, p.primary k2] "discharge"⟩]
     | .weaken k1 => [⟨pWarrantId i.key 2, i.key, 1, b, .narrow (p.primary k1)⟩]
+    | .cmp d => [⟨pWarrantId i.key 4, i.key, 1, b, .theoremWarrant d⟩]
+    | .bridge => [⟨pWarrantId i.key 5, i.key, 1, b, .theoremWarrant s!"bridge:{i.stmt}"⟩]
   support ++ if i.recorded.isEmpty then [] else [⟨pWarrantId i.key 3, i.key, 1, b, .citation (citeDigest i.recorded)⟩]
 
 def Plan.events (p : Plan) : List Event :=
   p.items.flatMap fun i => [.declareClaim i.key, .current ⟨i.key, 1, p.binding i⟩] ++ (p.warrants i).map .warrant
 
-def Plan.admission (p : Plan) : Admission := LaneP.admission p.clauses p.identity p.records
+/-- The binder's theorem and receipt records, then one record per bridge (`bridgeRecord`). -/
+def Plan.allRecords (p : Plan) : List Record := p.records ++ p.bridges.map bridgeRecord
+
+def Plan.admission (p : Plan) : Admission := LaneP.admission p.clauses p.identity p.allRecords
 
 def Plan.fold (p : Plan) : Except String RuntimeState :=
   GP50.fold p.admission (p.events ++ withdrawEventsP p.withdrawn)
@@ -167,6 +184,8 @@ def Plan.tierStep (p : Plan) (state : RuntimeState) (heldOnly : Bool) (t : List 
   p.items.map fun i =>
     let fromSupport : Option Nat := match p.warrants i, i.support with
       | w :: _, .thm d => if ok w (a.proof w d) then some 2 else none
+      | w :: _, .cmp d => if ok w (a.proof w d) then some 1 else none
+      | w :: _, .bridge => if ok w (a.proof w s!"bridge:{i.stmt}") then some 3 else none
       | w :: _, .discharge k1 k2 =>
         let static := match clause i.key, clause k1, clause k2 with
           | some c, some c1, some c2 => dischargeOk c c1 c2
@@ -194,19 +213,23 @@ def itemJson (p : Plan) (state : RuntimeState) (heldT bestT : List (Nat × Optio
   let ht := (heldT.lookup i.key).join
   let bt := (bestT.lookup i.key).join
   let earned := ((if h then ht else bt).getD 7)
-  -- A tag of tier 7 (conjecture, open) asserts nothing, so it overstates nothing.
+  -- A tag of tier 7 (conjecture, open) asserts nothing, so it overstates nothing. Process conditions left out
+  -- are open conditions, not an overstatement.
   let over := i.presentations.map fun (tag, prem) =>
     tag < 7 && (tag < earned || !sub (i.scope ++ i.conditions) prem)
+  let condOpen := i.presentations.map fun (tag, prem) => tag < 7 && !sub i.process prem
   let settled := i.scope.filterMap fun c =>
     (p.items.find? fun j => j.stmt == c && held state j.key && sub j.scope (i.scope.erase c)).map
       fun j => Json.arr #[toJson c, toJson j.key]
   let fid := (i.stmt :: i.scope).foldl (fun m c => min m (p.fidelity c)) 3
   let supported := (p.warrants i).filter (state.supports.contains ·.id) |>.map (·.id)
   Json.mkObj [("key", toJson i.key), ("held", toJson h), ("tier", toJson ht), ("best", toJson bt),
-    ("earned", toJson earned), ("overstated", toJson over), ("settled", Json.arr settled.toArray),
+    ("earned", toJson earned), ("overstated", toJson over), ("conditionsOpen", toJson condOpen),
+    ("settled", Json.arr settled.toArray),
     ("fidelity", toJson fid), ("supported", toJson supported),
     ("proofAccepted", toJson (match p.warrants i, i.support with
-      | w :: _, .thm d => p.admission.proof w d
+      | w :: _, .thm d | w :: _, .cmp d => p.admission.proof w d
+      | w :: _, .bridge => p.admission.proof w s!"bridge:{i.stmt}"
       | _, _ => false))]
 
 def frontier (p : Plan) (state : RuntimeState) : List (Nat × Nat) :=
@@ -242,6 +265,8 @@ def support (j : Json) : Except String Support :=
     | "theorem" => pure (.thm (← s.getObjValAs? String "decl"))
     | "discharge" => pure (.discharge (← s.getObjValAs? Nat "from") (← s.getObjValAs? Nat "by"))
     | "weaken" => pure (.weaken (← s.getObjValAs? Nat "from"))
+    | "comparator" => pure (.cmp (← s.getObjValAs? String "decl"))
+    | "bridge" => pure .bridge
     | k => throw s!"unknown support kind {k}"
 
 def item (j : Json) : Except String Item := do
@@ -249,11 +274,11 @@ def item (j : Json) : Except String Item := do
     pure (⟨← r.getObjValAs? Nat "tier", ← r.getObjValAs? String "digest"⟩ : Recorded)
   let pres ← (← (← j.getObjVal? "presentations").getArr?).toList.mapM fun r => do
     pure (← r.getObjValAs? Nat "tier", canonicalIds (← nats r "premises"))
-  let conditions ← match j.getObjVal? "conditions" with
-    | .ok _ => nats j "conditions"
+  let opt (k : String) : Except String (List Nat) := match j.getObjVal? k with
+    | .ok _ => nats j k
     | .error _ => pure []
   pure ⟨← j.getObjValAs? Nat "key", ← j.getObjValAs? Nat "stmt", canonicalIds (← nats j "scope"),
-    ← support j, recorded, canonicalIds conditions, pres⟩
+    ← support j, recorded, canonicalIds (← opt "conditions"), canonicalIds (← opt "process"), pres⟩
 
 def codeInfo (j : Json) : Except String CodeInfo := do
   let current ← match j.getObjVal? "current" with
@@ -266,11 +291,19 @@ def record (j : Json) : Except String Record := do
   pure ⟨← j.getObjValAs? String "declaration", ← j.getObjValAs? Nat "stmt", ← nats j "premises",
     ← j.getObjValAs? Bool "ok"⟩
 
+/-- A bridge: its code, its literal, and the 3a/3b part (3b surface inputs) re-folded for it. -/
+def bridge (j : Json) : Except String Bridge := do
+  pure ⟨← j.getObjValAs? Nat "code", ← j.getObjValAs? String "lit",
+    ← need (GPProfile.Real.LedgerRun3.plan3 (← j.getObjVal? "plan")) "bridged part"⟩
+
 def plan (j : Json) : Except String Plan := do
+  let bridges ← match j.getObjVal? "bridges" with
+    | .ok bs => need (bs.getArr? >>= (·.toList.mapM bridge)) "bridges"
+    | .error _ => pure []
   pure ⟨← need ((← j.getObjVal? "codes").getArr? >>= (·.toList.mapM codeInfo)) "codes",
     ← need ((← j.getObjVal? "records").getArr? >>= (·.toList.mapM record)) "records",
     ← need ((← j.getObjVal? "claims").getArr? >>= (·.toList.mapM item)) "claims",
-    ← nats j "withdrawn"⟩
+    ← nats j "withdrawn", bridges⟩
 
 end GPProfile.LaneP.Run
 

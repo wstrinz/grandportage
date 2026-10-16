@@ -44,7 +44,7 @@ root = "GPProfile.Real.CorpusMain"
 # The 3b part of a campaign ledger behind `tools/gp.py` (Phase 5 preparation).
 [[lean_exe]]
 name = "gp_ledger3"
-root = "GPProfile.Real.Ledger3"
+root = "GPProfile.Real.Ledger3Main"
 
 # Lane P (GP 0.52 P1): the P ledger runner, and the P binder (Lean core only; run inside a campaign
 # package with `lake env`, it imports the package's modules and elaborates nothing).
