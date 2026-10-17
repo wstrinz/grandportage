@@ -747,3 +747,17 @@ Work now lands on master directly; the workspace checkout tracks `origin/master`
 - **`min_reader`** in new init records.
 - **Process conditions** are kept separate from premises. Against the paper-ledger audit, OVERSTATED now flags 8 of 14 overstated presentations (plus 1 "conditions open") and 6 of 53 matching ones, down from 17. Its overstatement still reads OVERSTATED.
 - Verified locally, with no CI: gp50 300 passed and 1 skipped, v0.37 fast 1,757 passed, the Kernel pin, the check count, and the leak audit READY.
+
+2026-10-16 **`v0.53.0` published** (Lane P phase 2). Receipt: [V0.53.0-PUBLICATION.json](reports/V0.53.0-PUBLICATION.json).
+- Public commit `e847c6c` is the audited snapshot of workspace tag `v0.53.0` (`82c35d8`), verified locally.
+- Public CI on the tag is green: the test suite, R1a, and Comparator. Public-repo CI is allowed (Will); workspace CI stays paused.
+- Trial C4 has started: an own-climb campaign's next phase, run GP-first under Lane P (brief withheld).
+
+2026-10-17 **GP 0.54 has landed: the Lane P fixes from trial C4, then speed** (Will: "bugs first, then speed").
+- **Fixes,** each with a regression test that fails on 0.53:
+  - An infrastructure failure in a replay no longer withholds warrants, and a later pass clears it. A kernel rejection still sticks until the tree changes.
+  - An emitted Comparator solution imports only the theorem's own closure. This was verified end to end: stock Comparator accepted it locally, without building the binding.
+  - Recorded-only files are re-hashed on view.
+  - A wrong-theorem refusal shows the full mismatch and exits non-zero.
+- **Speed:** cached binds and bridge re-folds, plus batch registration. On the trial campaign, views went from 64–86 s to 1–2 s and a theorem claim from 146 s to 42 s. Verdicts are identical to 0.53.
+- Verified locally: gp50 308 passed and 1 skipped, v0.37 fast 1,757 passed, the Kernel pin, and the leak audit.

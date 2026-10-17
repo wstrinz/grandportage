@@ -19,6 +19,7 @@ Bridges (`profile_replay`, tier 3, control 8) need the binding's Mathlib build a
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import shutil
 import tempfile
@@ -326,6 +327,44 @@ class Bridges(unittest.TestCase):
         self.run_ok(three, "withdraw", "p", "--reason", "control 8")
         line = self.lines(c)["Pt-held"]
         self.assertIn("Pt-held: open; bridge: the bridged claim p is withdrawn in ../b8-threeA", line)
+
+    def test_bridge_verdict_cache(self):
+        # 0.54: the bridge's verdict (`bridgeOk`, the runner's re-fold of the bridged part) is cached by the SHA-256
+        # of the bridge input; the fold gets it as the runner's own bridge record, so the verdicts are the ones the
+        # fold gets when it re-folds the bridged part itself.
+        c, three = self.copy("bc")
+        self.run_ok(c, "claim", "Pt-held", "--lean", "Pt", "--bridge", "p")
+        self.run_ok(c, "claim", "Qt-open", "--lean", "Qt", "--bridge", "q")
+        calls = []
+        orig = gp.lanep.run_runner
+        gp.lanep.run_runner = lambda p, mode="run": calls.append(mode) or orig(p, mode)
+        try:
+            first = self.lines(c)
+            self.assertEqual(calls.count("bridge"), 0)  # filing the claims cached both verdicts
+            ledger = gp.Ledger(c)
+            ledger.verify_statement()
+            plan = gp.lanep.plan(ledger, gp.lanep.current_report(ledger))
+            bridges = []
+            for k in sorted(r["stmt"] for r in plan["records"] if r["declaration"].startswith("bridge:")):
+                reg = gp.lanep.code_by_id(ledger)[k]
+                bridges.append({"code": k, "lit": reg["bridge"]["lit"], "plan": gp.lanep.bridged_plan(ledger, reg)})
+            old = dict(plan, records=[r for r in plan["records"] if not r["declaration"].startswith("bridge:")],
+                       bridges=bridges)
+            self.assertEqual(len(bridges), 2)
+            self.assertEqual(orig(old)["items"], orig(plan)["items"])  # the 0.53 plan (re-folded in the run): same
+            os.environ["GP_NO_CACHE"] = "1"
+            try:
+                self.assertEqual(self.lines(c), first)
+            finally:
+                del os.environ["GP_NO_CACHE"]
+            self.assertEqual(calls.count("bridge"), 2)
+        finally:
+            gp.lanep.run_runner = orig
+        self.assertTrue(first["Pt-held"].startswith("Pt-held: held; tier 3"))
+        self.assertTrue(first["Qt-open"].startswith("Qt-open: open"))
+        # A change to the bridged campaign is a new bridge input: re-folded, not served from the cache (control 8).
+        self.run_ok(three, "withdraw", "p", "--reason", "control 8")
+        self.assertIn("Pt-held: open; bridge: the bridged claim p is withdrawn", self.lines(c)["Pt-held"])
 
     def test_bridge_refusals_and_tampering(self):
         c, three = self.copy("bt")

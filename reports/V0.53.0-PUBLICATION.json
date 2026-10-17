@@ -1,0 +1,40 @@
+{
+ "schema": "gp-alpha-publication/v1",
+ "date": "2026-10-16",
+ "authority": "Will, 2026-10-16: ship v0.53.0 (Lane P phase 2)",
+ "prevents": "an unverifiable claim that the public tree is the audited snapshot of the tagged workspace release commit",
+ "workspace": {
+  "repository": "https://github.com/wstrinz/grand-portage-workspace (private)",
+  "tag": "v0.53.0",
+  "tag_object": "fea461784eb45a7dad8c4159f6b8eb36b3fa3bb9",
+  "commit": "82c35d85e922355405f193297d8b78ce1e4793f7",
+  "ci": "not run: workspace CI minutes paused (Will, 2026-10-16)",
+  "verified_locally": "at the tagged commit: kernel-pin verify; gp50 300 passed, 1 skipped; v0.37 fast 1757 passed; marked check count; snapshot leak audit READY"
+ },
+ "snapshot": {
+  "manifest": "public-snapshot-v2.json",
+  "receipt_schema": "grand-portage-public-snapshot-receipt/v2",
+  "sha256": "cc27eb9ae38716b006a382f7e2a31bd8e327b5ba49f7ff56434249cee9083975",
+  "files": 4879,
+  "generated_from_tagged_commit": true,
+  "audit": "scripts/public_snapshot.py --audit-against the published v0.52.0 tree: READY, no hits"
+ },
+ "public": {
+  "repository": "https://github.com/wstrinz/grandportage",
+  "branch": "master",
+  "base_commit": "8fee8b5",
+  "published_commit": "e847c6c829a197863f41f91ed411308f7e6cf182",
+  "fast_forward": true,
+  "index_entries": 4880,
+  "blobs_equal_snapshot_bytes": 4879,
+  "receipt_file": 1,
+  "tag": "v0.53.0",
+  "tag_object": "c176dc8283f554038c67b313c6b65e4be41dec94",
+  "release": "https://github.com/wstrinz/grandportage/releases/tag/v0.53.0 (full release, latest)",
+  "ci": {
+   "test": "run 38961283625 at e847c6c: success",
+   "rope_r1a": "run 38961287918: success",
+   "comparator": "run 38961291595: success, all 3P shards"
+  }
+ }
+}

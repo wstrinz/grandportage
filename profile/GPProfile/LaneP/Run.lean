@@ -319,4 +319,13 @@ def main (args : List String) : IO UInt32 := do
         | .error e => Lean.Json.mkObj [("error", Lean.toJson e)]
     IO.println o.compress
     return 0
-  | _ => IO.eprintln "usage: gp_ledgerp run <plan.json>"; return 2
+  | ["bridge", path] =>
+    -- One bridge's verdict, `bridgeOk` (0.54): gp caches it by the SHA-256 of the bridge input and gives the fold
+    -- the bridge's record (`bridgeRecord`) with it, so a bridged ledger is re-folded once per change.
+    let text ← IO.FS.readFile path
+    let o := match Lean.Json.parse text >>= bridge with
+      | .error e => Lean.Json.mkObj [("elaboration", Lean.toJson e)]
+      | .ok b => Lean.Json.mkObj [("ok", Lean.toJson (GPProfile.LaneP.bridgeOk b))]
+    IO.println o.compress
+    return 0
+  | _ => IO.eprintln "usage: gp_ledgerp run <plan.json> | gp_ledgerp bridge <bridge.json>"; return 2

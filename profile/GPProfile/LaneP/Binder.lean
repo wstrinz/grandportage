@@ -199,7 +199,8 @@ def run (input : Json) : IO Json := do
         let lps := info.levelParams
         kernelAdd env (Name.mkSimple s!"_gp_lanep_check_{i}") lps ty (.const decl (lps.map Level.param))
     thmRows := thmRows.push (Json.mkObj [("id", toJson id), ("found", toJson true),
-      ("axioms", toJson (axs.map (·.toString))), ("axiomsOk", toJson axiomsOk), ("kernel", toJson kernel)])
+      ("axioms", toJson (axs.map (·.toString))), ("axiomsOk", toJson axiomsOk), ("kernel", toJson kernel),
+      ("module", toJson (moduleOf env decl))])
   -- Comparator challenges: the emitted theorem's type is exactly the claim's (P2).
   let mut chalRows : Array Json := #[]
   for c in (input.getObjValAs? (List Json) "challenges").toOption.getD [] do

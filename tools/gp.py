@@ -21,10 +21,11 @@ usage: python tools/gp.py --campaign <dir> <command> ...
 
 Lane P campaigns (campaign.json "profile": "P"; tools/gp_lanep.py, GP 0.52 P1 and P2):
   register <Decl> [--as NAME] | register --prose TEXT --as NAME [--process KIND]
-         | register --bridge DIR:LABEL --as NAME
+         | register --bridge DIR:LABEL --as NAME | register <Decl> <Decl>... | register --batch FILE
                                         bind a statement code: declaration, closure hash, environment stamp; a
                                         process condition (review, merge, wording, fidelity-review); a bridge code,
-                                        generated as the literal 3a/3b meaning of claim LABEL of campaign DIR
+                                        generated as the literal 3a/3b meaning of claim LABEL of campaign DIR;
+                                        several statements with one bind (0.54)
   claim <label> (--lean X | --prose X) [--premise H]... [--condition C]...
         [--theorem T | --from L | --comparator T | --bridge DIR:LABEL]
                                         a claim of X under premises H (X may be ¬Y), with open process conditions C;
@@ -38,7 +39,8 @@ Lane P campaigns (campaign.json "profile": "P"; tools/gp_lanep.py, GP 0.52 P1 an
                                         a Comparator receipt (tools/lanep-comparator.sh); held only at the pins
   fidelity <X> --level LEVEL --by WHO --ref REF; present <label> --venue V --tag TAG [--premise H]...
   bind [--replay]                       build the package and run the P binder (drift is detected on every bind);
-                                        --replay: replay the package with lean4checker (tier 2 is final after it)
+                                        --replay: replay the package with lean4checker (tier 2 is final after it;
+                                        a replay that cannot run is not a kernel rejection and changes nothing)
 
 The ledger (<dir>/ledger.jsonl, gp-ledger/v1) is append-only and written only by this CLI. Each claim
 binds its encoding digest; each support records the receipt it was replayed from, inline (as older
@@ -63,7 +65,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = ROOT / "profile"
-GP_VERSION = "0.53.0"  # the release version; recorded in each ledger's init record
+GP_VERSION = "0.54.0"  # the release version; recorded in each ledger's init record
 EXE = PROFILE / (".lake/build/bin/gp_ledger" + (".exe" if os.name == "nt" else ""))
 ELAN_HOME = Path(os.environ.get("ELAN_HOME") or Path.home() / ".elan")
 SCHEMA = "gp-ledger/v1"
@@ -3289,7 +3291,9 @@ def main(argv=None):
     sub = ap.add_subparsers(dest="command", required=True)
     sub.add_parser("init")
     rg = sub.add_parser("register", help="Lane P: bind a statement code to a declaration or a prose text")
-    rg.add_argument("decl", nargs="?")
+    rg.add_argument("decl", nargs="*", help="a declaration; several are registered with one bind (0.54)")
+    rg.add_argument("--batch", help="a file of `DECL [NAME]` lines, or a JSON list of {decl|prose, as, process}: one "
+                                    "bind for all (0.54)")
     rg.add_argument("--as", dest="as_", help="the statement's name in this ledger (default: the declaration's last component)")
     rg.add_argument("--prose", help="a prose statement's text (never holdable)")
     rg.add_argument("--process", help="with --prose: a process condition (review, merge, wording, fidelity-review)")

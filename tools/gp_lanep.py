@@ -20,6 +20,11 @@ than 0.52 skip them, so P claims are invisible to them):
 
 Every held verdict comes from the Kernel fold in `gp_ledgerp` (`GPProfile.LaneP.fold_held_meaningP`); the binder
 `gp_bindp` elaborates nothing (docs/private/LANEP-DESIGN.md).
+
+0.54: a replay that cannot run is not a kernel rejection; recorded-only files are re-hashed on every view; a
+wrong theorem is a full refusal; an emitted Comparator solution imports only its theorem's closure. Speed: a bind
+reuses the rows of earlier binds of the same environment, `register --batch` binds N statements at once, and each
+bridge's verdict is cached by the SHA-256 of its input (`GP_NO_CACHE=1` turns both caches off).
 """
 import json
 import os
@@ -44,6 +49,7 @@ PROCESS = ("review", "merge", "wording", "fidelity-review")  # process condition
 CMP_DIR, BRIDGE_DIR = "GPComparator", "GPBridge"  # generated modules under the first library root (P2)
 AXIOMS = ["propext", "Quot.sound", "Classical.choice"]
 OKAY = b"Your solution is okay"
+KERNEL_MARK = "(kernel)"  # how Lean prints a kernel exception; leanchecker prints it for a rejected declaration
 
 
 def exe(name):
@@ -101,6 +107,33 @@ def by_key(ledger):
 
 def pwarrants(ledger, key):
     return [r for r in ledger.records if r["op"] == "pwarrant" and r.get("key") == key]
+
+
+def recorded_file_state(ledger, w):
+    """A recorded-only warrant's file now (0.54): None when it still has the SHA-256 it was submitted with, else
+    "changed since recorded" or "missing". Warrants without a file (a Comparator receipt, whose stored receipt and log
+    are checked on every read) are None. Re-hashed on every view, so an edit after submission is seen."""
+    if w.get("kind") not in RECORDED:
+        return None
+    loc, digest = w.get("locator"), w.get("sha256")
+    if not isinstance(loc, str) or not loc:
+        return "missing"
+    try:
+        path = (ledger.dir / loc).resolve()
+        path.relative_to(ledger.dir.resolve())
+    except (ValueError, OSError):
+        return "missing"
+    cache = ledger.__dict__.setdefault("_gp_file_sha", {})
+    if path not in cache:
+        cache[path] = G.sha(path.read_bytes()) if path.is_file() else None
+    if cache[path] is None:
+        return "missing"
+    return None if cache[path] == digest else "changed since recorded"
+
+
+def counted(ledger, key):
+    """A claim's recorded-only warrants that count as their evidence: those whose file is as recorded (0.54)."""
+    return [w for w in pwarrants(ledger, key) if recorded_file_state(ledger, w) is None]
 
 
 def presentations(ledger, key):
@@ -315,9 +348,13 @@ def ensure_exe(name):
     return path
 
 
-def run_binder(ledger, inp, tree, key, persist=True):
+def run_binder(ledger, inp, tree, key, persist=True, env_id=None, full=None, reused=None):
     """`lake build` the package (BelowNormal, wall-clock capped), then `lake env gp_bindp` over it. The report is
-    stored as receipts/<sha256>.json and recorded by a `bind` op; a timeout is recorded as an attempt."""
+    stored as receipts/<sha256>.json and recorded by a `bind` op; a timeout is recorded as an attempt.
+
+    0.54: `inp` may be only the rows no earlier bind of this environment reported (`env_id`: the tree, roots,
+    imports and binder build, `bind_env`); `reused` holds those earlier rows and `full` the whole input. The report
+    keeps the whole input and its environment, so a later bind reuses its rows too."""
     pkg = package(ledger).resolve()
     binder = ensure_exe("gp_bindp").resolve()
     env, lake = toolchain_env(pkg)
@@ -360,17 +397,143 @@ def run_binder(ledger, inp, tree, key, persist=True):
         report["challenges"] = {r["id"]: r for r in raw["challenges"]}
     if raw.get("bridges"):
         report["bridges"] = {str(r["code"]): r for r in raw["bridges"]}
+    if env_id is not None:
+        if reused:
+            if reused["stamp"] != stamp:  # the environment is not the one the reused rows came from: bind it all
+                return run_binder(ledger, full, tree, key, persist, env_id)
+            for part in ROW_PARTS:
+                rows = dict(reused.get(part) or {}, **(report.get(part) or {}))
+                if rows:
+                    report[part] = rows
+        report["env"] = env_id
+        report["input"] = full or inp
+    seconds = {"build": round(t1 - t0, 1), "bind": round(t2 - t1, 1)}
     if persist:
         ref = ledger.store_receipt(report)  # receipts/<sha256>.json: content-addressed, checked on every read
-        ledger.append({"op": "bind", "key": key, "tree_sha256": tree, "stamp": stamp, "report": ref,
-                       "seconds": {"build": round(t1 - t0, 1), "bind": round(t2 - t1, 1)}})
-    report["_seconds"] = {"build": round(t1 - t0, 1), "bind": round(t2 - t1, 1)}
+        ledger.append(dict({"op": "bind", "key": key, "tree_sha256": tree, "stamp": stamp, "report": ref,
+                            "seconds": seconds}, **({"env": env_id, "rows": row_counts(inp, reused)}
+                                                     if env_id is not None else {})))
+    report["_seconds"] = seconds
+    return report
+
+
+ROW_PARTS = ("codes", "theorems", "challenges", "bridges")
+
+
+def bind_env(inp, tree):
+    """A bind's environment (0.54): the package tree, its roots and imports, and the P binder's build (its source
+    identity). Rows of two binds of one environment are interchangeable: each row is the binder's verdict on its
+    own input in that environment."""
+    return G.sha(json.dumps({"tree": tree, "roots": inp["roots"], "imports": inp["imports"],
+                             "binder": G.tree_identity(G.runner_sources())}, sort_keys=True).encode("utf-8"))
+
+
+def row_inputs(inp):
+    """Each report row's id and the input it depends on: a code row its code; a theorem or challenge row its own
+    input and the codes its type is built from; a bridge row its own input."""
+    codes = {c["code"]: c for c in inp["codes"]}
+
+    def with_codes(ks, seen=()):
+        out = []
+        for k in ks:
+            c = codes.get(k)
+            out.append(c)
+            if c and c.get("kind") == "not" and k not in seen:
+                out += with_codes([c["of"]], seen + (k,))
+        return out
+
+    out = {("codes", str(c["code"])): c for c in inp["codes"]}
+    for t in inp["theorems"]:
+        out[("theorems", t["id"])] = [t, with_codes([t["stmt"]] + t["premises"])]
+    for ch in inp.get("challenges") or []:
+        out[("challenges", ch["id"])] = [ch, with_codes([ch["stmt"]] + ch["premises"])]
+    for b in inp.get("bridges") or []:
+        out[("bridges", str(b["code"]))] = b
+    return out
+
+
+def row_counts(inp, reused):
+    n = sum(len(reused.get(part) or {}) for part in ROW_PARTS) if reused else 0
+    return {"bound": len(row_inputs(inp)), "reused": n}
+
+
+def reusable_rows(ledger, env_id, inp):
+    """The rows of earlier binds of this environment whose inputs equal this input's (each report checked against its
+    SHA-256): {part: {id: row}} and its stamp, or None."""
+    want = row_inputs(inp)
+    found, stamp, lean = {}, None, (None, None)
+    for r in reversed(bind_records(ledger)):
+        if r.get("env") != env_id:
+            continue
+        try:
+            rep_ = load_report(ledger, r)
+        except G.Refusal:  # a damaged or missing earlier report only costs a bind (a matching one still refuses)
+            continue
+        if rep_.get("env") != env_id or "input" not in rep_ or (stamp and rep_["stamp"] != stamp):
+            continue
+        have = row_inputs(rep_["input"])
+        for (part, i), x in want.items():
+            if (part, i) not in found and have.get((part, i)) == x and i in (rep_.get(part) or {}):
+                found[(part, i)] = rep_[part][i]
+                stamp, lean = rep_["stamp"], (rep_.get("lean"), rep_.get("githash"))
+        if len(found) == len(want):
+            break
+    if not found:
+        return None
+    out = {"stamp": stamp, "_lean": lean}
+    for (part, i), row in found.items():
+        out.setdefault(part, {})[i] = row
+    return out
+
+
+def missing_input(inp, reused):
+    """The input restricted to the rows `reused` lacks, with the codes their types need."""
+    have = {(part, i) for part in ROW_PARTS for i in (reused.get(part) or {})}
+    rows = row_inputs(inp)
+    need = {k: x for k, x in rows.items() if k not in have}
+    codes = {}
+    for (part, i), x in need.items():
+        if part == "codes":
+            codes[x["code"]] = x
+        elif part in ("theorems", "challenges"):
+            for c in x[1]:
+                if c:
+                    codes[c["code"]] = c
+    out = {"roots": inp["roots"], "imports": inp["imports"], "codes": [codes[k] for k in sorted(codes)],
+           "theorems": [x[0] for (part, _), x in sorted(need.items()) if part == "theorems"]}
+    chals = [x[0] for (part, _), x in sorted(need.items()) if part == "challenges"]
+    bridges = [x for (part, _), x in sorted(need.items()) if part == "bridges"]
+    if chals:
+        out["challenges"] = chals
+    if bridges:
+        out["bridges"] = bridges
+    return out, len(need)
+
+
+def compose_report(ledger, inp, tree, key, env_id, reused, persist):
+    """A report made only of reused rows (every row of this input was bound before in this environment): no build,
+    no binder run."""
+    report = {"schema": "gp-bindp-report/v1", "key": key, "tree_sha256": tree, "stamp": reused["stamp"],
+              "lean": None, "githash": None, "env": env_id, "input": inp}
+    for part in ROW_PARTS:
+        if reused.get(part) or part in ("codes", "theorems"):
+            report[part] = dict(reused.get(part) or {})
+    report["lean"], report["githash"] = reused["_lean"]
+    if persist:
+        ref = ledger.store_receipt(report)
+        ledger.append({"op": "bind", "key": key, "tree_sha256": tree, "stamp": report["stamp"], "report": ref,
+                       "seconds": {"build": 0, "bind": 0}, "env": env_id, "rows": row_counts(inp, reused)})
+    report["_seconds"] = {"build": 0, "bind": 0}
     return report
 
 
 def current_report(ledger, extra_codes=(), extra_theorems=(), persist=True, extra_challenges=()):
     """The binder report for the package as it is now and these inputs: a recorded bind whose key matches (its
-    stored report checked against its SHA-256), else a fresh bind. Every view binds, so drift is always seen."""
+    stored report checked against its SHA-256), else a bind. Every view binds, so drift is always seen.
+
+    0.54: a bind reuses the rows earlier binds of the same environment (tree, roots, imports, binder build) reported
+    for the same inputs, and runs the binder only on the rest; so a new statement or theorem costs one row, and a
+    view of an unchanged package costs no build. `GP_NO_CACHE=1` binds every row afresh."""
     inp = bind_input(ledger, extra_codes, extra_theorems, extra_challenges)
     if inp is None:
         return {"schema": "gp-bindp-report/v1", "key": "none", "tree_sha256": None, "stamp": "none", "codes": {},
@@ -380,7 +543,14 @@ def current_report(ledger, extra_codes=(), extra_theorems=(), persist=True, extr
     for r in bind_records(ledger):
         if r.get("key") == key:
             return load_report(ledger, r)
-    return run_binder(ledger, inp, tree, key, persist)
+    env_id = bind_env(inp, tree)
+    reused = None if os.environ.get("GP_NO_CACHE") else reusable_rows(ledger, env_id, inp)
+    if reused is None:
+        return run_binder(ledger, inp, tree, key, persist, env_id)
+    part, n = missing_input(inp, reused)
+    if n == 0:
+        return compose_report(ledger, inp, tree, key, env_id, reused, persist)
+    return run_binder(ledger, part, tree, key, persist, env_id, full=inp, reused=reused)
 
 
 def current_of(report, regs, code):
@@ -419,15 +589,48 @@ def drift(ledger, report, code):
     return None
 
 
+def replay_class(r):
+    """A replay record's outcome (0.54): "pass", "kernel" (the kernel rejected a declaration) or "infrastructure"
+    (leanchecker could not run to a verdict: an unreadable or missing file, a crash). A record says so since 0.54; an
+    older failed record is a kernel rejection only when leanchecker's output names one ("(kernel)")."""
+    if r.get("ok") is True:
+        return "pass"
+    if r.get("class") in ("kernel", "infrastructure"):
+        return r["class"]
+    return "kernel" if any(KERNEL_MARK in line for line in r.get("detail") or []) else "infrastructure"
+
+
 def replay_of(ledger, report):
-    """The lean4checker replay of exactly this bind's tree and stamp, or None (P2): a failed one if any failed (the
-    kernel found a declaration it rejects), else a passing one. Independent of record order, so of merge order."""
+    """The lean4checker replay that decides this bind's tree and stamp, or None (P2; 0.54): a kernel rejection if any
+    (only a change of the tree clears it), else a passing one. A replay that could not run (an infrastructure
+    failure, recorded by 0.53 as failed) decides nothing, so a later passing replay of the same tree counts.
+    Independent of record order, so of merge order."""
     rs = [r for r in ledger.records if r["op"] == "replay" and r.get("tree_sha256") == report.get("tree_sha256")
-          and r.get("stamp") == report.get("stamp")]
+          and r.get("stamp") == report.get("stamp") and replay_class(r) != "infrastructure"]
     return min(rs, key=lambda r: (r.get("ok") is True, G.content(r))) if rs else None
 
 
-def theorem_verdict(row, replay=None):
+MISMATCH = re.compile(r"declaration type mismatch, '[^']*' has type(.*)but it is expected to have type(.*)", re.S)
+
+
+def squash(text, cap):
+    text = " ".join(text.split())
+    return text if len(text) <= cap else text[:cap - 1] + "…"
+
+
+def kernel_text(kernel, decl, cap=600):
+    """The kernel's refusal of a theorem at the claim's type, readable and bounded (0.54): the expected type (the
+    claim's) and the actual type (the theorem's) in full up to `cap` characters each, never the binder's internal
+    declaration name."""
+    m = MISMATCH.search(kernel or "")
+    if m:
+        return (f"the kernel refused its type: {decl} does not prove the claim's statement; expected (the claim's "
+                f"type): {squash(m.group(2), cap)}; actual ({decl}'s type): {squash(m.group(1), cap)}")
+    text = re.sub(r"_gp_lanep_check_\d+", decl, kernel or "")
+    return f"the kernel refused its type: {squash(text, 2 * cap)}"
+
+
+def theorem_verdict(row, replay=None, decl="the theorem", cap=300):
     if replay is not None and replay.get("ok") is False:
         return "the lean4checker replay of this package failed (" + "; ".join(replay.get("detail") or ["-"])[:300] + ")"
     if row is None:
@@ -438,7 +641,7 @@ def theorem_verdict(row, replay=None):
         bad = [a for a in row.get("axioms", []) if a not in ("propext", "Quot.sound", "Classical.choice")]
         return f"axiom audit: uses {', '.join(bad)}"
     if row.get("kernel") != "ok":
-        return f"the kernel refused its type: {row.get('kernel', '').splitlines()[0]}"
+        return kernel_text(row.get("kernel", ""), decl, cap)
     return "ok"
 
 
@@ -573,34 +776,76 @@ def plan(ledger, report):
         claims.append(dict({"key": c["key"], "stmt": c["stmt"], "scope": sorted(set(c["premises"])),
                        "conditions": conditions(ledger, c["key"]), "support": sup,
                        "recorded": [{"tier": recorded_tier(w), "digest": w.get("sha256") or G.sha(G.content(w).encode())}
-                                    for w in pwarrants(ledger, c["key"])],
+                                    for w in counted(ledger, c["key"])],
                        "presentations": [{"tier": TAGS[p["tag"]], "premises": p.get("premises", [])}
                                          for p in presentations(ledger, c["key"])]}, **({"process": proc} if proc else {})))
-    out = {"codes": codes, "records": [records[k] for k in sorted(records)], "claims": claims,
-           "withdrawn": sorted(pwithdrawals(ledger))}
-    bridges = []
     for k in sorted(bridged):
         r = regs.get(k)
         if r and r.get("bridge") and ((report.get("bridges") or {}).get(str(k)) or {}).get("kernel") == "ok":
             p3 = bridged_plan(ledger, r)
             if p3 is not None:
-                bridges.append({"code": k, "lit": r["bridge"]["lit"], "plan": p3})
-    if bridges:  # only when used, so a P1 ledger gives the runner exactly the P1 input
-        out["bridges"] = bridges
-    return out
+                # The runner's `bridgeRecord`, with its verdict `bridgeOk` computed by the runner itself (`gp_ledgerp
+                # bridge`) and cached by the SHA-256 of the bridge input (0.54): the same record the fold gets when
+                # it re-folds the bridged part in the same run.
+                records[f"bridge:{k}"] = {"declaration": f"bridge:{k}", "stmt": k, "premises": [],
+                                          "ok": bridge_verdict({"code": k, "lit": r["bridge"]["lit"], "plan": p3})}
+    return {"codes": codes, "records": [records[k] for k in sorted(records)], "claims": claims,
+            "withdrawn": sorted(pwithdrawals(ledger))}
 
 
-def run_runner(p):
+def run_runner(p, mode="run"):
     path = ensure_exe("gp_ledgerp")
     tmp = Path(os.environ.get("TEMP") or os.environ.get("TMPDIR") or "/tmp") / f"gp-ledgerp-{os.getpid()}.json"
     tmp.write_bytes(json.dumps(p, sort_keys=True).encode("utf-8"))
     try:
-        out = subprocess.run([str(path), "run", str(tmp)], capture_output=True, text=True, encoding="utf-8")
+        out = subprocess.run([str(path), mode, str(tmp)], capture_output=True, text=True, encoding="utf-8")
     finally:
         tmp.unlink(missing_ok=True)
     if out.returncode != 0:
         raise RuntimeError(out.stderr.strip() or "gp_ledgerp failed")
     return json.loads(out.stdout)
+
+
+_RUNNER_ID = {}
+
+
+def runner_identity():
+    if "id" not in _RUNNER_ID:
+        _RUNNER_ID["id"] = G.tree_identity(G.runner_sources())
+    return _RUNNER_ID["id"]
+
+
+def cache_dir():
+    """Local caches (0.54): `GP_CACHE`, else under the profile's build directory (never committed)."""
+    return Path(os.environ.get("GP_CACHE") or G.PROFILE / ".lake" / "gp-cache")
+
+
+def bridge_verdict(b):
+    """`bridgeOk` of one bridge (its literal and the re-folded 3a/3b part), by the P runner (`gp_ledgerp bridge`).
+    Re-folding a bridged 3b ledger can take a minute, so the verdict is cached by the SHA-256 of the runner's source
+    identity and the bridge input: any change to the bridged ledger's part, its withdrawals or the runner refolds.
+    `GP_NO_CACHE=1` refolds every time."""
+    key = G.sha(json.dumps({"runner": runner_identity(), "bridge": b}, sort_keys=True).encode("utf-8"))
+    path = cache_dir() / "bridges" / f"{key}.json"
+    if not os.environ.get("GP_NO_CACHE") and path.is_file():
+        try:
+            c = json.loads(path.read_bytes().decode("utf-8"))
+            if c.get("key") == key and isinstance(c.get("ok"), bool):
+                return c["ok"]
+        except (ValueError, OSError):
+            pass
+    out = run_runner(b, "bridge")
+    if not isinstance(out.get("ok"), bool):
+        raise refusal(f"the P runner could not read a bridge: {out.get('elaboration') or out}", "report this to the "
+                      "builder", "bridge")
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = path.with_name(f"{path.name}.{os.getpid()}.tmp")
+        tmp.write_bytes(json.dumps({"key": key, "ok": out["ok"]}).encode("utf-8"))
+        tmp.replace(path)
+    except OSError:
+        pass  # a cache that cannot be written only costs time
+    return out["ok"]
 
 
 class State:
@@ -659,7 +904,7 @@ def best_step(st, key, seen=()):
         return None
     t = item["best"]
     s = c.get("support") or {}
-    rec = [w for w in pwarrants(st.ledger, key) if recorded_tier(w) == t]
+    rec = [w for w in counted(st.ledger, key) if recorded_tier(w) == t]
     if rec:
         return t, f"{c['label']}: {recorded_text(rec[0])}"
     if s.get("kind") == "theorem" and t == 2:
@@ -704,17 +949,17 @@ def tier_text(st, key):
     if item["best"] is not None:
         step = best_step(st, key)
         via = f"; weakest step: {step[1]}" if step and (c.get("support") or {}).get("kind") in ("discharge", "weaken") else ""
-        rec = [w for w in pwarrants(st.ledger, key) if recorded_tier(w) == item["best"]]
+        rec = [w for w in counted(st.ledger, key) if recorded_tier(w) == item["best"]]
         what = (recorded_text(rec[0]) + ", recorded only") if rec else "not held"
         parts.append(f"best: tier {item['best']} ({what}{via})")
     else:
-        sketches = [w for w in pwarrants(st.ledger, key) if recorded_tier(w) == 0]
+        sketches = [w for w in counted(st.ledger, key) if recorded_tier(w) == 0]
         if sketches:
             parts.append(f"best: {recorded_text(sketches[0])}")
     s = c.get("support") or {}
     if s.get("kind") == "theorem" and not item["proofAccepted"]:
         row = st.report["theorems"].get(theorem_id(s["decl"], c["stmt"], c["premises"]))
-        verdict = theorem_verdict(row, replay_of(st.ledger, st.report))
+        verdict = theorem_verdict(row, replay_of(st.ledger, st.report), s["decl"])
         parts.append(f"theorem {s['decl']} refused: {verdict}" if verdict != "ok" else
                      f"theorem {s['decl']}: bound, statement not fresh")
     if s.get("kind") == "comparator" and not item["proofAccepted"]:
@@ -748,6 +993,17 @@ def presented_text(st, key):
     return out
 
 
+def stale_text(ledger, key):
+    """Recorded files that no longer count (0.54): changed since recorded, or missing; re-submit to count again."""
+    out = []
+    for w in pwarrants(ledger, key):
+        why = recorded_file_state(ledger, w)
+        if why:
+            out.append(f"{recorded_text(w)} {w.get('locator') or '-'} {why.upper()}"
+                       f": not counted (re-submit it)")
+    return out
+
+
 def summary(st, key):
     """One claim's status line: state; tier or best; open premises; presentations; fidelity."""
     c, item = st.claims[key], st.items[key]
@@ -768,6 +1024,7 @@ def summary(st, key):
     proc = process_open(st.ledger, c)
     if proc:
         parts.append("conditions open: " + names(st.ledger, proc))
+    parts += stale_text(st.ledger, key)
     parts += presented_text(st, key)
     fid = fidelity_of(st.ledger)
     lowest = min([c["stmt"]] + opened, key=lambda k: FIDELITY.index(fid[k]["level"]) if k in fid else 0)
@@ -810,13 +1067,14 @@ def cmd_explain(ledger, args):
         if s.get("kind") == "theorem":
             row = st.report["theorems"].get(theorem_id(s["decl"], cc["stmt"], cc["premises"]))
             axs = ", ".join((row or {}).get("axioms", [])) or "-"
-            print(f"{pad}{cc['label']}: lean_theorem {s['decl']} [tier 2, {state_}]: {theorem_verdict(row, replay)}; "
+            print(f"{pad}{cc['label']}: lean_theorem {s['decl']} [tier 2, {state_}]: {theorem_verdict(row, replay, s['decl'])}; "
                   f"axioms {axs}; " + ("replayed by lean4checker" if replay and replay.get("ok") else "unreplayed")
                   + mark)
         elif s.get("kind") == "comparator":
             ok, why = comparator_status(ledger, st.report, cc)
             print(f"{pad}{cc['label']}: comparator_receipt {s.get('theorem')} (solution: {s['decl']}) [tier 1, {state_}]: "
-                  f"{why}; challenge {s.get('challenge')}{mark}")
+                  f"{why}; challenge {s.get('challenge')}" + (f"; needs the binding ({', '.join(s['needs_binding'])})"
+                                                                if s.get("needs_binding") else "") + mark)
         elif s.get("kind") == "bridge":
             b = code_by_id(ledger)[cc["stmt"]].get("bridge") or {}
             why = "ok" if item["held"] else bridge_why(st, cc)
@@ -840,10 +1098,12 @@ def cmd_explain(ledger, args):
                       f"{(rv.get('comparator_rev') or '-')[:12]}, lean4export {(rv.get('lean4export_rev') or '-')[:12]}, "
                       f"{rv.get('toolchain')}; log sha256 {w['log']['sha256'][:12]}")
                 continue
-            m = "  <- weakest step" if weakest and weakest[1] == f"{cc['label']}: {recorded_text(w)}" else ""
+            why = recorded_file_state(ledger, w)
+            m = "  <- weakest step" if not why and weakest and weakest[1] == f"{cc['label']}: {recorded_text(w)}" else ""
             cond = f"; conditions (OPEN): {names(ledger, w['conditions'])}" if w.get("conditions") else ""
+            note = f"; {why.upper()}: not counted until re-submitted" if why else ""
             print(f"{pad}  recorded only: {recorded_text(w)} {w.get('locator', '')} sha256 {w.get('sha256', '-')[:12]}"
-                  f"{cond}{m}")
+                  f"{note}{cond}{m}")
 
     print("  warrant path:")
     walk(c["key"], "    ", {c["key"]})
@@ -889,7 +1149,7 @@ def cmd_frontier(ledger, args):
         s = c.get("support") or {}
         if s.get("kind") == "theorem" and not st.items[c["key"]]["proofAccepted"]:
             row = st.report["theorems"].get(theorem_id(s["decl"], c["stmt"], c["premises"]))
-            rows.append(f"  {c['label']}: theorem {s['decl']}: {theorem_verdict(row, replay_of(ledger, st.report))}; "
+            rows.append(f"  {c['label']}: theorem {s['decl']}: {theorem_verdict(row, replay_of(ledger, st.report), s['decl'])}; "
                         f"smallest fix: prove {stmt_text(ledger, c)} with the standard axioms only")
         if s.get("kind") == "comparator":
             rows.append(f"  {c['label']}: Comparator: {comparator_status(ledger, st.report, c)[1]}; smallest fix: run "
@@ -1033,7 +1293,120 @@ def cmd_register_bridge(ledger, args):
           f"{e['hash'][:12]}, stamp {report['stamp'][:12]}")
 
 
+def batch_entries(args):
+    """The statements of `gp register --batch FILE` and of several declarations in one call (0.54): a JSON list of
+    {"decl": D, "as": NAME} or {"prose": TEXT, "as": NAME, "process": KIND}, or lines `DECL [NAME]` (# comments)."""
+    out = [{"decl": d} for d in (args.decl or [])]
+    if getattr(args, "batch", None):
+        try:
+            text = Path(args.batch).read_bytes().decode("utf-8")
+        except OSError:
+            raise refusal(f"cannot read the batch file {args.batch}", "give a file of `DECL [NAME]` lines or a JSON list")
+        if text.lstrip().startswith("["):
+            try:
+                rows = json.loads(text)
+            except ValueError as e:
+                raise refusal(f"the batch file is not valid JSON ({e})", "give a JSON list of {\"decl\", \"as\"} objects")
+            if not isinstance(rows, list) or not all(isinstance(r, dict) for r in rows):
+                raise refusal("the batch file is not a JSON list of objects", 'give [{"decl": "X.A", "as": "A"}, ...]')
+            out += rows
+        else:
+            for line in text.splitlines():
+                parts = line.split("#", 1)[0].split()
+                if len(parts) > 2:
+                    raise refusal(f"cannot read the batch line {line.strip()!r}", "write `DECL` or `DECL NAME` per line")
+                if parts:
+                    out.append({"decl": parts[0], **({"as": parts[1]} if len(parts) == 2 else {})})
+    return out
+
+
+def cmd_register_many(ledger, args):
+    """Register several statements with one bind (0.54): every Lean declaration is checked in the same binder run,
+    and nothing is registered unless all of them can be."""
+    if args.as_ or args.prose is not None or getattr(args, "process", None):
+        raise refusal("--as, --prose and --process name one statement", "give names in the batch file (`DECL NAME`)")
+    rows = batch_entries(args)
+    if not rows:
+        raise refusal("the batch names no statement", "give `DECL [NAME]` lines or a JSON list")
+    taken, problems, lean, prose = set(code_by_name(ledger)), [], [], []
+    for r in rows:
+        decl, text = r.get("decl"), r.get("prose")
+        if bool(decl) == (text is not None) or not isinstance(decl or text, str):
+            problems.append(f"{r}: give exactly one of decl and prose")
+            continue
+        name = r.get("as") or (decl.split(".")[-1] if decl else None)
+        if not name:
+            problems.append(f"{r}: a prose statement needs a name (as)")
+            continue
+        if name in taken:
+            problems.append(f"{name!r} is already registered or named twice")
+            continue
+        taken.add(name)
+        if decl:
+            lean.append((decl, name))
+        else:
+            if not text.strip():
+                problems.append(f"{name}: the prose text is empty")
+            if r.get("process") and r["process"] not in PROCESS:
+                problems.append(f"{name}: unknown process condition kind {r['process']}")
+            prose.append((name, text.strip(), r.get("process")))
+    if len({d for d, _ in lean}) != len(lean):
+        problems.append("a declaration is named twice")
+    if problems:
+        raise G.Refusal(f"the batch was not registered: {len(problems)} problem{'s' if len(problems) != 1 else ''}",
+                        "lane P", "-", "fix the batch and rerun it; nothing was registered",
+                        detail=["  " + x for x in problems])
+    entries = []
+    for decl, name in lean:
+        code = new_code(ledger, {"name": name, "kind": "lean", "decl": decl})
+        if any(e["code"] == code for e in entries):
+            raise refusal(f"two statements of the batch get one code ({name})", "register them in two batches")
+        entries.append({"code": code, "kind": "lean", "decl": decl, "name": name})
+    report = current_report(ledger, extra_codes=[{k: e[k] for k in ("code", "kind", "decl")} for e in entries]) \
+        if entries else None
+    out = []
+    for e in entries:
+        row = report["codes"].get(str(e["code"])) or {}
+        if not row.get("found"):
+            problems.append(f"{e['decl']} is not a declaration of the campaign package")
+        elif not row.get("prop"):
+            problems.append(f"{e['decl']} is not a campaign-local `def {e['decl'].split('.')[-1]} : Prop` without universe "
+                            "parameters")
+        elif any(r.get("decl") == e["decl"] and r["hash"] == row["hash"] and r["stamp"] == report["stamp"]
+                 for r in registers(ledger)):
+            problems.append(f"{e['decl']} is already registered with this closure")
+        else:
+            out.append(dict(e, row=row))
+    if problems:
+        raise G.Refusal(f"the batch was not registered: {len(problems)} problem{'s' if len(problems) != 1 else ''}",
+                        "lane P", "-", "fix the batch and rerun it; nothing was registered (the bind is kept, so the "
+                        "rerun binds only what changed)", detail=["  " + x for x in problems])
+    for e in out:
+        row = e["row"]
+        ledger.append({"op": "register", "code": e["code"], "name": e["name"], "kind": "lean", "decl": e["decl"],
+                       "hash": row["hash"], "closure": row["closure"], "stamp": report["stamp"]})
+        print(f"registered {e['name']} (code {e['code']}): {e['decl']}, closure {row['hash'][:12]} over "
+              f"{len(row['closure'])} local constant{'s' if len(row['closure']) != 1 else ''}, stamp {report['stamp'][:12]}")
+    for name, text, process in prose:
+        body = {"name": name, "kind": "prose", "text": text, "hash": G.sha(text.encode("utf-8")), "stamp": "prose"}
+        if process:
+            body["process"] = process
+        code = new_code(ledger, {"name": name, "kind": "prose", "text": text, **({"process": process} if process else {})})
+        ledger.append(dict({"op": "register", "code": code}, **body))
+        print(f"registered {name} (code {code}): prose, text {body['hash'][:12]}; never holdable" +
+              (f"; a process condition ({process})" if process else ""))
+    if report:
+        sec = report.get("_seconds")
+        print(f"{len(out)} Lean statement{'s' if len(out) != 1 else ''} bound in one bind" +
+              (f" ({sec['build']} s build + {sec['bind']} s binder)" if sec else " (recorded bind reused)"))
+
+
 def cmd_register(ledger, args):
+    if getattr(args, "batch", None) or len(args.decl or []) > 1:
+        if getattr(args, "bridge", None):
+            raise refusal("a bridge is registered alone", "drop --batch")
+        return cmd_register_many(ledger, args)
+    args.decl = (args.decl or [None])[0]
     if getattr(args, "bridge", None):
         return cmd_register_bridge(ledger, args)
     if getattr(args, "process", None) and args.prose is None:
@@ -1151,7 +1524,14 @@ def cmd_claim(ledger, args):
                **({"conditions": conds} if conds else {}))
     key = new_pkey(ledger, rec)
     if support and support["kind"] == "theorem":
-        current_report(ledger, extra_theorems=[{"decl": args.theorem, "stmt": r["code"], "premises": premises}])
+        rep_ = current_report(ledger, extra_theorems=[{"decl": args.theorem, "stmt": r["code"], "premises": premises}])
+        row = rep_["theorems"].get(theorem_id(args.theorem, r["code"], premises)) or {}
+        if row.get("found") and row.get("kernel") != "ok":  # a wrong theorem (0.54): refused, nothing filed
+            raise refusal(f"theorem {args.theorem} refused for {stmt_text(ledger, {'stmt': r['code'], 'premises': premises})}"
+                          f": {kernel_text(row.get('kernel', ''), args.theorem)}",
+                          f"give a theorem whose type is exactly {stmt_text(ledger, {'stmt': r['code'], 'premises': premises})}"
+                          " (premises as hypotheses, in order), or register the statement it does prove",
+                          "lean_theorem (P binder kernel check)")
     if support and support["kind"] == "comparator":
         support.update(emit_comparator(ledger, key, args.label, r["code"], premises, comparator))
     ledger.append(dict({"op": "pclaim", "key": key}, **rec))
@@ -1159,6 +1539,11 @@ def cmd_claim(ledger, args):
     print(f"claim {args.label} (key {key}) filed: {stmt_text(ledger, rec)}; {summary(st, key)}")
     if support and support["kind"] == "comparator":
         cfg = (ledger.dir / "comparator" / f"K{key}.json").as_posix()
+        if support.get("needs_binding"):
+            print(f"NOTE: {args.label} needs the binding: the import closure of {comparator} includes "
+                  f"{', '.join(support['needs_binding'])}, so Comparator's sandbox must build the binding (gp_binding, a "
+                  "path dependency outside the package); prebuild the solution, or move the theorem to a module that "
+                  "does not import a bridge")
         print(f"Comparator challenge emitted: {support['challenge']} (theorem {support['theorem']}); run in WSL:\n"
               f"  bash tools/lanep-comparator.sh {ledger.dir.as_posix()} {cfg}\n"
               f"then: gp submit {args.label} --comparator {cfg[:-5]}.receipt.json")
@@ -1184,6 +1569,70 @@ def code_modules(ledger, codes):
     return None
 
 
+IMPORT = re.compile(r"^\s*(?:(?:public|private|meta)\s+)*import\s+(?:all\s+)?([A-Za-z_][\w.'»«]*)", re.M)
+
+
+def module_imports(ledger, module):
+    """The modules a package module imports, read from its `import` lines."""
+    path = module_file(ledger, module)
+    return IMPORT.findall(path.read_bytes().decode("utf-8", "replace")) if path.is_file() else []
+
+
+def import_closure(ledger, start):
+    """The package modules (and, outside the package, the imported module names) reachable from `start` by imports:
+    the modules a Solution importing `start` builds (0.54)."""
+    local = set(modules(package(ledger), roots(ledger)))
+    seen, todo, outside = set(), list(start), set()
+    while todo:
+        m = todo.pop()
+        if m in seen:
+            continue
+        seen.add(m)
+        for i in module_imports(ledger, m):
+            if i in local:
+                todo.append(i)
+            else:
+                outside.add(i)
+    return seen, outside
+
+
+def solution_imports(ledger, solution, stmt, premises, chal_mods):
+    """What an emitted Solution imports (0.54): the challenge's statement modules and the module declaring the solution
+    theorem, so its import closure is the theorem's own, not the whole package (the bridges' generated modules need
+    the binding, which Comparator's sandbox cannot build). The theorem's module comes from the binder, which also
+    checks the theorem has the claim's type before anything is emitted. Returns (imports, binding modules in the
+    closure)."""
+    t = {"decl": solution, "stmt": stmt, "premises": premises}
+    tid = theorem_id(**t)
+    rep_ = current_report(ledger, extra_theorems=[t], persist=False)
+    row = rep_["theorems"].get(tid) or {}
+    if row.get("found") and not row.get("module"):
+        # A bind recorded by a binder older than 0.54 (its theorem rows name no module) matched exactly: bind this one
+        # row afresh, with the codes its type needs, and record nothing.
+        inp = bind_input(ledger, extra_theorems=[t])
+        codes = [c for c in row_inputs(inp)[("theorems", tid)][1] if c]
+        one = {"roots": inp["roots"], "imports": inp["imports"],
+               "codes": sorted({c["code"]: c for c in codes}.values(), key=lambda c: c["code"]),
+               "theorems": [dict(t, id=tid)]}
+        row = run_binder(ledger, one, tree_sha(ledger), "module-of", persist=False)["theorems"].get(tid) or {}
+    if not row.get("found"):
+        raise refusal(f"{solution} is not a theorem of the campaign package", "check the name (fully qualified)",
+                      "comparator")
+    if row.get("kernel") != "ok":
+        raise refusal(f"theorem {solution} refused for {stmt_text(ledger, {'stmt': stmt, 'premises': premises})}: "
+                      f"{kernel_text(row.get('kernel', ''), solution)}",
+                      "give a theorem whose type is exactly the claim's (premises as hypotheses, in order)", "comparator")
+    mod = row.get("module")
+    if not mod:
+        raise refusal(f"the binder did not report the module of {solution}", "rebuild the P binder (lake build gp_bindp "
+                      "in profile/)", "comparator")
+    imports = sorted(set(chal_mods) | {mod})
+    seen, outside = import_closure(ledger, imports)
+    binding = sorted({m for m in seen if is_generated(m, BRIDGE_DIR)} |
+                     {m for m in outside if m == "GPBinding" or m.startswith("GPBinding.")})
+    return imports, binding
+
+
 def emit_comparator(ledger, key, label, stmt, premises, solution):
     """Emit a Comparator challenge for the claim from the registry, and a solution applying `solution`, into the
     campaign package (<root>/GPComparator/K<key>/), and the Comparator config into <campaign>/comparator/K<key>.json.
@@ -1194,10 +1643,11 @@ def emit_comparator(ledger, key, label, stmt, premises, solution):
     ty = " → ".join([f"({lean_term(ledger, h)})" for h in premises] + [f"({lean_term(ledger, stmt)})"])
     mods = [m for m in modules(pkg, rs) if not is_generated(m)]
     chal_mods = code_modules(ledger, base_codes(ledger, [stmt] + premises)) or mods
+    sol_mods, binding = solution_imports(ledger, solution, stmt, premises, chal_mods)
     doc = (f"/-! Comparator challenge for claim {label} (Lane P, GP 0.52 P2), emitted by gp from the statement registry. "
            f"The P binder checks that `{theorem}`'s type is the claim's; the emitter is not trusted. -/")
     chal = "".join(f"import {m}\n" for m in chal_mods) + f"\n{doc}\n\ntheorem {theorem} : {ty} := by sorry\n"
-    sol = "".join(f"import {m}\n" for m in mods) + (f"\n/-! Comparator solution for claim {label}: `{solution}` at the "
+    sol = "".join(f"import {m}\n" for m in sol_mods) + (f"\n/-! Comparator solution for claim {label}: `{solution}` at the "
                                                    f"claim's type. Comparator checks it. -/\n\n"
                                                    f"theorem {theorem} : {ty} := {solution}\n")
     d = pkg / rs[0] / CMP_DIR / f"K{key}"
@@ -1221,7 +1671,10 @@ def emit_comparator(ledger, key, label, stmt, premises, solution):
         for q in paths:
             q.unlink(missing_ok=True)
         raise
-    return {"theorem": theorem, "challenge": f"{base}.Challenge", "solution": f"{base}.Solution"}
+    out = {"theorem": theorem, "challenge": f"{base}.Challenge", "solution": f"{base}.Solution"}
+    if binding:  # recorded: Comparator's sandbox must build the binding for this claim
+        out["needs_binding"] = binding
+    return out
 
 
 def store_raw(ledger, data, suffix):
@@ -1372,10 +1825,24 @@ def cmd_present(ledger, args):
     print(f"presentation of {c['label']} in {args.venue} as [{tag}] recorded" + (": OVERSTATED" if over else ""))
 
 
+def replay_could_not_run(ledger, report, why, lines, seconds):
+    """An infrastructure failure of the replay (0.54): recorded as an attempt, never as a replay, so it withholds
+    nothing and the previous replay state of the tree stands."""
+    ledger.append({"op": "pattempt", "status": "replay could not run", "checker": "leanchecker",
+                   "tree_sha256": report["tree_sha256"], "stamp": report["stamp"], "why": why,
+                   "detail": lines[:G.BUILD_TAIL], "seconds": seconds})
+    raise G.Refusal(f"replay could not run: {why}; retry", "replay", "-",
+                    "retry `gp bind --replay` (alone, not beside a build or Comparator run); this is not a kernel "
+                    "rejection: no warrant is withheld, and the previous replay state of this package stands",
+                    detail=(["leanchecker:"] + ["  " + l for l in lines[:G.BUILD_TAIL]]) if lines else [])
+
+
 def replay(ledger, report):
     """`gp bind --replay` (P2, decision 7): replay the package's modules (the binder's import set) with lean4checker at
-    the pinned toolchain. A module that skipped the kernel (`debug.skipKernelTC`) fails here; then no theorem warrant
-    of this package holds until a replay passes. A passing replay makes tier 2 final for this tree and stamp."""
+    the pinned toolchain. A module that skipped the kernel (`debug.skipKernelTC`) is a kernel rejection here; then no
+    theorem warrant of this package holds until the package changes and a replay passes. A passing replay makes tier
+    2 final for this tree and stamp. A replay that cannot run to a verdict (a timeout, a crash, an unreadable or
+    missing file: an infrastructure failure, 0.54) is reported as such and changes nothing."""
     toolchain, _ = G.toolchain_lake()
     chk = toolchain / ("bin/leanchecker" + (".exe" if os.name == "nt" else ""))
     if not chk.is_file():
@@ -1384,20 +1851,29 @@ def replay(ledger, report):
     env, lake = toolchain_env(pkg)
     mods = modules(pkg, roots(ledger))
     t0 = time.time()
-    rc, out, err = run_capped([str(lake), "env", str(chk), *mods], pkg, env, BUILD_TIMEOUT)
+    try:
+        rc, out, err = run_capped([str(lake), "env", str(chk), *mods], pkg, env, BUILD_TIMEOUT)
+    except OSError as e:
+        replay_could_not_run(ledger, report, f"leanchecker did not start ({e})", [], round(time.time() - t0, 1))
+    secs = round(time.time() - t0, 1)
     if rc is None:
-        raise refusal(f"the lean4checker replay exceeded {BUILD_TIMEOUT} s", "nothing is recorded; tier 2 stays unreplayed",
-                      "replay")
+        replay_could_not_run(ledger, report, f"the lean4checker replay exceeded {BUILD_TIMEOUT} s", [], secs)
     lines = [l for l in (out + b"\n" + err).decode("utf-8", "replace").replace("\r\n", "\n").splitlines() if l.strip()]
+    if rc != 0 and not any(KERNEL_MARK in l for l in lines):
+        why = next((l.strip() for l in lines if "exception" in l or "error" in l.lower()),
+                   lines[-1].strip() if lines else "no output")
+        replay_could_not_run(ledger, report, f"leanchecker exited {rc} without a kernel rejection ({why[:300]})",
+                             lines, secs)
     rec = {"op": "replay", "checker": "leanchecker", "tree_sha256": report["tree_sha256"], "stamp": report["stamp"],
-           "modules": mods, "ok": rc == 0, "seconds": round(time.time() - t0, 1)}
+           "modules": mods, "ok": rc == 0, "seconds": secs}
     if rc != 0:
+        rec["class"] = "kernel"
         rec["detail"] = lines[:G.BUILD_TAIL]
     ledger.append(rec)
     if rc != 0:
-        raise G.Refusal("the lean4checker replay failed: a declaration of the package does not replay in the kernel",
-                        "replay", "-", "find the module that skipped the kernel (`set_option debug.skipKernelTC`); no "
-                        "theorem warrant of this package holds until a replay passes",
+        raise G.Refusal("the lean4checker replay failed: the kernel rejects a declaration of the package", "replay", "-",
+                        "find the module that skipped the kernel (`set_option debug.skipKernelTC`); no theorem warrant "
+                        "of this package holds until the package changes and a replay passes",
                         detail=["leanchecker:"] + ["  " + l for l in lines[:G.BUILD_TAIL]])
     print(f"replayed {len(mods)} module{'s' if len(mods) != 1 else ''} with lean4checker in {rec['seconds']} s: "
           "tier 2 is final for this package")
@@ -1419,7 +1895,7 @@ def cmd_bind(ledger, args):
         d = drift(ledger, report, r["code"])
         print(f"  {r['name']}: " + (f"NOT FRESH: {d}" if d else "fresh"))
     for tid, row in sorted(report["theorems"].items()):
-        print(f"  theorem {tid.split('|')[0]}: {theorem_verdict(row)}")
+        print(f"  theorem {tid.split('|')[0]}: {theorem_verdict(row, None, tid.split('|')[0])}")
     for cid, row in sorted((report.get("challenges") or {}).items()):
         ok = row.get("found") and row.get("module") and row.get("typeOk")
         print(f"  Comparator challenge K{cid.split('|')[1]}: " + ("its type is the claim's" if ok else "NOT the claim's type"))

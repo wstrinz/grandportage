@@ -266,7 +266,9 @@ class LaneP(unittest.TestCase):
                         "locator": "nowhere.md", "sha256": "0" * 64})
         self.append(c, {"op": "pwarrant", "key": k, "label": "A-open", "kind": "lean_theorem", "locator": "x"})
         line = self.lines(c)["A-open"]
-        self.assertTrue(line.startswith("A-open: open; best: tier 5 (hand proof (complete), recorded only)"), line)
+        # 0.54: recorded files are re-hashed on every view, so a record naming a missing file earns nothing.
+        self.assertTrue(line.startswith("A-open: open; best: unknown kind 'lean_theorem' (earns nothing)"), line)
+        self.assertIn("hand proof (complete) nowhere.md MISSING: not counted (re-submit it)", line)
         stmt = next(r for r in gp.Ledger(c).records if r.get("label") == "A-open")["stmt"]
         self.append(c, {"op": "pclaim", "key": 9001, "label": "A-forged", "stmt": stmt, "premises": [],
                         "support": {"kind": "theorem", "decl": "Tiny.a_sorry"}})
@@ -282,8 +284,8 @@ class LaneP(unittest.TestCase):
             self.assertIn(f"theorem {thm} refused: axiom audit: uses", out)
             self.assertIn(ax, out)
             self.assertFalse(self.held(c, label))
-        # A theorem of a different statement: the kernel refuses the type.
-        out = self.ok(c, "claim", "A-wrong", "--lean", "A", "--theorem", "Tiny.c_holds")
+        # A theorem of a different statement: the kernel refuses the type, and so does gp (0.54: exit 1, not filed).
+        out = self.no(c, "claim", "A-wrong", "--lean", "A", "--theorem", "Tiny.c_holds")
         self.assertIn("the kernel refused its type", out)
 
     # --- control 7: a withdrawn premise claim -----------------------------------------------------------
