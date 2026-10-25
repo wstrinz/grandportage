@@ -47,7 +47,7 @@ The Python goal join is no longer trusted.
 - **The commit guard** (`fold_ok_admission`). The final fold with the real admission is authoritative.
 - **Modification times.** Runner freshness compares content hashes.
 - **Elaboration of a P campaign's proofs.** It runs in `lake build` under heartbeats and a wall-clock cap (`GP_LANEP_BUILD_TIMEOUT`); the binder re-checks each theorem's type in the kernel. A module that sets `debug.skipKernelTC` is the residual gap until `gp bind --replay` passes, so tier 2 shows as unreplayed until then.
-- **Recorded-only P warrants** (scripts, hand proofs, numerical evidence, external checkers' logs, Comparator receipts from other pins), presentations and process conditions: data for the views, never support.
+- **Recorded-only P warrants** (scripts, hand proofs, citations, numerical evidence, external checkers' logs, Comparator receipts from other pins), presentations and process conditions: data for the views, never support.
 - **The bridged campaign's ledger.** A bridge re-folds the bridged claim under `admission3`, which replays its receipts; a forged ledger can only fail to hold it.
 - **Expected-verdict metadata, named OPEN premises, the frontend's infix parser and `Scope.overlaps` labels.**
 

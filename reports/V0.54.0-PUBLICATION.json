@@ -1,0 +1,41 @@
+{
+ "schema": "gp-alpha-publication/v1",
+ "date": "2026-10-17",
+ "authority": "Will, 2026-10-17: \"Great, approved!\" (v0.54.0)",
+ "prevents": "an unverifiable claim that the public tree is the audited snapshot of the tagged workspace release commit",
+ "workspace": {
+  "repository": "https://github.com/wstrinz/grand-portage-workspace (private)",
+  "tag": "v0.54.0",
+  "tag_object": "bb90969d65be39842df71d6dca1b52bbf34f9e32",
+  "commit": "28665fdc596b01d46f2508c5b97a7c649486acf2",
+  "ci": "not run: workspace CI minutes paused (Will, 2026-10-16)",
+  "verified_locally": "at the tagged commit: kernel-pin verify; gp50 308 passed, 1 skipped; v0.37 fast 1757 passed; marked check count; snapshot leak audit READY",
+  "comparator_end_to_end": "the bridge-safe Solution emit was checked with stock Comparator (v4.35.0-rc3 tags) on WSL ext4: \"Your solution is okay!\" in 42 s, without building the binding"
+ },
+ "snapshot": {
+  "manifest": "public-snapshot-v2.json",
+  "receipt_schema": "grand-portage-public-snapshot-receipt/v2",
+  "sha256": "a4e4af7709ddeaa4293cd707155197b0df7bedb228e1066e317f529549943a18",
+  "files": 4883,
+  "generated_from_tagged_commit": true,
+  "audit": "scripts/public_snapshot.py --audit-against the published v0.53.0 tree: READY, no hits"
+ },
+ "public": {
+  "repository": "https://github.com/wstrinz/grandportage",
+  "branch": "master",
+  "base_commit": "e847c6c",
+  "published_commit": "a89feea84710f93fe278b6005934c40411c1679f",
+  "fast_forward": true,
+  "index_entries": 4884,
+  "blobs_equal_snapshot_bytes": 4883,
+  "receipt_file": 1,
+  "tag": "v0.54.0",
+  "tag_object": "7acedd72562b1ad8630cb3fe08431de2ddc6f40f",
+  "release": "https://github.com/wstrinz/grandportage/releases/tag/v0.54.0 (full release, latest)",
+  "ci": {
+   "test": "run 39007825827 at a89feea: success",
+   "rope_r1a": "run 39007827580: success",
+   "comparator": "run 39007829137: success"
+  }
+ }
+}

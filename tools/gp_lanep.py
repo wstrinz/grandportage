@@ -10,8 +10,9 @@ than 0.52 skip them, so P claims are invisible to them):
   pclaim     a claim (statement code, premise codes, open process conditions) with an optional lean_theorem,
              weakening, Comparator (P2, tier 1) or bridge (P2, tier 3) support
   discharge  a claim derived by the discharge rule from (s, S u {h}) and (h, T), T a subset of S
-  pwarrant   a recorded-only warrant: exact_script (4), hand_proof (5; complete|sketch), numerical (6), external;
-             or a Comparator receipt (P2): held at the pinned revisions, recorded only at any other
+  pwarrant   a recorded-only warrant: exact_script (4), hand_proof (5; complete|sketch), citation (5; 0.55: a
+             published result, with an optional local copy), numerical (6), external; or a Comparator receipt
+             (P2): held at the pinned revisions, recorded only at any other
   fidelity   unaudited < LLM-audited < human-audited < anchored, attached to a code
   present    a presentation of a claim in a venue with a tag; views mark it OVERSTATED
   bind       the binder report for the package's source tree, stored content-addressed under receipts/
@@ -25,23 +26,37 @@ Every held verdict comes from the Kernel fold in `gp_ledgerp` (`GPProfile.LaneP.
 wrong theorem is a full refusal; an emitted Comparator solution imports only its theorem's closure. Speed: a bind
 reuses the rows of earlier binds of the same environment, `register --batch` binds N statements at once, and each
 bridge's verdict is cached by the SHA-256 of its input (`GP_NO_CACHE=1` turns both caches off).
+
+0.55: a `citation` warrant kind for published results (`gp submit L --citation REF`), and `gp claim --batch FILE`,
+which files N claims with one bind, all or nothing. The replay runs one leanchecker process per module, and a capped
+command that times out is killed with everything it started.
 """
 import json
 import os
 from pathlib import Path
 import re
+import signal
 import subprocess
 import time
+import types
 
 G = None  # the gp module's globals, injected by tools/gp.py
 
 CLAIM_OPS = ("pclaim", "discharge")
 TIER_NAMES = {1: "comparator receipt", 2: "lean theorem", 3: "profile replay", 4: "exact script", 5: "hand proof",
               6: "numerical", 7: "conjecture"}
-TAGS = {"COMPARATOR": 1, "LEAN": 2, "REPLAY": 3, "CERT": 4, "SCRIPT": 4, "HAND": 5, "NUMERICAL": 6, "PROBE": 6,
-        "CONJECTURE": 7, "OPEN": 7}
+TAGS = {"COMPARATOR": 1, "LEAN": 2, "REPLAY": 3, "CERT": 4, "SCRIPT": 4, "HAND": 5, "CITED": 5, "NUMERICAL": 6,
+        "PROBE": 6, "CONJECTURE": 7, "OPEN": 7}
 FIDELITY = ["unaudited", "LLM-audited", "human-audited", "anchored"]
-RECORDED = {"hand_proof": 5, "exact_script": 4, "numerical": 6, "external": None}
+# The recorded-only kinds and the tier each shows. A citation (0.55) shows tier 5, the rung of a complete hand proof:
+# the ladder orders evidence by what checked it (1-3 a checker GP runs, 4 an exact computation anyone can rerun, 5 a
+# proof read by people, 6 numerics, 7 nothing). A published proof is a proof read by people. GP checks neither the
+# reference nor that it states this claim (the statement's match is fidelity, attached to its code as for all
+# evidence), and it cannot tell a refereed theorem from a preprint or a misremembered number, so a citation is not
+# ranked above the filer's own complete hand proof; no machine reran it, so it is not ranked with an exact script.
+# The ladder's tiers are whole numbers, and a half rung between 4 and 5 would change the P runner and every view.
+RECORDED = {"hand_proof": 5, "exact_script": 4, "citation": 5, "numerical": 6, "external": None}
+DOI = re.compile(r"^10\.\d{4,9}/\S+$")
 PACKAGE_FILES = ("lakefile.toml", "lakefile.lean", "lake-manifest.json", "lean-toolchain")
 BUILD_TIMEOUT = int(os.environ.get("GP_LANEP_BUILD_TIMEOUT", "3600"))  # wall-clock cap on `lake build`, seconds
 BELOW_NORMAL = getattr(subprocess, "BELOW_NORMAL_PRIORITY_CLASS", 0)
@@ -109,13 +124,21 @@ def pwarrants(ledger, key):
     return [r for r in ledger.records if r["op"] == "pwarrant" and r.get("key") == key]
 
 
+def file_field(w):
+    """The field naming a recorded-only warrant's file: `locator` for every kind but a citation, whose `locator` is
+    where in the reference the result is (page, section; as a presentation's) and whose optional local copy of the
+    reference is `file` (0.55)."""
+    return "file" if w.get("kind") == "citation" else "locator"
+
+
 def recorded_file_state(ledger, w):
     """A recorded-only warrant's file now (0.54): None when it still has the SHA-256 it was submitted with, else
     "changed since recorded" or "missing". Warrants without a file (a Comparator receipt, whose stored receipt and log
-    are checked on every read) are None. Re-hashed on every view, so an edit after submission is seen."""
-    if w.get("kind") not in RECORDED:
+    are checked on every read; a citation without a local copy) are None. Re-hashed on every view, so an edit after
+    submission is seen."""
+    if w.get("kind") not in RECORDED or (w.get("kind") == "citation" and "file" not in w):
         return None
-    loc, digest = w.get("locator"), w.get("sha256")
+    loc, digest = w.get(file_field(w)), w.get("sha256")
     if not isinstance(loc, str) or not loc:
         return "missing"
     try:
@@ -329,14 +352,35 @@ def toolchain_env(pkg):
     return dict(os.environ, PATH=str(toolchain / "bin") + os.pathsep + os.environ["PATH"]), lake
 
 
+def kill_tree(p):
+    """Kill a process and everything it started (0.55). Killing `lake env` alone left its leanchecker child running
+    unbounded: an orphan reached 49 GB in a trial campaign's replay."""
+    if os.name == "nt":
+        subprocess.run(["taskkill", "/T", "/F", "/PID", str(p.pid)], capture_output=True)
+    else:
+        try:
+            os.killpg(p.pid, signal.SIGKILL)
+        except OSError:
+            pass
+    try:
+        p.kill()
+    except OSError:
+        pass
+
+
 def run_capped(cmd, cwd, env, timeout):
+    """Run cmd with a wall-clock cap: (returncode, stdout, stderr), or (None, b"", b"") on timeout, after the whole
+    process tree is killed."""
     p = subprocess.Popen(cmd, cwd=cwd, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                         creationflags=BELOW_NORMAL)
+                         creationflags=BELOW_NORMAL, start_new_session=os.name != "nt")
     try:
         out, err = p.communicate(timeout=timeout)
     except subprocess.TimeoutExpired:
-        p.kill()
-        p.communicate()
+        kill_tree(p)
+        try:
+            p.communicate(timeout=60)
+        except subprocess.TimeoutExpired:
+            pass
         return None, b"", b""
     return p.returncode, out, err
 
@@ -894,7 +938,24 @@ def recorded_text(w):
         return "Comparator receipt" + ("" if pinned(w) else " at another pin")
     if w["kind"] == "external":
         return f"external tier {w.get('tier')} ({w.get('what', 'recorded')})"
+    if w["kind"] == "citation":
+        return citation_text(w)
     return TIER_NAMES[RECORDED[w["kind"]]] if RECORDED.get(w["kind"]) else f"unknown kind {w['kind']!r} (earns nothing)"
+
+
+def citation_text(w):
+    """A citation's label (0.55): "citation: REF, Thm N" (a theorem number not starting with a digit, such as "Lemma
+    4", is shown as given)."""
+    n = str(w.get("theorem_number") or "").strip()
+    return f"citation: {w.get('ref', '-')}" + (f", {'Thm ' + n if n[:1].isdigit() else n}" if n else "")
+
+
+def citation_detail(w):
+    """A citation's locator, DOI and local copy, for `explain`."""
+    parts = ([f"at {w['locator']}"] if w.get("locator") else []) + ([f"doi {w['doi']}"] if w.get("doi") else [])
+    if w.get("file"):
+        parts.append(f"local copy {w['file']} sha256 {str(w.get('sha256', '-'))[:12]}")
+    return "; ".join(parts) or "no locator, DOI or local copy"
 
 
 def best_step(st, key, seen=()):
@@ -999,7 +1060,7 @@ def stale_text(ledger, key):
     for w in pwarrants(ledger, key):
         why = recorded_file_state(ledger, w)
         if why:
-            out.append(f"{recorded_text(w)} {w.get('locator') or '-'} {why.upper()}"
+            out.append(f"{recorded_text(w)} {w.get(file_field(w)) or '-'} {why.upper()}"
                        f": not counted (re-submit it)")
     return out
 
@@ -1102,6 +1163,9 @@ def cmd_explain(ledger, args):
             m = "  <- weakest step" if not why and weakest and weakest[1] == f"{cc['label']}: {recorded_text(w)}" else ""
             cond = f"; conditions (OPEN): {names(ledger, w['conditions'])}" if w.get("conditions") else ""
             note = f"; {why.upper()}: not counted until re-submitted" if why else ""
+            if w.get("kind") == "citation":
+                print(f"{pad}  recorded only: {recorded_text(w)} ({citation_detail(w)}){note}{cond}{m}")
+                continue
             print(f"{pad}  recorded only: {recorded_text(w)} {w.get('locator', '')} sha256 {w.get('sha256', '-')[:12]}"
                   f"{note}{cond}{m}")
 
@@ -1475,7 +1539,9 @@ def label_free(ledger, label):
         raise refusal(f"label {label!r} is taken", "choose a new label", "ledger")
 
 
-def cmd_claim(ledger, args):
+def prepare_claim(ledger, args):
+    """Check one claim and build its record: (statement register, premise codes, support, record, key). Negation codes
+    it needs are appended to `ledger` (a batch passes an in-memory copy). Nothing else is written, nothing is bound."""
     label_free(ledger, args.label)
     if args.prose and args.lean:
         raise refusal("a claim has one statement", "give --lean X or --prose X")
@@ -1522,16 +1588,33 @@ def cmd_claim(ledger, args):
         support = {"kind": "weaken", "from": src["key"]}
     rec = dict({"label": args.label, "stmt": r["code"], "premises": premises, "support": support},
                **({"conditions": conds} if conds else {}))
-    key = new_pkey(ledger, rec)
+    return r, premises, support, rec, new_pkey(ledger, rec)
+
+
+def wrong_theorem(ledger, report, decl, stmt, premises):
+    """The refusal of a theorem the kernel refused at the claim's type (0.54), or None. A theorem missing from the
+    package is not refused: its claim is filed and stays open, saying so."""
+    row = report["theorems"].get(theorem_id(decl, stmt, premises)) or {}
+    if not row.get("found") or row.get("kernel") == "ok":
+        return None
+    what = stmt_text(ledger, {"stmt": stmt, "premises": premises})
+    return refusal(f"theorem {decl} refused for {what}: {kernel_text(row.get('kernel', ''), decl)}",
+                   f"give a theorem whose type is exactly {what} (premises as hypotheses, in order), or register the "
+                   "statement it does prove", "lean_theorem (P binder kernel check)")
+
+
+def cmd_claim(ledger, args):
+    if getattr(args, "batch", None):
+        return cmd_claim_batch(ledger, args)
+    if not args.label:
+        raise refusal("a claim needs a label", "gp claim <label> --lean X ..., or gp claim --batch FILE")
+    r, premises, support, rec, key = prepare_claim(ledger, args)
+    comparator = getattr(args, "comparator", None)
     if support and support["kind"] == "theorem":
         rep_ = current_report(ledger, extra_theorems=[{"decl": args.theorem, "stmt": r["code"], "premises": premises}])
-        row = rep_["theorems"].get(theorem_id(args.theorem, r["code"], premises)) or {}
-        if row.get("found") and row.get("kernel") != "ok":  # a wrong theorem (0.54): refused, nothing filed
-            raise refusal(f"theorem {args.theorem} refused for {stmt_text(ledger, {'stmt': r['code'], 'premises': premises})}"
-                          f": {kernel_text(row.get('kernel', ''), args.theorem)}",
-                          f"give a theorem whose type is exactly {stmt_text(ledger, {'stmt': r['code'], 'premises': premises})}"
-                          " (premises as hypotheses, in order), or register the statement it does prove",
-                          "lean_theorem (P binder kernel check)")
+        bad = wrong_theorem(ledger, rep_, args.theorem, r["code"], premises)
+        if bad:  # a wrong theorem (0.54): refused, nothing filed
+            raise bad
     if support and support["kind"] == "comparator":
         support.update(emit_comparator(ledger, key, args.label, r["code"], premises, comparator))
     ledger.append(dict({"op": "pclaim", "key": key}, **rec))
@@ -1547,6 +1630,133 @@ def cmd_claim(ledger, args):
         print(f"Comparator challenge emitted: {support['challenge']} (theorem {support['theorem']}); run in WSL:\n"
               f"  bash tools/lanep-comparator.sh {ledger.dir.as_posix()} {cfg}\n"
               f"then: gp submit {args.label} --comparator {cfg[:-5]}.receipt.json")
+
+
+SPEC_KEYS = {"label", "lean", "prose", "premises", "conditions", "theorem", "from", "bridge"}
+SINGLE_FLAGS = (("label", "a label"), ("lean", "--lean"), ("prose", "--prose"), ("premise", "--premise"),
+                ("condition", "--condition"), ("theorem", "--theorem"), ("from_", "--from"),
+                ("comparator", "--comparator"), ("bridge", "--bridge"))
+
+
+def claim_specs(path):
+    """The claim specs of `gp claim --batch FILE` (0.55): a JSON list of objects, or JSON lines (one object per line;
+    blank lines and lines starting with # are skipped). Each is {"label", "lean" | "prose", "premises": [...],
+    "conditions": [...], and at most one of "theorem", "from", "bridge"}: the single command's flags."""
+    try:
+        text = Path(path).read_bytes().decode("utf-8")
+    except (OSError, UnicodeDecodeError) as e:
+        raise refusal(f"cannot read the batch file {path} ({e})", "give a JSON list of claim specs, or JSON lines")
+    try:
+        if text.lstrip().startswith("["):
+            rows = json.loads(text)
+        else:
+            rows = [json.loads(line) for line in text.splitlines() if line.strip() and not line.lstrip().startswith("#")]
+    except ValueError as e:
+        raise refusal(f"the batch file is not valid JSON or JSON lines ({e})",
+                      'give [{"label": "L", "lean": "X", "theorem": "Pkg.t"}, ...] or one such object per line')
+    if not isinstance(rows, list) or not rows or not all(isinstance(r, dict) for r in rows):
+        raise refusal("the batch file is not a non-empty list of claim specs", 'give [{"label": "L", "lean": "X"}, ...]')
+    return rows
+
+
+def spec_args(spec):
+    """One claim spec as the single command's arguments, or a refusal naming what is wrong with it."""
+    if "comparator" in spec:
+        raise refusal("a Comparator claim is filed alone (it emits a challenge)", "gp claim L --lean X --comparator T")
+    extra = sorted(set(spec) - SPEC_KEYS)
+    if extra:
+        raise refusal(f"unknown field{'s' if len(extra) != 1 else ''} {', '.join(extra)}",
+                      f"use only {', '.join(sorted(SPEC_KEYS))}")
+    strs = {k: spec.get(k) for k in ("label", "lean", "prose", "theorem", "from", "bridge")}
+    lists = {k: spec.get(k, []) for k in ("premises", "conditions")}
+    if not isinstance(strs["label"], str) or not strs["label"].strip():
+        raise refusal("a claim spec needs a label", 'give "label": "L"')
+    if any(v is not None and not isinstance(v, str) for v in strs.values()) or \
+            any(not isinstance(v, list) or not all(isinstance(x, str) for x in v) for v in lists.values()):
+        raise refusal("a spec's fields are strings, and premises and conditions are lists of strings",
+                      'give "premises": ["H1", "H2"]')
+    if (strs["lean"] is None) == (strs["prose"] is None):
+        raise refusal("a claim has one statement", 'give "lean": "X" or "prose": "X"')
+    return types.SimpleNamespace(label=strs["label"], lean=strs["lean"], prose=strs["prose"], theorem=strs["theorem"],
+                                 from_=strs["from"], bridge=strs["bridge"], comparator=None,
+                                 premise=lists["premises"] or None, condition=lists["conditions"] or None)
+
+
+def scratch(ledger):
+    """An in-memory copy of the ledger whose appends stay in memory (the batch's trial run), and the records appended
+    to it. Receipt files it stores (a bind report) are content-addressed in the campaign, as always."""
+    trial = G.ledger_with(ledger, [])
+    added = []
+
+    def append(record):
+        record = dict(record, at=G.now())
+        trial.records.append(record)
+        added.append(record)
+        trial._refused = trial._claims = trial._supports = trial._withdrawn = None
+        return record
+
+    trial.append = append
+    return trial, added
+
+
+def cmd_claim_batch(ledger, args):
+    """`gp claim --batch FILE` (0.55): file N claims with ONE bind, all or nothing. Each spec is checked as the single
+    command checks it, against the ledger with the batch's earlier specs (so a spec may weaken an earlier one); then
+    one bind covers every theorem of the batch; then, only if no spec is refused, every record is appended and the
+    ledger folds once. A refusal names each refused spec and why; nothing is filed (the bind is kept, so a rerun
+    binds only what changed). The resulting ledger is the one the N single commands, in this order, give."""
+    given = [flag for attr, flag in SINGLE_FLAGS if getattr(args, attr, None)]
+    if given:
+        raise refusal(f"--batch takes every claim from its file, not {', '.join(given)}",
+                      "put them in the batch file, or drop --batch")
+    specs = claim_specs(args.batch)
+    trial, added = scratch(ledger)
+    problems, theorems, filed = [], [], []
+    for i, spec in enumerate(specs, 1):
+        name = spec.get("label") if isinstance(spec.get("label"), str) and spec.get("label") else f"item {i}"
+        try:
+            a = spec_args(spec)
+            r, premises, support, rec, key = prepare_claim(trial, a)
+        except G.Refusal as e:
+            problems.append(f"  {name}: {e.body['message']}; smallest fix: {e.body['smallest_fix']}")
+            continue
+        trial.append(dict({"op": "pclaim", "key": key}, **rec))
+        filed.append((a.label, key, rec))
+        if support and support["kind"] == "theorem":
+            theorems.append((a.label, a.theorem, r["code"], premises))
+
+    def refuse(problems, kept):
+        raise G.Refusal(f"the batch was not filed: {len(problems)} of {len(specs)} claim{'s' if len(specs) != 1 else ''} "
+                        "refused", "lane P", "-", "fix the refused claims and rerun the batch; nothing was filed" +
+                        (" (the bind is kept, so the rerun binds only what changed)" if kept else ""), detail=problems)
+
+    if problems:
+        refuse(problems, False)
+    try:
+        report = current_report(trial) if theorems else None  # every theorem of the batch, in one bind
+    except G.Refusal:
+        for r in added:  # a build that timed out is recorded as an attempt, as for a single claim
+            if r["op"] in ("bind", "pattempt"):
+                ledger.append({k: v for k, v in r.items() if k != "at"})
+        raise
+    for label, decl, stmt, premises in theorems:
+        bad = wrong_theorem(trial, report, decl, stmt, premises)
+        if bad:
+            problems.append(f"  {label}: {bad.body['message']}; smallest fix: {bad.body['smallest_fix']}")
+    binds = [r for r in added if r["op"] == "bind"]
+    if problems:
+        for r in binds:
+            ledger.append({k: v for k, v in r.items() if k != "at"})
+        refuse(problems, bool(binds))
+    for r in added:
+        ledger.append({k: v for k, v in r.items() if k != "at"})
+    st = state(ledger)
+    for label, key, rec in filed:
+        print(f"claim {label} (key {key}) filed: {stmt_text(ledger, rec)}; {summary(st, key)}")
+    sec = (report or {}).get("_seconds")
+    print(f"{len(filed)} claim{'s' if len(filed) != 1 else ''} filed" + (
+        f" with one bind ({sec['build']} s build + {sec['bind']} s binder)" if sec and binds else
+        " with one bind (recorded bind reused)" if theorems else " (no theorem to bind)"))
 
 
 def lean_term(ledger, code):
@@ -1763,14 +1973,24 @@ def cmd_discharge(ledger, args):
 
 def cmd_submit(ledger, args):
     c = pclaim(ledger, args.label)
+    citation = getattr(args, "citation", None)
     if getattr(args, "comparator", None):
-        if any((args.hand_proof, args.script, args.numerical, args.external)):
+        if any((args.hand_proof, args.script, args.numerical, args.external, citation)):
             raise refusal("a P submission is one warrant", "give --comparator alone")
         return submit_comparator(ledger, c, args)
+    if citation is not None:
+        if any((args.hand_proof, args.script, args.numerical, args.external)):
+            raise refusal("a P submission is one warrant", "give --citation alone (a local copy with --file)")
+        return submit_citation(ledger, c, args)
+    cited = [f for f, v in (("--theorem-number", "theorem_number"), ("--locator", "locator"), ("--doi", "doi"),
+                            ("--file", "file")) if getattr(args, v, None) is not None]
+    if cited:
+        raise refusal(f"{', '.join(cited)} describe{'s' if len(cited) == 1 else ''} a citation", "give --citation REF")
     kinds = [(k, v) for k, v in (("hand_proof", args.hand_proof), ("exact_script", args.script),
                                   ("numerical", args.numerical), ("external", args.external)) if v]
     if len(kinds) != 1:
-        raise refusal("a P submission is one of --hand-proof, --script, --numerical or --external", "give exactly one")
+        raise refusal("a P submission is one of --hand-proof, --citation, --script, --numerical or --external",
+                      "give exactly one")
     kind, path = kinds[0]
     p = Path(path)
     if not p.is_file():
@@ -1797,6 +2017,47 @@ def cmd_submit(ledger, args):
     st = state(ledger)
     print(f"recorded only: {recorded_text(rec)} for {c['label']} ({rel}, sha256 {rec['sha256'][:12]}); it never "
           f"holds a claim; {summary(st, c['key'])}")
+
+
+def submit_citation(ledger, c, args):
+    """`gp submit L --citation REF [--theorem-number N] [--locator TEXT] [--doi DOI] [--file PATH] [--condition H]...`
+    (0.55): a published result, recorded only at tier 5 (RECORDED says why). A local copy of the reference (a PDF or
+    text inside the campaign) is hashed and re-hashed on every view like any recorded file; a citation without one
+    has nothing to re-hash. Conditions are the reference's hypotheses this claim does not state: open premises a
+    presentation must state, as a hand proof's reviewer conditions are."""
+    ref = (args.citation or "").strip()
+    if not ref:
+        raise refusal("a citation names its reference", 'give --citation "Author, Title, Venue Year"')
+    if args.state:
+        raise refusal("--state is for hand proofs", "drop --state")
+    rec = {"op": "pwarrant", "key": c["key"], "label": c["label"], "kind": "citation", "ref": ref}
+    for field, flag in (("theorem_number", "--theorem-number"), ("locator", "--locator")):
+        v = getattr(args, field, None)
+        if v is not None:
+            if not v.strip():
+                raise refusal(f"{flag} is empty", f"give {flag} TEXT or drop it")
+            rec[field] = v.strip()
+    if getattr(args, "doi", None) is not None:
+        doi = re.sub(r"^(https?://(dx\.)?doi\.org/|doi:)", "", args.doi.strip(), flags=re.I)
+        if not DOI.match(doi):
+            raise refusal(f"{args.doi!r} is not a DOI", "give it as 10.NNNN/suffix, or drop --doi")
+        rec["doi"] = doi
+    if getattr(args, "file", None) is not None:
+        p = Path(args.file)
+        if not p.is_file():
+            raise refusal(f"cannot read {args.file}", "give the local copy of the reference, or drop --file")
+        try:
+            rec["file"] = p.resolve().relative_to(ledger.dir.resolve()).as_posix()
+        except ValueError:
+            raise refusal(f"{args.file} is outside the campaign", "copy it into the campaign directory and submit that copy")
+        rec["sha256"] = G.sha(p.read_bytes())
+    if args.condition:
+        rec["conditions"] = premise_codes(ledger, args.condition, process_ok=True)
+    ledger.append(rec)
+    st = state(ledger)
+    where = f" ({rec['file']}, sha256 {rec['sha256'][:12]})" if "file" in rec else ""
+    print(f"recorded only: {recorded_text(rec)} for {c['label']}{where}; it never holds a claim; "
+          f"{summary(st, c['key'])}")
 
 
 def cmd_fidelity(ledger, args):
@@ -1842,7 +2103,11 @@ def replay(ledger, report):
     the pinned toolchain. A module that skipped the kernel (`debug.skipKernelTC`) is a kernel rejection here; then no
     theorem warrant of this package holds until the package changes and a replay passes. A passing replay makes tier
     2 final for this tree and stamp. A replay that cannot run to a verdict (a timeout, a crash, an unreadable or
-    missing file: an infrastructure failure, 0.54) is reported as such and changes nothing."""
+    missing file: an infrastructure failure, 0.54) is reported as such and changes nothing.
+
+    Each module is replayed in its own leanchecker process under the cap (0.55): one process for all of them grew
+    module by module past the host's memory. The first kernel rejection stops the replay and is recorded with its
+    module."""
     toolchain, _ = G.toolchain_lake()
     chk = toolchain / ("bin/leanchecker" + (".exe" if os.name == "nt" else ""))
     if not chk.is_file():
@@ -1851,23 +2116,31 @@ def replay(ledger, report):
     env, lake = toolchain_env(pkg)
     mods = modules(pkg, roots(ledger))
     t0 = time.time()
-    try:
-        rc, out, err = run_capped([str(lake), "env", str(chk), *mods], pkg, env, BUILD_TIMEOUT)
-    except OSError as e:
-        replay_could_not_run(ledger, report, f"leanchecker did not start ({e})", [], round(time.time() - t0, 1))
+    rc, lines, failed = 0, [], None
+    for m in mods:
+        try:
+            rc, out, err = run_capped([str(lake), "env", str(chk), m], pkg, env, BUILD_TIMEOUT)
+        except OSError as e:
+            replay_could_not_run(ledger, report, f"leanchecker did not start ({e})", [], round(time.time() - t0, 1))
+        if rc is None:
+            replay_could_not_run(ledger, report, f"the lean4checker replay of {m} exceeded {BUILD_TIMEOUT} s", [],
+                                 round(time.time() - t0, 1))
+        lines = [l for l in (out + b"\n" + err).decode("utf-8", "replace").replace("\r\n", "\n").splitlines()
+                 if l.strip()]
+        if rc != 0 and not any(KERNEL_MARK in l for l in lines):
+            why = next((l.strip() for l in lines if "exception" in l or "error" in l.lower()),
+                       lines[-1].strip() if lines else "no output")
+            replay_could_not_run(ledger, report, f"leanchecker exited {rc} on {m} without a kernel rejection "
+                                 f"({why[:300]})", lines, round(time.time() - t0, 1))
+        if rc != 0:
+            failed = m
+            break
     secs = round(time.time() - t0, 1)
-    if rc is None:
-        replay_could_not_run(ledger, report, f"the lean4checker replay exceeded {BUILD_TIMEOUT} s", [], secs)
-    lines = [l for l in (out + b"\n" + err).decode("utf-8", "replace").replace("\r\n", "\n").splitlines() if l.strip()]
-    if rc != 0 and not any(KERNEL_MARK in l for l in lines):
-        why = next((l.strip() for l in lines if "exception" in l or "error" in l.lower()),
-                   lines[-1].strip() if lines else "no output")
-        replay_could_not_run(ledger, report, f"leanchecker exited {rc} without a kernel rejection ({why[:300]})",
-                             lines, secs)
     rec = {"op": "replay", "checker": "leanchecker", "tree_sha256": report["tree_sha256"], "stamp": report["stamp"],
            "modules": mods, "ok": rc == 0, "seconds": secs}
     if rc != 0:
         rec["class"] = "kernel"
+        rec["module"] = failed
         rec["detail"] = lines[:G.BUILD_TAIL]
     ledger.append(rec)
     if rc != 0:

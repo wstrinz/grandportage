@@ -761,3 +761,8 @@ Work now lands on master directly; the workspace checkout tracks `origin/master`
   - A wrong-theorem refusal shows the full mismatch and exits non-zero.
 - **Speed:** cached binds and bridge re-folds, plus batch registration. On the trial campaign, views went from 64–86 s to 1–2 s and a theorem claim from 146 s to 42 s. Verdicts are identical to 0.53.
 - Verified locally: gp50 308 passed and 1 skipped, v0.37 fast 1,757 passed, the Kernel pin, and the leak audit.
+
+2026-10-17 **`v0.54.0` published** (Lane P fixes and speed). Receipt: [V0.54.0-PUBLICATION.json](reports/V0.54.0-PUBLICATION.json). Public commit `a89feea` is the audited snapshot of workspace tag `v0.54.0` (`28665fd`), verified locally. Public CI on the tag is green: the test suite, R1a, and Comparator.
+2026-10-17 **Next: two small Lane P fixes, then an own-climb campaign toward a conditional rope** (Will).
+- **Fixes:** a recorded-only `citation` warrant kind for published results, and a batch form of `claim`. The `frontier` tweak is skipped.
+- **Then:** the campaign continues toward a Comparator-checked conditional result, with its hard open parts kept as named premises. Its outreach waits for that result.

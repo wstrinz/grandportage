@@ -31,10 +31,14 @@ Lane P campaigns (campaign.json "profile": "P"; tools/gp_lanep.py, GP 0.52 P1 an
                                         a claim of X under premises H (X may be ¬Y), with open process conditions C;
                                         held by a lean_theorem (tier 2), a Comparator receipt (tier 1: the challenge
                                         is emitted into the package) or a bridge (tier 3)
+  claim --batch FILE                    many claims (a JSON list or JSON lines of {label, lean|prose, premises,
+                                        conditions, theorem|from|bridge}) with one bind, all or nothing (0.55)
   discharge <label> --premise H --by L2 [--as NEW]
                                         from L = (s, S u {H}) and L2 = (H, T), T a subset of S: the claim (s, S)
   submit <label> (--hand-proof P --state complete|sketch [--condition H]... | --script P | --numerical P
                  | --external P --tier N)   a recorded-only warrant: it never holds a claim
+  submit <label> --citation REF [--theorem-number N] [--locator TEXT] [--doi DOI] [--file P] [--condition H]...
+                                        a published result (tier 5, recorded only; a local copy is re-hashed) (0.55)
   submit <label> --comparator RECEIPT [--log LOG]
                                         a Comparator receipt (tools/lanep-comparator.sh); held only at the pins
   fidelity <X> --level LEVEL --by WHO --ref REF; present <label> --venue V --tag TAG [--premise H]...
@@ -65,7 +69,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = ROOT / "profile"
-GP_VERSION = "0.54.0"  # the release version; recorded in each ledger's init record
+GP_VERSION = "0.55.0"  # the release version; recorded in each ledger's init record
 EXE = PROFILE / (".lake/build/bin/gp_ledger" + (".exe" if os.name == "nt" else ""))
 ELAN_HOME = Path(os.environ.get("ELAN_HOME") or Path.home() / ".elan")
 SCHEMA = "gp-ledger/v1"
@@ -3319,7 +3323,9 @@ def main(argv=None):
     rs = sub.add_parser("restate", help="record a deliberate change to campaign.json as a versioned ledger event")
     rs.add_argument("--reason", required=True, help="why the statement changed")
     c = sub.add_parser("claim")
-    c.add_argument("label")
+    c.add_argument("label", nargs="?")
+    c.add_argument("--batch", help="Lane P: a JSON list or JSON lines of claim specs, filed with one bind, all or "
+                                   "nothing (0.55)")
     src = c.add_mutually_exclusive_group()
     src.add_argument("--matroid")
     src.add_argument("--system")
@@ -3362,6 +3368,11 @@ def main(argv=None):
     s.add_argument("--external", help="Lane P: a checker's log from another pin or repository (recorded only)")
     s.add_argument("--tier", type=int, help="Lane P: the tier an --external checker earned")
     s.add_argument("--what", help="Lane P: what checked an --external warrant")
+    s.add_argument("--citation", help="Lane P: a published result's reference (recorded only, tier 5; 0.55)")
+    s.add_argument("--theorem-number", dest="theorem_number", help="Lane P: with --citation, the result's number")
+    s.add_argument("--locator", help="Lane P: with --citation, where in the reference (page, section)")
+    s.add_argument("--doi", help="Lane P: with --citation, the reference's DOI")
+    s.add_argument("--file", help="Lane P: with --citation, a local copy of the reference (re-hashed on every view)")
     s.add_argument("--comparator", help="Lane P: a Comparator receipt (tools/lanep-comparator.sh)")
     s.add_argument("--log", help="Lane P: the Comparator log, if not next to the receipt")
     sb = sub.add_parser("submit-batch", help='a JSON list of {"label", "receipt"}, folded once')
@@ -3382,9 +3393,13 @@ def main(argv=None):
     mg = sub.add_parser("merge", help="land another branch's ledger records here if the merged log folds")
     mg.add_argument("other", help="the other branch's campaign directory")
     args = ap.parse_args(argv)
-    p_flags = bool(args.command == "claim" and (args.lean or args.prose) or
+    p_flags = bool(args.command == "claim" and (args.lean or args.prose or args.batch) or
                    args.command == "submit" and (args.hand_proof or args.script or args.numerical or args.external or
-                                                 args.comparator))
+                                                 args.comparator or args.citation is not None or
+                                                 any(x is not None for x in (args.theorem_number, args.locator,
+                                                                             args.doi, args.file))))
+    if args.command == "claim" and args.label is None and not args.batch:
+        ap.error("the following arguments are required: label")
     if args.command == "claim" and not p_flags and (args.kind is None or not any(
             getattr(args, k) not in (None, False) for k in ("char", "char0", "outside", "real", "semireal", "rat_field"))):
         ap.error("the following arguments are required: --kind and one of --char --char0 --outside --real "
